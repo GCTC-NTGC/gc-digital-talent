@@ -39,8 +39,20 @@ const scrollToLink = (chunks: ReactNode, to: string) => (
 const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolEducationRequirements on Pool {
     id
-    status
-    publishingGroup
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     classification {
       id
       group
@@ -127,7 +139,7 @@ const EducationRequirementsSection = ({
         </Well>
       ) : (
         <EducationRequirements
-          isIAP={pool.publishingGroup === PublishingGroup.Iap}
+          isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
           classificationGroup={classificationGroup}
         />
       )}

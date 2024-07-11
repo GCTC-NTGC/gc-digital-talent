@@ -1,18 +1,24 @@
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  MockGraphqlDecorator,
+  OverlayOrDialogDecorator,
+} from "@gc-digital-talent/storybook-helpers";
 import {
   fakeAssessmentSteps,
   fakeExperiences,
+  fakeLocalizedEnum,
   fakePoolCandidates,
   fakePoolSkills,
   fakeSkills,
   fakeUserSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
+  AssessmentResultJustification,
   AssessmentStepType,
   EducationRequirementOption,
   User,
@@ -36,10 +42,11 @@ const profileSnapshot: User = {
   poolCandidates: [
     {
       ...poolCandidate,
-      educationRequirementOption:
+      educationRequirementOption: toLocalizedEnum(
         experience.__typename === "EducationExperience"
           ? EducationRequirementOption.Education
           : EducationRequirementOption.AppliedWork,
+      ),
       screeningQuestionResponses: [
         {
           id: "494effde-1168-44e1-8130-9775af800975",
@@ -89,13 +96,24 @@ poolCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 export default {
   component: ScreeningDecisionDialog,
-  decorators: [OverlayOrDialogDecorator],
+  decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
     assessmentStep,
     poolCandidate,
     poolSkill,
     onSubmit: action("Submit Form"),
     isOpen: true,
+  },
+  parameters: {
+    apiResponses: {
+      ScreeningOptions: {
+        data: {
+          justifications: fakeLocalizedEnum(AssessmentResultJustification),
+          decisions: fakeLocalizedEnum(AssessmentDecision),
+          decisionLevels: fakeLocalizedEnum(AssessmentDecisionLevel),
+        },
+      },
+    },
   },
 } satisfies Meta<typeof ScreeningDecisionDialog>;
 

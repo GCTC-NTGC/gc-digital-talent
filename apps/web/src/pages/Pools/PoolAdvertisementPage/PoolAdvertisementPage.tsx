@@ -24,16 +24,12 @@ import {
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
-  getLanguageRequirement,
-  getSecurityClearance,
   localizeSalaryRange,
   commonMessages,
   getLocalizedName,
   navigationMessages,
-  getPoolStream,
   uiMessages,
   Locales,
-  getPoolOpportunityLength,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -118,12 +114,42 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
-    status
-    language
-    securityClearance
-    opportunityLength
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    language {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    securityClearance {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    opportunityLength {
+      value
+      label {
+        en
+        fr
+      }
+    }
     classification {
       id
       group
@@ -169,11 +195,23 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -186,9 +224,21 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     processNumber
-    publishingGroup
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     generalQuestions {
       id
       question {
@@ -274,34 +324,40 @@ export const PoolPoster = ({
     pool.whatToExpectAdmission && pool.whatToExpectAdmission[locale]
   );
 
-  const opportunityLength = pool.opportunityLength
-    ? intl.formatMessage(getPoolOpportunityLength(pool.opportunityLength))
-    : "";
+  const opportunityLength = getLocalizedName(
+    pool.opportunityLength?.label,
+    intl,
+    true,
+  );
 
-  const languageRequirement = pool.language
-    ? intl.formatMessage(getLanguageRequirement(pool.language))
-    : "";
+  const languageRequirement = getLocalizedName(
+    pool.language?.label,
+    intl,
+    true,
+  );
 
-  const securityClearance = pool.securityClearance
-    ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
-    : "";
+  const securityClearance = getLocalizedName(
+    pool.securityClearance?.label,
+    intl,
+    true,
+  );
 
   // Separate essential and asset skills, sort them by category, and confirm they include skill data
   const poolSkills = unpackMaybes(pool.poolSkills);
   const essentialPoolSkills = sortPoolSkillsBySkillCategory(
     poolSkills.filter(
-      (poolSkill) => poolSkill.type === PoolSkillType.Essential,
+      (poolSkill) => poolSkill.type?.value === PoolSkillType.Essential,
     ),
   );
   const nonessentialPoolSkills = sortPoolSkillsBySkillCategory(
     poolSkills.filter(
-      (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
+      (poolSkill) => poolSkill.type?.value === PoolSkillType.Nonessential,
     ),
   );
 
   const contactEmail = pool.team?.contactEmail;
 
-  const canApply = !!(pool?.status === PoolStatus.Published);
+  const canApply = !!(pool?.status?.value === PoolStatus.Published);
 
   const toggleMoreInfoValue = () => {
     if (moreInfoValue.length > 0) {
@@ -414,7 +470,7 @@ export const PoolPoster = ({
       <SEO title={poolTitle} description={formattedSubTitle} />
       <Hero title={poolTitle} subtitle={formattedSubTitle} crumbs={links} />
       <div
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"
       >
         <TableOfContents.Wrapper>
@@ -574,11 +630,7 @@ export const PoolPoster = ({
                       description: "Label for pool advertisement stream",
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
-                  value={
-                    pool.stream
-                      ? intl.formatMessage(getPoolStream(pool.stream))
-                      : notAvailable
-                  }
+                  value={getLocalizedName(pool.stream?.label, intl)}
                   suffix={
                     classification?.group === "IT" ? (
                       <Link
@@ -784,7 +836,7 @@ export const PoolPoster = ({
                 )}
               </Text>
               <EducationRequirements
-                isIAP={pool.publishingGroup === PublishingGroup.Iap}
+                isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
                 classificationGroup={classificationGroup}
               />
             </TableOfContents.Section>
@@ -1252,7 +1304,9 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
     pool(id: $id) {
       ...PoolAdvertisement
       id
-      status
+      status {
+        value
+      }
     }
   }
 `);
@@ -1268,7 +1322,7 @@ export const Component = () => {
 
   const isVisible = isAdvertisementVisible(
     auth?.roleAssignments?.filter(notEmpty) || [],
-    data?.pool?.status ?? null,
+    data?.pool?.status?.value ?? null,
   );
 
   // Attempt to find an application for this user+pool combination

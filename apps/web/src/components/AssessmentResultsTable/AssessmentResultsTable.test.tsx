@@ -7,24 +7,25 @@ import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
+import { AssessmentDecision } from "@gc-digital-talent/graphql";
+
 import {
   applicationScreeningStep,
-  applicationScreeningResults,
   screeningQuestionsStep,
-  screeningQuestionsResults,
   referenceCheckStep,
-  referenceCheckResults,
   interviewGroupStep,
-  interviewGroupResults,
 } from "./testData";
 import { columnStatus } from "./utils";
 
 describe("AssessmentResults", () => {
   it("should compute the column status correctly", async () => {
     const notSureStep = applicationScreeningStep;
-    const notSureResult = applicationScreeningResults;
 
-    expect(columnStatus(notSureStep, notSureResult)).toEqual({
+    expect(
+      columnStatus(notSureStep, {
+        assessmentStepStatuses: [{ step: notSureStep.id, decision: null }],
+      }),
+    ).toEqual({
       icon: ExclamationCircleIcon,
       color: "toAssess",
     });
@@ -38,25 +39,43 @@ describe("AssessmentResults", () => {
     });
 
     const errorStep = screeningQuestionsStep;
-    const errorResults = screeningQuestionsResults;
 
-    expect(columnStatus(errorStep, errorResults)).toEqual({
+    expect(
+      columnStatus(errorStep, {
+        assessmentStepStatuses: [
+          {
+            step: errorStep.id,
+            decision: AssessmentDecision.Unsuccessful,
+          },
+        ],
+      }),
+    ).toEqual({
       icon: XCircleIcon,
       color: "error",
     });
 
     const holdStep = referenceCheckStep;
-    const holdResults = referenceCheckResults;
 
-    expect(columnStatus(holdStep, holdResults)).toEqual({
+    expect(
+      columnStatus(holdStep, {
+        assessmentStepStatuses: [
+          { step: holdStep.id, decision: AssessmentDecision.Hold },
+        ],
+      }),
+    ).toEqual({
       icon: PauseCircleIcon,
       color: "hold",
     });
 
     const successStep = interviewGroupStep;
-    const successResults = interviewGroupResults;
 
-    expect(columnStatus(successStep, successResults)).toEqual({
+    expect(
+      columnStatus(successStep, {
+        assessmentStepStatuses: [
+          { step: successStep.id, decision: AssessmentDecision.Successful },
+        ],
+      }),
+    ).toEqual({
       icon: CheckCircleIcon,
       color: "success",
     });

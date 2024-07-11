@@ -411,6 +411,41 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "XFFFCu",
       description: "Error message that the verification was not successful.",
     },
+
+    SkillUsedByActivePoster: {
+      defaultMessage:
+        "This skill cannot be deleted. The skill is in use by a process that is currently accepting applications.",
+      id: "/qdFyj",
+      description: "Error message for when skill is used by an active process",
+    },
+    CannotReopenUsingDeletedSkill: {
+      defaultMessage:
+        "This process cannot be re-opened. This process contains a required skill that has been deleted.",
+      id: "CDJH4s",
+      description:
+        "Error message for when a process to be re-opened contains a previously deleted skill",
+    },
+    FailedDueToSkillBeingDeleted: {
+      defaultMessage:
+        "This operation failed. This skill was previously deleted.",
+      id: "Me66rb",
+      description:
+        "Error message for when attempting to delete a previously deleted skill",
+    },
+    EssentialSkillsContainsDeleted: {
+      defaultMessage:
+        "This operation failed. This skill was previously deleted.",
+      id: "Me66rb",
+      description:
+        "Error message for when attempting to delete a previously deleted skill",
+    },
+    NonEssentialSkillsContainsDeleted: {
+      defaultMessage:
+        "This operation failed. This skill was previously deleted.",
+      id: "Me66rb",
+      description:
+        "Error message for when attempting to delete a previously deleted skill",
+    },
   },
 );
 

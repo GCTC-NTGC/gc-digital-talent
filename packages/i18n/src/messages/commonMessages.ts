@@ -150,9 +150,9 @@ const commonMessages = defineMessages({
     description: "Title for name",
   },
   email: {
-    defaultMessage: "Email",
-    id: "dJd5/f",
-    description: "Title for email",
+    defaultMessage: "Contact email address",
+    id: "1UX8RD",
+    description: "Title for contact email address",
   },
   inApp: {
     defaultMessage: "In-app",
@@ -253,6 +253,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Warning!",
     id: "YtV1mE",
     description: "A potentially dangerous action alert",
+  },
+  noExperiencesOfType: {
+    defaultMessage: "You haven’t added any experiences of that type.",
+    id: "nMX0n8",
+    description: "Message to user when no experiences of that type exist.",
   },
 });
 

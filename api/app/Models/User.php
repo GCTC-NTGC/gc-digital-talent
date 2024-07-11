@@ -11,6 +11,7 @@ use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
+use App\Enums\PriorityWeight;
 use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
@@ -197,7 +198,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function preferredLocale(): string
     {
-        return $this->preferred_lang;
+        return $this?->preferred_lang ?? 'en';
     }
 
     public function pools(): HasMany
@@ -455,6 +456,20 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return implode(', ', $priority);
+    }
+
+    public function getPriorityAttribute()
+    {
+        if (is_null($this->priority_weight)) {
+            return $this->priority_weight;
+        }
+
+        return match ($this->priority_weight) {
+            10 => PriorityWeight::PRIORITY_ENTITLEMENT->name,
+            20 => PriorityWeight::VETERAN->name,
+            30 => PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name,
+            default => PriorityWeight::OTHER->name
+        };
     }
 
     public function getOperationalRequirements()

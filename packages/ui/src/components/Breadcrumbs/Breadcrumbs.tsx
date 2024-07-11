@@ -29,11 +29,11 @@ const Breadcrumbs = ({ crumbs, fullWidth }: BreadcrumbsProps) => {
           data-h2-position="base(relative)"
           {...(fullWidth
             ? {
-                "data-h2-container":
+                "data-h2-wrapper":
                   "base(center, full, x1) base(center, full, x2)",
               }
             : {
-                "data-h2-container":
+                "data-h2-wrapper":
                   "base(center, large, x1) p-tablet(center, large, x2)",
               })}
         >

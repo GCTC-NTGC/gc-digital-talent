@@ -164,7 +164,7 @@ export const Component = () => {
       />
       <div data-h2-padding="base(x3, 0)">
         <div
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
         >
           <Heading

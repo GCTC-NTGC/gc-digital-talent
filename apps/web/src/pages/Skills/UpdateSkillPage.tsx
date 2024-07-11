@@ -13,14 +13,13 @@ import {
   unpackIds,
   Combobox,
   Select,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   errorMessages,
   commonMessages,
-  getSkillCategory,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import {
@@ -45,10 +44,12 @@ import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
+import { SkillFormOptions_Query } from "./operations";
+
 type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<Skill, "name" | "description"> & {
-  category: SkillCategory;
+  category?: SkillCategory;
   families: string[];
   keywords: {
     en: string;
@@ -83,7 +84,13 @@ export const UpdateSkill_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    category
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
     families {
       id
       key
@@ -109,6 +116,7 @@ export const UpdateSkillForm = ({
   const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [{ data }] = useQuery({ query: SkillFormOptions_Query });
   const initialSkill = getFragment(UpdateSkill_Fragment, skillQuery);
   const skillFamilies = getFragment(
     UpdateSkillSkillFamily_Fragment,
@@ -118,13 +126,14 @@ export const UpdateSkillForm = ({
     return family.name?.[locale]?.toLocaleUpperCase();
   });
 
-  const dataToFormValues = (data: Skill): FormValues => ({
-    ...data,
+  const dataToFormValues = (values: Skill): FormValues => ({
+    ...values,
+    category: values.category.value ?? undefined,
     keywords: {
-      en: data.keywords?.en?.join(", ") || "",
-      fr: data.keywords?.fr?.join(", ") || "",
+      en: values.keywords?.en?.join(", ") || "",
+      fr: values.keywords?.fr?.join(", ") || "",
     },
-    families: unpackIds(data?.families),
+    families: unpackIds(values?.families),
   });
 
   const formValuesToSubmitData = (values: FormValues): UpdateSkillInput => ({
@@ -155,8 +164,8 @@ export const UpdateSkillForm = ({
   const { state } = useLocation();
   const navigateTo = state?.from ?? paths.skillTable(); // If location state includes a `from` parameter, navigate to that url on success.
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(data))
+  const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
+    return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(values))
       .then(() => {
         navigate(navigateTo);
         toast.success(
@@ -188,7 +197,7 @@ export const UpdateSkillForm = ({
   );
 
   return (
-    <section data-h2-container="base(left, s)">
+    <section data-h2-wrapper="base(left, s)">
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -289,10 +298,7 @@ export const UpdateSkillForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(SkillCategory).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getSkillCategory(value)),
-            }))}
+            options={localizedEnumToOptions(data?.categories, intl)}
           />
           <Combobox
             id="families"

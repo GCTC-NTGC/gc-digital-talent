@@ -32,6 +32,7 @@ import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferen
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
+import { ProfileDocument_Fragment } from "~/components/ProfileDocument/ProfileDocument";
 
 import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
@@ -45,7 +46,13 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -85,12 +92,14 @@ interface ApplicationInformationProps {
       })
     | null;
   snapshot: User;
+  user: FragmentType<typeof ProfileDocument_Fragment>;
   defaultOpen?: boolean;
 }
 
 const ApplicationInformation = ({
   poolQuery,
   snapshot,
+  user,
   application,
   defaultOpen = false,
 }: ApplicationInformationProps) => {
@@ -158,7 +167,8 @@ const ApplicationInformation = ({
               mode="inline"
               color="secondary"
               pool={pool}
-              user={snapshot}
+              user={[user]}
+              snapshot={snapshot}
             />
           )}
           <Button mode="inline" color="secondary" onClick={toggleSections}>

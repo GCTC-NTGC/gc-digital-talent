@@ -1,5 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   Department,
@@ -7,12 +8,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getLocalizedName,
-  getPoolCandidatePriorities,
-  getPoolCandidateStatus,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -30,7 +26,6 @@ import {
 } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
-import { getPriorityWeight } from "~/utils/poolCandidate";
 
 import {
   bookmarkCell,
@@ -49,10 +44,22 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
     firstName
     lastName
     priorityWeight
+    priority {
+      label {
+        en
+        fr
+      }
+    }
     poolCandidates {
       id
       isBookmarked
-      status
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
       submittedAt
       suspendedAt
       notes
@@ -70,9 +77,34 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
       }
       pool {
         id
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          id
+          group
+          level
+        }
         assessmentSteps {
           id
-          type
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
           sortOrder
           title {
             en
@@ -80,13 +112,37 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
           }
           poolSkills {
             id
-            type
+            type {
+              value
+              label {
+                en
+                fr
+              }
+            }
             requiredLevel
           }
         }
       }
-      user {
-        id
+    }
+  }
+`);
+
+const UserCandidatesTableStrings_Query = graphql(/* GraphQL */ `
+  query UserCandidatesTableStrings {
+    suspendedStatuses: localizedEnumStrings(
+      enumName: "CandidateSuspendedFilter"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    priorities: localizedEnumStrings(enumName: "PriorityWeight") {
+      value
+      label {
+        en
+        fr
       }
     }
   }
@@ -105,6 +161,9 @@ const UserCandidatesTable = ({
 }: UserCandidatesTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [{ data: stringsData }] = useQuery({
+    query: UserCandidatesTableStrings_Query,
+  });
 
   const user = getFragment(UserCandidatesTableRow_Fragment, userQuery);
   const poolCandidatesUnpacked = unpackMaybes(user.poolCandidates);
@@ -135,7 +194,14 @@ const UserCandidatesTable = ({
         header: intl.formatMessage(tableMessages.candidateName),
         sortingFn: normalizedText,
         cell: ({ row: { original: poolCandidate } }) =>
-          candidateNameCell(user, poolCandidate, paths, intl, candidateIds),
+          candidateNameCell(
+            user.firstName,
+            user.lastName,
+            poolCandidate.id,
+            paths,
+            intl,
+            candidateIds,
+          ),
         meta: {
           isRowTitle: true,
         },
@@ -152,29 +218,22 @@ const UserCandidatesTable = ({
       }) => processCell(pool, paths, intl),
     }),
     columnHelper.accessor(
-      () =>
-        intl.formatMessage(
-          user.priorityWeight
-            ? getPoolCandidatePriorities(getPriorityWeight(user.priorityWeight))
-            : commonMessages.notFound,
-        ),
+      () => getLocalizedName(user.priority?.label, intl, true),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
-        cell: () => priorityCell(user.priorityWeight, intl),
+        cell: () =>
+          priorityCell(user.priorityWeight, stringsData?.priorities, intl),
       },
     ),
     columnHelper.accessor(
-      ({ status }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
+      ({ status }) => getLocalizedName(status?.label, intl, true),
       {
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({ row: { original: poolCandidate } }) =>
           finalDecisionCell(
-            poolCandidate.status,
+            poolCandidate.status?.value,
             poolCandidate.assessmentStatus,
             intl,
           ),
@@ -182,10 +241,7 @@ const UserCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ status }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
+      ({ status }) => getLocalizedName(status?.label, intl),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -207,7 +263,11 @@ const UserCandidatesTable = ({
     ),
     columnHelper.accessor(
       (poolCandidate) =>
-        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
+        candidacyStatusAccessor(
+          poolCandidate.suspendedAt,
+          stringsData?.suspendedStatuses,
+          intl,
+        ),
       {
         id: "candidacyStatus",
         header: intl.formatMessage(tableMessages.candidacyStatus),

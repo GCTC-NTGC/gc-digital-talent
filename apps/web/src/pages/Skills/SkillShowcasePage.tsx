@@ -41,7 +41,13 @@ export const SkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
     skill {
       id
       key
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -142,7 +148,7 @@ export const SkillShowcase = ({
     <>
       <SEO title={pageTitle} description={formattedSubTitle} />
       <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>

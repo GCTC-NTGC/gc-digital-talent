@@ -7,6 +7,7 @@ import {
   fakePoolSkills,
   fakeSkills,
   fakeUserSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentDecision,
@@ -31,7 +32,7 @@ const essentialPoolSkills: PoolSkill[] =
   fakePoolSkills(2).map(() => {
     return {
       id: faker.string.uuid(),
-      type: PoolSkillType.Essential,
+      type: toLocalizedEnum(PoolSkillType.Essential),
       requiredLevel: SkillLevel.Beginner,
       skill: {
         ...fakeSkills(1)[0],
@@ -48,7 +49,7 @@ const nonEssentialPoolSkills: PoolSkill[] =
   fakePoolSkills(2).map(() => {
     return {
       id: faker.string.uuid(),
-      type: PoolSkillType.Nonessential,
+      type: toLocalizedEnum(PoolSkillType.Nonessential),
       requiredLevel: SkillLevel.Beginner,
       skill: {
         ...fakeSkills(1)[0],
@@ -69,9 +70,11 @@ const getAssessmentResult = (
   poolSkill?: PoolSkill,
 ): AssessmentResult => ({
   ...fakeAssessmentResults(1)[0],
-  assessmentDecision: decision,
+  assessmentDecision: decision ? toLocalizedEnum(decision) : undefined,
   assessmentResultType: type ?? AssessmentResultType.Skill,
-  assessmentDecisionLevel: level ?? AssessmentDecisionLevel.AtRequired,
+  assessmentDecisionLevel: toLocalizedEnum(
+    level ?? AssessmentDecisionLevel.AtRequired,
+  ),
   poolSkill: poolSkill ?? essentialPoolSkills[0],
   assessmentStep,
 });
@@ -80,11 +83,11 @@ const getAssessmentResult = (
 export const applicationScreeningStep: AssessmentStep = {
   ...assessmentSteps[0],
   id: faker.string.uuid(),
-  type: AssessmentStepType.ApplicationScreening,
+  type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
   sortOrder: 1,
   poolSkills: [...essentialPoolSkills, ...nonEssentialPoolSkills],
 };
-export const applicationScreeningResults: AssessmentResult[] = [
+const applicationScreeningResults: AssessmentResult[] = [
   getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(
@@ -104,11 +107,11 @@ experience.skills?.push(experiencePoolSkill?.skill as Skill);
 export const screeningQuestionsStep: AssessmentStep = {
   ...assessmentSteps[0],
   id: faker.string.uuid(),
-  type: AssessmentStepType.ScreeningQuestionsAtApplication,
+  type: toLocalizedEnum(AssessmentStepType.ScreeningQuestionsAtApplication),
   sortOrder: 2,
   poolSkills: [essentialPoolSkills[1], nonEssentialPoolSkills[0]],
 };
-export const screeningQuestionsResults: AssessmentResult[] = [
+const screeningQuestionsResults: AssessmentResult[] = [
   getAssessmentResult(
     screeningQuestionsStep,
     AssessmentResultType.Skill,
@@ -122,11 +125,11 @@ export const screeningQuestionsResults: AssessmentResult[] = [
 export const referenceCheckStep: AssessmentStep = {
   ...assessmentSteps[0],
   id: faker.string.uuid(),
-  type: AssessmentStepType.ReferenceCheck,
+  type: toLocalizedEnum(AssessmentStepType.ReferenceCheck),
   sortOrder: 4,
   poolSkills: [essentialPoolSkills[0]],
 };
-export const referenceCheckResults: AssessmentResult[] = [
+const referenceCheckResults: AssessmentResult[] = [
   getAssessmentResult(
     referenceCheckStep,
     AssessmentResultType.Skill,
@@ -140,11 +143,11 @@ export const referenceCheckResults: AssessmentResult[] = [
 export const interviewGroupStep: AssessmentStep = {
   ...assessmentSteps[0],
   id: faker.string.uuid(),
-  type: AssessmentStepType.InterviewGroup,
+  type: toLocalizedEnum(AssessmentStepType.InterviewGroup),
   sortOrder: 3,
   poolSkills: [...essentialPoolSkills],
 };
-export const interviewGroupResults: AssessmentResult[] = [
+const interviewGroupResults: AssessmentResult[] = [
   getAssessmentResult(
     interviewGroupStep,
     AssessmentResultType.Skill,

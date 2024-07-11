@@ -48,8 +48,21 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
   query BrowsePoolsPage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      publishingGroup
-      status
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+
       ...ActiveRecruitmentSectionPool
     }
     ...OngoingRecruitmentSection
@@ -91,15 +104,15 @@ export const Component = () => {
 
   const activeRecruitmentPools = pools.filter(
     (p) =>
-      p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      (p.publishingGroup === PublishingGroup.ItJobs ||
-        p.publishingGroup === PublishingGroup.ExecutiveJobs),
+      p.status?.value === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
+      (p.publishingGroup?.value === PublishingGroup.ItJobs ||
+        p.publishingGroup?.value === PublishingGroup.ExecutiveJobs),
   );
 
   const ongoingRecruitmentPools = pools.filter(
     (p) =>
-      p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      p.publishingGroup === PublishingGroup.ItJobsOngoing, // and which are meant to be published on the IT Jobs page
+      p.status?.value === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
+      p.publishingGroup?.value === PublishingGroup.ItJobsOngoing, // and which are meant to be published on the IT Jobs page
   );
 
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
@@ -147,7 +160,7 @@ export const Component = () => {
         />
         <div
           data-h2-position="base(relative)"
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
           style={{ zIndex: 1 }}
         >
           <div>
@@ -236,7 +249,7 @@ export const Component = () => {
       >
         <div
           data-h2-position="base(relative)"
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         >
           <div
             data-h2-display="base(grid)"

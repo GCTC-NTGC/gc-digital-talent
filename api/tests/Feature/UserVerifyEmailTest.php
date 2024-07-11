@@ -34,7 +34,7 @@ class UserVerifyEmailTest extends TestCase
     private $sendVerificationEmailMutation =
         /** @lang GraphQL */
         'mutation SendVerificationEmail($id: ID!) {
-            SendUserEmailVerification(id: $id) {
+            sendUserEmailVerification(id: $id) {
                 id
             }
         }';

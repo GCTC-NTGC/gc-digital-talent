@@ -4,6 +4,8 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Provider as GraphqlProvider } from "urql";
+import { pipe, fromValue, delay } from "wonka";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
@@ -11,6 +13,10 @@ import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 import EditPoolStory, { DraftPool } from "./EditPoolPage.stories";
 
 jest.setTimeout(500 * 1000);
+
+const mockClient = {
+  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+};
 
 describe("EditPoolPage", () => {
   const user = userEvent.setup();
@@ -23,7 +29,11 @@ describe("EditPoolPage", () => {
       onSave: handleSave,
     } as EditPoolFormProps;
 
-    renderWithProviders(<EditPoolForm {...props} />);
+    renderWithProviders(
+      <GraphqlProvider value={mockClient}>
+        <EditPoolForm {...props} />
+      </GraphqlProvider>,
+    );
 
     await user.click(
       screen.getByRole("button", { name: /edit advertisement details/i }),

@@ -2,9 +2,8 @@ import { useIntl } from "react-intl";
 
 import {
   commonMessages,
-  getLanguageRequirement,
-  getSecurityClearance,
   getLocale,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -40,17 +39,13 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
           hasError={!language}
           label={intl.formatMessage(processMessages.languageRequirement)}
         >
-          {language
-            ? intl.formatMessage(getLanguageRequirement(language))
-            : notProvided}
+          {getLocalizedName(language?.label, intl)}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!securityClearance}
           label={intl.formatMessage(processMessages.securityRequirement)}
         >
-          {securityClearance
-            ? intl.formatMessage(getSecurityClearance(securityClearance))
-            : notProvided}
+          {getLocalizedName(securityClearance?.label, intl)}
         </ToggleForm.FieldDisplay>
         {isRemote ? (
           <ToggleForm.FieldDisplay

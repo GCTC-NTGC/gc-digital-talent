@@ -19,44 +19,141 @@ import SingleUserProfilePrintButton from "~/components/PrintButton/SingleUserPro
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
+    ...ProfileDocument
     id
     email
     firstName
     lastName
     telephone
-    citizenship
-    armedForcesStatus
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
     currentCity
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
     isGovEmployee
-    govEmployeeType
+    govEmployeeType {
+      value
+      label {
+        en
+        fr
+      }
+    }
     hasPriorityEntitlement
     priorityNumber
-    locationPreferences
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
     positionDuration
-    acceptedOperationalRequirements
-    indigenousCommunities
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+      }
+    }
     indigenousDeclarationSignature
     hasDisability
     isVisibleMinority
     isWoman
     poolCandidates {
       id
-      status
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
       expiryDate
       notes
       suspendedAt
@@ -74,8 +171,20 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream
-        publishingGroup
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
         team {
           id
           name
@@ -126,7 +235,13 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         experienceSkillRecord {
           details
         }
@@ -135,8 +250,20 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on CommunityExperience {
         title
@@ -151,8 +278,20 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on PersonalExperience {
         title
@@ -176,7 +315,13 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -194,7 +339,13 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -212,7 +363,13 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -230,7 +387,13 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -252,7 +415,7 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
   return (
     <>
       <div
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
         <SingleUserProfilePrintButton

@@ -50,8 +50,15 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       id
       firstName
       lastName
+      ...ProfileDocument
     }
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     expiryDate
     profileSnapshot
   }
@@ -95,7 +102,7 @@ const MoreActions = ({
           candidateName={candidateName}
         />
         <Separator orientation="horizontal" data-h2-margin="base(x.5, 0)" />
-        {poolCandidate.status && isRemovedStatus(poolCandidate.status) ? (
+        {poolCandidate.status && isRemovedStatus(poolCandidate.status.value) ? (
           <span>
             {intl.formatMessage(commonMessages.status)}
             {intl.formatMessage(commonMessages.dividingColon)}
@@ -104,14 +111,14 @@ const MoreActions = ({
         ) : (
           <>
             {poolCandidate.status &&
-              RECORD_DECISION_STATUSES.includes(poolCandidate.status) && (
+              RECORD_DECISION_STATUSES.includes(poolCandidate.status.value) && (
                 <FinalDecisionDialog poolCandidate={poolCandidate} />
               )}
             {poolCandidate.status &&
               [
                 ...REVERT_DECISION_STATUSES,
                 ...PLACEMENT_TYPE_STATUSES,
-              ].includes(poolCandidate.status) && (
+              ].includes(poolCandidate.status.value) && (
                 <span>
                   {intl.formatMessage(commonMessages.status)}
                   {intl.formatMessage(commonMessages.dividingColon)}
@@ -121,7 +128,7 @@ const MoreActions = ({
                 </span>
               )}
             {poolCandidate.status &&
-              isQualifiedStatus(poolCandidate.status) && (
+              isQualifiedStatus(poolCandidate.status.value) && (
                 <span>
                   {intl.formatMessage(commonMessages.expiryDate)}
                   {intl.formatMessage(commonMessages.dividingColon)}
@@ -129,7 +136,7 @@ const MoreActions = ({
                 </span>
               )}
             {poolCandidate.status &&
-              isQualifiedStatus(poolCandidate.status) && (
+              isQualifiedStatus(poolCandidate.status.value) && (
                 <span>
                   {intl.formatMessage(commonMessages.jobPlacement)}
                   {intl.formatMessage(commonMessages.dividingColon)}
@@ -173,7 +180,8 @@ const MoreActions = ({
               mode="inline"
               color="secondary"
               pool={poolCandidate.pool}
-              user={parsedSnapshot}
+              snapshot={parsedSnapshot}
+              user={[poolCandidate.user]}
               buttonLabel={intl.formatMessage(commonMessages.print)}
             />
           </CardBasic>

@@ -27,7 +27,7 @@ const HomeHero = ({
   >
     <div
       data-h2-position="base(relative)"
-      data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+      data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       data-h2-layer="base(1, relative)"
     >
       <div

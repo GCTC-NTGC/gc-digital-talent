@@ -14,10 +14,15 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
-  getLanguage,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  User,
+  UserFilterInput,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
@@ -38,6 +43,7 @@ import {
 import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import UserProfilePrintButton from "~/components/PrintButton/UserProfilePrintButton";
+import { ProfileDocument_Fragment } from "~/components/ProfileDocument/ProfileDocument";
 
 import {
   UsersTable_SelectUsersQuery,
@@ -49,6 +55,8 @@ import {
 } from "./utils";
 import UserFilterDialog, { FormValues } from "./UserFilterDialog";
 import { getUserCsvData, getUserCsvHeaders } from "./userCsv";
+
+type SelectedApplicants = FragmentType<typeof ProfileDocument_Fragment>[];
 
 const columnHelper = createColumnHelper<User>();
 
@@ -90,9 +98,27 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
         firstName
         lastName
         telephone
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
+        preferredLang {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        preferredLanguageForInterview {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        preferredLanguageForExam {
+          value
+          label {
+            en
+            fr
+          }
+        }
         createdDate
         updatedDate
         authInfo {
@@ -135,7 +161,8 @@ const UserTable = ({ title }: UserTableProps) => {
   const client = useClient();
   const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
-  const [selectedApplicants, setSelectedApplicants] = useState<User[]>([]);
+  const [selectedApplicants, setSelectedApplicants] =
+    useState<SelectedApplicants>([]);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: UserFilterInput = useMemo(
@@ -235,17 +262,16 @@ const UserTable = ({ title }: UserTableProps) => {
       header: intl.formatMessage(commonMessages.telephone),
       cell: ({ getValue }) => cells.phone(getValue()),
     }),
-    columnHelper.accessor("preferredLang", {
-      id: "preferredLang",
-      enableColumnFilter: false,
-      header: intl.formatMessage(commonMessages.preferredCommunicationLanguage),
-      cell: ({
-        row: {
-          original: { preferredLang },
-        },
-      }) =>
-        preferredLang ? intl.formatMessage(getLanguage(preferredLang)) : null,
-    }),
+    columnHelper.accessor(
+      ({ preferredLang }) => getLocalizedName(preferredLang?.label, intl),
+      {
+        id: "preferredLang",
+        enableColumnFilter: false,
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
+      },
+    ),
     columnHelper.display({
       id: "edit",
       header: intl.formatMessage(commonMessages.edit),
@@ -326,7 +352,7 @@ const UserTable = ({ title }: UserTableProps) => {
       })
       .toPromise()
       .then((result) => {
-        const users: User[] = unpackMaybes(result.data?.applicants);
+        const users = unpackMaybes(result.data?.applicants);
 
         if (result.error) {
           toast.error(intl.formatMessage(errorMessages.unknown));

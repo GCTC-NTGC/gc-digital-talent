@@ -5,9 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": ">=20.11.0",
-    "pnpm": ">=8.15.0"
+    "pnpm": ">=9.5.0"
   },
-  "packageManager": "pnpm@8.15.7",
+  "packageManager": "pnpm@9.5.0",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -43,7 +43,7 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@hydrogen-css/hydrogen": "2.0.5",
-    "turbo": "^2.0.5"
+    "@hydrogen-css/hydrogen": "2.1.0",
+    "turbo": "^2.0.6"
   }
 }

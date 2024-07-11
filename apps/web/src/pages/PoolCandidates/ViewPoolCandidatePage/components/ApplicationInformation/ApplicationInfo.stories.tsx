@@ -46,9 +46,10 @@ mockUser = {
 export default {
   component: ApplicationInformation,
   args: {
-    snapshot: mockUser,
-    application: mockPoolCandidate,
     poolQuery: mockPool,
+    application: mockPoolCandidate,
+    snapshot: mockUser,
+    user: mockUser,
     defaultOpen: true,
   },
 };

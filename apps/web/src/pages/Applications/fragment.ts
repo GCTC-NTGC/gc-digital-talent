@@ -9,25 +9,97 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       lastName
       email
       telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      currentProvince
+      preferredLang {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      preferredLanguageForInterview {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      preferredLanguageForExam {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      currentProvince {
+        value
+        label {
+          en
+          fr
+        }
+      }
       currentCity
-      citizenship
+      citizenship {
+        value
+        label {
+          en
+          fr
+        }
+      }
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      firstOfficialLanguage
+      firstOfficialLanguage {
+        value
+        label {
+          en
+          fr
+        }
+      }
       secondLanguageExamCompleted
       secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
+      comprehensionLevel {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      writtenLevel {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      verbalLevel {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      estimatedLanguageAbility {
+        value
+        label {
+          en
+          fr
+        }
+      }
       isGovEmployee
-      govEmployeeType
-      armedForcesStatus
+      govEmployeeType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      armedForcesStatus {
+        value
+        label {
+          en
+          fr
+        }
+      }
       hasPriorityEntitlement
       priorityNumber
       isProfileComplete
@@ -50,13 +122,31 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
       isWoman
       hasDisability
-      indigenousCommunities
+      indigenousCommunities {
+        value
+        label {
+          en
+          fr
+        }
+      }
       indigenousDeclarationSignature
       isVisibleMinority
       hasDiploma
-      locationPreferences
+      locationPreferences {
+        value
+        label {
+          en
+          fr
+        }
+      }
       locationExemptions
-      acceptedOperationalRequirements
+      acceptedOperationalRequirements {
+        value
+        label {
+          en
+          fr
+        }
+      }
       positionDuration
       experiences {
         id
@@ -69,7 +159,13 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         skills {
           id
           key
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           name {
             en
             fr
@@ -102,8 +198,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          awardedScope {
+            value
+            label {
+              en
+              fr
+            }
+          }
         }
         ... on CommunityExperience {
           title
@@ -118,8 +226,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          status {
+            value
+            label {
+              en
+              fr
+            }
+          }
         }
         ... on PersonalExperience {
           title
@@ -142,10 +262,28 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      stream
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
       closingDate
-      publishingGroup
-      language
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      language {
+        value
+        label {
+          en
+          fr
+        }
+      }
       classification {
         id
         group
@@ -165,11 +303,23 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
       poolSkills {
         id
-        type
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
         skill {
           id
           key
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           name {
             en
             fr
@@ -214,7 +364,13 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         }
       }
     }
-    educationRequirementOption
+    educationRequirementOption {
+      value
+      label {
+        en
+        fr
+      }
+    }
     educationRequirementExperiences {
       id
       __typename
@@ -227,8 +383,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
         details
       }
       ... on CommunityExperience {
@@ -245,8 +413,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
         details
       }
       ... on PersonalExperience {

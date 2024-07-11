@@ -28,23 +28,42 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      currentProvince
+      preferredLang {
+        value
+      }
+      preferredLanguageForInterview {
+        value
+      }
+      preferredLanguageForExam {
+        value
+      }
+      currentProvince {
+        value
+      }
       currentCity
-
-      preferredLang
+      preferredLang {
+        value
+      }
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      firstOfficialLanguage
+      firstOfficialLanguage {
+        value
+      }
       secondLanguageExamCompleted
       secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
+      comprehensionLevel {
+        value
+      }
+      writtenLevel {
+        value
+      }
+      verbalLevel {
+        value
+      }
+      estimatedLanguageAbility {
+        value
+      }
 
       isGovEmployee
       hasPriorityEntitlement
@@ -72,13 +91,19 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       isWoman
       hasDisability
       isVisibleMinority
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
 
       hasDiploma
-      locationPreferences
+      locationPreferences {
+        value
+      }
       locationExemptions
-      acceptedOperationalRequirements
+      acceptedOperationalRequirements {
+        value
+      }
       positionDuration
     }
   }
@@ -111,27 +136,99 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     lastName
     email
     telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
     currentCity
-    citizenship
-    armedForcesStatus
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
     isGovEmployee
     hasPriorityEntitlement
     priorityNumber
-    govEmployeeType
+    govEmployeeType {
+      value
+      label {
+        en
+        fr
+      }
+    }
     department {
       id
       departmentNumber
@@ -151,13 +248,31 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     }
     isWoman
     hasDisability
-    indigenousCommunities
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+      }
+    }
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
-    locationPreferences
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
-    acceptedOperationalRequirements
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
     positionDuration
     userSkills {
       id
@@ -172,7 +287,13 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
     }
     experiences {
@@ -199,7 +320,13 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         experienceSkillRecord {
           details
         }
@@ -208,8 +335,20 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on CommunityExperience {
         title
@@ -224,8 +363,20 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on PersonalExperience {
         title
@@ -248,7 +399,13 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         id
         email
       }
-      status
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
       expiryDate
       signature
       archivedAt
@@ -261,7 +418,13 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           en
           fr
         }
-        stream
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
         classification {
           id
           group
@@ -282,7 +445,13 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           maxSalary
         }
       }
-      educationRequirementOption
+      educationRequirementOption {
+        value
+        label {
+          en
+          fr
+        }
+      }
       educationRequirementExperiences {
         # profileExperience fragment
         id
@@ -307,7 +476,13 @@ export const UserProfile_FragmentText = /* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           experienceSkillRecord {
             details
           }
@@ -316,8 +491,20 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          awardedScope {
+            value
+            label {
+              en
+              fr
+            }
+          }
         }
         ... on CommunityExperience {
           title
@@ -332,8 +519,20 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          status {
+            value
+            label {
+              en
+              fr
+            }
+          }
         }
         ... on PersonalExperience {
           title
@@ -430,7 +629,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
         subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation data-h2-padding-top="base(x3)">
             <TableOfContents.List>

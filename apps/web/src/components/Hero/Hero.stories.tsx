@@ -28,13 +28,15 @@ export default {
       },
     ],
   },
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
-      "light iap": allModes["light iap desktop"],
-      "dark iap": allModes["dark iap desktop"],
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+        "light iap": allModes["light iap desktop"],
+        "dark iap": allModes["dark iap desktop"],
+      },
     },
   },
 } as Meta<typeof Hero>;

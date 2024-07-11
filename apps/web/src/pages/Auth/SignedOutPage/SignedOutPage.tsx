@@ -133,7 +133,7 @@ export const Component = () => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
       <div
-        data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
+        data-h2-wrapper="base(center, small, x1) p-tablet(center, small, x2)"
         data-h2-margin="base(x3, 0)"
       >
         {alert}

@@ -2,11 +2,24 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\CitizenshipStatus;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\GovEmployeeType;
+use App\Enums\IndigenousCommunity;
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
+use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkRegion;
 use App\Models\Department;
+use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
+    use HasLocalizedEnums;
+
     protected $poolSkillIds;
 
     public function poolSkillIds($value)
@@ -57,38 +70,37 @@ class UserResource extends JsonResource
             'lastName' => $this->last_name,
             'email' => $this->email,
             'telephone' => $this->telephone,
-            'preferredLang' => $this->preferred_lang ? strtoupper($this->preferred_lang) : null,
-            'preferredLanguageForInterview' => $this->preferred_language_for_interview ? strtoupper($this->preferred_language_for_interview) : null,
-            'preferredLanguageForExam' => $this->preferred_language_for_exam ? strtoupper($this->preferred_language_for_exam) : null,
-            'currentProvince' => $this->current_province,
+            'preferredLang' => $this->localizeEnum($this->preferred_lang, Language::class),
+            'preferredLanguageForInterview' => $this->localizeEnum($this->preferred_language_for_interview, Language::class),
+            'preferredLanguageForExam' => $this->localizeEnum($this->preferred_language_for_exam, Language::class),
+            'currentProvince' => $this->localizeEnum($this->current_province, ProvinceOrTerritory::class),
             'currentCity' => $this->current_city,
-            'citizenship' => $this->citizenship,
-            'armedForcesStatus' => $this->armed_forces_status,
+            'citizenship' => $this->localizeEnum($this->citizenship, CitizenshipStatus::class),
+            'armedForcesStatus' => $this->localizeEnum($this->armed_forces_status, ArmedForcesStatus::class),
             'lookingForEnglish' => $this->looking_for_english,
             'lookingForFrench' => $this->looking_for_french,
             'lookingForBilingual' => $this->looking_for_bilingual,
-            'firstOfficialLanguage' => $this->first_official_language ?
-                strtoupper($this->first_official_language) : null,
+            'firstOfficialLanguage' => $this->localizeEnum($this->first_official_language, Language::class),
             'secondLanguageExamCompleted' => $this->second_language_exam_completed,
             'secondLanguageExamValidity' => $this->second_language_exam_validity,
-            'comprehensionLevel' => $this->comprehension_level,
-            'writtenLevel' => $this->written_level,
-            'verbalLevel' => $this->verbal_level,
-            'estimatedLanguageAbility' => $this->estimated_language_ability,
+            'comprehensionLevel' => $this->localizeEnum($this->comprehension_level, EvaluatedLanguageAbility::class),
+            'writtenLevel' => $this->localizeEnum($this->written_level, EvaluatedLanguageAbility::class),
+            'verbalLevel' => $this->localizeEnum($this->verbal_level, EvaluatedLanguageAbility::class),
+            'estimatedLanguageAbility' => $this->localizeEnum($this->estimated_language_ability, EstimatedLanguageAbility::class),
             'isGovEmployee' => $this->is_gov_employee,
             'hasPriorityEntitlement' => $this->has_priority_entitlement,
-            'govEmployeeType' => $this->gov_employee_type,
+            'govEmployeeType' => $this->localizeEnum($this->gov_employee_type, GovEmployeeType::class),
             'department' => $this->department ? (new DepartmentResource(Department::find($this->department))) : null,
             'currentClassification' => (new ClassificationResource($this->currentClassification)),
             'isWoman' => $this->is_woman,
             'hasDisability' => $this->has_disability,
             'isVisibleMinority' => $this->is_visible_minority,
-            'indigenousCommunities' => $this->indigenous_communities,
+            'indigenousCommunities' => $this->localizeEnumArray($this->indigenous_communities, IndigenousCommunity::class),
             'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
             'hasDiploma' => $this->has_diploma,
-            'locationPreferences' => $this->location_preferences,
+            'locationPreferences' => $this->localizeEnumArray($this->location_preferences, WorkRegion::class),
             'locationExemptions' => $this->location_exemptions,
-            'acceptedOperationalRequirements' => $this->accepted_operational_requirements,
+            'acceptedOperationalRequirements' => $this->localizeEnumArray($this->accepted_operational_requirements, OperationalRequirement::class),
             'positionDuration' => $this->position_duration,
             'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),
             'experiences' => $collection,

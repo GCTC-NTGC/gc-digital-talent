@@ -10,27 +10,20 @@ import {
 } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
-  getArmedForcesStatusesAdmin,
-  getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-  getIndigenousCommunity,
-  getLanguage,
   getLocale,
+  getLocalizedName,
   getOperationalRequirement,
-  getProvinceOrTerritory,
-  getSimpleGovEmployeeType,
-  getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions } from "@gc-digital-talent/forms";
 import {
-  GovEmployeeType,
+  graphql,
   OperationalRequirement,
   PositionDuration,
-  User,
   IndigenousCommunity,
-  PoolCandidate,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -40,8 +33,396 @@ import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } fr
 import UserSkillList from "./UserSkillList";
 import Display from "../Profile/components/LanguageProfile/Display";
 
+export const ProfileDocument_Fragment = graphql(/* GraphQL */ `
+  fragment ProfileDocument on User {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentCity
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    isGovEmployee
+    govEmployeeType {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    hasPriorityEntitlement
+    priorityNumber
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    locationExemptions
+    positionDuration
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    indigenousDeclarationSignature
+    hasDisability
+    isVisibleMinority
+    isWoman
+    poolCandidates {
+      id
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      expiryDate
+      notes
+      suspendedAt
+      user {
+        id
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      user {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+    topTechnicalSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    topBehaviouralSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    improveTechnicalSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    improveBehaviouralSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+  }
+`);
+
 interface ProfileDocumentProps {
-  results: User[] | PoolCandidate[];
+  userQuery: FragmentType<typeof ProfileDocument_Fragment>[];
   anonymous?: boolean;
 }
 
@@ -64,9 +445,10 @@ const BreakingPageSection = ({ children }: { children: ReactNode }) => (
 );
 
 const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
-  ({ results, anonymous }, ref) => {
+  ({ userQuery, anonymous }, ref) => {
     const intl = useIntl();
     const locale = getLocale(intl);
+    const results = getFragment(ProfileDocument_Fragment, userQuery);
 
     return (
       <div style={{ display: "none" }}>
@@ -97,17 +479,11 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
             )}
             {results &&
               results.map((initialResult, index) => {
-                const result: User =
-                  "user" in initialResult ? initialResult.user : initialResult;
+                const result = initialResult;
 
-                const govEmployeeTypeId =
-                  enumToOptions(GovEmployeeType).find(
-                    (govEmployeeType) =>
-                      govEmployeeType.value === result.govEmployeeType,
-                  )?.value || "";
                 const regionPreferencesSquished =
                   result.locationPreferences?.map((region) =>
-                    region ? intl.formatMessage(getWorkRegion(region)) : "",
+                    getLocalizedName(region?.label, intl),
                   );
                 const regionPreferences = regionPreferencesSquished
                   ? insertBetween(", ", regionPreferencesSquished)
@@ -117,15 +493,8 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                   result.acceptedOperationalRequirements
                     ? result.acceptedOperationalRequirements.map(
                         (opRequirement) => (
-                          <li key={opRequirement}>
-                            {opRequirement
-                              ? intl.formatMessage(
-                                  getOperationalRequirement(
-                                    opRequirement,
-                                    "firstPerson",
-                                  ),
-                                )
-                              : ""}
+                          <li key={opRequirement?.value}>
+                            {getLocalizedName(opRequirement?.label, intl)}
                           </li>
                         ),
                       )
@@ -143,8 +512,8 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                 const unselectedOperationalArray =
                   operationalRequirementsSubsetV2.filter(
                     (requirement) =>
-                      !result.acceptedOperationalRequirements?.includes(
-                        requirement,
+                      !result.acceptedOperationalRequirements?.some(
+                        (req) => req?.value === requirement,
                       ),
                   );
                 const unacceptedOperationalArray = unselectedOperationalArray
@@ -164,7 +533,7 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
 
                 const nonLegacyIndigenousCommunities =
                   unpackMaybes(result.indigenousCommunities).filter(
-                    (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+                    (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
                   ) || [];
 
                 return (
@@ -227,8 +596,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
                               {result.currentCity},{" "}
-                              {intl.formatMessage(
-                                getProvinceOrTerritory(result.currentProvince),
+                              {getLocalizedName(
+                                result.currentProvince.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -240,8 +610,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 description: "Label for communication language",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getLanguage(result.preferredLang),
+                              {getLocalizedName(
+                                result.preferredLang.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -254,10 +625,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                   "Label for spoken interview language",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getLanguage(
-                                  result.preferredLanguageForInterview,
-                                ),
+                              {getLocalizedName(
+                                result.preferredLanguageForInterview.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -269,8 +639,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 description: "Label for written exam language",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getLanguage(result.preferredLanguageForExam),
+                              {getLocalizedName(
+                                result.preferredLanguageForExam.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -299,10 +670,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 description: "Veteran/member label",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getArmedForcesStatusesAdmin(
-                                  result.armedForcesStatus,
-                                ),
+                              {getLocalizedName(
+                                result.armedForcesStatus.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -314,9 +684,7 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                               description: "Citizenship label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
-                            {intl.formatMessage(
-                              getCitizenshipStatusesAdmin(result.citizenship),
-                            )}
+                            {getLocalizedName(result.citizenship.label, intl)}
                           </p>
                         ) : (
                           intl.formatMessage(commonMessages.notProvided)
@@ -364,8 +732,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 "Label for applicant's employment type",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
-                            {intl.formatMessage(
-                              getSimpleGovEmployeeType(govEmployeeTypeId),
+                            {getLocalizedName(
+                              result.govEmployeeType.label,
+                              intl,
                             )}
                           </p>
                         )}
@@ -591,11 +960,10 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                           ? nonLegacyIndigenousCommunities.map(
                                               (community) => {
                                                 return (
-                                                  <li key={community}>
-                                                    {intl.formatMessage(
-                                                      getIndigenousCommunity(
-                                                        community,
-                                                      ),
+                                                  <li key={community.value}>
+                                                    {getLocalizedName(
+                                                      community.label,
+                                                      intl,
                                                     )}
                                                   </li>
                                                 );
