@@ -19,8 +19,8 @@ on:
 jobs:
   chromatic:
     name: Chromatic
-    # Only run on main or after a manual re-run
-    if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
+    # Only run if not dependabot.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     env:
       PNPM_VERSION: "9.5.0"
@@ -70,4 +70,4 @@ jobs:
           # display immediately as "passing".
           autoAcceptChanges: true
           workingDir: apps/web
-          onlyChanged: false
+          onlyChanged: true
