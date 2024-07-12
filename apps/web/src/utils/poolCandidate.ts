@@ -20,6 +20,7 @@ import {
   OverallAssessmentStatus,
   AssessmentResultStatus,
   ClaimVerificationResult,
+  CitizenshipStatus,
   AssessmentStep,
 } from "@gc-digital-talent/graphql";
 
@@ -436,22 +437,58 @@ export const priorityWeightAfterVerification = (
   priorityWeight: number,
   priorityVerification: ClaimVerificationResult | null | undefined,
   veteranVerification: ClaimVerificationResult | null | undefined,
+  citizenshipStatus: CitizenshipStatus | null | undefined,
 ): number => {
   // Priority
   if (
     priorityWeight === 10 &&
-    priorityVerification === ClaimVerificationResult.Rejected
+    (priorityVerification === ClaimVerificationResult.Accepted ||
+      priorityVerification === ClaimVerificationResult.Unverified)
   ) {
-    return 30;
+    return 10;
   }
 
   // Veteran
   if (
     priorityWeight === 20 &&
-    veteranVerification === ClaimVerificationResult.Rejected
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Citizen
+  if (priorityWeight === 30) {
+    return 30;
+  }
+
+  // Cascade down from priority to veteran
+  if (
+    priorityWeight === 10 &&
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Cascade down from priority to citizen as veteran didn't apply above
+  if (
+    priorityWeight === 10 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
   ) {
     return 30;
   }
 
-  return priorityWeight;
+  // Cascade down from veteran to citizen
+  if (
+    priorityWeight === 20 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
+  ) {
+    return 30;
+  }
+
+  // final fallback - last (Other)
+  return 40;
 };

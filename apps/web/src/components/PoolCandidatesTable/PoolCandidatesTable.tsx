@@ -766,6 +766,7 @@ const PoolCandidatesTable = ({
                   poolCandidate.user.priorityWeight,
                   poolCandidate.priorityVerification,
                   poolCandidate.veteranVerification,
+                  poolCandidate.user.citizenship?.value,
                 )
               : null,
             stringData?.priorities,
