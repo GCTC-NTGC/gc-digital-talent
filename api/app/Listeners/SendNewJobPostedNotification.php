@@ -34,11 +34,10 @@ class SendNewJobPostedNotification implements ShouldQueue
 
             User::whereJsonContains('enabled_email_notifications', NotificationFamily::JOB_ALERT->name)
                 ->orWhereJsonContains('enabled_in_app_notifications', NotificationFamily::JOB_ALERT->name)
-                ->chunk(200, function (Collection $users) use ($notification, $successCount) {
+                ->chunk(200, function (Collection $users) use ($notification) {
                     foreach ($users as $user) {
                         try {
                             $user->notify($notification);
-                            $successCount++;
                         } catch (Throwable $e) {
                             // best-effort: log and continue
                             Log::error('Failed to send "new job posted" notification to ['.$user->id.'] '.$e->getMessage());
