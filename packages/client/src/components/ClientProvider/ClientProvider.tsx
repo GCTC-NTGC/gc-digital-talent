@@ -56,7 +56,6 @@ const ClientProvider = ({
   const intl = useIntl();
   const authContext = useAuthentication();
   const logger = useLogger();
-  const { protectedApi: protectedApiFlag } = useFeatureFlags();
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);
   // Keep the contents of that mutable object up to date
@@ -72,7 +71,7 @@ const ClientProvider = ({
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,
-          ...(protectedApiFlag ? [protectedEndpointExchange] : []),
+          ...[protectedEndpointExchange],
           mapExchange({
             onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
@@ -164,7 +163,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger, protectedApiFlag]);
+  }, [client, intl, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
