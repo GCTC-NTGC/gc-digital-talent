@@ -18,4 +18,5 @@ export type FormValues = {
   firstName?: Maybe<string>;
   lastName?: Maybe<string>;
   email?: Maybe<string>;
+  isEmailVerified?: Maybe<boolean>;
 };

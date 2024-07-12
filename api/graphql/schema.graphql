@@ -48,7 +48,7 @@ type User {
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   email: Email
-  emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
+  isEmailVerified: Boolean
   telephone: PhoneNumber
   preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
   preferredLanguageForInterview: LocalizedLanguage
@@ -251,8 +251,7 @@ type Pool implements HasRoleAssignments {
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: LocalizedSecurityStatus
     @rename(attribute: "security_clearance")
-  language: LocalizedPoolLanguage
-    @rename(attribute: "advertisement_language")
+  language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
   stream: LocalizedPoolStream
   processNumber: String @rename(attribute: "process_number")
@@ -742,7 +741,7 @@ input PoolFilterInput {
   name: String @scope
   team: String @scope
   streams: [PoolStream!] @scope
-  statuses: [PoolStatus!] @scope
+  statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
   classifications: [ClassificationFilterInput!] @scope
@@ -899,11 +898,7 @@ type Query {
         ]
       )
   ): [Pool]!
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["authorizedToView", "notArchived"]
-    )
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find

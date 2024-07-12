@@ -8,6 +8,7 @@ import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { AuthorizationContainer } from "@gc-digital-talent/auth";
 
 import EmailVerification, { EmailVerificationProps } from "./EmailVerification";
 
@@ -29,9 +30,15 @@ const renderComponent = (
   },
 ) =>
   renderWithProviders(
-    <GraphqlProvider value={graphqlClient}>
-      <EmailVerification {...props} />
-    </GraphqlProvider>,
+    <AuthorizationContainer
+      roleAssignments={[]}
+      userAuthInfo={{ id: "1234" }}
+      isLoaded
+    >
+      <GraphqlProvider value={graphqlClient}>
+        <EmailVerification {...props} />
+      </GraphqlProvider>
+    </AuthorizationContainer>,
   );
 
 describe("EmailVerification", () => {
@@ -83,6 +90,15 @@ describe("EmailVerification", () => {
       requestButton.click();
     });
     expect(mutation.mock.calls).toHaveLength(1);
+
+    const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
+    expect(callFirstArg).toHaveProperty("variables", {
+      id: "1234",
+    });
+    expect(callFirstArg).toHaveProperty(
+      "query.definitions[0].name.value",
+      "SendUserEmailVerification",
+    );
   });
 
   it("should make an API request when a code is submitted", async () => {
@@ -104,5 +120,15 @@ describe("EmailVerification", () => {
       submitButton.click();
     });
     expect(mutation.mock.calls).toHaveLength(1);
+
+    const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
+    expect(callFirstArg).toHaveProperty("variables", {
+      id: "1234",
+      code: "123456",
+    });
+    expect(callFirstArg).toHaveProperty(
+      "query.definitions[0].name.value",
+      "VerifyUserEmail",
+    );
   });
 });

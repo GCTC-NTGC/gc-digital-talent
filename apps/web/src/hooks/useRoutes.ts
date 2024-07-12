@@ -226,6 +226,16 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return path.join(applicantUrl, "personal-information") + fragment;
     },
+    verifyContactEmail: (opts?: { emailAddress?: string | null }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.emailAddress) {
+        searchParams.set("emailAddress", opts.emailAddress);
+      }
+      return (
+        path.join(applicantUrl, "verify-contact-email") +
+        createSearchQuery(searchParams)
+      );
+    },
 
     // Career timeline and recruitment Routes
     careerTimelineAndRecruitment: (opts?: {

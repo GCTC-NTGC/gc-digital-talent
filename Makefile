@@ -1,4 +1,4 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan queue-work
+.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan queue-work composer
 
 DOCKER_RUN=docker-compose run --rm maintenance bash
 DOCKER_API=docker-compose run --rm -w /var/www/html/api maintenance sh -c
@@ -30,6 +30,9 @@ seed-fresh:
 
 migrate:
 	$(DOCKER_API) "php artisan migrate"
+
+composer:
+	$(DOCKER_API) "composer $(CMD)"
 
 artisan:
 	$(DOCKER_API) "php artisan $(CMD)"

@@ -42,7 +42,6 @@ export const checkFeatureFlag = (name: string): boolean => {
 export const getFeatureFlags = () => ({
   directiveForms: checkFeatureFlag("FEATURE_DIRECTIVE_FORMS"),
   notifications: checkFeatureFlag("FEATURE_NOTIFICATIONS"),
-  protectedApi: checkFeatureFlag("FEATURE_PROTECTED_API"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
