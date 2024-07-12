@@ -57,8 +57,8 @@ class CheckIntl extends Command
      * to have an associated string
      */
     private $knownMissing = [
-        // 'assessment_result_justification.skill_accepted',
-        // 'indigenous_community.legacy_is_indigenous',
+        'assessment_result_justification.skill_accepted',
+        'indigenous_community.legacy_is_indigenous',
     ];
 
     /**
@@ -70,20 +70,20 @@ class CheckIntl extends Command
      * both locales, so we can safely ignore them
      */
     private $allowedMatch = [
-        // 'awarded_scope.international',
-        // 'awarded_scope.national',
-        // 'awarded_scope.provincial',
-        // 'awarded_scope.local',
-        // 'education_type.certification',
-        // 'indigenous_community.inuit',
-        // 'indigenous_community.metis',
-        // 'province_or_territory.alberta',
-        // 'province_or_territory.manitoba',
-        // 'province_or_territory.nunavut',
-        // 'province_or_territory.ontario',
-        // 'province_or_territory.saskatchewan',
-        // 'province_or_territory.yukon',
-        // 'skill_level.lead',
+        'awarded_scope.international',
+        'awarded_scope.national',
+        'awarded_scope.provincial',
+        'awarded_scope.local',
+        'education_type.certification',
+        'indigenous_community.inuit',
+        'indigenous_community.metis',
+        'province_or_territory.alberta',
+        'province_or_territory.manitoba',
+        'province_or_territory.nunavut',
+        'province_or_territory.ontario',
+        'province_or_territory.saskatchewan',
+        'province_or_territory.yukon',
+        'skill_level.lead',
     ];
 
     /**
