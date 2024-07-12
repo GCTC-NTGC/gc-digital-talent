@@ -129,7 +129,7 @@ jobs:
             exit 0;
           fi
 
-      - name: "Verify all strings: api"
+      - name: "Verify no matching strings: api"
         if: always()
         working-directory: api/storage/app
         run: >
@@ -150,7 +150,7 @@ jobs:
             apps/**/lang/untranslated.json
             packages/**/lang/untranslated.json
             !packages/node_modules/**
-            api/storage/app/missingFiles.json
-            api/storage/app/missingStrings.json
-            api/storage/app/exactMatches.json
+            api/**/missingFiles.json
+            api/**/missingStrings.json
+            api/**/exactMatches.json
           if-no-files-found: ignore
