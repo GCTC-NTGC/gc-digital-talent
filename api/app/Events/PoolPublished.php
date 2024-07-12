@@ -6,7 +6,7 @@ use App\Models\Pool;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PoolPublised
+class PoolPublished
 {
     use Dispatchable,  SerializesModels;
 

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Events\AssessmentResultSaved;
-use App\Events\PoolPublised;
+use App\Events\PoolPublished;
 use App\Listeners\ComputeFinalDecisionAndCurrentStep;
 use App\Listeners\SendNewJobPostedNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -19,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
         AssessmentResultSaved::class => [
             ComputeFinalDecisionAndCurrentStep::class,
         ],
-        PoolPublised::class => [
+        PoolPublished::class => [
             SendNewJobPostedNotification::class,
         ],
     ];

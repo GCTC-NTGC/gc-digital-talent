@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Events\PoolPublised;
+use App\Events\PoolPublished;
 use App\Models\Pool;
 
 class PoolObserver
@@ -25,7 +25,7 @@ class PoolObserver
         if (
             is_null($oldPublishedAt) && ! is_null($newPublishedAt)
         ) {
-            PoolPublised::dispatch($pool);
+            PoolPublished::dispatch($pool);
         }
     }
 

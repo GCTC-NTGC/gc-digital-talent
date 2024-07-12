@@ -3,8 +3,7 @@
 namespace App\Listeners;
 
 use App\Enums\NotificationFamily;
-use App\Events\PoolPublised;
-use App\Models\User;
+use App\Events\PoolPublished;
 use App\Notifications\NewJobPosted;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +20,7 @@ class SendNewJobPostedNotification implements ShouldQueue
     /**
      * Handle the event.
      */
-    public function handle(PoolPublised $event): void
+    public function handle(PoolPublished $event): void
     {
         if (config('feature.notifications')) {
             $pool = $event->result;
