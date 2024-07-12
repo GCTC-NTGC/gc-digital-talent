@@ -70,7 +70,7 @@ const ClientProvider = ({
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,
-          ...[protectedEndpointExchange],
+          protectedEndpointExchange,
           mapExchange({
             onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
