@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Events\PoolPublised;
 use App\Models\Pool;
-use Illuminate\Support\Facades\Log;
 
 class PoolObserver
 {
@@ -26,7 +25,6 @@ class PoolObserver
         if (
             is_null($oldPublishedAt) && ! is_null($newPublishedAt)
         ) {
-            Log::debug('Dispatching pool published');
             PoolPublised::dispatch($pool);
         }
     }
