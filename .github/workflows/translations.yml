@@ -49,19 +49,21 @@ jobs:
         run: |
           pnpm run check-intl --force
 
-      - name: "Build docker image: api"
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: bcmath
+
+      - name: Install composer dependencies
+        working-directory: api
+        run: |
+          cp .env.example .env
+          composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: "Generate lang files: api"
-        run: |
-          docker compose exec --no-TTY api php artisan app:check-intl
-
-      - name: "Copy files: api"
-        if: always()
-        run: |
-          if docker exec -it api sh -c "test -f /var/www/html/api/storage/missingStrings.json"; then
-            docker compose cp api:/var/www/html/api/storage/app/missingStrings.json ./api/storage/app/
-          fi
+        working-directory: api
+        run: php artisan app:check-intl
 
       - name: "Verify no untranslated file: i18n"
         if: always()
