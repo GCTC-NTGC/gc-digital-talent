@@ -45,7 +45,7 @@ export default {
   decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
     defaultOpen: true,
-    jobPlacementOptions: makeFragmentData(
+    optionsQuery: makeFragmentData(
       {
         departments,
         placementTypes: fakeLocalizedEnum(PlacementType),
