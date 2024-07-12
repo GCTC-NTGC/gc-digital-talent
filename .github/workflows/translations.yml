@@ -58,11 +58,8 @@ jobs:
 
       - name: "Copy files: api"
         if: always()
-        continue-on-error: true
         run: |
-          docker compose cp api:/var/www/html/api/storage/app/missingFiles.json ./api/storage/app/
-          docker compose cp api:/var/www/html/api/storage/app/missingStrings.json ./api/storage/app/
-          docker compose cp api:/var/www/html/api/storage/app/exactMatches.json ./api/storage/app/
+          docker compose cp api:/var/www/html/api/storage/app/*.json ./api/storage/app/
 
       - name: "Verify no untranslated file: i18n"
         if: always()
