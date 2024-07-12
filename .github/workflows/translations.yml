@@ -49,6 +49,13 @@ jobs:
         run: |
           pnpm run check-intl --force
 
+      - name: "Build docker image: api"
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
+
+      - name: "Generate lang files: api"
+        run: |
+          docker compose exec --no-TTY api php artisan app:check-intl
+
       - name: "Verify no untranslated file: i18n"
         if: always()
         working-directory: packages/i18n/src/lang
@@ -97,13 +104,42 @@ jobs:
             exit 0;
           fi
 
+      - name: "Verify all files: api"
+        if: always()
+        working-directory: api/storage/app
+        run: >
+          if test -f "missingFiles.json"; then
+            echo ":x: API has missing files" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: All API files exist" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
 
-      - name: "Build docker image: api"
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
 
-      - name: "Verify: api"
-        run: |
-          docker compose exec --no-TTY api php artisan app:check-intl
+      - name: "Verify all strings: api"
+        if: always()
+        working-directory: api/storage/app
+        run: >
+          if test -f "missingStrings.json"; then
+            echo ":x: API has missing strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: All API enums have strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
+      - name: "Verify all strings: api"
+        if: always()
+        working-directory: api/storage/app
+        run: >
+          if test -f "exactMatches.json"; then
+            echo ":x: API has matching strings" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: No matching strings in API | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
 
       - name: "Upload untranslated files: all workspaces"
         if: always()
