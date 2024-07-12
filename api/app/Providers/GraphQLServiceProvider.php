@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Discoverers\EnumDiscoverer;
 use App\Enums\Language;
 use App\GraphQL\Operators\PostgreSQLOperator;
 use App\Traits\HasLocalization;
@@ -12,9 +13,6 @@ use GraphQL\Type\Definition\Type;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\WhereConditions\Operator;
-use Spatie\StructureDiscoverer\Data\DiscoveredStructure;
-use Spatie\StructureDiscoverer\Discover;
-use Spatie\StructureDiscoverer\Enums\Sort;
 
 class GraphQLServiceProvider extends ServiceProvider
 {
@@ -35,12 +33,7 @@ class GraphQLServiceProvider extends ServiceProvider
         );
 
         // Discover all enums in the App\Enum namepsace to register them with GraphQL
-        $enums = Discover::in(app_path('Enums'))
-            ->enums()
-                // TODO: Language has a custom implementation remove in #10964
-            ->custom(fn (DiscoveredStructure $structure) => $structure->name !== 'Language')
-            ->sortBy(Sort::Name)
-            ->get();
+        $enums = EnumDiscoverer::discoverEnums();
 
         /** @var \UnitEnum $enum */
         foreach ($enums as $enum) {
@@ -60,13 +53,7 @@ class GraphQLServiceProvider extends ServiceProvider
 
         // Discover all enums in the App\Enum namespace that implement the HasLocalization trait
         // and register them as a LocalizedEnum type in GraphQL
-        $localizedEnums = Discover::in(app_path('Enums'))
-            ->enums()
-            ->custom(function (DiscoveredStructure $structure) {
-                return in_array(HasLocalization::class, class_uses($structure->getFcqn()));
-            })
-            ->sortBy(Sort::Name)
-            ->get();
+        $localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
         /** @var HasLocalization $enum */
         foreach ($localizedEnums as $enum) {
