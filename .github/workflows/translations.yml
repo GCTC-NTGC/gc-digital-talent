@@ -5,13 +5,17 @@ on:
     branches: [main]
     paths:
       - .github/workflows/translations.yml
-      - packages/**
       - apps/**
+      - packages/**
+      - api/app/Enums/**
+      - api/lang/**
   pull_request:
     paths:
       - .github/workflows/translations.yml
       - apps/**
       - packages/**
+      - api/app/Enums/**
+      - api/lang/**
   merge_group:
     branches: [main]
 jobs:
@@ -93,6 +97,14 @@ jobs:
             exit 0;
           fi
 
+
+      - name: "Build docker image: api"
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
+
+      - name: "Verify: api"
+        run: |
+          docker compose exec --no-TTY api php artisan app:check-intl
+
       - name: "Upload untranslated files: all workspaces"
         if: always()
         uses: actions/upload-artifact@v4
@@ -102,4 +114,7 @@ jobs:
             apps/**/lang/untranslated.json
             packages/**/lang/untranslated.json
             !packages/node_modules/**
+            api/storage/app/missingFiles.json
+            api/storage/app/missingStrings.json
+            api/storage/app/exactMatches.json
           if-no-files-found: ignore
