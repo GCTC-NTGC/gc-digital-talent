@@ -2,11 +2,9 @@
 
 namespace App\Observers;
 
+use App\Events\PoolPublised;
 use App\Models\Pool;
-use App\Models\User;
-use App\Notifications\NewJobPosted;
 use Illuminate\Support\Facades\Log;
-use Throwable;
 
 class PoolObserver
 {
@@ -25,25 +23,11 @@ class PoolObserver
     {
         $oldPublishedAt = $pool->getOriginal('published_at');
         $newPublishedAt = $pool->published_at;
-        if (config('feature.notifications')) {
-            if (
-                is_null($oldPublishedAt) && ! is_null($newPublishedAt)
-            ) {
-                $notification = new NewJobPosted(
-                    $pool->name['en'],
-                    $pool->name['fr'],
-                    $pool->id
-                );
-
-                User::all()->each(function ($user) use ($notification) {
-                    try {
-                        $user->notify($notification);
-                    } catch (Throwable $e) {
-                        // best-effort: log and continue
-                        Log::error('Failed to send "new job posted" notification to ['.$user->id.'] '.$e->getMessage());
-                    }
-                });
-            }
+        if (
+            is_null($oldPublishedAt) && ! is_null($newPublishedAt)
+        ) {
+            Log::debug('Dispatching pool published');
+            PoolPublised::dispatch($pool);
         }
     }
 
