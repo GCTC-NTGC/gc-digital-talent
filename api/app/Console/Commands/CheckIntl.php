@@ -57,8 +57,8 @@ class CheckIntl extends Command
      * to have an associated string
      */
     private $knownMissing = [
-        // 'assessment_result_justification.skill_accepted',
-        // 'indigenous_community.legacy_is_indigenous',
+        'assessment_result_justification.skill_accepted',
+        'indigenous_community.legacy_is_indigenous',
     ];
 
     /**
@@ -70,20 +70,20 @@ class CheckIntl extends Command
      * both locales, so we can safely ignore them
      */
     private $allowedMatch = [
-        // 'awarded_scope.international',
-        // 'awarded_scope.national',
-        // 'awarded_scope.provincial',
-        // 'awarded_scope.local',
-        // 'education_type.certification',
-        // 'indigenous_community.inuit',
-        // 'indigenous_community.metis',
-        // 'province_or_territory.alberta',
-        // 'province_or_territory.manitoba',
-        // 'province_or_territory.nunavut',
-        // 'province_or_territory.ontario',
-        // 'province_or_territory.saskatchewan',
-        // 'province_or_territory.yukon',
-        // 'skill_level.lead',
+        'awarded_scope.international',
+        'awarded_scope.national',
+        'awarded_scope.provincial',
+        'awarded_scope.local',
+        'education_type.certification',
+        'indigenous_community.inuit',
+        'indigenous_community.metis',
+        'province_or_territory.alberta',
+        'province_or_territory.manitoba',
+        'province_or_territory.nunavut',
+        'province_or_territory.ontario',
+        'province_or_territory.saskatchewan',
+        'province_or_territory.yukon',
+        'skill_level.lead',
     ];
 
     /**
@@ -112,17 +112,17 @@ class CheckIntl extends Command
 
         if ($missingFiles || $missingStrings || $exactMatches) {
             if ($missingFiles) {
-                Storage::disk('local')->put('missingFiles.json', json_encode($this->missingFiles));
+                Storage::disk('local')->put('missingFiles.json', json_encode($this->missingFiles, JSON_FORCE_OBJECT));
                 $this->error("Missing files:\r\n\r\n".$this->localeArrayToString($this->missingFiles));
             }
 
             if ($missingStrings) {
-                Storage::disk('local')->put('missingStrings.json', json_encode($this->missingStrings));
+                Storage::disk('local')->put('missingStrings.json', json_encode($this->missingStrings, JSON_FORCE_OBJECT));
                 $this->error("Missing strings:\r\n\r\n".$this->localeArrayToString($this->missingStrings));
             }
 
             if ($exactMatches) {
-                Storage::disk('local')->put('exactMatches.json', json_encode($this->exactMatches));
+                Storage::disk('local')->put('exactMatches.json', json_encode($this->exactMatches, JSON_FORCE_OBJECT));
                 $this->error("Some strings are idential in both EN and FR:\r\n".$this->arrayToString($this->exactMatches));
             }
 
