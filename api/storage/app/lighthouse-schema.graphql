@@ -994,7 +994,7 @@ input PoolFilterInput {
   name: String
   team: String
   streams: [PoolStream!]
-  statuses: [PoolStatus!]
+  statuses: [PoolStatus!] = []
   processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
