@@ -2,4 +2,6 @@
 !public/
 !user_generated/
 !.gitignore
-*.json
+missingStrings.json
+missingFiles.json
+exactMatches.json
