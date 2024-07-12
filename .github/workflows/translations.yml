@@ -57,6 +57,7 @@ jobs:
           docker compose exec --no-TTY api php artisan app:check-intl
 
       - name: "Copy files: api"
+        if: always()
         continue-on-error: true
         run: |
           docker compose cp api:/var/www/html/api/storage/app/missingFiles.json ./api/storage/app/
