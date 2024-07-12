@@ -59,7 +59,9 @@ jobs:
       - name: "Copy files: api"
         if: always()
         run: |
-          docker compose cp api:/var/www/html/api/storage/app/*.json ./api/storage/app/
+          if docker exec -it api sh -c "test -f /var/www/html/api/storage/missingStrings.json"; then
+            docker compose cp api:/var/www/html/api/storage/app/missingStrings.json ./api/storage/app/
+          fi
 
       - name: "Verify no untranslated file: i18n"
         if: always()
