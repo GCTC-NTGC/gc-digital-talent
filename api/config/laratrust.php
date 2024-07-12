@@ -35,9 +35,7 @@ return [
         |           This method doesn't support cache yet.
         | - class that extends Laratrust\Checkers\User\UserChecker
         */
-        'user' => env('FEATURE_PROTECTED_API', false)
-            ? App\Checkers\ProtectedRequestUserChecker::class
-            : 'default',
+        'user' => App\Checkers\ProtectedRequestUserChecker::class,
 
         /*
         |--------------------------------------------------------------------------
