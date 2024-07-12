@@ -53,9 +53,12 @@ jobs:
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
 
       - name: "Generate lang files: api"
-        continue-on-error: true # continue so we can copy files for upload
         run: |
           docker compose exec --no-TTY api php artisan app:check-intl
+
+      - name: "Copy files: api"
+        continue-on-error: true
+        run: |
           docker compose cp api:/var/www/html/api/storage/app/missingFiles.json ./api/storage/app/
           docker compose cp api:/var/www/html/api/storage/app/missingStrings.json ./api/storage/app/
           docker compose cp api:/var/www/html/api/storage/app/exactMatches.json ./api/storage/app/
