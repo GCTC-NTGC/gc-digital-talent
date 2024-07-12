@@ -55,6 +55,7 @@ jobs:
       - name: "Generate lang files: api"
         run: |
           docker compose exec --no-TTY api php artisan app:check-intl
+          docker compose cp api:/var/www/html/api/storage/app/**/*.json ./api/storage/app/
 
       - name: "Verify no untranslated file: i18n"
         if: always()
