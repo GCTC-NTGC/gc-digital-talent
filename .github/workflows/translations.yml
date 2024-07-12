@@ -137,7 +137,7 @@ jobs:
             echo ":x: API has matching strings" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo ":heavy_check_mark: No matching strings in API | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":heavy_check_mark: No matching strings in API" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
