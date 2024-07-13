@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Enums\NotificationFamily;
 use App\Events\PoolPublished;
+use App\Models\User;
 use App\Notifications\NewJobPosted;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
