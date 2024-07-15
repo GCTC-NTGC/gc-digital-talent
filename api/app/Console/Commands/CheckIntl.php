@@ -82,14 +82,7 @@ class CheckIntl extends Command
 
         /** @var HasLocalization $enum */
         foreach ($this->localizedEnums as $enum) {
-            $fileName = $enum::getLangFilename().'.php';
-            $enFileExists = $this->checkFileExists($fileName, 'en');
-            $frFileExists = $this->checkFileExists($fileName, 'fr');
-
-            // No sense in checking strings if both files are missing.
-            if ($enFileExists || $frFileExists) {
-                $this->checkStrings($enum);
-            }
+            $this->checkStrings($enum);
         }
 
         $hasErrors = ! empty(Arr::flatten($this->errors));
@@ -106,20 +99,6 @@ class CheckIntl extends Command
         return Command::SUCCESS;
     }
 
-    /*
-    * Check that a lang file exists
-    */
-    private function checkFileExists(string $fileName, string $locale)
-    {
-        if (! file_exists(lang_path($locale.'/'.$fileName))) {
-            $this->errors['missing_files'][$locale][] = $fileName;
-
-            return false;
-        }
-
-        return true;
-    }
-
     /**
      * Check that strings exist and no
      * exact matches exist across locales
@@ -130,14 +109,16 @@ class CheckIntl extends Command
     {
 
         $fileName = $enum::getLangFilename();
+        $hasEnFile = $this->checkFileExists($fileName, 'en');
+        $hasFrFile = $this->checkFileExists($fileName, 'fr');
 
         $keys = Arr::map(array_column($enum::cases(), 'name'), function ($case) {
             return strtolower($case);
         });
 
         $existing = [
-            'en' => Lang::get(key: $fileName, locale: 'en'),
-            'fr' => Lang::get(key: $fileName, locale: 'fr'),
+            'en' => $hasEnFile ? Lang::get(key: $fileName, locale: 'en') : [],
+            'fr' => $hasFrFile ? Lang::get(key: $fileName, locale: 'fr') : [],
         ];
 
         $exisingKeys = [
@@ -193,6 +174,20 @@ class CheckIntl extends Command
             }
         }
 
+    }
+
+    /*
+    * Check that a lang file exists
+    */
+    private function checkFileExists(string $fileName, string $locale)
+    {
+        if (! file_exists(lang_path($locale.'/'.$fileName.'.php'))) {
+            $this->errors['missing_files'][$locale][] = $fileName;
+
+            return false;
+        }
+
+        return true;
     }
 
     private function oppositeLocale(string $locale): string
