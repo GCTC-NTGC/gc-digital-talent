@@ -374,7 +374,7 @@ class Pool extends Model
     /* accessor to retrieve id from teams table */
     public function getTeamIdAttribute()
     {
-        return $this->team->id;
+        return $this->team?->id;
     }
 
     public function scopeWasPublished(Builder $query)
