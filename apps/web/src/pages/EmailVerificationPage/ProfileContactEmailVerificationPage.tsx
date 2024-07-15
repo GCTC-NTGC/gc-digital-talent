@@ -60,7 +60,7 @@ const ProfileContactEmailVerificationPage = () => {
         crumbs={crumbs}
       />
       <div
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-padding="base(x1, 0)"
       >
         <div

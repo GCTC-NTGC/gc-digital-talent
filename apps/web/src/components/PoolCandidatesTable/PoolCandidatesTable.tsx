@@ -7,7 +7,7 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useClient, useQuery } from "urql";
+import { OperationContext, useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 import DataLoader from "dataloader";
 
@@ -92,6 +92,38 @@ const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
 const CandidatesTable_Query = graphql(/* GraphQL */ `
   query CandidatesTable_Query {
+    ...PoolCandidateFilterDialog
+    ...JobPlacementOptions
+    suspendedStatuses: localizedEnumStrings(
+      enumName: "CandidateSuspendedFilter"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    provinces: localizedEnumStrings(enumName: "ProvinceOrTerritory") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    priorities: localizedEnumStrings(enumName: "PriorityWeight") {
+      value
+      label {
+        en
+        fr
+      }
+    }
     skills {
       id
       key
@@ -125,14 +157,6 @@ const CandidatesTable_Query = graphql(/* GraphQL */ `
           en
           fr
         }
-      }
-    }
-    departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
       }
     }
   }
@@ -379,40 +403,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const PoolCandidatesTableStrings_Query = graphql(/* GraphQL */ `
-  query PoolCandidatesTableStrings {
-    suspendedStatuses: localizedEnumStrings(
-      enumName: "CandidateSuspendedFilter"
-    ) {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    languages: localizedEnumStrings(enumName: "Language") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    provinces: localizedEnumStrings(enumName: "ProvinceOrTerritory") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    priorities: localizedEnumStrings(enumName: "PriorityWeight") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-  }
-`);
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
 
 const defaultState = {
   ...INITIAL_STATE,
@@ -451,9 +445,6 @@ const PoolCandidatesTable = ({
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
-  const [{ data: stringData }] = useQuery({
-    query: PoolCandidatesTableStrings_Query,
-  });
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
   const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
   const [selectedCandidates, setSelectedCandidates] = useState<
@@ -602,13 +593,12 @@ const PoolCandidatesTable = ({
 
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
+    context,
   });
   const allSkills = unpackMaybes(tableData?.skills);
   const filteredSkillIds = filterState?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);
-
-  const departments = unpackMaybes(tableData?.departments);
 
   const isPoolCandidate = (
     candidate: Error | PoolCandidate | null,
@@ -769,7 +759,7 @@ const PoolCandidatesTable = ({
                   poolCandidate.user.citizenship?.value,
                 )
               : null,
-            stringData?.priorities,
+            tableData?.priorities,
             intl,
           ),
       },
@@ -801,7 +791,7 @@ const PoolCandidatesTable = ({
         }) =>
           jobPlacementDialogAccessor(
             poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
-            departments,
+            tableData,
           ),
         enableSorting: false,
       },
@@ -820,7 +810,7 @@ const PoolCandidatesTable = ({
       ({ poolCandidate }) =>
         candidacyStatusAccessor(
           poolCandidate.suspendedAt,
-          stringData?.suspendedStatuses,
+          tableData?.suspendedStatuses,
           intl,
         ),
       {
@@ -941,6 +931,7 @@ const PoolCandidatesTable = ({
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog
+            query={tableData}
             {...{ hidePoolFilter }}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolCandidateSearchInputToFormValues(
