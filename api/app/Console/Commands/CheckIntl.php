@@ -44,7 +44,6 @@ class CheckIntl extends Command
      * Matching strings
      *
      * Any string that is the same in both locales
-     * usually indicates
      */
     private $exactMatches = [];
 
