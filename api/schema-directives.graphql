@@ -1398,6 +1398,20 @@ directive @with(
   scopes: [String!]
 ) repeatable on FIELD_DEFINITION
 
+# Directive class: Nuwave\Lighthouse\Schema\Directives\WithoutGlobalScopesDirective
+"""
+Omit any number of global scopes from the query builder.
+
+This directive should be used on arguments of type `Boolean`.
+The scopes will be removed only if `true` is passed by the client.
+"""
+directive @withoutGlobalScopes(
+  """
+  The names of the global scopes to omit.
+  """
+  names: [String!]!
+) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Async\AsyncDirective
 """
 Defer the execution of mutations to [queued jobs](https://laravel.com/docs/queues).

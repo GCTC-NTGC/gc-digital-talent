@@ -1277,6 +1277,7 @@ class PoolTest extends TestCase
         $closed = Pool::factory()->closed()->create();
         $published = Pool::factory()->published()->create();
         $draft = Pool::factory()->create();
+        $archived = Pool::factory()->archived()->create();
 
         $query =
             /** @lang GraphQL */
@@ -1335,6 +1336,60 @@ class PoolTest extends TestCase
             ]);
 
         assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
+
+        $archivedRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::ARCHIVED->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $archived->id,
+                'status' => [
+                    'value' => PoolStatus::ARCHIVED->name,
+                ],
+            ]);
+
+        assertSame(1, count($archivedRes->json('data.poolsPaginated.data')));
+
+        // all but archived
+        $emptyRequestRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [],
+            ])
+            ->assertJsonFragment([
+                'id' => $closed->id,
+                'status' => [
+                    'value' => PoolStatus::CLOSED->name,
+                ],
+            ])
+            ->assertJsonFragment([
+                'id' => $published->id,
+                'status' => [
+                    'value' => PoolStatus::PUBLISHED->name,
+                ],
+            ])
+            ->assertJsonFragment([
+                'id' => $draft->id,
+                'status' => [
+                    'value' => PoolStatus::DRAFT->name,
+                ],
+            ]);
+
+        assertSame(3, count($emptyRequestRes->json('data.poolsPaginated.data')));
+
+        // no results returned
+        Pool::destroy($draft->id);
+        $noResultsRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::DRAFT->name],
+                ],
+            ]);
+
+        assertSame(0, count($noResultsRes->json('data.poolsPaginated.data')));
     }
 
     /**

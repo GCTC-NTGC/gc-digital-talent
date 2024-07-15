@@ -6,6 +6,9 @@ use App\Events\AssessmentResultSaved;
 use App\Events\CandidateStatusChanged;
 use App\Listeners\ComputeCandidateAssessmentStatus;
 use App\Listeners\ComputeCandidateFinalDecision;
+use App\Events\PoolPublished;
+use App\Listeners\ComputeFinalDecisionAndCurrentStep;
+use App\Listeners\SendNewJobPostedNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -21,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CandidateStatusChanged::class => [
             ComputeCandidateFinalDecision::class,
+        ],
+        PoolPublished::class => [
+            SendNewJobPostedNotification::class,
         ],
     ];
 

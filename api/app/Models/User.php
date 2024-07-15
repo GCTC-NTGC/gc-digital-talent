@@ -198,7 +198,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function preferredLocale(): string
     {
-        return $this->preferred_lang;
+        return $this?->preferred_lang ?? 'en';
     }
 
     public function pools(): HasMany
@@ -1209,16 +1209,19 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     /**
      * Determine if the user has verified their email address.
+     * Part of the MustVerifyEmail contract.
      *
      * @return bool
      */
     public function hasVerifiedEmail()
     {
+        // might be refined later, eg, must be verified within the last X months
         return ! is_null($this->email_verified_at);
     }
 
     /**
      * Mark the given user's email as verified.
+     * Part of the MustVerifyEmail contract.
      *
      * @return bool
      */
@@ -1229,6 +1232,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     /**
      * Send the email verification notification.
+     * Part of the MustVerifyEmail contract.
      *
      * @return void
      */
@@ -1240,11 +1244,20 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     /**
      * Get the email address that should be used for verification.
+     * Part of the MustVerifyEmail contract.
      *
      * @return string
      */
     public function getEmailForVerification()
     {
         return $this->email;
+    }
+
+    /**
+     * Is the email address currently considered verified?
+     */
+    public function getIsEmailVerifiedAttribute()
+    {
+        return $this->hasVerifiedEmail();
     }
 }
