@@ -176,12 +176,12 @@ class UserPolicy
      */
     protected function teamAbleToCheck(User $actor, string $roleId, string $teamId)
     {
-        $role = Role::findOrFail($roleId);
-        $team = Team::findOrFail($teamId);
-
         if ($actor->isAbleTo('assign-any-role') || $actor->isAbleTo('assign-any-teamRole')) {
             return true;
         }
+
+        $role = Role::findOrFail($roleId);
+        $team = Team::findOrFail($teamId);
 
         switch ($role->name) {
             case 'pool_operator':
