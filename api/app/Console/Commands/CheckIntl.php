@@ -23,7 +23,7 @@ class CheckIntl extends Command
      *
      * @var string
      */
-    protected $description = 'Verify enums are translated an nothing is missing';
+    protected $description = 'Verify enums are translated and nothing is missing';
 
     /**
      * The enums that are localized
@@ -99,7 +99,7 @@ class CheckIntl extends Command
             $enFileExists = $this->checkFileExists($fileName, 'en');
             $frFileExists = $this->checkFileExists($fileName, 'fr');
 
-            // No sense in chekcing strings if both files are missing
+            // No sense in checking strings if both files are missing.
             if ($enFileExists || $frFileExists) {
                 $this->checkStrings($enum);
             }
@@ -123,7 +123,7 @@ class CheckIntl extends Command
 
             if ($exactMatches) {
                 Storage::disk('local')->put('exactMatches.json', json_encode($this->exactMatches));
-                $this->error("Some strings are idential in both EN and FR:\r\n".$this->arrayToString($this->exactMatches));
+                $this->error("Some strings are identical in both EN and FR:\r\n".$this->arrayToString($this->exactMatches));
             }
 
             return Command::FAILURE;
@@ -149,8 +149,8 @@ class CheckIntl extends Command
     }
 
     /**
-     * Check that strgins exist and no
-     * exact macthes exist across locales
+     * Check that strings exist and no
+     * exact matches exist across locales
      *
      * @var HasLocalization
      */

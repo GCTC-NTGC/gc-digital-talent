@@ -32,7 +32,7 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
 
-        // Discover all enums in the App\Enum namepsace to register them with GraphQL
+        // Discover all enums in the App\Enum namespace to register them with GraphQL
         $enums = EnumDiscoverer::discoverEnums();
 
         /** @var \UnitEnum $enum */
