@@ -121,7 +121,7 @@ class CheckIntl extends Command
             'fr' => $hasFrFile ? Lang::get(key: $fileName, locale: 'fr') : [],
         ];
 
-        $exisingKeys = [
+        $existingKeys = [
             'en' => array_keys($existing['en']),
             'fr' => array_keys($existing['fr']),
         ];
@@ -142,7 +142,7 @@ class CheckIntl extends Command
                 }
 
                 // Key exists in one locale but not the other
-                if (! in_array($key, $exisingKeys[$oppositeLocale])) {
+                if (! in_array($key, $existingKeys[$oppositeLocale])) {
                     $this->errors['orphan_strings'][$locale][$fileName][] = $key;
                 }
 
