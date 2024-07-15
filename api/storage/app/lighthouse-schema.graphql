@@ -573,7 +573,7 @@ type ScreeningQuestion {
 
 interface HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
-  teamId: ID
+  throughTeamableTeamId: ID
 }
 
 type Pool implements HasRoleAssignments {
@@ -613,7 +613,7 @@ type Pool implements HasRoleAssignments {
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
   roleAssignments: [RoleAssignment!]
-  teamId: ID
+  throughTeamableTeamId: ID
   department: Department
 }
 
@@ -743,7 +743,7 @@ type Community implements HasRoleAssignments {
   name: LocalizedString
   description: LocalizedString
   roleAssignments: [RoleAssignment!]
-  teamId: ID
+  throughTeamableTeamId: ID
 }
 
 type Team implements HasRoleAssignments {
@@ -756,7 +756,7 @@ type Team implements HasRoleAssignments {
   pools: [Pool]
   teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
-  teamId: ID
+  throughTeamableTeamId: ID
 }
 
 type Role {

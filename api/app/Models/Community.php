@@ -111,7 +111,7 @@ class Community extends Model
     }
 
     /* accessor to retrieve id from teams table */
-    public function getTeamIdAttribute()
+    public function getThroughTeamableTeamIdAttribute()
     {
         return $this->team?->id;
     }
