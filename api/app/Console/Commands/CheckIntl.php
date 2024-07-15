@@ -31,21 +31,9 @@ class CheckIntl extends Command
     private $localizedEnums;
 
     /**
-     * Missing translation files
+     * Errors found
      */
-    private $missingFiles = ['en' => [], 'fr' => []];
-
-    /**
-     * Missing strings
-     */
-    private $missingStrings = ['en' => [], 'fr' => []];
-
-    /**
-     * Matching strings
-     *
-     * Any string that is the same in both locales
-     */
-    private $exactMatches = [];
+    private $errors = [];
 
     /**
      * Allowed missing strings
@@ -56,8 +44,8 @@ class CheckIntl extends Command
      * to have an associated string
      */
     private $knownMissing = [
-        'assessment_result_justification.skill_accepted',
-        'indigenous_community.legacy_is_indigenous',
+        'skill_accepted',
+        'legacy_is_indigenous',
     ];
 
     /**
@@ -69,20 +57,20 @@ class CheckIntl extends Command
      * both locales, so we can safely ignore them
      */
     private $allowedMatch = [
-        'awarded_scope.international',
-        'awarded_scope.national',
-        'awarded_scope.provincial',
-        'awarded_scope.local',
-        'education_type.certification',
-        'indigenous_community.inuit',
-        'indigenous_community.metis',
-        'province_or_territory.alberta',
-        'province_or_territory.manitoba',
-        'province_or_territory.nunavut',
-        'province_or_territory.ontario',
-        'province_or_territory.saskatchewan',
-        'province_or_territory.yukon',
-        'skill_level.lead',
+        'international',
+        'national',
+        'provincial',
+        'local',
+        'certification',
+        'inuit',
+        'metis',
+        'alberta',
+        'manitoba',
+        'nunavut',
+        'ontario',
+        'saskatchewan',
+        'yukon',
+        'lead',
     ];
 
     /**
@@ -102,28 +90,13 @@ class CheckIntl extends Command
             if ($enFileExists || $frFileExists) {
                 $this->checkStrings($enum);
             }
-
         }
 
-        $missingFiles = ! empty(Arr::flatten($this->missingFiles));
-        $missingStrings = ! empty(Arr::flatten($this->missingStrings));
-        $exactMatches = ! empty($this->exactMatches);
+        $hasErrors = ! empty(Arr::flatten($this->errors));
 
-        if ($missingFiles || $missingStrings || $exactMatches) {
-            if ($missingFiles) {
-                Storage::disk('local')->put('missingFiles.json', json_encode($this->missingFiles));
-                $this->error("Missing files:\r\n\r\n".$this->localeArrayToString($this->missingFiles));
-            }
-
-            if ($missingStrings) {
-                Storage::disk('local')->put('missingStrings.json', json_encode($this->missingStrings));
-                $this->error("Missing strings:\r\n\r\n".$this->localeArrayToString($this->missingStrings));
-            }
-
-            if ($exactMatches) {
-                Storage::disk('local')->put('exactMatches.json', json_encode($this->exactMatches));
-                $this->error("Some strings are identical in both EN and FR:\r\n".$this->arrayToString($this->exactMatches));
-            }
+        if ($hasErrors) {
+            Storage::disk('local')->put('intlErrors.json', json_encode($this->errors));
+            $this->error("Errors found:\r\n\r\n".json_encode($this->errors, JSON_PRETTY_PRINT));
 
             return Command::FAILURE;
         }
@@ -139,7 +112,7 @@ class CheckIntl extends Command
     private function checkFileExists(string $fileName, string $locale)
     {
         if (! file_exists(lang_path($locale.'/'.$fileName))) {
-            $this->missingFiles[$locale][] = $fileName;
+            $this->errors['missing_files'][$locale][] = $fileName;
 
             return false;
         }
@@ -155,56 +128,75 @@ class CheckIntl extends Command
      */
     private function checkStrings($enum)
     {
+
+        $fileName = $enum::getLangFilename();
+
         $keys = Arr::map(array_column($enum::cases(), 'name'), function ($case) {
             return strtolower($case);
         });
 
-        foreach ($keys as $key) {
-            $langKey = $enum::getLangKey($key);
+        $existing = [
+            'en' => Lang::get(key: $fileName, locale: 'en'),
+            'fr' => Lang::get(key: $fileName, locale: 'fr'),
+        ];
 
-            if (! in_array($langKey, $this->knownMissing)) {
-                $hasEn = Lang::hasForLocale($langKey, 'en');
-                $hasFr = Lang::hasForLocale($langKey, 'fr');
+        $exisingKeys = [
+            'en' => array_keys($existing['en']),
+            'fr' => array_keys($existing['fr']),
+        ];
 
-                if ($hasEn && $hasFr && ! in_array($langKey, $this->allowedMatch)) {
-                    if (Lang::get($langKey, [], 'en') === Lang::get($langKey, [], 'fr')) {
-                        $this->exactMatches[] = $langKey;
-                    }
+        $foundKeys = ['en' => [], 'fr' => []];
+
+        foreach ($existing as $locale => $values) {
+            // Confirm values are not empty
+            foreach ($values as $key => $value) {
+                $oppositeLocale = $this->oppositeLocale($locale);
+                $keyIsInt = filter_var($key, FILTER_VALIDATE_INT) !== false;
+                // If a key is an int it means it was input incorrectly and the value is the expected key (probably)
+                $key = $keyIsInt ? $value : $key;
+
+                // Key is an int so not likely to have a proper $key => $value
+                if ($keyIsInt || ! $value) {
+                    $this->errors['empty_strings'][$locale][$fileName][] = $key;
+                }
+
+                // Key exists in one locale but not the other
+                if (! in_array($key, $exisingKeys[$oppositeLocale])) {
+                    $this->errors['orphan_strings'][$locale][$fileName][] = $key;
+                }
+
+                // Key does not match an Enum case
+                if (! in_array($key, $keys)) {
+                    $this->errors['extra_strings'][$locale][$fileName][] = $key;
                 } else {
-                    if (! $hasEn) {
-                        $this->missingStrings['en'][] = $langKey;
-                    }
-
-                    if (! $hasFr) {
-                        $this->missingStrings['fr'][] = $langKey;
-                    }
+                    // Mark this key as found to diff it for missing keys later
+                    $foundKeys[$locale][] = $key;
                 }
             }
-
         }
+
+        // Find exact matches of strings across locales
+        $intersectLocales = array_filter(array_keys(array_intersect_assoc($existing['en'], $existing['fr'])), function ($item) {
+            return ! in_array($item, $this->allowedMatch);
+        });
+        if (! empty($intersectLocales)) {
+            $this->errors['matching_strings'][$fileName] = $intersectLocales;
+        }
+
+        // Find enum keys that do not exist in lang files
+        foreach ($foundKeys as $locale => $found) {
+            $missing = array_filter(Arr::flatten(array_diff($found, $keys)), function ($item) {
+                return ! in_array($item, $this->knownMissing);
+            });
+            if (! empty($missing)) {
+                $this->errors['missing_strings'][$locale][$fileName] = $missing;
+            }
+        }
+
     }
 
-    private function localeArrayToString(array $arr)
+    private function oppositeLocale(string $locale): string
     {
-        $string = '';
-        if (isset($arr['en']) && ! empty($arr['en'])) {
-            $string .= "English:\r\n".$this->arrayToString($arr['en'])."\r\n";
-        }
-
-        if (isset($arr['fr']) && ! empty($arr['fr'])) {
-            $string .= "French:\r\n".$this->arrayToString($arr['fr'])."\r\n";
-        }
-
-        return $string;
-    }
-
-    /**
-     * Create a string list from array
-     */
-    private function arrayToString(array $arr)
-    {
-        return implode("\r\n", Arr::map($arr, function ($value) {
-            return "\t- $value";
-        }));
+        return $locale === 'en' ? 'fr' : 'en';
     }
 }

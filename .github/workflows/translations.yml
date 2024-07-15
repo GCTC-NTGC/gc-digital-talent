@@ -113,40 +113,15 @@ jobs:
             exit 0;
           fi
 
-      - name: "Verify all files: api"
+      - name: "Verify: api"
         if: always()
         working-directory: api/storage/app
         run: >
-          if test -f "missingFiles.json"; then
+          if test -f "intlErrors.json"; then
             echo ":x: API has missing files" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
             echo ":heavy_check_mark: All API files exist" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 0;
-          fi
-
-
-      - name: "Verify all strings: api"
-        if: always()
-        working-directory: api/storage/app
-        run: >
-          if test -f "missingStrings.json"; then
-            echo ":x: API has missing strings" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 1;
-          else
-            echo ":heavy_check_mark: All API enums have strings" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 0;
-          fi
-
-      - name: "Verify no matching strings: api"
-        if: always()
-        working-directory: api/storage/app
-        run: >
-          if test -f "exactMatches.json"; then
-            echo ":x: API has matching strings" | tee -a $GITHUB_STEP_SUMMARY;
-            exit 1;
-          else
-            echo ":heavy_check_mark: No matching strings in API" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
@@ -159,7 +134,5 @@ jobs:
             apps/**/lang/untranslated.json
             packages/**/lang/untranslated.json
             !packages/node_modules/**
-            api/**/missingFiles.json
-            api/**/missingStrings.json
-            api/**/exactMatches.json
+            api/**/intlErrors.json
           if-no-files-found: ignore
