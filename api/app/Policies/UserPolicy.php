@@ -195,9 +195,9 @@ class UserPolicy
                     || $actor->isAbleTo('update-team-processOperatorMembership', $team);
                 // || $actor->isAbleTo('update-team-processOperatorMembership', $community->team)
             case 'community_recruiter':
-                return $actor->isAbleTo('update-any-communityRecruiterMembership ') || $actor->isAbleTo('update-team-communityRecruiterMembership ', $team);
+                return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
-                return $actor->isAbleTo('update-any-communityAdminMembership ') || $actor->isAbleTo('update-team-communityAdminMembership ', $team);
+                return $actor->isAbleTo('update-any-communityAdminMembership') || $actor->isAbleTo('update-team-communityAdminMembership', $team);
         }
 
         return false; // reject unknown roles
