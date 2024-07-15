@@ -109,4 +109,10 @@ class Community extends Model
             $user->addRole('community_admin', $team->name);
         }
     }
+
+    /* accessor to retrieve id from teams table */
+    public function getTeamIdAttribute()
+    {
+        return $this->team->id;
+    }
 }

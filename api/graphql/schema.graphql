@@ -280,6 +280,7 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
+  teamId: ID
   department: Department @belongsTo @canQuery(ability: "view")
 }
 
@@ -454,6 +455,7 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
+  teamId: ID
 }
 
 type Team implements HasRoleAssignments {
@@ -468,6 +470,7 @@ type Team implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canRoot(ability: "viewTeamMembers")
+  teamId: ID @rename(attribute: "id")
 }
 
 type Role {
