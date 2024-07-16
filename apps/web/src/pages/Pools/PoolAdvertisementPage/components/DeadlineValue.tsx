@@ -36,8 +36,8 @@ const DeadlineValue = ({
 
   if (closingReason) {
     return intl.formatMessage({
-      defaultMessage: "This advertisement has closed early.",
-      id: "TgQ/J/",
+      defaultMessage: "<red>This advertisement has closed early.</red>",
+      id: "6qu9EB",
       description: "Message on advertisement poster that it was closed early.",
     });
   }
