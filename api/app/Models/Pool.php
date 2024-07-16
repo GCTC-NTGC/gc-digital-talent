@@ -372,7 +372,7 @@ class Pool extends Model
     }
 
     /* accessor to retrieve id from teams table */
-    public function getThroughTeamableTeamIdAttribute()
+    public function getTeamIdForRoleAssignmentAttribute()
     {
         return $this->team?->id;
     }

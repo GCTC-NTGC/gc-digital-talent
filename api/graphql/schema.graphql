@@ -223,7 +223,7 @@ type ScreeningQuestion {
 
 interface HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
-  throughTeamableTeamId: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
+  teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
@@ -280,7 +280,7 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  throughTeamableTeamId: ID
+  teamIdForRoleAssignment: ID
   department: Department @belongsTo @canQuery(ability: "view")
 }
 
@@ -455,7 +455,7 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  throughTeamableTeamId: ID
+  teamIdForRoleAssignment: ID
 }
 
 type Team implements HasRoleAssignments {
@@ -470,7 +470,7 @@ type Team implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canRoot(ability: "viewTeamMembers")
-  throughTeamableTeamId: ID @rename(attribute: "id")
+  teamIdForRoleAssignment: ID @rename(attribute: "id")
 }
 
 type Role {
