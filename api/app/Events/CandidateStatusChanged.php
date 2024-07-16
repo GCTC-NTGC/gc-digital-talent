@@ -13,8 +13,5 @@ class CandidateStatusChanged
     /**
      * Create a new event instance.
      */
-    public function __construct(public PoolCandidate $result)
-    {
-        //
-    }
+    public function __construct(public PoolCandidate $result) {}
 }
