@@ -116,6 +116,12 @@ const errorMessages = defineMessages({
     id: "Gv3lBS",
     description: "Message for Unauthorized or Request Rejected server response",
   },
+  downloadRequestFailed: {
+    defaultMessage:
+      "There was a problem downloading your file.  If you continue to receive this error, please get in touch with our support team.",
+    id: "qNERoQ",
+    description: "Message for when the download request failed",
+  },
 });
 
 export default errorMessages;

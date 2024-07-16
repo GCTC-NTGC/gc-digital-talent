@@ -199,6 +199,15 @@ type SystemNotification implements Notification {
   href: LocalizedString
 }
 
+type UserFileGeneratedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  fileName: String
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
@@ -2203,6 +2212,9 @@ type Mutation {
   updateSitewideAnnouncement(
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
+
+  # File downloads
+  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
 }
 
 #import directiveForms.graphql

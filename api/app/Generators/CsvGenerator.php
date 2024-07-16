@@ -2,7 +2,7 @@
 
 namespace App\Generators;
 
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 
@@ -15,20 +15,22 @@ abstract class CsvGenerator extends FileGenerator
         $this->spreadsheet = new Spreadsheet();
     }
 
-    public function write(string $fileName)
+    public function write(string $fileName, ?string $dir)
     {
-        /** @var \Illuminate\Filesystem\FilesystemManager */
-        $disk = Storage::disk('user_generated');
+        $path = $this->getPath($fileName, $dir);
 
-        $path = $disk->path($fileName);
+        try {
 
-        $writer = new Csv($this->spreadsheet);
-        $writer->setDelimiter(',');
-        $writer->setEnclosure('"');
-        $writer->setLineEnding("\r\n");
-        $writer->setSheetIndex(0);
+            $writer = new Csv($this->spreadsheet);
+            $writer->setDelimiter(',');
+            $writer->setEnclosure('"');
+            $writer->setLineEnding("\r\n");
+            $writer->setSheetIndex(0);
+            $writer->save($path);
 
-        return $writer->save($path);
+        } catch (\Exception $e) {
+            Log::error('Error saving csv: '.$fileName.' '.$e->getMessage());
+        }
     }
 
     public function sanitizeString(string $string): string

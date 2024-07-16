@@ -70,6 +70,7 @@ class CandidateProfileCsv extends CsvGenerator
     {
         $candidates = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
+            'educationRequirementExperiences',
             'user' => [
                 'department',
                 'currentClassification',
@@ -208,6 +209,8 @@ class CandidateProfileCsv extends CsvGenerator
             // 2 is added to the key to account for the header row and 0 index
             $sheet->fromArray($values, null, 'A'.$key + 2);
         });
+
+        return $this;
 
     }
 }
