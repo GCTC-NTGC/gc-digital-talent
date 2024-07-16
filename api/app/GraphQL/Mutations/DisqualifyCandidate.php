@@ -20,11 +20,12 @@ final class DisqualifyCandidate
 
         $candidate->pool_candidate_status = $reason;
         $candidate->final_decision_at = $now;
-        $candidate->save();
 
         $finalDecision = $candidate->computeFinalDecision();
         $candidate->computed_final_decision = $finalDecision['decision'];
         $candidate->computed_final_decision_weight = $finalDecision['weight'];
+
+        $candidate->save();
 
         return $candidate;
     }
