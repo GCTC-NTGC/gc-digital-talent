@@ -33,7 +33,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import {
   graphql,
@@ -72,6 +72,8 @@ import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
 import SkillLevelDialog from "./components/SkillLevelDialog";
 import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
+import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
+import DeadlineValue from "./components/DeadlineValue";
 
 type SectionContent = {
   id: string;
@@ -122,6 +124,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       }
     }
     closingDate
+    closingReason
     status {
       value
       label {
@@ -465,6 +468,21 @@ export const PoolPoster = ({
 
   const classificationGroup = pool.classification?.group;
 
+  const deadlineDialogReturn = (
+    closingDate: string | null | undefined,
+    closingReason: string | null | undefined,
+  ): ReactNode | null => {
+    if (closingDate && !closingReason) {
+      return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;
+    }
+
+    if (closingReason) {
+      return <ClosedEarlyDeadlineDialog />;
+    }
+
+    return null;
+  };
+
   return (
     <>
       <SEO title={poolTitle} description={formattedSubTitle} />
@@ -696,32 +714,15 @@ export const PoolPoster = ({
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={
-                    pool.closingDate
-                      ? intl.formatMessage(
-                          {
-                            defaultMessage: "Apply on or before {closingDate}",
-                            id: "LjYzkS",
-                            description:
-                              "Message to apply to the pool before deadline",
-                          },
-                          {
-                            closingDate: formatDate({
-                              date: parseDateTimeUtc(pool.closingDate),
-                              formatString: "PPP",
-                              intl,
-                              timeZone: "Canada/Pacific",
-                            }),
-                          },
-                        )
-                      : notAvailable
+                    <DeadlineValue
+                      closingDate={pool.closingDate}
+                      closingReason={pool.closingReason}
+                    />
                   }
-                  suffix={
-                    pool.closingDate ? (
-                      <DeadlineDialog
-                        deadline={parseDateTimeUtc(pool.closingDate)}
-                      />
-                    ) : null
-                  }
+                  suffix={deadlineDialogReturn(
+                    pool.closingDate,
+                    pool.closingReason,
+                  )}
                 />
                 <DataRow
                   label={
