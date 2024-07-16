@@ -22,9 +22,9 @@ final class DisqualifyCandidate
         $candidate->final_decision_at = $now;
         $candidate->save();
 
-        $finalDecicion = $candidate->computeFinalDecision();
-        $candidate->computed_final_decision = $finalDecicion['decision'];
-        $candidate->computed_final_decision_weight = $finalDecicion['weight'];
+        $finalDecision = $candidate->computeFinalDecision();
+        $candidate->computed_final_decision = $finalDecision['decision'];
+        $candidate->computed_final_decision_weight = $finalDecision['weight'];
 
         return $candidate;
     }

@@ -60,9 +60,9 @@ final class RemoveCandidate
                 break;
         }
 
-        $finalDecicion = $candidate->computeFinalDecision();
-        $candidate->computed_final_decision = $finalDecicion['decision'];
-        $candidate->computed_final_decision_weight = $finalDecicion['weight'];
+        $finalDecision = $candidate->computeFinalDecision();
+        $candidate->computed_final_decision = $finalDecision['decision'];
+        $candidate->computed_final_decision_weight = $finalDecision['weight'];
 
         $candidate->save();
 
