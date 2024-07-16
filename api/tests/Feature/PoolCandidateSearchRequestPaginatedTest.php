@@ -371,7 +371,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             'full_name' => 'John Test',
         ]);
         PoolCandidateSearchRequest::factory()->count(1)->create([
-            'full_name' => 'Admin Test',
+            'full_name' => 'Dale Monroe',
         ]);
 
         // fullName null returns 4 results

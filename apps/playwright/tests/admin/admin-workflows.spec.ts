@@ -85,7 +85,7 @@ test.describe("Admin workflows", () => {
 
     const downloadPromise = appPage.page.waitForEvent("download");
     await appPage.page
-      .getByRole("button", { name: /select applicant/i })
+      .getByRole("button", { name: /select gul fields/i })
       .click();
     await appPage.page.getByRole("button", { name: /download csv/i }).click();
     const download = await downloadPromise;
