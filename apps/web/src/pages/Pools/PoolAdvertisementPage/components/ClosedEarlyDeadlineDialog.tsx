@@ -39,8 +39,8 @@ const ClosedEarlyDeadlineDialog = () => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  'In some rare cases, you  might be notified about a job opportunity that then indicates that is has "closed early". This happens when the job advertisement is published with incorrect information or there is a human resources requirement that needs to be changed. In order to maintain fairness, these opportunities are closed so that the updates can be performed and published as a new advertisement.',
-                id: "YGNTi6",
+                  'In some rare cases, you might be notified about a job opportunity that then indicates that is has "closed early". This happens when the job advertisement is published with incorrect information or there is a human resources requirement that needs to be changed. In order to maintain fairness, these opportunities are closed so that the updates can be performed and published as a new advertisement.',
+                id: "Wn6Awr",
                 description:
                   "First paragraph for the closed early pool deadlines dialog",
               })}
