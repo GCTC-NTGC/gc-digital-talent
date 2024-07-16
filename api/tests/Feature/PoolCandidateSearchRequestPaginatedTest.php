@@ -385,7 +385,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'fullName' => 'DmIn',
+                        'fullName' => 'onRoe',
                     ],
                 ]
             )
