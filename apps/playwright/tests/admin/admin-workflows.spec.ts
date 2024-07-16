@@ -24,9 +24,7 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    await appPage.page
-      .getByRole("link", { name: /view applicant test/i })
-      .click();
+    await appPage.page.getByRole("link", { name: /view gul fields/i }).click();
     await appPage.waitForGraphqlResponse("GetViewUserData");
 
     await expect(
@@ -45,7 +43,7 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    await appPage.page.getByRole("link", { name: /edit applicant/i }).click();
+    await appPage.page.getByRole("link", { name: /edit gul fields/i }).click();
     await appPage.waitForGraphqlResponse("UpdateUserData");
     await appPage.waitForGraphqlResponse("UpdateUserOptions");
 
