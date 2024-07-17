@@ -59,7 +59,6 @@ export const CreateAccount_QueryFragment = graphql(/** GraphQL */ `
   fragment CreateAccount_QueryFragment on Query {
     departments {
       id
-      departmentNumber
       name {
         en
         fr
@@ -73,8 +72,6 @@ export const CreateAccount_QueryFragment = graphql(/** GraphQL */ `
       }
       group
       level
-      minSalary
-      maxSalary
     }
     languages: localizedEnumStrings(enumName: "Language") {
       value
