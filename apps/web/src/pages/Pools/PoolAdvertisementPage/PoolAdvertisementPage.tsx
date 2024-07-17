@@ -109,6 +109,21 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
+const deadlineDialogReturn = (
+  closingDate: string | null | undefined,
+  closingReason: string | null | undefined,
+): ReactNode | null => {
+  if (closingDate && !closingReason) {
+    return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;
+  }
+
+  if (closingReason) {
+    return <ClosedEarlyDeadlineDialog />;
+  }
+
+  return null;
+};
+
 export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
   fragment PoolAdvertisement on Pool {
     id
@@ -467,21 +482,6 @@ export const PoolPoster = ({
   };
 
   const classificationGroup = pool.classification?.group;
-
-  const deadlineDialogReturn = (
-    closingDate: string | null | undefined,
-    closingReason: string | null | undefined,
-  ): ReactNode | null => {
-    if (closingDate && !closingReason) {
-      return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;
-    }
-
-    if (closingReason) {
-      return <ClosedEarlyDeadlineDialog />;
-    }
-
-    return null;
-  };
 
   return (
     <>
