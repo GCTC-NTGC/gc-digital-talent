@@ -21,7 +21,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import useNotificationInfo from "~/hooks/useNotificationInfo";
-import asyncDownload from "~/utils/download";
+import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import {
   MarkNotificationAsRead_Mutation,
@@ -136,6 +136,11 @@ const NotificationItem = ({
   );
   const [{ fetching: markingAsUnread }, executeMarkAsUnreadMutation] =
     useMutation(MarkNotificationAsUnread_Mutation);
+  const [{ fetching: downloadingFile }, executeFileDownload] =
+    useAsyncFileDownload({
+      url: info?.href ?? "",
+      fileName: info?.download ?? "",
+    });
 
   useEffect(() => {
     if (focusRef) focusRef.current?.focus();
@@ -164,19 +169,21 @@ const NotificationItem = ({
         if (!info.download || !info.external) {
           navigate(info.href);
         } else if (info.download) {
-          asyncDownload(info.href, info.download, () => {
-            toast.error(
-              intl.formatMessage(
-                {
-                  defaultMessage:
-                    "There was a problem on our end. {fileName} failed to download. If you continue to receive this error, please get in touch with our support team",
-                  id: "KiMQQd",
-                  description: "Error message when a file download fails",
-                },
-                { fileName: info.download },
-              ),
-            );
-          });
+          if (!downloadingFile) {
+            executeFileDownload().catch(() => {
+              toast.error(
+                intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "There was a problem on our end. {fileName} failed to download. If you continue to receive this error, please get in touch with our support team",
+                    id: "KiMQQd",
+                    description: "Error message when a file download fails",
+                  },
+                  { fileName: info.download },
+                ),
+              );
+            });
+          }
         }
       }
       return false;
@@ -252,6 +259,11 @@ const NotificationItem = ({
                 data-h2-text-decoration="base(none)"
                 data-h2-color="base:hover(secondary.darker)"
                 data-h2-outline="base(none)"
+                {...((downloadingFile || markingAsRead) && {
+                  "data-h2-opacity": "base(0.6)",
+                  "data-h2-pointer-events": "base(none)",
+                  "aria-disabled": true,
+                })}
                 {...(isUnread && {
                   "data-h2-font-weight": "base(700)",
                 })}
