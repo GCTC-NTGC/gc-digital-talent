@@ -3,10 +3,13 @@
 namespace App\Generators;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 
 abstract class FileGenerator
 {
+    protected string $lang;
+
     abstract public function generate();
 
     abstract public function write(string $fileName, ?string $dir);
@@ -16,9 +19,43 @@ abstract class FileGenerator
         return ucwords(strtolower(str_replace('_', ' ', $enum)));
     }
 
+    /**
+     *  Localize an enum value
+     *
+     * @param string String value of the enum
+     * @param  class-string{\App\Traits\HasLocalization}  $enum  The enum class
+     *
+     * */
+    protected function localizeEnum(?string $value, string $enum): string
+    {
+        if (! class_exists($enum) || is_null($value)) {
+            return '';
+        }
+
+        /** @var \App\Traits\HasLocalization $enum */
+        return $enum::localizedString($value)[$this->lang] ?? '';
+    }
+
+    /**
+     * Localize an array of enum values
+     *
+     * @param   array{string}   Array of the enum values are strins
+     * @param class-string{\App\Traits\HasLocation} $enum The enum class being localized
+     */
+    protected function localizeEnumArray(array $values, string $enum): string
+    {
+        if (empty($values)) {
+            return '';
+        }
+
+        return implode(', ', array_map(function ($value) use ($enum) {
+            return $this->localizeEnum($value, $enum);
+        }, $values));
+    }
+
     public function yesOrNo(bool $value): string
     {
-        return $value ? 'Yes' : 'No';
+        return $value ? Lang::get('common.yes', [], $this->lang) : Lang::get('common.no', [], $this->lang);
     }
 
     public function getPath(string $fileName, ?string $dir, ?string $disk = 'userGenerated')

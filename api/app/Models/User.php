@@ -56,7 +56,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $first_official_language
  * @property bool $second_language_exam_completed
  * @property bool $second_language_exam_validity
- * @property string $comprehension_level
+ * @propertystring $comprehension_level
  * @property string $written_level
  * @property string $verbal_level
  * @property string $estimated_language_ability

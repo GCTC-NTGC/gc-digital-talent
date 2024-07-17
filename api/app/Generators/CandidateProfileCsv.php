@@ -2,64 +2,85 @@
 
 namespace App\Generators;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\CitizenshipStatus;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\GovEmployeeType;
+use App\Enums\IndigenousCommunity;
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolSkillType;
 use App\Enums\PositionDuration;
+use App\Enums\PriorityWeight;
+use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use Illuminate\Support\Facades\Lang;
 
 class CandidateProfileCsv extends CsvGenerator
 {
     protected array $ids;
 
-    protected string $lang = 'en';
+    protected string $userId;
 
-    protected array $headers = [
-        'Status',
-        'Category',
-        'Availability',
-        'Notes',
-        'Current province',
-        'Date received',
-        'Expiry date',
-        'Archival date',
-        'First name',
-        'Last name',
-        'Email',
-        'Preferred communication language',
-        'Preferred spoken interview language',
-        'Preferred written exam language',
-        'Current city',
-        'Armed forces status',
-        'Citizenship',
-        'Bilingual evaluation',
-        'Reading level',
-        'Writing level',
-        'Oral interaction level',
-        'Estimated language ability',
-        'Government employee',
-        'Department',
-        'Employee type',
-        'Current classification',
-        'Priority entitlement',
-        'Priority number',
-        'Location preferences',
-        'Location exemptions',
-        'Accept temporary',
-        'Accepted operational requirements',
-        'Woman',
-        'Indigenous',
-        'Visible minority',
-        'Disability',
-        'Education requirement',
-        'Education requirement experiences',
+    protected string $lang;
+
+    protected array $generatedHeaders = [];
+
+    protected array $headerlocaleKeys = [
+        'status',
+        'category',
+        'availability',
+        'notes',
+        'current_province',
+        'date_received',
+        'expiry_date',
+        'archival_date',
+        'first_name',
+        'last_name',
+        'email',
+        'preferred_communication_language',
+        'preferred_spoken_interview_language',
+        'preferred_written_exam_language',
+        'current_city',
+        'armed_forces_status',
+        'citizenship',
+        'first_official_language',
+        'second_language_exam_completed',
+        'second_language_exam_validity',
+        'comprehension_level',
+        'writing_level',
+        'oral_interaction_level',
+        'estimated_language_ability',
+        'government_employee',
+        'department',
+        'employee_type',
+        'current_classification',
+        'priority_entitlement',
+        'priority_number',
+        'location_preferences',
+        'location_exemptions',
+        'accept_temporary',
+        'accepted_operational_requirements',
+        'woman',
+        'indigenous',
+        'visible_minority',
+        'disability',
+        'education_requirement',
+        'education_requirement_experiences',
     ];
 
     protected array $questionIds = [];
 
     protected array $skillIds = [];
 
-    public function __construct(array $ids, ?string $lang = 'en')
+    public function __construct(array $ids, string $userId, ?string $lang = 'en')
     {
         $this->ids = $ids;
+        $this->userId = $userId;
         $this->lang = $lang;
 
         parent::__construct();
@@ -68,11 +89,16 @@ class CandidateProfileCsv extends CsvGenerator
     public function generate()
     {
 
+        $sheet = $this->spreadsheet->getActiveSheet();
+        $localizedHeaders = array_map(function ($key) {
+            return Lang::get('headings.'.$key, [], $this->lang);
+        }, $this->headerlocaleKeys);
         $this->generatePoolHeaders();
 
-        $sheet = $this->spreadsheet->getActiveSheet();
-
-        $sheet->fromArray($this->headers, null, 'A1');
+        $sheet->fromArray([
+            ...$localizedHeaders,
+            ...$this->generatedHeaders,
+        ], null, 'A1');
         $currentCandidate = 1;
 
         PoolCandidate::with([
@@ -89,7 +115,9 @@ class CandidateProfileCsv extends CsvGenerator
                 'workExperiences' => ['userSkills' => ['skill']],
             ],
         ])
-            ->whereIn('id', $this->ids)->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
+            ->whereIn('id', $this->ids)
+            ->authorizedToView(['userId' => $this->userId])
+            ->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
                 foreach ($candidates as $candidate) {
 
                     $department = $candidate->user->department()->first();
@@ -97,46 +125,43 @@ class CandidateProfileCsv extends CsvGenerator
                     $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
                         return $experience->getTitle();
                     })->flatten()->unique()->toArray();
-                    $locationPreferences = '';
-                    if ($candidate->user->location_preferences) {
-                        $locationPreferences = implode(', ', $candidate->user->location_preferences);
-                    }
 
                     $values = [
-                        $this->sanitizeEnum($candidate->pool_candidate_status), // Status
-                        $candidate->user->getPriority(), // Category
+                        $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
+                        $this->localizeEnum($candidate->user->priority, PriorityWeight::class),
                         '', // Availability
                         $this->sanitizeString($candidate->notes ?? ''), // Notes
-                        $this->sanitizeEnum($candidate->user->current_province), // Current province
+                        $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
                         $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
                         $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
                         $candidate->archived_at ? $candidate->archival_at->format('Y-m-d') : '', // Archival date
                         $candidate->user->first_name, // First name
                         $candidate->user->last_name, // Last name
                         $candidate->user->email, // Email
-                        $candidate->user->getLanguage('preferred_lang'), // Preferred communication language
-                        $candidate->user->getLanguage('preferred_language_for_interview'), // Preferred spoken interview language
-                        $candidate->user->getLanguage('preferred_language_for_exam'), // Preferred written exam language
+                        $this->localizeEnum($candidate->user->preferred_lang, Language::class),
+                        $this->localizeEnum($candidate->user->preferred_language_for_interview, Language::class),
+                        $this->localizeEnum($candidate->user->preferred_language_for_exam, Language::class),
                         $candidate->user->current_city, // Current city
-                        $candidate->user->getArmedForcesStatus(), // Armed forces status
-                        $candidate->user->getCitizenship(), // Citizenship
+                        $this->localizeEnum($candidate->user->armed_forces_status, ArmedForcesStatus::class),
+                        $this->localizeEnum($candidate->user->citizenship, CitizenshipStatus::class),
                         is_null($candidate->user->second_language_exam_completed) ? '' : $this->yesOrNo($candidate->user->second_language_exam_completed), // Bilingual evaluation
+                        $this->localizeEnum($candidate->user->second_language_exam_validity, EvaluatedLanguageAbility::class),
                         $candidate->user->comprehension_level, // Reading level
                         $candidate->user->written_level, // Writing level
                         $candidate->user->verbal_level, // Oral interaction level
-                        $this->sanitizeEnum($candidate->user->estimated_language_ability ?? ''), // Estimated language ability
+                        $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class),
                         $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
                         $department->name[$this->lang] ?? '', // Department
-                        $candidate->user->getGovEmployeeType(), // Employee type
+                        $this->localizeEnum($candidate->user->gov_employee_type, GovEmployeeType::class),
                         $candidate->user->getClassification(), // Current classification
                         $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement
                         $candidate->user->priority_number ?? '', // Priority number
-                        $locationPreferences ? $this->sanitizeEnum($locationPreferences) : '', // Location preferences
+                        $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
                         $candidate->user->location_exemptions, // Location exemptions
                         $candidate->user->position_duration ? $this->yesOrNo(in_array(PositionDuration::TEMPORARY->name, $candidate->user->position_duration)) : '', // Accept temporary
-                        $this->sanitizeEnum(implode(', ', $preferences['accepted'] ?? []) ?? ''), // Accepted operational requirements
+                        $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                         $this->yesOrNo($candidate->user->is_woman), // Woman
-                        implode(', ', $candidate->user->getIndigenousCommunities() ?? []), // Indigenous
+                        $this->localizeEnumArray($candidate->user->indigenous_communities, IndigenousCommunity::class),
                         $this->yesOrNo($candidate->user->is_visible_minority), // Visible minority
                         $this->yesOrNo($candidate->user->has_disability), // Disability
                         $this->sanitizeEnum($candidate->education_requirement_option), // Education requirement
@@ -182,7 +207,7 @@ class CandidateProfileCsv extends CsvGenerator
      */
     private function generatePoolHeaders()
     {
-        $this->headers[] = 'Skills';
+        $this->generatedHeaders[] = Lang::get('headings.skills', [], $this->lang);
 
         Pool::with(['generalQuestions', 'poolSkills' => ['skill']])
             ->whereHas('poolCandidates', function ($query) {
@@ -192,7 +217,7 @@ class CandidateProfileCsv extends CsvGenerator
                     if ($pool->generalQuestions->count() > 0) {
                         foreach ($pool->generalQuestions as $question) {
                             $this->questionIds[] = $question->id;
-                            $this->headers[] = $question->question[$this->lang];
+                            $this->generatedHeaders[] = $question->question[$this->lang];
                         }
                     }
 
@@ -202,9 +227,9 @@ class CandidateProfileCsv extends CsvGenerator
                         foreach ($skillsByGroup as $group => $skills) {
                             foreach ($skills as $skill) {
                                 $this->skillIds[] = $skill->skill_id;
-                                $this->headers[] = sprintf('%s (%s)',
+                                $this->generatedHeaders[] = sprintf('%s (%s)',
                                     $skill->skill->name[$this->lang],
-                                    $this->sanitizeEnum($group)
+                                    $this->localizeEnum($group, PoolSkillType::class)
                                 );
                             }
                         }
