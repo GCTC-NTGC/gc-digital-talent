@@ -13,6 +13,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\FinalDecision;
 use App\Enums\GovEmployeeType;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
@@ -40,6 +41,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use RecursiveArrayIterator;
 use Spatie\Activitylog\LogOptions;
@@ -74,6 +76,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $priority_verification
  * @property Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
+ * @property int $computed_final_decision_weight
+ * @property string $computed_final_decision
  */
 class PoolCandidate extends Model
 {
@@ -1228,5 +1232,92 @@ class PoolCandidate extends Model
         });
 
         return $query;
+    }
+
+    public function computeFinalDecision()
+    {
+        $this->load(['user']);
+
+        $status = $this->pool_candidate_status;
+        $decision = null;
+
+        if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
+            $assessmentStatus = $this->computed_assessment_status;
+            $overallStatus = null;
+            if (isset($assessmentStatus['overallAssessmentStatus'])) {
+                $overallStatus = $assessmentStatus['overallAssessmentStatus'];
+            }
+
+            $decision = match ($overallStatus) {
+                OverallAssessmentStatus::QUALIFIED->name => FinalDecision::QUALIFIED_PENDING->name,
+                OverallAssessmentStatus::DISQUALIFIED->name => FinalDecision::DISQUALIFIED_PENDING->name,
+                default => FinalDecision::TO_ASSESS->name
+            };
+        } else {
+
+            $decision = match ($status) {
+
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name => FinalDecision::DISQUALIFIED->name,
+
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name ,
+
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name ,
+
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => FinalDecision::TO_ASSESS_REMOVED->name,
+
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name => FinalDecision::QUALIFIED_REMOVED->name,
+
+                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name ,
+                PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
+
+                default => null
+
+            };
+        }
+
+        try {
+            $weight = match ($decision) {
+                FinalDecision::QUALIFIED->name => 10,
+                FinalDecision::QUALIFIED_PENDING->name => 20,
+                FinalDecision::QUALIFIED_PLACED->name => 30,
+                FinalDecision::TO_ASSESS->name => 40,
+                // Set aside some values for assessment steps
+                // Giving a decent buffer to increase max steps
+                FinalDecision::DISQUALIFIED_PENDING->name => 200,
+                FinalDecision::DISQUALIFIED->name => 210,
+                FinalDecision::QUALIFIED_REMOVED->name => 220,
+                FinalDecision::TO_ASSESS_REMOVED->name => 230,
+                FinalDecision::REMOVED->name => 240,
+                FinalDecision::QUALIFIED_EXPIRED->name => 250,
+                default => null
+            };
+
+        } catch (\UnhandledMatchError $e) {
+            Log::error($e->getMessage());
+
+            $weight = null;
+        }
+
+        $assessmentStatus = $this->computed_assessment_status;
+        $currentStep = null;
+        if (isset($assessmentStatus)) {
+            $currentStep = $assessmentStatus['currentStep'];
+        }
+
+        if ($decision === FinalDecision::TO_ASSESS->name && $currentStep) {
+            $weight = $weight + $currentStep * 10;
+        }
+
+        return [
+            'decision' => $decision,
+            'weight' => $weight,
+        ];
+
     }
 }
