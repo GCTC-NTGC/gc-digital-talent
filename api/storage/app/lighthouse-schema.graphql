@@ -78,6 +78,11 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedFinalDecision {
+  value: FinalDecision!
+  label: LocalizedString!
+}
+
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
   label: LocalizedString!
@@ -695,6 +700,7 @@ type PoolCandidate {
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
+  finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
@@ -2640,6 +2646,20 @@ enum EvaluatedLanguageAbility {
   E
   P
   NOT_ASSESSED
+}
+
+enum FinalDecision {
+  DISQUALIFIED
+  DISQUALIFIED_PENDING
+  DISQUALIFIED_REMOVED
+  QUALIFIED
+  QUALIFIED_EXPIRED
+  QUALIFIED_PENDING
+  QUALIFIED_PLACED
+  QUALIFIED_REMOVED
+  REMOVED
+  TO_ASSESS
+  TO_ASSESS_REMOVED
 }
 
 enum GenericJobTitleKey {
