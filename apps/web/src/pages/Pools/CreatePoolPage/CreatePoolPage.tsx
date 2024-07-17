@@ -71,7 +71,7 @@ interface CreatePoolFormProps {
     teamId: string,
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
-  teamsArray: Team[];
+  teamsArray: Pick<Team, "id" | "displayName">[];
 }
 
 export const CreatePoolForm = ({
@@ -242,9 +242,13 @@ export const CreatePoolForm = ({
   );
 };
 
+type ConstrainedTeamOnRoleAssignment = {
+  team?: Maybe<Pick<Team, "id" | "displayName">>;
+};
+
 const roleAssignmentsToTeams = (
-  roleAssignmentArray: Maybe<RoleAssignment[]>,
-): Team[] => {
+  roleAssignmentArray: Maybe<ConstrainedTeamOnRoleAssignment[]>,
+): Pick<Team, "id" | "displayName">[] => {
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
@@ -268,7 +272,6 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
           id
           team {
             id
-            name
             displayName {
               en
               fr

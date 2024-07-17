@@ -23,7 +23,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 interface RemoveTeamRoleDialogProps {
   user: User;
   roles: Role[];
-  team: Team;
+  team: Pick<Team, "id" | "displayName">;
   onRemoveRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

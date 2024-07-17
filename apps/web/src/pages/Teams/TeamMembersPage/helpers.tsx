@@ -4,7 +4,8 @@ import { IntlShape } from "react-intl";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe, Role, Team } from "@gc-digital-talent/graphql";
+import { Maybe, Role } from "@gc-digital-talent/graphql";
+import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
 
 import { TeamMember } from "~/utils/teamUtils";
 
@@ -24,7 +25,10 @@ function orderRoles(roles: Array<Role>, intl: IntlShape) {
   });
 }
 
-export const actionCell = (user: TeamMember, team: Team) => (
+export const actionCell = (
+  user: TeamMember,
+  team: TeamMembersPageTeamFragmentType,
+) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-wrap="base(wrap)"
