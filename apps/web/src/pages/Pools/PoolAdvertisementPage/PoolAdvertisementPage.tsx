@@ -109,10 +109,13 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
-const deadlineDialogReturn = (
-  closingDate: string | null | undefined,
-  closingReason: string | null | undefined,
-): ReactNode | null => {
+const DeadlineDialogReturn = ({
+  closingDate,
+  closingReason,
+}: {
+  closingDate: string | null | undefined;
+  closingReason: string | null | undefined;
+}): ReactNode | null => {
   if (closingDate && !closingReason) {
     return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;
   }
@@ -719,10 +722,12 @@ export const PoolPoster = ({
                       closingReason={pool.closingReason}
                     />
                   }
-                  suffix={deadlineDialogReturn(
-                    pool.closingDate,
-                    pool.closingReason,
-                  )}
+                  suffix={
+                    <DeadlineDialogReturn
+                      closingDate={pool.closingDate}
+                      closingReason={pool.closingReason}
+                    />
+                  }
                 />
                 <DataRow
                   label={
