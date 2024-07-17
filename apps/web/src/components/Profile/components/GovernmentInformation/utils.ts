@@ -181,7 +181,7 @@ export const getLabels = (intl: IntlShape) => ({
  * Get classification group options
  */
 export const getGroupOptions = (
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "name">[],
   intl: IntlShape,
 ) => {
   const classGroupsWithDupes: {
