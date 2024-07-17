@@ -22,11 +22,12 @@ final class QualifyCandidate
         $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $candidate->expiry_date = $expiryDate;
         $candidate->final_decision_at = $now;
-        $candidate->save();
 
         $finalDecision = $candidate->computeFinalDecision();
         $candidate->computed_final_decision = $finalDecision['decision'];
         $candidate->computed_final_decision_weight = $finalDecision['weight'];
+
+        $candidate->save();
 
         return $candidate;
     }
