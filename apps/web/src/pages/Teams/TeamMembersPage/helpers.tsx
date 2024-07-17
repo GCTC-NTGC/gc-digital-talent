@@ -4,8 +4,11 @@ import { IntlShape } from "react-intl";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe, Role } from "@gc-digital-talent/graphql";
-import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
+import {
+  Maybe,
+  Role,
+  TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { TeamMember } from "~/utils/teamUtils";
 

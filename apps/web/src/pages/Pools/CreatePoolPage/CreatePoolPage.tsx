@@ -14,7 +14,6 @@ import {
 import { Pending, Link } from "@gc-digital-talent/ui";
 import {
   graphql,
-  RoleAssignment,
   CreatePoolInput,
   CreatePoolMutation,
   Maybe,
