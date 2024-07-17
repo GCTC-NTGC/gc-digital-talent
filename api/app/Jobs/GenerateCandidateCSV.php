@@ -25,9 +25,7 @@ class GenerateCandidateCSV implements ShouldQueue
      */
     public function handle(): void
     {
-
         try {
-
             $generator = new CandidateProfileCsv($this->candidateIds, $this->userId, $this?->lang);
             $fileName = 'candidates_'.date('Y-m-d_His').'.csv';
             $generator->generate()->write($fileName, $this->userId);

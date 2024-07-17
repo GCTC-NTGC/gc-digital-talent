@@ -4,7 +4,6 @@ namespace App\Generators;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 abstract class FileGenerator
@@ -29,9 +28,6 @@ abstract class FileGenerator
      * */
     protected function localizeEnum(?string $value, string $enum): string
     {
-
-        Log::debug(['value' => $value]);
-
         if (! class_exists($enum) || ! $value) {
             return '';
         }
@@ -64,7 +60,14 @@ abstract class FileGenerator
 
     public function getPath(string $fileName, ?string $dir, ?string $disk = 'userGenerated')
     {
-        /** @var \Illuminate\Filesystem\FilesystemManager */
+        /**
+         * We don't actually put the file with
+         * the storage (maybe we can look into that)
+         * but for now, the writer does it directly
+         * so we need to manually create the directory if
+         * it doesn't exist
+         *
+         * @var \Illuminate\Filesystem\FilesystemManager */
         $disk = Storage::disk($disk);
         if ($dir && ! $disk->exists($dir)) {
             File::makeDirectory($disk->path($dir));
