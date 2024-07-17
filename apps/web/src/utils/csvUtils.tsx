@@ -12,23 +12,7 @@ import {
   uniqueItems,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import {
-  User,
-  Skill,
-  Maybe,
-  Experience,
-  GeneralQuestionResponse,
-} from "@gc-digital-talent/graphql";
-
-import {
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-  getExperienceName,
-} from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
+import { User, Skill, Maybe } from "@gc-digital-talent/graphql";
 
 /**
  * Sanitize a string for use in a CSV
@@ -70,18 +54,6 @@ export const yesOrNo = (value: Maybe<boolean> | undefined, intl: IntlShape) => {
  */
 const listOrEmptyString = (value: string[] | undefined) => {
   return value ? insertBetween(", ", value).join("") : "";
-};
-
-/**
- * Sanitizes justifications strings for csv,
- * and separates multiple justifications with a new line.
- *
- * @param value string[] | undefined    Array of items to convert
- * @returns string                      Comma separated list or empty
- */
-const sanitizeJustifications = (values: string[] | undefined) => {
-  const sanitizedList = values ? values.map((v) => sanitizeCSVString(v)) : "";
-  return sanitizedList ? insertBetween("\n\n", sanitizedList).join("") : "";
 };
 
 /**
