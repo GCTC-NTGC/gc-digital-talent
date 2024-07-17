@@ -46,7 +46,7 @@ import { wrapAbbr } from "./nameUtils";
  */
 export const poolMatchesClassification = (
   pool: Pool,
-  classification: Classification,
+  classification: Pick<Classification, "group" | "level">,
 ): boolean => {
   return (
     pool.classification?.group === classification?.group &&

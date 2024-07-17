@@ -57,7 +57,7 @@ const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
 const classificationFormToId = (
   group: string | undefined,
   level: string | undefined,
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): string | undefined => {
   return classifications.find(
     (classification) =>
@@ -67,7 +67,7 @@ const classificationFormToId = (
 
 export const formValuesToSubmitData = (
   values: FormValues,
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): UpdateUserAsUserInput => {
   const classificationId = classificationFormToId(
     values.currentClassificationGroup,

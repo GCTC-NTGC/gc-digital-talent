@@ -55,7 +55,7 @@ export const getAvailableClassifications = (
 };
 
 export const getClassificationLabel = (
-  { group, level }: Classification,
+  { group, level }: Pick<Classification, "group" | "level">,
   labels: Record<string, MessageDescriptor>,
   intl: IntlShape,
 ) => {
@@ -185,7 +185,7 @@ export const dataToFormValues = (
 export const formValuesToData = (
   values: FormValues,
   pools: Pool[],
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): ApplicantFilterInput => {
   const selectedClassification = classifications.find((classification) => {
     return formatClassificationString(classification) === values.classification;
