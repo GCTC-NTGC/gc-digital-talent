@@ -991,6 +991,7 @@ const PoolCandidatesTable = ({
           {...actionButtonStyles}
           onClick={handleCsvDownload}
           disabled={downloadingCsv}
+          data-h2-font-weight="base(400)"
         >
           {intl.formatMessage({
             defaultMessage: "Download CSV",
