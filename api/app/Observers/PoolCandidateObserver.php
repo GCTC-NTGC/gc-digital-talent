@@ -27,6 +27,8 @@ class PoolCandidateObserver
         $oldStatus = $poolCandidate->getOriginal('pool_candidate_status');
         $newStatus = $poolCandidate->pool_candidate_status;
 
+        CandidateStatusChanged::dispatchIf($poolCandidate->wasChanged('pool_candidate_status'), $poolCandidate);
+
         if (config('feature.notifications')) {
             if (
                 ($oldStatus != $newStatus) &&

@@ -40,10 +40,6 @@ final class ReinstateCandidate
         $candidate->removal_reason = null;
         $candidate->removal_reason_other = null;
 
-        $finalDecision = $candidate->computeFinalDecision();
-        $candidate->computed_final_decision = $finalDecision['decision'];
-        $candidate->computed_final_decision_weight = $finalDecision['weight'];
-
         $candidate->save();
 
         return $candidate;

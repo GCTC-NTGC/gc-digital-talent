@@ -26,6 +26,6 @@ class ComputeCandidateFinalDecision
         $candidate->computed_final_decision_weight = $finalDecision['weight'];
         $candidate->computed_final_decision = $finalDecision['decision'];
 
-        $candidate->save();
+        $candidate->saveQuietly();
     }
 }

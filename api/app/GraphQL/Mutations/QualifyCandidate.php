@@ -23,10 +23,6 @@ final class QualifyCandidate
         $candidate->expiry_date = $expiryDate;
         $candidate->final_decision_at = $now;
 
-        $finalDecision = $candidate->computeFinalDecision();
-        $candidate->computed_final_decision = $finalDecision['decision'];
-        $candidate->computed_final_decision_weight = $finalDecision['weight'];
-
         $candidate->save();
 
         return $candidate;

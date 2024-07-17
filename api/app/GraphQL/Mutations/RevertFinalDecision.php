@@ -20,10 +20,6 @@ final class RevertFinalDecision
         $candidate->expiry_date = null;
         $candidate->final_decision_at = null;
 
-        $finalDecision = $candidate->computeFinalDecision();
-        $candidate->computed_final_decision = $finalDecision['decision'];
-        $candidate->computed_final_decision_weight = $finalDecision['weight'];
-
         $candidate->save();
 
         return $candidate;
