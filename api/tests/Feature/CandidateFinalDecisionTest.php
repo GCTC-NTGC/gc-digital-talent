@@ -60,31 +60,31 @@ class CandidateFinalDecisionTest extends TestCase
         return [
             'To assess step 1' => [1, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
-                'weight' => 40,
+                'weight' => 50,
             ]],
             'To assess step 2' => [2, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
-                'weight' => 50,
+                'weight' => 60,
             ]],
             'To assess step 3' => [3, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
-                'weight' => 60,
+                'weight' => 70,
             ]],
             'To assess step 4' => [4, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
-                'weight' => 70,
+                'weight' => 80,
             ]],
             'To assess step 5' => [5, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
-                'weight' => 80,
+                'weight' => 90,
             ]],
             'To assess step 6' => [6, OverallAssessmentStatus::TO_ASSESS->name, [
                 'decision' => FinalDecision::TO_ASSESS->name,
-                'weight' => 90,
+                'weight' => 100,
             ]],
             'Disqualified' => [1, OverallAssessmentStatus::DISQUALIFIED->name, [
                 'decision' => FinalDecision::DISQUALIFIED_PENDING->name,
-                'weight' => 210,
+                'weight' => 200,
             ]],
             'Qualified' => [null, OverallAssessmentStatus::QUALIFIED->name, [
                 'decision' => FinalDecision::QUALIFIED_PENDING->name,
@@ -103,37 +103,37 @@ class CandidateFinalDecisionTest extends TestCase
 
         $toAssess = [
             'decision' => FinalDecision::TO_ASSESS->name,
-            'weight' => 30,
+            'weight' => 40,
         ];
 
         $qualifiedPlaced = [
             'decision' => FinalDecision::QUALIFIED_PLACED->name,
-            'weight' => 200,
+            'weight' => 30,
         ];
 
         $disqualified = [
             'decision' => FinalDecision::DISQUALIFIED->name,
-            'weight' => 220,
+            'weight' => 210,
         ];
 
         $qualifiedRemoved = [
             'decision' => FinalDecision::QUALIFIED_REMOVED->name,
-            'weight' => 230,
+            'weight' => 220,
         ];
 
         $toAssesRemoved = [
             'decision' => FinalDecision::TO_ASSESS_REMOVED->name,
-            'weight' => 240,
+            'weight' => 230,
         ];
 
         $removed = [
             'decision' => FinalDecision::REMOVED->name,
-            'weight' => 250,
+            'weight' => 240,
         ];
 
         $qualifiedExpired = [
             'decision' => FinalDecision::QUALIFIED_EXPIRED->name,
-            'weight' => 260,
+            'weight' => 250,
         ];
 
         return [

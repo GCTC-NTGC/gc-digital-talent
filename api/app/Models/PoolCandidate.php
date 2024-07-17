@@ -1255,47 +1255,46 @@ class PoolCandidate extends Model
             };
         } else {
 
-            $decisionMap = [
-                FinalDecision::DISQUALIFIED->name => [
-                    PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-                    PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-                ],
-                FinalDecision::QUALIFIED->name => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
-                FinalDecision::QUALIFIED_PLACED->name => PoolCandidateStatus::placedGroup(),
-                FinalDecision::TO_ASSESS_REMOVED->name => [
-                    PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
-                    PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-                ],
-                FinalDecision::QUALIFIED_REMOVED->name => [
-                    PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-                    PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                ],
-                FinalDecision::REMOVED->name => [PoolCandidateStatus::REMOVED->name],
-                FinalDecision::QUALIFIED_EXPIRED->name => [PoolCandidateStatus::EXPIRED->name],
-            ];
+            $decision = match ($status) {
 
-            foreach ($decisionMap as $key => $statuses) {
-                if (in_array($status, $statuses)) {
-                    $decision = $key;
-                    break;
-                }
-            }
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name => FinalDecision::DISQUALIFIED->name,
+
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name ,
+
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name ,
+
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => FinalDecision::TO_ASSESS_REMOVED->name,
+
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name => FinalDecision::QUALIFIED_REMOVED->name,
+
+                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name ,
+                PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
+
+                default => null
+
+            };
         }
 
         try {
             $weight = match ($decision) {
                 FinalDecision::QUALIFIED->name => 10,
                 FinalDecision::QUALIFIED_PENDING->name => 20,
-                FinalDecision::TO_ASSESS->name => 30,
+                FinalDecision::QUALIFIED_PLACED->name => 30,
+                FinalDecision::TO_ASSESS->name => 40,
                 // Set aside some values for assessment steps
                 // Giving a decent buffer to increase max steps
-                FinalDecision::QUALIFIED_PLACED->name => 200,
-                FinalDecision::DISQUALIFIED_PENDING->name => 210,
-                FinalDecision::DISQUALIFIED->name => 220,
-                FinalDecision::QUALIFIED_REMOVED->name => 230,
-                FinalDecision::TO_ASSESS_REMOVED->name => 240,
-                FinalDecision::REMOVED->name => 250,
-                FinalDecision::QUALIFIED_EXPIRED->name => 260,
+                FinalDecision::DISQUALIFIED_PENDING->name => 200,
+                FinalDecision::DISQUALIFIED->name => 210,
+                FinalDecision::QUALIFIED_REMOVED->name => 220,
+                FinalDecision::TO_ASSESS_REMOVED->name => 230,
+                FinalDecision::REMOVED->name => 240,
+                FinalDecision::QUALIFIED_EXPIRED->name => 250,
                 default => null
             };
 
