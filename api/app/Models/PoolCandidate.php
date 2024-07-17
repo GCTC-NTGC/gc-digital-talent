@@ -741,16 +741,10 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query, array $args)
+    public function scopeAuthorizedToView(Builder $query)
     {
         /** @var \App\Models\User */
         $user = Auth::user();
-
-        // For queued jobs, if we don;t have a logged in user
-        // we can use the ID from the user who triggered the job
-        if (isset($args['userId']) && ! $user) {
-            $user = User::find($args['userId']);
-        }
 
         if (! $user) {
             return $query->where('id', null);

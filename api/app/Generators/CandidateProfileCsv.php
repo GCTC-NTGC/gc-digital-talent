@@ -5,7 +5,6 @@ namespace App\Generators;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
-use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -116,7 +115,8 @@ class CandidateProfileCsv extends CsvGenerator
             ],
         ])
             ->whereIn('id', $this->ids)
-            ->authorizedToView(['userId' => $this->userId])
+            // This is being very weird with Laratrust
+            //->authorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
                 foreach ($candidates as $candidate) {
 
@@ -145,7 +145,7 @@ class CandidateProfileCsv extends CsvGenerator
                         $this->localizeEnum($candidate->user->armed_forces_status, ArmedForcesStatus::class),
                         $this->localizeEnum($candidate->user->citizenship, CitizenshipStatus::class),
                         is_null($candidate->user->second_language_exam_completed) ? '' : $this->yesOrNo($candidate->user->second_language_exam_completed), // Bilingual evaluation
-                        $this->localizeEnum($candidate->user->second_language_exam_validity, EvaluatedLanguageAbility::class),
+                        $this->yesOrNo($candidate->user->second_language_exam_validity),
                         $candidate->user->comprehension_level, // Reading level
                         $candidate->user->written_level, // Writing level
                         $candidate->user->verbal_level, // Oral interaction level

@@ -4,6 +4,7 @@ namespace App\Generators;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 abstract class FileGenerator
@@ -28,7 +29,10 @@ abstract class FileGenerator
      * */
     protected function localizeEnum(?string $value, string $enum): string
     {
-        if (! class_exists($enum) || is_null($value)) {
+
+        Log::debug(['value' => $value]);
+
+        if (! class_exists($enum) || ! $value) {
             return '';
         }
 
@@ -53,7 +57,7 @@ abstract class FileGenerator
         }, $values));
     }
 
-    public function yesOrNo(bool $value): string
+    public function yesOrNo(?bool $value): string
     {
         return $value ? Lang::get('common.yes', [], $this->lang) : Lang::get('common.no', [], $this->lang);
     }
