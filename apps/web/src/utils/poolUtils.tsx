@@ -104,7 +104,7 @@ export const formatClassificationString = ({
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
-  classification: Maybe<Classification> | undefined;
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
   stream?: Maybe<LocalizedPoolStream>;
   short?: boolean;
   intl: IntlShape;
@@ -462,7 +462,7 @@ export function getClassificationName(
 
 export const getClassificationSalaryRangeUrl = (
   locale: Locales,
-  classification?: Maybe<Classification>,
+  classification?: Maybe<Pick<Classification, "group">>,
 ): string | null => {
   let localizedUrl: Record<Locales, string> | null = null;
   switch (classification?.group) {

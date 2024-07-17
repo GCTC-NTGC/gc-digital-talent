@@ -74,7 +74,7 @@ export const getClassificationLabel = (
  * @returns {string}
  */
 const getCurrentClassification = (
-  selectedClassifications?: Maybe<Classification[]>,
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
 ): string => {
   return selectedClassifications && selectedClassifications?.length > 0
     ? formatClassificationString(selectedClassifications[0])
@@ -138,7 +138,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Maybe<Classification[]>,
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
   pools?: Pool[],
 ): FormValues => {
   const safePools = data.pools?.filter(notEmpty) ?? [];

@@ -12,7 +12,9 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]> | undefined,
+  classifications:
+    | Maybe<Maybe<Pick<Classification, "group" | "level">>[]>
+    | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -21,7 +23,9 @@ export function classificationAccessor(
 }
 
 export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
+  classifications:
+    | Maybe<Maybe<Pick<Classification, "group" | "level">>[] | undefined>
+    | undefined,
   intl: IntlShape,
 ) {
   const filteredClassifications = classifications
