@@ -66,7 +66,9 @@ const secondary = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const red = (text: ReactNode) => (
-  <span data-h2-color="base(error.dark)">{text}</span>
+  <span data-h2-color="base(error.darker) base:dark(error.lightest)">
+    {text}
+  </span>
 );
 
 /**
