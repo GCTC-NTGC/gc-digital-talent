@@ -100,7 +100,6 @@ export const CreateAccountForm = ({
   const intl = useIntl();
   const govInfoLabels = getGovernmentInfoLabels(intl);
   const result = getFragment(CreateAccount_QueryFragment, query);
-  const departments = unpackMaybes(result?.departments);
   const classifications = unpackMaybes(result?.classifications);
 
   const labels = {
@@ -277,8 +276,8 @@ export const CreateAccountForm = ({
                 </p>
                 <GovernmentInfoFormFields
                   labels={labels}
-                  departments={departments}
-                  classifications={classifications}
+                  departmentsQuery={result?.departments}
+                  classificationsQuery={result?.classifications}
                 />
                 <div
                   data-h2-margin="base(x2, 0, 0, 0)"
