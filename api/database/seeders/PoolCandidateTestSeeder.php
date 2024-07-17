@@ -35,7 +35,7 @@ class PoolCandidateTestSeeder extends Seeder
         $candidateOne->save();
         $this->publishedPools = Pool::select('id', 'name')->whereNotNull('published_at')->get();
 
-        // 1- Perfect Priority
+        // 1 - Perfect Priority
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -52,7 +52,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        //2- Barely qualified Veteran
+        // 2 - Entry-level Veteran
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -60,7 +60,7 @@ class PoolCandidateTestSeeder extends Seeder
                 $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
             })
             ->create([
-                'first_name' => 'Barely qualified',
+                'first_name' => 'Entry-level',
                 'last_name' => 'Veteran',
                 'email' => 'veteran@test.com',
                 'sub' => 'veteran@test.com',
@@ -68,7 +68,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
             ]);
 
-        // 3- Try-hard Not a veteran
+        // 3 - Assertive Non-veteran
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -76,15 +76,15 @@ class PoolCandidateTestSeeder extends Seeder
                 $this->applyToAllPools($user, PoolCandidateStatus::PLACED_TENTATIVE, now()->addYears(2));
             })
             ->create([
-                'first_name' => 'Try-hard',
-                'last_name' => 'Not a veteran',
-                'email' => 'try-hard@test.com',
-                'sub' => 'try-hard@test.com',
+                'first_name' => 'Assertive',
+                'last_name' => 'Non-veteran',
+                'email' => 'assertive@test.com',
+                'sub' => 'assertive@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
                 'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
             ]);
 
-        //4- Absent Canadian
+        // 4 - Absent Canadian
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -99,7 +99,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        //5- Screened-out Non-Canadian
+        // 5 - Screened-out Non-Canadian
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -109,12 +109,12 @@ class PoolCandidateTestSeeder extends Seeder
             ->create([
                 'first_name' => 'Screened-out',
                 'last_name' => 'Non-Canadian',
-                'email' => 'Screened-out@test.com',
-                'sub' => 'Screened-out@test.com',
+                'email' => 'screened-out@test.com',
+                'sub' => 'screened-out@test.com',
                 'citizenship' => CitizenshipStatus::OTHER->name,
             ]);
 
-        // 6- Failed Notes master
+        // 6 - Failed Notes Wizard
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -123,13 +123,13 @@ class PoolCandidateTestSeeder extends Seeder
             })
             ->create([
                 'first_name' => 'Failed',
-                'last_name' => 'NotesMaster',
-                'email' => 'Failed@test.com',
-                'sub' => 'Failed@test.com',
+                'last_name' => 'Notes Wizard',
+                'email' => 'failed@test.com',
+                'sub' => 'failed@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        // 7- Barely qualified Holder
+        // 7 - Entry-level Holder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -137,14 +137,14 @@ class PoolCandidateTestSeeder extends Seeder
                 $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
             })
             ->create([
-                'first_name' => 'Barely',
-                'last_name' => 'qualified Holder',
-                'email' => 'barely@test.com',
-                'sub' => 'barely@test.com',
+                'first_name' => 'Entry-level',
+                'last_name' => 'Holder',
+                'email' => 'entry-level-holder@test.com',
+                'sub' => 'entry-level-holder@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
             ]);
 
-        //8- Unsuccessful Priority
+        // 8 - Unsuccessful Priority
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -154,8 +154,8 @@ class PoolCandidateTestSeeder extends Seeder
             ->create([
                 'first_name' => 'Unsuccessful',
                 'last_name' => 'Priority',
-                'email' => 'Unsuccessful@test.com',
-                'sub' => 'Unsuccessful@test.com',
+                'email' => 'unsuccessful@test.com',
+                'sub' => 'unsuccessful@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 

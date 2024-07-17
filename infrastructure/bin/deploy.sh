@@ -60,7 +60,7 @@ cd $ROOT_DIR/api
 if [ "$GCDT_DEV" = true ]; then
   composer install
 else
-  composer install --no-dev
+  composer install --optimize-autoloader --no-dev
 fi
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
