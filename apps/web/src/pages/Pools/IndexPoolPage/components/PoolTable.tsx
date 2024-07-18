@@ -269,15 +269,18 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         hideMobileHeader: true,
       },
     }),
-    columnHelper.accessor((row) => poolNameAccessor(row, intl), {
-      id: "name",
-      header: intl.formatMessage(commonMessages.name),
-      meta: {
-        isRowTitle: true,
+    columnHelper.accessor(
+      (row) => poolNameAccessor({ name: row.name, stream: row.stream }, intl),
+      {
+        id: "name",
+        header: intl.formatMessage(commonMessages.name),
+        meta: {
+          isRowTitle: true,
+        },
+        cell: ({ row: { original: pool } }) =>
+          viewCell(paths.poolView(pool.id), { name: pool.name }, intl),
       },
-      cell: ({ row: { original: pool } }) =>
-        viewCell(paths.poolView(pool.id), pool, intl),
-    }),
+    ),
     columnHelper.accessor((row) => classificationAccessor(row.classification), {
       id: "classification",
       header: intl.formatMessage({
@@ -349,7 +352,16 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         id: "AWk4BX",
         description: "Title displayed for the Pool table Owner Name column",
       }),
-      cell: ({ row: { original: pool } }) => fullNameCell(pool, intl),
+      cell: ({ row: { original: pool } }) =>
+        fullNameCell(
+          {
+            owner: {
+              firstName: pool.owner?.firstName,
+              lastName: pool.owner?.lastName,
+            },
+          },
+          intl,
+        ),
     }),
     columnHelper.accessor((row) => ownerEmailAccessor(row), {
       id: "ownerEmail",
@@ -360,7 +372,15 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         id: "pe5WkF",
         description: "Title displayed for the Pool table Owner Email column",
       }),
-      cell: ({ row: { original: pool } }) => emailLinkAccessor(pool, intl),
+      cell: ({ row: { original: pool } }) =>
+        emailLinkAccessor(
+          {
+            owner: {
+              email: pool.owner?.email,
+            },
+          },
+          intl,
+        ),
     }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
