@@ -4,7 +4,11 @@ import { ReactNode, Fragment } from "react";
 
 import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
+import {
+  SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
+  graphql,
+  PoolSkillType,
+} from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -14,9 +18,62 @@ const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
+export const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
+  fragment SearchResultCard_Pool on Pool {
+    id
+    name {
+      en
+      fr
+    }
+    department {
+      id
+      name {
+        en
+        fr
+      }
+    }
+    team {
+      id
+      displayName {
+        en
+        fr
+      }
+    }
+    poolSkills {
+      id
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      skill {
+        id
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        key
+      }
+    }
+  }
+`);
+
 interface SearchResultCardProps {
   candidateCount: number;
-  pool: Pool;
+  pool: SearchResultCardPoolFragmentType;
 }
 
 const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
