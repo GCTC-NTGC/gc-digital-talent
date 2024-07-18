@@ -9,7 +9,6 @@ import {
 import { Chip, Link, Spoiler } from "@gc-digital-talent/ui";
 import {
   FragmentType,
-  PoolCandidateStatus,
   CandidateSuspendedFilter,
   Maybe,
   Pool,
