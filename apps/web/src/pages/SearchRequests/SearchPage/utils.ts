@@ -26,7 +26,9 @@ import classificationsAvailable from "~/constants/classificationsAvailableForSea
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
 export const getAvailableClassifications = (
-  pools: Pool[],
+  pools: (Pick<Pool, "id"> & {
+    classification?: Maybe<Pick<Classification, "id" | "group" | "level">>;
+  })[],
 ): Classification[] => {
   const classifications = pools
     ?.flatMap((pool) => pool?.classification)
