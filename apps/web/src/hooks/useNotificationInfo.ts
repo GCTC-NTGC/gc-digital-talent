@@ -8,8 +8,13 @@ import {
   Notification,
   SystemNotification,
   UserFileGeneratedNotification,
+  UserFileGenerationErrorNotification,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import {
   formDateStringToDate,
   formatDate,
@@ -23,7 +28,7 @@ import useRoutes from "./useRoutes";
 type NotificationInfo = {
   message: ReactNode;
   label: string;
-  href: string;
+  href?: string;
   download?: string;
   external?: boolean;
 };
@@ -171,6 +176,26 @@ const systemNotificationToInfo = (
   };
 };
 
+function isUserFileGenerationErrorNotification(
+  notification: GraphqlType,
+): notification is UserFileGenerationErrorNotification {
+  return notification.__typename === "UserFileGenerationErrorNotification";
+}
+
+const userFileGenerationErrorNotificationToInfo = (
+  notification: UserFileGenerationErrorNotification,
+  intl: IntlShape,
+): NotificationInfo => {
+  return {
+    message: intl.formatMessage(errorMessages.downloadingFileFailed, {
+      fileName: notification.fileName,
+    }),
+    label: intl.formatMessage(errorMessages.downloadingFileFailed, {
+      fileName: notification.fileName,
+    }),
+  };
+};
+
 function isUserFileGeneratedNotification(
   notification: GraphqlType,
 ): notification is UserFileGeneratedNotification {
@@ -227,6 +252,10 @@ const useNotificationInfo = (
 
   if (isUserFileGeneratedNotification(notification)) {
     return userFileGeneratedNotificationToInfo(notification, apiPaths, intl);
+  }
+
+  if (isUserFileGenerationErrorNotification(notification)) {
+    return userFileGenerationErrorNotificationToInfo(notification, intl);
   }
 
   if (isSystemNotification(notification)) {

@@ -122,6 +122,12 @@ const errorMessages = defineMessages({
     id: "qNERoQ",
     description: "Message for when the download request failed",
   },
+  downloadingFileFailed: {
+    defaultMessage:
+      "There was a problem on our end. {fileName} failed to download. If you continue to receive this error, please get in touch with our support team",
+    id: "KiMQQd",
+    description: "Error message when a file download fails",
+  },
 });
 
 export default errorMessages;

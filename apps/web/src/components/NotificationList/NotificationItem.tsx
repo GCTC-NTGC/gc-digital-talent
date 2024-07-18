@@ -27,6 +27,7 @@ import {
 import RemoveDialog from "./RemoveDialog";
 import NotificationDownload from "./NotificationDownload";
 import NotificationLink from "./NotificationLink";
+import NotificationButton from "./NotificationButton";
 
 type LinkWrapperProps = {
   inDialog?: boolean;
@@ -77,6 +78,9 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
     ... on UserFileGeneratedNotification {
       fileName
     }
+    ... on UserFileGenerationErrorNotification {
+      fileName
+    }
   }
 `);
 
@@ -84,7 +88,9 @@ interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
   inDialog?: boolean;
-  focusRef?: React.MutableRefObject<HTMLAnchorElement | null>;
+  focusRef?: React.MutableRefObject<
+    (HTMLAnchorElement & HTMLButtonElement) | null
+  >;
   onRead?: () => void;
 }
 
@@ -132,9 +138,9 @@ const NotificationItem = ({
     : intl.formatMessage(commonMessages.notAvailable);
 
   const commonLinkProps = {
+    ref: focusRef,
     id: notification.id,
     onRead,
-    href: info.href,
     isUnread,
   };
 
@@ -189,20 +195,27 @@ const NotificationItem = ({
             data-h2-justify-content="base(space-between)"
             data-h2-width="base(100%)"
           >
-            <LinkWrapper inDialog={inDialog}>
-              {info.download ? (
-                <NotificationDownload
-                  fileName={info.download}
-                  {...commonLinkProps}
-                >
-                  {info.message}
-                </NotificationDownload>
-              ) : (
-                <NotificationLink {...commonLinkProps}>
-                  {info.message}
-                </NotificationLink>
-              )}
-            </LinkWrapper>
+            {info.href ? (
+              <LinkWrapper inDialog={inDialog}>
+                {info.download ? (
+                  <NotificationDownload
+                    href={info.href}
+                    fileName={info.download}
+                    {...commonLinkProps}
+                  >
+                    {info.message}
+                  </NotificationDownload>
+                ) : (
+                  <NotificationLink href={info.href} {...commonLinkProps}>
+                    {info.message}
+                  </NotificationLink>
+                )}
+              </LinkWrapper>
+            ) : (
+              <NotificationButton {...commonLinkProps}>
+                {info.message}
+              </NotificationButton>
+            )}
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
                 <Button

@@ -1,9 +1,9 @@
-import { ElementRef, forwardRef, MouseEventHandler, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { forwardRef, MouseEventHandler, ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
@@ -20,7 +20,7 @@ interface NotificationLinkProps {
 }
 
 const NotificationDownload = forwardRef<
-  ElementRef<typeof Link>,
+  HTMLAnchorElement,
   NotificationLinkProps
 >(({ id, href, isUnread, fileName, onRead, children }, forwardedRef) => {
   const intl = useIntl();
@@ -54,15 +54,7 @@ const NotificationDownload = forwardRef<
         );
       } else {
         toast.error(
-          intl.formatMessage(
-            {
-              defaultMessage:
-                "There was a problem on our end. {fileName} failed to download. If you continue to receive this error, please get in touch with our support team",
-              id: "KiMQQd",
-              description: "Error message when a file download fails",
-            },
-            { fileName },
-          ),
+          intl.formatMessage(errorMessages.downloadingFileFailed, { fileName }),
         );
       }
     });

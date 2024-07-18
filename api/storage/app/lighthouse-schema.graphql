@@ -564,6 +564,14 @@ type UserFileGeneratedNotification implements Notification {
   fileName: String
 }
 
+type UserFileGenerationErrorNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  fileName: String
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email

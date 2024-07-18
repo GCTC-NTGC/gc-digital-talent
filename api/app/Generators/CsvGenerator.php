@@ -29,7 +29,9 @@ abstract class CsvGenerator extends FileGenerator
             $writer->save($path);
 
         } catch (\Exception $e) {
+            // Log message and bubble it up
             Log::error('Error saving csv: '.$fileName.' '.$e->getMessage());
+            throw $e;
         }
     }
 

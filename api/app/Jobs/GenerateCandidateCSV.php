@@ -4,6 +4,8 @@ namespace App\Jobs;
 
 use App\Events\UserFileGenerated;
 use App\Generators\CandidateProfileCsv;
+use App\Models\User;
+use App\Notifications\UserFileGenerationError;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -25,13 +27,17 @@ class GenerateCandidateCSV implements ShouldQueue
      */
     public function handle(): void
     {
+        $user = User::find($this->userId);
+        $fileName = 'candidates_'.date('Y-m-d_His').'.csv';
+
         try {
             $generator = new CandidateProfileCsv($this->candidateIds, $this->userId, $this?->lang);
-            $fileName = 'candidates_'.date('Y-m-d_His').'.csv';
             $generator->generate()->write($fileName, $this->userId);
 
             UserFileGenerated::dispatch($fileName, $this->userId);
         } catch (\Exception $e) {
+            // Notify the user something went wrong
+            $user->notify(new UserFileGenerationError($fileName));
             Log::debug('Error generating file: '.$e->getMessage());
         }
 

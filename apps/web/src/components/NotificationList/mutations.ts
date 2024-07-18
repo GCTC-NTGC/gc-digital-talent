@@ -2,8 +2,6 @@ import { useMutation } from "urql";
 
 import { graphql, Scalars } from "@gc-digital-talent/graphql";
 
-import { UserMutationPromise } from "../EmploymentEquity/types";
-
 export const MarkNotificationAsRead_Mutation = graphql(/* GraphQL */ `
   mutation MarkNotificationAsRead($id: UUID!) {
     markNotificationAsRead(id: $id) {
