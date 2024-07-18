@@ -18,9 +18,27 @@ const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
-export const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
+const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchResultCard_Pool on Pool {
     id
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    classification {
+      group
+      level
+    }
     name {
       en
       fr
@@ -101,7 +119,12 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         data-h2-font-weight="base(700)"
         id={`search_pool_${pool.id}`}
       >
-        {getShortPoolTitleHtml(intl, pool)}
+        {getShortPoolTitleHtml(intl, {
+          stream: pool.stream,
+          name: pool.name,
+          publishingGroup: pool.publishingGroup,
+          classification: pool.classification,
+        })}
       </p>
       <p
         data-h2-margin="base(x.5, 0, x1, 0)"

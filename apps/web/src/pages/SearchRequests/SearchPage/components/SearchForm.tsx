@@ -238,7 +238,7 @@ export const SearchForm = ({
   );
 };
 
-export const SearchForm_PoolFragment = graphql(/* GraphQL */ `
+const SearchForm_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchForm_Pool on Pool {
     ...SearchResultCard_Pool
     id
