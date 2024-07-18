@@ -336,7 +336,7 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-  currentPool?: Maybe<Pool>,
+  currentPool?: Maybe<Pick<Pool, "id">>,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
@@ -358,7 +358,7 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  currentPool?: Maybe<Pool>,
+  currentPool?: Maybe<Pick<Pool, "id">>,
 ): Maybe<SortOrder> | undefined {
   if (!!currentPool && !!sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder

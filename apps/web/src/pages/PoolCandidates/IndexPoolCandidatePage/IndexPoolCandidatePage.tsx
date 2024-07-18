@@ -206,6 +206,8 @@ export const IndexPoolCandidatePage = () => {
     },
   });
 
+  const currentPool = data?.pool ?? null;
+
   return (
     <AdminContentWrapper>
       <SEO
@@ -225,7 +227,15 @@ export const IndexPoolCandidatePage = () => {
             suspendedStatus: CandidateSuspendedFilter.Active,
             expiryStatus: CandidateExpiryFilter.Active,
           }}
-          currentPool={data?.pool}
+          currentPool={
+            currentPool
+              ? {
+                  id: currentPool.id,
+                  generalQuestions: currentPool.generalQuestions,
+                  poolSkills: currentPool.poolSkills,
+                }
+              : null
+          }
           title={pageTitle}
         />
       </Pending>

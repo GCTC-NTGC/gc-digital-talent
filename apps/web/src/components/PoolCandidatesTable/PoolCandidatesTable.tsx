@@ -435,7 +435,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pool>;
+  currentPool?: Maybe<Pick<Pool, "id" | "generalQuestions" | "poolSkills">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -978,7 +978,10 @@ const PoolCandidatesTable = ({
         fetching: isSelecting && selectingFor === "download",
         selection: {
           csv: {
-            headers: getPoolCandidateCsvHeaders(intl, currentPool),
+            headers: getPoolCandidateCsvHeaders(intl, {
+              generalQuestions: currentPool?.generalQuestions,
+              poolSkills: currentPool?.poolSkills,
+            }),
             data: async () => {
               const selected = await querySelected("download");
               return getPoolCandidateCsvData(selected ?? [], intl);
