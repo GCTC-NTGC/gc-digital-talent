@@ -35,74 +35,6 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
     }
     pool(id: $id) {
       id
-      name {
-        en
-        fr
-      }
-      stream {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      closingDate
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      language {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      securityClearance {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      whatToExpect {
-        en
-        fr
-      }
-      specialNote {
-        en
-        fr
-      }
       poolSkills {
         id
         type {
@@ -130,39 +62,6 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
               fr
             }
           }
-          families {
-            id
-            key
-            description {
-              en
-              fr
-            }
-            name {
-              en
-              fr
-            }
-          }
-        }
-      }
-
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      processNumber
-      publishingGroup {
-        value
-        label {
-          en
-          fr
         }
       }
       generalQuestions {
@@ -171,15 +70,7 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
           en
           fr
         }
-      }
-      team {
-        id
-        name
-        contactEmail
-        displayName {
-          en
-          fr
-        }
+        sortOrder
       }
     }
   }
