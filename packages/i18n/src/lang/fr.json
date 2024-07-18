@@ -171,6 +171,10 @@
     "defaultMessage": "Une erreur s’est produite au moment d’annuler la décision finale. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that reverting the final decision for a candidate failed"
   },
+  "5RTQe6": {
+    "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
+    "description": "Message to user when they request a file for download"
+  },
   "5gS1sZ": {
     "defaultMessage": "La valeur doit être supérieure à {value}",
     "description": "Error message that the provided value must be greater than some referenced minimum value."
@@ -458,6 +462,10 @@
   "KMSWLW": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
+  },
+  "KiMQQd": {
+    "defaultMessage": "Une erreur s’est produite de notre côté. Le téléchargement de {fileName} a échoué. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
+    "description": "Error message when a file download fails"
   },
   "Ko0JX/": {
     "defaultMessage": "Constamment démontrée comme étant bien développée dans des conditions quotidiennes auprès de tous les publics, fréquemment démontrée dans des situations de stress et dans des situations modérément difficiles auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress important et dans des situations difficiles.",
@@ -1090,6 +1098,10 @@
   "pmoexB": {
     "defaultMessage": "<strong> Virtuel</strong>  (travail à domicile, partout au Canada.)",
     "description": "The work region of Canada described as Telework."
+  },
+  "qNERoQ": {
+    "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
+    "description": "Message for when the download request failed"
   },
   "qVI4xG": {
     "defaultMessage": "réussite partielle",
