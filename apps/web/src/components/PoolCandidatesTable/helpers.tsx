@@ -32,6 +32,7 @@ import {
   LocalizedProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByPoolColumn,
   PriorityWeight,
+  Classification,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -115,11 +116,18 @@ export const candidateNameCell = (
 };
 
 export const processCell = (
-  pool: Pool,
+  pool: Pick<Pool, "id" | "stream" | "name" | "publishingGroup"> & {
+    classification?: Maybe<Pick<Classification, "group" | "level">>;
+  },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const poolName = getFullPoolTitleLabel(intl, pool);
+  const poolName = getFullPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
   return (
     <Link
       href={paths.poolView(pool.id)}

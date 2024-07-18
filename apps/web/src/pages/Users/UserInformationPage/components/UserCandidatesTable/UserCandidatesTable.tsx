@@ -73,6 +73,10 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
       }
       pool {
         id
+        name {
+          en
+          fr
+        }
         stream {
           value
           label {
@@ -203,16 +207,36 @@ const UserCandidatesTable = ({
         },
       },
     ),
-    columnHelper.accessor(({ pool }) => getFullPoolTitleLabel(intl, pool), {
-      id: "process",
-      header: intl.formatMessage(processMessages.process),
-      sortingFn: normalizedText,
-      cell: ({
-        row: {
-          original: { pool },
-        },
-      }) => processCell(pool, paths, intl),
-    }),
+    columnHelper.accessor(
+      ({ pool }) =>
+        getFullPoolTitleLabel(intl, {
+          stream: pool.stream,
+          name: pool.name,
+          publishingGroup: pool.publishingGroup,
+          classification: pool.classification,
+        }),
+      {
+        id: "process",
+        header: intl.formatMessage(processMessages.process),
+        sortingFn: normalizedText,
+        cell: ({
+          row: {
+            original: { pool },
+          },
+        }) =>
+          processCell(
+            {
+              id: pool.id,
+              stream: pool.stream,
+              name: pool.name,
+              publishingGroup: pool.publishingGroup,
+              classification: pool.classification,
+            },
+            paths,
+            intl,
+          ),
+      },
+    ),
     columnHelper.accessor(
       () => getLocalizedName(user.priority?.label, intl, true),
       {

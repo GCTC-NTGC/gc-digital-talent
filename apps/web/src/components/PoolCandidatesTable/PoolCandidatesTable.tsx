@@ -716,7 +716,13 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.accessor(
-            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            ({ poolCandidate: { pool } }) =>
+              getFullPoolTitleLabel(intl, {
+                stream: pool.stream,
+                name: pool.name,
+                publishingGroup: pool.publishingGroup,
+                classification: pool.classification,
+              }),
             {
               id: "process",
               header: intl.formatMessage(processMessages.process),
@@ -727,7 +733,18 @@ const PoolCandidatesTable = ({
                     poolCandidate: { pool },
                   },
                 },
-              }) => processCell(pool, paths, intl),
+              }) =>
+                processCell(
+                  {
+                    id: pool.id,
+                    stream: pool.stream,
+                    name: pool.name,
+                    publishingGroup: pool.publishingGroup,
+                    classification: pool.classification,
+                  },
+                  paths,
+                  intl,
+                ),
             },
           ),
           columnHelper.accessor(
