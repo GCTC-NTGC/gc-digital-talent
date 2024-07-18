@@ -20,8 +20,8 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  Pool,
   PoolFilterInput,
+  PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -60,12 +60,65 @@ import {
 import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
 
-const columnHelper = createColumnHelper<Pool>();
+const columnHelper = createColumnHelper<PoolTablePoolFragmentType>();
 
 const defaultState = {
   ...INITIAL_STATE,
   sortState: [{ id: "createdDate", desc: false }],
 };
+
+const PoolTable_PoolFragment = graphql(/* GraphQL */ `
+  fragment PoolTable_Pool on Pool {
+    id
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    processNumber
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    createdDate
+    updatedDate
+    name {
+      en
+      fr
+    }
+    classification {
+      id
+      group
+      level
+    }
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+    owner {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+`);
 
 const PoolTable_Query = graphql(/* GraphQL */ `
   query PoolTable(
@@ -89,54 +142,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
       page: $page
     ) {
       data {
-        id
-        stream {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        processNumber
-        status {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        createdDate
-        updatedDate
-        name {
-          en
-          fr
-        }
-        classification {
-          id
-          group
-          level
-        }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
-        owner {
-          id
-          firstName
-          lastName
-          email
-        }
+        ...PoolTable_Pool
       }
       paginatorInfo {
         count
@@ -237,9 +243,13 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     },
   });
 
+  const dataFragment = getFragment(
+    PoolTable_PoolFragment,
+    data?.poolsPaginated.data,
+  );
   const filteredData = useMemo(
-    () => unpackMaybes(data?.poolsPaginated.data),
-    [data?.poolsPaginated.data],
+    () => unpackMaybes(dataFragment),
+    [dataFragment],
   );
 
   const user = getFragment(PoolBookmark_Fragment, data?.me);
@@ -410,10 +420,10 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         },
       }) => cells.date(updatedDate, intl),
     }),
-  ] as ColumnDef<Pool>[];
+  ] as ColumnDef<PoolTablePoolFragmentType>[];
 
   return (
-    <Table<Pool>
+    <Table<PoolTablePoolFragmentType>
       caption={title}
       data={filteredData}
       columns={columns}
