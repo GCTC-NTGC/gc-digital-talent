@@ -3,7 +3,7 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
-import { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
+import { Maybe, Pool, UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
@@ -20,7 +20,7 @@ const DiversityEquityInclusion = ({
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps) => {
+}: SectionProps & { pool: Maybe<Pick<Pool, "publishingGroup">> }) => {
   const intl = useIntl();
   const title = getSectionTitle("dei");
   const isComplete = !hasEmptyRequiredFields(user, pool); // no empty required fields so false returns, means complete is true

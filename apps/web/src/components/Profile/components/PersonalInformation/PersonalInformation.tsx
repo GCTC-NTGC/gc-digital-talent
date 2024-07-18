@@ -6,6 +6,7 @@ import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Maybe, Pool } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -31,7 +32,7 @@ const PersonalInformation = ({
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps) => {
+}: SectionProps & { pool: Maybe<Pick<Pool, "id">> }) => {
   const intl = useIntl();
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
