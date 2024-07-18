@@ -64,11 +64,6 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      classification {
-        id
-        group
-        level
-      }
       department {
         id
         departmentNumber

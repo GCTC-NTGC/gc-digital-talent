@@ -112,7 +112,6 @@ export const PoolClassification_Fragment = graphql(/* GraphQL */ `
 export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
   fragment PoolDepartment on Department {
     id
-    departmentNumber
     name {
       en
       fr

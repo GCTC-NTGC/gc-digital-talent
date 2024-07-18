@@ -32,7 +32,7 @@ interface EditTeamRoleDialogProps {
   user: User;
   initialRoles: Array<Role>;
   allRoles: Array<Role>;
-  team: Team;
+  team: Pick<Team, "id" | "displayName">;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

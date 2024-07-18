@@ -22,7 +22,7 @@ export type FormValues = Pick<
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
   pool?: Scalars["ID"]["output"];
-  selectedClassifications?: Classification[];
+  selectedClassifications?: Pick<Classification, "group" | "level">[];
   count?: number;
   allPools?: boolean; // Prevent `was_empty` when requesting all pools
 };
@@ -33,6 +33,6 @@ export type BrowserHistoryState = {
   applicantFilter?: ApplicantFilterInput;
   candidateCount: number;
   initialValues?: FormValues;
-  selectedClassifications?: Classification[];
+  selectedClassifications?: Pick<Classification, "group" | "level">[];
   allPools?: boolean;
 };

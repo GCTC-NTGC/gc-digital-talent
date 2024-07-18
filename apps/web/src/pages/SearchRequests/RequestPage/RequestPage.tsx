@@ -15,7 +15,7 @@ type LocationState = {
   applicantFilter: ApplicantFilterInput;
   initialValues: SearchFormValues;
   candidateCount: number;
-  selectedClassifications: Classification[];
+  selectedClassifications?: Pick<Classification, "group" | "level">[];
 };
 
 export const Component = () => {

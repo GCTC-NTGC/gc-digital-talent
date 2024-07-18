@@ -8,7 +8,7 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
-  Department,
+  DepartmentTableRowFragment,
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
@@ -18,7 +18,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 
-const columnHelper = createColumnHelper<Department>();
+const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
 
 export const DepartmentTableRow_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentTableRow on Department {
@@ -72,7 +72,7 @@ export const DepartmentTable = ({
           getLocalizedName(department.name, intl, true),
         ),
     }),
-  ] as ColumnDef<Department>[];
+  ] as ColumnDef<DepartmentTableRowFragment>[];
 
   const data = departments.filter(notEmpty);
 
@@ -80,7 +80,7 @@ export const DepartmentTable = ({
   const currentUrl = `${pathname}${search}${hash}`;
 
   return (
-    <Table<Department>
+    <Table<DepartmentTableRowFragment>
       data={data}
       caption={title}
       columns={columns}
