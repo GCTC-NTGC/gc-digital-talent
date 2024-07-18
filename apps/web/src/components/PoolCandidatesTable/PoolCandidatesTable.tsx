@@ -502,7 +502,7 @@ const PoolCandidatesTable = ({
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
@@ -622,7 +622,7 @@ const PoolCandidatesTable = ({
     })
       .then((res) => {
         if (res.data) {
-          toast.success(intl.formatMessage(commonMessages.preparingDownload));
+          toast.info(intl.formatMessage(commonMessages.preparingDownload));
         } else {
           handleDownloadError();
         }
