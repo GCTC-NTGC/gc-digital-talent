@@ -44,6 +44,13 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
     name {
       en

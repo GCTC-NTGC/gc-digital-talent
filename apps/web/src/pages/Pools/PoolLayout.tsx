@@ -45,6 +45,13 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     publishedAt
     isComplete
     name {

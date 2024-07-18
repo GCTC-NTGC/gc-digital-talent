@@ -391,6 +391,13 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             fr
           }
         }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
         classification {
           id
           group

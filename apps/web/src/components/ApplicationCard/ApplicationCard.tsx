@@ -53,6 +53,13 @@ export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
