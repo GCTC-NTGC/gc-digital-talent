@@ -1073,35 +1073,33 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     // Prepares the parameters for Laratrust and then calls the function to modify the roles
-    private function callRolesFunction($rolesInput, $functionName)
+    private function callRolesFunction($roleInput, $functionName)
     {
-        // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert the array of IDs to an array of key-value pairs where the key is 'id'.
-        $roleIdObjects = array_map(function ($id) {
-            return ['id' => $id];
-        }, $rolesInput['roles']);
+        // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert to an array of key-value pairs where the key is 'id'.
+        $roleIdObjectInArray = [['id' => $roleInput['roleId']]];
 
         // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert the ID to a key-value pair where the key is 'id'.
-        if (array_key_exists('team', $rolesInput)) {
-            $teamIdObject = ['id' => $rolesInput['team']];
+        if (array_key_exists('teamId', $roleInput)) {
+            $teamIdObject = ['id' => $roleInput['teamId']];
         } else {
             $teamIdObject = null;
         }
 
-        return $this->$functionName($roleIdObjects, $teamIdObject);
+        return $this->$functionName($roleIdObjectInArray, $teamIdObject);
     }
 
     public function setRoleAssignmentsInputAttribute($roleAssignmentHasMany)
     {
-        if (array_key_exists('attach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['attach'], 'addRoles');
+        if (isset($roleAssignmentHasMany['attach'])) {
+            foreach ($roleAssignmentHasMany['attach'] as $attachRoleInput) {
+                $this->callRolesFunction($attachRoleInput, 'addRoles');
+            }
         }
 
-        if (array_key_exists('detach', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['detach'], 'removeRoles');
-        }
-
-        if (array_key_exists('sync', $roleAssignmentHasMany)) {
-            $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
+        if (isset($roleAssignmentHasMany['detach'])) {
+            foreach ($roleAssignmentHasMany['detach'] as $detachRoleInput) {
+                $this->callRolesFunction($detachRoleInput, 'removeRoles');
+            }
         }
     }
 
