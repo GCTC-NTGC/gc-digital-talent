@@ -227,7 +227,10 @@ export const formValuesToData = (
           .filter(
             (pool) =>
               selectedClassification === undefined || // If a classification hasn't been selected yet, do not filter out any pools.
-              poolMatchesClassification(pool, selectedClassification),
+              poolMatchesClassification(
+                { classification: pool.classification },
+                selectedClassification,
+              ),
           )
           .filter(
             (pool) =>

@@ -45,7 +45,7 @@ import { wrapAbbr } from "./nameUtils";
  * @returns boolean
  */
 export const poolMatchesClassification = (
-  pool: Pool,
+  pool: { classification?: Maybe<Pick<Classification, "group" | "level">> },
   classification: Pick<Classification, "group" | "level">,
 ): boolean => {
   return (
