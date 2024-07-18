@@ -160,9 +160,18 @@ const ChangeStatusDialog = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getShortPoolTitleHtml(intl, r.poolCandidate.pool, {
-                      defaultTitle: r.poolCandidate.id,
-                    })}
+                    {getShortPoolTitleHtml(
+                      intl,
+                      {
+                        stream: r.poolCandidate.pool.stream,
+                        name: r.poolCandidate.pool.name,
+                        publishingGroup: r.poolCandidate.pool.publishingGroup,
+                        classification: r.poolCandidate.pool.classification,
+                      },
+                      {
+                        defaultTitle: r.poolCandidate.id,
+                      },
+                    )}
                   </li>
                 ))}
               </ul>
@@ -198,7 +207,12 @@ const ChangeStatusDialog = ({
               },
               {
                 status: getLocalizedName(selectedCandidate.status?.label, intl),
-                poolName: getShortPoolTitleLabel(intl, selectedCandidate?.pool),
+                poolName: getShortPoolTitleLabel(intl, {
+                  stream: selectedCandidate.pool.stream,
+                  name: selectedCandidate.pool.name,
+                  publishingGroup: selectedCandidate.pool.publishingGroup,
+                  classification: selectedCandidate.pool.classification,
+                }),
               },
             )}
           </span>
@@ -233,7 +247,13 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            - {getShortPoolTitleHtml(intl, selectedCandidate?.pool)}
+            -{" "}
+            {getShortPoolTitleHtml(intl, {
+              stream: selectedCandidate.pool.stream,
+              name: selectedCandidate.pool.name,
+              publishingGroup: selectedCandidate.pool.publishingGroup,
+              classification: selectedCandidate.pool.classification,
+            })}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>

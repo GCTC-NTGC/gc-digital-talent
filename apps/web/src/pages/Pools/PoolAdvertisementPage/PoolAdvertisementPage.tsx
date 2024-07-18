@@ -302,8 +302,18 @@ export const PoolPoster = ({
       level: classification?.level,
     });
   }
-  const poolTitle = getShortPoolTitleLabel(intl, pool);
-  const fullPoolTitle = getFullPoolTitleHtml(intl, pool);
+  const poolTitle = getShortPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
+  const fullPoolTitle = getFullPoolTitleHtml(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
   const formattedSubTitle = intl.formatMessage(subTitle);
   const salaryRangeUrl = getClassificationSalaryRangeUrl(
     locale,

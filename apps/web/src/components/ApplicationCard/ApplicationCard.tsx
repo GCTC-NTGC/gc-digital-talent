@@ -106,8 +106,18 @@ const ApplicationCard = ({
     application.pool.closingDate,
     application.submittedAt,
   );
-  const applicationTitle = getShortPoolTitleHtml(intl, application.pool);
-  const applicationTitleString = getShortPoolTitleLabel(intl, application.pool);
+  const applicationTitle = getShortPoolTitleHtml(intl, {
+    stream: application.pool.stream,
+    name: application.pool.name,
+    publishingGroup: application.pool.publishingGroup,
+    classification: application.pool.classification,
+  });
+  const applicationTitleString = getShortPoolTitleLabel(intl, {
+    stream: application.pool.stream,
+    name: application.pool.name,
+    publishingGroup: application.pool.publishingGroup,
+    classification: application.pool.classification,
+  });
 
   const deleteApplication = () => {
     executeDeleteMutation({

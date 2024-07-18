@@ -84,7 +84,12 @@ const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
   if (currentPage?.link.url.includes("plan")) {
     return currentPage?.title;
   }
-  return getShortPoolTitleLabel(intl, pool);
+  return getShortPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
 };
 
 interface HeroSubtitleProps {

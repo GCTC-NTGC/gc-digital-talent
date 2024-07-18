@@ -182,7 +182,12 @@ const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getShortPoolTitleHtml(intl, rejected.pool)}
+                    {getShortPoolTitleHtml(intl, {
+                      stream: rejected.pool.stream,
+                      name: rejected.pool.name,
+                      publishingGroup: rejected.pool.publishingGroup,
+                      classification: rejected.pool.classification,
+                    })}
                   </li>
                 ))}
               </ul>

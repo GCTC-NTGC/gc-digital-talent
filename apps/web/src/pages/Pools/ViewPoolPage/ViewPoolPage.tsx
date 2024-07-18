@@ -131,7 +131,12 @@ export const ViewPool = ({
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
   const pool = getFragment(ViewPool_Fragment, poolQuery);
-  const poolName = getShortPoolTitleHtml(intl, pool);
+  const poolName = getShortPoolTitleHtml(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = getAssessmentPlanStatus(pool);

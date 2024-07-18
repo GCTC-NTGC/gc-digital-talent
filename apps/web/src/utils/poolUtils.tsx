@@ -246,7 +246,12 @@ export const useAdminPoolPages = (
   pool: Pick<Pool, "id"> & PoolTitle,
 ) => {
   const paths = useRoutes();
-  const poolName = getFullPoolTitleLabel(intl, pool);
+  const poolName = getFullPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
 
   return new Map<PageNavKeys, PageNavInfo>([
     [
