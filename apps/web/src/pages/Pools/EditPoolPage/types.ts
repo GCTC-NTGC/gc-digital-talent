@@ -3,14 +3,39 @@ import { ReactNode } from "react";
 import {
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
-  Pool,
   UpdatePublishedPoolInput,
+  EditPoolWhatToExpectAdmissionFragment,
+  EditPoolAboutUsFragment,
+  EditPoolClosingDateFragment,
+  EditPoolCoreRequirementsFragment,
+  EditPoolEducationRequirementsFragment,
+  EditPoolGeneralQuestionsFragment,
+  EditPoolKeyTasksFragment,
+  EditPoolNameFragment,
+  EditPoolSkillsFragment,
+  EditPoolSpecialNoteFragment,
+  EditPoolWhatToExpectFragment,
+  EditPoolYourImpactFragment,
 } from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 
+type PoolDisplayFragments =
+  | EditPoolAboutUsFragment
+  | EditPoolClosingDateFragment
+  | EditPoolCoreRequirementsFragment
+  | EditPoolEducationRequirementsFragment
+  | EditPoolGeneralQuestionsFragment
+  | EditPoolKeyTasksFragment
+  | EditPoolNameFragment
+  | EditPoolSkillsFragment
+  | EditPoolSpecialNoteFragment
+  | EditPoolWhatToExpectAdmissionFragment
+  | EditPoolWhatToExpectFragment
+  | EditPoolYourImpactFragment;
+
 export type DisplayProps = {
-  pool: Pool;
+  pool: PoolDisplayFragments;
   subtitle?: ReactNode;
 };
 

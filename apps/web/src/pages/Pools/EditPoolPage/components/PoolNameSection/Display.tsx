@@ -1,14 +1,13 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { EditPoolNameFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { getClassificationName } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import { DisplayProps } from "../../types";
-
-const Display = ({ pool }: DisplayProps) => {
+const Display = ({ pool }: { pool: EditPoolNameFragment }) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {
