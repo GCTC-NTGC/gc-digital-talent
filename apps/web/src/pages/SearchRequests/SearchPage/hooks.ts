@@ -10,6 +10,7 @@ import {
   ApplicantFilterInput,
   CandidateSearchPoolResult,
   Pool,
+  SearchResultCard_PoolFragment,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues, LocationState } from "~/types/searchRequest";
@@ -118,7 +119,9 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
 type UseCandidateCountReturn = {
   fetching: boolean;
   candidateCount: number;
-  results?: CandidateSearchPoolResult[];
+  results?: (Pick<CandidateSearchPoolResult, "candidateCount"> & {
+    pool: SearchResultCard_PoolFragment;
+  })[];
 };
 
 export const useCandidateCount = (
