@@ -65,6 +65,13 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
       }
+      finalDecision {
+        value
+        label {
+          en
+          fr
+        }
+      }
       user {
         ...ApplicationProfileDetails
         ...ProfileDocument
@@ -649,7 +656,7 @@ export const ViewPoolCandidate = ({
     .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
-    poolCandidate.status?.value,
+    poolCandidate.finalDecision,
     poolCandidate.assessmentStatus,
     intl,
   );

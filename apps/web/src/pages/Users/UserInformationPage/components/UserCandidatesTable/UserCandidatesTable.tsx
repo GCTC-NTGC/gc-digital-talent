@@ -59,6 +59,13 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
       submittedAt
       suspendedAt
       notes
+      finalDecision {
+        value
+        label {
+          en
+          fr
+        }
+      }
       assessmentStatus {
         currentStep
         overallAssessmentStatus
@@ -223,13 +230,13 @@ const UserCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ status }) => getLocalizedName(status?.label, intl, true),
+      ({ finalDecision }) => getLocalizedName(finalDecision?.label, intl, true),
       {
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({ row: { original: poolCandidate } }) =>
           finalDecisionCell(
-            poolCandidate.status?.value,
+            poolCandidate.finalDecision,
             poolCandidate.assessmentStatus,
             intl,
           ),

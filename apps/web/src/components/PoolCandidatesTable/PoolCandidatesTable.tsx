@@ -205,6 +205,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
+          finalDecision {
+            value
+            label {
+              en
+              fr
+            }
+          }
           assessmentStatus {
             currentStep
             overallAssessmentStatus
@@ -772,11 +779,10 @@ const PoolCandidatesTable = ({
         cell: ({
           row: {
             original: {
-              poolCandidate: { status, assessmentStatus },
+              poolCandidate: { finalDecision, assessmentStatus },
             },
           },
-        }) => finalDecisionCell(status?.value, assessmentStatus, intl),
-        enableSorting: false,
+        }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
       },
     ),
     columnHelper.accessor(
