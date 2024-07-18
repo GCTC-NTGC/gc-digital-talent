@@ -50,7 +50,7 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.1.5",
     "@microsoft/applicationinsights-web": "^3.3.0",
-    "@tanstack/react-table": "^8.19.2",
+    "@tanstack/react-table": "^8.19.3",
     "dataloader": "^2.2.2",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.3.2",
