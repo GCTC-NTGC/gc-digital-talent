@@ -348,7 +348,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
