@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
-import { Link as BaseLink, useNavigate } from "react-router-dom";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
-import { ReactNode, MouseEvent, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -18,16 +17,16 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 
 import useNotificationInfo from "~/hooks/useNotificationInfo";
-import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import {
   MarkNotificationAsRead_Mutation,
   MarkNotificationAsUnread_Mutation,
 } from "./mutations";
 import RemoveDialog from "./RemoveDialog";
+import NotificationDownload from "./NotificationDownload";
+import NotificationLink from "./NotificationLink";
 
 type LinkWrapperProps = {
   inDialog?: boolean;
@@ -81,33 +80,6 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type LinkComponentProps = React.ComponentProps<"a"> & {
-  external?: boolean;
-};
-
-const LinkComponent = ({
-  external,
-  href,
-  children,
-  ...rest
-}: LinkComponentProps) => {
-  if (external) {
-    return (
-      // Note: we need an <a> to download
-      // eslint-disable-next-line react/forbid-elements
-      <a href={href} {...rest}>
-        {children}
-      </a>
-    );
-  }
-
-  return (
-    <BaseLink to={href ?? ""} {...rest}>
-      {children}
-    </BaseLink>
-  );
-};
-
 interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
@@ -123,7 +95,6 @@ const NotificationItem = ({
   onRead,
 }: NotificationItemProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const notification = getFragment(
     NotificationItem_Fragment,
     notificationQuery,
@@ -136,11 +107,6 @@ const NotificationItem = ({
   );
   const [{ fetching: markingAsUnread }, executeMarkAsUnreadMutation] =
     useMutation(MarkNotificationAsUnread_Mutation);
-  const [{ fetching: downloadingFile }, executeFileDownload] =
-    useAsyncFileDownload({
-      url: info?.href ?? "",
-      fileName: info?.download ?? "",
-    });
 
   useEffect(() => {
     if (focusRef) focusRef.current?.focus();
@@ -157,39 +123,6 @@ const NotificationItem = ({
     mutation({ id: notification.id });
   };
 
-  const handleLinkClicked = async (event: MouseEvent<HTMLAnchorElement>) => {
-    event.stopPropagation();
-    if (info.download) {
-      event.preventDefault();
-    }
-
-    executeMarkAsReadMutation({ id: notification.id }).then((res) => {
-      if (res.data?.markNotificationAsRead) {
-        onRead?.();
-        if (!info.download || !info.external) {
-          navigate(info.href);
-        } else if (info.download) {
-          if (!downloadingFile) {
-            executeFileDownload().catch(() => {
-              toast.error(
-                intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "There was a problem on our end. {fileName} failed to download. If you continue to receive this error, please get in touch with our support team",
-                    id: "KiMQQd",
-                    description: "Error message when a file download fails",
-                  },
-                  { fileName: info.download },
-                ),
-              );
-            });
-          }
-        }
-      }
-      return false;
-    });
-  };
-
   const createdAt = notification.createdAt
     ? formatDate({
         date: parseDateTimeUtc(notification.createdAt),
@@ -197,6 +130,13 @@ const NotificationItem = ({
         intl,
       })
     : intl.formatMessage(commonMessages.notAvailable);
+
+  const commonLinkProps = {
+    id: notification.id,
+    onRead,
+    href: info.href,
+    isUnread,
+  };
 
   return (
     <li>
@@ -250,26 +190,18 @@ const NotificationItem = ({
             data-h2-width="base(100%)"
           >
             <LinkWrapper inDialog={inDialog}>
-              <LinkComponent
-                href={info.href}
-                ref={focusRef}
-                external={info.external}
-                download={info.download}
-                onClick={handleLinkClicked}
-                data-h2-text-decoration="base(none)"
-                data-h2-color="base:hover(secondary.darker)"
-                data-h2-outline="base(none)"
-                {...((downloadingFile || markingAsRead) && {
-                  "data-h2-opacity": "base(0.6)",
-                  "data-h2-pointer-events": "base(none)",
-                  "aria-disabled": true,
-                })}
-                {...(isUnread && {
-                  "data-h2-font-weight": "base(700)",
-                })}
-              >
-                {info.message}
-              </LinkComponent>
+              {info.download ? (
+                <NotificationDownload
+                  fileName={info.download}
+                  {...commonLinkProps}
+                >
+                  {info.message}
+                </NotificationDownload>
+              ) : (
+                <NotificationLink {...commonLinkProps}>
+                  {info.message}
+                </NotificationLink>
+              )}
             </LinkWrapper>
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>

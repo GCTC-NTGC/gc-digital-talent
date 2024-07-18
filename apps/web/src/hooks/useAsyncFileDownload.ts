@@ -14,7 +14,7 @@ type UseAsyncFileDownloadData = {
 
 type UseAsyncFileDownloadReturn = [
   UseAsyncFileDownloadData,
-  () => Promise<void>,
+  () => Promise<void | Error>,
 ];
 
 /**
@@ -30,7 +30,7 @@ function useAsyncFileDownload({
   const [fetching, setFetching] = useState<boolean>(false);
   const controller = useRef<AbortController>(new AbortController());
 
-  function downloadFile(): Promise<void> {
+  async function downloadFile(): Promise<void> {
     // Abort any current requests
     if (fetching) {
       controller.current.abort();
@@ -38,40 +38,41 @@ function useAsyncFileDownload({
 
     setFetching(true);
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
-    return new Promise<void>((resolve, reject) => {
-      fetch(url, {
-        method: "GET",
-        signal: controller.current.signal,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((res) => {
-          if (res.status !== 200) {
-            reject(new Error(`Response status: ${res.status}`));
+    return fetch(url, {
+      method: "GET",
+      signal: controller.current.signal,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          if (res.status === 404) {
+            return Promise.reject(new Error("not found"));
           }
+          return Promise.reject();
+        }
 
-          return res.blob();
-        })
-        .then((blob) => {
-          const newBlob = new Blob([blob]);
+        return res.blob();
+      })
+      .then((blob) => {
+        const newBlob = new Blob([blob]);
 
-          const blobUrl = window.URL.createObjectURL(newBlob);
+        const blobUrl = window.URL.createObjectURL(newBlob);
 
-          const link = document.createElement("a");
-          link.href = blobUrl;
-          link.setAttribute("download", fileName);
-          document.body.appendChild(link);
-          link.click();
-          link.parentNode?.removeChild(link);
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode?.removeChild(link);
 
-          // clean up Url
-          window.URL.revokeObjectURL(blobUrl);
+        // clean up Url
+        window.URL.revokeObjectURL(blobUrl);
 
-          resolve();
-        })
-        .finally(() => setFetching(false));
-    });
+        return Promise.resolve();
+      })
+      .finally(() => setFetching(false));
   }
 
   return [{ fetching, abort: controller.current.abort }, downloadFile];

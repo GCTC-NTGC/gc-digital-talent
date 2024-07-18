@@ -1,4 +1,8 @@
-import { graphql } from "@gc-digital-talent/graphql";
+import { useMutation } from "urql";
+
+import { graphql, Scalars } from "@gc-digital-talent/graphql";
+
+import { UserMutationPromise } from "../EmploymentEquity/types";
 
 export const MarkNotificationAsRead_Mutation = graphql(/* GraphQL */ `
   mutation MarkNotificationAsRead($id: UUID!) {
@@ -31,3 +35,27 @@ export const DeleteNotification_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
+
+type UseMarkAsReadReturn = [{ fetching: boolean }, () => Promise<void>];
+
+export function useMarkAsRead(
+  id: Scalars["UUID"]["output"],
+): UseMarkAsReadReturn {
+  const [{ fetching }, executeMutation] = useMutation(
+    MarkNotificationAsRead_Mutation,
+  );
+
+  async function markAsRead() {
+    return executeMutation({ id })
+      .then((res) => {
+        if (!res.data?.markNotificationAsRead) {
+          return Promise.reject();
+        }
+
+        return Promise.resolve();
+      })
+      .catch(() => Promise.reject());
+  }
+
+  return [{ fetching }, markAsRead];
+}
