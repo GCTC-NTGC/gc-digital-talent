@@ -103,32 +103,6 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
           group
           level
         }
-        assessmentSteps {
-          id
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          sortOrder
-          title {
-            en
-            fr
-          }
-          poolSkills {
-            id
-            type {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            requiredLevel
-          }
-        }
       }
     }
   }
