@@ -36,9 +36,7 @@ const RemoveIndividualRoleDialog = ({
     return onUpdateUserRoles({
       userId: user.id,
       roleAssignmentsInput: {
-        detach: {
-          roles: [role.id],
-        },
+        detach: [{ roleId: role.id }],
       },
     })
       .then(() => {

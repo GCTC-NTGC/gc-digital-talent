@@ -4,6 +4,7 @@ import childProcess from "child_process";
 import dotenv from "dotenv";
 import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
+import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
 
 import { hydrogen_watch } from "@hydrogen-css/hydrogen";
@@ -124,7 +125,6 @@ export default defineConfig(({ command }) => ({
     OAUTH_LOGOUT_URI: getEnvVar("OAUTH_LOGOUT_URI"),
     FEATURE_DIRECTIVE_FORMS: getEnvVar("FEATURE_DIRECTIVE_FORMS"),
     FEATURE_NOTIFICATIONS: getEnvVar("FEATURE_NOTIFICATIONS"),
-    FEATURE_PROTECTED_API: getEnvVar("FEATURE_PROTECTED_API"),
     APPLICATIONINSIGHTS_CONNECTION_STRING: getEnvVar(
       "APPLICATIONINSIGHTS_CONNECTION_STRING",
     ),
@@ -225,5 +225,6 @@ export default defineConfig(({ command }) => ({
         ],
       },
     }),
+    compression(),
   ],
 }));

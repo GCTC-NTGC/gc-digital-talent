@@ -19,15 +19,20 @@ trait HasLocalization
 
     public static function localizedString(string $value)
     {
-        $key = sprintf(
-            '%s.%s',
-            self::getLangFilename(),
-            self::caseKey($value)
-        );
+        $key = self::getLangKey($value);
 
         return [
             'en' => Lang::get($key, [], 'en'),
             'fr' => Lang::get($key, [], 'fr'),
         ];
+    }
+
+    public static function getLangKey(string $value): string
+    {
+        return sprintf(
+            '%s.%s',
+            self::getLangFilename(),
+            self::caseKey($value)
+        );
     }
 }

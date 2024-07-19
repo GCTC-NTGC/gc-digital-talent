@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Notifications\System as SystemNotification;
 use Error;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\View;
 use Throwable;
 
@@ -28,6 +29,19 @@ class SendNotificationsSystem extends Command
     protected $description = 'Send system notifications from blade templates';
 
     /**
+     * The notification vars
+     *
+     * @var mixed
+     */
+    private $emailSubject = ['en' => '', 'fr' => ''];
+
+    private $emailContent = ['en' => '', 'fr' => ''];
+
+    private $inAppMessage = ['en' => '', 'fr' => ''];
+
+    private $inAppHref = ['en' => '', 'fr' => ''];
+
+    /**
      * Execute the console command.
      *
      * @return int
@@ -40,24 +54,32 @@ class SendNotificationsSystem extends Command
         $viewGroup = $this->argument('viewGroup');
 
         // find the views in api/resources/views/
-        $emailSubjectEn = $viewGroup.'.email_subject_en';
-        $emailSubjectFr = $viewGroup.'.email_subject_fr';
-        $emailContentEn = $viewGroup.'.email_content_en';
-        $emailContentFr = $viewGroup.'.email_content_fr';
-        $inAppMessageEn = $viewGroup.'.in_app_message_en';
-        $inAppMessageFr = $viewGroup.'.in_app_message_fr';
-        $inAppHrefEn = $viewGroup.'.in_app_href_en';
-        $inAppHrefFr = $viewGroup.'.in_app_href_fr';
+        $this->emailSubject = [
+            'en' => $viewGroup.'.email_subject_en',
+            'fr' => $viewGroup.'.email_subject_fr',
+        ];
+        $this->emailContent = [
+            'en' => $viewGroup.'.email_content_en',
+            'fr' => $viewGroup.'.email_subject_fr',
+        ];
+        $this->inAppMessage = [
+            'en' => $viewGroup.'.in_app_message_en',
+            'fr' => $viewGroup.'.in_app_message_fr',
+        ];
+        $this->inAppHref = [
+            'en' => $viewGroup.'.in_app_href_en',
+            'fr' => $viewGroup.'.in_app_href_fr',
+        ];
 
         collect([
-            $emailSubjectEn,
-            $emailSubjectFr,
-            $emailContentEn,
-            $emailContentFr,
-            $inAppMessageEn,
-            $inAppMessageFr,
-            $inAppHrefEn,
-            $inAppHrefFr,
+            $this->emailSubject['en'],
+            $this->emailSubject['fr'],
+            $this->emailContent['en'],
+            $this->emailContent['fr'],
+            $this->inAppMessage['en'],
+            $this->inAppMessage['fr'],
+            $this->inAppHref['en'],
+            $this->inAppHref['fr'],
         ])->each(function ($viewName) {
             if (! View::exists($viewName)) {
                 throw new Error('View not found: '.$viewName);
@@ -67,9 +89,8 @@ class SendNotificationsSystem extends Command
         $singleEmailAddress = $this->argument('emailAddress');
         if (! is_null($singleEmailAddress)) {
             // single email address provided
-            $recipientUsers = [
-                User::where('email', $singleEmailAddress)->sole(),
-            ];
+            $user = User::where('email', $singleEmailAddress)->sole();
+            $this->sendNotification($user, $successCount, $failureCount);
         } else {
             // no email address provided - will send to everyone
             $confirmedEveryone = $this->confirm('This will send the notification to every user.  Do you wish to continue?');
@@ -78,27 +99,12 @@ class SendNotificationsSystem extends Command
 
                 return Command::SUCCESS;
             }
-            $recipientUsers = User::all()->all();
-        }
 
-        foreach ($recipientUsers as $user) {
-            try {
-                $notification = new SystemNotification(
-                    $emailSubjectEn = $emailSubjectEn,
-                    $emailSubjectFr = $emailSubjectFr,
-                    $emailContentEn = $emailContentEn,
-                    $emailContentFr = $emailContentFr,
-                    $inAppMessageEn = $inAppMessageEn,
-                    $inAppMessageFr = $inAppMessageFr,
-                    $inAppHrefEn = $inAppHrefEn,
-                    $inAppHrefFr = $inAppHrefFr,
-                );
-                $user->notify($notification);
-                $successCount++;
-            } catch (Throwable $e) {
-                $this->error($e->getMessage());
-                $failureCount++;
-            }
+            User::chunk(200, function (Collection $users) use (&$successCount, &$failureCount) {
+                foreach ($users as $user) {
+                    $this->sendNotification($user, $successCount, $failureCount);
+                }
+            });
         }
 
         $this->info("Success: $successCount Failure: $failureCount");
@@ -106,6 +112,27 @@ class SendNotificationsSystem extends Command
             return Command::FAILURE;
         } else {
             return Command::SUCCESS;
+        }
+    }
+
+    private function sendNotification(User $user, &$successCount, &$failureCount)
+    {
+        try {
+            $notification = new SystemNotification(
+                $this->emailSubject['en'],
+                $this->emailSubject['fr'],
+                $this->emailContent['en'],
+                $this->emailContent['fr'],
+                $this->inAppMessage['en'],
+                $this->inAppMessage['fr'],
+                $this->inAppHref['en'],
+                $this->inAppHref['fr'],
+            );
+            $user->notify($notification);
+            $successCount++;
+        } catch (Throwable $e) {
+            $this->error($e->getMessage());
+            $failureCount++;
         }
     }
 }

@@ -24,15 +24,4 @@ return [
 
     'notifications' => (bool) env('FEATURE_NOTIFICATIONS', false),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Protected API
-    |--------------------------------------------------------------------------
-    |
-    | A feature to add enhanced protection for the API depending on the network path used
-    |
-    */
-
-    'protectedApi' => (bool) env('FEATURE_PROTECTED_API', false),
-
 ];

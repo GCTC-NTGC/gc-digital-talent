@@ -1,4 +1,12 @@
 name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+parameters:
+  - name: buildMode
+    displayName: Build mode
+    type: string
+    default: default
+    values:
+      - default
+      - dev
 trigger:
   branches:
     include:
@@ -29,8 +37,14 @@ jobs:
       - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
         displayName: "PHP version"
 
-        # -r option to specify the root directory
-      - script: infrastructure/bin/deploy.sh -r $(System.DefaultWorkingDirectory)
+      - script: |
+          if [ ${{ parameters.buildMode }} = 'dev' ]; then
+            # -d option to setup the environment with dev dependencies
+            echo "Building dev..." && infrastructure/bin/deploy.sh -d -r $(System.DefaultWorkingDirectory)
+          else
+            # -r option to specify the root directory
+            echo "Building default..." && infrastructure/bin/deploy.sh -r $(System.DefaultWorkingDirectory)
+          fi
         displayName: Dependencies
         env:
           # Vite requires build-time variable to have the VITE_ prefix

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
+import { useMutation } from "urql";
 
 import {
   RadioGroup,
@@ -11,7 +11,6 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import {
-  Department,
   FragmentType,
   PlacementType,
   PoolCandidateStatus,
@@ -26,6 +25,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -76,8 +76,8 @@ export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const JobPlacementOptions_Query = graphql(/* GraphQL */ `
-  query JobPlacementOptions {
+export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
+  fragment JobPlacementOptions on Query {
     placementTypes: localizedEnumStrings(enumName: "PlacementType") {
       value
       label {
@@ -85,8 +85,19 @@ const JobPlacementOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    departments {
+      id
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
+
+export type JobPlacementOptionsFragmentType = FragmentType<
+  typeof JobPlacementOptions_Query
+>;
 
 type FormValues = {
   placementType?: PlacementType | "NOT_PLACED";
@@ -95,20 +106,19 @@ type FormValues = {
 
 interface JobPlacementDialogProps {
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
-  departments: Department[];
+  optionsQuery?: JobPlacementOptionsFragmentType;
   context?: "table" | "view";
   defaultOpen?: boolean;
 }
 
 const JobPlacementDialog = ({
   jobPlacementDialogQuery,
-  departments,
+  optionsQuery,
   context = "table",
   defaultOpen = false,
 }: JobPlacementDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
-  const [{ data }] = useQuery({ query: JobPlacementOptions_Query });
   const [, executePlacedCandidate] = useMutation(PlaceCandidate_Mutation);
   const [, executeRevertPlacedCandidate] = useMutation(
     RevertPlaceCandidate_Mutation,
@@ -119,6 +129,7 @@ const JobPlacementDialog = ({
     status,
     placedDepartment,
   } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
+  const options = getFragment(JobPlacementOptions_Query, optionsQuery);
 
   const placementType =
     status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
@@ -209,7 +220,7 @@ const JobPlacementDialog = ({
       value: "NOT_PLACED",
       label: intl.formatMessage(poolCandidateMessages.notPlaced),
     },
-    ...localizedEnumToOptions(sortPlacementType(data?.placementTypes), intl),
+    ...localizedEnumToOptions(sortPlacementType(options?.placementTypes), intl),
   ];
 
   let label = intl.formatMessage(commonMessages.notAvailable);
@@ -284,7 +295,10 @@ const JobPlacementDialog = ({
                       description:
                         "Null selection for department select input in the request form.",
                     })}
-                    options={objectsToSortedOptions([...departments], intl)}
+                    options={objectsToSortedOptions(
+                      unpackMaybes(options?.departments),
+                      intl,
+                    )}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -315,12 +329,12 @@ const JobPlacementDialog = ({
 
 export function jobPlacementDialogAccessor(
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>,
-  departments: Department[],
+  optionsQuery?: JobPlacementOptionsFragmentType,
 ) {
   return (
     <JobPlacementDialog
       jobPlacementDialogQuery={jobPlacementDialogQuery}
-      departments={departments}
+      optionsQuery={optionsQuery}
     />
   );
 }

@@ -1,2 +1,3 @@
 ignore:
   - "**/*.stories.tsx"
+comment: false

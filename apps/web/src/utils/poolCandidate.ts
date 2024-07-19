@@ -13,19 +13,15 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
-  AssessmentDecision,
-  AssessmentResult,
-  AssessmentResultType,
-  AssessmentStep,
-  AssessmentStepType,
-  PoolCandidate,
-  PoolSkillType,
   Maybe,
+  PoolCandidate,
   PoolCandidateStatus,
   PublishingGroup,
   OverallAssessmentStatus,
   AssessmentResultStatus,
   ClaimVerificationResult,
+  CitizenshipStatus,
+  AssessmentStep,
 } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -42,7 +38,7 @@ import {
 } from "~/constants/poolCandidate";
 
 import { isOngoingPublishingGroup } from "./poolUtils";
-import { NO_DECISION, NullableDecision } from "./assessmentResults";
+import { NullableDecision } from "./assessmentResults";
 
 export const isDisqualifiedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -124,96 +120,6 @@ export const formatSubmittedAt = (
         intl,
       })
     : "";
-};
-
-export const getResultsDecision = (
-  step: AssessmentStep,
-  results?: AssessmentResult[],
-): NullableDecision => {
-  if (!results) return NO_DECISION;
-  let hasFailure: boolean = false;
-  let hasOnHold: boolean = false;
-  let hasToAssess: boolean = false;
-
-  const stepResults = results.filter((result) => {
-    return result.assessmentStep?.id === step.id;
-  });
-
-  if (stepResults.length === 0) {
-    hasToAssess = true;
-  }
-
-  const requiredSkillAssessments = step.poolSkills?.filter(
-    (poolSkill) => poolSkill?.type?.value === PoolSkillType.Essential,
-  );
-
-  requiredSkillAssessments?.forEach((skillAssessment) => {
-    const assessmentResults = stepResults.filter((result) => {
-      return result.poolSkill?.id === skillAssessment?.id;
-    });
-
-    if (assessmentResults.length === 0) {
-      hasToAssess = true;
-      return;
-    }
-
-    assessmentResults.forEach((assessmentResult) => {
-      switch (assessmentResult.assessmentDecision?.value) {
-        case null:
-        case undefined:
-          hasToAssess = true;
-          break;
-        case AssessmentDecision.Hold:
-          hasOnHold = true;
-          break;
-        case AssessmentDecision.Unsuccessful:
-          hasFailure = true;
-          break;
-        default:
-      }
-    });
-  });
-
-  // Check for Education requirement if this is an ApplicationScreening step
-  if (step.type?.value === AssessmentStepType.ApplicationScreening) {
-    const educationResults = stepResults.filter(
-      (result) =>
-        result.assessmentResultType === AssessmentResultType.Education,
-    );
-    if (educationResults.length === 0) {
-      hasToAssess = true;
-    }
-    educationResults.forEach((result) => {
-      // Any "to assess" should be marked
-      if (result.assessmentDecision === null) {
-        hasToAssess = true;
-      }
-      switch (result.assessmentDecision?.value) {
-        case null:
-          hasToAssess = true;
-          break;
-        case AssessmentDecision.Hold:
-          hasOnHold = true;
-          break;
-        case AssessmentDecision.Unsuccessful:
-          hasFailure = true;
-          break;
-        default:
-      }
-    });
-  }
-
-  if (hasFailure) {
-    return AssessmentDecision.Unsuccessful;
-  }
-  if (hasToAssess) {
-    return NO_DECISION;
-  }
-  if (hasOnHold) {
-    return AssessmentDecision.Hold;
-  }
-
-  return AssessmentDecision.Successful;
 };
 
 export type ResultDecisionCounts = Record<NullableDecision, number>;
@@ -531,22 +437,58 @@ export const priorityWeightAfterVerification = (
   priorityWeight: number,
   priorityVerification: ClaimVerificationResult | null | undefined,
   veteranVerification: ClaimVerificationResult | null | undefined,
+  citizenshipStatus: CitizenshipStatus | null | undefined,
 ): number => {
   // Priority
   if (
     priorityWeight === 10 &&
-    priorityVerification === ClaimVerificationResult.Rejected
+    (priorityVerification === ClaimVerificationResult.Accepted ||
+      priorityVerification === ClaimVerificationResult.Unverified)
   ) {
-    return 30;
+    return 10;
   }
 
   // Veteran
   if (
     priorityWeight === 20 &&
-    veteranVerification === ClaimVerificationResult.Rejected
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Citizen
+  if (priorityWeight === 30) {
+    return 30;
+  }
+
+  // Cascade down from priority to veteran
+  if (
+    priorityWeight === 10 &&
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Cascade down from priority to citizen as veteran didn't apply above
+  if (
+    priorityWeight === 10 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
   ) {
     return 30;
   }
 
-  return priorityWeight;
+  // Cascade down from veteran to citizen
+  if (
+    priorityWeight === 20 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
+  ) {
+    return 30;
+  }
+
+  // final fallback - last (Other)
+  return 40;
 };

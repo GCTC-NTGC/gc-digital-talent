@@ -19,6 +19,7 @@ import SingleUserProfilePrintButton from "~/components/PrintButton/SingleUserPro
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
+    ...ProfileDocument
     id
     email
     firstName

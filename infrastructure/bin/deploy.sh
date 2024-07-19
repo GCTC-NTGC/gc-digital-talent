@@ -51,7 +51,7 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.bash_profile
 nvm install v20.11.0
 #nvm install-latest-pnpm
-npm install -g pnpm@8.15
+npm install -g pnpm@9.5
 
 ### API
 
@@ -60,7 +60,7 @@ cd $ROOT_DIR/api
 if [ "$GCDT_DEV" = true ]; then
   composer install
 else
-  composer install --no-dev
+  composer install --optimize-autoloader --no-dev
 fi
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage

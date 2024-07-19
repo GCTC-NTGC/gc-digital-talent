@@ -5,13 +5,17 @@ on:
     branches: [main]
     paths:
       - .github/workflows/translations.yml
-      - packages/**
       - apps/**
+      - packages/**
+      - api/app/Enums/**
+      - api/lang/**
   pull_request:
     paths:
       - .github/workflows/translations.yml
       - apps/**
       - packages/**
+      - api/app/Enums/**
+      - api/lang/**
   merge_group:
     branches: [main]
 jobs:
@@ -19,7 +23,7 @@ jobs:
     name: Translations
     runs-on: ubuntu-22.04
     env:
-      PNPM_VERSION: "8.15.7"
+      PNPM_VERSION: "9.5.0"
 
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +48,22 @@ jobs:
         working-directory: ./
         run: |
           pnpm run check-intl --force
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: bcmath
+
+      - name: Install composer dependencies
+        working-directory: api
+        run: |
+          cp .env.example .env
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: "Generate lang files: api"
+        working-directory: api
+        run: php artisan app:check-intl
 
       - name: "Verify no untranslated file: i18n"
         if: always()
@@ -93,6 +113,18 @@ jobs:
             exit 0;
           fi
 
+      - name: "Verify: api"
+        if: always()
+        working-directory: api/storage/app
+        run: >
+          if test -f "intlErrors.json"; then
+            echo ":x: API has missing files" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 1;
+          else
+            echo ":heavy_check_mark: All API files exist" | tee -a $GITHUB_STEP_SUMMARY;
+            exit 0;
+          fi
+
       - name: "Upload untranslated files: all workspaces"
         if: always()
         uses: actions/upload-artifact@v4
@@ -102,4 +134,5 @@ jobs:
             apps/**/lang/untranslated.json
             packages/**/lang/untranslated.json
             !packages/node_modules/**
+            api/**/intlErrors.json
           if-no-files-found: ignore

@@ -17,7 +17,12 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  User,
+  UserFilterInput,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
@@ -38,6 +43,7 @@ import {
 import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import UserProfilePrintButton from "~/components/PrintButton/UserProfilePrintButton";
+import { ProfileDocument_Fragment } from "~/components/ProfileDocument/ProfileDocument";
 
 import {
   UsersTable_SelectUsersQuery,
@@ -49,6 +55,8 @@ import {
 } from "./utils";
 import UserFilterDialog, { FormValues } from "./UserFilterDialog";
 import { getUserCsvData, getUserCsvHeaders } from "./userCsv";
+
+type SelectedApplicants = FragmentType<typeof ProfileDocument_Fragment>[];
 
 const columnHelper = createColumnHelper<User>();
 
@@ -153,7 +161,8 @@ const UserTable = ({ title }: UserTableProps) => {
   const client = useClient();
   const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
-  const [selectedApplicants, setSelectedApplicants] = useState<User[]>([]);
+  const [selectedApplicants, setSelectedApplicants] =
+    useState<SelectedApplicants>([]);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: UserFilterInput = useMemo(
@@ -186,7 +195,7 @@ const UserTable = ({ title }: UserTableProps) => {
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
@@ -343,7 +352,7 @@ const UserTable = ({ title }: UserTableProps) => {
       })
       .toPromise()
       .then((result) => {
-        const users: User[] = unpackMaybes(result.data?.applicants);
+        const users = unpackMaybes(result.data?.applicants);
 
         if (result.error) {
           toast.error(intl.formatMessage(errorMessages.unknown));

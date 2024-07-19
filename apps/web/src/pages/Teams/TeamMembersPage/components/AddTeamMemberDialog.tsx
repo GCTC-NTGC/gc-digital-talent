@@ -15,7 +15,10 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
+import {
+  RoleInput,
+  TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
@@ -65,14 +68,15 @@ AddTeamMemberDialogProps) => {
   } = methods;
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
+    const roleInputArray: RoleInput[] = formValues.roles.map((role) => {
+      return { roleId: role, teamId: formValues.teamId };
+    });
+
     await executeMutation({
-      teamRoleAssignments: {
+      updateUserRolesInput: {
         userId: formValues.userId,
-        teamId: formValues.teamId,
-        roleAssignments: {
-          attach: {
-            roles: formValues.roles,
-          },
+        roleAssignmentsInput: {
+          attach: roleInputArray,
         },
       },
     })

@@ -69,6 +69,7 @@ class UserResource extends JsonResource
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
             'email' => $this->email,
+            'isEmailVerified' => $this->isEmailVerified,
             'telephone' => $this->telephone,
             'preferredLang' => $this->localizeEnum($this->preferred_lang, Language::class),
             'preferredLanguageForInterview' => $this->localizeEnum($this->preferred_language_for_interview, Language::class),

@@ -13,6 +13,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\FinalDecision;
 use App\Enums\GovEmployeeType;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
@@ -23,6 +24,7 @@ use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
+use App\Enums\SkillCategory;
 use App\Enums\WorkRegion;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
@@ -39,6 +41,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use RecursiveArrayIterator;
 use Spatie\Activitylog\LogOptions;
@@ -73,6 +76,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $priority_verification
  * @property Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
+ * @property int $computed_final_decision_weight
+ * @property string $computed_final_decision
  */
 class PoolCandidate extends Model
 {
@@ -1021,6 +1026,24 @@ class PoolCandidate extends Model
         );
     }
 
+    /**
+     * Determines a candidates current assessment status
+     * based on the following logic:
+     *
+     *   foreach step in pool->assessmentSteps
+     *       foreach skill in assessmentStep->skills:
+     *           result = find matching assessment result
+     *           if skill is essential:
+     *               if result is UNSUCCESSFUL, THEN mark UNSUCCESSFUL and exit loop
+     *               if result is HOLD THEN mark HOLD and continue loop (to look for failures)
+     *               if result is null or undecided, THEN mark TO ASSESS and continue loop (to look for failures)
+     *           else if skill is asset:
+     *               if skill is Technical AND user did not claim skill, THEN skip and continue loop
+     *               else if null or undecided THEN mark TO ASSESS and continue loop (to look for essential failures)
+     *               else mark nothing and continue, since the result doesn't actually matter
+     *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
+     *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
+     */
     public function computeAssessmentStatus()
     {
         $decisions = [];
@@ -1028,8 +1051,10 @@ class PoolCandidate extends Model
         $this->load([
             'pool.assessmentSteps',
             'pool.assessmentSteps.poolSkills',
+            'pool.assessmentSteps.poolSkills.skill',
             'assessmentResults',
             'assessmentResults.poolSkill',
+            'user.userSkills',
         ]);
 
         foreach ($this->pool->assessmentSteps as $step) {
@@ -1038,89 +1063,87 @@ class PoolCandidate extends Model
             $hasOnHold = false;
             $hasToAssess = false;
 
+            $isApplicationScreening = $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
             $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
-            $hasEssentialSkillsToAssess = $step->poolSkills->contains(function ($poolSkill) {
-                return $poolSkill->type === PoolSkillType::ESSENTIAL->name;
-            });
 
-            // If no essential skills are to be assessed
-            // and not on application screening (requires education assessment)
-            // then it is an automatic pass
-            if (! $hasEssentialSkillsToAssess && $step->type !== AssessmentStepType::APPLICATION_SCREENING->name) {
-                $decisions[] = [
-                    'step' => $stepId,
-                    'decision' => AssessmentDecision::SUCCESSFUL->name,
-                ];
+            foreach ($step->poolSkills as $poolSkill) {
+                $result = $stepResults->firstWhere('pool_skill_id', $poolSkill->id);
+                $decision = $result?->assessment_decision;
 
-                $currentStep++;
+                if ($poolSkill->type === PoolSkillType::ESSENTIAL->name) {
+                    if (! $result || is_null($result->assessment_decision)) {
+                        $hasToAssess = true;
 
-                continue;
-            }
+                        continue;
+                    }
 
-            if ($stepResults->isEmpty()) {
-                $decisions[] = [
-                    'step' => $stepId,
-                    'decision' => null,
-                ];
+                    // UNSUFFCESSFUL on essential skills always takes precedence over other statuses, so we can exit the loop right away.
+                    if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
+                        $hasFailure = true;
+                        break;
+                    }
 
-                continue;
-            }
+                    if ($decision === AssessmentDecision::HOLD->name) {
+                        $hasOnHold = true;
 
-            if ($hasEssentialSkillsToAssess) {
+                        continue;
+                    }
+                } else { // $poolSkill is an ASSET skill
 
-                // Check assessed essential skills on this step
-                $essentialSkillAssessments = $stepResults
-                    ->filter(function ($result) {
-                        return $result->poolSkill?->type === PoolSkillType::ESSENTIAL->name &&
-                            $result->assessment_result_type !== AssessmentResultType::EDUCATION;
-                    });
+                    // We do not need to evaluate non-essential technical skills that are not on
+                    // the users snapshot, so skip the result check
+                    if ($poolSkill->skill->category === SkillCategory::TECHNICAL->name) {
+                        $isClaimed = false;
+                        $snapshot = $this->profile_snapshot;
 
-                if ($essentialSkillAssessments->isEmpty()) {
-                    $hasToAssess = true;
-                }
+                        if ($snapshot) {
+                            $claimedSkills = collect($snapshot['userSkills']);
+                            $isClaimed = $claimedSkills->contains(function ($userSkill) use ($poolSkill) {
+                                return $userSkill['skill']['id'] === $poolSkill->skill_id;
+                            });
+                        }
 
-                foreach ($essentialSkillAssessments as $essentialSkillAssessment) {
-                    $decision = $essentialSkillAssessment->assessment_decision;
+                        if (! $isClaimed) {
+                            continue;
+                        }
 
-                    switch ($decision) {
-                        case null:
-                            $hasToAssess = true;
-                            break;
-                        case AssessmentDecision::HOLD->name:
-                            $hasOnHold = true;
-                            break;
-                        case AssessmentDecision::UNSUCCESSFUL->name:
-                            $hasFailure = true;
-                            break;
-                        default:
+                    }
+
+                    if (! $result || is_null($result->assessment_decision)) {
+                        $hasToAssess = true;
+
+                        continue;
                     }
                 }
             }
 
-            // Check for education requirement if is application screening step
-            if ($step->type === AssessmentStepType::APPLICATION_SCREENING->name) {
+            if ($isApplicationScreening) {
                 $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
 
-                if (! $educationResults) {
-                    $hasToAssess = true;
-                }
+                foreach ($educationResults as $result) {
+                    if (! $result || is_null($result->assessment_decision)) {
+                        $hasToAssess = true;
 
-                foreach ($educationResults as $educationResult) {
-                    $decision = $educationResult->assessment_decision;
-                    switch ($decision) {
-                        case null:
-                            $hasToAssess = true;
-                            break;
-                        case AssessmentDecision::HOLD->name:
-                            $hasOnHold = true;
-                            break;
-                        case AssessmentDecision::UNSUCCESSFUL->name:
-                            $hasFailure = true;
-                            break;
-                        default:
+                        continue;
+                    }
+
+                    $decision = $result->assessment_decision;
+
+                    if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
+                        $hasFailure = true;
+                        break;
+                    }
+
+                    if ($decision === AssessmentDecision::HOLD->name) {
+                        $hasOnHold = true;
+
+                        continue;
                     }
                 }
             }
+
+            // We have results and essential skills exist so,
+            // loop through them to determine success
 
             if ($hasFailure) {
                 $decisions[] = [
@@ -1146,6 +1169,7 @@ class PoolCandidate extends Model
                 return is_null($decision['decision']) ||
                     $decision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
             });
+
             if (! $previousStepsNotPassed) {
                 $currentStep++;
             }
@@ -1168,9 +1192,9 @@ class PoolCandidate extends Model
         $totalSteps = $this->pool->assessmentSteps->count();
         $overallAssessmentStatus = OverallAssessmentStatus::TO_ASSESS->name;
 
-        if ($currentStep > $totalSteps) {
+        if ($currentStep >= $totalSteps) {
             $lastStepDecision = end($decisions);
-            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name) {
+            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
@@ -1208,5 +1232,92 @@ class PoolCandidate extends Model
         });
 
         return $query;
+    }
+
+    public function computeFinalDecision()
+    {
+        $this->load(['user']);
+
+        $status = $this->pool_candidate_status;
+        $decision = null;
+
+        if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
+            $assessmentStatus = $this->computed_assessment_status;
+            $overallStatus = null;
+            if (isset($assessmentStatus['overallAssessmentStatus'])) {
+                $overallStatus = $assessmentStatus['overallAssessmentStatus'];
+            }
+
+            $decision = match ($overallStatus) {
+                OverallAssessmentStatus::QUALIFIED->name => FinalDecision::QUALIFIED_PENDING->name,
+                OverallAssessmentStatus::DISQUALIFIED->name => FinalDecision::DISQUALIFIED_PENDING->name,
+                default => FinalDecision::TO_ASSESS->name
+            };
+        } else {
+
+            $decision = match ($status) {
+
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name => FinalDecision::DISQUALIFIED->name,
+
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name ,
+
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name ,
+
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => FinalDecision::TO_ASSESS_REMOVED->name,
+
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name => FinalDecision::QUALIFIED_REMOVED->name,
+
+                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name ,
+                PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
+
+                default => null
+
+            };
+        }
+
+        try {
+            $weight = match ($decision) {
+                FinalDecision::QUALIFIED->name => 10,
+                FinalDecision::QUALIFIED_PENDING->name => 20,
+                FinalDecision::QUALIFIED_PLACED->name => 30,
+                FinalDecision::TO_ASSESS->name => 40,
+                // Set aside some values for assessment steps
+                // Giving a decent buffer to increase max steps
+                FinalDecision::DISQUALIFIED_PENDING->name => 200,
+                FinalDecision::DISQUALIFIED->name => 210,
+                FinalDecision::QUALIFIED_REMOVED->name => 220,
+                FinalDecision::TO_ASSESS_REMOVED->name => 230,
+                FinalDecision::REMOVED->name => 240,
+                FinalDecision::QUALIFIED_EXPIRED->name => 250,
+                default => null
+            };
+
+        } catch (\UnhandledMatchError $e) {
+            Log::error($e->getMessage());
+
+            $weight = null;
+        }
+
+        $assessmentStatus = $this->computed_assessment_status;
+        $currentStep = null;
+        if (isset($assessmentStatus)) {
+            $currentStep = $assessmentStatus['currentStep'];
+        }
+
+        if ($decision === FinalDecision::TO_ASSESS->name && $currentStep) {
+            $weight = $weight + $currentStep * 10;
+        }
+
+        return [
+            'decision' => $decision,
+            'weight' => $weight,
+        ];
+
     }
 }

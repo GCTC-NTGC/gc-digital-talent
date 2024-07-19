@@ -155,7 +155,7 @@ test.describe("Login", () => {
     await adminPage.waitForGraphqlResponse("AdminDashboard_Query");
     await expect(
       adminPage.page.getByRole("heading", {
-        name: /welcome back, admin test/i,
+        name: /welcome back, dale monroe/i,
       }),
     ).toBeVisible();
   });

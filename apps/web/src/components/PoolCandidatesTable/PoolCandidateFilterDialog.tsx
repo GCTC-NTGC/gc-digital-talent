@@ -1,5 +1,4 @@
 import { MessageDescriptor, useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
 
 import {
   Checkbox,
@@ -10,7 +9,7 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -29,13 +28,8 @@ import FilterDialog, {
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
-};
-
 const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
-  query PoolCandidateFilterDialog_Query {
+  fragment PoolCandidateFilterDialog on Query {
     classifications {
       group
       level
@@ -119,20 +113,18 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
 
 type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues> & {
   hidePoolFilter?: boolean;
+  query?: FragmentType<typeof PoolCandidateFilterDialog_Query>;
 };
 
 const PoolCandidateFilterDialog = ({
+  query,
   onSubmit,
   resetValues,
   initialValues,
   hidePoolFilter,
 }: PoolCandidateFilterDialogProps) => {
   const intl = useIntl();
-
-  const [{ data, fetching }] = useQuery({
-    query: PoolCandidateFilterDialog_Query,
-    context,
-  });
+  const data = getFragment(PoolCandidateFilterDialog_Query, query);
 
   const classifications = unpackMaybes(data?.classifications);
   const skills = unpackMaybes(data?.skills);
@@ -202,7 +194,6 @@ const PoolCandidateFilterDialog = ({
         <Combobox
           id="classifications"
           name="classifications"
-          {...{ fetching }}
           isMulti
           label={intl.formatMessage(adminMessages.classifications)}
           options={classifications.map(({ group, level }) => ({
@@ -293,7 +284,6 @@ const PoolCandidateFilterDialog = ({
           <Combobox
             id="skills"
             name="skills"
-            {...{ fetching }}
             isMulti
             label={intl.formatMessage(adminMessages.skills)}
             options={skills.map(({ id, name }) => ({

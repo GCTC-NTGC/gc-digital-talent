@@ -6,10 +6,8 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  Department,
   FragmentType,
   Scalars,
   getFragment,
@@ -22,6 +20,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import AboutSection from "./components/AboutSection";
 import CandidateStatusSection from "./components/CandidateStatusSection";
@@ -422,12 +421,12 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
 
 interface UserInformationProps {
   userQuery: FragmentType<typeof UserInfo_Fragment>;
-  departments: Department[];
+  jobPlacementOptions: JobPlacementOptionsFragmentType;
 }
 
 export const UserInformation = ({
   userQuery,
-  departments,
+  jobPlacementOptions,
 }: UserInformationProps) => {
   const intl = useIntl();
   const user = getFragment(UserInfo_Fragment, userQuery);
@@ -452,7 +451,12 @@ export const UserInformation = ({
           "Title of the 'Candidate status' section of the view-user page",
       }),
       titleIcon: CalculatorIcon,
-      content: <CandidateStatusSection user={user} departments={departments} />,
+      content: (
+        <CandidateStatusSection
+          user={user}
+          jobPlacementOptions={jobPlacementOptions}
+        />
+      ),
     },
     {
       id: "notes",
@@ -511,14 +515,7 @@ const UserInformation_Query = graphql(/* GraphQL */ `
       ...UserInfo
     }
 
-    departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
+    ...JobPlacementOptions
   }
 `);
 
@@ -535,7 +532,6 @@ const UserInformationPage = () => {
   });
 
   const user = data?.user;
-  const departments = unpackMaybes(data?.departments);
 
   return (
     <AdminContentWrapper>
@@ -548,7 +544,7 @@ const UserInformationPage = () => {
       />
       <Pending fetching={fetching} error={error}>
         {user ? (
-          <UserInformation userQuery={user} departments={departments} />
+          <UserInformation userQuery={user} jobPlacementOptions={data} />
         ) : (
           <ThrowNotFound />
         )}

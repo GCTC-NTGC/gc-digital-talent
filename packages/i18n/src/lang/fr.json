@@ -35,6 +35,10 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
+  "/qdFyj": {
+    "defaultMessage": "Cette compétence ne peut pas être supprimée. Elle est utilisée par un processus qui accepte actuellement les demandes.",
+    "description": "Error message for when skill is used by an active process"
+  },
   "/sSeis": {
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
@@ -295,6 +299,10 @@
     "defaultMessage": "Le profil est incomplet",
     "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
   },
+  "CDJH4s": {
+    "defaultMessage": "Ce processus ne peut pas être rouvert. Il comporte une compétence requise qui a été supprimée.",
+    "description": "Error message for when a process to be re-opened contains a previously deleted skill"
+  },
   "CF69qZ": {
     "defaultMessage": "Administration des programmes",
     "description": "Full name of abbreviation for PM"
@@ -482,6 +490,10 @@
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
     "description": "Error message that at least one Essential Skill is required"
+  },
+  "Me66rb": {
+    "defaultMessage": "L’opération a échoué. Cette compétence a déjà été supprimée.",
+    "description": "Error message for when attempting to delete a previously deleted skill"
   },
   "MidGAP": {
     "defaultMessage": "Supprimer le lien",
@@ -920,7 +932,7 @@
     "description": "Label for a year input field"
   },
   "iYNLo1": {
-    "defaultMessage": "e suis un <strong>membre actif </strong> des Forces armées canadiennes.",
+    "defaultMessage": "Je suis un <strong>membre actif </strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF member"
   },
   "ijGl5r": {
@@ -1236,7 +1248,7 @@
     "description": "Descriptor for an info alert"
   },
   "vPDtGU": {
-    "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
+    "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
   },
   "vvtqRv": {

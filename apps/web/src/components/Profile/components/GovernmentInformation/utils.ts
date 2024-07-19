@@ -25,7 +25,7 @@ import { FormValues, PartialUser } from "./types";
 const classificationFormToId = (
   group: string | undefined,
   level: string | undefined,
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): string | undefined => {
   return classifications.find(
     (classification) =>
@@ -35,7 +35,7 @@ const classificationFormToId = (
 
 export const formValuesToSubmitData = (
   values: FormValues,
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): UpdateUserAsUserInput => {
   const classificationId = classificationFormToId(
     values.currentClassificationGroup,
@@ -181,7 +181,7 @@ export const getLabels = (intl: IntlShape) => ({
  * Get classification group options
  */
 export const getGroupOptions = (
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "name">[],
   intl: IntlShape,
 ) => {
   const classGroupsWithDupes: {
@@ -220,7 +220,7 @@ export const getGroupOptions = (
  * @returns
  */
 export const getLevelOptions = (
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level">[],
   groupSelection: Classification["group"],
 ) =>
   classifications

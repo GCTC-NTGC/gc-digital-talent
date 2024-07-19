@@ -44,7 +44,7 @@ class UserVerifyEmailTest extends TestCase
         'mutation VerifyMyEmail($id: ID!, $code: String!) {
             verifyUserEmail(id: $id, code: $code) {
                 id
-                emailVerifiedAt
+                isEmailVerified
             }
         }';
 
