@@ -25,13 +25,13 @@ import {
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   CandidateSuspendedFilter,
   PoolCandidate,
-  PoolCandidateStatus,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
   LocalizedProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByPoolColumn,
   PriorityWeight,
+  LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -201,12 +201,12 @@ export const currentLocationAccessor = (
   `${city || intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
 export const finalDecisionCell = (
-  status: Maybe<PoolCandidateStatus> | undefined,
+  finalDecision: Maybe<LocalizedFinalDecision> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ) => {
   const { color, label } = getCandidateStatusChip(
-    status,
+    finalDecision,
     assessmentStatus,
     intl,
   );
@@ -233,7 +233,7 @@ function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["finalDecision", "status"],
+    ["finalDecision", "computed_final_decision_weight"],
     ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
     ["email", "EMAIL"],
@@ -254,9 +254,13 @@ function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus", "status", "notes"].includes(
-      sortingRule.id,
-    )
+    [
+      "dateReceived",
+      "candidacyStatus",
+      "status",
+      "notes",
+      "finalDecision",
+    ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
