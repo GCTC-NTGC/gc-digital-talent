@@ -772,17 +772,17 @@ class PoolCandidate extends Model
 
             if ($user->isAbleTo('view-team-submittedApplication')) {
                 $allTeam = $user->rolesTeams()->get();
-                $teamIds = $allTeam->filter(function($team) use($user) {
+                $teamIds = $allTeam->filter(function ($team) use ($user) {
                     return $user->isAbleTo('view-team-submittedApplication', $team);
                 })->pluck('id');
 
                 $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
                     return $query
                         ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->where(function (Builder $query) use($teamIds) {
+                        ->where(function (Builder $query) use ($teamIds) {
                             $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                                 return $query->whereIn('id', $teamIds);
-                            })->orWhereHas('team', function(Builder $query) use($teamIds) {
+                            })->orWhereHas('team', function (Builder $query) use ($teamIds) {
                                 return $query->whereIn('id', $teamIds);
                             });
                         });
