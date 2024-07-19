@@ -60,6 +60,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    publishedAt
     isComplete
     status {
       value
@@ -86,16 +87,6 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     name {
       en
       fr
-    }
-    poolSkills {
-      id
-      type {
-        value
-        label {
-          en
-          fr
-        }
-      }
     }
   }
 `);
@@ -137,7 +128,10 @@ export const ViewPool = ({
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
-  const advertisementStatus = getAdvertisementStatus(pool);
+  const advertisementStatus = getAdvertisementStatus({
+    publishedAt: pool.publishedAt,
+    isComplete: pool.isComplete,
+  });
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
