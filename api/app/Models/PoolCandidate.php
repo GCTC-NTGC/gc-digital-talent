@@ -754,6 +754,17 @@ class PoolCandidate extends Model
             return $query->where('id', null);
         }
 
+        $hasSomePermission = $user->isAbleTo([
+            'view-own-application',
+            'view-team-submittedApplication',
+            'view-any-submittedApplication',
+        ]);
+
+        // User does not have any of the required permissions
+        if(!$hasSomePermission) {
+            return $query->where('id', null);
+        }
+
         $query->where(function (Builder $query) use ($user) {
             if ($user->isAbleTo('view-any-submittedApplication')) {
                 $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
