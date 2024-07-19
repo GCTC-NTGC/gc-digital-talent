@@ -761,7 +761,7 @@ class PoolCandidate extends Model
         ]);
 
         // User does not have any of the required permissions
-        if(!$hasSomePermission) {
+        if (! $hasSomePermission) {
             return $query->where('id', null);
         }
 
