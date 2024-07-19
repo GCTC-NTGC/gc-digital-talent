@@ -10,7 +10,7 @@ import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
   Maybe,
@@ -20,7 +20,10 @@ import {
   OverallAssessmentStatus,
   AssessmentResultStatus,
   ClaimVerificationResult,
+  CitizenshipStatus,
   AssessmentStep,
+  FinalDecision,
+  LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -127,76 +130,27 @@ export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
   sortBy(assessmentSteps, (step) => step.sortOrder);
 
 const getFinalDecisionChipColor = (
-  status?: Maybe<PoolCandidateStatus>,
+  finalDecision?: Maybe<FinalDecision>,
 ): Color => {
-  if (isToAssessStatus(status)) {
-    return "warning";
+  switch (finalDecision) {
+    case FinalDecision.ToAssess:
+      return "warning";
+    case FinalDecision.Disqualified:
+    case FinalDecision.DisqualifiedPending:
+      return "error";
+    case FinalDecision.Removed:
+    case FinalDecision.DisqualifiedRemoved:
+    case FinalDecision.QualifiedRemoved:
+    case FinalDecision.QualifiedExpired:
+    case FinalDecision.ToAssessRemoved:
+      return "black";
+    case FinalDecision.Qualified:
+    case FinalDecision.QualifiedPlaced:
+    case FinalDecision.QualifiedPending:
+      return "success";
+    default:
+      return "white";
   }
-
-  if (isDisqualifiedStatus(status)) {
-    return "error";
-  }
-
-  if (isRemovedStatus(status)) {
-    return "black";
-  }
-
-  if (isQualifiedStatus(status)) {
-    return "success";
-  }
-
-  return "white";
-};
-
-// Note: By setting the explicit Record<PoolCandidateStatus, x> type, Typescript will actually error if we forget a status!
-const statusToChipMessageMapping: Record<
-  PoolCandidateStatus,
-  MessageDescriptor | MessageDescriptor[]
-> = {
-  [PoolCandidateStatus.Draft]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.DraftExpired]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.NewApplication]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.ApplicationReview]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.ScreenedIn]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.UnderAssessment]: poolCandidateMessages.toAssess,
-
-  [PoolCandidateStatus.ScreenedOutApplication]:
-    poolCandidateMessages.disqualified,
-  [PoolCandidateStatus.ScreenedOutAssessment]:
-    poolCandidateMessages.disqualified,
-
-  [PoolCandidateStatus.QualifiedAvailable]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedCasual]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedTerm]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedIndeterminate]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedTentative]: poolCandidateMessages.qualified,
-
-  [PoolCandidateStatus.ScreenedOutNotInterested]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.toAssess,
-  ],
-  [PoolCandidateStatus.ScreenedOutNotResponsive]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.toAssess,
-  ],
-  [PoolCandidateStatus.QualifiedUnavailable]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.qualified,
-  ],
-  [PoolCandidateStatus.QualifiedWithdrew]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.qualified,
-  ],
-  [PoolCandidateStatus.Expired]: [
-    poolCandidateMessages.expired,
-    commonMessages.dividingColon,
-    poolCandidateMessages.qualified,
-  ],
-  [PoolCandidateStatus.Removed]: commonMessages.removed,
 };
 
 /**
@@ -268,24 +222,20 @@ type StatusChip = {
 };
 
 export const getCandidateStatusChip = (
-  status: Maybe<PoolCandidateStatus> | undefined,
+  finalDecision: Maybe<LocalizedFinalDecision> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
-  if (isToAssessStatus(status)) {
+  if (
+    finalDecision?.value === FinalDecision.ToAssess ||
+    !finalDecision?.value
+  ) {
     return computeInAssessmentStatusChip(assessmentStatus, intl);
   }
-  const messages =
-    statusToChipMessageMapping[status ?? PoolCandidateStatus.NewApplication];
-  const label = Array.isArray(messages)
-    ? messages.reduce(
-        (combined, item) => combined + intl.formatMessage(item),
-        "",
-      )
-    : intl.formatMessage(messages);
+
   return {
-    label,
-    color: getFinalDecisionChipColor(status),
+    label: getLocalizedName(finalDecision?.label, intl),
+    color: getFinalDecisionChipColor(finalDecision?.value),
   };
 };
 
@@ -436,22 +386,58 @@ export const priorityWeightAfterVerification = (
   priorityWeight: number,
   priorityVerification: ClaimVerificationResult | null | undefined,
   veteranVerification: ClaimVerificationResult | null | undefined,
+  citizenshipStatus: CitizenshipStatus | null | undefined,
 ): number => {
   // Priority
   if (
     priorityWeight === 10 &&
-    priorityVerification === ClaimVerificationResult.Rejected
+    (priorityVerification === ClaimVerificationResult.Accepted ||
+      priorityVerification === ClaimVerificationResult.Unverified)
   ) {
-    return 30;
+    return 10;
   }
 
   // Veteran
   if (
     priorityWeight === 20 &&
-    veteranVerification === ClaimVerificationResult.Rejected
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Citizen
+  if (priorityWeight === 30) {
+    return 30;
+  }
+
+  // Cascade down from priority to veteran
+  if (
+    priorityWeight === 10 &&
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Cascade down from priority to citizen as veteran didn't apply above
+  if (
+    priorityWeight === 10 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
   ) {
     return 30;
   }
 
-  return priorityWeight;
+  // Cascade down from veteran to citizen
+  if (
+    priorityWeight === 20 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
+  ) {
+    return 30;
+  }
+
+  // final fallback - last (Other)
+  return 40;
 };

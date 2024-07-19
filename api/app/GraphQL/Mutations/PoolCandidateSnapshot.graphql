@@ -10,6 +10,7 @@ query getProfile($userId: UUID!) {
     firstName
     lastName
     email
+    isEmailVerified
     telephone
     preferredLang {
       value

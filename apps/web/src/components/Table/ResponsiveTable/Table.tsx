@@ -217,14 +217,14 @@ interface AddActionProps {
   add: AddDef;
 }
 
-const AddAction = ({ add }: AddActionProps) => (
-  <>
-    {add.linkProps && (
-      <Control
-        data-h2-flex-shrink="base(1)"
-        data-h2-order="base(1)"
-        data-h2-margin-left="base(auto)"
-      >
+const AddAction = ({ add }: AddActionProps) =>
+  add.linkProps || add.component ? (
+    <Control
+      data-h2-flex-shrink="base(1)"
+      data-h2-order="base(1)"
+      data-h2-margin-left="base(auto)"
+    >
+      {add.linkProps && (
         <Link
           icon={PlusCircleIcon}
           color="secondary"
@@ -235,11 +235,10 @@ const AddAction = ({ add }: AddActionProps) => (
         >
           {add.linkProps.label}
         </Link>
-      </Control>
-    )}
-    {add.component && <Control>{add.component}</Control>}
-  </>
-);
+      )}
+      {add.component ?? null}
+    </Control>
+  ) : null;
 
 interface ControlsProps {
   children: ReactNode;

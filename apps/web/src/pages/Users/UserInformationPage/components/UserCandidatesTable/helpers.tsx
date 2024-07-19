@@ -9,13 +9,13 @@ import {
 import { Chip, Link, Spoiler } from "@gc-digital-talent/ui";
 import {
   FragmentType,
-  PoolCandidateStatus,
   CandidateSuspendedFilter,
   Maybe,
   Pool,
   AssessmentResultStatus,
   Scalars,
   PriorityWeight,
+  LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -185,12 +185,12 @@ export const notesCell = (
   ) : null;
 
 export const finalDecisionCell = (
-  status: Maybe<PoolCandidateStatus> | undefined,
+  finalDecsion: Maybe<LocalizedFinalDecision> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ) => {
   const { color, label } = getCandidateStatusChip(
-    status,
+    finalDecsion,
     assessmentStatus,
     intl,
   );

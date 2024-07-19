@@ -371,6 +371,12 @@ class Pool extends Model
         return true;
     }
 
+    /* accessor to retrieve id from teams table */
+    public function getTeamIdForRoleAssignmentAttribute()
+    {
+        return $this->team?->id;
+    }
+
     public function scopeWasPublished(Builder $query)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
@@ -450,7 +456,10 @@ class Pool extends Model
                 }
 
                 if (in_array(PoolStatus::CLOSED->name, $statuses)) {
-                    $query->orWhere('closing_date', '<=', Carbon::now());
+                    $query->orWhere(function ($query) {
+                        $query->where('closing_date', '<=', Carbon::now());
+                        self::scopeNotArchived($query);
+                    });
                 }
 
                 if (in_array(PoolStatus::PUBLISHED->name, $statuses)) {
@@ -465,7 +474,14 @@ class Pool extends Model
                     $query->orWhereNull('published_at');
                 }
             });
+
+            return $query;
         }
+
+        // empty defaults to all but archived
+        $query->where(function ($query) {
+            self::scopeNotArchived($query);
+        });
 
         return $query;
     }

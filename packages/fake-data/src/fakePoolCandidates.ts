@@ -11,6 +11,7 @@ import {
   User,
   EducationRequirementOption,
   OverallAssessmentStatus,
+  FinalDecision,
 } from "@gc-digital-talent/graphql";
 
 import fakeExperiences from "./fakeExperiences";
@@ -66,6 +67,9 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
       overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
       currentStep: 1,
     },
+    finalDecision: toLocalizedEnum(
+      faker.helpers.arrayElement<FinalDecision>(Object.values(FinalDecision)),
+    ),
     finalDecisionAt: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()

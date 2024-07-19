@@ -71,7 +71,7 @@ export function fullNameCell(pool: Pool, intl: IntlShape) {
 }
 
 export function classificationAccessor(
-  classification: Maybe<Classification> | undefined,
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   return classification
     ? `${classification.group}-0${classification.level}`
@@ -79,7 +79,7 @@ export function classificationAccessor(
 }
 
 export function classificationCell(
-  classification: Maybe<Classification> | undefined,
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   if (!classification) return null;
 

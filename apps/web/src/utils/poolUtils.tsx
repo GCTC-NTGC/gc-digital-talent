@@ -46,7 +46,7 @@ import { wrapAbbr } from "./nameUtils";
  */
 export const poolMatchesClassification = (
   pool: Pool,
-  classification: Classification,
+  classification: Pick<Classification, "group" | "level">,
 ): boolean => {
   return (
     pool.classification?.group === classification?.group &&
@@ -104,7 +104,7 @@ export const formatClassificationString = ({
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
-  classification: Maybe<Classification> | undefined;
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
   stream?: Maybe<LocalizedPoolStream>;
   short?: boolean;
   intl: IntlShape;
@@ -123,7 +123,7 @@ export const formattedPoolPosterTitle = ({
   const streamString = stream ? getLocalizedName(stream.label, intl) : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
-    : null ?? "";
+    : (null ?? "");
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -462,7 +462,7 @@ export function getClassificationName(
 
 export const getClassificationSalaryRangeUrl = (
   locale: Locales,
-  classification?: Maybe<Classification>,
+  classification?: Maybe<Pick<Classification, "group">>,
 ): string | null => {
   let localizedUrl: Record<Locales, string> | null = null;
   switch (classification?.group) {

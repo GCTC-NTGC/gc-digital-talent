@@ -20,7 +20,6 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
-  Department,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -38,6 +37,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -53,11 +53,19 @@ const screeningAndAssessmentTitle = defineMessage({
 
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
+    ...JobPlacementOptions
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
       ...ClaimVerification
       id
       status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      finalDecision {
         value
         label {
           en
@@ -632,12 +640,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  departments: Department[];
+  jobPlacementOptions: JobPlacementOptionsFragmentType;
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  departments,
+  jobPlacementOptions,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -648,7 +656,7 @@ export const ViewPoolCandidate = ({
     .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
-    poolCandidate.status?.value,
+    poolCandidate.finalDecision,
     poolCandidate.assessmentStatus,
     intl,
   );
@@ -743,7 +751,7 @@ export const ViewPoolCandidate = ({
             </p>
             <MoreActions
               poolCandidate={poolCandidate}
-              departments={departments}
+              jobPlacementOptions={jobPlacementOptions}
             />
             <div
               data-h2-display="base(flex)"
@@ -870,7 +878,7 @@ export const ViewPoolCandidatePage = () => {
       {data?.poolCandidate ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          departments={data.departments.filter(notEmpty)}
+          jobPlacementOptions={data}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

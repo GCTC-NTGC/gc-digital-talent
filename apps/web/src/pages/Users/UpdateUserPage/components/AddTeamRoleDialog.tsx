@@ -20,6 +20,7 @@ import {
   Role,
   User,
   graphql,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -74,13 +75,20 @@ const AddTeamRoleDialog = ({
   } = methods;
 
   const handleAddRoles = async (formValues: FormValues) => {
+    let { roles } = formValues;
+    // despite the typing, roles is just a string may be complicated by there being only one team based role available
+    if (!Array.isArray(roles)) {
+      roles = [roles];
+    }
+
+    const roleInputArray: RoleInput[] = roles.map((role) => {
+      return { roleId: role, teamId: formValues.team };
+    });
+
     return onAddRoles({
       userId: user.id,
       roleAssignmentsInput: {
-        attach: {
-          roles: formValues.roles,
-          team: formValues.team,
-        },
+        attach: roleInputArray,
       },
     }).then(() => {
       setIsOpen(false);

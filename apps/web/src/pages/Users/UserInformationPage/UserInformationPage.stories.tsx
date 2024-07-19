@@ -3,11 +3,13 @@ import { StoryFn } from "@storybook/react";
 
 import {
   fakeDepartments,
+  fakeLocalizedEnum,
   fakePools,
   fakeUser,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
+  PlacementType,
   PoolCandidate,
   PoolCandidateStatus,
   makeFragmentData,
@@ -17,6 +19,8 @@ import {
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
+
+import { JobPlacementOptions_Query } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import UserInformationPage, {
   UserInfo_Fragment,
@@ -129,7 +133,13 @@ const Template: StoryFn<typeof UserInformationPage> = () => {
   return (
     <UserInformation
       userQuery={makeFragmentData(typeAdjustedUser, UserInfo_Fragment)}
-      departments={mockDepartments}
+      jobPlacementOptions={makeFragmentData(
+        {
+          departments: mockDepartments,
+          placementTypes: fakeLocalizedEnum(PlacementType),
+        },
+        JobPlacementOptions_Query,
+      )}
     />
   );
 };

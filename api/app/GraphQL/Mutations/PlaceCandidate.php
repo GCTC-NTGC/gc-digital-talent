@@ -22,6 +22,11 @@ final class PlaceCandidate
         $candidate->pool_candidate_status = $placementType;
         $candidate->placed_at = $now;
         $candidate->placed_department_id = $departmentId;
+
+        $finalDecision = $candidate->computeFinalDecision();
+        $candidate->computed_final_decision = $finalDecision['decision'];
+        $candidate->computed_final_decision_weight = $finalDecision['weight'];
+
         $candidate->save();
 
         return $candidate;

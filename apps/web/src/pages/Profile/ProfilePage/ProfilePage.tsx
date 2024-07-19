@@ -21,6 +21,8 @@ import GovernmentInformation from "~/components/Profile/components/GovernmentInf
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
+import pageMessages from "./messages";
+
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     updateUserAsUser(id: $id, user: $user) {
@@ -109,18 +111,9 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const pageTitle = defineMessage({
-  defaultMessage: "Personal information",
-  id: "g8Ur9z",
-  description: "applicant dashboard card title for profile card",
-});
+const pageTitle = defineMessage(pageMessages.pageTitle);
 
-const subTitle = defineMessage({
-  defaultMessage:
-    "View and update account information including contact and work preferences.",
-  id: "NflJW7",
-  description: "subtitle for the profile page",
-});
+const subTitle = defineMessage(pageMessages.subTitle);
 
 // export text for testing
 // should match the getProfile query from api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql
@@ -135,6 +128,7 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     firstName
     lastName
     email
+    isEmailVerified
     telephone
     preferredLang {
       value

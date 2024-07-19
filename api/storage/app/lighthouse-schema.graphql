@@ -78,6 +78,11 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedFinalDecision {
+  value: FinalDecision!
+  label: LocalizedString!
+}
+
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
   label: LocalizedString!
@@ -369,7 +374,7 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
-  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
+  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team @deprecated(reason: "use updateUserRoles")
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -443,7 +448,7 @@ type User {
   firstName: String
   lastName: String
   email: Email
-  emailVerifiedAt: DateTime
+  isEmailVerified: Boolean
   telephone: PhoneNumber
   preferredLang: LocalizedLanguage
   preferredLanguageForInterview: LocalizedLanguage
@@ -573,6 +578,7 @@ type ScreeningQuestion {
 
 interface HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
 }
 
 type Pool implements HasRoleAssignments {
@@ -612,6 +618,7 @@ type Pool implements HasRoleAssignments {
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
   department: Department
 }
 
@@ -695,6 +702,7 @@ type PoolCandidate {
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
+  finalDecision: LocalizedFinalDecision
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
@@ -741,6 +749,7 @@ type Community implements HasRoleAssignments {
   name: LocalizedString
   description: LocalizedString
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
 }
 
 type Team implements HasRoleAssignments {
@@ -753,6 +762,7 @@ type Team implements HasRoleAssignments {
   pools: [Pool]
   teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
 }
 
 type Role {
@@ -994,7 +1004,7 @@ input PoolFilterInput {
   name: String
   team: String
   streams: [PoolStream!]
-  statuses: [PoolStatus!]
+  statuses: [PoolStatus!] = []
   processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
@@ -1647,15 +1657,14 @@ input PoolSkillBelongsToMany {
   sync: [UUID!]!
 }
 
-input RolesInput {
-  roles: [ID!]!
-  team: ID
+input RoleInput {
+  roleId: ID!
+  teamId: ID
 }
 
 input RoleAssignmentHasMany {
-  attach: RolesInput
-  detach: RolesInput
-  sync: RolesInput
+  attach: [RoleInput]
+  detach: [RoleInput]
 }
 
 input RolesForTeamInput {
@@ -2640,6 +2649,20 @@ enum EvaluatedLanguageAbility {
   E
   P
   NOT_ASSESSED
+}
+
+enum FinalDecision {
+  DISQUALIFIED
+  DISQUALIFIED_PENDING
+  DISQUALIFIED_REMOVED
+  QUALIFIED
+  QUALIFIED_EXPIRED
+  QUALIFIED_PENDING
+  QUALIFIED_PLACED
+  QUALIFIED_REMOVED
+  REMOVED
+  TO_ASSESS
+  TO_ASSESS_REMOVED
 }
 
 enum GenericJobTitleKey {
