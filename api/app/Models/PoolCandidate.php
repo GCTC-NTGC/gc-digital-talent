@@ -589,10 +589,10 @@ class PoolCandidate extends Model
     public function getPoolCandidateStatusAttribute($candidateStatus)
     {
         // pull info
-        $submittedAt = $this->submitted_at;
-        $expiryDate = $this->expiry_date;
-        $currentTime = date('Y-m-d H:i:s');
-        $isExpired = $currentTime > $expiryDate ? true : false;
+        // $submittedAt = $this->submitted_at;
+        // $expiryDate = $this->expiry_date;
+        // $currentTime = date('Y-m-d H:i:s');
+        // $isExpired = $currentTime > $expiryDate ? true : false;
 
         // // ensure null submitted_at returns either draft or expired draft
         // if ($submittedAt == null){
@@ -771,12 +771,20 @@ class PoolCandidate extends Model
             }
 
             if ($user->isAbleTo('view-team-submittedApplication')) {
-                $teamIds = $user->rolesTeams()->get()->pluck('id');
+                $allTeam = $user->rolesTeams()->get();
+                $teamIds = $allTeam->filter(function($team) use($user) {
+                    return $user->isAbleTo('view-team-submittedApplication', $team);
+                })->pluck('id');
+
                 $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
                     return $query
                         ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->whereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
+                        ->where(function (Builder $query) use($teamIds) {
+                            $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            })->orWhereHas('team', function(Builder $query) use($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                         });
                 });
             }

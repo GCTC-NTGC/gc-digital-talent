@@ -136,10 +136,12 @@ class PoolCandidatesPaginatedTest extends TestCase
         $processOperator = User::factory()
             ->asProcessOperator($this->pool->id)
             ->create();
-        $this->assertPaginatedResponse($processOperator, 0, []);
+        $this->assertPaginatedResponse($processOperator, 1, [
+            $this->teamCandidate->id,
+        ]);
     }
 
-    public function testUnassociatedProcessOperationCannotViewAnyApplications(): void
+    public function testUnassociatedProcessOperatorCannotViewAnyApplications(): void
     {
         $pool = Pool::factory()->create();
         $processOperator = User::factory()
@@ -148,6 +150,17 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->assertPaginatedResponse($processOperator, 0, []);
     }
 
+    // TO DO: Update in #10364
+    public function testCommunityRecruiterCannotViewAnyApplications(): void
+    {
+        $community = Community::factory()->create();
+        $processOperator = User::factory()
+            ->asCommunityRecruiter($community->id)
+            ->create();
+        $this->assertPaginatedResponse($processOperator, 0, []);
+    }
+
+    // TO DO: Update in #10364
     public function testCommunityAdminCannotViewAnyApplications(): void
     {
         $community = Community::factory()->create();
