@@ -239,16 +239,8 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    generalQuestions {
-      id
-      question {
-        en
-        fr
-      }
-    }
     team {
       id
-      name
       contactEmail
       displayName {
         en
