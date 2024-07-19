@@ -48,68 +48,7 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
     countPoolCandidatesByPool(where: $where) {
       pool {
         id
-        owner {
-          id
-          firstName
-          lastName
-        }
-        name {
-          en
-          fr
-        }
-        stream {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        classification {
-          id
-          group
-          level
-        }
-        poolSkills(type: ESSENTIAL) {
-          id
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          skill {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            category {
-              value
-              label {
-                en
-                fr
-              }
-            }
-          }
-        }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
-        department {
-          id
-          departmentNumber
-          name {
-            en
-            fr
-          }
-        }
+        ...SearchResultCard_Pool
       }
       candidateCount
     }

@@ -18,6 +18,7 @@ const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchResultCard_Pool on Pool {
     id
