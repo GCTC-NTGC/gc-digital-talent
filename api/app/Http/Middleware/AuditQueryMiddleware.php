@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -35,11 +34,6 @@ class AuditQueryMiddleware
             $this->logger->info(
                 $message.' '.$request->getContent()
             );
-        }
-
-        // TESTING - DO NOT MERGE
-        if (! App::isProduction()) {
-            sleep(5);
         }
 
         return $next($request);
