@@ -5,7 +5,9 @@ import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 // Note: Only one field to check here
 // eslint-disable-next-line import/prefer-default-export
-export function hasEmptyRequiredFields({ poolSkills }: Pool): boolean {
+export function hasEmptyRequiredFields({
+  poolSkills,
+}: Pick<Pool, "poolSkills">): boolean {
   // has at least one essential skill, and all essential skills have associated required skill levels
 
   const poolSkillsUnpacked = unpackMaybes(poolSkills);
