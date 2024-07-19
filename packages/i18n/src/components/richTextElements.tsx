@@ -95,7 +95,7 @@ const warning = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const heavyWarning = (text: ReactNode) => (
-  <span data-h2-color="base(warning.dark)" data-h2-font-weight="base(700)">
+  <span data-h2-color="base(warning.darker)" data-h2-font-weight="base(700)">
     {text}
   </span>
 );
