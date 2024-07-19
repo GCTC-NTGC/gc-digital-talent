@@ -412,9 +412,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             group
             level
           }
-        }
-        pool {
-          id
           poolSkills {
             skill {
               id

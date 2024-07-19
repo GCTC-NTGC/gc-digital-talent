@@ -34,14 +34,6 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
         submittedAt
         pool {
           id
-          closingDate
-          name {
-            en
-            fr
-          }
-          stream {
-            value
-          }
         }
       }
     }
