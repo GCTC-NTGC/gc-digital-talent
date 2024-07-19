@@ -123,7 +123,13 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const { announce } = useAnnouncer();
   const pool = getFragment(PoolLayout_Fragment, poolQuery);
 
-  const pages = useAdminPoolPages(intl, pool);
+  const pages = useAdminPoolPages(intl, {
+    id: pool.id,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    stream: pool.stream,
+    classification: pool.classification,
+  });
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   const subTitle = pool.team
