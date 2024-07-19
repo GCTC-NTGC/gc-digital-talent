@@ -4,6 +4,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import sortBy from "lodash/sortBy";
+import isEmpty from "lodash/isEmpty";
 
 import { IconType } from "@gc-digital-talent/ui";
 import {
@@ -13,6 +14,9 @@ import {
   AssessmentStep,
   ClaimVerificationResult,
   AssessmentStepTracker_CandidateFragment,
+  PoolCandidateSearchInput,
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -24,6 +28,16 @@ import {
   isDisqualifiedStatus,
   isRemovedStatus,
 } from "~/utils/poolCandidate";
+import {
+  stringToEnumCandidateExpiry,
+  stringToEnumCandidateSuspended,
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+  stringToEnumPriorityWeight,
+} from "~/utils/userUtils";
+
+import { FormValues } from "./types";
 
 export type CandidateAssessmentResult = {
   poolCandidate: AssessmentStepTracker_CandidateFragment;
@@ -308,3 +322,100 @@ export const generateStepName = (
   }
   return intl.formatMessage(commonMessages.notAvailable);
 };
+
+export function transformPoolCandidateSearchInputToFormValues(
+  input: PoolCandidateSearchInput | undefined,
+  poolId: string,
+): FormValues {
+  return {
+    equity: input?.applicantFilter?.equity
+      ? [
+          ...(input.applicantFilter.equity.hasDisability
+            ? ["hasDisability"]
+            : []),
+          ...(input.applicantFilter.equity.isIndigenous
+            ? ["isIndigenous"]
+            : []),
+          ...(input.applicantFilter.equity.isVisibleMinority
+            ? ["isVisibleMinority"]
+            : []),
+          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    govEmployee: input?.isGovEmployee ? "true" : "",
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
+    operationalRequirement:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    pools: [poolId],
+    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    // expiryStatus: input?.expiryStatus
+    //   ? input.expiryStatus
+    //   : CandidateExpiryFilter.Active,
+    // suspendedStatus: input?.suspendedStatus
+    //   ? input.suspendedStatus
+    //   : CandidateSuspendedFilter.Active,
+  };
+}
+
+export function transformFormValuesToFilterState(
+  data: FormValues,
+  poolId: string,
+): PoolCandidateSearchInput {
+  return {
+    applicantFilter: {
+      equity: !isEmpty(data.equity)
+        ? {
+            ...(data.equity.includes("isWoman") && { isWoman: true }),
+            ...(data.equity.includes("hasDisability") && {
+              hasDisability: true,
+            }),
+            ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
+            ...(data.equity.includes("isVisibleMinority") && {
+              isVisibleMinority: true,
+            }),
+          }
+        : undefined,
+      languageAbility: !isEmpty(data.languageAbility)
+        ? stringToEnumLanguage(data.languageAbility)
+        : undefined,
+      locationPreferences: !isEmpty(data.workRegion)
+        ? data.workRegion
+            .map((region) => {
+              return stringToEnumLocation(region);
+            })
+            .filter(notEmpty)
+        : undefined,
+      operationalRequirements: !isEmpty(data.operationalRequirement)
+        ? data.operationalRequirement
+            .map((requirement) => {
+              return stringToEnumOperational(requirement);
+            })
+            .filter(notEmpty)
+        : undefined,
+      pools: [{ id: poolId }],
+      skills: !isEmpty(data.skills)
+        ? data.skills.map((id) => {
+            return { id };
+          })
+        : undefined,
+    },
+    isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+    priorityWeight: !isEmpty(data.priorityWeight)
+      ? data.priorityWeight
+          .map((priorityWeight) => {
+            return stringToEnumPriorityWeight(priorityWeight);
+          })
+          .filter(notEmpty)
+      : undefined,
+    // expiryStatus: data.expiryStatus
+    //   ? stringToEnumCandidateExpiry(data.expiryStatus)
+    //   : undefined,
+    // suspendedStatus: data.suspendedStatus
+    //   ? stringToEnumCandidateSuspended(data.suspendedStatus)
+    //   : undefined,
+  };
+}
