@@ -27,7 +27,10 @@ class CandidateProfileCsv extends CsvGenerator
 
     protected string $lang;
 
-    protected array $generatedHeaders = [];
+    protected array $generatedHeaders = [
+        'general_questions' => [],
+        'skill_details' => [],
+    ];
 
     protected array $headerlocaleKeys = [
         'status',
@@ -96,7 +99,9 @@ class CandidateProfileCsv extends CsvGenerator
 
         $sheet->fromArray([
             ...$localizedHeaders,
-            ...$this->generatedHeaders,
+            Lang::get('headings.skills', [], $this->lang),
+            ...$this->generatedHeaders['general_questions'] ?? [],
+            ...$this->generatedHeaders['skill_details'] ?? [],
         ], null, 'A1');
         $currentCandidate = 1;
 
@@ -106,7 +111,7 @@ class CandidateProfileCsv extends CsvGenerator
             'user' => [
                 'department',
                 'currentClassification',
-                'userSkills' => ['skill'],
+                'userSkills' => ['skill', 'experiences' => ['skills']],
                 'awardExperiences' => ['userSkills' => ['skill']],
                 'communityExperiences' => ['userSkills' => ['skill']],
                 'educationExperiences' => ['userSkills' => ['skill']],
@@ -188,7 +193,12 @@ class CandidateProfileCsv extends CsvGenerator
                     foreach ($this->skillIds as $skillId) {
                         if (in_array($skillId, $candidateSkillIds)) {
                             $userSkill = $candidate->user->userSkills->where('skill_id', $skillId)->first();
-                            $values[] = $userSkill->skill->details;
+                            $values[] = implode("\r\n", $userSkill->experiences
+                                ->map(function ($experience) use ($userSkill) {
+                                    $skill = $experience->skills->where('id', $userSkill->skill_id)->first();
+
+                                    return $experience->getTitle().': '.$skill->experience_skill->details;
+                                })->toArray());
                         } else {
                             $values[] = '';
                         }
@@ -212,7 +222,6 @@ class CandidateProfileCsv extends CsvGenerator
      */
     private function generatePoolHeaders()
     {
-        $this->generatedHeaders[] = Lang::get('headings.skills', [], $this->lang);
 
         Pool::with(['generalQuestions', 'poolSkills' => ['skill']])
             ->whereHas('poolCandidates', function ($query) {
@@ -222,7 +231,7 @@ class CandidateProfileCsv extends CsvGenerator
                     if ($pool->generalQuestions->count() > 0) {
                         foreach ($pool->generalQuestions as $question) {
                             $this->questionIds[] = $question->id;
-                            $this->generatedHeaders[] = $question->question[$this->lang];
+                            $this->generatedHeaders['general_questions'][] = $question->question[$this->lang];
                         }
                     }
 
@@ -232,7 +241,7 @@ class CandidateProfileCsv extends CsvGenerator
                         foreach ($skillsByGroup as $group => $skills) {
                             foreach ($skills as $skill) {
                                 $this->skillIds[] = $skill->skill_id;
-                                $this->generatedHeaders[] = sprintf(
+                                $this->generatedHeaders['skill_details'][] = sprintf(
                                     '%s (%s)',
                                     $skill->skill->name[$this->lang],
                                     $this->localizeEnum($group, PoolSkillType::class)
