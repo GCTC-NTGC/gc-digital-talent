@@ -90,7 +90,7 @@ class CandidateProfileCsv extends CsvGenerator
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
-            return Lang::get('headings.'.$key, [], $this->lang);
+            return Lang::get('headings.' . $key, [], $this->lang);
         }, $this->headerlocaleKeys);
         $this->generatePoolHeaders();
 
@@ -144,6 +144,7 @@ class CandidateProfileCsv extends CsvGenerator
                         $candidate->user->current_city, // Current city
                         $this->localizeEnum($candidate->user->armed_forces_status, ArmedForcesStatus::class),
                         $this->localizeEnum($candidate->user->citizenship, CitizenshipStatus::class),
+                        $this->localizeEnum($candidate->user->first_official_language, Language::class),
                         is_null($candidate->user->second_language_exam_completed) ? '' : $this->yesOrNo($candidate->user->second_language_exam_completed), // Bilingual evaluation
                         $this->yesOrNo($candidate->user->second_language_exam_validity),
                         $candidate->user->comprehension_level, // Reading level
@@ -168,6 +169,11 @@ class CandidateProfileCsv extends CsvGenerator
                         implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
                     ];
 
+                    $userSkills = $candidate->user->userSkills->map(function ($userSkill) {
+                        return $userSkill->skill->name[$this->lang] ?? '';
+                    });
+                    $values[] = implode(", ", $userSkills->toArray());
+
                     $candidateQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
                     foreach ($this->questionIds as $questionId) {
                         if (in_array($questionId, $candidateQuestionIds)) {
@@ -189,13 +195,12 @@ class CandidateProfileCsv extends CsvGenerator
                     }
 
                     // 2 is added to the key to account for the header row and 0 index
-                    $sheet->fromArray($values, null, 'A'.$currentCandidate + 2);
+                    $sheet->fromArray($values, null, 'A' . $currentCandidate + 2);
                     $currentCandidate++;
                 }
             });
 
         return $this;
-
     }
 
     /**
@@ -227,7 +232,8 @@ class CandidateProfileCsv extends CsvGenerator
                         foreach ($skillsByGroup as $group => $skills) {
                             foreach ($skills as $skill) {
                                 $this->skillIds[] = $skill->skill_id;
-                                $this->generatedHeaders[] = sprintf('%s (%s)',
+                                $this->generatedHeaders[] = sprintf(
+                                    '%s (%s)',
                                     $skill->skill->name[$this->lang],
                                     $this->localizeEnum($group, PoolSkillType::class)
                                 );
@@ -236,6 +242,5 @@ class CandidateProfileCsv extends CsvGenerator
                     }
                 }
             });
-
     }
 }
