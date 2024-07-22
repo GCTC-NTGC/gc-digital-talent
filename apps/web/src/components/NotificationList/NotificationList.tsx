@@ -12,7 +12,7 @@ import NotificationListPage from "./NotificationListPage";
 import NotificationItem from "./NotificationItem";
 import NotificationPortal from "./NotificationPortal";
 
-const MaxNotifcationPages_Query = graphql(/* GraphQL */ `
+const MaxNotificationPages_Query = graphql(/* GraphQL */ `
   query MaxNotificationPages($where: NotificationFilterInput) {
     notifications(where: $where, page: 1, first: 10) {
       paginatorInfo {
@@ -55,7 +55,7 @@ const NotificationList = ({
   const onlyUnread =
     searchParams.has("unread") && searchParams.get("unread") !== null;
   const [{ data: maxPagesData }] = useQuery({
-    query: MaxNotifcationPages_Query,
+    query: MaxNotificationPages_Query,
     variables: {
       where: { onlyUnread },
     },
