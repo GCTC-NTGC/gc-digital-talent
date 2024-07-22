@@ -6,7 +6,7 @@ import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Maybe, Pool } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -33,7 +33,7 @@ const WorkPreferences = ({
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps & { pool: Maybe<Pick<Pool, "id">> }) => {
+}: SectionProps<Pick<Pool, "id">>) => {
   const intl = useIntl();
   const isNull =
     hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);

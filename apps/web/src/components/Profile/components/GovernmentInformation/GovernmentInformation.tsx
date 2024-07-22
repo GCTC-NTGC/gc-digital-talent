@@ -8,7 +8,7 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql, Maybe, Pool } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, Pool } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -45,7 +45,7 @@ const GovernmentInformation = ({
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps & { pool: Maybe<Pick<Pool, "id">> }) => {
+}: SectionProps<Pick<Pool, "id">>) => {
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const intl = useIntl();

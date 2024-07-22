@@ -1,5 +1,6 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
+  Maybe,
   PoolCandidate,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
@@ -14,10 +15,11 @@ export type SectionKey =
   | "language"
   | "account";
 
-export interface SectionProps {
+export interface SectionProps<P = void> {
   user: User;
   isUpdating?: boolean;
   application?: PoolCandidate;
+  pool?: Maybe<P>;
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,
