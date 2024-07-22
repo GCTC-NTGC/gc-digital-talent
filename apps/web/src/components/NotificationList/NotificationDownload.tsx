@@ -45,8 +45,8 @@ const NotificationDownload = forwardRef<
           intl.formatMessage(
             {
               defaultMessage:
-                "{fileName} no longer exists and cannot be downloaded.",
-              id: "4bbN50",
+                "This file is older than 24 hours and is no longer available. Please request a new file. If the problem persists contact support for assistance.",
+              id: "JFlQjb",
               description: "Error message when a file no longer exists",
             },
             { fileName },
