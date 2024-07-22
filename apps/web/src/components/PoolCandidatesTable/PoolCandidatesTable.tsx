@@ -205,6 +205,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
+          finalDecision {
+            value
+            label {
+              en
+              fr
+            }
+          }
           assessmentStatus {
             currentStep
             overallAssessmentStatus
@@ -491,7 +498,7 @@ const PoolCandidatesTable = ({
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
@@ -772,11 +779,10 @@ const PoolCandidatesTable = ({
         cell: ({
           row: {
             original: {
-              poolCandidate: { status, assessmentStatus },
+              poolCandidate: { finalDecision, assessmentStatus },
             },
           },
-        }) => finalDecisionCell(status?.value, assessmentStatus, intl),
-        enableSorting: false,
+        }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
       },
     ),
     columnHelper.accessor(

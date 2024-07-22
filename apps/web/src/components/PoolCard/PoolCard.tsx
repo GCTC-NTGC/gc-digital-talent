@@ -86,7 +86,7 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
 
 const getSalaryRange = (
   locale: string,
-  classification?: Maybe<Classification>,
+  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
 ) => {
   if (!classification) return null;
 

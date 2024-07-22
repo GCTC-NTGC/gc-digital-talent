@@ -8,9 +8,9 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
-  Classification,
   FragmentType,
   getFragment,
+  ClassificationTableRowFragment,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -33,7 +33,7 @@ export const ClassificationTableRow_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const columnHelper = createColumnHelper<Classification>();
+const columnHelper = createColumnHelper<ClassificationTableRowFragment>();
 
 interface ClassificationTableProps {
   classificationsQuery: FragmentType<typeof ClassificationTableRow_Fragment>[];
@@ -116,7 +116,7 @@ export const ClassificationTable = ({
           }-0${classification.level}`,
         ),
     }),
-  ] as ColumnDef<Classification>[];
+  ] as ColumnDef<ClassificationTableRowFragment>[];
 
   const data = classifications.filter(notEmpty);
 
@@ -124,7 +124,7 @@ export const ClassificationTable = ({
   const currentUrl = `${pathname}${search}${hash}`;
 
   return (
-    <Table<Classification>
+    <Table<ClassificationTableRowFragment>
       caption={title}
       data={data}
       columns={columns}

@@ -33,7 +33,7 @@ const ApplicantFilters = ({
   selectedClassifications,
 }: {
   applicantFilter?: Maybe<ApplicantFilter>;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -277,7 +277,7 @@ const ApplicantFilters = ({
 
 interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
 }
 
 const SearchRequestFilters = ({

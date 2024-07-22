@@ -85,12 +85,12 @@ export const getTableStateFromSearchParams = (
       paginationState: {
         pageIndex: pageIndexParam
           ? Number(pageIndexParam) - 1
-          : initialState?.paginationState?.pageIndex ??
-            INITIAL_STATE.paginationState.pageIndex,
+          : (initialState?.paginationState?.pageIndex ??
+            INITIAL_STATE.paginationState.pageIndex),
         pageSize: pageSizeParam
           ? Number(pageSizeParam)
-          : initialState?.paginationState?.pageSize ??
-            INITIAL_STATE.paginationState.pageSize,
+          : (initialState?.paginationState?.pageSize ??
+            INITIAL_STATE.paginationState.pageSize),
       },
     };
   }

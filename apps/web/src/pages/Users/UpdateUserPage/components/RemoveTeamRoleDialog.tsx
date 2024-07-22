@@ -16,6 +16,7 @@ import {
   Role,
   Team,
   User,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -23,7 +24,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 interface RemoveTeamRoleDialogProps {
   user: User;
   roles: Role[];
-  team: Team;
+  team: Pick<Team, "id" | "displayName">;
   onRemoveRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -40,14 +41,14 @@ const RemoveTeamRoleDialog = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleRemove = async () => {
+    const roleInputArray: RoleInput[] = roles.map((r) => {
+      return { roleId: r.id, teamId: team.id };
+    });
     setIsDeleting(true);
     return onRemoveRoles({
       userId: user.id,
       roleAssignmentsInput: {
-        detach: {
-          roles: roles.map((r) => r.id),
-          team: team.id,
-        },
+        detach: roleInputArray,
       },
     })
       .then(() => {

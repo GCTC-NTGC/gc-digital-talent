@@ -38,7 +38,7 @@ const styledCount = (chunks: ReactNode) => (
 
 interface SearchFormProps {
   pools: Pool[];
-  classifications: Classification[];
+  classifications: Pick<Classification, "group" | "level" | "id">[];
   skills: Skill[];
 }
 

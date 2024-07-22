@@ -19,6 +19,7 @@ import {
   User,
   Team,
   Scalars,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -31,7 +32,7 @@ interface EditTeamRoleDialogProps {
   user: User;
   initialRoles: Array<Role>;
   allRoles: Array<Role>;
-  team: Team;
+  team: Pick<Team, "id" | "displayName">;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -48,10 +49,11 @@ const EditTeamRoleDialog = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const userDisplayName = getFullNameHtml(user.firstName, user.lastName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
+  const initialRolesIds = initialRoles.map((role) => role.id);
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      roles: initialRoles.map((role) => role.id),
+      roles: initialRolesIds,
     },
   });
 
@@ -61,13 +63,24 @@ const EditTeamRoleDialog = ({
   } = methods;
 
   const handleEditRoles = async (formValues: FormValues) => {
+    const rolesToAttach = formValues.roles.filter(
+      (role) => !initialRolesIds.includes(role),
+    );
+    const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
+    const rolesToDetach = initialRolesIds.filter(
+      (role) => !formValues.roles.includes(role),
+    );
+    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
+
     return onEditRoles({
       userId: user.id,
       roleAssignmentsInput: {
-        sync: {
-          roles: formValues.roles,
-          team: team.id,
-        },
+        attach: rolesToAttachArray.length ? rolesToAttachArray : undefined,
+        detach: rolesToDetachArray.length ? rolesToDetachArray : undefined,
       },
     })
       .then(() => {
