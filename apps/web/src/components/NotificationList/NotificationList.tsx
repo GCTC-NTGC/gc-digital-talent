@@ -14,7 +14,7 @@ import NotificationPortal from "./NotificationPortal";
 
 const MaxNotifcationPages_Query = graphql(/* GraphQL */ `
   query MaxNotificationPages($where: NotificationFilterInput) {
-    notifications(where: $where, page: 1) {
+    notifications(where: $where, page: 1, first: 10) {
       paginatorInfo {
         lastPage
       }
