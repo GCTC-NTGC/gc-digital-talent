@@ -854,7 +854,7 @@ class PoolCandidate extends Model
         extract($args);
 
         if ($order && $locale) {
-            $query = $query->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
+            $query = $query->withMax('pool', 'name->' . $locale)->orderBy('pool_max_name' . $locale, $order);
         }
 
         return $query;
@@ -871,7 +871,7 @@ class PoolCandidate extends Model
                     END';
 
         if ($sortOrder && $sortOrder == 'DESC') {
-            $order = $orderWithoutDirection.' DESC';
+            $order = $orderWithoutDirection . ' DESC';
 
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
@@ -879,7 +879,7 @@ class PoolCandidate extends Model
                 ->orderBy('is_bookmarked', 'DESC')
                 ->orderByRaw($order);
         } elseif ($sortOrder && $sortOrder == 'ASC') {
-            $order = $orderWithoutDirection.' ASC';
+            $order = $orderWithoutDirection . ' ASC';
 
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
@@ -1096,7 +1096,7 @@ class PoolCandidate extends Model
                         continue;
                     }
 
-                    // UNSUFFCESSFUL on essential skills always takes precedence over other statuses, so we can exit the loop right away.
+                    // UNSUCCESSFUL on essential skills always takes precedence over other statuses, so we can exit the loop right away.
                     if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
                         $hasFailure = true;
                         break;
@@ -1125,7 +1125,6 @@ class PoolCandidate extends Model
                         if (! $isClaimed) {
                             continue;
                         }
-
                     }
 
                     if (! $result || is_null($result->assessment_decision)) {
@@ -1279,12 +1278,12 @@ class PoolCandidate extends Model
                 PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
                 PoolCandidateStatus::SCREENED_OUT_APPLICATION->name => FinalDecision::DISQUALIFIED->name,
 
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name ,
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name,
 
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
-                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name ,
+                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name,
 
                 PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
                 PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => FinalDecision::TO_ASSESS_REMOVED->name,
@@ -1292,11 +1291,10 @@ class PoolCandidate extends Model
                 PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name => FinalDecision::QUALIFIED_REMOVED->name,
 
-                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name ,
+                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name,
                 PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
 
                 default => null
-
             };
         }
 
@@ -1316,7 +1314,6 @@ class PoolCandidate extends Model
                 FinalDecision::QUALIFIED_EXPIRED->name => 250,
                 default => null
             };
-
         } catch (\UnhandledMatchError $e) {
             Log::error($e->getMessage());
 
@@ -1337,6 +1334,5 @@ class PoolCandidate extends Model
             'decision' => $decision,
             'weight' => $weight,
         ];
-
     }
 }
