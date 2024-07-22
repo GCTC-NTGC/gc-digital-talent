@@ -3,10 +3,8 @@ import { useQuery } from "urql";
 
 import {
   Checkbox,
-  Checklist,
   Combobox,
   localizedEnumToOptions,
-  RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";
 import {

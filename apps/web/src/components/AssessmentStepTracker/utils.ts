@@ -29,8 +29,6 @@ import {
   isRemovedStatus,
 } from "~/utils/poolCandidate";
 import {
-  stringToEnumCandidateExpiry,
-  stringToEnumCandidateSuspended,
   stringToEnumLanguage,
   stringToEnumLocation,
   stringToEnumOperational,
@@ -352,12 +350,8 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
-    // expiryStatus: input?.expiryStatus
-    //   ? input.expiryStatus
-    //   : CandidateExpiryFilter.Active,
-    // suspendedStatus: input?.suspendedStatus
-    //   ? input.suspendedStatus
-    //   : CandidateSuspendedFilter.Active,
+    expiryStatus: CandidateExpiryFilter.Active, // add default filters
+    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
 
@@ -411,11 +405,5 @@ export function transformFormValuesToFilterState(
           })
           .filter(notEmpty)
       : undefined,
-    // expiryStatus: data.expiryStatus
-    //   ? stringToEnumCandidateExpiry(data.expiryStatus)
-    //   : undefined,
-    // suspendedStatus: data.suspendedStatus
-    //   ? stringToEnumCandidateSuspended(data.suspendedStatus)
-    //   : undefined,
   };
 }
