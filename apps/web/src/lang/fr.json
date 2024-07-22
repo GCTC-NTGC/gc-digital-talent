@@ -8407,7 +8407,7 @@
     "description": "Text that appears when a user is missing a language requirement on their profile."
   },
   "hXWO/r": {
-    "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément » . Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
+    "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
     "description": "First paragraph for the closed early pool deadlines dialog"
   },
   "ha+vp4": {
