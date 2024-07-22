@@ -5,10 +5,9 @@ import { ReactNode, Fragment } from "react";
 import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
+  SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
   graphql,
   PoolSkillType,
-  FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -19,6 +18,7 @@ const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchResultCard_Pool on Pool {
     id
@@ -92,16 +92,12 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
 
 interface SearchResultCardProps {
   candidateCount: number;
-  poolQuery: FragmentType<typeof SearchResultCard_PoolFragment>;
+  pool: SearchResultCardPoolFragmentType;
 }
 
-const SearchResultCard = ({
-  candidateCount,
-  poolQuery,
-}: SearchResultCardProps) => {
+const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
   const intl = useIntl();
   const { register, setValue } = useFormContext();
-  const pool = getFragment(SearchResultCard_PoolFragment, poolQuery);
   const poolSubmitProps = register("pool");
   const paths = useRoutes();
   const essentialSkills = filterPoolSkillsByType(
