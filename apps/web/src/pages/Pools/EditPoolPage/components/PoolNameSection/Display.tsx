@@ -7,7 +7,9 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { getClassificationName } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-const Display = ({ pool }: { pool: EditPoolNameFragment }) => {
+import { DisplayProps } from "../../types";
+
+const Display = ({ pool }: DisplayProps<EditPoolNameFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {

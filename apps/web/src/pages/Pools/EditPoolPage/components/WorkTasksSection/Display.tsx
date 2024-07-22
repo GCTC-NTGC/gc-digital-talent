@@ -12,7 +12,7 @@ import { DisplayProps } from "../../types";
 const Display = ({
   pool,
   subtitle,
-}: { pool: EditPoolKeyTasksFragment } & Pick<DisplayProps, "subtitle">) => {
+}: DisplayProps<EditPoolKeyTasksFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { keyTasks } = pool;

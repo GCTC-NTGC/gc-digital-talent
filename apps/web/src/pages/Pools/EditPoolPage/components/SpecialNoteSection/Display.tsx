@@ -14,7 +14,7 @@ import { hasAllEmptyFields } from "../../../../../validators/process/specialNote
 const Display = ({
   pool,
   subtitle,
-}: { pool: EditPoolSpecialNoteFragment } & Pick<DisplayProps, "subtitle">) => {
+}: DisplayProps<EditPoolSpecialNoteFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const isNull = hasAllEmptyFields(pool);

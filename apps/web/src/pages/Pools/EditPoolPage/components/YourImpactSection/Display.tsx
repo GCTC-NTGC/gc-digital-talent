@@ -12,7 +12,7 @@ import { DisplayProps } from "../../types";
 const Display = ({
   pool,
   subtitle,
-}: { pool: EditPoolYourImpactFragment } & Pick<DisplayProps, "subtitle">) => {
+}: DisplayProps<EditPoolYourImpactFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { yourImpact } = pool;

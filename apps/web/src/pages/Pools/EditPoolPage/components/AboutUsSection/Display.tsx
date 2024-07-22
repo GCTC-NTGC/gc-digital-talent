@@ -11,10 +11,7 @@ import { hasAllEmptyFields } from "~/validators/process/aboutUs";
 
 import { DisplayProps } from "../../types";
 
-const Display = ({
-  pool,
-  subtitle,
-}: { pool: EditPoolAboutUsFragment } & Pick<DisplayProps, "subtitle">) => {
+const Display = ({ pool, subtitle }: DisplayProps<EditPoolAboutUsFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const isNull = hasAllEmptyFields(pool);

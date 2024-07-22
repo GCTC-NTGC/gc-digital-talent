@@ -12,10 +12,7 @@ import { DisplayProps } from "../../types";
 const Display = ({
   pool,
   subtitle,
-}: { pool: EditPoolWhatToExpectAdmissionFragment } & Pick<
-  DisplayProps,
-  "subtitle"
->) => {
+}: DisplayProps<EditPoolWhatToExpectAdmissionFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { whatToExpectAdmission } = pool;

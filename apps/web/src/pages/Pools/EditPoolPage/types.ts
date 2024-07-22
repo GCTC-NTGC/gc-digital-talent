@@ -34,8 +34,8 @@ type PoolDisplayFragments =
   | EditPoolWhatToExpectFragment
   | EditPoolYourImpactFragment;
 
-export type DisplayProps = {
-  pool: PoolDisplayFragments;
+export type DisplayProps<T extends PoolDisplayFragments> = {
+  pool: T;
   subtitle?: ReactNode;
 };
 

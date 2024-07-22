@@ -12,7 +12,7 @@ import { DisplayProps } from "../../types";
 const Display = ({
   pool,
   subtitle,
-}: { pool: EditPoolWhatToExpectFragment } & Pick<DisplayProps, "subtitle">) => {
+}: DisplayProps<EditPoolWhatToExpectFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { whatToExpect } = pool;

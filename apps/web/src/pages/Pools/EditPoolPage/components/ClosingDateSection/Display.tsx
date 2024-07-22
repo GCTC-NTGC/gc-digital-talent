@@ -7,7 +7,9 @@ import { EditPoolClosingDateFragment } from "@gc-digital-talent/graphql";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
-const Display = ({ pool }: { pool: EditPoolClosingDateFragment }) => {
+import { DisplayProps } from "../../types";
+
+const Display = ({ pool }: DisplayProps<EditPoolClosingDateFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { closingDate } = pool;

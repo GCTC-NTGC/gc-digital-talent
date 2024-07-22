@@ -15,10 +15,7 @@ import { DisplayProps } from "../../types";
 const Display = ({
   pool,
   subtitle,
-}: { pool: EditPoolCoreRequirementsFragment } & Pick<
-  DisplayProps,
-  "subtitle"
->) => {
+}: DisplayProps<EditPoolCoreRequirementsFragment>) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
