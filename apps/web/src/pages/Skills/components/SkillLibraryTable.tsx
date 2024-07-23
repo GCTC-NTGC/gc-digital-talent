@@ -43,6 +43,13 @@ export const SkillLibraryTable_UserSkillFragment = graphql(/* GraphQL */ `
         en
         fr
       }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
   }
 `);
