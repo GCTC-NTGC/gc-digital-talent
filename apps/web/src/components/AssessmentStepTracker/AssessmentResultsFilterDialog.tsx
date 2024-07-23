@@ -144,7 +144,7 @@ const AssessmentResultsFilterDialog = ({
             id="operationalRequirement"
             name="operationalRequirement"
             enableNull
-            nullSelection=""
+            nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
             label={intl.formatMessage(navigationMessages.workPreferences)}
             options={localizedEnumToOptions(
               data?.operationalRequirements,
