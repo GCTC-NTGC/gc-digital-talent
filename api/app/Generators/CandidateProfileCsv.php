@@ -93,7 +93,7 @@ class CandidateProfileCsv extends CsvGenerator
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
-            return Lang::get('headings.' . $key, [], $this->lang);
+            return Lang::get('headings.'.$key, [], $this->lang);
         }, $this->headerlocaleKeys);
         $this->generatePoolHeaders();
 
@@ -196,7 +196,7 @@ class CandidateProfileCsv extends CsvGenerator
                                 ->map(function ($experience) use ($userSkill) {
                                     $skill = $experience->skills->where('id', $userSkill->skill_id)->first();
 
-                                    return $experience->getTitle() . ': ' . $skill->experience_skill->details;
+                                    return $experience->getTitle().': '.$skill->experience_skill->details;
                                 })->toArray());
                         } else {
                             $values[] = '';
@@ -204,7 +204,7 @@ class CandidateProfileCsv extends CsvGenerator
                     }
 
                     // 2 is added to the key to account for the header row and 0 index
-                    $sheet->fromArray($values, null, 'A' . $currentCandidate + 2);
+                    $sheet->fromArray($values, null, 'A'.$currentCandidate + 2);
                     $currentCandidate++;
                 }
             });
