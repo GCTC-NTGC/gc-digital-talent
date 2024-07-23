@@ -140,7 +140,7 @@ const AssessmentStepTracker = ({
         data-h2-flex-wrap="base(wrap)"
       >
         <Filters onFiltersChange={setFilters} />
-        <div data-h2-margin-bottom="l-tablet(x.5)">
+        <div data-h2-width="base(100%) l-tablet(auto)" data-h2-order="base(0)">
           <AssessmentResultsFilterDialog
             onSubmit={onSubmitDialog}
             resetValues={transformPoolCandidateSearchInputToFormValues(
