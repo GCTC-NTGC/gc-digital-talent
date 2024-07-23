@@ -77,6 +77,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         ...ApplicationProfileDetails
         ...ProfileDocument
         ...PoolStatusTable
+        ...ChangeStatusDialog_User
         id
         firstName
         lastName
