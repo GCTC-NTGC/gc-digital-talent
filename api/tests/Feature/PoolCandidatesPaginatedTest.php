@@ -35,8 +35,8 @@ class PoolCandidatesPaginatedTest extends TestCase
     public PoolCandidate $applicantCandidate;
 
     public string $query =
-    /** GraphQL */
-    '
+        /** GraphQL */
+        '
         query PoolCandidates {
             poolCandidatesPaginated(first: 100) {
                 paginatorInfo {
