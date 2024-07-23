@@ -27,6 +27,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { Submit } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -309,10 +310,11 @@ export const ExperienceForm = ({
     }
   };
 
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experience ? "update" : "create",
-    type,
-  );
+  const {
+    executeMutation,
+    executing: mutationExecuting,
+    getMutationArgs,
+  } = useExperienceMutations(experience ? "update" : "create", type);
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
     const args = getMutationArgs(experienceId || userId || "", values);
@@ -492,14 +494,15 @@ export const ExperienceForm = ({
                     data-h2-flex-direction="base(column) l-tablet(row)"
                     data-h2-align-items="base(flex-start) l-tablet(center)"
                   >
-                    <Button type="submit">
-                      {intl.formatMessage({
+                    <Submit
+                      text={intl.formatMessage({
                         defaultMessage: "Save and return to my career timeline",
                         id: "jZi53k",
                         description:
                           "Label on button to save and return on the current experience",
                       })}
-                    </Button>
+                      isSubmitting={mutationExecuting}
+                    />
                     <Link color="quaternary" mode="inline" href={returnPath}>
                       {intl.formatMessage(formMessages.cancelGoBack)}
                     </Link>
@@ -565,26 +568,33 @@ export const ExperienceForm = ({
                       value="return"
                       {...actionProps}
                       onClick={() => setValue("action", "return")}
+                      disabled={mutationExecuting}
                     >
-                      {intl.formatMessage({
-                        defaultMessage: "Save and return to my career timeline",
-                        id: "jZi53k",
-                        description:
-                          "Label on button to save and return on the current experience",
-                      })}
+                      {mutationExecuting
+                        ? intl.formatMessage(formMessages.submitting)
+                        : intl.formatMessage({
+                            defaultMessage:
+                              "Save and return to my career timeline",
+                            id: "jZi53k",
+                            description:
+                              "Label on button to save and return on the current experience",
+                          })}
                     </Button>
                     <Button
                       type="submit"
                       mode="inline"
                       {...actionProps}
                       onClick={() => setValue("action", "add-another")}
+                      disabled={mutationExecuting}
                     >
-                      {intl.formatMessage({
-                        defaultMessage: "Save and add another",
-                        id: "+7v9Dq",
-                        description:
-                          "Text for save button and add another button on experience form.",
-                      })}
+                      {mutationExecuting
+                        ? intl.formatMessage(formMessages.submitting)
+                        : intl.formatMessage({
+                            defaultMessage: "Save and add another",
+                            id: "+7v9Dq",
+                            description:
+                              "Text for save button and add another button on experience form.",
+                          })}
                     </Button>
                     <Link mode="inline" href={returnPath}>
                       {intl.formatMessage(formMessages.cancelGoBack)}

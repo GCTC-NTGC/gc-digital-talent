@@ -36,7 +36,7 @@ class PruneUserGeneratedFiles extends Command
             foreach ($allFiles as $file) {
                 $lastModified = Carbon::createFromTimestamp($disk->lastModified($file));
                 $hoursOld = $now->diffInHours($lastModified);
-                $shouldDelete = $hoursOld > 12;
+                $shouldDelete = $hoursOld > 24;
                 if ($shouldDelete) {
                     $this->info("Deleting $file - $hoursOld hours old");
                     $disk->delete($file);
