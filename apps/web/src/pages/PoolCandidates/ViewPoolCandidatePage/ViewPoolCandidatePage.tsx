@@ -57,6 +57,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
       ...ClaimVerification
+      ...AssessmentResultsTable
       id
       status {
         value
@@ -75,6 +76,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       user {
         ...ApplicationProfileDetails
         ...ProfileDocument
+        ...PoolStatusTable
         id
         firstName
         lastName
@@ -810,7 +812,7 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidate={poolCandidate} />
+              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
@@ -835,7 +837,7 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable user={poolCandidate.user} />
+                        <PoolStatusTable userQuery={poolCandidate.user} />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>
