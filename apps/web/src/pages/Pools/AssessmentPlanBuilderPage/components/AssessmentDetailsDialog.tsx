@@ -442,7 +442,7 @@ const AssessmentDetailsDialog = ({
         return {
           essentialSkillItems: [
             ...assessedSkills.essentialSkillItems,
-            poolSkillToOption(poolSkill, intl),
+            poolSkillToOption({id: poolSkill.id, skill: poolSkill.skill}, intl),
           ],
           assetSkills: assessedSkills.assetSkills,
         };
@@ -452,7 +452,7 @@ const AssessmentDetailsDialog = ({
         return {
           assetSkills: [
             ...assessedSkills.assetSkills,
-            poolSkillToOption(poolSkill, intl),
+            poolSkillToOption({id: poolSkill.id, skill: poolSkill.skill}, intl), 
           ],
           essentialSkillItems: assessedSkills.essentialSkillItems,
         };
