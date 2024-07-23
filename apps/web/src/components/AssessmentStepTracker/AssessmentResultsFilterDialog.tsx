@@ -153,7 +153,7 @@ const AssessmentResultsFilterDialog = ({
           id="equity"
           name="equity"
           enableNull
-          nullSelection=""
+          nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
           label={intl.formatMessage(commonMessages.employmentEquity)}
           options={[
             equityOption("isWoman", getEmploymentEquityGroup("woman")),
