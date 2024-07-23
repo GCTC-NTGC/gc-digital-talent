@@ -179,32 +179,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
-        userSkills {
-          id
-          user {
-            id
-          }
-          skill {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category {
-              value
-              label {
-                en
-                fr
-              }
-            }
-          }
-          skillLevel
-        }
         experiences {
           id
           __typename
@@ -522,28 +496,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           }
           user {
             id
-            userSkills {
-              id
-              user {
-                id
-              }
-              skill {
-                id
-                key
-                name {
-                  en
-                  fr
-                }
-                category {
-                  value
-                  label {
-                    en
-                    fr
-                  }
-                }
-              }
-              skillLevel
-            }
           }
         }
         assessmentDecision {
