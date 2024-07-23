@@ -223,6 +223,7 @@ type ScreeningQuestion {
 
 interface HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
@@ -279,6 +280,7 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
+  teamIdForRoleAssignment: ID
   department: Department @belongsTo @canQuery(ability: "view")
 }
 
@@ -389,6 +391,7 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
+  finalDecision: LocalizedFinalDecision @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
@@ -453,6 +456,7 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
+  teamIdForRoleAssignment: ID
 }
 
 type Team implements HasRoleAssignments {
@@ -467,6 +471,7 @@ type Team implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canRoot(ability: "viewTeamMembers")
+  teamIdForRoleAssignment: ID @rename(attribute: "id")
 }
 
 type Role {
@@ -933,14 +938,13 @@ type Query {
         ]
       )
   ): [PoolCandidateWithSkillCount]!
+    @guard
     @paginate(
       defaultCount: 10
       maxCount: 1000
       scopes: ["notDraft", "withSkillCount", "authorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
-    @guard
-    @canResolved(ability: "view", model: "App\\Models\\PoolCandidate")
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
@@ -1693,16 +1697,15 @@ input PoolSkillBelongsToMany {
   sync: [UUID!]!
 }
 
-input RolesInput
-  @validator(class: "App\\GraphQL\\Validators\\RolesInputValidator") {
-  roles: [ID!]!
-  team: ID
+input RoleInput {
+  roleId: ID!
+  teamId: ID
 }
 
-input RoleAssignmentHasMany {
-  attach: RolesInput
-  detach: RolesInput
-  sync: RolesInput
+input RoleAssignmentHasMany
+  @validator(class: "App\\GraphQL\\Validators\\RoleInputValidator") {
+  attach: [RoleInput]
+  detach: [RoleInput]
 }
 
 # This input only accepts Team-Based roles. It is assumed that a team id will be provided at a higher level of input.
@@ -1815,8 +1818,9 @@ type Mutation {
   updateUserRoles(
     updateUserRolesInput: UpdateUserRolesInput! @spread
   ): UserAuthInfo
+    @guard
     @update(model: "User")
-    @canModel(ability: "updateRoles", model: "User")
+    @canModel(ability: "updateRoles", model: "User", injectArgs: true)
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
@@ -2133,7 +2137,10 @@ type Mutation {
     @canFind(ability: "delete", find: "id")
   updateUserTeamRoles(
     teamRoleAssignments: UpdateUserTeamRolesInput! @spread
-  ): Team @guard @canFind(ability: "assignTeamMembers", find: "teamId")
+  ): Team
+    @guard
+    @canFind(ability: "assignTeamMembers", find: "teamId")
+    @deprecated(reason: "use updateUserRoles")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user

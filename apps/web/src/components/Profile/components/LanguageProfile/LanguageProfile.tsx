@@ -6,6 +6,7 @@ import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Pool } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 import profileMessages from "~/messages/profileMessages";
@@ -31,7 +32,7 @@ const LanguageProfile = ({
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps) => {
+}: SectionProps<Pick<Pool, "id">>) => {
   const intl = useIntl();
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);

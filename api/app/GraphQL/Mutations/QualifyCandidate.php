@@ -22,6 +22,7 @@ final class QualifyCandidate
         $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $candidate->expiry_date = $expiryDate;
         $candidate->final_decision_at = $now;
+
         $candidate->save();
 
         return $candidate;

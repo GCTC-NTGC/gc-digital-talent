@@ -151,33 +151,6 @@ const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
       stream {
         value
       }
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-        minSalary
-        maxSalary
-      }
-      department {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
     }
   }
 `);

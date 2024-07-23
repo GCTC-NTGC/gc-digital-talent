@@ -2,13 +2,17 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+import { EditPoolWhatToExpectAdmissionFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
 
-const Display = ({ pool, subtitle }: DisplayProps) => {
+const Display = ({
+  pool,
+  subtitle,
+}: DisplayProps<EditPoolWhatToExpectAdmissionFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { whatToExpectAdmission } = pool;

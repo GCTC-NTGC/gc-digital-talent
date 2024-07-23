@@ -65,6 +65,13 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
       }
+      finalDecision {
+        value
+        label {
+          en
+          fr
+        }
+      }
       user {
         ...ApplicationProfileDetails
         ...ProfileDocument
@@ -391,6 +398,13 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             fr
           }
         }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
         classification {
           id
           group
@@ -649,7 +663,7 @@ export const ViewPoolCandidate = ({
     .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
-    poolCandidate.status?.value,
+    poolCandidate.finalDecision,
     poolCandidate.assessmentStatus,
     intl,
   );
@@ -667,7 +681,12 @@ export const ViewPoolCandidate = ({
         url: paths.poolTable(),
       },
       {
-        label: getFullPoolTitleLabel(intl, poolCandidate.pool),
+        label: getFullPoolTitleLabel(intl, {
+          stream: poolCandidate.pool.stream,
+          name: poolCandidate.pool.name,
+          publishingGroup: poolCandidate.pool.publishingGroup,
+          classification: poolCandidate.pool.classification,
+        }),
         url: paths.poolView(poolCandidate.pool.id),
       },
       {

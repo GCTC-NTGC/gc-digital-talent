@@ -26,7 +26,9 @@ import classificationsAvailable from "~/constants/classificationsAvailableForSea
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
 export const getAvailableClassifications = (
-  pools: Pool[],
+  pools: (Pick<Pool, "id"> & {
+    classification?: Maybe<Pick<Classification, "id" | "group" | "level">>;
+  })[],
 ): Classification[] => {
   const classifications = pools
     ?.flatMap((pool) => pool?.classification)
@@ -55,7 +57,7 @@ export const getAvailableClassifications = (
 };
 
 export const getClassificationLabel = (
-  { group, level }: Classification,
+  { group, level }: Pick<Classification, "group" | "level">,
   labels: Record<string, MessageDescriptor>,
   intl: IntlShape,
 ) => {
@@ -74,7 +76,7 @@ export const getClassificationLabel = (
  * @returns {string}
  */
 const getCurrentClassification = (
-  selectedClassifications?: Maybe<Classification[]>,
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
 ): string => {
   return selectedClassifications && selectedClassifications?.length > 0
     ? formatClassificationString(selectedClassifications[0])
@@ -138,7 +140,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Maybe<Classification[]>,
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
   pools?: Pool[],
 ): FormValues => {
   const safePools = data.pools?.filter(notEmpty) ?? [];
@@ -185,7 +187,7 @@ export const dataToFormValues = (
 export const formValuesToData = (
   values: FormValues,
   pools: Pool[],
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): ApplicantFilterInput => {
   const selectedClassification = classifications.find((classification) => {
     return formatClassificationString(classification) === values.classification;
@@ -225,7 +227,10 @@ export const formValuesToData = (
           .filter(
             (pool) =>
               selectedClassification === undefined || // If a classification hasn't been selected yet, do not filter out any pools.
-              poolMatchesClassification(pool, selectedClassification),
+              poolMatchesClassification(
+                { classification: pool.classification },
+                selectedClassification,
+              ),
           )
           .filter(
             (pool) =>

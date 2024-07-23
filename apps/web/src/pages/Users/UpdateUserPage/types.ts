@@ -15,6 +15,6 @@ export type DeleteUserFunc = (
 ) => Promise<DeleteUserMutation["deleteUser"]>;
 
 export type TeamAssignment = {
-  team: Team;
+  team: Pick<Team, "id" | "name" | "displayName">;
   roles: Role[];
 };

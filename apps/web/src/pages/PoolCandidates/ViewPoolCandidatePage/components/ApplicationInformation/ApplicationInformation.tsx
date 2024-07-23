@@ -6,7 +6,6 @@ import {
   FragmentType,
   LocalizedString,
   Maybe,
-  Pool,
   PoolCandidate,
   PoolSkillType,
   Scalars,
@@ -71,7 +70,6 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
 // preserve snapshot functionality
 type ScreeningQuestion = {
   id: Scalars["ID"]["output"];
-  pool?: Maybe<Pool>;
   question?: Maybe<LocalizedString>;
   sortOrder?: Maybe<Scalars["Int"]["output"]>;
 };

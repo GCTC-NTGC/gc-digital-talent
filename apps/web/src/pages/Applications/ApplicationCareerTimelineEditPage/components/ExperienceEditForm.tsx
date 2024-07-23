@@ -6,6 +6,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
+import { Submit } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -150,9 +151,11 @@ const EditExperienceForm = ({
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"
         >
-          <Button type="submit" disabled={isSubmitting} color="secondary">
-            {intl.formatMessage(formMessages.saveChanges)}
-          </Button>
+          <Submit
+            text={intl.formatMessage(formMessages.saveChanges)}
+            isSubmitting={isSubmitting}
+            color="secondary"
+          />
           <Link
             color="warning"
             mode="inline"

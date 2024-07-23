@@ -371,6 +371,12 @@ class Pool extends Model
         return true;
     }
 
+    /* accessor to retrieve id from teams table */
+    public function getTeamIdForRoleAssignmentAttribute()
+    {
+        return $this->team?->id;
+    }
+
     public function scopeWasPublished(Builder $query)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());

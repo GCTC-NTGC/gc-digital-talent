@@ -288,18 +288,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         id
         group
         level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
       }
       poolSkills {
         id

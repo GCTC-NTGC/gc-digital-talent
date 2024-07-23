@@ -29,7 +29,7 @@ import {
 
 type RoleTeamPair = {
   role: Role;
-  team: Team;
+  team: Pick<Team, "id" | "name">;
 };
 
 const columnHelper = createColumnHelper<TeamAssignment>();

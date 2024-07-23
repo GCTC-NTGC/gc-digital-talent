@@ -34,33 +34,6 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
         submittedAt
         pool {
           id
-          closingDate
-          name {
-            en
-            fr
-          }
-          stream {
-            value
-          }
-          classification {
-            id
-            group
-            level
-            name {
-              en
-              fr
-            }
-            genericJobTitles {
-              id
-              key
-              name {
-                en
-                fr
-              }
-            }
-            minSalary
-            maxSalary
-          }
         }
       }
     }

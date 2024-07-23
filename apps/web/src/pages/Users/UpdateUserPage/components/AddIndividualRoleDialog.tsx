@@ -17,6 +17,7 @@ import {
   UpdateUserRolesMutation,
   Role,
   User,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -54,12 +55,14 @@ const AddIndividualRoleDialog = ({
   } = methods;
 
   const handleAddRoles = async (formValues: FormValues) => {
+    const roleInputArray: RoleInput[] = formValues.roles.map((role) => {
+      return { roleId: role };
+    });
+
     return onAddRoles({
       userId: user.id,
       roleAssignmentsInput: {
-        attach: {
-          roles: formValues.roles,
-        },
+        attach: roleInputArray,
       },
     }).then(() => {
       setIsOpen(false);

@@ -19,6 +19,7 @@ final class RevertFinalDecision
         $candidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $candidate->expiry_date = null;
         $candidate->final_decision_at = null;
+
         $candidate->save();
 
         return $candidate;

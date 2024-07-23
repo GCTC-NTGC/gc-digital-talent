@@ -20,8 +20,8 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  Pool,
   PoolFilterInput,
+  PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -60,12 +60,65 @@ import {
 import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
 
-const columnHelper = createColumnHelper<Pool>();
+const columnHelper = createColumnHelper<PoolTablePoolFragmentType>();
 
 const defaultState = {
   ...INITIAL_STATE,
   sortState: [{ id: "createdDate", desc: false }],
 };
+
+const PoolTable_PoolFragment = graphql(/* GraphQL */ `
+  fragment PoolTable_Pool on Pool {
+    id
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    processNumber
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    createdDate
+    updatedDate
+    name {
+      en
+      fr
+    }
+    classification {
+      id
+      group
+      level
+    }
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+    owner {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+`);
 
 const PoolTable_Query = graphql(/* GraphQL */ `
   query PoolTable(
@@ -89,54 +142,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
       page: $page
     ) {
       data {
-        id
-        stream {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        processNumber
-        status {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        createdDate
-        updatedDate
-        name {
-          en
-          fr
-        }
-        classification {
-          id
-          group
-          level
-        }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
-        owner {
-          id
-          firstName
-          lastName
-          email
-        }
+        ...PoolTable_Pool
       }
       paginatorInfo {
         count
@@ -194,7 +200,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
@@ -237,9 +243,13 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     },
   });
 
+  const dataFragment = getFragment(
+    PoolTable_PoolFragment,
+    data?.poolsPaginated.data,
+  );
   const filteredData = useMemo(
-    () => unpackMaybes(data?.poolsPaginated.data),
-    [data?.poolsPaginated.data],
+    () => unpackMaybes(dataFragment),
+    [dataFragment],
   );
 
   const user = getFragment(PoolBookmark_Fragment, data?.me);
@@ -269,15 +279,18 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         hideMobileHeader: true,
       },
     }),
-    columnHelper.accessor((row) => poolNameAccessor(row, intl), {
-      id: "name",
-      header: intl.formatMessage(commonMessages.name),
-      meta: {
-        isRowTitle: true,
+    columnHelper.accessor(
+      (row) => poolNameAccessor({ name: row.name, stream: row.stream }, intl),
+      {
+        id: "name",
+        header: intl.formatMessage(commonMessages.name),
+        meta: {
+          isRowTitle: true,
+        },
+        cell: ({ row: { original: pool } }) =>
+          viewCell(paths.poolView(pool.id), { name: pool.name }, intl),
       },
-      cell: ({ row: { original: pool } }) =>
-        viewCell(paths.poolView(pool.id), pool, intl),
-    }),
+    ),
     columnHelper.accessor((row) => classificationAccessor(row.classification), {
       id: "classification",
       header: intl.formatMessage({
@@ -349,7 +362,16 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         id: "AWk4BX",
         description: "Title displayed for the Pool table Owner Name column",
       }),
-      cell: ({ row: { original: pool } }) => fullNameCell(pool, intl),
+      cell: ({ row: { original: pool } }) =>
+        fullNameCell(
+          {
+            owner: {
+              firstName: pool.owner?.firstName,
+              lastName: pool.owner?.lastName,
+            },
+          },
+          intl,
+        ),
     }),
     columnHelper.accessor((row) => ownerEmailAccessor(row), {
       id: "ownerEmail",
@@ -360,7 +382,15 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         id: "pe5WkF",
         description: "Title displayed for the Pool table Owner Email column",
       }),
-      cell: ({ row: { original: pool } }) => emailLinkAccessor(pool, intl),
+      cell: ({ row: { original: pool } }) =>
+        emailLinkAccessor(
+          {
+            owner: {
+              email: pool.owner?.email,
+            },
+          },
+          intl,
+        ),
     }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
@@ -390,10 +420,10 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         },
       }) => cells.date(updatedDate, intl),
     }),
-  ] as ColumnDef<Pool>[];
+  ] as ColumnDef<PoolTablePoolFragmentType>[];
 
   return (
-    <Table<Pool>
+    <Table<PoolTablePoolFragmentType>
       caption={title}
       data={filteredData}
       columns={columns}

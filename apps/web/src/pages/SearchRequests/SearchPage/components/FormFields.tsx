@@ -54,7 +54,7 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface FormFieldsProps {
-  classifications: Classification[];
+  classifications: Pick<Classification, "group" | "level">[];
   skills: Skill[];
 }
 

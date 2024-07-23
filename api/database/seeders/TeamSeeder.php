@@ -22,7 +22,7 @@ class TeamSeeder extends Seeder
                     'en' => 'Digital Community Management',
                     'fr' => 'Gestion de la collectivité numérique',
                 ],
-                'contact_email' => 'gctalent-talentgc@support-soutien.gc.ca',
+                'contact_email' => 'support-soutien@talent.canada.ca',
                 'department_ids' => [Department::select('id')->where('name->en', 'Treasury Board Secretariat')->sole()->id],
             ],
             [

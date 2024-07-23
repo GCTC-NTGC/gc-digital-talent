@@ -1,9 +1,13 @@
 import { Pool } from "@gc-digital-talent/graphql";
 
-export function hasAllEmptyFields({ keyTasks }: Pool): boolean {
+export function hasAllEmptyFields({
+  keyTasks,
+}: Pick<Pool, "keyTasks">): boolean {
   return !!(!keyTasks?.en && !keyTasks?.fr);
 }
 
-export function hasEmptyRequiredFields({ keyTasks }: Pool): boolean {
+export function hasEmptyRequiredFields({
+  keyTasks,
+}: Pick<Pool, "keyTasks">): boolean {
   return !!(!keyTasks?.en || !keyTasks?.fr);
 }
