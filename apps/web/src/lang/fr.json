@@ -1,4 +1,8 @@
 {
+  "JFlQjb": {
+    "defaultMessage": "Ce fichier, qui date de plus de 24 heures, n’est plus disponible. Veuillez en demander un nouveau. En cas d’échec de la procédure, communiquez avec les services de soutien.",
+    "description": "Error message when a file no longer exists"
+  },
   "++a1ZY": {
     "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
     "description": "Description for bilingual positions in language requirements dialog"
