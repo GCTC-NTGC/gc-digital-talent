@@ -18,6 +18,7 @@ import {
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
   SortOrder,
+  User,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -28,12 +29,19 @@ import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import { FormValues } from "./PoolFilterDialog";
 import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
-export function poolNameAccessor(pool: Pool, intl: IntlShape) {
+export function poolNameAccessor(
+  pool: Pick<Pool, "name" | "stream">,
+  intl: IntlShape,
+) {
   const name = getLocalizedName(pool.name, intl);
   return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
 }
 
-export function viewCell(url: string, pool: Pool, intl: IntlShape) {
+export function viewCell(
+  url: string,
+  pool: Pick<Pool, "name">,
+  intl: IntlShape,
+) {
   return (
     <Link color="black" href={url}>
       {getLocalizedName(pool.name, intl)}
@@ -62,7 +70,10 @@ export function viewTeamLinkCell(
   ) : null;
 }
 
-export function fullNameCell(pool: Pool, intl: IntlShape) {
+export function fullNameCell(
+  pool: { owner: Pick<User, "firstName" | "lastName"> },
+  intl: IntlShape,
+) {
   return (
     <span>
       {getFullNameHtml(pool.owner?.firstName, pool.owner?.lastName, intl)}
@@ -71,7 +82,7 @@ export function fullNameCell(pool: Pool, intl: IntlShape) {
 }
 
 export function classificationAccessor(
-  classification: Maybe<Classification> | undefined,
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   return classification
     ? `${classification.group}-0${classification.level}`
@@ -79,7 +90,7 @@ export function classificationAccessor(
 }
 
 export function classificationCell(
-  classification: Maybe<Classification> | undefined,
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   if (!classification) return null;
 
@@ -90,7 +101,10 @@ export function classificationCell(
   );
 }
 
-export function emailLinkAccessor(pool: Pool, intl: IntlShape) {
+export function emailLinkAccessor(
+  pool: { owner: Pick<User, "email"> },
+  intl: IntlShape,
+) {
   if (pool.owner?.email) {
     return (
       <Link color="black" external href={`mailto:${pool.owner.email}`}>

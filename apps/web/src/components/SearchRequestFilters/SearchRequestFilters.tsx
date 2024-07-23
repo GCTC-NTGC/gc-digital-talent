@@ -33,7 +33,7 @@ const ApplicantFilters = ({
   selectedClassifications,
 }: {
   applicantFilter?: Maybe<ApplicantFilter>;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -170,8 +170,13 @@ const ApplicantFilters = ({
             })}
             content={
               applicantFilter
-                ? applicantFilter?.pools?.map((pool) =>
-                    getShortPoolTitleHtml(intl, pool),
+                ? applicantFilter?.pools?.filter(notEmpty)?.map((pool) =>
+                    getShortPoolTitleHtml(intl, {
+                      stream: pool.stream,
+                      name: pool.name,
+                      publishingGroup: pool.publishingGroup,
+                      classification: pool.classification,
+                    }),
                   )
                 : null
             }
@@ -277,7 +282,7 @@ const ApplicantFilters = ({
 
 interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
 }
 
 const SearchRequestFilters = ({
@@ -403,7 +408,14 @@ const SearchRequestFilters = ({
               })}
               content={
                 pools
-                  ? pools.map((pool) => getShortPoolTitleHtml(intl, pool))
+                  ? pools.map((pool) =>
+                      getShortPoolTitleHtml(intl, {
+                        stream: pool.stream,
+                        name: pool.name,
+                        publishingGroup: pool.publishingGroup,
+                        classification: pool.classification,
+                      }),
+                    )
                   : null
               }
             />

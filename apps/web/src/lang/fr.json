@@ -1207,6 +1207,10 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the team members table roles column."
   },
+  "4X6cKU": {
+    "defaultMessage": "Il est probable qu’une nouvelle version de cette annonce soit publiée à l’avenir, alors n’hésitez pas à revenir pour obtenir de plus amples informations.",
+    "description": "Second paragraph for the closed early pool deadlines dialog"
+  },
   "4Z3/xp": {
     "defaultMessage": "Supprimer le candidat",
     "description": "Title for action to remove a candidate"
@@ -1606,6 +1610,10 @@
   "6ntAxU": {
     "defaultMessage": "Nom de l’initiative en matière numérique",
     "description": "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "6qu9EB": {
+    "defaultMessage": "<red>Cette annonce a été fermée prématurément.</red>",
+    "description": "Message on advertisement poster that it was closed early."
   },
   "6rb9mg": {
     "defaultMessage": "Membres de l’équipe",
@@ -8378,6 +8386,10 @@
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
   },
+  "hXWO/r": {
+    "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
+    "description": "First paragraph for the closed early pool deadlines dialog"
+  },
   "ha+vp4": {
     "defaultMessage": "Services professionnels en informatique centrés sur les tâches (SPICT)",
     "description": "Task based informatics professional services contract supply method"
@@ -8697,6 +8709,10 @@
   "j3m2Ca": {
     "defaultMessage": "Lieu précis (précisez ci-dessous)",
     "description": "Label displayed for 'specific location' option"
+  },
+  "j5cMN5": {
+    "defaultMessage": "Pourquoi cette offre d’emploi n’est-elle plus disponible?",
+    "description": "Heading for the closed early pool deadlines dialog"
   },
   "j7+E9C": {
     "defaultMessage": "Vous êtes à la limite!",

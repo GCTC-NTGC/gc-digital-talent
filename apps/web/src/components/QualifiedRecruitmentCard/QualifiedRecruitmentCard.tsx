@@ -46,28 +46,12 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
     suspendedAt
     pool {
       id
-      stream {
-        value
-        label {
-          en
-          fr
-        }
-      }
       publishingGroup {
         value
         label {
           en
           fr
         }
-      }
-      name {
-        en
-        fr
-      }
-      classification {
-        id
-        group
-        level
       }
       department {
         id

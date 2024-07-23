@@ -70,7 +70,12 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const poolName = getShortPoolTitleHtml(intl, application.pool);
+  const poolName = getShortPoolTitleHtml(intl, {
+    stream: application.pool.stream,
+    name: application.pool.name,
+    publishingGroup: application.pool.publishingGroup,
+    classification: application.pool.classification,
+  });
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);

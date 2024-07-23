@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -10,6 +11,16 @@ import NotificationActions from "./NotificationActions";
 import NotificationListPage from "./NotificationListPage";
 import NotificationItem from "./NotificationItem";
 import NotificationPortal from "./NotificationPortal";
+
+const MaxNotificationPages_Query = graphql(/* GraphQL */ `
+  query MaxNotificationPages($where: NotificationFilterInput) {
+    notifications(where: $where, page: 1, first: 10) {
+      paginatorInfo {
+        lastPage
+      }
+    }
+  }
+`);
 
 const NotificationPolling_Query = graphql(/* GraphQL */ `
   query NotificationPolling($where: NotificationFilterInput) {
@@ -41,6 +52,14 @@ const NotificationList = ({
 }: NotificationListProps) => {
   const now = nowUTCDateTime();
   const [searchParams] = useSearchParams();
+  const onlyUnread =
+    searchParams.has("unread") && searchParams.get("unread") !== null;
+  const [{ data: maxPagesData }] = useQuery({
+    query: MaxNotificationPages_Query,
+    variables: {
+      where: { onlyUnread },
+    },
+  });
   const [{ data }] = usePollingQuery(
     {
       query: NotificationPolling_Query,
@@ -56,10 +75,12 @@ const NotificationList = ({
     },
     60,
   );
-  const pagesToLoad =
+  const lastPage = maxPagesData?.notifications.paginatorInfo.lastPage ?? 1;
+  let pagesToLoad =
     paginate && searchParams.has("page") ? Number(searchParams.get("page")) : 1;
-  const onlyUnread =
-    searchParams.has("unread") && searchParams.get("unread") !== null;
+  if (pagesToLoad > lastPage) {
+    pagesToLoad = lastPage;
+  }
 
   const pagesArray = Array.from(Array(pagesToLoad).keys());
   const liveNotifications = unpackMaybes(data?.notifications?.data);
@@ -77,7 +98,6 @@ const NotificationList = ({
         data-h2-padding="base(0)"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-margin="base(x1 0)"
         {...(!inDialog && {
           "data-h2-gap": "base(x.25 0)",
         })}

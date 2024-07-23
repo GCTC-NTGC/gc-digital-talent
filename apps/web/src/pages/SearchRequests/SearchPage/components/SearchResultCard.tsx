@@ -4,7 +4,11 @@ import { ReactNode, Fragment } from "react";
 
 import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
+import {
+  SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
+  graphql,
+  PoolSkillType,
+} from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -14,9 +18,81 @@ const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
+  fragment SearchResultCard_Pool on Pool {
+    id
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    classification {
+      group
+      level
+    }
+    name {
+      en
+      fr
+    }
+    department {
+      id
+      name {
+        en
+        fr
+      }
+    }
+    team {
+      id
+      displayName {
+        en
+        fr
+      }
+    }
+    poolSkills {
+      id
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      skill {
+        id
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        key
+      }
+    }
+  }
+`);
+
 interface SearchResultCardProps {
   candidateCount: number;
-  pool: Pool;
+  pool: SearchResultCardPoolFragmentType;
 }
 
 const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
@@ -44,7 +120,12 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         data-h2-font-weight="base(700)"
         id={`search_pool_${pool.id}`}
       >
-        {getShortPoolTitleHtml(intl, pool)}
+        {getShortPoolTitleHtml(intl, {
+          stream: pool.stream,
+          name: pool.name,
+          publishingGroup: pool.publishingGroup,
+          classification: pool.classification,
+        })}
       </p>
       <p
         data-h2-margin="base(x.5, 0, x1, 0)"

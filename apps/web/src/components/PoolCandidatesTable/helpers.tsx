@@ -25,13 +25,14 @@ import {
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   CandidateSuspendedFilter,
   PoolCandidate,
-  PoolCandidateStatus,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
   LocalizedProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByPoolColumn,
   PriorityWeight,
+  Classification,
+  LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -115,11 +116,18 @@ export const candidateNameCell = (
 };
 
 export const processCell = (
-  pool: Pool,
+  pool: Pick<Pool, "id" | "stream" | "name" | "publishingGroup"> & {
+    classification?: Maybe<Pick<Classification, "group" | "level">>;
+  },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const poolName = getFullPoolTitleLabel(intl, pool);
+  const poolName = getFullPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
   return (
     <Link
       href={paths.poolView(pool.id)}
@@ -201,12 +209,12 @@ export const currentLocationAccessor = (
   `${city || intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
 export const finalDecisionCell = (
-  status: Maybe<PoolCandidateStatus> | undefined,
+  finalDecision: Maybe<LocalizedFinalDecision> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ) => {
   const { color, label } = getCandidateStatusChip(
-    status,
+    finalDecision,
     assessmentStatus,
     intl,
   );
@@ -233,7 +241,7 @@ function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["finalDecision", "status"],
+    ["finalDecision", "computed_final_decision_weight"],
     ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
     ["email", "EMAIL"],
@@ -254,9 +262,13 @@ function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus", "status", "notes"].includes(
-      sortingRule.id,
-    )
+    [
+      "dateReceived",
+      "candidacyStatus",
+      "status",
+      "notes",
+      "finalDecision",
+    ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -328,7 +340,7 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-  currentPool?: Maybe<Pool>,
+  currentPool?: Maybe<Pick<Pool, "id">>,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
@@ -350,7 +362,7 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  currentPool?: Maybe<Pool>,
+  currentPool?: Maybe<Pick<Pool, "id">>,
 ): Maybe<SortOrder> | undefined {
   if (!!currentPool && !!sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
@@ -404,9 +416,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             group
             level
           }
-        }
-        pool {
-          id
           poolSkills {
             skill {
               id

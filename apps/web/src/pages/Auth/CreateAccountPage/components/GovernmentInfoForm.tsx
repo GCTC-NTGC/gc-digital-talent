@@ -18,13 +18,13 @@ import {
   FieldLabels,
   enumToOptions,
 } from "@gc-digital-talent/forms";
-import { empty, notEmpty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import {
   Classification,
   UpdateUserAsUserInput,
   GovEmployeeType,
-  Department,
+  CreateAccount_QueryFragmentFragment,
 } from "@gc-digital-talent/graphql";
 
 import { splitAndJoin } from "~/utils/nameUtils";
@@ -57,7 +57,7 @@ const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
 const classificationFormToId = (
   group: string | undefined,
   level: string | undefined,
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): string | undefined => {
   return classifications.find(
     (classification) =>
@@ -67,7 +67,7 @@ const classificationFormToId = (
 
 export const formValuesToSubmitData = (
   values: FormValues,
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): UpdateUserAsUserInput => {
   const classificationId = classificationFormToId(
     values.currentClassificationGroup,
@@ -184,15 +184,15 @@ export const getGovernmentInfoLabels = (intl: IntlShape) => ({
   }),
 });
 interface GovernmentInfoFormFieldsProps {
-  departments: Department[];
-  classifications: Classification[];
+  departmentsQuery?: CreateAccount_QueryFragmentFragment["departments"];
+  classificationsQuery?: CreateAccount_QueryFragmentFragment["classifications"];
   labels: FieldLabels;
 }
 
 // inner component
 export const GovernmentInfoFormFields = ({
-  departments,
-  classifications,
+  departmentsQuery,
+  classificationsQuery,
   labels,
 }: GovernmentInfoFormFieldsProps) => {
   const intl = useIntl();
@@ -206,6 +206,8 @@ export const GovernmentInfoFormFields = ({
       "currentClassificationGroup",
       "priorityEntitlementYesNo",
     ]);
+  const departments = unpackMaybes(departmentsQuery);
+  const classifications = unpackMaybes(classificationsQuery);
 
   const classGroupsWithDupes: {
     label: string;

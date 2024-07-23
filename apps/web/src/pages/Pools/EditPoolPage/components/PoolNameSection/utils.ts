@@ -86,7 +86,7 @@ export const getClassificationOptions = (
 };
 
 export const getDepartmentOptions = (
-  departments: readonly Department[],
+  departments: readonly Pick<Department, "id" | "name">[],
   intl: IntlShape,
 ): Option[] => {
   return departments.filter(notEmpty).map(({ id, name }) => ({

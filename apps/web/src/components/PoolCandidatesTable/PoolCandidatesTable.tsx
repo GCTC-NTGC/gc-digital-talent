@@ -206,6 +206,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
+          finalDecision {
+            value
+            label {
+              en
+              fr
+            }
+          }
           assessmentStatus {
             currentStep
             overallAssessmentStatus
@@ -442,7 +449,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pool>;
+  currentPool?: Maybe<Pick<Pool, "id" | "generalQuestions" | "poolSkills">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -502,7 +509,7 @@ const PoolCandidatesTable = ({
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
@@ -746,7 +753,13 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.accessor(
-            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            ({ poolCandidate: { pool } }) =>
+              getFullPoolTitleLabel(intl, {
+                stream: pool.stream,
+                name: pool.name,
+                publishingGroup: pool.publishingGroup,
+                classification: pool.classification,
+              }),
             {
               id: "process",
               header: intl.formatMessage(processMessages.process),
@@ -757,7 +770,18 @@ const PoolCandidatesTable = ({
                     poolCandidate: { pool },
                   },
                 },
-              }) => processCell(pool, paths, intl),
+              }) =>
+                processCell(
+                  {
+                    id: pool.id,
+                    stream: pool.stream,
+                    name: pool.name,
+                    publishingGroup: pool.publishingGroup,
+                    classification: pool.classification,
+                  },
+                  paths,
+                  intl,
+                ),
             },
           ),
           columnHelper.accessor(
@@ -802,11 +826,10 @@ const PoolCandidatesTable = ({
         cell: ({
           row: {
             original: {
-              poolCandidate: { status, assessmentStatus },
+              poolCandidate: { finalDecision, assessmentStatus },
             },
           },
-        }) => finalDecisionCell(status?.value, assessmentStatus, intl),
-        enableSorting: false,
+        }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
       },
     ),
     columnHelper.accessor(

@@ -374,7 +374,7 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
-  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
+  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team @deprecated(reason: "use updateUserRoles")
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -595,6 +595,7 @@ type ScreeningQuestion {
 
 interface HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
 }
 
 type Pool implements HasRoleAssignments {
@@ -634,6 +635,7 @@ type Pool implements HasRoleAssignments {
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
   department: Department
 }
 
@@ -764,6 +766,7 @@ type Community implements HasRoleAssignments {
   name: LocalizedString
   description: LocalizedString
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
 }
 
 type Team implements HasRoleAssignments {
@@ -776,6 +779,7 @@ type Team implements HasRoleAssignments {
   pools: [Pool]
   teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
 }
 
 type Role {
@@ -1670,15 +1674,14 @@ input PoolSkillBelongsToMany {
   sync: [UUID!]!
 }
 
-input RolesInput {
-  roles: [ID!]!
-  team: ID
+input RoleInput {
+  roleId: ID!
+  teamId: ID
 }
 
 input RoleAssignmentHasMany {
-  attach: RolesInput
-  detach: RolesInput
-  sync: RolesInput
+  attach: [RoleInput]
+  detach: [RoleInput]
 }
 
 input RolesForTeamInput {
