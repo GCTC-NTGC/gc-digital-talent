@@ -168,12 +168,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
       </FilterBlock>
       <FilterBlock
         id="workingLanguageFilter"
-        title={intl.formatMessage({
-          defaultMessage: "Working language ability",
-          id: "p72C40",
-          description:
-            "Heading for working language ability section of the search form.",
-        })}
+        title={intl.formatMessage(commonMessages.workingLanguageAbility)}
         text={intl.formatMessage({
           defaultMessage:
             "Select the working language ability the candidate needs for this position. The selected working language ability will be compared to the one chosen by candidates in their applications. To note, candidates who selected Bilingual may not have Government of Canada second language evaluation results.",

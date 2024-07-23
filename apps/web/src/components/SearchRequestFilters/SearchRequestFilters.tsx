@@ -228,12 +228,7 @@ const ApplicantFilters = ({
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Work language ability",
-              id: "VX3Og5",
-              description:
-                "Title for work language on summary of filters section",
-            })}
+            title={intl.formatMessage(commonMessages.workingLanguageAbility)}
             content={languageAbility}
           />
           {employmentDuration && (
@@ -433,12 +428,9 @@ const SearchRequestFilters = ({
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <div>
               <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Work language ability",
-                  id: "VX3Og5",
-                  description:
-                    "Title for work language on summary of filters section",
-                })}
+                title={intl.formatMessage(
+                  commonMessages.workingLanguageAbility,
+                )}
                 content={languageAbility}
               />
               <FilterBlock

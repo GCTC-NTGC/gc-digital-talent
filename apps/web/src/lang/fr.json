@@ -8602,10 +8602,6 @@
     "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
     "description": "Paragraph 2 of the 'About the program' section"
   },
-  "iUAe/2": {
-    "defaultMessage": "Langues",
-    "description": "Label for language ability field"
-  },
   "iWD2Pz": {
     "defaultMessage": "Expériences communautaires",
     "description": "Heading for community experiences in experience by type listing"
@@ -9789,10 +9785,6 @@
   "p5qn9H": {
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
     "description": "Message on education requirements card on the application review page."
-  },
-  "p72C40": {
-    "defaultMessage": "Compétence linguistique au travail",
-    "description": "Heading for working language ability section of the search form."
   },
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",

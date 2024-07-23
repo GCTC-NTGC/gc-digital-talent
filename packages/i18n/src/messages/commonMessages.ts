@@ -174,6 +174,11 @@ const commonMessages = defineMessages({
     id: "Ho94JY",
     description: "Title displayed preferred communication language",
   },
+  workingLanguageAbility: {
+    defaultMessage: "Working language ability",
+    id: "HEGXL7",
+    description: "Title displayed working language ability",
+  },
   unspecified: {
     defaultMessage: "Unspecified",
     id: "zhqK/P",
@@ -258,6 +263,21 @@ const commonMessages = defineMessages({
     defaultMessage: "You haven’t added any experiences of that type.",
     id: "nMX0n8",
     description: "Message to user when no experiences of that type exist.",
+  },
+  english: {
+    defaultMessage: "English",
+    id: "0NInjL",
+    description: "Name of English language",
+  },
+  french: {
+    defaultMessage: "French",
+    id: "JYpEeW",
+    description: "Name of French language",
+  },
+  bilingualEnglishFrench: {
+    defaultMessage: "Bilingual (English and French)",
+    id: "jStpFw",
+    description: "Name of Bilingual (English and French)",
   },
 });
 

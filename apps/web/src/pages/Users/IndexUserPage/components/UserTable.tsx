@@ -272,6 +272,25 @@ const UserTable = ({ title }: UserTableProps) => {
         ),
       },
     ),
+    columnHelper.accessor(
+      ({ lookingForEnglish, lookingForFrench, lookingForBilingual }) => {
+        const arr = [];
+        if (lookingForEnglish) {
+          arr.push(intl.formatMessage(commonMessages.english));
+        }
+        if (lookingForFrench) {
+          arr.push(intl.formatMessage(commonMessages.french));
+        }
+        if (lookingForBilingual) {
+          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
+        }
+        return arr.join(", ");
+      },
+      {
+        id: "languageAbility",
+        header: intl.formatMessage(commonMessages.workingLanguageAbility),
+      },
+    ),
     columnHelper.display({
       id: "edit",
       header: intl.formatMessage(commonMessages.edit),
