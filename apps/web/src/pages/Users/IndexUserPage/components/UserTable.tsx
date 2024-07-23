@@ -119,6 +119,9 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
             fr
           }
         }
+        lookingForEnglish
+        lookingForFrench
+        lookingForBilingual
         createdDate
         updatedDate
         authInfo {
