@@ -9,6 +9,7 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   commonMessages,
+  formMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
   navigationMessages,
@@ -57,22 +58,6 @@ const AssessmentResultsFilterOptions_Query = graphql(/* GraphQL */ `
       }
     }
     languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    expiryFilters: localizedEnumStrings(enumName: "CandidateExpiryFilter") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    suspendedFilters: localizedEnumStrings(
-      enumName: "CandidateSuspendedFilter"
-    ) {
       value
       label {
         en
@@ -201,32 +186,6 @@ const AssessmentResultsFilterDialog = ({
             })}
           />
         </div>
-        {/* <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
-          <RadioGroup
-            idPrefix="expiryStatus"
-            name="expiryStatus"
-            legend={intl.formatMessage({
-              defaultMessage: "Expiry status",
-              description: "Label for the expiry status field",
-              id: "HDiUEc",
-            })}
-            items={localizedEnumToOptions(data?.expiryFilters, intl)}
-          />
-          <RadioGroup
-            idPrefix="suspendedStatus"
-            name="suspendedStatus"
-            legend={intl.formatMessage({
-              defaultMessage: "Candidacy status",
-              description: "Label for the candidacy status field",
-              id: "NxrKpM",
-            })}
-            items={localizedEnumToOptions(data?.suspendedFilters, intl)}
-          />
-        </div> */}
       </div>
     </FilterDialog>
   );
