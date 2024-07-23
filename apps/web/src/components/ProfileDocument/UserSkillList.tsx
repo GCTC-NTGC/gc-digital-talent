@@ -6,11 +6,29 @@ import {
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
-import { SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  SkillCategory,
+  UserSkillList_UserSkillFragment as UserSkillListUserSkillFragmentType,
+} from "@gc-digital-talent/graphql";
+
+export const UserSkillList_UserSkillFragment = graphql(/* GraphQL */ `
+  fragment UserSkillList_UserSkill on UserSkill {
+    id
+    skillLevel
+    skill {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 interface UserSkillListProps {
-  technical: UserSkill[];
-  behavioural: UserSkill[];
+  technical: UserSkillListUserSkillFragmentType[];
+  behavioural: UserSkillListUserSkillFragmentType[];
 }
 
 const UserSkillList = ({ technical, behavioural }: UserSkillListProps) => {
