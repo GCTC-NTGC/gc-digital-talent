@@ -854,7 +854,7 @@ class PoolCandidate extends Model
         extract($args);
 
         if ($order && $locale) {
-            $query = $query->withMax('pool', 'name->' . $locale)->orderBy('pool_max_name' . $locale, $order);
+            $query = $query->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
         }
 
         return $query;
@@ -871,7 +871,7 @@ class PoolCandidate extends Model
                     END';
 
         if ($sortOrder && $sortOrder == 'DESC') {
-            $order = $orderWithoutDirection . ' DESC';
+            $order = $orderWithoutDirection.' DESC';
 
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
@@ -879,7 +879,7 @@ class PoolCandidate extends Model
                 ->orderBy('is_bookmarked', 'DESC')
                 ->orderByRaw($order);
         } elseif ($sortOrder && $sortOrder == 'ASC') {
-            $order = $orderWithoutDirection . ' ASC';
+            $order = $orderWithoutDirection.' ASC';
 
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
