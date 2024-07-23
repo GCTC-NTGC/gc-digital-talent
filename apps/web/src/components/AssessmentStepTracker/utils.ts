@@ -183,7 +183,7 @@ type StepWithGroupedCandidates = {
 
 export const groupPoolCandidatesByStep = (
   steps: AssessmentStep[],
-  candidates: PoolCandidate[],
+  candidates: Omit<PoolCandidate, "pool">[],
 ): StepWithGroupedCandidates[] => {
   const orderedSteps = sortBy(steps, (step) => step.sortOrder);
 
@@ -280,8 +280,8 @@ export const filterResults = (
 
 // filter out candidates who are disqualified AND have an empty assessment results collection
 export const filterAlreadyDisqualified = (
-  candidates: PoolCandidate[],
-): PoolCandidate[] => {
+  candidates: Omit<PoolCandidate, "pool">[],
+): Omit<PoolCandidate, "pool">[] => {
   const filteredResult = candidates.filter(
     (candidate) =>
       !(

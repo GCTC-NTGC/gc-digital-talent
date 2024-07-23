@@ -40,9 +40,6 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    pool {
-      id
-    }
     user {
       id
       firstName
