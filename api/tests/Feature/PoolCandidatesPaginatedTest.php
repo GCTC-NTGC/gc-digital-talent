@@ -34,7 +34,9 @@ class PoolCandidatesPaginatedTest extends TestCase
 
     public PoolCandidate $applicantCandidate;
 
-    public string $query = /** GraphQL */ '
+    public string $query =
+    /** GraphQL */
+    '
         query PoolCandidates {
             poolCandidatesPaginated(first: 100) {
                 paginatorInfo {
@@ -87,7 +89,22 @@ class PoolCandidatesPaginatedTest extends TestCase
             'user_id' => $this->applicant->id,
             'pool_id' => $this->pool->id,
         ]);
+    }
 
+    protected function assertPaginatedResponse(User $user, int $count, array $ids): void
+    {
+        $res = $this->actingAs($user, 'api')
+            ->graphQL($this->query);
+
+        $res->assertJsonFragment([
+            'paginatorInfo' => [
+                'total' => $count,
+            ],
+        ]);
+
+        foreach ($ids as $id) {
+            $res->assertJsonFragment(['id' => $id]);
+        }
     }
 
     public function testGuestCannotViewAnyApplications(): void
@@ -179,21 +196,5 @@ class PoolCandidatesPaginatedTest extends TestCase
             $this->noTeamCandidate->id,
             $this->teamCandidate->id,
         ]);
-    }
-
-    protected function assertPaginatedResponse(User $user, int $count, array $ids): void
-    {
-        $res = $this->actingAs($user, 'api')
-            ->graphQL($this->query);
-
-        $res->assertJsonFragment([
-            'paginatorInfo' => [
-                'total' => $count,
-            ],
-        ]);
-
-        foreach ($ids as $id) {
-            $res->assertJsonFragment(['id' => $id]);
-        }
     }
 }
