@@ -93,7 +93,7 @@ class CandidateProfileCsv extends CsvGenerator
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
-            return Lang::get('headings.'.$key, [], $this->lang);
+            return Lang::get('headings.' . $key, [], $this->lang);
         }, $this->headerlocaleKeys);
         $this->generatePoolHeaders();
 
@@ -120,8 +120,7 @@ class CandidateProfileCsv extends CsvGenerator
             ],
         ])
             ->whereIn('id', $this->ids)
-            // This is being very weird with Laratrust
-            //->authorizedToView(['userId' => $this->userId])
+            ->authorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
                 foreach ($candidates as $candidate) {
 
@@ -197,7 +196,7 @@ class CandidateProfileCsv extends CsvGenerator
                                 ->map(function ($experience) use ($userSkill) {
                                     $skill = $experience->skills->where('id', $userSkill->skill_id)->first();
 
-                                    return $experience->getTitle().': '.$skill->experience_skill->details;
+                                    return $experience->getTitle() . ': ' . $skill->experience_skill->details;
                                 })->toArray());
                         } else {
                             $values[] = '';
@@ -205,7 +204,7 @@ class CandidateProfileCsv extends CsvGenerator
                     }
 
                     // 2 is added to the key to account for the header row and 0 index
-                    $sheet->fromArray($values, null, 'A'.$currentCandidate + 2);
+                    $sheet->fromArray($values, null, 'A' . $currentCandidate + 2);
                     $currentCandidate++;
                 }
             });
