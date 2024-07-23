@@ -45,7 +45,7 @@ import { wrapAbbr } from "./nameUtils";
  * @returns boolean
  */
 export const poolMatchesClassification = (
-  pool: Pool,
+  pool: { classification?: Maybe<Pick<Classification, "group" | "level">> },
   classification: Pick<Classification, "group" | "level">,
 ): boolean => {
   return (
@@ -160,9 +160,15 @@ interface PoolTitleOptions {
   short?: boolean;
 }
 
+type PoolTitle = Maybe<
+  Pick<Pool, "name" | "publishingGroup" | "stream"> & {
+    classification?: Maybe<Pick<Classification, "group" | "level">>;
+  }
+>;
+
 export const poolTitle = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: PoolTitleOptions,
 ): { html: ReactNode; label: string } => {
   const fallbackTitle =
@@ -205,19 +211,19 @@ export const poolTitle = (
 
 export const getFullPoolTitleHtml = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): string => poolTitle(intl, pool, options).label;
 
 export const getShortPoolTitleHtml = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): ReactNode =>
   poolTitle(intl, pool, {
@@ -227,7 +233,7 @@ export const getShortPoolTitleHtml = (
 
 export const getShortPoolTitleLabel = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): string =>
   poolTitle(intl, pool, {
@@ -235,9 +241,17 @@ export const getShortPoolTitleLabel = (
     short: true,
   }).label;
 
-export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
+export const useAdminPoolPages = (
+  intl: IntlShape,
+  pool: Pick<Pool, "id"> & PoolTitle,
+) => {
   const paths = useRoutes();
-  const poolName = getFullPoolTitleLabel(intl, pool);
+  const poolName = getFullPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
 
   return new Map<PageNavKeys, PageNavInfo>([
     [

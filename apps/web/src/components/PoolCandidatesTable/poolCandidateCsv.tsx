@@ -183,7 +183,7 @@ export const getPoolCandidateCsvData = (
 
 export const getPoolCandidateCsvHeaders = (
   intl: IntlShape,
-  pool?: Maybe<Pool>,
+  pool?: Maybe<Pick<Pool, "poolSkills" | "generalQuestions">>,
 ): DownloadCsvProps["headers"] => {
   const poolSkills = groupPoolSkillByType(unpackMaybes(pool?.poolSkills));
   const essentialSkillHeaders =

@@ -132,7 +132,13 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getShortPoolTitleHtml(intl, selectedCandidate.pool)}
+            -{" "}
+            {getShortPoolTitleHtml(intl, {
+              stream: selectedCandidate.pool.stream,
+              name: selectedCandidate.pool.name,
+              publishingGroup: selectedCandidate.pool.publishingGroup,
+              classification: selectedCandidate.pool.classification,
+            })}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>

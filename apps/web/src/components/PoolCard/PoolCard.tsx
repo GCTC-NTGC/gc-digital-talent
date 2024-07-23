@@ -44,6 +44,13 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
     name {
       en
@@ -183,7 +190,12 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-max-width="p-tablet(75%)"
             data-h2-min-height="base(x4.5) p-tablet(auto)"
           >
-            {getShortPoolTitleHtml(intl, pool)}
+            {getShortPoolTitleHtml(intl, {
+              stream: pool.stream,
+              name: pool.name,
+              publishingGroup: pool.publishingGroup,
+              classification: pool.classification,
+            })}
           </Heading>
           <div
             data-h2-background-color="base(secondary)"

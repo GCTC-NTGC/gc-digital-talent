@@ -5,7 +5,10 @@ export function hasAllEmptyFields({
   securityClearance,
   location,
   isRemote,
-}: Pool): boolean {
+}: Pick<
+  Pool,
+  "language" | "securityClearance" | "location" | "isRemote"
+>): boolean {
   const hasLocation = isRemote || (location?.en && location.fr);
   return !!(!language && !securityClearance && !hasLocation);
 }
@@ -15,7 +18,10 @@ export function hasEmptyRequiredFields({
   securityClearance,
   location,
   isRemote,
-}: Pool): boolean {
+}: Pick<
+  Pool,
+  "language" | "securityClearance" | "location" | "isRemote"
+>): boolean {
   const hasLocation = isRemote || location?.en || location?.fr;
   return !!(!language || !securityClearance || !hasLocation);
 }
