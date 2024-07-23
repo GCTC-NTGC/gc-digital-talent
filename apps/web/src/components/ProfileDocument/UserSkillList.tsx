@@ -12,7 +12,8 @@ import {
   UserSkillList_UserSkillFragment as UserSkillListUserSkillFragmentType,
 } from "@gc-digital-talent/graphql";
 
-export const UserSkillList_UserSkillFragment = graphql(/* GraphQL */ `
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const UserSkillList_UserSkillFragment = graphql(/* GraphQL */ `
   fragment UserSkillList_UserSkill on UserSkill {
     id
     skillLevel

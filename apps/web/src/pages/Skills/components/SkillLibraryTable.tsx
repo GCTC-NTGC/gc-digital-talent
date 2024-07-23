@@ -16,7 +16,6 @@ import {
   graphql,
   SkillCategory,
   SkillLevel,
-  UserSkill,
   SkillLibraryTable_UserSkillFragment as SkillLibraryTableUserSkillFragmentType,
 } from "@gc-digital-talent/graphql";
 
