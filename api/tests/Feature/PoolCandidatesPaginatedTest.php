@@ -167,7 +167,6 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->assertPaginatedResponse($processOperator, 0, []);
     }
 
-    // TO DO: Update in #10364
     public function testCommunityRecruiterCannotViewAnyApplications(): void
     {
         $community = Community::factory()->create();
@@ -177,7 +176,6 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->assertPaginatedResponse($processOperator, 0, []);
     }
 
-    // TO DO: Update in #10364
     public function testCommunityAdminCannotViewAnyApplications(): void
     {
         $community = Community::factory()->create();

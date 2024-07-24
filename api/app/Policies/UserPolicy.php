@@ -188,12 +188,12 @@ class UserPolicy
                 return $actor->isAbleTo('assign-any-teamRole');
             case 'process_operator':
                 // Community roles have the update-team-processOperatorMembership permission, and it should give them the ability to assign processOperator roles to pools in their community.
-                // TODO: uncomment this in issue #10364
-                // $pool = $team->teamable; // If we're adding a processOperator to a team, that team should represent a pool. Need validation?
-                // $community = $pool->community;
+                $pool = $team->teamable; // If we're adding a processOperator to a team, that team should represent a pool. Need validation?
+                $community = $pool->community;
+
                 return $actor->isAbleTo('update-any-processOperatorMembership')
-                    || $actor->isAbleTo('update-team-processOperatorMembership', $team);
-                // || $actor->isAbleTo('update-team-processOperatorMembership', $community->team)
+                    || $actor->isAbleTo('update-team-processOperatorMembership', $team)
+                || $actor->isAbleTo('update-team-processOperatorMembership', $community->team);
             case 'community_recruiter':
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
