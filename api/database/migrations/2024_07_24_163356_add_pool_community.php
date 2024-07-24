@@ -19,12 +19,14 @@ return new class extends Migration
             $table->foreign('community_id')->references('id')->on('communities');
         });
 
-        $communityATIP = Community::where('key', 'atip')->sole()->id;
-        $communityDigitalCommunity = Community::where('key', 'digital')->sole()->id;
+        $communitiesExist = count(Community::all()) != 0;
+        if ($communitiesExist) { // do not run on migrate:fresh
+            $communityATIP = Community::where('key', 'atip')->sole()->id;
+            $communityDigitalCommunity = Community::where('key', 'digital')->sole()->id;
 
-        // fill new community_id column based on stream
-        DB::statement(
-            <<<'SQL'
+            // fill new community_id column based on stream
+            DB::statement(
+                <<<'SQL'
                 UPDATE pools
                     SET community_id =
                         case stream
@@ -32,11 +34,12 @@ return new class extends Migration
                             else :digitalCommunity::uuid
                         end
             SQL, [
-                'atipStream' => 'ACCESS_INFORMATION_PRIVACY',
-                'atipCommunity' => $communityATIP,
-                'digitalCommunity' => $communityDigitalCommunity,
-            ]
-        );
+                    'atipStream' => 'ACCESS_INFORMATION_PRIVACY',
+                    'atipCommunity' => $communityATIP,
+                    'digitalCommunity' => $communityDigitalCommunity,
+                ]
+            );
+        }
 
         // now that it's filled, make non-nullable
         Schema::table('pools', function (Blueprint $table) {

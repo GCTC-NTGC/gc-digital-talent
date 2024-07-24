@@ -87,7 +87,7 @@ class PoolFactory extends Factory
             'team_id' => $teamId,
             'classification_id' => $classification->id,
             'department_id' => $departmentId,
-            'community_id' => $$communityId,
+            'community_id' => $communityId,
         ];
     }
 
