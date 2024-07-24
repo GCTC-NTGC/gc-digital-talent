@@ -182,6 +182,19 @@ class Pool extends Model
         return $this->morphOne(Team::class, 'teamable');
     }
 
+    /**
+     * Get the department that owns the pool.
+     */
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
+    }
+
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs
@@ -661,13 +674,5 @@ class Pool extends Model
     public static function getSelectableColumns()
     {
         return self::$selectableColumns;
-    }
-
-    /**
-     * Get the department that owns the pool.
-     */
-    public function department(): BelongsTo
-    {
-        return $this->belongsTo(Department::class);
     }
 }
