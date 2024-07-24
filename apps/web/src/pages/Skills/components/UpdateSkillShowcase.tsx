@@ -16,9 +16,10 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   UpdateUserSkillRankingsInput,
-  Skill,
-  UserSkill,
   Scalars,
+  graphql,
+  UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
+  UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -32,12 +33,75 @@ import {
 } from "../operations";
 import SkillShowcaseCard from "./SkillShowcaseCard";
 
+export const UpdateSkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillShowcase_UserSkill on UserSkill {
+    id
+    whenSkillUsed
+    skillLevel
+    topSkillsRank
+    improveSkillsRank
+    skill {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
+export const UpdateSkillShowcase_SkillFragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillShowcase_Skill on Skill {
+    id
+    key
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
 interface UpdateSkillShowcaseProps {
   userId: Scalars["UUID"];
-  allSkills: Skill[];
-  allUserSkills: UserSkill[];
+  allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
+  allSkills: UpdateSkillShowcaseSkillFragmentType[];
   initialData: FormValues;
   maxItems: number;
   crumbs: BreadcrumbsProps["crumbs"];
@@ -61,8 +125,8 @@ interface UpdateSkillShowcaseProps {
 
 const UpdateSkillShowcase = ({
   userId,
-  allSkills,
   allUserSkills,
+  allSkills,
   initialData,
   maxItems,
   crumbs,

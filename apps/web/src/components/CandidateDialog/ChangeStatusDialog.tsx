@@ -16,12 +16,12 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   PoolStatus,
-  User,
   Pool,
   PoolCandidate,
   UpdatePoolCandidateStatusInput,
   graphql,
   PoolCandidateStatus,
+  ChangeStatusDialog_UserFragment as ChangeStatusDialogUserFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
@@ -47,6 +47,65 @@ const PoolCandidateStatuses_Query = graphql(/* GraphQL */ `
   }
 `);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const ChangeStatusDialog_UserFragment = graphql(/* GraphQL */ `
+  fragment ChangeStatusDialog_User on User {
+    firstName
+    lastName
+    poolCandidates {
+      id
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      expiryDate
+      notes
+      suspendedAt
+      user {
+        id
+      }
+      pool {
+        id
+        processNumber
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 type FormValues = {
   status: PoolCandidateStatus;
   additionalPools?: Pool["id"][];
@@ -54,7 +113,7 @@ type FormValues = {
 
 interface ChangeStatusDialogProps {
   selectedCandidate: PoolCandidate;
-  user: User;
+  user: ChangeStatusDialogUserFragmentType;
 }
 
 const ChangeStatusDialog = ({

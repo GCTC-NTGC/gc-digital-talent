@@ -5,13 +5,19 @@ import { JSX } from "react";
 import {
   AssessmentResult,
   AssessmentStep,
+  Maybe,
   PoolCandidate,
   PoolSkill,
+  Skill,
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 
+type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {
+  skill?: Maybe<Pick<Skill, "id" | "name" | "category" | "key">>;
+};
+
 export type AssessmentTableRow = {
-  poolSkill?: PoolSkill;
+  poolSkill?: PoolSkillForTableRow;
   assessmentResults: AssessmentResult[];
 };
 

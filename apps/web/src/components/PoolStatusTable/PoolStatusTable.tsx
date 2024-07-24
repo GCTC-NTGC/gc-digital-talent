@@ -5,7 +5,12 @@ import { isPast } from "date-fns/isPast";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { PoolCandidate, User } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  PoolCandidate,
+} from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -28,13 +33,71 @@ const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
 
 const columnHelper = createColumnHelper<PoolCandidate>();
 
+const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
+  fragment PoolStatusTable on User {
+    id
+    poolCandidates {
+      id
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      expiryDate
+      notes
+      suspendedAt
+      user {
+        id
+      }
+      pool {
+        id
+        processNumber
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 interface PoolStatusTableProps {
-  user: User;
+  userQuery: FragmentType<typeof PoolStatusTable_Fragment>;
 }
 
-const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
+const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const user = getFragment(PoolStatusTable_Fragment, userQuery);
 
   const columns = [
     columnHelper.accessor(

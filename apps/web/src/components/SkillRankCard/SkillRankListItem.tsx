@@ -34,7 +34,7 @@ const SkillLink = ({ id, children }: SkillLinkProps) => {
 };
 
 interface SkillRankListItemProps {
-  userSkill: UserSkill;
+  userSkill: Pick<UserSkill, "skill" | "skillLevel">;
   editable?: boolean;
   from?: string;
 }

@@ -29,7 +29,10 @@ export const assessmentStepDisplayName = (
   return intl.formatMessage(commonMessages.notAvailable);
 };
 
-export const poolSkillToOption = (poolSkill: PoolSkill, intl: IntlShape) => ({
+export const poolSkillToOption = (
+  poolSkill: Pick<PoolSkill, "id" | "skill">,
+  intl: IntlShape,
+) => ({
   value: poolSkill.id,
   label: poolSkill?.skill?.name
     ? getLocalizedName(poolSkill.skill.name, intl)
