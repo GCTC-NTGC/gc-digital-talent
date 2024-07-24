@@ -132,14 +132,24 @@ const createRoute = (locale: Locales) =>
               lazy: () => import("../pages/Auth/SignInPage/SignInPage"),
             },
             {
-              path: "create-account",
+              path: "getting-started",
               lazy: () =>
-                import("../pages/Auth/CreateAccountPage/CreateAccountPage"),
+                import("../pages/Auth/RegistrationPages/GettingStartedPage"),
+            },
+            {
+              path: "email-verification",
+              lazy: () =>
+                import("../pages/Auth/RegistrationPages/GettingStartedPage"),
+            },
+            {
+              path: "employee-registration",
+              lazy: () =>
+                import("../pages/Auth/RegistrationPages/GettingStartedPage"),
             },
             {
               path: "applicant",
               lazy: () =>
-                import("../pages/Auth/CreateAccountPage/CreateAccountRedirect"),
+                import("../pages/Auth/RegistrationPages/RegistrationRedirect"),
               children: [
                 {
                   index: true,

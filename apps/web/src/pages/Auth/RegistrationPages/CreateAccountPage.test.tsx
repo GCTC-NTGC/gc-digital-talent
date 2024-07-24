@@ -18,7 +18,7 @@ import {
   CreateAccountForm,
   CreateAccountFormProps,
   CreateAccount_QueryFragment,
-} from "./CreateAccountPage";
+} from "./GettingStartedPage";
 
 const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();

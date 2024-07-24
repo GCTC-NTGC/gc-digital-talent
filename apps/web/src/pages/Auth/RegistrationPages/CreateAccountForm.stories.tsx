@@ -11,7 +11,7 @@ import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 import {
   CreateAccountForm,
   CreateAccount_QueryFragment,
-} from "./CreateAccountPage";
+} from "./GettingStartedPage";
 
 const departments = fakeDepartments();
 const classifications = fakeClassifications();

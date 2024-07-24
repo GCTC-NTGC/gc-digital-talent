@@ -37,7 +37,11 @@ export const Component = () => {
 
   const email = data?.me?.email;
   const paths = useRoutes();
-  const isToCreateAccount = pathname !== paths.createAccount();
+  const isToCreateAccount = [
+    paths.gettingStarted(),
+    paths.emailVerification(),
+    paths.employeeRegistration(),
+  ].includes(pathname);
 
   useEffect(() => {
     /**
@@ -47,10 +51,10 @@ export const Component = () => {
      *  - User has no email associated with account
      *  - User is not trying to go to the welcome page directly already
      */
-    if (loggedIn && !fetching && !stale && empty(email) && isToCreateAccount) {
+    if (loggedIn && !fetching && !stale && empty(email) && !isToCreateAccount) {
       navigate(
         {
-          pathname: paths.createAccount(),
+          pathname: paths.gettingStarted(),
           search: createSearchParams({ from: pathname }).toString(),
         },
         {
