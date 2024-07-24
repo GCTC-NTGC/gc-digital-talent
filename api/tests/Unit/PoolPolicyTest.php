@@ -132,7 +132,10 @@ class PoolPolicyTest extends TestCase
 
         $this->otherTeam = Team::factory()->create();
 
-        $this->unOwnedPool = Pool::factory(['team_id' => $this->otherTeam->id])->create();
+        $this->unOwnedPool = Pool::factory([
+            'team_id' => $this->otherTeam->id,
+            'community_id' => $this->otherCommunity->id,
+        ])->create();
     }
 
     /**
@@ -252,7 +255,7 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that only pool operators can create pools
+     * Assert that only pool operators, community recruiters, and community admins can create pools
      *
      * @return void
      */
@@ -282,6 +285,30 @@ class PoolPolicyTest extends TestCase
         $this->assertFalse($this->poolOperatorUser->can('create', [Pool::class, $createOtherPoolInput]));
         $this->assertFalse($this->communityRecruiterUser->can('create', [Pool::class, $createOtherPoolInput]));
         $this->assertFalse($this->communityAdminUser->can('create', [Pool::class, $createOtherPoolInput]));
+    }
+
+    /**
+     * Assert that only pool operators, community recruiters, and community admins can duplicate pools
+     *
+     * @return void
+     */
+    public function testDuplicate()
+    {
+        $this->assertTrue($this->poolOperatorUser->can('duplicate', $this->teamPool));
+        $this->assertTrue($this->communityRecruiterUser->can('duplicate', $this->teamPool));
+        $this->assertTrue($this->communityAdminUser->can('duplicate', $this->teamPool));
+
+        $this->assertFalse($this->guestUser->can('duplicate', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('duplicate', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('duplicate', $this->teamPool));
+        $this->assertFalse($this->communityManagerUser->can('duplicate', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('duplicate', $this->teamPool));
+        $this->assertFalse($this->processOperatorUser->can('duplicate', $this->teamPool));
+
+        // cannot duplicate unowned or other's pools
+        $this->assertFalse($this->poolOperatorUser->can('duplicate', $this->unOwnedPool));
+        $this->assertFalse($this->communityRecruiterUser->can('duplicate', $this->unOwnedPool));
+        $this->assertFalse($this->communityAdminUser->can('duplicate', $this->unOwnedPool));
     }
 
     /**

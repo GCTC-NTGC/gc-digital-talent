@@ -105,18 +105,19 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can create pools.
+     * Determine whether the user can duplicate pools.
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function duplicate(User $user, $request)
     {
-        $existing = Pool::findOrFail($request['id']);
+        $existing = Pool::findOrFail($request['id'])->load(['team', 'community.team']);
 
         // Confirm the user can create pools for the team
         $teamPermission = ! is_null($existing->team) && $user->isAbleTo('create-team-draftPool', $existing->team);
         $legacyTeamPermission = ! is_null($existing->legacyTeam) && $user->isAbleTo('create-team-draftPool', $existing->legacyTeam);
-        if ($teamPermission || $legacyTeamPermission) {
+        $communityPermission = ! is_null($existing->community->team) && $user->isAbleTo('create-team-draftPool', $existing->community->team);
+        if ($teamPermission || $legacyTeamPermission || $communityPermission) {
             return true;
         } else {
             return Response::deny('Cannot duplicate a pool for that team.');
