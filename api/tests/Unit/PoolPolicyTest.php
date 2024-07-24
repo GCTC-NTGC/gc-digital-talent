@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -23,15 +24,25 @@ class PoolPolicyTest extends TestCase
 
     protected $poolOperatorUser;
 
+    protected $processOperatorUser;
+
     protected $requestResponderUser;
 
+    protected $communityRecruiterUser;
+
     protected $communityManagerUser;
+
+    protected $communityAdminUser;
 
     protected $adminUser;
 
     protected $team;
 
     protected $otherTeam;
+
+    protected $community;
+
+    protected $otherCommunity;
 
     protected $teamPool;
 
@@ -58,6 +69,9 @@ class PoolPolicyTest extends TestCase
             ]);
 
         $this->team = Team::factory()->create(['name' => 'test-team']);
+        $this->community = Community::factory()->create(['name' => 'test-team']);
+        $this->otherCommunity = Community::factory()->create(['name' => 'suspicious-team']);
+
         $this->poolOperatorUser = User::factory()
             ->asApplicant()
             ->asPoolOperator($this->team->name)
@@ -94,6 +108,27 @@ class PoolPolicyTest extends TestCase
             'user_id' => $this->poolOperatorUser->id,
             'team_id' => $this->team->id,
         ]);
+
+        $this->processOperatorUser = User::factory()
+            ->asApplicant()
+            ->asProcessOperator($this->teamPool->id)
+            ->create([
+                'email' => 'process-operator-user@test.com',
+            ]);
+
+        $this->communityRecruiterUser = User::factory()
+            ->asApplicant()
+            ->asCommunityRecruiter($this->community->id)
+            ->create([
+                'email' => 'community-recruiter-user@test.com',
+            ]);
+
+        $this->communityAdminUser = User::factory()
+            ->asApplicant()
+            ->asCommunityAdmin($this->community->id)
+            ->create([
+                'email' => 'community-admin-user@test.com',
+            ]);
 
         $this->otherTeam = Team::factory()->create();
 
@@ -225,21 +260,28 @@ class PoolPolicyTest extends TestCase
     {
         $createPoolInput = [
             'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ];
 
         $this->assertTrue($this->poolOperatorUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertTrue($this->communityRecruiterUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertTrue($this->communityAdminUser->can('create', [Pool::class, $createPoolInput]));
 
         $this->assertFalse($this->guestUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->applicantUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->requestResponderUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->communityManagerUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->adminUser->can('create', [Pool::class, $createPoolInput]));
+        $this->assertFalse($this->processOperatorUser->can('create', [Pool::class, $createPoolInput]));
 
-        // Pool operator cannot create pools for other teams
+        // Pool operator cannot create pools for other teams, and community roles cannot do so for other communities
         $createOtherPoolInput = [
             'team_id' => $this->otherTeam->id,
+            'community_id' => $this->otherCommunity->id,
         ];
         $this->assertFalse($this->poolOperatorUser->can('create', [Pool::class, $createOtherPoolInput]));
+        $this->assertFalse($this->communityRecruiterUser->can('create', [Pool::class, $createOtherPoolInput]));
+        $this->assertFalse($this->communityAdminUser->can('create', [Pool::class, $createOtherPoolInput]));
     }
 
     /**
