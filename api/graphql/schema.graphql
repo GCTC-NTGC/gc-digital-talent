@@ -230,6 +230,7 @@ type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo(relation: "legacyTeam") @canModel(ability: "viewAny")
+  community: Community @belongsTo(relation: "community")
   name: LocalizedString
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -391,7 +392,8 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
-  finalDecision: LocalizedFinalDecision @rename(attribute: "computed_final_decision")
+  finalDecision: LocalizedFinalDecision
+    @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
@@ -457,6 +459,9 @@ type Community implements HasRoleAssignments {
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID
+  pools: [Pool]
+    @hasMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view")
 }
 
 type Team implements HasRoleAssignments {

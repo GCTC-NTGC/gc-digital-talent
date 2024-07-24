@@ -585,6 +585,7 @@ type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
   team: Team
+  community: Community
   name: LocalizedString
   classification: Classification
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -750,6 +751,7 @@ type Community implements HasRoleAssignments {
   description: LocalizedString
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
+  pools: [Pool]
 }
 
 type Team implements HasRoleAssignments {
