@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Jobs\GenerateCandidateCSV;
+use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
@@ -22,7 +23,15 @@ final class DownloadPoolCandidatesCsv
         $locale = $args['locale'] ?? 'en';
 
         try {
-            GenerateCandidateCSV::dispatch($args['ids'], $userId, strtolower($locale));
+            // Make sure this user can see candidates before sending
+            // them to the generation job
+            $ids = PoolCandidate::whereIn('id', $args['ids'])
+                ->authorizedToView()
+                ->get('id')
+                ->pluck('id') // Seems weird but we are just flattening it out
+                ->toArray();
+
+            GenerateCandidateCSV::dispatch($ids, $userId, strtolower($locale));
 
             return true;
         } catch (\Exception $e) {

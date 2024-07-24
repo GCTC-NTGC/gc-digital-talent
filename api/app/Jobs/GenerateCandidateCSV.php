@@ -31,7 +31,7 @@ class GenerateCandidateCSV implements ShouldQueue
         $fileName = 'candidates_'.date('Y-m-d_His').'.csv';
 
         try {
-            $generator = new CandidateProfileCsv($this->candidateIds, $this->userId, $this?->lang);
+            $generator = new CandidateProfileCsv($this->candidateIds, $this?->lang);
             $generator->generate()->write($fileName, $this->userId);
 
             UserFileGenerated::dispatch($fileName, $this->userId);

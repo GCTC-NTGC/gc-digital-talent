@@ -750,11 +750,6 @@ class PoolCandidate extends Model
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        // Get the user from the job who trigger this
-        if (! $user && isset($args['userId'])) {
-            $user = User::find($args['userId']);
-        }
-
         if (! $user) {
             return $query->where('id', null);
         }

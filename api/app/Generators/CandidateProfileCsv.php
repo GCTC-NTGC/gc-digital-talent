@@ -23,8 +23,6 @@ class CandidateProfileCsv extends CsvGenerator
 {
     protected array $ids;
 
-    protected string $userId;
-
     protected string $lang;
 
     protected array $generatedHeaders = [
@@ -79,10 +77,9 @@ class CandidateProfileCsv extends CsvGenerator
 
     protected array $skillIds = [];
 
-    public function __construct(array $ids, string $userId, ?string $lang = 'en')
+    public function __construct(array $ids, ?string $lang = 'en')
     {
         $this->ids = $ids;
-        $this->userId = $userId;
         $this->lang = $lang;
 
         parent::__construct();
@@ -120,7 +117,6 @@ class CandidateProfileCsv extends CsvGenerator
             ],
         ])
             ->whereIn('id', $this->ids)
-            ->authorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
                 foreach ($candidates as $candidate) {
 
@@ -203,8 +199,8 @@ class CandidateProfileCsv extends CsvGenerator
                         }
                     }
 
-                    // 2 is added to the key to account for the header row and 0 index
-                    $sheet->fromArray($values, null, 'A'.$currentCandidate + 2);
+                    // 1 is added to the key to account for the header row
+                    $sheet->fromArray($values, null, 'A'.$currentCandidate + 1);
                     $currentCandidate++;
                 }
             });
