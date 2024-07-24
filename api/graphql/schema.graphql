@@ -2044,6 +2044,7 @@ type Mutation {
   createPool(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
+    communityId: ID! @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
   duplicatePool(
