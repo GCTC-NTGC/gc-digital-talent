@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Enums\PoolStatus;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -75,6 +76,7 @@ class PoolPolicy
      */
     public function create(User $user, $request)
     {
+        // assert team check
         if (array_key_exists('team_id', $request)) {
             $team_id = $request['team_id'];
 
@@ -84,13 +86,36 @@ class PoolPolicy
             // Confirm the user can create pools for the team
             if (! is_null($team)) {
                 if ($user->isAbleTo('create-team-draftPool', $team)) {
-                    return true;
+                    continue; // move to community check below
                 }
             } else {
                 return Response::deny('Cannot find a team matching team_id.');
             }
         } else {
             Response::deny('Pool must be associated with a team when it is created.');
+        }
+
+        // if team check successful, move to community check
+        if (array_key_exists('community_id', $request)) {
+            $communityId = $request['community_id'];
+
+            if ($user->isAbleTo('create-any-pool')) {
+                return true;
+            }
+
+            // Get the community to check against
+            $community = Community::find($communityId)->load('team');
+
+            // Confirm the user can create pools for the community
+            if (! is_null($community)) {
+                if ($user->isAbleTo('create-team-pool', $community->team)) {
+                    return true;
+                }
+            } else {
+                return Response::deny('Cannot find a community matching community_id.');
+            }
+        } else {
+            Response::deny('Pool must be associated with a community when it is created.');
         }
 
         return Response::deny('Cannot create a pool for that team.');
