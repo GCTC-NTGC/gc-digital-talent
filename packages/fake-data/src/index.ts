@@ -1,6 +1,7 @@
 import fakeAssessmentResults from "./fakeAssessmentResults";
 import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeClassifications from "./fakeClassifications";
+import fakeCommunities from "./fakeCommunities";
 import fakeDepartments from "./fakeDepartments";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
 import toLocalizedEnum, { fakeLocalizedEnum } from "./fakeLocalizedEnum";
@@ -22,6 +23,7 @@ export {
   fakeAssessmentResults,
   fakeAssessmentSteps,
   fakeClassifications,
+  fakeCommunities,
   fakeDepartments,
   fakeExperiences,
   fakePools,

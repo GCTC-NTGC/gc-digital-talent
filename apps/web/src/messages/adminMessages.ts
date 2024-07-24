@@ -165,6 +165,11 @@ const messages = defineMessages({
     id: "fkYYe3",
     description: "Title for the assessment plan builder",
   },
+  community: {
+    defaultMessage: "Community",
+    id: "LOjdrP",
+    description: "Title for community",
+  },
 });
 
 export default messages;

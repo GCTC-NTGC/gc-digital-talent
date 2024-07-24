@@ -483,6 +483,18 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/Communities/IndexCommunityPage/IndexCommunityPage"
+                    ),
+                },
+              ],
+            },
+            {
               path: "teams",
               children: [
                 {

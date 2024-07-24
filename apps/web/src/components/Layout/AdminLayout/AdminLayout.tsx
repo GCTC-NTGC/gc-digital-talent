@@ -172,6 +172,21 @@ export const Component = () => {
             )}
             {checkRole(
               [
+                ROLE_NAME.CommunityAdmin,
+                ROLE_NAME.CommunityRecruiter,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem
+                href={paths.communityTable()}
+                icon={pageIcons.communities.outline}
+              >
+                {intl.formatMessage(pageTitles.communities)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
                 ROLE_NAME.PoolOperator,
                 ROLE_NAME.CommunityManager,
                 ROLE_NAME.PlatformAdmin,
