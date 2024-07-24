@@ -37,22 +37,31 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
   const paths = useRoutes();
 
   const columns = [
-    columnHelper.accessor((row) => getShortPoolTitleLabel(intl, row.pool), {
-      id: "pool",
-      meta: {
-        isRowTitle: true,
+    columnHelper.accessor(
+      (row) =>
+        getShortPoolTitleLabel(intl, {
+          stream: row.pool.stream,
+          name: row.pool.name,
+          publishingGroup: row.pool.publishingGroup,
+          classification: row.pool.classification,
+        }),
+      {
+        id: "pool",
+        meta: {
+          isRowTitle: true,
+        },
+        sortingFn: normalizedText,
+        enableHiding: false,
+        cell: ({ row: { original: candidate }, getValue }) =>
+          cells.view(paths.poolView(candidate.pool.id), getValue()),
+        header: intl.formatMessage({
+          defaultMessage: "Pool",
+          id: "icYqDt",
+          description:
+            "Title of the 'Pool' column for the table on view-user page",
+        }),
       },
-      sortingFn: normalizedText,
-      enableHiding: false,
-      cell: ({ row: { original: candidate }, getValue }) =>
-        cells.view(paths.poolView(candidate.pool.id), getValue()),
-      header: intl.formatMessage({
-        defaultMessage: "Pool",
-        id: "icYqDt",
-        description:
-          "Title of the 'Pool' column for the table on view-user page",
-      }),
-    }),
+    ),
     columnHelper.accessor(({ pool }) => pool.processNumber, {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),

@@ -589,10 +589,10 @@ class PoolCandidate extends Model
     public function getPoolCandidateStatusAttribute($candidateStatus)
     {
         // pull info
-        $submittedAt = $this->submitted_at;
-        $expiryDate = $this->expiry_date;
-        $currentTime = date('Y-m-d H:i:s');
-        $isExpired = $currentTime > $expiryDate ? true : false;
+        // $submittedAt = $this->submitted_at;
+        // $expiryDate = $this->expiry_date;
+        // $currentTime = date('Y-m-d H:i:s');
+        // $isExpired = $currentTime > $expiryDate ? true : false;
 
         // // ensure null submitted_at returns either draft or expired draft
         // if ($submittedAt == null){
@@ -754,18 +754,37 @@ class PoolCandidate extends Model
             return $query->where('id', null);
         }
 
+        $hasSomePermission = $user->isAbleTo([
+            'view-own-application',
+            'view-team-submittedApplication',
+            'view-any-submittedApplication',
+        ]);
+
+        // User does not have any of the required permissions
+        if (! $hasSomePermission) {
+            return $query->where('id', null);
+        }
+
         $query->where(function (Builder $query) use ($user) {
             if ($user->isAbleTo('view-any-submittedApplication')) {
                 $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
             }
 
             if ($user->isAbleTo('view-team-submittedApplication')) {
-                $teamIds = $user->rolesTeams()->get()->pluck('id');
+                $allTeam = $user->rolesTeams()->get();
+                $teamIds = $allTeam->filter(function ($team) use ($user) {
+                    return $user->isAbleTo('view-team-submittedApplication', $team);
+                })->pluck('id');
+
                 $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
                     return $query
                         ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->whereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
+                        ->where(function (Builder $query) use ($teamIds) {
+                            $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            })->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                         });
                 });
             }
@@ -1077,7 +1096,7 @@ class PoolCandidate extends Model
                         continue;
                     }
 
-                    // UNSUFFCESSFUL on essential skills always takes precedence over other statuses, so we can exit the loop right away.
+                    // UNSUCCESSFUL on essential skills always takes precedence over other statuses, so we can exit the loop right away.
                     if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
                         $hasFailure = true;
                         break;
@@ -1106,7 +1125,6 @@ class PoolCandidate extends Model
                         if (! $isClaimed) {
                             continue;
                         }
-
                     }
 
                     if (! $result || is_null($result->assessment_decision)) {
@@ -1260,12 +1278,12 @@ class PoolCandidate extends Model
                 PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
                 PoolCandidateStatus::SCREENED_OUT_APPLICATION->name => FinalDecision::DISQUALIFIED->name,
 
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name ,
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name,
 
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
-                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name ,
+                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name,
 
                 PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
                 PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => FinalDecision::TO_ASSESS_REMOVED->name,
@@ -1273,11 +1291,10 @@ class PoolCandidate extends Model
                 PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name => FinalDecision::QUALIFIED_REMOVED->name,
 
-                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name ,
+                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name,
                 PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
 
                 default => null
-
             };
         }
 
@@ -1297,7 +1314,6 @@ class PoolCandidate extends Model
                 FinalDecision::QUALIFIED_EXPIRED->name => 250,
                 default => null
             };
-
         } catch (\UnhandledMatchError $e) {
             Log::error($e->getMessage());
 
@@ -1318,6 +1334,5 @@ class PoolCandidate extends Model
             'decision' => $decision,
             'weight' => $weight,
         ];
-
     }
 }

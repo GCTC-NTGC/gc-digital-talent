@@ -53,7 +53,12 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, {
+                    stream: candidate.pool.stream,
+                    name: candidate.pool.name,
+                    publishingGroup: candidate.pool.publishingGroup,
+                    classification: candidate.pool.classification,
+                  }),
                 },
               ),
             );
@@ -69,7 +74,12 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, {
+                    stream: candidate.pool.stream,
+                    name: candidate.pool.name,
+                    publishingGroup: candidate.pool.publishingGroup,
+                    classification: candidate.pool.classification,
+                  }),
                 },
               ),
             );
@@ -114,7 +124,12 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                           "Label for the notes field for a specific pool",
                       },
                       {
-                        poolName: getShortPoolTitleHtml(intl, candidate.pool),
+                        poolName: getShortPoolTitleHtml(intl, {
+                          stream: candidate.pool.stream,
+                          name: candidate.pool.name,
+                          publishingGroup: candidate.pool.publishingGroup,
+                          classification: candidate.pool.classification,
+                        }),
                       },
                     )}
                     defaultValue={candidate.notes ? candidate.notes : ""}

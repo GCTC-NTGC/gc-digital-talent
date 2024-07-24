@@ -9,9 +9,10 @@ import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 import {
   graphql,
   Classification,
-  Pool,
   ApplicantFilterInput,
   Skill,
+  getFragment,
+  SearchForm_PoolFragment as SearchFormPoolFragmentType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -37,7 +38,7 @@ const styledCount = (chunks: ReactNode) => (
 );
 
 interface SearchFormProps {
-  pools: Pool[];
+  pools: SearchFormPoolFragmentType[];
   classifications: Pick<Classification, "group" | "level" | "id">[];
   skills: Skill[];
 }
@@ -237,32 +238,22 @@ export const SearchForm = ({
   );
 };
 
+const SearchForm_PoolFragment = graphql(/* GraphQL */ `
+  fragment SearchForm_Pool on Pool {
+    ...SearchResultCard_Pool
+    id
+    classification {
+      id
+      group
+      level
+    }
+  }
+`);
+
 const SearchForm_Query = graphql(/* GraphQL */ `
   query SearchForm {
     publishedPools {
-      id
-      owner {
-        id
-        email
-        firstName
-        lastName
-      }
-      name {
-        en
-        fr
-      }
-      classification {
-        id
-        group
-        level
-      }
-      stream {
-        value
-        label {
-          en
-          fr
-        }
-      }
+      ...SearchForm_Pool
     }
     skills {
       id
@@ -302,14 +293,18 @@ const SearchFormAPI = () => {
   const [{ data, fetching, error }] = useQuery({ query: SearchForm_Query });
 
   const skills = unpackMaybes<Skill>(data?.skills);
-  const pools = unpackMaybes<Pool>(data?.publishedPools);
-  const classifications = getAvailableClassifications(pools);
+  const fragmentPublishedPools = unpackMaybes(data?.publishedPools);
+  const publishedPools = getFragment(
+    SearchForm_PoolFragment,
+    fragmentPublishedPools,
+  );
+  const classifications = getAvailableClassifications(publishedPools);
 
   return (
     <Pending fetching={fetching} error={error}>
       <SearchForm
         skills={skills}
-        pools={pools}
+        pools={publishedPools}
         classifications={classifications}
       />
     </Pending>

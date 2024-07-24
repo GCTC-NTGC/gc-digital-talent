@@ -160,56 +160,6 @@ export const ProfileDocument_Fragment = graphql(/* GraphQL */ `
     hasDisability
     isVisibleMinority
     isWoman
-    poolCandidates {
-      id
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      expiryDate
-      notes
-      suspendedAt
-      user {
-        id
-      }
-      pool {
-        id
-        name {
-          en
-          fr
-        }
-        classification {
-          id
-          group
-          level
-        }
-        stream {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
-      }
-    }
     department {
       id
       departmentNumber

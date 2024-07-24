@@ -442,7 +442,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pool>;
+  currentPool?: Maybe<Pick<Pool, "id" | "generalQuestions" | "poolSkills">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -723,7 +723,13 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.accessor(
-            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            ({ poolCandidate: { pool } }) =>
+              getFullPoolTitleLabel(intl, {
+                stream: pool.stream,
+                name: pool.name,
+                publishingGroup: pool.publishingGroup,
+                classification: pool.classification,
+              }),
             {
               id: "process",
               header: intl.formatMessage(processMessages.process),
@@ -734,7 +740,18 @@ const PoolCandidatesTable = ({
                     poolCandidate: { pool },
                   },
                 },
-              }) => processCell(pool, paths, intl),
+              }) =>
+                processCell(
+                  {
+                    id: pool.id,
+                    stream: pool.stream,
+                    name: pool.name,
+                    publishingGroup: pool.publishingGroup,
+                    classification: pool.classification,
+                  },
+                  paths,
+                  intl,
+                ),
             },
           ),
           columnHelper.accessor(
@@ -967,7 +984,10 @@ const PoolCandidatesTable = ({
         fetching: isSelecting && selectingFor === "download",
         selection: {
           csv: {
-            headers: getPoolCandidateCsvHeaders(intl, currentPool),
+            headers: getPoolCandidateCsvHeaders(intl, {
+              generalQuestions: currentPool?.generalQuestions,
+              poolSkills: currentPool?.poolSkills,
+            }),
             data: async () => {
               const selected = await querySelected("download");
               return getPoolCandidateCsvData(selected ?? [], intl);

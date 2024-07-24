@@ -84,7 +84,12 @@ const usePoolFilterOptions = (
     () =>
       pools.map((pool) => ({
         value: pool.id,
-        label: getShortPoolTitleLabel(intl, pool),
+        label: getShortPoolTitleLabel(intl, {
+          stream: pool.stream,
+          name: pool.name,
+          publishingGroup: pool.publishingGroup,
+          classification: pool.classification,
+        }),
       })),
     [pools, intl],
   );

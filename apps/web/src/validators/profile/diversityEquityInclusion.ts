@@ -21,7 +21,7 @@ export function anyCriteriaSelected({
 
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
-  pool?: Maybe<Pool>,
+  pool?: Maybe<Pick<Pool, "publishingGroup">>,
 ): boolean {
   if (!(pool?.publishingGroup?.value === PublishingGroup.Iap)) {
     return false;

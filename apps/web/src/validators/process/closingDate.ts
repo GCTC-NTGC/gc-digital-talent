@@ -10,7 +10,7 @@ export function hasEmptyRequiredFields({ closingDate }: Pool): boolean {
 export function hasInvalidRequiredFields({
   closingDate,
   status,
-}: Pool): boolean {
+}: Pick<Pool, "closingDate" | "status">): boolean {
   if (status?.value === PoolStatus.Draft && closingDate) {
     return isPast(parseDateTimeUtc(closingDate));
   }
