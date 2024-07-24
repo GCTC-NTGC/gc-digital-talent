@@ -76,49 +76,32 @@ class PoolPolicy
      */
     public function create(User $user, $request)
     {
-        // assert team check
-        if (array_key_exists('team_id', $request)) {
-            $team_id = $request['team_id'];
 
-            // Get the team to check against
-            $team = Team::find($team_id);
+        $teamId = isset($request['team_id']) ? $request['team_id'] : null;
+        $communityId = isset($request['community_id']) ? $request['community_id'] : null;
 
-            // Confirm the user can create pools for the team
-            if (! is_null($team)) {
-                if ($user->isAbleTo('create-team-draftPool', $team)) {
-                    continue; // move to community check below
-                }
-            } else {
-                return Response::deny('Cannot find a team matching team_id.');
-            }
-        } else {
-            Response::deny('Pool must be associated with a team when it is created.');
+        if (is_null($teamId) || is_null($communityId)) {
+            return false;
         }
 
-        // if team check successful, move to community check
-        if (array_key_exists('community_id', $request)) {
-            $communityId = $request['community_id'];
-
-            if ($user->isAbleTo('create-any-pool')) {
-                return true;
-            }
-
-            // Get the community to check against
-            $community = Community::find($communityId)->load('team');
-
-            // Confirm the user can create pools for the community
-            if (! is_null($community)) {
-                if ($user->isAbleTo('create-team-pool', $community->team)) {
-                    return true;
-                }
-            } else {
-                return Response::deny('Cannot find a community matching community_id.');
-            }
-        } else {
-            Response::deny('Pool must be associated with a community when it is created.');
+        if ($user->isAbleTo('create-any-pool')) {
+            return true; // return early, permission does not exist at the moment
         }
 
-        return Response::deny('Cannot create a pool for that team.');
+        $team = Team::findOrFail($teamId);
+        $community = Community::findOrFail($communityId)->load('team');
+
+        if ($user->isAbleTo('create-team-draftPool', $team)) {
+            // user is a legacy pool operator
+            return true;
+        }
+
+        if (! is_null($community->team) && $user->isAbleTo('create-team-draftPool', $community->team)) {
+            // user is a community recruiter or community admin
+            return true;
+        }
+
+        return false; // fallback to fail
     }
 
     /**
