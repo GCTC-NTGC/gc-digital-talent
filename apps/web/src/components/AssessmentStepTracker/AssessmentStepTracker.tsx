@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
+import { SubmitHandler } from "react-hook-form";
 
 import { Board, Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -19,9 +20,12 @@ import {
   defaultFilters,
   filterAlreadyDisqualified,
   generateStepName,
+  transformPoolCandidateSearchInputToFormValues,
 } from "./utils";
 import Filters from "./Filters";
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
+import AssessmentResultsFilterDialog from "./AssessmentResultsFilterDialog";
+import { FormValues } from "./types";
 
 const talentPlacementLink = (chunks: ReactNode, href: string) => (
   <Link href={href}>{chunks}</Link>
@@ -100,12 +104,14 @@ export interface AssessmentStepTrackerProps {
     typeof AssessmentStepTracker_CandidateFragment
   >[];
   fetching: boolean;
+  onSubmitDialog: SubmitHandler<FormValues>;
 }
 
 const AssessmentStepTracker = ({
   poolQuery,
   candidateQuery,
   fetching,
+  onSubmitDialog,
 }: AssessmentStepTrackerProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -124,7 +130,26 @@ const AssessmentStepTracker = ({
 
   return (
     <>
-      <Filters onFiltersChange={setFilters} />
+      <div
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(flex-end)"
+        data-h2-gap="base(x.5)"
+        data-h2-margin-bottom="base(x1) l-tablet(x.25)"
+        data-h2-justify-content="base(flex-start)"
+        data-h2-font-size="base(caption)"
+        data-h2-flex-wrap="base(wrap)"
+      >
+        <Filters onFiltersChange={setFilters} />
+        <div data-h2-width="base(100%) l-tablet(auto)" data-h2-order="base(0)">
+          <AssessmentResultsFilterDialog
+            onSubmit={onSubmitDialog}
+            resetValues={transformPoolCandidateSearchInputToFormValues(
+              undefined,
+              pool?.id || "",
+            )}
+          />
+        </div>
+      </div>
       {steps.length ? (
         <Board.Root>
           {filteredSteps.map(({ step, resultCounts, results }, index) => {
