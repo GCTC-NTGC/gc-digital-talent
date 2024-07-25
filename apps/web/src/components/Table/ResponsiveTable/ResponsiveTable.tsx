@@ -68,6 +68,8 @@ interface TableProps<TData, TFilters> {
   print?: DatasetPrint;
   /** Enable downloading selected rows and/or all data (requires rowSelect) */
   download?: DatasetDownload;
+  /** Async download button */
+  asyncDownload?: ReactNode;
   /** Enable the "add item" button */
   add?: AddDef;
   filter?: FilterDef<TFilters>;
@@ -87,6 +89,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   search,
   sort,
   download,
+  asyncDownload,
   print,
   add,
   pagination,
@@ -372,6 +375,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 {...{
                   rowSelect: !!rowSelect,
                   download,
+                  asyncDownload,
                   print,
                   isLoading,
                   count: Object.values(rowSelection).length,

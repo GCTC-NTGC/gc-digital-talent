@@ -259,6 +259,12 @@ const commonMessages = defineMessages({
     id: "nMX0n8",
     description: "Message to user when no experiences of that type exist.",
   },
+  preparingDownload: {
+    defaultMessage:
+      "Preparing your file for download. You will receive a notification when it is ready.",
+    id: "5RTQe6",
+    description: "Message to user when they request a file for download",
+  },
 });
 
 export default commonMessages;

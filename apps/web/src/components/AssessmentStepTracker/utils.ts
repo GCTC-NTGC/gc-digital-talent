@@ -225,7 +225,7 @@ export const groupPoolCandidatesByStep = (
         step,
         results: stepCandidates,
         resultCounts: {
-          [NO_DECISION]: filterCandidatesByDecision(stepCandidates, null)
+          [NO_DECISION]: filterCandidatesByDecision(stepCandidates, NO_DECISION)
             .length,
           [AssessmentDecision.Hold]: filterCandidatesByDecision(
             stepCandidates,

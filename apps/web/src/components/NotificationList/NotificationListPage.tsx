@@ -81,7 +81,9 @@ const NotificationListPage = ({
     !fetching &&
     exclude.length === 0;
 
-  const firstNewNotification = useRef<HTMLAnchorElement>(null);
+  const firstNewNotification = useRef<HTMLAnchorElement & HTMLButtonElement>(
+    null,
+  );
 
   return (
     <>

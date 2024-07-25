@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Events\AssessmentResultSaved;
 use App\Events\CandidateStatusChanged;
 use App\Events\PoolPublished;
+use App\Events\UserFileGenerated;
 use App\Listeners\ComputeCandidateAssessmentStatus;
 use App\Listeners\ComputeCandidateFinalDecision;
+use App\Listeners\SendFileGeneratedNotification;
 use App\Listeners\SendNewJobPostedNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PoolPublished::class => [
             SendNewJobPostedNotification::class,
+        ],
+        UserFileGenerated::class => [
+            SendFileGeneratedNotification::class,
         ],
     ];
 
