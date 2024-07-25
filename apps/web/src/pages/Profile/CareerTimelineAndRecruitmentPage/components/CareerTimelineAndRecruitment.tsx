@@ -195,8 +195,6 @@ const CareerTimelineAndRecruitment = ({
     ],
   });
 
-  console.log({ experiences });
-
   const pageTitle = intl.formatMessage(titles.careerTimelineAndRecruitment);
   const formattedSubtitle = intl.formatMessage(subTitle);
 
