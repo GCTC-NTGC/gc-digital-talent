@@ -107,6 +107,7 @@ class PoolPolicyTest extends TestCase
         $this->teamPool = Pool::factory()->create([
             'user_id' => $this->poolOperatorUser->id,
             'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]);
 
         $this->processOperatorUser = User::factory()
