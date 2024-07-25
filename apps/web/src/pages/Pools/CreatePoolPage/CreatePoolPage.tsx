@@ -418,7 +418,13 @@ const CreatePoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ]}
+  >
     <CreatePoolPage />
   </RequireAuth>
 );
