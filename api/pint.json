@@ -7,6 +7,6 @@
     "php_unit_method_casing": {
       "case": "camel_case"
     },
-    "new_with_parentheses": "false"
+    "new_with_parentheses": false
   }
 }
