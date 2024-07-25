@@ -35,7 +35,7 @@ const CareerTimelineAndRecruitmentPage = () => {
   });
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={fetching || !data} error={error}>
       {data?.user ? (
         <CareerTimelineAndRecruitment
           userId={data?.user.id}

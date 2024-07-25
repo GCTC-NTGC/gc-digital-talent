@@ -41,6 +41,7 @@ export type ExperienceForDate =
 
 export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineExperience on Experience {
+    __typename
     id
     details
     user {
@@ -194,6 +195,8 @@ const CareerTimelineAndRecruitment = ({
     ],
   });
 
+  console.log({ experiences });
+
   const pageTitle = intl.formatMessage(titles.careerTimelineAndRecruitment);
   const formattedSubtitle = intl.formatMessage(subTitle);
 
@@ -245,7 +248,7 @@ const CareerTimelineAndRecruitment = ({
               </p>
               <div data-h2-margin-top="base(x1)">
                 <CareerTimelineSection
-                  experiences={[...experiences]}
+                  experiences={experiences}
                   userId={userId}
                 />
               </div>

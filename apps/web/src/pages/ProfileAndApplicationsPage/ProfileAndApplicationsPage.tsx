@@ -75,7 +75,7 @@ const ProfileAndApplicationsPage = () => {
   });
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={fetching || !data} error={error}>
       {data?.me ? (
         <ProfileAndApplications userQuery={data.me} />
       ) : (
