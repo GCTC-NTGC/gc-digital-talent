@@ -8,7 +8,7 @@ test.describe("Footer", () => {
     test("links to Contact", async ({ page }) => {
       await expect(
         page
-          .getByRole("navigation", { name: /policy and feedback/i }) // aria-label value of nav element in Footer component.
+          .getByRole("navigation", { name: /not a real link/i }) // aria-label value of nav element in Footer component.
           .getByRole("link", { name: /contact us/i }),
       ).toHaveAttribute("href", "/en/support");
     });
