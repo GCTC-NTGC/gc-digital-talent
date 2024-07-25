@@ -32,7 +32,7 @@ const apiRoutes = {
     apiHost ? new URL("refresh", apiHost).toString() : "/refresh",
   userGeneratedFile: (fileName: string): string => {
     const filePath = `api/user-generated-files/${fileName}`;
-    return apiHost ? new URL(filePath, apiHost).toString() : filePath;
+    return apiHost ? new URL(filePath, apiHost).toString() : `/${filePath}`;
   },
 };
 export default apiRoutes;
