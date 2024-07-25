@@ -4,11 +4,11 @@ import { JwtPayload, jwtDecode } from "jwt-decode";
 import {
   Client,
   createClient,
-  cacheExchange,
   fetchExchange,
   Provider,
   mapExchange,
 } from "urql";
+import { cacheExchange } from "@urql/exchange-graphcache";
 import { useIntl } from "react-intl";
 
 import {
@@ -21,6 +21,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { LogoutReason } from "@gc-digital-talent/auth";
+import introspectedSchema from "@gc-digital-talent/graphql/introspection.json";
 
 import {
   buildValidationErrorMessageNode,
@@ -69,7 +70,24 @@ const ClientProvider = ({
         url: `${apiHost}${apiUri}`,
         requestPolicy: "cache-and-network",
         exchanges: [
-          cacheExchange,
+          cacheExchange({
+            schema: introspectedSchema,
+            keys: {
+              /**
+               * `null` represents types with no guaranteed unique value
+               * so they cannot be cached. This suppresses the warnings from `urql`.
+               */
+              ExperienceSkillRecord: () => null,
+              LocalizedString: () => null,
+              CandidateSearchPoolResult: () => null,
+              SkillKeywords: () => null,
+              NotificationPaginator: () => null,
+              PaginatorInfo: () => null,
+            },
+            logger(sev, msg) {
+              logger.info(`Severity: ${sev}: ${msg}`);
+            },
+          }),
           protectedEndpointExchange,
           mapExchange({
             onError(error, operation) {
