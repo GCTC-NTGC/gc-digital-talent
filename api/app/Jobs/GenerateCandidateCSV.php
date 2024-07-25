@@ -38,7 +38,7 @@ class GenerateCandidateCSV implements ShouldQueue
         } catch (\Exception $e) {
             // Notify the user something went wrong
             $user->notify(new UserFileGenerationError($fileName));
-            Log::debug('Error generating file: '.$e->getMessage());
+            Log::error('Error generating file: '.$e->getMessage());
         }
 
     }

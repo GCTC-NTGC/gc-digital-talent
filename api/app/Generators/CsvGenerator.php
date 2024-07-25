@@ -17,10 +17,10 @@ abstract class CsvGenerator extends FileGenerator
 
     public function write(string $fileName, ?string $dir)
     {
-        $path = $this->getPath($fileName, $dir);
 
         try {
 
+            $path = $this->getPath($fileName, $dir);
             $writer = new Csv($this->spreadsheet);
             $writer->setDelimiter(',');
             $writer->setEnclosure('"');
