@@ -92,6 +92,7 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    publishedAt
     createdDate
     updatedDate
     name {
@@ -391,6 +392,20 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
           },
           intl,
         ),
+    }),
+    columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
+      id: "publishedAt",
+      enableColumnFilter: false,
+      header: intl.formatMessage({
+        defaultMessage: "Published",
+        id: "FBSOkb",
+        description: "Title displayed on the Pool table published at column",
+      }),
+      cell: ({
+        row: {
+          original: { publishedAt },
+        },
+      }) => cells.date(publishedAt, intl),
     }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
