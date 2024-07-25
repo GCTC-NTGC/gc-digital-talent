@@ -2,7 +2,6 @@
 
 namespace App\Generators;
 
-use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\Element;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
@@ -26,12 +25,10 @@ abstract class DocGenerator extends FileGenerator
         $this->strong = ['bold' => true];
     }
 
-    public function write(string $fileName)
+    public function write(string $fileName, ?string $dir)
     {
-        /** @var \Illuminate\Filesystem\FilesystemManager */
-        $disk = Storage::disk('user_generated');
 
-        $path = $disk->path($fileName);
+        $path = $this->getPath($fileName, $dir);
 
         $writer = IOFactory::createWriter($this->doc);
 
