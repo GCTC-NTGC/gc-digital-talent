@@ -33,6 +33,7 @@ import {
   PriorityWeight,
   Classification,
   LocalizedFinalDecision,
+  InputMaybe,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -995,3 +996,39 @@ export function transformFormValuesToFilterState(
     }),
   };
 }
+
+// merge search bar input with fancy filter state
+export const addSearchToPoolCandidateFilterInput = (
+  fancyFilterState: PoolCandidateSearchInput | undefined,
+  searchBarTerm: string | undefined,
+  searchType: string | undefined,
+): InputMaybe<PoolCandidateSearchInput> | undefined => {
+  if (
+    fancyFilterState === undefined &&
+    searchBarTerm === undefined &&
+    searchType === undefined
+  ) {
+    return undefined;
+  }
+  return {
+    // search bar
+    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+    email: searchType === "email" ? searchBarTerm : undefined,
+    name: searchType === "name" ? searchBarTerm : undefined,
+    notes: searchType === "notes" ? searchBarTerm : undefined,
+    processNumber: searchType === "processNumber" ? searchBarTerm : undefined,
+
+    // from fancy filter
+    applicantFilter: {
+      ...fancyFilterState?.applicantFilter,
+      hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
+    },
+    poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
+    priorityWeight: fancyFilterState?.priorityWeight,
+    expiryStatus: fancyFilterState?.expiryStatus,
+    suspendedStatus: fancyFilterState?.suspendedStatus,
+    isGovEmployee: fancyFilterState?.isGovEmployee,
+    publishingGroups: fancyFilterState?.publishingGroups,
+    appliedClassifications: fancyFilterState?.appliedClassifications,
+  };
+};
