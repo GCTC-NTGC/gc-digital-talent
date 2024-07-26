@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
-import { screen, within } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
@@ -53,6 +53,8 @@ const defaultFilters: ResultFilters = {
   [AssessmentDecision.Unsuccessful]: true,
 };
 
+const mockFn = jest.fn();
+
 // This should always make the component visible
 const defaultProps: AssessmentStepTrackerProps = {
   fetching: false,
@@ -64,6 +66,7 @@ const defaultProps: AssessmentStepTrackerProps = {
     poolWithAssessmentSteps,
     AssessmentStepTracker_PoolFragment,
   ),
+  onSubmitDialog: mockFn,
 };
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
@@ -96,7 +99,9 @@ describe("AssessmentStepTracker", () => {
 
   it("should have no accessibility errors", async () => {
     const { container } = renderAssessmentStepTracker();
-    await axeTest(container);
+    await waitFor(() => {
+      axeTest(container);
+    });
   });
 
   it("should display candidates with the correct ordinals", async () => {

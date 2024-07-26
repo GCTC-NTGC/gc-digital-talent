@@ -1,8 +1,14 @@
 import { useState, useCallback, useEffect } from "react";
 import { useClient, useQuery } from "urql";
 import { useIntl } from "react-intl";
+import { SubmitHandler } from "react-hook-form";
 
-import { graphql, FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  FragmentType,
+  Scalars,
+  PoolCandidateSearchInput,
+} from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -13,24 +19,19 @@ import AssessmentStepTracker, {
 } from "~/components/AssessmentStepTracker/AssessmentStepTracker";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
+import { FormValues } from "~/components/AssessmentStepTracker/types";
 
 type RouteParams = {
   poolId: Scalars["ID"]["input"];
 };
 
 const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
-  query ScreeningAndEvaluation_Pools(
-    $poolId: UUID!
-    $pools: [IdInput]
-    $first: Int!
-  ) {
+  query ScreeningAndEvaluation_Pools($poolId: UUID!, $first: Int!) {
     pool(id: $poolId) {
       ...AssessmentStepTracker_Pool
     }
-    poolCandidatesPaginated(
-      where: { applicantFilter: { pools: $pools } }
-      first: $first
-    ) {
+    poolCandidatesPaginated(first: $first) {
       paginatorInfo {
         lastPage
       }
@@ -40,15 +41,11 @@ const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
 
 const ScreeningAndEvaluation_CandidatesQuery = graphql(/* GraphQL */ `
   query ScreeningAndEvaluation_Candidates(
-    $pools: [IdInput]
+    $where: PoolCandidateSearchInput
     $first: Int!
     $page: Int
   ) {
-    poolCandidatesPaginated(
-      where: { applicantFilter: { pools: $pools } }
-      first: $first
-      page: $page
-    ) {
+    poolCandidatesPaginated(where: $where, first: $first, page: $page) {
       paginatorInfo {
         hasMorePages
         currentPage
@@ -73,53 +70,68 @@ const ScreeningAndEvaluationPage = () => {
   const [candidates, setCandidates] = useState<
     FragmentType<typeof AssessmentStepTracker_CandidateFragment>[]
   >([]);
+
   const [{ data, fetching, error }] = useQuery({
     query: ScreeningAndEvaluation_PoolQuery,
     variables: {
       poolId,
       first: CANDIDATES_BATCH_SIZE,
-      pools: [{ id: poolId }],
     },
   });
   const lastPage = data?.poolCandidatesPaginated.paginatorInfo.lastPage ?? 0;
 
-  const batchLoader = useCallback(async () => {
-    const batches = [];
+  const batchLoader = useCallback(
+    async (where?: PoolCandidateSearchInput) => {
+      const batches = [];
 
-    for (let i = 1; i <= lastPage; i += 1) {
-      batches.push(
-        client
-          .query(ScreeningAndEvaluation_CandidatesQuery, {
-            pools: [{ id: poolId }],
-            first: CANDIDATES_BATCH_SIZE,
-            page: i,
-          })
-          .then((result) => result.data?.poolCandidatesPaginated.data ?? []),
-      );
-    }
+      for (let i = 1; i <= lastPage; i += 1) {
+        batches.push(
+          client
+            .query(ScreeningAndEvaluation_CandidatesQuery, {
+              where,
+              first: CANDIDATES_BATCH_SIZE,
+              page: i,
+            })
+            .then((result) => result.data?.poolCandidatesPaginated.data ?? []),
+        );
+      }
 
-    try {
-      const batchedData = await Promise.all(batches);
-      return batchedData.flat().map((c) => c.poolCandidate);
-    } catch {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error loading candidates",
-          id: "ZVfbLF",
-          description: "Error message when pool candidates could not be loaded",
-        }),
-      );
-      return [];
-    } finally {
-      setFetchingCandidates(false);
-    }
-  }, [client, intl, lastPage, poolId]);
+      try {
+        const batchedData = await Promise.all(batches);
+        return batchedData.flat().map((c) => c.poolCandidate);
+      } catch {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error loading candidates",
+            id: "ZVfbLF",
+            description:
+              "Error message when pool candidates could not be loaded",
+          }),
+        );
+        return [];
+      } finally {
+        setFetchingCandidates(false);
+      }
+    },
+    [client, intl, lastPage],
+  );
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (formData) => {
+    const transformedData: PoolCandidateSearchInput =
+      transformFormValuesToFilterState(formData, poolId);
+
+    batchLoader(transformedData).then((res) => {
+      setCandidates(res);
+    });
+  };
 
   useEffect(() => {
     if (lastPage) {
-      batchLoader().then((res) => {
-        setCandidates(res);
-      });
+      batchLoader({ applicantFilter: { pools: [{ id: poolId }] } }).then(
+        (res) => {
+          setCandidates(res);
+        },
+      );
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,6 +145,7 @@ const ScreeningAndEvaluationPage = () => {
             poolQuery={data?.pool}
             fetching={fetching || fetchingCandidates}
             candidateQuery={candidates}
+            onSubmitDialog={handleFilterSubmit}
           />
         ) : (
           <ThrowNotFound />

@@ -571,9 +571,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           topTechnicalSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key
@@ -595,9 +592,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           topBehaviouralSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key
@@ -619,9 +613,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           improveTechnicalSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key
@@ -643,9 +634,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           improveBehaviouralSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key

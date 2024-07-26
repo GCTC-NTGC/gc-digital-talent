@@ -11,6 +11,10 @@
     "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
     "description": "Description for personal experience section"
   },
+  "+6syC7": {
+    "defaultMessage": "Votre fichier est prêt à être téléchargé",
+    "description": "Notification for when q requested download is ready"
+  },
   "+6tF6S": {
     "defaultMessage": "Remarque spéciale",
     "description": "Sub title for the special note section"
@@ -2399,10 +2403,6 @@
     "defaultMessage": "Veuillez préciser votre ministère ou organisme",
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
   },
-  "BNEY8G": {
-    "defaultMessage": "Date d'expiration",
-    "description": "CSV Header, Expiry Date column"
-  },
   "BRpssM": {
     "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
     "description": "First message for the general resources section."
@@ -2554,10 +2554,6 @@
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
     "description": "Title of the accessibility and accommodations information dialog"
-  },
-  "CLOuJF": {
-    "defaultMessage": "Ville actuelle",
-    "description": "CSV Header, Current City column"
   },
   "CM70i0": {
     "defaultMessage": "<strong>Les postes à distance</strong> vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.",
@@ -2998,10 +2994,6 @@
   "EWq+u3": {
     "defaultMessage": "Évaluation des langues officielles dans le processus de nomination",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
-  },
-  "EWvBgF": {
-    "defaultMessage": "Questions générales {index}",
-    "description": "CSV Header, general question column. "
   },
   "EY7YQM": {
     "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
@@ -3842,6 +3834,10 @@
   "JESKii": {
     "defaultMessage": "Vous êtes sur le point d'archiver ce processus : {poolName}",
     "description": "Text to confirm the process to be archived"
+  },
+  "JFlQjb": {
+    "defaultMessage": "Ce fichier, qui date de plus de 24 heures, n’est plus disponible. Veuillez en demander un nouveau. En cas d’échec de la procédure, communiquez avec les services de soutien.",
+    "description": "Error message when a file no longer exists"
   },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
@@ -6038,10 +6034,6 @@
     "defaultMessage": "membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
   },
-  "VldclB": {
-    "defaultMessage": "Expériences relatives aux exigences pédagogiques",
-    "description": "CSV Header, Education Requirement Experiences column"
-  },
   "VmMnkU": {
     "defaultMessage": "Préavis d'attribution de contrat",
     "description": "Advance contract award notice contract solicitation procedure"
@@ -6461,10 +6453,6 @@
   "XnvXtO": {
     "defaultMessage": "Tous",
     "description": "All"
-  },
-  "Xo0M3N": {
-    "defaultMessage": "Province actuelle",
-    "description": "CSV Header, Current Province column"
   },
   "XoGKAf": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
@@ -6997,10 +6985,6 @@
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph one."
-  },
-  "aWsXoR": {
-    "defaultMessage": "bassin_candidats_{date}.csv",
-    "description": "Filename for pool candidate CSV file download"
   },
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
@@ -7857,10 +7841,6 @@
   "ewckox": {
     "defaultMessage": "Ressources propres à un groupe",
     "description": "Heading for section for the group-specific resources section."
-  },
-  "exYii8": {
-    "defaultMessage": "{skillName} (Utiles)",
-    "description": "CSV Header, Asset skill column."
   },
   "exxM/M": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
@@ -8746,10 +8726,6 @@
     "defaultMessage": "Présentation d’un contenu dans les deux langues officielles du Canada",
     "description": "Title for the providing content section"
   },
-  "j9m5qA": {
-    "defaultMessage": "Date de réception",
-    "description": "En-tête CSV, colonne Date de réception"
-  },
   "j9zYRY": {
     "defaultMessage": "Date d’expiration (UTC)",
     "description": "A date at which data will expire, in the UTC time standard"
@@ -9057,10 +9033,6 @@
   "l5R6Nc": {
     "defaultMessage": "Veuillez remplir une demande d’habilitation",
     "description": "Link text for government of canada security clearance forms"
-  },
-  "l62TJM": {
-    "defaultMessage": "Disponibilité",
-    "description": "CSV Header, Availability column"
   },
   "l75mNg": {
     "defaultMessage": "Collectivité des gestionnaires",
@@ -9602,17 +9574,9 @@
     "defaultMessage": " Télécharger l’arbre de décision sur les exigences en matière de rapport (PDF)",
     "description": "Button text to download reporting requirements decision tree pdf."
   },
-  "nsm/uC": {
-    "defaultMessage": "{skillName} (Essentielles)",
-    "description": "CSV Header, Essential skill column."
-  },
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
-  },
-  "nxsvto": {
-    "defaultMessage": "Date d'archivage",
-    "description": "CSV Header, Archival Date column"
   },
   "ny/ddo": {
     "defaultMessage": "Ministère :",
