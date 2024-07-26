@@ -776,14 +776,23 @@ class PoolCandidate extends Model
                     return $user->isAbleTo('view-team-submittedApplication', $team);
                 })->pluck('id');
 
-                $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                // find the communities the user belongs to and filter out which ones they can view applications for
+                $communityTeamable = $allTeam->where('teamable_type', "App\Models\Community");
+                $communities = Community::with('team')->find($communityTeamable->pluck('teamable_id')->toArray());
+                $communityIdsFiltered = $communities->filter(function ($community) use ($user) {
+                    return $user->isAbleTo('view-team-submittedApplication', $community->team);
+                })->pluck('id');
+
+                $query->orWhereHas('pool', function (Builder $query) use ($teamIds, $communityIdsFiltered) {
                     return $query
                         ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->where(function (Builder $query) use ($teamIds) {
+                        ->where(function (Builder $query) use ($teamIds, $communityIdsFiltered) {
                             $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                                 return $query->whereIn('id', $teamIds);
                             })->orWhereHas('team', function (Builder $query) use ($teamIds) {
                                 return $query->whereIn('id', $teamIds);
+                            })->orWhereHas('community', function (Builder $query) use ($communityIdsFiltered) {
+                                return $query->whereIn('id', $communityIdsFiltered);
                             });
                         });
                 });
