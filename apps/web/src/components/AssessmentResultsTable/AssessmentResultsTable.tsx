@@ -4,13 +4,11 @@ import uniqueId from "lodash/uniqueId";
 
 import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  AssessmentResult,
   AssessmentResultType,
   AssessmentStep,
   FragmentType,
   getFragment,
   graphql,
-  PoolSkill,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -222,14 +220,10 @@ const AssessmentResultsTable = ({
   }
 
   // Get pool skills from pool
-  const poolSkills: Array<PoolSkill> = unpackMaybes(
-    poolCandidate?.pool?.poolSkills,
-  );
+  const poolSkills = unpackMaybes(poolCandidate?.pool?.poolSkills);
 
   // Get assessment results from pool candidate
-  const assessmentResults: Array<AssessmentResult> = unpackMaybes(
-    poolCandidate?.assessmentResults,
-  );
+  const assessmentResults = unpackMaybes(poolCandidate?.assessmentResults);
 
   // Create data for table containing pool skill with matching results and sort pool skills
   const assessmentTableRows: Array<AssessmentTableRow> = poolSkills

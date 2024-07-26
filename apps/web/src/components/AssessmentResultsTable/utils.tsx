@@ -13,6 +13,7 @@ import {
   Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { NO_DECISION } from "~/utils/assessmentResults";
@@ -151,9 +152,12 @@ export const buildColumn = ({
   intl,
   header,
 }: AssessmentTableRowColumnProps): AssessmentTableRowColumn => {
+  const assessmentResultsUnpacked = unpackMaybes(
+    poolCandidate.assessmentResults,
+  );
   return columnHelper.accessor(
-    ({ assessmentResults }) => {
-      const assessmentResult = assessmentResults.find(
+    () => {
+      const assessmentResult = assessmentResultsUnpacked.find(
         (ar) => ar.assessmentStep?.id === assessmentStep.id,
       );
       return getLocalizedName(
@@ -166,7 +170,7 @@ export const buildColumn = ({
       header: () => header,
       cell: ({
         row: {
-          original: { poolSkill, assessmentResults },
+          original: { poolSkill },
         },
       }) => {
         // Check if the pool skill (row) is associated with the assessment step (column)
@@ -177,7 +181,7 @@ export const buildColumn = ({
 
         // Check if an assessmentResult already exists on the assessment step, if show update dialog
         // Additionally, checks if it's the  education requirement cell
-        const assessmentResult = assessmentResults.find(
+        const assessmentResult = assessmentResultsUnpacked.find(
           (ar) => ar.assessmentStep?.id === assessmentStep.id,
         );
         if (assessmentResult || isEducationRequirement) {
@@ -188,7 +192,19 @@ export const buildColumn = ({
                 type: assessmentStep.type,
                 title: assessmentStep.title,
               }}
-              assessmentResult={assessmentResult}
+              assessmentResult={
+                assessmentResult
+                  ? {
+                      id: assessmentResult.id,
+                      poolSkill: assessmentResult.poolSkill,
+                      justifications: assessmentResult.justifications,
+                      assessmentDecision: assessmentResult.assessmentDecision,
+                      assessmentDecisionLevel:
+                        assessmentResult.assessmentDecisionLevel,
+                      skillDecisionNotes: assessmentResult.skillDecisionNotes,
+                    }
+                  : null
+              }
               poolCandidate={poolCandidate}
               educationRequirement={isEducationRequirement}
             />,
@@ -208,7 +224,7 @@ export const buildColumn = ({
                 type: assessmentStep.type,
                 title: assessmentStep.title,
               }}
-              assessmentResult={assessmentResult}
+              assessmentResult={assessmentResult} // always undefined
               poolCandidate={poolCandidate}
               poolSkillToAssess={poolSkill}
             />,

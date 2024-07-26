@@ -3,12 +3,12 @@ import { IntlShape } from "react-intl";
 import { JSX } from "react";
 
 import {
-  AssessmentResult,
   AssessmentStep,
   Maybe,
   PoolCandidate,
   PoolSkill,
   Skill,
+  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 
@@ -18,7 +18,7 @@ type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {
 
 export type AssessmentTableRow = {
   poolSkill?: PoolSkillForTableRow;
-  assessmentResults: AssessmentResult[];
+  assessmentResults: AssessmentResultsTableFragmentType["assessmentResults"];
 };
 
 export type AssessmentTableRowColumn = ColumnDef<AssessmentTableRow>;
