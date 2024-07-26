@@ -89,7 +89,7 @@ class PoolPolicy
         }
 
         $team = Team::findOrFail($teamId);
-        $community = Community::findOrFail($communityId)->load('team');
+        $community = Community::with('team')->findOrFail($communityId);
 
         if ($user->isAbleTo('create-team-draftPool', $team)) {
             // user is a legacy pool operator
