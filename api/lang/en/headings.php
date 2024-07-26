@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Lang;
+
 return [
-    'status' => 'Status',
+    'status' => Lang::get('common.status', [], 'en'),
     'category' => 'Category',
     'availability' => 'Availability',
     'notes' => 'Notes',
@@ -12,6 +14,7 @@ return [
     'first_name' => 'First name',
     'last_name' => 'Last name',
     'email' => 'Contact email address',
+    'phone' => 'Phone',
     'preferred_communication_language' => 'Preferred communication language',
     'preferred_spoken_interview_language' => 'Preferred spoken interview language',
     'preferred_written_exam_language' => 'Preferred written exam language',
@@ -19,6 +22,7 @@ return [
     'armed_forces_status' => 'Armed forces status',
     'citizenship' => 'Citizenship',
     'first_official_language' => 'First official language',
+    'interested_in_languages' => 'Interested in',
     'second_language_exam_completed' => 'I have completed a Public Service Commission evaluation of my second official language',
     'second_language_exam_validity' => 'Exam validity',
     'comprehension_level' => 'Comprehension level',
@@ -31,10 +35,12 @@ return [
     'current_classification' => 'Current classification',
     'priority_entitlement' => 'Priority entitlement',
     'priority_number' => 'Priority number',
+    'work_location' => 'Work location',
     'location_preferences' => 'Location preferences',
     'location_exemptions' => 'Location exemptions',
     'accept_temporary' => 'Accept temporary',
     'accepted_operational_requirements' => 'Accepted operational requirements',
+    'rejected_operational_requirements' => 'Would not conisder a job that requires: ',
     'woman' => 'Woman',
     'indigenous' => 'Indigenous',
     'visible_minority' => 'Visible minority',
@@ -42,4 +48,16 @@ return [
     'education_requirement' => 'Education requirement',
     'education_requirement_experiences' => 'Education requirement experiences',
     'skills' => 'Skills',
+    // Section headings
+    'candidate_profiles' => 'Candidate Profiles',
+    'contact_info' => 'Contact information',
+    'general_info' => 'General information',
+    'language_info' => 'Language information',
+    'government_info' => 'Government information',
+    'dei' => 'Diversity, equity, inclusion',
+    'career_timeline' => 'Career timeline',
+    'screening_questions' => 'Screening questions',
+    'skills_showcase' => 'Skills showcase',
+    'top_skills' => 'Top skills',
+    'skills_to_improve' => 'Skills to improve',
 ];

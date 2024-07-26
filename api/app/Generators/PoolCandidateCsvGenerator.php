@@ -11,13 +11,11 @@ use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
-use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
@@ -85,13 +83,13 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
-            return Lang::get('headings.'.$key, [], $this->lang);
+            return $this->localizeHeading($key);
         }, $this->headerlocaleKeys);
         $this->generatePoolHeaders();
 
         $sheet->fromArray([
             ...$localizedHeaders,
-            Lang::get('headings.skills', [], $this->lang),
+            $this->localizeHeading('skills'),
             ...$this->generatedHeaders['general_questions'] ?? [],
             ...$this->generatedHeaders['skill_details'] ?? [],
         ], null, 'A1');
@@ -154,7 +152,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                         $candidate->user->priority_number ?? '', // Priority number
                         $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
                         $candidate->user->location_exemptions, // Location exemptions
-                        $candidate->user->position_duration ? $this->yesOrNo(in_array(PositionDuration::TEMPORARY->name, $candidate->user->position_duration)) : '', // Accept temporary
+                        $candidate->user->position_duration ? $this->yesOrNo($candidate->user->wouldAcceptTemporary()) : '', // Accept temporary
                         $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                         $this->yesOrNo($candidate->user->is_woman), // Woman
                         $this->localizeEnumArray($candidate->user->indigenous_communities, IndigenousCommunity::class),

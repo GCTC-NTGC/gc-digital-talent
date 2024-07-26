@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Lang;
+
 return [
-    'status' => 'Statut',
+    'status' => Lang::get('common.status', [], 'fr'),
     'category' => 'Catégorie',
     'availability' => 'Disponibilité',
     'notes' => 'Notes',

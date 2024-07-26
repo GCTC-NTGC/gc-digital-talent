@@ -69,6 +69,16 @@ class FileGenerator
     }
 
     /**
+     * Diviing colon based on language
+     *
+     * @return string
+     */
+    public function colon()
+    {
+        return $this->lang === 'fr' ? ' : ' : ': ';
+    }
+
+    /**
      * Strip out new line characters from a string
      *
      * @param  string  $string  A string with new lines
@@ -77,6 +87,29 @@ class FileGenerator
     public function sanitizeString(string $string): string
     {
         return str_replace(["\r", "\n"], ' ', $string);
+    }
+
+    /**
+     * Localize a string based on the requested
+     * file language
+     *
+     * @param  string  $key  The key of the string
+     * @return string The localized string
+     */
+    public function localize(string $key): string
+    {
+        return Lang::get($key, [], $this->lang);
+    }
+
+    /**
+     * Localize a heading in a file
+     *
+     * @param  string  $key  The heading key (from headings.php lang files)
+     * @return string The localized heading
+     */
+    public function localizeHeading(string $key): string
+    {
+        return $this->localize('headings.'.$key);
     }
 
     public function getFileName(): string

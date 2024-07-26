@@ -2,6 +2,18 @@
 
 namespace App\Generators;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\AwardedScope;
+use App\Enums\AwardedTo;
+use App\Enums\CitizenshipStatus;
+use App\Enums\EducationStatus;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\GovEmployeeType;
+use App\Enums\IndigenousCommunity;
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
+use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
@@ -21,7 +33,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
         $this->setup();
 
         $section = $this->doc->addSection();
-        $section->addTitle('Candidate Profiles', 1);
+        $section->addTitle($this->localizeHeading('candidate_profiles'), 1);
 
         PoolCandidate::with([
             'user' => [
@@ -31,104 +43,96 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                 'userSkills' => ['skill'],
             ],
             'screeningQuestionResponses' => ['screeningQuestion'],
+            'generalQuestionResponses' => ['generalQuestion'],
         ])
             ->whereIn('id', $this->ids)
             ->chunk(200, function ($candidates) use ($section) {
 
                 foreach ($candidates as $candidate) {
-                    $section->addTitle($candidate->user->getFullName($this->anonymous), 2);
+                    $user = $candidate->user;
+                    $section->addTitle($user->getFullName($this->anonymous), 2);
 
-                    $section->addTitle('Contact Information', 3);
+                    $section->addTitle($this->localizeHeading('contact_info'), 3);
+                    //
+                    $this->addLabelText($section, $this->localizeHeading('email'), $user->email);
+                    $this->addLabelText($section, $this->localizeHeading('phone'), $user->telephone);
+                    $this->addLabelText($section, $this->localizeHeading('current_city'), $this->currentLocation($user));
+                    $this->addLabelText($section, $this->localizeHeading('preferred_communication_language'), $this->localizeEnum($user->preferred_lang, Language::class));
+                    $this->addLabelText($section, $this->localizeHeading('preferred_spoken_interview_language'), $this->localizeEnum($user->preferred_language_for_interview, Language::class));
+                    $this->addLabelText($section, $this->localizeHeading('preferred_written_exam_language'), $this->localizeEnum($user->preferred_language_for_exam, Language::class));
 
-                    $this->addLabelText($section, 'Email', $candidate->user->email);
-                    $this->addLabelText($section, 'Phone', $candidate->user->telephone);
-                    $this->addLabelText($section, 'City', $candidate->user->getLocation());
-                    $this->addLabelText($section, 'Communication language', $candidate->user->getLanguage('preferred_lang'));
-                    $this->addLabelText($section, 'Spoken interview language', $candidate->user->getLanguage('preferred_language_for_interview'));
-                    $this->addLabelText($section, 'Written exam language', $candidate->user->getLanguage('preferred_language_for_exam'));
+                    $section->addTitle($this->localizeHeading('general_info'), 3);
 
-                    $section->addTitle('General information', 3);
+                    $section->addTitle($this->localizeHeading('status'), 4);
+                    $this->addLabelText($section, $this->localizeHeading('armed_forces_status'), $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class));
+                    $this->addLabelText($section, $this->localizeHeading('citizenship'), $this->localizeEnum($user->citizenship, CitizenshipStatus::class));
 
-                    $section->addTitle('Status', 4);
-                    $this->addLabelText($section, 'Member of CAF', $candidate->user->getArmedForcesStatus());
-                    $this->addLabelText($section, 'Citizenship', $candidate->user->getCitizenship());
+                    $section->addTitle($this->localizeHeading('language_info'), 4);
+                    $this->lookingForLanguages($section, $user);
+                    $this->addLabelText($section, $this->localizeHeading('first_official_language'), $this->localizeEnum($user->first_official_language, Language::class));
+                    $this->addLabelText($section, $this->localizeHeading('second_language_exam_completed'), $this->yesOrNo($user->second_language_exam_completed));
+                    $this->addLabelText($section, $this->localizeHeading('second_language_exam_validity'), $this->yesOrNo($user->second_language_exam_validity));
+                    $this->secondLanguageAbility($section, $user);
 
-                    $section->addTitle('Language information', 4);
-                    $this->addLabelText($section, 'Interested in', $candidate->user->getLookingForLanguage());
-                    $this->addLabelText($section, 'Completed an official GoC evaluation', $candidate->user->getBilingualEvaluation());
-                    $this->addLabelText($section, 'Second language level (Comprehension, Written, Verbal)', $candidate->user->getSecondLanguageEvaluation());
-
-                    $section->addTitle('Government information', 4);
-                    $this->addLabelText($section, 'Government of Canada employee', $candidate->user->is_gov_employee ? 'Yes' : 'No');
-                    if ($candidate->user->is_gov_employee) {
-                        $department = $candidate->user->department()->first();
-                        $this->addLabelText($section, 'Department', $department->name[$this->lang] ?? '');
-                        $this->addLabelText($section, 'Employee type', $candidate->user->getGovEmployeeType());
-                        $this->addLabelText($section, 'Classification', $candidate->user->getClassification());
+                    $section->addTitle($this->localizeHeading('government_info'), 4);
+                    $this->addLabelText($section, $this->localizeHeading('government_employee'), $this->yesOrNo($user->is_gov_employee));
+                    if ($user->is_gov_employee) {
+                        $department = $user->department()->first();
+                        $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
+                        $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class));
+                        $this->addLabelText($section, $this->localizeHeading('current_classification'), $user->getClassification());
                     }
-                    $this->addLabelText($section, 'Priority entitlement', $candidate->user->has_priority_entitlement ? 'Yes' : 'No');
-                    if ($candidate->user->has_priority_entitlement) {
-                        $this->addLabelText($section, 'Priority number', $candidate->user->priority_number);
-                    }
-
-                    $section->addTitle('Work location', 4);
-                    $this->addLabelText(
-                        $section,
-                        'Work location',
-                        $candidate->user->location_preferences ? $this->sanitizeEnum(implode(', ', $candidate->user->location_preferences)) : ''
-                    );
-                    $this->addLabelText($section, 'Location exemptions', $candidate->user->location_exemptions ?? '');
-
-                    $section->addTitle('Work preferences', 4);
-
-                    if ($duration = $candidate->user->getPositionDuration()) {
-                        $section->addText('Would consider accepting a position that lasts for:');
-                        $section->addListItem($duration);
+                    $this->addLabelText($section, $this->localizeHeading('priority_entitlement'), $this->yesOrNo($user->has_priority_entitlement));
+                    if ($user->has_priority_entitlement) {
+                        $this->addLabelText($section, $this->localizeHeading('priority_number'), $user->priority_number);
                     }
 
-                    $preferences = $candidate->user->getOperationalRequirements();
+                    $section->addTitle($this->localizeHeading('work_location'), 4);
+                    $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
+                    $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
+
+                    $section->addTitle($this->localizeHeading('location_preferences'), 4);
+                    $this->addLabelText($section, $this->localizeHeading('accept_temporary'), $this->yesOrNo($user->wouldAcceptTemporary()));
+
+                    $preferences = $user->getOperationalRequirements();
                     if (count($preferences['accepted']) > 0) {
-                        $section->addText('Would consider accepting a job that requires:');
+                        $section->addText($this->localizeHeading('accepted_operational_requirements'), $this->strong);
 
                         foreach ($preferences['accepted'] as $preference) {
-                            $section->addListItem($this->sanitizeEnum($preference));
+                            $section->addListItem($this->localizeEnum($preference, OperationalRequirement::class));
                         }
                     }
 
                     if (count($preferences['not_accepted']) > 0) {
-                        $notConsiderRun = $section->addTextRun();
-                        $notConsiderRun->addText('Would ');
-                        $notConsiderRun->addText('not consider', $this->strong);
-                        $notConsiderRun->addText(' a job that requires:');
+                        $section->addText($this->localizeHeading('rejected_operational_requirements'), $this->strong);
 
                         foreach ($preferences['not_accepted'] as $preference) {
-                            $section->addListItem($this->sanitizeEnum($preference));
+                            $section->addListItem($this->localizeEnum($preference, OperationalRequirement::class));
                         }
                     }
 
-                    $section->addTitle('Diversity, equity, inclusion', 4);
+                    $section->addTitle($this->localizeHeading('dei'), 4);
 
-                    $indigenousCommunities = $candidate->user->getIndigenousCommunities();
-                    if ($indigenousCommunities) {
-                        foreach ($indigenousCommunities as $community) {
-                            $section->addListItem($community);
+                    if ($user->indigenous_communities) {
+                        foreach ($user->indigenous_communities as $community) {
+                            $section->addListItem($this->localizeEnum($community, IndigenousCommunity::class));
                         }
                     }
-                    if ($candidate->user->is_woman) {
-                        $section->addListItem('Woman');
+                    if ($user->is_woman) {
+                        $section->addListItem($this->localizeHeading('woman'));
                     }
-                    if ($candidate->user->is_visible_minority) {
-                        $section->addListItem('Visible minority');
+                    if ($user->is_visible_minority) {
+                        $section->addListItem($this->localizeHeading('visible_minority'));
                     }
-                    if ($candidate->user->has_disability) {
-                        $section->addListItem('Person with a disability');
+                    if ($user->has_disability) {
+                        $section->addListItem($this->localizeHeading('disability'));
                     }
 
-                    if ($candidate->user->experiences->count() > 0) {
-                        $section->addTitle('Career timeline', 2);
+                    if ($user->experiences->count() > 0) {
+                        $section->addTitle($this->localizeHeading('career_timeline'), 2);
                         $experiences = [];
 
-                        $candidate->user->experiences->each(function ($experience) use (&$experiences) {
+                        $user->experiences->each(function ($experience) use (&$experiences) {
                             $type = $experience::class;
                             if (! isset($experiences[$type])) {
                                 $experiences[$type] = collect();
@@ -137,53 +141,60 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                         });
 
                         foreach ($experiences as $type => $group) {
+
+                            $typeKey = match ($type) {
+                                AwardExperience::class => 'award',
+                                CommunityExperience::class => 'community',
+                                EducationExperience::class => 'education',
+                                PersonalExperience::class => 'personal',
+                                WorkExperience::class => 'work',
+                                default => 'work'
+                            };
+
+                            $section->addTitle($this->localize('experiences.'.$typeKey), 3);
+
                             $group->each(function ($experience) use ($section, $type) {
                                 if ($type === AwardExperience::class) {
-                                    $section->addTitle('Award experiences', 3);
                                     $section->addTitle($experience->getTitle(), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
-                                    $this->addLabelText($section, 'Awarded to', $experience->awarded_to);
-                                    $this->addLabelText($section, 'Issuing organization', $experience->issued_by);
-                                    $this->addLabelText($section, 'Award scope', $experience->awarded_scope);
+                                    $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
+                                    $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
+                                    $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
                                 }
 
                                 if ($type === CommunityExperience::class) {
-                                    $section->addTitle('Community experiences', 3);
                                     $section->addTitle($experience->getTitle(), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
-                                    $this->addLabelText($section, 'Project / Product', $experience->project);
+                                    $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
                                 }
 
                                 if ($type === EducationExperience::class) {
-                                    $section->addTitle('Education experiences', 3);
                                     $section->addTitle($experience->getTitle(), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
-                                    $this->addLabelText($section, 'Area of study', $experience->area_of_study);
-                                    $this->addLabelText($section, 'Status', $experience->status);
-                                    $this->addLabelText($section, 'Thesis title', $experience->thesis_title);
+                                    $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
+                                    $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
+                                    $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
                                 }
 
                                 if ($type === PersonalExperience::class) {
-                                    $section->addTitle('Personal experiences', 3);
                                     $section->addTitle($experience->getTitle(), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
-                                    $this->addLabelText($section, 'Learning description', $experience->description);
+                                    $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
                                 }
 
                                 if ($type === WorkExperience::class) {
-                                    $section->addTitle('Work experiences', 3);
                                     $section->addTitle($experience->getTitle(), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
-                                    $this->addLabelText($section, 'Team, group or division', $experience->division);
+                                    $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
                                 }
 
                                 $section->addTextBreak(1);
-                                $this->addLabelText($section, 'Additional details', $experience->details);
+                                $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
 
                                 if ($experience->userSkills->count() > 0) {
                                     $section->addTextBreak(1);
@@ -200,30 +211,36 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                         }
                     }
 
+                    if ($candidate->generalQuestionResponses->count() > 0) {
+                        $section->addTitle($this->localizeHeading('general_questions'), 2);
+                        $candidate->generalQuestionResponses->each(function ($response) use ($section) {
+                            $section->addTitle($response->generalQuestion->question[$this->lang], 3);
+                            $section->addText($response->answer);
+                        });
+                    }
+
                     if ($candidate->screeningQuestionResponses->count() > 0) {
-                        $section->addTitle('Screening questions', 2);
+                        $section->addTitle($this->localizeHeading('screening_questions'), 2);
                         $candidate->screeningQuestionResponses->each(function ($response) use ($section) {
                             $section->addTitle($response->screeningQuestion->question[$this->lang], 3);
                             $section->addText($response->answer);
                         });
                     }
 
-                    $section->addTitle('Skills showcase', 2);
-                    $section->addText('The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses, and skill growth opportunities. These lists can provide you with insight into a candidate’s broader skill set and where they might be interested in learning new skills.');
+                    $section->addTitle($this->localizeHeading('skills_showcase'), 2);
+                    if ($user->topBehaviouralSkillsRanking->count() > 0 || $user->topTechnicalSkillsRanking->count() > 0) {
 
-                    if ($candidate->user->topBehaviouralSkillsRanking->count() > 0 || $candidate->user->topTechnicalSkillsRanking->count() > 0) {
+                        $section->addTitle($this->localizeHeading('top_skills'), 3);
 
-                        $section->addTitle('Top skills', 3);
-
-                        $this->skillRanks($section, $candidate->user->topBehaviouralSkillsRanking, 'Behavioural skills');
-                        $this->skillRanks($section, $candidate->user->topTechnicalSkillsRanking, 'Technical skills');
+                        $this->skillRanks($section, $user->topBehaviouralSkillsRanking, $this->localize('skill_category.behavioural'));
+                        $this->skillRanks($section, $user->topTechnicalSkillsRanking, $this->localize('skill_category.technical'));
                     }
 
-                    if ($candidate->user->improveBehaviouralSkillsRanking->count() > 0 || $candidate->user->improveTechnicalSkillsRanking->count() > 0) {
-                        $section->addTitle('Skills to improve', 3);
+                    if ($user->improveBehaviouralSkillsRanking->count() > 0 || $user->improveTechnicalSkillsRanking->count() > 0) {
+                        $section->addTitle($this->localizeHeading('skills_to_improve'), 3);
 
-                        $this->skillRanks($section, $candidate->user->improveBehaviouralSkillsRanking, 'Behavioural skills');
-                        $this->skillRanks($section, $candidate->user->improveTechnicalSkillsRanking, 'Technical skills');
+                        $this->skillRanks($section, $user->improveBehaviouralSkillsRanking, $this->localize('skill_category.behavioural'));
+                        $this->skillRanks($section, $user->improveTechnicalSkillsRanking, $this->localize('skill_category.technical'));
                     }
 
                     $section->addPageBreak();
@@ -241,9 +258,75 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                 $listRun = $section->addListItemRun();
                 $listRun->addText($userSkill->skill->name[$this->lang], $this->strong);
                 if ($userSkill->skill_level) {
-                    $listRun->addText(': '.$this->sanitizeEnum($userSkill->skill_level));
+                    $listRun->addText($this->colon().$this->sanitizeEnum($userSkill->skill_level));
                 }
             });
+        }
+    }
+
+    private function currentLocation($user)
+    {
+
+        $province = $this->localizeEnum($user->current_province, ProvinceOrTerritory::class);
+
+        if ($user->current_city && $province) {
+            return $user->current_city.', '.$province;
+        } elseif ($user->current_city) {
+            return $user->current_city;
+        } elseif ($province) {
+            return $province;
+        }
+
+        return '';
+
+    }
+
+    private function lookingForLanguages($section, $user)
+    {
+        if ($user->looking_for_english || $user->looking_for_french || $user->looking_for_bilingual) {
+            $section->addText($this->localizeHeading('interested_in_languages'), $this->strong);
+
+            if ($user->looking_for_english) {
+                $section->addListItem($this->localize('language.en'));
+            }
+
+            if ($user->looking_for_french) {
+                $section->addListItem($this->localize('language.fr'));
+            }
+
+            if ($user->looking_for_bilingual) {
+                $section->addListItem($this->localize('language.billingual'));
+            }
+        }
+    }
+
+    private function secondLanguageAbility($section, $user)
+    {
+        $heading = $this->localizeHeading('estimated_language_ability'.$this->strong);
+
+        if ($user->second_language_exam_completed && ($user->comprehension_level || $user->written_level || $user->verbal_level)) {
+            $section->addText($heading);
+
+            $listRun = $section->addListItemRun();
+            $listRun->addText($this->localizeHeading('comprehension_level'), $this->strong);
+            if ($user->comprehension_level) {
+                $listRun->addText($this->colon().$user->comprehension_level);
+            }
+
+            $listRun = $section->addListItemRun();
+            $listRun->addText($this->localizeHeading('writing_level'), $this->strong);
+            if ($user->comprehension_level) {
+                $listRun->addText($this->colon().$user->written_level);
+            }
+
+            $listRun = $section->addListItemRun();
+            $listRun->addText($this->localizeHeading('oral_interaction_level'), $this->strong);
+            if ($user->comprehension_level) {
+                $listRun->addText($this->colon().$user->written_level);
+            }
+
+        } elseif ($user->estimated_language_ability) {
+            $section->addLabelText($section, $heading, $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class));
         }
     }
 }

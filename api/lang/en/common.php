@@ -13,4 +13,5 @@ return [
     'beginner' => 'Beginner',
     'intermediate' => 'Intermediate',
     'advanced' => 'Advanced',
+    'status' => 'Status',
 ];

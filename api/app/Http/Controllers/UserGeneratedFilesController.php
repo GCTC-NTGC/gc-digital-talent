@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -11,11 +12,14 @@ class UserGeneratedFilesController extends Controller
 {
     public function getFile(string $fileName)
     {
+        Log::debug($fileName);
         // https://laravel.com/docs/10.x/authentication#accessing-specific-guard-instances
         $userId = Auth::guard('api')->id();
+        Log::debug(['user_id' => $userId, 'file' => $fileName]);
         throw_unless(is_string($userId), UnauthorizedHttpException::class);
 
         $filePath = $userId.'/'.$fileName;
+        Log::debug($filePath);
         throw_unless(Storage::disk('userGenerated')->exists($filePath), NotFoundHttpException::class);
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
