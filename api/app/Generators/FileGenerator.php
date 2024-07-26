@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class FileGenerator
 {
-    public function __construct(protected ?string $lang) {}
+    protected ?string $lang;
+
+    public function __construct(protected string $fileName, protected ?string $dir) {}
 
     /**
      * Convert enum to a more human readable format
@@ -77,12 +79,17 @@ class FileGenerator
         return str_replace(["\r", "\n"], ' ', $string);
     }
 
+    public function getFileName(): string
+    {
+        return $this->fileName;
+    }
+
     /**
      * Get  the path to eventually write the file to
      *
      * @param  ?string  $disk  Name of the disk we want to save file to
      */
-    public function getPath(string $fileName, ?string $dir, ?string $disk = 'userGenerated')
+    public function getPath(?string $disk = 'userGenerated')
     {
         /**
          * We don't actually put the file with
@@ -93,10 +100,10 @@ class FileGenerator
          *
          * @var \Illuminate\Filesystem\FilesystemManager */
         $disk = Storage::disk($disk);
-        if ($dir && ! $disk->exists($dir)) {
-            File::makeDirectory($disk->path($dir));
+        if ($this->dir && ! $disk->exists($this->dir)) {
+            File::makeDirectory($disk->path($this->dir));
         }
 
-        return $disk->path(sprintf('%s/%s', $dir ? DIRECTORY_SEPARATOR.$dir : '', $fileName));
+        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->fileName));
     }
 }

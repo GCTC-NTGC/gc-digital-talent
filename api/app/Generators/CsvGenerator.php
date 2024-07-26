@@ -10,18 +10,20 @@ abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterf
 {
     protected ?Spreadsheet $spreadsheet;
 
-    public function __construct(public string $fileName, protected ?string $dir) {}
+    public function __construct(public string $fileName, protected ?string $dir)
+    {
+        parent::__construct($fileName, $dir);
+    }
 
     public function write()
     {
         if (! $this->spreadsheet) {
-            Log::error('CSV must be generated before saving.');
 
             return;
         }
 
         try {
-            $path = $this->getPath($this->fileName, $this->dir);
+            $path = $this->getPath();
             $writer = new Csv($this->spreadsheet);
             $writer->setDelimiter(',');
             $writer->setEnclosure('"');

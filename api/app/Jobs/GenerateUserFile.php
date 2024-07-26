@@ -30,10 +30,10 @@ class GenerateUserFile implements ShouldQueue
         try {
             $this->generator->generate()->write();
 
-            UserFileGenerated::dispatch($this->generator->fileName, $this->user->id);
+            UserFileGenerated::dispatch($this->generator->getFileName(), $this->user->id);
         } catch (\Exception $e) {
             // Notify the user something went wrong
-            $this->user->notify(new UserFileGenerationError($this->generator->fileName));
+            $this->user->notify(new UserFileGenerationError($this->generator->getFileName()));
             Log::error('Error generating file: '.$e->getMessage());
         }
 
