@@ -291,7 +291,7 @@ const AssessmentResultsTable = ({
       const type = assessmentStep.type?.value ?? null;
       const id = uniqueId("results-table-column");
       const status = columnStatus(
-        assessmentStep,
+        { id: assessmentStep.id },
         poolCandidate?.assessmentStatus,
       );
 

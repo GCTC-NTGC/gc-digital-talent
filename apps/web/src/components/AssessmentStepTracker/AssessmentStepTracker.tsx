@@ -153,7 +153,10 @@ const AssessmentStepTracker = ({
       {steps.length ? (
         <Board.Root>
           {filteredSteps.map(({ step, resultCounts, results }, index) => {
-            const stepName = generateStepName(step, intl);
+            const stepName = generateStepName(
+              { type: step.type, title: step.title },
+              intl,
+            );
             const stepNumber = intl.formatMessage(
               applicationMessages.numberedStep,
               {

@@ -118,7 +118,10 @@ const AssessmentStepCard = ({
       }
     >
       <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
-        {assessmentStepDisplayName(assessmentStep, intl)}
+        {assessmentStepDisplayName(
+          { type: assessmentStep.type, title: assessmentStep.title },
+          intl,
+        )}
       </Heading>
 
       {skillNames.length || isApplicationScreening ? (

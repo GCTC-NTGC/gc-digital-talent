@@ -324,7 +324,7 @@ export const ScreeningDecisionDialog = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const dialogType = useDialogType(
-    educationRequirement ? undefined : assessmentStep,
+    educationRequirement ? undefined : { type: assessmentStep.type },
   );
   const skill = poolSkill?.skill ? poolSkill.skill : undefined;
   const skillLevel = getSkillLevelMessage(intl, {

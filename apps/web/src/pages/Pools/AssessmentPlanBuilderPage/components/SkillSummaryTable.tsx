@@ -264,7 +264,10 @@ const SkillSummaryTable = ({
     return aPosition > bPosition ? 1 : -1;
   });
   sortedAssessmentSteps.forEach((assessmentStep) => {
-    const headerName = assessmentStepDisplayName(assessmentStep, intl);
+    const headerName = assessmentStepDisplayName(
+      { type: assessmentStep.type, title: assessmentStep.title },
+      intl,
+    );
     const newColumn = columnHelper.display({
       id: assessmentStep.type?.value ?? assessmentStep.id,
       header: headerName,

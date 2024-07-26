@@ -307,7 +307,7 @@ export const filterAlreadyDisqualified = (
 };
 
 export const generateStepName = (
-  step: AssessmentStep,
+  step: Pick<AssessmentStep, "type" | "title">,
   intl: IntlShape,
 ): string => {
   // check if title exists in LocalizedString object, then return empty string if not for a truthy check

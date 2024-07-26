@@ -105,7 +105,7 @@ export const columnHeader = (
 };
 
 export const columnStatus = (
-  assessmentStep: AssessmentStep,
+  assessmentStep: Pick<AssessmentStep, "id">,
   assessmentStatus?: Maybe<AssessmentResultStatus>,
 ): ColumnStatus => {
   const assessmentDecisionResult =
