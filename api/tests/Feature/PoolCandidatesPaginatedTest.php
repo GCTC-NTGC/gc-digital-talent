@@ -167,22 +167,40 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->assertPaginatedResponse($processOperator, 0, []);
     }
 
-    public function testCommunityRecruiterCannotViewAnyApplications(): void
+    public function testCommunityRecruiterCanViewCommunityApplications(): void
     {
         $community = Community::factory()->create();
-        $processOperator = User::factory()
+        $otherCommunity = Community::factory()->create();
+        $communityPool = Pool::factory()->create(['community_id' => $community->id]);
+        $otherPool = Pool::factory()->create(['community_id' => $otherCommunity->id]);
+        $communityRecruiter = User::factory()
             ->asCommunityRecruiter($community->id)
             ->create();
-        $this->assertPaginatedResponse($processOperator, 0, []);
+
+        PoolCandidate::truncate();
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
+        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $otherPool]);
+
+        // can only view the candidate in own community
+        $this->assertPaginatedResponse($communityRecruiter, 1, [$communityCandidate->id]);
     }
 
-    public function testCommunityAdminCannotViewAnyApplications(): void
+    public function testCommunityAdminCanViewCommunityApplications(): void
     {
         $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityPool = Pool::factory()->create(['community_id' => $community->id]);
+        $otherPool = Pool::factory()->create(['community_id' => $otherCommunity->id]);
         $communityAdmin = User::factory()
             ->asCommunityAdmin($community->id)
             ->create();
-        $this->assertPaginatedResponse($communityAdmin, 0, []);
+
+        PoolCandidate::truncate();
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
+        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $otherPool]);
+
+        // can only view the candidate in own community
+        $this->assertPaginatedResponse($communityAdmin, 1, [$communityCandidate->id]);
     }
 
     public function testPlatformAdminCanViewAllSubmittedApplications(): void
