@@ -6,14 +6,15 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 
-abstract class FileGenerator
+class FileGenerator
 {
-    protected string $lang;
+    public function __construct(protected ?string $lang) {}
 
-    abstract public function generate();
-
-    abstract public function write(string $fileName, ?string $dir);
-
+    /**
+     * Convert enum to a more human readable format
+     *
+     * @param  string  $enum  The value of the enum
+     */
     protected function sanitizeEnum(string $enum): string
     {
         return ucwords(strtolower(str_replace('_', ' ', $enum)));
@@ -53,11 +54,34 @@ abstract class FileGenerator
         }, $values));
     }
 
+    /**
+     *  Convert a boolean value into a localized
+     *  "yes" or "no" statement
+     *
+     * @param  ?bool  $value  The value being converted
+     * @return string "Yes" if true, "No" if false
+     */
     public function yesOrNo(?bool $value): string
     {
         return $value ? Lang::get('common.yes', [], $this->lang) : Lang::get('common.no', [], $this->lang);
     }
 
+    /**
+     * Strip out new line characters from a string
+     *
+     * @param  string  $string  A string with new lines
+     * @return string New string with no new lines
+     */
+    public function sanitizeString(string $string): string
+    {
+        return str_replace(["\r", "\n"], ' ', $string);
+    }
+
+    /**
+     * Get  the path to eventually write the file to
+     *
+     * @param  ?string  $disk  Name of the disk we want to save file to
+     */
     public function getPath(string $fileName, ?string $dir, ?string $disk = 'userGenerated')
     {
         /**

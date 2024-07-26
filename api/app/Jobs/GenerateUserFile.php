@@ -13,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class GenerateFile implements ShouldQueue
+class GenerateUserFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -27,7 +27,6 @@ class GenerateFile implements ShouldQueue
      */
     public function handle(): void
     {
-
         try {
             $this->generator->generate()->write();
 

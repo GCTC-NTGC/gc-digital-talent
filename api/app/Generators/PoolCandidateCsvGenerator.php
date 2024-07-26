@@ -18,13 +18,10 @@ use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Lang;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class CandidateProfileCsv extends CsvGenerator
+class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
-    protected array $ids;
-
-    protected string $lang;
-
     protected array $generatedHeaders = [
         'general_questions' => [],
         'skill_details' => [],
@@ -77,16 +74,14 @@ class CandidateProfileCsv extends CsvGenerator
 
     protected array $skillIds = [];
 
-    public function __construct(array $ids, ?string $lang = 'en')
+    public function __construct(protected array $ids, public string $fileName, public ?string $dir, protected ?string $lang = 'en')
     {
-        $this->ids = $ids;
-        $this->lang = $lang;
-
-        parent::__construct();
+        parent::__construct($fileName, $dir);
     }
 
-    public function generate()
+    public function generate(): self
     {
+        $this->spreadsheet = new Spreadsheet();
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {

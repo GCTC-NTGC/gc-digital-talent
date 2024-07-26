@@ -6,21 +6,22 @@ use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 
-abstract class CsvGenerator extends FileGenerator
+abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterface
 {
-    protected Spreadsheet $spreadsheet;
+    protected ?Spreadsheet $spreadsheet;
 
-    public function __construct()
-    {
-        $this->spreadsheet = new Spreadsheet();
-    }
+    public function __construct(public string $fileName, protected ?string $dir) {}
 
-    public function write(string $fileName, ?string $dir)
+    public function write()
     {
+        if (! $this->spreadsheet) {
+            Log::error('CSV must be generated before saving.');
+
+            return;
+        }
 
         try {
-
-            $path = $this->getPath($fileName, $dir);
+            $path = $this->getPath($this->fileName, $this->dir);
             $writer = new Csv($this->spreadsheet);
             $writer->setDelimiter(',');
             $writer->setEnclosure('"');
@@ -30,13 +31,8 @@ abstract class CsvGenerator extends FileGenerator
 
         } catch (\Exception $e) {
             // Log message and bubble it up
-            Log::error('Error saving csv: '.$fileName.' '.$e->getMessage());
+            Log::error('Error saving csv: '.$this->fileName.' '.$e->getMessage());
             throw $e;
         }
-    }
-
-    public function sanitizeString(string $string): string
-    {
-        return str_replace(["\r", "\n"], ' ', $string);
     }
 }
