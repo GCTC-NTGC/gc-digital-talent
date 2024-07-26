@@ -183,7 +183,11 @@ export const buildColumn = ({
         if (assessmentResult || isEducationRequirement) {
           return cells.jsx(
             <Dialog
-              assessmentStep={assessmentStep}
+              assessmentStep={{
+                id: assessmentStep.id,
+                type: assessmentStep.type,
+                title: assessmentStep.title,
+              }}
               assessmentResult={assessmentResult}
               poolCandidate={poolCandidate}
               educationRequirement={isEducationRequirement}
@@ -199,7 +203,11 @@ export const buildColumn = ({
         if (hasPoolSkill) {
           return cells.jsx(
             <Dialog
-              assessmentStep={assessmentStep}
+              assessmentStep={{
+                id: assessmentStep.id,
+                type: assessmentStep.type,
+                title: assessmentStep.title,
+              }}
               assessmentResult={assessmentResult}
               poolCandidate={poolCandidate}
               poolSkillToAssess={poolSkill}

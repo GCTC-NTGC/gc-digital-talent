@@ -23,7 +23,7 @@ import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
-import { AssessmentTableRow } from "./types";
+import { AssessmentStepForTableRow, AssessmentTableRow } from "./types";
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();
 
@@ -163,13 +163,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         sortOrder
         poolSkills {
           id
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
         }
       }
       poolSkills {
@@ -282,11 +275,12 @@ const AssessmentResultsTable = ({
   };
 
   // Sort the pools assessment steps then build columns for the poolCandidates assessment results
-  const sortedAssessmentSteps = getOrderedSteps(assessmentSteps);
+  const sortedAssessmentSteps: AssessmentStepForTableRow[] =
+    getOrderedSteps(assessmentSteps);
   const assessmentStepColumns = sortedAssessmentSteps.reduce(
     (
       accumulator: ColumnDef<AssessmentTableRow>[],
-      assessmentStep: AssessmentStep,
+      assessmentStep: AssessmentStepForTableRow,
     ) => {
       const type = assessmentStep.type?.value ?? null;
       const id = uniqueId("results-table-column");
@@ -308,7 +302,12 @@ const AssessmentResultsTable = ({
           id,
           header,
           poolCandidate,
-          assessmentStep,
+          assessmentStep: {
+            id: assessmentStep.id,
+            type: assessmentStep.type,
+            title: assessmentStep.title,
+            poolSkills: assessmentStep.poolSkills,
+          },
           intl,
         }),
       ];

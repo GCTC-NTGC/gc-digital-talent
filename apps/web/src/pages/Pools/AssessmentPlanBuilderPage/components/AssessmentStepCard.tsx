@@ -43,7 +43,7 @@ const AssessmentStepCardPool_Fragment = graphql(/* GraphQL */ `
 
 type AssessmentStepCardProps = {
   index: number;
-  assessmentStep: AssessmentStep;
+  assessmentStep: Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">;
   poolQuery: FragmentType<typeof AssessmentStepCardPool_Fragment>;
   onRemove: (index: number) => void;
   onMove: (fromIndex: number, toIndex: number) => void;

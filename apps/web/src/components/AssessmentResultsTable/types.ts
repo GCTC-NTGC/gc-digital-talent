@@ -23,10 +23,15 @@ export type AssessmentTableRow = {
 
 export type AssessmentTableRowColumn = ColumnDef<AssessmentTableRow>;
 
+export type AssessmentStepForTableRow = Pick<
+  AssessmentStep,
+  "id" | "type" | "title"
+> & { poolSkills?: Maybe<Maybe<Pick<PoolSkill, "id">>[]> };
+
 export type AssessmentTableRowColumnProps = {
   id: string;
   poolCandidate: PoolCandidate;
-  assessmentStep: AssessmentStep;
+  assessmentStep: AssessmentStepForTableRow;
   intl: IntlShape;
   header: JSX.Element;
 };

@@ -297,7 +297,7 @@ const SupportingEvidence = ({
 };
 
 interface ScreeningDecisionDialogProps {
-  assessmentStep: AssessmentStep;
+  assessmentStep: Pick<AssessmentStep, "type" | "title">;
   assessmentResult?: AssessmentResult;
   poolCandidate: PoolCandidate;
   hasBeenAssessed: boolean;
@@ -527,7 +527,7 @@ const ScreeningDecisionDialogApi = ({
   poolSkillToAssess,
   educationRequirement,
 }: {
-  assessmentStep: AssessmentStep;
+  assessmentStep: Pick<AssessmentStep, "id" | "type" | "title">;
   poolCandidate: PoolCandidate;
   assessmentResult?: AssessmentResult;
   poolSkillToAssess?: Pick<

@@ -17,8 +17,9 @@ import {
   PoolCandidateSearchInput,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
+  AssessmentStepTracker_PoolFragment as AssessmentStepTrackerPoolType,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
@@ -188,16 +189,17 @@ const filterCandidatesByDecision = (
 };
 
 type StepWithGroupedCandidates = {
-  step: AssessmentStep;
+  step: Pick<AssessmentStep, "id" | "type" | "title">;
   resultCounts?: ResultDecisionCounts;
   results: CandidateAssessmentResult[];
 };
 
 export const groupPoolCandidatesByStep = (
-  steps: AssessmentStep[],
+  steps: AssessmentStepTrackerPoolType["assessmentSteps"],
   candidates: Omit<PoolCandidate, "pool">[],
 ): StepWithGroupedCandidates[] => {
-  const orderedSteps = sortBy(steps, (step) => step.sortOrder);
+  const stepsUnpacked = unpackMaybes(steps);
+  const orderedSteps = sortBy(stepsUnpacked, (step) => step.sortOrder);
 
   const stepsWithGroupedCandidates: StepWithGroupedCandidates[] =
     orderedSteps.map((step, index) => {
@@ -222,7 +224,7 @@ export const groupPoolCandidatesByStep = (
         });
 
       return {
-        step,
+        step: { id: step.id, type: step.type, title: step.title },
         results: stepCandidates,
         resultCounts: {
           [NO_DECISION]: filterCandidatesByDecision(stepCandidates, NO_DECISION)
