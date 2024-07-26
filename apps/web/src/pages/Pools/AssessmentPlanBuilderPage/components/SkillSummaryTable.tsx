@@ -5,18 +5,17 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  AssessmentStep,
   AssessmentStepType,
   FragmentType,
   LocalizedAssessmentStepType,
   Maybe,
-  PoolSkill,
   PoolSkillType,
   Skill,
   SkillCategory,
   getFragment,
   graphql,
   SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
+  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 
@@ -120,8 +119,8 @@ const CheckIconElement = (
 };
 
 const plannedAssessmentCell = (
-  poolSkill: Pick<PoolSkill, "id">,
-  assessmentSteps: readonly AssessmentStep[],
+  poolSkill: SkillSummaryPoolSkillFragmentType,
+  assessmentSteps: readonly SkillSummaryAssessmentStepFragmentType[],
   intl: IntlShape,
 ): JSX.Element | null => {
   const assessmentCount = assessmentSteps.filter((assessmentStep) =>
@@ -153,13 +152,13 @@ const plannedAssessmentCell = (
 };
 
 interface RequirementTypeCellProps {
-  poolSkill: Pick<PoolSkill, "type">;
+  poolSkill: SkillSummaryPoolSkillFragmentType;
   intl: IntlShape;
 }
 
 const assessmentStepCell = (
-  poolSkill: Pick<PoolSkill, "id" | "skill">,
-  assessmentStep: AssessmentStep,
+  poolSkill: SkillSummaryPoolSkillFragmentType,
+  assessmentStep: SkillSummaryAssessmentStepFragmentType,
   intl: IntlShape,
 ): JSX.Element | null => {
   // return early with specific message for certain combination
@@ -275,7 +274,11 @@ const SkillSummaryTable = ({
         cells.jsx(
           assessmentStepCell(
             { id: poolSkill.id, skill: poolSkill.skill },
-            assessmentStep,
+            {
+              id: assessmentStep.id,
+              type: assessmentStep.type,
+              poolSkills: assessmentStep.poolSkills,
+            },
             intl,
           ),
         ),
