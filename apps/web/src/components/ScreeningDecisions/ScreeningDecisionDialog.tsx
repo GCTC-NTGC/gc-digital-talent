@@ -13,6 +13,7 @@ import {
   CreateAssessmentResultInput,
   Experience,
   Maybe,
+  Pool,
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
@@ -301,7 +302,9 @@ interface ScreeningDecisionDialogProps {
   assessmentResult?: Maybe<
     Pick<AssessmentResult, "assessmentDecision" | "assessmentDecisionLevel">
   >;
-  poolCandidate: PoolCandidate;
+  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+    pool: Pick<Pool, "classification" | "publishingGroup">;
+  };
   hasBeenAssessed: boolean;
   poolSkill?: Pick<PoolSkill, "requiredLevel" | "type" | "skill">;
   initialValues?: FormValues;
@@ -530,7 +533,9 @@ const ScreeningDecisionDialogApi = ({
   educationRequirement,
 }: {
   assessmentStep: Pick<AssessmentStep, "id" | "type" | "title">;
-  poolCandidate: PoolCandidate;
+  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+    pool: Pick<Pool, "classification" | "publishingGroup">;
+  };
   assessmentResult?: Maybe<
     Pick<
       AssessmentResult,

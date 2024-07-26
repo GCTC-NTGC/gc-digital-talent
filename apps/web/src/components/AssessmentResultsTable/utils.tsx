@@ -205,7 +205,14 @@ export const buildColumn = ({
                     }
                   : null
               }
-              poolCandidate={poolCandidate}
+              poolCandidate={{
+                id: poolCandidate.id,
+                profileSnapshot: poolCandidate.profileSnapshot,
+                pool: {
+                  classification: poolCandidate.pool.classification,
+                  publishingGroup: poolCandidate.pool.publishingGroup,
+                },
+              }}
               educationRequirement={isEducationRequirement}
             />,
           );
@@ -225,7 +232,14 @@ export const buildColumn = ({
                 title: assessmentStep.title,
               }}
               assessmentResult={assessmentResult} // always undefined
-              poolCandidate={poolCandidate}
+              poolCandidate={{
+                id: poolCandidate.id,
+                profileSnapshot: poolCandidate.profileSnapshot,
+                pool: {
+                  classification: poolCandidate.pool.classification,
+                  publishingGroup: poolCandidate.pool.publishingGroup,
+                },
+              }}
               poolSkillToAssess={poolSkill}
             />,
           );

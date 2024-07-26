@@ -17,6 +17,7 @@ import {
   User,
   PoolCandidate,
   UpdatePoolCandidateStatusInput,
+  Pool,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -28,8 +29,18 @@ type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
 };
 
+export type ChangeDateSelectedCandidateType = Pick<
+  PoolCandidate,
+  "id" | "expiryDate"
+> & {
+  pool: Pick<
+    Pool,
+    "id" | "stream" | "name" | "classification" | "publishingGroup"
+  >;
+};
+
 interface ChangeDateDialogProps {
-  selectedCandidate: PoolCandidate;
+  selectedCandidate: ChangeDateSelectedCandidateType;
   user: User;
 }
 

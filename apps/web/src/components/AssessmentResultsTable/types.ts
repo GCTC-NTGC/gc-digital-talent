@@ -5,7 +5,6 @@ import { JSX } from "react";
 import {
   AssessmentStep,
   Maybe,
-  PoolCandidate,
   PoolSkill,
   Skill,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
@@ -30,7 +29,7 @@ export type AssessmentStepForTableRow = Pick<
 
 export type AssessmentTableRowColumnProps = {
   id: string;
-  poolCandidate: PoolCandidate;
+  poolCandidate: AssessmentResultsTableFragmentType;
   assessmentStep: AssessmentStepForTableRow;
   intl: IntlShape;
   header: JSX.Element;

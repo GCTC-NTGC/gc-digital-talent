@@ -111,8 +111,18 @@ type FormValues = {
   additionalPools?: Pool["id"][];
 };
 
+export type ChangeStatusSelectedCandidateType = Pick<
+  PoolCandidate,
+  "id" | "expiryDate" | "status"
+> & {
+  pool: Pick<
+    Pool,
+    "id" | "stream" | "name" | "classification" | "publishingGroup"
+  >;
+};
+
 interface ChangeStatusDialogProps {
-  selectedCandidate: PoolCandidate;
+  selectedCandidate: ChangeStatusSelectedCandidateType;
   user: ChangeStatusDialogUserFragmentType;
 }
 

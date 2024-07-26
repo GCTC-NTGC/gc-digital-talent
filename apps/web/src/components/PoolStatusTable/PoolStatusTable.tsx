@@ -5,12 +5,7 @@ import { isPast } from "date-fns/isPast";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  PoolCandidate,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -23,15 +18,18 @@ import adminMessages from "~/messages/adminMessages";
 import accessors from "../Table/accessors";
 import { expiryCell, statusCell, viewTeamLinkCell } from "./cells";
 import sortStatus from "./sortStatus";
+import { PoolStatusTablePoolCandidate } from "./types";
 
-const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
+const isSuspended = (
+  suspendedAt: PoolStatusTablePoolCandidate["suspendedAt"],
+): boolean => {
   if (!suspendedAt) return false;
 
   const suspendedAtDate = parseDateTimeUtc(suspendedAt);
   return isPast(suspendedAtDate);
 };
 
-const columnHelper = createColumnHelper<PoolCandidate>();
+const columnHelper = createColumnHelper<PoolStatusTablePoolCandidate>();
 
 const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
   fragment PoolStatusTable on User {
@@ -159,7 +157,22 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       {
         id: "status",
         enableHiding: false,
-        cell: ({ row: { original: candidate } }) => statusCell(candidate, user),
+        cell: ({ row: { original: candidate } }) =>
+          statusCell(
+            {
+              id: candidate.id,
+              expiryDate: candidate.expiryDate,
+              status: candidate.status,
+              pool: {
+                id: candidate.pool.id,
+                stream: candidate.pool.stream,
+                name: candidate.pool.name,
+                classification: candidate.pool.classification,
+                publishingGroup: candidate.pool.publishingGroup,
+              },
+            },
+            user,
+          ),
         header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },
@@ -219,7 +232,21 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       id: "expiryDate",
       enableHiding: false,
       sortingFn: "datetime",
-      cell: ({ row: { original: candidate } }) => expiryCell(candidate, user),
+      cell: ({ row: { original: candidate } }) =>
+        expiryCell(
+          {
+            id: candidate.id,
+            expiryDate: candidate.expiryDate,
+            pool: {
+              id: candidate.pool.id,
+              stream: candidate.pool.stream,
+              name: candidate.pool.name,
+              classification: candidate.pool.classification,
+              publishingGroup: candidate.pool.publishingGroup,
+            },
+          },
+          user,
+        ),
       header: intl.formatMessage({
         defaultMessage: "Expiry date",
         id: "STDYoR",
@@ -227,12 +254,12 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
           "Title of the 'Expiry date' column for the table on view-user page",
       }),
     }),
-  ] as ColumnDef<PoolCandidate>[];
+  ] as ColumnDef<PoolStatusTablePoolCandidate>[];
 
   const data = user.poolCandidates?.filter(notEmpty) ?? [];
 
   return (
-    <Table<PoolCandidate>
+    <Table<PoolStatusTablePoolCandidate>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
         id: "ptOxLJ",

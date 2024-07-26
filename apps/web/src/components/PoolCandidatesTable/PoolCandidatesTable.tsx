@@ -739,10 +739,12 @@ const PoolCandidatesTable = ({
           },
         }) =>
           candidateNameCell(
-            poolCandidate,
+            poolCandidate.id,
             paths,
             intl,
             candidateIdsFromFilterData,
+            poolCandidate.user.firstName,
+            poolCandidate.user.lastName,
           ),
         meta: {
           isRowTitle: true,
@@ -879,7 +881,13 @@ const PoolCandidatesTable = ({
         row: {
           original: { poolCandidate },
         },
-      }) => notesCell(poolCandidate, intl),
+      }) =>
+        notesCell(
+          intl,
+          poolCandidate.notes,
+          poolCandidate.user.firstName,
+          poolCandidate.user.lastName,
+        ),
     }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>

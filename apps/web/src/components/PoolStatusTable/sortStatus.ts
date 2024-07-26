@@ -1,6 +1,8 @@
 import { SortingFnOption } from "@tanstack/react-table";
 
-import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+
+import { PoolStatusTablePoolCandidate } from "./types";
 
 const sortOrder = [
   PoolCandidateStatus.PlacedIndeterminate,
@@ -25,7 +27,7 @@ const sortOrder = [
 ];
 
 // eslint-disable-next-line import/prefer-default-export
-const sortStatus: SortingFnOption<PoolCandidate> = (
+const sortStatus: SortingFnOption<PoolStatusTablePoolCandidate> = (
   { original: a },
   { original: b },
 ) => {
