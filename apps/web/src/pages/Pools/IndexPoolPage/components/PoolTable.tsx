@@ -443,7 +443,13 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       data={filteredData}
       columns={columns}
       isLoading={fetching}
-      hiddenColumnIds={["id", "createdDate", "ownerEmail", "ownerName"]}
+      hiddenColumnIds={[
+        "id",
+        "publishedAt",
+        "createdDate",
+        "ownerEmail",
+        "ownerName",
+      ]}
       search={{
         internal: false,
         label: intl.formatMessage({
