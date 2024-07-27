@@ -188,8 +188,14 @@ const filterCandidatesByDecision = (
   return results.filter((result) => result.decision === assessmentDecision);
 };
 
+// define the type for an assessment step nested in the fragment
+const stepTrackerFragmentSteps: AssessmentStepTrackerPoolType["assessmentSteps"] =
+  [];
+const unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
+type StepTrackerFragmentStepType = (typeof unpackedSteps)[number];
+
 type StepWithGroupedCandidates = {
-  step: Pick<AssessmentStep, "id" | "type" | "title">;
+  step: StepTrackerFragmentStepType;
   resultCounts?: ResultDecisionCounts;
   results: CandidateAssessmentResult[];
 };
@@ -224,7 +230,12 @@ export const groupPoolCandidatesByStep = (
         });
 
       return {
-        step: { id: step.id, type: step.type, title: step.title },
+        step: {
+          id: step.id,
+          type: step.type,
+          title: step.title,
+          sortOrder: step.sortOrder,
+        },
         results: stepCandidates,
         resultCounts: {
           [NO_DECISION]: filterCandidatesByDecision(stepCandidates, NO_DECISION)
