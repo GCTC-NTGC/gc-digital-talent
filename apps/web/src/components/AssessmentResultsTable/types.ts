@@ -3,13 +3,13 @@ import { IntlShape } from "react-intl";
 import { JSX } from "react";
 
 import {
-  AssessmentStep,
   Maybe,
   PoolSkill,
   Skill,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {
   skill?: Maybe<Pick<Skill, "id" | "name" | "category" | "key">>;
@@ -22,15 +22,18 @@ export type AssessmentTableRow = {
 
 export type AssessmentTableRowColumn = ColumnDef<AssessmentTableRow>;
 
-export type AssessmentStepForTableRow = Pick<
-  AssessmentStep,
-  "id" | "type" | "title"
-> & { poolSkills?: Maybe<Maybe<Pick<PoolSkill, "id">>[]> };
+const assessmentResultsTableFragmentSteps: AssessmentResultsTableFragmentType["pool"]["assessmentSteps"] =
+  [];
+const assessmentResultsTableFragmentStepsUnpacked = unpackMaybes(
+  assessmentResultsTableFragmentSteps,
+);
+export type AssessmentResultsTableFragmentStepType =
+  (typeof assessmentResultsTableFragmentStepsUnpacked)[number];
 
 export type AssessmentTableRowColumnProps = {
   id: string;
   poolCandidate: AssessmentResultsTableFragmentType;
-  assessmentStep: AssessmentStepForTableRow;
+  assessmentStep: AssessmentResultsTableFragmentStepType;
   intl: IntlShape;
   header: JSX.Element;
 };

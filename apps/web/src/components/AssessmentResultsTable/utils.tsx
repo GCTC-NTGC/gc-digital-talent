@@ -152,12 +152,9 @@ export const buildColumn = ({
   intl,
   header,
 }: AssessmentTableRowColumnProps): AssessmentTableRowColumn => {
-  const assessmentResultsUnpacked = unpackMaybes(
-    poolCandidate.assessmentResults,
-  );
   return columnHelper.accessor(
-    () => {
-      const assessmentResult = assessmentResultsUnpacked.find(
+    ({ assessmentResults }) => {
+      const assessmentResult = unpackMaybes(assessmentResults).find(
         (ar) => ar.assessmentStep?.id === assessmentStep.id,
       );
       return getLocalizedName(
@@ -170,7 +167,7 @@ export const buildColumn = ({
       header: () => header,
       cell: ({
         row: {
-          original: { poolSkill },
+          original: { poolSkill, assessmentResults },
         },
       }) => {
         // Check if the pool skill (row) is associated with the assessment step (column)
@@ -181,7 +178,7 @@ export const buildColumn = ({
 
         // Check if an assessmentResult already exists on the assessment step, if show update dialog
         // Additionally, checks if it's the  education requirement cell
-        const assessmentResult = assessmentResultsUnpacked.find(
+        const assessmentResult = unpackMaybes(assessmentResults).find(
           (ar) => ar.assessmentStep?.id === assessmentStep.id,
         );
         if (assessmentResult || isEducationRequirement) {

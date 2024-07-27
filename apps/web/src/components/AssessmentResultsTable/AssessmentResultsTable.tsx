@@ -21,7 +21,10 @@ import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
-import { AssessmentStepForTableRow, AssessmentTableRow } from "./types";
+import {
+  AssessmentResultsTableFragmentStepType,
+  AssessmentTableRow,
+} from "./types";
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();
 
@@ -269,12 +272,12 @@ const AssessmentResultsTable = ({
   };
 
   // Sort the pools assessment steps then build columns for the poolCandidates assessment results
-  const sortedAssessmentSteps: AssessmentStepForTableRow[] =
+  const sortedAssessmentSteps: AssessmentResultsTableFragmentStepType[] =
     getOrderedSteps(assessmentSteps);
   const assessmentStepColumns = sortedAssessmentSteps.reduce(
     (
       accumulator: ColumnDef<AssessmentTableRow>[],
-      assessmentStep: AssessmentStepForTableRow,
+      assessmentStep: AssessmentResultsTableFragmentStepType,
     ) => {
       const type = assessmentStep.type?.value ?? null;
       const id = uniqueId("results-table-column");
