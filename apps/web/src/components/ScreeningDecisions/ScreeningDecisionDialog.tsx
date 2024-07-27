@@ -298,7 +298,7 @@ const SupportingEvidence = ({
 };
 
 interface ScreeningDecisionDialogProps {
-  assessmentStep: Pick<AssessmentStep, "type" | "title">;
+  assessmentStep?: Maybe<Pick<AssessmentStep, "type" | "title">>;
   assessmentResult?: Maybe<
     Pick<AssessmentResult, "assessmentDecision" | "assessmentDecisionLevel">
   >;
@@ -329,7 +329,7 @@ export const ScreeningDecisionDialog = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const dialogType = useDialogType(
-    educationRequirement ? undefined : { type: assessmentStep.type },
+    educationRequirement ? undefined : { type: assessmentStep?.type },
   );
   const skill = poolSkill?.skill ? poolSkill.skill : undefined;
   const skillLevel = getSkillLevelMessage(intl, {
