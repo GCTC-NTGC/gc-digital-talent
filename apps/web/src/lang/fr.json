@@ -3095,6 +3095,10 @@
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
   },
+  "FBSOkb": {
+    "defaultMessage": "Publié",
+    "description": "Title displayed on the Pool table published at column"
+  },
   "FC5tje": {
     "defaultMessage": "Autres commentaires",
     "description": "Label for additional comments textarea in the request form."
