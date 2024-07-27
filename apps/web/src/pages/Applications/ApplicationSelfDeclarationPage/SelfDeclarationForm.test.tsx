@@ -8,6 +8,7 @@ import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
 import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 
@@ -17,7 +18,9 @@ const mockClient = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
 
-const mockApplication = fakePoolCandidates(1)[0];
+const mockApplication = fakePoolCandidates(
+  1,
+)[0] as ApplicationPoolCandidateFragmentType;
 
 const mockCallback = jest.fn();
 
