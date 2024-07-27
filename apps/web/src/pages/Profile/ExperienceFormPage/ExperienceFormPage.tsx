@@ -127,6 +127,7 @@ export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
 const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormExperience on Experience {
     id
+    __typename
     details
     user {
       id
@@ -670,7 +671,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     : state?.experienceType || "";
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={fetching || !data} error={error}>
       {skills ? (
         <ExperienceForm
           edit={edit}

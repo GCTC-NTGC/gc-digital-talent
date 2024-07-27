@@ -68,22 +68,36 @@ const ClientProvider = ({
       client ??
       createClient({
         url: `${apiHost}${apiUri}`,
-        requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange({
             schema: introspectedSchema,
-            keys: {
-              /**
-               * `null` represents types with no guaranteed unique value
-               * so they cannot be cached. This suppresses the warnings from `urql`.
-               */
-              ExperienceSkillRecord: () => null,
-              LocalizedString: () => null,
-              CandidateSearchPoolResult: () => null,
-              SkillKeywords: () => null,
-              NotificationPaginator: () => null,
-              PaginatorInfo: () => null,
-            },
+            keys: new Proxy(
+              {
+                /**
+                 * `null` represents types with no guaranteed unique value
+                 * so they cannot be cached. This suppresses the warnings from `urql`.
+                 */
+                ExperienceSkillRecord: () => null,
+                LocalizedString: () => null,
+                LocalizedEnumString: () => null,
+                CandidateSearchPoolResult: () => null,
+                SkillKeywords: () => null,
+                NotificationPaginator: () => null,
+                PaginatorInfo: () => null,
+              },
+              {
+                get(target: Record<string, () => null | string>, prop: string) {
+                  if (
+                    prop.startsWith("Localized") ||
+                    prop.endsWith("Paginator")
+                  ) {
+                    return () => null;
+                  }
+                  const fallback = (data: { id?: string }) => data.id;
+                  return target[prop] || fallback;
+                },
+              },
+            ),
             logger(sev, msg) {
               logger.info(`Severity: ${sev}: ${msg}`);
             },
