@@ -302,7 +302,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
 
     private function secondLanguageAbility($section, $user)
     {
-        $heading = $this->localizeHeading('estimated_language_ability'.$this->strong);
+        $heading = $this->localizeHeading('estimated_language_ability', $this->strong);
 
         if ($user->second_language_exam_completed && ($user->comprehension_level || $user->written_level || $user->verbal_level)) {
             $section->addText($heading);
