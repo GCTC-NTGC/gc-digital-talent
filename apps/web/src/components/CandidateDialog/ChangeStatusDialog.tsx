@@ -17,11 +17,12 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   PoolStatus,
   Pool,
-  PoolCandidate,
   UpdatePoolCandidateStatusInput,
   graphql,
   PoolCandidateStatus,
   ChangeStatusDialog_UserFragment as ChangeStatusDialogUserFragmentType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
@@ -111,27 +112,64 @@ type FormValues = {
   additionalPools?: Pool["id"][];
 };
 
-export type ChangeStatusSelectedCandidateType = Pick<
-  PoolCandidate,
-  "id" | "expiryDate" | "status"
-> & {
-  pool: Pick<
-    Pool,
-    "id" | "stream" | "name" | "classification" | "publishingGroup"
-  >;
-};
+export const ChangeStatusDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment ChangeStatusDialog_PoolCandidate on PoolCandidate {
+    id
+    expiryDate
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    pool {
+      id
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
 
 interface ChangeStatusDialogProps {
-  selectedCandidate: ChangeStatusSelectedCandidateType;
+  selectedCandidateQuery: FragmentType<
+    typeof ChangeStatusDialog_PoolCandidateFragment
+  >;
   user: ChangeStatusDialogUserFragmentType;
 }
 
 const ChangeStatusDialog = ({
-  selectedCandidate,
+  selectedCandidateQuery,
   user,
 }: ChangeStatusDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
+  const selectedCandidate = getFragment(
+    ChangeStatusDialog_PoolCandidateFragment,
+    selectedCandidateQuery,
+  );
+
   const methods = useForm<FormValues>();
   const [{ data }] = useQuery({ query: PoolCandidateStatuses_Query });
 

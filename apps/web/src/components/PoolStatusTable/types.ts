@@ -1,19 +1,54 @@
-import {
-  Classification,
-  Maybe,
-  Pool,
-  PoolCandidate,
-  Team,
-} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
-export type PoolStatusTablePoolCandidate = Pick<
-  PoolCandidate,
-  "id" | "suspendedAt" | "expiryDate" | "status"
-> & {
-  pool: Pick<
-    Pool,
-    "id" | "stream" | "publishingGroup" | "processNumber" | "name"
-  > & { team?: Maybe<Pick<Team, "id" | "displayName">> } & {
-    classification?: Maybe<Pick<Classification, "id" | "group" | "level">>;
-  };
-};
+const PoolStatusTable_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment PoolStatusTable_PoolCandidate on PoolCandidate {
+    ...ChangeDateDialog_PoolCandidate
+    ...ChangeStatusDialog_PoolCandidate
+    id
+    suspendedAt
+    expiryDate
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    pool {
+      id
+      processNumber
+      team {
+        id
+        displayName {
+          en
+          fr
+        }
+      }
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
+
+export default PoolStatusTable_PoolCandidateFragment;
