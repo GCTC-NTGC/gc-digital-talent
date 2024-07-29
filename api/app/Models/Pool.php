@@ -554,44 +554,47 @@ class Pool extends Model
     }
 
     /**
-     * Filter for pools the user is allowed to admin, based around assessment plan permissions
+     * Filter for pools the user is allowed to admin, based on scopeAuthorizedToAdmin
      */
-    public static function scopeAuthorizedToAdmin(Builder $query, ?bool $canAdmin): Builder
+    public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): Builder
     {
-        if (empty($canAdmin)) {
-            return $query;
-        }
-
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        if (is_null($user)) {
-            return $query->where('id', null);
-        }
-
-        if (! $user->isAbleTo('view-any-assessmentPlan')) {
-            $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-team-assessmentPlan')) {
-                    // Only add teams the user can view pools in to the query for `whereHas`
-                    $teams = $user->rolesTeams()->get();
-                    $teamIds = [];
-                    foreach ($teams as $team) {
-                        if ($user->isAbleTo('view-team-assessmentPlan', $team)) {
-                            $teamIds[] = $team->id;
-                        }
-                    }
-
-                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    });
-                } else {
-                    return $query->where('id', null); // when the user can't see any assessment plans
-                }
-            }
-            );
+        if ($canAdmin) {
+            $query->scopeAuthorizedToAdmin();
         }
 
         return $query;
+    }
+
+    public static function scopeAuthorizedToAdmin(Builder $query): Builder
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        // if they can view any, then nothing filtered out
+        if ($user?->isAbleTo('view-any-assessmentPlan')) {
+            return $query;
+        }
+
+        // if they can view team plans, then filter by teams
+        if ($user?->isAbleTo('view-team-assessmentPlan')) {
+            return $query->where(function (Builder $query) use ($user) {
+                // Only add teams the user can view pools in to the query for `whereHas`
+                $teams = $user->rolesTeams()->get();
+                $teamIds = [];
+                foreach ($teams as $team) {
+                    if ($user->isAbleTo('view-team-assessmentPlan', $team)) {
+                        $teamIds[] = $team->id;
+                    }
+                }
+
+                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+            });
+        }
+
+        // the user can't see any assessment plans
+        return $query->where('id', null);
     }
 
     /**
