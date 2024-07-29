@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
-import { Alert, Heading, Pending } from "@gc-digital-talent/ui";
+import { Heading, Pending } from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Input,
@@ -28,6 +28,7 @@ import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import {
   formValuesToSubmitData,
@@ -35,9 +36,14 @@ import {
   GovernmentInfoFormFields,
 } from "./components/GovernmentInfoForm";
 
+const title = defineMessage({
+  defaultMessage: "Registration",
+  id: "VJjjnE",
+  description: "Page title for the registration pages",
+});
 const subTitle = defineMessage({
-  defaultMessage: "Let's begin with some basic account information.",
-  id: "f9UKuz",
+  defaultMessage: "Get started by completing your basic account information.",
+  id: "lkPTWR",
   description: "Subtitle for the create account page for applicant profiles.",
 });
 
@@ -89,12 +95,13 @@ export interface CreateAccountFormProps {
   handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
-export const CreateAccountForm = ({
+export const GettingStartedForm = ({
   cacheKey,
   query,
   handleCreateAccount,
 }: CreateAccountFormProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const govInfoLabels = getGovernmentInfoLabels(intl);
   const result = getFragment(CreateAccount_QueryFragment, query);
   const classifications = unpackMaybes(result?.classifications);
@@ -122,6 +129,15 @@ export const CreateAccountForm = ({
     }),
   };
 
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(title),
+        url: paths.gettingStarted(),
+      },
+    ],
+  });
+
   const handleSubmit = (values: FormValues) =>
     handleCreateAccount({
       firstName: values.firstName,
@@ -134,15 +150,10 @@ export const CreateAccountForm = ({
   return (
     <>
       <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create account",
-          id: "lPWUoO",
-          description: "Page title for the account creation page",
-        })}
+        title={intl.formatMessage(title)}
         description={intl.formatMessage(subTitle)}
       />
       <Hero
-        centered
         title={intl.formatMessage({
           defaultMessage: "Welcome to GC Digital Talent",
           id: "WVTDgX",
@@ -150,27 +161,10 @@ export const CreateAccountForm = ({
             "Title for the create account page for applicant profiles.",
         })}
         subtitle={intl.formatMessage(subTitle)}
+        crumbs={crumbs}
+        simpleCrumbs
       >
         <section data-h2-padding="base(0, 0, x3, 0)">
-          <Alert.Root type="success" live={false}>
-            <Alert.Title>
-              {intl.formatMessage({
-                defaultMessage: "You've successfully signed in",
-                id: "DeGAS5",
-                description:
-                  "Title for successful sign in alert in create account page.",
-              })}
-            </Alert.Title>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Welcome to the GC Digital Talent platform. Moving forward, you can sign in to your profile using the same GCKey username and password.",
-                id: "OBRGkE",
-                description:
-                  "Message for successful sign in alert in create account page",
-              })}
-            </p>
-          </Alert.Root>
           <div
             data-h2-background-color="base(foreground)"
             data-h2-radius="base(rounded)"
@@ -320,7 +314,7 @@ const CreateAccount_Mutation = graphql(/** GraphQL */ `
   }
 `);
 
-const CreateAccount = () => {
+const GettingStarted = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -397,7 +391,7 @@ const CreateAccount = () => {
 
   return (
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>
-      <CreateAccountForm
+      <GettingStartedForm
         cacheKey={`create-account-${meId}`}
         query={data}
         handleCreateAccount={onSubmit}
@@ -408,8 +402,8 @@ const CreateAccount = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <CreateAccount />
+    <GettingStarted />
   </RequireAuth>
 );
 
-export default CreateAccount;
+export default GettingStarted;
