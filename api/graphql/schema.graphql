@@ -1373,6 +1373,16 @@ input UpdateTeamInput {
   contactEmail: Email @rename(attribute: "contact_email")
 }
 
+input CreateCommunityInput {
+  key: String!
+    @rules(
+      apply: ["unique:communities,key"]
+      messages: [{ rule: "unique", message: "CommunityKeyInUse" }]
+    )
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
@@ -2169,6 +2179,9 @@ type Mutation {
     @deprecated(reason: "use updateUserRoles")
 
   # Communities mutations
+  createCommunity(community: CreateCommunityInput! @spread): Community
+    @create
+    @canModel(ability: "create")
   updateCommunity(
     id: UUID!
     community: UpdateCommunityInput! @spread

@@ -376,6 +376,7 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
   updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team @deprecated(reason: "use updateUserRoles")
+  createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
@@ -1374,6 +1375,12 @@ input UpdateTeamInput {
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
   contactEmail: Email
+}
+
+input CreateCommunityInput {
+  key: String!
+  name: LocalizedStringInput
+  description: LocalizedStringInput
 }
 
 input UpdateCommunityInput {

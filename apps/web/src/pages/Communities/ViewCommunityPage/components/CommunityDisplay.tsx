@@ -6,7 +6,7 @@ import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import labels from "./labels";
+import labels from "../../labels";
 
 interface CommunityDisplayProps {
   initialData: Community | null | undefined;

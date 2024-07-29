@@ -32,6 +32,26 @@ class CommunityPolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create(User $user)
+    {
+        return $user->isAbleTo('create-any-community');
+    }
+
+    /**
+     * Determine whether the user can update models.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update(User $user)
+    {
+        return $user->isAbleTo('update-any-community');
+    }
+
+    /**
      * Determine whether the user can view the team members of a specific communities team
      *
      * @return \Illuminate\Auth\Access\Response|bool

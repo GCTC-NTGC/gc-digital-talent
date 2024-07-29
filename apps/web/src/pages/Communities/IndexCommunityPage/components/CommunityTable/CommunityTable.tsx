@@ -122,7 +122,7 @@ export const CommunityTable = ({
       }}
       add={{
         linkProps: {
-          href: "", // TODO: paths.communityCreate(),
+          href: paths.communityCreate(),
           label: intl.formatMessage({
             defaultMessage: "Create community",
             id: "NGfVNB",

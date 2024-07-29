@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
-import labels from "./labels";
+import labels from "../../labels";
 
 type FormValues = {
   key: string;
