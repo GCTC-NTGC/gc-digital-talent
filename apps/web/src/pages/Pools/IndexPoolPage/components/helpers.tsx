@@ -175,6 +175,7 @@ export function getOrderByClause(
     ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
+    ["publishedAt", "published_at"],
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
     ["classification", "classification"],

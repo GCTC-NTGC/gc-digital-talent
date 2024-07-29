@@ -3,6 +3,7 @@ import path from "path-browserify";
 interface ApiRoutes {
   login: (from?: string, locale?: string) => string;
   refreshAccessToken: () => string;
+  userGeneratedFile: (fileName: string) => string;
 }
 
 const isDevServer =
@@ -29,6 +30,10 @@ const apiRoutes = {
   },
   refreshAccessToken: (): string =>
     apiHost ? new URL("refresh", apiHost).toString() : "/refresh",
+  userGeneratedFile: (fileName: string): string => {
+    const filePath = `api/user-generated-files/${fileName}`;
+    return apiHost ? new URL(filePath, apiHost).toString() : `/${filePath}`;
+  },
 };
 export default apiRoutes;
 
