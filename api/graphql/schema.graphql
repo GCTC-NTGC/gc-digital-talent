@@ -391,7 +391,8 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
-  finalDecision: LocalizedFinalDecision @rename(attribute: "computed_final_decision")
+  finalDecision: LocalizedFinalDecision
+    @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
@@ -975,6 +976,7 @@ type Query {
     @canModel(ability: "view")
   genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
 
+  community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
@@ -1351,6 +1353,12 @@ input UpdateTeamInput {
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
+}
+
+input UpdateCommunityInput {
+  key: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
 }
 
 input CreateApplicantFilterInput {
@@ -2141,6 +2149,12 @@ type Mutation {
     @guard
     @canFind(ability: "assignTeamMembers", find: "teamId")
     @deprecated(reason: "use updateUserRoles")
+
+  # Communities mutations
+  updateCommunity(
+    id: UUID!
+    community: UpdateCommunityInput! @spread
+  ): Community @update @canModel(ability: "update") @validator
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user

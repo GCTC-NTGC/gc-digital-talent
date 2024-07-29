@@ -67,6 +67,14 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description: "Error message that the given team name is already in use.",
     },
 
+    // community validation
+    CommunityKeyInUse: {
+      defaultMessage: "This community key is already in use",
+      id: "C/2HT9",
+      description:
+        "Error message that the given community key is already in use",
+    },
+
     // department validation
     DepartmentNumberInUse: {
       defaultMessage: "This department number is already in use",

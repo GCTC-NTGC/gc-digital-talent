@@ -221,6 +221,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  community(id: UUID!): Community
   communities: [Community]!
   team(id: UUID!): Team
   teams: [Team]!
@@ -375,6 +376,7 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
   updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team @deprecated(reason: "use updateUserRoles")
+  updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -1355,6 +1357,12 @@ input UpdateTeamInput {
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
   contactEmail: Email
+}
+
+input UpdateCommunityInput {
+  key: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
 }
 
 input CreateApplicantFilterInput {

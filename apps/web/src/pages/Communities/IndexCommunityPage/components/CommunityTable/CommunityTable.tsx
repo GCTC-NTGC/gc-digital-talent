@@ -68,7 +68,7 @@ export const CommunityTable = ({
         header: intl.formatMessage(adminMessages.community),
         cell: ({ row: { original: community }, getValue }) =>
           viewCell(
-            community.id, // TODO: paths.communityView(community.id),
+            paths.communityView(community.id),
             getValue(),
             intl,
             currentUrl,

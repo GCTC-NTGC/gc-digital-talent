@@ -492,6 +492,19 @@ const createRoute = (locale: Locales) =>
                       "../pages/Communities/IndexCommunityPage/IndexCommunityPage"
                     ),
                 },
+                {
+                  path: ":communityId",
+                  lazy: () => import("../pages/Communities/CommunityLayout"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/ViewCommunityPage/ViewCommunityPage"
+                        ),
+                    },
+                  ],
+                },
               ],
             },
             {
