@@ -20,6 +20,7 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
+  PoolCandidate,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -145,9 +146,10 @@ export const ViewPoolCandidate = ({
   const paths = useRoutes();
 
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
-  const snapshotCandidate = parsedSnapshot?.poolCandidates
-    ?.filter(notEmpty)
-    .find(({ id }) => id === poolCandidate.id);
+  const snapshotCandidate: PoolCandidate | undefined =
+    parsedSnapshot?.poolCandidates
+      ?.filter(notEmpty)
+      .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
