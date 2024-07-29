@@ -4247,6 +4247,10 @@
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
   },
+  "LOjdrP": {
+    "defaultMessage": "Collectivité",
+    "description": "Title for community"
+  },
   "LTpCFL": {
     "defaultMessage": "À propos de nous",
     "description": "Title for about us section on a pool advertisement."
@@ -9185,6 +9189,10 @@
   "m+411R": {
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
+  },
+  "m0iNdp": {
+    "defaultMessage": "Choisir une collectivité",
+    "description": "Null selection for community select input."
   },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
