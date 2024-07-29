@@ -899,6 +899,29 @@ const PoolCandidatesTable = ({
         ),
       },
     ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
+        },
+      }) => {
+        const arr = [];
+        if (lookingForEnglish) {
+          arr.push(intl.formatMessage(commonMessages.english));
+        }
+        if (lookingForFrench) {
+          arr.push(intl.formatMessage(commonMessages.french));
+        }
+        if (lookingForBilingual) {
+          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
+        }
+        return arr.join(", ");
+      },
+      {
+        id: "languageAbility",
+        header: intl.formatMessage(commonMessages.workingLanguageAbility),
+      },
+    ),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
       header: intl.formatMessage(tableMessages.skillCount),
