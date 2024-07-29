@@ -1,7 +1,11 @@
 import type { StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
-import AssessmentResultsTable from "./AssessmentResultsTable";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
+
+import AssessmentResultsTable, {
+  AssessmentResultsTable_Fragment,
+} from "./AssessmentResultsTable";
 import { testPoolCandidate } from "./testData";
 
 faker.seed(0);
@@ -18,5 +22,8 @@ const Template: StoryFn<typeof AssessmentResultsTable> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  poolCandidate,
+  poolCandidateQuery: makeFragmentData(
+    poolCandidate,
+    AssessmentResultsTable_Fragment,
+  ),
 };

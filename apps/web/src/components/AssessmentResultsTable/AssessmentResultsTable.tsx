@@ -7,7 +7,9 @@ import {
   AssessmentResult,
   AssessmentResultType,
   AssessmentStep,
-  PoolCandidate,
+  FragmentType,
+  getFragment,
+  graphql,
   PoolSkill,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
@@ -25,15 +27,193 @@ import { AssessmentTableRow } from "./types";
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();
 
+export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentResultsTable on PoolCandidate {
+    id
+    profileSnapshot
+    assessmentStatus {
+      currentStep
+      overallAssessmentStatus
+    }
+    user {
+      id
+    }
+    assessmentResults {
+      id
+      assessmentDecision {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentDecisionLevel {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentResultType
+      assessmentStep {
+        id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        title {
+          en
+          fr
+        }
+      }
+      justifications {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentDecisionLevel {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      skillDecisionNotes
+      poolSkill {
+        id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        requiredLevel
+        skill {
+          id
+          key
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
+      }
+    }
+    pool {
+      id
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      classification {
+        id
+        group
+        level
+      }
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentSteps {
+        id
+        title {
+          en
+          fr
+        }
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        sortOrder
+        poolSkills {
+          id
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+        }
+      }
+      poolSkills {
+        id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        skill {
+          id
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 interface AssessmentResultsTableProps {
-  poolCandidate: PoolCandidate;
+  poolCandidateQuery: FragmentType<typeof AssessmentResultsTable_Fragment>;
 }
 
 const AssessmentResultsTable = ({
-  poolCandidate,
+  poolCandidateQuery,
 }: AssessmentResultsTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const poolCandidate = getFragment(
+    AssessmentResultsTable_Fragment,
+    poolCandidateQuery,
+  );
 
   // Get assessment steps from pool
   const assessmentSteps: Array<AssessmentStep> = unpackMaybes(

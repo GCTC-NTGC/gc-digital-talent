@@ -2,6 +2,8 @@
 
 return [
     'other' => 'Other',
+    'yes' => 'Yes',
+    'no' => 'No',
     'english_only' => 'English only',
     'french_only' => 'French only',
     'expired' => 'Expired',

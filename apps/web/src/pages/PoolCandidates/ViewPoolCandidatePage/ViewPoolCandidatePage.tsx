@@ -57,6 +57,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
       ...ClaimVerification
+      ...AssessmentResultsTable
       id
       status {
         value
@@ -75,6 +76,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       user {
         ...ApplicationProfileDetails
         ...ProfileDocument
+        ...PoolStatusTable
+        ...ChangeStatusDialog_User
         id
         firstName
         lastName
@@ -175,32 +178,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               }
             }
           }
-        }
-        userSkills {
-          id
-          user {
-            id
-          }
-          skill {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category {
-              value
-              label {
-                en
-                fr
-              }
-            }
-          }
-          skillLevel
         }
         experiences {
           id
@@ -519,28 +496,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           }
           user {
             id
-            userSkills {
-              id
-              user {
-                id
-              }
-              skill {
-                id
-                key
-                name {
-                  en
-                  fr
-                }
-                category {
-                  value
-                  label {
-                    en
-                    fr
-                  }
-                }
-              }
-              skillLevel
-            }
           }
         }
         assessmentDecision {
@@ -810,7 +765,7 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidate={poolCandidate} />
+              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
@@ -835,7 +790,7 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable user={poolCandidate.user} />
+                        <PoolStatusTable userQuery={poolCandidate.user} />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>

@@ -1,16 +1,16 @@
 import { useIntl } from "react-intl";
 
 import { Heading, HeadingRank } from "@gc-digital-talent/ui";
-import { UserSkill } from "@gc-digital-talent/graphql";
+import { SkillShowcase_UserSkillFragment as SkillShowcaseUserSkillFragmentType } from "@gc-digital-talent/graphql";
 
 import SkillRankCard from "../SkillRankCard/SkillRankCard";
 
 interface SkillShowcaseSectionProps {
   headingLevel: HeadingRank;
-  topTechnicalSkillsRanking: UserSkill[];
-  topBehaviouralSkillsRanking: UserSkill[];
-  improveTechnicalSkillsRanking: UserSkill[];
-  improveBehaviouralSkillsRanking: UserSkill[];
+  topTechnicalSkillsRanking: SkillShowcaseUserSkillFragmentType[];
+  topBehaviouralSkillsRanking: SkillShowcaseUserSkillFragmentType[];
+  improveTechnicalSkillsRanking: SkillShowcaseUserSkillFragmentType[];
+  improveBehaviouralSkillsRanking: SkillShowcaseUserSkillFragmentType[];
 }
 
 const SkillShowcaseSection = ({

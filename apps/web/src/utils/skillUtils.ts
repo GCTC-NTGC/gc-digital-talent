@@ -226,6 +226,7 @@ export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
 
 /**
  * Filter poolSkills to get an array of essential or nonessential skills
+ * Type PoolSkill not constrained as a maybe array of maybes won't get checked either way without a more thorough refactor
  *
  * @param poolSkills PoolSkill[]
  * @param poolSkillType PoolSkillType
