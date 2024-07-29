@@ -142,11 +142,7 @@ const AssessmentResultsFilterDialog = ({
           name="languageAbility"
           enableNull
           nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-          label={intl.formatMessage({
-            defaultMessage: "Languages",
-            id: "iUAe/2",
-            description: "Label for language ability field",
-          })}
+          label={intl.formatMessage(commonMessages.workingLanguageAbility)}
           options={localizedEnumToOptions(data?.languageAbilities, intl)}
         />
         <Select

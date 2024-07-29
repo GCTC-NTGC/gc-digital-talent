@@ -47,6 +47,10 @@
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"
   },
+  "0NInjL": {
+    "defaultMessage": "Anglais",
+    "description": "Name of English language"
+  },
   "0OPWbJ": {
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
@@ -395,6 +399,10 @@
     "defaultMessage": "Modifier l’article {index}",
     "description": "Button text to edit an item from repeatable fields"
   },
+  "HEGXL7": {
+    "defaultMessage": "Compétence linguistique au travail",
+    "description": "Title displayed working language ability"
+  },
   "HGM0YR": {
     "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
     "description": "Indeterminate selection for government employee type."
@@ -450,6 +458,10 @@
   "JHgARn": {
     "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
     "description": "Text read out to assistive technology when over the word limit."
+  },
+  "JYpEeW": {
+    "defaultMessage": "Français",
+    "description": "Name of French language"
   },
   "Jpq6MK": {
     "defaultMessage": "Région de Québec (excluant Gatineau)",
@@ -966,6 +978,10 @@
   "jHYaw8": {
     "defaultMessage": "possède un travail par quarts.",
     "description": "The operational requirement described as shift work."
+  },
+  "jStpFw": {
+    "defaultMessage": "Bilingue (français et anglais)",
+    "description": "Name of Bilingual (English and French)"
   },
   "jqyjFm": {
     "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
