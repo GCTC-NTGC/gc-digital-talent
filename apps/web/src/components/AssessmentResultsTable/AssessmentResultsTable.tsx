@@ -10,8 +10,9 @@ import {
   getFragment,
   graphql,
   PoolSkillType,
+  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -35,9 +36,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
     assessmentStatus {
       currentStep
       overallAssessmentStatus
-    }
-    user {
-      id
     }
     assessmentResults {
       id
@@ -87,33 +85,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
       skillDecisionNotes
       poolSkill {
         id
-        type {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        requiredLevel
-        skill {
-          id
-          key
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-        }
       }
     }
     pool {
@@ -226,7 +197,9 @@ const AssessmentResultsTable = ({
   const poolSkills = unpackMaybes(poolCandidate?.pool?.poolSkills);
 
   // Get assessment results from pool candidate
-  const assessmentResults = unpackMaybes(poolCandidate?.assessmentResults);
+  const assessmentResultsMaybes: AssessmentResultsTableFragmentType["assessmentResults"] =
+    unpackMaybes(poolCandidate?.assessmentResults);
+  const assessmentResults = assessmentResultsMaybes.filter(notEmpty);
 
   // Create data for table containing pool skill with matching results and sort pool skills
   const assessmentTableRows: Array<AssessmentTableRow> = poolSkills

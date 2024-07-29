@@ -23,55 +23,8 @@ type RouteParams = {
 
 const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
-    me {
-      id
-      poolCandidates {
-        id
-        pool {
-          id
-        }
-        submittedAt
-      }
-    }
     pool(id: $id) {
       id
-      poolSkills {
-        id
-        type {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        skill {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-      }
-      generalQuestions {
-        id
-        question {
-          en
-          fr
-        }
-        sortOrder
-      }
     }
   }
 `);
