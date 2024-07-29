@@ -26,7 +26,9 @@ import classificationsAvailable from "~/constants/classificationsAvailableForSea
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
 export const getAvailableClassifications = (
-  pools: Pool[],
+  pools: (Pick<Pool, "id"> & {
+    classification?: Maybe<Pick<Classification, "id" | "group" | "level">>;
+  })[],
 ): Classification[] => {
   const classifications = pools
     ?.flatMap((pool) => pool?.classification)
@@ -225,7 +227,10 @@ export const formValuesToData = (
           .filter(
             (pool) =>
               selectedClassification === undefined || // If a classification hasn't been selected yet, do not filter out any pools.
-              poolMatchesClassification(pool, selectedClassification),
+              poolMatchesClassification(
+                { classification: pool.classification },
+                selectedClassification,
+              ),
           )
           .filter(
             (pool) =>

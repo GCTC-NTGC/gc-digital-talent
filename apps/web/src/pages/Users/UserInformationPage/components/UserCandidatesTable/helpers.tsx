@@ -15,6 +15,7 @@ import {
   AssessmentResultStatus,
   Scalars,
   PriorityWeight,
+  Classification,
   LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -105,11 +106,18 @@ export const priorityCell = (
 };
 
 export const processCell = (
-  pool: Pool,
+  pool: Pick<Pool, "id" | "stream" | "name" | "publishingGroup"> & {
+    classification?: Maybe<Pick<Classification, "group" | "level">>;
+  },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const poolName = getFullPoolTitleLabel(intl, pool);
+  const poolName = getFullPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
   return (
     <Link
       href={paths.poolView(pool.id)}

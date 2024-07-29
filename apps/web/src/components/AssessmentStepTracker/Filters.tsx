@@ -51,7 +51,6 @@ const Filters = ({
           data-h2-display="base(flex)"
           data-h2-align-items="base(flex-end)"
           data-h2-gap="base(x.5)"
-          data-h2-margin-bottom="base(x.5)"
         >
           <Input
             name="query"

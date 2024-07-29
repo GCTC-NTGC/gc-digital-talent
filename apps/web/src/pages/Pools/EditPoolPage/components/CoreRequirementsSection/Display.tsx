@@ -5,13 +5,17 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { EditPoolCoreRequirementsFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
 
-const Display = ({ pool, subtitle }: DisplayProps) => {
+const Display = ({
+  pool,
+  subtitle,
+}: DisplayProps<EditPoolCoreRequirementsFragment>) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);

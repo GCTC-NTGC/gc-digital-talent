@@ -1,7 +1,12 @@
 {
   "preset": "laravel",
-  "notName": ["_lighthouse_ide_helper.php"],
+  "notName": [
+    "_lighthouse_ide_helper.php"
+  ],
   "rules": {
-    "php_unit_method_casing": { "case": "camel_case" }
+    "php_unit_method_casing": {
+      "case": "camel_case"
+    },
+    "new_with_parentheses": false
   }
 }

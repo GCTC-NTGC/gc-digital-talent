@@ -16,12 +16,12 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   PoolStatus,
-  User,
   Pool,
   PoolCandidate,
   UpdatePoolCandidateStatusInput,
   graphql,
   PoolCandidateStatus,
+  ChangeStatusDialog_UserFragment as ChangeStatusDialogUserFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
@@ -47,6 +47,65 @@ const PoolCandidateStatuses_Query = graphql(/* GraphQL */ `
   }
 `);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const ChangeStatusDialog_UserFragment = graphql(/* GraphQL */ `
+  fragment ChangeStatusDialog_User on User {
+    firstName
+    lastName
+    poolCandidates {
+      id
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      expiryDate
+      notes
+      suspendedAt
+      user {
+        id
+      }
+      pool {
+        id
+        processNumber
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 type FormValues = {
   status: PoolCandidateStatus;
   additionalPools?: Pool["id"][];
@@ -54,7 +113,7 @@ type FormValues = {
 
 interface ChangeStatusDialogProps {
   selectedCandidate: PoolCandidate;
-  user: User;
+  user: ChangeStatusDialogUserFragmentType;
 }
 
 const ChangeStatusDialog = ({
@@ -160,9 +219,18 @@ const ChangeStatusDialog = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getShortPoolTitleHtml(intl, r.poolCandidate.pool, {
-                      defaultTitle: r.poolCandidate.id,
-                    })}
+                    {getShortPoolTitleHtml(
+                      intl,
+                      {
+                        stream: r.poolCandidate.pool.stream,
+                        name: r.poolCandidate.pool.name,
+                        publishingGroup: r.poolCandidate.pool.publishingGroup,
+                        classification: r.poolCandidate.pool.classification,
+                      },
+                      {
+                        defaultTitle: r.poolCandidate.id,
+                      },
+                    )}
                   </li>
                 ))}
               </ul>
@@ -198,7 +266,12 @@ const ChangeStatusDialog = ({
               },
               {
                 status: getLocalizedName(selectedCandidate.status?.label, intl),
-                poolName: getShortPoolTitleLabel(intl, selectedCandidate?.pool),
+                poolName: getShortPoolTitleLabel(intl, {
+                  stream: selectedCandidate.pool.stream,
+                  name: selectedCandidate.pool.name,
+                  publishingGroup: selectedCandidate.pool.publishingGroup,
+                  classification: selectedCandidate.pool.classification,
+                }),
               },
             )}
           </span>
@@ -233,7 +306,13 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            - {getShortPoolTitleHtml(intl, selectedCandidate?.pool)}
+            -{" "}
+            {getShortPoolTitleHtml(intl, {
+              stream: selectedCandidate.pool.stream,
+              name: selectedCandidate.pool.name,
+              publishingGroup: selectedCandidate.pool.publishingGroup,
+              classification: selectedCandidate.pool.classification,
+            })}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>

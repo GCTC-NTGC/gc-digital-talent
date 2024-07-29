@@ -199,6 +199,24 @@ type SystemNotification implements Notification {
   href: LocalizedString
 }
 
+type UserFileGeneratedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  fileName: String
+}
+
+type UserFileGenerationErrorNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  fileName: String
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
@@ -938,14 +956,13 @@ type Query {
         ]
       )
   ): [PoolCandidateWithSkillCount]!
+    @guard
     @paginate(
       defaultCount: 10
       maxCount: 1000
       scopes: ["notDraft", "withSkillCount", "authorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
-    @guard
-    @canResolved(ability: "view", model: "App\\Models\\PoolCandidate")
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
@@ -2211,6 +2228,9 @@ type Mutation {
   updateSitewideAnnouncement(
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
+
+  # File downloads
+  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
 }
 
 #import directiveForms.graphql

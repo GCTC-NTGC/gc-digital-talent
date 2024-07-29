@@ -7,7 +7,7 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { OperationContext, useClient, useQuery } from "urql";
+import { OperationContext, useClient, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 import DataLoader from "dataloader";
 
@@ -29,7 +29,9 @@ import {
   PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
+  Language,
 } from "@gc-digital-talent/graphql";
+import { Button } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -68,15 +70,14 @@ import {
   getPoolNameSort,
   getClaimVerificationSort,
 } from "./helpers";
-import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
+import {
+  actionButtonStyles,
+  rowSelectCell,
+} from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
-import {
-  getPoolCandidateCsvData,
-  getPoolCandidateCsvHeaders,
-} from "./poolCandidateCsv";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
@@ -410,6 +411,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesCsv($ids: [UUID!]!, $locale: Language) {
+    downloadPoolCandidatesCsv(ids: $ids, locale: $locale)
+  }
+`);
+
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
@@ -442,7 +449,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pool>;
+  currentPool?: Maybe<Pick<Pool, "id" | "generalQuestions" | "poolSkills">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -462,6 +469,10 @@ const PoolCandidatesTable = ({
   const initialFilters: PoolCandidateSearchInput = useMemo(
     () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
     [filtersEncoded, initialFilterInput],
+  );
+
+  const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
+    DownloadPoolCandidatesCsv_Mutation,
   );
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
@@ -607,6 +618,25 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
+  const handleDownloadError = () => {
+    toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
+  };
+
+  const handleCsvDownload = () => {
+    downloadCsv({
+      ids: selectedRows,
+      locale: locale === "fr" ? Language.Fr : Language.En,
+    })
+      .then((res) => {
+        if (res.data) {
+          toast.info(intl.formatMessage(commonMessages.preparingDownload));
+        } else {
+          handleDownloadError();
+        }
+      })
+      .catch(handleDownloadError);
+  };
+
   const isPoolCandidate = (
     candidate: Error | PoolCandidate | null,
   ): candidate is PoolCandidate =>
@@ -723,7 +753,13 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.accessor(
-            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            ({ poolCandidate: { pool } }) =>
+              getFullPoolTitleLabel(intl, {
+                stream: pool.stream,
+                name: pool.name,
+                publishingGroup: pool.publishingGroup,
+                classification: pool.classification,
+              }),
             {
               id: "process",
               header: intl.formatMessage(processMessages.process),
@@ -734,7 +770,18 @@ const PoolCandidatesTable = ({
                     poolCandidate: { pool },
                   },
                 },
-              }) => processCell(pool, paths, intl),
+              }) =>
+                processCell(
+                  {
+                    id: pool.id,
+                    stream: pool.stream,
+                    name: pool.name,
+                    publishingGroup: pool.publishingGroup,
+                    classification: pool.classification,
+                  },
+                  paths,
+                  intl,
+                ),
             },
           ),
           columnHelper.accessor(
@@ -985,29 +1032,21 @@ const PoolCandidatesTable = ({
             ),
           }),
       }}
-      download={{
-        disableBtn: isSelecting,
-        fetching: isSelecting && selectingFor === "download",
-        selection: {
-          csv: {
-            headers: getPoolCandidateCsvHeaders(intl, currentPool),
-            data: async () => {
-              const selected = await querySelected("download");
-              return getPoolCandidateCsvData(selected ?? [], intl);
-            },
-            fileName: intl.formatMessage(
-              {
-                defaultMessage: "pool_candidates_{date}.csv",
-                id: "aWsXoR",
-                description: "Filename for pool candidate CSV file download",
-              },
-              {
-                date: new Date().toISOString(),
-              },
-            ),
-          },
-        },
-      }}
+      asyncDownload={
+        <Button
+          {...actionButtonStyles}
+          onClick={handleCsvDownload}
+          disabled={downloadingCsv}
+          data-h2-font-weight="base(400)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Download CSV",
+            id: "mxOuYK",
+            description:
+              "Text label for button to download a csv file of items in a table.",
+          })}
+        </Button>
+      }
       print={{
         component: (
           <UserProfilePrintButton

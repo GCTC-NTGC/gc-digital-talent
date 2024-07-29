@@ -202,6 +202,15 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    isRemote
   }
 `);
 
@@ -252,11 +261,24 @@ export const EditPoolForm = ({
     description: "Description of a process' advertisement",
   });
 
-  const basicInfoHasError = poolNameError(pool) || closingDateError(pool);
+  const basicInfoHasError =
+    poolNameError({
+      classification: pool.classification,
+      department: pool.department,
+      stream: pool.stream,
+      name: pool.name,
+      processNumber: pool.processNumber,
+      publishingGroup: pool.publishingGroup,
+      opportunityLength: pool.opportunityLength,
+    }) ||
+    closingDateError({ closingDate: pool.closingDate, status: pool.status });
   const skillRequirementsHasError =
-    essentialSkillsError(pool) || nonessentialSkillsError(pool);
+    essentialSkillsError({ poolSkills: pool.poolSkills }) ||
+    nonessentialSkillsError({ poolSkills: pool.poolSkills });
   const aboutRoleHasError =
-    yourImpactError(pool) || keyTasksError(pool) || aboutUsError(pool);
+    yourImpactError({ yourImpact: pool.yourImpact }) ||
+    keyTasksError({ keyTasks: pool.keyTasks }) ||
+    aboutUsError({ aboutUs: pool.aboutUs });
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
       id: "basic-info",
@@ -277,7 +299,15 @@ export const EditPoolForm = ({
     },
     poolName: {
       id: "pool-name",
-      hasError: poolNameError(pool),
+      hasError: poolNameError({
+        classification: pool.classification,
+        department: pool.department,
+        stream: pool.stream,
+        name: pool.name,
+        processNumber: pool.processNumber,
+        publishingGroup: pool.publishingGroup,
+        opportunityLength: pool.opportunityLength,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Advertisement details",
         id: "KEm64j",
@@ -287,7 +317,10 @@ export const EditPoolForm = ({
     },
     closingDate: {
       id: "closing-date",
-      hasError: closingDateError(pool),
+      hasError: closingDateError({
+        closingDate: pool.closingDate,
+        status: pool.status,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Closing date",
         id: "I8jlr2",
@@ -297,7 +330,12 @@ export const EditPoolForm = ({
     },
     coreRequirements: {
       id: "core-requirements",
-      hasError: coreRequirementsError(pool),
+      hasError: coreRequirementsError({
+        language: pool.language,
+        securityClearance: pool.securityClearance,
+        location: pool.location,
+        isRemote: pool.isRemote,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Core requirements",
         id: "uWfG0e",
@@ -312,11 +350,18 @@ export const EditPoolForm = ({
         id: "+6tF6S",
         description: "Sub title for the special note section",
       }),
-      status: specialNoteIsNull(pool) ? "optional" : "success",
+      status: specialNoteIsNull({ specialNote: pool.specialNote })
+        ? "optional"
+        : "success",
     },
     educationRequirements: {
       id: "education-requirements",
-      hasError: educationRequirementIsNull(pool),
+      hasError: educationRequirementIsNull({
+        stream: pool.stream,
+        name: pool.name,
+        processNumber: pool.processNumber,
+        publishingGroup: pool.publishingGroup,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Minimum education",
         id: "Quwegl",
@@ -342,7 +387,7 @@ export const EditPoolForm = ({
     },
     essentialSkills: {
       id: "essential-skills",
-      hasError: essentialSkillsError(pool),
+      hasError: essentialSkillsError({ poolSkills: pool.poolSkills }),
       title: intl.formatMessage({
         defaultMessage: "Essential skill criteria",
         id: "xIniPc",
@@ -352,7 +397,7 @@ export const EditPoolForm = ({
     },
     assetSkills: {
       id: "asset-skills",
-      hasError: nonessentialSkillsError(pool),
+      hasError: nonessentialSkillsError({ poolSkills: pool.poolSkills }),
       title: intl.formatMessage({
         defaultMessage: "Asset skill criteria",
         id: "TE2Nwv",
@@ -379,7 +424,7 @@ export const EditPoolForm = ({
     },
     yourImpact: {
       id: "your-impact",
-      hasError: yourImpactError(pool),
+      hasError: yourImpactError({ yourImpact: pool.yourImpact }),
       title: intl.formatMessage({
         defaultMessage: "Your impact",
         id: "ry3jFR",
@@ -389,7 +434,7 @@ export const EditPoolForm = ({
     },
     workTasks: {
       id: "work-tasks",
-      hasError: keyTasksError(pool),
+      hasError: keyTasksError({ keyTasks: pool.keyTasks }),
       title: intl.formatMessage({
         defaultMessage: "Work tasks",
         id: "GXw2um",
@@ -409,7 +454,9 @@ export const EditPoolForm = ({
     },
     commonQuestions: {
       id: "common-questions",
-      hasError: whatToExpectAdmissionError(pool), // Add understanding classification (#8831) validation here
+      hasError: whatToExpectAdmissionError({
+        whatToExpectAdmission: pool.whatToExpectAdmission,
+      }), // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
         defaultMessage: "Common questions",
         id: "RahVQS",

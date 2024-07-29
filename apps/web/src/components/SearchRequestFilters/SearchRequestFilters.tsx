@@ -170,8 +170,13 @@ const ApplicantFilters = ({
             })}
             content={
               applicantFilter
-                ? applicantFilter?.pools?.map((pool) =>
-                    getShortPoolTitleHtml(intl, pool),
+                ? applicantFilter?.pools?.filter(notEmpty)?.map((pool) =>
+                    getShortPoolTitleHtml(intl, {
+                      stream: pool.stream,
+                      name: pool.name,
+                      publishingGroup: pool.publishingGroup,
+                      classification: pool.classification,
+                    }),
                   )
                 : null
             }
@@ -398,7 +403,14 @@ const SearchRequestFilters = ({
               })}
               content={
                 pools
-                  ? pools.map((pool) => getShortPoolTitleHtml(intl, pool))
+                  ? pools.map((pool) =>
+                      getShortPoolTitleHtml(intl, {
+                        stream: pool.stream,
+                        name: pool.name,
+                        publishingGroup: pool.publishingGroup,
+                        classification: pool.classification,
+                      }),
+                    )
                   : null
               }
             />

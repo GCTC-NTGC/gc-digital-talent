@@ -30,6 +30,13 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     name {
       en
       fr
@@ -56,7 +63,12 @@ const UpdatePublishedProcessDialog = ({
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const pool = getFragment(UpdatePublishedProcessDialog_Fragment, poolQuery);
-  const title = getShortPoolTitleHtml(intl, pool);
+  const title = getShortPoolTitleHtml(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
 
   const methods = useForm<FormValues>({
     defaultValues: {

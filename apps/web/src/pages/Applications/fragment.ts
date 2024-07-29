@@ -320,21 +320,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
             en
             fr
           }
-          experienceSkillRecord {
-            details
-          }
-          families {
-            id
-            key
-            description {
-              en
-              fr
-            }
-            name {
-              en
-              fr
-            }
-          }
         }
       }
       screeningQuestions {

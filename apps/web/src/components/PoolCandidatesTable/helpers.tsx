@@ -31,6 +31,7 @@ import {
   LocalizedProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByPoolColumn,
   PriorityWeight,
+  Classification,
   LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -115,11 +116,18 @@ export const candidateNameCell = (
 };
 
 export const processCell = (
-  pool: Pool,
+  pool: Pick<Pool, "id" | "stream" | "name" | "publishingGroup"> & {
+    classification?: Maybe<Pick<Classification, "group" | "level">>;
+  },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const poolName = getFullPoolTitleLabel(intl, pool);
+  const poolName = getFullPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
   return (
     <Link
       href={paths.poolView(pool.id)}
@@ -332,7 +340,7 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-  currentPool?: Maybe<Pool>,
+  currentPool?: Maybe<Pick<Pool, "id">>,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
@@ -354,7 +362,7 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  currentPool?: Maybe<Pool>,
+  currentPool?: Maybe<Pick<Pool, "id">>,
 ): Maybe<SortOrder> | undefined {
   if (!!currentPool && !!sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
@@ -408,9 +416,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             group
             level
           }
-        }
-        pool {
-          id
           poolSkills {
             skill {
               id
@@ -566,9 +571,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           topTechnicalSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key
@@ -590,9 +592,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           topBehaviouralSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key
@@ -614,9 +613,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           improveTechnicalSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key
@@ -638,9 +634,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           improveBehaviouralSkillsRanking {
             id
-            user {
-              id
-            }
             skill {
               id
               key

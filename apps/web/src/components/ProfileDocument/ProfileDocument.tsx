@@ -160,56 +160,6 @@ export const ProfileDocument_Fragment = graphql(/* GraphQL */ `
     hasDisability
     isVisibleMinority
     isWoman
-    poolCandidates {
-      id
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      expiryDate
-      notes
-      suspendedAt
-      user {
-        id
-      }
-      pool {
-        id
-        name {
-          en
-          fr
-        }
-        classification {
-          id
-          group
-          level
-        }
-        stream {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
-      }
-    }
     department {
       id
       departmentNumber
@@ -324,9 +274,6 @@ export const ProfileDocument_Fragment = graphql(/* GraphQL */ `
     }
     topTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -348,9 +295,6 @@ export const ProfileDocument_Fragment = graphql(/* GraphQL */ `
     }
     topBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -372,9 +316,6 @@ export const ProfileDocument_Fragment = graphql(/* GraphQL */ `
     }
     improveTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -396,9 +337,6 @@ export const ProfileDocument_Fragment = graphql(/* GraphQL */ `
     }
     improveBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
