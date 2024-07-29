@@ -58,6 +58,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...MoreActions
       ...ClaimVerification
       ...AssessmentResultsTable
+      ...ChangeStatusDialog_PoolCandidate
       id
       status {
         value
@@ -750,7 +751,7 @@ export const ViewPoolCandidate = ({
                 {intl.formatMessage(commonMessages.status)}
                 {intl.formatMessage(commonMessages.dividingColon)}
                 <ChangeStatusDialog
-                  selectedCandidate={poolCandidate}
+                  selectedCandidateQuery={poolCandidate}
                   user={poolCandidate.user}
                 />
               </p>
