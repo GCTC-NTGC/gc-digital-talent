@@ -449,7 +449,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "id" | "generalQuestions" | "poolSkills">>;
+  currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;

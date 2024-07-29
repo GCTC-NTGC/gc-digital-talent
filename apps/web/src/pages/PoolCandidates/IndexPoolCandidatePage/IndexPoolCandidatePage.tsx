@@ -122,8 +122,6 @@ export const IndexPoolCandidatePage = () => {
             currentPool
               ? {
                   id: currentPool.id,
-                  generalQuestions: currentPool.generalQuestions,
-                  poolSkills: currentPool.poolSkills,
                 }
               : null
           }
