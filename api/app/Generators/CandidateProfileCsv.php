@@ -27,6 +27,7 @@ class CandidateProfileCsv extends CsvGenerator
 
     protected array $generatedHeaders = [
         'general_questions' => [],
+        'screening_questions' => [],
         'skill_details' => [],
     ];
 
@@ -75,6 +76,8 @@ class CandidateProfileCsv extends CsvGenerator
 
     protected array $questionIds = [];
 
+    protected array $screeningQuestionIds = [];
+
     protected array $skillIds = [];
 
     public function __construct(array $ids, ?string $lang = 'en')
@@ -98,12 +101,14 @@ class CandidateProfileCsv extends CsvGenerator
             ...$localizedHeaders,
             Lang::get('headings.skills', [], $this->lang),
             ...$this->generatedHeaders['general_questions'] ?? [],
+            ...$this->generatedHeaders['screening_questions'] ?? [],
             ...$this->generatedHeaders['skill_details'] ?? [],
         ], null, 'A1');
         $currentCandidate = 1;
 
         PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
+            'screeningQuestionResponses' => ['screeningQuestion'],
             'educationRequirementExperiences',
             'user' => [
                 'department',
@@ -184,6 +189,16 @@ class CandidateProfileCsv extends CsvGenerator
                         }
                     }
 
+                    $candidateScreeningQuestionIds = $candidate->screeningQuestionResponses->pluck('screening_question_id')->toArray();
+                    foreach ($this->screeningQuestionIds as $questionId) {
+                        if (in_array($questionId, $candidateScreeningQuestionIds)) {
+                            $response = $candidate->screeningQuestionResponses->where('screening_question_id', $questionId)->first();
+                            $values[] = $this->sanitizeString($response->answer);
+                        } else {
+                            $values[] = '';
+                        }
+                    }
+
                     $candidateSkillIds = $candidate->user->userSkills->pluck('skill_id')->toArray();
                     foreach ($this->skillIds as $skillId) {
                         if (in_array($skillId, $candidateSkillIds)) {
@@ -218,7 +233,7 @@ class CandidateProfileCsv extends CsvGenerator
     private function generatePoolHeaders()
     {
 
-        Pool::with(['generalQuestions', 'poolSkills' => ['skill']])
+        Pool::with(['generalQuestions', 'screeningQuestions', 'poolSkills' => ['skill']])
             ->whereHas('poolCandidates', function ($query) {
                 $query->whereIn('id', $this->ids);
             })->chunk(100, function ($pools) {
@@ -227,6 +242,13 @@ class CandidateProfileCsv extends CsvGenerator
                         foreach ($pool->generalQuestions as $question) {
                             $this->questionIds[] = $question->id;
                             $this->generatedHeaders['general_questions'][] = $question->question[$this->lang];
+                        }
+                    }
+
+                    if ($pool->screeningQuestions->count() > 0) {
+                        foreach ($pool->screeningQuestions as $question) {
+                            $this->screeningQuestionIds[] = $question->id;
+                            $this->generatedHeaders['screening_questions'][] = $question->question[$this->lang];
                         }
                     }
 
