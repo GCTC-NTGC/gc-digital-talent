@@ -638,17 +638,22 @@ class Pool extends Model
 
     public function scopeAuthorizedToView(Builder $query)
     {
-
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        // can view any pool - return query with no filters added
+        if ($user?->isAbleTo('view-any-pool')) {
+            return $query;
         }
 
-        if (! $user->isAbleTo('view-any-pool')) {
-            $query->where(function (Builder $query) use ($user) {
-
+        // depending on privileges we want to filter for some pools
+        // these are the permissions checked in the following subquery
+        $hasSomePermission = $user?->isAbleTo([
+            'view-team-draftPool',
+            'view-any-publishedPool',
+        ]);
+        if ($hasSomePermission) {
+            return $query->where(function (Builder $query) use ($user) {
                 if ($user->isAbleTo('view-team-draftPool')) {
                     // Only add teams the user can view pools in to the query for `whereHas`
                     $teams = $user->rolesTeams()->get();
@@ -667,12 +672,11 @@ class Pool extends Model
                 if ($user->isAbleTo('view-any-publishedPool')) {
                     $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
                 }
-
-                return $query;
             });
         }
 
-        return $query;
+        // worst case - anyone can view a published pool
+        return $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
     }
 
     public static function getSelectableColumns()
