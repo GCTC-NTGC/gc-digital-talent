@@ -49,11 +49,12 @@ return [
     'education_requirement_experiences' => 'Education requirement experiences',
     'skills' => 'Skills',
     // Section headings
-    'candidate_profiles' => 'Candidate Profiles',
+    'candidate_profiles' => 'Candidate profiles',
     'contact_info' => 'Contact information',
     'general_info' => 'General information',
     'language_info' => 'Language information',
     'government_info' => 'Government information',
+    'work_preferences' => 'Work preferences',
     'dei' => 'Diversity, equity, inclusion',
     'career_timeline' => 'Career timeline',
     'screening_questions' => 'Screening questions',

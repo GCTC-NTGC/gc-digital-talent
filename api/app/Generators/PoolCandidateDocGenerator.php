@@ -91,7 +91,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                     $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
                     $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
 
-                    $section->addTitle($this->localizeHeading('location_preferences'), 4);
+                    $section->addTitle($this->localizeHeading('work_preferences'), 4);
                     $this->addLabelText($section, $this->localizeHeading('accept_temporary'), $this->yesOrNo($user->wouldAcceptTemporary()));
 
                     $preferences = $user->getOperationalRequirements();
