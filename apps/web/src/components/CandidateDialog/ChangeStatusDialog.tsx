@@ -158,9 +158,7 @@ const ChangeStatusDialog = ({
 
   // an array of the user's pool candidates and filter out all the nulls and maybes
   const userPoolCandidatesSafe = user.poolCandidates
-    ? user.poolCandidates.filter(notEmpty).map((poolCandidate) => {
-      return poolCandidate;
-    })
+    ? user.poolCandidates.filter(notEmpty).map((poolCandidate) => poolCandidate)
     : [];
 
   // all the user's pools by pool ID
