@@ -510,6 +510,13 @@ const createRoute = (locale: Locales) =>
                           "../pages/Communities/ViewCommunityPage/ViewCommunityPage"
                         ),
                     },
+                    {
+                      path: "manage-access",
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
+                        ),
+                    },
                   ],
                 },
               ],

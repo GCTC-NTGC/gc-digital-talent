@@ -31,7 +31,7 @@ type CommunityLayoutFragment = FragmentType<
   typeof CommunityLayout_CommunityFragment
 >;
 
-type PageNavKeys = "members" | "view" | "edit";
+type PageNavKeys = "manage-access" | "view" | "edit";
 
 interface CommunityHeaderProps {
   communityQuery: CommunityLayoutFragment;
@@ -57,6 +57,20 @@ const CommunityHeader = ({ communityQuery }: CommunityHeaderProps) => {
         }),
         link: {
           url: paths.communityView(community.id),
+        },
+      },
+    ],
+    [
+      "manage-access",
+      {
+        icon: ClipboardDocumentListIcon,
+        title: intl.formatMessage({
+          defaultMessage: "Manage access",
+          id: "J0i4xY",
+          description: "Title for members page",
+        }),
+        link: {
+          url: paths.communityManageAccess(community.id),
         },
       },
     ],
@@ -87,6 +101,7 @@ const CommunityLayoutCommunityName_Query = graphql(/* GraphQL */ `
   query CommunityName($id: UUID!) {
     community(id: $id) {
       ...CommunityLayout_Community
+      teamIdForRoleAssignment
     }
   }
 `);
@@ -113,7 +128,7 @@ const CommunityLayout = () => {
           <ThrowNotFound />
         )}
       </Pending>
-      <Outlet />
+      <Outlet context={{ teamId: data?.community?.teamIdForRoleAssignment }} />
     </>
   );
 };
@@ -121,7 +136,8 @@ const CommunityLayout = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
     ]}

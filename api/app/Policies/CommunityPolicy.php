@@ -60,6 +60,6 @@ class CommunityPolicy
     {
         $community->loadMissing('team');
 
-        return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $community->team);
+        return $user->isAbleTo('view-any-communityTeamMembers') || $user->isAbleTo('view-team-communityTeamMembers', $community->team);
     }
 }

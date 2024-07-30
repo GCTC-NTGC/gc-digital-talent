@@ -12,11 +12,13 @@ import {
   graphql,
   CommunityTable_CommunityFragment as CommunityTableCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import { checkRole } from "~/utils/teamUtils";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -98,6 +100,12 @@ export const CommunityTable = ({
     .map((abc) => getFragment(CommunityTable_CommunityFragment, abc))
     .filter(notEmpty);
 
+  const { roleAssignments } = useAuthorization();
+  const canCreateMembers = checkRole(
+    [ROLE_NAME.PlatformAdmin],
+    roleAssignments,
+  );
+
   return (
     <Table<CommunityTableCommunityFragmentType>
       caption={title}
@@ -120,24 +128,33 @@ export const CommunityTable = ({
           description: "Label for the communities table search input",
         }),
       }}
-      add={{
-        linkProps: {
-          href: paths.communityCreate(),
-          label: intl.formatMessage({
-            defaultMessage: "Create community",
-            id: "NGfVNB",
-            description: "Link text to create a community",
-          }),
-          from: currentUrl,
-        },
-      }}
-      nullMessage={{
-        description: intl.formatMessage({
-          defaultMessage: 'Use the "Create community" button to get started.',
-          id: "Cu+CH3",
-          description: "Instructions for adding a community item",
-        }),
-      }}
+      add={
+        canCreateMembers
+          ? {
+              linkProps: {
+                href: paths.communityCreate(),
+                label: intl.formatMessage({
+                  defaultMessage: "Create community",
+                  id: "NGfVNB",
+                  description: "Link text to create a community",
+                }),
+                from: currentUrl,
+              },
+            }
+          : undefined
+      }
+      nullMessage={
+        canCreateMembers
+          ? {
+              description: intl.formatMessage({
+                defaultMessage:
+                  'Use the "Create community" button to get started.',
+                id: "Cu+CH3",
+                description: "Instructions for adding a community item",
+              }),
+            }
+          : undefined
+      }
     />
   );
 };
