@@ -1066,7 +1066,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         // if there is a user - call child scope
         if (! is_null($user)) {
-            return $query->scopeAuthorizedToViewSpecific();
+            return $query->authorizedToViewSpecific();
         }
 
         // fall through - return nothing
@@ -1088,7 +1088,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         // if there is a user - use the child scope
         if (! is_null($user)) {
-            return $query->scopeAuthorizedToViewSpecific();
+            return $query->authorizedToViewSpecific();
         }
 
         // fall through - return nothing
