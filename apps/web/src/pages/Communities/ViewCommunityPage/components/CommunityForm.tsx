@@ -20,6 +20,8 @@ type FormValues = {
   descriptionFr: string;
 };
 
+const TEXT_AREA_MAX_WORDS = 200;
+
 const apiDataToFormValues = (
   apiData: UpdateCommunityInput | null | undefined,
 ): FormValues => ({
@@ -115,6 +117,7 @@ const CommunityForm = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          wordLimit={TEXT_AREA_MAX_WORDS}
         />
         <RichTextInput
           id="descriptionFr"
@@ -123,6 +126,7 @@ const CommunityForm = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          wordLimit={TEXT_AREA_MAX_WORDS}
         />
         <div
           data-h2-grid-column="base(span 2)"

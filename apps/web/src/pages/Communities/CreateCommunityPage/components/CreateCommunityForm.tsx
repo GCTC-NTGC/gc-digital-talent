@@ -29,6 +29,8 @@ type FormValues = {
   description?: Maybe<LocalizedStringInput>;
 };
 
+const TEXT_AREA_MAX_WORDS = 200;
+
 const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
   return {
     key: kebabCase(data.key || ""),
@@ -122,6 +124,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          wordLimit={TEXT_AREA_MAX_WORDS}
         />
         <RichTextInput
           id="description.fr"
@@ -130,6 +133,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          wordLimit={TEXT_AREA_MAX_WORDS}
         />
         <div
           data-h2-display="base(flex)"
