@@ -8,6 +8,7 @@
   "tasks": {
     "build": {
       "dependsOn": [
+        "tsc",
         "^intl-compile",
         "intl-compile",
         "^codegen"
