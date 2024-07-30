@@ -84,7 +84,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
-        }, $this->headerlocaleKeys);
+        }, $this->headerLocaleKeys);
         $this->generatePoolHeaders();
 
         $sheet->fromArray([

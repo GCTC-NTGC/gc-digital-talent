@@ -69,7 +69,7 @@ class FileGenerator
     }
 
     /**
-     * Diviing colon based on language
+     * Dividing colon based on language
      *
      * @return string
      */

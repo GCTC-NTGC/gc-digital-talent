@@ -40,7 +40,7 @@ return [
     'location_exemptions' => 'Location exemptions',
     'accept_temporary' => 'Accept temporary',
     'accepted_operational_requirements' => 'Accepted operational requirements',
-    'rejected_operational_requirements' => 'Would not conisder a job that requires: ',
+    'rejected_operational_requirements' => 'Would not consider a job that requires: ',
     'woman' => 'Woman',
     'indigenous' => 'Indigenous',
     'visible_minority' => 'Visible minority',
