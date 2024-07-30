@@ -74,7 +74,7 @@ class CandidateProfileCsv extends CsvGenerator
         'education_requirement_experiences',
     ];
 
-    protected array $questionIds = [];
+    protected array $generalQuestionIds = [];
 
     protected array $screeningQuestionIds = [];
 
@@ -180,7 +180,7 @@ class CandidateProfileCsv extends CsvGenerator
                     $values[] = implode(', ', $userSkills->toArray());
 
                     $candidateQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
-                    foreach ($this->questionIds as $questionId) {
+                    foreach ($this->generalQuestionIds as $questionId) {
                         if (in_array($questionId, $candidateQuestionIds)) {
                             $response = $candidate->generalQuestionResponses->where('general_question_id', $questionId)->first();
                             $values[] = $this->sanitizeString($response->answer);
@@ -240,7 +240,7 @@ class CandidateProfileCsv extends CsvGenerator
                 foreach ($pools as $pool) {
                     if ($pool->generalQuestions->count() > 0) {
                         foreach ($pool->generalQuestions as $question) {
-                            $this->questionIds[] = $question->id;
+                            $this->generalQuestionIds[] = $question->id;
                             $this->generatedHeaders['general_questions'][] = $question->question[$this->lang];
                         }
                     }
