@@ -1212,7 +1212,7 @@ class PoolCandidate extends Model
 
         if ($currentStep >= $totalSteps) {
             $lastStepDecision = end($decisions);
-            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
+            if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
