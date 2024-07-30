@@ -44,7 +44,6 @@ class CheckIntl extends Command
      * to have an associated string
      */
     private $knownMissing = [
-        'skill_accepted',
         'legacy_is_indigenous',
     ];
 
