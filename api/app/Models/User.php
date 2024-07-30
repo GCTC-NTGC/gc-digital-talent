@@ -1024,29 +1024,34 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // depending on privileges we want to filter for some models
+        // these are the permissions checked in the following subquery
+        $hasSomePermission = $user?->isAbleTo([
+            'view-team-applicantProfile',
+            'view-own-user',
+        ]);
+        if ($hasSomePermission) {
+            return $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo('view-team-applicantProfile')) {
+                    $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
+                        $teamIds = $user->rolesTeams()->get()->pluck('id');
+                        $query->whereHas('pool', function (Builder $query) use ($teamIds) {
+                            return $query
+                                ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                                ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
+                        });
+                    });
+                }
+                if ($user->isAbleTo('view-own-user')) {
+                    $query->orWhere('id', $user->id);
+                }
+            });
         }
 
-        $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-team-applicantProfile')) {
-                $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
-                    $teamIds = $user->rolesTeams()->get()->pluck('id');
-                    $query->whereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query
-                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
-                            });
-                    });
-                });
-            }
-            if ($user->isAbleTo('view-own-user')) {
-                $query->orWhere('id', $user->id);
-            }
-        });
-
-        return $query;
+        // fall through - return nothing
+        return $query->where('id', null);
     }
 
     public function scopeAuthorizedToView(Builder $query)
@@ -1054,15 +1059,18 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // can see any user - return with no filters added
+        if ($user?->isAbleTo('view-any-user')) {
+            return $query;
         }
 
-        if (! $user->isAbleTo('view-any-user')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
+        // if there is a user - call child scope
+        if (! is_null($user)) {
+            return $query->scopeAuthorizedToViewSpecific();
         }
 
-        return $query;
+        // fall through - return nothing
+        return $query->where('id', null);
     }
 
     public function scopeAuthorizedToViewBasicInfo(Builder $query)
@@ -1070,15 +1078,21 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // can see any basic info - return with no filters added
+        if ($user?->isAbleTo([
+            'view-any-user',
+            'view-any-userBasicInfo',
+        ])) {
+            return $query;
         }
 
-        if (! $user->isAbleTo('view-any-user') && ! $user->isAbleTo('view-any-userBasicInfo')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
+        // if there is a user - use the child scope
+        if (! is_null($user)) {
+            return $query->scopeAuthorizedToViewSpecific();
         }
 
-        return $query;
+        // fall through - return nothing
+        return $query->where('id', null);
     }
 
     /**
