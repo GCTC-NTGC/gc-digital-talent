@@ -361,6 +361,7 @@ const CreatePoolPage = () => {
   const roleAssignments =
     unpackMaybes(data?.me?.authInfo?.roleAssignments) ?? [];
   const teamsArray = roleAssignmentsToTeams(roleAssignments);
+  const teamsArrayFiltered = teamsArray.filter((team) => !!team.displayName); // filter out lacking a display name as a proxy for new teams TODO #10368
 
   const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
@@ -409,7 +410,7 @@ const CreatePoolPage = () => {
             departmentsQuery={unpackMaybes(data?.departments)}
             communitiesQuery={unpackMaybes(data?.communities)}
             handleCreatePool={handleCreatePool}
-            teamsArray={teamsArray}
+            teamsArray={teamsArrayFiltered}
           />
         </Pending>
       </AdminContentWrapper>
