@@ -719,52 +719,46 @@ class PoolCandidate extends Model
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
-        }
+        // depending on privileges we want to filter for some candidates
+        // these are the permissions checked in the following subquery
+        $hasSomePermission = $user?->isAbleTo([
+            'view-any-submittedApplication',
+            'view-team-submittedApplication',
+            'view-own-application',
+        ]);
+        if ($hasSomePermission) {
+            return $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo('view-any-submittedApplication')) {
+                    $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
+                }
 
-        $hasSomePermission = $user->isAbleTo('view-own-application')
-            || $user->isAbleTo('view-team-submittedApplication')
-            || $user->isAbleTo('view-any-submittedApplication');
+                if ($user->isAbleTo('view-team-submittedApplication')) {
+                    $allTeam = $user->rolesTeams()->get();
+                    $teamIds = $allTeam->filter(function ($team) use ($user) {
+                        return $user->isAbleTo('view-team-submittedApplication', $team);
+                    })->pluck('id');
 
-        // User does not have any of the required permissions
-        if (! $hasSomePermission) {
-            return $query->where('id', null);
-        }
-
-        $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-any-submittedApplication')) {
-                $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
-            }
-
-            if ($user->isAbleTo('view-team-submittedApplication')) {
-                $allTeam = $user->rolesTeams()->get();
-                $teamIds = $allTeam->filter(function ($team) use ($user) {
-                    return $user->isAbleTo('view-team-submittedApplication', $team);
-                })->pluck('id');
-
-                $query->orWhere(function (Builder $query) use ($teamIds) {
-                    $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->whereHas('pool', function (Builder $query) use ($teamIds) {
-                            return $query->where(function (Builder $query) use ($teamIds) {
+                    $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->where(function (Builder $query) use ($teamIds) {
                                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                                     return $query->whereIn('id', $teamIds);
                                 })->orWhereHas('team', function (Builder $query) use ($teamIds) {
                                     return $query->whereIn('id', $teamIds);
-                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
                                 });
                             });
-                        });
-                });
-            }
+                    });
+                }
 
-            if ($user->isAbleTo('view-own-application')) {
-                $query->orWhere('user_id', $user->id);
-            }
-        });
+                if ($user->isAbleTo('view-own-application')) {
+                    $query->orWhere('user_id', $user->id);
+                }
+            });
+        }
 
-        return $query;
+        // worst case - can't see anything
+        return $query->where('id', null);
     }
 
     /**
