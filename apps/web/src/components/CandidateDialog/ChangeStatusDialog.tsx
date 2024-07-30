@@ -380,11 +380,11 @@ const ChangeStatusDialog = ({
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
-                      defaultMessage: "Change status",
-                      id: "iuve97",
-                      description:
-                        "Confirmation button for change status dialog",
-                    })}
+                        defaultMessage: "Change status",
+                        id: "iuve97",
+                        description:
+                          "Confirmation button for change status dialog",
+                      })}
                 </Button>
                 <Dialog.Close>
                   <Button type="button" color="warning" mode="inline">
