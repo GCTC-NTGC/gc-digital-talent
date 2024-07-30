@@ -14,6 +14,8 @@ import {
   Heading,
   Dialog,
   Link,
+  commonStyles as sideMenuStyles,
+  SideMenuItemChildren,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -160,7 +162,7 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
-const NotificationDialog = () => {
+const NotificationDialog = ({ sideMenu }: { sideMenu?: boolean }) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -173,17 +175,34 @@ const NotificationDialog = () => {
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
       <DialogPrimitive.Trigger asChild>
-        <Button
-          mode="icon_only"
-          color="black"
-          icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-          data-h2-position="base(relative)"
-          aria-label={intl.formatMessage({
-            defaultMessage: "View notifications",
-            id: "ztx8xL",
-            description: "Button text to open the notifications dialog",
-          })}
-        />
+        {sideMenu ? (
+          <Button
+            mode="text"
+            data-h2-position="base(relative)"
+            data-h2-margin-top="base(-x1)"
+            {...sideMenuStyles}
+          >
+            <SideMenuItemChildren
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+            >
+              {intl.formatMessage(notificationMessages.title)}
+            </SideMenuItemChildren>
+          </Button>
+        ) : (
+          <Button
+            mode="icon_only"
+            color="black"
+            icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
+            data-h2-position="base(relative)"
+            aria-label={intl.formatMessage({
+              defaultMessage: "View notifications",
+              id: "ztx8xL",
+              description: "Button text to open the notifications dialog",
+            })}
+          />
+        )}
       </DialogPrimitive.Trigger>
       <AnimatePresence initial={false}>
         {isOpen && <DialogPortalWithPresence executeQuery={executeQuery} />}

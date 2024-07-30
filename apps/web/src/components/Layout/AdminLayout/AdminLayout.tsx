@@ -15,8 +15,13 @@ import {
   SideMenuItem,
 } from "@gc-digital-talent/ui";
 import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import {
+  ROLE_NAME,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
@@ -27,6 +32,7 @@ import { checkRole } from "~/utils/teamUtils";
 import pageTitles from "~/messages/pageTitles";
 import pageIcons from "~/utils/pageIcons";
 import useErrorMessages from "~/hooks/useErrorMessages";
+import NotificationDialog from "~/components/NotificationDialog/NotificationDialog";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
@@ -68,6 +74,8 @@ export const Component = () => {
   useLayoutTheme("default");
   const isSmallScreen = useIsSmallScreen();
   const { roleAssignments } = useAuthorization();
+  const { loggedIn } = useAuthentication();
+  const { notifications } = useFeatureFlags();
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
@@ -126,12 +134,15 @@ export const Component = () => {
             ],
             roleAssignments,
           ) && (
-            <SideMenuItem
-              href={paths.adminDashboard()}
-              icon={pageIcons.dashboard.outline}
-            >
-              {intl.formatMessage(pageTitles.dashboard)}
-            </SideMenuItem>
+            <>
+              <SideMenuItem
+                href={paths.adminDashboard()}
+                icon={pageIcons.dashboard.outline}
+              >
+                {intl.formatMessage(pageTitles.dashboard)}
+              </SideMenuItem>
+              {notifications && loggedIn && <NotificationDialog sideMenu />}
+            </>
           )}
           <SideMenuCategory
             title={intl.formatMessage({
