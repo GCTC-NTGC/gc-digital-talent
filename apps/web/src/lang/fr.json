@@ -2103,6 +2103,10 @@
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
   },
+  "9aW0M6": {
+    "defaultMessage": "Ministère",
+    "description": "Title for department"
+  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -4242,6 +4246,10 @@
   "LOhcO4": {
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
+  },
+  "LOjdrP": {
+    "defaultMessage": "Collectivité",
+    "description": "Title for community"
   },
   "LTpCFL": {
     "defaultMessage": "À propos de nous",
@@ -8130,10 +8138,6 @@
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
   },
-  "gN5gy5": {
-    "defaultMessage": "Groupe et niveau de départ",
-    "description": "Label displayed on the pool form classification field."
-  },
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
@@ -9186,6 +9190,10 @@
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
   },
+  "m0iNdp": {
+    "defaultMessage": "Choisir une collectivité",
+    "description": "Null selection for community select input."
+  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
@@ -9273,10 +9281,6 @@
   "mOGNS3": {
     "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas été présentées dans les délais impartis ainsi que les candidatures qui ont été évaluées avec succès.",
     "description": "Additional text displayed in past applications section when empty."
-  },
-  "mOS8rj": {
-    "defaultMessage": "Équipe principale",
-    "description": "Label displayed for selecting what team a new pool belongs to."
   },
   "mOx5K1": {
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
