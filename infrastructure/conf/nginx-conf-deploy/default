@@ -121,7 +121,7 @@ server {
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
 
-    location ^~ /api {
+    location ^~ /api/ {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
