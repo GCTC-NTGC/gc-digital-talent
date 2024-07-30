@@ -47,6 +47,34 @@ const PoolCandidateStatuses_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const StatusInput = () => {
+  const intl = useIntl();
+  const [{ data }] = useQuery({ query: PoolCandidateStatuses_Query });
+
+  return (
+    <Select
+      id="changeStatusDialog-status"
+      name="status"
+      label={intl.formatMessage({
+        defaultMessage: "Pool status",
+        id: "n9YPWe",
+        description:
+          "Label displayed on the status field of the change candidate status dialog",
+      })}
+      nullSelection={intl.formatMessage({
+        defaultMessage: "Select a pool status",
+        id: "Bkxf6p",
+        description:
+          "Placeholder displayed on the status field of the change candidate status dialog.",
+      })}
+      rules={{
+        required: intl.formatMessage(errorMessages.required),
+      }}
+      options={localizedEnumToOptions(data?.poolCandidateStatuses, intl)}
+    />
+  );
+};
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ChangeStatusDialog_UserFragment = graphql(/* GraphQL */ `
   fragment ChangeStatusDialog_User on User {
@@ -123,7 +151,6 @@ const ChangeStatusDialog = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
-  const [{ data }] = useQuery({ query: PoolCandidateStatuses_Query });
 
   const [{ fetching }, executeMutation] = useMutation(
     UpdatePoolCandidateStatus_Mutation,
@@ -132,8 +159,8 @@ const ChangeStatusDialog = ({
   // an array of the user's pool candidates and filter out all the nulls and maybes
   const userPoolCandidatesSafe = user.poolCandidates
     ? user.poolCandidates.filter(notEmpty).map((poolCandidate) => {
-        return poolCandidate;
-      })
+      return poolCandidate;
+    })
     : [];
 
   // all the user's pools by pool ID
@@ -325,29 +352,7 @@ const ChangeStatusDialog = ({
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Select
-                  id="changeStatusDialog-status"
-                  name="status"
-                  label={intl.formatMessage({
-                    defaultMessage: "Pool status",
-                    id: "n9YPWe",
-                    description:
-                      "Label displayed on the status field of the change candidate status dialog",
-                  })}
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a pool status",
-                    id: "Bkxf6p",
-                    description:
-                      "Placeholder displayed on the status field of the change candidate status dialog.",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  options={localizedEnumToOptions(
-                    data?.poolCandidateStatuses,
-                    intl,
-                  )}
-                />
+                <StatusInput />
               </div>
               <p data-h2-margin="base(x1, 0, 0, 0)">
                 {intl.formatMessage({
@@ -377,11 +382,11 @@ const ChangeStatusDialog = ({
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
-                        defaultMessage: "Change status",
-                        id: "iuve97",
-                        description:
-                          "Confirmation button for change status dialog",
-                      })}
+                      defaultMessage: "Change status",
+                      id: "iuve97",
+                      description:
+                        "Confirmation button for change status dialog",
+                    })}
                 </Button>
                 <Dialog.Close>
                   <Button type="button" color="warning" mode="inline">
