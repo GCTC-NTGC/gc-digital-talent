@@ -241,14 +241,18 @@ class CandidateProfileCsv extends CsvGenerator
                     if ($pool->generalQuestions->count() > 0) {
                         foreach ($pool->generalQuestions as $question) {
                             $this->generalQuestionIds[] = $question->id;
-                            $this->generatedHeaders['general_questions'][] = $question->question[$this->lang];
+                            $this->generatedHeaders['general_questions'][] = $this->lang == 'en' ?
+                            'General question: '.$question->question[$this->lang] :
+                            'Frenchy string: '.$question->question[$this->lang];
                         }
                     }
 
                     if ($pool->screeningQuestions->count() > 0) {
                         foreach ($pool->screeningQuestions as $question) {
                             $this->screeningQuestionIds[] = $question->id;
-                            $this->generatedHeaders['screening_questions'][] = $question->question[$this->lang];
+                            $this->generatedHeaders['screening_questions'][] = $this->lang == 'en' ?
+                            'Screening question: '.$question->question[$this->lang] :
+                            'Frenchy string: '.$question->question[$this->lang];
                         }
                     }
 
