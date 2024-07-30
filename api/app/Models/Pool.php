@@ -558,7 +558,7 @@ class Pool extends Model
      */
     public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): Builder
     {
-        if ($canAdmin) {
+        if (! empty($canAdmin)) {
             $query->authorizedToAdmin();
         }
 

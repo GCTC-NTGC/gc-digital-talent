@@ -55,8 +55,8 @@ class NotificationAuthorizationScopeTest extends TestCase
         $this->user2->notify(new Test('Notification2', 'database'));
     }
 
-    // a guest should get no notifications
-    public function testGuest(): void
+    // a guest should be able to view no notifications
+    public function testViewAsGuest(): void
     {
         Auth::shouldReceive('user')
             ->andReturn(null);
@@ -65,8 +65,8 @@ class NotificationAuthorizationScopeTest extends TestCase
         assertCount(0, $notifications);
     }
 
-    // an applicant should get just their own notifications
-    public function testQueryApplicant(): void
+    // an applicant should be able to view just their own notifications
+    public function testViewAsApplicant(): void
     {
         Auth::shouldReceive('user')
             ->andReturn($this->user1);
