@@ -139,7 +139,9 @@ const createRoute = (locale: Locales) =>
             {
               path: "email-verification",
               lazy: () =>
-                import("../pages/Auth/RegistrationPages/EmailVerificationPage"),
+                import(
+                  "../pages/Auth/RegistrationPages/RegistrationContactEmailVerificationPage"
+                ),
             },
             {
               path: "employee-registration",

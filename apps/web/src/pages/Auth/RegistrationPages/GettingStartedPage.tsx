@@ -493,17 +493,23 @@ const GettingStarted = () => {
 
   // OK to navigate to next page once we have a user ID and an email
   const shouldNavigate = meId && email;
-  const navigationTarget = verifyEmail
-    ? paths.emailVerification()
-    : paths.employeeRegistration();
   useEffect(() => {
     if (shouldNavigate) {
-      navigate({
-        pathname: navigationTarget,
-        search: from ? createSearchParams({ from }).toString() : "",
-      });
+      if (verifyEmail) {
+        navigate({
+          pathname: paths.emailVerification(),
+          search: from
+            ? createSearchParams({ from, emailAddress: email }).toString()
+            : "",
+        });
+      } else {
+        navigate({
+          pathname: paths.employeeRegistration(),
+          search: from ? createSearchParams({ from }).toString() : "",
+        });
+      }
     }
-  }, [navigate, shouldNavigate, from, navigationTarget]);
+  }, [navigate, shouldNavigate, from, email, verifyEmail, paths]);
 
   return (
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>
