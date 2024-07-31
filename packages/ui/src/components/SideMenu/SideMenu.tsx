@@ -70,10 +70,10 @@ const SideMenu = ({
   const animConfig = shouldReduceMotion
     ? {}
     : {
-      initial: { transform: "translateX(-100%)" },
-      animate: { transform: "translateX(0)" },
-      exit: { transform: "translateX(-100%)" },
-    };
+        initial: { transform: "translateX(-100%)" },
+        animate: { transform: "translateX(0)" },
+        exit: { transform: "translateX(-100%)" },
+      };
 
   return (
     <SideMenuProvider

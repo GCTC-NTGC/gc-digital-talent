@@ -3,12 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@gc-digital-talent/*": [
-        "../../../packages/*/src"
-      ],
-      "~/*": [
-        "./*"
-      ]
+      "@gc-digital-talent/*": ["../../../packages/*/src"],
+      "~/*": ["./*"]
     }
   },
   "include": [

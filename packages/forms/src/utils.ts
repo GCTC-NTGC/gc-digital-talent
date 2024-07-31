@@ -270,7 +270,7 @@ export function alphaSortOptions(
 ): OptGroupOrOption[] {
   return list
     ? list.sort((a, b) =>
-      Intl.Collator(locale).compare(String(a.label), String(b.label)),
-    )
+        Intl.Collator(locale).compare(String(a.label), String(b.label)),
+      )
     : [];
 }
