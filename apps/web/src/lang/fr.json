@@ -10247,7 +10247,7 @@
     "description": "Title for the pool block in the manager info section of the single search request view."
   },
   "s+ObMR": {
-    "defaultMessage": "Question filtre {index}",
+    "defaultMessage": "Question de sélection {index}",
     "description": "Legend for screening question fieldset"
   },
   "s/BI/4": {

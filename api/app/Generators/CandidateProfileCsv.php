@@ -243,7 +243,7 @@ class CandidateProfileCsv extends CsvGenerator
                             $this->generalQuestionIds[] = $question->id;
                             $this->generatedHeaders['general_questions'][] = $this->lang == 'en' ?
                             'General question: '.$question->question[$this->lang] :
-                            'Frenchy string: '.$question->question[$this->lang];
+                            'Question générale: '.$question->question[$this->lang];
                         }
                     }
 
@@ -252,7 +252,7 @@ class CandidateProfileCsv extends CsvGenerator
                             $this->screeningQuestionIds[] = $question->id;
                             $this->generatedHeaders['screening_questions'][] = $this->lang == 'en' ?
                             'Screening question: '.$question->question[$this->lang] :
-                            'Frenchy string: '.$question->question[$this->lang];
+                            'Question de sélection: '.$question->question[$this->lang];
                         }
                     }
 
