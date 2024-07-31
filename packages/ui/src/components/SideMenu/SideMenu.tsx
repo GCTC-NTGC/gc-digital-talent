@@ -96,7 +96,6 @@ const SideMenu = ({
               data-h2-height="base(100vh)"
             >
               <FocusLock
-                autoFocus
                 returnFocus
                 disabled={!showOverlay}
                 className={`side-menu${open ? ` side-menu--open` : ``}`}

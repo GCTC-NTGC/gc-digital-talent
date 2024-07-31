@@ -12,6 +12,8 @@
     "e2e:playwright:report": "pnpm exec playwright show-report",
     "lint": "eslint \"constants/**\" \"fixtures/**\" \"tests/**\" \"utils/**\" --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./ --fix --ext .js,.ts,.jsx,.tsx",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
