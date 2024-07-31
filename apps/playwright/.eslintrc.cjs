@@ -14,6 +14,9 @@ module.exports = {
       }
     ]
   },
+  parserOptions: {
+    project: "./tsconfig.json"
+  },
   settings: {
     "import/resolver": {
       typescript: {

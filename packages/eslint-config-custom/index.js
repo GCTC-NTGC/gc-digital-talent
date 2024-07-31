@@ -33,7 +33,12 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: "module",
-    project: "./tsconfig.json",
+    parserOptions: {
+      tsconfigRootDir: __dirname,
+      project: [
+        "**/apps/**/tsconfig.json",
+        "**/packages/**/tsconfig.json"],
+    },
   },
   plugins: [
     "import",
