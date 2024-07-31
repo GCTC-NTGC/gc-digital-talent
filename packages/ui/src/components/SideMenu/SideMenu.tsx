@@ -70,10 +70,10 @@ const SideMenu = ({
   const animConfig = shouldReduceMotion
     ? {}
     : {
-        initial: { transform: "translateX(-100%)" },
-        animate: { transform: "translateX(0)" },
-        exit: { transform: "translateX(-100%)" },
-      };
+      initial: { transform: "translateX(-100%)" },
+      animate: { transform: "translateX(0)" },
+      exit: { transform: "translateX(-100%)" },
+    };
 
   return (
     <SideMenuProvider
@@ -96,7 +96,6 @@ const SideMenu = ({
               data-h2-height="base(100vh)"
             >
               <FocusLock
-                autoFocus
                 returnFocus
                 disabled={!showOverlay}
                 className={`side-menu${open ? ` side-menu--open` : ``}`}
