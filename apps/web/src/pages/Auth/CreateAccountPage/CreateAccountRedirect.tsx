@@ -16,6 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 const CreateAccount_EmailQuery = graphql(/** GraphQL */ `
   query CreateAccount_EmailQuery {
     me {
+      id
       email
     }
   }

@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./introspection.json": "./src/introspection.json"
   },
   "scripts": {
     "codegen": "graphql-codegen --config codegen.ts",
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.3.2",
+    "@graphql-codegen/introspection": "^4.0.3",
     "@parcel/watcher": "^2.4.1",
     "graphql": "^16.9.0",
     "tsconfig": "workspace:*",
