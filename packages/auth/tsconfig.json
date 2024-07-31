@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/react-lib.json",
   "include": [
+    "env.d.ts",
     "src"
   ],
   "exclude": [

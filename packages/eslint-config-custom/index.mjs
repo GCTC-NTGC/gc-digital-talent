@@ -1,15 +1,12 @@
-module.exports = {
+export default {
   parser: "@typescript-eslint/parser",
   extends: [
-    "airbnb",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:prettier/recommended",
-    "prettier",
   ],
   ignorePatterns: [
     "index.js",
@@ -33,7 +30,7 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: "module",
-    project: true,
+    project: "./tsconfig.json",
   },
   plugins: [
     "import",
@@ -52,6 +49,7 @@ module.exports = {
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["warn", "never", { json: "always" }],
+    "import/no-named-as-default": process.env.CI ? "warn" : "off",
     "import/order": [
       "error",
       {
@@ -89,6 +87,9 @@ module.exports = {
     "deprecation/deprecation": "warn",
   },
   settings: {
+    "react": {
+      "version": "18.0"
+    },
     "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"],

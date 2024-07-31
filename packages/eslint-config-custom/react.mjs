@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   env: {
     browser: true,
     es6: true,
@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     "./index.js",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:jsx-a11y/recommended",
   ],
   globals: {
