@@ -1,3 +1,6 @@
+const { resolve } = require("node:path");
+const project = resolve(process.cwd(), 'tsconfig.json');
+
 module.exports = {
   parser: "@typescript-eslint/parser",
   extends: [
@@ -33,12 +36,7 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: "module",
-    parserOptions: {
-      tsconfigRootDir: __dirname,
-      project: [
-        "**/apps/**/tsconfig.json",
-        "**/packages/**/tsconfig.json"],
-    },
+    project
   },
   plugins: [
     "import",
@@ -107,7 +105,7 @@ module.exports = {
     },
     "import/resolver": {
       typescript: {
-        project: [__dirname],
+        project
       },
     },
   },

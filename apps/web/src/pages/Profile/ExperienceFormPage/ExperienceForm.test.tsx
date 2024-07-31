@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { never, fromValue } from "wonka";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
