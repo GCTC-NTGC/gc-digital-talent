@@ -350,8 +350,6 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
-    expiryStatus: CandidateExpiryFilter.Active, // add default filters
-    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
 
@@ -405,5 +403,7 @@ export function transformFormValuesToFilterState(
           })
           .filter(notEmpty)
       : undefined,
+    expiryStatus: CandidateExpiryFilter.Active, // add default filters
+    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
