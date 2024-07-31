@@ -800,7 +800,7 @@ input ApplicantFilterInput {
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  community: IdInput
+  community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
 input PoolCandidateSearchInput {

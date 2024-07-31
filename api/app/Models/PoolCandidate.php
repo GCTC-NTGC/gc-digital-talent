@@ -297,6 +297,22 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
+     */
+    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    {
+        if (empty($communityId)) {
+            return $query;
+        }
+
+        $query->whereHas('pool.community', function ($query) use ($communityId) {
+            $query->where('id', $communityId);
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
