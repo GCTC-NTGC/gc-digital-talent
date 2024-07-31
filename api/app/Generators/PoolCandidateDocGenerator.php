@@ -295,7 +295,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
             }
 
             if ($user->looking_for_bilingual) {
-                $section->addListItem($this->localize('language.billingual'));
+                $section->addListItem($this->localize('common.billingual'));
             }
         }
     }

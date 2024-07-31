@@ -6,6 +6,7 @@ return [
     'no' => 'Non',
     'english_only' => 'Anglais seulement',
     'french_only' => 'Français seulement',
+    'bilingual' => 'Bilingue',
     'expired' => 'Expiré',
     'active' => 'Actif',
     'all' => 'Tous',
