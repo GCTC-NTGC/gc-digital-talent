@@ -82,8 +82,8 @@ type ScreeningQuestionResponse = {
 
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
-  application?:
-    | (PoolCandidate & {
+  application?: // comes from snapshot
+  | (PoolCandidate & {
         screeningQuestionResponses?: Maybe<
           Array<Maybe<ScreeningQuestionResponse>>
         >;

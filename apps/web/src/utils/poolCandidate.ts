@@ -126,6 +126,7 @@ export const formatSubmittedAt = (
 
 export type ResultDecisionCounts = Record<NullableDecision, number>;
 
+// too generic to narrow
 export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
   sortBy(assessmentSteps, (step) => step.sortOrder);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -61,7 +61,7 @@ const UpdatePublishedProcessDialog = ({
   poolQuery,
 }: UpdatePublishedProcessDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const pool = getFragment(UpdatePublishedProcessDialog_Fragment, poolQuery);
   const title = getShortPoolTitleHtml(intl, {
     stream: pool.stream,

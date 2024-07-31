@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { faker } from "@faker-js/faker/locale/en";
 import { ComponentPropsWithoutRef } from "react";

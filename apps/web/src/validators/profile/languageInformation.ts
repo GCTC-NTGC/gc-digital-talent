@@ -53,7 +53,11 @@ export function hasEmptyRequiredFields({
 
 export function hasUnsatisfiedRequirements(
   user: PartialUser,
-  pool: Pool | null,
+  pool: Pick<Pool, "language"> | null,
 ): boolean {
-  return getMissingLanguageRequirements(user, pool).length > 0;
+  return (
+    getMissingLanguageRequirements(user, {
+      language: pool?.language,
+    }).length > 0
+  );
 }

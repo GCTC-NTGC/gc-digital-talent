@@ -13,6 +13,7 @@ import {
   CreateAssessmentResultInput,
   Experience,
   Maybe,
+  Pool,
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
@@ -297,9 +298,13 @@ const SupportingEvidence = ({
 };
 
 interface ScreeningDecisionDialogProps {
-  assessmentStep: AssessmentStep;
-  assessmentResult?: AssessmentResult;
-  poolCandidate: PoolCandidate;
+  assessmentStep?: Maybe<Pick<AssessmentStep, "type" | "title">>;
+  assessmentResult?: Maybe<
+    Pick<AssessmentResult, "assessmentDecision" | "assessmentDecisionLevel">
+  >;
+  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+    pool: Pick<Pool, "classification" | "publishingGroup">;
+  };
   hasBeenAssessed: boolean;
   poolSkill?: Pick<PoolSkill, "requiredLevel" | "type" | "skill">;
   initialValues?: FormValues;
@@ -324,7 +329,7 @@ export const ScreeningDecisionDialog = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const dialogType = useDialogType(
-    educationRequirement ? undefined : assessmentStep,
+    educationRequirement ? undefined : { type: assessmentStep?.type },
   );
   const skill = poolSkill?.skill ? poolSkill.skill : undefined;
   const skillLevel = getSkillLevelMessage(intl, {
@@ -527,9 +532,21 @@ const ScreeningDecisionDialogApi = ({
   poolSkillToAssess,
   educationRequirement,
 }: {
-  assessmentStep: AssessmentStep;
-  poolCandidate: PoolCandidate;
-  assessmentResult?: AssessmentResult;
+  assessmentStep: Pick<AssessmentStep, "id" | "type" | "title">;
+  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+    pool: Pick<Pool, "classification" | "publishingGroup">;
+  };
+  assessmentResult?: Maybe<
+    Pick<
+      AssessmentResult,
+      | "id"
+      | "poolSkill"
+      | "justifications"
+      | "assessmentDecision"
+      | "assessmentDecisionLevel"
+      | "skillDecisionNotes"
+    >
+  >;
   poolSkillToAssess?: Pick<
     PoolSkill,
     "id" | "requiredLevel" | "type" | "skill"
