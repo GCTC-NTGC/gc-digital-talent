@@ -15,8 +15,6 @@ import {
   ClaimVerificationResult,
   AssessmentStepTracker_CandidateFragment,
   PoolCandidateSearchInput,
-  CandidateExpiryFilter,
-  CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
