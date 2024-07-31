@@ -139,17 +139,21 @@ const createRoute = (locale: Locales) =>
             {
               path: "email-verification",
               lazy: () =>
-                import("../pages/Auth/RegistrationPages/GettingStartedPage"),
+                import("../pages/Auth/RegistrationPages/EmailVerificationPage"),
             },
             {
               path: "employee-registration",
               lazy: () =>
-                import("../pages/Auth/RegistrationPages/GettingStartedPage"),
+                import(
+                  "../pages/Auth/RegistrationPages/EmployeeRegistrationPage"
+                ),
             },
             {
               path: "applicant",
               lazy: () =>
-                import("../pages/Auth/RegistrationPages/RegistrationRedirect"),
+                import(
+                  "../pages/Auth/RegistrationPages/GettingStartedRedirect"
+                ),
               children: [
                 {
                   index: true,

@@ -1,28 +1,41 @@
-import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
+import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import { FormProvider, SubmitErrorHandler, useForm } from "react-hook-form";
 
-import { Heading, Pending } from "@gc-digital-talent/ui";
+import { Button, Heading, Pending, Well } from "@gc-digital-talent/ui";
 import {
-  BasicForm,
+  Checkbox,
+  ErrorSummary,
   Input,
   RadioGroup,
   Submit,
+  flattenErrors,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
+import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
   graphql,
   FragmentType,
   getFragment,
   Language,
-  GovEmployeeType,
   UpdateUserAsUserInput,
+  NotificationFamily,
 } from "@gc-digital-talent/graphql";
+import {
+  getFromSessionStorage,
+  removeFromSessionStorage,
+  setInSessionStorage,
+} from "@gc-digital-talent/storage";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -30,11 +43,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import {
-  formValuesToSubmitData,
-  getGovernmentInfoLabels,
-  GovernmentInfoFormFields,
-} from "./components/GovernmentInfoForm";
+import { getGovernmentInfoLabels } from "./components/GovernmentInfoForm";
 
 const title = defineMessage({
   defaultMessage: "Registration",
@@ -51,34 +60,12 @@ type FormValues = Pick<
   UpdateUserAsUserInput,
   "firstName" | "lastName" | "email" | "preferredLang"
 > & {
-  govEmployeeYesNo: "yes" | "no";
-  govEmployeeType: GovEmployeeType | null;
-  lateralDeployBool: boolean;
-  department: string;
-  currentClassificationGroup: string;
-  currentClassificationLevel: string;
-  priorityEntitlementYesNo?: "yes" | "no";
-  priorityEntitlementNumber?: string;
+  emailConsent?: boolean;
+  skipVerification?: boolean;
 };
 
-export const CreateAccount_QueryFragment = graphql(/** GraphQL */ `
-  fragment CreateAccount_QueryFragment on Query {
-    departments {
-      id
-      name {
-        en
-        fr
-      }
-    }
-    classifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-    }
+export const GettingStarted_QueryFragment = graphql(/** GraphQL */ `
+  fragment GettingStarted_QueryFragment on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value
       label {
@@ -90,9 +77,13 @@ export const CreateAccount_QueryFragment = graphql(/** GraphQL */ `
 `);
 
 export interface CreateAccountFormProps {
-  cacheKey?: string;
-  query?: FragmentType<typeof CreateAccount_QueryFragment>;
-  handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
+  cacheKey: string;
+  query?: FragmentType<typeof GettingStarted_QueryFragment>;
+  handleCreateAccount: (
+    data: UpdateUserAsUserInput,
+    emailConsent?: boolean,
+    skipVerification?: boolean,
+  ) => Promise<void>;
 }
 
 export const GettingStartedForm = ({
@@ -103,29 +94,42 @@ export const GettingStartedForm = ({
   const intl = useIntl();
   const paths = useRoutes();
   const govInfoLabels = getGovernmentInfoLabels(intl);
-  const result = getFragment(CreateAccount_QueryFragment, query);
-  const classifications = unpackMaybes(result?.classifications);
+  const result = getFragment(GettingStarted_QueryFragment, query);
+  const [showErrorSummary, setShowErrorSummary] = useState<boolean>(false);
+  const errorSummaryRef = useRef<HTMLDivElement>(null);
+  const methods = useForm<FormValues>({
+    defaultValues: getFromSessionStorage(cacheKey, {}),
+  });
+  const { watch, register, setValue, handleSubmit } = methods;
+  const skipVerificationProps = register("skipVerification");
+  watch((data) => setInSessionStorage(cacheKey, data));
 
   const labels = {
     ...govInfoLabels,
     firstName: intl.formatMessage({
-      defaultMessage: "First Name",
-      id: "IEkhMc",
+      defaultMessage: "First name",
+      id: "pJBmIm",
       description:
-        "Label displayed for the first name field in create account form.",
+        "Label displayed for the first name field in getting started form.",
     }),
     lastName: intl.formatMessage({
-      defaultMessage: "Last Name",
-      id: "UxF291",
+      defaultMessage: "Last name",
+      id: "ARdTh3",
       description:
-        "Label displayed for the last name field in create account form.",
+        "Label displayed for the last name field in getting started form.",
     }),
     email: intl.formatMessage(commonMessages.email),
     preferredLang: intl.formatMessage({
-      defaultMessage: "What is your preferred contact language?",
-      id: "0ScnOT",
+      defaultMessage: "Preferred contact language?",
+      id: "WmfarL",
       description:
-        "Legend text for required language preference in create account form",
+        "Legend text for required language preference in getting started form",
+    }),
+    emailConsent: intl.formatMessage({
+      defaultMessage: "Email notification consent",
+      id: "Ia+zNM",
+      description:
+        "Legend text for email notification consent checkbox in getting started form",
     }),
   };
 
@@ -138,14 +142,31 @@ export const GettingStartedForm = ({
     ],
   });
 
-  const handleSubmit = (values: FormValues) =>
-    handleCreateAccount({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      preferredLang: values.preferredLang,
-      ...formValuesToSubmitData(values, classifications),
-    });
+  const onSubmit = (values: FormValues) => {
+    removeFromSessionStorage(cacheKey);
+    setShowErrorSummary(false);
+    handleCreateAccount(
+      {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        preferredLang: values.preferredLang,
+      },
+      values.emailConsent,
+      values.skipVerification,
+    );
+  };
+
+  const handleInvalidSubmit: SubmitErrorHandler<FormValues> = (errors) => {
+    const flatErrors = flattenErrors(errors);
+    setShowErrorSummary(flatErrors.length > 0);
+
+    errorSummaryRef.current?.focus();
+  };
+
+  useEffect(() => {
+    errorSummaryRef.current?.focus();
+  }, [showErrorSummary]);
 
   return (
     <>
@@ -171,125 +192,181 @@ export const GettingStartedForm = ({
             data-h2-padding="base(x1) p-tablet(x2)"
             data-h2-shadow="base(large)"
           >
-            <BasicForm
-              onSubmit={handleSubmit}
-              cacheKey={cacheKey}
-              labels={labels}
-            >
-              <Heading
-                level="h2"
-                size="h3"
-                data-h2-font-weight="base(400)"
-                data-h2-margin="base(0, 0, x1, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Getting started",
-                  id: "o/YTo0",
-                  description: "Main heading in create account page.",
-                })}
-              </Heading>
-              <p data-h2-padding="base(0, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Before we take you to your profile, we need to collect some required information to complete your account set up.",
-                  id: "x6saT3",
-                  description:
-                    "Message after main heading in create account page.",
-                })}
-              </p>
-              <div>
-                <div
-                  data-h2-display="base(flex)"
+            <FormProvider {...methods}>
+              <form onSubmit={handleSubmit(onSubmit, handleInvalidSubmit)}>
+                <ErrorSummary
+                  ref={errorSummaryRef}
+                  labels={labels}
+                  show={showErrorSummary}
+                />
+                <Heading
+                  level="h2"
+                  size="h3"
+                  Icon={FlagIcon}
+                  color="primary"
+                  data-h2-font-weight="base(400)"
                   data-h2-margin="base(0, 0, x1, 0)"
                 >
-                  <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "Getting started",
+                    id: "o/YTo0",
+                    description: "Main heading in create account page.",
+                  })}
+                </Heading>
+                <p data-h2-padding="base(0, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Before we take you to your profile, we need to collect some required information to complete your account set up.",
+                    id: "x6saT3",
+                    description:
+                      "Message after main heading in create account page.",
+                  })}
+                </p>
+                <div>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-margin="base(0, 0, x1, 0)"
+                  >
+                    <div
+                      style={{ flex: 1 }}
+                      data-h2-padding="base(0, x1, 0, 0)"
+                    >
+                      <Input
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        label={labels.firstName}
+                        rules={{
+                          required: intl.formatMessage(errorMessages.required),
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{ flex: 1 }}
+                      data-h2-padding="base(0, 0, 0, x1)"
+                    >
+                      <Input
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        label={labels.lastName}
+                        rules={{
+                          required: intl.formatMessage(errorMessages.required),
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div data-h2-margin="base(0, 0, x1, 0)">
+                    <RadioGroup
+                      idPrefix="required-lang-preferences"
+                      legend={labels.preferredLang}
+                      id="preferredLang"
+                      name="preferredLang"
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                      items={localizedEnumToOptions(result?.languages, intl)}
+                      defaultSelected={Language.En}
+                    />
+                  </div>
+                  <div data-h2-margin="base(0, 0, x0.25, 0)">
                     <Input
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      label={labels.firstName}
+                      id="email"
+                      type="email"
+                      name="email"
+                      label={labels.email}
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
                       }}
                     />
                   </div>
-                  <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
-                    <Input
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      label={labels.lastName}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
+                  <div data-h2-margin="base(0, 0, x1, 0)">
+                    <Well>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "This email will be used for communication and notifications. In the next step, we’ll ask you to verify this email using a code we’ll send to your inbox.",
+                          id: "5UgmHm",
+                          description:
+                            "Message on getting started page about the contact email address - part 1.",
+                        })}
+                      </p>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "If you are a <strong>Government of Canada employee</strong>, you can choose to use your work email, however we recommend a personal email to facilitate your privacy and continued access should you leave the public service.",
+                          id: "ErosNs",
+                          description:
+                            "Message on getting started page about the contact email address - part 2.",
+                        })}
+                      </p>
+                    </Well>
+                  </div>
+                  <div data-h2-margin="base(0, 0, x0.25, 0)">
+                    <Checkbox
+                      id="emailConsent"
+                      name="emailConsent"
+                      boundingBox
+                      boundingBoxLabel={labels.emailConsent}
+                      label={intl.formatMessage({
+                        defaultMessage:
+                          '"I agree to receive email notifications from GC Digital Talent."',
+                        id: "ydjlRN",
+                        description:
+                          "Text for the option consent to email notifications.",
+                      })}
                     />
                   </div>
+                  <div data-h2-margin="base(0, 0, x1, 0)">
+                    <Well>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You can control which types of notifications you receive at a more granular level in your account settings.",
+                        id: "MzmK82",
+                        description:
+                          "Message on getting started page about email notification consent.",
+                      })}
+                    </Well>
+                  </div>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-gap="base(x.25, x.5)"
+                    data-h2-flex-wrap="base(wrap)"
+                    data-h2-flex-direction="base(column) l-tablet(row)"
+                    data-h2-align-items="base(flex-start) l-tablet(center)"
+                  >
+                    <Submit
+                      mode="solid"
+                      color="secondary"
+                      onClick={() => setValue("skipVerification", false)}
+                      {...skipVerificationProps}
+                      text={intl.formatMessage({
+                        defaultMessage: "Verify your contact email",
+                        id: "0k3vfO",
+                        description:
+                          "Button label for submit and verify email button on getting started form.",
+                      })}
+                    />
+                    <Button
+                      mode="inline"
+                      color="secondary"
+                      {...skipVerificationProps}
+                      onClick={() => {
+                        setValue("skipVerification", true);
+                        handleSubmit(onSubmit);
+                      }}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Save and skip verification",
+                        id: "NpznI5",
+                        description:
+                          "Button label for submit and skip email verification button on getting started form.",
+                      })}
+                    </Button>
+                  </div>
                 </div>
-                <div data-h2-margin="base(0, 0, x1, 0)">
-                  <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    label={labels.email}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-                <RadioGroup
-                  idPrefix="required-lang-preferences"
-                  legend={labels.preferredLang}
-                  id="preferredLang"
-                  name="preferredLang"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  items={localizedEnumToOptions(result?.languages, intl)}
-                  defaultSelected={Language.En}
-                />
-                <p data-h2-margin="base(x1, 0, x.5, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
-                    id: "XijxiY",
-                    description:
-                      "First message before is a government of canada radio group in create account form.",
-                  })}
-                </p>
-                <p data-h2-margin="base(0, 0, x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
-                    id: "5U4C61",
-                    description:
-                      "Second message before is a government of canada radio group in create account form.",
-                  })}
-                </p>
-                <GovernmentInfoFormFields
-                  labels={labels}
-                  departmentsQuery={result?.departments}
-                  classificationsQuery={result?.classifications}
-                />
-                <div
-                  data-h2-margin="base(x2, 0, 0, 0)"
-                  data-h2-padding="base(x2, 0, 0, 0)"
-                  data-h2-border-top="base(1px solid gray)"
-                  data-h2-display="base(flex)"
-                  data-h2-justify-content="base(flex-start)"
-                >
-                  <Submit
-                    mode="solid"
-                    color="secondary"
-                    text={intl.formatMessage({
-                      defaultMessage: "Save and go to my profile",
-                      id: "H3Za3e",
-                      description:
-                        "Button label for submit button on create account form.",
-                    })}
-                  />
-                </div>
-              </div>
-            </BasicForm>
+              </form>
+            </FormProvider>
           </div>
         </section>
       </Hero>
@@ -297,18 +374,30 @@ export const GettingStartedForm = ({
   );
 };
 
-const CreateAccount_Query = graphql(/** GraphQL */ `
-  query CreateAccount_Query {
-    ...CreateAccount_QueryFragment
+const GettingStarted_Query = graphql(/** GraphQL */ `
+  query GettingStarted_Query {
+    ...GettingStarted_QueryFragment
     me {
       email
     }
   }
 `);
 
-const CreateAccount_Mutation = graphql(/** GraphQL */ `
-  mutation CreateAccount_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {
+const GettingStarted_Mutation = graphql(/** GraphQL */ `
+  mutation GettingStarted_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {
     updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`);
+
+const UpdateEmailNotifications_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateEmailNotifications(
+    $enabledEmailNotifications: [NotificationFamily]
+  ) {
+    updateEnabledNotifications(
+      enabledEmailNotifications: $enabledEmailNotifications
+    ) {
       id
     }
   }
@@ -322,29 +411,49 @@ const GettingStarted = () => {
   const from = searchParams.get("from");
   const authContext = useAuthorization();
   const [{ data, fetching, error }] = useQuery({
-    query: CreateAccount_Query,
+    query: GettingStarted_Query,
   });
+
+  const [verifyEmail, setVerifyEmail] = useState<boolean>(true);
 
   const email = data?.me?.email;
   const meId = authContext?.userAuthInfo?.id;
 
-  const [, executeMutation] = useMutation(CreateAccount_Mutation);
-  const handleCreateAccount = (id: string, input: UpdateUserAsUserInput) =>
-    executeMutation({
+  const [, executeGeneralMutation] = useMutation(GettingStarted_Mutation);
+  const [, executeNotificationMutation] = useMutation(
+    UpdateEmailNotifications_Mutation,
+  );
+  const handleCreateAccount = (
+    id: string,
+    generalInput: UpdateUserAsUserInput,
+    notificationInput: NotificationFamily[],
+  ) =>
+    executeGeneralMutation({
       id,
       user: {
-        ...input,
+        ...generalInput,
         id,
-        email: emptyToNull(input.email),
+        email: emptyToNull(generalInput.email),
       },
-    }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
+    }).then((generalResult) => {
+      if (generalResult.data?.updateUserAsUser) {
+        executeNotificationMutation({
+          enabledEmailNotifications: notificationInput,
+        }).then((notificationResult) => {
+          if (notificationResult.data?.updateEnabledNotifications) {
+            return generalResult.data?.updateUserAsUser;
+          }
+          return Promise.reject(notificationResult.error);
+        });
       }
-      return Promise.reject(result.error);
     });
 
-  const onSubmit = async (input: UpdateUserAsUserInput) => {
+  const onSubmit = async (
+    input: UpdateUserAsUserInput,
+    emailConsent = false,
+    skipVerification = false,
+  ) => {
+    setVerifyEmail(!skipVerification);
     if (meId === undefined || meId === "") {
       toast.error(
         intl.formatMessage({
@@ -355,7 +464,10 @@ const GettingStarted = () => {
       );
       return;
     }
-    await handleCreateAccount(meId, input)
+    const notificationInput = emailConsent
+      ? [NotificationFamily.ApplicationUpdate, NotificationFamily.JobAlert]
+      : [];
+    await handleCreateAccount(meId, input, notificationInput)
       .then(() => {
         toast.success(
           intl.formatMessage({
@@ -379,15 +491,19 @@ const GettingStarted = () => {
       });
   };
 
-  // OK to navigate to profile once we have a user ID and an email
+  // OK to navigate to next page once we have a user ID and an email
   const shouldNavigate = meId && email;
-  const fallbackTarget = paths.profileAndApplications();
-  const navigationTarget = from || fallbackTarget;
+  const navigationTarget = verifyEmail
+    ? paths.emailVerification()
+    : paths.employeeRegistration();
   useEffect(() => {
     if (shouldNavigate) {
-      navigate(navigationTarget);
+      navigate({
+        pathname: navigationTarget,
+        search: from ? createSearchParams({ from }).toString() : "",
+      });
     }
-  }, [navigate, navigationTarget, shouldNavigate]);
+  }, [navigate, shouldNavigate, from, navigationTarget]);
 
   return (
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>

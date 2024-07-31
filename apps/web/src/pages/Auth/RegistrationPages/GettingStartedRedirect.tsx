@@ -13,8 +13,8 @@ import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
-const CreateAccount_EmailQuery = graphql(/** GraphQL */ `
-  query CreateAccount_EmailQuery {
+const GettingStarted_EmailQuery = graphql(/** GraphQL */ `
+  query GettingStarted_EmailQuery {
     me {
       email
     }
@@ -24,7 +24,7 @@ const CreateAccount_EmailQuery = graphql(/** GraphQL */ `
 /**
  * If user is logged in but has not
  * saved an email, redirect them to the
- * `/create-account` page
+ * `/getting-started` page
  */
 // eslint-disable-next-line import/prefer-default-export
 export const Component = () => {
@@ -32,16 +32,12 @@ export const Component = () => {
   const navigate = useNavigate();
   const { loggedIn } = useAuthentication();
   const [{ data, fetching, stale }] = useQuery({
-    query: CreateAccount_EmailQuery,
+    query: GettingStarted_EmailQuery,
   });
 
   const email = data?.me?.email;
   const paths = useRoutes();
-  const isToCreateAccount = [
-    paths.gettingStarted(),
-    paths.emailVerification(),
-    paths.employeeRegistration(),
-  ].includes(pathname);
+  const isToGettingStarted = pathname === paths.gettingStarted();
 
   useEffect(() => {
     /**
@@ -51,7 +47,13 @@ export const Component = () => {
      *  - User has no email associated with account
      *  - User is not trying to go to the welcome page directly already
      */
-    if (loggedIn && !fetching && !stale && empty(email) && !isToCreateAccount) {
+    if (
+      loggedIn &&
+      !fetching &&
+      !stale &&
+      empty(email) &&
+      !isToGettingStarted
+    ) {
       navigate(
         {
           pathname: paths.gettingStarted(),
@@ -67,7 +69,7 @@ export const Component = () => {
     fetching,
     stale,
     email,
-    isToCreateAccount,
+    isToGettingStarted,
     pathname,
     navigate,
     paths,
@@ -76,4 +78,4 @@ export const Component = () => {
   return <Outlet />;
 };
 
-Component.displayName = "CreateAccountRedirect";
+Component.displayName = "GettingStartedRedirect";

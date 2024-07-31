@@ -386,14 +386,14 @@ const CreateAccount = () => {
   };
 
   // OK to navigate to profile once we have a user ID and an email
-  const shouldNavigate = meId && email;
-  const fallbackTarget = paths.profileAndApplications();
-  const navigationTarget = from || fallbackTarget;
-  useEffect(() => {
-    if (shouldNavigate) {
-      navigate(navigationTarget);
-    }
-  }, [navigate, navigationTarget, shouldNavigate]);
+  // const shouldNavigate = meId && email;
+  // const fallbackTarget = paths.profileAndApplications();
+  // const navigationTarget = from || fallbackTarget;
+  // useEffect(() => {
+  //   if (shouldNavigate) {
+  //     navigate(navigationTarget);
+  //   }
+  // }, [navigate, navigationTarget, shouldNavigate]);
 
   return (
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>

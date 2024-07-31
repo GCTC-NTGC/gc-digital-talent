@@ -189,8 +189,8 @@ export const CreateAccountForm = ({
                 data-h2-margin="base(0, 0, x1, 0)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Email Validation",
-                  id: "N7SxNL",
+                  defaultMessage: "Email Verification",
+                  id: "m1dgSN",
                   description: "Main heading in create account page.",
                 })}
               </Heading>
@@ -386,14 +386,14 @@ const CreateAccount = () => {
   };
 
   // OK to navigate to profile once we have a user ID and an email
-  const shouldNavigate = meId && email;
-  const fallbackTarget = paths.profileAndApplications();
-  const navigationTarget = from || fallbackTarget;
-  useEffect(() => {
-    if (shouldNavigate) {
-      navigate(navigationTarget);
-    }
-  }, [navigate, navigationTarget, shouldNavigate]);
+  // const shouldNavigate = meId && email;
+  // const fallbackTarget = paths.profileAndApplications();
+  // const navigationTarget = from || fallbackTarget;
+  // useEffect(() => {
+  //   if (shouldNavigate) {
+  //     navigate(navigationTarget);
+  //   }
+  // }, [navigate, navigationTarget, shouldNavigate]);
 
   return (
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>
