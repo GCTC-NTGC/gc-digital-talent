@@ -154,6 +154,28 @@
         "!node_modules"
       ]
     },
+    "lint:fix": {
+      "inputs": [
+        "../../packages/eslint-config-custom/index.js",
+        "../../packages/eslint-config-custom/react.js",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
+    },
+    "prettier": {
+      "inputs": [
+        "./.prettierrc",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
+    },
+    "prettier:fix": {
+      "inputs": [
+        "./.prettierrc",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
+    },
     "tsc": {}
   }
 }
