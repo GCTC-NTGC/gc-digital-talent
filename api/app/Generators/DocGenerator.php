@@ -39,7 +39,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
     protected function addLabelText(Element\Section $section, string $label, string $text)
     {
         $run = $section->addTextRun();
-        $run->addText($label.': ', $this->strong);
+        $run->addText($label.$this->colon());
         $run->addText($text);
     }
 

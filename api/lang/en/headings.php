@@ -58,6 +58,7 @@ return [
     'dei' => 'Diversity, equity, inclusion',
     'career_timeline' => 'Career timeline',
     'screening_questions' => 'Screening questions',
+    'general_questions' => 'General questions',
     'skills_showcase' => 'Skills showcase',
     'top_skills' => 'Top skills',
     'skills_to_improve' => 'Skills to improve',

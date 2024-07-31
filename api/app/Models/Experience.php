@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Lang;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -203,14 +204,14 @@ class Experience extends Model
         });
     }
 
-    public function getDateRange(): string
+    public function getDateRange($lang = 'en'): string
     {
         if ($this->attributes['experience_type'] === AwardExperience::class) {
             return $this->awarded_date->format('M Y');
         }
 
         $start = $this->start_date->format('M Y');
-        $end = $this->end_date ? $this->end_date->format('M Y') : 'Present';
+        $end = $this->end_date ? $this->end_date->format('M Y') : Lang::get('common.present', [], $lang);
 
         return "$start - $end";
     }

@@ -13,6 +13,7 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\SkillLevel;
 use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
@@ -164,14 +165,14 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                                 }
 
                                 if ($type === CommunityExperience::class) {
-                                    $section->addTitle($experience->getTitle(), 4);
+                                    $section->addTitle($experience->getTitle($this->lang), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
                                 }
 
                                 if ($type === EducationExperience::class) {
-                                    $section->addTitle($experience->getTitle(), 4);
+                                    $section->addTitle($experience->getTitle($this->lang), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
@@ -187,7 +188,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                                 }
 
                                 if ($type === WorkExperience::class) {
-                                    $section->addTitle($experience->getTitle(), 4);
+                                    $section->addTitle($experience->getTitle($this->lang), 4);
                                     $section->addText($experience->getDateRange());
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
@@ -258,7 +259,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                 $listRun = $section->addListItemRun();
                 $listRun->addText($userSkill->skill->name[$this->lang], $this->strong);
                 if ($userSkill->skill_level) {
-                    $listRun->addText($this->colon().$this->sanitizeEnum($userSkill->skill_level));
+                    $listRun->addText($this->colon().$this->localizeEnum($userSkill->skill_level, SkillLevel::class));
                 }
             });
         }

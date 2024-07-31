@@ -15,4 +15,6 @@ return [
     'intermediate' => 'Intermédiaire',
     'advanced' => 'Avancé',
     'status' => 'Statut',
+    'present' => 'Aujourd’hui',
+    'at' => 'à',
 ];
