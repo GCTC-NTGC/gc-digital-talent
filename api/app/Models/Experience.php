@@ -206,12 +206,13 @@ class Experience extends Model
 
     public function getDateRange($lang = 'en'): string
     {
+        $format = 'MMM Y';
         if ($this->attributes['experience_type'] === AwardExperience::class) {
-            return $this->awarded_date->format('M Y');
+            return $this->awarded_date->locale($lang)->isoFormat($format);
         }
 
-        $start = $this->start_date->format('M Y');
-        $end = $this->end_date ? $this->end_date->format('M Y') : Lang::get('common.present', [], $lang);
+        $start = $this->start_date->locale($lang)->isoFormat($format);
+        $end = $this->end_date ? $this->end_date->locale($lang)->isoFormat($format) : Lang::get('common.present', [], $lang);
 
         return "$start - $end";
     }

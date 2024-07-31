@@ -157,7 +157,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                             $group->each(function ($experience) use ($section, $type) {
                                 if ($type === AwardExperience::class) {
                                     $section->addTitle($experience->getTitle(), 4);
-                                    $section->addText($experience->getDateRange());
+                                    $section->addText($experience->getDateRange($this->lang));
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
                                     $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
@@ -166,14 +166,14 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
 
                                 if ($type === CommunityExperience::class) {
                                     $section->addTitle($experience->getTitle($this->lang), 4);
-                                    $section->addText($experience->getDateRange());
+                                    $section->addText($experience->getDateRange($this->lang));
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
                                 }
 
                                 if ($type === EducationExperience::class) {
                                     $section->addTitle($experience->getTitle($this->lang), 4);
-                                    $section->addText($experience->getDateRange());
+                                    $section->addText($experience->getDateRange($this->lang));
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
                                     $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
@@ -182,14 +182,14 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
 
                                 if ($type === PersonalExperience::class) {
                                     $section->addTitle($experience->getTitle(), 4);
-                                    $section->addText($experience->getDateRange());
+                                    $section->addText($experience->getDateRange($this->lang));
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
                                 }
 
                                 if ($type === WorkExperience::class) {
                                     $section->addTitle($experience->getTitle($this->lang), 4);
-                                    $section->addText($experience->getDateRange());
+                                    $section->addText($experience->getDateRange($this->lang));
                                     $section->addTextBreak(1);
                                     $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
                                 }
