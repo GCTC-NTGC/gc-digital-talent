@@ -90,7 +90,7 @@ const AssessmentResultsFilterDialog = ({
     <FilterDialog<FormValues>
       {...{ onSubmit, resetValues }}
       options={{ defaultValues: initialValues }}
-      modifyFilterCount={-1}
+      modifyFilterCount={-3}
     >
       <div
         data-h2-display="base(grid)"

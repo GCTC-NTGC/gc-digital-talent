@@ -15,6 +15,8 @@ import {
   ClaimVerificationResult,
   AssessmentStepTracker_CandidateFragment,
   PoolCandidateSearchInput,
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -348,6 +350,8 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    expiryStatus: CandidateExpiryFilter.Active, // add default filters
+    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
 

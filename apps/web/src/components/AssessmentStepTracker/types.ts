@@ -7,4 +7,6 @@ export type FormValues = {
   priorityWeight: string[];
   skills: string[];
   workRegion: string[];
+  suspendedStatus: string;
+  expiryStatus: string;
 };
