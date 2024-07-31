@@ -67,7 +67,7 @@ const StatusCount = ({
 };
 
 interface ResultsDetailsProps {
-  step: AssessmentStep;
+  step: Pick<AssessmentStep, "type" | "title">;
   resultCounts?: ResultDecisionCounts;
   filters?: ResultFilters;
 }
