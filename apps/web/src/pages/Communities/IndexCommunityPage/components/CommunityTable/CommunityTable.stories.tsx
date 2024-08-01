@@ -17,14 +17,14 @@ const mockCommunityFragments = mockCommunities.map((mockCommunity) =>
 
 const mockRolesAndTeams: MyRoleTeam[] = [
   {
-    teamId: mockCommunities[0].id,
+    communityId: mockCommunities[0].id,
     roleName: {
       en: "Role 1 EN",
       fr: "Role 1 FR",
     },
   },
   {
-    teamId: mockCommunities[0].id,
+    communityId: mockCommunities[0].id,
     roleName: {
       en: "Role 2 EN",
       fr: "Role 2 FR",
