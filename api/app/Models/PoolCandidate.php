@@ -20,7 +20,6 @@ use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
-use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
