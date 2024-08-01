@@ -117,8 +117,8 @@ class CheckIntl extends Command
         });
 
         $existing = [
-            'en' => $hasEnFile ? Lang::get(key: $fileName, locale: 'en') : [],
-            'fr' => $hasFrFile ? Lang::get(key: $fileName, locale: 'fr') : [],
+            'en' => $hasEnFile ? Arr::dot(Lang::get(key: $fileName, locale: 'en')) : [],
+            'fr' => $hasFrFile ? Arr::dot(Lang::get(key: $fileName, locale: 'fr')) : [],
         ];
 
         $existingKeys = [
@@ -147,18 +147,19 @@ class CheckIntl extends Command
                 }
 
                 // Key does not match an Enum case
-                if (! in_array($key, $keys)) {
+                $finalKey = $this->getKey($key);
+                if (! in_array($finalKey, $keys)) {
                     $this->errors['extra_strings'][$locale][$fileName][] = $key;
                 } else {
                     // Mark this key as found to diff it for missing keys later
-                    $foundKeys[$locale][] = $key;
+                    $foundKeys[$locale][] = $finalKey;
                 }
             }
         }
 
         // Find exact matches of strings across locales
         $intersectLocales = array_filter(array_keys(array_intersect_assoc($existing['en'], $existing['fr'])), function ($item) {
-            return ! in_array($item, $this->allowedMatch);
+            return ! is_array($item) && ! in_array($item, $this->allowedMatch);
         });
         if (! empty($intersectLocales)) {
             $this->errors['matching_strings'][$fileName] = $intersectLocales;
@@ -193,5 +194,17 @@ class CheckIntl extends Command
     private function oppositeLocale(string $locale): string
     {
         return $locale === 'en' ? 'fr' : 'en';
+    }
+
+    private function getKey(string $key): string
+    {
+
+        if (! str_contains($key, '.')) {
+            return $key;
+        }
+
+        $parts = explode('.', $key);
+
+        return end($parts);
     }
 }

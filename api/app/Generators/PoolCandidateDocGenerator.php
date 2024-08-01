@@ -12,6 +12,7 @@ use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
+use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\SkillLevel;
 use App\Enums\WorkRegion;
@@ -93,14 +94,16 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                     $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
 
                     $section->addTitle($this->localizeHeading('work_preferences'), 4);
-                    $this->addLabelText($section, $this->localizeHeading('accept_temporary'), $this->yesOrNo($user->wouldAcceptTemporary()));
+                    foreach ($user->position_duration as $duration) {
+                        $section->addListItem($this->localizeEnum($duration, PositionDuration::class));
+                    }
 
                     $preferences = $user->getOperationalRequirements();
                     if (count($preferences['accepted']) > 0) {
                         $section->addText($this->localizeHeading('accepted_operational_requirements'), $this->strong);
 
                         foreach ($preferences['accepted'] as $preference) {
-                            $section->addListItem($this->localizeEnum($preference, OperationalRequirement::class));
+                            $section->addListItem($this->localizeEnum($preference, OperationalRequirement::class, 'long'));
                         }
                     }
 
@@ -108,7 +111,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
                         $section->addText($this->localizeHeading('rejected_operational_requirements'), $this->strong);
 
                         foreach ($preferences['not_accepted'] as $preference) {
-                            $section->addListItem($this->localizeEnum($preference, OperationalRequirement::class));
+                            $section->addListItem($this->localizeEnum($preference, OperationalRequirement::class, 'long'));
                         }
                     }
 
@@ -116,7 +119,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
 
                     if ($user->indigenous_communities) {
                         foreach ($user->indigenous_communities as $community) {
-                            $section->addListItem($this->localizeEnum($community, IndigenousCommunity::class));
+                            $section->addListItem($this->localizeEnum($community, IndigenousCommunity::class, 'long'));
                         }
                     }
                     if ($user->is_woman) {
@@ -296,7 +299,7 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
             }
 
             if ($user->looking_for_bilingual) {
-                $section->addListItem($this->localize('common.billingual'));
+                $section->addListItem($this->localize('common.bilingual'));
             }
         }
     }

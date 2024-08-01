@@ -29,14 +29,14 @@ class FileGenerator
      * @param  class-string{\App\Traits\HasLocalization}  $enum  The enum class
      *
      * */
-    protected function localizeEnum(?string $value, string $enum): string
+    protected function localizeEnum(?string $value, string $enum, ?string $subKey = null): string
     {
         if (! class_exists($enum) || ! $value) {
             return '';
         }
 
         /** @var \App\Traits\HasLocalization $enum */
-        return $enum::localizedString($value)[$this->lang] ?? '';
+        return $enum::localizedString($value, $subKey)[$this->lang] ?? '';
     }
 
     /**
