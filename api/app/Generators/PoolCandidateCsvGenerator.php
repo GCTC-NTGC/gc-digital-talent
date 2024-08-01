@@ -16,6 +16,7 @@ use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
@@ -234,18 +235,16 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     if ($pool->generalQuestions->count() > 0) {
                         foreach ($pool->generalQuestions as $question) {
                             $this->generalQuestionIds[] = $question->id;
-                            $this->generatedHeaders['general_questions'][] = $this->lang == 'en' ?
-                            'General question: '.$question->question[$this->lang] :
-                            'Question générale: '.$question->question[$this->lang];
+                            $this->generatedHeaders['general_questions'][] =
+                                Lang::get('headings.general_question', [], $this->lang).$this->colon().$question->question[$this->lang];
                         }
                     }
 
                     if ($pool->screeningQuestions->count() > 0) {
                         foreach ($pool->screeningQuestions as $question) {
                             $this->screeningQuestionIds[] = $question->id;
-                            $this->generatedHeaders['screening_questions'][] = $this->lang == 'en' ?
-                            'Screening question: '.$question->question[$this->lang] :
-                            'Question de sélection: '.$question->question[$this->lang];
+                            $this->generatedHeaders['screening_questions'][] =
+                                Lang::get('headings.screening_question', [], $this->lang).$this->colon().$question->question[$this->lang];
                         }
                     }
 
