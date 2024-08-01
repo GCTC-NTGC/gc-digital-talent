@@ -7806,6 +7806,10 @@
     "defaultMessage": "Renseignements sur les accords commerciaux",
     "description": "Title for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
   },
+  "ekazTc": {
+    "defaultMessage": "Télécharger le profil",
+    "description": "Button text to download pool candidate profiles"
+  },
   "elFbzT": {
     "defaultMessage": "Type d’études",
     "description": "Label displayed on Education form for education type input"
@@ -8366,6 +8370,10 @@
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
   },
+  "hRtj0w": {
+    "defaultMessage": "Télécharger sans les coordonnées",
+    "description": "Button label for download user anonymous profile."
+  },
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
@@ -8485,6 +8493,10 @@
   "i0IT1I": {
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
+  },
+  "i0N7DM": {
+    "defaultMessage": "Télécharger les renseignements complets",
+    "description": "Button label for download user profile."
   },
   "i131l/": {
     "defaultMessage": "Détails de base",
@@ -10247,7 +10259,7 @@
     "description": "Title for the pool block in the manager info section of the single search request view."
   },
   "s+ObMR": {
-    "defaultMessage": "Question filtre {index}",
+    "defaultMessage": "Question de sélection {index}",
     "description": "Legend for screening question fieldset"
   },
   "s/BI/4": {

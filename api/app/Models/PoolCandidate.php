@@ -20,7 +20,6 @@ use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
-use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
@@ -1016,7 +1015,6 @@ class PoolCandidate extends Model
                     'firstOfficialLanguage' => Language::class,
                     'govEmployeeType' => GovEmployeeType::class,
                     'locationPreferences' => WorkRegion::class,
-                    'positionDuration' => PositionDuration::class,
                     'preferredLang' => Language::class,
                     'preferredLanguageForInterview' => Language::class,
                     'preferredLanguageForExam' => Language::class,

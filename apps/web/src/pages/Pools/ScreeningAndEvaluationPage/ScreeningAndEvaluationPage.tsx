@@ -8,6 +8,8 @@ import {
   FragmentType,
   Scalars,
   PoolCandidateSearchInput,
+  CandidateSuspendedFilter,
+  CandidateExpiryFilter,
 } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -127,11 +129,13 @@ const ScreeningAndEvaluationPage = () => {
 
   useEffect(() => {
     if (lastPage) {
-      batchLoader({ applicantFilter: { pools: [{ id: poolId }] } }).then(
-        (res) => {
-          setCandidates(res);
-        },
-      );
+      batchLoader({
+        applicantFilter: { pools: [{ id: poolId }] },
+        suspendedStatus: CandidateSuspendedFilter.Active,
+        expiryStatus: CandidateExpiryFilter.Active,
+      }).then((res) => {
+        setCandidates(res);
+      });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -11,26 +11,23 @@ use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
-use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Lang;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class CandidateProfileCsv extends CsvGenerator
+class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
-    protected array $ids;
-
-    protected string $lang;
-
     protected array $generatedHeaders = [
         'general_questions' => [],
+        'screening_questions' => [],
         'skill_details' => [],
     ];
 
-    protected array $headerlocaleKeys = [
+    protected array $headerLocaleKeys = [
         'status',
         'category',
         'availability',
@@ -73,37 +70,39 @@ class CandidateProfileCsv extends CsvGenerator
         'education_requirement_experiences',
     ];
 
-    protected array $questionIds = [];
+    protected array $generalQuestionIds = [];
+
+    protected array $screeningQuestionIds = [];
 
     protected array $skillIds = [];
 
-    public function __construct(array $ids, ?string $lang = 'en')
+    public function __construct(protected array $ids, public string $fileName, public ?string $dir, protected ?string $lang = 'en')
     {
-        $this->ids = $ids;
-        $this->lang = $lang;
-
-        parent::__construct();
+        parent::__construct($fileName, $dir);
     }
 
-    public function generate()
+    public function generate(): self
     {
+        $this->spreadsheet = new Spreadsheet();
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
-            return Lang::get('headings.'.$key, [], $this->lang);
-        }, $this->headerlocaleKeys);
+            return $this->localizeHeading($key);
+        }, $this->headerLocaleKeys);
         $this->generatePoolHeaders();
 
         $sheet->fromArray([
             ...$localizedHeaders,
-            Lang::get('headings.skills', [], $this->lang),
+            $this->localizeHeading('skills'),
             ...$this->generatedHeaders['general_questions'] ?? [],
+            ...$this->generatedHeaders['screening_questions'] ?? [],
             ...$this->generatedHeaders['skill_details'] ?? [],
         ], null, 'A1');
         $currentCandidate = 1;
 
         PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
+            'screeningQuestionResponses' => ['screeningQuestion'],
             'educationRequirementExperiences',
             'user' => [
                 'department',
@@ -159,7 +158,7 @@ class CandidateProfileCsv extends CsvGenerator
                         $candidate->user->priority_number ?? '', // Priority number
                         $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
                         $candidate->user->location_exemptions, // Location exemptions
-                        $candidate->user->position_duration ? $this->yesOrNo(in_array(PositionDuration::TEMPORARY->name, $candidate->user->position_duration)) : '', // Accept temporary
+                        $candidate->user->position_duration ? $this->yesOrNo($candidate->user->wouldAcceptTemporary()) : '', // Accept temporary
                         $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                         $this->yesOrNo($candidate->user->is_woman), // Woman
                         $this->localizeEnumArray($candidate->user->indigenous_communities, IndigenousCommunity::class),
@@ -175,9 +174,19 @@ class CandidateProfileCsv extends CsvGenerator
                     $values[] = implode(', ', $userSkills->toArray());
 
                     $candidateQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
-                    foreach ($this->questionIds as $questionId) {
+                    foreach ($this->generalQuestionIds as $questionId) {
                         if (in_array($questionId, $candidateQuestionIds)) {
                             $response = $candidate->generalQuestionResponses->where('general_question_id', $questionId)->first();
+                            $values[] = $this->sanitizeString($response->answer);
+                        } else {
+                            $values[] = '';
+                        }
+                    }
+
+                    $candidateScreeningQuestionIds = $candidate->screeningQuestionResponses->pluck('screening_question_id')->toArray();
+                    foreach ($this->screeningQuestionIds as $questionId) {
+                        if (in_array($questionId, $candidateScreeningQuestionIds)) {
+                            $response = $candidate->screeningQuestionResponses->where('screening_question_id', $questionId)->first();
                             $values[] = $this->sanitizeString($response->answer);
                         } else {
                             $values[] = '';
@@ -218,15 +227,24 @@ class CandidateProfileCsv extends CsvGenerator
     private function generatePoolHeaders()
     {
 
-        Pool::with(['generalQuestions', 'poolSkills' => ['skill']])
+        Pool::with(['generalQuestions', 'screeningQuestions', 'poolSkills' => ['skill']])
             ->whereHas('poolCandidates', function ($query) {
                 $query->whereIn('id', $this->ids);
             })->chunk(100, function ($pools) {
                 foreach ($pools as $pool) {
                     if ($pool->generalQuestions->count() > 0) {
                         foreach ($pool->generalQuestions as $question) {
-                            $this->questionIds[] = $question->id;
-                            $this->generatedHeaders['general_questions'][] = $question->question[$this->lang];
+                            $this->generalQuestionIds[] = $question->id;
+                            $this->generatedHeaders['general_questions'][] =
+                                Lang::get('headings.general_question', [], $this->lang).$this->colon().$question->question[$this->lang];
+                        }
+                    }
+
+                    if ($pool->screeningQuestions->count() > 0) {
+                        foreach ($pool->screeningQuestions as $question) {
+                            $this->screeningQuestionIds[] = $question->id;
+                            $this->generatedHeaders['screening_questions'][] =
+                                Lang::get('headings.screening_question', [], $this->lang).$this->colon().$question->question[$this->lang];
                         }
                     }
 
