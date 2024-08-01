@@ -11,7 +11,7 @@ enum PositionDuration
     case TEMPORARY;
     case PERMANENT;
 
-    public function getLangFilename(): string
+    public static function getLangFilename(): string
     {
         return 'position_duration';
     }
