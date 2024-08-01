@@ -45,7 +45,7 @@ class WorkExperience extends Experience
 
     public function getTitle(?string $lang = 'en'): string
     {
-        return sprintf('%s at %s', $this->role, Lang::get('common.at', [], $lang), $this->organization);
+        return sprintf('%s %s %s', $this->role, Lang::get('common.at', [], $lang), $this->organization);
     }
 
     /**
