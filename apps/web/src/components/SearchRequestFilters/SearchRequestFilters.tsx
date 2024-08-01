@@ -25,6 +25,7 @@ import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 import processMessages from "~/messages/processMessages";
+import messages from "~/messages/adminMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -157,10 +158,23 @@ const ApplicantFilters = ({
     applicantFilter?.qualifiedStreams?.flatMap((stream) => stream?.label),
   ).map((label) => getLocalizedName(label, intl));
 
+  const communityName: string =
+    applicantFilter && applicantFilter.community
+      ? getLocalizedName(applicantFilter.community.name, intl)
+      : intl.formatMessage({
+          defaultMessage: "(None selected)",
+          id: "+O6J4u",
+          description: "Text shown when the filter was not selected",
+        });
+
   return (
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
+          <FilterBlock
+            title={intl.formatMessage(messages.community)}
+            content={communityName}
+          />
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Pool Requested",
