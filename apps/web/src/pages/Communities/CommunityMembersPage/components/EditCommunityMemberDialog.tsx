@@ -161,8 +161,8 @@ const EditCommunityMemberDialog = ({
                   )}
                   disabled
                   label={intl.formatMessage({
-                    defaultMessage: "Manager name",
-                    id: "HyN1ZS",
+                    defaultMessage: "User",
+                    id: "9QZhR4",
                     description:
                       "Label for the user select field on community membership form",
                   })}

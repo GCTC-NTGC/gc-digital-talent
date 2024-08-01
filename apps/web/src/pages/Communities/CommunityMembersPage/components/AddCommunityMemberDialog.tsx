@@ -166,8 +166,8 @@ AddCommunityMemberDialogProps) => {
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   label={intl.formatMessage({
-                    defaultMessage: "User name",
-                    id: "pQyhXY",
+                    defaultMessage: "User",
+                    id: "9QZhR4",
                     description:
                       "Label for the user select field on community membership form",
                   })}
