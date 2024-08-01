@@ -84,77 +84,88 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="base(repeat(2, 1fr))"
-      >
-        <Input
-          id="name.en"
-          label={intl.formatMessage(labels.nameEn)}
-          name="name.en"
-          type="text"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Input
-          id="name.fr"
-          label={intl.formatMessage(labels.nameFr)}
-          name="name.fr"
-          type="text"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Input
-          id="key"
-          label={intl.formatMessage(labels.key)}
-          name="key"
-          type="text"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <div />
-        <RichTextInput
-          id="description.en"
-          label={intl.formatMessage(labels.descriptionEn)}
-          name="description.en"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          wordLimit={TEXT_AREA_MAX_WORDS}
-        />
-        <RichTextInput
-          id="description.fr"
-          label={intl.formatMessage(labels.descriptionFr)}
-          name="description.fr"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          wordLimit={TEXT_AREA_MAX_WORDS}
-        />
+      <div data-h2-wrapper="base(center, medium, x1) p-tablet(center, medium, x2)">
         <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x1)"
-          data-h2-align-items="base(center)"
+          data-h2-background="base(foreground)"
+          data-h2-color="base(black)"
+          data-h2-padding="base(x1)"
+          data-h2-radius="base(rounded)"
+          data-h2-shadow="base(m)"
         >
-          <Submit
-            text={intl.formatMessage({
-              defaultMessage: "Create community",
-              id: "4/6TVC",
-              description:
-                "Button text for the create community form submit button",
-            })}
-          />
-          <Link mode="inline" color="warning" href={navigateTo}>
-            {intl.formatMessage({
-              defaultMessage: "Cancel and go back to communities",
-              id: "OFGtZr",
-              description: "Link text to cancel updating a community",
-            })}
-          </Link>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-gap="base(x1)"
+            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+            data-h2-margin-bottom="base(x2)"
+          >
+            <Input
+              id="name.en"
+              label={intl.formatMessage(labels.nameEn)}
+              name="name.en"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name.fr"
+              label={intl.formatMessage(labels.nameFr)}
+              name="name.fr"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="key"
+              label={intl.formatMessage(labels.key)}
+              name="key"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <div />
+            <RichTextInput
+              id="description.en"
+              label={intl.formatMessage(labels.descriptionEn)}
+              name="description.en"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              wordLimit={TEXT_AREA_MAX_WORDS}
+            />
+            <RichTextInput
+              id="description.fr"
+              label={intl.formatMessage(labels.descriptionFr)}
+              name="description.fr"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              wordLimit={TEXT_AREA_MAX_WORDS}
+            />
+          </div>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-gap="base(x1)"
+            data-h2-align-items="base(center)"
+          >
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Create community",
+                id: "4/6TVC",
+                description:
+                  "Button text for the create community form submit button",
+              })}
+            />
+            <Link mode="inline" color="warning" href={navigateTo}>
+              {intl.formatMessage({
+                defaultMessage: "Cancel and go back to communities",
+                id: "OFGtZr",
+                description: "Link text to cancel updating a community",
+              })}
+            </Link>
+          </div>
         </div>
       </div>
     </BasicForm>
