@@ -1027,7 +1027,6 @@ class PoolCandidate extends Model
                     'firstOfficialLanguage' => Language::class,
                     'govEmployeeType' => GovEmployeeType::class,
                     'locationPreferences' => WorkRegion::class,
-                    'positionDuration' => PositionDuration::class,
                     'preferredLang' => Language::class,
                     'preferredLanguageForInterview' => Language::class,
                     'preferredLanguageForExam' => Language::class,
