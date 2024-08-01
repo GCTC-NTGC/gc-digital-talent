@@ -62,4 +62,7 @@ return [
     'skills_showcase' => 'Skills showcase',
     'top_skills' => 'Top skills',
     'skills_to_improve' => 'Skills to improve',
+    // Other
+    'general_question' => 'General question',
+    'screening_question' => 'Screening question',
 ];

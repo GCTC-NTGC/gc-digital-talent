@@ -62,4 +62,7 @@ return [
     'skills_showcase' => 'Démonstration de compétences',
     'top_skills' => 'Meilleures compétences',
     'skills_to_improve' => 'Compétences à améliorer',
+    // Other
+    'general_question' => 'Question générale',
+    'screening_question' => 'Question de sélection',
 ];
