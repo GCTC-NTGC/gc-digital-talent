@@ -73,6 +73,12 @@ jobs:
         working-directory: ./
         run: pnpm run tsc
 
+      - name: "Run prettier check: all workspaces"
+        # Allow tsc linting to happen even if js linting step raises errors.
+        if: always()
+        working-directory: ./
+        run: pnpm run prettier
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:

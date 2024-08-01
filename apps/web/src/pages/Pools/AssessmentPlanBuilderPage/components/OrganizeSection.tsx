@@ -106,7 +106,10 @@ const OrganizeSection = ({
     () => sortBy(unpackMaybes(pool.assessmentSteps), (step) => step.sortOrder),
     [pool.assessmentSteps],
   );
-  const [steps, setSteps] = useState<AssessmentStep[]>(initialSteps);
+  const [steps, setSteps] =
+    useState<Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">[]>(
+      initialSteps,
+    );
 
   useEffect(() => {
     setSteps(initialSteps);
@@ -312,7 +315,9 @@ const OrganizeSection = ({
         </Accordion.Item>
       </Accordion.Root>
       <div data-h2-margin="base(x1 0)">
-        <CardRepeater.Root<AssessmentStep>
+        <CardRepeater.Root<
+          Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">
+        >
           items={steps}
           disabled={formDisabled}
           max={ASSESSMENT_STEPS_MAX_STEPS}

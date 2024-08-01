@@ -449,7 +449,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "id" | "generalQuestions" | "poolSkills">>;
+  currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -739,10 +739,12 @@ const PoolCandidatesTable = ({
           },
         }) =>
           candidateNameCell(
-            poolCandidate,
+            poolCandidate.id,
             paths,
             intl,
             candidateIdsFromFilterData,
+            poolCandidate.user.firstName,
+            poolCandidate.user.lastName,
           ),
         meta: {
           isRowTitle: true,
@@ -879,7 +881,13 @@ const PoolCandidatesTable = ({
         row: {
           original: { poolCandidate },
         },
-      }) => notesCell(poolCandidate, intl),
+      }) =>
+        notesCell(
+          intl,
+          poolCandidate.notes,
+          poolCandidate.user.firstName,
+          poolCandidate.user.lastName,
+        ),
     }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
@@ -889,6 +897,29 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(
           commonMessages.preferredCommunicationLanguage,
         ),
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
+        },
+      }) => {
+        const arr = [];
+        if (lookingForEnglish) {
+          arr.push(intl.formatMessage(commonMessages.english));
+        }
+        if (lookingForFrench) {
+          arr.push(intl.formatMessage(commonMessages.french));
+        }
+        if (lookingForBilingual) {
+          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
+        }
+        return arr.join(", ");
+      },
+      {
+        id: "languageAbility",
+        header: intl.formatMessage(commonMessages.workingLanguageAbility),
       },
     ),
     columnHelper.accessor("skillCount", {

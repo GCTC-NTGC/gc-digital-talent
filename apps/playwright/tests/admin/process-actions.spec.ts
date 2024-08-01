@@ -20,16 +20,20 @@ test.describe("Process actions", () => {
     await adminPage.waitForGraphqlResponse("CreatePoolPage");
 
     await adminPage.page
-      .getByRole("combobox", { name: /starting group and level/i })
+      .getByRole("combobox", { name: /group and level/i })
       .selectOption({ label: "IT-01 (Information Technology)" });
 
     await adminPage.page
-      .getByRole("combobox", { name: /parent team/i })
+      .getByRole("combobox", { name: /team/i })
       .selectOption({ label: "Digital Community Management" });
 
     await adminPage.page
-      .getByRole("combobox", { name: /parent department/i })
+      .getByRole("combobox", { name: /department/i })
       .selectOption({ label: "Treasury Board Secretariat" });
+
+    await adminPage.page
+      .getByRole("combobox", { name: /community/i })
+      .selectOption({ label: "Digital Community" });
 
     await adminPage.page
       .getByRole("button", { name: /create process/i })

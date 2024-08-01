@@ -43,10 +43,9 @@ const LanguageProfile = ({
     fallbackIcon: LanguageIcon,
   });
 
-  const missingLanguageRequirements = getMissingLanguageRequirements(
-    user,
-    application?.pool,
-  );
+  const missingLanguageRequirements = getMissingLanguageRequirements(user, {
+    language: application?.pool?.language,
+  });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues))

@@ -9,6 +9,8 @@
     "./const": "./src/const.ts"
   },
   "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },

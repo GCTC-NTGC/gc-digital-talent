@@ -5,7 +5,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { PoolCandidate, ApplicationStep } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStep,
+  Application_PoolCandidateFragment,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
@@ -27,7 +30,7 @@ type ProfileActionFormValues = {
 };
 
 interface StepNavigationProps {
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
   user: DeiUser & LanguageUser;
   isValid?: boolean;
 }
@@ -122,10 +125,9 @@ const StepNavigation = ({
             "Error message displayed when user attempts to submit incomplete profile",
         }),
       );
-      const missingLanguageRequirements = getMissingLanguageRequirements(
-        user,
-        application?.pool,
-      );
+      const missingLanguageRequirements = getMissingLanguageRequirements(user, {
+        language: application?.pool.language,
+      });
       if (missingLanguageRequirements.length > 0) {
         const requirements = missingLanguageRequirements.map((requirement) => (
           <li key={requirement.id}>{intl.formatMessage(requirement)}</li>

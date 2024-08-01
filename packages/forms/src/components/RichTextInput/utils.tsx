@@ -1,6 +1,6 @@
-import CharacterCount from "@tiptap/extension-character-count";
-import Link from "@tiptap/extension-link";
-import StarterKit from "@tiptap/starter-kit";
+import { CharacterCount } from "@tiptap/extension-character-count";
+import { Link } from "@tiptap/extension-link";
+import { StarterKit } from "@tiptap/starter-kit";
 
 export const extensions = [
   // REF: https://tiptap.dev/api/extensions/starter-kit

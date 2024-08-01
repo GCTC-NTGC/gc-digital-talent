@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { screen, waitFor, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";

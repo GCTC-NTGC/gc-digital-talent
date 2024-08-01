@@ -4,7 +4,7 @@
 
 import { faker } from "@faker-js/faker/locale/en";
 import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";

@@ -21,6 +21,7 @@ import PoolPage from "~/fixtures/PoolPage";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { loginBySub } from "~/utils/auth";
 import { getDepartments } from "~/utils/departments";
+import { getCommunities } from "~/utils/communities";
 
 test.describe("Talent search", () => {
   const uniqueTestId = Date.now().valueOf();
@@ -84,11 +85,15 @@ test.describe("Talent search", () => {
     classification = classifications[0];
     const departments = await getDepartments();
     department = departments[0];
+    const communities = await getCommunities();
+    const community = communities[0];
+
     const adminUser = await adminPage.getMe();
     // Accepted pool
     const createdPool = await poolPage.createAndPublishPool({
       userId: adminUser.id,
       teamId: team.id,
+      communityId: community.id,
       classification,
       department,
       skill: technicalSkill,

@@ -1,11 +1,11 @@
 import { JSX } from "react";
 
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import useApplication from "./useApplication";
 
 export type ApplicationPageProps = {
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
 };
 
 interface ApplicationApiProps {

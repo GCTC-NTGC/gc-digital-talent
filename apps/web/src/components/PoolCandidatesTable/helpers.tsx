@@ -24,7 +24,6 @@ import {
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   CandidateSuspendedFilter,
-  PoolCandidate,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
@@ -95,19 +94,21 @@ export const priorityCell = (
 };
 
 export const candidateNameCell = (
-  candidate: PoolCandidate,
+  candidateId: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
   tableCandidateIds?: string[],
+  candidateFirstName?: Maybe<string>,
+  candidateLastName?: Maybe<string>,
 ) => {
   const candidateName = getFullNameLabel(
-    candidate.user.firstName,
-    candidate.user.lastName,
+    candidateFirstName,
+    candidateLastName,
     intl,
   );
   return (
     <Link
-      href={paths.poolCandidateApplication(candidate.id)}
+      href={paths.poolCandidateApplication(candidateId)}
       state={{ candidateIds: tableCandidateIds, stepName: null }}
     >
       {candidateName}
@@ -179,10 +180,15 @@ export const candidacyStatusAccessor = (
   );
 };
 
-export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
-  candidate?.notes ? (
+export const notesCell = (
+  intl: IntlShape,
+  candidateNotes?: Maybe<string>,
+  candidateFirstName?: Maybe<string>,
+  candidateLastName?: Maybe<string>,
+) =>
+  candidateNotes ? (
     <Spoiler
-      text={candidate.notes}
+      text={candidateNotes}
       linkSuffix={intl.formatMessage(
         {
           defaultMessage: "notes for {name}",
@@ -191,11 +197,7 @@ export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
             "Link text suffix to read more notes for a pool candidate",
         },
         {
-          name: getFullNameLabel(
-            candidate.user.firstName,
-            candidate.user.lastName,
-            intl,
-          ),
+          name: getFullNameLabel(candidateFirstName, candidateLastName, intl),
         },
       )}
     />

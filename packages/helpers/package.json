@@ -8,6 +8,8 @@
     ".": "./src/index.tsx"
   },
   "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },

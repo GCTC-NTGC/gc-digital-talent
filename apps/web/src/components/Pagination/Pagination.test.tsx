@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { screen, renderHook } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 

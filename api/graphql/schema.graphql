@@ -248,6 +248,7 @@ type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo(relation: "legacyTeam") @canModel(ability: "viewAny")
+  community: Community @belongsTo(relation: "community")
   name: LocalizedString
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -476,6 +477,9 @@ type Community implements HasRoleAssignments {
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID
+  pools: [Pool]
+    @hasMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view")
 }
 
 type Team implements HasRoleAssignments {
@@ -2075,6 +2079,7 @@ type Mutation {
   createPool(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
+    communityId: ID! @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
   duplicatePool(

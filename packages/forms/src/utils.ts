@@ -1,7 +1,7 @@
 import { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
-import Link from "@tiptap/extension-link";
-import StarterKit from "@tiptap/starter-kit";
+import { Link } from "@tiptap/extension-link";
+import { StarterKit } from "@tiptap/starter-kit";
 import { FieldErrors, FieldValues } from "react-hook-form";
 
 import {
