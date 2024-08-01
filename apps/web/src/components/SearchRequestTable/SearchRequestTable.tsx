@@ -365,6 +365,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           intl,
         ),
     }),
+    columnHelper.accessor(
+      ({ community }) => getLocalizedName(community?.name, intl, true),
+      {
+        id: "community",
+        header: intl.formatMessage(adminMessages.community),
+        enableColumnFilter: false,
+      },
+    ),
   ] as ColumnDef<SearchRequestTableQuerySearchRequestType>[];
 
   const handlePaginationStateChange = ({
@@ -424,6 +432,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         "email",
         "adminNotes",
         "additionalComments",
+        "community",
       ]}
       isLoading={fetching}
       sort={{
