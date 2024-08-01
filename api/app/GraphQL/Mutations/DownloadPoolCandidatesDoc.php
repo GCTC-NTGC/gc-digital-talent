@@ -6,6 +6,7 @@ use App\Generators\PoolCandidateDocGenerator;
 use App\Jobs\GenerateUserFile;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -32,7 +33,7 @@ final class DownloadPoolCandidatesDoc
                 ->pluck('id') // Seems weird but we are just flattening it out
                 ->toArray();
 
-            $fileName = 'candidates_'.date('Y-m-d_His').'.docx';
+            $fileName = sprintf('%s_%s.docx', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
 
             $generator = new PoolCandidateDocGenerator(
                 ids: $ids,
