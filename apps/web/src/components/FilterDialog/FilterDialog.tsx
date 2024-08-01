@@ -94,6 +94,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     setIsOpen(newOpen);
   };
 
+  const modifiedFitlerCount = filterCount + (modifyFilterCount ?? 0);
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
@@ -102,8 +103,8 @@ const FilterDialog = <TFieldValues extends FieldValues>({
           type="button"
           block
           icon={AdjustmentsVerticalIcon}
-          {...(filterCount > 0 && {
-            counter: filterCount + (modifyFilterCount ?? 0),
+          {...(modifiedFitlerCount > 0 && {
+            counter: modifiedFitlerCount,
           })}
         >
           {intl.formatMessage({
