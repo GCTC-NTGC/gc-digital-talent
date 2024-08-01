@@ -158,6 +158,11 @@ type LocalizedPoolStream {
   label: LocalizedString!
 }
 
+type LocalizedPositionDuration {
+  value: PositionDuration!
+  label: LocalizedString!
+}
+
 type LocalizedPriorityWeight {
   value: PriorityWeight!
   label: LocalizedString!
@@ -394,6 +399,7 @@ type Mutation {
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean!
+  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire

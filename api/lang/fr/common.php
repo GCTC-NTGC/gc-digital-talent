@@ -6,6 +6,7 @@ return [
     'no' => 'Non',
     'english_only' => 'Anglais seulement',
     'french_only' => 'Français seulement',
+    'bilingual' => 'Bilingue',
     'expired' => 'Expiré',
     'active' => 'Actif',
     'all' => 'Tous',
@@ -13,4 +14,7 @@ return [
     'beginner' => 'Débutant',
     'intermediate' => 'Intermédiaire',
     'advanced' => 'Avancé',
+    'status' => 'Statut',
+    'present' => 'Aujourd’hui',
+    'at' => 'à',
 ];

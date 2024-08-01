@@ -21,7 +21,6 @@ import {
   useAuthorization,
 } from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
@@ -75,7 +74,6 @@ export const Component = () => {
   const isSmallScreen = useIsSmallScreen();
   const { roleAssignments } = useAuthorization();
   const { loggedIn } = useAuthentication();
-  const { notifications } = useFeatureFlags();
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
@@ -141,7 +139,7 @@ export const Component = () => {
               >
                 {intl.formatMessage(pageTitles.dashboard)}
               </SideMenuItem>
-              {notifications && loggedIn && <NotificationDialog sideMenu />}
+              {loggedIn && <NotificationDialog sideMenu />}
             </>
           )}
           <SideMenuCategory

@@ -355,7 +355,7 @@ export function transformPoolCandidateSearchInputToFormValues(
       : [],
     govEmployee: input?.isGovEmployee ? "true" : "",
     languageAbility: input?.applicantFilter?.languageAbility ?? "",
-    operationalRequirement:
+    operationalRequirements:
       input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
     pools: [poolId],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
@@ -363,8 +363,6 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
-    expiryStatus: CandidateExpiryFilter.Active, // add default filters
-    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
 
@@ -396,8 +394,8 @@ export function transformFormValuesToFilterState(
             })
             .filter(notEmpty)
         : undefined,
-      operationalRequirements: !isEmpty(data.operationalRequirement)
-        ? data.operationalRequirement
+      operationalRequirements: !isEmpty(data.operationalRequirements)
+        ? data.operationalRequirements
             .map((requirement) => {
               return stringToEnumOperational(requirement);
             })
@@ -418,5 +416,7 @@ export function transformFormValuesToFilterState(
           })
           .filter(notEmpty)
       : undefined,
+    expiryStatus: CandidateExpiryFilter.Active, // add default filters
+    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
