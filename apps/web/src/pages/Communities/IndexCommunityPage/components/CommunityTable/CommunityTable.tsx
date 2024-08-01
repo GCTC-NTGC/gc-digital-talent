@@ -44,7 +44,7 @@ type CommunityTableFragment = FragmentType<
   typeof CommunityTable_CommunityFragment
 >[];
 
-export interface CommunityTableProps {
+interface CommunityTableProps {
   communitiesQuery: CommunityTableFragment;
   myRolesAndTeams: Array<MyRoleTeam>;
   title: string;

@@ -3,7 +3,7 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";

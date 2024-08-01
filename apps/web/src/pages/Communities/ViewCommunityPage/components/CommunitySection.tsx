@@ -34,7 +34,7 @@ const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type ViewCommunityPageFragment = FragmentType<
+type ViewCommunityPageFragment = FragmentType<
   typeof ViewCommunityPage_CommunityFragment
 >;
 
