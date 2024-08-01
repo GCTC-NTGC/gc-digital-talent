@@ -622,8 +622,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       downshift:
-        specifier: ^9.0.6
-        version: 9.0.6(react@18.3.1)
+        specifier: ^9.0.7
+        version: 9.0.7(react@18.3.1)
       framer-motion:
         specifier: ^11.3.17
         version: 11.3.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -4919,8 +4919,8 @@ packages:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
 
-  downshift@9.0.6:
-    resolution: {integrity: sha512-lkqWh0eb34XuH+3z3/BH/LGVRV7ur0rielSlxtlQKsjAFF/wc/c0wsM9phUGXyzK2g1QWHoNHQyc+vVAheI17Q==}
+  downshift@9.0.7:
+    resolution: {integrity: sha512-B6JY4sJGEl9xBEJEvC/C+QYYYtPWN5RL+TlROJQfue9+ZFgrD/p1ZgGw73I0WSTNH9/h5q3LIKQA4FLd/N10vg==}
     peerDependencies:
       react: '>=16.12.0'
 
@@ -13003,9 +13003,9 @@ snapshots:
 
   dotenv@16.4.5: {}
 
-  downshift@9.0.6(react@18.3.1):
+  downshift@9.0.7(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.24.7
+      '@babel/runtime': 7.24.8
       compute-scroll-into-view: 3.1.0
       prop-types: 15.8.1
       react: 18.3.1
