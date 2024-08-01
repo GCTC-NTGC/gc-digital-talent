@@ -158,6 +158,11 @@ type LocalizedPoolStream {
   label: LocalizedString!
 }
 
+type LocalizedPositionDuration {
+  value: PositionDuration!
+  label: LocalizedString!
+}
+
 type LocalizedPriorityWeight {
   value: PriorityWeight!
   label: LocalizedString!
