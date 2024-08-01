@@ -506,9 +506,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     public function testScopeAuthorizedToView(): void
     {
         $community = Community::factory()->create();
-        $community->team()->firstOrCreate([], ['name' => 'team1']);
         $otherCommunity = Community::factory()->create();
-        $otherCommunity->team()->firstOrCreate([], ['name' => 'team2']);
         $communityRequest = PoolCandidateSearchRequest::factory()->create([
             'community_id' => $community->id,
         ]);
