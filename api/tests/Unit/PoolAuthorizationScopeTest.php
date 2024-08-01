@@ -44,8 +44,8 @@ class PoolAuthorizationScopeTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->team1 = Team::factory()->create(['name' => 'team1']);
-        $this->team2 = Team::factory()->create(['name' => 'team2']);
+        $this->team1 = Team::factory()->create();
+        $this->team2 = Team::factory()->create();
 
         $this->poolDraft1 = Pool::factory()->draft()->create(['team_id' => $this->team1->id]);
         $this->poolPublished1 = Pool::factory()->published()->create(['team_id' => $this->team1->id]);
