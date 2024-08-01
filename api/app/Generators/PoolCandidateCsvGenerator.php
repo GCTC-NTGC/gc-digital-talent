@@ -25,7 +25,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'skill_details' => [],
     ];
 
-    protected array $headerlocaleKeys = [
+    protected array $headerLocaleKeys = [
         'status',
         'category',
         'availability',
