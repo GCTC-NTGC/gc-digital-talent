@@ -6,6 +6,7 @@ use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
@@ -498,5 +499,43 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
+    }
+
+    public function testScopeAuthorizedToView(): void
+    {
+        $community = Community::factory()->create();
+        $community->team()->firstOrCreate([], ['name' => 'team1']);
+        $otherCommunity = Community::factory()->create();
+        $otherCommunity->team()->firstOrCreate([], ['name' => 'team2']);
+        $communityRequest = PoolCandidateSearchRequest::factory()->create([
+            'community_id' => $community->id,
+        ]);
+        $otherCommunityRequest = PoolCandidateSearchRequest::factory()->create([
+            'community_id' => $otherCommunity->id,
+        ]);
+        $communityRecruiter = User::factory()
+            ->asCommunityRecruiter([$community->id])
+            ->create();
+
+        // request responder sees both requests
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL($this->searchRequestQuery, [
+                'where' => [],
+            ])->assertJsonFragment(['count' => 2])
+            ->assertJsonFragment(['id' => $communityRequest->id])
+            ->assertJsonFragment(['id' => $otherCommunityRequest->id]);
+
+        // community recruiter only sees the request attached to their community
+        $this->actingAs($communityRecruiter, 'api')
+            ->graphQL($this->searchRequestQuery, [
+                'where' => [],
+            ])->assertJsonFragment(['count' => 1])
+            ->assertJsonFragment(['id' => $communityRequest->id]);
+
+        // non-admin sees zero
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->searchRequestQuery, [
+                'where' => [],
+            ])->assertJsonFragment(['count' => 0]);
     }
 }
