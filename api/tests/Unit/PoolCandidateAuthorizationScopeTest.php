@@ -15,7 +15,7 @@ use Tests\UsesProtectedRequestContext;
 
 use function PHPUnit\Framework\assertEqualsCanonicalizing;
 
-class PoolCandidateAuthorizedScopeTest extends TestCase
+class PoolCandidateAuthorizationScopeTest extends TestCase
 {
     use RefreshDatabase;
     use UsesProtectedRequestContext;
