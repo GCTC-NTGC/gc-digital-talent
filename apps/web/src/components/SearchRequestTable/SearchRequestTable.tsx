@@ -15,8 +15,8 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   InputMaybe,
   PoolCandidateSearchRequestInput,
-  PoolCandidateSearchRequest,
   graphql,
+  SearchRequestTableQuery as SearchRequestTableQueryType,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -46,7 +46,11 @@ import {
   transformSortStateToOrderByClause,
 } from "./components/utils";
 
-const columnHelper = createColumnHelper<PoolCandidateSearchRequest>();
+type SearchRequestTableQuerySearchRequestType =
+  SearchRequestTableQueryType["poolCandidateSearchRequestsPaginated"]["data"][number];
+
+const columnHelper =
+  createColumnHelper<SearchRequestTableQuerySearchRequestType>();
 
 interface SearchRequestTableProps {
   title: string;
@@ -132,6 +136,13 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
         department {
           id
           departmentNumber
+          name {
+            en
+            fr
+          }
+        }
+        community {
+          id
           name {
             en
             fr
@@ -226,7 +237,10 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         isRowTitle: true,
       },
       cell: ({ row: { original: searchRequest } }) =>
-        jobTitleCell(searchRequest, paths),
+        jobTitleCell(
+          { id: searchRequest.id, jobTitle: searchRequest.jobTitle },
+          paths,
+        ),
     }),
     columnHelper.accessor(
       (row) =>
@@ -330,16 +344,28 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       enableSorting: false,
       header: intl.formatMessage(adminMessages.notes),
       cell: ({ row: { original: searchRequest } }) =>
-        notesCell(searchRequest, intl),
+        notesCell(
+          {
+            adminNotes: searchRequest.adminNotes,
+            jobTitle: searchRequest.jobTitle,
+          },
+          intl,
+        ),
     }),
     columnHelper.accessor("additionalComments", {
       id: "additionalComments",
       enableSorting: false,
       header: intl.formatMessage(adminMessages.details),
       cell: ({ row: { original: searchRequest } }) =>
-        detailsCell(searchRequest, intl),
+        detailsCell(
+          {
+            additionalComments: searchRequest.additionalComments,
+            jobTitle: searchRequest.jobTitle,
+          },
+          intl,
+        ),
     }),
-  ] as ColumnDef<PoolCandidateSearchRequest>[];
+  ] as ColumnDef<SearchRequestTableQuerySearchRequestType>[];
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -385,7 +411,10 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     data?.poolCandidateSearchRequestsPaginated?.data.filter(notEmpty) ?? [];
 
   return (
-    <Table<PoolCandidateSearchRequest, PoolCandidateSearchRequestInput>
+    <Table<
+      SearchRequestTableQuerySearchRequestType,
+      PoolCandidateSearchRequestInput
+    >
       data={requestData}
       caption={title}
       columns={columns}
