@@ -80,12 +80,14 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     {
         PoolCandidateSearchRequest::factory()->count(10)->create([]);
 
-        // assert guest, applicant can't see results
+        // assert guest can't see results
         $this->graphQL($this->searchRequestQuery) // counts as guest
             ->assertGraphQLErrorMessage('Unauthenticated.');
+
+        // applicant sees zero
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->searchRequestQuery)
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
+            ->assertJsonFragment(['count' => 0]);
 
         // assert request responder and admin can see results, paginated, and 10 results
         $this->actingAs($this->requestResponder, 'api')
