@@ -134,15 +134,16 @@ const EditCommunityMemberDialog = ({
         />
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header
+          subtitle={intl.formatMessage({
+            defaultMessage: "Change or remove this membership's permissions.",
+            id: "00fgDq",
+            description: "Help text for the edit community membership form",
+          })}
+        >
+          {label}
+        </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
-            {intl.formatMessage({
-              defaultMessage: "Change or remove this membership's permissions.",
-              id: "00fgDq",
-              description: "Help text for the edit community membership form",
-            })}
-          </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               {/** Note: Only one option since we are editing this user */}
