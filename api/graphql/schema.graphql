@@ -988,7 +988,7 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, maxCount: 500)
     @guard
-    @canModel(ability: "viewAny")
+    @canQuery(ability: "view")
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
@@ -2237,7 +2237,11 @@ type Mutation {
 
   # File downloads
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
 }
 
 #import directiveForms.graphql
