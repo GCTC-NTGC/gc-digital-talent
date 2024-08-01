@@ -9,7 +9,6 @@ import {
   commonMessages,
   formMessages,
   getLocalizedName,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
