@@ -1,16 +1,20 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
+import {
+  fakeUsers,
+  fakeCommunities,
+  fakeRoles,
+} from "@gc-digital-talent/fake-data";
 
-import TeamMembersPage from "./TeamMembersPage";
+import CommunityMembersPage from "./CommunityMembersPage";
 
 const availableRoles = fakeRoles();
 
-const teamsData = fakeTeams(10);
+const communitiesData = fakeCommunities(10);
 const usersData = fakeUsers(10);
 
-const teamData = {
-  ...teamsData[0],
+const communityData = {
+  ...communitiesData[0],
   roleAssignments: [
     { id: "assignment1", role: availableRoles[2], user: usersData[0] },
     { id: "assignment2", role: availableRoles[2], user: usersData[1] },
@@ -19,25 +23,25 @@ const teamData = {
 };
 
 export default {
-  component: TeamMembersPage,
+  component: CommunityMembersPage,
   parameters: {
     defaultPath: {
-      path: "/en/admin/teams/:teamId/members",
-      initialEntries: [`/en/admin/teams/${teamData.id}/members`],
+      path: "/en/admin/communities/:communityId/members",
+      initialEntries: [`/en/admin/communities/${communityData.id}/members`],
     },
     apiResponses: {
-      TeamMembersTeam: {
+      CommunityMembersCommunity: {
         data: {
-          team: teamData,
+          community: communityData,
         },
       },
-      TeamName: {
+      CommunityName: {
         data: {
-          team: teamData,
+          community: communityData,
         },
       },
       // eslint-disable-next-line camelcase
-      TeamMembers_AvailableUsers: {
+      CommunityMembers_AvailableUsers: {
         data: {
           users: usersData,
         },
@@ -49,8 +53,10 @@ export default {
       },
     },
   },
-} as Meta<typeof TeamMembersPage>;
+} as Meta<typeof CommunityMembersPage>;
 
-const Template: StoryFn<typeof TeamMembersPage> = () => <TeamMembersPage />;
+const Template: StoryFn<typeof CommunityMembersPage> = () => (
+  <CommunityMembersPage />
+);
 
 export const Default = Template.bind({});
