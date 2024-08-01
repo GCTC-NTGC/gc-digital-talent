@@ -986,9 +986,9 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [PoolCandidateSearchRequest]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 500)
+    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
     @guard
-    @canQuery(ability: "view")
+    @canResolved(ability: "view")
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")

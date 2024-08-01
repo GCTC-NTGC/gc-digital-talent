@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -18,7 +19,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $id
  * @property string $full_name
  * @property string $email
- * @property int $department_id
+ * @property string $department_id
  * @property string $job_title
  * @property string $additional_comments
  * @property string $hr_advisor_email
@@ -34,6 +35,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $deleted_at
  * @property Illuminate\Support\Carbon $request_status_changed_at
  * @property string $reason
+ * @property string $community_id
  */
 class PoolCandidateSearchRequest extends Model
 {
@@ -240,6 +242,52 @@ class PoolCandidateSearchRequest extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * Scope the query to SearchRequests the current user can view
+     */
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('id', null);
+        }
+
+        $hasSomePermission = $user->isAbleTo([
+            'view-any-searchRequest',
+            'view-team-searchRequest',
+        ]);
+
+        // User does not have any of the required permissions
+        if (! $hasSomePermission) {
+            return $query->where('id', null);
+        }
+
+        if ($user->isAbleTo('view-any-searchRequest')) {
+            return $query;
+        }
+
+        if ($user->isAbleTo('view-team-searchRequest')) {
+            $query->where(function (Builder $query) use ($user) {
+
+                $allTeam = $user->rolesTeams()->get();
+                $teamIds = $allTeam->filter(function ($team) use ($user) {
+                    return $user->isAbleTo('view-team-searchRequest', $team);
+                })->pluck('id');
+
+                $query->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+
+            });
+
+            return $query;
+        }
+
+        return $query->where('id', null);
     }
 
     /**
