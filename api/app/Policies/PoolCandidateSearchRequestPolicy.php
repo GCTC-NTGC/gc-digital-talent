@@ -58,7 +58,9 @@ class PoolCandidateSearchRequestPolicy
      */
     public function update(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAbleTo('update-any-searchRequest');
+        if ($user->isAbleTo('update-any-searchRequest')) {
+            return true;
+        }
 
         $poolCandidateSearchRequest->loadMissing('community.team');
 
@@ -76,7 +78,9 @@ class PoolCandidateSearchRequestPolicy
      */
     public function delete(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAbleTo('delete-any-searchRequest');
+        if ($user->isAbleTo('delete-any-searchRequest')) {
+            return true;
+        }
 
         $poolCandidateSearchRequest->loadMissing('community.team');
 
