@@ -116,7 +116,7 @@ export const CommunityTable = ({
       columns={columns}
       sort={{
         internal: true,
-        initialState: [{ id: "myRoles", desc: true }],
+        initialState: [{ id: "communityName", desc: true }],
       }}
       pagination={{
         internal: true,
