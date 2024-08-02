@@ -2,4 +2,5 @@
 
 return [
     'candidates' => 'candidates',
+    'users' => 'users',
 ];

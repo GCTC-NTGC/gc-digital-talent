@@ -2,15 +2,15 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\PoolCandidateUserDocGenerator;
+use App\Generators\UserDocGenerator;
 use App\Jobs\GenerateUserFile;
-use App\Models\PoolCandidate;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadPoolCandidatesDoc
+final class DownloadUsersDoc
 {
     /**
      * Dispatches the generation of a
@@ -29,15 +29,15 @@ final class DownloadPoolCandidatesDoc
         try {
             // Make sure this user can see candidates before sending
             // them to the generation job
-            $ids = PoolCandidate::whereIn('id', $args['ids'])
+            $ids = User::whereIn('id', $args['ids'])
                 ->authorizedToView()
                 ->get('id')
                 ->pluck('id') // Seems weird but we are just flattening it out
                 ->toArray();
 
-            $fileName = sprintf('%s_%s.docx', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
+            $fileName = sprintf('%s_%s.docx', Lang::get('filename.users', [], $locale), date('Y-m-d_His'));
 
-            $generator = new PoolCandidateUserDocGenerator(
+            $generator = new UserDocGenerator(
                 ids: $ids,
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
                 fileName: $fileName,
@@ -49,7 +49,7 @@ final class DownloadPoolCandidatesDoc
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting candidate document generation '.$e->getMessage());
+            Log::error('Error starting user document generation '.$e->getMessage());
 
             return false;
         }

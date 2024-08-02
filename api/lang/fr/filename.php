@@ -3,4 +3,5 @@
 
 return [
     'candidates' => 'candidats',
+    'users' => 'utilisateurs',
 ];
