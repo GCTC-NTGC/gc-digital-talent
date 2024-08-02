@@ -4,10 +4,12 @@ import { useMutation, useQuery } from "urql";
 import { useFormContext } from "react-hook-form";
 import uniqBy from "lodash/uniqBy";
 import { useEffect } from "react";
+import HomeModernIcon from "@heroicons/react/24/outline/HomeModernIcon";
 
 import { Heading, Pending } from "@gc-digital-talent/ui";
 import {
   BasicForm,
+  Combobox,
   enumToOptions,
   FieldLabels,
   objectsToSortedOptions,
@@ -17,12 +19,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  empty,
-  emptyToNull,
-  notEmpty,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
   FragmentType,
@@ -48,8 +45,8 @@ import { splitAndJoin } from "~/utils/nameUtils";
 import messages from "./utils/messages";
 
 const specificTitle = defineMessage({
-  defaultMessage: "Employee Information",
-  id: "0IMGOS",
+  defaultMessage: "Employee information",
+  id: "uA8hbm",
   description: "Main heading in employee information page.",
 });
 
@@ -60,8 +57,6 @@ type FormValues = {
   department: string;
   currentClassificationGroup: string;
   currentClassificationLevel: string;
-  priorityEntitlementYesNo?: "yes" | "no";
-  priorityEntitlementNumber?: string;
 };
 
 export const EmployeeInformation_QueryFragment = graphql(/** GraphQL */ `
@@ -100,11 +95,9 @@ export const EmployeeInformationForm = ({
   const classifications = unpackMaybes(result?.classifications);
   const { watch, resetField } = useFormContext();
   // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection] = watch([
+  const [govEmployee, groupSelection] = watch([
     "govEmployeeYesNo",
-    "govEmployeeType",
     "currentClassificationGroup",
-    "priorityEntitlementYesNo",
   ]);
 
   const classGroupsWithDupes: {
@@ -144,11 +137,6 @@ export const EmployeeInformationForm = ({
     });
 
   const isGovEmployee = govEmployee === "yes";
-  const isPlaced =
-    isGovEmployee &&
-    (govEmployeeStatus === GovEmployeeType.Term ||
-      govEmployeeStatus === GovEmployeeType.Indeterminate ||
-      govEmployeeStatus === GovEmployeeType.Casual);
 
   /**
    * Reset fields when they disappear
@@ -164,162 +152,166 @@ export const EmployeeInformationForm = ({
     if (!isGovEmployee) {
       resetDirtyField("department");
       resetDirtyField("govEmployeeType");
-      if (!isPlaced) {
-        resetDirtyField("currentClassificationGroup");
-        if (empty(groupSelection)) {
-          resetDirtyField("currentClassificationLevel");
-        }
-      }
+      resetDirtyField("currentClassificationGroup");
+      resetDirtyField("currentClassificationLevel");
     }
-  }, [isGovEmployee, resetField, isPlaced, groupSelection]);
+  }, [isGovEmployee, resetField]);
+
+  /**
+   * Reset classification level when group changes
+   * because level options change
+   */
+  useEffect(() => {
+    resetField("currentClassificationLevel", {
+      keepDirty: false,
+    });
+  }, [resetField, groupSelection]);
 
   return (
     <>
       <Heading
         level="h2"
         size="h3"
+        Icon={HomeModernIcon}
+        color="primary"
         data-h2-font-weight="base(400)"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(specificTitle)}
       </Heading>
-      <p data-h2-padding="base(0, 0, x1, 0)">
+      <p>
         {intl.formatMessage({
           defaultMessage:
-            "Before we take you to your profile, we need to collect some required information to complete your account set up.",
-          id: "x6saT3",
-          description: "Message after main heading in create account page.",
+            "We'd now like to know if you're currently an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed across departments.",
+          id: "VZnDzi",
+          description:
+            "Message after main heading in employee information page - paragraph 1.",
         })}
       </p>
-      <div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-          data-h2-margin="base(x1 0)"
-        >
-          <RadioGroup
-            idPrefix="govEmployeeYesNo"
-            legend={labels.govEmployeeYesNo}
-            id="govEmployeeYesNo"
-            name="govEmployeeYesNo"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            items={[
-              {
-                value: "no",
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "<strong>No</strong>, I am not a Government of Canada employee.",
-                  id: "PS/LFb",
-                  description:
-                    "Label displayed for is not a government employee option",
-                }),
-              },
-              {
-                value: "yes",
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "<strong>Yes</strong>, I am a Government of Canada employee.",
-                  id: "gto/zD",
-                  description:
-                    "Label displayed for is a government employee option",
-                }),
-              },
-            ]}
-          />
-          {isGovEmployee && (
-            <>
-              <Select
-                id="department"
-                name="department"
-                label={labels.department}
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a department",
-                  id: "y827h2",
-                  description:
-                    "Null selection for department select input in the request form.",
-                })}
-                options={objectsToSortedOptions(departments, intl)}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-              <RadioGroup
-                idPrefix="govEmployeeType"
-                legend={labels.govEmployeeType}
-                name="govEmployeeType"
-                id="govEmployeeType"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                items={enumToOptions(GovEmployeeType).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getGovEmployeeType(value)),
-                }))}
-              />
-            </>
-          )}
-          {isPlaced && (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Please indicate your current substantive group classification and level.",
-                  id: "TS63OC",
-                  description:
-                    "Text blurb, asking about classification and level in the government info form",
-                })}
-              </p>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-              >
-                <Select
-                  id="currentClassificationGroup"
-                  label={labels.currentClassificationGroup}
-                  name="currentClassificationGroup"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a group",
-                    id: "9Upe1V",
-                    description: "Null selection for form.",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  options={groupOptions}
-                />
-                {notEmpty(groupSelection) && (
-                  <Select
-                    id="currentClassificationLevel"
-                    label={labels.currentClassificationLevel}
-                    name="currentClassificationLevel"
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    nullSelection={intl.formatMessage(
-                      uiMessages.nullSelectionOptionLevel,
-                    )}
-                    options={levelOptions}
-                  />
-                )}
-              </div>
-            </>
-          )}
-        </div>
-        <Submit
-          mode="solid"
-          color="secondary"
-          text={intl.formatMessage({
-            defaultMessage: "Save and go to my profile",
-            id: "H3Za3e",
-            description:
-              "Button label for submit button on create account form.",
-          })}
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "We also use this information to provide you with a more contextualized experience, including opportunity recommendations based on your employment status, classification, and more.",
+          id: "2HGCCF",
+          description:
+            "Message after main heading in employee information page - paragraph 2.",
+        })}
+      </p>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1 0)"
+        data-h2-margin="base(x1 0)"
+      >
+        <RadioGroup
+          idPrefix="govEmployeeYesNo"
+          legend={labels.govEmployeeYesNo}
+          id="govEmployeeYesNo"
+          name="govEmployeeYesNo"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={[
+            {
+              value: "no",
+              label: intl.formatMessage({
+                defaultMessage:
+                  '"No, I am not a Government of Canada employee."',
+                id: "uoqhRN",
+                description:
+                  "Label displayed for is not a government employee option",
+              }),
+            },
+            {
+              value: "yes",
+              label: intl.formatMessage({
+                defaultMessage: '"Yes, I am a Government of Canada employee."',
+                id: "q2YMXX",
+                description:
+                  "Label displayed for is a government employee option",
+              }),
+            },
+          ]}
         />
+        {isGovEmployee && (
+          <>
+            <RadioGroup
+              idPrefix="govEmployeeType"
+              legend={labels.govEmployeeType}
+              name="govEmployeeType"
+              id="govEmployeeType"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(GovEmployeeType, [
+                GovEmployeeType.Student,
+                GovEmployeeType.Casual,
+                GovEmployeeType.Term,
+                GovEmployeeType.Indeterminate,
+              ]).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getGovEmployeeType(value)),
+              }))}
+            />
+            <Combobox
+              id="department"
+              name="department"
+              label={labels.department}
+              options={objectsToSortedOptions(departments, intl)}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              doNotSort
+            />
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Please indicate your current substantive classification group and level. If you're in an acting position, this means you should select your original classification and level prior to the acting role.",
+                id: "nWy6LP",
+                description:
+                  "Text blurb, asking about classification and level in the employee info page",
+              })}
+            </p>
+            <div
+              data-h2-display="base(grid)"
+              data-h2-gap="base(x1)"
+              data-h2-grid-template-columns="l-tablet(4fr 1fr)"
+            >
+              <Combobox
+                id="currentClassificationGroup"
+                label={labels.currentClassificationGroup}
+                name="currentClassificationGroup"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                options={groupOptions}
+                doNotSort
+              />
+              <Select
+                id="currentClassificationLevel"
+                label={labels.currentClassificationLevel}
+                name="currentClassificationLevel"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                nullSelection={intl.formatMessage(
+                  uiMessages.nullSelectionOptionLevel,
+                )}
+                options={levelOptions}
+              />
+            </div>
+          </>
+        )}
       </div>
+      <Submit
+        mode="solid"
+        color="secondary"
+        text={intl.formatMessage({
+          defaultMessage: "Save and continue",
+          id: "YJ9TsM",
+          description: "Button label for submit button on employee info page.",
+        })}
+      />
     </>
   );
 };
@@ -332,10 +324,6 @@ const EmployeeInformation_Query = graphql(/** GraphQL */ `
     }
     classifications {
       id
-      name {
-        en
-        fr
-      }
       group
       level
     }
@@ -379,40 +367,29 @@ const EmployeeInformation = () => {
 
   const labels = {
     govEmployeeYesNo: intl.formatMessage({
-      defaultMessage: "Do you currently work for the government of Canada?",
-      id: "MtONBT",
-      description: "Employee Status in Government Info Form",
+      defaultMessage: "Employee status",
+      id: "oPXTG/",
+      description: "Employee Status in Employee Info Form",
     }),
     department: intl.formatMessage({
-      defaultMessage: "Which department do you work for?",
-      id: "NP/fsS",
-      description: "Label for department select input in the request form",
+      defaultMessage: "Home department",
+      id: "CylcP4",
+      description: "Label for department select input in Employee Info Form",
     }),
     govEmployeeType: intl.formatMessage({
-      defaultMessage: "As an employee, what is your employment status?",
-      id: "3f9P13",
-      description: "Employee Status in Government Info Form",
+      defaultMessage: "Contract type",
+      id: "DNpCdL",
+      description: "Employee Status in Employee Info Form",
     }),
     currentClassificationGroup: intl.formatMessage({
-      defaultMessage: "Current Classification Group",
-      id: "/K1/1n",
+      defaultMessage: "Group",
+      id: "wJnIJx",
       description: "Label displayed on classification group input",
     }),
     currentClassificationLevel: intl.formatMessage({
-      defaultMessage: "Current Classification Level",
-      id: "gnGAe8",
+      defaultMessage: "Level",
+      id: "GJ9QeQ",
       description: "Label displayed on classification level input",
-    }),
-    priorityEntitlementYesNo: intl.formatMessage({
-      defaultMessage: "Priority Entitlement",
-      id: "FqXo5j",
-      description: "Priority Entitlement Status in Government Info Form",
-    }),
-    priorityEntitlementNumber: intl.formatMessage({
-      defaultMessage:
-        "Priority number provided by the Public Service Commission of Canada",
-      id: "5G+j56",
-      description: "Label for priority number input",
     }),
   };
 
@@ -420,11 +397,7 @@ const EmployeeInformation = () => {
   const handleUpdateEmployee = (id: string, input: UpdateUserAsUserInput) =>
     executeMutation({
       id,
-      user: {
-        ...input,
-        id,
-        email: emptyToNull(input.email),
-      },
+      user: input,
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
@@ -499,46 +472,6 @@ const EmployeeInformation = () => {
         currentClassification: {
           disconnect: true,
         },
-        hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-        priorityNumber:
-          values.priorityEntitlementYesNo === "yes" &&
-          values.priorityEntitlementNumber
-            ? values.priorityEntitlementNumber
-            : null,
-      };
-    }
-    if (values.govEmployeeType === GovEmployeeType.Student) {
-      return {
-        isGovEmployee: values.govEmployeeYesNo === "yes",
-        govEmployeeType: values.govEmployeeType,
-        department: values.department ? { connect: values.department } : null,
-        currentClassification: {
-          disconnect: true,
-        },
-        hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-        priorityNumber:
-          values.priorityEntitlementYesNo === "yes" &&
-          values.priorityEntitlementNumber
-            ? values.priorityEntitlementNumber
-            : null,
-      };
-    }
-    if (values.govEmployeeType === GovEmployeeType.Casual) {
-      return {
-        isGovEmployee: values.govEmployeeYesNo === "yes",
-        govEmployeeType: values.govEmployeeType,
-        department: values.department ? { connect: values.department } : null,
-        currentClassification: classificationId
-          ? {
-              connect: classificationId,
-            }
-          : null,
-        hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-        priorityNumber:
-          values.priorityEntitlementYesNo === "yes" &&
-          values.priorityEntitlementNumber
-            ? values.priorityEntitlementNumber
-            : null,
       };
     }
     return {
@@ -550,12 +483,6 @@ const EmployeeInformation = () => {
             connect: classificationId,
           }
         : null,
-      hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
-      priorityNumber:
-        values.priorityEntitlementYesNo === "yes" &&
-        values.priorityEntitlementNumber
-          ? values.priorityEntitlementNumber
-          : null,
     };
   };
 
