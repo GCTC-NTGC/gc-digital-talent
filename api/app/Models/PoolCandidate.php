@@ -732,14 +732,17 @@ class PoolCandidate extends Model
                     return $user->isAbleTo('view-team-submittedApplication', $team);
                 })->pluck('id');
 
-                $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                    return $query
-                        ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->where(function (Builder $query) use ($teamIds) {
-                            $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
-                            })->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+                $query->orWhere(function (Builder $query) use ($teamIds) {
+                    $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                        ->whereHas('pool', function (Builder $query) use ($teamIds) {
+                            return $query->where(function (Builder $query) use ($teamIds) {
+                                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
                             });
                         });
                 });
