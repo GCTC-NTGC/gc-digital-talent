@@ -46,9 +46,9 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
             'userSkills' => ['skill'],
         ])
             ->whereIn('id', $this->ids)
-            ->chunk(200, function ($candidates) use ($section) {
-                foreach ($candidates as $candidate) {
-                    $this->generateUser($section, $candidate->user);
+            ->chunk(200, function ($users) use ($section) {
+                foreach ($users as $user) {
+                    $this->generateUser($section, $user);
                 }
             });
 
