@@ -7,23 +7,17 @@ import {
 } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
-import { useClient, useMutation, useQuery } from "urql";
+import { useClient, useQuery } from "urql";
 import { ReactNode, useState, useMemo, useRef } from "react";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
-  getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Language,
-  User,
-  UserFilterInput,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
