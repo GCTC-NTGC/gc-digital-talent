@@ -435,6 +435,7 @@ export function transformPoolCandidateSearchInputToFormValues(
       ? input.suspendedStatus
       : CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
+    community: input?.applicantFilter?.community?.id ?? "",
   };
 }
 
@@ -471,6 +472,7 @@ export function transformFormValuesToFilterState(
       skills: data.skills.map((id) => {
         return { id };
       }),
+      community: { id: data.community },
     },
     poolCandidateStatus: data.poolCandidateStatus
       .map((status) => {

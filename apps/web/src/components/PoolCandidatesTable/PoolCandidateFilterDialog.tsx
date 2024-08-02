@@ -41,6 +41,13 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    communities {
+      id
+      name {
+        en
+        fr
+      }
+    }
     operationalRequirements: localizedEnumStrings(
       enumName: "OperationalRequirement"
     ) {
@@ -128,6 +135,7 @@ const PoolCandidateFilterDialog = ({
 
   const classifications = unpackMaybes(data?.classifications);
   const skills = unpackMaybes(data?.skills);
+  const communities = unpackMaybes(data?.communities);
 
   const equityOption = (value: string, message: MessageDescriptor) => ({
     value,
@@ -274,6 +282,23 @@ const PoolCandidateFilterDialog = ({
             nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
             label={intl.formatMessage(commonMessages.workingLanguageAbility)}
             options={localizedEnumToOptions(data?.languageAbilities, intl)}
+          />
+        </div>
+        <div data-h2-grid-column="l-tablet(span 2)">
+          <Select
+            id="community"
+            name="community"
+            enableNull
+            label={intl.formatMessage(adminMessages.community)}
+            nullSelection={intl.formatMessage({
+              defaultMessage: "placeholder",
+              id: "7PM2uR",
+              description: "a",
+            })}
+            options={communities.map(({ id, name }) => ({
+              value: id,
+              label: getLocalizedName(name, intl),
+            }))}
           />
         </div>
         <div data-h2-grid-column="l-tablet(span 3)">
