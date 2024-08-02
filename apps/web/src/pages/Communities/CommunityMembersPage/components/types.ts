@@ -4,7 +4,6 @@ import { CommunityMembersPage_CommunityFragment } from "./operations";
 
 export type CommunityMemberFormValues = {
   communityId: Scalars["UUID"]["output"];
-  communityDisplay: Scalars["UUID"]["output"];
   userId: Scalars["UUID"]["output"];
   userDisplay: Scalars["UUID"]["output"];
   roles: Array<Scalars["UUID"]["output"]>;

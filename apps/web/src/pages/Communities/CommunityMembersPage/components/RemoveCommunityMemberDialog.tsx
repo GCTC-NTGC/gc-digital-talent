@@ -55,8 +55,8 @@ const RemoveCommunityMemberDialog = ({
           setIsOpen(false);
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Member removed from community successfully",
-              id: "RfGk/t",
+              defaultMessage: "Member removed successfully",
+              id: "KWXIKL",
               description:
                 "Alert displayed to user when a community member is removed",
             }),
@@ -66,8 +66,8 @@ const RemoveCommunityMemberDialog = ({
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Member removed from community failed",
-            id: "3zupo8",
+            defaultMessage: "Member removal failed",
+            id: "fsvf1L",
             description:
               "Alert displayed to user when an error occurs while removing a community member",
           }),

@@ -7,14 +7,13 @@ import { useMutation } from "urql";
 import { useOutletContext } from "react-router-dom";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox, Select } from "@gc-digital-talent/forms";
+import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 import {
   RoleInput,
@@ -23,7 +22,6 @@ import {
 
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
-import adminMessages from "~/messages/adminMessages";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -60,7 +58,6 @@ AddCommunityMemberDialogProps) => {
     defaultValues: {
       userId: "",
       communityId: community.id,
-      communityDisplay: community.id, // This form field will be disabled and only used for display purposes.
       roles: [],
     },
   });
@@ -89,9 +86,9 @@ AddCommunityMemberDialogProps) => {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Member added successfully",
-              id: "hxNP4v",
+              id: "KESOSJ",
               description:
-                "Alert displayed to user when a community member's roles have been updated",
+                "Alert displayed to user when a community member was added to a community",
             }),
           );
         }
@@ -99,10 +96,10 @@ AddCommunityMemberDialogProps) => {
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "nKXTN6",
+            defaultMessage: "Member addition failed",
+            id: "BbI16K",
             description:
-              "Alert displayed to user when an error occurs while editing a community member's roles",
+              "Alert displayed to user when a community member was not added to a community",
           }),
         );
       });
@@ -146,7 +143,16 @@ AddCommunityMemberDialogProps) => {
               "Help text for user field on the add member to community form",
           })}
         >
-          {label}
+          {intl.formatMessage(
+            {
+              defaultMessage: "Add member to {communityName}",
+              id: "lgKFLj",
+              description: "Label for the add member to community form",
+            },
+            {
+              communityName: getLocalizedName(community.name, intl),
+            },
+          )}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
@@ -174,31 +180,15 @@ AddCommunityMemberDialogProps) => {
                   })}
                   options={userOptions ?? []}
                 />
-                {/** Note: Only one option since we are adding to this community's users */}
                 <input type="hidden" name="communityId" value={community.id} />
-                <Select
-                  id="communityDisplay"
-                  name="communityDisplay"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  disabled
-                  label={intl.formatMessage(adminMessages.community)}
-                  options={[
-                    {
-                      value: community.id,
-                      label: getLocalizedName(community.name, intl),
-                    },
-                  ]}
-                />
                 <Combobox
                   id="roles"
                   name="roles"
                   isMulti
                   fetching={rolesFetching}
                   label={intl.formatMessage({
-                    defaultMessage: "Member roles",
-                    id: "yHKr/C",
+                    defaultMessage: "Roles",
+                    id: "RIcumI",
                     description:
                       "Label for the input to add roles to a user's community membership",
                   })}

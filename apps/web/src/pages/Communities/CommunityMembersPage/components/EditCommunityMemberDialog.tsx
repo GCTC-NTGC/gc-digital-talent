@@ -6,14 +6,13 @@ import { useMutation } from "urql";
 import { useOutletContext } from "react-router-dom";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox, Select } from "@gc-digital-talent/forms";
+import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 import {
   RoleInput,
@@ -22,7 +21,6 @@ import {
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
-import adminMessages from "~/messages/adminMessages";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -50,7 +48,6 @@ const EditCommunityMemberDialog = ({
       userId: user.id,
       userDisplay: user.id,
       communityId: community.id,
-      communityDisplay: community.id,
       roles: initialRolesIds,
     },
   });
@@ -88,8 +85,8 @@ const EditCommunityMemberDialog = ({
           setIsOpen(false);
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Member roles updated successfully",
-              id: "AWesnS",
+              defaultMessage: "Roles updated successfully",
+              id: "Jc9FDx",
               description:
                 "Alert displayed to user when a community member's roles have been updated",
             }),
@@ -99,8 +96,8 @@ const EditCommunityMemberDialog = ({
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "nKXTN6",
+            defaultMessage: "Role update failed",
+            id: "bmOZXl",
             description:
               "Alert displayed to user when an error occurs while editing a community member's roles",
           }),
@@ -114,12 +111,13 @@ const EditCommunityMemberDialog = ({
 
   const label = intl.formatMessage(
     {
-      defaultMessage: "Edit community roles for {userName}",
-      id: "k0A5BT",
+      defaultMessage: "Edit community roles for {userName} in {communityName}",
+      id: "aTXHOX",
       description: "Label for the form to edit a users community membership",
     },
     {
       userName,
+      communityName: getLocalizedName(community.name, intl),
     },
   );
 
@@ -146,58 +144,21 @@ const EditCommunityMemberDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              {/** Note: Only one option since we are editing this user */}
-              <input type="hidden" name="userId" value={user.id} />
               <div
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >
-                <Select
-                  id="userDisplay"
-                  name="userDisplay"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  disabled
-                  label={intl.formatMessage({
-                    defaultMessage: "User",
-                    id: "9QZhR4",
-                    description:
-                      "Label for the user select field on community membership form",
-                  })}
-                  options={[
-                    {
-                      value: user.id,
-                      label: userName,
-                    },
-                  ]}
-                />
-                {/** Note: Only one option since we are editing this community's users */}
+                <input type="hidden" name="userId" value={user.id} />
                 <input type="hidden" name="communityId" value={community.id} />
-                <Select
-                  id="communityDisplay"
-                  name="communityDisplay"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  disabled
-                  label={intl.formatMessage(adminMessages.community)}
-                  options={[
-                    {
-                      value: community.id,
-                      label: getLocalizedName(community.name, intl),
-                    },
-                  ]}
-                />
                 <Combobox
                   id="roles"
                   name="roles"
                   isMulti
                   fetching={fetching}
                   label={intl.formatMessage({
-                    defaultMessage: "Member roles",
-                    id: "yHKr/C",
+                    defaultMessage: "Roles",
+                    id: "RIcumI",
                     description:
                       "Label for the input to add roles to a user's community membership",
                   })}
