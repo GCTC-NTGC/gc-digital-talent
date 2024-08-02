@@ -137,17 +137,18 @@ AddCommunityMemberDialogProps) => {
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header
+          subtitle={intl.formatMessage({
+            defaultMessage:
+              "Select the user you would like to add to this community along with their roles.",
+            id: "niYQRv",
+            description:
+              "Help text for user field on the add member to community form",
+          })}
+        >
+          {label}
+        </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Select the user you would like to add to this community.",
-              id: "eii0/p",
-              description:
-                "Help text for user field on the add member to community form",
-            })}
-          </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div

@@ -23,16 +23,9 @@ const CreateCommunity_Mutation = graphql(/* GraphQL */ `
 `);
 
 const pageTitle = defineMessage({
-  defaultMessage: "Create a new community",
-  id: "Bc5RJN",
+  defaultMessage: "Create a community",
+  id: "pPOT4g",
   description: "Page title for the create community page",
-});
-
-const subtitle = defineMessage({
-  defaultMessage: "Create a new community from scratch",
-  id: "CX64CE",
-  description:
-    "Descriptive text for the create community page in the admin portal.",
 });
 
 const CreateCommunityPage = () => {
@@ -42,7 +35,6 @@ const CreateCommunityPage = () => {
   const [, executeMutation] = useMutation(CreateCommunity_Mutation);
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
-  const formattedSubTitle = intl.formatMessage(subtitle);
 
   const handleSubmit = async (values: CreateCommunityInput) => {
     return executeMutation({
@@ -75,10 +67,9 @@ const CreateCommunityPage = () => {
 
   return (
     <>
-      <SEO title={formattedPageTitle} description={formattedSubTitle} />
+      <SEO title={formattedPageTitle} />
       <AdminHero
         title={formattedPageTitle}
-        subtitle={formattedSubTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>

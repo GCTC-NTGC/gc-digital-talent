@@ -1,4 +1,4 @@
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -12,21 +12,11 @@ import pageTitles from "~/messages/pageTitles";
 
 import CommunityTableApi from "./components/CommunityTable/CommunityTable";
 
-const subTitle = defineMessage({
-  defaultMessage:
-    "Use the following table to create, view, and manage communities on the platform.",
-  id: "HXbAWk",
-  description:
-    "Descriptive text about the list of communities in the admin portal.",
-});
-
 const IndexCommunityPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
   const formattedPageTitle = intl.formatMessage(pageTitles.communities);
-  const formattedSubTitle = intl.formatMessage(subTitle);
-
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -39,10 +29,9 @@ const IndexCommunityPage = () => {
 
   return (
     <>
-      <SEO title={formattedPageTitle} description={formattedSubTitle} />
+      <SEO title={formattedPageTitle} />
       <AdminHero
         title={formattedPageTitle}
-        subtitle={formattedSubTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>

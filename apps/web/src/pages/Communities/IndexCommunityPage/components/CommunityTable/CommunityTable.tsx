@@ -17,7 +17,6 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
-import adminMessages from "~/messages/adminMessages";
 import { checkRole } from "~/utils/teamUtils";
 
 import { MyRoleTeam } from "./types";
@@ -67,7 +66,11 @@ export const CommunityTable = ({
       {
         id: "communityName",
         sortingFn: normalizedText,
-        header: intl.formatMessage(adminMessages.community),
+        header: intl.formatMessage({
+          defaultMessage: "Name",
+          id: "5TkgGD",
+          description: "Label for name column",
+        }),
         cell: ({ row: { original: community }, getValue }) =>
           viewCell(
             paths.communityView(community.id),

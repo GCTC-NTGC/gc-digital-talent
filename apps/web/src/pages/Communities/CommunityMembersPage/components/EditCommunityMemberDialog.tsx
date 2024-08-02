@@ -114,8 +114,8 @@ const EditCommunityMemberDialog = ({
 
   const label = intl.formatMessage(
     {
-      defaultMessage: "Edit membership for {userName}",
-      id: "FtK1Pp",
+      defaultMessage: "Edit community roles for {userName}",
+      id: "k0A5BT",
       description: "Label for the form to edit a users community membership",
     },
     {
@@ -136,8 +136,8 @@ const EditCommunityMemberDialog = ({
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({
-            defaultMessage: "Change or remove this membership's permissions.",
-            id: "00fgDq",
+            defaultMessage: "Change or remove this user's community roles.",
+            id: "X6JZdO",
             description: "Help text for the edit community membership form",
           })}
         >
