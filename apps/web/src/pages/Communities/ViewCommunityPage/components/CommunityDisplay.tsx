@@ -39,13 +39,6 @@ const CommunityDisplay = ({ initialData }: CommunityDisplayProps) => {
         {name?.fr || notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        hasError={!key}
-        label={intl.formatMessage(labels.key)}
-      >
-        {key || notProvided}
-      </ToggleForm.FieldDisplay>
-      <div />
-      <ToggleForm.FieldDisplay
         hasError={!description?.en}
         label={intl.formatMessage(labels.descriptionEn)}
       >
@@ -64,6 +57,12 @@ const CommunityDisplay = ({ initialData }: CommunityDisplayProps) => {
         ) : (
           notProvided
         )}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!key}
+        label={intl.formatMessage(labels.key)}
+      >
+        {key || notProvided}
       </ToggleForm.FieldDisplay>
     </div>
   );

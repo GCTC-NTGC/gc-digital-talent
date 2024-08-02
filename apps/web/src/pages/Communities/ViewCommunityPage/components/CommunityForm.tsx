@@ -100,16 +100,6 @@ const CommunityForm = ({
             required: intl.formatMessage(errorMessages.required),
           }}
         />
-        <Input
-          id="key"
-          label={intl.formatMessage(labels.key)}
-          name="key"
-          type="text"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <div />
         <RichTextInput
           id="descriptionEn"
           label={intl.formatMessage(labels.descriptionEn)}
@@ -127,6 +117,15 @@ const CommunityForm = ({
             required: intl.formatMessage(errorMessages.required),
           }}
           wordLimit={TEXT_AREA_MAX_WORDS}
+        />
+        <Input
+          id="key"
+          label={intl.formatMessage(labels.key)}
+          name="key"
+          type="text"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
         />
         <div
           data-h2-grid-column="base(span 2)"

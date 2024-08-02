@@ -116,16 +116,6 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <Input
-              id="key"
-              label={intl.formatMessage(labels.key)}
-              name="key"
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <div />
             <RichTextInput
               id="description.en"
               label={intl.formatMessage(labels.descriptionEn)}
@@ -143,6 +133,15 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
               wordLimit={TEXT_AREA_MAX_WORDS}
+            />
+            <Input
+              id="key"
+              label={intl.formatMessage(labels.key)}
+              name="key"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
           </div>
           <div
