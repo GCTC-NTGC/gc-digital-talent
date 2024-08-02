@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\PoolCandidateStatus;
-use App\Jobs\GenerateCandidateCSV;
+use App\Jobs\GenerateUserFile;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
@@ -63,7 +63,7 @@ class CandidateCsvGenerationTest extends TestCase
                 }
             ', ['ids' => [$candidate->id]]);
 
-        Queue::assertPushed(GenerateCandidateCSV::class);
+        Queue::assertPushed(GenerateUserFile::class);
 
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class EducationExperience
@@ -44,9 +45,9 @@ class EducationExperience extends Experience
         'experience_type' => EducationExperience::class,
     ];
 
-    public function getTitle(): string
+    public function getTitle(?string $lang = 'en'): string
     {
-        return sprintf('%s at %s', $this->area_of_study, $this->institution);
+        return sprintf('%s %s %s', $this->area_of_study, Lang::get('common.at', [], $lang), $this->institution);
     }
 
     /**

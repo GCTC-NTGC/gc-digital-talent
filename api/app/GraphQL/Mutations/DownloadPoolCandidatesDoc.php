@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\PoolCandidateCsvGenerator;
+use App\Generators\PoolCandidateDocGenerator;
 use App\Jobs\GenerateUserFile;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadPoolCandidatesCsv
+final class DownloadPoolCandidatesDoc
 {
     /**
      * Dispatches the generation of a
@@ -33,10 +33,11 @@ final class DownloadPoolCandidatesCsv
                 ->pluck('id') // Seems weird but we are just flattening it out
                 ->toArray();
 
-            $fileName = sprintf('%s_%s.csv', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
+            $fileName = sprintf('%s_%s.docx', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
 
-            $generator = new PoolCandidateCsvGenerator(
+            $generator = new PoolCandidateDocGenerator(
                 ids: $ids,
+                anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
                 fileName: $fileName,
                 dir: $user->id,
                 lang: strtolower($locale),
@@ -46,7 +47,7 @@ final class DownloadPoolCandidatesCsv
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting candidate csv generation '.$e->getMessage());
+            Log::error('Error starting candidate document generation '.$e->getMessage());
 
             return false;
         }

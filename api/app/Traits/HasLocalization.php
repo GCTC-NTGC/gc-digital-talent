@@ -17,9 +17,9 @@ trait HasLocalization
         return Str::lower(constant("self::$enumCase")->name);
     }
 
-    public static function localizedString(string $value)
+    public static function localizedString(string $value, ?string $parentKey = null)
     {
-        $key = self::getLangKey($value);
+        $key = self::getLangKey($value, $parentKey);
 
         return [
             'en' => Lang::get($key, [], 'en'),
@@ -27,11 +27,12 @@ trait HasLocalization
         ];
     }
 
-    public static function getLangKey(string $value): string
+    public static function getLangKey(string $value, ?string $parentKey = null): string
     {
         return sprintf(
-            '%s.%s',
+            '%s%s.%s',
             self::getLangFilename(),
+            ! is_null($parentKey) ? '.'.$parentKey : '',
             self::caseKey($value)
         );
     }

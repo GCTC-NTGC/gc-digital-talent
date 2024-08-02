@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\UserFileGenerated;
-use App\Generators\CandidateProfileCsv;
+use App\Generators\FileGeneratorInterface;
 use App\Models\User;
 use App\Notifications\UserFileGenerationError;
 use Illuminate\Bus\Queueable;
@@ -13,32 +13,28 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class GenerateCandidateCSV implements ShouldQueue
+class GenerateUserFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(public array $candidateIds, public string $userId, public string $lang = 'en') {}
+    public function __construct(private FileGeneratorInterface $generator, private User $user) {}
 
     /**
      * Execute the job.
      */
     public function handle(): void
     {
-        $user = User::find($this->userId);
-        $fileName = 'candidates_'.date('Y-m-d_His').'.csv';
-
         try {
-            $generator = new CandidateProfileCsv($this->candidateIds, $this?->lang);
-            $generator->generate()->write($fileName, $this->userId);
+            $this->generator->generate()->write();
 
-            UserFileGenerated::dispatch($fileName, $this->userId);
+            UserFileGenerated::dispatch($this->generator->getFileName(), $this->user->id);
         } catch (\Exception $e) {
             // Notify the user something went wrong
-            $user->notify(new UserFileGenerationError($fileName));
-            Log::error('Error generating file: '.$e->getMessage());
+            $this->user->notify(new UserFileGenerationError($this->generator->getFileName()));
+            Log::error('Error generating file: '.$e->getMessage().' '.$e->getFile().':'.$e->getLine());
         }
 
     }
