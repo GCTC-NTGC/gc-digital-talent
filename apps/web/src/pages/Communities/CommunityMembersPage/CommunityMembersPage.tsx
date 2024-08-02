@@ -98,6 +98,10 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
           description: "Title displayed for the community table actions column",
         }),
         cell: ({ row: { original: member } }) => actionCell(member, community),
+        meta: {
+          hideMobileHeader: true,
+          shrink: true,
+        },
       }),
       ...columns,
     ];
