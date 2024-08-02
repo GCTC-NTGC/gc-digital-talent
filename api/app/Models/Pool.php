@@ -646,33 +646,32 @@ class Pool extends Model
             return $query;
         }
 
-        // depending on privileges we want to filter for some pools
-        // these are the permissions checked in the following subquery
-        $hasSomePermission = $user?->isAbleTo([
-            'view-team-draftPool',
-            'view-any-publishedPool',
-        ]);
-        if ($hasSomePermission) {
-            return $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-team-draftPool')) {
-                    // Only add teams the user can view pools in to the query for `whereHas`
-                    $teams = $user->rolesTeams()->get();
-                    $teamIds = [];
-                    foreach ($teams as $team) {
-                        if ($user->isAbleTo('view-team-draftPool', $team)) {
-                            $teamIds[] = $team->id;
-                        }
+        // we might want to add some filters for some pools
+        $filterCount = 0;
+        $queryWithFilters = $query->clone()->where(function (Builder $query) use ($user, &$filterCount) {
+            if ($user?->isAbleTo('view-team-draftPool')) {
+                // Only add teams the user can view pools in to the query for `whereHas`
+                $teams = $user->rolesTeams()->get();
+                $teamIds = [];
+                foreach ($teams as $team) {
+                    if ($user->isAbleTo('view-team-draftPool', $team)) {
+                        $teamIds[] = $team->id;
                     }
-
-                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    });
                 }
 
-                if ($user->isAbleTo('view-any-publishedPool')) {
-                    $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
-                }
-            });
+                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+            }
+
+            if ($user?->isAbleTo('view-any-publishedPool')) {
+                $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
+            }
+
+            $filterCount = count($query->getQuery()->wheres);
+        });
+        if ($filterCount > 0) {
+            return $queryWithFilters;
         }
 
         // worst case - anyone can view a published pool
