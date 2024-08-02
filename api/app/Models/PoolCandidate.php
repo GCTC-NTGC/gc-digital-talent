@@ -723,11 +723,9 @@ class PoolCandidate extends Model
             return $query->where('id', null);
         }
 
-        $hasSomePermission = $user->isAbleTo([
-            'view-own-application',
-            'view-team-submittedApplication',
-            'view-any-submittedApplication',
-        ]);
+        $hasSomePermission = $user->isAbleTo('view-own-application')
+            || $user->isAbleTo('view-team-submittedApplication')
+            || $user->isAbleTo('view-any-submittedApplication');
 
         // User does not have any of the required permissions
         if (! $hasSomePermission) {
