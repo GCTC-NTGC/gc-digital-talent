@@ -29,7 +29,11 @@ type RouteParams = {
 };
 
 const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
-query ScreeningAndEvaluation_Pools($poolId: UUID!, $first: Int!, $where: PoolCandidateSearchInput) {
+  query ScreeningAndEvaluation_Pools(
+    $poolId: UUID!
+    $first: Int!
+    $where: PoolCandidateSearchInput
+  ) {
     pool(id: $poolId) {
       ...AssessmentStepTracker_Pool
     }
@@ -82,7 +86,7 @@ const ScreeningAndEvaluationPage = () => {
         applicantFilter: { pools: [{ id: poolId }] },
         suspendedStatus: CandidateSuspendedFilter.Active,
         expiryStatus: CandidateExpiryFilter.Active,
-      }
+      },
     },
   });
   const lastPage = data?.poolCandidatesPaginated.paginatorInfo.lastPage ?? 0;
@@ -145,7 +149,6 @@ const ScreeningAndEvaluationPage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastPage]);
-
 
   return (
     <AdminContentWrapper>
