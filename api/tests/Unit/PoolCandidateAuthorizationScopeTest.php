@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Enums\PoolCandidateStatus;
 use App\Models\Pool;
