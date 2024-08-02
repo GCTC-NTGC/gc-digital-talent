@@ -153,9 +153,7 @@ const createRoute = (locale: Locales) =>
             {
               path: "applicant",
               lazy: () =>
-                import(
-                  "../pages/Auth/RegistrationPages/GettingStartedRedirect"
-                ),
+                import("../pages/Auth/RegistrationPages/RegistrationRedirect"),
               children: [
                 {
                   index: true,
