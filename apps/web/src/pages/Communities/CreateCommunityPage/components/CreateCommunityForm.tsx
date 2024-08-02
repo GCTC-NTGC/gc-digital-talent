@@ -20,8 +20,7 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-
-import labels from "../../labels";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
   key: string;
@@ -100,7 +99,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           >
             <Input
               id="name.en"
-              label={intl.formatMessage(labels.nameEn)}
+              label={intl.formatMessage(adminMessages.nameEn)}
               name="name.en"
               type="text"
               rules={{
@@ -109,7 +108,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             />
             <Input
               id="name.fr"
-              label={intl.formatMessage(labels.nameFr)}
+              label={intl.formatMessage(adminMessages.nameFr)}
               name="name.fr"
               type="text"
               rules={{
@@ -118,7 +117,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             />
             <RichTextInput
               id="description.en"
-              label={intl.formatMessage(labels.descriptionEn)}
+              label={intl.formatMessage(adminMessages.descriptionEn)}
               name="description.en"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -127,7 +126,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             />
             <RichTextInput
               id="description.fr"
-              label={intl.formatMessage(labels.descriptionFr)}
+              label={intl.formatMessage(adminMessages.descriptionFr)}
               name="description.fr"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -136,7 +135,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             />
             <Input
               id="key"
-              label={intl.formatMessage(labels.key)}
+              label={intl.formatMessage(adminMessages.key)}
               name="key"
               type="text"
               rules={{

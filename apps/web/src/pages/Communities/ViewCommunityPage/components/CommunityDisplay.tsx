@@ -5,8 +5,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-
-import labels from "../../labels";
+import adminMessages from "~/messages/adminMessages";
 
 interface CommunityDisplayProps {
   initialData: Community | null | undefined;
@@ -28,19 +27,19 @@ const CommunityDisplay = ({ initialData }: CommunityDisplayProps) => {
     >
       <ToggleForm.FieldDisplay
         hasError={!name?.en}
-        label={intl.formatMessage(labels.nameEn)}
+        label={intl.formatMessage(adminMessages.nameEn)}
       >
         {name?.en || notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!name?.fr}
-        label={intl.formatMessage(labels.nameFr)}
+        label={intl.formatMessage(adminMessages.nameFr)}
       >
         {name?.fr || notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!description?.en}
-        label={intl.formatMessage(labels.descriptionEn)}
+        label={intl.formatMessage(adminMessages.descriptionEn)}
       >
         {description?.en ? (
           <RichTextRenderer node={htmlToRichTextJSON(description?.en)} />
@@ -50,7 +49,7 @@ const CommunityDisplay = ({ initialData }: CommunityDisplayProps) => {
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!description?.fr}
-        label={intl.formatMessage(labels.descriptionEn)}
+        label={intl.formatMessage(adminMessages.descriptionFr)}
       >
         {description?.fr ? (
           <RichTextRenderer node={htmlToRichTextJSON(description?.fr)} />
@@ -60,7 +59,7 @@ const CommunityDisplay = ({ initialData }: CommunityDisplayProps) => {
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!key}
-        label={intl.formatMessage(labels.key)}
+        label={intl.formatMessage(adminMessages.key)}
       >
         {key || notProvided}
       </ToggleForm.FieldDisplay>

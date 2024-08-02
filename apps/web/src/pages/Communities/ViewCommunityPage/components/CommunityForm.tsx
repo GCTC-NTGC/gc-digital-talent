@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
-import labels from "../../labels";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
   key: string;
@@ -85,7 +85,7 @@ const CommunityForm = ({
         >
           <Input
             id="nameEn"
-            label={intl.formatMessage(labels.nameEn)}
+            label={intl.formatMessage(adminMessages.nameEn)}
             name="nameEn"
             type="text"
             rules={{
@@ -94,7 +94,7 @@ const CommunityForm = ({
           />
           <Input
             id="nameFr"
-            label={intl.formatMessage(labels.nameFr)}
+            label={intl.formatMessage(adminMessages.nameFr)}
             name="nameFr"
             type="text"
             rules={{
@@ -103,7 +103,7 @@ const CommunityForm = ({
           />
           <RichTextInput
             id="descriptionEn"
-            label={intl.formatMessage(labels.descriptionEn)}
+            label={intl.formatMessage(adminMessages.descriptionEn)}
             name="descriptionEn"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -112,7 +112,7 @@ const CommunityForm = ({
           />
           <RichTextInput
             id="descriptionFr"
-            label={intl.formatMessage(labels.descriptionFr)}
+            label={intl.formatMessage(adminMessages.descriptionFr)}
             name="descriptionFr"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -121,7 +121,7 @@ const CommunityForm = ({
           />
           <Input
             id="key"
-            label={intl.formatMessage(labels.key)}
+            label={intl.formatMessage(adminMessages.key)}
             name="key"
             type="text"
             rules={{
