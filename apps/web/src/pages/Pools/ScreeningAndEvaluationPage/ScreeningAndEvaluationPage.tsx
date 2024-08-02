@@ -8,6 +8,8 @@ import {
   FragmentType,
   Scalars,
   PoolCandidateSearchInput,
+  CandidateSuspendedFilter,
+  CandidateExpiryFilter,
 } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -27,11 +29,15 @@ type RouteParams = {
 };
 
 const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
-  query ScreeningAndEvaluation_Pools($poolId: UUID!, $first: Int!) {
+  query ScreeningAndEvaluation_Pools(
+    $poolId: UUID!
+    $first: Int!
+    $where: PoolCandidateSearchInput
+  ) {
     pool(id: $poolId) {
       ...AssessmentStepTracker_Pool
     }
-    poolCandidatesPaginated(first: $first) {
+    poolCandidatesPaginated(first: $first, where: $where) {
       paginatorInfo {
         lastPage
       }
@@ -76,6 +82,11 @@ const ScreeningAndEvaluationPage = () => {
     variables: {
       poolId,
       first: CANDIDATES_BATCH_SIZE,
+      where: {
+        applicantFilter: { pools: [{ id: poolId }] },
+        suspendedStatus: CandidateSuspendedFilter.Active,
+        expiryStatus: CandidateExpiryFilter.Active,
+      },
     },
   });
   const lastPage = data?.poolCandidatesPaginated.paginatorInfo.lastPage ?? 0;
