@@ -9202,10 +9202,6 @@
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
   },
-  "m0iNdp": {
-    "defaultMessage": "Choisir une collectivité",
-    "description": "Null selection for community select input."
-  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
