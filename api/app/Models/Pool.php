@@ -556,28 +556,26 @@ class Pool extends Model
     /**
      * Filter for pools the user is allowed to admin, based on scopeAuthorizedToAdmin
      */
-    public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): Builder
+    public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): void
     {
         if (! empty($canAdmin)) {
             $query->authorizedToAdmin();
         }
-
-        return $query;
     }
 
-    public static function scopeAuthorizedToAdmin(Builder $query): Builder
+    public static function scopeAuthorizedToAdmin(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
         // if they can view any, then nothing filtered out
         if ($user?->isAbleTo('view-any-assessmentPlan')) {
-            return $query;
+            return;
         }
 
         // if they can view team plans, then filter by teams
         if ($user?->isAbleTo('view-team-assessmentPlan')) {
-            return $query->where(function (Builder $query) use ($user) {
+            $query->where(function (Builder $query) use ($user) {
                 // Only add teams the user can view pools in to the query for `whereHas`
                 $teams = $user->rolesTeams()->get();
                 $teamIds = [];
@@ -588,13 +586,15 @@ class Pool extends Model
                 }
 
                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                    return $query->whereIn('id', $teamIds);
+                    $query->whereIn('id', $teamIds);
                 });
             });
+
+            return;
         }
 
         // the user can't see any assessment plans
-        return $query->where('id', null);
+        $query->where('id', null);
     }
 
     /**

@@ -1053,45 +1053,46 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $query->where('id', null);
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
         // can see any user - return with no filters added
         if ($user?->isAbleTo('view-any-user')) {
-            return $query;
+            return;
         }
 
         // if there is a user - call child scope
         if (! is_null($user)) {
-            return $query->authorizedToViewSpecific();
+            $query->authorizedToViewSpecific();
+
+            return;
         }
 
         // fall through - return nothing
-        return $query->where('id', null);
+        $query->where('id', null);
     }
 
-    public function scopeAuthorizedToViewBasicInfo(Builder $query)
+    public function scopeAuthorizedToViewBasicInfo(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
         // can see any basic info - return with no filters added
-        if ($user?->isAbleTo([
-            'view-any-user',
-            'view-any-userBasicInfo',
-        ])) {
-            return $query;
+        if ($user?->isAbleTo('view-any-user') || $user?->isAbleTo('view-any-userBasicInfo')) {
+            return;
         }
 
         // if there is a user - use the child scope
         if (! is_null($user)) {
-            return $query->authorizedToViewSpecific();
+            $query->authorizedToViewSpecific();
+
+            return;
         }
 
-        // fall through - return nothing
-        return $query->where('id', null);
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     /**
