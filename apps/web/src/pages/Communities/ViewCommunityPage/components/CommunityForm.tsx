@@ -76,57 +76,59 @@ const CommunityForm = ({
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(handleSave)}
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="base(repeat(2, 1fr))"
-      >
-        <Input
-          id="nameEn"
-          label={intl.formatMessage(labels.nameEn)}
-          name="nameEn"
-          type="text"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Input
-          id="nameFr"
-          label={intl.formatMessage(labels.nameFr)}
-          name="nameFr"
-          type="text"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <RichTextInput
-          id="descriptionEn"
-          label={intl.formatMessage(labels.descriptionEn)}
-          name="descriptionEn"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          wordLimit={TEXT_AREA_MAX_WORDS}
-        />
-        <RichTextInput
-          id="descriptionFr"
-          label={intl.formatMessage(labels.descriptionFr)}
-          name="descriptionFr"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          wordLimit={TEXT_AREA_MAX_WORDS}
-        />
-        <Input
-          id="key"
-          label={intl.formatMessage(labels.key)}
-          name="key"
-          type="text"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
+      <form onSubmit={handleSubmit(handleSave)}>
+        <div
+          data-h2-display="base(grid)"
+          data-h2-gap="base(x1)"
+          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+          data-h2-margin-bottom="base(x2)"
+        >
+          <Input
+            id="nameEn"
+            label={intl.formatMessage(labels.nameEn)}
+            name="nameEn"
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="nameFr"
+            label={intl.formatMessage(labels.nameFr)}
+            name="nameFr"
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <RichTextInput
+            id="descriptionEn"
+            label={intl.formatMessage(labels.descriptionEn)}
+            name="descriptionEn"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            wordLimit={TEXT_AREA_MAX_WORDS}
+          />
+          <RichTextInput
+            id="descriptionFr"
+            label={intl.formatMessage(labels.descriptionFr)}
+            name="descriptionFr"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            wordLimit={TEXT_AREA_MAX_WORDS}
+          />
+          <Input
+            id="key"
+            label={intl.formatMessage(labels.key)}
+            name="key"
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        </div>
         <div
           data-h2-grid-column="base(span 2)"
           data-h2-display="base(flex)"
