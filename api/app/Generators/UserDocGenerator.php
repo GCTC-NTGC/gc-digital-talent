@@ -37,7 +37,7 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         $this->setup();
 
         $section = $this->doc->addSection();
-        $section->addTitle($this->localizeHeading('candidate_profiles'), 1);
+        $section->addTitle($this->localizeHeading(count($this->ids) > 1 ? 'user_profiles' : 'user_profile'), 1);
 
         User::with([
             'department',

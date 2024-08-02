@@ -50,6 +50,8 @@ return [
     'skills' => 'Compétences',
     // Section headings
     'candidate_profiles' => 'Profils des candidats',
+    'user_profile' => 'Profil de l\'utilisateur',
+    'user_profiles' => 'Profils d\'utilisateurs',
     'contact_info' => 'Coordonnées',
     'general_info' => 'Renseignements généraux',
     'language_info' => 'Informations linguistiques',

@@ -35,7 +35,8 @@ final class DownloadUsersDoc
                 ->pluck('id') // Seems weird but we are just flattening it out
                 ->toArray();
 
-            $fileName = sprintf('%s_%s.docx', Lang::get('filename.users', [], $locale), date('Y-m-d_His'));
+            $key = count($ids) > 1 ? 'users' : 'user';
+            $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
 
             $generator = new UserDocGenerator(
                 ids: $ids,
