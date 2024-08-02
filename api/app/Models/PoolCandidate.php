@@ -714,14 +714,14 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
         // we might want to add some filters for some candidates
-        $filterCount = 0;
-        $queryWithFilters = $query->clone()->where(function (Builder $query) use ($user, &$filterCount) {
+        $filterCountBefore = count($query->getQuery()->wheres);
+        $query->where(function (Builder $query) use ($user) {
             if ($user?->isAbleTo('view-any-submittedApplication')) {
                 $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
             }
@@ -748,15 +748,14 @@ class PoolCandidate extends Model
             if ($user?->isAbleTo('view-own-application')) {
                 $query->orWhere('user_id', $user->id);
             }
-
-            $filterCount = count($query->getQuery()->wheres);
         });
-        if ($filterCount > 0) {
-            return $queryWithFilters;
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
         }
 
-        // worst case - can't see anything
-        return $query->where('id', null);
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     /**

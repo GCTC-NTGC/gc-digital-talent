@@ -1019,14 +1019,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToViewSpecific(Builder $query)
+    public function scopeAuthorizedToViewSpecific(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
         // we might want to add some filters for some users
-        $filterCount = 0;
-        $queryWithFilters = $query->clone()->where(function (Builder $query) use ($user, &$filterCount) {
+        $filterCountBefore = count($query->getQuery()->wheres);
+        $query->where(function (Builder $query) use ($user) {
             if ($user?->isAbleTo('view-team-applicantProfile')) {
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
@@ -1043,15 +1043,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             if ($user?->isAbleTo('view-own-user')) {
                 $query->orWhere('id', $user->id);
             }
-
-            $filterCount = count($query->getQuery()->wheres);
         });
-        if ($filterCount > 0) {
-            return $queryWithFilters;
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
         }
 
-        // fall through - return nothing
-        return $query->where('id', null);
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     public function scopeAuthorizedToView(Builder $query)

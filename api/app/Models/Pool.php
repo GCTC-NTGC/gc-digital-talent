@@ -636,19 +636,19 @@ class Pool extends Model
         return $query;
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
         // can view any pool - return query with no filters added
         if ($user?->isAbleTo('view-any-pool')) {
-            return $query;
+            return;
         }
 
         // we might want to add some filters for some pools
-        $filterCount = 0;
-        $queryWithFilters = $query->clone()->where(function (Builder $query) use ($user, &$filterCount) {
+        $filterCountBefore = count($query->getQuery()->wheres);
+        $query->where(function (Builder $query) use ($user) {
             if ($user?->isAbleTo('view-team-draftPool')) {
                 // Only add teams the user can view pools in to the query for `whereHas`
                 $teams = $user->rolesTeams()->get();
@@ -667,15 +667,14 @@ class Pool extends Model
             if ($user?->isAbleTo('view-any-publishedPool')) {
                 $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
             }
-
-            $filterCount = count($query->getQuery()->wheres);
         });
-        if ($filterCount > 0) {
-            return $queryWithFilters;
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
         }
 
-        // worst case - anyone can view a published pool
-        return $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        // fall through - anyone can view a published pool
+        $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
     }
 
     public static function getSelectableColumns()
