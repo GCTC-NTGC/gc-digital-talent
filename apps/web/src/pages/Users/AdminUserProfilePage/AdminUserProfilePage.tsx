@@ -15,7 +15,6 @@ import UserProfile from "~/components/UserProfile";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import SingleUserProfilePrintButton from "~/components/PrintButton/SingleUserProfilePrintButton";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
 
