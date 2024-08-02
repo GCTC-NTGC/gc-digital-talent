@@ -12,8 +12,8 @@ module.exports = {
     "<rootDir>/dist",
   ],
   moduleNameMapper: {
-    "^.+\\.(css|less)$": path.join(__dirname, "../../mocks/css.js"),
+    "^.+\\.(css|less)$": path.join(__dirname, "../../mocks/css.ts"),
   },
   preset: "ts-jest",
-  setupFilesAfterEnv: [path.join(__dirname, "../../setup.js")],
+  setupFilesAfterEnv: [path.join(__dirname, "../../setup.ts")],
 };

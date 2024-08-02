@@ -1,11 +1,13 @@
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
   roots: ["src"],
   preset: "@gc-digital-talent/jest-presets/jest/browser",
   // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
   moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|pdf|doc|docx)+(\\?url)?$":
-      "<rootDir>/src/tests/mocks/fileMock.js",
-    "\\.(css|less)$": "<rootDir>/src/tests/mocks/styleMock.js",
+      "<rootDir>/src/tests/mocks/fileMock.ts",
+    "\\.(css|less)$": "<rootDir>/src/tests/mocks/styleMock.ts",
     "~(.*)$": "<rootDir>/src/$1",
   },
   // Jest transformations -- this adds support for TypeScript
@@ -41,3 +43,5 @@ module.exports = {
   verbose: true,
   setupFilesAfterEnv: ["./src/tests/setup.ts"],
 };
+
+export default config;
