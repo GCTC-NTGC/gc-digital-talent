@@ -147,7 +147,7 @@ const createRoute = (locale: Locales) =>
               path: "employee-registration",
               lazy: () =>
                 import(
-                  "../pages/Auth/RegistrationPages/EmployeeRegistrationPage"
+                  "../pages/Auth/RegistrationPages/EmployeeInformationPage"
                 ),
             },
             {

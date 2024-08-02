@@ -43,17 +43,12 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { getGovernmentInfoLabels } from "./components/GovernmentInfoForm";
+import messages from "./utils/messages";
 
-const title = defineMessage({
-  defaultMessage: "Registration",
-  id: "VJjjnE",
-  description: "Page title for the registration pages",
-});
-const subTitle = defineMessage({
-  defaultMessage: "Get started by completing your basic account information.",
-  id: "lkPTWR",
-  description: "Subtitle for the create account page for applicant profiles.",
+const specificTitle = defineMessage({
+  defaultMessage: "Getting started",
+  id: "QXiUo/",
+  description: "Main heading in getting started page.",
 });
 
 type FormValues = Pick<
@@ -76,7 +71,7 @@ export const GettingStarted_QueryFragment = graphql(/** GraphQL */ `
   }
 `);
 
-export interface CreateAccountFormProps {
+export interface GettingStartedFormProps {
   cacheKey: string;
   query?: FragmentType<typeof GettingStarted_QueryFragment>;
   handleCreateAccount: (
@@ -90,10 +85,9 @@ export const GettingStartedForm = ({
   cacheKey,
   query,
   handleCreateAccount,
-}: CreateAccountFormProps) => {
+}: GettingStartedFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const govInfoLabels = getGovernmentInfoLabels(intl);
   const result = getFragment(GettingStarted_QueryFragment, query);
   const [showErrorSummary, setShowErrorSummary] = useState<boolean>(false);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
@@ -105,7 +99,6 @@ export const GettingStartedForm = ({
   watch((data) => setInSessionStorage(cacheKey, data));
 
   const labels = {
-    ...govInfoLabels,
     firstName: intl.formatMessage({
       defaultMessage: "First name",
       id: "pJBmIm",
@@ -136,7 +129,7 @@ export const GettingStartedForm = ({
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(title),
+        label: intl.formatMessage(messages.breadcrumb),
         url: paths.gettingStarted(),
       },
     ],
@@ -171,17 +164,12 @@ export const GettingStartedForm = ({
   return (
     <>
       <SEO
-        title={intl.formatMessage(title)}
-        description={intl.formatMessage(subTitle)}
+        title={intl.formatMessage(specificTitle)}
+        description={intl.formatMessage(messages.subtitle)}
       />
       <Hero
-        title={intl.formatMessage({
-          defaultMessage: "Welcome to GC Digital Talent",
-          id: "WVTDgX",
-          description:
-            "Title for the create account page for applicant profiles.",
-        })}
-        subtitle={intl.formatMessage(subTitle)}
+        title={intl.formatMessage(messages.title)}
+        subtitle={intl.formatMessage(messages.subtitle)}
         crumbs={crumbs}
         simpleCrumbs
       >
@@ -207,11 +195,7 @@ export const GettingStartedForm = ({
                   data-h2-font-weight="base(400)"
                   data-h2-margin="base(0, 0, x1, 0)"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Getting started",
-                    id: "o/YTo0",
-                    description: "Main heading in create account page.",
-                  })}
+                  {intl.formatMessage(specificTitle)}
                 </Heading>
                 <p data-h2-padding="base(0, 0, x1, 0)">
                   {intl.formatMessage({
@@ -504,7 +488,7 @@ const GettingStarted = () => {
         });
       } else {
         navigate({
-          pathname: paths.employeeRegistration(),
+          pathname: paths.employeeInformation(),
           search: from ? createSearchParams({ from }).toString() : "",
         });
       }
@@ -514,7 +498,7 @@ const GettingStarted = () => {
   return (
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>
       <GettingStartedForm
-        cacheKey={`create-account-${meId}`}
+        cacheKey={`getting-started-${meId}`}
         query={data}
         handleCreateAccount={onSubmit}
       />

@@ -43,7 +43,7 @@ const getRoutes = (lang: Locales) => {
     userDeleted: () => path.join(baseUrl, "user-deleted"),
     gettingStarted: () => path.join(baseUrl, "getting-started"),
     emailVerification: () => path.join(baseUrl, "email-verification"),
-    employeeRegistration: () => path.join(baseUrl, "employee-registration"),
+    employeeInformation: () => path.join(baseUrl, "employee-registration"),
     termsAndConditions: () => path.join(baseUrl, "terms-and-conditions"),
     privacyPolicy: () => path.join(baseUrl, "privacy-policy"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),

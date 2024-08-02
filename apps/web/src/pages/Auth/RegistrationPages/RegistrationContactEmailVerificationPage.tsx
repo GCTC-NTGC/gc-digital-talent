@@ -1,4 +1,4 @@
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import {
   createSearchParams,
   useNavigate,
@@ -13,16 +13,7 @@ import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
-const title = defineMessage({
-  defaultMessage: "Registration",
-  id: "VJjjnE",
-  description: "Page title for the registration pages",
-});
-const subTitle = defineMessage({
-  defaultMessage: "Get started by completing your basic account information.",
-  id: "lkPTWR",
-  description: "Subtitle for the create account page for applicant profiles.",
-});
+import messages from "./utils/messages";
 
 const RegistrationContactEmailVerificationPage = () => {
   const intl = useIntl();
@@ -36,7 +27,7 @@ const RegistrationContactEmailVerificationPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(title),
+        label: intl.formatMessage(messages.breadcrumb),
         url: paths.emailVerification(),
       },
     ],
@@ -44,27 +35,22 @@ const RegistrationContactEmailVerificationPage = () => {
 
   const handleVerificationSuccess = (): void => {
     navigate({
-      pathname: paths.employeeRegistration(),
+      pathname: paths.employeeInformation(),
       search: from ? createSearchParams({ from }).toString() : "",
     });
   };
 
   const handleSkip = (): void => {
     navigate({
-      pathname: paths.employeeRegistration(),
+      pathname: paths.employeeInformation(),
       search: from ? createSearchParams({ from }).toString() : "",
     });
   };
 
   return (
     <Hero
-      title={intl.formatMessage({
-        defaultMessage: "Welcome to GC Digital Talent",
-        id: "WVTDgX",
-        description:
-          "Title for the create account page for applicant profiles.",
-      })}
-      subtitle={intl.formatMessage(subTitle)}
+      title={intl.formatMessage(messages.title)}
+      subtitle={intl.formatMessage(messages.subtitle)}
       crumbs={crumbs}
       simpleCrumbs
     >
