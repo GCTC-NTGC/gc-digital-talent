@@ -20,9 +20,9 @@ use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
-use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\WorkExperience;
+use Illuminate\Support\Collection;
 use PhpOffice\PhpWord\Element\Section;
 
 class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
@@ -39,15 +39,11 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         $section = $this->doc->addSection();
         $section->addTitle($this->localizeHeading('candidate_profiles'), 1);
 
-        PoolCandidate::with([
-            'user' => [
-                'department',
-                'currentClassification',
-                'experiences' => ['userSkills' => ['skill']],
-                'userSkills' => ['skill'],
-            ],
-            'screeningQuestionResponses' => ['screeningQuestion'],
-            'generalQuestionResponses' => ['generalQuestion'],
+        User::with([
+            'department',
+            'currentClassification',
+            'experiences' => ['userSkills' => ['skill']],
+            'userSkills' => ['skill'],
         ])
             ->whereIn('id', $this->ids)
             ->chunk(200, function ($candidates) use ($section) {
@@ -59,6 +55,12 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         return $this;
     }
 
+    /**
+     * Generate details for a specific user
+     *
+     * @param  Section  $section  Document section
+     * @param  User  $user  User being generated
+     */
     protected function generateUser(Section $section, User $user)
     {
         $section->addTitle($user->getFullName($this->anonymous), 2);
@@ -259,7 +261,14 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         $section->addPageBreak();
     }
 
-    private function skillRanks($section, $skills, $title)
+    /**
+     * Add skill rank list
+     *
+     * @param  Section  $section  Document section to add skill ranks to
+     * @param  UserSkill  $skills  Skills to list out with ranks
+     * @param  string  $title  The title for the list
+     */
+    private function skillRanks(Section $section, Collection $skills, string $title)
     {
         if ($skills->count() > 0) {
             $section->addTitle($title, 4);
@@ -273,9 +282,13 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         }
     }
 
-    private function currentLocation($user)
+    /**
+     * Concatenate users city + province/territory to a single string
+     *
+     * @return string
+     */
+    private function currentLocation(User $user)
     {
-
         $province = $this->localizeEnum($user->current_province, ProvinceOrTerritory::class);
 
         if ($user->current_city && $province) {
@@ -287,10 +300,15 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         }
 
         return '';
-
     }
 
-    private function lookingForLanguages($section, $user)
+    /**
+     * Create list of languages the user is looking for
+     *
+     * @param  Section  $section  Section to add list of languages to
+     * @param  User  $user  The user that is looking for specific languages
+     */
+    private function lookingForLanguages(Section $section, User $user)
     {
         if ($user->looking_for_english || $user->looking_for_french || $user->looking_for_bilingual) {
             $section->addText($this->localizeHeading('interested_in_languages'), $this->strong);
@@ -309,7 +327,13 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         }
     }
 
-    private function secondLanguageAbility($section, $user)
+    /**
+     * Add the language abilities for different forms of communication
+     *
+     * @param  Section  $section  The section to add abilities to
+     * @param  User  $user  The user with the language abilities
+     */
+    private function secondLanguageAbility(Section $section, User $user)
     {
         $heading = $this->localizeHeading('estimated_language_ability', $this->strong);
 
