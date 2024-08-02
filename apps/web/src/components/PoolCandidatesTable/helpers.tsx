@@ -472,7 +472,7 @@ export function transformFormValuesToFilterState(
       skills: data.skills.map((id) => {
         return { id };
       }),
-      community: { id: data.community },
+      community: data.community ? { id: data.community } : undefined,
     },
     poolCandidateStatus: data.poolCandidateStatus
       .map((status) => {
