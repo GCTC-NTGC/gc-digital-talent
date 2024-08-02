@@ -290,11 +290,7 @@ const PoolCandidateFilterDialog = ({
             name="community"
             enableNull
             label={intl.formatMessage(adminMessages.community)}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "placeholder",
-              id: "7PM2uR",
-              description: "a",
-            })}
+            nullSelection={intl.formatMessage(commonMessages.selectACommunity)}
             options={communities.map(({ id, name }) => ({
               value: id,
               label: getLocalizedName(name, intl),

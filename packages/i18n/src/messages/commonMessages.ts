@@ -285,6 +285,11 @@ const commonMessages = defineMessages({
     id: "5RTQe6",
     description: "Message to user when they request a file for download",
   },
+  selectACommunity: {
+    defaultMessage: "Select a community",
+    id: "m0iNdp",
+    description: "Null selection for community select input.",
+  },
 });
 
 export default commonMessages;
