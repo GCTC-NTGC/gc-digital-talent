@@ -3,9 +3,12 @@
 namespace App\Generators;
 
 use App\Models\PoolCandidate;
+use App\Traits\Generator\GeneratesUserDoc;
 
-class PoolCandidateUserDocGenerator extends UserDocGenerator implements FileGeneratorInterface
+class PoolCandidateUserDocGenerator extends DocGenerator implements FileGeneratorInterface
 {
+    use GeneratesUserDoc;
+
     public function __construct(protected array $ids, protected bool $anonymous, public string $fileName, public ?string $dir, protected ?string $lang) {}
 
     public function generate(): self
