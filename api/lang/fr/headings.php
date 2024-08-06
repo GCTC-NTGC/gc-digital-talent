@@ -65,4 +65,6 @@ return [
     // Other
     'general_question' => 'Question générale',
     'screening_question' => 'Question de sélection',
+    'education_requirement' => 'Exigence d’études',
+    'requirement_selection' => 'Exigence de sélection',
 ];
