@@ -4819,10 +4819,6 @@
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Sign in link text on the registration page."
   },
-  "OxeGLu": {
-    "defaultMessage": "Mesures",
-    "description": "Title displayed for the team table actions column"
-  },
   "OyMDr3": {
     "defaultMessage": "Questions en français",
     "description": "Description for a list of questions in the French language"
@@ -9557,6 +9553,10 @@
   "ngHHmI": {
     "defaultMessage": "Sauvegarder la décision finale",
     "description": "Button to click on to fill out a final decision form"
+  },
+  "nGx7Xt": {
+    "defaultMessage": "Mesures",
+    "description": "Title displayed for actions column"
   },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",

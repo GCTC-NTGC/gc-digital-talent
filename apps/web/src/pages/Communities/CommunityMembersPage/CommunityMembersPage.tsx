@@ -20,6 +20,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import tableMessages from "~/components/Table/tableMessages";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -92,11 +93,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     columns = [
       columnHelper.display({
         id: "actions",
-        header: intl.formatMessage({
-          defaultMessage: "Actions",
-          id: "Wzc73X",
-          description: "Title displayed for the community table actions column",
-        }),
+        header: intl.formatMessage(tableMessages.actions),
         cell: ({ row: { original: member } }) => actionCell(member, community),
         meta: {
           hideMobileHeader: true,

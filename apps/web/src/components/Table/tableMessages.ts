@@ -6,6 +6,11 @@ const messages = defineMessages({
     id: "84XrK+",
     description: "Default message for an empty table",
   },
+  actions: {
+    defaultMessage: "Actions",
+    id: "nGx7Xt",
+    description: "Title displayed for actions column",
+  },
 });
 
 export default messages;
