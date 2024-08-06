@@ -100,7 +100,8 @@ export const UpdateUserSkillRankings_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const UserSkills_Query = graphql(/* GraphQL */ `
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const UserSkills_Query = graphql(/* GraphQL */ `
   query UserSkills {
     me {
       id

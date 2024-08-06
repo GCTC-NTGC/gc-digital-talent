@@ -2,11 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
-use App\Enums\CitizenshipStatus;
-use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
@@ -15,6 +12,7 @@ use App\Enums\PriorityWeight;
 use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
+use App\Traits\HasLocalizedEnums;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -93,6 +91,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use CausesActivity;
     use EnrichedNotifiable;
     use HasFactory;
+    use HasLocalizedEnums;
     use HasRelationships;
     use HasRolesAndPermissions;
     use LogsActivity;
@@ -310,88 +309,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return '';
     }
 
-    public function getLocation()
+    public function wouldAcceptTemporary(): bool
     {
-        if ($this->current_city && $this->current_province) {
-            return $this->current_city.', '.$this->current_province;
-        } elseif ($this->current_city) {
-            return $this->current_city;
-        } elseif ($this->current_province) {
-            return $this->current_province;
-        }
-
-        return '';
-    }
-
-    public function getLanguage(string $key)
-    {
-        $code = $this->$key;
-        if ($code !== 'en' && $code !== 'fr') {
-            return '';
-        }
-
-        return $code === 'en' ? 'English' : 'French';
-    }
-
-    public function getArmedForcesStatus()
-    {
-        switch ($this->armed_forces_status) {
-            case ArmedForcesStatus::MEMBER->name:
-                return 'Member';
-            case ArmedForcesStatus::VETERAN->name:
-                return 'Veteran';
-            default:
-                return 'Not in the CAF';
-        }
-    }
-
-    public function getCitizenship()
-    {
-        switch ($this->citizenship) {
-            case CitizenshipStatus::CITIZEN->name:
-                return 'Canadian citizen';
-            case CitizenshipStatus::PERMANENT_RESIDENT->name:
-                return 'Permanent resident';
-            default:
-                return 'Other';
-        }
-    }
-
-    public function getLookingForLanguage()
-    {
-        if ($this->looking_for_bilingual) {
-            return 'Bilingual positions (English and French)';
-        } elseif ($this->looking_for_english && $this->looking_for_french) {
-            return 'English or French positions';
-        } elseif ($this->looking_for_english) {
-            return 'English positions';
-        } elseif ($this->looking_for_french) {
-            return 'French positions';
-        }
-
-        return '';
-    }
-
-    public function getSecondLanguageEvaluation()
-    {
-        if ($this->comprehension_level || $this->written_level || $this->verbal_level) {
-            return sprintf('%s, %s, %s',
-                $this->comprehension_level ?? '',
-                $this->written_level ?? '',
-                $this->verbal_level ?? ''
-            );
-        }
-
-        return '';
-    }
-
-    public function getGovEmployeeType()
-    {
-        if (! $this->gov_employee_type) {
-            return '';
-        }
-
-        return ucwords(strtolower($this->gov_employee_type));
+        return in_array(PositionDuration::TEMPORARY->name, $this->position_duration);
     }
 
     public function getClassification()
@@ -412,50 +332,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $this->department()->get('name');
-    }
-
-    public function getIndigenousCommunities()
-    {
-        if (empty($this->indigenous_communities)) {
-            return null;
-        }
-
-        return array_map(function ($community) {
-            return match ($community) {
-                IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name => 'Non-status First Nations',
-                IndigenousCommunity::STATUS_FIRST_NATIONS->name => 'Status First Nations',
-                IndigenousCommunity::INUIT->name => 'Inuk (Inuit)',
-                IndigenousCommunity::METIS->name => 'Métis',
-                IndigenousCommunity::OTHER->name => 'Other',
-                IndigenousCommunity::LEGACY_IS_INDIGENOUS->name => 'Indigenous',
-                default => 'Unknown'
-            };
-        }, $this->indigenous_communities);
-    }
-
-    public function getPositionDuration()
-    {
-        if (in_array(PositionDuration::PERMANENT->name, $this->position_duration)) {
-            return 'Permanent duration';
-        }
-
-        return null;
-    }
-
-    public function getPriority()
-    {
-        $priority = [];
-        if ($this->has_priority_entitlement) {
-            $priority[] = 'Priority entitlement';
-        }
-        if ($this->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
-            $priority[] = 'Veteran';
-        }
-        if ($this->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name || $this->citizenship === CitizenshipStatus::CITIZEN->name) {
-            $priority[] = 'Permanent resident';
-        }
-
-        return implode(', ', $priority);
     }
 
     public function getPriorityAttribute()

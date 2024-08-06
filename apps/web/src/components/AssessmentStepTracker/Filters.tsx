@@ -49,9 +49,10 @@ const Filters = ({
       <form onSubmit={methods.handleSubmit(onFiltersChange)}>
         <div
           data-h2-display="base(flex)"
-          data-h2-align-items="base(flex-end)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-align-items="base(flex-start) p-tablet(flex-end)"
           data-h2-gap="base(x.5)"
-          data-h2-margin-bottom="base(x.5)"
+          data-h2-width="base(100%)"
         >
           <Input
             name="query"

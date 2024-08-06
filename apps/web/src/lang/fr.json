@@ -11,6 +11,10 @@
     "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
     "description": "Description for personal experience section"
   },
+  "+6syC7": {
+    "defaultMessage": "Votre fichier est prêt à être téléchargé",
+    "description": "Notification for when q requested download is ready"
+  },
   "+6tF6S": {
     "defaultMessage": "Remarque spéciale",
     "description": "Sub title for the special note section"
@@ -2099,6 +2103,10 @@
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
   },
+  "9aW0M6": {
+    "defaultMessage": "Ministère",
+    "description": "Title for department"
+  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -2399,10 +2407,6 @@
     "defaultMessage": "Veuillez préciser votre ministère ou organisme",
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
   },
-  "BNEY8G": {
-    "defaultMessage": "Date d'expiration",
-    "description": "CSV Header, Expiry Date column"
-  },
   "BRpssM": {
     "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
     "description": "First message for the general resources section."
@@ -2554,10 +2558,6 @@
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
     "description": "Title of the accessibility and accommodations information dialog"
-  },
-  "CLOuJF": {
-    "defaultMessage": "Ville actuelle",
-    "description": "CSV Header, Current City column"
   },
   "CM70i0": {
     "defaultMessage": "<strong>Les postes à distance</strong> vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.",
@@ -2999,10 +2999,6 @@
     "defaultMessage": "Évaluation des langues officielles dans le processus de nomination",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
   },
-  "EWvBgF": {
-    "defaultMessage": "Questions générales {index}",
-    "description": "CSV Header, general question column. "
-  },
   "EY7YQM": {
     "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
     "description": "Warning message for skills with missing assessment on the 'assessment details' dialog"
@@ -3102,6 +3098,10 @@
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
+  },
+  "FBSOkb": {
+    "defaultMessage": "Publié",
+    "description": "Title displayed on the Pool table published at column"
   },
   "FC5tje": {
     "defaultMessage": "Autres commentaires",
@@ -3843,6 +3843,10 @@
     "defaultMessage": "Vous êtes sur le point d'archiver ce processus : {poolName}",
     "description": "Text to confirm the process to be archived"
   },
+  "JFlQjb": {
+    "defaultMessage": "Ce fichier, qui date de plus de 24 heures, n’est plus disponible. Veuillez en demander un nouveau. En cas d’échec de la procédure, communiquez avec les services de soutien.",
+    "description": "Error message when a file no longer exists"
+  },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
@@ -4242,6 +4246,10 @@
   "LOhcO4": {
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
+  },
+  "LOjdrP": {
+    "defaultMessage": "Collectivité",
+    "description": "Title for community"
   },
   "LTpCFL": {
     "defaultMessage": "À propos de nous",
@@ -5978,10 +5986,6 @@
     "defaultMessage": "Ajouter une nouvelle évaluation",
     "description": "Button text to add a new assessment to the assessment plan"
   },
-  "VX3Og5": {
-    "defaultMessage": "Compétence linguistique au travail",
-    "description": "Title for work language on summary of filters section"
-  },
   "VYOVUJ": {
     "defaultMessage": "Décision finale",
     "description": "Final decision heading"
@@ -6037,10 +6041,6 @@
   "VlI6x0": {
     "defaultMessage": "membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
-  },
-  "VldclB": {
-    "defaultMessage": "Expériences relatives aux exigences pédagogiques",
-    "description": "CSV Header, Education Requirement Experiences column"
   },
   "VmMnkU": {
     "defaultMessage": "Préavis d'attribution de contrat",
@@ -6461,10 +6461,6 @@
   "XnvXtO": {
     "defaultMessage": "Tous",
     "description": "All"
-  },
-  "Xo0M3N": {
-    "defaultMessage": "Province actuelle",
-    "description": "CSV Header, Current Province column"
   },
   "XoGKAf": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
@@ -6997,10 +6993,6 @@
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph one."
-  },
-  "aWsXoR": {
-    "defaultMessage": "bassin_candidats_{date}.csv",
-    "description": "Filename for pool candidate CSV file download"
   },
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
@@ -7814,6 +7806,10 @@
     "defaultMessage": "Renseignements sur les accords commerciaux",
     "description": "Title for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
   },
+  "ekazTc": {
+    "defaultMessage": "Télécharger le profil",
+    "description": "Button text to download pool candidate profiles"
+  },
   "elFbzT": {
     "defaultMessage": "Type d’études",
     "description": "Label displayed on Education form for education type input"
@@ -7857,10 +7853,6 @@
   "ewckox": {
     "defaultMessage": "Ressources propres à un groupe",
     "description": "Heading for section for the group-specific resources section."
-  },
-  "exYii8": {
-    "defaultMessage": "{skillName} (Utiles)",
-    "description": "CSV Header, Asset skill column."
   },
   "exxM/M": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
@@ -8150,10 +8142,6 @@
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
   },
-  "gN5gy5": {
-    "defaultMessage": "Groupe et niveau de départ",
-    "description": "Label displayed on the pool form classification field."
-  },
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
@@ -8382,6 +8370,10 @@
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
   },
+  "hRtj0w": {
+    "defaultMessage": "Télécharger sans les coordonnées",
+    "description": "Button label for download user anonymous profile."
+  },
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
@@ -8502,6 +8494,10 @@
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
   },
+  "i0N7DM": {
+    "defaultMessage": "Télécharger les renseignements complets",
+    "description": "Button label for download user profile."
+  },
   "i131l/": {
     "defaultMessage": "Détails de base",
     "description": "title of 'basic details' section of the 'assessment details' dialog"
@@ -8601,10 +8597,6 @@
   "iSbtcK": {
     "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
     "description": "Paragraph 2 of the 'About the program' section"
-  },
-  "iUAe/2": {
-    "defaultMessage": "Langues",
-    "description": "Label for language ability field"
   },
   "iWD2Pz": {
     "defaultMessage": "Expériences communautaires",
@@ -8745,10 +8737,6 @@
   "j8DE64": {
     "defaultMessage": "Présentation d’un contenu dans les deux langues officielles du Canada",
     "description": "Title for the providing content section"
-  },
-  "j9m5qA": {
-    "defaultMessage": "Date de réception",
-    "description": "En-tête CSV, colonne Date de réception"
   },
   "j9zYRY": {
     "defaultMessage": "Date d’expiration (UTC)",
@@ -9058,10 +9046,6 @@
     "defaultMessage": "Veuillez remplir une demande d’habilitation",
     "description": "Link text for government of canada security clearance forms"
   },
-  "l62TJM": {
-    "defaultMessage": "Disponibilité",
-    "description": "CSV Header, Availability column"
-  },
   "l75mNg": {
     "defaultMessage": "Collectivité des gestionnaires",
     "description": "Title for Managers community"
@@ -9218,6 +9202,10 @@
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
   },
+  "m0iNdp": {
+    "defaultMessage": "Choisir une collectivité",
+    "description": "Null selection for community select input."
+  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
@@ -9305,10 +9293,6 @@
   "mOGNS3": {
     "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas été présentées dans les délais impartis ainsi que les candidatures qui ont été évaluées avec succès.",
     "description": "Additional text displayed in past applications section when empty."
-  },
-  "mOS8rj": {
-    "defaultMessage": "Équipe principale",
-    "description": "Label displayed for selecting what team a new pool belongs to."
   },
   "mOx5K1": {
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
@@ -9602,17 +9586,9 @@
     "defaultMessage": " Télécharger l’arbre de décision sur les exigences en matière de rapport (PDF)",
     "description": "Button text to download reporting requirements decision tree pdf."
   },
-  "nsm/uC": {
-    "defaultMessage": "{skillName} (Essentielles)",
-    "description": "CSV Header, Essential skill column."
-  },
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
-  },
-  "nxsvto": {
-    "defaultMessage": "Date d'archivage",
-    "description": "CSV Header, Archival Date column"
   },
   "ny/ddo": {
     "defaultMessage": "Ministère :",
@@ -9789,10 +9765,6 @@
   "p5qn9H": {
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
     "description": "Message on education requirements card on the application review page."
-  },
-  "p72C40": {
-    "defaultMessage": "Compétence linguistique au travail",
-    "description": "Heading for working language ability section of the search form."
   },
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",
@@ -10287,7 +10259,7 @@
     "description": "Title for the pool block in the manager info section of the single search request view."
   },
   "s+ObMR": {
-    "defaultMessage": "Question filtre {index}",
+    "defaultMessage": "Question de sélection {index}",
     "description": "Legend for screening question fieldset"
   },
   "s/BI/4": {

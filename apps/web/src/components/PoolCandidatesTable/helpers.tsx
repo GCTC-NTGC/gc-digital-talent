@@ -12,7 +12,6 @@ import {
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import {
-  graphql,
   CandidateExpiryFilter,
   PoolStream,
   PublishingGroup,
@@ -24,7 +23,6 @@ import {
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   CandidateSuspendedFilter,
-  PoolCandidate,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
@@ -33,6 +31,7 @@ import {
   PriorityWeight,
   Classification,
   LocalizedFinalDecision,
+  InputMaybe,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -95,19 +94,21 @@ export const priorityCell = (
 };
 
 export const candidateNameCell = (
-  candidate: PoolCandidate,
+  candidateId: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
   tableCandidateIds?: string[],
+  candidateFirstName?: Maybe<string>,
+  candidateLastName?: Maybe<string>,
 ) => {
   const candidateName = getFullNameLabel(
-    candidate.user.firstName,
-    candidate.user.lastName,
+    candidateFirstName,
+    candidateLastName,
     intl,
   );
   return (
     <Link
-      href={paths.poolCandidateApplication(candidate.id)}
+      href={paths.poolCandidateApplication(candidateId)}
       state={{ candidateIds: tableCandidateIds, stepName: null }}
     >
       {candidateName}
@@ -179,10 +180,15 @@ export const candidacyStatusAccessor = (
   );
 };
 
-export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
-  candidate?.notes ? (
+export const notesCell = (
+  intl: IntlShape,
+  candidateNotes?: Maybe<string>,
+  candidateFirstName?: Maybe<string>,
+  candidateLastName?: Maybe<string>,
+) =>
+  candidateNotes ? (
     <Spoiler
-      text={candidate.notes}
+      text={candidateNotes}
       linkSuffix={intl.formatMessage(
         {
           defaultMessage: "notes for {name}",
@@ -191,11 +197,7 @@ export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
             "Link text suffix to read more notes for a pool candidate",
         },
         {
-          name: getFullNameLabel(
-            candidate.user.firstName,
-            candidate.user.lastName,
-            intl,
-          ),
+          name: getFullNameLabel(candidateFirstName, candidateLastName, intl),
         },
       )}
     />
@@ -389,519 +391,6 @@ export function getPoolNameSort(
   };
 }
 
-export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
-  /* GraphQL */ `
-    query PoolCandidatesTable_SelectPoolCandidates($ids: [ID]!) {
-      poolCandidates(includeIds: $ids) {
-        id
-        pool {
-          id
-          name {
-            en
-            fr
-          }
-          stream {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          classification {
-            id
-            name {
-              en
-              fr
-            }
-            group
-            level
-          }
-          poolSkills {
-            skill {
-              id
-              key
-              name {
-                en
-                fr
-              }
-              category {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-            }
-          }
-        }
-        user {
-          ...ProfileDocument
-          id
-          email
-          firstName
-          lastName
-          telephone
-          priority {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          preferredLang {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          preferredLanguageForInterview {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          preferredLanguageForExam {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          lookingForEnglish
-          lookingForFrench
-          lookingForBilingual
-          firstOfficialLanguage {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          secondLanguageExamCompleted
-          secondLanguageExamValidity
-          comprehensionLevel {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          writtenLevel {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          verbalLevel {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          estimatedLanguageAbility {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          isGovEmployee
-          govEmployeeType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          hasPriorityEntitlement
-          priorityNumber
-          priorityWeight
-          locationPreferences {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          locationExemptions
-          positionDuration
-          acceptedOperationalRequirements {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          isWoman
-          indigenousCommunities {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          indigenousDeclarationSignature
-          isVisibleMinority
-          hasDisability
-          citizenship {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          armedForcesStatus {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          currentCity
-          currentProvince {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          topTechnicalSkillsRanking {
-            id
-            user {
-              id
-            }
-            skill {
-              id
-              key
-              category {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-              name {
-                en
-                fr
-              }
-            }
-            skillLevel
-            topSkillsRank
-            improveSkillsRank
-          }
-          topBehaviouralSkillsRanking {
-            id
-            user {
-              id
-            }
-            skill {
-              id
-              key
-              category {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-              name {
-                en
-                fr
-              }
-            }
-            skillLevel
-            topSkillsRank
-            improveSkillsRank
-          }
-          improveTechnicalSkillsRanking {
-            id
-            user {
-              id
-            }
-            skill {
-              id
-              key
-              category {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-              name {
-                en
-                fr
-              }
-            }
-            skillLevel
-            topSkillsRank
-            improveSkillsRank
-          }
-          improveBehaviouralSkillsRanking {
-            id
-            user {
-              id
-            }
-            skill {
-              id
-              key
-              category {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-              name {
-                en
-                fr
-              }
-            }
-            skillLevel
-            topSkillsRank
-            improveSkillsRank
-          }
-          department {
-            id
-            departmentNumber
-            name {
-              en
-              fr
-            }
-          }
-          currentClassification {
-            id
-            group
-            level
-            name {
-              en
-              fr
-            }
-          }
-          experiences {
-            id
-            __typename
-            user {
-              id
-              email
-            }
-            details
-            skills {
-              id
-              key
-              name {
-                en
-                fr
-              }
-              description {
-                en
-                fr
-              }
-              keywords {
-                en
-                fr
-              }
-              category {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-              experienceSkillRecord {
-                details
-              }
-            }
-            ... on AwardExperience {
-              title
-              issuedBy
-              awardedDate
-              awardedTo {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-              awardedScope {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-            }
-            ... on CommunityExperience {
-              title
-              organization
-              project
-              startDate
-              endDate
-            }
-            ... on EducationExperience {
-              institution
-              areaOfStudy
-              thesisTitle
-              startDate
-              endDate
-              type {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-              status {
-                value
-                label {
-                  en
-                  fr
-                }
-              }
-            }
-            ... on PersonalExperience {
-              title
-              description
-              startDate
-              endDate
-            }
-            ... on WorkExperience {
-              role
-              organization
-              division
-              startDate
-              endDate
-            }
-          }
-        }
-        educationRequirementOption {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        educationRequirementExperiences {
-          id
-          __typename
-          user {
-            id
-            email
-          }
-          details
-          skills {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            keywords {
-              en
-              fr
-            }
-            category {
-              value
-            }
-            experienceSkillRecord {
-              details
-            }
-          }
-          ... on AwardExperience {
-            title
-            issuedBy
-            awardedDate
-            awardedTo {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            awardedScope {
-              value
-              label {
-                en
-                fr
-              }
-            }
-          }
-          ... on CommunityExperience {
-            title
-            organization
-            project
-            startDate
-            endDate
-          }
-          ... on EducationExperience {
-            institution
-            areaOfStudy
-            thesisTitle
-            startDate
-            endDate
-            type {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            status {
-              value
-              label {
-                en
-                fr
-              }
-            }
-          }
-          ... on PersonalExperience {
-            title
-            description
-            startDate
-            endDate
-          }
-          ... on WorkExperience {
-            role
-            organization
-            division
-            startDate
-            endDate
-          }
-        }
-        generalQuestionResponses {
-          id
-          answer
-          generalQuestion {
-            id
-            question {
-              en
-              fr
-            }
-          }
-        }
-        expiryDate
-        status {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        submittedAt
-        notes
-        archivedAt
-      }
-    }
-  `,
-);
 export function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
@@ -1007,3 +496,39 @@ export function transformFormValuesToFilterState(
     }),
   };
 }
+
+// merge search bar input with fancy filter state
+export const addSearchToPoolCandidateFilterInput = (
+  fancyFilterState: PoolCandidateSearchInput | undefined,
+  searchBarTerm: string | undefined,
+  searchType: string | undefined,
+): InputMaybe<PoolCandidateSearchInput> | undefined => {
+  if (
+    fancyFilterState === undefined &&
+    searchBarTerm === undefined &&
+    searchType === undefined
+  ) {
+    return undefined;
+  }
+  return {
+    // search bar
+    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+    email: searchType === "email" ? searchBarTerm : undefined,
+    name: searchType === "name" ? searchBarTerm : undefined,
+    notes: searchType === "notes" ? searchBarTerm : undefined,
+    processNumber: searchType === "processNumber" ? searchBarTerm : undefined,
+
+    // from fancy filter
+    applicantFilter: {
+      ...fancyFilterState?.applicantFilter,
+      hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
+    },
+    poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
+    priorityWeight: fancyFilterState?.priorityWeight,
+    expiryStatus: fancyFilterState?.expiryStatus,
+    suspendedStatus: fancyFilterState?.suspendedStatus,
+    isGovEmployee: fancyFilterState?.isGovEmployee,
+    publishingGroups: fancyFilterState?.publishingGroups,
+    appliedClassifications: fancyFilterState?.appliedClassifications,
+  };
+};

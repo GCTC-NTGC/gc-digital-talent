@@ -2,9 +2,15 @@ export const Test_CreatePoolMutationDocument = /* GraphQL */ `
   mutation Test_CreatePool(
     $userId: ID!
     $teamId: ID!
+    $communityId: ID!
     $pool: CreatePoolInput!
   ) {
-    createPool(userId: $userId, teamId: $teamId, pool: $pool) {
+    createPool(
+      userId: $userId
+      teamId: $teamId
+      communityId: $communityId
+      pool: $pool
+    ) {
       id
       name {
         en

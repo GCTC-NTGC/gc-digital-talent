@@ -5,7 +5,7 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
-  assessmentStep: AssessmentStep,
+  assessmentStep: Pick<AssessmentStep, "type" | "title">,
   intl: IntlShape,
 ): string => {
   const localizedTitle = getLocalizedName(assessmentStep?.title, intl, true);
@@ -29,7 +29,10 @@ export const assessmentStepDisplayName = (
   return intl.formatMessage(commonMessages.notAvailable);
 };
 
-export const poolSkillToOption = (poolSkill: PoolSkill, intl: IntlShape) => ({
+export const poolSkillToOption = (
+  poolSkill: Pick<PoolSkill, "id" | "skill">,
+  intl: IntlShape,
+) => ({
   value: poolSkill.id,
   label: poolSkill?.skill?.name
     ? getLocalizedName(poolSkill.skill.name, intl)

@@ -13,6 +13,7 @@ import {
   CreateAssessmentResultInput,
   Experience,
   Maybe,
+  Pool,
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
@@ -58,8 +59,8 @@ import {
 } from "./utils";
 
 const getSkillLevelMessage = (
-  poolSkill: PoolSkill | undefined,
   intl: IntlShape,
+  poolSkill?: Pick<PoolSkill, "requiredLevel" | "skill">,
 ): string => {
   let skillLevel = "";
   if (poolSkill?.requiredLevel && poolSkill.skill?.category.value) {
@@ -73,9 +74,15 @@ const getSkillLevelMessage = (
   return skillLevel;
 };
 
-const getTitle = (poolSkill: PoolSkill | undefined, intl: IntlShape) => {
+const getTitle = (
+  intl: IntlShape,
+  poolSkill?: Pick<PoolSkill, "requiredLevel" | "skill">,
+) => {
   let title = "";
-  const skillLevel = getSkillLevelMessage(poolSkill, intl);
+  const skillLevel = getSkillLevelMessage(intl, {
+    requiredLevel: poolSkill?.requiredLevel,
+    skill: poolSkill?.skill,
+  });
   if (!isEmpty(skillLevel)) {
     title = intl.formatMessage(
       {
@@ -111,11 +118,14 @@ const AssessmentStepTypeSection = ({
   type,
 }: {
   educationRequirementOption: ReactNode;
-  poolSkill?: PoolSkill;
+  poolSkill?: Pick<PoolSkill, "requiredLevel" | "skill">;
   type: DialogType;
 }) => {
   const intl = useIntl();
-  const skillLevel = getSkillLevelMessage(poolSkill, intl);
+  const skillLevel = getSkillLevelMessage(intl, {
+    requiredLevel: poolSkill?.requiredLevel,
+    skill: poolSkill?.skill,
+  });
 
   switch (type) {
     case "EDUCATION":
@@ -156,7 +166,10 @@ const AssessmentStepTypeSection = ({
             <Accordion.Root type="single" collapsible>
               <Accordion.Item value="skill">
                 <Accordion.Trigger>
-                  {getTitle(poolSkill, intl)}
+                  {getTitle(intl, {
+                    requiredLevel: poolSkill?.requiredLevel,
+                    skill: poolSkill?.skill,
+                  })}
                 </Accordion.Trigger>
                 <Accordion.Content data-h2-text-align="base(left)">
                   <div data-h2-margin="base(x1, 0)">
@@ -285,11 +298,15 @@ const SupportingEvidence = ({
 };
 
 interface ScreeningDecisionDialogProps {
-  assessmentStep: AssessmentStep;
-  assessmentResult?: AssessmentResult;
-  poolCandidate: PoolCandidate;
+  assessmentStep?: Maybe<Pick<AssessmentStep, "type" | "title">>;
+  assessmentResult?: Maybe<
+    Pick<AssessmentResult, "assessmentDecision" | "assessmentDecisionLevel">
+  >;
+  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+    pool: Pick<Pool, "classification" | "publishingGroup">;
+  };
   hasBeenAssessed: boolean;
-  poolSkill?: PoolSkill;
+  poolSkill?: Pick<PoolSkill, "requiredLevel" | "type" | "skill">;
   initialValues?: FormValues;
   educationRequirement?: boolean;
   onSubmit: SubmitHandler<FormValues>;
@@ -312,10 +329,13 @@ export const ScreeningDecisionDialog = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const dialogType = useDialogType(
-    educationRequirement ? undefined : assessmentStep,
+    educationRequirement ? undefined : { type: assessmentStep?.type },
   );
   const skill = poolSkill?.skill ? poolSkill.skill : undefined;
-  const skillLevel = getSkillLevelMessage(poolSkill, intl);
+  const skillLevel = getSkillLevelMessage(intl, {
+    requiredLevel: poolSkill?.requiredLevel,
+    skill: poolSkill?.skill,
+  });
 
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotCandidate = parsedSnapshot?.poolCandidates
@@ -512,10 +532,25 @@ const ScreeningDecisionDialogApi = ({
   poolSkillToAssess,
   educationRequirement,
 }: {
-  assessmentStep: AssessmentStep;
-  poolCandidate: PoolCandidate;
-  assessmentResult?: AssessmentResult;
-  poolSkillToAssess?: PoolSkill;
+  assessmentStep: Pick<AssessmentStep, "id" | "type" | "title">;
+  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+    pool: Pick<Pool, "classification" | "publishingGroup">;
+  };
+  assessmentResult?: Maybe<
+    Pick<
+      AssessmentResult,
+      | "id"
+      | "poolSkill"
+      | "justifications"
+      | "assessmentDecision"
+      | "assessmentDecisionLevel"
+      | "skillDecisionNotes"
+    >
+  >;
+  poolSkillToAssess?: Pick<
+    PoolSkill,
+    "id" | "requiredLevel" | "type" | "skill"
+  >;
   educationRequirement?: boolean;
 }) => {
   const intl = useIntl();

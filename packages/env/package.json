@@ -9,6 +9,8 @@
   },
   "scripts": {
     "lint": "eslint \"src/**/*.ts*\"",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
@@ -17,6 +19,6 @@
     "eslint": "^8.57.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   }
 }

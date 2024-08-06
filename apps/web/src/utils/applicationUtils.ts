@@ -14,6 +14,7 @@ import {
   Maybe,
   PoolCandidate,
   LocalizedPoolCandidateStatus,
+  Application_PoolCandidateFragment,
 } from "@gc-digital-talent/graphql";
 
 import { ApplicationStepInfo } from "~/types/applicationStep";
@@ -93,7 +94,7 @@ export function isOnDisabledPage(
 
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
-  application: PoolCandidate,
+  application: Application_PoolCandidateFragment,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)

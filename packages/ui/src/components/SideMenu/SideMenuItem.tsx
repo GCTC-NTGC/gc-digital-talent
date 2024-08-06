@@ -13,7 +13,10 @@ interface SideMenuItemChildProps {
   children: ReactNode;
 }
 
-const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
+export const SideMenuItemChildren = ({
+  icon,
+  children,
+}: SideMenuItemChildProps) => {
   const Icon = icon || null;
   const ctx = useSideMenuContext();
   const shouldReduceMotion = useReducedMotion();

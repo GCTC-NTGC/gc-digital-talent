@@ -15,7 +15,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.workingDirectories": ["apps", "packages"],
+  "eslint.workingDirectories": [
+    "./apps/web",
+    "./apps/playwright",
+    { "pattern": "./packages/*" }
+  ],
   "[typescriptreact]": {
     "editor.tabSize": 2
   },

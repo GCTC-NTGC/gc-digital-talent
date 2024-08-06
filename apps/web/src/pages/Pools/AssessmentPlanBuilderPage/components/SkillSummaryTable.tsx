@@ -5,17 +5,17 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  AssessmentStep,
   AssessmentStepType,
   FragmentType,
   LocalizedAssessmentStepType,
   Maybe,
-  PoolSkill,
   PoolSkillType,
   Skill,
   SkillCategory,
   getFragment,
   graphql,
+  SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
+  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 
@@ -73,7 +73,7 @@ export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const columnHelper = createColumnHelper<PoolSkill>();
+const columnHelper = createColumnHelper<SkillSummaryPoolSkillFragmentType>();
 
 interface SkillSummaryTableProps {
   poolSkillsQuery: FragmentType<typeof SkillSummaryTablePoolSkill_Fragment>[];
@@ -119,8 +119,8 @@ const CheckIconElement = (
 };
 
 const plannedAssessmentCell = (
-  poolSkill: PoolSkill,
-  assessmentSteps: readonly AssessmentStep[],
+  poolSkill: SkillSummaryPoolSkillFragmentType,
+  assessmentSteps: readonly SkillSummaryAssessmentStepFragmentType[],
   intl: IntlShape,
 ): JSX.Element | null => {
   const assessmentCount = assessmentSteps.filter((assessmentStep) =>
@@ -152,13 +152,13 @@ const plannedAssessmentCell = (
 };
 
 interface RequirementTypeCellProps {
-  poolSkill: PoolSkill;
+  poolSkill: SkillSummaryPoolSkillFragmentType;
   intl: IntlShape;
 }
 
 const assessmentStepCell = (
-  poolSkill: PoolSkill,
-  assessmentStep: AssessmentStep,
+  poolSkill: SkillSummaryPoolSkillFragmentType,
+  assessmentStep: SkillSummaryAssessmentStepFragmentType,
   intl: IntlShape,
 ): JSX.Element | null => {
   // return early with specific message for certain combination
@@ -224,7 +224,9 @@ const SkillSummaryTable = ({
           "Title for a column that displays the number of assessments planned for a skill.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),
+        cells.jsx(
+          plannedAssessmentCell({ id: poolSkill.id }, assessmentSteps, intl),
+        ),
       enableHiding: false,
     }),
     columnHelper.display({
@@ -251,7 +253,7 @@ const SkillSummaryTable = ({
         enableHiding: false,
       },
     ),
-  ] as ColumnDef<PoolSkill>[];
+  ] as ColumnDef<SkillSummaryPoolSkillFragmentType>[];
 
   let columns = initialColumns;
   // ensure array of assessments is sorted by sortOrder, if null bump to end, then add them to the core columns
@@ -261,19 +263,32 @@ const SkillSummaryTable = ({
     return aPosition > bPosition ? 1 : -1;
   });
   sortedAssessmentSteps.forEach((assessmentStep) => {
-    const headerName = assessmentStepDisplayName(assessmentStep, intl);
+    const headerName = assessmentStepDisplayName(
+      { type: assessmentStep.type, title: assessmentStep.title },
+      intl,
+    );
     const newColumn = columnHelper.display({
       id: assessmentStep.type?.value ?? assessmentStep.id,
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(assessmentStepCell(poolSkill, assessmentStep, intl)),
+        cells.jsx(
+          assessmentStepCell(
+            { id: poolSkill.id, skill: poolSkill.skill },
+            {
+              id: assessmentStep.id,
+              type: assessmentStep.type,
+              poolSkills: assessmentStep.poolSkills,
+            },
+            intl,
+          ),
+        ),
       enableHiding: false,
     });
     columns = [...columns, newColumn];
   });
 
   return (
-    <Table<PoolSkill>
+    <Table<SkillSummaryPoolSkillFragmentType>
       data={[...poolSkills]}
       caption={title}
       columns={columns}

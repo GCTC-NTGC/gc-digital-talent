@@ -4,14 +4,15 @@ import uniqueId from "lodash/uniqueId";
 
 import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  AssessmentResult,
   AssessmentResultType,
   AssessmentStep,
-  PoolCandidate,
-  PoolSkill,
+  FragmentType,
+  getFragment,
+  graphql,
   PoolSkillType,
+  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -21,19 +22,163 @@ import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
-import { AssessmentTableRow } from "./types";
+import {
+  AssessmentResultsTableFragmentStepType,
+  AssessmentTableRow,
+} from "./types";
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();
 
+export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentResultsTable on PoolCandidate {
+    id
+    profileSnapshot
+    assessmentStatus {
+      currentStep
+      overallAssessmentStatus
+    }
+    assessmentResults {
+      id
+      assessmentDecision {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentDecisionLevel {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentResultType
+      assessmentStep {
+        id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        title {
+          en
+          fr
+        }
+      }
+      justifications {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentDecisionLevel {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      skillDecisionNotes
+      poolSkill {
+        id
+      }
+    }
+    pool {
+      id
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      classification {
+        id
+        group
+        level
+      }
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentSteps {
+        id
+        title {
+          en
+          fr
+        }
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        sortOrder
+        poolSkills {
+          id
+        }
+      }
+      poolSkills {
+        id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        skill {
+          id
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 interface AssessmentResultsTableProps {
-  poolCandidate: PoolCandidate;
+  poolCandidateQuery: FragmentType<typeof AssessmentResultsTable_Fragment>;
 }
 
 const AssessmentResultsTable = ({
-  poolCandidate,
+  poolCandidateQuery,
 }: AssessmentResultsTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const poolCandidate = getFragment(
+    AssessmentResultsTable_Fragment,
+    poolCandidateQuery,
+  );
 
   // Get assessment steps from pool
   const assessmentSteps: Array<AssessmentStep> = unpackMaybes(
@@ -49,14 +194,12 @@ const AssessmentResultsTable = ({
   }
 
   // Get pool skills from pool
-  const poolSkills: Array<PoolSkill> = unpackMaybes(
-    poolCandidate?.pool?.poolSkills,
-  );
+  const poolSkills = unpackMaybes(poolCandidate?.pool?.poolSkills);
 
   // Get assessment results from pool candidate
-  const assessmentResults: Array<AssessmentResult> = unpackMaybes(
-    poolCandidate?.assessmentResults,
-  );
+  const assessmentResultsMaybes: AssessmentResultsTableFragmentType["assessmentResults"] =
+    unpackMaybes(poolCandidate?.assessmentResults);
+  const assessmentResults = assessmentResultsMaybes.filter(notEmpty);
 
   // Create data for table containing pool skill with matching results and sort pool skills
   const assessmentTableRows: Array<AssessmentTableRow> = poolSkills
@@ -102,16 +245,17 @@ const AssessmentResultsTable = ({
   };
 
   // Sort the pools assessment steps then build columns for the poolCandidates assessment results
-  const sortedAssessmentSteps = getOrderedSteps(assessmentSteps);
+  const sortedAssessmentSteps: AssessmentResultsTableFragmentStepType[] =
+    getOrderedSteps(assessmentSteps);
   const assessmentStepColumns = sortedAssessmentSteps.reduce(
     (
       accumulator: ColumnDef<AssessmentTableRow>[],
-      assessmentStep: AssessmentStep,
+      assessmentStep: AssessmentResultsTableFragmentStepType,
     ) => {
       const type = assessmentStep.type?.value ?? null;
       const id = uniqueId("results-table-column");
       const status = columnStatus(
-        assessmentStep,
+        { id: assessmentStep.id },
         poolCandidate?.assessmentStatus,
       );
 
@@ -128,7 +272,12 @@ const AssessmentResultsTable = ({
           id,
           header,
           poolCandidate,
-          assessmentStep,
+          assessmentStep: {
+            id: assessmentStep.id,
+            type: assessmentStep.type,
+            title: assessmentStep.title,
+            poolSkills: assessmentStep.poolSkills,
+          },
           intl,
         }),
       ];

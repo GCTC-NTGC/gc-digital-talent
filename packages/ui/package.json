@@ -9,6 +9,8 @@
   },
   "scripts": {
     "lint": "eslint \"src/**/*.ts*\"",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit"
   },
@@ -34,8 +36,8 @@
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
-    "chromatic": "^11.5.5",
-    "framer-motion": "^11.3.7",
+    "chromatic": "^11.7.0",
+    "framer-motion": "^11.3.20",
     "lodash": "^4.17.21",
     "react-csv-downloader": "^3.1.0",
     "react-dom": "^18.2.0",
@@ -50,9 +52,9 @@
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@storybook/addon-actions": "^8.2.4",
-    "@storybook/react": "^8.2.4",
-    "@testing-library/jest-dom": "^6.4.6",
+    "@storybook/addon-actions": "^8.2.6",
+    "@storybook/react": "^8.2.6",
+    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
@@ -66,6 +68,6 @@
     "react-intl": "^6.6.8",
     "react-router-dom": "^6.25.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   }
 }

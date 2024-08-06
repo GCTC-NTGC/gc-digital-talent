@@ -4,6 +4,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import sortBy from "lodash/sortBy";
+import isEmpty from "lodash/isEmpty";
 
 import { IconType } from "@gc-digital-talent/ui";
 import {
@@ -13,8 +14,12 @@ import {
   AssessmentStep,
   ClaimVerificationResult,
   AssessmentStepTracker_CandidateFragment,
+  PoolCandidateSearchInput,
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+  AssessmentStepTracker_PoolFragment as AssessmentStepTrackerPoolType,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
@@ -24,6 +29,14 @@ import {
   isDisqualifiedStatus,
   isRemovedStatus,
 } from "~/utils/poolCandidate";
+import {
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+  stringToEnumPriorityWeight,
+} from "~/utils/userUtils";
+
+import { FormValues } from "./types";
 
 export type CandidateAssessmentResult = {
   poolCandidate: AssessmentStepTracker_CandidateFragment;
@@ -175,17 +188,24 @@ const filterCandidatesByDecision = (
   return results.filter((result) => result.decision === assessmentDecision);
 };
 
+// define the type for an assessment step nested in the fragment
+const stepTrackerFragmentSteps: AssessmentStepTrackerPoolType["assessmentSteps"] =
+  [];
+const unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
+type StepTrackerFragmentStepType = (typeof unpackedSteps)[number];
+
 type StepWithGroupedCandidates = {
-  step: AssessmentStep;
+  step: StepTrackerFragmentStepType;
   resultCounts?: ResultDecisionCounts;
   results: CandidateAssessmentResult[];
 };
 
 export const groupPoolCandidatesByStep = (
-  steps: AssessmentStep[],
+  steps: AssessmentStepTrackerPoolType["assessmentSteps"],
   candidates: Omit<PoolCandidate, "pool">[],
 ): StepWithGroupedCandidates[] => {
-  const orderedSteps = sortBy(steps, (step) => step.sortOrder);
+  const stepsUnpacked = unpackMaybes(steps);
+  const orderedSteps = sortBy(stepsUnpacked, (step) => step.sortOrder);
 
   const stepsWithGroupedCandidates: StepWithGroupedCandidates[] =
     orderedSteps.map((step, index) => {
@@ -210,10 +230,15 @@ export const groupPoolCandidatesByStep = (
         });
 
       return {
-        step,
+        step: {
+          id: step.id,
+          type: step.type,
+          title: step.title,
+          sortOrder: step.sortOrder,
+        },
         results: stepCandidates,
         resultCounts: {
-          [NO_DECISION]: filterCandidatesByDecision(stepCandidates, null)
+          [NO_DECISION]: filterCandidatesByDecision(stepCandidates, NO_DECISION)
             .length,
           [AssessmentDecision.Hold]: filterCandidatesByDecision(
             stepCandidates,
@@ -295,7 +320,7 @@ export const filterAlreadyDisqualified = (
 };
 
 export const generateStepName = (
-  step: AssessmentStep,
+  step: Pick<AssessmentStep, "type" | "title">,
   intl: IntlShape,
 ): string => {
   // check if title exists in LocalizedString object, then return empty string if not for a truthy check
@@ -308,3 +333,90 @@ export const generateStepName = (
   }
   return intl.formatMessage(commonMessages.notAvailable);
 };
+
+export function transformPoolCandidateSearchInputToFormValues(
+  input: PoolCandidateSearchInput | undefined,
+  poolId: string,
+): FormValues {
+  return {
+    equity: input?.applicantFilter?.equity
+      ? [
+          ...(input.applicantFilter.equity.hasDisability
+            ? ["hasDisability"]
+            : []),
+          ...(input.applicantFilter.equity.isIndigenous
+            ? ["isIndigenous"]
+            : []),
+          ...(input.applicantFilter.equity.isVisibleMinority
+            ? ["isVisibleMinority"]
+            : []),
+          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    govEmployee: input?.isGovEmployee ? "true" : "",
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
+    operationalRequirements:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    pools: [poolId],
+    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+  };
+}
+
+export function transformFormValuesToFilterState(
+  data: FormValues,
+  poolId: string,
+): PoolCandidateSearchInput {
+  return {
+    applicantFilter: {
+      equity: !isEmpty(data.equity)
+        ? {
+            ...(data.equity.includes("isWoman") && { isWoman: true }),
+            ...(data.equity.includes("hasDisability") && {
+              hasDisability: true,
+            }),
+            ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
+            ...(data.equity.includes("isVisibleMinority") && {
+              isVisibleMinority: true,
+            }),
+          }
+        : undefined,
+      languageAbility: !isEmpty(data.languageAbility)
+        ? stringToEnumLanguage(data.languageAbility)
+        : undefined,
+      locationPreferences: !isEmpty(data.workRegion)
+        ? data.workRegion
+            .map((region) => {
+              return stringToEnumLocation(region);
+            })
+            .filter(notEmpty)
+        : undefined,
+      operationalRequirements: !isEmpty(data.operationalRequirements)
+        ? data.operationalRequirements
+            .map((requirement) => {
+              return stringToEnumOperational(requirement);
+            })
+            .filter(notEmpty)
+        : undefined,
+      pools: [{ id: poolId }],
+      skills: !isEmpty(data.skills)
+        ? data.skills.map((id) => {
+            return { id };
+          })
+        : undefined,
+    },
+    isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+    priorityWeight: !isEmpty(data.priorityWeight)
+      ? data.priorityWeight
+          .map((priorityWeight) => {
+            return stringToEnumPriorityWeight(priorityWeight);
+          })
+          .filter(notEmpty)
+      : undefined,
+    expiryStatus: CandidateExpiryFilter.Active, // add default filters
+    suspendedStatus: CandidateSuspendedFilter.Active,
+  };
+}

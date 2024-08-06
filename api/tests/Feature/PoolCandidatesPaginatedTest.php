@@ -15,6 +15,8 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertSame;
+
 class PoolCandidatesPaginatedTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -167,24 +169,68 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->assertPaginatedResponse($processOperator, 0, []);
     }
 
-    // TO DO: Update in #10364
-    public function testCommunityRecruiterCannotViewAnyApplications(): void
+    public function testCommunityRecruiterCanViewCommunitySubmittedApplications(): void
     {
         $community = Community::factory()->create();
-        $processOperator = User::factory()
+        $otherCommunity = Community::factory()->create();
+        $communityPool = Pool::factory()->create(['community_id' => $community->id]);
+        $otherPool = Pool::factory()->create(['community_id' => $otherCommunity->id]);
+        $communityRecruiter = User::factory()
             ->asCommunityRecruiter($community->id)
             ->create();
-        $this->assertPaginatedResponse($processOperator, 0, []);
+
+        PoolCandidate::truncate();
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
+        $communityDraftCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $communityPool,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $otherPool]);
+        $otherDraftCandidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $otherPool,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        assertSame(4, count(PoolCandidate::all()));
+        assertSame(2, count(PoolCandidate::where('pool_id', $communityPool->id)->get()));
+
+        // can only view the submitted candidate in own community
+        $this->assertPaginatedResponse($communityRecruiter, 1, [$communityCandidate->id]);
     }
 
-    // TO DO: Update in #10364
-    public function testCommunityAdminCannotViewAnyApplications(): void
+    public function testCommunityAdminCanViewCommunitySubmittedApplications(): void
     {
         $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityPool = Pool::factory()->create(['community_id' => $community->id]);
+        $otherPool = Pool::factory()->create(['community_id' => $otherCommunity->id]);
         $communityAdmin = User::factory()
             ->asCommunityAdmin($community->id)
             ->create();
-        $this->assertPaginatedResponse($communityAdmin, 0, []);
+
+        PoolCandidate::truncate();
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
+        $communityDraftCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $communityPool,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $otherPool]);
+        $otherDraftCandidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $otherPool,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        assertSame(4, count(PoolCandidate::all()));
+        assertSame(2, count(PoolCandidate::where('pool_id', $communityPool->id)->get()));
+
+        // can only view the submitted candidate in own community
+        $this->assertPaginatedResponse($communityAdmin, 1, [$communityCandidate->id]);
     }
 
     public function testPlatformAdminCanViewAllSubmittedApplications(): void

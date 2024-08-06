@@ -8,6 +8,8 @@
     ".": "./src/index.ts"
   },
   "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {
@@ -23,6 +25,6 @@
     "@types/lodash": "^4.17.7",
     "eslint": "^8.57.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   }
 }

@@ -11,6 +11,7 @@ import { getClassifications } from "~/utils/classification";
 import PoolPage from "~/fixtures/PoolPage";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getDepartments } from "~/utils/departments";
+import { getCommunities } from "~/utils/communities";
 
 import AppPage from "../../fixtures/AppPage";
 
@@ -110,11 +111,13 @@ test.describe("User information", () => {
     const dcm = await getDCM();
     const classifications = await getClassifications();
     const departments = await getDepartments();
+    const communities = await getCommunities();
 
     const poolPage = new PoolPage(adminPage.page);
     const dcmPool = await poolPage.createAndPublishPool({
       userId: adminUser.id,
       teamId: dcm.id,
+      communityId: communities[0].id,
       name: `Playwright DCM Pool ${uniqueTestId}`,
       classification: classifications[0],
       department: departments[0],

@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { act, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { ComponentPropsWithoutRef, useState } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";

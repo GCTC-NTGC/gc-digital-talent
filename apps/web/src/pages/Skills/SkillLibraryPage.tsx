@@ -6,7 +6,7 @@ import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { Skill, UserSkill } from "@gc-digital-talent/graphql";
+import { FragmentType, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -15,8 +15,24 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import SkillLibraryTable from "./components/SkillLibraryTable";
-import { UserSkills_Query } from "./operations";
+import SkillLibraryTable, {
+  SkillLibraryTable_SkillFragment,
+  SkillLibraryTable_UserSkillFragment,
+} from "./components/SkillLibraryTable";
+
+const SkillLibraryPage_Query = graphql(/* GraphQL */ `
+  query SkillLibraryPageQuery {
+    me {
+      id
+      userSkills {
+        ...SkillLibraryTable_UserSkill
+      }
+    }
+    skills {
+      ...SkillLibraryTable_Skill
+    }
+  }
+`);
 
 type PageSection = {
   id: string;
@@ -25,8 +41,8 @@ type PageSection = {
 type PageSections = Record<string, PageSection>;
 
 interface SkillLibraryProps {
-  userSkills: UserSkill[];
-  skills: Skill[];
+  userSkills: FragmentType<typeof SkillLibraryTable_UserSkillFragment>[];
+  skills: FragmentType<typeof SkillLibraryTable_SkillFragment>[];
 }
 
 const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
@@ -108,8 +124,8 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
               </p>
               <SkillLibraryTable
                 caption={sections.manage.title}
-                data={userSkills}
-                allSkills={skills}
+                userSkillsQuery={userSkills}
+                allSkillsQuery={skills}
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.showcase.id}>
@@ -149,7 +165,7 @@ const context: Partial<OperationContext> = {
 
 const SkillLibraryPage = () => {
   const [{ data, fetching, error }] = useQuery({
-    query: UserSkills_Query,
+    query: SkillLibraryPage_Query,
     context,
   });
 
