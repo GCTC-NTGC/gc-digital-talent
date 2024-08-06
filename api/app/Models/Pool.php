@@ -127,6 +127,7 @@ class Pool extends Model
         'closing_reason',
         'process_number',
         'department_id',
+        'community_id',
     ];
 
     /**
