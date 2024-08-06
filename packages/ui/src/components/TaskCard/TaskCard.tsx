@@ -1,29 +1,66 @@
-import { ElementType, ReactNode } from "react";
+import { ReactNode } from "react";
 
 import { IconType } from "../../types";
-import { CardColor as CardFlatColor } from "../Card/CardFlat/types";
-import { LinkProps } from "../Link";
+import Link from "../Link";
 
-type CardColor = Extract<CardFlatColor, "primary" | "secondary">;
+export const colorOptions = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "quaternary",
+  "quinary",
+] as const;
+
+type CardColor = (typeof colorOptions)[number];
 
 export interface TaskCardProps {
   icon?: IconType;
   title: ReactNode;
   headingColor?: CardColor;
-  link: ElementType<LinkProps>;
+  linkText?: string;
+  linkHref?: string;
+  // TODO: allow <Link> as prop with changing text colour
   children?: ReactNode;
 }
 
-const colorMap: Record<CardColor, Record<string, string>> = {
+const headingStyleMap: Record<CardColor, Record<string, string>> = {
   primary: {
-    "data-h2-background-color": "base:all(primary.lightest)",
-    "data-h2-color": "base:all(primary.darkest)",
-    "data-h2-border-bottom": "base:all(primary.darkest)",
+    "data-h2-background-color": "base(primary.lightest)",
+    "data-h2-border-bottom": "base(primary.darkest)",
   },
   secondary: {
-    "data-h2-background-color": "base:all(secondary.lightest)",
-    "data-h2-color": "base:all(secondary.darkest)",
-    "data-h2-border-bottom": "base:all(secondary.darkest)",
+    "data-h2-background-color": "base(secondary.lightest)",
+    "data-h2-border-bottom": "base(secondary.darkest)",
+  },
+  tertiary: {
+    "data-h2-background-color": "base(tertiary.lightest)",
+    "data-h2-border-bottom": "base(tertiary.darkest)",
+  },
+  quaternary: {
+    "data-h2-background-color": "base(quaternary.lightest)",
+    "data-h2-border-bottom": "base(quaternary.darkest)",
+  },
+  quinary: {
+    "data-h2-background-color": "base(quinary.lightest)",
+    "data-h2-border-bottom": "base(quinary.darkest)",
+  },
+};
+
+const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
+  primary: {
+    "data-h2-color": "base(primary.darkest)",
+  },
+  secondary: {
+    "data-h2-color": "base(secondary.darkest)",
+  },
+  tertiary: {
+    "data-h2-color": "base(tertiary.darkest)",
+  },
+  quaternary: {
+    "data-h2-color": "base(quaternary.darkest)",
+  },
+  quinary: {
+    "data-h2-color": "base(quinary.darkest)",
   },
 };
 
@@ -31,41 +68,48 @@ const TaskCard = ({
   icon,
   title,
   headingColor = "primary",
-  link,
+  linkText,
+  linkHref,
   children,
 }: TaskCardProps) => {
   const Icon = icon;
   return (
     <div
       data-h2-shadow="base(larger)"
-      data-h2-radius="base(rounded)"
-      data-h2-background-clip="base(border-box)"
+      data-h2-border-radius="base(rounded)"
+      data-h2-background-color="base(foreground)"
     >
       {/* heading  */}
       <div
-        {...colorMap[headingColor]}
+        {...headingStyleMap[headingColor]}
+        data-h2-border-radius="base(rounded rounded 0 0)"
         data-h2-border-bottom-width="base(1px)"
         data-h2-border-bottom-style="base(solid)"
         data-h2-padding="base(x1 x1.5 x1 x1.5)"
         data-h2-display="base(flex)"
         data-h2-gap="base(x2)"
         data-h2-align-items="base(center)"
-        data-h2-radius="base(rounded rounded 0 0)"
       >
         {/* wrapper */}
         <div
+          {...wrapperStyleMap[headingColor]}
           data-h2-flex-grow="base(2)"
           data-h2-display="base(flex)"
           data-h2-gap="base(x0.5)"
           data-h2-align-items="base(center)"
         >
-          {Icon && (
+          {Icon ? (
             <Icon data-h2-height="base(x0.85)" data-h2-width="base(auto)" />
-          )}
+          ) : null}
           {title}
         </div>
-        {link}
+        {linkText && linkHref ? (
+          <Link href={linkHref} color={headingColor}>
+            {linkText}
+          </Link>
+        ) : null}
       </div>
+      {/* content */}
       <div>{children}</div>
     </div>
   );
