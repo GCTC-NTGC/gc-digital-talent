@@ -2667,10 +2667,6 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
-  "CvV2l6": {
-    "defaultMessage": "Clé",
-    "description": "Label for an entity 'key' field"
-  },
   "CwGljY": {
     "defaultMessage": "Votre première langue officielle",
     "description": "Legend first official language status in language information form"
@@ -7006,6 +7002,10 @@
     "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
     "description": "Instructions to provide additional details when submitting a request with no candidates"
   },
+  "ae3u1t": {
+    "defaultMessage": "Clé",
+    "description": "Title for key field"
+  },
   "aemElP": {
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
     "description": "Label displayed on Personal Experience form for current experience input"
@@ -9474,6 +9474,10 @@
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
   },
+  "nGx7Xt": {
+    "defaultMessage": "Mesures",
+    "description": "Title displayed for actions column"
+  },
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
@@ -9553,10 +9557,6 @@
   "ngHHmI": {
     "defaultMessage": "Sauvegarder la décision finale",
     "description": "Button to click on to fill out a final decision form"
-  },
-  "nGx7Xt": {
-    "defaultMessage": "Mesures",
-    "description": "Title displayed for actions column"
   },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
