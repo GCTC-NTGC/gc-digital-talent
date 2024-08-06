@@ -57,6 +57,11 @@ class Community extends Model
         return $this->morphOne(Team::class, 'teamable');
     }
 
+    public function pools(): HasMany
+    {
+        return $this->hasMany(Pool::class);
+    }
+
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs

@@ -62,6 +62,8 @@ import SideMenu, {
   SideMenuItem,
   SideMenuContentWrapper,
   SideMenuCategory,
+  SideMenuItemChildren,
+  commonStyles,
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
@@ -166,6 +168,8 @@ export {
   SideMenuItem,
   SideMenuCategory,
   SideMenuContentWrapper,
+  SideMenuItemChildren,
+  commonStyles,
   Spoiler,
   Stepper,
   Switch,

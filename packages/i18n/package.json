@@ -11,6 +11,8 @@
     "./frCompiled.json": "./src/lang/frCompiled.json"
   },
   "scripts": {
+    "prettier": "prettier --check . --ignore-path=../../.prettierignore",
+    "prettier:fix": "prettier --write . --ignore-path=../../.prettierignore",
     "lint": "eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit",
@@ -41,7 +43,7 @@
     "react-intl": "^6.6.8",
     "react-router-dom": "^6.25.1",
     "tsconfig": "workspace:*",
-    "tsx": "^4.16.2",
+    "tsx": "^4.16.3",
     "typescript": "^5.5.4",
     "yargs": "^17.7.2"
   }

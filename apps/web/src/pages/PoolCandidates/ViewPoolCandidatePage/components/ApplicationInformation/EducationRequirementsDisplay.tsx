@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { Maybe, PoolCandidate } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEducationRequirementOption,
@@ -11,7 +11,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 
 interface EducationRequirementsDisplayProps {
-  application?: PoolCandidate | null;
+  application?: Maybe<PoolCandidate>; // comes from snapshot
 }
 
 const EducationRequirementsDisplay = ({

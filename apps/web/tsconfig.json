@@ -7,13 +7,20 @@
       "~/*": ["./*"]
     }
   },
-  "include": ["src/**/*", "vite.config.ts", "globals.d.ts", "*.cjs"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts",
+    "globals.d.ts",
+    "*.cjs"
+  ],
   "exclude": [
     ".turbo",
     "node_modules",
     "dist",
     "!node_modules/@types",
     "*/node_modules",
-    "!*/node_modules/@types"
+    "!*/node_modules/@types",
+    "**/src/gql"
   ]
 }

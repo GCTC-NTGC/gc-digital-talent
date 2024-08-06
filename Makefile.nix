@@ -17,38 +17,36 @@ setup_all: setup_api setup_web
 refresh_all: refresh_api refresh_web
 
 setup_api:
-	rm api/bootstrap/cache/*.php --force
 	cp api/.env.example api/.env --preserve=all
 	cd api && composer install --prefer-dist
 	php api/artisan key:generate
 	php api/artisan migrate:fresh --seed
 	php api/artisan lighthouse:print-schema --write
-	php api/artisan config:clear
 	touch api/storage/logs/laravel.log
-	sudo chown -R www-data:www-data api/storage
-	sudo chmod -R a+r,a+w api/storage
+	docker-compose exec webserver sh -c "chown -R www-data:www-data /home/site/wwwroot/api/storage"
+	docker-compose exec webserver sh -c "chmod -R a+r,a+w /home/site/wwwroot/api/storage /home/site/wwwroot/api/bootstrap/cache"
+	php api/artisan optimize:clear
 
 refresh_api:
-	rm api/bootstrap/cache/*.php --force
 	cd api && composer install --prefer-dist
 	php api/artisan migrate
 	php api/artisan lighthouse:print-schema --write
-	php api/artisan config:clear
+	php api/artisan optimize:clear
 
 setup_web:
 	cp apps/web/.env.example apps/web/.env --preserve=all
-	pnpm install --force
+	pnpm install
 	pnpm run dev:fresh
 
 refresh_web:
-	pnpm install --force
+	pnpm install
 	pnpm run dev
 
 git_clean:
 	sudo git clean -xdf
 
 compose_up:
-	docker-compose up --detach --build
+	docker-compose up --detach
 
 compose_down:
 	docker-compose down

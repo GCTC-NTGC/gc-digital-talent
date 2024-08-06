@@ -2,9 +2,11 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Jobs\GenerateCandidateCSV;
+use App\Generators\PoolCandidateCsvGenerator;
+use App\Jobs\GenerateUserFile;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -17,8 +19,8 @@ final class DownloadPoolCandidatesCsv
     public function __invoke($_, array $args)
     {
 
-        $userId = Auth::id();
-        throw_unless(is_string($userId), UnauthorizedException::class);
+        $user = Auth::user();
+        throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         $locale = $args['locale'] ?? 'en';
 
@@ -31,7 +33,16 @@ final class DownloadPoolCandidatesCsv
                 ->pluck('id') // Seems weird but we are just flattening it out
                 ->toArray();
 
-            GenerateCandidateCSV::dispatch($ids, $userId, strtolower($locale));
+            $fileName = sprintf('%s_%s.csv', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
+
+            $generator = new PoolCandidateCsvGenerator(
+                ids: $ids,
+                fileName: $fileName,
+                dir: $user->id,
+                lang: strtolower($locale),
+            );
+
+            GenerateUserFile::dispatch($generator, $user);
 
             return true;
         } catch (\Exception $e) {

@@ -35,16 +35,4 @@ test.describe("Notifications", () => {
       }),
     ).toBeVisible();
   });
-
-  test("Dialog missing (disabled)", async ({ applicantPage }) => {
-    await applicantPage.overrideFeatureFlags({ FEATURE_NOTIFICATIONS: false });
-    await applicantPage.page.goto("/en/applicant");
-    await applicantPage.waitForGraphqlResponse(
-      "ProfileAndApplicationsApplicant",
-    );
-
-    await expect(
-      applicantPage.page.getByRole("button", { name: /view notification/i }),
-    ).toBeHidden();
-  });
 });

@@ -3,7 +3,7 @@
   "tokenCallbacks": [
     {
       "issuerId": "oxauth",
-      "tokenExpiry": 120,
+      "tokenExpiry": 600,
       "requestMappings": [
         {
           "requestParam": "client_id",

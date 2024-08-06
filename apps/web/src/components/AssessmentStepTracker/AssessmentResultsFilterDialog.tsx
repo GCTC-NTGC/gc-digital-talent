@@ -85,10 +85,12 @@ const AssessmentResultsFilterDialog = ({
     value,
     label: intl.formatMessage(message),
   });
+
   return (
     <FilterDialog<FormValues>
       {...{ onSubmit, resetValues }}
       options={{ defaultValues: initialValues }}
+      modifyFilterCount={-3}
     >
       <div
         data-h2-display="base(grid)"
@@ -125,11 +127,10 @@ const AssessmentResultsFilterDialog = ({
           }))}
         />
         <div data-h2-grid-column="l-tablet(span 2)">
-          <Select
-            id="operationalRequirement"
-            name="operationalRequirement"
-            enableNull
-            nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
+          <Combobox
+            id="operationalRequirements"
+            name="operationalRequirements"
+            isMulti
             label={intl.formatMessage(navigationMessages.workPreferences)}
             options={localizedEnumToOptions(
               data?.operationalRequirements,

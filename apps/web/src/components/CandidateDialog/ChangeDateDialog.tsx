@@ -17,6 +17,9 @@ import {
   User,
   PoolCandidate,
   UpdatePoolCandidateStatusInput,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -28,18 +31,57 @@ type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
 };
 
+export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment ChangeDateDialog_PoolCandidate on PoolCandidate {
+    id
+    expiryDate
+    pool {
+      id
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
+
 interface ChangeDateDialogProps {
-  selectedCandidate: PoolCandidate;
+  selectedCandidateQuery: FragmentType<
+    typeof ChangeDateDialog_PoolCandidateFragment
+  >;
   user: User;
 }
 
 const ChangeDateDialog = ({
-  selectedCandidate,
+  selectedCandidateQuery,
   user,
 }: ChangeDateDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
+  const selectedCandidate = getFragment(
+    ChangeDateDialog_PoolCandidateFragment,
+    selectedCandidateQuery,
+  );
 
   const [{ fetching }, executeMutation] = useMutation(
     UpdatePoolCandidateStatus_Mutation,

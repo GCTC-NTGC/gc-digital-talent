@@ -5,6 +5,11 @@
     "rootDir": "./src",
     "baseUrl": "./src"
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": [
+    "codegen.ts"
+  ],
+  "exclude": [
+    "src", // This is a generated package
+    "node_modules"
+  ]
 }
