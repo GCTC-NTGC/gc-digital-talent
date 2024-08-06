@@ -52,8 +52,8 @@ const CommunityHeader = ({ communityQuery }: CommunityHeaderProps) => {
         icon: ClipboardDocumentListIcon,
         title: intl.formatMessage({
           defaultMessage: "Community information",
-          id: "VSP9NW",
-          description: "Title for community information page",
+          id: "W0Bh1G",
+          description: "Title for community information",
         }),
         link: {
           url: paths.communityView(community.id),

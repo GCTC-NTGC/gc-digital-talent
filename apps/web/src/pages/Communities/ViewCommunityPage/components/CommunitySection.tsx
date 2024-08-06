@@ -56,8 +56,8 @@ const hasAllEmptyFields = (apiData: Community | null | undefined): boolean =>
 
 const sectionTitle: MessageDescriptor = defineMessage({
   defaultMessage: "Community information",
-  id: "C1o0aS",
-  description: "Section title for the community page",
+  id: "W0Bh1G",
+  description: "Title for community information",
 });
 const sectionSolidIcon: IconType = MegaphoneSolidIcon;
 

@@ -71,8 +71,8 @@ const ViewCommunityPage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Community information",
-    id: "VSP9NW",
-    description: "Title for community information page",
+    id: "W0Bh1G",
+    description: "Title for community information",
   });
 
   return (
