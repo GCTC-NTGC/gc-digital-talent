@@ -256,16 +256,6 @@ class PoolCandidateSearchRequest extends Model
             return $query->where('id', null);
         }
 
-        $hasSomePermission = $user->isAbleTo([
-            'view-any-searchRequest',
-            'view-team-searchRequest',
-        ]);
-
-        // User does not have any of the required permissions
-        if (! $hasSomePermission) {
-            return $query->where('id', null);
-        }
-
         if ($user->isAbleTo('view-any-searchRequest')) {
             return $query;
         }
@@ -287,6 +277,7 @@ class PoolCandidateSearchRequest extends Model
             return $query;
         }
 
+        // fallback
         return $query->where('id', null);
     }
 
