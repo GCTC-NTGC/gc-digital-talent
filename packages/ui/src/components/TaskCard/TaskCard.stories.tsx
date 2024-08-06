@@ -27,7 +27,9 @@ export default meta;
 const Template: StoryFn<typeof TaskCard> = (args) => {
   return (
     <TaskCard {...args}>
-      <Well>{faker.lorem.paragraph()}</Well>
+      <div data-h2-padding="base(x1)">
+        <Well>{faker.lorem.paragraph()}</Well>
+      </div>
     </TaskCard>
   );
 };
