@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -1133,5 +1134,78 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function getIsEmailVerifiedAttribute()
     {
         return $this->hasVerifiedEmail();
+    }
+
+    public static function hydrateSnapshot(mixed $snapshot)
+    {
+        $user = new User();
+        // Array of key maps containing tuple
+        // where [string $snapshotKey, ?bool $localizedEnum]
+        $keyMap = [
+            'first_name' => ['firstName'],
+            'last_name' => ['lastName'],
+            'email' => ['email'],
+            'telephone' => ['telephone'],
+            'current_city' => ['currentCity'],
+            'current_province' => ['currentProvince', true],
+            'preferred_lang' => ['preferredLang', true],
+            'preferred_language_for_interview' => ['preferredLanguageForInterview', true],
+            'preferred_language_for_exam' => ['preferredLanguageForExam', true],
+            'citizenship' => ['citizenship', true],
+            'armed_forces_status' => ['armedForcesStatus', true],
+            'looking_for_english' => ['lookingForEnglish'],
+            'looking_for_french' => ['lookingForFrench'],
+            'looking_for_bilingual' => ['lookingForBilingual'],
+            'first_official_language' => ['firstOfficialLanguage', true],
+            'second_language_exam_completed' => ['secondLanguageExamCompleted'],
+            'second_language_exam_validity' => ['secondLanguageExamValidity'],
+            'comprehension_level' => ['comprehensionLevel', true],
+            'written_level' => ['comprehensionLevel', true],
+            'verbal_level' => ['verbalLevel', true],
+            'estimated_language_ability' => ['estimatedLanguageAbility', true],
+            'is_gov_employee' => ['isGovEmployee'],
+            'gov_employee_type' => ['govEmployeeType', true],
+            'has_priority_entitlement' => ['hasPriorityEntitelment'],
+            'priority_number' => ['priorityNumber'],
+            'location_preferences' => ['locationPreferneces', true],
+            'location_exemptions' => ['locationExcemptions'],
+            'accepted_operational_requirements' => ['acceptedOperationalRequirements', true],
+            'position_duration' => ['positionDuration'],
+            'is_woman' => ['isWoman'],
+            'has_disability' => ['hasDisability'],
+            'is_visible_minority' => ['isVisibleMinority'],
+            'indigenous_communities' => ['indigenousCommunities', true],
+        ];
+
+        foreach ($keyMap as $attribute => $snapshotField) {
+            $isLocalizedEnum = isset($snapshotField[1]) && $snapshotField[1];
+            $user->$attribute = self::hydrateSnapshotField($snapshot, $snapshotField[0], $isLocalizedEnum);
+        }
+
+        if (isset($snapshot['department'])) {
+            $user->department_id = $snapshot['department']['id'];
+        }
+
+        return $user;
+    }
+
+    public static function hydrateSnapshotField(mixed $snapshot, string $key, bool $localizedEnum = false)
+    {
+        if (! isset($snapshot[$key])) {
+            return null;
+        }
+
+        $value = $snapshot[$key];
+        if ($localizedEnum) {
+            if (Arr::isList($value)) {
+                $value = array_map(function ($item) {
+                    return isset($item['value']) ? $item['value'] : null;
+                }, $value);
+            } else {
+                $value = $value['value'];
+            }
+        }
+
+        return $value ?? null;
     }
 }
