@@ -299,6 +299,10 @@
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
   },
+  "C/2HT9": {
+    "defaultMessage": "Cette clé de collectivité est déjà utilisé",
+    "description": "Error message that the given community key is already in use"
+  },
   "C/mdCs": {
     "defaultMessage": "Sans objet",
     "description": "Not applicable, context or state does apply."
