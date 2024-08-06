@@ -585,6 +585,7 @@ class Pool extends Model
                     }
                 }
 
+                // This will need to be updated when we give the new roles access to Pools in #10609.
                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                     $query->whereIn('id', $teamIds);
                 });
@@ -668,7 +669,7 @@ class Pool extends Model
                 $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
             }
         });
-        $filterCountAfter = count($query->getQuery()->wheres);
+        $filterCountAfter = count($query->getQuery()->wheres); // will not increment if an empty "where" subquery above
         if ($filterCountAfter > $filterCountBefore) {
             return;
         }

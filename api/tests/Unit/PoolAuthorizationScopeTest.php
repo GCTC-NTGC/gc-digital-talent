@@ -286,4 +286,6 @@ class PoolAuthorizationScopeTest extends TestCase
             $this->poolArchived2->id,
         ], $poolIds->toArray());
     }
+
+    // TODO: add tests for new roles as part of #10609
 }

@@ -260,4 +260,6 @@ class UserAuthorizationScopeTest extends TestCase
             $this->user2->id,
         ], $userIds->toArray());
     }
+
+    // TODO: add tests for new roles as part of #10609
 }
