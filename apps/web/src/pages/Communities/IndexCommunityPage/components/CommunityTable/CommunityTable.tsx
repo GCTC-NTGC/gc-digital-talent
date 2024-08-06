@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
@@ -66,11 +66,7 @@ export const CommunityTable = ({
       {
         id: "communityName",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Name",
-          id: "5TkgGD",
-          description: "Label for name column",
-        }),
+        header: intl.formatMessage(commonMessages.name),
         cell: ({ row: { original: community }, getValue }) =>
           viewCell(
             paths.communityView(community.id),
