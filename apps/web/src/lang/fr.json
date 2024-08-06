@@ -963,6 +963,10 @@
     "defaultMessage": "Vous n’avez pas encore ajouté d’éléments à votre parcours professionnel.",
     "description": "Message to user when no career timeline items have been attached to profile."
   },
+  "33oume": {
+    "defaultMessage": "Chercher membres de la collectivité",
+    "description": "Label for the community members table search input"
+  },
   "33wMLU": {
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
@@ -2175,6 +2179,10 @@
     "defaultMessage": "Veuillez soumettre une demande vide et nous essayerons de vous aider.",
     "description": "Link text to scroll to the submit button when no candidates were found"
   },
+  "9s7Ctc": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Title displayed for the community members table roles column."
+  },
   "9t56Ev": {
     "defaultMessage": "Nombre d’évaluations",
     "description": "Title for a column that displays the number of assessments planned for a skill."
@@ -2679,6 +2687,10 @@
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
     "description": "Description of how many items are being displayed out of the total value"
   },
+  "Cu+CH3": {
+    "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
+    "description": "Instructions for adding a community item"
+  },
   "CuHYqt": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
@@ -2882,6 +2894,10 @@
   "DrG5Pl": {
     "defaultMessage": "Sommaire de l’évaluation",
     "description": "Assessment summary"
+  },
+  "DrR/rp": {
+    "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
+    "description": "Instructions for adding a member to a community."
   },
   "Ds7ONS": {
     "defaultMessage": "une modification ou une extension à un contrat visant la mise à l’essai de logiciels.",
@@ -3883,6 +3899,10 @@
     "defaultMessage": "Demander pour les candidats du bassin {poolName}",
     "description": "Button link message on search page that takes user to the request form."
   },
+  "Jc9FDx": {
+    "defaultMessage": "Rôles ajoutés avec succès",
+    "description": "Alert displayed to user when a community member's roles have been updated"
+  },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
     "description": "Name of Plains Cree language"
@@ -4023,6 +4043,10 @@
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
+  "KESOSJ": {
+    "defaultMessage": "Membre ajouté avec succès",
+    "description": "Alert displayed to user when a community member was added to a community"
+  },
   "KEm64j": {
     "defaultMessage": "Détails de la publicité",
     "description": "Sub title for advertisement details"
@@ -4054,6 +4078,10 @@
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
+  },
+  "KWXIKL": {
+    "defaultMessage": "Membre retiré avec succès",
+    "description": "Alert displayed to user when a community member is removed"
   },
   "KXEuON": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
@@ -4342,6 +4370,10 @@
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
     "description": "Title for Minimum experience or equivalent education"
+  },
+  "LxRoWB": {
+    "defaultMessage": "Création de la collectivité réussie!",
+    "description": "Message displayed after a community is created"
   },
   "Ly2bBb": {
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
@@ -5690,6 +5722,10 @@
   "TYOzfT": {
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
+  },
+  "TfbBB7": {
+    "defaultMessage": "Collectivité {communityId} introuvable.",
+    "description": "Message displayed for community not found."
   },
   "TiIkSF": {
     "defaultMessage": "Études postsecondaires de deux ans",
@@ -7201,6 +7237,10 @@
   "blvpQr": {
     "defaultMessage": "Ces notifications sont obligatoires et comprennent la vérification de l'adresse électronique et d'autres communications importantes.",
     "description": "Subtitle for system messages checklist"
+  },
+  "bmOZXl": {
+    "defaultMessage": "La mise à jour du rôle a échoué",
+    "description": "Alert displayed to user when an error occurs while editing a community member's roles"
   },
   "bnhqpY": {
     "defaultMessage": "Est équivalent en termes de durée de l’intensité/de l’apprentissage par rapport aux exigences du diplôme",
@@ -9538,6 +9578,10 @@
     "defaultMessage": "Disponibilité pour recrutement",
     "description": "Title for the recruitment availability."
   },
+  "nOGbxc": {
+    "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de la collectivité <strong>{communityName}</strong>.",
+    "description": "Help text for the remove community membership dialog"
+  },
   "nPPUMW": {
     "defaultMessage": "Retourner au traitement des détails",
     "description": "Link text to go back to the process details page"
@@ -10257,6 +10301,10 @@
   "rhW3iW": {
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for featured items on the manager homepage"
+  },
+  "ri2PBL": {
+    "defaultMessage": "Erreur : échec de la création de la collectivité",
+    "description": "Messaged displayed after creating community fails"
   },
   "rjfQMg": {
     "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma <strong>deuxième langue officielle</strong>.",
