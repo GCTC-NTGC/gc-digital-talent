@@ -151,9 +151,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Create community",
-                id: "4/6TVC",
-                description:
-                  "Button text for the create community form submit button",
+                id: "lhLfd7",
+                description: "Text to create a community",
               })}
             />
             <Link mode="inline" color="warning" href={navigateTo}>
