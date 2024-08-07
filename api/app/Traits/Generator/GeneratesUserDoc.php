@@ -216,7 +216,9 @@ trait GeneratesUserDoc
 
         if ($user->indigenous_communities) {
             foreach ($user->indigenous_communities as $community) {
-                $section->addListItem($this->localizeEnum($community, IndigenousCommunity::class));
+                if ($community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name) {
+                    $section->addListItem($this->localizeEnum($community, IndigenousCommunity::class));
+                }
             }
         }
         if ($user->is_woman) {
