@@ -30,6 +30,7 @@ import AppPage from "./AppPage";
 type CreateAndPublishPoolArgs = {
   userId: string;
   teamId: string;
+  communityId: string;
   name: string;
   classification: Classification;
   department: Department;
@@ -49,11 +50,13 @@ class PoolPage extends AppPage {
   async createPool(
     userId: string,
     teamId: string,
+    communityId: string,
     pool: CreatePoolInput,
   ): Promise<Pool> {
     return this.graphqlRequest(Test_CreatePoolMutationDocument, {
       userId,
       teamId,
+      communityId,
       pool,
     }).then((res: GraphQLResponse<"createPool", Pool>) => res.createPool);
   }
@@ -90,12 +93,13 @@ class PoolPage extends AppPage {
   async createAndPublishPool({
     userId,
     teamId,
+    communityId,
     name,
     classification,
     department,
     skill,
   }: CreateAndPublishPoolArgs): Promise<Pool> {
-    let pool = await this.createPool(userId, teamId, {
+    let pool = await this.createPool(userId, teamId, communityId, {
       classification: { connect: classification.id },
       department: { connect: department.id },
     });

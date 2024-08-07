@@ -29,29 +29,27 @@ class PoolCandidateObserver
 
         CandidateStatusChanged::dispatchIf($poolCandidate->wasChanged('pool_candidate_status'), $poolCandidate);
 
-        if (config('feature.notifications')) {
-            if (
-                ($oldStatus != $newStatus) &&
-                (
-                    // new status is a final
-                    in_array($newStatus, PoolCandidateStatus::finalDecisionGroup()) ||
-                     // old status was a final
-                    in_array($oldStatus, PoolCandidateStatus::finalDecisionGroup()) ||
-                     // new status is a removed
-                    in_array($newStatus, PoolCandidateStatus::removedGroup()) ||
-                     // old status was a removed
-                    in_array($oldStatus, PoolCandidateStatus::removedGroup())
-                )) {
-                try {
+        if (
+            ($oldStatus != $newStatus) &&
+            (
+                // new status is a final
+                in_array($newStatus, PoolCandidateStatus::finalDecisionGroup()) ||
+                    // old status was a final
+                in_array($oldStatus, PoolCandidateStatus::finalDecisionGroup()) ||
+                    // new status is a removed
+                in_array($newStatus, PoolCandidateStatus::removedGroup()) ||
+                    // old status was a removed
+                in_array($oldStatus, PoolCandidateStatus::removedGroup())
+            )) {
+            try {
 
-                    $poolCandidate->user->notify(new ApplicationStatusChanged(
-                        $poolCandidate->pool->name['en'],
-                        $poolCandidate->pool->name['fr'],
-                    ));
-                } catch (Throwable $e) {
-                    // best-effort: log and continue
-                    Log::error('Failed to send "application status changed" notification to ['.$poolCandidate->id.'] '.$e->getMessage());
-                }
+                $poolCandidate->user->notify(new ApplicationStatusChanged(
+                    $poolCandidate->pool->name['en'],
+                    $poolCandidate->pool->name['fr'],
+                ));
+            } catch (Throwable $e) {
+                // best-effort: log and continue
+                Log::error('Failed to send "application status changed" notification to ['.$poolCandidate->id.'] '.$e->getMessage());
             }
         }
 

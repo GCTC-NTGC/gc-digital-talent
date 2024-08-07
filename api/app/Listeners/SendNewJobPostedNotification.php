@@ -23,28 +23,25 @@ class SendNewJobPostedNotification implements ShouldQueue
      */
     public function handle(PoolPublished $event): void
     {
-        if (config('feature.notifications')) {
-            $pool = $event->result;
+        $pool = $event->result;
 
-            $notification = new NewJobPosted(
-                $pool->name['en'],
-                $pool->name['fr'],
-                $pool->id
-            );
+        $notification = new NewJobPosted(
+            $pool->name['en'],
+            $pool->name['fr'],
+            $pool->id
+        );
 
-            User::whereJsonContains('enabled_email_notifications', NotificationFamily::JOB_ALERT->name)
-                ->orWhereJsonContains('enabled_in_app_notifications', NotificationFamily::JOB_ALERT->name)
-                ->chunk(200, function (Collection $users) use ($notification) {
-                    foreach ($users as $user) {
-                        try {
-                            $user->notify($notification);
-                        } catch (Throwable $e) {
-                            // best-effort: log and continue
-                            Log::error('Failed to send "new job posted" notification to ['.$user->id.'] '.$e->getMessage());
-                        }
+        User::whereJsonContains('enabled_email_notifications', NotificationFamily::JOB_ALERT->name)
+            ->orWhereJsonContains('enabled_in_app_notifications', NotificationFamily::JOB_ALERT->name)
+            ->chunk(200, function (Collection $users) use ($notification) {
+                foreach ($users as $user) {
+                    try {
+                        $user->notify($notification);
+                    } catch (Throwable $e) {
+                        // best-effort: log and continue
+                        Log::error('Failed to send "new job posted" notification to ['.$user->id.'] '.$e->getMessage());
                     }
-                });
-
-        }
+                }
+            });
     }
 }

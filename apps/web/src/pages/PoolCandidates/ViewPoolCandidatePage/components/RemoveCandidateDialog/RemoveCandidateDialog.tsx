@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 
 import {
   CandidateRemovalReason,
@@ -69,6 +69,47 @@ const RemoveCandidateOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const RemovalInput = () => {
+  const intl = useIntl();
+  const [{ data }] = useQuery({ query: RemoveCandidateOptions_Query });
+  const removalReason = useWatch({ name: "removalReason" });
+
+  return (
+    <>
+      <RadioGroup
+        idPrefix="removalReason"
+        name="removalReason"
+        legend={intl.formatMessage({
+          defaultMessage: "Reason",
+          id: "4Ahswu",
+          description: "Label for the reason why a candidate is being removed",
+        })}
+        rules={{
+          required: intl.formatMessage(errorMessages.required),
+        }}
+        items={localizedEnumToOptions(
+          sortCandidateRemovalReason(data?.removalReasons),
+          intl,
+        )}
+      />
+      {removalReason === CandidateRemovalReason.Other && (
+        <TextArea
+          id="removalReasonOther"
+          name="removalReasonOther"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          label={getLocalizedEnumStringByValue(
+            CandidateRemovalReason.Other,
+            data?.removalReasons,
+            intl,
+          )}
+        />
+      )}
+    </>
+  );
+};
+
 const title = defineMessage({
   defaultMessage: "Remove candidate",
   id: "4Z3/xp",
@@ -86,7 +127,6 @@ const RemoveCandidateDialog = ({
 }: RemoveCandidateDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
-  const [{ data }] = useQuery({ query: RemoveCandidateOptions_Query });
   const candidate = getFragment(RemoveCandidateDialog_Fragment, removalQuery);
 
   const [{ fetching }, removeCandidate] = useMutation(RemoveCandidate_Mutation);
@@ -97,8 +137,6 @@ const RemoveCandidateDialog = ({
       removalReasonOther: candidate.removalReasonOther ?? undefined,
     },
   });
-
-  const removalReason = methods.watch("removalReason");
 
   const submitHandler = async (values: FormValues) => {
     await removeCandidate({
@@ -156,37 +194,7 @@ const RemoveCandidateDialog = ({
                   })}
                   {intl.formatMessage(commonMessages.dividingColon)}
                 </p>
-                <RadioGroup
-                  idPrefix="removalReason"
-                  name="removalReason"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Reason",
-                    id: "4Ahswu",
-                    description:
-                      "Label for the reason why a candidate is being removed",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  items={localizedEnumToOptions(
-                    sortCandidateRemovalReason(data?.removalReasons),
-                    intl,
-                  )}
-                />
-                {removalReason === CandidateRemovalReason.Other && (
-                  <TextArea
-                    id="removalReasonOther"
-                    name="removalReasonOther"
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    label={getLocalizedEnumStringByValue(
-                      CandidateRemovalReason.Other,
-                      data?.removalReasons,
-                      intl,
-                    )}
-                  />
-                )}
+                <RemovalInput />
                 <FormChangeNotifyWell />
               </div>
               <Dialog.Footer>

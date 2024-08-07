@@ -20,7 +20,6 @@ use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
-use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
@@ -584,36 +583,6 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
-    // pool_candidate_status database value passed into accessor as an argument
-    public function getPoolCandidateStatusAttribute($candidateStatus)
-    {
-        // pull info
-        // $submittedAt = $this->submitted_at;
-        // $expiryDate = $this->expiry_date;
-        // $currentTime = date('Y-m-d H:i:s');
-        // $isExpired = $currentTime > $expiryDate ? true : false;
-
-        // // ensure null submitted_at returns either draft or expired draft
-        // if ($submittedAt == null){
-        //     if($isExpired) {
-        //         return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
-        //     }
-        //     return ApiEnums::CANDIDATE_STATUS_DRAFT;
-        // }
-
-        // // ensure expired returned if past expiry date with exception for PLACED
-        // if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
-        //     if ($isExpired) {
-        //         return ApiEnums::CANDIDATE_STATUS_EXPIRED;
-        //     }
-        //     return $candidateStatus;
-        // }
-
-        // no overriding
-        return $candidateStatus;
-    }
-
     public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
     {
         if (empty($priorityWeights)) {
@@ -754,11 +723,9 @@ class PoolCandidate extends Model
             return $query->where('id', null);
         }
 
-        $hasSomePermission = $user->isAbleTo([
-            'view-own-application',
-            'view-team-submittedApplication',
-            'view-any-submittedApplication',
-        ]);
+        $hasSomePermission = $user->isAbleTo('view-own-application')
+            || $user->isAbleTo('view-team-submittedApplication')
+            || $user->isAbleTo('view-any-submittedApplication');
 
         // User does not have any of the required permissions
         if (! $hasSomePermission) {
@@ -776,14 +743,17 @@ class PoolCandidate extends Model
                     return $user->isAbleTo('view-team-submittedApplication', $team);
                 })->pluck('id');
 
-                $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                    return $query
-                        ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->where(function (Builder $query) use ($teamIds) {
-                            $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
-                            })->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+                $query->orWhere(function (Builder $query) use ($teamIds) {
+                    $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                        ->whereHas('pool', function (Builder $query) use ($teamIds) {
+                            return $query->where(function (Builder $query) use ($teamIds) {
+                                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
                             });
                         });
                 });
@@ -891,7 +861,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function setApplicationSnapshot()
+    public function setApplicationSnapshot(bool $save = true)
     {
         if (! is_null($this->profile_snapshot)) {
             return null;
@@ -952,7 +922,9 @@ class PoolCandidate extends Model
         $profile = $profile->poolSkillIds($poolSkillIds);
 
         $this->profile_snapshot = $profile;
-        $this->save();
+        if ($save) {
+            $this->save();
+        }
     }
 
     /**
@@ -1027,7 +999,6 @@ class PoolCandidate extends Model
                     'firstOfficialLanguage' => Language::class,
                     'govEmployeeType' => GovEmployeeType::class,
                     'locationPreferences' => WorkRegion::class,
-                    'positionDuration' => PositionDuration::class,
                     'preferredLang' => Language::class,
                     'preferredLanguageForInterview' => Language::class,
                     'preferredLanguageForExam' => Language::class,
@@ -1212,7 +1183,7 @@ class PoolCandidate extends Model
 
         if ($currentStep >= $totalSteps) {
             $lastStepDecision = end($decisions);
-            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
+            if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }

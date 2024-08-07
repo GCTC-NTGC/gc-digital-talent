@@ -47,6 +47,10 @@
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"
   },
+  "0NInjL": {
+    "defaultMessage": "Anglais",
+    "description": "Name of English language"
+  },
   "0OPWbJ": {
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
@@ -170,6 +174,10 @@
   "556RGm": {
     "defaultMessage": "Une erreur s’est produite au moment d’annuler la décision finale. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that reverting the final decision for a candidate failed"
+  },
+  "5RTQe6": {
+    "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
+    "description": "Message to user when they request a file for download"
   },
   "5gS1sZ": {
     "defaultMessage": "La valeur doit être supérieure à {value}",
@@ -319,6 +327,10 @@
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
   },
+  "DIK7Z1": {
+    "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
+    "description": "Message for when the download request failed"
+  },
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
@@ -326,6 +338,10 @@
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
+  },
+  "EW8RHQ": {
+    "defaultMessage": "Une erreur s’est produite de notre côté. Le téléchargement de {fileName} a échoué. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
+    "description": "Error message when a file download fails"
   },
   "EZgD5d": {
     "defaultMessage": "Non disponible",
@@ -383,6 +399,10 @@
     "defaultMessage": "Modifier l’article {index}",
     "description": "Button text to edit an item from repeatable fields"
   },
+  "HEGXL7": {
+    "defaultMessage": "Compétence linguistique au travail",
+    "description": "Title displayed working language ability"
+  },
   "HGM0YR": {
     "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
     "description": "Indeterminate selection for government employee type."
@@ -438,6 +458,10 @@
   "JHgARn": {
     "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
     "description": "Text read out to assistive technology when over the word limit."
+  },
+  "JYpEeW": {
+    "defaultMessage": "Français",
+    "description": "Name of French language"
   },
   "Jpq6MK": {
     "defaultMessage": "Région de Québec (excluant Gatineau)",
@@ -954,6 +978,10 @@
   "jHYaw8": {
     "defaultMessage": "possède un travail par quarts.",
     "description": "The operational requirement described as shift work."
+  },
+  "jStpFw": {
+    "defaultMessage": "Bilingue (français et anglais)",
+    "description": "Name of Bilingual (English and French)"
   },
   "jqyjFm": {
     "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",

@@ -7,6 +7,7 @@ import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
 import { getDepartments } from "~/utils/departments";
+import { getCommunities } from "~/utils/communities";
 
 test.describe("Process permissions", () => {
   let associatedSub;
@@ -67,9 +68,12 @@ test.describe("Process permissions", () => {
 
     const classifications = await getClassifications();
     const departments = await getDepartments();
+    const communities = await getCommunities();
+
     const createdPool = await poolPage.createPool(
       associatedPoolManager.id,
       team.id,
+      communities[0].id,
       {
         classification: {
           connect: classifications[0].id,

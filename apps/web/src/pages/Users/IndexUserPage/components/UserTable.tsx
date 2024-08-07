@@ -119,6 +119,9 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
             fr
           }
         }
+        lookingForEnglish
+        lookingForFrench
+        lookingForBilingual
         createdDate
         updatedDate
         authInfo {
@@ -270,6 +273,25 @@ const UserTable = ({ title }: UserTableProps) => {
         header: intl.formatMessage(
           commonMessages.preferredCommunicationLanguage,
         ),
+      },
+    ),
+    columnHelper.accessor(
+      ({ lookingForEnglish, lookingForFrench, lookingForBilingual }) => {
+        const arr = [];
+        if (lookingForEnglish) {
+          arr.push(intl.formatMessage(commonMessages.english));
+        }
+        if (lookingForFrench) {
+          arr.push(intl.formatMessage(commonMessages.french));
+        }
+        if (lookingForBilingual) {
+          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
+        }
+        return arr.join(", ");
+      },
+      {
+        id: "languageAbility",
+        header: intl.formatMessage(commonMessages.workingLanguageAbility),
       },
     ),
     columnHelper.display({

@@ -15,6 +15,7 @@ import {
   Dispatch,
   HTMLAttributes,
   MouseEventHandler,
+  ReactNode,
   SetStateAction,
   useCallback,
   useEffect,
@@ -135,7 +136,10 @@ const Bullet = (props: Omit<BulletProps, "children">) => (
 );
 
 // Simple common props for action buttons
-const actionButtonStyles: Pick<ButtonProps, "mode" | "color" | "fontSize"> = {
+export const actionButtonStyles: Pick<
+  ButtonProps,
+  "mode" | "color" | "fontSize"
+> = {
   mode: "inline",
   color: "whiteFixed",
   fontSize: "caption",
@@ -154,6 +158,8 @@ interface ActionsProps {
   print?: DatasetPrint;
   /** Enable the one or both (selection, all) download buttons */
   download?: DatasetDownload;
+  /** Button to trigger an async download */
+  asyncDownload?: ReactNode;
 }
 
 /**
@@ -169,6 +175,7 @@ const Actions = ({
   onClear,
   print,
   download,
+  asyncDownload,
 }: ActionsProps) => {
   const intl = useIntl();
 
@@ -275,6 +282,19 @@ const Actions = ({
                   </DownloadCsv>
                 </span>
               )}
+
+              {asyncDownload ? (
+                <span
+                  data-h2-align-items="base(center)"
+                  data-h2-display="base(flex)"
+                  data-h2-gap="base(0 x.5)"
+                >
+                  <span data-h2-display="base(none) l-tablet(block)">
+                    <Bullet data-h2-display="base(none) l-tablet(block)" />
+                  </span>
+                  {asyncDownload}
+                </span>
+              ) : null}
 
               {(print?.onPrint || print?.component) && (
                 <span

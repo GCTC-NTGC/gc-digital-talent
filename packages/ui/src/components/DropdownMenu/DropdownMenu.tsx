@@ -105,13 +105,14 @@ type ItemProps = ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
 const Item = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.Item>,
   ItemProps
->(({ color = "secondary", ...rest }, forwardedRef) => (
+>(({ color = "secondary", disabled, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Item
     ref={forwardedRef}
+    disabled={disabled}
     {...{
       ...getBaseStyle({ mode: "inline" }),
-      ...getFontColor({ mode: "inline", color }),
-      ...getBackgroundColor({ mode: "inline", color }),
+      ...getFontColor({ mode: "inline", color, disabled }),
+      ...getBackgroundColor({ mode: "inline", color, disabled }),
     }}
     {...itemStyleProps}
     {...rest}

@@ -84,16 +84,6 @@ export const AssessmentStepTracker_PoolFragment = graphql(/* GraphQL */ `
         }
       }
       sortOrder
-      poolSkills {
-        id
-        type {
-          value
-          label {
-            en
-            fr
-          }
-        }
-      }
     }
   }
 `);
@@ -153,7 +143,10 @@ const AssessmentStepTracker = ({
       {steps.length ? (
         <Board.Root>
           {filteredSteps.map(({ step, resultCounts, results }, index) => {
-            const stepName = generateStepName(step, intl);
+            const stepName = generateStepName(
+              { type: step.type, title: step.title },
+              intl,
+            );
             const stepNumber = intl.formatMessage(
               applicationMessages.numberedStep,
               {
@@ -166,7 +159,13 @@ const AssessmentStepTracker = ({
                 <Board.ColumnHeader prefix={stepNumber}>
                   {stepName}
                 </Board.ColumnHeader>
-                <ResultsDetails {...{ resultCounts, step, filters }} />
+                <ResultsDetails
+                  {...{
+                    step: { type: step.type, title: step.title },
+                    resultCounts,
+                    filters,
+                  }}
+                />
                 {fetching ? (
                   <Well fontSize="caption" data-h2-margin="base(x.5)">
                     <div

@@ -127,7 +127,10 @@ export const ApplicationProfile = ({
         <GovernmentInformation {...sectionProps} />
       </div>
       <div data-h2-margin="base(x2, 0, 0, 0)">
-        <LanguageProfile {...sectionProps} application={application} />
+        <LanguageProfile
+          {...sectionProps}
+          application={{ id: application.id, pool: application.pool }}
+        />
       </div>
       <Separator />
       <StepNavigation

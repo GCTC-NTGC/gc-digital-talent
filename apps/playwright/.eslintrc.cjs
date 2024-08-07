@@ -2,17 +2,22 @@ module.exports = {
   root: true,
   extends: [
     "@gc-digital-talent/eslint-config",
-    "plugin:playwright/recommended"
+    "plugin:playwright/recommended",
   ],
-  ignorePatterns: ["tsconfig.json", "test-results/**", "playwright-report/**", ".auth/**"],
+  ignorePatterns: [
+    "tsconfig.json",
+    "test-results/**",
+    "playwright-report/**",
+    ".auth/**",
+  ],
   rules: {
     "@typescript-eslint/no-floating-promises": "error",
     "playwright/expect-expect": [
       "error",
       {
-        "assertFunctionNames": ["assertError", "assertSuccess"]
-      }
-    ]
+        assertFunctionNames: ["assertError", "assertSuccess"],
+      },
+    ],
   },
   settings: {
     "import/resolver": {

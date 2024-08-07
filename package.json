@@ -29,6 +29,9 @@
     "intl-extract": "turbo run intl-extract",
     "intl-compile": "turbo run intl-compile",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "prettier": "turbo run prettier",
+    "prettier:fix": "turbo run prettier:fix",
     "storybook": "pnpm --filter @gc-digital-talent/web run storybook",
     "storybook:design-system": "pnpm --filter @gc-digital-talent/web run storybook:design-system",
     "storybook:web": "pnpm --filter @gc-digital-talent/web run storybook:web",
@@ -44,6 +47,6 @@
   },
   "devDependencies": {
     "@hydrogen-css/hydrogen": "2.1.0",
-    "turbo": "^2.0.7"
+    "turbo": "^2.0.11"
   }
 }
