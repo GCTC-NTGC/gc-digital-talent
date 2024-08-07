@@ -1711,6 +1711,10 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
+  "7FuSQ3": {
+    "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans la collectivité :",
+    "description": "Lead text for the list of roles the user will lose"
+  },
   "7KEfBI": {
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
     "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
@@ -2446,6 +2450,10 @@
   "Badvbb": {
     "defaultMessage": "Groupe/Organisation/Collectivité",
     "description": "Label displayed on Community Experience form for organization input"
+  },
+  "BbI16K": {
+    "defaultMessage": "L'ajout du membre a échoué",
+    "description": "Alert displayed to user when a community member was not added to a community"
   },
   "BbaMf0": {
     "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
@@ -3826,6 +3834,10 @@
   "J/oofb": {
     "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
     "description": "Help text for updating a skill level"
+  },
+  "J0i4xY": {
+    "defaultMessage": "Gestion de l'accès",
+    "description": "Title for members page"
   },
   "J1n6QO": {
     "defaultMessage": "Fermer les notifications",
@@ -6134,6 +6146,10 @@
     "defaultMessage": "Ajouter cette expérience",
     "description": "Button to submit the link experience to skill form"
   },
+  "W0Bh1G": {
+    "defaultMessage": "Information sur la collectivité",
+    "description": "Title for community information"
+  },
   "W1vWDi": {
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
@@ -6369,6 +6385,10 @@
   "X6+rc1": {
     "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
     "description": "Indigenous Apprenticeship applicant image text alternative"
+  },
+  "X6JZdO": {
+    "defaultMessage": "Modifiez ou supprimez les rôles de cet utilisateur dans la collectivité",
+    "description": "Help text for the edit community membership form"
   },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
@@ -7037,6 +7057,10 @@
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
+  },
+  "aTXHOX": {
+    "defaultMessage": "Modifier les rôles de {userName} dans la collectivité {communityName}",
+    "description": "Label for the form to edit a users community membership"
   },
   "aVp6q7": {
     "defaultMessage": "Consultez la CléGC",
@@ -8077,6 +8101,10 @@
   "fr8v1+": {
     "defaultMessage": "Collectivités",
     "description": "Title for the index communities page"
+  },
+  "fsvf1L": {
+    "defaultMessage": "La suppression du membre a échoué",
+    "description": "Alert displayed to user when an error occurs while removing a community member"
   },
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",
@@ -9649,6 +9677,10 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
+  },
+  "niYQRv": {
+    "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à cette collectivité ainsi que son rôle.",
+    "description": "Help text for user field on the add member to community form"
   },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
