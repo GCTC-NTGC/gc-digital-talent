@@ -13,6 +13,7 @@ use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
+use App\Traits\HydratesSnapshot;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -25,7 +26,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -95,6 +95,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasLocalizedEnums;
     use HasRelationships;
     use HasRolesAndPermissions;
+    use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
     use SoftDeletes;
@@ -1136,12 +1137,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasVerifiedEmail();
     }
 
-    public static function hydrateSnapshot(mixed $snapshot)
+    public static function hydrateSnapshot(mixed $snapshot): Model|array
     {
         $user = new User();
-        // Array of key maps containing tuple
-        // where [string $snapshotKey, ?bool $localizedEnum]
-        $keyMap = [
+
+        $fields = [
             'first_name' => ['firstName'],
             'last_name' => ['lastName'],
             'email' => ['email'],
@@ -1177,35 +1177,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'indigenous_communities' => ['indigenousCommunities', true],
         ];
 
-        foreach ($keyMap as $attribute => $snapshotField) {
-            $isLocalizedEnum = isset($snapshotField[1]) && $snapshotField[1];
-            $user->$attribute = self::hydrateSnapshotField($snapshot, $snapshotField[0], $isLocalizedEnum);
-        }
+        $user = self::hydrateFields($snapshot, $fields, $user);
 
         if (isset($snapshot['department'])) {
             $user->department_id = $snapshot['department']['id'];
         }
 
         return $user;
-    }
-
-    public static function hydrateSnapshotField(mixed $snapshot, string $key, bool $localizedEnum = false)
-    {
-        if (! isset($snapshot[$key])) {
-            return null;
-        }
-
-        $value = $snapshot[$key];
-        if ($localizedEnum) {
-            if (Arr::isList($value)) {
-                $value = array_map(function ($item) {
-                    return isset($item['value']) ? $item['value'] : null;
-                }, $value);
-            } else {
-                $value = $value['value'];
-            }
-        }
-
-        return $value ?? null;
     }
 }
