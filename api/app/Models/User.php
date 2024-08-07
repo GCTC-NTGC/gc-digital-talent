@@ -1031,10 +1031,16 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query
+                        $query
                             ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+                            ->where(function (Builder $query) use ($teamIds) {
+                                $query
+                                    ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })
+                                    ->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    });
                             });
                     });
                 });

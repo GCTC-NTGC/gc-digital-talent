@@ -22,6 +22,10 @@ class UserAuthorizationScopeTest extends TestCase
 
     protected $platformAdmin;
 
+    protected $teamA;
+
+    protected $teamB;
+
     protected $pool1;
 
     protected $pool2;
@@ -44,22 +48,25 @@ class UserAuthorizationScopeTest extends TestCase
             ->asAdmin()
             ->create();
 
+        $this->teamA = Team::factory()->create();
+
+        $this->teamB = Team::factory()->create();
+
         $this->pool1 = Pool::factory()
             ->for($this->platformAdmin)
             ->published()
-            ->afterCreating(function (Pool $p) {
-                // normally this happens only when the process operator is added - might want to reconsider that logic
-                $p->team()->create(['name' => 'pool-'.$p->id]);
-            })
-            ->create();
+            ->create([
+                //legacy_team
+                'team_id' => $this->teamA->id,
+            ]);
 
         $this->pool2 = Pool::factory()
             ->for($this->platformAdmin)
             ->published()
-            ->afterCreating(function (Pool $p) {
-                $p->team()->create(['name' => 'pool-'.$p->id]);
-            })
-            ->create();
+            ->create([
+                //legacy_team
+                'team_id' => $this->teamB->id,
+            ]);
 
         $this->user1 = User::factory()
             ->asApplicant()
@@ -112,7 +119,7 @@ class UserAuthorizationScopeTest extends TestCase
     public function testViewAsPoolOperator(): void
     {
         $poolOperator = User::factory()
-            ->asPoolOperator($this->pool1->team->name)
+            ->asPoolOperator($this->teamA->name)
             ->create();
         Auth::shouldReceive('user')
             ->andReturn($poolOperator);
@@ -198,7 +205,7 @@ class UserAuthorizationScopeTest extends TestCase
     public function testViewBasicAsPoolOperator(): void
     {
         $poolOperator = User::factory()
-            ->asPoolOperator($this->pool1->team->name)
+            ->asPoolOperator($this->pool1->legacyTeam->name)
             ->create();
         Auth::shouldReceive('user')
             ->andReturn($poolOperator);
