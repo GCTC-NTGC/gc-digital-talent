@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 
 import { IconType } from "../../types";
 import Link from "../Link";
+import { HeadingLevel } from "../Heading";
+import { headingStyles as headingComponentStyles } from "../Heading/styles";
 
 export const colorOptions = [
   "primary",
@@ -13,17 +15,7 @@ export const colorOptions = [
 
 type CardColor = (typeof colorOptions)[number];
 
-export interface TaskCardProps {
-  icon?: IconType;
-  title: ReactNode;
-  headingColor?: CardColor;
-  linkText?: string;
-  linkHref?: string;
-  // TODO: allow <Link> as prop with changing text colour
-  children?: ReactNode;
-}
-
-const headingStyleMap: Record<CardColor, Record<string, string>> = {
+const headingBarStyleMap: Record<CardColor, Record<string, string>> = {
   primary: {
     "data-h2-background-color": "base(primary.lightest)",
     "data-h2-border-bottom": "base(primary.darkest)",
@@ -64,24 +56,39 @@ const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
+export interface TaskCardProps {
+  icon?: IconType;
+  title: ReactNode;
+  headingColor?: CardColor;
+  linkText?: string;
+  linkHref?: string;
+  // TODO: allow <Link> as prop with changing text colour
+  headingAs?: HeadingLevel;
+  children?: ReactNode;
+}
+
 const TaskCard = ({
   icon,
   title,
   headingColor = "primary",
   linkText,
   linkHref,
+  headingAs = "h3",
   children,
 }: TaskCardProps) => {
   const Icon = icon;
+  const HeadingTextElement = headingAs;
+  const headingTextStyles = { ...headingComponentStyles["h4"] };
+  delete headingTextStyles["data-h2-margin"];
   return (
     <div
       data-h2-shadow="base(larger)"
       data-h2-border-radius="base(rounded)"
       data-h2-background-color="base(foreground)"
     >
-      {/* heading  */}
+      {/* heading bar */}
       <div
-        {...headingStyleMap[headingColor]}
+        {...headingBarStyleMap[headingColor]}
         data-h2-border-radius="base(rounded rounded 0 0)"
         data-h2-border-bottom-width="base(1px)"
         data-h2-border-bottom-style="base(solid)"
@@ -99,9 +106,11 @@ const TaskCard = ({
           data-h2-align-items="base(center)"
         >
           {Icon ? (
-            <Icon data-h2-height="base(x0.85)" data-h2-width="base(auto)" />
+            <Icon data-h2-height="base(x1)" data-h2-width="base(auto)" />
           ) : null}
-          {title}
+          <HeadingTextElement {...headingTextStyles}>
+            {title}
+          </HeadingTextElement>
         </div>
         {linkText && linkHref ? (
           <Link href={linkHref} color={headingColor}>
