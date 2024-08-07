@@ -252,15 +252,11 @@ class PoolCandidateSearchRequest extends Model
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
-        }
-
-        if ($user->isAbleTo('view-any-searchRequest')) {
+        if ($user?->isAbleTo('view-any-searchRequest')) {
             return $query;
         }
 
-        if ($user->isAbleTo('view-team-searchRequest')) {
+        if ($user?->isAbleTo('view-team-searchRequest')) {
             $query->where(function (Builder $query) use ($user) {
 
                 $allTeam = $user->rolesTeams()->get();
