@@ -216,7 +216,7 @@ trait GeneratesUserDoc
 
         if ($user->indigenous_communities) {
             foreach ($user->indigenous_communities as $community) {
-                $section->addListItem($this->localizeEnum($community, IndigenousCommunity::class, 'long'));
+                $section->addListItem($this->localizeEnum($community, IndigenousCommunity::class));
             }
         }
         if ($user->is_woman) {
@@ -270,7 +270,6 @@ trait GeneratesUserDoc
                     if ($type === AwardExperience::class) {
                         $section->addTitle($experience->getTitle(), $subHeadingRank);
                         $section->addText($experience->getDateRange($this->lang));
-                        $section->addTextBreak(1);
                         $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
                         $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
                         $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
@@ -279,14 +278,12 @@ trait GeneratesUserDoc
                     if ($type === CommunityExperience::class) {
                         $section->addTitle($experience->getTitle($this->lang), $subHeadingRank);
                         $section->addText($experience->getDateRange($this->lang));
-                        $section->addTextBreak(1);
                         $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
                     }
 
                     if ($type === EducationExperience::class) {
                         $section->addTitle($experience->getTitle($this->lang), $subHeadingRank);
                         $section->addText($experience->getDateRange($this->lang));
-                        $section->addTextBreak(1);
                         $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
                         $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
                         $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
@@ -295,18 +292,15 @@ trait GeneratesUserDoc
                     if ($type === PersonalExperience::class) {
                         $section->addTitle($experience->getTitle(), $subHeadingRank);
                         $section->addText($experience->getDateRange($this->lang));
-                        $section->addTextBreak(1);
                         $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
                     }
 
                     if ($type === WorkExperience::class) {
                         $section->addTitle($experience->getTitle($this->lang), $subHeadingRank);
                         $section->addText($experience->getDateRange($this->lang));
-                        $section->addTextBreak(1);
                         $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
                     }
 
-                    $section->addTextBreak(1);
                     $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
 
                     if ($experience->userSkills->count() > 0) {
