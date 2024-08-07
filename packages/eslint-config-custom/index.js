@@ -1,5 +1,5 @@
 const { resolve } = require("node:path");
-const project = resolve(process.cwd(), 'tsconfig.json');
+const project = resolve(process.cwd(), "tsconfig.json");
 
 module.exports = {
   parser: "@typescript-eslint/parser",
@@ -17,9 +17,8 @@ module.exports = {
     ".eslintrc",
     ".eslintrc.cjs",
     "tsconfig.json",
-    "styleMock.js",
-    "fileMock.js",
-    "CssStub.js",
+    "styleMock.ts",
+    "fileMock.ts",
     ".turbo",
     "gql/graphql.ts",
     "dist/**",
@@ -36,7 +35,7 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: "module",
-    project
+    project,
   },
   plugins: [
     "import",
@@ -96,8 +95,8 @@ module.exports = {
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
   },
   settings: {
-    "react": {
-      "version": "18.0"
+    react: {
+      version: "18.0",
     },
     "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
@@ -105,7 +104,7 @@ module.exports = {
     },
     "import/resolver": {
       typescript: {
-        project
+        project,
       },
     },
   },
