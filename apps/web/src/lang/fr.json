@@ -1711,10 +1711,6 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
-  "7FuSQ3": {
-    "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans la collectivité :",
-    "description": "Lead text for the list of roles the user will lose"
-  },
   "7KEfBI": {
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
     "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
@@ -10605,6 +10601,10 @@
   "tBGvoD": {
     "defaultMessage": "Nous vous remercions de votre intérêt dans ce programme. Nous attendons de vos nouvelles avec impatience!",
     "description": "Third paragraph for apply now dialog"
+  },
+  "tBw54L": {
+    "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans la collectivité",
+    "description": "Lead text for the list of roles the user will lose"
   },
   "tBxdBY": {
     "defaultMessage": "Examinez et vérifiez le statut de vétéran du candidat",

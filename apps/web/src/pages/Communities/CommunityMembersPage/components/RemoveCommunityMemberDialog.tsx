@@ -117,11 +117,12 @@ const RemoveCommunityMemberDialog = ({
               <p data-h2-margin="base(x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "They will lose all of the following community roles:",
-                  id: "7FuSQ3",
+                    "They will lose all of the following community roles",
+                  id: "tBw54L",
                   description:
                     "Lead text for the list of roles the user will lose",
                 })}
+                {intl.formatMessage(commonMessages.dividingColon)}
               </p>
               <Chips>
                 {user.roles.map((role) => (
