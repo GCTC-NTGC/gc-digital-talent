@@ -6,6 +6,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import TaskCard, { colorOptions } from "./TaskCard";
 import Well from "../Well";
+import Link from "../Link";
 
 faker.seed(0);
 
@@ -42,8 +43,7 @@ export const Default = Template.bind({});
 Default.args = {
   icon: UsersIcon,
   title: "Your active applications",
-  linkText: "Browse new jobs",
-  linkHref: "#",
+  link: <Link href="#">Browse new jobs</Link>,
 };
 
 export const NoExtras = Template.bind({});

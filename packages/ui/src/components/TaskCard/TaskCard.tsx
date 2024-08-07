@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { cloneElement, ReactElement, ReactNode } from "react";
 
 import { IconType } from "../../types";
-import Link from "../Link";
+import { LinkProps } from "../Link";
 import { HeadingLevel } from "../Heading";
 import { headingStyles as headingComponentStyles } from "../Heading/styles";
 
@@ -60,9 +60,7 @@ export interface TaskCardProps {
   icon?: IconType;
   title: ReactNode;
   headingColor?: CardColor;
-  linkText?: string;
-  linkHref?: string;
-  // TODO: allow <Link> as prop with changing text colour
+  link: ReactElement<LinkProps>;
   headingAs?: HeadingLevel;
   children?: ReactNode;
 }
@@ -71,12 +69,19 @@ const TaskCard = ({
   icon,
   title,
   headingColor = "primary",
-  linkText,
-  linkHref,
+  link: rawLink,
   headingAs = "h3",
   children,
 }: TaskCardProps) => {
+  // prepare link
+  const headingBarLink = cloneElement(rawLink, {
+    color: headingColor,
+  });
+
+  // prepare icon element
   const Icon = icon;
+
+  // prepare heading text element
   const HeadingTextElement = headingAs;
   const headingTextStyles = { ...headingComponentStyles["h4"] };
   delete headingTextStyles["data-h2-margin"];
@@ -112,11 +117,7 @@ const TaskCard = ({
             {title}
           </HeadingTextElement>
         </div>
-        {linkText && linkHref ? (
-          <Link href={linkHref} color={headingColor}>
-            {linkText}
-          </Link>
-        ) : null}
+        {headingBarLink}
       </div>
       {/* content */}
       <div>{children}</div>
