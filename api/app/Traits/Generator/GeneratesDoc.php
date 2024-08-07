@@ -15,10 +15,12 @@ trait GeneratesDoc
      * @param  string  $label  Label for the text
      * @param  string  $string  The value
      */
-    protected function addLabelText(Section $section, string $label, string $text)
+    protected function addLabelText(Section $section, string $label, ?string $text)
     {
         $run = $section->addTextRun();
         $run->addText($label.$this->colon());
-        $run->addText($text);
+        if (! is_null($text)) {
+            $run->addText($text ?? '');
+        }
     }
 }

@@ -41,9 +41,9 @@ trait GeneratesFile
      * @param   array{string}   Array of the enum values are strins
      * @param class-string{\App\Traits\HasLocation} $enum The enum class being localized
      */
-    protected function localizeEnumArray(array $values, string $enum): string
+    protected function localizeEnumArray(?array $values, string $enum): string
     {
-        if (empty($values)) {
+        if (! $values) {
             return '';
         }
 

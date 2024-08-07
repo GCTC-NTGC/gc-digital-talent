@@ -182,7 +182,7 @@ trait GeneratesUserDoc
     protected function workPreferences(Section $section, User $user, $headingRank = 4)
     {
         $section->addTitle($this->localizeHeading('work_preferences'), $headingRank);
-        foreach ($user->position_duration as $duration) {
+        foreach ($user?->position_duration ?? [] as $duration) {
             $section->addListItem($this->localizeEnum($duration, PositionDuration::class));
         }
 
