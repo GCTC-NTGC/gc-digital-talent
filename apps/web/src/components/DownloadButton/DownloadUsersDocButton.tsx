@@ -7,19 +7,19 @@ import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelect
 
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
-interface DownloadCandidatesDocButtonProps {
+interface DownloadUsersDocButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
   onClick: (anonymous: boolean) => void;
 }
 
-const DownloadCandidatesDocButton = ({
+const DownloadUsersDocButton = ({
   inTable,
   isDownloading,
   onClick,
   disabled,
-}: DownloadCandidatesDocButtonProps) => {
+}: DownloadUsersDocButtonProps) => {
   const intl = useIntl();
 
   return (
@@ -68,4 +68,4 @@ const DownloadCandidatesDocButton = ({
   );
 };
 
-export default DownloadCandidatesDocButton;
+export default DownloadUsersDocButton;
