@@ -739,11 +739,9 @@ class PoolCandidate extends Model
             return $query->where('id', null);
         }
 
-        $hasSomePermission = $user->isAbleTo([
-            'view-own-application',
-            'view-team-submittedApplication',
-            'view-any-submittedApplication',
-        ]);
+        $hasSomePermission = $user->isAbleTo('view-own-application')
+            || $user->isAbleTo('view-team-submittedApplication')
+            || $user->isAbleTo('view-any-submittedApplication');
 
         // User does not have any of the required permissions
         if (! $hasSomePermission) {
@@ -879,7 +877,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function setApplicationSnapshot()
+    public function setApplicationSnapshot(bool $save = true)
     {
         if (! is_null($this->profile_snapshot)) {
             return null;
@@ -940,7 +938,9 @@ class PoolCandidate extends Model
         $profile = $profile->poolSkillIds($poolSkillIds);
 
         $this->profile_snapshot = $profile;
-        $this->save();
+        if ($save) {
+            $this->save();
+        }
     }
 
     /**

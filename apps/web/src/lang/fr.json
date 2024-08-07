@@ -4636,7 +4636,7 @@
     "description": "Text explaining what will happen when duplicating a process"
   },
   "NjHXGh": {
-    "defaultMessage": "En savoir plus<hidden> sur le Bureau de la dirigeante principale de l’information</hidden>",
+    "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
   },
   "NlYIHM": {
@@ -6702,10 +6702,6 @@
     "defaultMessage": "n'importe quelle durée (court terme, long terme, période indéterminée).",
     "description": "Label displayed on Work Preferences form for any duration option"
   },
-  "Yr0nVZ": {
-    "defaultMessage": "Imprimer le profil",
-    "description": "Text label for button to print items in a table"
-  },
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
@@ -7273,10 +7269,6 @@
   "c70xDW": {
     "defaultMessage": "Requises",
     "description": "Label for a required skill"
-  },
-  "c795MO": {
-    "defaultMessage": "Imprimer sans coordonnées",
-    "description": "Button label for print user anonymous profile."
   },
   "cA0iH+": {
     "defaultMessage": "Renseignements personnels",
@@ -8287,7 +8279,7 @@
     "description": "Label for the profile complete field"
   },
   "h7URQB": {
-    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
   "h8AdRp": {
@@ -8539,7 +8531,7 @@
     "description": "Title displayed for the Edit column."
   },
   "i9cA5V": {
-    "defaultMessage": "Bureau de la dirigeante principale de l’information",
+    "defaultMessage": "Bureau du dirigeant principal de l'information",
     "description": "Title for the Office of the Chief Information Officer"
   },
   "i9ovz7": {
@@ -9330,10 +9322,6 @@
     "defaultMessage": "Archiver le processus",
     "description": "Title to archive a process"
   },
-  "mVmrEn": {
-    "defaultMessage": "Profil du candidat",
-    "description": "Document title for printing User profile"
-  },
   "mVqKm+": {
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
@@ -9998,10 +9986,6 @@
     "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
   },
-  "qN+dwB": {
-    "defaultMessage": "Imprimer avec toutes informations",
-    "description": "Button label for print user profile."
-  },
   "qN9zOb": {
     "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -10357,10 +10341,6 @@
   "sapxcU": {
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
-  },
-  "scef3o": {
-    "defaultMessage": "Profils des candidats",
-    "description": "Document title for printing User table results"
   },
   "sde2Dj": {
     "defaultMessage": "Bienvenue",

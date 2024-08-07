@@ -2242,6 +2242,11 @@ type Mutation {
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
+  downloadUsersDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
 }
 
 #import directiveForms.graphql

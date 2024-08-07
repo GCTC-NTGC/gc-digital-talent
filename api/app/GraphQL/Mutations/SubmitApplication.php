@@ -50,7 +50,13 @@ final class SubmitApplication
         // need to save application before setting application snapshot since fields have yet to be saved to the database.
         $application->save();
 
-        $application->setApplicationSnapshot();
+        $application->setApplicationSnapshot(false);
+
+        $assessmentStatus = $application->computeAssessmentStatus();
+
+        $application->computed_assessment_status = $assessmentStatus;
+
+        $application->save();
 
         $application->refresh();
 

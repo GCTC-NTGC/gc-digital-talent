@@ -12,7 +12,8 @@
     "src/**/*.tsx",
     "vite.config.ts",
     "globals.d.ts",
-    "*.cjs"
+    "*.cjs",
+    "jest.config.ts"
   ],
   "exclude": [
     ".turbo",
