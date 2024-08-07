@@ -16,6 +16,7 @@ const meta = {
     chromatic: {
       modes: {
         light: allModes.light,
+        "light mobile": allModes["light mobile"],
         dark: allModes.dark,
       },
     },
