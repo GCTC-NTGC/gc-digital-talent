@@ -31,15 +31,6 @@ class CommunityFactory extends Factory
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (Community $community) {
-            $community->team()->firstOrCreate([], [
-                'name' => 'community-'.$community->id,
-            ]);
-        });
-    }
-
     /**
      * Attach the users to the related community as recruiters.
      * Creates a new user if no userIds passed in.

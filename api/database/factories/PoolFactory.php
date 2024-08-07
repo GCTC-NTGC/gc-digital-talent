@@ -91,15 +91,6 @@ class PoolFactory extends Factory
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (Pool $pool) {
-            $pool->team()->firstOrCreate([], [
-                'name' => 'pool-'.$pool->id,
-            ]);
-        });
-    }
-
     public function withPoolSkills($essentialCount, $nonEssentialCount)
     {
         return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
