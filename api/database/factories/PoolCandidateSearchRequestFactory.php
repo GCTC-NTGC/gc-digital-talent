@@ -28,7 +28,9 @@ class PoolCandidateSearchRequestFactory extends Factory
     public function definition()
     {
 
-        $community = Community::inRandomOrder()->first();
+        $communityFetched = Community::inRandomOrder()->first();
+
+        $community = isset($communityFetched) ? $communityFetched : Community::factory()->create();
 
         return [
             'full_name' => $this->faker->name(),
@@ -46,7 +48,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'manager_job_title' => $this->faker->jobTitle(),
             'position_type' => $this->faker->randomElement(PoolCandidateSearchPositionType::cases())->name,
             'reason' => $this->faker->randomElement(PoolCandidateSearchRequestReason::cases())->name,
-            'community_id' => $community ? $community->id : Community::factory()->create(),
+            'community_id' => $community->id,
         ];
     }
 
