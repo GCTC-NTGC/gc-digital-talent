@@ -304,8 +304,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->whereHas('pool.community', function ($query) use ($communityId) {
-            $query->where('id', $communityId);
+        $query->whereHas('pool', function ($query) use ($communityId) {
+            $query->where('community_id', $communityId);
         });
 
         return $query;
