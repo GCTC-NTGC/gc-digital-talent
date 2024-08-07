@@ -60,7 +60,7 @@ export interface TaskCardProps {
   icon?: IconType;
   title: ReactNode;
   headingColor?: CardColor;
-  link: ReactElement<LinkProps>;
+  link?: ReactElement<LinkProps>;
   headingAs?: HeadingLevel;
   children?: ReactNode;
 }
@@ -74,9 +74,11 @@ const TaskCard = ({
   children,
 }: TaskCardProps) => {
   // prepare link
-  const headingBarLink = cloneElement(rawLink, {
-    color: headingColor,
-  });
+  const headingBarLink = rawLink
+    ? cloneElement(rawLink, {
+        color: headingColor,
+      })
+    : null;
 
   // prepare icon element
   const Icon = icon;
@@ -111,7 +113,11 @@ const TaskCard = ({
           data-h2-align-items="base(center)"
         >
           {Icon ? (
-            <Icon data-h2-height="base(x1)" data-h2-width="base(auto)" />
+            <Icon
+              data-h2-visibility="base(hidden) p-tablet(visible)"
+              data-h2-height="base(x1)"
+              data-h2-width="base(auto)"
+            />
           ) : null}
           <HeadingTextElement {...headingTextStyles}>
             {title}
