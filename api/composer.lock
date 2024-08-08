@@ -4552,16 +4552,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.42.1",
+            "version": "v6.42.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "c09194823252738ee41f00af7ebe5bbeb65e6c8c"
+                "reference": "b7ba38c959e8f1200f679ddb55ec6192bd1f6223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/c09194823252738ee41f00af7ebe5bbeb65e6c8c",
-                "reference": "c09194823252738ee41f00af7ebe5bbeb65e6c8c",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/b7ba38c959e8f1200f679ddb55ec6192bd1f6223",
+                "reference": "b7ba38c959e8f1200f679ddb55ec6192bd1f6223",
                 "shasum": ""
             },
             "require": {
@@ -4678,7 +4678,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-07-25T09:49:22+00:00"
+            "time": "2024-08-05T17:35:49+00:00"
         },
         {
             "name": "phpoffice/math",
