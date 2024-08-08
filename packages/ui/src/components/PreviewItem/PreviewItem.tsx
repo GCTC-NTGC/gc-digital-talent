@@ -1,15 +1,18 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { ReactNode } from "react";
 import { CardBasic } from "../Card";
+import Button from "../Button";
 
-interface PreviewItemProps {
+export interface PreviewItemProps {
   title: string;
   details: ReactNode[];
+  buttonName: string;
 }
 
-const PreviewItem = ({ title, details }: PreviewItemProps) => {
+const PreviewItem = ({ title, details, buttonName }: PreviewItemProps) => {
   return (
     <div
+      data-h2-position="base(relative)"
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(3fr 1fr)"
       data-h2-align-items="base(center)"
@@ -46,10 +49,16 @@ const PreviewItem = ({ title, details }: PreviewItemProps) => {
           })}
         </div>
       </div>
-      <MagnifyingGlassPlusIcon
-        data-h2-height="base(x.75)"
+      <Button
+        mode="icon_only"
+        icon={MagnifyingGlassPlusIcon}
+        data-h2-position="base:selectors[::after](absolute)"
+        data-h2-content="base:selectors[::after](' ')"
+        data-h2-inset="base:selectors[::after](0)"
         data-h2-justify-self="base(end)"
-      />
+      >
+        {buttonName}
+      </Button>
     </div>
   );
 };

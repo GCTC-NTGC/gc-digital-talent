@@ -19,6 +19,7 @@ export default {
   args: {
     title: "Preview Item",
     details: previewDetails,
+    buttonName: "View preview item",
   },
   parameters: {
     layout: "fullscreen",
