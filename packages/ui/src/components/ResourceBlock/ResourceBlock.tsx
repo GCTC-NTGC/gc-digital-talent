@@ -131,8 +131,20 @@ const getStateIcon = (state: ItemProps["state"]): ReactNode | null => {
 };
 
 const Item = ({ link, description, state }: ItemProps) => {
+  const extraStateStyles =
+    state === "incomplete"
+      ? {
+          // should match the absolute positioning of the state icon
+          // TODO: how to add 10 px to get to center of icon?
+          // TODO: how to get lighter than error.lightest?
+          "data-h2-background":
+            "base(radial-gradient(circle x3 at top x0.75 right x0.75, error.lightest, foreground))",
+        }
+      : {};
+
   return (
     <div
+      data-h2-background="base(foreground)"
       data-h2-padding="base(x1)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
@@ -140,6 +152,7 @@ const Item = ({ link, description, state }: ItemProps) => {
       data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.lighter)"
       // make the containing block for status icon
       data-h2-position="base(relative)"
+      {...extraStateStyles}
     >
       {getStateIcon(state)}
       <>{link}</>
