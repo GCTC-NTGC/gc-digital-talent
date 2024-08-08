@@ -136,9 +136,8 @@ const Item = ({ link, description, state }: ItemProps) => {
       ? {
           // should match the absolute positioning of the state icon
           // TODO: how to add 10 px to get to center of icon?
-          // TODO: how to get lighter than error.lightest?
           "data-h2-background":
-            "base(radial-gradient(circle x3 at top x0.75 right x0.75, error.lightest, foreground))",
+            "base(radial-gradient(circle x5 at top x0.75 right x0.75, error.10, foreground))",
         }
       : {};
 
