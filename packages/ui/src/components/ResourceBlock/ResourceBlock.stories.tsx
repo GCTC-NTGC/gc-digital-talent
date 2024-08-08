@@ -32,16 +32,28 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
     {colorOptions.map((colour) => (
       <ResourceBlock.Root headingColor={colour} {...args} key={colour}>
         <ResourceBlock.Item
-          link={<Link href="#">Link 1</Link>}
+          link={
+            <Link href={faker.internet.url()}>
+              {faker.commerce.productName()}
+            </Link>
+          }
           description={faker.lorem.paragraph()}
         />
         <ResourceBlock.Item
-          link={<Link href="#">Link 2</Link>}
+          link={
+            <Link href={faker.internet.url()}>
+              {faker.commerce.productName()}
+            </Link>
+          }
           description={faker.lorem.paragraph()}
           state="complete"
         />
         <ResourceBlock.Item
-          link={<Link href="#">Link 3</Link>}
+          link={
+            <Link href={faker.internet.url()}>
+              {faker.commerce.productName()}
+            </Link>
+          }
           description={faker.lorem.paragraph()}
           state="incomplete"
         />

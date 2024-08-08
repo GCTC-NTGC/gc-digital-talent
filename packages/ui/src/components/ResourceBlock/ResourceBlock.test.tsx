@@ -11,9 +11,13 @@ import Link from "../Link";
 
 function renderComponent() {
   return renderWithProviders(
-    <ResourceBlock.Root title="Test" headingColor="primary">
+    <ResourceBlock.Root title={faker.lorem.words()} headingColor="primary">
       <ResourceBlock.Item
-        link={<Link href="#">Link 1</Link>}
+        link={
+          <Link href={faker.internet.url()}>
+            {faker.commerce.productName()}
+          </Link>
+        }
         description={faker.lorem.paragraph()}
       />
     </ResourceBlock.Root>,

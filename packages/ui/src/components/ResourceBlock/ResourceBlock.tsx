@@ -142,6 +142,7 @@ const Item = ({ link: rawLink, description, state }: ItemProps) => {
         "data-h2-position": "base:selectors[::after](absolute)",
         "data-h2-content": "base:selectors[::after](' ')",
         "data-h2-inset": "base:selectors[::after](0)",
+        "data-h2-justify-self": "base(end)",
       })
     : null;
 
