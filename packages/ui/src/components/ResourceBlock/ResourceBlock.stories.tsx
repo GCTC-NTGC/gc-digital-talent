@@ -3,7 +3,11 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import ResourceBlock, { colorOptions, RootProps } from "./ResourceBlock";
+import ResourceBlock, {
+  colorOptions,
+  ItemProps,
+  RootProps,
+} from "./ResourceBlock";
 import Link from "../Link";
 
 faker.seed(0);
@@ -13,9 +17,9 @@ const meta = {
   parameters: {
     chromatic: {
       modes: {
-        light: allModes.light,
+        // component only makes sense at narrow widths
         "light mobile": allModes["light mobile"],
-        dark: allModes.dark,
+        "dark mobile": allModes["dark mobile"],
       },
     },
   },
@@ -23,16 +27,19 @@ const meta = {
 
 export default meta;
 
-const Template: StoryFn<typeof ResourceBlock> = (args) => (
+const Template: StoryFn<typeof ResourceBlock> = (args: {
+  rootArgs: RootProps;
+  itemArgs: Array<ItemProps>;
+}) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
     data-h2-gap="base(x1)"
   >
     {colorOptions.map((colour) => (
-      <ResourceBlock.Root headingColor={colour} {...args.Root} key={colour}>
-        {args.item.map((itemArg) => (
-          <ResourceBlock.Item key={itemArg.key} {...itemArg} />
+      <ResourceBlock.Root headingColor={colour} {...args.rootArgs} key={colour}>
+        {args.itemArgs.map((itemArg) => (
+          <ResourceBlock.Item key={itemArg.link.props.href} {...itemArg} />
         ))}
       </ResourceBlock.Root>
     ))}
@@ -40,28 +47,22 @@ const Template: StoryFn<typeof ResourceBlock> = (args) => (
 );
 export const Default = Template.bind({});
 Default.args = {
-  Root: {
+  rootArgs: {
     title: "Your information",
-  } satisfies RootProps,
-  item: [
+  },
+  itemArgs: [
     {
-      key: 1,
-      link: <Link href="#">Link 1</Link>,
-      description:
-        "Manage info related to job eligibility, including equity, language, and work preferences.",
+      link: <Link href="/link1">Link 1</Link>,
+      description: faker.lorem.paragraph(),
     },
     {
-      key: 2,
-      link: <Link href="#">Link 2</Link>,
-      description:
-        "Manage info related to job eligibility, including equity, language, and work preferences.",
+      link: <Link href="/link2">Link 2</Link>,
+      description: faker.lorem.paragraph(),
       state: "complete",
     },
     {
-      key: 3,
-      link: <Link href="#">Link 3</Link>,
-      description:
-        "Manage info related to job eligibility, including equity, language, and work preferences.",
+      link: <Link href="/link3">Link 3</Link>,
+      description: faker.lorem.paragraph(),
       state: "incomplete",
     },
   ],
