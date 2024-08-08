@@ -11,16 +11,17 @@ import useApplicationDownloads from "~/hooks/useApplicationDownloads";
 
 interface DownloadButtonProps {
   id: Scalars["UUID"]["output"];
+  userId: Scalars["UUID"]["output"];
 }
 
-const DownloadButton = ({ id }: DownloadButtonProps) => {
+const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
   const intl = useIntl();
   const profileDoc = useUserDownloads();
   const applicationDoc = useApplicationDownloads();
 
   const handleProfileDocDownload = (anonymous: boolean) => {
     profileDoc.downloadDoc({
-      ids: [id],
+      ids: [userId],
       anonymous,
     });
   };

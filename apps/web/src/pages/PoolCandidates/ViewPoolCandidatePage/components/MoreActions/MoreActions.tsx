@@ -171,7 +171,10 @@ const MoreActions = ({
         </CardBasic>
         {parsedSnapshot && (
           <CardBasic data-h2-flex="base(1)" data-h2-padding="base(x.5)">
-            <DownloadButton id={poolCandidate.id} />
+            <DownloadButton
+              id={poolCandidate.id}
+              userId={poolCandidate.user.id}
+            />
           </CardBasic>
         )}
       </div>
