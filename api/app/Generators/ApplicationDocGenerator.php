@@ -27,6 +27,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
     public function __construct(protected array $ids, public string $fileName, public ?string $dir, protected ?string $lang)
     {
         parent::__construct($fileName, $dir);
+        $this->anonymous = false;
     }
 
     public function generate(): self
@@ -48,6 +49,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 foreach ($candidates as $candidate) {
                     $snapshot = $candidate->profile_snapshot;
                     $user = User::hydrateSnapshot($snapshot);
+                    $experiences = isset($snapshot['experiences']) ? Experience::hydrateSnapshot($snapshot['experiences']) : [];
                     $section->addTitle($user->getFullName(), 2);
 
                     $section->addTitle($this->localizeHeading('education_requirement'), 3);
@@ -56,7 +58,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                         $section->addListItem($educationExperience->getTitle($this->lang));
                     });
 
-                    $skillDetails = $this->getSkillDetails($candidate->pool->poolSkills, $snapshot['experiences']);
+                    $skillDetails = $this->getSkillDetails($candidate->pool->poolSkills, $experiences, $snapshot['experiences']);
 
                     $section->addTitle($this->localize('pool_skill_type.essential', 3));
                     if (isset($skillDetails[PoolSkillType::ESSENTIAL->name])) {
@@ -164,6 +166,18 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                         }
                     }
 
+                    $section->addTitle($this->localizeHeading('personal_info'), 2);
+                    $this->contactInfo($section, $user);
+                    $this->status($section, $user);
+                    $this->languageInfo($section, $user);
+                    $this->governmentInfo($section, $user);
+                    $this->workLocation($section, $user);
+                    $this->workPreferences($section, $user);
+                    $this->dei($section, $user);
+
+                    $section->addTitle($this->localizeHeading('signature'), 2);
+                    $this->addLabelText($section, $this->localizeHeading('signed'), $candidate->signature);
+
                     $section->addPageBreak();
                 }
             });
@@ -178,24 +192,42 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
      * @param  array  $experiences  The experiences in the users snapshot
      * @return Collection The pools skill collection with user experiences attached
      */
-    private function getSkillDetails(Collection $poolSkills, array $experiences)
+    private function getSkillDetails(Collection $poolSkills, array $experiences, array $snapshotExperiences)
     {
-        return $poolSkills->map(function ($poolSkill) use ($experiences) {
-            $skillExperiences = Arr::where(array_map(function ($experience) use ($poolSkill) {
-                return [
-                    'title' => $experience['title'],
-                    'details' => Arr::first(Arr::pluck(Arr::where($experience['skills'], function ($skill) use ($poolSkill) {
-                        return $skill['id'] === $poolSkill->skill_id;
-                    }), 'experienceSkillRecord.details')),
-                ];
-            }, $experiences), function ($experience) {
-                return ! is_null($experience['details']);
+        $experiencesWithDetails = array_map(function ($experience) use ($snapshotExperiences) {
+            $snapshotExperience = Arr::first($snapshotExperiences, function ($snapshot) use ($experience) {
+                return $snapshot['id'] == $experience->id;
             });
+
+            return [
+                'experience' => $experience,
+                'skillDetails' => $snapshotExperience ? array_map(function ($skill) {
+                    return [
+                        'id' => $skill['id'],
+                        'details' => $skill['experienceSkillRecord']['details'],
+                    ];
+                }, $snapshotExperience['skills']) : [],
+            ];
+        }, $experiences);
+
+        return $poolSkills->map(function ($poolSkill) use ($experiencesWithDetails) {
+            $skillExperiences = array_map(function ($experience) use ($poolSkill) {
+                $skill = Arr::first($experience['skillDetails'], function ($skill) use ($poolSkill) {
+                    return $skill['id'] === $poolSkill->skill_id;
+                });
+
+                return [
+                    'title' => $experience['experience']->getTitle(),
+                    'details' => $skill['details'] ?? '',
+                ];
+            }, $experiencesWithDetails);
 
             return [
                 'skill' => $poolSkill->skill->only(['id', 'name', 'category']),
                 'type' => $poolSkill->type,
-                'experiences' => $skillExperiences,
+                'experiences' => Arr::where($skillExperiences, function ($experience) {
+                    return ! empty($experience['details']);
+                }),
             ];
 
         })

@@ -52,6 +52,7 @@ return [
     'candidate_profiles' => 'Candidate profiles',
     'user_profile' => 'User profile',
     'user_profiles' => 'User profiles',
+    'personal_info' => 'Personal information',
     'contact_info' => 'Contact information',
     'general_info' => 'General information',
     'language_info' => 'Language information',
@@ -64,6 +65,8 @@ return [
     'skills_showcase' => 'Skills showcase',
     'top_skills' => 'Top skills',
     'skills_to_improve' => 'Skills to improve',
+    'signature' => 'Signature',
+    'signed' => 'Signed',
     // Other
     'general_question' => 'General question',
     'screening_question' => 'Screening question',
