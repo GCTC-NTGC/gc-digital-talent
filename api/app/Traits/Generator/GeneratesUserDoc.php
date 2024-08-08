@@ -330,18 +330,16 @@ trait GeneratesUserDoc
     protected function skillsShowcase(Section $section, User $user, $headingRank = 3)
     {
         $section->addTitle($this->localizeHeading('skills_showcase'), $headingRank);
+        $subHeadingRank = $headingRank + 2;
+
         if ($user->topBehaviouralSkillsRanking->count() > 0 || $user->topTechnicalSkillsRanking->count() > 0) {
-
             $section->addTitle($this->localizeHeading('top_skills'), $headingRank + 1);
-            $subHeadingRank = $headingRank + 2;
-
             $this->skillRanks($section, $user->topBehaviouralSkillsRanking, $this->localize('skill_category.behavioural'), $subHeadingRank);
             $this->skillRanks($section, $user->topTechnicalSkillsRanking, $this->localize('skill_category.technical'), $subHeadingRank);
         }
 
         if ($user->improveBehaviouralSkillsRanking->count() > 0 || $user->improveTechnicalSkillsRanking->count() > 0) {
             $section->addTitle($this->localizeHeading('skills_to_improve'), $headingRank + 1);
-
             $this->skillRanks($section, $user->improveBehaviouralSkillsRanking, $this->localize('skill_category.behavioural'), $subHeadingRank);
             $this->skillRanks($section, $user->improveTechnicalSkillsRanking, $this->localize('skill_category.technical'), $subHeadingRank);
         }
