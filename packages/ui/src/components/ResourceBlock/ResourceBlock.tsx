@@ -135,10 +135,9 @@ const Item = ({ link, description, state }: ItemProps) => {
   const extraStateStyles =
     state === "incomplete"
       ? {
-          // should match the absolute positioning of the state icon
-          // TODO: how to add 10 px to get to center of icon?
+          // should match the absolute positioning of the state icon ( + half the height & width to get the center)
           "data-h2-background":
-            "base(radial-gradient(circle x5 at top x0.75 right x0.75, error.10, foreground))",
+            "base(radial-gradient(circle x5 at top calc(x0.75 + 10px) right calc(x0.75 + 10px), error.10, foreground))",
         }
       : {};
 
