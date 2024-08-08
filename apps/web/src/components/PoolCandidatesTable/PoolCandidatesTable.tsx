@@ -893,6 +893,7 @@ const PoolCandidatesTable = ({
 
   const hiddenColumnIds = ["candidacyStatus", "notes"];
   const hasSelectedRows = selectedRows.length > 0;
+  const disableDownload = !hasSelectedRows || downloadingCsv || downloadingDoc;
 
   return (
     <Table<PoolCandidateWithSkillCount>
@@ -953,33 +954,24 @@ const PoolCandidatesTable = ({
             ),
           }),
       }}
-      asyncDownload={
-        <Button
-          {...actionButtonStyles}
-          onClick={handleCsvDownload}
-          disabled={downloadingCsv || !hasSelectedRows}
-          data-h2-font-weight="base(400)"
-          {...(downloadingCsv && {
-            icon: SpinnerIcon,
-          })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download CSV",
-            id: "mxOuYK",
-            description:
-              "Text label for button to download a csv file of items in a table.",
-          })}
-        </Button>
-      }
-      print={{
-        component: (
-          <DownloadUsersDocButton
-            inTable
-            disabled={!hasSelectedRows || downloadingDoc}
-            onClick={handleDocDownload}
-            isDownloading={downloadingDoc}
-          />
-        ),
+      download={{
+        disabled: disableDownload,
+        csv: {
+          enable: true,
+          onClick: handleCsvDownload,
+          downloading: downloadingCsv,
+        },
+        doc: {
+          enable: true,
+          component: (
+            <DownloadUsersDocButton
+              inTable
+              disabled={!hasSelectedRows || downloadingDoc}
+              onClick={handleDocDownload}
+              isDownloading={downloadingDoc}
+            />
+          ),
+        },
       }}
       pagination={{
         internal: false,

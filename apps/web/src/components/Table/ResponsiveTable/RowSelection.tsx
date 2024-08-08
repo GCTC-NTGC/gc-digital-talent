@@ -31,7 +31,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { DatasetDownload, DatasetPrint, RowSelectDef } from "./types";
+import { DownloadDef, RowSelectDef } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 
 type BaseProps = Omit<
@@ -129,7 +129,7 @@ type BulletProps = DetailedHTMLProps<
  * @param BulletProps
  * @returns JSX.Element
  */
-const Bullet = (props: Omit<BulletProps, "children">) => (
+export const Bullet = (props: Omit<BulletProps, "children">) => (
   <span aria-hidden data-h2-display="base(none) l-tablet(block)" {...props}>
     &bull;
   </span>
@@ -154,12 +154,8 @@ interface ActionsProps {
   count: number;
   /** Callback when the clear button is clicked */
   onClear: MouseEventHandler;
-  /** Enable print and pass the callback */
-  print?: DatasetPrint;
-  /** Enable the one or both (selection, all) download buttons */
-  download?: DatasetDownload;
   /** Button to trigger an async download */
-  asyncDownload?: ReactNode;
+  download?: DownloadDef;
 }
 
 /**
@@ -173,9 +169,7 @@ const Actions = ({
   isLoading,
   count,
   onClear,
-  print,
   download,
-  asyncDownload,
 }: ActionsProps) => {
   const intl = useIntl();
 
@@ -253,88 +247,70 @@ const Actions = ({
                   })}
                 </Button>
               </span>
-
-              {download?.selection && (
+              {(download?.csv?.enable || download?.doc?.enable) && (
                 <span
                   data-h2-align-items="base(center)"
                   data-h2-display="base(flex)"
                   data-h2-gap="base(0 x.25) l-tablet(0 x.5)"
                 >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
-                  </span>
-                  <DownloadCsv
-                    data-h2-font-weight="base(400)"
-                    disabled={download.disableBtn}
-                    {...(download.fetching && {
-                      icon: SpinnerIcon,
-                    })}
-                    {...download.selection.csv}
-                    {...actionButtonStyles}
-                  >
-                    {download.selection.label ||
-                      intl.formatMessage({
-                        defaultMessage: "Download CSV",
-                        id: "mxOuYK",
-                        description:
-                          "Text label for button to download a csv file of items in a table.",
-                      })}
-                  </DownloadCsv>
-                </span>
-              )}
+                  {download?.csv?.enable && (
+                    <>
+                      <span data-h2-display="base(none) l-tablet(block)">
+                        <Bullet data-h2-display="base(none) l-tablet(block)" />
+                      </span>
+                      {download.csv.component || (
+                        <Button
+                          {...actionButtonStyles}
+                          onClick={download.csv.onClick}
+                          disabled={
+                            download.disabled || download.csv.downloading
+                          }
+                          data-h2-font-weight="base(400)"
+                          {...(download.csv.downloading && {
+                            icon: SpinnerIcon,
+                          })}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Download CSV",
+                            id: "mxOuYK",
+                            description:
+                              "Text label for button to download a csv file of items in a table.",
+                          })}
+                        </Button>
+                      )}
+                    </>
+                  )}
 
-              {asyncDownload ? (
-                <span
-                  data-h2-align-items="base(center)"
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(0 x.5)"
-                >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
-                  </span>
-                  {asyncDownload}
-                </span>
-              ) : null}
-
-              {(print?.onPrint || print?.component) && (
-                <span
-                  data-h2-align-items="base(center)"
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(0 x.5)"
-                >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
-                  </span>
-                  {print.component ?? (
-                    <Button onClick={print.onPrint} {...actionButtonStyles}>
-                      {print.label ||
-                        intl.formatMessage({
-                          defaultMessage: "Print selection",
-                          id: "KrrW7D",
-                          description:
-                            "Text label for button to print items in a table.",
-                        })}
-                    </Button>
+                  {download?.doc?.enable && (
+                    <>
+                      <span data-h2-display="base(none) l-tablet(block)">
+                        <Bullet data-h2-display="base(none) l-tablet(block)" />
+                      </span>
+                      {download.doc.component || (
+                        <Button
+                          {...actionButtonStyles}
+                          onClick={download.doc.onClick}
+                          disabled={
+                            download.disabled || download.doc.downloading
+                          }
+                          data-h2-font-weight="base(400)"
+                          {...(download.doc.downloading && {
+                            icon: SpinnerIcon,
+                          })}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Download document",
+                            id: 'sIcsTo',
+                            description:
+                              "Text label for button to download a document file of items in a table.",
+                          })}
+                        </Button>
+                      )}
+                    </>
                   )}
                 </span>
               )}
             </Section>
-          )}
-        </Column>
-      )}
-
-      {download?.all && (
-        <Column>
-          {!isLoading && (
-            <DownloadCsv {...download.all.csv} {...actionButtonStyles}>
-              {download.all.label ||
-                intl.formatMessage({
-                  defaultMessage: "Download full dataset",
-                  id: "B6XXtf",
-                  description:
-                    "Text label for button to download a csv file of all items in a table.",
-                })}
-            </DownloadCsv>
           )}
         </Column>
       )}
