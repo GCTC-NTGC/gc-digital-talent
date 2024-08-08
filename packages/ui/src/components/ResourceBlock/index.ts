@@ -1,4 +1,4 @@
-import ResourceBlock, { type ResourceBlockProps } from "./ResourceBlock";
+import ResourceBlock, { type RootProps, ItemProps } from "./ResourceBlock";
 
 export { ResourceBlock };
-export type { ResourceBlockProps };
+export type { RootProps, ItemProps };

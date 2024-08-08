@@ -3,8 +3,8 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import ResourceBlock, { colorOptions } from "./ResourceBlock";
-import Well from "../Well";
+import ResourceBlock, { colorOptions, RootProps } from "./ResourceBlock";
+import Link from "../Link";
 
 faker.seed(0);
 
@@ -30,15 +30,39 @@ const Template: StoryFn<typeof ResourceBlock> = (args) => (
     data-h2-gap="base(x1)"
   >
     {colorOptions.map((colour) => (
-      <ResourceBlock headingColor={colour} {...args} key={colour}>
-        <div data-h2-padding="base(x1)">
-          <Well>{faker.lorem.paragraph()}</Well>
-        </div>
-      </ResourceBlock>
+      <ResourceBlock.Root headingColor={colour} {...args.Root} key={colour}>
+        {args.item.map((itemArg) => (
+          <ResourceBlock.Item key={itemArg.key} {...itemArg} />
+        ))}
+      </ResourceBlock.Root>
     ))}
   </div>
 );
 export const Default = Template.bind({});
 Default.args = {
-  title: "Your information",
+  Root: {
+    title: "Your information",
+  } satisfies RootProps,
+  item: [
+    {
+      key: 1,
+      link: <Link href="#">Link 1</Link>,
+      description:
+        "Manage info related to job eligibility, including equity, language, and work preferences.",
+    },
+    {
+      key: 2,
+      link: <Link href="#">Link 2</Link>,
+      description:
+        "Manage info related to job eligibility, including equity, language, and work preferences.",
+      state: "complete",
+    },
+    {
+      key: 3,
+      link: <Link href="#">Link 3</Link>,
+      description:
+        "Manage info related to job eligibility, including equity, language, and work preferences.",
+      state: "incomplete",
+    },
+  ],
 };

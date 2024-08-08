@@ -1,7 +1,11 @@
-import { ReactNode } from "react";
+import { ElementType, ReactNode } from "react";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 
 import { HeadingLevel } from "../Heading";
 import { headingStyles as headingComponentStyles } from "../Heading/styles";
+import { LinkProps } from "../Link";
+import { HydrogenAttributes } from "../../types";
 
 export const colorOptions = [
   "primary",
@@ -54,19 +58,19 @@ const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
-export interface ResourceBlockProps {
+export interface RootProps {
   title: ReactNode;
   headingColor?: CardColor;
   headingAs?: HeadingLevel;
   children?: ReactNode;
 }
 
-const ResourceBlock = ({
+const Root = ({
   title,
   headingColor = "primary",
   headingAs = "h3",
   children,
-}: ResourceBlockProps) => {
+}: RootProps) => {
   // prepare heading text element
   const HeadingTextElement = headingAs;
   const headingTextStyles = { ...headingComponentStyles["h4"] };
@@ -94,9 +98,59 @@ const ResourceBlock = ({
         </div>
       </div>
       {/* content */}
-      <div>{children}</div>
+      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+        {children}
+      </div>
     </div>
   );
+};
+
+export interface ItemProps {
+  link: ElementType<LinkProps>;
+  description: string;
+  state?: "incomplete" | "complete";
+}
+
+const getStateIcon = (state: ItemProps["state"]): ReactNode | null => {
+  const commonStyles: HydrogenAttributes = {
+    "data-h2-width": "base(20px)",
+    "data-h2-height": "base(20px)",
+    "data-h2-position": "base(absolute)",
+    "data-h2-location": "base(x0.75, x0.75, auto, auto)",
+  };
+
+  if (state === "incomplete") {
+    return (
+      <ExclamationCircleIcon data-h2-color="base(error)" {...commonStyles} />
+    );
+  }
+  if (state === "complete") {
+    return <CheckCircleIcon data-h2-color="base(success)" {...commonStyles} />;
+  }
+  return null;
+};
+
+const Item = ({ link, description, state }: ItemProps) => {
+  return (
+    <div
+      data-h2-padding="base(x1)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x0.15)"
+      data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.lighter)"
+      // make the containing block for status icon
+      data-h2-position="base(relative)"
+    >
+      {getStateIcon(state)}
+      <>{link}</>
+      <p data-h2-color="base(black.light)">{description}</p>
+    </div>
+  );
+};
+
+const ResourceBlock = {
+  Root,
+  Item,
 };
 
 export default ResourceBlock;
