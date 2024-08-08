@@ -360,7 +360,7 @@ const GettingStarted_Mutation = graphql(/** GraphQL */ `
 `);
 
 const UpdateEmailNotifications_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateEmailNotifications(
+  mutation UpdateEmailNotifications_Mutation(
     $enabledEmailNotifications: [NotificationFamily]
   ) {
     updateEnabledNotifications(
