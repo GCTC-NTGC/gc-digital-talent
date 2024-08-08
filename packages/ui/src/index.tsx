@@ -87,6 +87,7 @@ import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
+import { PreviewItem, PreviewItemProps } from "./components/PreviewItem";
 
 export type {
   Color,
@@ -109,6 +110,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
+  PreviewItemProps,
   ChipProps,
   SidebarProps,
   SideMenuProps,
@@ -157,6 +159,7 @@ export {
   Loading,
   LoadingErrorMessage,
   Pending,
+  PreviewItem,
   NotFound,
   ThrowNotFound,
   ScrollArea,
