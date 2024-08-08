@@ -9,7 +9,14 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig({
+
+// Extend PlaywrightTestConfig to include custom properties
+interface CustomTestConfig extends PlaywrightTestConfig {
+  gckeyUsername?: string;
+  gckeyPassword?: string;
+}
+
+export default defineConfig<CustomTestConfig>({
   testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -35,6 +42,9 @@ export default defineConfig({
 
     /* ignore HTTPS errors when sending network requests */
     ignoreHTTPSErrors: true,
+
+    gckeyUsername: process.env.GCKEY_USERNAME ?? "",
+    gckeyPassword: process.env.GCKEY_PASSWORD ?? "",
   },
 
   /* Configure projects for major browsers */
