@@ -2,19 +2,11 @@
 
 namespace App\Generators;
 
-use App\Enums\AwardedScope;
-use App\Enums\AwardedTo;
 use App\Enums\EducationRequirementOption;
-use App\Enums\EducationStatus;
 use App\Enums\PoolSkillType;
-use App\Models\AwardExperience;
-use App\Models\CommunityExperience;
-use App\Models\EducationExperience;
 use App\Models\Experience;
-use App\Models\PersonalExperience;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Models\WorkExperience;
 use App\Traits\Generator\GeneratesUserDoc;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -92,78 +84,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
                     if (isset($snapshot['experiences'])) {
                         $experiences = Experience::hydrateSnapshot($snapshot['experiences']);
-
-                        if (! empty($experiences)) {
-                            $section->addTitle($this->localizeHeading('career_timeline'), 2);
-                            $experiencesByType = [];
-
-                            foreach ($experiences as $experience) {
-                                $type = $experience::class;
-                                if (! isset($experiences[$type])) {
-                                    $experiencesByType[$type] = collect();
-                                }
-                                $experiencesByType[$type]->push($experience);
-                            }
-
-                            foreach ($experiencesByType as $type => $group) {
-
-                                $typeKey = match ($type) {
-                                    AwardExperience::class => 'award',
-                                    CommunityExperience::class => 'community',
-                                    EducationExperience::class => 'education',
-                                    PersonalExperience::class => 'personal',
-                                    WorkExperience::class => 'work',
-                                    default => 'work'
-                                };
-
-                                $section->addTitle($this->localize('experiences.'.$typeKey), 3);
-
-                                $group->each(function ($experience) use ($section, $type) {
-                                    if ($type === AwardExperience::class) {
-                                        $section->addTitle($experience->getTitle(), 4);
-                                        $section->addText($experience->getDateRange($this->lang));
-                                        $section->addTextBreak(1);
-                                        $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
-                                        $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
-                                        $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
-                                    }
-
-                                    if ($type === CommunityExperience::class) {
-                                        $section->addTitle($experience->getTitle($this->lang), 4);
-                                        $section->addText($experience->getDateRange($this->lang));
-                                        $section->addTextBreak(1);
-                                        $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
-                                    }
-
-                                    if ($type === EducationExperience::class) {
-                                        $section->addTitle($experience->getTitle($this->lang), 4);
-                                        $section->addText($experience->getDateRange($this->lang));
-                                        $section->addTextBreak(1);
-                                        $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
-                                        $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
-                                        $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
-                                    }
-
-                                    if ($type === PersonalExperience::class) {
-                                        $section->addTitle($experience->getTitle(), 4);
-                                        $section->addText($experience->getDateRange($this->lang));
-                                        $section->addTextBreak(1);
-                                        $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
-                                    }
-
-                                    if ($type === WorkExperience::class) {
-                                        $section->addTitle($experience->getTitle($this->lang), 4);
-                                        $section->addText($experience->getDateRange($this->lang));
-                                        $section->addTextBreak(1);
-                                        $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
-                                    }
-
-                                    $section->addTextBreak(1);
-                                    $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
-
-                                });
-                            }
-                        }
+                        $this->experiences($section, collect($experiences), 2);
                     }
 
                     $section->addTitle($this->localizeHeading('personal_info'), 2);
