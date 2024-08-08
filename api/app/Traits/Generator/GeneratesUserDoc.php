@@ -239,7 +239,7 @@ trait GeneratesUserDoc
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
      */
-    protected function experiences(Section $section, Collection $experienceCollection, $headingRank = 3)
+    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills = true, $headingRank = 3)
     {
 
         if ($experienceCollection->count() > 0) {
@@ -269,8 +269,8 @@ trait GeneratesUserDoc
 
                 $subHeadingRank = $headingRank + 2;
 
-                $group->each(function ($experience) use ($section, $type, $subHeadingRank) {
-                    $this->experience($section, $experience, $type, $subHeadingRank);
+                $group->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
+                    $this->experience($section, $experience, $type, $withSkills, $subHeadingRank);
                 });
             }
         }
@@ -284,9 +284,8 @@ trait GeneratesUserDoc
      * @param  string  $type  The type of experience being generated
      * @param  int  $headingRank  The rank of the heading
      */
-    public function experience(Section $section, Experience $experience, string $type, $headingRank = 4)
+    public function experience(Section $section, Experience $experience, string $type, bool $withSkills = true, $headingRank = 4)
     {
-
         if ($type === AwardExperience::class) {
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
@@ -323,17 +322,19 @@ trait GeneratesUserDoc
 
         $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
 
-        if ($experience->userSkills->count() > 0) {
-            $section->addTextBreak(1);
-        }
-
-        $experience->userSkills->each(function ($skill) use ($section) {
-            $skillRun = $section->addListItemRun();
-            $skillRun->addText($skill->skill->name[$this->lang], $this->strong);
-            if (isset($skill->experience_skill->details)) {
-                $skillRun->addText(': '.$skill->experience_skill->details);
+        if ($withSkills) {
+            if ($experience->userSkills->count() > 0) {
+                $section->addTextBreak(1);
             }
-        });
+
+            $experience->userSkills->each(function ($skill) use ($section) {
+                $skillRun = $section->addListItemRun();
+                $skillRun->addText($skill->skill->name[$this->lang], $this->strong);
+                if (isset($skill->experience_skill->details)) {
+                    $skillRun->addText(': '.$skill->experience_skill->details);
+                }
+            });
+        }
     }
 
     /**

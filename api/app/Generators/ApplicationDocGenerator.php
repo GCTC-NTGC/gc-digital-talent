@@ -84,7 +84,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
                     if (isset($snapshot['experiences'])) {
                         $experiences = Experience::hydrateSnapshot($snapshot['experiences']);
-                        $this->experiences($section, collect($experiences), 2);
+                        $this->experiences($section, collect($experiences), false, 2);
                     }
 
                     $section->addTitle($this->localizeHeading('personal_info'), 2);
