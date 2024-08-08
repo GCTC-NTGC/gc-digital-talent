@@ -4,7 +4,6 @@ import { SortingState } from "@tanstack/react-table";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  graphql,
   InputMaybe,
   OrderByClause,
   PositionDuration,

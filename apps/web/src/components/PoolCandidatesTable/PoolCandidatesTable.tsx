@@ -28,7 +28,6 @@ import {
   FragmentType,
   Language,
 } from "@gc-digital-talent/graphql";
-import { Button } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -66,10 +65,7 @@ import {
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
 } from "./helpers";
-import {
-  actionButtonStyles,
-  rowSelectCell,
-} from "../Table/ResponsiveTable/RowSelection";
+import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
@@ -80,7 +76,6 @@ import {
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
-import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 

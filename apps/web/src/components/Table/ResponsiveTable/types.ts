@@ -27,8 +27,6 @@ export type SearchColumn = {
   value: string;
 };
 
-export type SelectingFor = "print" | "download" | null;
-
 export type RowSelectDef<T> = {
   /** Label for the "select all" checkbox in the header */
   allLabel?: string;

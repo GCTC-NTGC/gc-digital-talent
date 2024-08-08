@@ -128,7 +128,7 @@ type BulletProps = DetailedHTMLProps<
  * @param BulletProps
  * @returns JSX.Element
  */
-export const Bullet = (props: Omit<BulletProps, "children">) => (
+const Bullet = (props: Omit<BulletProps, "children">) => (
   <span aria-hidden data-h2-display="base(none) l-tablet(block)" {...props}>
     &bull;
   </span>
