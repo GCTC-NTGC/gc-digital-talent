@@ -21,7 +21,7 @@
     "graphql": "^16.9.0",
     "lodash": "^4.17.21",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^6.25.1",
+    "react-router-dom": "^6.26.0",
     "urql": "^4.1.0",
     "wonka": "^6.3.4"
   },
