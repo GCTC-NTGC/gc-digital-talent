@@ -26,11 +26,11 @@ import { isQualifiedStatus, isRemovedStatus } from "~/utils/poolCandidate";
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import FinalDecisionDialog from "./FinalDecisionDialog";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
-import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import RevertFinalDecisionDialog from "./RevertFinalDecisionDialog";
 import ReinstateCandidateDialog from "../ReinstateCandidateDialog/ReinstateCandidateDialog";
 import ChangeExpiryDateDialog from "../ChangeExpiryDateDialog/ChangeExpiryDateDialog";
 import NotesForm from "./NotesForm";
+import DownloadButton from "./DownloadButton";
 
 export const MoreActions_Fragment = graphql(/* GraphQL */ `
   fragment MoreActions on PoolCandidate {
@@ -42,15 +42,10 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     ...ReinstateCandidateDialog
     ...NotesForm
     id
-    pool {
-      id
-      ...ApplicationPrintDocument_PoolFragment
-    }
     user {
       id
       firstName
       lastName
-      ...ProfileDocument
     }
     status {
       value
@@ -176,14 +171,7 @@ const MoreActions = ({
         </CardBasic>
         {parsedSnapshot && (
           <CardBasic data-h2-flex="base(1)" data-h2-padding="base(x.5)">
-            <ApplicationPrintButton
-              mode="inline"
-              color="secondary"
-              pool={poolCandidate.pool}
-              snapshot={parsedSnapshot}
-              user={[poolCandidate.user]}
-              buttonLabel={intl.formatMessage(commonMessages.print)}
-            />
+            <DownloadButton id={poolCandidate.id} />
           </CardBasic>
         )}
       </div>
