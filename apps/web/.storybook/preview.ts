@@ -25,7 +25,7 @@ const messages = {
   },
 };
 
-export const globals = {
+export const initialGlobals = {
   locale: "en",
   locales: {
     en: "English",
