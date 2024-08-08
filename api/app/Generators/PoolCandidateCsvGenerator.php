@@ -16,11 +16,14 @@ use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Traits\Generator\GeneratesFile;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
+    use GeneratesFile;
+
     protected array $generatedHeaders = [
         'general_questions' => [],
         'screening_questions' => [],

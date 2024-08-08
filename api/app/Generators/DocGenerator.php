@@ -3,7 +3,6 @@
 namespace App\Generators;
 
 use Illuminate\Support\Facades\Log;
-use PhpOffice\PhpWord\Element;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
@@ -18,6 +17,9 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
         parent::__construct($fileName, $dir);
     }
 
+    /**
+     * Write the document to disk
+     */
     public function write()
     {
         if (! $this->doc) {
@@ -36,13 +38,9 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
         }
     }
 
-    protected function addLabelText(Element\Section $section, string $label, string $text)
-    {
-        $run = $section->addTextRun();
-        $run->addText($label.$this->colon());
-        $run->addText($text);
-    }
-
+    /**
+     * Creates the document for generation
+     */
     protected function setup()
     {
 
@@ -52,7 +50,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
         $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(3, ['size' => 15, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
-        $this->doc->addTitleStyle(4, ['size' => 12, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
+        $this->doc->addTitleStyle(5, ['size' => 12, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
 
         $this->strong = ['bold' => true];
     }

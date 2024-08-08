@@ -79,7 +79,7 @@ import {
   jobPlacementDialogAccessor,
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
-import DownloadCandidatesDocButton from "../DownloadButton/DownloadCandidatesDocButton";
+import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
@@ -973,7 +973,7 @@ const PoolCandidatesTable = ({
       }
       print={{
         component: (
-          <DownloadCandidatesDocButton
+          <DownloadUsersDocButton
             inTable
             disabled={!hasSelectedRows || downloadingDoc}
             onClick={handleDocDownload}
