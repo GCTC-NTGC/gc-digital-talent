@@ -6,7 +6,7 @@ import uniqBy from "lodash/uniqBy";
 import { useEffect } from "react";
 import HomeModernIcon from "@heroicons/react/24/outline/HomeModernIcon";
 
-import { Heading, Pending } from "@gc-digital-talent/ui";
+import { Button, Heading, Pending } from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Combobox,
@@ -15,7 +15,6 @@ import {
   objectsToSortedOptions,
   RadioGroup,
   Select,
-  Submit,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -42,7 +41,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { splitAndJoin } from "~/utils/nameUtils";
 
-import messages from "./utils/messages";
+import messages from "../utils/messages";
 
 const specificTitle = defineMessage({
   defaultMessage: "Employee information",
@@ -80,15 +79,15 @@ export const EmployeeInformation_QueryFragment = graphql(/** GraphQL */ `
   }
 `);
 
-export interface EmployeeInformationFormProps {
+export interface EmployeeInformationFormFieldsProps {
   labels: FieldLabels;
   query?: FragmentType<typeof EmployeeInformation_QueryFragment>;
 }
 
-export const EmployeeInformationForm = ({
+export const EmployeeInformationFormFields = ({
   labels,
   query,
-}: EmployeeInformationFormProps) => {
+}: EmployeeInformationFormFieldsProps) => {
   const intl = useIntl();
   const result = getFragment(EmployeeInformation_QueryFragment, query);
   const departments = unpackMaybes(result?.departments);
@@ -303,67 +302,36 @@ export const EmployeeInformationForm = ({
           </>
         )}
       </div>
-      <Submit
-        mode="solid"
-        color="secondary"
-        text={intl.formatMessage({
+      <Button mode="solid" color="secondary">
+        {intl.formatMessage({
           defaultMessage: "Save and continue",
           id: "YJ9TsM",
           description: "Button label for submit button on employee info page.",
         })}
-      />
+      </Button>
     </>
   );
 };
 
-const EmployeeInformation_Query = graphql(/** GraphQL */ `
-  query EmployeeInformation_Query {
-    ...EmployeeInformation_QueryFragment
-    me {
-      id
-    }
-    classifications {
-      id
-      group
-      level
-    }
-  }
-`);
+export interface EmployeeInformationFormProps {
+  cacheKey?: string;
+  query?: FragmentType<typeof EmployeeInformation_QueryFragment>;
+  onSubmit: (
+    data: UpdateUserAsUserInput,
+    emailConsent?: boolean,
+    skipVerification?: boolean,
+  ) => Promise<void>;
+}
 
-const EmployeeInformation_Mutation = graphql(/** GraphQL */ `
-  mutation EmployeeInformation_Mutation(
-    $id: ID!
-    $user: UpdateUserAsUserInput!
-  ) {
-    updateUserAsUser(id: $id, user: $user) {
-      id
-    }
-  }
-`);
-
-const EmployeeInformation = () => {
+export const EmployeeInformationForm = ({
+  cacheKey,
+  query,
+  onSubmit,
+}: EmployeeInformationFormProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const from = searchParams.get("from");
-
-  const [{ data, fetching, error }] = useQuery({
-    query: EmployeeInformation_Query,
-  });
-  const meId = data?.me?.id;
-  const classifications = unpackMaybes(data?.classifications);
-
-  const cacheKey = `employee-information-${meId}`;
-
-  const crumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(messages.breadcrumb),
-        url: paths.employeeInformation(),
-      },
-    ],
-  });
+  const result = getFragment(EmployeeInformation_QueryFragment, query);
+  const classifications = unpackMaybes(result?.classifications);
 
   const labels = {
     govEmployeeYesNo: intl.formatMessage({
@@ -393,53 +361,14 @@ const EmployeeInformation = () => {
     }),
   };
 
-  const [, executeMutation] = useMutation(EmployeeInformation_Mutation);
-  const handleUpdateEmployee = (id: string, input: UpdateUserAsUserInput) =>
-    executeMutation({
-      id,
-      user: input,
-    }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        return result.data.updateUserAsUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  const onSubmit = async (input: UpdateUserAsUserInput) => {
-    if (meId === undefined || meId === "") {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          id: "4bjh8X",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
-      return;
-    }
-    await handleUpdateEmployee(meId, input)
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Account successfully updated.",
-            id: "g9J8/u",
-            description:
-              "Message displayed to user if account is updated successfully.",
-          }),
-        );
-        const navigationTarget = from || paths.profileAndApplications();
-        navigate(navigationTarget);
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating account failed.",
-            id: "cO535E",
-            description:
-              "Message displayed to user if account fails to get updated.",
-          }),
-        );
-      });
-  };
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(messages.breadcrumb),
+        url: paths.employeeInformation(),
+      },
+    ],
+  });
 
   // take classification group + level from data, return the matching classification from API
   // need to fit to the expected type when this function is called in formToData
@@ -492,7 +421,7 @@ const EmployeeInformation = () => {
     });
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <>
       <SEO
         title={intl.formatMessage(specificTitle)}
         description={intl.formatMessage(messages.subtitle)}
@@ -514,13 +443,113 @@ const EmployeeInformation = () => {
               onSubmit={handleSubmit}
               cacheKey={cacheKey}
               labels={labels}
-              options={{ defaultValues: getFromSessionStorage(cacheKey, {}) }}
+              options={{
+                defaultValues: cacheKey
+                  ? getFromSessionStorage(cacheKey, {})
+                  : {},
+              }}
             >
-              <EmployeeInformationForm labels={labels} query={data} />
+              <EmployeeInformationFormFields labels={labels} query={query} />
             </BasicForm>
           </div>
         </section>
       </Hero>
+    </>
+  );
+};
+
+const EmployeeInformation_Query = graphql(/** GraphQL */ `
+  query EmployeeInformation_Query {
+    ...EmployeeInformation_QueryFragment
+    me {
+      id
+    }
+    classifications {
+      id
+      group
+      level
+    }
+  }
+`);
+
+const EmployeeInformation_Mutation = graphql(/** GraphQL */ `
+  mutation EmployeeInformation_Mutation(
+    $id: ID!
+    $user: UpdateUserAsUserInput!
+  ) {
+    updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`);
+
+const EmployeeInformation = () => {
+  const intl = useIntl();
+  const navigate = useNavigate();
+  const paths = useRoutes();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
+
+  const [{ data, fetching, error }] = useQuery({
+    query: EmployeeInformation_Query,
+  });
+  const meId = data?.me?.id;
+
+  const [, executeMutation] = useMutation(EmployeeInformation_Mutation);
+  const handleUpdateEmployee = (id: string, input: UpdateUserAsUserInput) =>
+    executeMutation({
+      id,
+      user: input,
+    }).then((result) => {
+      if (result.data?.updateUserAsUser) {
+        return result.data.updateUserAsUser;
+      }
+      return Promise.reject(result.error);
+    });
+
+  const onSubmit = async (input: UpdateUserAsUserInput) => {
+    if (meId === undefined || meId === "") {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Error: user not found",
+          id: "4bjh8X",
+          description: "Message displayed to user if user is not found",
+        }),
+      );
+      return;
+    }
+    await handleUpdateEmployee(meId, input)
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Account successfully updated.",
+            id: "g9J8/u",
+            description:
+              "Message displayed to user if account is updated successfully.",
+          }),
+        );
+        const navigationTarget = from || paths.profileAndApplications();
+        navigate(navigationTarget);
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating account failed.",
+            id: "cO535E",
+            description:
+              "Message displayed to user if account fails to get updated.",
+          }),
+        );
+      });
+  };
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <EmployeeInformationForm
+        cacheKey={`employee-information-${meId}`}
+        query={data}
+        onSubmit={onSubmit}
+      />
     </Pending>
   );
 };

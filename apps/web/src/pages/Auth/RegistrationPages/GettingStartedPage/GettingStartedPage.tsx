@@ -16,7 +16,6 @@ import {
   FieldLabels,
   Input,
   RadioGroup,
-  Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
@@ -39,7 +38,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import messages from "./utils/messages";
+import messages from "../utils/messages";
 
 const specificTitle = defineMessage({
   defaultMessage: "Getting started",
@@ -136,8 +135,8 @@ export const GettingStartedFormFields = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "This email will be used for communication and notifications. In the next step, we’ll ask you to verify this email using a code we’ll send to your inbox.",
-              id: "5UgmHm",
+                "This email will be used for communication and notifications. In the next step, we'll ask you to verify this email using a code we'll send to your inbox.",
+              id: "eRbVle",
               description:
                 "Message on getting started page about the contact email address - part 1.",
             })}
@@ -185,18 +184,19 @@ export const GettingStartedFormFields = ({
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
-        <Submit
+        <Button
           mode="solid"
           color="secondary"
           onClick={() => setValue("skipVerification", false)}
           {...skipVerificationProps}
-          text={intl.formatMessage({
+        >
+          {intl.formatMessage({
             defaultMessage: "Verify your contact email",
             id: "0k3vfO",
             description:
               "Button label for submit and verify email button on getting started form.",
           })}
-        />
+        </Button>
         <Button
           mode="inline"
           color="secondary"
@@ -218,9 +218,9 @@ export const GettingStartedFormFields = ({
 };
 
 export interface GettingStartedFormProps {
-  cacheKey: string;
+  cacheKey?: string;
   query?: FragmentType<typeof GettingStarted_QueryFragment>;
-  handleCreateAccount: (
+  handleSubmit: (
     data: UpdateUserAsUserInput,
     emailConsent?: boolean,
     skipVerification?: boolean,
@@ -230,7 +230,7 @@ export interface GettingStartedFormProps {
 export const GettingStartedForm = ({
   cacheKey,
   query,
-  handleCreateAccount,
+  handleSubmit,
 }: GettingStartedFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -273,7 +273,7 @@ export const GettingStartedForm = ({
   });
 
   const onSubmit = (values: FormValues) => {
-    handleCreateAccount(
+    handleSubmit(
       {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -308,7 +308,11 @@ export const GettingStartedForm = ({
               onSubmit={onSubmit}
               cacheKey={cacheKey}
               labels={labels}
-              options={{ defaultValues: getFromSessionStorage(cacheKey, {}) }}
+              options={{
+                defaultValues: cacheKey
+                  ? getFromSessionStorage(cacheKey, {})
+                  : {},
+              }}
             >
               <Heading
                 level="h2"
@@ -480,7 +484,7 @@ const GettingStarted = () => {
       <GettingStartedForm
         cacheKey={`getting-started-${meId}`}
         query={data}
-        handleCreateAccount={onSubmit}
+        handleSubmit={onSubmit}
       />
     </Pending>
   );
