@@ -34,7 +34,8 @@ final class DownloadApplicationsDoc
                 ->pluck('id') // Seems weird but we are just flattening it out
                 ->toArray();
 
-            $fileName = sprintf('%s_%s.docx', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
+            $key = count($ids) > 1 ? 'candidates' : 'candidate';
+            $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
 
             $generator = new ApplicationDocGenerator(
                 ids: $ids,

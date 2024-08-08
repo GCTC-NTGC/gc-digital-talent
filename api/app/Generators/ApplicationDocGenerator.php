@@ -35,7 +35,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $this->setup();
 
         $section = $this->doc->addSection();
-        $section->addTitle($this->localizeHeading('candidate_profiles'), 1);
+        $section->addTitle($this->localizeHeading(count($this->ids) > 1 ? 'candidate_profiles' : 'candidate_profile'), 1);
 
         PoolCandidate::with([
             'educationRequirementExperiences',

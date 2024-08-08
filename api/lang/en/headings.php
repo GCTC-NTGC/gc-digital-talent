@@ -50,6 +50,7 @@ return [
     'skills' => 'Skills',
     // Section headings
     'candidate_profiles' => 'Candidate profiles',
+    'candidate_profile' => 'Candidate profile',
     'user_profile' => 'User profile',
     'user_profiles' => 'User profiles',
     'personal_info' => 'Personal information',
