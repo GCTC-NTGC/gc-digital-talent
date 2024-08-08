@@ -15,12 +15,15 @@ use App\Models\PersonalExperience;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Traits\Generator\GeneratesUserDoc;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use PhpOffice\PhpWord\Element\Section;
 
 class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInterface
 {
+    use GeneratesUserDoc;
+
     public function __construct(protected array $ids, public string $fileName, public ?string $dir, protected ?string $lang)
     {
         parent::__construct($fileName, $dir);
