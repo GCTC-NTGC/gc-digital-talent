@@ -15,7 +15,6 @@ import {
   Dispatch,
   HTMLAttributes,
   MouseEventHandler,
-  ReactNode,
   SetStateAction,
   useCallback,
   useEffect,
@@ -300,7 +299,7 @@ const Actions = ({
                         >
                           {intl.formatMessage({
                             defaultMessage: "Download document",
-                            id: 'sIcsTo',
+                            id: "sIcsTo",
                             description:
                               "Text label for button to download a document file of items in a table.",
                           })}
@@ -311,6 +310,21 @@ const Actions = ({
                 </span>
               )}
             </Section>
+          )}
+        </Column>
+      )}
+      {download?.all && (
+        <Column>
+          {!isLoading && (
+            <DownloadCsv {...download.all.csv} {...actionButtonStyles}>
+              {download.all.label ||
+                intl.formatMessage({
+                  defaultMessage: "Download full dataset",
+                  id: "B6XXtf",
+                  description:
+                    "Text label for button to download a csv file of all items in a table.",
+                })}
+            </DownloadCsv>
           )}
         </Column>
       )}

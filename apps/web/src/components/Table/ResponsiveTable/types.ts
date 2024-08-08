@@ -13,6 +13,8 @@ import {
   JSX,
 } from "react";
 
+import { DownloadCsvProps } from "@gc-digital-talent/ui";
+
 export type SearchState = {
   /** The current search term */
   term?: string;
@@ -94,6 +96,8 @@ export type AddDef = {
   component?: ReactNode;
 };
 
+type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
+
 type DownloadButton = {
   enable?: boolean;
   downloading?: boolean;
@@ -105,6 +109,10 @@ export type DownloadDef = {
   disabled?: boolean;
   csv?: DownloadButton;
   doc?: DownloadButton;
+  all?: {
+    csv: Csv;
+    label?: ReactNode;
+  };
 };
 
 export type PaginationDef = {

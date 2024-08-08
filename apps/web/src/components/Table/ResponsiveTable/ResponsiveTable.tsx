@@ -30,8 +30,6 @@ import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type {
   AddDef,
-  DatasetDownload,
-  DatasetPrint,
   DownloadDef,
   FilterDef,
   PaginationDef,
@@ -365,7 +363,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 ))}
               </Table.Body>
             </Table.Table>
-            {rowSelect && (
+            {(rowSelect || download?.all) && (
               <RowSelection.Actions
                 {...{
                   rowSelect: !!rowSelect,
