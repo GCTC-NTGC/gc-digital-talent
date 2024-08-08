@@ -136,7 +136,12 @@ const Item = ({ link: rawLink, description, state }: ItemProps) => {
   const link = rawLink
     ? cloneElement(rawLink, {
         color: "black",
-        "data-h2-font-weight": "base(bold)", // yuck, style exception 😞
+        // yuck, style exception 😞
+        "data-h2-font-weight": "base(bold)",
+        // big click target black magic 🧙
+        "data-h2-position": "base:selectors[::after](absolute)",
+        "data-h2-content": "base:selectors[::after](' ')",
+        "data-h2-inset": "base:selectors[::after](0)",
       })
     : null;
 
