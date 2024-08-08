@@ -327,9 +327,9 @@ trait GeneratesUserDoc
                 $section->addTextBreak(1);
             }
 
-            $experience->userSkills->each(function ($skill) use ($section) {
+            $experience->userSkills->each(function ($userSkill) use ($section) {
                 $skillRun = $section->addListItemRun();
-                $skillRun->addText($skill->skill->name[$this->lang], $this->strong);
+                $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
                 if (isset($skill->experience_skill->details)) {
                     $skillRun->addText(': '.$skill->experience_skill->details);
                 }
