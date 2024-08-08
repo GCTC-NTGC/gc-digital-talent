@@ -1,6 +1,7 @@
 import { ElementType, ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import ArrowRightIcon from "@heroicons/react/20/solid/ArrowRightIcon";
 
 import { HeadingLevel } from "../Heading";
 import { headingStyles as headingComponentStyles } from "../Heading/styles";
@@ -154,7 +155,18 @@ const Item = ({ link, description, state }: ItemProps) => {
       {...extraStateStyles}
     >
       {getStateIcon(state)}
-      <>{link}</>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-gap="base(x0.15)"
+        data-h2-align-items="base(center)"
+      >
+        <>{link}</>
+        <ArrowRightIcon
+          data-h2-width="base(20px)"
+          data-h2-height="base(20px)"
+          aria-hidden
+        />
+      </div>
       <p data-h2-color="base(black.light)">{description}</p>
     </div>
   );
