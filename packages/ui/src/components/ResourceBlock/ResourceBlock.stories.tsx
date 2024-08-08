@@ -3,17 +3,13 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import ResourceBlock, {
-  colorOptions,
-  ItemProps,
-  RootProps,
-} from "./ResourceBlock";
+import ResourceBlock, { colorOptions } from "./ResourceBlock";
 import Link from "../Link";
 
 faker.seed(0);
 
 const meta = {
-  component: ResourceBlock,
+  component: ResourceBlock.Root,
   parameters: {
     chromatic: {
       modes: {
@@ -23,47 +19,37 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof ResourceBlock>;
+} satisfies Meta<typeof ResourceBlock.Root>;
 
 export default meta;
 
-const Template: StoryFn<typeof ResourceBlock> = (args: {
-  rootArgs: RootProps;
-  itemArgs: Array<ItemProps>;
-}) => (
+const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
     data-h2-gap="base(x1)"
   >
     {colorOptions.map((colour) => (
-      <ResourceBlock.Root headingColor={colour} {...args.rootArgs} key={colour}>
-        {args.itemArgs.map((itemArg) => (
-          <ResourceBlock.Item key={itemArg.link.props.href} {...itemArg} />
-        ))}
+      <ResourceBlock.Root headingColor={colour} {...args} key={colour}>
+        <ResourceBlock.Item
+          link={<Link href="#">Link 1</Link>}
+          description={faker.lorem.paragraph()}
+        />
+        <ResourceBlock.Item
+          link={<Link href="#">Link 2</Link>}
+          description={faker.lorem.paragraph()}
+          state="complete"
+        />
+        <ResourceBlock.Item
+          link={<Link href="#">Link 3</Link>}
+          description={faker.lorem.paragraph()}
+          state="incomplete"
+        />
       </ResourceBlock.Root>
     ))}
   </div>
 );
 export const Default = Template.bind({});
 Default.args = {
-  rootArgs: {
-    title: "Your information",
-  },
-  itemArgs: [
-    {
-      link: <Link href="/link1">Link 1</Link>,
-      description: faker.lorem.paragraph(),
-    },
-    {
-      link: <Link href="/link2">Link 2</Link>,
-      description: faker.lorem.paragraph(),
-      state: "complete",
-    },
-    {
-      link: <Link href="/link3">Link 3</Link>,
-      description: faker.lorem.paragraph(),
-      state: "incomplete",
-    },
-  ],
+  title: faker.lorem.words(),
 };
