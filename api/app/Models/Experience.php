@@ -294,6 +294,7 @@ class Experience extends Model
             if ($hydrationModel) {
                 $fields = [
                     ...$hydrationModel::$hydrationFields,
+                    'id' => ['id'],
                     'details' => ['details'],
                 ];
 

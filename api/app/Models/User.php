@@ -1180,7 +1180,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $user = self::hydrateFields($snapshot, $fields, $user);
 
         if (isset($snapshot['department'])) {
-            $user->department_id = $snapshot['department']['id'];
+            $user->department = $snapshot['department']['id'];
         }
 
         return $user;
