@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from "react";
+import { cloneElement, ReactElement, ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ArrowRightIcon from "@heroicons/react/20/solid/ArrowRightIcon";
@@ -107,7 +107,7 @@ const Root = ({
 };
 
 export interface ItemProps {
-  link: ElementType<LinkProps>;
+  link: ReactElement<LinkProps>;
   description: string;
   state?: "incomplete" | "complete";
 }
@@ -131,7 +131,15 @@ const getStateIcon = (state: ItemProps["state"]): ReactNode | null => {
   return null;
 };
 
-const Item = ({ link, description, state }: ItemProps) => {
+const Item = ({ link: rawLink, description, state }: ItemProps) => {
+  // prepare link
+  const link = rawLink
+    ? cloneElement(rawLink, {
+        color: "black",
+        "data-h2-font-weight": "base(bold)", // yuck, style exception 😞
+      })
+    : null;
+
   const extraStateStyles =
     state === "incomplete"
       ? {
@@ -159,10 +167,11 @@ const Item = ({ link, description, state }: ItemProps) => {
         data-h2-gap="base(x0.15)"
         data-h2-align-items="base(center)"
       >
-        <>{link}</>
+        {link}
         <ArrowRightIcon
           data-h2-width="base(20px)"
           data-h2-height="base(20px)"
+          data-h2-color="base(black.light)"
           aria-hidden
         />
       </div>
