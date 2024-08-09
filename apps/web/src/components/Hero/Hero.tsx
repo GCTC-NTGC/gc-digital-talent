@@ -10,8 +10,6 @@ import {
 
 import BackgroundGraphic from "./BackgroundPattern";
 
-import "./hero.css";
-
 const paddingMap = new Map([
   [
     "default",
@@ -179,7 +177,9 @@ const Hero = ({
             data-h2-height="base(auto)"
             data-h2-width="base(100%)"
             data-h2-z-index="base(2)"
-            className="header-bg-image"
+            data-h2-background-position="base(50% 110%) l-tablet(calc(50% + 25rem) 50%)"
+            data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) l-tablet(auto 110%)"
+            data-h2-background-repeat="base(no-repeat)"
             style={{ backgroundImage: `url('${imgPath}')` }}
           />
         ) : (
