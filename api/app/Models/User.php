@@ -1019,10 +1019,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToViewSpecific(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+
+        // can see any user - return with no filters added
+        if ($user?->isAbleTo('view-any-user')) {
+            return;
+        }
 
         // we might want to add some filters for some users
         $filterCountBefore = count($query->getQuery()->wheres);
@@ -1055,27 +1060,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             return;
         }
 
-        // fall through - query will return nothing
-        $query->where('id', null);
-    }
-
-    public function scopeAuthorizedToView(Builder $query): void
-    {
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        // can see any user - return with no filters added
-        if ($user?->isAbleTo('view-any-user')) {
-            return;
-        }
-
-        // if there is a user - call child scope
-        if (! is_null($user)) {
-            $query->authorizedToViewSpecific();
-
-            return;
-        }
-
         // fall through - return nothing
         $query->where('id', null);
     }
@@ -1085,20 +1069,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        // can see any basic info - return with no filters added
-        if ($user?->isAbleTo('view-any-user') || $user?->isAbleTo('view-any-userBasicInfo')) {
+        // special case: can see any basic info - return all users with no filters added
+        if ($user?->isAbleTo('view-any-userBasicInfo')) {
             return;
         }
 
-        // if there is a user - use the child scope
-        if (! is_null($user)) {
-            $query->authorizedToViewSpecific();
-
-            return;
-        }
-
-        // fall through - query will return nothing
-        $query->where('id', null);
+        // otherwise: use the regular authorized to view scope
+        $query->authorizedToView();
     }
 
     /**
