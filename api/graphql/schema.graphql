@@ -1379,10 +1379,6 @@ input UpdateTeamInput {
 
 input CreateCommunityInput {
   key: String!
-    @rules(
-      apply: ["unique:communities,key"]
-      messages: [{ rule: "unique", message: "CommunityKeyInUse" }]
-    )
   name: LocalizedStringInput
   description: LocalizedStringInput
 }
@@ -2187,6 +2183,7 @@ type Mutation {
   createCommunity(community: CreateCommunityInput! @spread): Community
     @create
     @canModel(ability: "create")
+    @validator
   updateCommunity(
     id: UUID!
     community: UpdateCommunityInput! @spread
@@ -2263,7 +2260,11 @@ type Mutation {
 
   # File downloads
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
 }
 
 #import directiveForms.graphql
