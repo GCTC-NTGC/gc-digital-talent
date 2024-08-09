@@ -19,6 +19,7 @@ use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
+use App\Models\Experience;
 use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\WorkExperience;
@@ -238,14 +239,14 @@ trait GeneratesUserDoc
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
      */
-    protected function experiences(Section $section, User $user, $headingRank = 3)
+    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills = true, $headingRank = 3)
     {
 
-        if ($user->experiences->count() > 0) {
+        if ($experienceCollection->count() > 0) {
             $section->addTitle($this->localizeHeading('career_timeline'), $headingRank);
             $experiences = [];
 
-            $user->experiences->each(function ($experience) use (&$experiences) {
+            $experienceCollection->each(function ($experience) use (&$experiences) {
                 $type = $experience::class;
                 if (! isset($experiences[$type])) {
                     $experiences[$type] = collect();
@@ -268,56 +269,71 @@ trait GeneratesUserDoc
 
                 $subHeadingRank = $headingRank + 2;
 
-                $group->each(function ($experience) use ($section, $type, $subHeadingRank) {
-                    if ($type === AwardExperience::class) {
-                        $section->addTitle($experience->getTitle(), $subHeadingRank);
-                        $section->addText($experience->getDateRange($this->lang));
-                        $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
-                        $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
-                        $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
-                    }
-
-                    if ($type === CommunityExperience::class) {
-                        $section->addTitle($experience->getTitle($this->lang), $subHeadingRank);
-                        $section->addText($experience->getDateRange($this->lang));
-                        $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
-                    }
-
-                    if ($type === EducationExperience::class) {
-                        $section->addTitle($experience->getTitle($this->lang), $subHeadingRank);
-                        $section->addText($experience->getDateRange($this->lang));
-                        $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
-                        $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
-                        $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
-                    }
-
-                    if ($type === PersonalExperience::class) {
-                        $section->addTitle($experience->getTitle(), $subHeadingRank);
-                        $section->addText($experience->getDateRange($this->lang));
-                        $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
-                    }
-
-                    if ($type === WorkExperience::class) {
-                        $section->addTitle($experience->getTitle($this->lang), $subHeadingRank);
-                        $section->addText($experience->getDateRange($this->lang));
-                        $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
-                    }
-
-                    $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
-
-                    if ($experience->userSkills->count() > 0) {
-                        $section->addTextBreak(1);
-                    }
-
-                    $experience->userSkills->each(function ($skill) use ($section) {
-                        $skillRun = $section->addListItemRun();
-                        $skillRun->addText($skill->skill->name[$this->lang], $this->strong);
-                        if (isset($skill->experience_skill->details)) {
-                            $skillRun->addText(': '.$skill->experience_skill->details);
-                        }
-                    });
+                $group->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
+                    $this->experience($section, $experience, $type, $withSkills, $subHeadingRank);
                 });
             }
+        }
+    }
+
+    /**
+     * Generate a single experience
+     *
+     * @param  Section  $section  The section to add info to
+     * @param  Experience  $experience  The experience being generated
+     * @param  string  $type  The type of experience being generated
+     * @param  int  $headingRank  The rank of the heading
+     */
+    public function experience(Section $section, Experience $experience, string $type, bool $withSkills = true, $headingRank = 4)
+    {
+        if ($type === AwardExperience::class) {
+            $section->addTitle($experience->getTitle(), $headingRank);
+            $section->addText($experience->getDateRange($this->lang));
+            $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
+            $this->addLabelText($section, $this->localize('experiences.issuing_organization'), $experience->issued_by);
+            $this->addLabelText($section, $this->localize('experiences.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
+        }
+
+        if ($type === CommunityExperience::class) {
+            $section->addTitle($experience->getTitle($this->lang), $headingRank);
+            $section->addText($experience->getDateRange($this->lang));
+            $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
+        }
+
+        if ($type === EducationExperience::class) {
+            $section->addTitle($experience->getTitle($this->lang), $headingRank);
+            $section->addText($experience->getDateRange($this->lang));
+            $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
+            $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
+            $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
+        }
+
+        if ($type === PersonalExperience::class) {
+            $section->addTitle($experience->getTitle(), $headingRank);
+            $section->addText($experience->getDateRange($this->lang));
+            $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
+        }
+
+        if ($type === WorkExperience::class) {
+            $section->addTitle($experience->getTitle($this->lang), $headingRank);
+            $section->addText($experience->getDateRange($this->lang));
+            $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
+        }
+
+        $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+        if ($withSkills) {
+            if ($experience->userSkills->count() > 0) {
+                $section->addTextBreak(1);
+            }
+
+            $experience->userSkills->each(function ($userSkill) use ($section) {
+                $skillRun = $section->addListItemRun();
+                $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                if (isset($skill->experience_skill->details)) {
+                    $skillRun->addText(': '.$skill->experience_skill->details);
+                }
+            });
         }
     }
 
@@ -364,7 +380,7 @@ trait GeneratesUserDoc
         $this->workPreferences($section, $user, $headingRank + 2);
         $this->dei($section, $user, $headingRank + 2);
 
-        $this->experiences($section, $user, $headingRank + 1);
+        $this->experiences($section, $user->experiences, $headingRank + 1);
         $this->skillsShowcase($section, $user, $headingRank + 1);
 
         $section->addPageBreak();

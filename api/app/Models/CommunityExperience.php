@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 
@@ -41,6 +42,14 @@ class CommunityExperience extends Experience
      */
     protected $attributes = [
         'experience_type' => CommunityExperience::class,
+    ];
+
+    protected static $hydrationFields = [
+        'title' => ['title'],
+        'organization' => ['organization'],
+        'project' => ['project'],
+        'start_date' => ['startDate'],
+        'end_date' => ['endDate'],
     ];
 
     public function getTitle(?string $lang = 'en'): string

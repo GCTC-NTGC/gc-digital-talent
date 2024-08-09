@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 
@@ -43,6 +44,16 @@ class EducationExperience extends Experience
      */
     protected $attributes = [
         'experience_type' => EducationExperience::class,
+    ];
+
+    protected static $hydrationFields = [
+        'institution' => ['institution'],
+        'area_of_study' => ['areaOfStudy'],
+        'thesis_title' => ['thesisTitle'],
+        'type' => ['type', true],
+        'status' => ['status', true],
+        'start_date' => ['startDate'],
+        'end_date' => ['endDate'],
     ];
 
     public function getTitle(?string $lang = 'en'): string

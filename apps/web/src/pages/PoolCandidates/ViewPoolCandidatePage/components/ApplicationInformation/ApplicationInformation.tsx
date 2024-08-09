@@ -31,12 +31,11 @@ import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferen
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
-import { ProfileDocument_Fragment } from "~/components/ProfileDocument/ProfileDocument";
 
-import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
+import DownloadButton from "../MoreActions/DownloadButton";
 
 const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationInformation_PoolFragment on Pool {
@@ -62,7 +61,6 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
         }
       }
     }
-    ...ApplicationPrintDocument_PoolFragment
   }
 `);
 
@@ -90,14 +88,12 @@ interface ApplicationInformationProps {
       })
     | null;
   snapshot: User;
-  user: FragmentType<typeof ProfileDocument_Fragment>;
   defaultOpen?: boolean;
 }
 
 const ApplicationInformation = ({
   poolQuery,
   snapshot,
-  user,
   application,
   defaultOpen = false,
 }: ApplicationInformationProps) => {
@@ -161,13 +157,7 @@ const ApplicationInformation = ({
           data-h2-gap="base(0 x.5)"
         >
           {application && (
-            <ApplicationPrintButton
-              mode="inline"
-              color="secondary"
-              pool={pool}
-              user={[user]}
-              snapshot={snapshot}
-            />
+            <DownloadButton id={application.id} userId={application.user.id} />
           )}
           <Button mode="inline" color="secondary" onClick={toggleSections}>
             {hasOpenSections

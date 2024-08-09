@@ -17,4 +17,5 @@ return [
     'status' => 'Statut',
     'present' => 'Aujourd’hui',
     'at' => 'à',
+    'not_provided' => 'Renseignements manquants',
 ];
