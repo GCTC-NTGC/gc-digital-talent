@@ -186,6 +186,7 @@ class PoolFactory extends Factory
             $isRemote = $this->faker->boolean();
 
             return [
+                'published_at' => null,
                 'operational_requirements' => $this->faker->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
                 'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],

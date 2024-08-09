@@ -154,7 +154,7 @@ export function transformPoolInput({
     return undefined;
   }
 
-  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // activate scopeAuthorizedToViewAsAdmin
+  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // only show pools that the use is able to admin
 
   return {
     ...filtersWithCanAdmin,

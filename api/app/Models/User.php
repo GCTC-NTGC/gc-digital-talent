@@ -1019,66 +1019,63 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToViewSpecific(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // can see any user - return with no filters added
+        if ($user?->isAbleTo('view-any-user')) {
+            return;
         }
 
+        // we might want to add some filters for some users
+        $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-team-applicantProfile')) {
+            if ($user?->isAbleTo('view-team-applicantProfile')) {
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query
+                        $query
                             ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+                            ->where(function (Builder $query) use ($teamIds) {
+                                $query
+                                    ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })
+                                    ->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    });
                             });
                     });
                 });
             }
-            if ($user->isAbleTo('view-own-user')) {
+
+            if ($user?->isAbleTo('view-own-user')) {
                 $query->orWhere('id', $user->id);
             }
         });
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
+        }
 
-        return $query;
+        // fall through - return nothing
+        $query->where('id', null);
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToViewBasicInfo(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // special case: can see any basic info - return all users with no filters added
+        if ($user?->isAbleTo('view-any-userBasicInfo')) {
+            return;
         }
 
-        if (! $user->isAbleTo('view-any-user')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
-        }
-
-        return $query;
-    }
-
-    public function scopeAuthorizedToViewBasicInfo(Builder $query)
-    {
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        if (! $user) {
-            return $query->where('id', null);
-        }
-
-        if (! $user->isAbleTo('view-any-user') && ! $user->isAbleTo('view-any-userBasicInfo')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
-        }
-
-        return $query;
+        // otherwise: use the regular authorized to view scope
+        $query->authorizedToView();
     }
 
     /**
