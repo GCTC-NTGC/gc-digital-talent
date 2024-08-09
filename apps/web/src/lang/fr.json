@@ -4067,10 +4067,6 @@
     "defaultMessage": "AC",
     "description": "Short form code representing 'veteran'"
   },
-  "KZk48E": {
-    "defaultMessage": "Sauvegarder et poursuivre",
-    "description": "Button text to save an application step and continue to the next one"
-  },
   "KZtBcM": {
     "defaultMessage": "Examiner la demande<hidden> {name}</hidden>",
     "description": "Link text to view a specific application"
@@ -4406,6 +4402,10 @@
   "MOpG7g": {
     "defaultMessage": "Votre impact",
     "description": "Title for impact section on a pool advertisement."
+  },
+  "MQB4IA": {
+    "defaultMessage": "Sauvegarder et continuer",
+    "description": "Button text to save a form step and continue to the next one"
   },
   "MTPlbB": {
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
@@ -6581,10 +6581,6 @@
   "YIt7Su": {
     "defaultMessage": "Effectuez le suivi de cette demande en réglant l’état approprié.",
     "description": "Text describing the input to change request status"
-  },
-  "YJ9TsM": {
-    "defaultMessage": "Sauvegarder et continuer",
-    "description": "Button label for submit button on employee info page."
   },
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",

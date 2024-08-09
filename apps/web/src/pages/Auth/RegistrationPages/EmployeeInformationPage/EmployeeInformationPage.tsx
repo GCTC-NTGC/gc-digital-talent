@@ -305,8 +305,9 @@ export const EmployeeInformationFormFields = ({
       <Button mode="solid" color="secondary">
         {intl.formatMessage({
           defaultMessage: "Save and continue",
-          id: "YJ9TsM",
-          description: "Button label for submit button on employee info page.",
+          id: "MQB4IA",
+          description:
+            "Button text to save a form step and continue to the next one",
         })}
       </Button>
     </>
