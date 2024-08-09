@@ -313,7 +313,7 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
-  sendUserEmailVerification(id: ID!): User
+  sendUserEmailVerification: User
   verifyUserEmail(id: ID!, code: String!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
