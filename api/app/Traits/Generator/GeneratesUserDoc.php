@@ -67,7 +67,7 @@ trait GeneratesUserDoc
      * citizenship status
      *
      * @param  Section  $section  The section to add info to
-     * @param  User  $user  The user being genrated
+     * @param  User  $user  The user being generated
      */
     protected function status(Section $section, User $user, $headingRank = 4)
     {
@@ -205,7 +205,7 @@ trait GeneratesUserDoc
     }
 
     /**
-     * Generate Diversity, equity and inclusion info for  auser
+     * Generate Diversity, equity and inclusion info for a user
      *
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
