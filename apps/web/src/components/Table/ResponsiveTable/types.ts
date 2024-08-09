@@ -104,7 +104,6 @@ type DownloadButton = {
 };
 
 export type DownloadDef = {
-  disabled?: boolean;
   csv?: DownloadButton;
   doc?: DownloadButton;
   all?: {

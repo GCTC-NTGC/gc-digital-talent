@@ -44,6 +44,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
+import commonTableMessages from "~/components/Table/tableMessages";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -609,6 +610,10 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
+  const handleNoRowsSelected = () => {
+    toast.warning(intl.formatMessage(commonTableMessages.noRowsSelected));
+  };
+
   const columns = [
     ...(doNotUseBookmark
       ? []
@@ -888,7 +893,6 @@ const PoolCandidatesTable = ({
 
   const hiddenColumnIds = ["candidacyStatus", "notes"];
   const hasSelectedRows = selectedRows.length > 0;
-  const disableDownload = !hasSelectedRows || downloadingCsv || downloadingDoc;
 
   return (
     <Table<PoolCandidateWithSkillCount>
@@ -950,7 +954,6 @@ const PoolCandidatesTable = ({
           }),
       }}
       download={{
-        disabled: disableDownload,
         csv: {
           enable: true,
           onClick: handleCsvDownload,
@@ -961,8 +964,10 @@ const PoolCandidatesTable = ({
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={!hasSelectedRows || downloadingDoc}
-              onClick={handleDocDownload}
+              disabled={downloadingDoc}
+              onClick={
+                hasSelectedRows ? handleDocDownload : handleNoRowsSelected
+              }
               isDownloading={downloadingDoc}
             />
           ),

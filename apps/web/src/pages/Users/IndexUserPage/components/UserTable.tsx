@@ -359,7 +359,6 @@ const UserTable = ({ title }: UserTableProps) => {
   }, [data?.usersPaginated?.data]);
 
   const hasSelectedRows = selectedRows.length > 0;
-  const disableDownload = !hasSelectedRows || downloadingCsv || downloadingDoc;
 
   return (
     <Table<User, UserFilterInput>
@@ -388,7 +387,6 @@ const UserTable = ({ title }: UserTableProps) => {
           }),
       }}
       download={{
-        disabled: disableDownload,
         csv: {
           enable: true,
           onClick: handleCsvDownload,

@@ -29,9 +29,11 @@ import {
   Loading,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 
 import { DownloadDef, RowSelectDef } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
+import tableMessages from "../tableMessages";
 
 type BaseProps = Omit<
   CheckButtonProps,
@@ -172,6 +174,10 @@ const Actions = ({
 }: ActionsProps) => {
   const intl = useIntl();
 
+  const handleNoRowsSelected = () => {
+    toast.warning(intl.formatMessage(tableMessages.noRowsSelected));
+  };
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -260,10 +266,12 @@ const Actions = ({
                       {download.csv.component || (
                         <Button
                           {...actionButtonStyles}
-                          onClick={download.csv.onClick}
-                          disabled={
-                            download.disabled || download.csv.downloading
+                          onClick={
+                            count > 0
+                              ? download.csv.onClick
+                              : handleNoRowsSelected
                           }
+                          disabled={download.csv.downloading}
                           data-h2-font-weight="base(400)"
                           {...(download.csv.downloading && {
                             icon: SpinnerIcon,
@@ -288,10 +296,12 @@ const Actions = ({
                       {download.doc.component || (
                         <Button
                           {...actionButtonStyles}
-                          onClick={download.doc.onClick}
-                          disabled={
-                            download.disabled || download.doc.downloading
+                          onClick={
+                            count > 0
+                              ? download.doc.onClick
+                              : handleNoRowsSelected
                           }
+                          disabled={download.doc.downloading}
                           data-h2-font-weight="base(400)"
                           {...(download.doc.downloading && {
                             icon: SpinnerIcon,
