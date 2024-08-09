@@ -3,9 +3,8 @@ import { defineMessages } from "react-intl";
 const messages = defineMessages({
   saveContinue: {
     defaultMessage: "Save and continue",
-    id: "KZk48E",
-    description:
-      "Button text to save an application step and continue to the next one",
+    id: "MQB4IA",
+    description: "Button text to save a form step and continue to the next one",
   },
   saveQuit: {
     defaultMessage: "Save and quit for now",

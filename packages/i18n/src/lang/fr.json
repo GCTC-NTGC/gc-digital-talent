@@ -247,10 +247,6 @@
     "defaultMessage": "Ministère",
     "description": "Title for department"
   },
-  "9ays+c": {
-    "defaultMessage": "J'ai un <strong>contrat</strong> d'employé occasionnel.",
-    "description": "Casual selection for government employee type."
-  },
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
@@ -402,10 +398,6 @@
   "HEGXL7": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Title displayed working language ability"
-  },
-  "HGM0YR": {
-    "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
-    "description": "Indeterminate selection for government employee type."
   },
   "HMXnoR": {
     "defaultMessage": "Retourner à ma demande",
@@ -783,6 +775,10 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
+  "ZX5gv1": {
+    "defaultMessage": "\"Je suis un(e) employé(e) nommé(e) pour une période indéterminée.\"",
+    "description": "Indeterminate selection for government employee type."
+  },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
@@ -826,6 +822,10 @@
   "bAaDat": {
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
+  },
+  "bE1GJ9": {
+    "defaultMessage": "\"J'ai un contrat d'employé(e) temporaire.\"",
+    "description": "Casual selection for government employee type."
   },
   "bXECaV": {
     "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
@@ -915,6 +915,10 @@
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
   },
+  "faMBJc": {
+    "defaultMessage": "\"Je suis étudiant(e).\"",
+    "description": "Student selection for government employee type."
+  },
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
     "description": "The technical skill level definition for lead"
@@ -1002,6 +1006,10 @@
   "k8IB9g": {
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
     "description": "Error message that an expiry date must be in the future"
+  },
+  "k8NLSx": {
+    "defaultMessage": "\"J'ai un poste doté pour une période déterminée.\"",
+    "description": "Term selection for government employee type."
   },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
@@ -1126,10 +1134,6 @@
   "qVI4xG": {
     "defaultMessage": "réussite partielle",
     "description": "Message for the partial success status"
-  },
-  "qfioSi": {
-    "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
-    "description": "Term selection for government employee type."
   },
   "qmEyxS": {
     "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
@@ -1362,9 +1366,5 @@
   "zhqK/P": {
     "defaultMessage": "Non précisé",
     "description": "Unspecified, has not been set or defined"
-  },
-  "zhzuZu": {
-    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>.",
-    "description": "Student selection for government employee type."
   }
 }
