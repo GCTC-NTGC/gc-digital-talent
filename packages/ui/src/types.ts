@@ -34,7 +34,7 @@ export type IconType =
 
 type HydrogenAttributeKey = `data-h2-${string}`;
 
-type HydrogenAttributes = {
+export type HydrogenAttributes = {
   [dataAttribute: HydrogenAttributeKey]: unknown;
 };
 
