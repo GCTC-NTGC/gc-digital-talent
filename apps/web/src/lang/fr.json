@@ -1735,6 +1735,10 @@
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
   },
+  "7lY2Qe": {
+    "defaultMessage": "Télécharger la demande d'emploi",
+    "description": "Button label for downloading a user application"
+  },
   "7mb9oA": {
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
@@ -2078,6 +2082,10 @@
   "9Vzxgu": {
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
+  },
+  "9XgUGm": {
+    "defaultMessage": "Télécharger",
+    "description": "Button text to download an applicants application or profile"
   },
   "9aW0M6": {
     "defaultMessage": "Ministère",
@@ -5918,6 +5926,10 @@
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
   },
+  "VR79Ue": {
+    "defaultMessage": "Télécharger le profil sans les coordonnées",
+    "description": "Button label for downloading an anonymous user profile."
+  },
   "VUPlmN": {
     "defaultMessage": "Premières Nations (inscrites ou non)",
     "description": "Label for First Nations community"
@@ -9685,6 +9697,10 @@
   "pJqoQF": {
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
     "description": "Disclaimer displayed in the skill tree on the skill match dialog."
+  },
+  "pKOeNt": {
+    "defaultMessage": "Télécharger le profil complet",
+    "description": "Button label for downloading a full user profile"
   },
   "pLef1V": {
     "defaultMessage": "Dissimuler les détails de {experienceName}",
