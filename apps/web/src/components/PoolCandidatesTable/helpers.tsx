@@ -72,8 +72,10 @@ export const priorityCell = (
     case 30:
       priority = PriorityWeight.CitizenOrPermanentResident;
       break;
+    case 40:
+      priority = PriorityWeight.Other;
+      break;
     default:
-    // null
   }
 
   if (!priority) return null;
