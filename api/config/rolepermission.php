@@ -746,6 +746,18 @@ return [
             ],
             'is_team_based' => false,
         ],
+
+        'manager' => [
+            'display_name' => [
+                'en' => 'Manager',
+                'fr' => 'Gestionnaire',
+            ],
+            'description' => [
+                'en' => 'Can search for talent and submit talent requests.',
+                'fr' => 'Possibilité de rechercher des talents et de soumettre des demandes de talents.',
+            ],
+            'is_team_based' => false,
+        ],
     ],
 
     /*
@@ -1178,6 +1190,9 @@ return [
             'poolTeamMembers' => [
                 'any' => ['view'],
             ],
+        ],
+        'manager' => [
+            // granted permissions will be defined later
         ],
     ],
 ];
