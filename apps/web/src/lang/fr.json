@@ -10202,6 +10202,10 @@
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the add user to pool dialog"
   },
+  "sIcsTo": {
+    "defaultMessage": "Télécharger le document",
+    "description": "Text label for button to download a document file of items in a table."
+  },
   "sJYWPi": {
     "defaultMessage": "L’importance de l’autodéclaration",
     "description": "Title for self-declaration section"
