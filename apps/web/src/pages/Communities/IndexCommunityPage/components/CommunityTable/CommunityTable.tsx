@@ -127,9 +127,9 @@ export const CommunityTable = ({
           description: "Label for the communities table search input",
         }),
       }}
-      add={
-        canCreateMembers
-          ? {
+      {...(canCreateMembers
+        ? {
+            add: {
               linkProps: {
                 href: paths.communityCreate(),
                 label: intl.formatMessage({
@@ -139,21 +139,17 @@ export const CommunityTable = ({
                 }),
                 from: currentUrl,
               },
-            }
-          : undefined
-      }
-      nullMessage={
-        canCreateMembers
-          ? {
+            },
+            nullMessage: {
               description: intl.formatMessage({
                 defaultMessage:
                   'Use the "Create community" button to get started.',
                 id: "Cu+CH3",
                 description: "Instructions for adding a community item",
               }),
-            }
-          : undefined
-      }
+            },
+          }
+        : undefined)}
     />
   );
 };
