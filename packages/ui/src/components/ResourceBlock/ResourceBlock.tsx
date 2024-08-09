@@ -59,7 +59,7 @@ const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
-export interface RootProps {
+interface RootProps {
   title: ReactNode;
   headingColor?: CardColor;
   headingAs?: HeadingLevel;
@@ -106,7 +106,7 @@ const Root = ({
   );
 };
 
-export interface ItemProps {
+interface ItemProps {
   link: ReactElement<LinkProps>;
   description: string;
   state?: "incomplete" | "complete";
