@@ -2323,6 +2323,10 @@
     "defaultMessage": "Tableau de bord",
     "description": "Title for dashboard"
   },
+  "AumMAr": {
+    "defaultMessage": "Langue de contact préférée",
+    "description": "Legend text for required language preference in getting started form"
+  },
   "Aw00Lh": {
     "defaultMessage": "L’un des facteurs suivants a-t-il une influence sur la décision d’établir un contrat?",
     "description": "Context for _operations considerations_ section, paragraph 1, in the _digital services contracting questionnaire_"
