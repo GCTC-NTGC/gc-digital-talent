@@ -250,8 +250,8 @@ export const GettingStartedForm = ({
     }),
     email: intl.formatMessage(commonMessages.email),
     preferredLang: intl.formatMessage({
-      defaultMessage: "Preferred contact language?",
-      id: "WmfarL",
+      defaultMessage: "Preferred contact language",
+      id: "AumMAr",
       description:
         "Legend text for required language preference in getting started form",
     }),
