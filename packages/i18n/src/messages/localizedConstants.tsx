@@ -547,23 +547,23 @@ export const getOperationalRequirement = (
 
 const govEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
-    defaultMessage: "I am a <strong>student</strong>.",
-    id: "zhzuZu",
+    defaultMessage: '"I am a student."',
+    id: "faMBJc",
     description: "Student selection for government employee type.",
   },
   [GovEmployeeType.Casual]: {
-    defaultMessage: "I have a <strong>casual</strong> contract.",
-    id: "9ays+c",
+    defaultMessage: '"I have a casual contract."',
+    id: "bE1GJ9",
     description: "Casual selection for government employee type.",
   },
   [GovEmployeeType.Term]: {
-    defaultMessage: "I have a <strong>term</strong> position.",
-    id: "qfioSi",
+    defaultMessage: '"I have a term position."',
+    id: "k8NLSx",
     description: "Term selection for government employee type.",
   },
   [GovEmployeeType.Indeterminate]: {
-    defaultMessage: "I am an <strong>indeterminate</strong> employee.",
-    id: "HGM0YR",
+    defaultMessage: '"I am an indeterminate employee."',
+    id: "ZX5gv1",
     description: "Indeterminate selection for government employee type.",
   },
 });
