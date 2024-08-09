@@ -180,6 +180,11 @@ const messages = defineMessages({
     id: "Rn5e/i",
     description: "Title for group and level on summary of filters section",
   },
+  key: {
+    defaultMessage: "Key",
+    id: "ae3u1t",
+    description: "Title for key field",
+  },
 });
 
 export default messages;

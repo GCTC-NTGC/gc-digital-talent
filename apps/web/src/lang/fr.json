@@ -963,6 +963,10 @@
     "defaultMessage": "Vous n’avez pas encore ajouté d’éléments à votre parcours professionnel.",
     "description": "Message to user when no career timeline items have been attached to profile."
   },
+  "33oume": {
+    "defaultMessage": "Chercher membres de la collectivité",
+    "description": "Label for the community members table search input"
+  },
   "33wMLU": {
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
@@ -1055,6 +1059,10 @@
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
     "description": "Heading for the skill experience details section"
   },
+  "3hqdVV": {
+    "defaultMessage": "Chercher les collectivités",
+    "description": "Label for the communities table search input"
+  },
   "3jfmAz": {
     "defaultMessage": "Arrangement en matière d'approvisionnement",
     "description": "Supply arrangement contract instrument"
@@ -1062,6 +1070,10 @@
   "3jpTNK": {
     "defaultMessage": "Cette revendication a été vérifiée",
     "description": "Label for the verified claim option"
+  },
+  "3kmwRC": {
+    "defaultMessage": "Retourner aux collectivités",
+    "description": "Button text to return to the table of communities page"
   },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
@@ -2079,6 +2091,10 @@
     "defaultMessage": "Un diplôme d’études secondaires.",
     "description": "Description for the education requirement option secondary school diploma."
   },
+  "9QZhR4": {
+    "defaultMessage": "Utilisateur",
+    "description": "Label for the user select field on community membership form"
+  },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
@@ -2162,6 +2178,10 @@
   "9qzCX/": {
     "defaultMessage": "Veuillez soumettre une demande vide et nous essayerons de vous aider.",
     "description": "Link text to scroll to the submit button when no candidates were found"
+  },
+  "9s7Ctc": {
+    "defaultMessage": "Rôles des membres",
+    "description": "Title displayed for the community members table roles column."
   },
   "9t56Ev": {
     "defaultMessage": "Nombre d’évaluations",
@@ -2427,9 +2447,17 @@
     "defaultMessage": "Groupe/Organisation/Collectivité",
     "description": "Label displayed on Community Experience form for organization input"
   },
+  "BbI16K": {
+    "defaultMessage": "L'ajout du membre a échoué",
+    "description": "Alert displayed to user when a community member was not added to a community"
+  },
   "BbaMf0": {
     "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
     "description": "Message displayed for search request not found on single search request page."
+  },
+  "BceI+w": {
+    "defaultMessage": "Enregistrer la collectivité",
+    "description": "Text on a button to save community"
   },
   "BdsZwe": {
     "defaultMessage": "Candidature formulée le cv",
@@ -2663,13 +2691,13 @@
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
     "description": "Description of how many items are being displayed out of the total value"
   },
+  "Cu+CH3": {
+    "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
+    "description": "Instructions for adding a community item"
+  },
   "CuHYqt": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
-  },
-  "CvV2l6": {
-    "defaultMessage": "Clé",
-    "description": "Label for an entity 'key' field"
   },
   "CwGljY": {
     "defaultMessage": "Votre première langue officielle",
@@ -2870,6 +2898,10 @@
   "DrG5Pl": {
     "defaultMessage": "Sommaire de l’évaluation",
     "description": "Assessment summary"
+  },
+  "DrR/rp": {
+    "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
+    "description": "Instructions for adding a member to a community."
   },
   "Ds7ONS": {
     "defaultMessage": "une modification ou une extension à un contrat visant la mise à l’essai de logiciels.",
@@ -3799,6 +3831,10 @@
     "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
     "description": "Help text for updating a skill level"
   },
+  "J0i4xY": {
+    "defaultMessage": "Gestion de l'accès",
+    "description": "Title for members page"
+  },
   "J1n6QO": {
     "defaultMessage": "Fermer les notifications",
     "description": "Button text to close the notifications dialog"
@@ -3870,6 +3906,10 @@
   "JbHieN": {
     "defaultMessage": "Demander pour les candidats du bassin {poolName}",
     "description": "Button link message on search page that takes user to the request form."
+  },
+  "Jc9FDx": {
+    "defaultMessage": "Rôles ajoutés avec succès",
+    "description": "Alert displayed to user when a community member's roles have been updated"
   },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
@@ -4011,6 +4051,10 @@
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
+  "KESOSJ": {
+    "defaultMessage": "Membre ajouté avec succès",
+    "description": "Alert displayed to user when a community member was added to a community"
+  },
   "KEm64j": {
     "defaultMessage": "Détails de la publicité",
     "description": "Sub title for advertisement details"
@@ -4042,6 +4086,10 @@
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
+  },
+  "KWXIKL": {
+    "defaultMessage": "Membre retiré avec succès",
+    "description": "Alert displayed to user when a community member is removed"
   },
   "KXEuON": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
@@ -4330,6 +4378,10 @@
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
     "description": "Title for Minimum experience or equivalent education"
+  },
+  "LxRoWB": {
+    "defaultMessage": "Création de la collectivité réussie!",
+    "description": "Message displayed after a community is created"
   },
   "Ly2bBb": {
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
@@ -4707,6 +4759,10 @@
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
     "description": "Header text for dialog to change availability in a recruitment"
   },
+  "OFGtZr": {
+    "defaultMessage": "Annuler et retourner aux collectivités",
+    "description": "Link text to cancel updating a community"
+  },
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
     "description": "Label for an opportunity's job title."
@@ -4818,10 +4874,6 @@
   "Ovlh3a": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Sign in link text on the registration page."
-  },
-  "OxeGLu": {
-    "defaultMessage": "Mesures",
-    "description": "Title displayed for the team table actions column"
   },
   "OyMDr3": {
     "defaultMessage": "Questions en français",
@@ -5287,6 +5339,10 @@
     "defaultMessage": "Erreur : la publication du processus a échoué",
     "description": "Message displayed to user after pool fails to get publish."
   },
+  "RIcumI": {
+    "defaultMessage": "Rôles",
+    "description": "Label for the input to add roles to a user's community membership"
+  },
   "RIi/3q": {
     "defaultMessage": "Pour nous joindre",
     "description": "Title for Contact us action"
@@ -5674,6 +5730,10 @@
   "TYOzfT": {
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
+  },
+  "TfbBB7": {
+    "defaultMessage": "Collectivité {communityId} introuvable.",
+    "description": "Message displayed for community not found."
   },
   "TiIkSF": {
     "defaultMessage": "Études postsecondaires de deux ans",
@@ -6082,6 +6142,10 @@
     "defaultMessage": "Ajouter cette expérience",
     "description": "Button to submit the link experience to skill form"
   },
+  "W0Bh1G": {
+    "defaultMessage": "Information sur la collectivité",
+    "description": "Title for community information"
+  },
   "W1vWDi": {
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
@@ -6317,6 +6381,10 @@
   "X6+rc1": {
     "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
     "description": "Indigenous Apprenticeship applicant image text alternative"
+  },
+  "X6JZdO": {
+    "defaultMessage": "Modifiez ou supprimez les rôles de cet utilisateur dans la collectivité",
+    "description": "Help text for the edit community membership form"
   },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
@@ -6982,6 +7050,10 @@
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
   },
+  "aTXHOX": {
+    "defaultMessage": "Modifier les rôles de {userName} dans la collectivité {communityName}",
+    "description": "Label for the form to edit a users community membership"
+  },
   "aVp6q7": {
     "defaultMessage": "Consultez la CléGC",
     "description": "Link text for visiting the GCKey website"
@@ -7005,6 +7077,10 @@
   "adM1fA": {
     "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
     "description": "Instructions to provide additional details when submitting a request with no candidates"
+  },
+  "ae3u1t": {
+    "defaultMessage": "Clé",
+    "description": "Title for key field"
   },
   "aemElP": {
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
@@ -7177,6 +7253,10 @@
   "blvpQr": {
     "defaultMessage": "Ces notifications sont obligatoires et comprennent la vérification de l'adresse électronique et d'autres communications importantes.",
     "description": "Subtitle for system messages checklist"
+  },
+  "bmOZXl": {
+    "defaultMessage": "La mise à jour du rôle a échoué",
+    "description": "Alert displayed to user when an error occurs while editing a community member's roles"
   },
   "bnhqpY": {
     "defaultMessage": "Est équivalent en termes de durée de l’intensité/de l’apprentissage par rapport aux exigences du diplôme",
@@ -8006,6 +8086,14 @@
     "defaultMessage": "Définition du niveau",
     "description": "Label for the definition of a specific skill level"
   },
+  "fr8v1+": {
+    "defaultMessage": "Collectivités",
+    "description": "Title for the index communities page"
+  },
+  "fsvf1L": {
+    "defaultMessage": "La suppression du membre a échoué",
+    "description": "Alert displayed to user when an error occurs while removing a community member"
+  },
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",
     "description": "Button text to indicate that a specific application’s ID has been copied"
@@ -8545,6 +8633,10 @@
   "iA1Q8d": {
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
+  },
+  "iEIzSc": {
+    "defaultMessage": "Mes rôles",
+    "description": "Label displayed for the table column header My roles"
   },
   "iFbBSU": {
     "defaultMessage": "Titre de l’évaluation (Anglais)",
@@ -9150,6 +9242,14 @@
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
   },
+  "lgKFLj": {
+    "defaultMessage": "Ajouter le membre à {communityName}",
+    "description": "Label for the add member to community form"
+  },
+  "lhLfd7": {
+    "defaultMessage": "Créer une collectivité",
+    "description": "Text to create a community"
+  },
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
@@ -9229,6 +9329,10 @@
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
     "description": "Lead in text for experiences that represent the users skills"
+  },
+  "mEh+iY": {
+    "defaultMessage": "Membres de la collectivité",
+    "description": "Page title for the view community members page"
   },
   "mEvIF8": {
     "defaultMessage": "Appuyer la collectivité du numérique du CG",
@@ -9466,6 +9570,10 @@
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
   },
+  "nGx7Xt": {
+    "defaultMessage": "Mesures",
+    "description": "Title displayed for actions column"
+  },
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
@@ -9481,6 +9589,10 @@
   "nKwVX7": {
     "defaultMessage": "Disponibilité pour recrutement",
     "description": "Title for the recruitment availability."
+  },
+  "nOGbxc": {
+    "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de la collectivité <strong>{communityName}</strong>.",
+    "description": "Help text for the remove community membership dialog"
   },
   "nPPUMW": {
     "defaultMessage": "Retourner au traitement des détails",
@@ -9549,6 +9661,10 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
+  },
+  "niYQRv": {
+    "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à cette collectivité ainsi que son rôle.",
+    "description": "Help text for user field on the add member to community form"
   },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
@@ -9813,6 +9929,10 @@
   "pPOGwF": {
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
     "description": "IAP Requirement list item one"
+  },
+  "pPOT4g": {
+    "defaultMessage": "Créer une collectivité",
+    "description": "Page title for the create community page"
   },
   "pPUC7o": {
     "defaultMessage": "Ajouter une nouvelle question ({currentCount}/{maxCount})",
@@ -10090,6 +10210,10 @@
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
   },
+  "r2K3M3": {
+    "defaultMessage": "Créer<hidden> une collectivité</hidden>",
+    "description": "Breadcrumb title for the create community page link."
+  },
   "r2gD/4": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
@@ -10189,6 +10313,10 @@
   "rhW3iW": {
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for featured items on the manager homepage"
+  },
+  "ri2PBL": {
+    "defaultMessage": "Erreur : échec de la création de la collectivité",
+    "description": "Messaged displayed after creating community fails"
   },
   "rjfQMg": {
     "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma <strong>deuxième langue officielle</strong>.",
@@ -10453,6 +10581,10 @@
   "tBGvoD": {
     "defaultMessage": "Nous vous remercions de votre intérêt dans ce programme. Nous attendons de vos nouvelles avec impatience!",
     "description": "Third paragraph for apply now dialog"
+  },
+  "tBw54L": {
+    "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans la collectivité",
+    "description": "Lead text for the list of roles the user will lose"
   },
   "tBxdBY": {
     "defaultMessage": "Examinez et vérifiez le statut de vétéran du candidat",
@@ -10898,6 +11030,10 @@
     "defaultMessage": "Cette demande a été vérifiée, {expiryDate}.",
     "description": "Message when a claim as been verified"
   },
+  "wBMn5c": {
+    "defaultMessage": "Ajouter un membre",
+    "description": "Label for the add member to community form"
+  },
   "wCf/XC": {
     "defaultMessage": "À propos de ce rôle",
     "description": "Title for basic information"
@@ -11005,6 +11141,10 @@
   "wrqRvV": {
     "defaultMessage": "N’a pas réussi(e) au cours de l’évaluation",
     "description": "Unsuccessful during assessment option"
+  },
+  "wsKhRd": {
+    "defaultMessage": "Retirer le membre",
+    "description": "Label for the dialog to remove a users community membership"
   },
   "wsNG8a": {
     "defaultMessage": "La <langActLink>Loi sur les langues officielles</langActLink>, le <langRegulationsLink>Règlement sur les langues officielles – communications avec le public et prestation des services</langRegulationsLink> et les exigences des politiques du Conseil du Trésor prévoient les circonstances où nous employons le français et l’anglais dans la prestation des services au public. S’il n’y a pas d’obligation d’offrir le contenu dans les deux langues officielles, celui-ci pourrait être offert uniquement dans une des langues officielles. L’information offerte par des entités non assujetties à la <langActLink>Loi sur les langues officielles</langActLink> est diffusée que dans la langue dans laquelle elle est fournie. Toute information dans une langue autre que l’anglais ou le français est offerte seulement à titre gracieux aux visiteurs de notre site Web.",

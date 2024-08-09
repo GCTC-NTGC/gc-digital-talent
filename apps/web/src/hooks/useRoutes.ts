@@ -53,6 +53,14 @@ const getRoutes = (lang: Locales) => {
     // Admin
     adminDashboard: () => adminUrl,
 
+    // Admin - Communities
+    communityTable: () => path.join(adminUrl, "communities"),
+    communityCreate: () => path.join(adminUrl, "communities", "create"),
+    communityView: (communityId: string) =>
+      path.join(adminUrl, "communities", communityId),
+    communityManageAccess: (communityId: string) =>
+      path.join(adminUrl, "communities", communityId, "manage-access"),
+
     // Admin - Pools
     poolTable: () => path.join(adminUrl, "pools"),
     poolCreate: () => path.join(adminUrl, "pools", "create"),

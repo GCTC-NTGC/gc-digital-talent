@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -69,11 +70,7 @@ const TeamRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: teamAssignment } }) =>
         teamActionCell(teamAssignment, user, handleEditRoles, teamRoles),
     }),

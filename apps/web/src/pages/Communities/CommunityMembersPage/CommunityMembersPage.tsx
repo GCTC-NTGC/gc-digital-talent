@@ -3,7 +3,7 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -14,43 +14,50 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   checkRole,
   groupRoleAssignmentsByUser,
-  TeamMember,
-} from "~/utils/teamUtils";
+  CommunityMember,
+} from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 
-import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
+import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import { TeamMembersPageFragment } from "./components/types";
-import { TeamMembersPage_TeamFragment } from "./components/operations";
+import { CommunityMembersPageFragment } from "./components/types";
+import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 
-const columnHelper = createColumnHelper<TeamMember>();
+const columnHelper = createColumnHelper<CommunityMember>();
 
-interface TeamMembersProps {
-  teamQuery: TeamMembersPageFragment;
+interface CommunityMembersProps {
+  communityQuery: CommunityMembersPageFragment;
 }
 
-const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
+const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
   const intl = useIntl();
-  const team = getFragment(TeamMembersPage_TeamFragment, teamQuery);
+  const community = getFragment(
+    CommunityMembersPage_CommunityFragment,
+    communityQuery,
+  );
   const { roleAssignments } = useAuthorization();
   const canModifyMembers = checkRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+    [
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ],
     roleAssignments,
   );
 
-  const members: TeamMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(team.roleAssignments || []),
-    [team.roleAssignments],
+  const members: CommunityMember[] = useMemo(
+    () => groupRoleAssignmentsByUser(community.roleAssignments || []),
+    [community.roleAssignments],
   );
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Team members",
-    id: "6rb9mg",
-    description: "Page title for the view team members page",
+    defaultMessage: "Community members",
+    id: "mEh+iY",
+    description: "Page title for the view community members page",
   });
 
   let columns = [
@@ -74,19 +81,24 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
       id: "roles",
       header: intl.formatMessage({
         defaultMessage: "Membership roles",
-        id: "4Washm",
-        description: "Title displayed for the team members table roles column.",
+        id: "9s7Ctc",
+        description:
+          "Title displayed for the community members table roles column.",
       }),
       cell: ({ row: { original: member } }) => roleCell(member.roles, intl),
     }),
-  ] as ColumnDef<TeamMember>[];
+  ] as ColumnDef<CommunityMember>[];
 
   if (canModifyMembers) {
     columns = [
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
-        cell: ({ row: { original: member } }) => actionCell(member, team),
+        cell: ({ row: { original: member } }) => actionCell(member, community),
+        meta: {
+          hideMobileHeader: true,
+          shrink: true,
+        },
       }),
       ...columns,
     ];
@@ -97,7 +109,6 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   return (
     <>
       <SEO title={pageTitle} />
-      <Heading level="h2">{pageTitle}</Heading>
       <Table
         caption={pageTitle}
         data={data}
@@ -113,20 +124,25 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search team members",
-            id: "Yy27PD",
-            description: "Label for the team members table search input",
+            defaultMessage: "Search community members",
+            id: "33oume",
+            description: "Label for the community members table search input",
           }),
         }}
         {...(canModifyMembers && {
           add: {
-            component: <AddTeamMemberDialog team={team} members={members} />,
+            component: (
+              <AddCommunityMemberDialog
+                community={community}
+                members={members}
+              />
+            ),
           },
           nullMessage: {
             description: intl.formatMessage({
-              defaultMessage: 'Use the "Add new member" button to get started.',
-              id: "SfbDLA",
-              description: "Instructions for adding a member to a team.",
+              defaultMessage: 'Use the "Add member" button to get started.',
+              id: "DrR/rp",
+              description: "Instructions for adding a member to a community.",
             }),
           },
         })}
@@ -135,31 +151,35 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   );
 };
 
-const TeamMembersTeam_Query = graphql(/* GraphQL */ `
-  query TeamMembersTeam($teamId: UUID!) {
-    team(id: $teamId) {
-      ...TeamMembersPage_Team
+const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
+  query CommunityMembersTeam($communityId: UUID!) {
+    community(id: $communityId) {
+      ...CommunityMembersPage_Community
     }
   }
 `);
 
 type RouteParams = {
-  teamId: Scalars["ID"]["output"];
+  communityId: Scalars["ID"]["output"];
 };
 
-const TeamMembersPage = () => {
-  const { teamId } = useRequiredParams<RouteParams>("teamId");
+const CommunityMembersPage = () => {
+  const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
-    query: TeamMembersTeam_Query,
-    variables: { teamId },
+    query: CommunityMembersTeam_Query,
+    variables: { communityId },
   });
 
-  const team = data?.team;
+  const community = data?.community;
 
   return (
     <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
-        {team ? <TeamMembers teamQuery={team} /> : <ThrowNotFound />}
+        {community ? (
+          <CommunityMembers communityQuery={community} />
+        ) : (
+          <ThrowNotFound />
+        )}
       </Pending>
     </AdminContentWrapper>
   );
@@ -168,15 +188,16 @@ const TeamMembersPage = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
     ]}
   >
-    <TeamMembersPage />
+    <CommunityMembersPage />
   </RequireAuth>
 );
 
-Component.displayName = "AdminTeamMembersPage";
+Component.displayName = "AdminCommunityMembersPage";
 
-export default TeamMembersPage;
+export default CommunityMembersPage;

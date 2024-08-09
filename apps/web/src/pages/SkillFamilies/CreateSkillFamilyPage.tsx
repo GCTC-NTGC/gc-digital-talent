@@ -123,11 +123,7 @@ export const CreateSkillFamilyForm = ({
             <Input
               id="key"
               name="key"
-              label={intl.formatMessage({
-                defaultMessage: "Key",
-                id: "CvV2l6",
-                description: "Label for an entity 'key' field",
-              })}
+              label={intl.formatMessage(adminMessages.key)}
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'key' is a string that uniquely identifies a skill family. It should be based on the skill families English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill family, so it cannot be changed later.",
