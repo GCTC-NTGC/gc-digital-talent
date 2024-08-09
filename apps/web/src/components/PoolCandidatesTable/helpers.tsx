@@ -76,6 +76,7 @@ export const priorityCell = (
       priority = PriorityWeight.Other;
       break;
     default:
+    // null
   }
 
   if (!priority) return null;
