@@ -31,8 +31,8 @@ const Template: StoryFn<typeof TaskCard> = (args) => (
     data-h2-flex-direction="base(column)"
     data-h2-gap="base(x1)"
   >
-    {colorOptions.map((colour) => (
-      <TaskCard headingColor={colour} {...args} key={colour}>
+    {colorOptions.map((color) => (
+      <TaskCard headingColor={color} {...args} key={color}>
         <div data-h2-padding="base(x1)">
           <Well>{faker.lorem.paragraph()}</Well>
         </div>
