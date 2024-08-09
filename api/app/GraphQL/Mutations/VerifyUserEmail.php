@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -15,7 +15,8 @@ final class VerifyUserEmail
      */
     public function __invoke($_, array $args)
     {
-        $user = User::find($args['id']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));
 

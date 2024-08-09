@@ -1853,9 +1853,7 @@ type Mutation {
     @guard
     @canFind(ability: "restore", find: "id")
   sendUserEmailVerification: User @guard
-  verifyUserEmail(id: ID!, code: String!): User
-    @guard
-    @canFind(ability: "update", find: "id")
+  verifyUserEmail(code: String!): User @guard
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(

@@ -314,7 +314,7 @@ type Mutation {
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification: User
-  verifyUserEmail(id: ID!, code: String!): User
+  verifyUserEmail(code: String!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
