@@ -14,8 +14,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
-
-import RequireAuth from "../../components/RequireAuth/RequireAuth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 const CommunityLayout_CommunityFragment = graphql(/* GraphQL */ `
   fragment CommunityLayout_Community on Community {
