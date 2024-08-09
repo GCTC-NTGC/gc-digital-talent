@@ -13,4 +13,5 @@ export type FormValues = {
   suspendedStatus: string;
   publishingGroups: string[];
   govEmployee: string;
+  community: string;
 };
