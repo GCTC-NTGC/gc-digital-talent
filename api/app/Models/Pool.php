@@ -556,43 +556,48 @@ class Pool extends Model
     }
 
     /**
-     * Filter for pools the user is allowed to view admin information for, based around assessment plan permissions
+     * Filter for pools the user is allowed to admin, based on scopeAuthorizedToAdmin
      */
-    public static function scopeAuthorizedToViewAsAdmin(Builder $query, ?bool $canAdmin): Builder
+    public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): void
     {
-        if (empty($canAdmin)) {
-            return $query;
+        if ($canAdmin) {
+            $query->authorizedToAdmin();
         }
+    }
 
+    public static function scopeAuthorizedToAdmin(Builder $query): void
+    {
+        /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (is_null($user)) {
-            return $query->where('id', null);
+        // if they can view any, then nothing filtered out
+        if ($user?->isAbleTo('view-any-assessmentPlan')) {
+            return;
         }
 
-        if (! $user->isAbleTo('view-any-assessmentPlan')) {
+        // if they can view team plans, then filter by teams
+        if ($user?->isAbleTo('view-team-assessmentPlan')) {
             $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-team-assessmentPlan')) {
-                    // Only add teams the user can view pools in to the query for `whereHas`
-                    $teams = $user->rolesTeams()->get();
-                    $teamIds = [];
-                    foreach ($teams as $team) {
-                        if ($user->isAbleTo('view-team-assessmentPlan', $team)) {
-                            $teamIds[] = $team->id;
-                        }
+                // Only add teams the user can view pools in to the query for `whereHas`
+                $teams = $user->rolesTeams()->get();
+                $teamIds = [];
+                foreach ($teams as $team) {
+                    if ($user->isAbleTo('view-team-assessmentPlan', $team)) {
+                        $teamIds[] = $team->id;
                     }
-
-                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    });
-                } else {
-                    return $query->where('id', null); // when the user can't see any assessment plans
                 }
-            }
-            );
+
+                // This will need to be updated when we give the new roles access to Pools in #10609.
+                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                    $query->whereIn('id', $teamIds);
+                });
+            });
+
+            return;
         }
 
-        return $query;
+        // the user can't see any assessment plans
+        $query->where('id', null);
     }
 
     /**
@@ -634,43 +639,45 @@ class Pool extends Model
         return $query;
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
-
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        // can view any pool - return query with no filters added
+        if ($user?->isAbleTo('view-any-pool')) {
+            return;
         }
 
-        if (! $user->isAbleTo('view-any-pool')) {
-            $query->where(function (Builder $query) use ($user) {
-
-                if ($user->isAbleTo('view-team-draftPool')) {
-                    // Only add teams the user can view pools in to the query for `whereHas`
-                    $teams = $user->rolesTeams()->get();
-                    $teamIds = [];
-                    foreach ($teams as $team) {
-                        if ($user->isAbleTo('view-team-draftPool', $team)) {
-                            $teamIds[] = $team->id;
-                        }
+        // we might want to add some filters for some pools
+        $filterCountBefore = count($query->getQuery()->wheres);
+        $query->where(function (Builder $query) use ($user) {
+            if ($user?->isAbleTo('view-team-draftPool')) {
+                // Only add teams the user can view pools in to the query for `whereHas`
+                $teams = $user->rolesTeams()->get();
+                $teamIds = [];
+                foreach ($teams as $team) {
+                    if ($user->isAbleTo('view-team-draftPool', $team)) {
+                        $teamIds[] = $team->id;
                     }
-
-                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    });
                 }
 
-                if ($user->isAbleTo('view-any-publishedPool')) {
-                    $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
-                }
+                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+            }
 
-                return $query;
-            });
+            if ($user?->isAbleTo('view-any-publishedPool')) {
+                $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
+            }
+        });
+        $filterCountAfter = count($query->getQuery()->wheres); // will not increment if an empty "where" subquery above
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
         }
 
-        return $query;
+        // fall through - anyone can view a published pool
+        $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
     }
 
     public static function getSelectableColumns()

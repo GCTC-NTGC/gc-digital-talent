@@ -44,8 +44,6 @@ class DepartmentTest extends TestCase
         $this->baseUser->syncRoles([
             'guest',
             'base_user',
-            'pool_operator',
-            'request_responder',
         ]);
 
         $this->adminUser = User::create([
