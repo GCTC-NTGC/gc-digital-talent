@@ -855,7 +855,7 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function setApplicationSnapshot()
+    public function setApplicationSnapshot(bool $save = true)
     {
         if (! is_null($this->profile_snapshot)) {
             return null;
@@ -916,7 +916,9 @@ class PoolCandidate extends Model
         $profile = $profile->poolSkillIds($poolSkillIds);
 
         $this->profile_snapshot = $profile;
-        $this->save();
+        if ($save) {
+            $this->save();
+        }
     }
 
     /**

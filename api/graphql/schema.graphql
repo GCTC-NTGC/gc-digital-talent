@@ -2238,6 +2238,7 @@ type Mutation {
   # File downloads
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
 }
 
 #import directiveForms.graphql

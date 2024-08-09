@@ -25,6 +25,7 @@ abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterf
         try {
             $path = $this->getPath();
             $writer = new Csv($this->spreadsheet);
+            $writer->setUseBOM(true);
             $writer->setDelimiter(',');
             $writer->setEnclosure('"');
             $writer->setLineEnding("\r\n");
