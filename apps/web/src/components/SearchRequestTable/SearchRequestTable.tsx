@@ -371,6 +371,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         id: "community",
         header: intl.formatMessage(adminMessages.community),
         enableColumnFilter: false,
+        enableSorting: false,
       },
     ),
   ] as ColumnDef<SearchRequestTableQuerySearchRequestType>[];
