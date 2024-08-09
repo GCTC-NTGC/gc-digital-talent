@@ -12,7 +12,6 @@ import {
   getCitizenshipStatusesProfile,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
@@ -20,8 +19,8 @@ import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "../FieldDisplay";
 
 const SendVerificationEmail_Mutation = graphql(/* GraphQL */ `
-  mutation SendVerificationEmail($id: ID!) {
-    sendUserEmailVerification(id: $id) {
+  mutation SendVerificationEmail {
+    sendUserEmailVerification {
       id
       email
     }
@@ -52,7 +51,6 @@ const Display = ({
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
-  const { userAuthInfo } = useAuthorization();
   const navigate = useNavigate();
   const routes = useRoutes();
 
@@ -60,9 +58,7 @@ const Display = ({
     useMutation(SendVerificationEmail_Mutation);
 
   const handleVerifyNowClick = () => {
-    executeSendEmailMutation({
-      id: userAuthInfo?.id,
-    })
+    executeSendEmailMutation({})
       .then((result) => {
         if (result.data?.sendUserEmailVerification) {
           navigate(
