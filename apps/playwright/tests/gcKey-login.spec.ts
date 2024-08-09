@@ -20,7 +20,7 @@ test("user signs in, sees welcome message, and navigates to dashboard", async ({
   // Perform the login
   await signInPage.login(
     process.env.GCKEY_USERNAME,
-    process.env.GCKEY_USERNAME,
+    process.env.GCKEY_PASSWORD,
   );
 
   // Assert that the user is signed in by checking the welcome message
