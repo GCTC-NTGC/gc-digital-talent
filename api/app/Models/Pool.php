@@ -48,6 +48,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $change_justification
  * @property string $team_id
  * @property string $department_id
+ * @property string $community_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $closing_date
@@ -127,6 +128,7 @@ class Pool extends Model
         'closing_reason',
         'process_number',
         'department_id',
+        'community_id',
     ];
 
     /**

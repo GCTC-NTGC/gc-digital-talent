@@ -744,6 +744,22 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         });
     }
 
+    /**
+     * Return users who have a PoolCandidate in a given community
+     */
+    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    {
+        if (empty($communityId)) {
+            return $query;
+        }
+
+        $query = $query->whereHas('poolCandidates', function ($query) use ($communityId) {
+            return PoolCandidate::scopeCandidatesInCommunity($query, $communityId);
+        });
+
+        return $query;
+    }
+
     public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
     {
         if ($hasDiploma) {

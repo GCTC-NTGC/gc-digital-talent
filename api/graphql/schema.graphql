@@ -800,7 +800,7 @@ input ApplicantFilterInput {
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  community: IdInput
+  community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
 input PoolCandidateSearchInput {
@@ -986,9 +986,9 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [PoolCandidateSearchRequest]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 500)
+    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
     @guard
-    @canModel(ability: "viewAny")
+    @canResolved(ability: "view")
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
@@ -2237,8 +2237,16 @@ type Mutation {
 
   # File downloads
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
-  downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
+  downloadUsersDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
 }
 
 #import directiveForms.graphql

@@ -118,7 +118,10 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               ]}
             />
           )}
-          {hasRole("request_responder", roleAssignments) && (
+          {hasRole(
+            ["request_responder", "community_recruiter", "community_admin"],
+            roleAssignments,
+          ) && (
             <LinkWell
               title={intl.formatMessage({
                 defaultMessage: "Responding to talent requests",
@@ -256,6 +259,8 @@ export const Component = () => (
       ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
     ]}
   >
     <DashboardPageApi />

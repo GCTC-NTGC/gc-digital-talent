@@ -1043,6 +1043,10 @@
     "defaultMessage": "Aucune option",
     "description": "Message shown in options dropdown when Select field has no options."
   },
+  "m0iNdp": {
+    "defaultMessage": "Choisir une collectivité",
+    "description": "Null selection for community select input."
+  },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
     "description": "Default text for submitting button."

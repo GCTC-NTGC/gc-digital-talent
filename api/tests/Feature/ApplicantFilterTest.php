@@ -423,6 +423,7 @@ class ApplicantFilterTest extends TestCase
                     'fr' => 'Test Pool FR',
                 ],
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                'community_id' => $community->id,
             ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(10)->availableInSearch()->create([

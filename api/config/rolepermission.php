@@ -1012,7 +1012,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'searchRequest' => [
-                'any' => ['view', 'update', 'delete'],
+                'team' => ['view', 'update', 'delete'],
             ],
             'community' => [
                 'team' => ['view'],
@@ -1060,7 +1060,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'searchRequest' => [
-                'any' => ['view', 'update', 'delete'],
+                'team' => ['view', 'update', 'delete'],
             ],
             'community' => [
                 'team' => ['view', 'update'],

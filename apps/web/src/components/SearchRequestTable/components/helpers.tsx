@@ -49,7 +49,7 @@ export function classificationsCell(
 }
 
 export const jobTitleCell = (
-  searchRequest: PoolCandidateSearchRequest,
+  searchRequest: Pick<PoolCandidateSearchRequest, "id" | "jobTitle">,
   paths: ReturnType<typeof useRoutes>,
 ) => {
   return (
@@ -60,7 +60,7 @@ export const jobTitleCell = (
 };
 
 export const notesCell = (
-  searchRequest: PoolCandidateSearchRequest,
+  searchRequest: Pick<PoolCandidateSearchRequest, "adminNotes" | "jobTitle">,
   intl: IntlShape,
 ) =>
   searchRequest?.adminNotes ? (
@@ -81,7 +81,10 @@ export const notesCell = (
   ) : null;
 
 export const detailsCell = (
-  searchRequest: PoolCandidateSearchRequest,
+  searchRequest: Pick<
+    PoolCandidateSearchRequest,
+    "additionalComments" | "jobTitle"
+  >,
   intl: IntlShape,
 ) =>
   searchRequest?.additionalComments ? (

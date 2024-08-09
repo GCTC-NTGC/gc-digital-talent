@@ -24,6 +24,7 @@ const defaultFormValues: FormValues = {
   expiryStatus: CandidateExpiryFilter.Active,
   suspendedStatus: CandidateSuspendedFilter.Active,
   govEmployee: "",
+  community: "",
 };
 
 describe("Transform form values to filter state", () => {

@@ -7,6 +7,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Option, Select, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
@@ -205,11 +206,9 @@ export const CreatePoolForm = ({
               id="community"
               label={intl.formatMessage(messages.community)}
               name="community"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a community",
-                id: "m0iNdp",
-                description: "Null selection for community select input.",
-              })}
+              nullSelection={intl.formatMessage(
+                commonMessages.selectACommunity,
+              )}
               options={communityOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
