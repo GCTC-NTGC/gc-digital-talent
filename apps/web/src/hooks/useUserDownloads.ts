@@ -19,11 +19,20 @@ const DownloadUsersDoc_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadUsersCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUsersCsv($ids: [UUID!]!, $locale: Language) {
+    downloadUsersCsv(ids: $ids, locale: $locale)
+  }
+`);
+
 const useUserDownloads = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const [{ fetching: downloadingDoc }, executeDocMutation] = useMutation(
     DownloadUsersDoc_Mutation,
+  );
+  const [{ fetching: downloadingCsv }, executeCsvMutation] = useMutation(
+    DownloadUsersCsv_Mutation,
   );
 
   const handleDownloadError = () => {
@@ -54,7 +63,16 @@ const useUserDownloads = () => {
       .catch(handleDownloadError);
   };
 
-  return { downloadDoc, downloadingDoc };
+  const downloadCsv = ({ ids }: { ids: Scalars["UUID"]["input"][] }) => {
+    executeCsvMutation({
+      ids,
+      locale: locale === "fr" ? Language.Fr : Language.En,
+    })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
+  };
+
+  return { downloadDoc, downloadingDoc, downloadCsv, downloadingCsv };
 };
 
 export default useUserDownloads;
