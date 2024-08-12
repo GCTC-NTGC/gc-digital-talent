@@ -93,7 +93,7 @@ type UserInfoFragmentPoolCandidates =
   NonNullable<UserInfoFragmentType>["poolCandidates"];
 
 interface AddToPoolDialogProps {
-  user: Pick<User, "id" | "firstName" | "lastName" | "poolCandidates">;
+  user: Pick<User, "id" | "firstName" | "lastName">;
   poolCandidates: UserInfoFragmentPoolCandidates;
 }
 
