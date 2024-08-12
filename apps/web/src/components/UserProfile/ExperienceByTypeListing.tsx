@@ -35,7 +35,7 @@ const ExperienceByType = ({
   title: string;
   headingLevel?: HeadingRank;
   icon: ReactNode;
-  experiences: Experience[];
+  experiences?: Omit<Experience, "user">[];
   editParam?: string;
   isExperienceOpen: (id: string) => boolean;
   onExperienceOpenChange: (id: string) => void;
@@ -56,7 +56,7 @@ const ExperienceByType = ({
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experiences.map((experience) => (
+          {experiences?.map((experience) => (
             <ExperienceCard
               key={experience.id}
               isOpen={isExperienceOpen(experience.id)}
@@ -73,7 +73,7 @@ const ExperienceByType = ({
   );
 };
 interface ExperienceSectionProps {
-  experiences?: Experience[];
+  experiences?: Omit<Experience, "user">[];
   headingLevel?: HeadingRank;
   editParam?: string;
 }

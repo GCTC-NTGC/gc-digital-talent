@@ -51,7 +51,7 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
 }
 
 export type InvertedSkillExperience = Skill & {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 };
 /**
  * Transforms an array of experiences with child skills into a tree of skills with child experiences.
@@ -59,7 +59,7 @@ export type InvertedSkillExperience = Skill & {
  * @returns { Skill[] } - The new collection of skills with child experiences
  */
 export function invertSkillExperienceTree(
-  experiences: Experience[],
+  experiences: Omit<Experience, "user">[],
 ): InvertedSkillExperience[] {
   const allChildSkills = flatMap(experiences, (s) => s.skills).filter(notEmpty);
   const uniqueSkills = uniqBy(allChildSkills, "id");
@@ -127,9 +127,9 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
  * @returns Experience[]  New array of experiences
  */
 export const getExperienceSkills = (
-  experiences: Experience[],
+  experiences: Omit<Experience, "user">[],
   skill?: Pick<Skill, "id">,
-): Experience[] => {
+): Omit<Experience, "user">[] => {
   return experiences.filter((experience) =>
     experience.skills?.some(
       (experienceSkill) => experienceSkill.id === skill?.id,

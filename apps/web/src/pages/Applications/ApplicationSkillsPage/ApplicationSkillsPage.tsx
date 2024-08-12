@@ -375,7 +375,9 @@ export const ApplicationSkills = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application ? (
     <ApplicationSkills application={application} experiences={experiences} />

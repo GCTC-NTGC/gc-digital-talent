@@ -28,7 +28,7 @@ import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
 interface ExperienceSectionProps {
-  experiences?: Experience[];
+  experiences?: Omit<Experience, "user">[];
   editParam?: string;
   headingLevel?: HeadingRank;
 }
