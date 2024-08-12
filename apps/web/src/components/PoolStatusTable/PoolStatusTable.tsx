@@ -53,9 +53,6 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         processNumber
