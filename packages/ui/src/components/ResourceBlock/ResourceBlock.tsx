@@ -4,7 +4,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import ArrowRightIcon from "@heroicons/react/20/solid/ArrowRightIcon";
 
 import { HeadingLevel } from "../Heading";
-import { headingStyles as headingComponentStyles } from "../Heading/styles";
+import { headingStyles } from "../Heading/styles";
 import { LinkProps } from "../Link";
 import { HydrogenAttributes } from "../../types";
 
@@ -74,8 +74,8 @@ const Root = ({
 }: RootProps) => {
   // prepare heading text element
   const HeadingTextElement = headingAs;
-  const headingTextStyles = { ...headingComponentStyles["h4"] };
-  delete headingTextStyles["data-h2-margin"];
+  const commonHeadingTextStyles = { ...headingStyles["h4"] };
+  delete commonHeadingTextStyles["data-h2-margin"];
   return (
     <div
       data-h2-shadow="base(larger)"
@@ -88,12 +88,15 @@ const Root = ({
         data-h2-border-radius="base(rounded rounded 0 0)"
         data-h2-border-bottom-width="base(1px)"
         data-h2-border-bottom-style="base(solid)"
-        data-h2-padding="base(x1 x1.5 x1 x1.5)"
+        data-h2-padding="base(x1) p-tablet(x1 x1.5 x1 x1.5)"
         data-h2-text-align="base(center)"
       >
         {/* wrapper */}
         <div {...wrapperStyleMap[headingColor]}>
-          <HeadingTextElement {...headingTextStyles}>
+          <HeadingTextElement
+            {...commonHeadingTextStyles}
+            data-h2-text-align="base(center) p-tablet(left)"
+          >
             {title}
           </HeadingTextElement>
         </div>
