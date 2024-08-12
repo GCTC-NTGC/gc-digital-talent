@@ -7,6 +7,8 @@ import auth from "~/constants/auth";
 import AppPage from "./AppPage";
 import AdminPage from "./AdminPage";
 import ApplicantPage from "./ApplicantPage";
+import CommunityRecruiterPage from "./CommunityRecruiterPage";
+import CommunityAdminPage from "./CommunityAdminPage";
 
 type AppFixtures = {
   // Base unauthenticated page
@@ -15,6 +17,10 @@ type AppFixtures = {
   adminPage: AdminPage;
   // Authenticated as applicant page
   applicantPage: ApplicantPage;
+  // Authenticated as community recruiter page
+  communityRecruiterPage: CommunityRecruiterPage;
+  // Authenticated as community admin page
+  communityAdminPage: CommunityAdminPage;
   // Axe test builder
   makeAxeBuilder: () => AxeBuilder;
   fakeClock: sinon.SinonFakeTimers;
@@ -42,6 +48,26 @@ export const test = base.extend<AppFixtures>({
     });
     const admin = new ApplicantPage(await context.newPage());
     await use(admin);
+    await context.close();
+  },
+
+  communityRecruiterPage: async ({ browser }, use) => {
+    const context = await browser.newContext({
+      storageState: auth.STATE.COMMUNITY_RECRUITER,
+    });
+    const communityRecruiter = new CommunityRecruiterPage(
+      await context.newPage(),
+    );
+    await use(communityRecruiter);
+    await context.close();
+  },
+
+  communityAdminPage: async ({ browser }, use) => {
+    const context = await browser.newContext({
+      storageState: auth.STATE.COMMUNITY_ADMIN,
+    });
+    const communityAdmin = new CommunityAdminPage(await context.newPage());
+    await use(communityAdmin);
     await context.close();
   },
 

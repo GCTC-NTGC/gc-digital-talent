@@ -171,10 +171,18 @@ class PoolCandidatesPaginatedTest extends TestCase
 
     public function testCommunityRecruiterCanViewCommunitySubmittedApplications(): void
     {
+        $team = Team::factory()->create();
+        $team2 = Team::factory()->create();
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
-        $communityPool = Pool::factory()->create(['community_id' => $community->id]);
-        $otherPool = Pool::factory()->create(['community_id' => $otherCommunity->id]);
+        $communityPool = Pool::factory()->create([
+            'community_id' => $community->id,
+            'team_id' => $team->id,
+        ]);
+        $otherPool = Pool::factory()->create([
+            'community_id' => $otherCommunity->id,
+            'team_id' => $team2->id,
+        ]);
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter($community->id)
             ->create();
@@ -203,10 +211,18 @@ class PoolCandidatesPaginatedTest extends TestCase
 
     public function testCommunityAdminCanViewCommunitySubmittedApplications(): void
     {
+        $team = Team::factory()->create();
+        $team2 = Team::factory()->create();
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
-        $communityPool = Pool::factory()->create(['community_id' => $community->id]);
-        $otherPool = Pool::factory()->create(['community_id' => $otherCommunity->id]);
+        $communityPool = Pool::factory()->create([
+            'community_id' => $community->id,
+            'team_id' => $team->id,
+        ]);
+        $otherPool = Pool::factory()->create([
+            'community_id' => $otherCommunity->id,
+            'team_id' => $team2->id,
+        ]);
         $communityAdmin = User::factory()
             ->asCommunityAdmin($community->id)
             ->create();

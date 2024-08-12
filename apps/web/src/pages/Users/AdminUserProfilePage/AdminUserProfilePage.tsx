@@ -20,7 +20,6 @@ import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDoc
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
-    ...ProfileDocument
     id
     email
     firstName

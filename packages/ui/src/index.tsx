@@ -13,7 +13,10 @@ import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
 import Counter from "./components/Button/Counter";
-import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
+import Breadcrumbs, {
+  Crumb,
+  type BreadcrumbsProps,
+} from "./components/Breadcrumbs";
 import Board from "./components/Board/Board";
 import {
   CardBasic,
@@ -135,6 +138,7 @@ export {
   useAnnouncer,
   Board,
   Breadcrumbs,
+  Crumb,
   Button,
   CardBasic,
   CardFlat,

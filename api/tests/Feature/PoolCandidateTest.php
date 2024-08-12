@@ -7,6 +7,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
+use App\Models\Community;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -927,5 +928,64 @@ class PoolCandidateTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    public function testScopeCandidatesInCommunity(): void
+    {
+        $query =
+        /** @lang GraphQL */
+        '
+            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!) {
+                poolCandidatesPaginated(where: $where, orderBy: [$orderBy]) {
+                    data {
+                        id
+                    }
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ';
+
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityPool = Pool::factory()->published()->create(['community_id' => $community->id]);
+        $otherPool = Pool::factory()->published()->create(['community_id' => $otherCommunity->id]);
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
+        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $otherPool]);
+
+        // acting user belongs to both communities to avoid interaction with authorizedToViewScope
+        $communityAdmin = User::factory()
+            ->asCommunityAdmin([$community->id, $otherCommunity->id])
+            ->create();
+
+        // assert no community selection displays both candidates
+        $this->actingAs($communityAdmin, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'column' => 'id',
+                    'order' => 'ASC',
+                ],
+                'where' => [
+                    'applicantFilter' => [],
+                ],
+            ])->assertJsonFragment(['total' => 2])
+            ->assertJsonFragment(['id' => $communityCandidate->id])
+            ->assertJsonFragment(['id' => $otherCandidate->id]);
+
+        // assert selecting $community returns one candidate associated with that community
+        $this->actingAs($communityAdmin, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'column' => 'id',
+                    'order' => 'ASC',
+                ],
+                'where' => [
+                    'applicantFilter' => [
+                        'community' => ['id' => $community->id],
+                    ],
+                ],
+            ])->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityCandidate->id]);
     }
 }
