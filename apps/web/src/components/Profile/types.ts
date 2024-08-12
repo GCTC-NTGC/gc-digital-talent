@@ -17,7 +17,7 @@ export type SectionKey =
   | "account";
 
 export interface SectionProps<P = void> {
-  user: User;
+  user: Omit<User, "poolCandidates">;
   isUpdating?: boolean;
   application?: Pick<PoolCandidate, "id"> & { pool: Pick<Pool, "language"> };
   pool?: Maybe<P>;
