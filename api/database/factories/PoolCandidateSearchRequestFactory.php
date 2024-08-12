@@ -28,7 +28,9 @@ class PoolCandidateSearchRequestFactory extends Factory
     public function definition()
     {
 
-        $community = Community::inRandomOrder()->first();
+        $communityFetched = Community::inRandomOrder()->first();
+
+        $community = isset($communityFetched) ? $communityFetched : Community::factory()->create();
 
         return [
             'full_name' => $this->faker->name(),
@@ -39,14 +41,14 @@ class PoolCandidateSearchRequestFactory extends Factory
             'hr_advisor_email' => $this->faker->unique()->safeEmail,
             'created_at' => $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = '-1 months'),
             'admin_notes' => $this->faker->text(),
-            'applicant_filter_id' => ApplicantFilter::factory(),
+            'applicant_filter_id' => ApplicantFilter::factory()->create(['community_id' => $community->id]),
             'was_empty' => $this->faker->boolean(),
             'request_status' => $this->faker->randomElement(array_column(PoolCandidateSearchStatus::cases(), 'name')),
             'request_status_changed_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now') : null,
             'manager_job_title' => $this->faker->jobTitle(),
             'position_type' => $this->faker->randomElement(PoolCandidateSearchPositionType::cases())->name,
             'reason' => $this->faker->randomElement(PoolCandidateSearchRequestReason::cases())->name,
-            'community_id' => $community ? $community->id : Community::factory()->create(),
+            'community_id' => $community->id,
         ];
     }
 

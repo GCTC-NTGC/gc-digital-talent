@@ -40,18 +40,18 @@ class Notification extends DatabaseNotification
         return $query->whereNull('read_at');
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
 
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('notifiable_id', null);
+        if (! is_null($user?->id)) {
+            $query->where('notifiable_id', $user->id);
+
+            return;
         }
 
-        $query->where('notifiable_id', $user->id);
-
-        return $query;
+        $query->where('notifiable_id', null);
     }
 }

@@ -395,6 +395,14 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      community {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);

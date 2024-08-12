@@ -9,22 +9,20 @@ use Illuminate\Database\Seeder;
 class SearchRequestRandomSeeder extends Seeder
 {
     /**
-     * Seeds initial user records into that database.
-     * These users are only useful for testing locally.
+     * Seeds random applicant filters with attached search request
      *
      * @return void
      */
     public function run()
     {
+        $applicantFilters = ApplicantFilter::factory()->count(50)->sparse()->withRelationships(true)->create();
 
-        $applicantFilter = ApplicantFilter::factory()->sparse()->withRelationships(true)->create();
-
-        // Create some SearchRequests
-        PoolCandidateSearchRequest::factory()
-            ->count(50)
-            ->createQuietly([
-                'community_id' => $applicantFilter->community_id,
-                'applicant_filter_id' => $applicantFilter->id,
-            ]);
+        foreach ($applicantFilters as $applicantFilter) {
+            PoolCandidateSearchRequest::factory()
+                ->createQuietly([
+                    'community_id' => $applicantFilter->community_id,
+                    'applicant_filter_id' => $applicantFilter->id,
+                ]);
+        }
     }
 }
