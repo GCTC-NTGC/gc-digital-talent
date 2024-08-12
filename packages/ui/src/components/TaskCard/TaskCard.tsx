@@ -99,10 +99,10 @@ const TaskCard = ({
         data-h2-border-radius="base(rounded rounded 0 0)"
         data-h2-border-bottom-width="base(1px)"
         data-h2-border-bottom-style="base(solid)"
-        data-h2-padding="base(x1 x1.5 x1 x1.5)"
+        data-h2-padding="base(x1) p-tablet(x1 x1.5 x1 x1.5)"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-gap="base(x0.25) p-tablet(x2)"
+        data-h2-gap="base(x0.5) p-tablet(x2)"
         data-h2-align-items="base(center)"
       >
         {/* wrapper */}
