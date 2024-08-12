@@ -13,6 +13,27 @@ lsb_release -a
 ```
 You shoud see "Description:    Ubuntu 22.04.3 LTS" or similar.
 
+## Clone the repostiry
+
+Git should already be installed on your system.
+
+Double-check:
+```
+git --version
+```
+
+Now clone the repository and change into the directory:
+
+```
+git clone https://github.com/GCTC-NTGC/gc-digital-talent.git
+cd gc-digital-talent
+```
+
+Double-check:
+```
+ls
+```
+
 ## PHP
 
 Ubuntu 22.04 does not come with PHP 8.2 in its repositories. Add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install PHP 8.2 with some extensions.
@@ -63,6 +84,32 @@ composer --version
 
 The version should be 2.
 
+### Node.js
+
+We use to run the javascript/typescript part of the app. You can install it using nvm.
+
+Install it with:
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+```
+Close and reopen your terminal after installation finishes.
+
+Double-check:
+```
+nvm --version
+```
+
+Now, from inside the gc-digital-talent directory, install node:
+
+```
+nvm install
+```
+
+Double-check:
+```
+node --version
+```
+
 ### PNPM
 
 We use PNPM to manage the packages for the javascript/typescript part of the app. Check which version should be installed by finding the `packageManager` field in [package.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/package.json).  Make sure to substitute the correct version number into the command:
@@ -77,6 +124,7 @@ Double check:
 ```
 pnpm --version
 ```
+
 
 ## Hosts File
 
@@ -153,13 +201,7 @@ groups
 
 You should be ready to set up the project!
 
-First, clone the repository:
-
-```
-git clone https://github.com/GCTC-NTGC/gc-digital-talent.git
-```
-
-Next, start up the docker compose network:
+First, start up the docker compose network:
 
 ```
 cd gc-digital-talent
@@ -171,5 +213,7 @@ Next, build the project:
 ```
 make -f Makefile.nix setup_all
 ```
+
+Double-check:
 
 Point your browser at [http://localhost:8000](http://localhost:8000) and view the home page.
