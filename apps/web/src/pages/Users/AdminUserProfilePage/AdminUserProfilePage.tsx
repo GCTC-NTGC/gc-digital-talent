@@ -15,11 +15,11 @@ import UserProfile from "~/components/UserProfile";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import SingleUserProfilePrintButton from "~/components/PrintButton/SingleUserProfilePrintButton";
+import useUserDownloads from "~/hooks/useUserDownloads";
+import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
-    ...ProfileDocument
     id
     email
     firstName
@@ -412,16 +412,22 @@ interface AdminUserProfileProps {
 
 export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
   const user = getFragment(AdminUserProfileUser_Fragment, userQuery);
+  const { downloadDoc, downloadingDoc } = useUserDownloads();
+
+  const handleDocDownload = (anonymous: boolean) => {
+    downloadDoc({ ids: [user.id], anonymous });
+  };
+
   return (
     <>
       <div
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
-        <SingleUserProfilePrintButton
-          users={[user]}
-          color="primary"
-          mode="solid"
+        <DownloadUsersDocButton
+          disabled={downloadingDoc}
+          onClick={handleDocDownload}
+          isDownloading={downloadingDoc}
         />
       </div>
       <UserProfile user={user} headingLevel="h3" />

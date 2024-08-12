@@ -168,7 +168,6 @@ export function transformUserFilterInputToFormValues(
 export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
   query UsersTable_SelectUsers($ids: [ID]!) {
     applicants(includeIds: $ids) {
-      ...ProfileDocument
       id
       email
       firstName

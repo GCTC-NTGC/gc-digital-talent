@@ -233,7 +233,14 @@ export const Component = () => {
               description: "The menu category for requests items",
             })}
           >
-            {checkRole([ROLE_NAME.RequestResponder], roleAssignments) && (
+            {checkRole(
+              [
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.CommunityRecruiter,
+                ROLE_NAME.CommunityAdmin,
+              ],
+              roleAssignments,
+            ) && (
               <SideMenuItem
                 href={paths.searchRequestTable()}
                 icon={pageIcons.talentRequests.outline}

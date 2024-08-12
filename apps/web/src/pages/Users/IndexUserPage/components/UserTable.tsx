@@ -17,12 +17,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  FragmentType,
-  User,
-  UserFilterInput,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
@@ -42,8 +37,8 @@ import {
 } from "~/components/Table/ResponsiveTable/constants";
 import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
-import UserProfilePrintButton from "~/components/PrintButton/UserProfilePrintButton";
-import { ProfileDocument_Fragment } from "~/components/ProfileDocument/ProfileDocument";
+import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
+import useUserDownloads from "~/hooks/useUserDownloads";
 
 import {
   UsersTable_SelectUsersQuery,
@@ -55,8 +50,6 @@ import {
 } from "./utils";
 import UserFilterDialog, { FormValues } from "./UserFilterDialog";
 import { getUserCsvData, getUserCsvHeaders } from "./userCsv";
-
-type SelectedApplicants = FragmentType<typeof ProfileDocument_Fragment>[];
 
 const columnHelper = createColumnHelper<User>();
 
@@ -164,8 +157,6 @@ const UserTable = ({ title }: UserTableProps) => {
   const client = useClient();
   const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
-  const [selectedApplicants, setSelectedApplicants] =
-    useState<SelectedApplicants>([]);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: UserFilterInput = useMemo(
@@ -190,6 +181,14 @@ const UserTable = ({ title }: UserTableProps) => {
   );
   const [filterState, setFilterState] =
     useState<UserFilterInput>(initialFilters);
+  const { downloadDoc, downloadingDoc } = useUserDownloads();
+
+  const handleDocDownload = (anonymous: boolean) => {
+    downloadDoc({
+      ids: selectedRows,
+      anonymous,
+    });
+  };
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -382,7 +381,6 @@ const UserTable = ({ title }: UserTableProps) => {
           toast.error(intl.formatMessage(adminMessages.noRowsSelected));
         }
 
-        setSelectedApplicants(users);
         setIsSelecting(false);
         setSelectingFor(null);
         return users;
@@ -391,6 +389,8 @@ const UserTable = ({ title }: UserTableProps) => {
         toast.error(intl.formatMessage(errorMessages.unknown));
       });
   };
+
+  const hasSelectedRows = selectedRows.length > 0;
 
   return (
     <Table<User, UserFilterInput>
@@ -443,18 +443,12 @@ const UserTable = ({ title }: UserTableProps) => {
       }}
       print={{
         component: (
-          <span>
-            <UserProfilePrintButton
-              users={selectedApplicants}
-              beforePrint={async () => {
-                await querySelected("print");
-              }}
-              fetching={isSelecting && selectingFor === "print"}
-              color="whiteFixed"
-              mode="inline"
-              fontSize="caption"
-            />
-          </span>
+          <DownloadUsersDocButton
+            inTable
+            disabled={!hasSelectedRows || downloadingDoc}
+            onClick={handleDocDownload}
+            isDownloading={downloadingDoc}
+          />
         ),
       }}
       pagination={{

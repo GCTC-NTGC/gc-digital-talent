@@ -42,7 +42,13 @@ export const IndexSearchRequestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.RequestResponder]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ]}
+  >
     <IndexSearchRequestPage />
   </RequireAuth>
 );
