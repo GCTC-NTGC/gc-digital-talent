@@ -135,24 +135,20 @@ AddCommunityMemberDialogProps) => {
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "Select the user you would like to add to this community along with their roles.",
-            id: "niYQRv",
-            description:
-              "Help text for user field on the add member to community form",
-          })}
-        >
-          {intl.formatMessage(
+          subtitle={intl.formatMessage(
             {
-              defaultMessage: "Add member to {communityName}",
-              id: "lgKFLj",
-              description: "Label for the add member to community form",
+              defaultMessage:
+                "Select the user you would like to add to {communityName} along with their roles.",
+              id: "U8jsvJ",
+              description:
+                "Help text for user field on the add member to community form",
             },
             {
               communityName: getLocalizedName(community.name, intl),
             },
           )}
+        >
+          {label}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
@@ -207,7 +203,11 @@ AddCommunityMemberDialogProps) => {
                 <Button color="secondary" type="submit" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
-                    : label}
+                    : intl.formatMessage({
+                        defaultMessage: "Save and add member",
+                        id: "mKrj0x",
+                        description: "Label for add member to a community form",
+                      })}
                 </Button>
                 <Dialog.Close>
                   <Button color="warning" mode="inline">

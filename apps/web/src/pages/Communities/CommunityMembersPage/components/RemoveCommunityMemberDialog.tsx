@@ -93,32 +93,43 @@ const RemoveCommunityMemberDialog = ({
       <Dialog.Trigger>
         <Button
           color="error"
-          aria-label={label}
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage: "Remove {userName} from {communityName}",
+              id: "AKI35i",
+              description:
+                "Aria label for the dialog trigger to remove a user from a community",
+            },
+            {
+              userName,
+              communityName,
+            },
+          )}
           icon={TrashIcon}
           mode="icon_only"
         />
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage: "Remove {userName} from {communityName}.",
+              id: "Uo2kBO",
+              description:
+                "Label for the dialog trigger to remove a user from a community",
+            },
+            {
+              userName,
+              communityName,
+            },
+          )}
+        >
+          {label}
+        </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "You are about to remove <strong>{userName}</strong> from the community <strong>{communityName}</strong>.",
-                id: "nOGbxc",
-                description:
-                  "Help text for the remove community membership dialog",
-              },
-              {
-                userName,
-                communityName,
-              },
-            )}
-          </p>
           {user.roles.length ? (
             <>
-              <p data-h2-margin="base(x1, 0)">
+              <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
                   defaultMessage:
                     "They will lose all of the following community roles",

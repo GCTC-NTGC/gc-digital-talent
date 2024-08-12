@@ -109,37 +109,55 @@ const EditCommunityMemberDialog = ({
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
 
-  const label = intl.formatMessage(
-    {
-      defaultMessage: "Edit community roles for {userName} in {communityName}",
-      id: "aTXHOX",
-      description: "Label for the form to edit a users community membership",
-    },
-    {
-      userName,
-      communityName: getLocalizedName(community.name, intl),
-    },
-  );
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button
           color="secondary"
-          aria-label={label}
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage:
+                "Edit community roles of {userName} in {communityName}",
+              id: "WY3oiC",
+              description:
+                "Aria label for the dialog trigger to edit user community membership",
+            },
+            {
+              userName,
+              communityName: getLocalizedName(community.name, intl),
+            },
+          )}
           icon={PencilSquareIcon}
           mode="icon_only"
         />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage: "Change or remove this user's community roles.",
-            id: "X6JZdO",
-            description: "Help text for the edit community membership form",
-          })}
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage:
+                "Change the roles of {userName} in {communityName}.",
+              id: "AscIUu",
+              description: "Help text for the edit community membership form",
+            },
+            {
+              userName,
+              communityName: getLocalizedName(community.name, intl),
+            },
+          )}
         >
-          {label}
+          {intl.formatMessage(
+            {
+              defaultMessage: "Edit community roles",
+              id: "eS/PsM",
+              description:
+                "Label for the form to edit user community membership",
+            },
+            {
+              userName,
+              communityName: getLocalizedName(community.name, intl),
+            },
+          )}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>

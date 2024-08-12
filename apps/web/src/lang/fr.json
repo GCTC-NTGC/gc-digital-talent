@@ -2215,6 +2215,10 @@
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
   },
+  "AKI35i": {
+    "defaultMessage": "Retirer {userName} de la collectivité {communityName}",
+    "description": "Aria label for the dialog trigger to remove a user from a community"
+  },
   "AKQeBC": {
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
@@ -2326,6 +2330,10 @@
   "ArwIQV": {
     "defaultMessage": "Tableau de bord",
     "description": "Title for dashboard"
+  },
+  "AscIUu": {
+    "defaultMessage": "Modifiez les rôles de {userName} dans {communityName}.",
+    "description": "Help text for the edit community membership form"
   },
   "AumMAr": {
     "defaultMessage": "Langue de contact préférée",
@@ -5803,6 +5811,10 @@
     "defaultMessage": "Comment cela fonctionnera-t-il?",
     "description": "heading for how the indigenous talent portal will work"
   },
+  "U8jsvJ": {
+    "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à {communityName} ainsi que son rôle.",
+    "description": "Help text for user field on the add member to community form"
+  },
   "U9jw1M": {
     "defaultMessage": "À l’exception de quelques compétences comportementales très particulières, seuls des renseignements techniques sont recueillis auprès des candidats dans la candidature initiale. Cela signifie que lors de votre examen, vous ne verrez que les données d’expérience relatives aux compétences techniques et à quelques compétences comportementales précises. Deux raisons expliquent ce choix.",
     "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"
@@ -5889,6 +5901,10 @@
   },
   "UnAF+3": {
     "defaultMessage": "À moins d’avis contraire, vous pouvez reproduire le contenu en totalité ou en partie à des fins non commerciales, dans tout format, sans frais ni autre permission, à condition :"
+  },
+  "Uo2kBO": {
+    "defaultMessage": "Retirer {userName} de la collectivité {communityName}.",
+    "description": "Label for the dialog trigger to remove a user from a community"
   },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
@@ -6226,6 +6242,10 @@
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Button text for the create team form submit button"
   },
+  "WY3oiC": {
+    "defaultMessage": "Modifiez les rôles de {userName} dans {communityName}",
+    "description": "Aria label for the dialog trigger to edit user community membership"
+  },
   "WY7q+L": {
     "defaultMessage": "Les compétences en vedette vous permettent de démontrer comment vous avez utilisé ou perfectionné des ensembles de compétences particulièrement importants dans le cadre de votre expérience. Lorsque vous posez votre candidature sur la plateforme, vous êtes invité à lier des compétences essentielles requises pour l’emploi à vos expériences de la même manière, ce qui vous permet de dresser un portrait d’ensemble de vos compétences. Les compétences que vous liez lorsque vous posez votre candidature apparaîtront également ici et pourront être modifiées ultérieurement.",
     "description": "Description blurb for skills on Experience form"
@@ -6353,10 +6373,6 @@
   "X6+rc1": {
     "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
     "description": "Indigenous Apprenticeship applicant image text alternative"
-  },
-  "X6JZdO": {
-    "defaultMessage": "Modifiez ou supprimez les rôles de cet utilisateur dans la collectivité",
-    "description": "Help text for the edit community membership form"
   },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
@@ -7001,10 +7017,6 @@
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
-  },
-  "aTXHOX": {
-    "defaultMessage": "Modifier les rôles de {userName} dans la collectivité {communityName}",
-    "description": "Label for the form to edit a users community membership"
   },
   "aVp6q7": {
     "defaultMessage": "Consultez la CléGC",
@@ -7761,6 +7773,10 @@
   "eRbVle": {
     "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de vérifier cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
     "description": "Message on getting started page about the contact email address - part 1."
+  },
+  "eS/PsM": {
+    "defaultMessage": "Modifier les rôles dans la collectivité",
+    "description": "Label for the form to edit user community membership"
   },
   "eTOg2E": {
     "defaultMessage": "Exploitez toutes les compétences sur notre site",
@@ -9166,10 +9182,6 @@
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
   },
-  "lgKFLj": {
-    "defaultMessage": "Ajouter le membre à {communityName}",
-    "description": "Label for the add member to community form"
-  },
   "lhLfd7": {
     "defaultMessage": "Créer une collectivité",
     "description": "Text to create a community"
@@ -9285,6 +9297,10 @@
   "mJ1HE4": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Display text for add experience form in breadcrumbs"
+  },
+  "mKrj0x": {
+    "defaultMessage": "Sauvegarder et ajouter un membre",
+    "description": "Label for add member to a community form"
   },
   "mKzQwr": {
     "defaultMessage": "Compétence linguistique",
@@ -9502,10 +9518,6 @@
     "defaultMessage": "Disponibilité pour recrutement",
     "description": "Title for the recruitment availability."
   },
-  "nOGbxc": {
-    "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de la collectivité <strong>{communityName}</strong>.",
-    "description": "Help text for the remove community membership dialog"
-  },
   "nPPUMW": {
     "defaultMessage": "Retourner au traitement des détails",
     "description": "Link text to go back to the process details page"
@@ -9577,10 +9589,6 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
-  },
-  "niYQRv": {
-    "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à cette collectivité ainsi que son rôle.",
-    "description": "Help text for user field on the add member to community form"
   },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
