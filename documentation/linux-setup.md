@@ -1,10 +1,10 @@
 # Linux environment setup
 
-In some scenarios it may be preferable to perform local environment maintenance directly using tooling on your Linux OS (or in [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)) instead of the maintenance docker container. This documents how to set that up. It includes commands you can run after every step to confirm that the step was completed successfully.
+Sometimes it may be preferable to perform local environment maintenance directly using tooling installed on your Linux OS (or in [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)) instead of the maintenance docker container. This guide shows how to set that up. It includes commands you can run after every step to confirm that the step was completed successfully.
 
 ## Operating System
 
-This guide is written for [Ubuntu 22.04](https://releases.ubuntu.com/jammy/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a safe choice of OS. This document should work for using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/) as well. Other variants or distributions may work as well but are not documented here.
+This guide is written for [Ubuntu 22.04](https://releases.ubuntu.com/jammy/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will work for using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/) as well. Other Ubuntu variants or Linux distributions may work as well but are not documented here.
 
 Double check:
 
@@ -14,7 +14,7 @@ lsb_release -a
 
 ## PHP
 
-22.04 does not come with PHP 8.2 in its repositories. Add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and lets install it with some extensions.
+Ubuntu 22.04 does not come with PHP 8.2 in its repositories. Add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install PHP 8.2 with some extensions.
 
 ```
 sudo add-apt-repository ppa:ondrej/php
@@ -33,7 +33,7 @@ The PHP version should match the value of `require.php` in [api/composer.json](h
 
 ## Postgresql
 
-We'll need the PostrgeSQL client to build the database. Let's install it from the regular repository.
+We'll need the PostrgeSQL client to build the database schema. Install it from the regular Ubuntu repository.
 
 ```
 sudo apt-get install postgresql-client
@@ -61,11 +61,11 @@ Double check:
 composer --version
 ```
 
-We use composer 2.
+The version should be 2.
 
 ### PNPM
 
-We use PNPM to manage the packages for the javascript/typescript part of the app. Make sure the substitute the correct version number into the command:
+We use PNPM to manage the packages for the javascript/typescript part of the app. Make sure to substitute the correct version number into the command:
 
 ```
 curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=<version> sh -
@@ -97,13 +97,13 @@ host -t a postgres
 
 ### WSL Only!
 
-WSL will overwrite our hosts file changes by default. Let's configure it not to. Ignore this step if not running in WSL.
+WSL will overwrite the hosts file changes by default. Let's configure it not to. Ignore this step if not running in WSL.
 
 ```
 sudo nano /etc/wsl.conf
 ```
 
-And add
+And add:
 
 ```
 [network]
