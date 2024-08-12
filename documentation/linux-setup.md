@@ -1,28 +1,22 @@
 # Linux environment setup
 
-Sometimes it may be preferable to perform local environment maintenance directly using tooling installed on your Linux OS (or in [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)) instead of the maintenance docker container. This guide shows how to set that up. It includes commands you can run after every step to confirm that the step was completed successfully.
+Sometimes it may be preferable to perform local environment maintenance directly using tooling installed on your Linux OS (or in [WSL](https://learn.microsoft.com/en-us/windows/wsl/about)) instead of the maintenance docker container. This guide documents how to set up an environment in that way. It also includes ways you can confirm that every step was completed successfully.
 
-## Operating System
+## Operating system
 
-This guide is written for [Ubuntu 22.04](https://releases.ubuntu.com/jammy/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will work for using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/) as well. Other Ubuntu variants or Linux distributions may work as well but are not documented here.
+This guide is written for [Ubuntu 22.04](https://releases.ubuntu.com/jammy/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will also work for using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/). Other Ubuntu variants or Linux distributions may work as well but are not documented here.
 
 Double check:
 
 ```
 lsb_release -a
 ```
-You shoud see "Description:    Ubuntu 22.04.3 LTS" or similar.
 
-## Clone the repostiry
+You shoud see "Description: Ubuntu 22.04.3 LTS" or similar.
 
-Git should already be installed on your system.
+## Clone the repository
 
-Double-check:
-```
-git --version
-```
-
-Now clone the repository and change into the directory:
+[Git](https://git-scm.com/) should have been installed with your operating system automatically. Clone the repository and change into the directory:
 
 ```
 git clone https://github.com/GCTC-NTGC/gc-digital-talent.git
@@ -30,9 +24,12 @@ cd gc-digital-talent
 ```
 
 Double-check:
+
 ```
-ls
+ls -a
 ```
+
+You should see the same list of files visible in [the github repository online](https://github.com/GCTC-NTGC/gc-digital-talent).
 
 ## PHP
 
@@ -52,7 +49,7 @@ php --modules
 
 The PHP version should match the value of `require.php` in [api/composer.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/api/composer.json).
 
-## Postgresql
+## PostgreSQL
 
 We'll need the PostrgeSQL client to build the database schema. Install it from the regular Ubuntu repository.
 
@@ -82,49 +79,57 @@ Double check:
 composer --version
 ```
 
-The version should be 2.
+It should be major version 2.
 
 ### Node.js
 
-We use to run the javascript/typescript part of the app. You can install it using nvm.
+We use Node.js to develop the frontend part of the app. You can install it using [nvm](https://github.com/nvm-sh/nvm).
 
-Install it with:
+Install it from GitHub:
+
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 ```
-Close and reopen your terminal after installation finishes.
+
+> [!IMPORTANT]
+> Close and reopen your terminal after installation finishes to activate it.
 
 Double-check:
+
 ```
 nvm --version
 ```
 
-Now, from inside the gc-digital-talent directory, install node:
+Now, from inside the gc-digital-talent directory, install Node.js:
 
 ```
 nvm install
 ```
 
 Double-check:
+
 ```
 node --version
 ```
 
+It should match the version in [.nvmrc](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.nvmrc).
+
 ### PNPM
 
-We use PNPM to manage the packages for the javascript/typescript part of the app. Check which version should be installed by finding the `packageManager` field in [package.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/package.json).  Make sure to substitute the correct version number into the command:
+We use PNPM to manage the packages for the frontend part of the app. Check which version should be installed by finding the `packageManager` field in [package.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/package.json). Make sure to substitute the correct version number into the command:
 
 ```
 curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=<version> sh -
 ```
-The install script will also instruct you to run a `source` command to activate the tool in your session.
+
+> [!IMPORTANT]
+> The install script will also instruct you to run a `source` command to activate the tool in your session.
 
 Double check:
 
 ```
 pnpm --version
 ```
-
 
 ## Hosts File
 
@@ -170,6 +175,7 @@ sudo apt-get install make
 ```
 
 Double check:
+
 ```
 make --version
 ```
@@ -179,20 +185,23 @@ make --version
 
 ## Docker Compose
 
-Docker compose is used to run the services for this app.  It should have been installed with your operating system automatically.
+Docker compose is used to run the services for this app. It should have been installed with your operating system automatically.
 
 Double-check:
+
 ```
 docker compose version
 ```
 
 If you haven't already, add your user to the `docker` group and activate the group:
+
 ```
 sudo usermod -aG docker $USER
 newgrp docker
 ```
 
 Double-check:
+
 ```
 groups
 ```
