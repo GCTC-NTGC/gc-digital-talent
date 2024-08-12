@@ -14,7 +14,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { checkRole } from "~/utils/teamUtils";
+import { checkRole } from "~/utils/communityUtils";
 
 import CommunityForm from "./CommunityForm";
 import CommunityDisplay from "./CommunityDisplay";

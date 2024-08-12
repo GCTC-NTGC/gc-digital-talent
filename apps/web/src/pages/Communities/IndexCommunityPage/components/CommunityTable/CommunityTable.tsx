@@ -17,7 +17,7 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
-import { checkRole } from "~/utils/teamUtils";
+import { checkRole } from "~/utils/communityUtils";
 
 import { MyRoleTeam } from "./types";
 import {
