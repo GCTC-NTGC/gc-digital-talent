@@ -6,7 +6,8 @@ import { useQuery } from "urql";
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -15,6 +16,7 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { checkRole } from "~/utils/communityUtils";
 
 const CommunityLayout_CommunityFragment = graphql(/* GraphQL */ `
   fragment CommunityLayout_Community on Community {
@@ -34,9 +36,13 @@ type PageNavKeys = "manage-access" | "view" | "edit";
 
 interface CommunityHeaderProps {
   communityQuery: CommunityLayoutFragment;
+  canAdmin: boolean;
 }
 
-const CommunityHeader = ({ communityQuery }: CommunityHeaderProps) => {
+const CommunityHeader = ({
+  communityQuery,
+  canAdmin,
+}: CommunityHeaderProps) => {
   const intl = useIntl();
   const community = getFragment(
     CommunityLayout_CommunityFragment,
@@ -59,21 +65,21 @@ const CommunityHeader = ({ communityQuery }: CommunityHeaderProps) => {
         },
       },
     ],
-    [
-      "manage-access",
-      {
-        icon: ClipboardDocumentListIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Manage access",
-          id: "J0i4xY",
-          description: "Title for members page",
-        }),
-        link: {
-          url: paths.communityManageAccess(community.id),
-        },
-      },
-    ],
   ]);
+
+  if (canAdmin) {
+    pages.set("manage-access", {
+      icon: ClipboardDocumentListIcon,
+      title: intl.formatMessage({
+        defaultMessage: "Manage access",
+        id: "J0i4xY",
+        description: "Title for members page",
+      }),
+      link: {
+        url: paths.communityManageAccess(community.id),
+      },
+    });
+  }
 
   const communityName = getLocalizedName(community.name, intl);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
@@ -118,16 +124,32 @@ const CommunityLayout = () => {
     },
   });
 
+  const { userAuthInfo } = useAuthorization();
+  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const canAdmin = checkRole(
+    [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
+    roleAssignments,
+    communityId,
+  );
+
   return (
     <>
       <Pending fetching={fetching} error={error}>
         {data?.community ? (
-          <CommunityHeader communityQuery={data.community} />
+          <CommunityHeader
+            canAdmin={canAdmin}
+            communityQuery={data.community}
+          />
         ) : (
           <ThrowNotFound />
         )}
       </Pending>
-      <Outlet context={{ teamId: data?.community?.teamIdForRoleAssignment }} />
+      <Outlet
+        context={{
+          teamId: data?.community?.teamIdForRoleAssignment,
+          canAdmin,
+        }}
+      />
     </>
   );
 };

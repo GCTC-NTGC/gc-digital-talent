@@ -2,17 +2,17 @@ import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { useOutletContext } from "react-router-dom";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  checkRole,
   groupRoleAssignmentsByUser,
   CommunityMember,
 } from "~/utils/communityUtils";
@@ -24,7 +24,7 @@ import tableMessages from "~/components/Table/tableMessages";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import { CommunityMembersPageFragment } from "./components/types";
+import { CommunityMembersPageFragment, ContextType } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 
 const columnHelper = createColumnHelper<CommunityMember>();
@@ -39,15 +39,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     CommunityMembersPage_CommunityFragment,
     communityQuery,
   );
-  const { roleAssignments } = useAuthorization();
-  const canModifyMembers = checkRole(
-    [
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ],
-    roleAssignments,
-  );
+  const { canAdmin } = useOutletContext<ContextType>();
 
   const members: CommunityMember[] = useMemo(
     () => groupRoleAssignmentsByUser(community.roleAssignments || []),
@@ -89,7 +81,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     }),
   ] as ColumnDef<CommunityMember>[];
 
-  if (canModifyMembers) {
+  if (canAdmin) {
     columns = [
       columnHelper.display({
         id: "actions",
@@ -129,7 +121,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
             description: "Label for the community members table search input",
           }),
         }}
-        {...(canModifyMembers && {
+        {...(canAdmin && {
           add: {
             component: (
               <AddCommunityMemberDialog

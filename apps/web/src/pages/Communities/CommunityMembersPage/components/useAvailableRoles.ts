@@ -2,7 +2,10 @@ import { useQuery } from "urql";
 import { useMemo } from "react";
 
 import { Role, graphql } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+
+import { checkRole } from "~/utils/communityUtils";
 
 const CommunityMembers_AvailableRolesQuery = graphql(/* GraphQL */ `
   query AvailableCommunityRoles {
@@ -28,21 +31,25 @@ const useAvailableRoles = (): UseAvailableRolesReturn => {
     query: CommunityMembers_AvailableRolesQuery,
   });
 
+  const { userAuthInfo } = useAuthorization();
+  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const communityRoles = useMemo(() => {
+    const array = ["community_recruiter", "community_manager"];
+    if (checkRole([ROLE_NAME.PlatformAdmin], roleAssignments)) {
+      array.push("community_admin");
+    }
+    return array;
+  }, [roleAssignments]);
+
   const roles: Role[] = useMemo(
     () =>
       data?.roles
         ? data.roles
             .filter(notEmpty)
             .filter((role) => role.isTeamBased)
-            .filter((role) =>
-              [
-                "community_admin",
-                "community_recruiter",
-                "community_manager",
-              ].includes(role.name),
-            ) // These roles are meant to be connected to different kinds of Communities.
+            .filter((role) => communityRoles.includes(role.name))
         : [],
-    [data?.roles],
+    [data?.roles, communityRoles],
   );
 
   return {

@@ -1,5 +1,6 @@
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
+import { useOutletContext } from "react-router-dom";
 
 import {
   Community,
@@ -9,15 +10,13 @@ import {
   UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";
 import { IconType, ToggleSection } from "@gc-digital-talent/ui";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { checkRole } from "~/utils/communityUtils";
 
 import CommunityForm from "./CommunityForm";
 import CommunityDisplay from "./CommunityDisplay";
+import { ContextType } from "../../CommunityMembersPage/components/types";
 
 const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
   fragment ViewCommunityPage_Community on Community {
@@ -79,7 +78,7 @@ const CommunitySection = ({
     emptyRequired: hasEmptyRequiredFields(data),
     fallbackIcon: sectionSolidIcon,
   });
-  const { userAuthInfo } = useAuthorization();
+  const { canAdmin } = useOutletContext<ContextType>();
 
   return (
     <ToggleSection.Root
@@ -93,10 +92,7 @@ const CommunitySection = ({
         level="h2"
         size="h3"
         toggle={
-          checkRole(
-            [ROLE_NAME.CommunityAdmin, ROLE_NAME.PlatformAdmin],
-            unpackMaybes(userAuthInfo?.roleAssignments),
-          ) ? (
+          canAdmin ? (
             <ToggleForm.LabelledTrigger
               sectionTitle={intl.formatMessage(sectionTitle)}
             />

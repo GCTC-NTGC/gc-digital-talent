@@ -47,24 +47,30 @@ export const groupRoleAssignmentsByUser = (
 /**
  * Check to see if user contains one or more roles
  *
- * @param checkRoles              Roles to check for
+ * @param roles                   Roles to check for
  * @param userRoleAssignments     Users current role assignments
+ * @param communityId             Community ID
  * @returns boolean
  */
 export const checkRole = (
-  checkRoles: RoleName[] | null,
+  roles: RoleName[] | null,
   userRoleAssignments: Maybe<RoleAssignment[]>,
+  communityId?: string,
 ): boolean => {
-  if (!checkRoles) {
+  if (!roles) {
     return true;
   }
-  const visible = checkRoles.reduce((prev, curr) => {
-    if (userRoleAssignments?.map((a) => a.role?.name)?.includes(curr)) {
-      return true;
+  const result = userRoleAssignments?.filter((roleAssignment) => {
+    if (!roleAssignment?.role?.name) {
+      return false;
     }
-
-    return prev;
-  }, false);
-
-  return visible;
+    const includes = roles.includes(roleAssignment?.role?.name as RoleName);
+    if (communityId && roleAssignment.role?.isTeamBased) {
+      return includes && communityId === roleAssignment.teamable?.id;
+    } else if (!roleAssignment.role?.isTeamBased) {
+      return includes;
+    }
+    return false;
+  });
+  return !!result?.length;
 };

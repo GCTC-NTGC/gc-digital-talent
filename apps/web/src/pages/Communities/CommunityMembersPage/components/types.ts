@@ -13,4 +13,7 @@ export type CommunityMembersPageFragment = FragmentType<
   typeof CommunityMembersPage_CommunityFragment
 >;
 
-export type ContextType = { teamId: Scalars["UUID"]["output"] };
+export type ContextType = {
+  teamId: Scalars["UUID"]["output"];
+  canAdmin: boolean;
+};

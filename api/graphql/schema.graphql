@@ -240,6 +240,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
+  id: UUID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
