@@ -29,23 +29,58 @@ ls -a
 
 You should see the same list of files visible in [the github repository online](https://github.com/GCTC-NTGC/gc-digital-talent).
 
-## PHP
+## Docker compose
 
-Ubuntu 22.04 does not come with PHP 8.2 in its repositories. Add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install PHP 8.2 with some extensions.
+[Docker](https://www.docker.com/) compose is used to run the services for this app. It should have been installed with your operating system automatically.
+
+If you haven't before, add your user to the `docker` group and activate the group:
 
 ```
-LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
-sudo apt-get install php8.2 php8.2-mbstring php8.2-xml php8.2-pgsql php8.2-zip php8.2-curl php8.2-bcmath php8.2-gd php8.2-dom php8.2-intl
+sudo usermod -aG docker $USER
+newgrp docker
 ```
+
+Double-check:
+
+```
+groups
+```
+
+## Hosts file
+
+We need to ensure that scripts running locally can find the services running in Docker.
+
+```
+sudo nano /etc/hosts
+```
+
+In the editor, add the line `127.0.0.1       postgres` to the end of the file. `Ctrl+O` and `<enter>` to save and `Ctrl+X` to exit.
 
 Double check:
 
 ```
-php --version
-php --modules
+ping -c 3 postgres
 ```
 
-The PHP version should match the value of `require.php` in [api/composer.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/api/composer.json).
+### WSL configuration
+
+> [!IMPORTANT]
+> Ignore this step if not running in WSL.
+
+WSL will overwrite the hosts file changes by default. Let's configure it not to.
+
+```
+sudo nano /etc/wsl.conf
+```
+
+Edit it in the same way as the `hosts` file. Add to the end of the file:
+
+```
+[network]
+generateHosts=false
+```
+
+Further reading: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#network-settings
 
 ## PostgreSQL
 
@@ -62,6 +97,24 @@ psql --version
 ```
 
 The version should be greater or equal to the version of `services.postgres.image` in [docker-compose.yml](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/docker-compose.yml).
+
+## PHP
+
+We use [PHP](https://www.php.net/) version 8.2 to run the backend app. Ubuntu 22.04 does not come with PHP 8.2 in its repositories so add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install it with some extensions.
+
+```
+LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
+sudo apt-get install php8.2 php8.2-mbstring php8.2-xml php8.2-pgsql php8.2-zip php8.2-curl php8.2-bcmath php8.2-gd php8.2-dom php8.2-intl
+```
+
+Double check:
+
+```
+php --version
+php --modules
+```
+
+The PHP version should match the value of `require.php` in [api/composer.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/api/composer.json).
 
 ## Composer
 
@@ -129,42 +182,6 @@ Double check:
 pnpm --version
 ```
 
-## Hosts file
-
-We need to ensure that scripts running locally can find the services running in Docker.
-
-```
-sudo nano /etc/hosts
-```
-
-In the editor, add the line `127.0.0.1       postgres` to the end of the file. `Ctrl+O` and `<enter>` to save and `Ctrl+X` to exit.
-
-Double check:
-
-```
-ping -c 3 postgres
-```
-
-### WSL configuration
-
-> [!IMPORTANT]
-> Ignore this step if not running in WSL.
-
-WSL will overwrite the hosts file changes by default. Let's configure it not to.
-
-```
-sudo nano /etc/wsl.conf
-```
-
-And add:
-
-```
-[network]
-generateHosts=false
-```
-
-Further reading: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#network-settings
-
 ## Make File
 
 A separate `make` file named [Makefile.nix](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix) is provided for convenience and reference when running on Linux. Install it from the repository.
@@ -181,23 +198,6 @@ make --version
 
 > [!TIP]
 > In VS Code, an extension like `carlos-algms.make-task-provider` can make it quick to run commands. Update the `make-task-provider.makefileNames` setting to `["Makefile.nix"]` for best results.
-
-## Docker compose
-
-[Docker](https://www.docker.com/) compose is used to run the services for this app. It should have been installed with your operating system automatically.
-
-If you haven't before, add your user to the `docker` group and activate the group:
-
-```
-sudo usermod -aG docker $USER
-newgrp docker
-```
-
-Double-check:
-
-```
-groups
-```
 
 ## Set up the project
 
