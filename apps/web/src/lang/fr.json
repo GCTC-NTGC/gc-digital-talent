@@ -9866,6 +9866,10 @@
     "defaultMessage": "Fait l’objet d’une évaluation complète en fonction de l’énoncé des critères de mérite du programme d’apprentissage en TI pour les personnes autochtones et avoir été jugé qualifié pour le rôle d’apprenti IT-01 (ou équivalent)",
     "description": "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "q2YMXX": {
+    "defaultMessage": "\"Oui, je suis un(e) employé(e) du gouvernement du Canada.\"",
+    "description": "Label displayed for is a government employee option"
+  },
   "q5FQbu": {
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
