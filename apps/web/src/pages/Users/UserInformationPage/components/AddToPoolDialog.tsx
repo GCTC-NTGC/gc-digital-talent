@@ -25,6 +25,7 @@ import {
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
+  UserInfoFragment as UserInfoFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -88,19 +89,24 @@ type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
 };
 
+type UserInfoFragmentPoolCandidates =
+  NonNullable<UserInfoFragmentType>["poolCandidates"];
+
 interface AddToPoolDialogProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName" | "poolCandidates">;
+  poolCandidates: UserInfoFragmentPoolCandidates;
 }
 
-const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
+const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
+  const { id, firstName, lastName } = user;
 
   const [{ fetching }, executeMutation] = useMutation(AddToPoolDialog_Mutation);
 
   const currentPools: string[] = [];
-  user.poolCandidates?.forEach((candidate) => {
+  poolCandidates?.forEach((candidate) => {
     if (candidate?.pool?.id) {
       currentPools.push(candidate?.pool?.id);
     }
@@ -137,7 +143,7 @@ const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
           connect: pool?.id,
         },
         user: {
-          connect: user.id,
+          connect: id,
         },
         expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
       }).catch((err) => {
@@ -240,7 +246,7 @@ const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getFullNameHtml(user.firstName, user.lastName, intl)}
+            - {getFullNameHtml(firstName, lastName, intl)}
           </p>
           <p data-h2-margin="base(x1, 0, 0, 0)">
             {intl.formatMessage({

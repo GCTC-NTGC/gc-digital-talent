@@ -63,7 +63,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationProfileProps extends ApplicationPageProps {
-  user: User;
+  user: Omit<User, "poolCandidates">;
 }
 
 export const ApplicationProfile = ({
