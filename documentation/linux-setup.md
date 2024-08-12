@@ -4,7 +4,7 @@ Sometimes it may be preferable to perform local environment maintenance directly
 
 ## Operating system
 
-This guide is written for [Ubuntu 22.04](https://releases.ubuntu.com/jammy/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will also work for using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/). Other Ubuntu variants or Linux distributions may work as well but are not documented here.
+This guide is written for [Ubuntu 22.04](https://releases.ubuntu.com/jammy/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will also work when using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/). Other Ubuntu variants or Linux distributions may work as well but are not documented here.
 
 Double check:
 
@@ -12,11 +12,9 @@ Double check:
 lsb_release -a
 ```
 
-You shoud see "Description: Ubuntu 22.04.3 LTS" or similar.
-
 ## Clone the repository
 
-[Git](https://git-scm.com/) should have been installed with your operating system automatically. Clone the repository and change into the directory:
+[Git](https://git-scm.com/) should have been installed with your operating system automatically. Clone the repository from GitHub and change into the directory.
 
 ```
 git clone https://github.com/GCTC-NTGC/gc-digital-talent.git
@@ -51,7 +49,7 @@ The PHP version should match the value of `require.php` in [api/composer.json](h
 
 ## PostgreSQL
 
-We'll need the PostrgeSQL client to build the database schema. Install it from the regular Ubuntu repository.
+We'll need the [PostrgeSQL](https://www.postgresql.org/) client to build the database schema. Install it from the regular Ubuntu repository.
 
 ```
 sudo apt-get install postgresql-client
@@ -67,7 +65,7 @@ The version should be greater or equal to the version of `services.postgres.imag
 
 ## Composer
 
-We user composer to manage our PHP project.
+We user [Composer](https://getcomposer.org/) to manage our PHP project.
 
 ```
 sudo apt-get install composer
@@ -83,9 +81,9 @@ It should be major version 2.
 
 ### Node.js
 
-We use Node.js to develop the frontend part of the app. You can install it using [nvm](https://github.com/nvm-sh/nvm).
+We use [Node.js](https://nodejs.org/en) to develop the frontend part of the app. You can install it using [nvm](https://github.com/nvm-sh/nvm).
 
-Install it from GitHub:
+Install nvm from GitHub.
 
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
@@ -100,7 +98,7 @@ Double-check:
 nvm --version
 ```
 
-Now, from inside the gc-digital-talent directory, install Node.js:
+Now, from inside the `gc-digital-talent` directory, install Node.js.
 
 ```
 nvm install
@@ -116,7 +114,7 @@ It should match the version in [.nvmrc](https://github.com/GCTC-NTGC/gc-digital-
 
 ### PNPM
 
-We use PNPM to manage the packages for the frontend part of the app. Check which version should be installed by finding the `packageManager` field in [package.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/package.json). Make sure to substitute the correct version number into the command:
+We use [PNPM](https://pnpm.io/) to manage the packages for the frontend part of the app. Check which version should be installed by finding the `packageManager` field in [package.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/package.json). Make sure to substitute the correct version number into the command.
 
 ```
 curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=<version> sh -
@@ -131,7 +129,7 @@ Double check:
 pnpm --version
 ```
 
-## Hosts File
+## Hosts file
 
 We need to ensure that scripts running locally can find the services running in Docker.
 
@@ -147,9 +145,12 @@ Double check:
 ping -c 3 postgres
 ```
 
-### WSL Only!
+### WSL configuration
 
-WSL will overwrite the hosts file changes by default. Let's configure it not to. Ignore this step if not running in WSL.
+> [!IMPORTANT]
+> Ignore this step if not running in WSL.
+
+WSL will overwrite the hosts file changes by default. Let's configure it not to.
 
 ```
 sudo nano /etc/wsl.conf
@@ -166,9 +167,7 @@ Further reading: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#networ
 
 ## Make File
 
-A separate `make` file named [Makefile.nix](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix) is provided for convenience and reference when running on Linux.
-
-Install it with:
+A separate `make` file named [Makefile.nix](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix) is provided for convenience and reference when running on Linux. Install it from the repository.
 
 ```
 sudo apt-get install make
@@ -183,17 +182,11 @@ make --version
 > [!TIP]
 > In VS Code, an extension like `carlos-algms.make-task-provider` can make it quick to run commands. Update the `make-task-provider.makefileNames` setting to `["Makefile.nix"]` for best results.
 
-## Docker Compose
+## Docker compose
 
-Docker compose is used to run the services for this app. It should have been installed with your operating system automatically.
+[Docker](https://www.docker.com/) compose is used to run the services for this app. It should have been installed with your operating system automatically.
 
-Double-check:
-
-```
-docker compose version
-```
-
-If you haven't already, add your user to the `docker` group and activate the group:
+If you haven't before, add your user to the `docker` group and activate the group:
 
 ```
 sudo usermod -aG docker $USER
@@ -206,7 +199,7 @@ Double-check:
 groups
 ```
 
-## Set Up the Project
+## Set up the project
 
 You should be ready to set up the project!
 
