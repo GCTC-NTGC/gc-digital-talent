@@ -11,7 +11,7 @@ import { ContentProps } from "./types";
 const CommunityContent = ({
   experience: { project },
   headingLevel,
-}: ContentProps<CommunityExperience>) => {
+}: ContentProps<Omit<CommunityExperience, "user">>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 

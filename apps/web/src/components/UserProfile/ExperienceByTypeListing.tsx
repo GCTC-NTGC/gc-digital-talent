@@ -92,7 +92,7 @@ const ExperienceByTypeListing = ({
     experiences
       ?.filter(isAwardExperience)
       .map(
-        (award: AwardExperience) =>
+        (award: Omit<AwardExperience, "user">) =>
           ({
             ...award,
             startDate: award.awardedDate,

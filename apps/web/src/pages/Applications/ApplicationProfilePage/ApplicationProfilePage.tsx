@@ -2,7 +2,10 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql, User } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -63,7 +66,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationProfileProps extends ApplicationPageProps {
-  user: Omit<User, "poolCandidates">;
+  user: ApplicationPoolCandidateFragmentType["user"];
 }
 
 export const ApplicationProfile = ({
