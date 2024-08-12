@@ -8,19 +8,14 @@ import { Color } from "../../types";
 
 export type Detail = { type: "text" | "chip"; color?: Color; value: ReactNode };
 
-export interface ItemProps {
+interface ItemProps {
   title: string;
   details: Detail[];
   buttonName: string;
   buttonAriaLabel?: string;
 }
 
-export const Item = ({
-  title,
-  details,
-  buttonName,
-  buttonAriaLabel,
-}: ItemProps) => {
+const Item = ({ title, details, buttonName, buttonAriaLabel }: ItemProps) => {
   const getDetail = (detail: Detail) => {
     switch (detail.type) {
       case "text":

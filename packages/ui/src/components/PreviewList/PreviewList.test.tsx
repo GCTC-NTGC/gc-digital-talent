@@ -20,7 +20,7 @@ const renderPreviewList = (
 
 const defaultProps = Default.args as RootProps;
 
-describe("Tabs", () => {
+describe("Preview List", () => {
   it("should not have accessibility errors", async () => {
     const { container } = renderPreviewList(defaultProps);
     await axeTest(container);
