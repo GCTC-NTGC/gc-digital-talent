@@ -41,8 +41,19 @@ const RemoveCommunityMemberDialog = ({
     return { roleId: role.id, teamId };
   });
 
-  const handleRemove = async () => {
-    await executeMutation({
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Member removal failed",
+        id: "fsvf1L",
+        description:
+          "Alert displayed to user when an error occurs while removing a community member",
+      }),
+    );
+  };
+
+  const handleRemove = () => {
+    executeMutation({
       updateUserRolesInput: {
         userId: user.id,
         roleAssignmentsInput: {
@@ -61,18 +72,11 @@ const RemoveCommunityMemberDialog = ({
                 "Alert displayed to user when a community member is removed",
             }),
           );
+        } else {
+          handleError();
         }
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member removal failed",
-            id: "fsvf1L",
-            description:
-              "Alert displayed to user when an error occurs while removing a community member",
-          }),
-        );
-      });
+      .catch(handleError);
   };
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
