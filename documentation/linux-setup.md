@@ -11,15 +11,15 @@ Double check:
 ```
 lsb_release -a
 ```
+You shoud see "Description:    Ubuntu 22.04.3 LTS" or similar.
 
 ## PHP
 
 Ubuntu 22.04 does not come with PHP 8.2 in its repositories. Add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install PHP 8.2 with some extensions.
 
 ```
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
-sudo apt-get install php8.2 php8.2-mbstring php8.2-xml php8.2-pgsql php8.2-zip php8.2-curl php8.2-bcmath php8.2-gd php8.2-dom
+LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
+sudo apt-get install php8.2 php8.2-mbstring php8.2-xml php8.2-pgsql php8.2-zip php8.2-curl php8.2-bcmath php8.2-gd php8.2-dom php8.2-intl
 ```
 
 Double check:
@@ -45,7 +45,7 @@ Double check:
 psql --version
 ```
 
-The version should be greater or equal to the version of `services.postgres.image` in [docker-compose.yml](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/docker-compose.yml)
+The version should be greater or equal to the version of `services.postgres.image` in [docker-compose.yml](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/docker-compose.yml).
 
 ## Composer
 
@@ -65,19 +65,18 @@ The version should be 2.
 
 ### PNPM
 
-We use PNPM to manage the packages for the javascript/typescript part of the app. Make sure to substitute the correct version number into the command:
+We use PNPM to manage the packages for the javascript/typescript part of the app. Check which version should be installed by finding the `packageManager` field in [package.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/package.json).  Make sure to substitute the correct version number into the command:
 
 ```
 curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=<version> sh -
 ```
+The install script will also instruct you to run a `source` command to activate the tool in your session.
 
 Double check:
 
 ```
 pnpm --version
 ```
-
-The version should match `packageManager` in [package.json](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/package.json).
 
 ## Hosts File
 
@@ -87,12 +86,12 @@ We need to ensure that scripts running locally can find the services running in 
 sudo nano /etc/hosts
 ```
 
-In the editor, add the line `127.0.0.1       postgres` to the end of the file. `Ctrl+O` to save and `Ctrl+X` to exit.
+In the editor, add the line `127.0.0.1       postgres` to the end of the file. `Ctrl+O` and `<enter>` to save and `Ctrl+X` to exit.
 
 Double check:
 
 ```
-host -t a postgres
+ping -c 3 postgres
 ```
 
 ### WSL Only!
@@ -107,7 +106,7 @@ And add:
 
 ```
 [network]
-generateHosts = false
+generateHosts=false
 ```
 
 Further reading: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#network-settings
@@ -116,22 +115,54 @@ Further reading: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#networ
 
 A separate `make` file named [Makefile.nix](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix) is provided for convenience and reference when running on Linux.
 
-For example:
+Install it with:
 
 ```
-make -f Makefile.nix compose_up
+sudo apt-get install make
+```
+
+Double check:
+```
+make --version
 ```
 
 > [!TIP]
 > In VS Code, an extension like `carlos-algms.make-task-provider` can make it quick to run commands. Update the `make-task-provider.makefileNames` setting to `["Makefile.nix"]` for best results.
 
+## Docker Compose
+
+Docker compose is used to run the services for this app.  It should have been installed with your operating system automatically.
+
+Double-check:
+```
+docker compose version
+```
+
+If you haven't already, add your user to the `docker` group and activate the group:
+```
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+Double-check:
+```
+groups
+```
+
 ## Set Up the Project
 
 You should be ready to set up the project!
 
-First, start up the docker compose network:
+First, clone the repository:
 
 ```
+git clone https://github.com/GCTC-NTGC/gc-digital-talent.git
+```
+
+Next, start up the docker compose network:
+
+```
+cd gc-digital-talent
 make -f Makefile.nix compose_up
 ```
 
@@ -141,4 +172,4 @@ Next, build the project:
 make -f Makefile.nix setup_all
 ```
 
-Point your browser at `http://localhost:8000` and view the home page.
+Point your browser at [http://localhost:8000](http://localhost:8000) and view the home page.
