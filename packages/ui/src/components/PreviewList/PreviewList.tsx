@@ -1,82 +1,83 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { ReactElement, ReactNode } from "react";
+import uniqueId from "lodash/uniqueId";
 
 import Button from "../Button";
-import Separator from "../Separator";
 import Chip from "../Chip/Chip";
 import { Color } from "../../types";
+import Heading, { HeadingLevel } from "../Heading";
 
-export type Detail = { type: "text" | "chip"; color?: Color; value: ReactNode };
+export type DetailProps = {
+  type: "text" | "chip";
+  color?: Color;
+  children: ReactNode;
+};
+
+const Detail = ({ children, type, color }: DetailProps) => {
+  switch (type) {
+    case "text":
+      return <span data-h2-color="base(gray.darker)">{children}</span>;
+    case "chip":
+      return (
+        <span>
+          <Chip color={color || "primary"}>{children}</Chip>
+        </span>
+      );
+    default:
+      return null;
+  }
+};
 
 interface ItemProps {
   title: string;
-  details: Detail[];
+  details: DetailProps[];
   buttonName: string;
+  headingAs?: HeadingLevel;
   buttonAriaLabel?: string;
 }
 
-const Item = ({ title, details, buttonName, buttonAriaLabel }: ItemProps) => {
-  const getDetail = (detail: Detail) => {
-    switch (detail.type) {
-      case "text":
-        return (
-          <span
-            data-h2-font-size="base(caption)"
-            data-h2-color="base(gray.darker)"
-          >
-            {detail.value}
-          </span>
-        );
-      case "chip":
-        return <Chip color={detail.color || "primary"}>{detail.value}</Chip>;
-      default:
-        return null;
-    }
-  };
+const Item = ({
+  title,
+  headingAs = "h3",
+  details,
+  buttonName,
+  buttonAriaLabel,
+}: ItemProps) => {
   return (
-    <div
+    <li
       data-h2-position="base(relative)"
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(3fr 1fr)"
+      data-h2-display="base(flex)"
+      data-h2-justify-content="base(space-between)"
       data-h2-align-items="base(flex-start) p-tablet(center)"
-      data-h2-background-color="base(foreground)"
-      data-h2-padding="base(x1)"
+      data-h2-gap="base(x.25)"
+      data-h2-padding="base(x1 0)"
       data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid)"
       data-h2-border-bottom-color="base:selectors[:not(:last-child)](gray.lighter)"
     >
       <div>
-        <p
-          data-h2-font-weight="base(bold)"
+        <Heading
+          level={headingAs}
+          size="h6"
           data-h2-text-decoration="base(underline)"
           data-h2-margin-bottom="base(x.5)"
+          data-h2-margin-top="base(0)"
         >
           {title}
-        </p>
+        </Heading>
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) p-tablet(row)"
           data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
           data-h2-align-items="base(flex-start) p-tablet(center)"
-          data-h2-gap="base(x.25, x.5)"
+          data-h2-gap="base(x.25 0)"
+          data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
+          data-h2-color="p-tablet:children[::after](gray.darker)"
+          data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.25)"
+          data-h2-font-size="base(caption)"
         >
-          {details.map((detail, index) => {
-            const last = details.length;
-            return (
-              <>
-                {getDetail(detail)}
-                {index + 1 !== last && (
-                  <span
-                    aria-hidden
-                    data-h2-font-size="base(caption)"
-                    data-h2-color="base(gray.darker)"
-                    data-h2-display="base(none) p-tablet(block)"
-                  >
-                    &bull;
-                  </span>
-                )}
-              </>
-            );
-          })}
+          {details.map((detail) => (
+            <Detail key={uniqueId()} {...detail} />
+          ))}
         </div>
       </div>
       <Button
@@ -91,7 +92,7 @@ const Item = ({ title, details, buttonName, buttonAriaLabel }: ItemProps) => {
       >
         {buttonName}
       </Button>
-    </div>
+    </li>
   );
 };
 
@@ -103,16 +104,9 @@ export interface RootProps {
 
 const Root = ({ children, ...rest }: RootProps) => {
   return (
-    <div data-h2-margin="base(x1, 0)" {...rest}>
-      {Array.isArray(children)
-        ? children.map((child) => (
-            <>
-              {child}
-              <Separator space="sm" />
-            </>
-          ))
-        : children}
-    </div>
+    <ul data-h2-margin="base(x1 0)" data-h2-padding="base(0 x1)" {...rest}>
+      {children}
+    </ul>
   );
 };
 

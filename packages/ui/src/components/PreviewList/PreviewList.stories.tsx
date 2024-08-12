@@ -3,52 +3,53 @@ import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import PreviewList, { Detail } from "./PreviewList";
+import PreviewList, { DetailProps } from "./PreviewList";
 
-const previewDetails: Detail[] = [
+const previewDetails: DetailProps[] = [
   {
     type: "chip",
     color: "secondary",
-    value: "New",
+    children: "New",
   },
-  { type: "text", value: "IT-01" },
+  { type: "text", children: "IT-01" },
   {
     type: "text",
-    value: `Manager: ${faker.person.firstName()} ${faker.person.lastName()}`,
+    children: `Manager: ${faker.person.firstName()} ${faker.person.lastName()}`,
   },
   {
     type: "text",
-    value: (
+    children: (
       <span>
-        Respond by: <span data-h2-color="base(error)">April 30th, 2024</span>
+        Respond by:{" "}
+        <span data-h2-color="base(error.darkest)">April 30th, 2024</span>
       </span>
     ),
   },
 ];
 
-const previewDetailsTwo: Detail[] = [
+const previewDetailsTwo: DetailProps[] = [
   {
     type: "chip",
     color: "secondary",
-    value: "Submitted",
+    children: "Submitted",
   },
-  { type: "text", value: "56 potential matches" },
+  { type: "text", children: "56 potential matches" },
   {
     type: "text",
-    value: "Opened on: April 30th, 2024",
+    children: "Opened on: April 30th, 2024",
   },
 ];
 
-const previewDetailsThree: Detail[] = [
+const previewDetailsThree: DetailProps[] = [
   {
     type: "chip",
     color: "warning",
-    value: "Awaiting response",
+    children: "Awaiting response",
   },
-  { type: "text", value: "12 potential matches" },
+  { type: "text", children: "12 potential matches" },
   {
     type: "text",
-    value: "Opened on: April 30th, 2024",
+    children: "Opened on: April 30th, 2024",
   },
 ];
 
