@@ -86,9 +86,8 @@ const Root = ({
       <div
         {...headingBarStyleMap[headingColor]}
         data-h2-border-radius="base(rounded rounded 0 0)"
-        data-h2-border-bottom-width="base(1px)"
-        data-h2-border-bottom-style="base(solid)"
-        data-h2-padding="base(x1) p-tablet(x1 x1.5 x1 x1.5)"
+        data-h2-border-bottom="base(1px solid)"
+        data-h2-padding="base(x1) p-tablet(x1 x1.5  )"
         data-h2-text-align="base(center)"
       >
         {/* wrapper */}
