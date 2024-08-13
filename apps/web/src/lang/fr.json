@@ -1023,6 +1023,10 @@
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
   },
+  "3e965x": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title for work location section on summary of filters section"
+  },
   "3eNQnt": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the Pool Candidates table Date Received column."
@@ -1114,6 +1118,10 @@
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
+  },
+  "4CLNTw": {
+    "defaultMessage": "Soumettre la demande",
+    "description": "Submit button text on request form."
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -3099,10 +3107,6 @@
     "defaultMessage": "Publié",
     "description": "Title displayed on the Pool table published at column"
   },
-  "FC5tje": {
-    "defaultMessage": "Autres commentaires",
-    "description": "Label for additional comments textarea in the request form."
-  },
   "FCQnWB": {
     "defaultMessage": "Créer - famille",
     "description": "Page title for the skill family creation page"
@@ -3311,6 +3315,10 @@
     "defaultMessage": "Fournir quelques détails",
     "description": "Heading for the experience type section fo the experience form"
   },
+  "GF8FPy": {
+    "defaultMessage": "Autres commentaires",
+    "description": "Title for the additional comments block for a search request"
+  },
   "GHlK/f": {
     "defaultMessage": "Handicap",
     "description": "Message for disability option in the employment equity section of the request page."
@@ -3518,6 +3526,10 @@
   "HX/Tj+": {
     "defaultMessage": "Secret",
     "description": "Secret screening level"
+  },
+  "HXF9GA": {
+    "defaultMessage": "Bassin demandé",
+    "description": "Title for the pool block in the manager info section of the single search request view."
   },
   "HYeViW": {
     "defaultMessage": "Comprendre les dates limites pour présenter une demande",
@@ -4387,10 +4399,6 @@
     "defaultMessage": "Il n’existe aucun résultat correspondant.",
     "description": "Title for when no skills match a users filters."
   },
-  "MWZgsB": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Title for work location section on summary of filters section"
-  },
   "MXZ8Ms": {
     "defaultMessage": "Si vous êtes membre d’un <link>groupe visé par l’équité en matière d’emploi</link>, vous pouvez choisir de vous autodéclarer lorsque vous créez votre profil.",
     "description": "Paragraph 1, importance of self-declaration"
@@ -4834,6 +4842,10 @@
   "P6jGb4": {
     "defaultMessage": "Veuillez préciser les exigences linguistiques",
     "description": "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "P7ItrT": {
+    "defaultMessage": "Ministère/organisation d’embauche",
+    "description": "Label for department select input in the request form"
   },
   "P7ZWZ/": {
     "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
@@ -5791,10 +5803,6 @@
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
   },
-  "UUIb3j": {
-    "defaultMessage": "Ministère/organisation d’embauche",
-    "description": "Label for department select input in the request form"
-  },
   "UXsUvN": {
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
     "description": "Context for employment equity filter in search form."
@@ -6226,10 +6234,6 @@
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
   },
-  "WqOnFF": {
-    "defaultMessage": "Autres commentaires",
-    "description": "Title for the additional comments block in the search request filters"
-  },
   "WsR0FB": {
     "defaultMessage": "IT-02 : Analyste",
     "description": "IT-02 classification label including titles"
@@ -6529,10 +6533,6 @@
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
-  },
-  "YKqt+1": {
-    "defaultMessage": "Niveau d’études",
-    "description": "Title for education level on summary of filters section"
   },
   "YMAXhb": {
     "defaultMessage": "Statut d'employé(e) du gouvernement",
@@ -7686,10 +7686,6 @@
     "defaultMessage": "Exploitez toutes les compétences sur notre site",
     "description": "Subtitle for explore skills page"
   },
-  "eTTlR0": {
-    "defaultMessage": "Soumettre la demande",
-    "description": "Submit button text on request form."
-  },
   "eWLKRt": {
     "defaultMessage": "Masquer les évaluations des compétences de {title}",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
@@ -7941,6 +7937,10 @@
   "fqa45V": {
     "defaultMessage": "Définition du niveau",
     "description": "Label for the definition of a specific skill level"
+  },
+  "ftAIM9": {
+    "defaultMessage": "Niveau d’études",
+    "description": "Title for education level on summary of filters section"
   },
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",
@@ -10161,10 +10161,6 @@
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
     "description": "Learn more dialog question five heading"
-  },
-  "rz8uPO": {
-    "defaultMessage": "Bassin demandé",
-    "description": "Title for the pool block in the manager info section of the single search request view."
   },
   "s+ObMR": {
     "defaultMessage": "Question de sélection {index}",
