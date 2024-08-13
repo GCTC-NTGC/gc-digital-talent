@@ -316,7 +316,7 @@
     "description": "Message displayed when candidate has been disqualified"
   },
   "/eSALf": {
-    "defaultMessage": "Veuillez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "defaultMessage": "Veuillez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "/esEW+": {
@@ -738,6 +738,14 @@
   "1sutYh": {
     "defaultMessage": "Familles de compétences (anglais)",
     "description": "Title for skill families in English"
+  },
+  "1vVbe3": {
+    "defaultMessage": "Minorité visible",
+    "description": "CSV Header, Visible Minority column"
+  },
+  "20vfz6": {
+    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
+    "description": "Message describing the work location filter in the search form."
   },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
@@ -8163,7 +8171,7 @@
     "description": "Description of the Office of the Chief Information Officer"
   },
   "h8AdRp": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user does not have recovery codes"
   },
   "h8BHov": {
@@ -8367,7 +8375,7 @@
     "description": "Title for the all pool candidates page"
   },
   "i20Mlb": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "i2LB7R": {
@@ -10145,10 +10153,6 @@
   "sLqKuH": {
     "defaultMessage": "Créer votre parcours professionnel",
     "description": "Title for career timeline page when there are no experiences yet"
-  },
-  "sM+4cP": {
-    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
-    "description": "Message describing the work location filter in the search form."
   },
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",

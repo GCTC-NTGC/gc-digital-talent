@@ -45,7 +45,6 @@ class PoolCandidateResource extends JsonResource
             'archivedAt' => $this->archived_at,
             'submittedAt' => $this->submitted_at,
             'suspendedAt' => $this->suspended_at,
-            'user' => new UserStubResource($this->user),
         ];
     }
 }

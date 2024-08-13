@@ -876,7 +876,7 @@
     "description": "The work region of Canada described as National Capital."
   },
   "eBNZxB": {
-    "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
+    "defaultMessage": "{count, plural, =0 {0 options sélectionnées} =1 {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
   "edeLyW": {

@@ -4,7 +4,7 @@ import { Experience } from "@gc-digital-talent/graphql";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 interface ExperienceTreeItemsProps {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 }
 
 const ExperienceTreeItems = ({ experiences }: ExperienceTreeItemsProps) => {

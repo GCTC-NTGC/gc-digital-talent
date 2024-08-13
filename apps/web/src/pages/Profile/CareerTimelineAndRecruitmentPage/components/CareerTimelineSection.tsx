@@ -15,7 +15,7 @@ import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
 
 interface CareerTimelineSectionProps {
-  experiences?: Experience[];
+  experiences?: Omit<Experience, "user">[];
   editParam?: string;
   headingLevel?: HeadingRank;
   userId?: string;
