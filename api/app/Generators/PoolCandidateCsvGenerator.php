@@ -5,6 +5,7 @@ namespace App\Generators;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -149,9 +150,9 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                         $this->localizeEnum($candidate->user->first_official_language, Language::class),
                         is_null($candidate->user->second_language_exam_completed) ? '' : $this->yesOrNo($candidate->user->second_language_exam_completed), // Bilingual evaluation
                         $this->yesOrNo($candidate->user->second_language_exam_validity),
-                        $candidate->user->comprehension_level, // Reading level
-                        $candidate->user->written_level, // Writing level
-                        $candidate->user->verbal_level, // Oral interaction level
+                        $this->localizeEnum($candidate->user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
+                        $this->localizeEnum($candidate->user->written_level, EvaluatedLanguageAbility::class), // Writing level
+                        $this->localizeEnum($candidate->user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
                         $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class),
                         $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
                         $department->name[$this->lang] ?? '', // Department

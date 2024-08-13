@@ -7,26 +7,18 @@ import {
 } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
-import { useClient, useQuery } from "urql";
+import { useQuery } from "urql";
 import { ReactNode, useState, useMemo, useRef } from "react";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  errorMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
-import {
-  SearchState,
-  SelectingFor,
-} from "~/components/Table/ResponsiveTable/types";
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -41,7 +33,6 @@ import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDoc
 import useUserDownloads from "~/hooks/useUserDownloads";
 
 import {
-  UsersTable_SelectUsersQuery,
   rolesAccessor,
   transformFormValuesToUserFilterInput,
   transformSortStateToOrderByClause,
@@ -49,7 +40,6 @@ import {
   transformUserInput,
 } from "./utils";
 import UserFilterDialog, { FormValues } from "./UserFilterDialog";
-import { getUserCsvData, getUserCsvHeaders } from "./userCsv";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -154,9 +144,6 @@ const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
-  const client = useClient();
-  const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
-  const [isSelecting, setIsSelecting] = useState<boolean>(false);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: UserFilterInput = useMemo(
@@ -181,12 +168,19 @@ const UserTable = ({ title }: UserTableProps) => {
   );
   const [filterState, setFilterState] =
     useState<UserFilterInput>(initialFilters);
-  const { downloadDoc, downloadingDoc } = useUserDownloads();
+  const { downloadDoc, downloadingDoc, downloadCsv, downloadingCsv } =
+    useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
     downloadDoc({
       ids: selectedRows,
       anonymous,
+    });
+  };
+
+  const handleCsvDownload = () => {
+    downloadCsv({
+      ids: selectedRows,
     });
   };
 
@@ -364,32 +358,6 @@ const UserTable = ({ title }: UserTableProps) => {
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);
 
-  const querySelected = async (action: SelectingFor) => {
-    setSelectingFor(action);
-    setIsSelecting(true);
-    return client
-      .query(UsersTable_SelectUsersQuery, {
-        ids: selectedRows,
-      })
-      .toPromise()
-      .then((result) => {
-        const users = unpackMaybes(result.data?.applicants);
-
-        if (result.error) {
-          toast.error(intl.formatMessage(errorMessages.unknown));
-        } else if (!users.length) {
-          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
-        }
-
-        setIsSelecting(false);
-        setSelectingFor(null);
-        return users;
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(errorMessages.unknown));
-      });
-  };
-
   const hasSelectedRows = selectedRows.length > 0;
 
   return (
@@ -419,37 +387,22 @@ const UserTable = ({ title }: UserTableProps) => {
           }),
       }}
       download={{
-        disableBtn: isSelecting,
-        fetching: isSelecting && selectingFor === "download",
-        selection: {
-          csv: {
-            headers: getUserCsvHeaders(intl),
-            data: async () => {
-              const selected = await querySelected("download");
-              return getUserCsvData(selected ?? [], intl);
-            },
-            fileName: intl.formatMessage(
-              {
-                defaultMessage: "users_{date}.csv",
-                id: "mYuXWF",
-                description: "Filename for user CSV file download",
-              },
-              {
-                date: new Date().toISOString(),
-              },
-            ),
-          },
+        csv: {
+          enable: true,
+          onClick: handleCsvDownload,
+          downloading: downloadingCsv,
         },
-      }}
-      print={{
-        component: (
-          <DownloadUsersDocButton
-            inTable
-            disabled={!hasSelectedRows || downloadingDoc}
-            onClick={handleDocDownload}
-            isDownloading={downloadingDoc}
-          />
-        ),
+        doc: {
+          enable: true,
+          component: (
+            <DownloadUsersDocButton
+              inTable
+              disabled={!hasSelectedRows || downloadingDoc}
+              onClick={handleDocDownload}
+              isDownloading={downloadingDoc}
+            />
+          ),
+        },
       }}
       pagination={{
         internal: false,
