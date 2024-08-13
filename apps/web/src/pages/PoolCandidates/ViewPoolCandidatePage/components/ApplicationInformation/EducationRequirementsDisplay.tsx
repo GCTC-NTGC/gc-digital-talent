@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Maybe, PoolCandidate } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEducationRequirementOption,
@@ -10,14 +10,119 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 
+const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment EducationRequirement_PoolCandidate on PoolCandidate {
+    pool {
+      classification {
+        group
+      }
+    }
+    educationRequirementOption {
+      value
+    }
+    educationRequirementExperiences {
+      id
+      details
+      user {
+        id
+        email
+      }
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+  }
+`);
+
 interface EducationRequirementsDisplayProps {
-  application?: Maybe<PoolCandidate>; // comes from snapshot
+  educationRequirementQuery: FragmentType<
+    typeof EducationRequirement_PoolCandidateFragment
+  >;
 }
 
 const EducationRequirementsDisplay = ({
-  application,
+  educationRequirementQuery,
 }: EducationRequirementsDisplayProps) => {
   const intl = useIntl();
+  const application = getFragment(
+    EducationRequirement_PoolCandidateFragment,
+    educationRequirementQuery,
+  );
 
   const classificationGroup = application?.pool.classification?.group ?? "";
 

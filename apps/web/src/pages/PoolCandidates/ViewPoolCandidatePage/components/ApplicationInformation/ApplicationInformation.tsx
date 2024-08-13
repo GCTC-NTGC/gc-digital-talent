@@ -1,6 +1,7 @@
 import { useState, Fragment } from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import { snakeCase } from "lodash";
 
 import {
   FragmentType,
@@ -39,6 +40,9 @@ import DownloadButton from "../MoreActions/DownloadButton";
 
 const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationInformation_PoolFragment on Pool {
+    classification {
+      group
+    }
     poolSkills {
       id
       skill {
@@ -64,29 +68,42 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   }
 `);
 
-// stopgap as screening questions become general questions while a new screening questions backend is set up
-// preserve snapshot functionality
-type ScreeningQuestion = {
-  id: Scalars["ID"]["output"];
-  question?: Maybe<LocalizedString>;
-  sortOrder?: Maybe<Scalars["Int"]["output"]>;
-};
-
-type ScreeningQuestionResponse = {
-  answer?: Maybe<Scalars["String"]["output"]>;
-  screeningQuestion?: Maybe<ScreeningQuestion>;
-  id: Scalars["ID"]["output"];
-};
+const ApplicationInformation_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment ApplicationInformation_PoolCandidate on PoolCandidate {
+    id
+    submittedAt
+    signature
+    ...EducationRequirement_PoolCandidate
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
+    generalQuestionResponses {
+      id
+      answer
+      generalQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
-  application?: // comes from snapshot
-  | (PoolCandidate & {
-        screeningQuestionResponses?: Maybe<
-          Array<Maybe<ScreeningQuestionResponse>>
-        >;
-      })
-    | null;
+  applicationQuery: FragmentType<
+    typeof ApplicationInformation_PoolCandidateFragment
+  >;
   snapshot: User; // recreated from Json
   defaultOpen?: boolean;
 }
@@ -94,11 +111,15 @@ interface ApplicationInformationProps {
 const ApplicationInformation = ({
   poolQuery,
   snapshot,
-  application,
+  applicationQuery,
   defaultOpen = false,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
   const pool = getFragment(ApplicationInformation_PoolFragment, poolQuery);
+  const application = getFragment(
+    ApplicationInformation_PoolCandidateFragment,
+    applicationQuery,
+  );
   const [openSections, setOpenSections] = useState<string[]>(
     defaultOpen ? Object.values(SECTION_KEY) : [],
   );
@@ -157,7 +178,7 @@ const ApplicationInformation = ({
           data-h2-gap="base(0 x.5)"
         >
           {application && (
-            <DownloadButton id={application.id} userId={application.user.id} />
+            <DownloadButton id={application.id} userId={snapshot.id} />
           )}
           <Button mode="inline" color="secondary" onClick={toggleSections}>
             {hasOpenSections
@@ -277,7 +298,9 @@ const ApplicationInformation = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <EducationRequirementsDisplay application={application} />
+            <EducationRequirementsDisplay
+              educationRequirementQuery={application}
+            />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.ESSENTIAL}>
