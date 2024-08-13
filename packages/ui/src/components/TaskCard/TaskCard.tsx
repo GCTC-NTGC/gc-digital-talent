@@ -115,7 +115,7 @@ const TaskCard = ({
         >
           {Icon ? (
             <Icon
-              data-h2-display="base(none) p-tablet(unset)"
+              data-h2-display="base(none) p-tablet(initial)"
               data-h2-height="base(x1)"
               data-h2-width="base(auto)"
             />
