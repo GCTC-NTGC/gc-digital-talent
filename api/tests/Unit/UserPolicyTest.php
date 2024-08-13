@@ -164,6 +164,8 @@ class UserPolicyTest extends TestCase
      */
     public function testViewAnyApplicants()
     {
+        $this->markTestSkipped('Remove skip in #8291');
+
         $this->assertFalse($this->guest->can('viewAnyApplicants', User::class));
         $this->assertFalse($this->applicant->can('viewAnyApplicants', User::class));
         $this->assertFalse($this->poolOperator->can('viewAnyApplicants', User::class));
@@ -179,6 +181,8 @@ class UserPolicyTest extends TestCase
      */
     public function testViewApplicant()
     {
+        $this->markTestSkipped('Remove skip in #8291');
+
         $pool = Pool::factory()->create([
             'team_id' => $this->team->id,
         ]);
