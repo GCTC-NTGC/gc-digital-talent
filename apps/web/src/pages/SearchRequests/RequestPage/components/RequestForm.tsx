@@ -458,8 +458,8 @@ export const RequestForm = ({
                 id="department"
                 name="department"
                 label={intl.formatMessage({
-                  defaultMessage: "Department / Hiring Organization",
-                  id: "UUIb3j",
+                  defaultMessage: "Department / Hiring organization",
+                  id: "P7ItrT",
                   description:
                     "Label for department select input in the request form",
                 })}
@@ -640,10 +640,10 @@ export const RequestForm = ({
               id="additionalComments"
               name="additionalComments"
               label={intl.formatMessage({
-                defaultMessage: "Additional Comments",
-                id: "FC5tje",
+                defaultMessage: "Additional comments",
+                id: "GF8FPy",
                 description:
-                  "Label for additional comments textarea in the request form.",
+                  "Title for the additional comments block for a search request",
               })}
               rows={8}
             />
@@ -688,8 +688,8 @@ export const RequestForm = ({
           >
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Submit Request",
-                id: "eTTlR0",
+                defaultMessage: "Submit request",
+                id: "4CLNTw",
                 description: "Submit button text on request form.",
               })}
             />

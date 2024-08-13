@@ -14,12 +14,12 @@ import {
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
-  User,
   PoolCandidate,
   UpdatePoolCandidateStatusInput,
   graphql,
   FragmentType,
   getFragment,
+  User,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -68,7 +68,7 @@ interface ChangeDateDialogProps {
   selectedCandidateQuery: FragmentType<
     typeof ChangeDateDialog_PoolCandidateFragment
   >;
-  user: User;
+  user: Pick<User, "firstName" | "lastName">;
 }
 
 const ChangeDateDialog = ({
@@ -82,6 +82,7 @@ const ChangeDateDialog = ({
     ChangeDateDialog_PoolCandidateFragment,
     selectedCandidateQuery,
   );
+  const { firstName, lastName } = user;
 
   const [{ fetching }, executeMutation] = useMutation(
     UpdatePoolCandidateStatus_Mutation,
@@ -163,7 +164,7 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getFullNameHtml(user.firstName, user.lastName, intl)}
+            - {getFullNameHtml(firstName, lastName, intl)}
           </p>
           <p data-h2-margin="base(x1, 0, 0, 0)">
             {intl.formatMessage({

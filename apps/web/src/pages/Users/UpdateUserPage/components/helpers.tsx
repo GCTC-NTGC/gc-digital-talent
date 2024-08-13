@@ -30,13 +30,15 @@ export function teamRolesCell(displayNames: string[]) {
 
 export function actionCell(
   role: Role,
-  user: User,
+  user: Pick<User, "id" | "firstName" | "lastName">,
   onUpdateUserRoles: UpdateUserRolesFunc,
 ) {
   return (
     <RemoveIndividualRoleDialog
       role={role}
-      user={user}
+      userId={user.id}
+      firstName={user.firstName}
+      lastName={user.lastName}
       onUpdateUserRoles={onUpdateUserRoles}
     />
   );
@@ -44,7 +46,7 @@ export function actionCell(
 
 export function teamActionCell(
   teamAssignment: TeamAssignment,
-  user: User,
+  user: Pick<User, "id" | "firstName" | "lastName">,
   onUpdateUserRoles: UpdateUserRolesFunc,
   availableRoles: Role[],
 ) {

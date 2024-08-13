@@ -1,4 +1,7 @@
-import { User, Pool, PoolCandidate } from "@gc-digital-talent/graphql";
+import {
+  Pool,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import {
   generalQuestionsSectionHasMissingResponses,
@@ -6,9 +9,9 @@ import {
 } from "~/validators/profile";
 
 const stepHasError = (
-  _user: User,
+  _user: ApplicationPoolCandidateFragmentType["user"],
   pool: Pool,
-  application: Omit<PoolCandidate, "pool">,
+  application: ApplicationPoolCandidateFragmentType,
 ) => {
   return (
     generalQuestionsSectionHasMissingResponses(application, pool) ||

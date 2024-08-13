@@ -632,9 +632,6 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
       id
       experiences {
         id
-        user {
-          id
-        }
         ...ExperienceFormExperience
       }
     }

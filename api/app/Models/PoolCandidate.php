@@ -1119,6 +1119,11 @@ class PoolCandidate extends Model
             if ($isApplicationScreening) {
                 $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
 
+                // automatically to assess if education results null or empty
+                if (! isset($educationResults) || count($educationResults) == 0) {
+                    $hasToAssess = true;
+                }
+
                 foreach ($educationResults as $result) {
                     if (! $result || is_null($result->assessment_decision)) {
                         $hasToAssess = true;

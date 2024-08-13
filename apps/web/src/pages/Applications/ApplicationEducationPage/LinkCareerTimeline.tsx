@@ -206,7 +206,7 @@ const CheckListSection = ({
 };
 
 interface LinkCareerTimelineProps {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   previousStepPath: string;
   classificationGroup?: string;
 }
@@ -220,7 +220,7 @@ const LinkCareerTimeline = ({
   const experienceItems = experiences.reduce(
     (
       checklistItems: ExperienceItems,
-      experience: Experience,
+      experience: Omit<Experience, "user">,
     ): ExperienceItems => {
       if (isEducationExperience(experience)) {
         const educationExperience = {

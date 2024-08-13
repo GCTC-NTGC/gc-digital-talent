@@ -35,18 +35,18 @@ export type ExperienceType =
   | "work";
 
 export type AnyExperience =
-  | AwardExperience
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
+  | Omit<AwardExperience, "user">
+  | Omit<CommunityExperience, "user">
+  | Omit<EducationExperience, "user">
+  | Omit<PersonalExperience, "user">
+  | Omit<WorkExperience, "user">;
 
 export type ExperienceForDate =
-  | (AwardExperience & { startDate: string; endDate: string })
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
+  | (Omit<AwardExperience, "user"> & { startDate: string; endDate: string })
+  | Omit<CommunityExperience, "user">
+  | Omit<EducationExperience, "user">
+  | Omit<PersonalExperience, "user">
+  | Omit<WorkExperience, "user">;
 
 type FormValueDateRange = {
   startDate: Scalars["Date"]["input"];

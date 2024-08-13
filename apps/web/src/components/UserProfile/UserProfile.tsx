@@ -14,7 +14,7 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { User } from "@gc-digital-talent/graphql";
+import type { AdminUserProfileUserFragment } from "@gc-digital-talent/graphql";
 
 import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 
@@ -28,7 +28,7 @@ import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import SkillShowcaseSection from "./SkillShowcaseSection";
 
 interface UserProfileProps {
-  user: User;
+  user: AdminUserProfileUserFragment;
   headingLevel?: HeadingRank;
 }
 
