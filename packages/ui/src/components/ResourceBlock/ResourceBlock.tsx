@@ -109,14 +109,8 @@ const Root = ({
   );
 };
 
-interface ItemProps {
-  title: string;
-  href: LinkProps["href"];
-  description: string;
-  state?: "incomplete" | "complete";
-}
-
-const getStateIcon = (state: ItemProps["state"]): ReactNode | null => {
+// an icon pinned to the top-right to show the completion state
+const StateIcon = ({ state }: { state: ItemProps["state"] }) => {
   const commonStyles: HydrogenAttributes = {
     "data-h2-width": "base(20px)",
     "data-h2-height": "base(20px)",
@@ -134,6 +128,13 @@ const getStateIcon = (state: ItemProps["state"]): ReactNode | null => {
   }
   return null;
 };
+
+interface ItemProps {
+  title: string;
+  href: LinkProps["href"];
+  description: string;
+  state?: "incomplete" | "complete";
+}
 
 const Item = ({ title, href, description, state }: ItemProps) => {
   const extraStateStyles =
@@ -153,11 +154,11 @@ const Item = ({ title, href, description, state }: ItemProps) => {
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x0.15)"
       data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.lighter)"
-      // make the containing block for status icon
+      // make the containing block for state icon
       data-h2-position="base(relative)"
       {...extraStateStyles}
     >
-      {getStateIcon(state)}
+      <StateIcon state={state} />
       <div
         data-h2-display="base(flex)"
         data-h2-gap="base(x0.15)"

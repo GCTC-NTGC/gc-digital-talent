@@ -4,7 +4,6 @@ import { faker } from "@faker-js/faker/locale/en";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import ResourceBlock, { colorOptions } from "./ResourceBlock";
-import Link from "../Link";
 
 faker.seed(0);
 
