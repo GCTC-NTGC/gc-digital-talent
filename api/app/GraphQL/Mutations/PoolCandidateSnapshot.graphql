@@ -152,10 +152,6 @@ query getProfile($userId: UUID!) {
     positionDuration
     userSkills {
       id
-      user {
-        id
-        email
-      }
       skill {
         id
         key
@@ -176,10 +172,6 @@ query getProfile($userId: UUID!) {
       # profileExperience fragment
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -271,10 +263,6 @@ query getProfile($userId: UUID!) {
     isProfileComplete
     poolCandidates {
       id
-      user {
-        id
-        email
-      }
       status {
         value
         label {
@@ -333,10 +321,6 @@ query getProfile($userId: UUID!) {
         id
         __typename
         details
-        user {
-          id
-          email
-        }
         skills {
           id
           key

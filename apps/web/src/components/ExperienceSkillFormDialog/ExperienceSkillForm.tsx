@@ -17,7 +17,7 @@ const TEXT_AREA_MAX_WORDS = 160;
 
 const getSkillArgs = (
   skillId: Scalars["ID"]["output"],
-  experience?: Experience,
+  experience?: Omit<Experience, "user">,
   details?: string,
   remove?: boolean,
 ) => {
@@ -47,7 +47,7 @@ type FormValues = {
 
 interface ExperienceSkillFormProps {
   defaultValues: FormValues;
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   onSuccess: () => void;
 }
 

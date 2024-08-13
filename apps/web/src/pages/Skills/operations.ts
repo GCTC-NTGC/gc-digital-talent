@@ -111,9 +111,6 @@ const UserSkills_Query = graphql(/* GraphQL */ `
         skillLevel
         topSkillsRank
         improveSkillsRank
-        user {
-          id
-        }
         skill {
           id
           key
@@ -131,9 +128,6 @@ const UserSkills_Query = graphql(/* GraphQL */ `
         }
         experiences {
           id
-          user {
-            id
-          }
         }
       }
     }
