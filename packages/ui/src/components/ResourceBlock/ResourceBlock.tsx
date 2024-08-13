@@ -1,11 +1,11 @@
-import { cloneElement, ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ArrowRightIcon from "@heroicons/react/20/solid/ArrowRightIcon";
 
 import { HeadingLevel } from "../Heading";
 import { headingStyles } from "../Heading/styles";
-import { LinkProps } from "../Link";
+import Link, { LinkProps } from "../Link";
 import { HydrogenAttributes } from "../../types";
 
 export const colorOptions = [
@@ -110,7 +110,8 @@ const Root = ({
 };
 
 interface ItemProps {
-  link: ReactElement<LinkProps>;
+  title: string;
+  href: LinkProps["href"];
   description: string;
   state?: "incomplete" | "complete";
 }
@@ -134,21 +135,7 @@ const getStateIcon = (state: ItemProps["state"]): ReactNode | null => {
   return null;
 };
 
-const Item = ({ link: rawLink, description, state }: ItemProps) => {
-  // prepare link
-  const link = rawLink
-    ? cloneElement(rawLink, {
-        color: "black",
-        // yuck, style exception 😞
-        "data-h2-font-weight": "base(bold)",
-        // big click target black magic 🧙
-        "data-h2-position": "base:selectors[::after](absolute)",
-        "data-h2-content": "base:selectors[::after](' ')",
-        "data-h2-inset": "base:selectors[::after](0)",
-        "data-h2-justify-self": "base(end)",
-      })
-    : null;
-
+const Item = ({ title, href, description, state }: ItemProps) => {
   const extraStateStyles =
     state === "incomplete"
       ? {
@@ -176,7 +163,19 @@ const Item = ({ link: rawLink, description, state }: ItemProps) => {
         data-h2-gap="base(x0.15)"
         data-h2-align-items="base(center)"
       >
-        {link}
+        <Link
+          href={href}
+          color="black"
+          // yuck, style exception 😞
+          data-h2-font-weight="base(bold)"
+          // big click target black magic 🧙
+          data-h2-position="base:selectors[::after](absolute)"
+          data-h2-content="base:selectors[::after](' ')"
+          data-h2-inset="base:selectors[::after](0)"
+          data-h2-justify-self="base(end)"
+        >
+          {title}
+        </Link>
         <ArrowRightIcon
           data-h2-width="base(20px)"
           data-h2-height="base(20px)"
