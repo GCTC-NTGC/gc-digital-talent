@@ -84,7 +84,7 @@ Further reading: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#networ
 
 ## PostgreSQL
 
-We'll need the [PostrgeSQL](https://www.postgresql.org/) client to build the database schema. Install it from the regular Ubuntu repository.
+We'll need the [PostgreSQL](https://www.postgresql.org/) client to build the database schema. Install it from the regular Ubuntu repository.
 
 ```
 sudo apt-get install postgresql-client
@@ -132,7 +132,7 @@ composer --version
 
 It should be major version 2.
 
-### Node.js
+## Node.js
 
 We use [Node.js](https://nodejs.org/en) to develop the frontend part of the app. You can install it using [nvm](https://github.com/nvm-sh/nvm).
 
@@ -182,7 +182,7 @@ Double check:
 pnpm --version
 ```
 
-## Make File
+## Makefile
 
 A separate `make` file named [Makefile.nix](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix) is provided for convenience and reference when running on Linux. Install it from the repository.
 
