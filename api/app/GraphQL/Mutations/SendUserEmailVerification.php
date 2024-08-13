@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 final class SendUserEmailVerification
 {
@@ -11,9 +11,10 @@ final class SendUserEmailVerification
      *
      * @param  array{}  $args
      */
-    public function __invoke($_, array $args)
+    public function __invoke($_)
     {
-        $user = User::find($args['id']);
+        /** @var \App\Models\User */
+        $user = Auth::user();
         $user->sendEmailVerificationNotification();
 
         return $user;
