@@ -177,8 +177,8 @@ const ApplicantFilters = ({
           />
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Pool Requested",
-              id: "rz8uPO",
+              defaultMessage: "Pool requested",
+              id: "HXF9GA",
               description:
                 "Title for the pool block in the manager info section of the single search request view.",
             })}
@@ -235,8 +235,8 @@ const ApplicantFilters = ({
           />
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Education Level",
-              id: "YKqt+1",
+              defaultMessage: "Education level",
+              id: "ftAIM9",
               description:
                 "Title for education level on summary of filters section",
             })}
@@ -262,8 +262,8 @@ const ApplicantFilters = ({
           )}
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Work Location",
-              id: "MWZgsB",
+              defaultMessage: "Work location",
+              id: "3e965x",
               description:
                 "Title for work location section on summary of filters section",
             })}
@@ -410,8 +410,8 @@ const SearchRequestFilters = ({
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Pool Requested",
-                id: "rz8uPO",
+                defaultMessage: "Pool requested",
+                id: "HXF9GA",
                 description:
                   "Title for the pool block in the manager info section of the single search request view.",
               })}
@@ -443,8 +443,8 @@ const SearchRequestFilters = ({
             />
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Education Level",
-                id: "YKqt+1",
+                defaultMessage: "Education level",
+                id: "ftAIM9",
                 description:
                   "Title for education level on summary of filters section",
               })}
@@ -461,8 +461,8 @@ const SearchRequestFilters = ({
               />
               <FilterBlock
                 title={intl.formatMessage({
-                  defaultMessage: "Work Location",
-                  id: "MWZgsB",
+                  defaultMessage: "Work location",
+                  id: "3e965x",
                   description:
                     "Title for work location section on summary of filters section",
                 })}
