@@ -256,8 +256,8 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
         })}
         text={intl.formatMessage({
           defaultMessage:
-            "If you have more detailed work location requirement, let us know in the comment section of the submission form. You can select more than one region.",
-          id: "sM+4cP",
+            "If you have more detailed work location requirements, let us know in the comment section of the submission form. You can select more than one region.",
+          id: "20vfz6",
           description:
             "Message describing the work location filter in the search form.",
         })}

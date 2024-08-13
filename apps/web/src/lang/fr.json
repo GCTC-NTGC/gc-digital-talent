@@ -747,6 +747,10 @@
     "defaultMessage": "Minorité visible",
     "description": "CSV Header, Visible Minority column"
   },
+  "20vfz6": {
+    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
+    "description": "Message describing the work location filter in the search form."
+  },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
@@ -10225,10 +10229,6 @@
   "sLqKuH": {
     "defaultMessage": "Créer votre parcours professionnel",
     "description": "Title for career timeline page when there are no experiences yet"
-  },
-  "sM+4cP": {
-    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
-    "description": "Message describing the work location filter in the search form."
   },
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
