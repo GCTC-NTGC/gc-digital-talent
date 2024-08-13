@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useRef } from "react";
+import { useIntl } from "react-intl";
 
 import {
   Heading,
@@ -6,7 +7,9 @@ import {
   Breadcrumbs,
   type BreadcrumbsProps,
   Flourish,
+  Crumb,
 } from "@gc-digital-talent/ui";
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 import BackgroundGraphic from "./BackgroundPattern";
 
@@ -37,6 +40,7 @@ interface HeroProps {
   title: ReactNode;
   subtitle?: ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
+  simpleCrumbs?: boolean;
   children?: ReactNode;
   centered?: boolean;
   linkSlot?: ReactNode;
@@ -50,7 +54,9 @@ const Hero = ({
   children,
   linkSlot,
   centered = false,
+  simpleCrumbs = false,
 }: HeroProps) => {
+  const intl = useIntl();
   const headingRef = useRef<HeadingRef>(null);
   const showImg = imgPath && !centered && !children;
   const breadCrumbs =
@@ -167,6 +173,30 @@ const Hero = ({
               >
                 {linkSlot}
               </div>
+            )}
+            {simpleCrumbs && crumbs && (
+              <nav
+                aria-label={intl.formatMessage(uiMessages.breadcrumbs)}
+                data-h2-padding-top="base(x2)"
+              >
+                <ol
+                  data-h2-list-style="base(none)"
+                  data-h2-display="base(flex) base:children[>li](inline-block)"
+                  data-h2-flex-wrap="base(wrap)"
+                  data-h2-gap="base(x.5)"
+                  data-h2-padding="base(0)"
+                >
+                  {crumbs.map((crumb, index) => (
+                    <Crumb
+                      key={crumb.url}
+                      url={crumb.url}
+                      isCurrent={index + 1 === crumbs.length}
+                    >
+                      {crumb.label}
+                    </Crumb>
+                  ))}
+                </ol>
+              </nav>
             )}
           </div>
         </div>

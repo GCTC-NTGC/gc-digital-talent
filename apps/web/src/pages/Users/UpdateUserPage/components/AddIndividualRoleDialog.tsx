@@ -22,12 +22,15 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+
 type FormValues = {
   roles: Array<string>;
 };
 
 interface AddIndividualRoleDialogProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
   availableRoles: Array<Role>;
   onAddRoles: (
     submitData: UpdateUserRolesInput,
@@ -36,12 +39,14 @@ interface AddIndividualRoleDialogProps {
 
 const AddIndividualRoleDialog = ({
   user,
+  authInfo,
   availableRoles,
   onAddRoles,
 }: AddIndividualRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const { id, firstName, lastName } = user;
+  const userName = getFullNameHtml(firstName, lastName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -60,7 +65,7 @@ const AddIndividualRoleDialog = ({
     });
 
     return onAddRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
         attach: roleInputArray,
       },
@@ -87,7 +92,7 @@ const AddIndividualRoleDialog = ({
     .filter((role) => {
       return (
         !role.isTeamBased &&
-        !user?.authInfo?.roleAssignments?.some(
+        !authInfo?.roleAssignments?.some(
           (assignment) => assignment?.role?.id === role.id,
         )
       );

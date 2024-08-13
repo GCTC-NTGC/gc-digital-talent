@@ -39,6 +39,8 @@ const columnHelper =
 const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
   fragment PoolStatusTable on User {
     id
+    firstName
+    lastName
     poolCandidates {
       id
       status {
@@ -51,9 +53,6 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         processNumber
@@ -162,7 +161,12 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       {
         id: "status",
         enableHiding: false,
-        cell: ({ row: { original: candidate } }) => statusCell(candidate, user),
+        cell: ({ row: { original: candidate } }) =>
+          statusCell(candidate, {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            poolCandidates: user.poolCandidates,
+          }),
         header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },
@@ -222,7 +226,11 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       id: "expiryDate",
       enableHiding: false,
       sortingFn: "datetime",
-      cell: ({ row: { original: candidate } }) => expiryCell(candidate, user),
+      cell: ({ row: { original: candidate } }) =>
+        expiryCell(candidate, {
+          firstName: user.firstName,
+          lastName: user.lastName,
+        }),
       header: intl.formatMessage({
         defaultMessage: "Expiry date",
         id: "STDYoR",

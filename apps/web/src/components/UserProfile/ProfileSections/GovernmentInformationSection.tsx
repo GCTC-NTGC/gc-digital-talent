@@ -10,13 +10,35 @@ import { User } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 
-const GovernmentInformationSection = ({ user }: { user: User }) => {
+interface GovernmentInformationSectionProps {
+  user: Pick<
+    User,
+    | "isGovEmployee"
+    | "department"
+    | "govEmployeeType"
+    | "currentClassification"
+    | "hasPriorityEntitlement"
+    | "priorityNumber"
+  >;
+}
+
+const GovernmentInformationSection = ({
+  user,
+}: GovernmentInformationSectionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const {
+    isGovEmployee,
+    department,
+    govEmployeeType,
+    currentClassification,
+    hasPriorityEntitlement,
+    priorityNumber,
+  } = user;
 
   return (
     <Well>
-      {user.isGovEmployee && (
+      {isGovEmployee && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -38,7 +60,7 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
               </span>
             </p>
           </div>
-          {user.department && (
+          {department && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
@@ -50,12 +72,12 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {user.department.name[locale]}
+                  {department.name[locale]}
                 </span>
               </p>
             </div>
           )}
-          {user.govEmployeeType && (
+          {govEmployeeType && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
@@ -66,35 +88,34 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {getLocalizedName(user.govEmployeeType.label, intl)}
+                  {getLocalizedName(govEmployeeType.label, intl)}
                 </span>
               </p>
             </div>
           )}
-          {!!user.currentClassification?.group &&
-            !!user.currentClassification?.level && (
-              <div data-h2-flex-item="base(1of1)">
-                <p>
-                  <span data-h2-display="base(block)">
-                    {intl.formatMessage({
-                      defaultMessage: "Current group and classification:",
-                      id: "MuyuAu",
-                      description:
-                        "Field label before government employment group and level, followed by colon",
-                    })}
-                  </span>
-                  <span data-h2-font-weight="base(700)">
-                    {wrapAbbr(
-                      `${user.currentClassification?.group}-${user.currentClassification?.level}`,
-                      intl,
-                    )}
-                  </span>
-                </p>
-              </div>
-            )}
+          {!!currentClassification?.group && !!currentClassification?.level && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Current group and classification:",
+                    id: "MuyuAu",
+                    description:
+                      "Field label before government employment group and level, followed by colon",
+                  })}
+                </span>
+                <span data-h2-font-weight="base(700)">
+                  {wrapAbbr(
+                    `${currentClassification?.group}-${currentClassification?.level}`,
+                    intl,
+                  )}
+                </span>
+              </p>
+            </div>
+          )}
         </div>
       )}
-      {user.isGovEmployee === false && (
+      {isGovEmployee === false && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -109,7 +130,7 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
           </div>
         </div>
       )}
-      {user.isGovEmployee === false && (
+      {isGovEmployee === false && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -123,7 +144,7 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
           </div>
         </div>
       )}
-      {user.hasPriorityEntitlement !== null && (
+      {hasPriorityEntitlement !== null && (
         <div
           data-h2-flex-grid="base(flex-start, x2, x1)"
           data-h2-padding="base(x1, 0, 0, 0)"
@@ -139,7 +160,7 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
                 })}
               </span>
               <span data-h2-font-weight="base(700)">
-                {user.hasPriorityEntitlement
+                {hasPriorityEntitlement
                   ? intl.formatMessage({
                       defaultMessage: "I do have a priority entitlement",
                       id: "+tKl71",
@@ -153,7 +174,7 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
               </span>
             </p>
           </div>
-          {user.hasPriorityEntitlement && (
+          {hasPriorityEntitlement && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
@@ -164,8 +185,8 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {user.priorityNumber
-                    ? user.priorityNumber
+                  {priorityNumber
+                    ? priorityNumber
                     : intl.formatMessage(commonMessages.notProvided)}
                 </span>
               </p>
@@ -174,7 +195,7 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
         </div>
       )}
 
-      {user.isGovEmployee === null && user.hasPriorityEntitlement === null && (
+      {isGovEmployee === null && hasPriorityEntitlement === null && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>

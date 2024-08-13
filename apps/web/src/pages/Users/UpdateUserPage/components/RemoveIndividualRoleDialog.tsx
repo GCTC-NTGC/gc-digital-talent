@@ -10,20 +10,24 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Role, User } from "@gc-digital-talent/graphql";
+import { Maybe, Role } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 import { UpdateUserRolesFunc } from "../types";
 
 interface RemoveIndividualRoleDialogProps {
-  user: User;
+  userId: string;
+  firstName?: Maybe<string>;
+  lastName?: Maybe<string>;
   role: Role;
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const RemoveIndividualRoleDialog = ({
-  user,
+  userId,
+  firstName,
+  lastName,
   role,
   onUpdateUserRoles,
 }: RemoveIndividualRoleDialogProps) => {
@@ -34,7 +38,7 @@ const RemoveIndividualRoleDialog = ({
   const handleRemove = async () => {
     setIsDeleting(true);
     return onUpdateUserRoles({
-      userId: user.id,
+      userId: userId,
       roleAssignmentsInput: {
         detach: [{ roleId: role.id }],
       },
@@ -53,7 +57,7 @@ const RemoveIndividualRoleDialog = ({
       .finally(() => setIsDeleting(false));
   };
 
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const userName = getFullNameHtml(firstName, lastName, intl);
   const roleDisplayName = getLocalizedName(role.displayName, intl);
 
   const label = intl.formatMessage(

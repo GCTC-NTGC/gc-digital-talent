@@ -27,8 +27,24 @@ const SendVerificationEmail_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+type PartialUser = Pick<
+  User,
+  | "firstName"
+  | "lastName"
+  | "email"
+  | "isEmailVerified"
+  | "telephone"
+  | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
+  | "currentCity"
+  | "currentProvince"
+  | "citizenship"
+  | "armedForcesStatus"
+>;
+
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
   showEmailVerification?: boolean;
 }
 
