@@ -6,7 +6,6 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import TaskCard, { colorOptions } from "./TaskCard";
 import Well from "../Well";
-import Link from "../Link";
 
 faker.seed(0);
 
@@ -43,8 +42,11 @@ const Template: StoryFn<typeof TaskCard> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   icon: UsersIcon,
-  title: "Your active applications",
-  link: <Link href="#">Browse new jobs</Link>,
+  title: "Your active applications for this pool",
+  link: {
+    label: "Browse new jobs",
+    href: "#",
+  },
 };
 
 export const NoExtras = Template.bind({});

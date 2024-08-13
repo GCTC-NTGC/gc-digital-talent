@@ -1,7 +1,7 @@
 import { cloneElement, ReactElement, ReactNode } from "react";
 
 import { IconType } from "../../types";
-import { LinkProps } from "../Link";
+import Link, { LinkProps } from "../Link";
 import { HeadingLevel } from "../Heading";
 import { headingStyles } from "../Heading/styles";
 
@@ -60,7 +60,10 @@ export interface TaskCardProps {
   icon?: IconType;
   title: ReactNode;
   headingColor?: CardColor;
-  link?: ReactElement<LinkProps>;
+  link?: {
+    label: string;
+    href: LinkProps["href"];
+  };
   headingAs?: HeadingLevel;
   children?: ReactNode;
 }
@@ -69,17 +72,10 @@ const TaskCard = ({
   icon,
   title,
   headingColor = "primary",
-  link: rawLink,
+  link,
   headingAs = "h3",
   children,
 }: TaskCardProps) => {
-  // prepare link
-  const headingBarLink = rawLink
-    ? cloneElement(rawLink, {
-        color: headingColor,
-      })
-    : null;
-
   // prepare icon element
   const Icon = icon;
 
@@ -127,7 +123,11 @@ const TaskCard = ({
             {title}
           </HeadingTextElement>
         </div>
-        {headingBarLink}
+        {link ? (
+          <Link color={headingColor} href={link.href}>
+            {link.label}
+          </Link>
+        ) : null}
       </div>
       {/* content */}
       <div>{children}</div>
