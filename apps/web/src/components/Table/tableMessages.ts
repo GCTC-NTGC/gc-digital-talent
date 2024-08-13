@@ -7,8 +7,9 @@ const messages = defineMessages({
     description: "Default message for an empty table",
   },
   noRowsSelected: {
-    defaultMessage: "You must select at least one row to download.",
-    id: "zCj3LK",
+    defaultMessage:
+      "You have not selected any items. Please select at least one item to download.",
+    id: "E/0Y+7",
     description:
       "Warning message when user attempts to download without selecting items first",
   },

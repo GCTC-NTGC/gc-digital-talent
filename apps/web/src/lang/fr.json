@@ -739,10 +739,6 @@
     "defaultMessage": "Familles de compétences (anglais)",
     "description": "Title for skill families in English"
   },
-  "1vVbe3": {
-    "defaultMessage": "Minorité visible",
-    "description": "CSV Header, Visible Minority column"
-  },
   "20vfz6": {
     "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
     "description": "Message describing the work location filter in the search form."
@@ -2898,6 +2894,10 @@
   "Dzyk1q": {
     "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les personnes autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
+  },
+  "E/0Y+7": {
+    "defaultMessage": "Vous n'avez sélectionné aucun élément. Veuillez sélectionner au moins un élément à télécharger.",
+    "description": "Warning message when user attempts to download without selecting items first"
   },
   "E0HXwp": {
     "defaultMessage": "Pour la raison suivante",
