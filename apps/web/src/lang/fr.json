@@ -1955,6 +1955,10 @@
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "8oFk6S": {
+    "defaultMessage": "Mise à jour de la collectivité réussie!",
+    "description": "Message displayed after a community is updated"
+  },
   "8oOKi9": {
     "defaultMessage": "Erreur : impossible de mettre à jour le statut du placement du candidat",
     "description": "Message displayed when an error occurs while updating pool candidate's job placement status"

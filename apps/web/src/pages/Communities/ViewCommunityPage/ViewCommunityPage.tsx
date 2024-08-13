@@ -58,7 +58,13 @@ const ViewCommunityPage = () => {
     return executeMutation({ id: communityId, community: input }).then(
       (result) => {
         if (result.data?.updateCommunity) {
-          toast.success(intl.formatMessage(commonMessages.success));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Community updated successfully!",
+              id: "8oFk6S",
+              description: "Message displayed after a community is updated",
+            }),
+          );
           return;
         }
         throw new Error("Failed to save community");
