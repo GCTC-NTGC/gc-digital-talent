@@ -54,7 +54,7 @@ We need to ensure that scripts running locally can find the services running in 
 sudo nano /etc/hosts
 ```
 
-In the editor, add the line `127.0.0.1       postgres` to the end of the file. `Ctrl+O` and `<enter>` to save and `Ctrl+X` to exit.
+In the editor, add the line `127.0.0.1       postgres` to the end of the file. `Ctrl+S` to save and `Ctrl+X` to exit.
 
 Double check:
 
