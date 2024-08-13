@@ -1,15 +1,10 @@
 import { useState, Fragment } from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import { snakeCase } from "lodash";
 
 import {
   FragmentType,
-  LocalizedString,
-  Maybe,
-  PoolCandidate,
   PoolSkillType,
-  Scalars,
   SkillCategory,
   User,
   getFragment,
