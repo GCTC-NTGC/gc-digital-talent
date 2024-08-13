@@ -9846,6 +9846,10 @@
     "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",
     "description": "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_"
   },
+  "prb1eH": {
+    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. <strong>Si les deux s'appliquent à vous, sélectionnez les critères d'études.</strong>",
+    "description": "Description for radio group section in application education page."
+  },
   "ptOxLJ": {
     "defaultMessage": "Information sur le bassin",
     "description": "Title for pool information"
@@ -10153,10 +10157,6 @@
   "rxDfeN": {
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
-  },
-  "rxo7fM": {
-    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. Si les deux s’appliquent à vous, c’est formidable! N’hésitez pas à sélectionner l’option qui correspond le mieux à vos qualifications.",
-    "description": "Description for radio group section in application education page."
   },
   "ry3jFR": {
     "defaultMessage": "Votre impact",
