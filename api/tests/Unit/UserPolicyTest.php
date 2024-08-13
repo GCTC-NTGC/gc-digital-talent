@@ -162,7 +162,7 @@ class UserPolicyTest extends TestCase
      *
      * @return void
      */
-    public function viewAnyApplicants()
+    public function testViewAnyApplicants()
     {
         $this->assertFalse($this->guest->can('viewAnyApplicants', User::class));
         $this->assertFalse($this->applicant->can('viewAnyApplicants', User::class));
@@ -177,7 +177,7 @@ class UserPolicyTest extends TestCase
      *
      * @return void
      */
-    public function viewApplicant()
+    public function testViewApplicant()
     {
         $pool = Pool::factory()->create([
             'team_id' => $this->team->id,
