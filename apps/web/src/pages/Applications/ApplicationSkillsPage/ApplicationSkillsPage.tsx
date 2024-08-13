@@ -13,7 +13,7 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { apiMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   Experience,
@@ -110,7 +110,7 @@ export const ApplicationSkills = ({
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 
   const isSkillsExperiencesIncomplete = isIncomplete(
-    application.user?.experiences?.filter(notEmpty),
+    experiences,
     application.pool,
   );
 
