@@ -18,9 +18,11 @@ import {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { CommunityMember } from "~/utils/communityUtils";
+import { checkRole, CommunityMember } from "~/utils/communityUtils";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -57,6 +59,9 @@ const EditCommunityMemberDialog = ({
     formState: { isSubmitting },
   } = methods;
 
+  const { userAuthInfo } = useAuthorization();
+  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+
   const handleSave = async (formValues: CommunityMemberFormValues) => {
     const rolesToAttach = formValues.roles.filter(
       (role) => !initialRolesIds.includes(role),
@@ -64,11 +69,20 @@ const EditCommunityMemberDialog = ({
     const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
       return { roleId: role, teamId };
     });
-    const rolesToDetach = initialRolesIds.filter(
-      (role) => !formValues.roles.includes(role),
+    const hasPlatformAdmin = checkRole(
+      [ROLE_NAME.PlatformAdmin],
+      roleAssignments,
     );
-    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
-      return { roleId: role, teamId };
+
+    const rolesToDetach = initialRolesIds.filter((roleId) => {
+      const role = user.roles.find((userRole) => userRole.id === roleId);
+      if (!hasPlatformAdmin && role?.name === "community_admin") {
+        return false;
+      }
+      return !formValues.roles.includes(roleId);
+    });
+    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((roleId) => {
+      return { roleId, teamId };
     });
 
     await executeMutation({
