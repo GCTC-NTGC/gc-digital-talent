@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Enums\PoolCandidateStatus;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
@@ -182,5 +183,58 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         ], $candidateIds->toArray());
     }
 
-    // TODO: add tests for new roles as part of #10609
+    // process operator can only see the submitted candidate attached to their pool thru authorizedToView
+    public function testScopeAuthorizedToViewAsProcessOperator(): void
+    {
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asProcessOperator($this->poolA->id)
+                ->create());
+
+        $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->candidateSubmitted2A->id,
+        ], $poolCandidateIds);
+    }
+
+    // community recruiter only sees submitted candidate attached to poolB as it is in turn attached to the community thru authorizedToView
+    public function testScopeAuthorizedToViewAsCommunityRecruiter(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolB->community_id = $community->id;
+        $this->poolB->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityRecruiter($community->id)
+                ->create());
+
+        $queryBuilder = Pool::query();
+        $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->candidateSubmitted1B->id,
+        ], $poolCandidateIds);
+    }
+
+    // community admin only sees submitted candidate attached to poolA as it is in turn attached to the community thru authorizedToView
+    public function testScopeAuthorizedToViewAsCommunityAdmin(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolA->community_id = $community->id;
+        $this->poolA->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityAdmin($community->id)
+                ->create());
+
+        $queryBuilder = Pool::query();
+        $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->candidateSubmitted2A->id,
+        ], $poolCandidateIds);
+    }
 }

@@ -294,8 +294,7 @@ class PoolAuthorizationScopeTest extends TestCase
                 ->asProcessOperator($this->poolDraft1->id)
                 ->create());
 
-        $queryBuilder = Pool::query();
-        $poolIds = Pool::authorizedToAdmin($queryBuilder)->get()->pluck('id')->toArray();
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $this->poolDraft1->id,
@@ -314,8 +313,7 @@ class PoolAuthorizationScopeTest extends TestCase
                 ->asCommunityRecruiter($community->id)
                 ->create());
 
-        $queryBuilder = Pool::query();
-        $poolIds = Pool::authorizedToAdmin($queryBuilder)->get()->pluck('id')->toArray();
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $this->poolPublished1->id,
@@ -334,8 +332,7 @@ class PoolAuthorizationScopeTest extends TestCase
                 ->asCommunityAdmin($community->id)
                 ->create());
 
-        $queryBuilder = Pool::query();
-        $poolIds = Pool::authorizedToAdmin($queryBuilder)->get()->pluck('id')->toArray();
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $this->poolPublished1->id,
