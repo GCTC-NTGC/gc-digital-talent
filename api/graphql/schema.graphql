@@ -2184,7 +2184,7 @@ type Mutation {
   updateCommunity(
     id: UUID!
     community: UpdateCommunityInput! @spread
-  ): Community @update @canModel(ability: "update") @validator
+  ): Community @update @canFind(ability: "update", find: "id") @validator
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
