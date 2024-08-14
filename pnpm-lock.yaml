@@ -217,9 +217,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.1(vite@5.4.0(@types/node@22.1.0)(lightningcss@1.25.1)(terser@5.31.1))
-      core-js:
-        specifier: ^3.37.1
-        version: 3.37.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -4616,9 +4613,6 @@ packages:
 
   core-js-compat@3.37.1:
     resolution: {integrity: sha512-9TNiImhKvQqSUkOvk/mMRZzOANTiEVC7WaBNhHcKM7x+/5E1l5NvsysR19zuDQScE8k+kfQXWRN3AtS/eOSHpg==}
-
-  core-js@3.37.1:
-    resolution: {integrity: sha512-Xn6qmxrQZyB0FFY8E3bgRXei3lWDJHhvI+u0q9TKIYM49G8pAr0FgnnrFRAmsbptZL1yxRADVXn+x5AGsbBfyw==}
 
   cosmiconfig@8.3.6:
     resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
@@ -12736,8 +12730,6 @@ snapshots:
   core-js-compat@3.37.1:
     dependencies:
       browserslist: 4.23.1
-
-  core-js@3.37.1: {}
 
   cosmiconfig@8.3.6(typescript@5.5.4):
     dependencies:
