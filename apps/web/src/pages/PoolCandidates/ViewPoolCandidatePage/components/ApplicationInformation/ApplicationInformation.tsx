@@ -87,7 +87,7 @@ interface ApplicationInformationProps {
         >;
       })
     | null;
-  snapshot: User;
+  snapshot: User; // recreated from Json
   defaultOpen?: boolean;
 }
 

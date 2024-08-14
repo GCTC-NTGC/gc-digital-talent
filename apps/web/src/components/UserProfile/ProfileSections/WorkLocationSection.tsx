@@ -10,10 +10,15 @@ import {
   hasAllEmptyFields,
 } from "~/validators/profile/workLocation";
 
-const WorkLocationSection = ({ user }: { user: User }) => {
+interface WorkLocationSectionProps {
+  user: Pick<User, "locationPreferences" | "locationExemptions">;
+}
+
+const WorkLocationSection = ({ user }: WorkLocationSectionProps) => {
   const intl = useIntl();
+  const { locationPreferences, locationExemptions } = user;
   // generate array of location preferences localized and formatted with spaces/commas
-  const regionPreferencesSquished = user.locationPreferences?.map((region) =>
+  const regionPreferencesSquished = locationPreferences?.map((region) =>
     getLocalizedName(region?.label, intl, true),
   );
   const regionPreferences = regionPreferencesSquished
@@ -37,7 +42,7 @@ const WorkLocationSection = ({ user }: { user: User }) => {
             </p>
           </div>
         )}
-        {!!user.locationExemptions && (
+        {!!locationExemptions && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               <span data-h2-display="base(block)">
@@ -48,9 +53,7 @@ const WorkLocationSection = ({ user }: { user: User }) => {
                 })}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
-              <span data-h2-font-weight="base(700)">
-                {user.locationExemptions}
-              </span>
+              <span data-h2-font-weight="base(700)">{locationExemptions}</span>
             </p>
           </div>
         )}

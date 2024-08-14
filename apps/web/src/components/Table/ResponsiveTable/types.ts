@@ -9,10 +9,8 @@ import {
   AriaAttributes,
   HTMLAttributes,
   HTMLProps,
-  ReactElement,
   ReactNode,
   JSX,
-  MouseEventHandler,
 } from "react";
 
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
@@ -28,8 +26,6 @@ export type SearchColumn = {
   label: string;
   value: string;
 };
-
-export type SelectingFor = "print" | "download" | null;
 
 export type RowSelectDef<T> = {
   /** Label for the "select all" checkbox in the header */
@@ -98,34 +94,22 @@ export type AddDef = {
   component?: ReactNode;
 };
 
-/** Extract props we need for the download button used in `RowSelection.Actions` */
 type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
 
-/** Props for a CSV download button */
-export type DatasetDownloadItem = {
-  /** The props required for CSV Download */
-  csv: Csv;
-  /** The label to display in the button */
-  label?: ReactNode;
+type DownloadButton = {
+  enable?: boolean;
+  downloading?: boolean;
+  component?: ReactNode;
+  onClick?: () => void;
 };
 
-/** Controls the download buttons in `RowSelection.Actions` */
-export type DatasetDownload = {
-  /** Props for the download button when items are selected */
-  selection?: DatasetDownloadItem;
-  /** Props for the download button for all items */
-  all?: DatasetDownloadItem;
-  /** Show loading icon when download data is being fetched */
-  fetching?: boolean;
-  /** Disabled the button for download */
-  disableBtn?: boolean;
-};
-
-/** Controls the print button in `RowSelection.Actions` */
-export type DatasetPrint = {
-  onPrint?: MouseEventHandler;
-  label?: ReactNode;
-  component?: ReactElement;
+export type DownloadDef = {
+  csv?: DownloadButton;
+  doc?: DownloadButton;
+  all?: {
+    csv: Csv;
+    label?: ReactNode;
+  };
 };
 
 export type PaginationDef = {

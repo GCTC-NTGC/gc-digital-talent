@@ -26,6 +26,8 @@ import {
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+
 const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
   query AddTeamRoleTeams {
     teams {
@@ -44,7 +46,8 @@ type FormValues = {
 };
 
 interface AddTeamRoleDialogProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
   availableRoles: Array<Role>;
   onAddRoles: (
     submitData: UpdateUserRolesInput,
@@ -53,12 +56,14 @@ interface AddTeamRoleDialogProps {
 
 const AddTeamRoleDialog = ({
   user,
+  authInfo,
   availableRoles,
   onAddRoles,
 }: AddTeamRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const { id, firstName, lastName } = user;
+  const userName = getFullNameHtml(firstName, lastName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -86,7 +91,7 @@ const AddTeamRoleDialog = ({
     });
 
     return onAddRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
         attach: roleInputArray,
       },
@@ -118,13 +123,13 @@ const AddTeamRoleDialog = ({
 
   const teamId = watch("team");
   useEffect(() => {
-    const roleAssignments = user?.authInfo?.roleAssignments || [];
+    const roleAssignments = authInfo?.roleAssignments || [];
     const activeRoleIds = roleAssignments
       .filter((ra) => ra?.team?.id === teamId)
       .map((r) => r?.role?.id)
       .filter(notEmpty);
     setValue("roles", activeRoleIds);
-  }, [user?.authInfo?.roleAssignments, teamId, setValue]);
+  }, [authInfo?.roleAssignments, teamId, setValue]);
 
   const [{ data: teamsData }] = useQuery({
     query: AddTeamRoleTeams_Query,

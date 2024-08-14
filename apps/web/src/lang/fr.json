@@ -316,7 +316,7 @@
     "description": "Message displayed when candidate has been disqualified"
   },
   "/eSALf": {
-    "defaultMessage": "Veuillez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "defaultMessage": "Veuillez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "/esEW+": {
@@ -575,10 +575,6 @@
     "defaultMessage": "Note spéciale (anglais)",
     "description": "Label for a process' English special note"
   },
-  "114gjj": {
-    "defaultMessage": "Préférences de lieux",
-    "description": "CSV Header, Location Preferences column"
-  },
   "13fSK+": {
     "defaultMessage": "La date de soumission est dépassée",
     "description": "Status for an application that where the recruitment has expired"
@@ -743,9 +739,9 @@
     "defaultMessage": "Familles de compétences (anglais)",
     "description": "Title for skill families in English"
   },
-  "1vVbe3": {
-    "defaultMessage": "Minorité visible",
-    "description": "CSV Header, Visible Minority column"
+  "20vfz6": {
+    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
+    "description": "Message describing the work location filter in the search form."
   },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
@@ -1023,6 +1019,10 @@
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
   },
+  "3e965x": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title for work location section on summary of filters section"
+  },
   "3eNQnt": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the Pool Candidates table Date Received column."
@@ -1114,6 +1114,10 @@
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
+  },
+  "4CLNTw": {
+    "defaultMessage": "Soumettre la demande",
+    "description": "Submit button text on request form."
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -1935,10 +1939,6 @@
     "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
   },
-  "8mt/5/": {
-    "defaultMessage": "Exemptions de lieux",
-    "description": "CSV Header, Location Exemptions column"
-  },
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
@@ -2159,10 +2159,6 @@
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
   },
-  "A1QU9O": {
-    "defaultMessage": "Statut des forces armées",
-    "description": "CSV Header, Armed Forces column"
-  },
   "A2VzLX": {
     "defaultMessage": "Lieu précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
@@ -2274,10 +2270,6 @@
   "AhZlU1": {
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
-  },
-  "AijsNM": {
-    "defaultMessage": "Désactivé",
-    "description": "CSV Header, Disabled column"
   },
   "AinG8I": {
     "defaultMessage": "Sélectionnez « oui » si l’un des éléments ci-dessus s’applique.",
@@ -2731,10 +2723,6 @@
     "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
-  "DHfumB": {
-    "defaultMessage": "Employé du gouvernement",
-    "description": "CSV Header, Government Employee column"
-  },
   "DJL4F5": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
@@ -2839,10 +2827,6 @@
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences qui sont liées à votre profil, et votre démonstration des compétences. Sélectionnez le titre d’une compétences pour gérer de plus amples détails, y compris les détails ayant trait à votre niveau et à vos expériences de carrière connexes.",
     "description": "Description on how to use behavioural skills"
   },
-  "DlBusi": {
-    "defaultMessage": "Nom de famille",
-    "description": "CSV Header, Last Name column"
-  },
   "DnXch4": {
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
     "description": "Message displayed to user after assessment step fails to be saved."
@@ -2891,10 +2875,6 @@
     "defaultMessage": "Inscrivez-vous dès maintenant",
     "description": "Button text to apply for program"
   },
-  "DwTEsB": {
-    "defaultMessage": "Type d'employé",
-    "description": "CSV Header, Employee Type column"
-  },
   "DxNuJ9": {
     "defaultMessage": "Demander à recevoir des candidats de tous les bassins",
     "description": "Button text to submit search request for candidates across all pools"
@@ -2922,6 +2902,10 @@
   "Dzyk1q": {
     "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les personnes autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
+  },
+  "E/0Y+7": {
+    "defaultMessage": "Vous n'avez sélectionné aucun élément. Veuillez sélectionner au moins un élément à télécharger.",
+    "description": "Warning message when user attempts to download without selecting items first"
   },
   "E0HXwp": {
     "defaultMessage": "Pour la raison suivante",
@@ -3099,10 +3083,6 @@
     "defaultMessage": "Publié",
     "description": "Title displayed on the Pool table published at column"
   },
-  "FC5tje": {
-    "defaultMessage": "Autres commentaires",
-    "description": "Label for additional comments textarea in the request form."
-  },
   "FCQnWB": {
     "defaultMessage": "Créer - famille",
     "description": "Page title for the skill family creation page"
@@ -3174,10 +3154,6 @@
   "FVEh7L": {
     "defaultMessage": "Date limite",
     "description": "Label for pool advertisement closing date"
-  },
-  "FWftu5": {
-    "defaultMessage": "Citoyenneté",
-    "description": "CSV Header, Citizenship column"
   },
   "FXJMDV": {
     "defaultMessage": "Direction générale",
@@ -3310,6 +3286,10 @@
   "GB3LDj": {
     "defaultMessage": "Fournir quelques détails",
     "description": "Heading for the experience type section fo the experience form"
+  },
+  "GF8FPy": {
+    "defaultMessage": "Autres commentaires",
+    "description": "Title for the additional comments block for a search request"
   },
   "GHlK/f": {
     "defaultMessage": "Handicap",
@@ -3518,6 +3498,10 @@
   "HX/Tj+": {
     "defaultMessage": "Secret",
     "description": "Secret screening level"
+  },
+  "HXF9GA": {
+    "defaultMessage": "Bassin demandé",
+    "description": "Title for the pool block in the manager info section of the single search request view."
   },
   "HYeViW": {
     "defaultMessage": "Comprendre les dates limites pour présenter une demande",
@@ -4123,10 +4107,6 @@
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
   },
-  "KrrW7D": {
-    "defaultMessage": "Imprimer la sélection",
-    "description": "Text label for button to print items in a table."
-  },
   "KsRa41": {
     "defaultMessage": "un contrat concurrentiel pour faire appel à plusieurs développeurs de logiciels pour une capacité de surcharge;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -4386,10 +4366,6 @@
   "MUxI+G": {
     "defaultMessage": "Il n’existe aucun résultat correspondant.",
     "description": "Title for when no skills match a users filters."
-  },
-  "MWZgsB": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Title for work location section on summary of filters section"
   },
   "MXZ8Ms": {
     "defaultMessage": "Si vous êtes membre d’un <link>groupe visé par l’équité en matière d’emploi</link>, vous pouvez choisir de vous autodéclarer lorsque vous créez votre profil.",
@@ -4835,6 +4811,10 @@
     "defaultMessage": "Veuillez préciser les exigences linguistiques",
     "description": "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_"
   },
+  "P7ItrT": {
+    "defaultMessage": "Ministère/organisation d’embauche",
+    "description": "Label for department select input in the request form"
+  },
   "P7ZWZ/": {
     "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
     "description": "Describes the 'your impact' section of a process' advertisement."
@@ -4974,10 +4954,6 @@
   "Q+7LUo": {
     "defaultMessage": "Trouver et associer une compétence à votre expérience de parcours professionnel",
     "description": "Title for the find a skill dialog within an experience"
-  },
-  "Q/clLF": {
-    "defaultMessage": "Langue",
-    "description": "CSV Header, Language column"
   },
   "Q/f5AF": {
     "defaultMessage": "Bienvenue, {firstName}",
@@ -5791,10 +5767,6 @@
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
   },
-  "UUIb3j": {
-    "defaultMessage": "Ministère/organisation d’embauche",
-    "description": "Label for department select input in the request form"
-  },
   "UXsUvN": {
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
     "description": "Context for employment equity filter in search form."
@@ -6226,10 +6198,6 @@
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
   },
-  "WqOnFF": {
-    "defaultMessage": "Autres commentaires",
-    "description": "Title for the additional comments block in the search request filters"
-  },
   "WsR0FB": {
     "defaultMessage": "IT-02 : Analyste",
     "description": "IT-02 classification label including titles"
@@ -6529,10 +6497,6 @@
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
-  },
-  "YKqt+1": {
-    "defaultMessage": "Niveau d’études",
-    "description": "Title for education level on summary of filters section"
   },
   "YMAXhb": {
     "defaultMessage": "Statut d'employé(e) du gouvernement",
@@ -6897,10 +6861,6 @@
   "aFPUbm": {
     "defaultMessage": "Passez en revue votre profil",
     "description": "Page title for the application profile page"
-  },
-  "aGaaPi": {
-    "defaultMessage": "Femme",
-    "description": "CSV Header, Woman column"
   },
   "aH4Suk": {
     "defaultMessage": "Un plan en lien avec talents pour l’initiative numérique a-t-il été soumis précédemment pour cette initiative?",
@@ -7634,10 +7594,6 @@
     "defaultMessage": "\"C\" est le niveau le plus élevé et il s’agit d’un niveau avancé.",
     "description": "Proficiency level on language requirements dialog"
   },
-  "eCK3Ng": {
-    "defaultMessage": "Accepter les temporaires",
-    "description": "CSV Header, Accept Temporary column"
-  },
   "eCkRlc": {
     "defaultMessage": "Cette section résume votre parcours professionnel tel qu’il sera perçu par les gestionnaires d’embauche pour ces postes.",
     "description": "Blurb for career timeline section of the application review page."
@@ -7685,10 +7641,6 @@
   "eTOg2E": {
     "defaultMessage": "Exploitez toutes les compétences sur notre site",
     "description": "Subtitle for explore skills page"
-  },
-  "eTTlR0": {
-    "defaultMessage": "Soumettre la demande",
-    "description": "Submit button text on request form."
   },
   "eWLKRt": {
     "defaultMessage": "Masquer les évaluations des compétences de {title}",
@@ -7822,10 +7774,6 @@
     "defaultMessage": "Le Portail des talents autochtones a été créé pour la communauté autochtone par la communauté autochtone.",
     "description": "Talent portal information sentence 1"
   },
-  "fFznH0": {
-    "defaultMessage": "Postes en anglais ou en français",
-    "description": "English or French Positions message"
-  },
   "fHEsA5": {
     "defaultMessage": "Le BIA a pour mission d’intégrer les talents autochtones dans la main-d’œuvre des TI du GC et de simplifier le processus d’embauche pour vous.",
     "description": "Paragraph 1 for the 'Indigenous talent ready for IT apprenticeships' section"
@@ -7942,6 +7890,10 @@
     "defaultMessage": "Définition du niveau",
     "description": "Label for the definition of a specific skill level"
   },
+  "ftAIM9": {
+    "defaultMessage": "Niveau d’études",
+    "description": "Title for education level on summary of filters section"
+  },
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",
     "description": "Button text to indicate that a specific application’s ID has been copied"
@@ -8057,10 +8009,6 @@
   "gJ7CQw": {
     "defaultMessage": "Communiquez avec l’équipe",
     "description": "Link to send an email to the team"
-  },
-  "gKXZaj": {
-    "defaultMessage": "Numéro de priorité",
-    "description": "CSV Header, Priority Number column"
   },
   "gKyog2": {
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
@@ -8223,16 +8171,12 @@
     "description": "Description of the Office of the Chief Information Officer"
   },
   "h8AdRp": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user does not have recovery codes"
   },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
-  },
-  "h9dLBX": {
-    "defaultMessage": "Droit de priorité",
-    "description": "CSV Header, Priority Entitlement column"
   },
   "hAAMFa": {
     "defaultMessage": "Agrandir toutes les sections d'informations complémentaires",
@@ -8285,10 +8229,6 @@
   "hL7Y6p": {
     "defaultMessage": "(Aucune compétence requise)",
     "description": "Message displayed when no skills are required for a pool"
-  },
-  "hMRpmG": {
-    "defaultMessage": "Classification actuelle",
-    "description": "CSV Header, Current Classification column"
   },
   "hNq2Lk": {
     "defaultMessage": "Traitement de l’information et services de télécommunications connexes",
@@ -8435,7 +8375,7 @@
     "description": "Title for the all pool candidates page"
   },
   "i20Mlb": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "i2LB7R": {
@@ -9246,10 +9186,6 @@
     "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
     "description": "A process has no assessment plan"
   },
-  "mYuXWF": {
-    "defaultMessage": "utilisateurs_{date}.csv",
-    "description": "Filename for user CSV file download"
-  },
   "mZ1C/0": {
     "defaultMessage": "Paramètres des notifications",
     "description": "Title for the notification settings."
@@ -9770,10 +9706,6 @@
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
   },
-  "pXLPjN": {
-    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle.",
-    "description": "Statement for completion of a Public Service Commission evaluation of a second official language"
-  },
   "pXiwEH": {
     "defaultMessage": "Fermer immédiatement",
     "description": "Option to close the pool"
@@ -9841,6 +9773,10 @@
   "ppJF9L": {
     "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",
     "description": "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "prb1eH": {
+    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. <strong>Si les deux s'appliquent à vous, sélectionnez les critères d'études.</strong>",
+    "description": "Description for radio group section in application education page."
   },
   "ptOxLJ": {
     "defaultMessage": "Information sur le bassin",
@@ -9946,10 +9882,6 @@
     "defaultMessage": "Candidat rétabli avec succès",
     "description": "Success message for reinstating a candidate"
   },
-  "qT9sS0": {
-    "defaultMessage": "Postes en français",
-    "description": "French Positions message"
-  },
   "qUkJSG": {
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
@@ -9985,10 +9917,6 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
-  },
-  "qs/dFw": {
-    "defaultMessage": "Exigences de fonctionnement acceptées",
-    "description": "CSV Header, Accepted Operation Requirements column"
   },
   "qs09PP": {
     "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
@@ -10150,10 +10078,6 @@
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "rxo7fM": {
-    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. Si les deux s’appliquent à vous, c’est formidable! N’hésitez pas à sélectionner l’option qui correspond le mieux à vos qualifications.",
-    "description": "Description for radio group section in application education page."
-  },
   "ry3jFR": {
     "defaultMessage": "Votre impact",
     "description": "Sub title for the pool introduction"
@@ -10161,10 +10085,6 @@
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
     "description": "Learn more dialog question five heading"
-  },
-  "rz8uPO": {
-    "defaultMessage": "Bassin demandé",
-    "description": "Title for the pool block in the manager info section of the single search request view."
   },
   "s+ObMR": {
     "defaultMessage": "Question de sélection {index}",
@@ -10210,6 +10130,10 @@
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the add user to pool dialog"
   },
+  "sIcsTo": {
+    "defaultMessage": "Télécharger le document",
+    "description": "Text label for button to download a document file of items in a table."
+  },
   "sJYWPi": {
     "defaultMessage": "L’importance de l’autodéclaration",
     "description": "Title for self-declaration section"
@@ -10225,10 +10149,6 @@
   "sLqKuH": {
     "defaultMessage": "Créer votre parcours professionnel",
     "description": "Title for career timeline page when there are no experiences yet"
-  },
-  "sM+4cP": {
-    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
-    "description": "Message describing the work location filter in the search form."
   },
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
@@ -10393,10 +10313,6 @@
   "tJnBx1": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "SEO description of the application on the homepage"
-  },
-  "tK7cGP": {
-    "defaultMessage": "Première langue officielle",
-    "description": "CSV Header, first official language column"
   },
   "tKtdVT": {
     "defaultMessage": "Apprenez-en davantage<hidden> sur les emplois de cadre supérieur</hidden>",
@@ -10610,10 +10526,6 @@
     "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle compétence\" pour commencer.",
     "description": "Null message description for essential skills table."
   },
-  "ukL9do": {
-    "defaultMessage": "Prénom",
-    "description": "CSV Header, First Name column"
-  },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
@@ -10693,10 +10605,6 @@
   "vEniKQ": {
     "defaultMessage": "Annulation des modifications",
     "description": "Button text to cancel editing a profile section"
-  },
-  "vFMPHW": {
-    "defaultMessage": "Postes en anglais",
-    "description": "English Positions message"
   },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",

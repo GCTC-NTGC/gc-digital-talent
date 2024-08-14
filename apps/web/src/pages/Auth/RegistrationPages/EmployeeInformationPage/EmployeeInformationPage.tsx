@@ -284,7 +284,6 @@ export const EmployeeInformationFormFields = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 options={groupOptions}
-                doNotSort
               />
               <Select
                 id="currentClassificationLevel"

@@ -14,10 +14,6 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
       experiences {
         id
         __typename
-        user {
-          id
-          email
-        }
         details
         skills {
           id

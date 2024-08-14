@@ -1852,12 +1852,8 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
-  sendUserEmailVerification(id: ID!): User
-    @guard
-    @canFind(ability: "update", find: "id")
-  verifyUserEmail(id: ID!, code: String!): User
-    @guard
-    @canFind(ability: "update", find: "id")
+  sendUserEmailVerification: User @guard
+  verifyUserEmail(code: String!): User @guard
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(
@@ -2238,6 +2234,7 @@ type Mutation {
   # File downloads
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
 }

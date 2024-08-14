@@ -261,7 +261,7 @@ const SupportingEvidence = ({
   skill,
   headingAs = "h4",
 }: {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   skill?: Skill;
   headingAs?: HeadingLevel;
 }) => {

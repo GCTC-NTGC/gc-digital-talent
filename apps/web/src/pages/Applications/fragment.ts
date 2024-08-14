@@ -151,10 +151,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       experiences {
         id
         __typename
-        user {
-          id
-          email
-        }
         details
         skills {
           id
@@ -348,10 +344,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       id
       __typename
       details
-      user {
-        id
-        email
-      }
       ... on AwardExperience {
         title
         issuedBy

@@ -10,11 +10,10 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
-  mutation SendUserEmailVerification($id: ID!) {
-    sendUserEmailVerification(id: $id) {
+  mutation SendUserEmailVerification {
+    sendUserEmailVerification {
       id
       isEmailVerified
     }
@@ -22,8 +21,8 @@ const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
 `);
 
 const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
-  mutation VerifyUserEmail($id: ID!, $code: String!) {
-    verifyUserEmail(id: $id, code: $code) {
+  mutation VerifyUserEmail($code: String!) {
+    verifyUserEmail(code: $code) {
       id
       isEmailVerified
     }
@@ -69,7 +68,6 @@ const EmailVerification = ({
 }: EmailVerificationProps) => {
   const intl = useIntl();
   const logger = useLogger();
-  const { userAuthInfo } = useAuthorization();
   const [, executeSendEmailMutation] = useMutation(
     SendUserEmailVerification_Mutation,
   );
@@ -93,9 +91,7 @@ const EmailVerification = ({
   }, [canRequestACode]);
 
   const requestACode = async () => {
-    executeSendEmailMutation({
-      id: userAuthInfo?.id,
-    })
+    executeSendEmailMutation({})
       .then((result) => {
         if (!result.data?.sendUserEmailVerification?.id) {
           throw new Error("Send email error");
@@ -110,7 +106,6 @@ const EmailVerification = ({
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
     executeVerifyUserEmailMutation({
-      id: userAuthInfo?.id,
       code: data.verificationCode,
     })
       .then((result) => {

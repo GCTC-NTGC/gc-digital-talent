@@ -14,7 +14,11 @@ import {
 
 import { hasAllEmptyFields } from "~/validators/profile/workPreferences";
 
-const WorkPreferencesSection = ({ user }: { user: User }) => {
+interface WorkPreferencesSectionProps {
+  user: Pick<User, "acceptedOperationalRequirements" | "positionDuration">;
+}
+
+const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
   const intl = useIntl();
   const { acceptedOperationalRequirements, positionDuration } = user;
 
