@@ -294,6 +294,7 @@ const ApplicationInformation = ({
           </Accordion.Trigger>
           <Accordion.Content>
             <EducationRequirementsDisplay
+              experiences={snapshot.experiences}
               educationRequirementQuery={application}
             />
           </Accordion.Content>
