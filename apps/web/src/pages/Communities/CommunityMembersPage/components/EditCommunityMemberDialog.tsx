@@ -18,11 +18,9 @@ import {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { checkRole, CommunityMember } from "~/utils/communityUtils";
+import { CommunityMember } from "~/utils/communityUtils";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -32,11 +30,13 @@ import { UpdateUserCommunityRoles_Mutation } from "./operations";
 interface EditCommunityMemberDialogProps {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
+  hasPlatformAdmin: boolean;
 }
 
 const EditCommunityMemberDialog = ({
   user,
   community,
+  hasPlatformAdmin,
 }: EditCommunityMemberDialogProps) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
@@ -59,9 +59,6 @@ const EditCommunityMemberDialog = ({
     formState: { isSubmitting },
   } = methods;
 
-  const { userAuthInfo } = useAuthorization();
-  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
-
   const handleSave = async (formValues: CommunityMemberFormValues) => {
     const rolesToAttach = formValues.roles.filter(
       (role) => !initialRolesIds.includes(role),
@@ -69,10 +66,6 @@ const EditCommunityMemberDialog = ({
     const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
       return { roleId: role, teamId };
     });
-    const hasPlatformAdmin = checkRole(
-      [ROLE_NAME.PlatformAdmin],
-      roleAssignments,
-    );
 
     const rolesToDetach = initialRolesIds.filter((roleId) => {
       const role = user.roles.find((userRole) => userRole.id === roleId);

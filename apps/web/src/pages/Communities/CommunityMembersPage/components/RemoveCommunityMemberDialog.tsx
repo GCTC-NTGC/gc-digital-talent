@@ -15,6 +15,7 @@ import {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";
@@ -25,11 +26,13 @@ import { ContextType } from "./types";
 interface RemoveCommunityMemberDialogProps {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
+  hasPlatformAdmin: boolean;
 }
 
 const RemoveCommunityMemberDialog = ({
   user,
   community,
+  hasPlatformAdmin,
 }: RemoveCommunityMemberDialogProps) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
@@ -40,6 +43,12 @@ const RemoveCommunityMemberDialog = ({
   const roleInputArray: RoleInput[] = user.roles.map((role) => {
     return { roleId: role.id, teamId };
   });
+  if (
+    !hasPlatformAdmin &&
+    user.roles.find((role) => role.name === ROLE_NAME.CommunityAdmin)
+  ) {
+    return null;
+  }
 
   const handleError = () => {
     toast.error(

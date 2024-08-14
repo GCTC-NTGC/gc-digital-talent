@@ -5,8 +5,8 @@ import { useQuery } from "urql";
 import { useOutletContext } from "react-router-dom";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
@@ -15,6 +15,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   groupRoleAssignmentsByUser,
   CommunityMember,
+  checkRole,
 } from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -40,6 +41,13 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     communityQuery,
   );
   const { canAdmin } = useOutletContext<ContextType>();
+
+  const { userAuthInfo } = useAuthorization();
+  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const hasPlatformAdmin = checkRole(
+    [ROLE_NAME.PlatformAdmin],
+    roleAssignments,
+  );
 
   const members: CommunityMember[] = useMemo(
     () => groupRoleAssignmentsByUser(community.roleAssignments || []),
@@ -86,7 +94,8 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
-        cell: ({ row: { original: member } }) => actionCell(member, community),
+        cell: ({ row: { original: member } }) =>
+          actionCell(member, community, hasPlatformAdmin),
         meta: {
           hideMobileHeader: true,
           shrink: true,

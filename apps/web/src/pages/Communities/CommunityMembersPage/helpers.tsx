@@ -31,14 +31,23 @@ function orderRoles(roles: Array<Role>, intl: IntlShape) {
 export const actionCell = (
   user: CommunityMember,
   community: CommunityMembersPageCommunityFragmentType,
+  hasPlatformAdmin: boolean,
 ) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-wrap="base(wrap)"
     data-h2-gap="base(x.25)"
   >
-    <EditCommunityMemberDialog user={user} community={community} />
-    <RemoveCommunityMemberDialog user={user} community={community} />
+    <EditCommunityMemberDialog
+      user={user}
+      community={community}
+      hasPlatformAdmin={hasPlatformAdmin}
+    />
+    <RemoveCommunityMemberDialog
+      user={user}
+      community={community}
+      hasPlatformAdmin={hasPlatformAdmin}
+    />
   </div>
 );
 
