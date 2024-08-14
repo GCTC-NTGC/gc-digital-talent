@@ -2,8 +2,7 @@ import { ReactNode } from "react";
 
 import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
-import { HeadingLevel } from "../Heading";
-import { headingStyles } from "../Heading/styles";
+import Heading, { HeadingLevel } from "../Heading";
 
 export const colorOptions = [
   "primary",
@@ -79,10 +78,6 @@ const TaskCard = ({
   // prepare icon element
   const Icon = icon;
 
-  // prepare heading text element
-  const HeadingTextElement = headingAs;
-  const commonHeadingTextStyles = { ...headingStyles["h4"] };
-  delete commonHeadingTextStyles["data-h2-margin"];
   return (
     <div
       data-h2-shadow="base(larger)"
@@ -115,12 +110,14 @@ const TaskCard = ({
               data-h2-width="base(auto)"
             />
           ) : null}
-          <HeadingTextElement
-            {...commonHeadingTextStyles}
+          <Heading
+            level={headingAs}
+            size="h4"
+            data-h2-margin="base(0)"
             data-h2-text-align="base(center) p-tablet(left)"
           >
             {title}
-          </HeadingTextElement>
+          </Heading>
         </div>
         {link ? (
           <Link color={headingColor} href={link.href}>
