@@ -11,7 +11,6 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import useRoutes from "~/hooks/useRoutes";
-import { PoolCandidate_BookmarkFragment } from "~/components/CandidateBookmark/CandidateBookmark";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import adminMessages from "~/messages/adminMessages";
@@ -47,6 +46,7 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
       }
     }
     poolCandidates {
+      ...PoolCandidate_Bookmark
       id
       isBookmarked
       status {
@@ -159,10 +159,7 @@ const UserCandidatesTable = ({
       header: () => bookmarkHeader(intl),
       enableHiding: false,
       cell: ({ row: { original: poolCandidate } }) =>
-        bookmarkCell(
-          poolCandidate as FragmentType<typeof PoolCandidate_BookmarkFragment>,
-          poolCandidate.isBookmarked,
-        ),
+        bookmarkCell(poolCandidate, poolCandidate.isBookmarked),
       meta: {
         shrink: true,
         hideMobileHeader: true,
