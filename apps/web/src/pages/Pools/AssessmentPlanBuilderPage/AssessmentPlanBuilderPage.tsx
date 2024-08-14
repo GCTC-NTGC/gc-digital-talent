@@ -188,6 +188,15 @@ export const AssessmentPlanBuilderPage = () => {
         (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
           authorizedRoleAssignment.team?.name ===
             queryData?.pool?.team?.name) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.ProcessOperator &&
+          authorizedRoleAssignment.team?.name ===
+            queryData?.pool?.team?.name) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityRecruiter &&
+          authorizedRoleAssignment.team?.name ===
+            queryData?.pool?.team?.name) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityAdmin &&
+          authorizedRoleAssignment.team?.name ===
+            queryData?.pool?.team?.name) ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
@@ -245,6 +254,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <AssessmentPlanBuilderPage />
