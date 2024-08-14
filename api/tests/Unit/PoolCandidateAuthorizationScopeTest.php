@@ -11,14 +11,12 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
-use Tests\UsesProtectedRequestContext;
 
 use function PHPUnit\Framework\assertEqualsCanonicalizing;
 
 class PoolCandidateAuthorizationScopeTest extends TestCase
 {
     use RefreshDatabase;
-    use UsesProtectedRequestContext;
 
     protected $teamA;
 

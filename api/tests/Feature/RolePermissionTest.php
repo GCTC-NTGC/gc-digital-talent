@@ -8,12 +8,10 @@ use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Tests\UsesProtectedRequestContext;
 
 class RolePermissionTest extends TestCase
 {
     use RefreshDatabase;
-    use UsesProtectedRequestContext;
 
     private $user;
 
