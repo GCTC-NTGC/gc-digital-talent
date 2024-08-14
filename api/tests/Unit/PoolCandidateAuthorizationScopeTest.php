@@ -210,7 +210,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
                 ->asCommunityRecruiter($community->id)
                 ->create());
 
-        $queryBuilder = Pool::query();
         $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
@@ -230,7 +229,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
                 ->asCommunityAdmin($community->id)
                 ->create());
 
-        $queryBuilder = Pool::query();
         $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([

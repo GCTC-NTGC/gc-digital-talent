@@ -1053,6 +1053,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             if ($user?->isAbleTo('view-team-applicantProfile')) {
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
+
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
                         $query
                             ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
@@ -1062,6 +1063,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                                         return $query->whereIn('id', $teamIds);
                                     })
                                     ->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })
+                                    ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('id', $teamIds);
                                     });
                             });
