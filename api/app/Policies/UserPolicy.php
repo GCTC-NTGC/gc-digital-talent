@@ -162,10 +162,15 @@ class UserPolicy
         return PoolCandidate::where('user_id', $applicant->id)
             ->notDraft()
             ->whereHas('pool', function ($query) use ($teamIds) {
-                return $query->whereIn('team_id', $teamIds)
-                    ->orWhereHas('community.team', function ($query) use ($teamIds) {
+                return $query->where(function ($query) use ($teamIds) {
+                    $query->orWhereHas('legacyTeam', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('team', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('community.team', function ($query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     });
+                });
             })
             ->exists();
     }
