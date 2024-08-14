@@ -132,9 +132,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      path-browserify:
-        specifier: ^1.0.1
-        version: 1.0.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -317,9 +314,6 @@ importers:
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
-      path-browserify:
-        specifier: ^1.0.1
-        version: 1.0.1
       react-router-dom:
         specifier: ^6.26.0
         version: 6.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -330,9 +324,6 @@ importers:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
-      '@types/path-browserify':
-        specifier: ^1.0.2
-        version: 1.0.2
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -3789,9 +3780,6 @@ packages:
   '@types/node@22.1.0':
     resolution: {integrity: sha512-AOmuRF0R2/5j1knA3c6G3HOk523Ga+l+ZXltX8SF1+5oqcXijjfTd8fY3XRZqSihEu9XhtQnKYLmkFaoxgsJHw==}
 
-  '@types/path-browserify@1.0.2':
-    resolution: {integrity: sha512-ZkC5IUqqIFPXx3ASTTybTzmQdwHwe2C0u3eL75ldQ6T9E9IWFJodn6hIfbZGab73DfyiHN4Xw15gNxUq2FbvBA==}
-
   '@types/picomatch@2.3.4':
     resolution: {integrity: sha512-0so8lU8O5zatZS/2Fi4zrwks+vZv7e0dygrgEZXljODXBig97l4cPQD+9LabXfGJOWwoRkTVz6Q4edZvD12UOA==}
 
@@ -6790,9 +6778,6 @@ packages:
 
   pascal-case@3.1.2:
     resolution: {integrity: sha512-uWlGT3YSnK9x3BQJaOdcZwrnV6hPpd8jFH1/ucpiLRPh/2zCVJKS19E4GvYHvaCcACn3foXZ0cLB9Wrx1KGe5g==}
-
-  path-browserify@1.0.1:
-    resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
 
   path-case@3.0.4:
     resolution: {integrity: sha512-qO4qCFjXqVTrcbPt/hQfhTQ+VhFsqNKOPtytgNKkKxSoEp3XPUQ8ObFuePylOIok5gjn69ry8XiULxCwot3Wfg==}
@@ -11659,8 +11644,6 @@ snapshots:
     dependencies:
       undici-types: 6.13.0
 
-  '@types/path-browserify@1.0.2': {}
-
   '@types/picomatch@2.3.4': {}
 
   '@types/prop-types@15.7.12': {}
@@ -15289,8 +15272,6 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.6.3
-
-  path-browserify@1.0.1: {}
 
   path-case@3.0.4:
     dependencies:
