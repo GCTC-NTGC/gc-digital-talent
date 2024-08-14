@@ -30,6 +30,9 @@ class RoleTeamConsistent implements ValidationRule
                 $fail('TEAM_DOES_NOT_EXIST');
             }
         } else {
+            if (! is_null($teamId)) {
+                $fail('ROLE_NOT_TEAM_ROLE');
+            }
             if (is_null($role)) {
                 $fail('ROLE_NOT_FOUND');
             }

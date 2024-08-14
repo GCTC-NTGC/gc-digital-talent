@@ -468,6 +468,13 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message for when an error occurs during role assignment",
     },
+    ROLE_NOT_TEAM_ROLE: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
+    },
     ROLE_NOT_FOUND: {
       defaultMessage:
         "An error occurred during role assignment. Contact support if this problem persists.",
