@@ -454,6 +454,27 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message for when attempting to delete a previously deleted skill",
     },
+    TEAM_ID_REQUIRED: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
+    },
+    TEAM_DOES_NOT_EXIST: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
+    },
+    ROLE_NOT_FOUND: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
+    },
   },
 );
 

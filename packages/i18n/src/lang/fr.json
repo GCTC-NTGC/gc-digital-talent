@@ -239,6 +239,10 @@
     "defaultMessage": "réussite",
     "description": "Message for the success status"
   },
+  "9QsHXO": {
+    "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message for when an error occurs during role assignment"
+  },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
     "description": "The operational requirement described as travel as required."
