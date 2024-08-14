@@ -3,8 +3,7 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ArrowRightIcon from "@heroicons/react/20/solid/ArrowRightIcon";
 
-import { HeadingLevel } from "../Heading";
-import { headingStyles } from "../Heading/styles";
+import Heading, { HeadingLevel } from "../Heading";
 import Link, { LinkProps } from "../Link";
 import { HydrogenAttributes } from "../../types";
 
@@ -72,10 +71,6 @@ const Root = ({
   headingAs = "h3",
   children,
 }: RootProps) => {
-  // prepare heading text element
-  const HeadingTextElement = headingAs;
-  const commonHeadingTextStyles = { ...headingStyles["h4"] };
-  delete commonHeadingTextStyles["data-h2-margin"];
   return (
     <div
       data-h2-shadow="base(larger)"
@@ -92,12 +87,14 @@ const Root = ({
       >
         {/* wrapper */}
         <div {...wrapperStyleMap[headingColor]}>
-          <HeadingTextElement
-            {...commonHeadingTextStyles}
+          <Heading
+            level={headingAs}
+            size="h4"
+            data-h2-margin="base(0)"
             data-h2-text-align="base(center) p-tablet(left)"
           >
             {title}
-          </HeadingTextElement>
+          </Heading>
         </div>
       </div>
       {/* content */}
