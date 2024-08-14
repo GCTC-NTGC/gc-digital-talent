@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -285,5 +286,59 @@ class PoolAuthorizationScopeTest extends TestCase
         ], $poolIds->toArray());
     }
 
-    // TODO: add tests for new roles as part of #10609
+    // process operator can only see their attached pool thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsProcessOperator(): void
+    {
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asProcessOperator($this->poolDraft1->id)
+                ->create());
+
+        $queryBuilder = Pool::query();
+        $poolIds = Pool::authorizedToAdmin($queryBuilder)->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolDraft1->id,
+        ], $poolIds);
+    }
+
+    // community recruiter can only see their attached pool via community thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsCommunityRecruiter(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolPublished1->community_id = $community->id;
+        $this->poolPublished1->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityRecruiter($community->id)
+                ->create());
+
+        $queryBuilder = Pool::query();
+        $poolIds = Pool::authorizedToAdmin($queryBuilder)->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolPublished1->id,
+        ], $poolIds);
+    }
+
+    // community admin can only see their attached pool via community thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsCommunityAdmin(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolPublished1->community_id = $community->id;
+        $this->poolPublished1->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityAdmin($community->id)
+                ->create());
+
+        $queryBuilder = Pool::query();
+        $poolIds = Pool::authorizedToAdmin($queryBuilder)->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolPublished1->id,
+        ], $poolIds);
+    }
 }

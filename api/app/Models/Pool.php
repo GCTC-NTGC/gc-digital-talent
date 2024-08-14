@@ -587,9 +587,14 @@ class Pool extends Model
                     }
                 }
 
-                // This will need to be updated when we give the new roles access to Pools in #10609.
                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                     $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
                 });
             });
 
