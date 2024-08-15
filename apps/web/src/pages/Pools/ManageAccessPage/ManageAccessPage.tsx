@@ -2,56 +2,50 @@ import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { useOutletContext } from "react-router-dom";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  groupRoleAssignmentsByUser,
-  CommunityMember,
-  checkRole,
-} from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 
-import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
-import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import { CommunityMembersPageFragment, ContextType } from "./components/types";
-import { CommunityMembersPage_CommunityFragment } from "./components/operations";
+import {
+  actionCell,
+  emailLinkCell,
+  groupRoleAssignmentsByUser,
+  roleAccessor,
+  roleCell,
+} from "./components/helpers";
+import { ManageAccessPageFragment, PoolTeamMember } from "./components/types";
+import { ManageAccessPage_PoolFragment } from "./components/operations";
+import AddPoolMembershipDialog from "./components/AddPoolMembershipDialog";
 
-const columnHelper = createColumnHelper<CommunityMember>();
+const columnHelper = createColumnHelper<PoolTeamMember>();
 
-interface CommunityMembersProps {
-  communityQuery: CommunityMembersPageFragment;
+interface ManageAccessPoolProps {
+  poolQuery: ManageAccessPageFragment;
 }
 
-const ManageAccessPool = ({ communityQuery }: CommunityMembersProps) => {
+const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   const intl = useIntl();
-  const community = getFragment(
-    CommunityMembersPage_CommunityFragment,
-    communityQuery,
-  );
-  const { canAdmin } = useOutletContext<ContextType>();
+  const pool = getFragment(ManageAccessPage_PoolFragment, poolQuery);
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
-  const hasPlatformAdmin = checkRole(
-    [ROLE_NAME.PlatformAdmin],
-    roleAssignments,
-  );
+  const hasPlatformAdmin = hasRole([ROLE_NAME.PlatformAdmin], roleAssignments);
+  const canAdmin = hasPlatformAdmin;
 
-  const members: CommunityMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(community.roleAssignments || []),
-    [community.roleAssignments],
+  const members: PoolTeamMember[] = useMemo(
+    () => groupRoleAssignmentsByUser(pool.roleAssignments || []),
+    [pool.roleAssignments],
   );
 
   const pageTitle = intl.formatMessage({
@@ -87,7 +81,7 @@ const ManageAccessPool = ({ communityQuery }: CommunityMembersProps) => {
       }),
       cell: ({ row: { original: member } }) => roleCell(member.roles, intl),
     }),
-  ] as ColumnDef<CommunityMember>[];
+  ] as ColumnDef<PoolTeamMember>[];
 
   if (canAdmin) {
     columns = [
@@ -95,7 +89,7 @@ const ManageAccessPool = ({ communityQuery }: CommunityMembersProps) => {
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
         cell: ({ row: { original: member } }) =>
-          actionCell(member, community, hasPlatformAdmin),
+          actionCell(member, pool, hasPlatformAdmin),
         meta: {
           hideMobileHeader: true,
           shrink: true,
@@ -133,10 +127,7 @@ const ManageAccessPool = ({ communityQuery }: CommunityMembersProps) => {
         {...(canAdmin && {
           add: {
             component: (
-              <AddCommunityMemberDialog
-                community={community}
-                members={members}
-              />
+              <AddPoolMembershipDialog pool={pool} members={members} />
             ),
           },
           nullMessage: {
@@ -152,35 +143,31 @@ const ManageAccessPool = ({ communityQuery }: CommunityMembersProps) => {
   );
 };
 
-const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
-  query CommunityMembersTeam($communityId: UUID!) {
-    community(id: $communityId) {
-      ...CommunityMembersPage_Community
+const ManageAccessPage_PoolQuery = graphql(/* GraphQL */ `
+  query ManageAccessPagePool($poolId: UUID!) {
+    pool(id: $poolId) {
+      ...ManageAccessPagePool
     }
   }
 `);
 
 type RouteParams = {
-  communityId: Scalars["ID"]["output"];
+  poolId: Scalars["ID"]["output"];
 };
 
 const ManageAccessPoolPage = () => {
-  const { communityId } = useRequiredParams<RouteParams>("communityId");
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
   const [{ data, fetching, error }] = useQuery({
-    query: CommunityMembersTeam_Query,
-    variables: { communityId },
+    query: ManageAccessPage_PoolQuery,
+    variables: { poolId },
   });
 
-  const community = data?.community;
+  const pool = data?.pool;
 
   return (
     <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
-        {community ? (
-          <CommunityMembers communityQuery={community} />
-        ) : (
-          <ThrowNotFound />
-        )}
+        {pool ? <ManageAccessPool poolQuery={pool} /> : <ThrowNotFound />}
       </Pending>
     </AdminContentWrapper>
   );
@@ -195,7 +182,7 @@ export const Component = () => (
       ROLE_NAME.PlatformAdmin,
     ]}
   >
-    <ManageAccessPool />
+    <ManageAccessPoolPage />
   </RequireAuth>
 );
 
