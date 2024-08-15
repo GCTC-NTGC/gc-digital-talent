@@ -38,7 +38,6 @@ const mockPool = fakePools(1)[0];
 let mockPoolCandidate = fakePoolCandidates(1)[0];
 mockPoolCandidate = {
   __typename: "PoolCandidate",
-  educationRequirementExperiences: [],
   ...mockPoolCandidate,
   pool: mockPool,
   generalQuestionResponses,
@@ -47,8 +46,11 @@ mockPoolCandidate = {
 let mockUser: User = fakeUsers(1)[0];
 mockUser = {
   ...mockUser,
+  experiences: mockPoolCandidate.educationRequirementExperiences,
   poolCandidates: [mockPoolCandidate],
 };
+
+console.log(mockUser);
 
 export default {
   component: ApplicationInformation,
