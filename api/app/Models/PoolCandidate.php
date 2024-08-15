@@ -438,7 +438,7 @@ class PoolCandidate extends Model
 
     public static function scopeAvailableInPools(Builder $query): Builder
     {
-        $query->whereHas('pool', function ($query)  {
+        $query->whereHas('pool', function ($query) {
             $query->wasPublished();
         });
 
