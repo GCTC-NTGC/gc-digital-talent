@@ -11,6 +11,11 @@ export default defineMessages({
     id: "i16C7G",
     description: "Title for the all pool candidates page",
   },
+  communities: {
+    defaultMessage: "Communities",
+    id: "fr8v1+",
+    description: "Title for the index communities page",
+  },
   classifications: {
     defaultMessage: "Classifications",
     id: "kvpRgN",

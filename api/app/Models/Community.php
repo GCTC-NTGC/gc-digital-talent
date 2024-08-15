@@ -37,6 +37,21 @@ class Community extends Model
     public $guarded = [];
 
     /**
+     * Boot function for using with Community
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function (Community $community) {
+            $community->team()->firstOrCreate([], [
+                'name' => 'community-'.$community->id,
+            ]);
+        });
+    }
+
+    /**
      * Search requests
      */
     public function poolCandidateSearchRequests(): HasMany
