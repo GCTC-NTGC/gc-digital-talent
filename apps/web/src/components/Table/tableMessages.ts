@@ -6,6 +6,11 @@ const messages = defineMessages({
     id: "84XrK+",
     description: "Default message for an empty table",
   },
+  actions: {
+    defaultMessage: "Actions",
+    id: "nGx7Xt",
+    description: "Title displayed for actions column",
+  },
   noRowsSelected: {
     defaultMessage:
       "You have not selected any items. Please select at least one item to download.",

@@ -161,6 +161,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   icon: pageIcons.processes.solid,
                 },
                 {
+                  label: intl.formatMessage(pageTitles.communities),
+                  href: adminRoutes.communityTable(),
+                  icon: pageIcons.communities.solid,
+                },
+                {
                   label: intl.formatMessage(pageTitles.teams),
                   href: adminRoutes.teamTable(),
                   icon: pageIcons.teams.solid,
@@ -180,6 +185,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   label: intl.formatMessage(pageTitles.users),
                   href: adminRoutes.userTable(),
                   icon: pageIcons.users.solid,
+                },
+                {
+                  label: intl.formatMessage(pageTitles.communities),
+                  href: adminRoutes.communityTable(),
+                  icon: pageIcons.communities.solid,
                 },
                 {
                   label: intl.formatMessage(pageTitles.teams),

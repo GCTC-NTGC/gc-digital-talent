@@ -9,6 +9,7 @@ import { UpdateUserRolesInput, Role, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { UpdateUserRolesFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
@@ -34,11 +35,7 @@ const IndividualRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: role } }) =>
         actionCell(
           role,
