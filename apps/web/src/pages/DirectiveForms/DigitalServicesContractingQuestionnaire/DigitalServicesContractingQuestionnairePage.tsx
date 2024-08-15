@@ -119,8 +119,8 @@ export const DigitalServicesContractingQuestionnaire = ({
               external
               href={
                 locale === "fr"
-                  ? "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
-                  : "/documents/Digital_Contracting_Questionnaire_EN.docx"
+                  ? "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
+                  : "/static/documents/Digital_Contracting_Questionnaire_EN.docx"
               }
             >
               {intl.formatMessage({
