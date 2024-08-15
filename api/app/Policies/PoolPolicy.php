@@ -275,7 +275,7 @@ class PoolPolicy
         }
 
         $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('view-team-teamMembers', $pool->team);
+        $teamPermission = ! is_null($pool->team) && ($user->isAbleTo('view-team-teamMembers', $pool->team) || $user->isAbleTo('view-team-poolTeamMembers', $pool->team));
         $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('view-team-teamMembers', $pool->legacyTeam);
         $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->community->team);
 
