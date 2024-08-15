@@ -436,11 +436,13 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public static function scopeAvailableInPools(Builder $query): Builder
+    public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
-        $query->whereHas('pool', function ($query) {
-            $query->wasPublished();
-        });
+        if (empty($poolIds)) {
+            return $query;
+        }
+
+        $query->whereIn('pool_id', $poolIds);
 
         return $query;
     }
