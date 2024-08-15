@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,5 +51,15 @@ class Classification extends Model
             get: fn (mixed $value, array $attributes) => $attributes['group'].'-'.sprintf('%02d', $attributes['level']),
 
         );
+    }
+
+    public static function scopeAvailableInSearch(Builder $query, bool $availableInSearch)
+    {
+        if (! $availableInSearch) {
+            return;
+        }
+
+        $query->whereIn('group', ['IT', 'PM'])
+            ->where('level', '<=', 5);
     }
 }
