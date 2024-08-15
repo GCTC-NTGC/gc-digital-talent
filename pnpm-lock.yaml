@@ -155,7 +155,7 @@ importers:
         version: 2.15.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.1.0
-        version: 4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1)
+        version: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.4.1
@@ -319,7 +319,7 @@ importers:
         version: 6.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.1.0
-        version: 4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1)
+        version: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -361,11 +361,11 @@ importers:
         specifier: workspace:*
         version: link:../toast
       '@urql/core':
-        specifier: ^5.0.5
-        version: 5.0.5(graphql@16.9.0)
+        specifier: ^5.0.6
+        version: 5.0.6(graphql@16.9.0)
       '@urql/exchange-auth':
         specifier: ^2.2.0
-        version: 2.2.0(@urql/core@5.0.5(graphql@16.9.0))
+        version: 2.2.0(@urql/core@5.0.6(graphql@16.9.0))
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -380,7 +380,7 @@ importers:
         version: 6.6.8(react@18.3.1)(typescript@5.5.4)
       urql:
         specifier: ^4.1.0
-        version: 4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1)
+        version: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -717,7 +717,7 @@ importers:
         version: 5.5.4
       urql:
         specifier: ^4.1.0
-        version: 4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1)
+        version: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1)
 
   packages/helpers:
     dependencies:
@@ -738,7 +738,7 @@ importers:
         version: 18.3.1
       urql:
         specifier: ^4.1.0
-        version: 4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1)
+        version: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -937,8 +937,8 @@ importers:
         specifier: ^8.2.9
         version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.24.7(@babel/core@7.24.7)))(typescript@5.5.4)
       '@urql/core':
-        specifier: ^5.0.5
-        version: 5.0.5(graphql@16.9.0)
+        specifier: ^5.0.6
+        version: 5.0.6(graphql@16.9.0)
       chromatic:
         specifier: ^11.7.1
         version: 11.7.1
@@ -959,7 +959,7 @@ importers:
         version: 6.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.1.0
-        version: 4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1)
+        version: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1)
       wonka:
         specifier: ^6.3.4
         version: 6.3.4
@@ -1165,7 +1165,7 @@ importers:
         version: 6.26.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.1.0
-        version: 4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1)
+        version: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.4.1
@@ -4139,8 +4139,8 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@urql/core@5.0.5':
-    resolution: {integrity: sha512-KmWRlN8dJz+XU21wmhcHcTV11n1K7zxaMtVwOhkH7b8H5Z5nuFKY5EkUsWqPlZl53YPiKwTtOMpptz5hamVVNQ==}
+  '@urql/core@5.0.6':
+    resolution: {integrity: sha512-38rgSDqVNihFDauw1Pm9V7XLWIKuK8V9CKgrUF7/xEKinze8ENKP1ZeBhkG+dxWzJan7CHK+SLl46kAdvZwIlA==}
 
   '@urql/exchange-auth@2.2.0':
     resolution: {integrity: sha512-4bJR22EYa/flbhwMBj4lU8MI4cO3ddo/DX7FygWeaeHZU+RWfnQKifCKwxIYlnoV8/CgYRM4lFSMIByYlhmWcg==}
@@ -12158,16 +12158,16 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@urql/core@5.0.5(graphql@16.9.0)':
+  '@urql/core@5.0.6(graphql@16.9.0)':
     dependencies:
       '@0no-co/graphql.web': 1.0.7(graphql@16.9.0)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
 
-  '@urql/exchange-auth@2.2.0(@urql/core@5.0.5(graphql@16.9.0))':
+  '@urql/exchange-auth@2.2.0(@urql/core@5.0.6(graphql@16.9.0))':
     dependencies:
-      '@urql/core': 5.0.5(graphql@16.9.0)
+      '@urql/core': 5.0.6(graphql@16.9.0)
       wonka: 6.3.4
 
   '@vitejs/plugin-react@4.3.1(vite@5.4.0(@types/node@22.3.0)(lightningcss@1.25.1)(terser@5.31.1))':
@@ -17151,9 +17151,9 @@ snapshots:
 
   urlpattern-polyfill@8.0.2: {}
 
-  urql@4.1.0(@urql/core@5.0.5(graphql@16.9.0))(react@18.3.1):
+  urql@4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@18.3.1):
     dependencies:
-      '@urql/core': 5.0.5(graphql@16.9.0)
+      '@urql/core': 5.0.6(graphql@16.9.0)
       react: 18.3.1
       wonka: 6.3.4
 
