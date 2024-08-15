@@ -1,4 +1,3 @@
-import path from "path-browserify";
 import { useIntl } from "react-intl";
 
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
@@ -23,210 +22,198 @@ const createFragment = (identifier: string | null | undefined): string =>
   identifier ? `#${identifier}` : "";
 
 const getRoutes = (lang: Locales) => {
-  const baseUrl = path.join("/", lang);
-  const adminUrl = path.join(baseUrl, "admin");
-  const applicantUrl = path.join(baseUrl, "applicant");
-  const showcase = path.join(applicantUrl, "skills", "showcase");
+  const baseUrl = `/${lang}`;
+  const adminUrl = [baseUrl, "admin"].join("/");
+  const applicantUrl = [baseUrl, "applicant"].join("/");
+  const showcase = [applicantUrl, "skills", "showcase"].join("/");
 
   return {
     // Main Routes
     home: () => baseUrl,
-    notFound: () => path.join(baseUrl, "404"),
-    support: () => path.join(baseUrl, "support"),
-    search: () => path.join(baseUrl, "search"),
-    request: () => path.join(baseUrl, "search", "request"),
+    notFound: () => [baseUrl, "404"].join("/"),
+    support: () => [baseUrl, "support"].join("/"),
+    search: () => [baseUrl, "search"].join("/"),
+    request: () => [baseUrl, "search", "request"].join("/"),
     requestConfirmation: (requestId: string) =>
-      path.join(baseUrl, "search", "request", requestId),
-    register: () => path.join(baseUrl, "register-info"),
-    login: () => path.join(baseUrl, "login-info"),
-    loggedOut: () => path.join(baseUrl, "logged-out"),
-    userDeleted: () => path.join(baseUrl, "user-deleted"),
-    gettingStarted: () => path.join(baseUrl, "getting-started"),
-    emailVerification: () => path.join(baseUrl, "email-verification"),
-    employeeInformation: () => path.join(baseUrl, "employee-registration"),
-    termsAndConditions: () => path.join(baseUrl, "terms-and-conditions"),
-    privacyPolicy: () => path.join(baseUrl, "privacy-policy"),
-    accessibility: () => path.join(baseUrl, "accessibility-statement"),
-    manager: () => path.join(baseUrl, "manager"),
-    executive: () => path.join(baseUrl, "executive"),
-    skills: () => path.join(baseUrl, "skills"),
-    inclusivityEquity: () => path.join(baseUrl, "inclusivity-equity"),
+      [baseUrl, "search", "request", requestId].join("/"),
+    register: () => [baseUrl, "register-info"].join("/"),
+    login: () => [baseUrl, "login-info"].join("/"),
+    loggedOut: () => [baseUrl, "logged-out"].join("/"),
+    userDeleted: () => [baseUrl, "user-deleted"].join("/"),
+    gettingStarted: () => [baseUrl, "getting-started"].join("/"),
+    emailVerification: () => [baseUrl, "email-verification"].join("/"),
+    employeeInformation: () => [baseUrl, "employee-registration"].join("/"),
+    termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
+    privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
+    accessibility: () => [baseUrl, "accessibility-statement"].join("/"),
+    manager: () => [baseUrl, "manager"].join("/"),
+    executive: () => [baseUrl, "executive"].join("/"),
+    skills: () => [baseUrl, "skills"].join("/"),
+    inclusivityEquity: () => [baseUrl, "inclusivity-equity"].join("/"),
 
     // Admin
     adminDashboard: () => adminUrl,
 
     // Admin - Pools
-    poolTable: () => path.join(adminUrl, "pools"),
-    poolCreate: () => path.join(adminUrl, "pools", "create"),
-    poolView: (poolId: string) => path.join(adminUrl, "pools", poolId),
+    poolTable: () => [adminUrl, "pools"].join("/"),
+    poolCreate: () => [adminUrl, "pools", "create"].join("/"),
+    poolView: (poolId: string) => [adminUrl, "pools", poolId].join("/"),
     poolUpdate: (poolId: string) =>
-      path.join(adminUrl, "pools", poolId, "edit"),
+      [adminUrl, "pools", poolId, "edit"].join("/"),
     assessmentPlanBuilder: (poolId: string) =>
-      path.join(adminUrl, "pools", poolId, "plan"),
+      [adminUrl, "pools", poolId, "plan"].join("/"),
     screeningAndEvaluation: (poolId: string) =>
-      path.join(adminUrl, "pools", poolId, "screening"),
+      [adminUrl, "pools", poolId, "screening"].join("/"),
     poolPreview: (poolId: string) =>
-      path.join(adminUrl, "pools", poolId, "preview"),
+      [adminUrl, "pools", poolId, "preview"].join("/"),
 
     // Admin - Pool Candidates
-    poolCandidates: () => path.join(adminUrl, "pool-candidates"),
+    poolCandidates: () => [adminUrl, "pool-candidates"].join("/"),
     poolCandidateTable: (poolId: string) =>
-      path.join(adminUrl, "pools", poolId, "pool-candidates"),
+      [adminUrl, "pools", poolId, "pool-candidates"].join("/"),
     poolCandidateCreate: (poolId: string) =>
-      path.join(adminUrl, "pools", poolId, "pool-candidates", "create"),
+      [adminUrl, "pools", poolId, "pool-candidates", "create"].join("/"),
     poolCandidateUpdate: (poolId: string, poolCandidateId: string) =>
-      path.join(
+      [
         adminUrl,
         "pools",
         poolId,
         "pool-candidates",
         poolCandidateId,
         "edit",
-      ),
+      ].join("/"),
     poolCandidateApplication: (poolCandidateId: string) =>
-      path.join(adminUrl, "candidates", poolCandidateId, "application"),
+      [adminUrl, "candidates", poolCandidateId, "application"].join("/"),
 
     // Admin - Users
-    userTable: () => path.join(adminUrl, "users"),
-    userCreate: () => path.join(adminUrl, "users", "create"),
-    userView: (userId: string) => path.join(adminUrl, "users", userId),
+    userTable: () => [adminUrl, "users"].join("/"),
+    userCreate: () => [adminUrl, "users", "create"].join("/"),
+    userView: (userId: string) => [adminUrl, "users", userId].join("/"),
     userProfile: (userId: string) =>
-      path.join(adminUrl, "users", userId, "profile"),
+      [adminUrl, "users", userId, "profile"].join("/"),
     userUpdate: (userId: string) =>
-      path.join(adminUrl, "users", userId, "edit"),
+      [adminUrl, "users", userId, "edit"].join("/"),
 
     // Admin - Teams
-    teamTable: () => path.join(adminUrl, "teams"),
-    teamCreate: () => path.join(adminUrl, "teams", "create"),
-    teamView: (teamId: string) => path.join(adminUrl, "teams", teamId),
+    teamTable: () => [adminUrl, "teams"].join("/"),
+    teamCreate: () => [adminUrl, "teams", "create"].join("/"),
+    teamView: (teamId: string) => [adminUrl, "teams", teamId].join("/"),
     teamMembers: (teamId: string) =>
-      path.join(adminUrl, "teams", teamId, "members"),
+      [adminUrl, "teams", teamId, "members"].join("/"),
     teamUpdate: (teamId: string) =>
-      path.join(adminUrl, "teams", teamId, "edit"),
+      [adminUrl, "teams", teamId, "edit"].join("/"),
 
     // Admin - Search Requests
-    searchRequestTable: () => path.join(adminUrl, "talent-requests"),
+    searchRequestTable: () => [adminUrl, "talent-requests"].join("/"),
     searchRequestView: (id: string) =>
-      path.join(adminUrl, "talent-requests", id),
+      [adminUrl, "talent-requests", id].join("/"),
 
     // Admin - Classifications
     classificationTable: () =>
-      path.join(adminUrl, "settings", "classifications"),
+      [adminUrl, "settings", "classifications"].join("/"),
     classificationCreate: () =>
-      path.join(adminUrl, "settings", "classifications", "create"),
+      [adminUrl, "settings", "classifications", "create"].join("/"),
     classificationUpdate: (classificationId: string) =>
-      path.join(
-        adminUrl,
-        "settings",
-        "classifications",
-        classificationId,
-        "edit",
+      [adminUrl, "settings", "classifications", classificationId, "edit"].join(
+        "/",
       ),
 
     // Admin - Skills
-    skillTable: () => path.join(adminUrl, "settings", "skills"),
-    skillCreate: () => path.join(adminUrl, "settings", "skills", "create"),
+    skillTable: () => [adminUrl, "settings", "skills"].join("/"),
+    skillCreate: () => [adminUrl, "settings", "skills", "create"].join("/"),
     skillUpdate: (skillId: string) =>
-      path.join(adminUrl, "settings", "skills", skillId, "edit"),
+      [adminUrl, "settings", "skills", skillId, "edit"].join("/"),
 
     // Admin - Skill Families
-    skillFamilyTable: () => path.join(adminUrl, "settings", "skill-families"),
+    skillFamilyTable: () => [adminUrl, "settings", "skill-families"].join("/"),
     skillFamilyCreate: () =>
-      path.join(adminUrl, "settings", "skill-families", "create"),
+      [adminUrl, "settings", "skill-families", "create"].join("/"),
     skillFamilyUpdate: (skillFamilyId: string) =>
-      path.join(adminUrl, "settings", "skill-families", skillFamilyId, "edit"),
+      [adminUrl, "settings", "skill-families", skillFamilyId, "edit"].join("/"),
 
     // Admin - Departments
-    departmentTable: () => path.join(adminUrl, "settings", "departments"),
+    departmentTable: () => [adminUrl, "settings", "departments"].join("/"),
     departmentCreate: () =>
-      path.join(adminUrl, "settings", "departments", "create"),
+      [adminUrl, "settings", "departments", "create"].join("/"),
     departmentUpdate: (departmentId: string) =>
-      path.join(adminUrl, "settings", "departments", departmentId, "edit"),
+      [adminUrl, "settings", "departments", departmentId, "edit"].join("/"),
 
     // Admin - Announcements
-    announcements: () => path.join(adminUrl, "settings", "announcements"),
+    announcements: () => [adminUrl, "settings", "announcements"].join("/"),
 
     // IAP
-    iap: () => path.join(baseUrl, "indigenous-it-apprentice"),
-    iapManager: () => path.join(baseUrl, "indigenous-it-apprentice", "hire"),
+    iap: () => [baseUrl, "indigenous-it-apprentice"].join("/"),
+    iapManager: () => [baseUrl, "indigenous-it-apprentice", "hire"].join("/"),
 
     // Pools
-    browsePools: () => path.join(baseUrl, "browse", "pools"),
-    pool: (poolId: string) => path.join(baseUrl, "browse", "pools", poolId),
+    browsePools: () => [baseUrl, "browse", "pools"].join("/"),
+    pool: (poolId: string) => [baseUrl, "browse", "pools", poolId].join("/"),
     createApplication: (poolId: string) =>
-      path.join(baseUrl, "browse", "pools", poolId, "create-application"),
+      [baseUrl, "browse", "pools", poolId, "create-application"].join("/"),
 
     // Applications
     application: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId),
+      [baseUrl, "applications", applicationId].join("/"),
 
     // Application
     applicationWelcome: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "welcome"),
+      [baseUrl, "applications", applicationId, "welcome"].join("/"),
     applicationSelfDeclaration: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "self-declaration"),
+      [baseUrl, "applications", applicationId, "self-declaration"].join("/"),
     applicationProfile: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "profile"),
+      [baseUrl, "applications", applicationId, "profile"].join("/"),
     applicationCareerTimeline: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "career-timeline"),
+      [baseUrl, "applications", applicationId, "career-timeline"].join("/"),
     applicationCareerTimelineIntro: (applicationId: string) =>
-      path.join(
+      [
         baseUrl,
         "applications",
         applicationId,
         "career-timeline",
         "introduction",
-      ),
+      ].join("/"),
     applicationCareerTimelineAdd: (applicationId: string) =>
-      path.join(
-        baseUrl,
-        "applications",
-        applicationId,
-        "career-timeline",
-        "add",
+      [baseUrl, "applications", applicationId, "career-timeline", "add"].join(
+        "/",
       ),
     applicationCareerTimelineEdit: (
       applicationId: string,
       experienceId: string,
     ) =>
-      path.join(
+      [
         baseUrl,
         "applications",
         applicationId,
         "career-timeline",
         experienceId,
-      ),
+      ].join("/"),
     applicationEducation: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "education"),
+      [baseUrl, "applications", applicationId, "education"].join("/"),
     applicationSkills: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "skills"),
+      [baseUrl, "applications", applicationId, "skills"].join("/"),
     applicationSkillsIntro: (applicationId: string) =>
-      path.join(
-        baseUrl,
-        "applications",
-        applicationId,
-        "skills",
-        "introduction",
+      [baseUrl, "applications", applicationId, "skills", "introduction"].join(
+        "/",
       ),
     applicationQuestions: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "questions"),
+      [baseUrl, "applications", applicationId, "questions"].join("/"),
     applicationQuestionsIntro: (applicationId: string) =>
-      path.join(
+      [
         baseUrl,
         "applications",
         applicationId,
         "questions",
         "introduction",
-      ),
+      ].join("/"),
     applicationReview: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "review"),
+      [baseUrl, "applications", applicationId, "review"].join("/"),
     applicationSuccess: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "success"),
+      [baseUrl, "applications", applicationId, "success"].join("/"),
 
     // Profile Routes
     profile: (section?: UserProfilePageSectionId) => {
       const fragment = section ? `#${section}` : "";
-      return path.join(applicantUrl, "personal-information") + fragment;
+      return [applicantUrl, "personal-information"].join("/") + fragment;
     },
     verifyContactEmail: (opts?: { emailAddress?: string | null }) => {
       const searchParams = new Map<string, string>();
@@ -234,7 +221,7 @@ const getRoutes = (lang: Locales) => {
         searchParams.set("emailAddress", opts.emailAddress);
       }
       return (
-        path.join(applicantUrl, "verify-contact-email") +
+        [applicantUrl, "verify-contact-email"].join("/") +
         createSearchQuery(searchParams)
       );
     },
@@ -244,12 +231,12 @@ const getRoutes = (lang: Locales) => {
       section?: CareerTimelineAndRecruitmentPageSectionId;
     }) => {
       const fragment = opts?.section ? `#${opts.section}` : "";
-      return `${path.join(applicantUrl, "career-timeline")}${fragment}`;
+      return `${[applicantUrl, "career-timeline"].join("/")}${fragment}`;
     },
     editExperience: (experienceId: string) =>
-      path.join(applicantUrl, "career-timeline", experienceId, "edit"),
+      [applicantUrl, "career-timeline", experienceId, "edit"].join("/"),
     createExperience: () =>
-      path.join(applicantUrl, "career-timeline", "create"),
+      [applicantUrl, "career-timeline", "create"].join("/"),
 
     // Profile and Applications
     profileAndApplications: (opts?: {
@@ -269,31 +256,32 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
-    skillLibrary: () => path.join(applicantUrl, "skills"),
-    skillShowcase: () => path.join(showcase),
+    skillLibrary: () => [applicantUrl, "skills"].join("/"),
+    skillShowcase: () => [showcase].join("/"),
     editUserSkill: (skillId: string) =>
-      path.join(applicantUrl, "skills", skillId),
-    topBehaviouralSkills: () => path.join(showcase, "top-5-behavioural-skills"),
-    topTechnicalSkills: () => path.join(showcase, "top-10-technical-skills"),
+      [applicantUrl, "skills", skillId].join("/"),
+    topBehaviouralSkills: () =>
+      [showcase, "top-5-behavioural-skills"].join("/"),
+    topTechnicalSkills: () => [showcase, "top-10-technical-skills"].join("/"),
     improveBehaviouralSkills: () =>
-      path.join(showcase, "3-behavioural-skills-to-improve"),
+      [showcase, "3-behavioural-skills-to-improve"].join("/"),
     improveTechnicalSkills: () =>
-      path.join(showcase, "5-technical-skills-to-train"),
+      [showcase, "5-technical-skills-to-train"].join("/"),
 
     // Notifications
-    notifications: () => path.join(applicantUrl, "notifications"),
+    notifications: () => [applicantUrl, "notifications"].join("/"),
 
     // Directive on digital talent
-    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
+    directive: () => [baseUrl, "directive-on-digital-talent"].join("/"),
     digitalServicesContractingQuestionnaire: () =>
-      path.join(
+      [
         baseUrl,
         "directive-on-digital-talent",
         "digital-services-contracting-questionnaire",
-      ),
+      ].join("/"),
 
     // Account Settings
-    accountSettings: () => path.join(applicantUrl, "settings"),
+    accountSettings: () => [applicantUrl, "settings"].join("/"),
 
     /**
      * Deprecated
@@ -301,7 +289,7 @@ const getRoutes = (lang: Locales) => {
      * The following paths are deprecated and
      * should contain redirects to new ones.
      */
-    myProfileDeprecated: () => path.join("/", lang, "talent", "profile"),
+    myProfileDeprecated: () => ["/", lang, "talent", "profile"].join("/"),
   };
 };
 
