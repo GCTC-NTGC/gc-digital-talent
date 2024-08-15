@@ -55,12 +55,12 @@ const getRoutes = (lang: Locales) => {
     adminDashboard: () => adminUrl,
 
     // Admin - Communities
-    communityTable: () => path.join(adminUrl, "communities"),
-    communityCreate: () => path.join(adminUrl, "communities", "create"),
+    communityTable: () => [adminUrl, "communities"].join("/"),
+    communityCreate: () => [adminUrl, "communities", "create"].join("/"),
     communityView: (communityId: string) =>
-      path.join(adminUrl, "communities", communityId),
+      [adminUrl, "communities", communityId].join("/"),
     communityManageAccess: (communityId: string) =>
-      path.join(adminUrl, "communities", communityId, "manage-access"),
+      [adminUrl, "communities", communityId, "manage-access"].join("/"),
 
     // Admin - Pools
     poolTable: () => [adminUrl, "pools"].join("/"),
