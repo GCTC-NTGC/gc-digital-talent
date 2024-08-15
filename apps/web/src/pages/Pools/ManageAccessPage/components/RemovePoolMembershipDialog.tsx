@@ -14,7 +14,6 @@ import {
   RoleInput,
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -24,13 +23,13 @@ import { PoolTeamMember } from "./types";
 interface RemovePoolMembershipDialogProps {
   user: PoolTeamMember;
   pool: ManageAccessPagePoolFragmentType;
-  hasPlatformAdmin: boolean;
+  canRemoveRole: boolean;
 }
 
 const RemovePoolMembershipDialog = ({
   user,
   pool,
-  hasPlatformAdmin,
+  canRemoveRole,
 }: RemovePoolMembershipDialogProps) => {
   const intl = useIntl();
   const teamId = pool?.teamIdForRoleAssignment;
@@ -41,10 +40,7 @@ const RemovePoolMembershipDialog = ({
   const roleInputArray: RoleInput[] = user.roles.map((role) => {
     return { roleId: role.id, teamId };
   });
-  if (
-    !hasPlatformAdmin &&
-    user.roles.find((role) => role.name === ROLE_NAME.CommunityAdmin)
-  ) {
+  if (!canRemoveRole) {
     return null;
   }
 

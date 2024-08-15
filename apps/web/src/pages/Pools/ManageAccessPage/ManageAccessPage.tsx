@@ -40,8 +40,10 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
-  const hasPlatformAdmin = hasRole([ROLE_NAME.PlatformAdmin], roleAssignments);
-  const canAdmin = hasPlatformAdmin;
+  const canAddRemoveRoles = hasRole(
+    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    roleAssignments,
+  );
 
   const members: PoolTeamMember[] = useMemo(
     () => groupRoleAssignmentsByUser(pool.roleAssignments || []),
@@ -83,13 +85,13 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
     }),
   ] as ColumnDef<PoolTeamMember>[];
 
-  if (canAdmin) {
+  if (canAddRemoveRoles) {
     columns = [
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
         cell: ({ row: { original: member } }) =>
-          actionCell(member, pool, hasPlatformAdmin),
+          actionCell(member, pool, canAddRemoveRoles),
         meta: {
           hideMobileHeader: true,
           shrink: true,
@@ -125,7 +127,7 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
               "Label for the process team members table search input",
           }),
         }}
-        {...(canAdmin && {
+        {...(canAddRemoveRoles && {
           add: {
             component: (
               <AddPoolMembershipDialog pool={pool} members={members} />
@@ -179,7 +181,7 @@ export const Component = () => (
     roles={[
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityManager,
+      ROLE_NAME.ProcessOperator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

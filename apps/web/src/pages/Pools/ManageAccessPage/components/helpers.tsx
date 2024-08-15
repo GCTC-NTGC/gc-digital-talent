@@ -31,7 +31,7 @@ function orderRoles(
 export const actionCell = (
   user: PoolTeamMember,
   pool: ManageAccessPagePoolFragmentType,
-  hasPlatformAdmin: boolean,
+  canRemoveRole: boolean,
 ) => (
   <div
     data-h2-display="base(flex)"
@@ -41,7 +41,7 @@ export const actionCell = (
     <RemovePoolMembershipDialog
       user={user}
       pool={pool}
-      hasPlatformAdmin={hasPlatformAdmin}
+      canRemoveRole={canRemoveRole}
     />
   </div>
 );
