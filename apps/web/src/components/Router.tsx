@@ -499,6 +499,45 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/Communities/IndexCommunityPage/IndexCommunityPage"
+                    ),
+                },
+                {
+                  path: "create",
+                  lazy: () =>
+                    import(
+                      "../pages/Communities/CreateCommunityPage/CreateCommunityPage"
+                    ),
+                },
+                {
+                  path: ":communityId",
+                  lazy: () => import("../pages/Communities/CommunityLayout"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/ViewCommunityPage/ViewCommunityPage"
+                        ),
+                    },
+                    {
+                      path: "manage-access",
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
+                        ),
+                    },
+                  ],
+                },
+              ],
+            },
+            {
               path: "teams",
               children: [
                 {
