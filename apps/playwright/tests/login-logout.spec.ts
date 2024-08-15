@@ -140,7 +140,7 @@ test.describe("Login and logout", () => {
     const tokenSet1 = await getAuthTokens(pageTwo);
 
     // not important, just need an API request to occur
-    await page.goto("/en/applicant/profile");
+    await page.goto("/en/applicant/personal-information");
 
     // get ready to catch the next graphql request
     await page
