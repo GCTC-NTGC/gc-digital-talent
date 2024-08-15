@@ -102,10 +102,10 @@ const RemovePoolMembershipDialog = ({
           color="error"
           aria-label={intl.formatMessage(
             {
-              defaultMessage: "Remove {userName} from {poolName}",
-              id: "M/HUWg",
+              defaultMessage: "Remove {userName} from {poolName}.",
+              id: "zRw5Fs",
               description:
-                "Aria label for the dialog trigger to remove a user from a community",
+                "Label for the dialog trigger to remove a user from a process/pool",
             },
             {
               userName,
@@ -121,9 +121,9 @@ const RemovePoolMembershipDialog = ({
           subtitle={intl.formatMessage(
             {
               defaultMessage: "Remove {userName} from {poolName}.",
-              id: "gMGBSF",
+              id: "zRw5Fs",
               description:
-                "Label for the dialog trigger to remove a user from a community",
+                "Label for the dialog trigger to remove a user from a process/pool",
             },
             {
               userName,
@@ -139,8 +139,8 @@ const RemovePoolMembershipDialog = ({
               <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "They will lose all of the following community roles",
-                  id: "tBw54L",
+                    "They will lose all of the following process team roles",
+                  id: "v2yKq3",
                   description:
                     "Lead text for the list of roles the user will lose",
                 })}

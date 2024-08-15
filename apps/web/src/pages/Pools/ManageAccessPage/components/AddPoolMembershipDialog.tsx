@@ -134,22 +134,7 @@ const AddPoolMembershipDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header
-          subtitle={intl.formatMessage(
-            {
-              defaultMessage:
-                "Select the user you would like to add to {poolName} along with their roles.",
-              id: "dgrKoj",
-              description:
-                "Help text for user field on the add member to community form",
-            },
-            {
-              poolName: getLocalizedName(pool.name, intl),
-            },
-          )}
-        >
-          {label}
-        </Dialog.Header>
+        <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
@@ -158,6 +143,15 @@ const AddPoolMembershipDialog = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Select the user you would like to add to this process:",
+                    id: "h5AUW9",
+                    description:
+                      "Label for the user select field on process team dialog",
+                  })}
+                </p>
                 <Combobox
                   id="userId"
                   name="userId"
@@ -177,6 +171,15 @@ const AddPoolMembershipDialog = ({
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="poolId" value={pool.id} />
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Select the roles you would like this member to have:",
+                    id: "FtxA9/",
+                    description:
+                      "Label for the roles select field on process team dialog",
+                  })}
+                </p>
                 <Combobox
                   id="roles"
                   name="roles"

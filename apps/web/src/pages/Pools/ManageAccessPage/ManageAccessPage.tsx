@@ -49,9 +49,9 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   );
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Community members",
-    id: "mEh+iY",
-    description: "Page title for the view community members page",
+    defaultMessage: "Process team members",
+    id: "/tn0JF",
+    description: "Page title for the manage process members page",
   });
 
   let columns = [
@@ -119,9 +119,10 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search community members",
-            id: "33oume",
-            description: "Label for the community members table search input",
+            defaultMessage: "Search process team members",
+            id: "AfDyYk",
+            description:
+              "Label for the process team members table search input",
           }),
         }}
         {...(canAdmin && {
