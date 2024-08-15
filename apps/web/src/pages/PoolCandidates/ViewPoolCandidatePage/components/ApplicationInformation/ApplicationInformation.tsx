@@ -33,7 +33,7 @@ import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
 import DownloadButton from "../MoreActions/DownloadButton";
 
-const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
+export const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationInformation_PoolFragment on Pool {
     classification {
       group
@@ -63,36 +63,38 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   }
 `);
 
-const ApplicationInformation_PoolCandidateFragment = graphql(/* GraphQL */ `
-  fragment ApplicationInformation_PoolCandidate on PoolCandidate {
-    id
-    submittedAt
-    signature
-    ...EducationRequirement_PoolCandidate
-    screeningQuestionResponses {
+export const ApplicationInformation_PoolCandidateFragment = graphql(
+  /* GraphQL */ `
+    fragment ApplicationInformation_PoolCandidate on PoolCandidate {
       id
-      answer
-      screeningQuestion {
+      submittedAt
+      signature
+      ...EducationRequirement_PoolCandidate
+      screeningQuestionResponses {
         id
-        question {
-          en
-          fr
+        answer
+        screeningQuestion {
+          id
+          question {
+            en
+            fr
+          }
+        }
+      }
+      generalQuestionResponses {
+        id
+        answer
+        generalQuestion {
+          id
+          question {
+            en
+            fr
+          }
         }
       }
     }
-    generalQuestionResponses {
-      id
-      answer
-      generalQuestion {
-        id
-        question {
-          en
-          fr
-        }
-      }
-    }
-  }
-`);
+  `,
+);
 
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;

@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
@@ -6,9 +6,16 @@ import {
   fakeUsers,
   fakePools,
 } from "@gc-digital-talent/fake-data";
-import { GeneralQuestionResponse, User } from "@gc-digital-talent/graphql";
+import {
+  GeneralQuestionResponse,
+  makeFragmentData,
+  User,
+} from "@gc-digital-talent/graphql";
 
-import ApplicationInformation from "./ApplicationInformation";
+import ApplicationInformation, {
+  ApplicationInformation_PoolCandidateFragment,
+  ApplicationInformation_PoolFragment,
+} from "./ApplicationInformation";
 
 faker.seed(0);
 
@@ -46,16 +53,14 @@ mockUser = {
 export default {
   component: ApplicationInformation,
   args: {
-    poolQuery: mockPool,
-    application: mockPoolCandidate,
+    poolQuery: makeFragmentData(mockPool, ApplicationInformation_PoolFragment),
+    applicationQuery: makeFragmentData(
+      mockPoolCandidate,
+      ApplicationInformation_PoolCandidateFragment,
+    ),
     snapshot: mockUser,
-    user: mockUser,
     defaultOpen: true,
   },
-};
+} satisfies Meta<typeof ApplicationInformation>;
 
-const Template: StoryFn<typeof ApplicationInformation> = (args) => (
-  <ApplicationInformation {...args} />
-);
-
-export const Default = Template.bind({});
+export const Default: StoryObj<typeof ApplicationInformation> = {};
