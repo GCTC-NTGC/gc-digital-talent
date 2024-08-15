@@ -47,6 +47,7 @@ class Classification extends Model
      */
     protected function displayName(): Attribute
     {
+        /** @disregard P1003 Not using values */
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $attributes['group'].'-'.sprintf('%02d', $attributes['level']),
 
@@ -59,7 +60,10 @@ class Classification extends Model
             return;
         }
 
-        $query->whereIn('group', ['IT', 'PM'])
-            ->where('level', '<=', 5);
+        $query->where(function ($query) {
+            $query->where('group', 'IT')->where('level', '<=', 5);
+        })->orWhere(function ($query) {
+            $query->where('group', 'PM')->where('level', '<=', 4);
+        });
     }
 }
