@@ -235,8 +235,8 @@ const ApplicationEducation = ({
           <p data-h2-margin="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
-              id: "rxo7fM",
+                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. <strong>If both apply to you, select the education criteria.</strong>",
+              id: "prb1eH",
               description:
                 "Description for radio group section in application education page.",
             })}
@@ -318,7 +318,9 @@ const ApplicationEducation = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application?.pool ? (
     <ApplicationEducation application={application} experiences={experiences} />

@@ -13,6 +13,7 @@ use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
+use App\Traits\HydratesSnapshot;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -94,6 +95,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasLocalizedEnums;
     use HasRelationships;
     use HasRolesAndPermissions;
+    use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
     use SoftDeletes;
@@ -1146,5 +1148,54 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function getIsEmailVerifiedAttribute()
     {
         return $this->hasVerifiedEmail();
+    }
+
+    public static function hydrateSnapshot(mixed $snapshot): Model|array
+    {
+        $user = new User();
+
+        $fields = [
+            'first_name' => ['firstName'],
+            'last_name' => ['lastName'],
+            'email' => ['email'],
+            'telephone' => ['telephone'],
+            'current_city' => ['currentCity'],
+            'current_province' => ['currentProvince', true],
+            'preferred_lang' => ['preferredLang', true],
+            'preferred_language_for_interview' => ['preferredLanguageForInterview', true],
+            'preferred_language_for_exam' => ['preferredLanguageForExam', true],
+            'citizenship' => ['citizenship', true],
+            'armed_forces_status' => ['armedForcesStatus', true],
+            'looking_for_english' => ['lookingForEnglish'],
+            'looking_for_french' => ['lookingForFrench'],
+            'looking_for_bilingual' => ['lookingForBilingual'],
+            'first_official_language' => ['firstOfficialLanguage', true],
+            'second_language_exam_completed' => ['secondLanguageExamCompleted'],
+            'second_language_exam_validity' => ['secondLanguageExamValidity'],
+            'comprehension_level' => ['comprehensionLevel', true],
+            'written_level' => ['comprehensionLevel', true],
+            'verbal_level' => ['verbalLevel', true],
+            'estimated_language_ability' => ['estimatedLanguageAbility', true],
+            'is_gov_employee' => ['isGovEmployee'],
+            'gov_employee_type' => ['govEmployeeType', true],
+            'has_priority_entitlement' => ['hasPriorityEntitlement'],
+            'priority_number' => ['priorityNumber'],
+            'location_preferences' => ['locationPreferences', true],
+            'location_exemptions' => ['locationExemptions'],
+            'accepted_operational_requirements' => ['acceptedOperationalRequirements', true],
+            'position_duration' => ['positionDuration'],
+            'is_woman' => ['isWoman'],
+            'has_disability' => ['hasDisability'],
+            'is_visible_minority' => ['isVisibleMinority'],
+            'indigenous_communities' => ['indigenousCommunities', true],
+        ];
+
+        $user = self::hydrateFields($snapshot, $fields, $user);
+
+        if (isset($snapshot['department'])) {
+            $user->department = $snapshot['department']['id'];
+        }
+
+        return $user;
     }
 }

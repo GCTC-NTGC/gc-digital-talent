@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { fakeApplicants, toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import {
   Experience,
   Skill,
@@ -16,8 +16,6 @@ import {
   invertSkillSkillFamilyTree,
   parseKeywords,
 } from "./skillUtils";
-
-const fakeApplicant = fakeApplicants(1)[0];
 
 const localizedBehavioural = toLocalizedEnum(SkillCategory.Behavioural);
 
@@ -227,10 +225,9 @@ describe("skill util tests", () => {
     expect(actual).toEqual(expected);
   });
   test("inverts an experience tree with a single experience in a single skill", () => {
-    const experiences: Experience[] = [
+    const experiences: Omit<Experience, "user">[] = [
       {
         id: "1",
-        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -250,7 +247,6 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -267,10 +263,9 @@ describe("skill util tests", () => {
     expect(actual).toEqual(expected);
   });
   test("inverts an experience tree with three experiences in a single skill", () => {
-    const experiences: Experience[] = [
+    const experiences: Omit<Experience, "user">[] = [
       {
         id: "1",
-        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -282,7 +277,6 @@ describe("skill util tests", () => {
       },
       {
         id: "2",
-        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -294,7 +288,6 @@ describe("skill util tests", () => {
       },
       {
         id: "3",
-        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -314,7 +307,6 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -326,7 +318,6 @@ describe("skill util tests", () => {
           },
           {
             id: "2",
-            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -338,7 +329,6 @@ describe("skill util tests", () => {
           },
           {
             id: "3",
-            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -355,10 +345,9 @@ describe("skill util tests", () => {
     expect(actual).toEqual(expected);
   });
   test("inverts an experience tree with a single experience in three skills", () => {
-    const experiences: Experience[] = [
+    const experiences: Omit<Experience, "user">[] = [
       {
         id: "1",
-        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -390,7 +379,6 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -422,7 +410,6 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -454,7 +441,6 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            user: fakeApplicant,
             skills: [
               {
                 id: "1",

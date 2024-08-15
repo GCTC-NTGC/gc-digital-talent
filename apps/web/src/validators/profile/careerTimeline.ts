@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-import { User } from "@gc-digital-talent/graphql";
+import { Experience } from "@gc-digital-talent/graphql";
 
-type PartialUser = Pick<User, "experiences">;
+type Experiences = Pick<Experience, "id">[] | undefined | null;
 
-export function isIncomplete({ experiences }: PartialUser): boolean {
+export function isIncomplete(experiences: Experiences): boolean {
   return !experiences?.length;
 }

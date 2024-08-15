@@ -437,7 +437,9 @@ export const ApplicationCareerTimeline = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application ? (
     <ApplicationCareerTimeline

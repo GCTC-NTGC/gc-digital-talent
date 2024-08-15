@@ -17,4 +17,5 @@ return [
     'status' => 'Status',
     'present' => 'Present',
     'at' => 'at',
+    'not_provided' => 'Not provided',
 ];

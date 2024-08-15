@@ -270,10 +270,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     positionDuration
     userSkills {
       id
-      user {
-        id
-        email
-      }
       skill {
         id
         key
@@ -294,10 +290,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       # profileExperience fragment
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -389,10 +381,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     isProfileComplete
     poolCandidates {
       id
-      user {
-        id
-        email
-      }
       status {
         value
         label {
@@ -451,10 +439,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         id
         __typename
         details
-        user {
-          id
-          email
-        }
         skills {
           id
           key

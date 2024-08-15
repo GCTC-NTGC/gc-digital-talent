@@ -32,7 +32,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
             $path = $this->getPath();
             $writer = IOFactory::createWriter($this->doc);
             $writer->save($path);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error('Error saving doc: '.$this->fileName.' '.$e->getMessage());
             throw $e;
         }
@@ -50,7 +50,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
         $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(3, ['size' => 15, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
-        $this->doc->addTitleStyle(5, ['size' => 12, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
+        $this->doc->addTitleStyle(5, ['size' => 11, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
 
         $this->strong = ['bold' => true];
     }

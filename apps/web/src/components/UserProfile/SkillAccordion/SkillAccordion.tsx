@@ -67,7 +67,9 @@ const SkillAccordion = ({
 
   const { name, experiences } = skill;
 
-  const getPersonalExperience = (experience: PersonalExperience) => {
+  const getPersonalExperience = (
+    experience: Omit<PersonalExperience, "user">,
+  ) => {
     const { title, description, startDate, endDate, details, skills } =
       experience;
 
@@ -90,7 +92,9 @@ const SkillAccordion = ({
     );
   };
 
-  const getEducationExperience = (experience: EducationExperience) => {
+  const getEducationExperience = (
+    experience: Omit<EducationExperience, "user">,
+  ) => {
     const {
       type,
       thesisTitle,
@@ -152,7 +156,7 @@ const SkillAccordion = ({
     );
   };
 
-  const getAwardExperience = (experience: AwardExperience) => {
+  const getAwardExperience = (experience: Omit<AwardExperience, "user">) => {
     const {
       awardedDate,
       awardedScope,
@@ -214,7 +218,9 @@ const SkillAccordion = ({
     );
   };
 
-  const getCommunityExperience = (experience: CommunityExperience) => {
+  const getCommunityExperience = (
+    experience: Omit<CommunityExperience, "user">,
+  ) => {
     const {
       startDate,
       endDate,
@@ -273,7 +279,7 @@ const SkillAccordion = ({
     );
   };
 
-  const getWorkExperience = (experience: WorkExperience) => {
+  const getWorkExperience = (experience: Omit<WorkExperience, "user">) => {
     const {
       startDate,
       endDate,
