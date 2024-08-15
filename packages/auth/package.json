@@ -34,7 +34,7 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@types/path-browserify": "^1.0.2",
     "@types/react": "^18.3.3",
-    "eslint": "^8.57.0",
+    "eslint": "^9.9.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.5.4"
