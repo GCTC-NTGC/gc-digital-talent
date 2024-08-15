@@ -8,7 +8,7 @@ import {
 import { ManageAccessPage_PoolFragment } from "./operations";
 
 export type ManageAccessFormValues = {
-  poolId: Scalars["UUID"]["output"];
+  teamId: Scalars["UUID"]["output"];
   userId: Scalars["UUID"]["output"];
   userDisplay: Scalars["UUID"]["output"];
   roles: Array<Scalars["UUID"]["output"]>;

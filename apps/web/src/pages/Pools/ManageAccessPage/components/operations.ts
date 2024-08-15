@@ -27,6 +27,7 @@ export const ManageAccessPage_PoolFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    teamIdForRoleAssignment
     roleAssignments {
       id
       role {

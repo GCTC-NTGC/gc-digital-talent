@@ -45,7 +45,7 @@ const AddPoolMembershipDialog = ({
     publicProfileSearch: query || undefined,
   });
 
-  const poolId = pool.id;
+  const teamId = pool?.teamIdForRoleAssignment;
   const { roles, fetching: rolesFetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserProcessRoles_Mutation);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -53,7 +53,7 @@ const AddPoolMembershipDialog = ({
   const methods = useForm<ManageAccessFormValues>({
     defaultValues: {
       userId: "",
-      poolId: pool.id,
+      teamId,
       roles: [],
     },
   });
@@ -65,7 +65,7 @@ const AddPoolMembershipDialog = ({
 
   const handleSave = async (formValues: ManageAccessFormValues) => {
     const roleInputArray: RoleInput[] = formValues.roles.map((role) => {
-      return { roleId: role, teamId: poolId };
+      return { roleId: role, teamId };
     });
 
     await executeMutation({

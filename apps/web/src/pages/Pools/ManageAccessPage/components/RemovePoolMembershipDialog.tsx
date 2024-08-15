@@ -33,13 +33,13 @@ const RemovePoolMembershipDialog = ({
   hasPlatformAdmin,
 }: RemovePoolMembershipDialogProps) => {
   const intl = useIntl();
-  const poolId = pool.id;
+  const teamId = pool?.teamIdForRoleAssignment;
   const [{ fetching }, executeMutation] = useMutation(
     UpdateUserProcessRoles_Mutation,
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const roleInputArray: RoleInput[] = user.roles.map((role) => {
-    return { roleId: role.id, teamId: poolId };
+    return { roleId: role.id, teamId };
   });
   if (
     !hasPlatformAdmin &&
