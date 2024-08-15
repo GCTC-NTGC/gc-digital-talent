@@ -55,6 +55,33 @@ server {
     location = /en/applicant/profile-and-applications/skills/showcase { return 301 /en/applicant/skills/showcase$is_args$args; }
     location = /fr/applicant/profile-and-applications/skills/showcase { return 301 /fr/applicant/skills/showcase$is_args$args; }
     location ~ ^/(en|fr)/users/(.+)(/|$) { return 301 /$1/applicant$is_args$args; }
+    # permanent redirect for documents moved to static hosting
+    location = "/documents/Arbre_decisionnel_PDF_FR.pdf" { return 301 "/static/documents/Arbre_decisionnel_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Arbre_decisionnel_texte_FR.docx" { return 301 "/static/documents/Arbre_decisionnel_texte_FR.docx$is_args$args"; }
+    location = "/documents/Decision_Tree_PDF_EN.pdf" { return 301 "/static/documents/Decision_Tree_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Decision_Tree_Text_EN.docx" { return 301 "/static/documents/Decision_Tree_Text_EN.docx$is_args$args"; }
+    location = "/documents/Digital_Contracting_Questionnaire_EN.docx" { return 301 "/static/documents/Digital_Contracting_Questionnaire_EN.docx$is_args$args"; }
+    location = "/documents/Digital_Recruitment_Template_EN.docx" { return 301 "/static/documents/Digital_Recruitment_Template_EN.docx$is_args$args"; }
+    location = "/documents/Enabling_Conditions_Guidance_EN.docx" { return 301 "/static/documents/Enabling_Conditions_Guidance_EN.docx$is_args$args"; }
+    location = "/documents/Forward_Talent_Plan_EN.docx" { return 301 "/static/documents/Forward_Talent_Plan_EN.docx$is_args$args"; }
+    location = "/documents/Guidance_HR_PDF_EN.pdf" { return 301 "/static/documents/Guidance_HR_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Guidance_HR_text_EN.docx" { return 301 "/static/documents/Guidance_HR_text_EN.docx$is_args$args"; }
+    location = "/documents/Guidance_Manager_PDF_EN.pdf" { return 301 "/static/documents/Guidance_Manager_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Guidance_Manager_text_EN.docx" { return 301 "/static/documents/Guidance_Manager_text_EN.docx$is_args$args"; }
+    location = "/documents/Guidance_Procurement_PDF_EN.pdf" { return 301 "/static/documents/Guidance_Procurement_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Guidance_Procurement_text_EN.docx" { return 301 "/static/documents/Guidance_Procurement_text_EN.docx$is_args$args"; }
+    location = "/documents/Manager package - ITAPIP.pptx" { return 301 "/static/documents/Manager package - ITAPIP.pptx$is_args$args"; }
+    location = "/documents/Modele_de_recrutement_numerique_FR.docx" { return 301 "/static/documents/Modele_de_recrutement_numerique_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_RH_PDF_FR.pdf" { return 301 "/static/documents/Orientation_RH_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Orientation_RH_texte_FR.docx" { return 301 "/static/documents/Orientation_RH_texte_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_approvisionnement_PDF_FR.pdf" { return 301 "/static/documents/Orientation_approvisionnement_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Orientation_approvisionnement_texte_FR.docx" { return 301 "/static/documents/Orientation_approvisionnement_texte_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_gestionnaire_PDF_FR.pdf" { return 301 "/static/documents/Orientation_gestionnaire_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Orientation_gestionnaire_texte_FR.docx" { return 301 "/static/documents/Orientation_gestionnaire_texte_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_sur_les_conditions_habilitantes_FR.docx" { return 301 "/static/documents/Orientation_sur_les_conditions_habilitantes_FR.docx$is_args$args"; }
+    location = "/documents/Plan_prospectif_sur_les_talents_FR.docx" { return 301 "/static/documents/Plan_prospectif_sur_les_talents_FR.docx$is_args$args"; }
+    location = "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx" { return 301 "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx$is_args$args"; }
+    location = "/documents/Trousse du gestionnaire - PATIPA.pptx" { return 301 "/static/documents/Trousse du gestionnaire - PATIPA.pptx$is_args$args"; }
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
