@@ -378,6 +378,19 @@ export const useAdminPoolPages = (
         },
       },
     ],
+    [
+      "manage-access",
+      {
+        title: intl.formatMessage({
+          defaultMessage: "Manage access",
+          id: "J0i4xY",
+          description: "Title for members page",
+        }),
+        link: {
+          url: paths.poolManageAccess(pool.id),
+        },
+      },
+    ],
   ]);
 };
 
