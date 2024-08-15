@@ -9,7 +9,6 @@ import {
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import EditPoolMembershipDialog from "./EditPoolMembershipDialog";
 import RemovePoolMembershipDialog from "./RemovePoolMembershipDialog";
 import { ManageAccessPagePoolFragmentRoleType, PoolTeamMember } from "./types";
 
@@ -39,11 +38,6 @@ export const actionCell = (
     data-h2-flex-wrap="base(wrap)"
     data-h2-gap="base(x.25)"
   >
-    <EditPoolMembershipDialog
-      user={user}
-      pool={pool}
-      hasPlatformAdmin={hasPlatformAdmin}
-    />
     <RemovePoolMembershipDialog
       user={user}
       pool={pool}
