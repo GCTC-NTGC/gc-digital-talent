@@ -120,7 +120,11 @@ const TaskCard = ({
           </Heading>
         </div>
         {link ? (
-          <Link color={headingColor} href={link.href}>
+          <Link
+            color={headingColor}
+            href={link.href}
+            data-h2-white-space="base(nowrap)"
+          >
             {link.label}
           </Link>
         ) : null}
