@@ -12,8 +12,6 @@ import {
   PoolStream,
   PublishingGroup,
   SecurityStatus,
-  Skill,
-  SkillCategory,
   SkillLevel,
   Team,
   UpdatePoolInput,
