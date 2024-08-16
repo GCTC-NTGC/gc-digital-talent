@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 
 import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
-import Heading, { HeadingLevel } from "../Heading";
+import { HeadingLevel } from "../Heading";
+import { headingStyles } from "../Heading/styles";
 
 export const colorOptions = [
   "primary",
@@ -78,6 +79,9 @@ const TaskCard = ({
   // prepare icon element
   const Icon = icon;
 
+  // prepare heading text element
+  const CustomHeading = headingAs;
+
   return (
     <div
       data-h2-shadow="base(larger)"
@@ -96,28 +100,27 @@ const TaskCard = ({
         data-h2-align-items="base(center)"
       >
         {/* wrapper */}
-        <div
-          {...wrapperStyleMap[headingColor]}
-          data-h2-flex-grow="base(2)"
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x0.5)"
-          data-h2-align-items="base(center)"
-        >
-          {Icon ? (
-            <Icon
-              data-h2-display="base(none) p-tablet(initial)"
-              data-h2-height="base(x1)"
-              data-h2-width="base(auto)"
-            />
-          ) : null}
-          <Heading
-            level={headingAs}
-            size="h4"
+        <div {...wrapperStyleMap[headingColor]} data-h2-flex-grow="base(2)">
+          <CustomHeading
+            {...headingStyles["h4"]}
             data-h2-margin="base(0)"
             data-h2-text-align="base(center) p-tablet(left)"
+            data-h2-text-wrap="base(balance)"
+            {...(Icon && {
+              "data-h2-display": "base(flex)",
+              "data-h2-align-items": "base(start)",
+              "data-h2-gap": "base(0 x.5)",
+            })}
           >
+            {Icon ? (
+              <Icon
+                data-h2-display="base(none) p-tablet(inline-block)"
+                data-h2-height="base(auto)"
+                data-h2-flex-shrink="base(0)"
+              />
+            ) : null}
             {title}
-          </Heading>
+          </CustomHeading>
         </div>
         {link ? (
           <Link
