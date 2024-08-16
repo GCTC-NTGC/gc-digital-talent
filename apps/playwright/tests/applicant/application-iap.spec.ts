@@ -7,12 +7,10 @@ import {
   PositionDuration,
   ProvinceOrTerritory,
   PublishingGroup,
-  SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
-import { getSkills } from "~/utils/skills";
 import { loginBySub } from "~/utils/auth";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { createUserWithRoles } from "~/utils/user";
