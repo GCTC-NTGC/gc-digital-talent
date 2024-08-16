@@ -53,8 +53,8 @@ const Item = ({
       data-h2-align-items="base(flex-start) p-tablet(center)"
       data-h2-gap="base(x.25)"
       data-h2-padding="base(x1 0)"
-      data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid)"
-      data-h2-border-bottom-color="base:selectors[:not(:last-child)](gray.lighter)"
+      data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid)"
+      data-h2-border-bottom-color="base:all:selectors[:not(:last-child)](gray.lighter)"
     >
       <div>
         <Heading
