@@ -3,9 +3,9 @@ import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import PreviewList, { DetailProps } from "./PreviewList";
+import PreviewList, { MetaDataProps } from "./PreviewList";
 
-const previewDetails: DetailProps[] = [
+const previewDetails: MetaDataProps[] = [
   {
     type: "chip",
     color: "secondary",
@@ -27,7 +27,7 @@ const previewDetails: DetailProps[] = [
   },
 ];
 
-const previewDetailsTwo: DetailProps[] = [
+const previewDetailsTwo: MetaDataProps[] = [
   {
     type: "chip",
     color: "secondary",
@@ -40,7 +40,7 @@ const previewDetailsTwo: DetailProps[] = [
   },
 ];
 
-const previewDetailsThree: DetailProps[] = [
+const previewDetailsThree: MetaDataProps[] = [
   {
     type: "chip",
     color: "warning",
@@ -78,17 +78,17 @@ Default.args = {
     <>
       <PreviewList.Item
         title="IT-01: Junior application developer"
-        details={previewDetails}
+        metaData={previewDetails}
         buttonName="View preview button one"
       />
       <PreviewList.Item
         title="IT-02: Application developer"
-        details={previewDetailsTwo}
+        metaData={previewDetailsTwo}
         buttonName="View preview button two"
       />
       <PreviewList.Item
         title="IT-03: Database architect"
-        details={previewDetailsThree}
+        metaData={previewDetailsThree}
         buttonName="View preview button three"
       />
     </>

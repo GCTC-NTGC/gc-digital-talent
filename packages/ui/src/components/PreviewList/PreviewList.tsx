@@ -7,13 +7,13 @@ import Chip from "../Chip/Chip";
 import { Color } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
-export type DetailProps = {
+export type MetaDataProps = {
   type: "text" | "chip";
   color?: Color;
   children: ReactNode;
 };
 
-const Detail = ({ children, type, color }: DetailProps) => {
+const MetaData = ({ children, type, color }: MetaDataProps) => {
   switch (type) {
     case "text":
       return <span data-h2-color="base(gray.darker)">{children}</span>;
@@ -30,7 +30,7 @@ const Detail = ({ children, type, color }: DetailProps) => {
 
 interface ItemProps {
   title: string;
-  details: DetailProps[];
+  metaData: MetaDataProps[];
   buttonName: string;
   headingAs?: HeadingLevel;
   buttonAriaLabel?: string;
@@ -39,7 +39,7 @@ interface ItemProps {
 const Item = ({
   title,
   headingAs = "h3",
-  details,
+  metaData,
   buttonName,
   buttonAriaLabel,
 }: ItemProps) => {
@@ -73,11 +73,11 @@ const Item = ({
           data-h2-gap="base(x.25 0)"
           data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
           data-h2-color="p-tablet:children[::after](gray.darker)"
-          data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.25)"
+          data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
           data-h2-font-size="base(caption)"
         >
-          {details.map((detail) => (
-            <Detail key={uniqueId()} {...detail} />
+          {metaData.map((data) => (
+            <MetaData key={uniqueId()} {...data} />
           ))}
         </div>
       </div>
