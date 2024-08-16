@@ -32,7 +32,7 @@ const Template: StoryFn<typeof TaskCard> = (args) => (
   >
     {colorOptions.map((color) => (
       <TaskCard headingColor={color} {...args} key={color}>
-        <div data-h2-padding="base(x1)">
+        <div data-h2-padding="base(x1) p-tablet(x1 x1.5)">
           <Well>{faker.lorem.paragraph()}</Well>
         </div>
       </TaskCard>
