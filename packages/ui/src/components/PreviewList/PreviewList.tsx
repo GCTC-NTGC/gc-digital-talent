@@ -57,7 +57,8 @@ const Item = ({
       <div>
         <Heading
           level={headingAs}
-          size="h6"
+          data-h2-font-size="base(body)"
+          data-h2-font-weight="base(700)"
           data-h2-text-decoration="base(underline)"
           data-h2-margin-bottom="base(x.5)"
           data-h2-margin-top="base(0)"
