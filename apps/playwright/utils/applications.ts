@@ -1,27 +1,12 @@
 import {
   EducationRequirementOption,
   PoolCandidate,
+  PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
-export const Test_CreateApplicationMutationDocument = /* GraphQL */ `
-  mutation Test_CreateApplication($userId: ID!, $poolId: ID!) {
-    createApplication(userId: $userId, poolId: $poolId) {
-      id
-    }
-  }
-`;
-
-export const Test_SubmitApplicationMutationDocument = /* GraphQL */ `
-  mutation Test_SubmitApplication($id: ID!, $signature: String!) {
-    submitApplication(id: $id, signature: $signature) {
-      id
-    }
-  }
-`;
-
-export const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
+const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
   mutation Test_UpdateApplication(
     $id: ID!
     $application: UpdateApplicationInput!
@@ -32,17 +17,10 @@ export const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
   }
 `;
 
-export const Test_UpdateApplicationStatusMutationDocument = /* GraphQL */ `
-  mutation Test_UpdateApplicationStatus(
-    $id: UUID!
-    $input: UpdatePoolCandidateStatusInput!
-  ) {
-    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
+const Test_CreateApplicationMutationDocument = /* GraphQL */ `
+  mutation Test_CreateApplication($userId: ID!, $poolId: ID!) {
+    createApplication(userId: $userId, poolId: $poolId) {
       id
-      expiryDate
-      status {
-        value
-      }
     }
   }
 `;
@@ -92,6 +70,14 @@ export const createApplication: GraphQLRequestFunc<
     });
 };
 
+const Test_SubmitApplicationMutationDocument = /* GraphQL */ `
+  mutation Test_SubmitApplication($id: ID!, $signature: String!) {
+    submitApplication(id: $id, signature: $signature) {
+      id
+    }
+  }
+`;
+
 interface SubmitApplicationInput {
   id: string;
   signature: string;
@@ -128,4 +114,44 @@ export const createAndSubmitApplication: GraphQLRequestFunc<
   return createApplication(ctx, createInput).then(async (application) => {
     return submitApplication(ctx, { id: application.id, signature });
   });
+};
+
+const Test_UpdateApplicationStatusMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateApplicationStatus(
+    $id: UUID!
+    $input: UpdatePoolCandidateStatusInput!
+  ) {
+    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
+      id
+      expiryDate
+      status {
+        value
+      }
+    }
+  }
+`;
+
+interface UpdateStatusArgs {
+  id: string;
+  status: PoolCandidateStatus;
+}
+
+/**
+ * Update status of an application using graphql API
+ */
+export const updateStatus: GraphQLRequestFunc<
+  PoolCandidate,
+  UpdateStatusArgs
+> = async (ctx, { id, status }) => {
+  return ctx
+    .post(Test_UpdateApplicationStatusMutationDocument, {
+      variables: {
+        id,
+        input: { status },
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"updatePoolCandidateStatus", PoolCandidate>) =>
+        res.updatePoolCandidateStatus,
+    );
 };

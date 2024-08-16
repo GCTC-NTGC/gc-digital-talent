@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { getRoles, Test_UpdateUserRolesMutationDocument } from "./roles";
+import { getRoles } from "./roles";
 
 export const defaultUser: Partial<CreateUserInput> = {
   // required
@@ -63,6 +63,14 @@ export const createUser: GraphQLRequestFunc<
     })
     .then((res: GraphQLResponse<"createUser", User>) => res.createUser);
 };
+
+const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
+    updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
+      id
+    }
+  }
+`;
 
 interface AddRolesToUserInput {
   userId: string;

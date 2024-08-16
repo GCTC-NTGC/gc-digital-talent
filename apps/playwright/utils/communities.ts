@@ -2,7 +2,7 @@ import { Community } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
-export const Test_CommunitiesQueryDocument = /* GraphQL */ `
+const Test_CommunitiesQueryDocument = /* GraphQL */ `
   query Test_Communities {
     communities {
       id
@@ -17,8 +17,7 @@ export const Test_CommunitiesQueryDocument = /* GraphQL */ `
 /**
  * Get Communities
  *
- * Get all the communities directly from
- * the API.
+ * Get all the communities directly from the API.
  */
 export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
   return await ctx

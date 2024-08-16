@@ -1,19 +1,6 @@
 import { type Page } from "@playwright/test";
 
-import {
-  EducationRequirementOption,
-  PoolCandidate,
-  PoolCandidateStatus,
-} from "@gc-digital-talent/graphql";
-
 import AppPage from "./AppPage";
-import {
-  Test_CreateApplicationMutationDocument,
-  Test_SubmitApplicationMutationDocument,
-  Test_UpdateApplicationMutationDocument,
-  Test_UpdateApplicationStatusMutationDocument,
-} from "../utils/applications";
-import { GraphQLResponse } from "../utils/graphql";
 
 /**
  * Application Page
@@ -122,22 +109,6 @@ class ApplicationPage extends AppPage {
     await this.page
       .getByRole("button", { name: /submit my application/i })
       .click();
-  }
-
-  /**
-   * Update status of an application using graphql API
-   */
-  async updateStatusGraphql(
-    id: string,
-    status: PoolCandidateStatus,
-  ): Promise<PoolCandidate> {
-    return this.graphqlRequest(Test_UpdateApplicationStatusMutationDocument, {
-      id,
-      input: { status },
-    }).then(
-      (res: GraphQLResponse<"updatePoolCandidateStatus", PoolCandidate>) =>
-        res.updatePoolCandidateStatus,
-    );
   }
 }
 export default ApplicationPage;

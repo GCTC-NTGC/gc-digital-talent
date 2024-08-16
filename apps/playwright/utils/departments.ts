@@ -2,7 +2,7 @@ import { Department } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
-export const Test_DepartmentsQueryDocument = /* GraphQL */ `
+const Test_DepartmentsQueryDocument = /* GraphQL */ `
   query Test_Departments {
     departments {
       id
@@ -18,8 +18,7 @@ export const Test_DepartmentsQueryDocument = /* GraphQL */ `
 /**
  * Get Classifications
  *
- * Get all the classifications directly from
- * the API.
+ * Get all the classifications directly from the API.
  */
 export const getDepartments: GraphQLRequestFunc<Department[]> = async (ctx) => {
   return await ctx

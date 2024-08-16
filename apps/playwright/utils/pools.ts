@@ -21,7 +21,7 @@ import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";
 
-export const Test_CreatePoolMutationDocument = /* GraphQL */ `
+const Test_CreatePoolMutationDocument = /* GraphQL */ `
   mutation Test_CreatePool(
     $userId: ID!
     $teamId: ID!
@@ -39,35 +39,6 @@ export const Test_CreatePoolMutationDocument = /* GraphQL */ `
         en
         fr
       }
-    }
-  }
-`;
-
-export const Test_UpdatePoolMutationDocument = /* GraphQL */ `
-  mutation Test_UpdatePool($poolId: ID!, $pool: UpdatePoolInput!) {
-    updatePool(id: $poolId, pool: $pool) {
-      id
-    }
-  }
-`;
-
-export const Test_CreatePoolSkillMutationDocument = /* GraphQL */ `
-  mutation Test_CreatePoolSkill(
-    $poolId: ID!
-    $skillId: ID!
-    $poolSkill: CreatePoolSkillInput!
-  ) {
-    createPoolSkill(poolId: $poolId, skillId: $skillId, poolSkill: $poolSkill) {
-      id
-    }
-  }
-`;
-
-export const Test_PublishPoolMutationDocument = /* GraphQL */ `
-  mutation Test_PublishPool($id: ID!) {
-    publishPool(id: $id) {
-      id
-      publishedAt
     }
   }
 `;
@@ -96,6 +67,14 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
     .then((res: GraphQLResponse<"createPool", Pool>) => res.createPool);
 };
 
+const Test_UpdatePoolMutationDocument = /* GraphQL */ `
+  mutation Test_UpdatePool($poolId: ID!, $pool: UpdatePoolInput!) {
+    updatePool(id: $poolId, pool: $pool) {
+      id
+    }
+  }
+`;
+
 interface UpdatePoolArgs {
   poolId: string;
   pool: UpdatePoolInput;
@@ -117,6 +96,18 @@ export const updatePool: GraphQLRequestFunc<Pool, UpdatePoolArgs> = async (
       return res.updatePool;
     });
 };
+
+const Test_CreatePoolSkillMutationDocument = /* GraphQL */ `
+  mutation Test_CreatePoolSkill(
+    $poolId: ID!
+    $skillId: ID!
+    $poolSkill: CreatePoolSkillInput!
+  ) {
+    createPoolSkill(poolId: $poolId, skillId: $skillId, poolSkill: $poolSkill) {
+      id
+    }
+  }
+`;
 
 interface CreatePoolSkillArgs {
   poolId: string;
@@ -141,6 +132,15 @@ export const createPoolSkill: GraphQLRequestFunc<
       return res.createPoolSkill;
     });
 };
+
+const Test_PublishPoolMutationDocument = /* GraphQL */ `
+  mutation Test_PublishPool($id: ID!) {
+    publishPool(id: $id) {
+      id
+      publishedAt
+    }
+  }
+`;
 
 export const publishPool: GraphQLRequestFunc<Pool, string> = async (
   ctx,

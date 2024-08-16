@@ -2,7 +2,7 @@ import { Classification } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
-export const Test_ClassificationsQueryDocument = /* GraphQL */ `
+const Test_ClassificationsQueryDocument = /* GraphQL */ `
   query Test_Classifications {
     classifications {
       id
@@ -15,8 +15,7 @@ export const Test_ClassificationsQueryDocument = /* GraphQL */ `
 /**
  * Get Classifications
  *
- * Get all the classifications directly from
- * the API.
+ * Get all the classifications directly from the API.
  */
 export const getClassifications: GraphQLRequestFunc<Classification[]> = async (
   ctx,

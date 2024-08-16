@@ -1,34 +1,34 @@
 import { Skill } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc } from "./graphql";
+import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
-/**
- * Get Skills
- *
- * Get all the skills directly from
- * the API.
- */
-// eslint-disable-next-line import/prefer-default-export
-export const getSkills: GraphQLRequestFunc<Skill[]> = async (ctx) => {
-  const res = await ctx.post(/* GraphQL */ `
-    query Skills {
-      skills {
-        id
-        key
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        name {
+const Test_SkillsQueryDocument = /* GraphQL */ `
+  query Skills {
+    skills {
+      id
+      key
+      category {
+        value
+        label {
           en
           fr
         }
       }
+      name {
+        en
+        fr
+      }
     }
-  `);
+  }
+`;
 
-  return res.skills;
+/**
+ * Get Skills
+ *
+ * Get all the skills directly from the API.
+ */
+export const getSkills: GraphQLRequestFunc<Skill[]> = async (ctx) => {
+  return ctx
+    .post(Test_SkillsQueryDocument)
+    .then((res: GraphQLResponse<"skills", Skill[]>) => res.skills);
 };
