@@ -1097,9 +1097,16 @@ class PoolCandidate extends Model
                         $snapshot = $this->profile_snapshot;
 
                         if ($snapshot) {
-                            $claimedSkills = collect($snapshot['userSkills']);
-                            $isClaimed = $claimedSkills->contains(function ($userSkill) use ($poolSkill) {
-                                return $userSkill['skill']['id'] === $poolSkill->skill_id;
+                            $experiences = collect($snapshot['experiences']);
+
+                            $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
+                                foreach ($experience['skills'] as $skill) {
+                                    if ($skill['id'] === $poolSkill->skill_id) {
+                                        return true;
+                                    }
+                                }
+
+                                return false;
                             });
                         }
 
