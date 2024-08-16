@@ -12,6 +12,8 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 
+import useNav from "../Nav/useNav";
+
 interface RequireAuthProps {
   children: ReactNode;
   roles: Array<RoleName>;
@@ -31,6 +33,7 @@ const RequireAuth = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const loginRedirectPath = loginPath ?? paths.login();
+  const navState = useNav();
 
   const userRoleNames = roleAssignments
     ?.map((a) => a.role?.name)
@@ -59,6 +62,12 @@ const RequireAuth = ({
       );
     }
   }, [location.pathname, loggedIn, loginRedirectPath, navigate, searchParams]);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      navState.changeNavRole(authorizedRoleNames);
+    }
+  }, [authorizedRoleNames, isAuthorized, navState]);
 
   // Prevent showing children while login redirect happens
   if (!loggedIn) {
