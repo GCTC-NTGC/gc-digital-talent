@@ -7,6 +7,7 @@ import {
   CitizenshipStatus,
   UpdateUserAsUserInput,
   User,
+  UserProfileFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
@@ -60,7 +61,9 @@ export const getLabels = (intl: IntlShape) => ({
   armedForcesStatus: intl.formatMessage(profileMessages.veteranStatus),
 });
 
-export const dataToFormValues = (data?: User | null): FormValues => ({
+export const dataToFormValues = (
+  data?: UserProfileFragmentType | null,
+): FormValues => ({
   preferredLang: data?.preferredLang?.value,
   preferredLanguageForInterview: data?.preferredLanguageForInterview?.value,
   preferredLanguageForExam: data?.preferredLanguageForExam?.value,

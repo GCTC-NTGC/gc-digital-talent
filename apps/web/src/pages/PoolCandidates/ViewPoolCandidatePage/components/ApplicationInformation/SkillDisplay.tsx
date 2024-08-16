@@ -10,7 +10,7 @@ import { getExperienceSkills } from "~/utils/skillUtils";
 
 interface SkillExperiencesProps {
   skill: Skill;
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 }
 
 const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
@@ -92,7 +92,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
 
 interface SkillDisplayProps {
   skills: Skill[];
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 }
 
 const SkillDisplay = ({ skills, experiences }: SkillDisplayProps) => {

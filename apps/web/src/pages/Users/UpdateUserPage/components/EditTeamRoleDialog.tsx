@@ -29,7 +29,7 @@ type FormValues = {
 };
 
 interface EditTeamRoleDialogProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName">;
   initialRoles: Array<Role>;
   allRoles: Array<Role>;
   team: Pick<Team, "id" | "displayName">;
@@ -47,7 +47,9 @@ const EditTeamRoleDialog = ({
 }: EditTeamRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userDisplayName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const { id, firstName, lastName } = user;
+
+  const userDisplayName = getFullNameHtml(firstName, lastName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
   const initialRolesIds = initialRoles.map((role) => role.id);
 
@@ -77,7 +79,7 @@ const EditTeamRoleDialog = ({
     });
 
     return onEditRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
         attach: rolesToAttachArray.length ? rolesToAttachArray : undefined,
         detach: rolesToDetachArray.length ? rolesToDetachArray : undefined,

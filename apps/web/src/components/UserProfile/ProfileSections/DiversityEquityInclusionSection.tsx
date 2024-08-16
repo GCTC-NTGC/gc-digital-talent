@@ -15,7 +15,16 @@ import metisIcon from "~/assets/img/metis-true.webp";
 import otherIcon from "~/assets/img/other-true.webp";
 import { anyCriteriaSelected } from "~/validators/profile/diversityEquityInclusion";
 
-const DiversityEquityInclusionSection = ({ user }: { user: User }) => {
+interface DiversityEquityInclusionSectionProps {
+  user: Pick<
+    User,
+    "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
+  >;
+}
+
+const DiversityEquityInclusionSection = ({
+  user,
+}: DiversityEquityInclusionSectionProps) => {
   const intl = useIntl();
 
   const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =

@@ -67,6 +67,14 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description: "Error message that the given team name is already in use.",
     },
 
+    // community validation
+    CommunityKeyInUse: {
+      defaultMessage: "This community key is already in use",
+      id: "C/2HT9",
+      description:
+        "Error message that the given community key is already in use",
+    },
+
     // department validation
     DepartmentNumberInUse: {
       defaultMessage: "This department number is already in use",
@@ -445,6 +453,34 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "Me66rb",
       description:
         "Error message for when attempting to delete a previously deleted skill",
+    },
+    TEAM_ID_REQUIRED: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
+    },
+    TEAM_DOES_NOT_EXIST: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
+    },
+    ROLE_NOT_TEAM_ROLE: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
+    },
+    ROLE_NOT_FOUND: {
+      defaultMessage:
+        "An error occurred during role assignment. Contact support if this problem persists.",
+      id: "9QsHXO",
+      description:
+        "Error message for when an error occurs during role assignment",
     },
   },
 );

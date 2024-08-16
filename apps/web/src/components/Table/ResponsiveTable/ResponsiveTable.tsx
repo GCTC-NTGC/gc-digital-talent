@@ -30,8 +30,7 @@ import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type {
   AddDef,
-  DatasetDownload,
-  DatasetPrint,
+  DownloadDef,
   FilterDef,
   PaginationDef,
   RowSelectDef,
@@ -64,12 +63,8 @@ interface TableProps<TData, TFilters> {
   sort?: SortDef;
   /** Enable pagination */
   pagination?: PaginationDef;
-  /** Enable printing selected rows (requires rowSelect) */
-  print?: DatasetPrint;
-  /** Enable downloading selected rows and/or all data (requires rowSelect) */
-  download?: DatasetDownload;
-  /** Async download button */
-  asyncDownload?: ReactNode;
+  /** Download buttons */
+  download?: DownloadDef;
   /** Enable the "add item" button */
   add?: AddDef;
   filter?: FilterDef<TFilters>;
@@ -89,8 +84,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   search,
   sort,
   download,
-  asyncDownload,
-  print,
   add,
   pagination,
   filter,
@@ -375,8 +368,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 {...{
                   rowSelect: !!rowSelect,
                   download,
-                  asyncDownload,
-                  print,
                   isLoading,
                   count: Object.values(rowSelection).length,
                   onClear: () => table.resetRowSelection(),

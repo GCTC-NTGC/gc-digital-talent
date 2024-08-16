@@ -29,7 +29,6 @@ class AwardExperienceResource extends JsonResource
             'awardedScope' => $this->localizeEnum($this->awarded_scope, AwardedScope::class),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
-            'user' => new UserStubResource($this->user),
         ];
     }
 }

@@ -16,7 +16,7 @@ type FormValues = {
 
 const deriveDefaultValues = (
   skill?: Skill,
-  experience?: Experience,
+  experience?: Omit<Experience, "user">,
 ): FormValues => {
   const details = experience?.skills?.find(
     (experienceSkill) => experienceSkill.id === skill?.id,
@@ -31,8 +31,8 @@ const deriveDefaultValues = (
 interface ExperienceSkillFormDialogProps {
   onSave?: () => void;
   skill?: Skill;
-  experience?: Experience;
-  availableExperiences?: Experience[];
+  experience?: Omit<Experience, "user">;
+  availableExperiences?: Omit<Experience, "user">[];
   trigger?: ReactNode;
 }
 

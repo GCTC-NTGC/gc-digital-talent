@@ -222,9 +222,6 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
       id
       __typename
       details
-      user {
-        id
-      }
       ... on AwardExperience {
         title
         issuedBy

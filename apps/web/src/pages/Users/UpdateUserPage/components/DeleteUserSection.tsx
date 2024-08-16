@@ -8,16 +8,17 @@ import DeleteUserDialog from "./DeleteUserDialog";
 import { DeleteUserFunc } from "../types";
 
 interface DeleteUserSectionProps {
-  user: User;
+  user: Pick<User, "id" | "deletedDate" | "firstName" | "lastName">;
   onDeleteUser: DeleteUserFunc;
 }
 
 const DeleteUserSection = ({ user, onDeleteUser }: DeleteUserSectionProps) => {
   const intl = useIntl();
+  const { id } = user;
 
   const handleDeleteUser = useCallback(async () => {
-    return onDeleteUser(user.id);
-  }, [onDeleteUser, user.id]);
+    return onDeleteUser(id);
+  }, [onDeleteUser, id]);
 
   return (
     <>

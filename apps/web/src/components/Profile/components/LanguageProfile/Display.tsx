@@ -40,7 +40,7 @@ const getBilingualEvaluation = (
     `Invalid Language Ability '${bilingualEvaluationId}'`,
   );
 
-interface DisplayProps {
+export interface DisplayProps {
   user: PartialUser & { bilingualEvaluation?: BilingualEvaluation };
   context?: "admin" | "default" | "print";
 }

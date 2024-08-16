@@ -553,10 +553,10 @@ export const ViewSearchRequest = ({
               </div>
               <FilterBlock
                 title={intl.formatMessage({
-                  defaultMessage: "Additional Comments",
-                  id: "WqOnFF",
+                  defaultMessage: "Additional comments",
+                  id: "GF8FPy",
                   description:
-                    "Title for the additional comments block in the search request filters",
+                    "Title for the additional comments block for a search request",
                 })}
                 content={additionalComments}
               />

@@ -140,7 +140,7 @@ test.describe("Login and logout", () => {
     const tokenSet1 = await getAuthTokens(pageTwo);
 
     // not important, just need an API request to occur
-    await page.goto("/en/applicant/profile");
+    await page.goto("/en/applicant/personal-information");
 
     // get ready to catch the next graphql request
     await page
@@ -317,15 +317,19 @@ test.describe("Login and logout", () => {
     const pageTwo = await context.newPage();
     await loginBySub(pageOne, "applicant@test.com", false);
 
-    // visit somewhere in second page context
-    await pageTwo.goto("/en/");
-
     // confirm login in first page context
     await expect(
       pageOne.getByRole("heading", {
         name: "Welcome back, Gul",
         level: 1,
       }),
+    ).toBeVisible();
+
+    // visit somewhere in second page context
+    // and make sure we are logged in
+    await pageTwo.goto("/en/");
+    await expect(
+      pageTwo.getByRole("button", { name: /sign out/i }),
     ).toBeVisible();
 
     // simulate logged out in first page context

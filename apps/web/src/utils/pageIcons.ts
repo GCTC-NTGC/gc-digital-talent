@@ -39,6 +39,10 @@ const pageIcons: Record<string, PageIcon> = {
     solid: TagSolidIcon,
     outline: TagOutlineIcon,
   },
+  communities: {
+    solid: UsersSolidIcon,
+    outline: UsersOutlineIcon,
+  },
   dashboard: {
     solid: HomeSolidIcon,
     outline: HomeOutlineIcon,

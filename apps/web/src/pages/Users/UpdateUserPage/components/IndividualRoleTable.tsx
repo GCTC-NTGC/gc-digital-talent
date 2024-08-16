@@ -9,15 +9,18 @@ import { UpdateUserRolesInput, Role, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { UpdateUserRolesFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 import { actionCell, roleCell } from "./helpers";
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
 const columnHelper = createColumnHelper<Role>();
 
 interface IndividualRoleTableProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
   availableRoles: Array<Role>;
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
@@ -25,19 +28,20 @@ interface IndividualRoleTableProps {
 const IndividualRoleTable = ({
   user,
   availableRoles,
+  authInfo,
   onUpdateUserRoles,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: role } }) =>
-        actionCell(role, user, onUpdateUserRoles),
+        actionCell(
+          role,
+          { id: user.id, firstName: user.firstName, lastName: user.lastName },
+          onUpdateUserRoles,
+        ),
     }),
     columnHelper.accessor((role) => getLocalizedName(role.displayName, intl), {
       id: "role",
@@ -52,13 +56,13 @@ const IndividualRoleTable = ({
   ] as ColumnDef<Role>[];
 
   const data = useMemo(() => {
-    const roles = user?.authInfo?.roleAssignments
+    const roles = authInfo?.roleAssignments
       ?.filter(notEmpty)
       .filter((assignment) => !assignment.role?.isTeamBased)
       .map((assignment) => assignment.role)
       .filter(notEmpty);
     return roles || [];
-  }, [user?.authInfo?.roleAssignments]);
+  }, [authInfo?.roleAssignments]);
 
   const handleAddRoles = async (values: UpdateUserRolesInput) => {
     return onUpdateUserRoles(values);
@@ -95,6 +99,7 @@ const IndividualRoleTable = ({
           component: (
             <AddIndividualRoleDialog
               user={user}
+              authInfo={authInfo}
               availableRoles={availableRoles}
               onAddRoles={handleAddRoles}
             />
