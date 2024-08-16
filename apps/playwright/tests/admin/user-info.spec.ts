@@ -1,11 +1,11 @@
 import { Page } from "@playwright/test";
 
-import { Skill, SkillCategory, User } from "@gc-digital-talent/graphql";
+import { Skill, User } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { getSkills } from "~/utils/skills";
+import { getTechnicalSkill } from "~/utils/skills";
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { createUserWithRoles, me } from "~/utils/user";
 import { createAndPublishPool } from "~/utils/pools";
@@ -50,12 +50,9 @@ test.describe("User information", () => {
     uniqueTestId = Date.now().valueOf().toString();
     const userName = `Playwright ${uniqueTestId}`;
     sub = `playwright.sub.${uniqueTestId}`;
+    const technicalSkill = getTechnicalSkill();
 
     adminCtx = await graphql.newContext();
-
-    const technicalSkill = await getSkills(adminCtx).then((skills) => {
-      return skills.find((s) => s.category.value === SkillCategory.Technical);
-    });
 
     const createdUser = await createUserWithRoles(adminCtx, {
       user: {

@@ -14,7 +14,7 @@ test.describe("Process permissions", () => {
 
   let pool: Pool;
 
-  test.beforeAll(async () => {
+  test.beforeAll(async ({ apiData }) => {
     const uniqueTestId = Date.now().valueOf();
     unassociatedSub = `playwright.sub.unassociated.${uniqueTestId}`;
     const unassociatedPoolManagerEmail = `${unassociatedSub}@example.org`;
@@ -41,7 +41,10 @@ test.describe("Process permissions", () => {
       ],
     });
 
-    const team = await getDCM(adminCtx);
+    let team = apiData.dcm;
+    if (!team) {
+      team = await getDCM(adminCtx);
+    }
 
     const associatedPoolManager = await createUserWithRoles(adminCtx, {
       user: {

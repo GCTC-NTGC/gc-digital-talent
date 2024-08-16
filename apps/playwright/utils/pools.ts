@@ -1,5 +1,8 @@
 import {
+  Classification,
+  Community,
   CreatePoolSkillInput,
+  Department,
   LocalizedString,
   Pool,
   PoolLanguage,
@@ -9,18 +12,19 @@ import {
   PoolStream,
   PublishingGroup,
   SecurityStatus,
+  Skill,
   SkillCategory,
   SkillLevel,
+  Team,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
+import DATA from "~/constants/data";
+
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { getDCM } from "./teams";
-import { getCommunities } from "./communities";
-import { getClassifications } from "./classification";
-import { getDepartments } from "./departments";
-import { getSkills } from "./skills";
+import { readCache } from "./cache";
+import { getTechnicalSkill } from "./skills";
 
 const defaultPool: Partial<UpdatePoolInput> = {
   stream: PoolStream.BusinessAdvisoryServices,
@@ -77,25 +81,25 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
 ) => {
   let teamId = opts.teamId;
   if (!teamId) {
-    const team = await getDCM(ctx);
+    const team = readCache<Team>(DATA.DCM);
     teamId = team.id;
   }
 
   let communityId = opts.communityId;
   if (!communityId) {
-    const communities = await getCommunities(ctx);
+    const communities = readCache<Community>(DATA.COMMUNITES);
     communityId = communities[0].id;
   }
 
   let classificationId = opts.classificationId;
   if (!classificationId) {
-    const classifications = await getClassifications(ctx);
+    const classifications = readCache<Classification>(DATA.CLASSIFICATIONS);
     classificationId = classifications[0].id;
   }
 
   let departmentId = opts.departmentId;
   if (!departmentId) {
-    const departments = await getDepartments(ctx);
+    const departments = readCache<Department>(DATA.DEPARTNENTS);
     departmentId = departments[0].id;
   }
 
@@ -169,11 +173,7 @@ export const createPoolSkill: GraphQLRequestFunc<
 > = async (ctx, { poolId, poolSkill, ...opts }) => {
   let skillId = opts?.skillId;
   if (!skillId) {
-    const technicalSkill = await getSkills(ctx).then((skills) => {
-      return skills.find(
-        (skill) => skill.category.value === SkillCategory.Technical,
-      );
-    });
+    const technicalSkill = getTechnicalSkill();
     skillId = technicalSkill.id;
   }
 

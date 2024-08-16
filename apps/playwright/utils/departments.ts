@@ -16,9 +16,9 @@ const Test_DepartmentsQueryDocument = /* GraphQL */ `
 `;
 
 /**
- * Get Classifications
+ * Get departments
  *
- * Get all the classifications directly from the API.
+ * Get all the departments directly from the API.
  */
 export const getDepartments: GraphQLRequestFunc<Department[]> = async (ctx) => {
   return await ctx
