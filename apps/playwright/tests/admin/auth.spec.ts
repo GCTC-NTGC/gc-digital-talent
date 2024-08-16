@@ -202,16 +202,20 @@ test.describe("Authenticated", () => {
   test.describe("Community recruiter", () => {
     const communityRecruiterRestrictedPaths = [
       "/en/admin/users",
+      "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
       "/en/admin/settings/departments",
       "/en/admin/settings/skills",
       "/en/admin/settings/skill-families",
+      "/en/admin/teams",
+      "/en/admin/pool-candidates",
     ];
 
     const communityRecruiterAllowedPaths = [
       "/en/admin",
       "/en/admin/pools",
       "/en/admin/talent-requests",
+      "/en/admin/communities",
     ];
 
     test("user accesses allowed paths only", async ({
@@ -237,6 +241,9 @@ test.describe("Authenticated", () => {
           await page.goto(allowedPath);
           await page.waitForURL(allowedPath);
           await expect(
+            page.getByRole("link", { name: "Dashboard" }),
+          ).toBeVisible();
+          await expect(
             page.getByRole("heading", {
               name: "Sorry, you are not authorized to view this page.",
             }),
@@ -249,16 +256,20 @@ test.describe("Authenticated", () => {
   test.describe("Community admin", () => {
     const communityAdminRestrictedPaths = [
       "/en/admin/users",
+      "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
       "/en/admin/settings/departments",
       "/en/admin/settings/skills",
       "/en/admin/settings/skill-families",
+      "/en/admin/pool-candidates",
+      "/en/admin/teams",
     ];
 
     const communityAdminAllowedPaths = [
       "/en/admin",
       "/en/admin/pools",
       "/en/admin/talent-requests",
+      "/en/admin/communities",
     ];
 
     test("user accesses allowed paths only", async ({ communityAdminPage }) => {
@@ -281,6 +292,9 @@ test.describe("Authenticated", () => {
           const page = await context.newPage();
           await page.goto(allowedPath);
           await page.waitForURL(allowedPath);
+          await expect(
+            page.getByRole("link", { name: "Dashboard" }),
+          ).toBeVisible();
           await expect(
             page.getByRole("heading", {
               name: "Sorry, you are not authorized to view this page.",
