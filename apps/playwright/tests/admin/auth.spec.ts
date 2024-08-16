@@ -30,7 +30,7 @@ test.describe("Anonymous user", () => {
         const page = await context.newPage();
         await page.goto(restrictedPath);
         await page.waitForURL("**/login-info*");
-        await expect(page.url()).toContain("/en/login-info");
+        expect(page.url()).toContain("/en/login-info");
       }),
     );
   });
@@ -38,7 +38,7 @@ test.describe("Anonymous user", () => {
   test("Redirects app login page to auth login page", async ({ page }) => {
     await page.goto("/login");
     await page.waitForURL(`**${auth.SERVER_ROOT}/authorize*`);
-    await expect(page.url()).toContain(`${auth.SERVER_ROOT}/authorize`);
+    expect(page.url()).toContain(`${auth.SERVER_ROOT}/authorize`);
   });
 
   test("Does not have tokens", async ({ appPage }) => {
@@ -116,7 +116,7 @@ test.describe("Authenticated", () => {
     test("Can access restricted paths", async ({ adminPage }) => {
       await Promise.all(
         restrictedPaths.map(async (restrictedPath) => {
-          const context = await adminPage.page.context();
+          const context = adminPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -134,7 +134,7 @@ test.describe("Authenticated", () => {
     test("Cannot access restricted paths", async ({ applicantPage }) => {
       await Promise.all(
         restrictedPaths.map(async (restrictedPath) => {
-          const context = await applicantPage.page.context();
+          const context = applicantPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -168,7 +168,7 @@ test.describe("Authenticated", () => {
     }) => {
       await Promise.all(
         communityRecruiterRestrictedPaths.map(async (restrictedPath) => {
-          const context = await communityRecruiterPage.page.context();
+          const context = communityRecruiterPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -181,7 +181,7 @@ test.describe("Authenticated", () => {
       );
       await Promise.all(
         communityRecruiterAllowedPaths.map(async (allowedPath) => {
-          const context = await communityRecruiterPage.page.context();
+          const context = communityRecruiterPage.page.context();
           const page = await context.newPage();
           await page.goto(allowedPath);
           await page.waitForURL(allowedPath);
@@ -213,7 +213,7 @@ test.describe("Authenticated", () => {
     test("user accesses allowed paths only", async ({ communityAdminPage }) => {
       await Promise.all(
         communityAdminRestrictedPaths.map(async (restrictedPath) => {
-          const context = await communityAdminPage.page.context();
+          const context = communityAdminPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -226,7 +226,7 @@ test.describe("Authenticated", () => {
       );
       await Promise.all(
         communityAdminAllowedPaths.map(async (allowedPath) => {
-          const context = await communityAdminPage.page.context();
+          const context = communityAdminPage.page.context();
           const page = await context.newPage();
           await page.goto(allowedPath);
           await page.waitForURL(allowedPath);

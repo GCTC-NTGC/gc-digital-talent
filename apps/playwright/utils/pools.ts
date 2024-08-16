@@ -1,5 +1,4 @@
 import {
-  CreatePoolInput,
   CreatePoolSkillInput,
   LocalizedString,
   Pool,
@@ -45,15 +44,40 @@ const Test_CreatePoolMutationDocument = /* GraphQL */ `
 
 interface CreatePoolArgs {
   userId: string;
-  teamId: string;
-  communityId: string;
-  pool: CreatePoolInput;
+  teamId?: string;
+  communityId?: string;
+  classificationId?: string;
+  departmentId?: string;
 }
 
 export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
   ctx,
-  { userId, teamId, communityId, pool },
+  { userId, ...opts },
 ) => {
+  let teamId = opts.teamId;
+  if (!teamId) {
+    const team = await getDCM(ctx);
+    teamId = team.id;
+  }
+
+  let communityId = opts.communityId;
+  if (!communityId) {
+    const communities = await getCommunities(ctx);
+    communityId = communities[0].id;
+  }
+
+  let classificationId = opts.classificationId;
+  if (!classificationId) {
+    const classifications = await getClassifications(ctx);
+    classificationId = classifications[0].id;
+  }
+
+  let departmentId = opts.departmentId;
+  if (!departmentId) {
+    const departments = await getDepartments(ctx);
+    departmentId = departments[0].id;
+  }
+
   return ctx
     .post(Test_CreatePoolMutationDocument, {
       isPrivileged: true,
@@ -61,7 +85,10 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
         userId,
         teamId,
         communityId,
-        pool,
+        pool: {
+          classification: { connect: classificationId },
+          department: { connect: departmentId },
+        },
       },
     })
     .then((res: GraphQLResponse<"createPool", Pool>) => res.createPool);
@@ -167,39 +194,24 @@ type CreateAndPublishPoolArgs = {
 export const createAndPublishPool: GraphQLRequestFunc<
   Pool,
   CreateAndPublishPoolArgs
-> = async (ctx, { userId, skillId, name, ...opts }) => {
-  let teamId = opts.teamId;
-  if (!teamId) {
-    const team = await getDCM(ctx);
-    teamId = team.id;
-  }
-
-  let communityId = opts.communityId;
-  if (!communityId) {
-    const communities = await getCommunities(ctx);
-    communityId = communities[0].id;
-  }
-
-  let classificationId = opts.classificationId;
-  if (!classificationId) {
-    const classifications = await getClassifications(ctx);
-    classificationId = classifications[0].id;
-  }
-
-  let departmentId = opts.departmentId;
-  if (!departmentId) {
-    const departments = await getDepartments(ctx);
-    departmentId = departments[0].id;
-  }
-
+> = async (
+  ctx,
+  {
+    userId,
+    skillId,
+    name,
+    teamId,
+    communityId,
+    classificationId,
+    departmentId,
+  },
+) => {
   return createPool(ctx, {
     userId,
     teamId,
     communityId,
-    pool: {
-      classification: { connect: classificationId },
-      department: { connect: departmentId },
-    },
+    classificationId,
+    departmentId,
   }).then(async (pool) => {
     await updatePool(ctx, {
       poolId: pool.id,

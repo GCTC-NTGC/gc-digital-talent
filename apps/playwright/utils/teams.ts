@@ -44,6 +44,7 @@ export const createTeam: GraphQLRequestFunc<Team, CreateTeamInput> = async (
 ) => {
   return ctx
     .post(Test_CreateTeamMutationDocument, {
+      isPrivileged: true,
       variables: { team },
     })
     .then((res: GraphQLResponse<"createTeam", Team>) => res.createTeam);

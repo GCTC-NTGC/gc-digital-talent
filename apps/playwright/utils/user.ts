@@ -72,22 +72,31 @@ const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
   }
 `;
 
+type RoleInput = string | [string, string];
+
 interface AddRolesToUserInput {
   userId: string;
-  roles: string[];
+  roles: RoleInput[];
   team?: string;
 }
 
 export const addRolesToUser: GraphQLRequestFunc<
   void,
   AddRolesToUserInput
-> = async (ctx, { userId, roles, team }) => {
+> = async (ctx, { userId, roles }) => {
   const allRoles = await getRoles(ctx);
-  const roleInputArray = allRoles
-    .filter((role) => roles.includes(role.name))
-    .map((role) => {
-      return { roleId: role.id, teamId: team };
-    });
+  const roleInputArray = roles.map((role) => {
+    let roleName = role;
+    let teamId: string | undefined;
+    if (Array.isArray(role)) {
+      roleName = role[0];
+      teamId = role[1];
+    }
+    const apiRole = allRoles.find((r) => r.name === roleName);
+    if (!apiRole) return undefined;
+
+    return { roleId: apiRole.id, teamId };
+  });
 
   await ctx.post(Test_UpdateUserRolesMutationDocument, {
     isPrivileged: true,
@@ -104,7 +113,7 @@ export const addRolesToUser: GraphQLRequestFunc<
 
 type CreateUserWithRolesInput = {
   user?: Partial<CreateUserInput>;
-  roles: string[];
+  roles: RoleInput[];
   team?: string;
 };
 
