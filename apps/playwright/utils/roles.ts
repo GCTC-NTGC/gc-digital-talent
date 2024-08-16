@@ -1,6 +1,6 @@
 import { Role } from "@gc-digital-talent/graphql";
 
-import { graphqlRequest } from "./graphql";
+import { GraphQLContext } from "./graphql";
 
 export const Test_RolesQueryDocument = /* GraphQL */ `
   query Test_Roles {
@@ -10,14 +10,15 @@ export const Test_RolesQueryDocument = /* GraphQL */ `
     }
   }
 `;
+
 /**
  * Get Roles
  *
  * Get all the roles directly from
  * the API.
  */
-export async function getRoles(): Promise<Role[]> {
-  const res = await graphqlRequest(Test_RolesQueryDocument);
+export async function getRoles(ctx: GraphQLContext): Promise<Role[]> {
+  const res = await ctx.post(Test_RolesQueryDocument);
 
   return res.roles;
 }

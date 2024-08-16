@@ -125,50 +125,6 @@ class ApplicationPage extends AppPage {
   }
 
   /**
-   * Create an application using the graphql API
-   */
-  async createGraphql(
-    userId: string,
-    experienceId: string,
-  ): Promise<PoolCandidate> {
-    return this.graphqlRequest(Test_CreateApplicationMutationDocument, {
-      userId,
-      poolId: this.poolId,
-    })
-      .then(
-        (res: GraphQLResponse<"createApplication", PoolCandidate>) =>
-          res.createApplication,
-      )
-      .then(async (application) => {
-        return this.graphqlRequest(Test_UpdateApplicationMutationDocument, {
-          id: application.id,
-          application: {
-            educationRequirementOption: EducationRequirementOption.AppliedWork,
-            educationRequirementExperiences: {
-              sync: [experienceId],
-            },
-          },
-        }).then(
-          (res: GraphQLResponse<"updateApplication", PoolCandidate>) =>
-            res.updateApplication,
-        );
-      });
-  }
-
-  /**
-   * Submit an Application using the graphql API
-   */
-  async submitGraphql(id: string, signature: string): Promise<PoolCandidate> {
-    return this.graphqlRequest(Test_SubmitApplicationMutationDocument, {
-      id,
-      signature,
-    }).then(
-      (res: GraphQLResponse<"submitApplication", PoolCandidate>) =>
-        res.submitApplication,
-    );
-  }
-
-  /**
    * Update status of an application using graphql API
    */
   async updateStatusGraphql(

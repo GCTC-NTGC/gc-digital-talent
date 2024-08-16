@@ -8,13 +8,11 @@ import {
   Test_MeQueryDocument,
 } from "~/utils/user";
 import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
-import { GraphQLResponse } from "~/utils/graphql";
+import { graphqlRequest, GraphQLResponse } from "~/utils/graphql";
 import {
   Test_RolesQueryDocument,
   Test_UpdateUserRolesMutationDocument,
 } from "~/utils/roles";
-
-import { getAuthTokens } from "../utils/auth";
 
 /**
  * App Page
@@ -23,9 +21,14 @@ import { getAuthTokens } from "../utils/auth";
  */
 class AppPage {
   public readonly page: Page;
+  private readonly sub: string;
 
-  constructor(public readonly appPage: Page) {
+  constructor(
+    public readonly appPage: Page,
+    readonly authUser: string = "admin@test.com",
+  ) {
     this.page = appPage;
+    this.sub = authUser;
   }
 
   async gotoHome(locale: "en" | "fr" = "en") {
@@ -49,23 +52,11 @@ class AppPage {
     variables?: Record<string, unknown>,
     isPrivileged: boolean = true,
   ) {
-    await this.gotoHome();
-    const tokens = await getAuthTokens(this.page);
-    const url = isPrivileged ? "/admin/graphql" : "/graphql";
-    const res = await this.page.request.post(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${tokens.accessToken}`,
-      },
-      data: {
-        query,
-        variables,
-      },
+    return await graphqlRequest(query, {
+      as: this.sub,
+      variables,
+      isPrivileged,
     });
-
-    const json = await res.json();
-
-    return json.data;
   }
 
   /**
@@ -75,7 +66,7 @@ class AppPage {
    */
   async waitForGraphqlResponse(operationName: string) {
     await this.page.waitForResponse(async (resp) => {
-      if (await resp.url()?.includes("/graphql")) {
+      if (resp.url()?.includes("/graphql")) {
         const reqJson = await resp.request()?.postDataJSON();
         return reqJson?.operationName === operationName;
       }

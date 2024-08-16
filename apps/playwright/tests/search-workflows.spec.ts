@@ -22,6 +22,8 @@ import ApplicationPage from "~/fixtures/ApplicationPage";
 import { loginBySub } from "~/utils/auth";
 import { getDepartments } from "~/utils/departments";
 import { getCommunities } from "~/utils/communities";
+import { createApplication, submitApplication } from "~/utils/applications";
+import { createUser } from "~/utils/user";
 
 test.describe("Talent search", () => {
   const uniqueTestId = Date.now().valueOf();
@@ -45,7 +47,7 @@ test.describe("Talent search", () => {
     );
     skill = technicalSkill;
 
-    const createdUser = await adminPage.createUser({
+    const createdUser = await createUser({
       email: `${sub}@example.org`,
       sub,
       isWoman: true,
@@ -105,11 +107,12 @@ test.describe("Talent search", () => {
     const applicationPage = new ApplicationPage(page, createdPool.id);
     await loginBySub(applicationPage.page, sub, false);
     const applicationUser: User = await applicationPage.getMe();
-    const application = await applicationPage.createGraphql(
+    const application = await createApplication(
       createdUser.id,
+      createdPool.id,
       applicationUser.experiences[0].id,
     );
-    await applicationPage.submitGraphql(
+    await submitApplication(
       application.id,
       `${createdUser.firstName} signature`,
     );

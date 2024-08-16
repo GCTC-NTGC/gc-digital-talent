@@ -9,7 +9,7 @@ import AppPage from "./AppPage";
  */
 class ApplicantPage extends AppPage {
   constructor(public readonly page: Page) {
-    super(page);
+    super(page, "applicant@test.com");
   }
 }
 

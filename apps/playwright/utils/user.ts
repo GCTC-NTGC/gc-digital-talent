@@ -6,7 +6,11 @@ import {
   CitizenshipStatus,
   ArmedForcesStatus,
   CreateUserInput,
+  User,
 } from "@gc-digital-talent/graphql";
+
+import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import { getRoles, Test_UpdateUserRolesMutationDocument } from "./roles";
 
 export const defaultUser: Partial<CreateUserInput> = {
   // required
@@ -43,10 +47,76 @@ export const Test_CreateUserMutationDocument = /* GraphQL */ `
   }
 `;
 
+export const createUser: GraphQLRequestFunc<
+  User,
+  Partial<CreateUserInput>
+> = async (ctx, user) => {
+  return ctx
+    .post(Test_CreateUserMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        user: {
+          ...defaultUser,
+          ...user,
+        },
+      },
+    })
+    .then((res: GraphQLResponse<"createUser", User>) => res.createUser);
+};
+
+interface AddRolesToUserInput {
+  userId: string;
+  roles: string[];
+  team?: string;
+}
+
+export const addRolesToUser: GraphQLRequestFunc<
+  void,
+  AddRolesToUserInput
+> = async (ctx, { userId, roles, team }) => {
+  const allRoles = await getRoles(ctx);
+  const roleInputArray = allRoles
+    .filter((role) => roles.includes(role.name))
+    .map((role) => {
+      return { roleId: role.id, teamId: team };
+    });
+
+  await ctx.post(Test_UpdateUserRolesMutationDocument, {
+    isPrivileged: true,
+    variables: {
+      updateUserRolesInput: {
+        userId,
+        roleAssignmentsInput: {
+          attach: roleInputArray,
+        },
+      },
+    },
+  });
+};
+
+type CreateUserWithRolesInput = {
+  user?: Partial<CreateUserInput>;
+  roles: string[];
+  team?: string;
+};
+
+export const createUserWithRoles: GraphQLRequestFunc<
+  User,
+  CreateUserWithRolesInput
+> = async (ctx, { user, ...roleInput }) => {
+  return createUser(ctx, user).then(async (u) => {
+    await addRolesToUser(ctx, { userId: u.id, ...roleInput });
+    return u;
+  });
+};
+
 export const Test_MeQueryDocument = /* GraphQL */ `
   query Test_Me {
     me {
       id
+      firstName
+      lastName
+      email
       experiences {
         id
         __typename
@@ -121,3 +191,9 @@ export const Test_MeQueryDocument = /* GraphQL */ `
     }
   }
 `;
+
+export const me: GraphQLRequestFunc<User> = async (ctx) => {
+  return ctx
+    .post(Test_MeQueryDocument)
+    .then((res: GraphQLResponse<"me", User>) => res.me);
+};

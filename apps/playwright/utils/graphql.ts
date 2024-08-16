@@ -1,11 +1,15 @@
-import { chromium } from "@playwright/test";
+import { APIRequestContext, request } from "@playwright/test";
 
-import auth from "~/constants/auth";
-
-import { getAuthTokens } from "./auth";
+import { AuthTokens, getTokenForSub } from "./auth";
 
 export type GraphQLResponse<K extends string, T> = {
   [k in K]: T;
+};
+
+type GraphQLRequestOptions = {
+  variables?: Record<string, unknown>;
+  as?: string;
+  isPrivileged?: boolean;
 };
 
 /**
@@ -16,29 +20,84 @@ export type GraphQLResponse<K extends string, T> = {
  */
 export async function graphqlRequest(
   query: string,
-  variables?: Record<string, unknown>,
-  storageState?: string,
+  opts?: GraphQLRequestOptions,
 ) {
-  const browser = await chromium.launch();
-  const apiContext = await browser.newContext({
-    storageState: storageState ?? auth.STATE.ADMIN,
-  });
-  const page = await apiContext.newPage();
-  await page.goto("/en");
-  await page.waitForURL("/en");
-  const tokens = await getAuthTokens(page);
-  const res = await page.request.post("/graphql", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${tokens.accessToken}`,
+  const tokens = await getTokenForSub(opts?.as ?? "admin@test.com");
+  const reqCtx = await request.newContext();
+  const res = await reqCtx.post(
+    opts?.isPrivileged ? "/admin/graphql" : "/graphql",
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokens.accessToken}`,
+      },
+      data: {
+        query,
+        variables: opts?.variables,
+      },
     },
-    data: {
-      query,
-      variables,
-    },
-  });
+  );
 
   const json = await res.json();
 
   return json.data;
 }
+
+export class GraphQLContext {
+  private readonly tokens: AuthTokens;
+  private endpoint: string = "/graphql";
+  private ctx: APIRequestContext;
+
+  constructor(authTokens: AuthTokens, context: APIRequestContext) {
+    this.ctx = context;
+    this.tokens = authTokens;
+  }
+
+  getHeaders(): Record<string, string> {
+    return {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${this.tokens.accessToken}`,
+    };
+  }
+
+  getEndpoint(isPrivileged?: boolean) {
+    if (isPrivileged) {
+      return "/admin/graphql";
+    }
+
+    return this.endpoint;
+  }
+
+  async post(query: string, opts?: GraphQLRequestOptions) {
+    const headers = this.getHeaders();
+    const json = await this.ctx
+      .post(this.getEndpoint(opts?.isPrivileged), {
+        headers,
+        data: {
+          query,
+          variables: opts?.variables,
+        },
+      })
+      .then((res) => res.json());
+
+    return json.data;
+  }
+}
+
+type GrapqhlRequestContextFunc = (sub?: string) => Promise<GraphQLContext>;
+
+const newContext: GrapqhlRequestContextFunc = async (sub) => {
+  const tokens = await getTokenForSub(sub ?? "admin@test.com");
+  const context = await request.newContext();
+
+  return new GraphQLContext(tokens, context);
+};
+
+export type GraphQLRequestFunc<R, I = undefined> = (
+  ctx: GraphQLContext,
+  input?: I,
+) => Promise<R>;
+
+export default {
+  newContext,
+};

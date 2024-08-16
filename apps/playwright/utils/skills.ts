@@ -1,6 +1,6 @@
 import { Skill } from "@gc-digital-talent/graphql";
 
-import { graphqlRequest } from "./graphql";
+import { GraphQLRequestFunc } from "./graphql";
 
 /**
  * Get Skills
@@ -9,8 +9,8 @@ import { graphqlRequest } from "./graphql";
  * the API.
  */
 // eslint-disable-next-line import/prefer-default-export
-export const getSkills = async (): Promise<Skill[]> => {
-  const res = await graphqlRequest(/* GraphQL */ `
+export const getSkills: GraphQLRequestFunc<Skill[]> = async (ctx) => {
+  const res = await ctx.post(/* GraphQL */ `
     query Skills {
       skills {
         id

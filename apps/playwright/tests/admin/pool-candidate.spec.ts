@@ -2,33 +2,19 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   PoolCandidate,
-  PoolLanguage,
-  PoolOpportunityLength,
-  PoolSkillType,
-  PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
-  PublishingGroup,
-  SecurityStatus,
   SkillCategory,
-  SkillLevel,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import PoolPage from "~/fixtures/PoolPage";
-import ApplicationPage from "~/fixtures/ApplicationPage";
-import { loginBySub } from "~/utils/auth";
+import graphql from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
-import { getDCM } from "~/utils/teams";
-import { getClassifications } from "~/utils/classification";
-import { getDepartments } from "~/utils/departments";
-import { getCommunities } from "~/utils/communities";
+import { createUserWithRoles, me } from "~/utils/user";
+import { createAndSubmitApplication } from "~/utils/applications";
+import { createAndPublishPool } from "~/utils/pools";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -40,103 +26,67 @@ test.describe("Pool candidates", () => {
   const sub = `playwright.sub.${uniqueTestId}`;
   let candidate: PoolCandidate;
 
-  test.beforeAll(async ({ adminPage, browser }) => {
-    const poolPage = new PoolPage(adminPage.page);
-    const skills = await getSkills();
-    const technicalSkill = skills.find(
-      (skill) => skill.category.value === SkillCategory.Technical,
-    );
-    const createdUser = await adminPage.createUser({
-      email: `${sub}@example.org`,
-      sub,
-      currentProvince: ProvinceOrTerritory.Alberta,
-      currentCity: "Test city",
-      telephone: "+10123456789",
-      armedForcesStatus: ArmedForcesStatus.Veteran,
-      citizenship: CitizenshipStatus.Citizen,
-      lookingForEnglish: true,
-      isGovEmployee: false,
-      hasPriorityEntitlement: true,
-      priorityNumber: "123",
-      locationPreferences: [WorkRegion.Atlantic],
-      positionDuration: [PositionDuration.Permanent],
-      personalExperiences: {
-        create: [
-          {
-            description: "Test Experience Description",
-            details: "A Playwright test personal experience",
-            skills: {
-              sync: [
-                {
-                  details: `Test Skill ${technicalSkill.name.en}`,
-                  id: technicalSkill.id,
-                },
-              ],
+  test.beforeAll(async () => {
+    const adminCtx = await graphql.newContext();
+
+    const technicalSkill = await getSkills(adminCtx).then((skills) => {
+      return skills.find(
+        (skill) => skill.category.value === SkillCategory.Technical,
+      );
+    });
+
+    const createdUser = await createUserWithRoles(adminCtx, {
+      roles: ["guest", "base_user", "applicant"],
+      user: {
+        email: `${sub}@example.org`,
+        sub,
+        currentProvince: ProvinceOrTerritory.Alberta,
+        currentCity: "Test city",
+        telephone: "+10123456789",
+        armedForcesStatus: ArmedForcesStatus.Veteran,
+        citizenship: CitizenshipStatus.Citizen,
+        lookingForEnglish: true,
+        isGovEmployee: false,
+        hasPriorityEntitlement: true,
+        priorityNumber: "123",
+        locationPreferences: [WorkRegion.Atlantic],
+        positionDuration: [PositionDuration.Permanent],
+        personalExperiences: {
+          create: [
+            {
+              description: "Test Experience Description",
+              details: "A Playwright test personal experience",
+              skills: {
+                sync: [
+                  {
+                    details: `Test Skill ${technicalSkill.name.en}`,
+                    id: technicalSkill.id,
+                  },
+                ],
+              },
+              startDate: FAR_PAST_DATE,
+              title: "Test Experience",
             },
-            startDate: FAR_PAST_DATE,
-            title: "Test Experience",
-          },
-        ],
-      },
-    });
-    await adminPage.addRolesToUser(createdUser.id, [
-      "guest",
-      "base_user",
-      "applicant",
-    ]);
-    const team = await getDCM();
-    const classifications = await getClassifications();
-    const departments = await getDepartments();
-    const communities = await getCommunities();
-
-    const createdPool = await poolPage.createPool(
-      createdUser.id,
-      team.id,
-      communities[0].id,
-      {
-        classification: {
-          connect: classifications[0].id,
-        },
-        department: {
-          connect: departments[0].id,
+          ],
         },
       },
-    );
-    await poolPage.updatePool(createdPool.id, {
-      name: {
-        en: `Test Pool EN ${uniqueTestId}`,
-        fr: `Test Pool FR ${uniqueTestId}`,
-      },
-      stream: PoolStream.BusinessAdvisoryServices,
-      closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-      yourImpact: LOCALIZED_STRING,
-      keyTasks: LOCALIZED_STRING,
-      language: PoolLanguage.Various,
-      securityClearance: SecurityStatus.Secret,
-      location: LOCALIZED_STRING,
-      isRemote: true,
-      publishingGroup: PublishingGroup.ItJobs,
-      opportunityLength: PoolOpportunityLength.Various,
     });
-    await poolPage.createPoolSkill(createdPool.id, technicalSkill.id, {
-      type: PoolSkillType.Essential,
-      requiredLevel: SkillLevel.Beginner,
-    });
-    await poolPage.publishPool(createdPool.id);
 
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    const applicationPage = new ApplicationPage(page, createdPool.id);
-    await loginBySub(applicationPage.page, sub, false);
-    const applicationUser: User = await applicationPage.getMe();
-    const application = await applicationPage.createGraphql(
-      createdUser.id,
-      applicationUser.experiences[0].id,
-    );
-    await applicationPage.submitGraphql(
-      application.id,
-      `${createdUser.firstName} signature`,
-    );
+    const createdPool = await createAndPublishPool(adminCtx, {
+      userId: createdUser.id,
+      skillId: technicalSkill.id,
+      name: LOCALIZED_STRING,
+    });
+
+    const applicantCtx = await graphql.newContext(createdUser.authInfo.sub);
+    const applicant = await me(applicantCtx);
+
+    const application = await createAndSubmitApplication(applicantCtx, {
+      userId: applicant.id,
+      poolId: createdPool.id,
+      experienceId: applicant.experiences[0].id,
+      signature: `${applicant.firstName} signature`,
+    });
 
     candidate = application;
   });
