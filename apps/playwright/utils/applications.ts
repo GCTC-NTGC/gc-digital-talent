@@ -139,12 +139,13 @@ interface UpdateStatusArgs {
 /**
  * Update status of an application using graphql API
  */
-export const updateStatus: GraphQLRequestFunc<
+export const updateCandidateStatus: GraphQLRequestFunc<
   PoolCandidate,
   UpdateStatusArgs
 > = async (ctx, { id, status }) => {
   return ctx
     .post(Test_UpdateApplicationStatusMutationDocument, {
+      isPrivileged: true,
       variables: {
         id,
         input: { status },
