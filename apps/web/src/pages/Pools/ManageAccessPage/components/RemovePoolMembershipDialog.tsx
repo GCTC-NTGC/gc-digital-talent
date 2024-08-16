@@ -135,8 +135,8 @@ const RemovePoolMembershipDialog = ({
               <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "They will lose all of the following process team roles",
-                  id: "v2yKq3",
+                    "They will lose all of the following process roles",
+                  id: "zejtvd",
                   description:
                     "Lead text for the list of roles the user will lose",
                 })}

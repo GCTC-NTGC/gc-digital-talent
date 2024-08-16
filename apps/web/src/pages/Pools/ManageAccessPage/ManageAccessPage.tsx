@@ -51,8 +51,8 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   );
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Process team members",
-    id: "/tn0JF",
+    defaultMessage: "Process members",
+    id: "wYohzF",
     description: "Page title for the manage process members page",
   });
 
@@ -121,8 +121,8 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search process team members",
-            id: "AfDyYk",
+            defaultMessage: "Search process members",
+            id: "vUtN1U",
             description:
               "Label for the process team members table search input",
           }),
