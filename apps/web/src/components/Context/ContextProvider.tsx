@@ -18,6 +18,8 @@ import { Announcer } from "@gc-digital-talent/ui";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 import Toast from "@gc-digital-talent/toast";
 
+import NavProvider from "../Nav/NavProvider";
+
 interface ContextContainerProps {
   messages: Messages;
   children: ReactNode;
@@ -34,11 +36,13 @@ const ContextContainer = ({ messages, children }: ContextContainerProps) => (
               <ClientProvider>
                 <AppInsightsProvider>
                   <AuthorizationProvider>
-                    <LazyMotion features={domAnimation}>
-                      <MotionConfig reducedMotion="user">
-                        <Announcer>{children}</Announcer>
-                      </MotionConfig>
-                    </LazyMotion>
+                    <NavProvider>
+                      <LazyMotion features={domAnimation}>
+                        <MotionConfig reducedMotion="user">
+                          <Announcer>{children}</Announcer>
+                        </MotionConfig>
+                      </LazyMotion>
+                    </NavProvider>
                   </AuthorizationProvider>
                 </AppInsightsProvider>
               </ClientProvider>
