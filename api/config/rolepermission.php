@@ -87,6 +87,7 @@ return [
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
+        'managerMembership' => 'managerMembership',
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
@@ -586,6 +587,10 @@ return [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
             'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
         ],
+        'update-any-managerMembership' => [
+            'en' => 'Add or remove the Manager role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de gestionnaire à n\'importe quel utilisateur',
+        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -738,6 +743,18 @@ return [
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), publishes pools, manages business data, and has the extraordinary ability to edit or delete other users.',
                 'fr' => 'Crée des équipes, attribue des rôles à d\'autres utilisateurs (y compris l\'attribution d\'utilisateurs à des organisations), publie des pools, gère des données commerciales et a la capacité extraordinaire de modifier ou de supprimer d\'autres utilisateurs.',
+            ],
+            'is_team_based' => false,
+        ],
+
+        'manager' => [
+            'display_name' => [
+                'en' => 'Manager',
+                'fr' => 'Gestionnaire',
+            ],
+            'description' => [
+                'en' => 'Can search for talent and submit talent requests.',
+                'fr' => 'Possibilité de rechercher des talents et de soumettre des demandes de talents.',
             ],
             'is_team_based' => false,
         ],
@@ -1164,12 +1181,18 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
+            'managerMembership' => [
+                'any' => ['update'],
+            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
             'poolTeamMembers' => [
                 'any' => ['view'],
             ],
+        ],
+        'manager' => [
+            // granted permissions will be defined later
         ],
     ],
 ];
