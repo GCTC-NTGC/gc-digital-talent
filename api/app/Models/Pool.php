@@ -153,6 +153,9 @@ class Pool extends Model
                 'type' => AssessmentStepType::APPLICATION_SCREENING->name,
                 'sort_order' => 1,
             ]);
+            $pool->team()->firstOrCreate([], [
+                'name' => 'pool-'.$pool->id,
+            ]);
         });
     }
 
