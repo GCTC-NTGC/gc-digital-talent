@@ -84,6 +84,7 @@ module.exports = {
     "no-param-reassign": "warn",
     "no-use-before-define": "off",
     "no-shadow": "off",
+    "no-console": "error",
     "@typescript-eslint/no-use-before-define": "warn",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-empty-function": "warn",
