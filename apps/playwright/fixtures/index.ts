@@ -3,7 +3,6 @@ import AxeBuilder from "@axe-core/playwright";
 import * as sinon from "sinon";
 
 import auth from "~/constants/auth";
-import { ApiData, readApiDataCache } from "~/utils/cache";
 
 import AppPage from "./AppPage";
 import AdminPage from "./AdminPage";
@@ -25,7 +24,6 @@ type AppFixtures = {
   // Axe test builder
   makeAxeBuilder: () => AxeBuilder;
   fakeClock: sinon.SinonFakeTimers;
-  apiData: ApiData;
 };
 
 // Extend base text with our fixtures
@@ -83,11 +81,6 @@ export const test = base.extend<AppFixtures>({
       ]);
 
     await use(makeAxeBuilder);
-  },
-
-  apiData: async ({}, use) => {
-    const apiData = readApiDataCache();
-    await use(apiData);
   },
 });
 

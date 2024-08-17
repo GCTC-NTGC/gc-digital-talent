@@ -4,4 +4,3 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 .auth
-.data

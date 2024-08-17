@@ -4,13 +4,14 @@ import {
   PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
+  SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import graphql from "~/utils/graphql";
-import { getTechnicalSkill } from "~/utils/skills";
+import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
@@ -27,7 +28,12 @@ test.describe("Pool candidates", () => {
 
   test.beforeAll(async () => {
     const adminCtx = await graphql.newContext();
-    const technicalSkill = getTechnicalSkill();
+
+    const technicalSkill = await getSkills(adminCtx).then((skills) => {
+      return skills.find(
+        (skill) => skill.category.value === SkillCategory.Technical,
+      );
+    });
 
     const createdUser = await createUserWithRoles(adminCtx, {
       roles: ["guest", "base_user", "applicant"],

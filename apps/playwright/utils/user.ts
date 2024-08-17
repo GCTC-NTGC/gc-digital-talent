@@ -7,13 +7,10 @@ import {
   ArmedForcesStatus,
   CreateUserInput,
   User,
-  Role,
 } from "@gc-digital-talent/graphql";
 
-import DATA from "~/constants/data";
-
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { readCache } from "./cache";
+import { getRoles } from "./roles";
 
 export const defaultUser: Partial<CreateUserInput> = {
   // required
@@ -87,7 +84,7 @@ export const addRolesToUser: GraphQLRequestFunc<
   void,
   AddRolesToUserInput
 > = async (ctx, { userId, roles }) => {
-  const allRoles = readCache<Role[]>(DATA.ROLES);
+  const allRoles = await getRoles(ctx);
   const roleInputArray = roles.map((role) => {
     let roleName = role;
     let teamId: string | undefined;

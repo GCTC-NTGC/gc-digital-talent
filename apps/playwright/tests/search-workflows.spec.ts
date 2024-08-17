@@ -8,10 +8,11 @@ import {
   OperationalRequirement,
   PoolCandidateStatus,
   Skill,
+  SkillCategory,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
-import { getTechnicalSkill } from "~/utils/skills";
+import { getSkills } from "~/utils/skills";
 import {
   createAndSubmitApplication,
   updateCandidateStatus,
@@ -34,10 +35,12 @@ test.describe("Talent search", () => {
     ).toBeHidden();
   };
 
-  test.beforeAll(async ({ apiData }) => {
+  test.beforeAll(async () => {
     const adminCtx = await graphql.newContext();
 
-    const technicalSkill = getTechnicalSkill();
+    const technicalSkill = await getSkills(adminCtx).then((skills) => {
+      return skills.find((s) => s.category.value === SkillCategory.Technical);
+    });
     skill = technicalSkill;
 
     await createUserWithRoles(adminCtx, {
@@ -73,10 +76,7 @@ test.describe("Talent search", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    let classifications = apiData?.classifications;
-    if (!classifications) {
-      classifications = await getClassifications(adminCtx);
-    }
+    const classifications = await getClassifications(adminCtx);
     classification = classifications[0];
 
     const adminUser = await me(adminCtx);
