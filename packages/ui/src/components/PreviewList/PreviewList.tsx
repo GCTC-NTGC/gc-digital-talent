@@ -20,7 +20,7 @@ const MetaData = ({ children, type, color }: MetaDataProps) => {
     case "chip":
       return (
         <span>
-          <Chip color={color || "primary"} data-h2-font-weight="base=(400)">
+          <Chip color={color || "primary"} data-h2-font-weight="base(400)">
             {children}
           </Chip>
         </span>
@@ -86,9 +86,8 @@ const Item = ({
       <Button
         mode="icon_only"
         color="black"
+        fontSize="caption"
         icon={MagnifyingGlassPlusIcon}
-        data-h2-height="base(x.75)"
-        data-h2-width="base(x.75)"
         data-h2-position="base:selectors[::after](absolute)"
         data-h2-content="base:selectors[::after](' ')"
         data-h2-inset="base:selectors[::after](0)"
