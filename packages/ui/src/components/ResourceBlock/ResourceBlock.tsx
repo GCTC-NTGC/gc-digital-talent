@@ -108,19 +108,27 @@ const Root = ({
 // an icon pinned to the top-right to show the completion state
 const StateIcon = ({ state }: { state: ItemProps["state"] }) => {
   const commonStyles: HydrogenAttributes = {
-    "data-h2-width": "base(20px)",
-    "data-h2-height": "base(20px)",
+    "data-h2-width": "base(x0.75)",
+    "data-h2-height": "base(x0.75)",
     "data-h2-position": "base(absolute)",
     "data-h2-location": "base(x0.75, x0.75, auto, auto)",
   };
 
   if (state === "incomplete") {
     return (
-      <ExclamationCircleIcon data-h2-color="base(error)" {...commonStyles} />
+      <ExclamationCircleIcon
+        data-h2-color="base(error) base:dark(error.lighter)"
+        {...commonStyles}
+      />
     );
   }
   if (state === "complete") {
-    return <CheckCircleIcon data-h2-color="base(success)" {...commonStyles} />;
+    return (
+      <CheckCircleIcon
+        data-h2-color="base(success) base:dark(success.lighter)"
+        {...commonStyles}
+      />
+    );
   }
   return null;
 };
@@ -136,9 +144,9 @@ const Item = ({ title, href, description, state }: ItemProps) => {
   const extraStateStyles =
     state === "incomplete"
       ? {
-          // should match the absolute positioning of the state icon ( + half the height & width to get the center)
+          // should match the absolute positioning of the center of the state icon (x0.75 + (x0.75/2))
           "data-h2-background":
-            "base(radial-gradient(circle x5 at top calc(x0.75 + 10px) right calc(x0.75 + 10px), error.10, foreground))",
+            "base(radial-gradient(circle x5 at top x1.125 right x1.125, error.10, foreground))",
         }
       : {};
 
