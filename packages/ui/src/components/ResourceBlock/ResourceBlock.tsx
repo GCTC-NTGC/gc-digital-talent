@@ -20,23 +20,23 @@ type CardColor = (typeof colorOptions)[number];
 const headingBarStyleMap: Record<CardColor, Record<string, string>> = {
   primary: {
     "data-h2-background-color": "base(primary.lightest)",
-    "data-h2-border-bottom": "base(primary.darkest)",
+    "data-h2-border-bottom-color": "base(primary.darkest)",
   },
   secondary: {
     "data-h2-background-color": "base(secondary.lightest)",
-    "data-h2-border-bottom": "base(secondary.darkest)",
+    "data-h2-border-bottom-color": "base(secondary.darkest)",
   },
   tertiary: {
     "data-h2-background-color": "base(tertiary.lightest)",
-    "data-h2-border-bottom": "base(tertiary.darkest)",
+    "data-h2-border-bottom-color": "base(tertiary.darkest)",
   },
   quaternary: {
     "data-h2-background-color": "base(quaternary.lightest)",
-    "data-h2-border-bottom": "base(quaternary.darkest)",
+    "data-h2-border-bottom-color": "base(quaternary.darkest)",
   },
   quinary: {
     "data-h2-background-color": "base(quinary.lightest)",
-    "data-h2-border-bottom": "base(quinary.darkest)",
+    "data-h2-border-bottom-color": "base(quinary.darkest)",
   },
 };
 
