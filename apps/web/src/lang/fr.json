@@ -476,7 +476,7 @@
     "description": "Message displayed to user after skill fails to be deleted."
   },
   "0PeEzR": {
-    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
   },
   "0Q89Cz": {
@@ -2240,7 +2240,7 @@
     "description": "Label for the 'database management' IT work stream"
   },
   "ARFz8L": {
-    "defaultMessage": "Ajouter une nouvelle expérience",
+    "defaultMessage": "Ajoutez une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
   "ARdTh3": {
@@ -7127,7 +7127,7 @@
     "description": "Label for the government employee field"
   },
   "bOAF9o": {
-    "defaultMessage": "Ajouter une nouvelle expérience",
+    "defaultMessage": "Ajoutez une nouvelle expérience",
     "description": "Title for adding a new experience"
   },
   "bQtRF+": {
