@@ -91,7 +91,7 @@ const Root = ({
             level={headingAs}
             size="h4"
             data-h2-margin="base(0)"
-            data-h2-text-align="base(center) p-tablet(left)"
+            data-h2-text-align="base(center)"
           >
             {title}
           </Heading>
