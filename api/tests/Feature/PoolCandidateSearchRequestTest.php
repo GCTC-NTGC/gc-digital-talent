@@ -34,13 +34,13 @@ class PoolCandidateSearchRequestTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->adminUser = User::factory()
-        ->asApplicant()
-        ->asRequestResponder()
-        ->asAdmin()
-        ->create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
-        ]);
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     /**
@@ -269,13 +269,12 @@ class PoolCandidateSearchRequestTest extends TestCase
     }
 
     /**
-     * Test user_id is saved for logged in user, and not saved for guest user
+     * Test that the user_id is null when a guest user creates a PoolCandidateSearchRequest
      *
      * @return void
      */
-    public function testUserIdForLoggedInAndGuestUsers()
+    public function testUserIdForGuestUsers()
     {
-        $this->seed(RolePermissionSeeder::class);
         $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
 
@@ -299,7 +298,17 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         $searchRequest = PoolCandidateSearchRequest::first();
         $this->assertNull($searchRequest->user_id);
+    }
 
+    /**
+     * Test that the user_id is set and correct when a logged in user creates a PooLCandidateSearchRequest
+     *
+     * @return void
+     */
+    public function testUserIdForLoggedInUsers()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
 
         // Assert user_id is not null after creating with logged in user,
         // and it has the correct id.
@@ -332,8 +341,6 @@ class PoolCandidateSearchRequestTest extends TestCase
             ]
         )->assertSuccessful();
 
-        $this->assertTrue(
-            PoolCandidateSearchRequest::where('user_id', $this->adminUser->id)->exists()
-        );
+        $this->assertTrue(PoolCandidateSearchRequest::where('user_id', $this->adminUser->id)->exists());
     }
 }
