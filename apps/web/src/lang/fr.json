@@ -616,7 +616,7 @@
     "description": "Button text to mark all notifications as read"
   },
   "1G1iMu": {
-    "defaultMessage": "Supprimer cette expérience",
+    "defaultMessage": "Supprimez cette expérience",
     "description": "Button to remove the link between experience and skill"
   },
   "1HPhji": {
@@ -1356,7 +1356,7 @@
     "description": "Paragraph describing accessibility at every level of development"
   },
   "5DfpAy": {
-    "defaultMessage": "Supprimer cette expérience",
+    "defaultMessage": "Supprimez cette expérience",
     "description": "Label on button to delete the current experience"
   },
   "5FFRV2": {
