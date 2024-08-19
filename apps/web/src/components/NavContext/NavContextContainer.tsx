@@ -14,14 +14,14 @@ const NAV_ROLES_BY_PRIVILEGE = [
 
 export type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
 
-export interface NavState {
+export interface NavContextState {
   navRole: NavRole;
-  changeNavRole: (roles: Array<RoleName>) => void;
+  onAuthorizedRolesChanged: (roles: Array<RoleName>) => void;
 }
 
-export const NavContext = createContext<NavState>({
+export const NavContext = createContext<NavContextState>({
   navRole: "guest",
-  changeNavRole: () => {
+  onAuthorizedRolesChanged: () => {
     // no-op
   },
 });
@@ -72,18 +72,18 @@ function chooseNavRole(
   return authorizedNavRoles[0];
 }
 
-interface NavContainerProps {
+interface NavContextContainerProps {
   children?: ReactNode;
 }
 
-const NavContainer = ({ children }: NavContainerProps) => {
+const NavContextContainer = ({ children }: NavContextContainerProps) => {
   const [navRole, setNavRole] = useState<NavRole>("guest");
 
-  const state = useMemo<NavState>(() => {
+  const state = useMemo<NavContextState>(() => {
     return {
       navRole,
-      changeNavRole: (authorizedRoles: Array<RoleName>) => {
-        console.debug("changing nav roles: ", authorizedRoles);
+      onAuthorizedRolesChanged: (authorizedRoles: Array<RoleName>) => {
+        console.debug("authorized roles changed: ", authorizedRoles);
         const newNavRole = chooseNavRole(navRole, authorizedRoles);
         console.debug("new nav role: ", newNavRole);
         setNavRole(newNavRole);
@@ -94,4 +94,4 @@ const NavContainer = ({ children }: NavContainerProps) => {
   return <NavContext.Provider value={state}>{children}</NavContext.Provider>;
 };
 
-export default NavContainer;
+export default NavContextContainer;
