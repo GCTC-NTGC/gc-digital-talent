@@ -88,6 +88,9 @@ import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import { TaskCard, TaskCardProps } from "./components/TaskCard";
+import TaskCardItem, {
+  TaskCardItemProps,
+} from "./components/TaskCard/TaskCardItem";
 
 export type {
   Color,
@@ -119,6 +122,7 @@ export type {
   StepType,
   SwitchProps,
   TaskCardProps,
+  TaskCardItemProps,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
@@ -178,6 +182,7 @@ export {
   TableOfContents,
   Tabs,
   TaskCard,
+  TaskCardItem,
   ToggleGroup,
   ToggleSection,
   TreeView,
