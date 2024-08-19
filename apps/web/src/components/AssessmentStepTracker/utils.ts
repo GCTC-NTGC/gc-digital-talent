@@ -191,8 +191,9 @@ const filterCandidatesByDecision = (
 // define the type for an assessment step nested in the fragment
 const stepTrackerFragmentSteps: AssessmentStepTrackerPoolType["assessmentSteps"] =
   [];
-const unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
-type StepTrackerFragmentStepType = (typeof unpackedSteps)[number];
+// eslint-disable-next-line no-underscore-dangle
+const _unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
+type StepTrackerFragmentStepType = (typeof _unpackedSteps)[number];
 
 type StepWithGroupedCandidates = {
   step: StepTrackerFragmentStepType;

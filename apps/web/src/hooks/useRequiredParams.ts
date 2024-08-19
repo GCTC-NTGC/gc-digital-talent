@@ -80,7 +80,7 @@ const useRequiredParams = <
       if (key) {
         newParams = { ...newParams, [key]: param }; // param must be a string if assertParam didn't throw an error.
       }
-    } catch (err) {
+    } catch (_err) {
       const errorMessage =
         message ?? intl.formatMessage(commonMessages.notFound);
       throw new Response(errorMessage, {
