@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
-import ArrowRightIcon from "@heroicons/react/20/solid/ArrowRightIcon";
+import ArrowSmallRightIcon from "@heroicons/react/20/solid/ArrowSmallRightIcon";
 
 import Heading, { HeadingLevel } from "../Heading";
 import Link, { LinkProps } from "../Link";
@@ -173,9 +173,9 @@ const Item = ({ title, href, description, state }: ItemProps) => {
         >
           {title}
         </Link>
-        <ArrowRightIcon
-          data-h2-width="base(20px)"
-          data-h2-height="base(20px)"
+        <ArrowSmallRightIcon
+          data-h2-width="base(x0.75)"
+          data-h2-height="base(x0.75)"
           data-h2-color="base(black.light)"
           aria-hidden
         />
