@@ -181,11 +181,11 @@ const Item = ({ title, href, description, state }: ItemProps) => {
         {title}
         {/* issue #11284 */}
         <ArrowSmallRightIcon // eslint-disable-line deprecation/deprecation
-          data-h2-width="base(x0.75)"
+          data-h2-width="base(auto)"
           data-h2-height="base(x0.75)"
           data-h2-color="base(black.light)"
-          data-h2-margin-left="base(x0.15)"
-          data-h2-vertical-align="base(middle)"
+          data-h2-margin="base(x0.15)"
+          data-h2-vertical-align="base(top)"
           aria-hidden
         />
       </Link>
