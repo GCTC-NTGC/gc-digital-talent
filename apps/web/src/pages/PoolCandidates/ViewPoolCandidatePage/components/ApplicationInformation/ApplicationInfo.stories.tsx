@@ -50,8 +50,6 @@ mockUser = {
   poolCandidates: [mockPoolCandidate],
 };
 
-console.log(mockUser);
-
 export default {
   component: ApplicationInformation,
   args: {
