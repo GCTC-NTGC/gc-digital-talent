@@ -6,6 +6,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import TaskCard, { colorOptions } from "./TaskCard";
 import Well from "../Well";
+import TaskCardItem from "./TaskCardItem";
 
 faker.seed(0);
 
@@ -32,9 +33,12 @@ const Template: StoryFn<typeof TaskCard> = (args) => (
   >
     {colorOptions.map((color) => (
       <TaskCard headingColor={color} {...args} key={color}>
-        <div data-h2-padding="base(x1) p-tablet(x1 x1.5)">
+        <TaskCardItem>
           <Well>{faker.lorem.paragraph()}</Well>
-        </div>
+        </TaskCardItem>
+        <TaskCardItem>
+          <Well>{faker.lorem.paragraph()}</Well>
+        </TaskCardItem>
       </TaskCard>
     ))}
   </div>
