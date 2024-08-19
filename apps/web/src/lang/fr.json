@@ -7927,7 +7927,7 @@
     "description": "Title for job alerts checklist"
   },
   "fRwqM9": {
-    "defaultMessage": "Relier une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
+    "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
   },
   "fSEfTI": {
