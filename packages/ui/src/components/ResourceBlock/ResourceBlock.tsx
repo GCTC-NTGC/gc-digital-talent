@@ -82,7 +82,7 @@ const Root = ({
         {...headingBarStyleMap[headingColor]}
         data-h2-border-radius="base(rounded rounded 0 0)"
         data-h2-border-bottom="base(1px solid)"
-        data-h2-padding="base(x1) p-tablet(x1 x1.5  )"
+        data-h2-padding="base(x1) p-tablet(x1 x1.5)"
         data-h2-text-align="base(center)"
       >
         {/* wrapper */}
@@ -145,7 +145,7 @@ const Item = ({ title, href, description, state }: ItemProps) => {
   return (
     <div
       data-h2-background="base(foreground)"
-      data-h2-padding="base(x1)"
+      data-h2-padding="base(x1) p-tablet(x1 x1.5)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x0.15)"
