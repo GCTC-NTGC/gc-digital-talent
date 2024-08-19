@@ -82,7 +82,7 @@ const Root = ({
         {...headingBarStyleMap[headingColor]}
         data-h2-border-radius="base(rounded rounded 0 0)"
         data-h2-border-bottom="base(1px solid)"
-        data-h2-padding="base(x1) p-tablet(x1 x1.5)"
+        data-h2-padding="base(x1) l-tablet(x1 x1.5)"
         data-h2-text-align="base(center)"
       >
         {/* wrapper */}
@@ -153,11 +153,11 @@ const Item = ({ title, href, description, state }: ItemProps) => {
   return (
     <div
       data-h2-background="base(foreground)"
-      data-h2-padding="base(x1) p-tablet(x1 x1.5)"
+      data-h2-padding="base(x1) l-tablet(x1 x1.5)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x0.15)"
-      data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.lighter)"
+      data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid gray.lighter)"
       // make the containing block for state icon
       data-h2-position="base(relative)"
       {...extraStateStyles}
@@ -188,7 +188,9 @@ const Item = ({ title, href, description, state }: ItemProps) => {
           aria-hidden
         />
       </div>
-      <p data-h2-color="base(black.light)">{description}</p>
+      <p data-h2-color="base(black.light)" data-h2-font-size="base(caption)">
+        {description}
+      </p>
     </div>
   );
 };
