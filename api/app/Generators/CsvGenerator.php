@@ -32,7 +32,7 @@ abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterf
             $writer->setSheetIndex(0);
             $writer->save($path);
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // Log message and bubble it up
             Log::error('Error saving csv: '.$this->fileName.' '.$e->getMessage());
             throw $e;

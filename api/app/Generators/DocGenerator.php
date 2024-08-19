@@ -32,7 +32,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
             $path = $this->getPath();
             $writer = IOFactory::createWriter($this->doc);
             $writer->save($path);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error('Error saving doc: '.$this->fileName.' '.$e->getMessage());
             throw $e;
         }

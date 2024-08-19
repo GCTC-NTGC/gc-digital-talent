@@ -83,14 +83,14 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    const downloadPromise = appPage.page.waitForEvent("download");
     await appPage.page
       .getByRole("button", { name: /select gul fields/i })
       .click();
     await appPage.page.getByRole("button", { name: /download csv/i }).click();
-    const download = await downloadPromise;
 
-    expect(download.suggestedFilename()).toContain("users");
+    await expect(appPage.page.getByRole("alert")).toContainText(
+      /preparing your file for download/i,
+    );
   });
 
   test("Filter users table", async ({ appPage }) => {

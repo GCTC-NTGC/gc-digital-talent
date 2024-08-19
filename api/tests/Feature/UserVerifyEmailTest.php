@@ -33,16 +33,16 @@ class UserVerifyEmailTest extends TestCase
 
     private $sendVerificationEmailMutation =
         /** @lang GraphQL */
-        'mutation SendVerificationEmail($id: ID!) {
-            sendUserEmailVerification(id: $id) {
+        'mutation SendVerificationEmail {
+            sendUserEmailVerification {
                 id
             }
         }';
 
     private $verifyEmailMutation =
         /** @lang GraphQL */
-        'mutation VerifyMyEmail($id: ID!, $code: String!) {
-            verifyUserEmail(id: $id, code: $code) {
+        'mutation VerifyMyEmail($code: String!) {
+            verifyUserEmail(code: $code) {
                 id
                 isEmailVerified
             }
@@ -76,7 +76,6 @@ class UserVerifyEmailTest extends TestCase
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->sendVerificationEmailMutation,
-            ['id' => '00000000-0000-0000-0000-000000000001']
         );
 
         Notification::assertSentTo(
@@ -85,24 +84,10 @@ class UserVerifyEmailTest extends TestCase
 
     }
 
-    public function testUserCantGenerateNotificationForSomeoneElse()
-    {
-        Notification::fake();
-
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            $this->sendVerificationEmailMutation,
-            ['id' => '00000000-0000-0000-0000-000000000001']
-        )
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
-
-        Notification::assertNothingSent();
-    }
-
     public function testCodeSaved()
     {
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->sendVerificationEmailMutation,
-            ['id' => '00000000-0000-0000-0000-000000000001']
         );
 
         $token = Cache::get('email-verification-00000000-0000-0000-0000-000000000001');
@@ -127,7 +112,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         );
@@ -151,7 +135,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '6789',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
@@ -175,7 +158,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
@@ -199,7 +181,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
@@ -225,7 +206,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');

@@ -92,9 +92,6 @@ describe("EmailVerification", () => {
     expect(mutation.mock.calls).toHaveLength(1);
 
     const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
-    expect(callFirstArg).toHaveProperty("variables", {
-      id: "1234",
-    });
     expect(callFirstArg).toHaveProperty(
       "query.definitions[0].name.value",
       "SendUserEmailVerification",
@@ -123,7 +120,6 @@ describe("EmailVerification", () => {
 
     const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
     expect(callFirstArg).toHaveProperty("variables", {
-      id: "1234",
       code: "123456",
     });
     expect(callFirstArg).toHaveProperty(
