@@ -174,6 +174,9 @@ const Item = ({ title, href, description, state }: ItemProps) => {
         data-h2-content="base:selectors[::after](' ')"
         data-h2-inset="base:selectors[::after](0)"
         data-h2-justify-self="base(end)"
+        // icon extends margin + icons size: x0.75 + x0.75 = x1.5
+        // item margin is base(x1) l-tablet(x1.5)
+        data-h2-padding-right="base(x0.5) l-tablet(0)"
       >
         {title}
         <ArrowSmallRightIcon
