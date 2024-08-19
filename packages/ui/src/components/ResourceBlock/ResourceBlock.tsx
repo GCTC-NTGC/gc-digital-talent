@@ -179,7 +179,8 @@ const Item = ({ title, href, description, state }: ItemProps) => {
         data-h2-padding-right="base(x0.5) l-tablet(0)"
       >
         {title}
-        <ArrowSmallRightIcon
+        {/* issue #11284 */}
+        <ArrowSmallRightIcon // eslint-disable-line deprecation/deprecation
           data-h2-width="base(x0.75)"
           data-h2-height="base(x0.75)"
           data-h2-color="base(black.light)"
