@@ -164,31 +164,27 @@ const Item = ({ title, href, description, state }: ItemProps) => {
       {...extraStateStyles}
     >
       <StateIcon state={state} />
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x0.15)"
-        data-h2-align-items="base(center)"
+      <Link
+        href={href}
+        color="black"
+        // yuck, style exception 😞
+        data-h2-font-weight="base(bold)"
+        // big click target black magic 🧙
+        data-h2-position="base:selectors[::after](absolute)"
+        data-h2-content="base:selectors[::after](' ')"
+        data-h2-inset="base:selectors[::after](0)"
+        data-h2-justify-self="base(end)"
       >
-        <Link
-          href={href}
-          color="black"
-          // yuck, style exception 😞
-          data-h2-font-weight="base(bold)"
-          // big click target black magic 🧙
-          data-h2-position="base:selectors[::after](absolute)"
-          data-h2-content="base:selectors[::after](' ')"
-          data-h2-inset="base:selectors[::after](0)"
-          data-h2-justify-self="base(end)"
-        >
-          {title}
-        </Link>
+        {title}
         <ArrowSmallRightIcon
           data-h2-width="base(x0.75)"
           data-h2-height="base(x0.75)"
           data-h2-color="base(black.light)"
+          data-h2-margin-left="base(x0.15)"
+          data-h2-vertical-align="base(middle)"
           aria-hidden
         />
-      </div>
+      </Link>
       <p data-h2-color="base(black.light)" data-h2-font-size="base(caption)">
         {description}
       </p>
