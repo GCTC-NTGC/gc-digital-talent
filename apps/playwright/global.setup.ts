@@ -1,10 +1,11 @@
 import { test as setup } from "@playwright/test";
 
 import auth from "~/constants/auth";
-import { loginBySub } from "~/utils/auth";
+import { getTokenForSub, loginBySub } from "~/utils/auth";
 
 setup("authenticate as admin", async ({ page }) => {
   await loginBySub(page, "admin@test.com", false);
+  await getTokenForSub("admin@test.com");
   await page.context().storageState({ path: auth.STATE.ADMIN });
 });
 
