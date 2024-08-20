@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
@@ -56,7 +56,22 @@ const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
-export interface TaskCardProps {
+export interface ItemProps {
+  children?: ReactNode;
+}
+
+const Item = ({ children }: ItemProps) => {
+  return (
+    <div
+      data-h2-padding="base(x1) p-tablet(x1 x1.5)"
+      data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.lighter)"
+    >
+      {children}
+    </div>
+  );
+};
+
+export interface RootProps {
   icon?: IconType;
   title: ReactNode;
   headingColor?: CardColor;
@@ -65,17 +80,17 @@ export interface TaskCardProps {
     href: LinkProps["href"];
   };
   headingAs?: HeadingLevel;
-  children?: ReactNode;
+  children?: ReactElement<ItemProps> | Array<ReactElement<ItemProps>>; // Restricts children to only expected items;
 }
 
-const TaskCard = ({
+const Root = ({
   icon,
   title,
   headingColor = "primary",
   link,
   headingAs = "h3",
   children,
-}: TaskCardProps) => {
+}: RootProps) => {
   // prepare icon element
   const Icon = icon;
 
@@ -136,6 +151,11 @@ const TaskCard = ({
       <div>{children}</div>
     </div>
   );
+};
+
+const TaskCard = {
+  Root,
+  Item,
 };
 
 export default TaskCard;

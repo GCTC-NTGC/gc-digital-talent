@@ -6,12 +6,11 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import TaskCard, { colorOptions } from "./TaskCard";
 import Well from "../Well";
-import TaskCardItem from "./TaskCardItem";
 
 faker.seed(0);
 
 const meta = {
-  component: TaskCard,
+  component: TaskCard.Root,
   parameters: {
     chromatic: {
       modes: {
@@ -21,25 +20,25 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof TaskCard>;
+} satisfies Meta<typeof TaskCard.Root>;
 
 export default meta;
 
-const Template: StoryFn<typeof TaskCard> = (args) => (
+const Template: StoryFn<typeof TaskCard.Root> = (args) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
     data-h2-gap="base(x1)"
   >
     {colorOptions.map((color) => (
-      <TaskCard headingColor={color} {...args} key={color}>
-        <TaskCardItem>
+      <TaskCard.Root headingColor={color} {...args} key={color}>
+        <TaskCard.Item>
           <Well>{faker.lorem.paragraph()}</Well>
-        </TaskCardItem>
-        <TaskCardItem>
+        </TaskCard.Item>
+        <TaskCard.Item>
           <Well>{faker.lorem.paragraph()}</Well>
-        </TaskCardItem>
-      </TaskCard>
+        </TaskCard.Item>
+      </TaskCard.Root>
     ))}
   </div>
 );

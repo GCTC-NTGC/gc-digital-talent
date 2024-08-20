@@ -1,4 +1,3 @@
-import TaskCard, { type TaskCardProps } from "./TaskCard";
+import TaskCard from "./TaskCard";
 
-export { TaskCard };
-export type { TaskCardProps };
+export default TaskCard;

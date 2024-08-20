@@ -12,7 +12,7 @@ import Well from "../Well";
 
 function renderComponent() {
   return renderWithProviders(
-    <TaskCard
+    <TaskCard.Root
       headingColor="primary"
       icon={UsersIcon}
       title="Your active applications"
@@ -21,10 +21,10 @@ function renderComponent() {
         href: "#",
       }}
     >
-      <div data-h2-padding="base(x1)">
+      <TaskCard.Item>
         <Well>{faker.lorem.paragraph()}</Well>
-      </div>
-    </TaskCard>,
+      </TaskCard.Item>
+    </TaskCard.Root>,
   );
 }
 
