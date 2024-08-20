@@ -1052,7 +1052,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $query->where(function (Builder $query) use ($user) {
             if ($user?->isAbleTo('view-team-applicantProfile')) {
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
-                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $allTeams = $user->rolesTeams()->get();
+                    $teamIds = $allTeams->filter(function ($team) use ($user) {
+                        return $user->isAbleTo('view-team-applicantProfile', $team);
+                    })->pluck('id');
 
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
                         $query
