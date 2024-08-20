@@ -7,16 +7,19 @@ import PreviewList, { MetaDataProps } from "./PreviewList";
 
 const previewDetails: MetaDataProps[] = [
   {
+    key: "it-chip-id",
     type: "chip",
     color: "secondary",
     children: "New",
   },
-  { type: "text", children: "IT-01" },
+  { key: "it-text-id", type: "text", children: "IT-01" },
   {
+    key: "it-text-2-id",
     type: "text",
     children: `Manager: ${faker.person.firstName()} ${faker.person.lastName()}`,
   },
   {
+    key: "it-text-3-id",
     type: "text",
     children: (
       <span>
@@ -29,12 +32,14 @@ const previewDetails: MetaDataProps[] = [
 
 const previewDetailsTwo: MetaDataProps[] = [
   {
+    key: "it-chip-id",
     type: "chip",
     color: "secondary",
     children: "Submitted",
   },
-  { type: "text", children: "56 potential matches" },
+  { key: "it-text-id", type: "text", children: "56 potential matches" },
   {
+    key: "it-text-2-id",
     type: "text",
     children: "Opened on: April 30th, 2024",
   },
@@ -42,12 +47,14 @@ const previewDetailsTwo: MetaDataProps[] = [
 
 const previewDetailsThree: MetaDataProps[] = [
   {
+    key: "it-chip-id",
     type: "chip",
     color: "warning",
     children: "Awaiting response",
   },
-  { type: "text", children: "12 potential matches" },
+  { key: "it-text-id", type: "text", children: "12 potential matches" },
   {
+    key: "it-text-2-id",
     type: "text",
     children: "Opened on: April 30th, 2024",
   },

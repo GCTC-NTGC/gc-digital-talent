@@ -1,6 +1,5 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { ReactElement, ReactNode } from "react";
-import uniqueId from "lodash/uniqueId";
 
 import Button from "../Button";
 import Chip from "../Chip/Chip";
@@ -8,9 +7,10 @@ import { Color } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
 export type MetaDataProps = {
-  type: "text" | "chip";
-  color?: Color;
   children: ReactNode;
+  color?: Color;
+  key: string;
+  type: "text" | "chip";
 };
 
 const MetaData = ({ children, type, color }: MetaDataProps) => {
@@ -79,7 +79,7 @@ const Item = ({
           data-h2-font-size="base(caption)"
         >
           {metaData.map((data) => (
-            <MetaData key={uniqueId()} {...data} />
+            <MetaData {...data} key={data.key} />
           ))}
         </div>
       </div>
