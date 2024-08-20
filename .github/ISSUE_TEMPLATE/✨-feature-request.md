@@ -14,7 +14,7 @@ assignees: ""
 
 <!-- Add any additional details that could assist with the development of the new feature. -->
 
-## 🎨 Design File
+## 🎨 Design
 
 <!-- Include the author of the linked design file's name (or even better, their `@githubUsername`) for future reference. -->
 

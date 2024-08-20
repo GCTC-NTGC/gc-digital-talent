@@ -10,7 +10,7 @@ assignees: ""
 
 <!-- Purpose and description. -->
 
-## 🎨 Design File
+## 🎨 Design
 
 <!--
 Include the author of the linked design file's name (or even better, their `@githubUsername`) for future reference.
