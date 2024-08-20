@@ -26,8 +26,20 @@ const createRoute = (locale: Locales) =>
             },
             {
               path: "manager",
-              lazy: () =>
-                import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+                },
+                {
+                  path: "dashboard",
+                  lazy: () =>
+                    import(
+                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                    ),
+                },
+              ],
             },
             {
               path: "support",
