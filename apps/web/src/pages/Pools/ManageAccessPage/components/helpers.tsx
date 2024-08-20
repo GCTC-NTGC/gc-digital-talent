@@ -101,7 +101,6 @@ export function roleAccessor(
 export const groupRoleAssignmentsByUser = (
   assignments: ManageAccessPagePoolFragmentType["roleAssignments"],
 ) => {
-  let users: Array<PoolTeamMember> = [];
   const filteredAssignments = assignments?.filter((assignment) => {
     return (
       notEmpty(assignment.user) &&
@@ -110,22 +109,23 @@ export const groupRoleAssignmentsByUser = (
     );
   });
 
+  const users = new Map<string, PoolTeamMember>();
+
   filteredAssignments?.forEach((assignment) => {
-    const userIndex = users.findIndex(
-      (user) => user.id === assignment.user?.id,
-    );
-    if (userIndex >= 0 && assignment.role) {
-      users[userIndex].roles = [...users[userIndex].roles, assignment.role];
+    const existingMapValue = assignment?.user?.id
+      ? users.get(assignment.user.id)
+      : undefined;
+
+    if (existingMapValue && assignment.role && assignment.user) {
+      existingMapValue.roles = [...existingMapValue.roles, assignment.role];
+      users.set(assignment.user.id, existingMapValue);
     } else if (assignment.user && assignment.role) {
-      users = [
-        ...users,
-        {
-          ...assignment.user,
-          roles: [assignment.role],
-        },
-      ];
+      users.set(assignment.user.id, {
+        ...assignment.user,
+        roles: [assignment.role],
+      });
     }
   });
 
-  return users;
+  return Array.from(users.values());
 };
