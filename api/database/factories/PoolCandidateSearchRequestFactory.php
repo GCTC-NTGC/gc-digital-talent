@@ -32,7 +32,7 @@ class PoolCandidateSearchRequestFactory extends Factory
         $communityFetched = Community::inRandomOrder()->first();
         $community = isset($communityFetched) ? $communityFetched : Community::factory()->create();
         $guestUser = null;
-        $users = array(User::inRandomOrder()->first(), $guestUser);
+        $users = [User::inRandomOrder()->first(), $guestUser];
         $user = $users[array_rand($users)];
 
         return [
