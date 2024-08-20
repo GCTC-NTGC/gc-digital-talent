@@ -1037,7 +1037,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToView(Builder $query, ?array $args): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
