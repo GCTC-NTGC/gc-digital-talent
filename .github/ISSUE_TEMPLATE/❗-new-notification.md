@@ -8,34 +8,42 @@ assignees: ""
 
 ## ✨ Purpose
 
-What is this notification intended to convey, and why?
+<!-- What is this notification intended to convey, and why? -->
 
 ## ❗ Trigger
 
+<!--
 How is this notification generated? Is it in response to some user action (eg submitting a request) or will it require a cron job which runs on a schedule (eg a job poster closes in 24 hours). If it requires a cron job, how often does it need to run?
+ -->
 
 ## 👀 Audience
 
+<!--
 Who will get this notification? (eg all Request Responders, or only applicants with a draft application for related poster)
+ -->
 
 ## 🌎 Copy (localized)
 
 ### Email templates (English and French)
 
-Content of this notification if received as an email.
+<!-- Content of this notification if received as an email. -->
 
 ### In-app string (English and French)
 
-How does this notification appear on the notifications page?
+<!-- How does this notification appear on the notifications page? -->
 
 ### Link
 
+<!--
 What page of the app is most relevant to this notification? (You will be sent there if you click this notification in-app.) Consider if this link should be part of the email template.
+ -->
 
 ## 💾 Content
 
+<!--
 - What Notification Family does this belong to? (see #9555)
 - What is the minimal set of data we need to store in the database in order to generate in-app string and link?
+ -->
 
 ## ✅ Acceptance Criteria
 
@@ -48,9 +56,8 @@ What page of the app is most relevant to this notification? (You will be sent th
 
 ## 🛑 Blockers
 
-Issues which must be completed before this one.
+<!-- Issues which must be completed before this one. -->
 
 ```[tasklist]
 ### Blocked By
-- [ ] ticket number
 ```

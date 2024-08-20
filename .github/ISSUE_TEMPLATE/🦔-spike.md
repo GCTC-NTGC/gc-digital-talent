@@ -8,16 +8,16 @@ assignees: ""
 
 ## 🦔 Spike
 
-Describe the spike.
+<!-- Describe the spike. -->
 
 ## 🕵️ Details
 
-More details, background context, or ideas for how to approach this.
+<!-- More details, background context, or ideas for how to approach this. -->
 
 ## ❓ Questions to answer
 
-What specific questions need to have been answered for this task to be considered complete?
+<!-- What specific questions need to have been answered for this task to be considered complete? -->
 
 ## 🕙 Timebox
 
-How many days are we expected to spend on this?
+<!-- How many days are we expected to spend on this? -->
