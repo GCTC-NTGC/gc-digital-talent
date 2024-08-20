@@ -25,6 +25,7 @@ import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 import processMessages from "~/messages/processMessages";
+import messages from "~/messages/adminMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -157,14 +158,27 @@ const ApplicantFilters = ({
     applicantFilter?.qualifiedStreams?.flatMap((stream) => stream?.label),
   ).map((label) => getLocalizedName(label, intl));
 
+  const communityName: string =
+    applicantFilter && applicantFilter.community
+      ? getLocalizedName(applicantFilter.community.name, intl)
+      : intl.formatMessage({
+          defaultMessage: "(None selected)",
+          id: "+O6J4u",
+          description: "Text shown when the filter was not selected",
+        });
+
   return (
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
+            title={intl.formatMessage(messages.community)}
+            content={communityName}
+          />
+          <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Pool Requested",
-              id: "rz8uPO",
+              defaultMessage: "Pool requested",
+              id: "HXF9GA",
               description:
                 "Title for the pool block in the manager info section of the single search request view.",
             })}
@@ -221,8 +235,8 @@ const ApplicantFilters = ({
           />
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Education Level",
-              id: "YKqt+1",
+              defaultMessage: "Education level",
+              id: "ftAIM9",
               description:
                 "Title for education level on summary of filters section",
             })}
@@ -248,8 +262,8 @@ const ApplicantFilters = ({
           )}
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Work Location",
-              id: "MWZgsB",
+              defaultMessage: "Work location",
+              id: "3e965x",
               description:
                 "Title for work location section on summary of filters section",
             })}
@@ -396,8 +410,8 @@ const SearchRequestFilters = ({
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Pool Requested",
-                id: "rz8uPO",
+                defaultMessage: "Pool requested",
+                id: "HXF9GA",
                 description:
                   "Title for the pool block in the manager info section of the single search request view.",
               })}
@@ -429,8 +443,8 @@ const SearchRequestFilters = ({
             />
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Education Level",
-                id: "YKqt+1",
+                defaultMessage: "Education level",
+                id: "ftAIM9",
                 description:
                   "Title for education level on summary of filters section",
               })}
@@ -447,8 +461,8 @@ const SearchRequestFilters = ({
               />
               <FilterBlock
                 title={intl.formatMessage({
-                  defaultMessage: "Work Location",
-                  id: "MWZgsB",
+                  defaultMessage: "Work location",
+                  id: "3e965x",
                   description:
                     "Title for work location section on summary of filters section",
                 })}

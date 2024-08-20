@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -26,6 +27,7 @@ import {
   teamRolesAccessor,
   teamRolesCell,
 } from "./helpers";
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
 type RoleTeamPair = {
   role: Role;
@@ -37,18 +39,21 @@ const columnHelper = createColumnHelper<TeamAssignment>();
 type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"]["output"];
 
 interface TeamRoleTableProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
   availableRoles: Array<Role>;
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const TeamRoleTable = ({
   user,
+  authInfo,
   availableRoles,
   onUpdateUserRoles,
 }: TeamRoleTableProps) => {
   const intl = useIntl();
   const routes = useRoutes();
+  const { firstName, lastName, id } = user;
 
   const teamRoles = availableRoles.filter(
     (role) =>
@@ -69,13 +74,14 @@ const TeamRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: teamAssignment } }) =>
-        teamActionCell(teamAssignment, user, handleEditRoles, teamRoles),
+        teamActionCell(
+          teamAssignment,
+          { id: id, firstName: firstName, lastName: lastName },
+          handleEditRoles,
+          teamRoles,
+        ),
     }),
     columnHelper.accessor(
       (teamAssignment) =>
@@ -113,9 +119,7 @@ const TeamRoleTable = ({
   ] as ColumnDef<TeamAssignment>[];
 
   const data = useMemo(() => {
-    const roleTeamPairs: RoleTeamPair[] = (
-      user?.authInfo?.roleAssignments ?? []
-    )
+    const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
       .map((assignment) => {
         if (assignment?.team && assignment.role && assignment.role.isTeamBased)
           return {
@@ -140,7 +144,7 @@ const TeamRoleTable = ({
         roles: teamGroupOfPairs.map((pair) => pair.role),
       };
     });
-  }, [user?.authInfo?.roleAssignments]);
+  }, [authInfo?.roleAssignments]);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team based roles",
@@ -173,6 +177,7 @@ const TeamRoleTable = ({
           component: (
             <AddTeamRoleDialog
               user={user}
+              authInfo={authInfo}
               availableRoles={teamRoles}
               onAddRoles={handleEditRoles}
             />

@@ -116,7 +116,7 @@
     "description": "Error message that the screening question could not be found."
   },
   "2wKf2U": {
-    "defaultMessage": "Modifier",
+    "defaultMessage": "Modifiez",
     "description": "Text to trigger edit action"
   },
   "3I2Qke": {
@@ -239,6 +239,10 @@
     "defaultMessage": "réussite",
     "description": "Message for the success status"
   },
+  "9QsHXO": {
+    "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message for when an error occurs during role assignment"
+  },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
     "description": "The operational requirement described as travel as required."
@@ -246,10 +250,6 @@
   "9aW0M6": {
     "defaultMessage": "Ministère",
     "description": "Title for department"
-  },
-  "9ays+c": {
-    "defaultMessage": "J'ai un <strong>contrat</strong> d'employé occasionnel.",
-    "description": "Casual selection for government employee type."
   },
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
@@ -298,6 +298,10 @@
   "Bvr4b6": {
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
+  },
+  "C/2HT9": {
+    "defaultMessage": "Cette clé de collectivité est déjà utilisé",
+    "description": "Error message that the given community key is already in use"
   },
   "C/mdCs": {
     "defaultMessage": "Sans objet",
@@ -402,10 +406,6 @@
   "HEGXL7": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Title displayed working language ability"
-  },
-  "HGM0YR": {
-    "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
-    "description": "Indeterminate selection for government employee type."
   },
   "HMXnoR": {
     "defaultMessage": "Retourner à ma demande",
@@ -704,7 +704,7 @@
     "description": "Full name of abbreviation for EC"
   },
   "WGoaKQ": {
-    "defaultMessage": "Sauvegarder les modifications",
+    "defaultMessage": "Sauvegardez les modifications",
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {
@@ -752,7 +752,7 @@
     "description": "Error message that the assessment steps must belong to the same pool."
   },
   "XZl6Ks": {
-    "defaultMessage": "Modifier cette section",
+    "defaultMessage": "Modifiez cette section",
     "description": "Text to trigger edit of section action"
   },
   "XpK4rL": {
@@ -782,6 +782,10 @@
   "Z0bYQD": {
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
+  },
+  "ZX5gv1": {
+    "defaultMessage": "\"Je suis un(e) employé(e) nommé(e) pour une période indéterminée.\"",
+    "description": "Indeterminate selection for government employee type."
   },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
@@ -816,7 +820,7 @@
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
   },
   "atqjXB": {
-    "defaultMessage": "Annuler",
+    "defaultMessage": "Annulez",
     "description": "Stop the current action"
   },
   "ayG2k7": {
@@ -826,6 +830,10 @@
   "bAaDat": {
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
+  },
+  "bE1GJ9": {
+    "defaultMessage": "\"J'ai un contrat d'employé(e) temporaire.\"",
+    "description": "Casual selection for government employee type."
   },
   "bXECaV": {
     "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
@@ -876,7 +884,7 @@
     "description": "The work region of Canada described as National Capital."
   },
   "eBNZxB": {
-    "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
+    "defaultMessage": "{count, plural, =0 {0 options sélectionnées} =1 {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
   "edeLyW": {
@@ -904,7 +912,7 @@
     "description": "Name of the fourth month"
   },
   "fMcKtJ": {
-    "defaultMessage": "Annuler et revenir en arrière",
+    "defaultMessage": "Annulez et revenez en arrière",
     "description": "Text to cancel changes to a form"
   },
   "fO0cRR": {
@@ -914,6 +922,10 @@
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
+  },
+  "faMBJc": {
+    "defaultMessage": "\"Je suis étudiant(e).\"",
+    "description": "Student selection for government employee type."
   },
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
@@ -1003,6 +1015,10 @@
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
     "description": "Error message that an expiry date must be in the future"
   },
+  "k8NLSx": {
+    "defaultMessage": "\"J'ai un poste doté pour une période déterminée.\"",
+    "description": "Term selection for government employee type."
+  },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
@@ -1042,6 +1058,10 @@
   "lsFH+y": {
     "defaultMessage": "Aucune option",
     "description": "Message shown in options dropdown when Select field has no options."
+  },
+  "m0iNdp": {
+    "defaultMessage": "Choisir une collectivité",
+    "description": "Null selection for community select input."
   },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
@@ -1122,10 +1142,6 @@
   "qVI4xG": {
     "defaultMessage": "réussite partielle",
     "description": "Message for the partial success status"
-  },
-  "qfioSi": {
-    "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
-    "description": "Term selection for government employee type."
   },
   "qmEyxS": {
     "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
@@ -1358,9 +1374,5 @@
   "zhqK/P": {
     "defaultMessage": "Non précisé",
     "description": "Unspecified, has not been set or defined"
-  },
-  "zhzuZu": {
-    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>.",
-    "description": "Student selection for government employee type."
   }
 }

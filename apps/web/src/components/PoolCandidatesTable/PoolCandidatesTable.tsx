@@ -28,7 +28,6 @@ import {
   FragmentType,
   Language,
 } from "@gc-digital-talent/graphql";
-import { Button } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -45,6 +44,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
+import commonTableMessages from "~/components/Table/tableMessages";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -66,10 +66,7 @@ import {
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
 } from "./helpers";
-import {
-  actionButtonStyles,
-  rowSelectCell,
-} from "../Table/ResponsiveTable/RowSelection";
+import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
@@ -79,8 +76,7 @@ import {
   jobPlacementDialogAccessor,
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
-import DownloadCandidatesDocButton from "../DownloadButton/DownloadCandidatesDocButton";
-import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
+import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -614,6 +610,10 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
+  const handleNoRowsSelected = () => {
+    toast.warning(intl.formatMessage(commonTableMessages.noRowsSelected));
+  };
+
   const columns = [
     ...(doNotUseBookmark
       ? []
@@ -953,33 +953,25 @@ const PoolCandidatesTable = ({
             ),
           }),
       }}
-      asyncDownload={
-        <Button
-          {...actionButtonStyles}
-          onClick={handleCsvDownload}
-          disabled={downloadingCsv || !hasSelectedRows}
-          data-h2-font-weight="base(400)"
-          {...(downloadingCsv && {
-            icon: SpinnerIcon,
-          })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download CSV",
-            id: "mxOuYK",
-            description:
-              "Text label for button to download a csv file of items in a table.",
-          })}
-        </Button>
-      }
-      print={{
-        component: (
-          <DownloadCandidatesDocButton
-            inTable
-            disabled={!hasSelectedRows || downloadingDoc}
-            onClick={handleDocDownload}
-            isDownloading={downloadingDoc}
-          />
-        ),
+      download={{
+        csv: {
+          enable: true,
+          onClick: handleCsvDownload,
+          downloading: downloadingCsv,
+        },
+        doc: {
+          enable: true,
+          component: (
+            <DownloadUsersDocButton
+              inTable
+              disabled={downloadingDoc}
+              onClick={
+                hasSelectedRows ? handleDocDownload : handleNoRowsSelected
+              }
+              isDownloading={downloadingDoc}
+            />
+          ),
+        },
       }}
       pagination={{
         internal: false,

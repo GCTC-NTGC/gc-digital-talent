@@ -11,12 +11,10 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Tests\UsesProtectedRequestContext;
 
 class PoolCandidatePolicyTest extends TestCase
 {
     use RefreshDatabase;
-    use UsesProtectedRequestContext;
     use WithFaker;
 
     protected $guestUser;

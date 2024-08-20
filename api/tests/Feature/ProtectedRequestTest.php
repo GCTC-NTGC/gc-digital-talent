@@ -10,6 +10,8 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
+use function PHPUnit\Framework\assertTrue;
+
 class ProtectedRequestTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -113,12 +115,10 @@ class ProtectedRequestTest extends TestCase
 
     public function testCanNotUsePrivilegedQueryUnprotected()
     {
-        $this->markTestSkipped('Enable to test the route protection logic.');
-
         // simulate a regular request context
         Config::set('lighthouse.route.name', 'graphql');
 
-        // a limited query can be used in an unprotected request
+        // a privileged query can not be used in an unprotected request
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -141,6 +141,11 @@ class ProtectedRequestTest extends TestCase
                 ],
             ]
         )->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
 
+    public function testCanUsePrivilegedQueryInUnroutedRequest()
+    {
+        // permission is not important, just that it's not available to guest, base, applicant
+        assertTrue($this->adminUser->isAbleTo('view-any-user'));
     }
 }

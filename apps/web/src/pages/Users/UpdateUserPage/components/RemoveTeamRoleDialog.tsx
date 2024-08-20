@@ -22,7 +22,7 @@ import {
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 interface RemoveTeamRoleDialogProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName">;
   roles: Role[];
   team: Pick<Team, "id" | "displayName">;
   onRemoveRoles: (
@@ -39,6 +39,7 @@ const RemoveTeamRoleDialog = ({
   const intl = useIntl();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { id, firstName, lastName } = user;
 
   const handleRemove = async () => {
     const roleInputArray: RoleInput[] = roles.map((r) => {
@@ -46,7 +47,7 @@ const RemoveTeamRoleDialog = ({
     });
     setIsDeleting(true);
     return onRemoveRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
         detach: roleInputArray,
       },
@@ -75,7 +76,7 @@ const RemoveTeamRoleDialog = ({
       .finally(() => setIsDeleting(false));
   };
 
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const userName = getFullNameHtml(firstName, lastName, intl);
   const roleDisplayName = (role: Role) =>
     getLocalizedName(role.displayName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);

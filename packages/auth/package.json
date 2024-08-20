@@ -26,13 +26,11 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "jwt-decode": "^4.0.0",
-    "path-browserify": "^1.0.1",
-    "react-router-dom": "^6.25.1",
+    "react-router-dom": "^6.26.0",
     "urql": "^4.1.0"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/path-browserify": "^1.0.2",
     "@types/react": "^18.3.3",
     "eslint": "^8.57.0",
     "react": "^18.3.1",

@@ -6,6 +6,7 @@ use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
@@ -79,12 +80,14 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     {
         PoolCandidateSearchRequest::factory()->count(10)->create([]);
 
-        // assert guest, applicant can't see results
+        // assert guest can't see results
         $this->graphQL($this->searchRequestQuery) // counts as guest
             ->assertGraphQLErrorMessage('Unauthenticated.');
+
+        // applicant sees zero
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->searchRequestQuery)
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
+            ->assertJsonFragment(['count' => 0]);
 
         // assert request responder and admin can see results, paginated, and 10 results
         $this->actingAs($this->requestResponder, 'api')
@@ -498,5 +501,41 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
+    }
+
+    public function testScopeAuthorizedToView(): void
+    {
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityRequest = PoolCandidateSearchRequest::factory()->create([
+            'community_id' => $community->id,
+        ]);
+        $otherCommunityRequest = PoolCandidateSearchRequest::factory()->create([
+            'community_id' => $otherCommunity->id,
+        ]);
+        $communityRecruiter = User::factory()
+            ->asCommunityRecruiter([$community->id])
+            ->create();
+
+        // request responder sees both requests
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL($this->searchRequestQuery, [
+                'where' => [],
+            ])->assertJsonFragment(['count' => 2])
+            ->assertJsonFragment(['id' => $communityRequest->id])
+            ->assertJsonFragment(['id' => $otherCommunityRequest->id]);
+
+        // community recruiter only sees the request attached to their community
+        $this->actingAs($communityRecruiter, 'api')
+            ->graphQL($this->searchRequestQuery, [
+                'where' => [],
+            ])->assertJsonFragment(['count' => 1])
+            ->assertJsonFragment(['id' => $communityRequest->id]);
+
+        // non-admin sees zero
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->searchRequestQuery, [
+                'where' => [],
+            ])->assertJsonFragment(['count' => 0]);
     }
 }

@@ -15,6 +15,8 @@ final class DownloadPoolCandidatesCsv
     /**
      * Dispatches the generation of a
      * csv containing pool candidates
+     *
+     * @disregard P1003 We are not going to be using this var
      */
     public function __invoke($_, array $args)
     {

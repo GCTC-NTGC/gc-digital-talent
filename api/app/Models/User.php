@@ -13,6 +13,7 @@ use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
+use App\Traits\HydratesSnapshot;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -94,6 +95,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasLocalizedEnums;
     use HasRelationships;
     use HasRolesAndPermissions;
+    use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
     use SoftDeletes;
@@ -744,6 +746,22 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         });
     }
 
+    /**
+     * Return users who have a PoolCandidate in a given community
+     */
+    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    {
+        if (empty($communityId)) {
+            return $query;
+        }
+
+        $query = $query->whereHas('poolCandidates', function ($query) use ($communityId) {
+            return PoolCandidate::scopeCandidatesInCommunity($query, $communityId);
+        });
+
+        return $query;
+    }
+
     public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
     {
         if ($hasDiploma) {
@@ -1019,66 +1037,63 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToViewSpecific(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // can see any user - return with no filters added
+        if ($user?->isAbleTo('view-any-user')) {
+            return;
         }
 
+        // we might want to add some filters for some users
+        $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-team-applicantProfile')) {
+            if ($user?->isAbleTo('view-team-applicantProfile')) {
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query
+                        $query
                             ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+                            ->where(function (Builder $query) use ($teamIds) {
+                                $query
+                                    ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })
+                                    ->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    });
                             });
                     });
                 });
             }
-            if ($user->isAbleTo('view-own-user')) {
+
+            if ($user?->isAbleTo('view-own-user')) {
                 $query->orWhere('id', $user->id);
             }
         });
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
+        }
 
-        return $query;
+        // fall through - return nothing
+        $query->where('id', null);
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToViewBasicInfo(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // special case: can see any basic info - return all users with no filters added
+        if ($user?->isAbleTo('view-any-userBasicInfo')) {
+            return;
         }
 
-        if (! $user->isAbleTo('view-any-user')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
-        }
-
-        return $query;
-    }
-
-    public function scopeAuthorizedToViewBasicInfo(Builder $query)
-    {
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        if (! $user) {
-            return $query->where('id', null);
-        }
-
-        if (! $user->isAbleTo('view-any-user') && ! $user->isAbleTo('view-any-userBasicInfo')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
-        }
-
-        return $query;
+        // otherwise: use the regular authorized to view scope
+        $query->authorizedToView();
     }
 
     /**
@@ -1133,5 +1148,54 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function getIsEmailVerifiedAttribute()
     {
         return $this->hasVerifiedEmail();
+    }
+
+    public static function hydrateSnapshot(mixed $snapshot): Model|array
+    {
+        $user = new User();
+
+        $fields = [
+            'first_name' => ['firstName'],
+            'last_name' => ['lastName'],
+            'email' => ['email'],
+            'telephone' => ['telephone'],
+            'current_city' => ['currentCity'],
+            'current_province' => ['currentProvince', true],
+            'preferred_lang' => ['preferredLang', true],
+            'preferred_language_for_interview' => ['preferredLanguageForInterview', true],
+            'preferred_language_for_exam' => ['preferredLanguageForExam', true],
+            'citizenship' => ['citizenship', true],
+            'armed_forces_status' => ['armedForcesStatus', true],
+            'looking_for_english' => ['lookingForEnglish'],
+            'looking_for_french' => ['lookingForFrench'],
+            'looking_for_bilingual' => ['lookingForBilingual'],
+            'first_official_language' => ['firstOfficialLanguage', true],
+            'second_language_exam_completed' => ['secondLanguageExamCompleted'],
+            'second_language_exam_validity' => ['secondLanguageExamValidity'],
+            'comprehension_level' => ['comprehensionLevel', true],
+            'written_level' => ['comprehensionLevel', true],
+            'verbal_level' => ['verbalLevel', true],
+            'estimated_language_ability' => ['estimatedLanguageAbility', true],
+            'is_gov_employee' => ['isGovEmployee'],
+            'gov_employee_type' => ['govEmployeeType', true],
+            'has_priority_entitlement' => ['hasPriorityEntitlement'],
+            'priority_number' => ['priorityNumber'],
+            'location_preferences' => ['locationPreferences', true],
+            'location_exemptions' => ['locationExemptions'],
+            'accepted_operational_requirements' => ['acceptedOperationalRequirements', true],
+            'position_duration' => ['positionDuration'],
+            'is_woman' => ['isWoman'],
+            'has_disability' => ['hasDisability'],
+            'is_visible_minority' => ['isVisibleMinority'],
+            'indigenous_communities' => ['indigenousCommunities', true],
+        ];
+
+        $user = self::hydrateFields($snapshot, $fields, $user);
+
+        if (isset($snapshot['department'])) {
+            $user->department = $snapshot['department']['id'];
+        }
+
+        return $user;
     }
 }

@@ -17,10 +17,14 @@ const authorizationQuery = graphql(/** GraphQL */ `
         role {
           id
           name
+          isTeamBased
         }
         team {
           id
           name
+        }
+        teamable {
+          id
         }
       }
     }
