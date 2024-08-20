@@ -2262,13 +2262,16 @@ type Mutation {
     where: PoolCandidateSearchInput,
     locale: Language
   ): Boolean! @guard
-
   downloadPoolCandidatesDoc(
     ids: [UUID!]!
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
-  downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadUsersCsv(
+    ids: [UUID!],
+    where: UserFilterInput
+    locale: Language
+  ): Boolean! @guard
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadUsersDoc(
     ids: [UUID!]!

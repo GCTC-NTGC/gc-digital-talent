@@ -13,12 +13,16 @@ use App\Enums\OperationalRequirement;
 use App\Enums\WorkRegion;
 use App\Models\User;
 use App\Traits\Generator\GeneratesFile;
+use App\Traits\Generator\GeneratorFiltersById;
+use App\Traits\Generator\GeneratorIsFilterable;
 use Illuminate\Support\Arr;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
     use GeneratesFile;
+    use GeneratorFiltersById;
+    use GeneratorIsFilterable;
 
     protected array $generatedHeaders = [
         'general_questions' => [],
@@ -56,7 +60,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'skills',
     ];
 
-    public function __construct(protected array $ids, public string $fileName, public ?string $dir, protected ?string $lang = 'en')
+    public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);
     }
@@ -71,61 +75,56 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         }, $this->headerLocaleKeys);
 
         $sheet->fromArray($localizedHeaders, null, 'A1');
+
         $currentUser = 1;
+        $query = $this->buildQuery();
+        $query->chunk(200, function ($users) use ($sheet, &$currentUser) {
+            foreach ($users as $user) {
 
-        User::with([
-            'department',
-            'currentClassification',
-            'userSkills' => ['skill'],
-        ])
-            ->whereIn('id', $this->ids)
-            ->chunk(200, function ($users) use ($sheet, &$currentUser) {
-                foreach ($users as $user) {
+                $department = $user->department()->first();
+                $preferences = $user->getOperationalRequirements();
+                $indigenousCommunities = Arr::where($user->indigenous_communities, function ($community) {
+                    return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
+                });
+                $userSkills = $user->userSkills->map(function ($userSkill) {
+                    return $userSkill->skill->name[$this->lang] ?? '';
+                });
 
-                    $department = $user->department()->first();
-                    $preferences = $user->getOperationalRequirements();
-                    $indigenousCommunities = Arr::where($user->indigenous_communities, function ($community) {
-                        return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
-                    });
-                    $userSkills = $user->userSkills->map(function ($userSkill) {
-                        return $userSkill->skill->name[$this->lang] ?? '';
-                    });
+                $values = [
+                    $user->first_name, // First name
+                    $user->last_name, // Last name
+                    $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
+                    $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
+                    $this->lookingForLanguages($user),
+                    $this->localizeEnum($user->first_official_language, Language::class),
+                    is_null($user->second_language_exam_completed) ? '' : $this->yesOrNo($user->second_language_exam_completed), // Bilingual evaluation
+                    $this->yesOrNo($user->second_language_exam_validity),
+                    $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
+                    $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
+                    $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
+                    $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
+                    $this->yesOrNo($user->is_gov_employee), // Government employee
+                    $department->name[$this->lang] ?? '', // Department
+                    $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class),
+                    $user->getClassification(), // Current classification
+                    $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement
+                    $user->priority_number ?? '', // Priority number
+                    $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
+                    $user->location_exemptions, // Location exemptions
+                    $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
+                    $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
+                    $this->yesOrNo($user->is_woman), // Woman
+                    $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
+                    $this->yesOrNo($user->is_visible_minority), // Visible minority
+                    $this->yesOrNo($user->has_disability), // Disability
+                    $userSkills->join(', '),
+                ];
 
-                    $values = [
-                        $user->first_name, // First name
-                        $user->last_name, // Last name
-                        $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
-                        $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
-                        $this->lookingForLanguages($user),
-                        $this->localizeEnum($user->first_official_language, Language::class),
-                        is_null($user->second_language_exam_completed) ? '' : $this->yesOrNo($user->second_language_exam_completed), // Bilingual evaluation
-                        $this->yesOrNo($user->second_language_exam_validity),
-                        $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
-                        $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
-                        $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
-                        $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
-                        $this->yesOrNo($user->is_gov_employee), // Government employee
-                        $department->name[$this->lang] ?? '', // Department
-                        $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class),
-                        $user->getClassification(), // Current classification
-                        $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement
-                        $user->priority_number ?? '', // Priority number
-                        $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
-                        $user->location_exemptions, // Location exemptions
-                        $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
-                        $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                        $this->yesOrNo($user->is_woman), // Woman
-                        $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
-                        $this->yesOrNo($user->is_visible_minority), // Visible minority
-                        $this->yesOrNo($user->has_disability), // Disability
-                        $userSkills->join(', '),
-                    ];
-
-                    // 1 is added to the key to account for the header row
-                    $sheet->fromArray($values, null, 'A'.$currentUser + 1);
-                    $currentUser++;
-                }
-            });
+                // 1 is added to the key to account for the header row
+                $sheet->fromArray($values, null, 'A'.$currentUser + 1);
+                $currentUser++;
+            }
+        });
 
         return $this;
     }
@@ -150,5 +149,24 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         }
 
         return implode(', ', $languages);
+    }
+
+    private function buildQuery()
+    {
+        $query = User::with([
+            'department',
+            'currentClassification',
+            'userSkills' => ['skill'],
+        ]);
+
+        $query = $this->applyIdFilter($query);
+        $query = $this->applyFilters($query, User::class, [
+            'roles' => 'roleAssignments',
+        ]);
+
+        $query->authorizedToView(['userId' => $this->userId]);
+
+        return $query;
+
     }
 }

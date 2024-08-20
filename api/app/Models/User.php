@@ -1037,10 +1037,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+
+        $userId = $args['userId'] ?? null;
+        if ($userId) {
+            $user = User::find($userId);
+        }
 
         // can see any user - return with no filters added
         if ($user?->isAbleTo('view-any-user')) {
