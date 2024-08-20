@@ -1912,7 +1912,7 @@
     "description": "Label displayed on the additional pools field of the change candidate status dialog"
   },
   "8W/am2": {
-    "defaultMessage": "Cette liste vous permet de mettre en évidence <strong>jusqu’à 5 comportements ou compétences « générales »</strong> que vous maîtrisez. Montrez-nous qui vous êtes!",
+    "defaultMessage": "Cette liste vous permet de mettre en évidence <strong>jusqu'à 5 compétences comportementales ou « générales »</strong> que vous maîtrisez.",
     "description": "Description of a users top behavioural skills"
   },
   "8Y+eEc": {
