@@ -90,6 +90,7 @@ import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
+import PreviewList from "./components/PreviewList/PreviewList";
 
 export type {
   Color,
@@ -161,6 +162,7 @@ export {
   Loading,
   LoadingErrorMessage,
   Pending,
+  PreviewList,
   NotFound,
   ThrowNotFound,
   ScrollArea,
