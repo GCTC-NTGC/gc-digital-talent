@@ -13,7 +13,7 @@ export function getFromStorage<T>(
     const item = store.getItem(key);
     // Parse stored json or if none return defaultValue
     return item ? JSON.parse(item) : defaultValue;
-  } catch (error) {
+  } catch (_error) {
     // If error also return defaultValue
     // console.log(error);
     return defaultValue;
@@ -54,7 +54,7 @@ export function useStorage<T>(store: Storage, key: string, initialValue: T) {
         setStoredValue(valueToStore);
         // Save to local storage
         setInStorage(store, key, valueToStore);
-      } catch (error) {
+      } catch (_error) {
         // A more advanced implementation would handle the error case
         // console.log(error);
       }

@@ -5,7 +5,6 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
@@ -84,6 +83,8 @@ module.exports = {
     "no-param-reassign": "warn",
     "no-use-before-define": "off",
     "no-shadow": "off",
+    "no-console": "error",
+    "no-alert": "error",
     "@typescript-eslint/no-use-before-define": "warn",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-empty-function": "warn",
