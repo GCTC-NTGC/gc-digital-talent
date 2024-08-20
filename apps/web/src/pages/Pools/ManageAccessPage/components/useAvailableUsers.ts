@@ -7,7 +7,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { CommunityMember } from "~/utils/communityUtils";
+import { PoolTeamMember } from "./types";
 
 const ManageAccessPool_AvailableUsersQuery = graphql(/* GraphQL */ `
   query ManageAccessPoolAvailableUsers(
@@ -44,7 +44,7 @@ type UseAvailableUsersReturn = {
 };
 
 const useAvailableUsers = (
-  members: CommunityMember[],
+  members: PoolTeamMember[],
   where?: UserPublicProfileFilterInput,
 ): UseAvailableUsersReturn => {
   const excludeIds = members.map((member) => member.id);
