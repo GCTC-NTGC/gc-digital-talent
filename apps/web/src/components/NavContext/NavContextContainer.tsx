@@ -2,6 +2,7 @@ import { createContext, ReactNode, useMemo, useState } from "react";
 
 import { RoleName } from "@gc-digital-talent/auth";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
+import { useLogger } from "@gc-digital-talent/logger";
 
 // this array is ordered by privilege to allow proper sorting
 const NAV_ROLES_BY_PRIVILEGE = [
@@ -48,7 +49,7 @@ function convertRoleToNavRole(role: RoleName): NavRole {
   return assertUnreachable(role); // exhaustive switch
 }
 
-function chooseNavRole(
+export function chooseNavRole(
   currentNavRole: NavRole,
   authorizedRoles: Array<RoleName>,
 ): NavRole {
@@ -78,18 +79,18 @@ interface NavContextContainerProps {
 
 const NavContextContainer = ({ children }: NavContextContainerProps) => {
   const [navRole, setNavRole] = useState<NavRole>("guest");
+  const logger = useLogger();
 
   const state = useMemo<NavContextState>(() => {
     return {
       navRole,
       onAuthorizedRolesChanged: (authorizedRoles: Array<RoleName>) => {
-        console.debug("authorized roles changed: ", authorizedRoles);
         const newNavRole = chooseNavRole(navRole, authorizedRoles);
-        console.debug("new nav role: ", newNavRole);
+        logger.debug(`new nav role: ${newNavRole}`); // feel free to remove this in  #10793 when the container is used
         setNavRole(newNavRole);
       },
     };
-  }, [navRole]);
+  }, [logger, navRole]);
 
   return <NavContext.Provider value={state}>{children}</NavContext.Provider>;
 };
