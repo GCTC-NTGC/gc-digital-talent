@@ -401,7 +401,7 @@ type Mutation {
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
-  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean!
+  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, locale: Language): Boolean!
   downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
   downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean!
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean!

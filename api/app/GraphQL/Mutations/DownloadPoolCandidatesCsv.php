@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\PoolCandidateCsvGenerator;
 use App\Jobs\GenerateUserFile;
-use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -24,25 +23,21 @@ final class DownloadPoolCandidatesCsv
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
+        $ids = $args['ids'] ?? null;
+        $filters = $args['where'] ?? null;
         $locale = $args['locale'] ?? 'en';
 
         try {
-            // Make sure this user can see candidates before sending
-            // them to the generation job
-            $ids = PoolCandidate::whereIn('id', $args['ids'])
-                ->authorizedToView()
-                ->get('id')
-                ->pluck('id') // Seems weird but we are just flattening it out
-                ->toArray();
-
-            $fileName = sprintf('%s_%s.csv', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
-
             $generator = new PoolCandidateCsvGenerator(
-                ids: $ids,
-                fileName: $fileName,
+                fileName: sprintf('%s_%s.csv', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: strtolower($locale),
             );
+
+            $generator = $generator
+                ->setUserId($user->id)
+                ->setIds($ids)
+                ->setFilters($filters);
 
             GenerateUserFile::dispatch($generator, $user);
 

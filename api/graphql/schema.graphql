@@ -824,6 +824,7 @@ input PoolCandidateSearchInput {
   processNumber: String @scope(name: "processNumber")
 }
 
+
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
   departments: [ID] @scope
@@ -2256,7 +2257,12 @@ type Mutation {
   ): SitewideAnnouncement @guard
 
   # File downloads
-  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesCsv(
+    ids: [UUID!],
+    where: PoolCandidateSearchInput,
+    locale: Language
+  ): Boolean! @guard
+
   downloadPoolCandidatesDoc(
     ids: [UUID!]!
     anonymous: Boolean!
