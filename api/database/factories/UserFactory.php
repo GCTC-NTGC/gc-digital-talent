@@ -353,4 +353,16 @@ class UserFactory extends Factory
             }
         });
     }
+
+    /**
+     * Attach the manager role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asManager()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('manager');
+        });
+    }
 }
