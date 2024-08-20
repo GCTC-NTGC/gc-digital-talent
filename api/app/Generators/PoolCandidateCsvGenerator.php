@@ -18,6 +18,7 @@ use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Traits\Generator\GeneratesFile;
+use App\Traits\Generator\GeneratorFiltersById;
 use App\Traits\Generator\GeneratorIsFilterable;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -25,9 +26,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
     use GeneratesFile;
+    use GeneratorFiltersById;
     use GeneratorIsFilterable;
-
-    protected ?array $ids;
 
     protected array $generalQuestionIds = [];
 
@@ -97,9 +97,8 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
         $sheet = $this->spreadsheet->getActiveSheet();
 
-        $query = $this->buildQuery();
-
         $currentCandidate = 1;
+        $query = $this->buildQuery();
         $query->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
             foreach ($candidates as $candidate) {
 
@@ -267,7 +266,6 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
     private function buildQuery()
     {
-
         $query = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
@@ -284,12 +282,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             ],
         ]);
 
-        if (! is_null($this->ids)) {
-            $query->whereIn('id', $this->ids);
-        }
-
-        // Acts as the name field for scopes,
-        // renaming an input key to the scope name
+        $query = $this->applyIdFilter($query);
         $query = $this->applyFilters($query, PoolCandidate::class, [
             'priorityWeight' => 'candidateCategory',
             'poolcandidateStatus' => 'poolcandidateStatuses',
@@ -301,12 +294,5 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         $query->authorizedToView(['userId' => $this->userId]);
 
         return $query;
-    }
-
-    public function setIds(?array $ids)
-    {
-        $this->ids = $ids;
-
-        return $this;
     }
 }

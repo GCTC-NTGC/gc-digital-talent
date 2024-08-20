@@ -32,7 +32,8 @@ trait GeneratorIsFilterable
     {
         $flattened = [];
         foreach ($filters as $k => $v) {
-            if (is_array($v) && Arr::isAssoc($v)) {
+            // NOTE: Equity is expected to be assoc array so do not flatten it
+            if (is_array($v) && Arr::isAssoc($v) && $k !== 'equity') {
                 $flattened = array_merge($flattened, $this->flattenFilters($v));
             } else {
                 $flattened[$k] = $v;
@@ -52,6 +53,10 @@ trait GeneratorIsFilterable
      */
     public function applyFilters(Builder $query, string $class, ?array $scopeMap): Builder
     {
+        if (is_null($this->filters)) {
+            return $query;
+        }
+
         $filters = $this->flattenFilters($this->filters);
         foreach ($filters as $key => $value) {
             $scope = $scopeMap[$key] ?? $key;
