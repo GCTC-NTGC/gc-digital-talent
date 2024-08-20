@@ -401,8 +401,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesCsv($ids: [UUID!]!, $locale: Language) {
-    downloadPoolCandidatesCsv(ids: $ids, locale: $locale)
+  mutation DownloadPoolCandidatesCsv(
+    $ids: [UUID!]
+    $where: PoolCandidateSearchInput
+    $locale: Language
+  ) {
+    downloadPoolCandidatesCsv(ids: $ids, where: $where, locale: $locale)
   }
 `);
 
@@ -589,6 +593,19 @@ const PoolCandidatesTable = ({
     } else {
       handleDownloadError();
     }
+  };
+
+  const handleCsvDownloadAll = () => {
+    downloadCsv({
+      where: addSearchToPoolCandidateFilterInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
+      locale: locale === "fr" ? Language.Fr : Language.En,
+    })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
   };
 
   const handleCsvDownload = () => {
@@ -954,6 +971,11 @@ const PoolCandidatesTable = ({
           }),
       }}
       download={{
+        all: {
+          enable: true,
+          onClick: handleCsvDownloadAll,
+          downloading: downloadingCsv,
+        },
         csv: {
           enable: true,
           onClick: handleCsvDownload,
