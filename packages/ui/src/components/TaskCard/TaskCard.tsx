@@ -56,7 +56,7 @@ const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
-export interface ItemProps {
+interface ItemProps {
   children?: ReactNode;
 }
 
@@ -112,7 +112,7 @@ const TaskCardHeading = ({
   );
 };
 
-export interface RootProps {
+interface RootProps {
   icon?: IconType;
   title: ReactNode;
   headingColor?: CardColor;
