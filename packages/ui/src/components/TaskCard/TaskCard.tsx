@@ -2,7 +2,8 @@ import { ReactElement, ReactNode } from "react";
 
 import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
-import Heading, { HeadingLevel } from "../Heading";
+import { HeadingLevel } from "../Heading";
+import { headingStyles } from "../Heading/styles";
 
 export const colorOptions = [
   "primary",
@@ -70,6 +71,47 @@ const Item = ({ children }: ItemProps) => {
   );
 };
 
+interface TaskCardHeadingProps {
+  icon?: IconType;
+  headingAs?: HeadingLevel;
+  children?: ReactNode;
+}
+
+// a custom heading that is somewhat different from our standard heading component
+const TaskCardHeading = ({
+  icon,
+  headingAs = "h3",
+  children,
+}: TaskCardHeadingProps) => {
+  const Icon = icon;
+  const CustomHeading = headingAs;
+  return (
+    <CustomHeading
+      {...headingStyles["h4"]}
+      data-h2-margin="base(0)" // remove from imported styles
+      {...(Icon && {
+        // icon only appears greater than p-tablet width
+        "data-h2-display": "p-tablet(flex)",
+        "data-h2-align-items": "p-tablet(start)",
+        "data-h2-gap": "p-tablet(0 x.5)",
+      })}
+    >
+      {Icon ? (
+        <Icon
+          data-h2-display="base(none) p-tablet(inline-block)"
+          data-h2-flex-shrink="p-tablet(0)"
+        />
+      ) : null}
+      <div
+        data-h2-text-align="base(center) p-tablet(left)"
+        data-h2-text-wrap="base(balance)"
+      >
+        {children}
+      </div>
+    </CustomHeading>
+  );
+};
+
 export interface RootProps {
   icon?: IconType;
   title: ReactNode;
@@ -87,12 +129,9 @@ const Root = ({
   title,
   headingColor = "primary",
   link,
-  headingAs = "h3",
+  headingAs,
   children,
 }: RootProps) => {
-  // prepare icon element
-  const Icon = icon;
-
   return (
     <div
       data-h2-shadow="base(larger)"
@@ -112,22 +151,9 @@ const Root = ({
       >
         {/* wrapper */}
         <div {...wrapperStyleMap[headingColor]} data-h2-flex-grow="base(2)">
-          <Heading
-            level={headingAs}
-            size="h4"
-            data-h2-margin="base(0)"
-            data-h2-text-align="base(center) p-tablet(left)"
-            data-h2-text-wrap="base(balance)"
-            data-h2-padding-right="base(x1) p-tablet(0)"
-            {...(Icon && {
-              "data-h2-display": "base(flex)",
-              "data-h2-align-items": "base(start)",
-              "data-h2-gap": "base(0) p-tablet(0 x.5)",
-            })}
-            Icon={icon}
-          >
+          <TaskCardHeading icon={icon} headingAs={headingAs}>
             {title}
-          </Heading>
+          </TaskCardHeading>
         </div>
         {link ? (
           <Link
