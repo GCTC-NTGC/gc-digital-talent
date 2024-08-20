@@ -65,8 +65,8 @@ class PoolCandidateSearchRequest extends Model
         $user = Auth::user();
 
         parent::boot();
-        static::creating(function ($query) use ($user) {
-            $query->user_id = $user ? $user->id : null;
+        static::creating(function ($searchRequest) use ($user) {
+            $searchRequest->user_id = $user?->id;
         });
     }
 
