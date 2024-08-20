@@ -18,16 +18,16 @@ use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Traits\Generator\GeneratesFile;
+use App\Traits\Generator\GeneratorIsFilterable;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
     use GeneratesFile;
+    use GeneratorIsFilterable;
 
     protected ?array $ids;
-
-    protected ?array $filters;
 
     protected array $generalQuestionIds = [];
 
@@ -289,55 +289,23 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         }
 
         // Acts as the name field for scopes,
-        // renaming an input key to the appropriate
-        // scope name
-        $scopeMap = [
+        // renaming an input key to the scope name
+        $query = $this->applyFilters($query, PoolCandidate::class, [
             'priorityWeight' => 'candidateCategory',
             'poolcandidateStatus' => 'poolcandidateStatuses',
             'pools' => 'availableInPools',
             'skills' => 'skillsAdditive',
             'community' => 'candidatesInCommunity',
-        ];
-
-        // Flatten out the filters and apply them if they exist
-        // on the PoolCandidate model
-        $filters = $this->flattenFilters($this->filters);
-        foreach ($filters as $key => $value) {
-            $scope = $scopeMap[$key] ?? $key;
-            if (method_exists(PoolCandidate::class, 'scope'.ucfirst($scope)) && $value) {
-                $query?->$scope($value);
-            }
-        }
+        ]);
 
         $query->authorizedToView(['userId' => $this->userId]);
 
         return $query;
     }
 
-    private function flattenFilters($filters)
-    {
-        $flattened = [];
-        foreach ($filters as $k => $v) {
-            if (is_array($v)) {
-                $flattened = array_merge($flattened, $this->flattenFilters($v));
-            } else {
-                $flattened[$k] = $v;
-            }
-        }
-
-        return $flattened;
-    }
-
     public function setIds(?array $ids)
     {
         $this->ids = $ids;
-
-        return $this;
-    }
-
-    public function setFilters(?array $filters)
-    {
-        $this->filters = $filters;
 
         return $this;
     }

@@ -164,7 +164,7 @@ const DownloadAllButton = ({ download }: DownloadAllButtonProps) => {
             "Text label for button to download a csv file of all items in a table.",
         });
 
-  if (download && "csv" in download) {
+  if ("csv" in download) {
     return (
       <DownloadCsv {...download.csv} {...actionButtonStyles}>
         {label}
@@ -172,21 +172,23 @@ const DownloadAllButton = ({ download }: DownloadAllButtonProps) => {
     );
   }
 
-  if ("onClick" in download || "component" in download) {
+  if ("component" in download && download.component) {
+    return download.component;
+  }
+
+  if ("onClick" in download) {
     return (
-      download.component || (
-        <Button
-          {...actionButtonStyles}
-          onClick={download.onClick}
-          disabled={download.downloading}
-          data-h2-font-weight="base(400)"
-          {...(download.downloading && {
-            icon: SpinnerIcon,
-          })}
-        >
-          {label}
-        </Button>
-      )
+      <Button
+        {...actionButtonStyles}
+        onClick={download.onClick}
+        disabled={download.downloading}
+        data-h2-font-weight="base(400)"
+        {...(download.downloading && {
+          icon: SpinnerIcon,
+        })}
+      >
+        {label}
+      </Button>
     );
   }
 

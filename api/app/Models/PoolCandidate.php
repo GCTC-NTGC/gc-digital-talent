@@ -736,7 +736,7 @@ class PoolCandidate extends Model
         $user = Auth::user();
 
         $userId = $args['userId'] ?? null;
-        if($userId) {
+        if ($userId) {
             $user = User::find($userId);
         }
 

@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Traits\Generator;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
+
+trait GeneratorIsFilterable
+{
+    protected ?array $filters;
+
+    /**
+     * Set the filters to be applied
+     *
+     * @param  ?array  $filters  The filters being applied
+     * @return GeneratorIsFilterable The class instance
+     */
+    public function setFilters(?array $filters)
+    {
+        $this->filters = $filters;
+
+        return $this;
+    }
+
+    /**
+     * Flattens out filters so it can be used
+     * to apply the appropriate scopes
+     *
+     * @return array The flattened filters
+     */
+    private function flattenFilters($filters): array
+    {
+        $flattened = [];
+        foreach ($filters as $k => $v) {
+            if (is_array($v) && Arr::isAssoc($v)) {
+                $flattened = array_merge($flattened, $this->flattenFilters($v));
+            } else {
+                $flattened[$k] = $v;
+            }
+        }
+
+        return $flattened;
+    }
+
+    /**
+     * Apply filters to the query builder
+     *
+     * @param  Builder  $query  The query builder to apply filters to
+     * @param  class-string  $class  The model for the query builder
+     * @param  array  $scopeMap  A map of $filterKey => $scopeName
+     * @return Builder $query The query builder with scopes applied
+     */
+    public function applyFilters(Builder $query, string $class, ?array $scopeMap): Builder
+    {
+        $filters = $this->flattenFilters($this->filters);
+        foreach ($filters as $key => $value) {
+            $scope = $scopeMap[$key] ?? $key;
+
+            if (method_exists($class, 'scope'.ucfirst($scope)) && $value) {
+                $query?->$scope($value);
+            }
+        }
+
+        return $query;
+    }
+}
