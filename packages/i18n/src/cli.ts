@@ -119,7 +119,7 @@ if (Object.keys(frNew).length > 0) {
 const transform = (
   obj: Record<string, unknown>,
   predicate: (v: unknown, k: string) => boolean,
-) => {
+): Record<string, unknown> => {
   return Object.keys(obj).reduce((memo: Record<string, unknown>, key) => {
     if (predicate(obj[key], key)) {
       // eslint-disable-next-line no-param-reassign
@@ -135,16 +135,22 @@ const transform = (
  * @param {string[]} keys
  * @returns {Record<string, unknown>}
  */
-const omit = (obj: Record<string, unknown>, keys: string[]) =>
-  transform(obj, (value, key) => !keys.includes(key));
+const omit = (
+  obj: Record<string, unknown>,
+  keys: string[],
+): Record<string, unknown> =>
+  transform(obj, (_value, key) => !keys.includes(key));
 /**
  * Return a copy of obj, excluding all keys not specified.
  * @param {Record<string, unknown>} obj
  * @param {string[]} keys
  * @returns {Record<string, unknown>}
  */
-const pick = (obj: Record<string, unknown>, keys: string[]) =>
-  transform(obj, (value, key) => keys.includes(key));
+const pick = (
+  obj: Record<string, unknown>,
+  keys: string[],
+): Record<string, unknown> =>
+  transform(obj, (_value, key) => keys.includes(key));
 
 // All keys in the original en file.
 const enKeys = Object.keys(en);

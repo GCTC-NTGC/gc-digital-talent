@@ -476,7 +476,7 @@
     "description": "Message displayed to user after skill fails to be deleted."
   },
   "0PeEzR": {
-    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
   },
   "0Q89Cz": {
@@ -616,7 +616,7 @@
     "description": "Button text to mark all notifications as read"
   },
   "1G1iMu": {
-    "defaultMessage": "Supprimer cette expérience",
+    "defaultMessage": "Supprimez cette expérience",
     "description": "Button to remove the link between experience and skill"
   },
   "1HPhji": {
@@ -1356,7 +1356,7 @@
     "description": "Paragraph describing accessibility at every level of development"
   },
   "5DfpAy": {
-    "defaultMessage": "Supprimer cette expérience",
+    "defaultMessage": "Supprimez cette expérience",
     "description": "Label on button to delete the current experience"
   },
   "5FFRV2": {
@@ -1420,7 +1420,7 @@
     "description": "A date at which data will be published, in the UTC time standard"
   },
   "5dFzBc": {
-    "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
+    "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline page"
   },
   "5dgCOy": {
@@ -2240,7 +2240,7 @@
     "description": "Label for the 'database management' IT work stream"
   },
   "ARFz8L": {
-    "defaultMessage": "Ajouter une nouvelle expérience",
+    "defaultMessage": "Ajoutez une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
   "ARdTh3": {
@@ -3228,7 +3228,7 @@
     "description": "Subtitle for Assessment details dialog"
   },
   "FhWYXz": {
-    "defaultMessage": "Annuler",
+    "defaultMessage": "Annulez",
     "description": "Label for close general question dialog."
   },
   "FiylOa": {
@@ -3996,11 +3996,11 @@
     "description": "Second section of text on the add user to pool dialog"
   },
   "K6Tzh1": {
-    "defaultMessage": "Relier votre parcours professionnel",
+    "defaultMessage": "Reliez votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
   },
   "K8CPir": {
-    "defaultMessage": "Appliquer à {poolName}",
+    "defaultMessage": "Posez votre candidature à {poolName}",
     "description": "Heading for the application page"
   },
   "K8PP2Y": {
@@ -4416,7 +4416,7 @@
     "description": "Title for impact section on a pool advertisement."
   },
   "MQB4IA": {
-    "defaultMessage": "Sauvegarder et continuer",
+    "defaultMessage": "Sauvegardez et continuez",
     "description": "Button text to save a form step and continue to the next one"
   },
   "MTPlbB": {
@@ -5116,7 +5116,7 @@
     "description": "Title for the accessibility commitment section."
   },
   "QRI/bf": {
-    "defaultMessage": "Modifier votre expérience",
+    "defaultMessage": "Modifiez votre expérience",
     "description": "Page title for the application career timeline edit experience page"
   },
   "QRnkPO": {
@@ -7127,7 +7127,7 @@
     "description": "Label for the government employee field"
   },
   "bOAF9o": {
-    "defaultMessage": "Ajouter une nouvelle expérience",
+    "defaultMessage": "Ajoutez une nouvelle expérience",
     "description": "Title for adding a new experience"
   },
   "bQtRF+": {
@@ -7767,7 +7767,7 @@
     "description": "Title for the account management."
   },
   "egLb65": {
-    "defaultMessage": "Je suis prêt!",
+    "defaultMessage": "Continuez",
     "description": "An action button to proceed"
   },
   "ehYGss": {
@@ -7927,7 +7927,7 @@
     "description": "Title for job alerts checklist"
   },
   "fRwqM9": {
-    "defaultMessage": "Relier une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
+    "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
   },
   "fSEfTI": {
@@ -9979,7 +9979,7 @@
     "description": "Title for the organize section in the assessment plan builder"
   },
   "qGSEMx": {
-    "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
+    "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
   },
   "qN9zOb": {
@@ -10843,7 +10843,7 @@
     "description": "Lead in text for the add role to user form."
   },
   "w3BYPV": {
-    "defaultMessage": "Passer en revue votre parcours professionnel",
+    "defaultMessage": "Passez en revue votre parcours professionnel",
     "description": "Page title for the application career timeline page"
   },
   "w4SSBu": {
