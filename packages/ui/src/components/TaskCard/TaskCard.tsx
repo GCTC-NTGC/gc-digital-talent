@@ -118,10 +118,11 @@ const Root = ({
             data-h2-margin="base(0)"
             data-h2-text-align="base(center) p-tablet(left)"
             data-h2-text-wrap="base(balance)"
+            data-h2-padding-right="base(x1) p-tablet(0)"
             {...(Icon && {
               "data-h2-display": "base(flex)",
               "data-h2-align-items": "base(start)",
-              "data-h2-gap": "base(0 x.5)",
+              "data-h2-gap": "base(0) p-tablet(0 x.5)",
             })}
             Icon={icon}
           >
