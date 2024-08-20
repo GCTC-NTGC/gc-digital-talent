@@ -2,8 +2,7 @@ import { ReactElement, ReactNode } from "react";
 
 import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
-import { HeadingLevel } from "../Heading";
-import { headingStyles } from "../Heading/styles";
+import Heading, { HeadingLevel } from "../Heading";
 
 export const colorOptions = [
   "primary",
@@ -94,9 +93,6 @@ const Root = ({
   // prepare icon element
   const Icon = icon;
 
-  // prepare heading text element
-  const CustomHeading = headingAs;
-
   return (
     <div
       data-h2-shadow="base(larger)"
@@ -116,8 +112,9 @@ const Root = ({
       >
         {/* wrapper */}
         <div {...wrapperStyleMap[headingColor]} data-h2-flex-grow="base(2)">
-          <CustomHeading
-            {...headingStyles["h4"]}
+          <Heading
+            level={headingAs}
+            size="h4"
             data-h2-margin="base(0)"
             data-h2-text-align="base(center) p-tablet(left)"
             data-h2-text-wrap="base(balance)"
@@ -126,16 +123,10 @@ const Root = ({
               "data-h2-align-items": "base(start)",
               "data-h2-gap": "base(0 x.5)",
             })}
+            Icon={icon}
           >
-            {Icon ? (
-              <Icon
-                data-h2-display="base(none) p-tablet(inline-block)"
-                data-h2-height="base(auto)"
-                data-h2-flex-shrink="base(0)"
-              />
-            ) : null}
             {title}
-          </CustomHeading>
+          </Heading>
         </div>
         {link ? (
           <Link

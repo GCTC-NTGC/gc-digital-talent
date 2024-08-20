@@ -33,7 +33,7 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
     {colorOptions.map((color) => (
       <TaskCard.Root headingColor={color} {...args} key={color}>
         <TaskCard.Item>
-          <Well>{faker.lorem.paragraph()}</Well>
+          <Well>{faker.lorem.words()}</Well>
         </TaskCard.Item>
         <TaskCard.Item>
           <Well>{faker.lorem.paragraph()}</Well>
@@ -45,9 +45,10 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   icon: UsersIcon,
-  title: "Your active applications for this pool",
+  title:
+    "Your active applications for this pool since it is a really long title",
   link: {
-    label: "Browse new jobs",
+    label: "Browse new jobs!",
     href: "#",
   },
 };
