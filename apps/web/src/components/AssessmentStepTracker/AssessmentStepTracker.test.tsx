@@ -242,7 +242,7 @@ describe("AssessmentStepTracker", () => {
     // They are in the correct order
     const orderArray = Array.from(
       { length: stepArray.length },
-      (x, i) => i + 1,
+      (_x, i) => i + 1,
     );
     const stepOrder = stepArray
       .map((step) => step.step.sortOrder)
