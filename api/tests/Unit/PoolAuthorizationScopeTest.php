@@ -286,9 +286,17 @@ class PoolAuthorizationScopeTest extends TestCase
         ], $poolIds->toArray());
     }
 
-    // process operator can see all except the draft pool they are not teamed with thru authorizedToView
+    // process operator can see all except the draft pools they are not teamed with thru authorizedToView
     public function testScopeAuthorizedToViewAsProcessOperator(): void
     {
+        $community = Community::factory()->create();
+        $this->poolDraft1->community_id = $community->id;
+        $this->poolDraft1->save();
+        $additionalCommunityPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team1->id,
+            'community_id' => $community->id,
+        ]);
+
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
                 ->asProcessOperator($this->poolDraft1->id)
@@ -301,7 +309,7 @@ class PoolAuthorizationScopeTest extends TestCase
             $this->poolPublished1->id,
             $this->poolClosed1->id,
             $this->poolArchived1->id,
-            $this->poolPublished2->id, // poolDraft2 not present here
+            $this->poolPublished2->id, // poolDraft2 not present here, nor is additionalCommunityPool
             $this->poolClosed2->id,
             $this->poolArchived2->id,
         ], $poolIds);
@@ -313,6 +321,10 @@ class PoolAuthorizationScopeTest extends TestCase
         $community = Community::factory()->create();
         $this->poolDraft1->community_id = $community->id;
         $this->poolDraft1->save();
+        $additionalCommunityPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team1->id,
+            'community_id' => $community->id,
+        ]);
 
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
@@ -326,6 +338,7 @@ class PoolAuthorizationScopeTest extends TestCase
             $this->poolPublished1->id,
             $this->poolClosed1->id,
             $this->poolArchived1->id,
+            $additionalCommunityPool->id,
             $this->poolPublished2->id, // poolDraft2 not present here
             $this->poolClosed2->id,
             $this->poolArchived2->id,
@@ -338,6 +351,10 @@ class PoolAuthorizationScopeTest extends TestCase
         $community = Community::factory()->create();
         $this->poolDraft1->community_id = $community->id;
         $this->poolDraft1->save();
+        $additionalCommunityPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team1->id,
+            'community_id' => $community->id,
+        ]);
 
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
@@ -351,6 +368,7 @@ class PoolAuthorizationScopeTest extends TestCase
             $this->poolPublished1->id,
             $this->poolClosed1->id,
             $this->poolArchived1->id,
+            $additionalCommunityPool->id,
             $this->poolPublished2->id, // poolDraft2 not present here
             $this->poolClosed2->id,
             $this->poolArchived2->id,
