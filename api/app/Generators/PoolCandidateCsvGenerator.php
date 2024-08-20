@@ -100,7 +100,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         $query = $this->buildQuery();
 
         $currentCandidate = 1;
-        $query->authorizedToView(['userId' => $this->userId])->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
+        $query->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
             foreach ($candidates as $candidate) {
 
                 if (! in_array($candidate->pool_id, $this->poolIds)) {
@@ -267,6 +267,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
     private function buildQuery()
     {
+
         $query = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
@@ -287,7 +288,44 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             $query->whereIn('id', $this->ids);
         }
 
+        // Acts as the name field for scopes,
+        // renaming an input key to the appropriate
+        // scope name
+        $scopeMap = [
+            'priorityWeight' => 'candidateCategory',
+            'poolcandidateStatus' => 'poolcandidateStatuses',
+            'pools' => 'availableInPools',
+            'skills' => 'skillsAdditive',
+            'community' => 'candidatesInCommunity',
+        ];
+
+        // Flatten out the filters and apply them if they exist
+        // on the PoolCandidate model
+        $filters = $this->flattenFilters($this->filters);
+        foreach ($filters as $key => $value) {
+            $scope = $scopeMap[$key] ?? $key;
+            if (method_exists(PoolCandidate::class, 'scope'.ucfirst($scope)) && $value) {
+                $query?->$scope($value);
+            }
+        }
+
+        $query->authorizedToView(['userId' => $this->userId]);
+
         return $query;
+    }
+
+    private function flattenFilters($filters)
+    {
+        $flattened = [];
+        foreach ($filters as $k => $v) {
+            if (is_array($v)) {
+                $flattened = array_merge($flattened, $this->flattenFilters($v));
+            } else {
+                $flattened[$k] = $v;
+            }
+        }
+
+        return $flattened;
     }
 
     public function setIds(?array $ids)
