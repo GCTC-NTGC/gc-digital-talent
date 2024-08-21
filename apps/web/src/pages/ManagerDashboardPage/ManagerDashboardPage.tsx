@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
-import { ReactNode } from "react";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import {
   ThrowNotFound,
@@ -10,6 +11,8 @@ import {
   Link,
   TaskCard,
   PreviewList,
+  DropdownMenu,
+  Button,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -225,21 +228,37 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
               data-h2-gap="base(x1)"
               data-h2-max-width="p-tablet(x14)"
             >
-              <div data-h2-background-color="base(quinary.lightest)">
-                <Heading level="h2" data-h2-margin="base(0)">
-                  {intl.formatMessage({
-                    defaultMessage: "Current role",
-                    id: "C0LMCq",
-                    description: "Card title for a nav role switcher",
-                  })}
-                </Heading>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Easily switch between roles your account has access to.",
-                  id: "gPvdHC",
-                  description: "Helper instructions for a nav role switcher",
+              <TaskCard.Root
+                headingColor="quinary"
+                headingAs="h2"
+                title={intl.formatMessage({
+                  defaultMessage: "Current role",
+                  id: "C0LMCq",
+                  description: "Card title for a nav role switcher",
                 })}
-              </div>
+              >
+                <TaskCard.Item>
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
+                      <Button utilityIcon={ChevronDownIcon}>Role</Button>
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content align="end" collisionPadding={2}>
+                      <DropdownMenu.Item>Applicant</DropdownMenu.Item>
+                      <DropdownMenu.Item>Manager</DropdownMenu.Item>
+                      <DropdownMenu.Item>Admin</DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu.Root>
+                  <div>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Easily switch between roles your account has access to.",
+                      id: "gPvdHC",
+                      description:
+                        "Helper instructions for a nav role switcher",
+                    })}
+                  </div>
+                </TaskCard.Item>
+              </TaskCard.Root>
               <div data-h2-background-color="base(quaternary.lightest)">
                 <Heading level="h2" data-h2-margin="base(0)">
                   {intl.formatMessage({
