@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Models\Role;
 use App\Models\Team;
 use Closure;
@@ -23,18 +24,18 @@ class RoleTeamConsistent implements ValidationRule
 
         if ($role?->is_team_based) {
             if (is_null($teamId)) {
-                $fail('TEAM_ID_REQUIRED');
+                $fail(ApiError::TEAM_ID_REQUIRED->localizedErrorMessage());
             }
             $teamExists = Team::where('id', $teamId)->exists();
             if (! $teamExists) {
-                $fail('TEAM_DOES_NOT_EXIST');
+                $fail(ApiError::TEAM_DOES_NOT_EXIST->localizedErrorMessage());
             }
         } else {
             if (! is_null($teamId)) {
-                $fail('ROLE_NOT_TEAM_ROLE');
+                $fail(ApiError::ROLE_NOT_TEAM_ROLE->localizedErrorMessage());
             }
             if (is_null($role)) {
-                $fail('ROLE_NOT_FOUND');
+                $fail(ApiError::ROLE_NOT_FOUND->localizedErrorMessage());
             }
         }
     }

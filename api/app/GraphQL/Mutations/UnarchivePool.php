@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApiError;
 use App\Enums\PoolStatus;
 use App\Models\Pool;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -17,7 +18,9 @@ final class UnarchivePool
     {
         $pool = Pool::find($args['id']);
         if ($pool->getStatusAttribute() !== PoolStatus::ARCHIVED->name) {
-            throw ValidationException::withMessages(['UnarchivePoolInvalidStatus']);
+            throw ValidationException::withMessages([
+                'status' => [ApiError::PROCESS_UNARCHIVE_INVALID_STATUS->localizedErrorMessage()],
+            ]);
         }
         $pool->update(['archived_at' => null]);
 

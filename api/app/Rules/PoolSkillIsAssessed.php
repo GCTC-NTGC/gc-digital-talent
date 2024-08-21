@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Enums\PoolSkillType;
 use App\Models\PoolSkill;
 use Closure;
@@ -19,7 +20,7 @@ class PoolSkillIsAssessed implements ValidationRule
 
         // check essential pool skills have at least one assessment connected
         if (count($poolSkill->assessmentSteps) === 0 && $poolSkill->type === PoolSkillType::ESSENTIAL->name) {
-            $fail('PoolSkillsWithoutAssessments');
+            $fail(ApiError::POOL_SKILL_NOT_ASSESSED->localizedErrorMessage());
         }
     }
 }

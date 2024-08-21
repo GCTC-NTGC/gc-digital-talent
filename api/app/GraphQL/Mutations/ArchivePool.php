@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApiError;
 use App\Enums\PoolStatus;
 use App\Models\Pool;
 use Illuminate\Support\Carbon;
@@ -18,7 +19,11 @@ final class ArchivePool
     {
         $pool = Pool::find($args['id']);
         if ($pool->getStatusAttribute() !== PoolStatus::CLOSED->name) {
-            throw ValidationException::withMessages(['ArchivePoolInvalidStatus']);
+            throw ValidationException::withMessages([
+                'status' => [
+                    ApiError::PROCESS_ARCHIVE_INVALID_STATUS->localizedErrorMessage(),
+                ],
+            ]);
         }
         $pool->update(['archived_at' => Carbon::now()]);
 

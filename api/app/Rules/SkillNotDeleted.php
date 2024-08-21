@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Models\Skill;
 use Closure;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class SkillNotDeleted implements ValidationRule
@@ -19,7 +19,7 @@ class SkillNotDeleted implements ValidationRule
         $inputSkillId = $value;
 
         if (in_array($inputSkillId, $deletedSkillsIds)) {
-            $fail(ApiErrorEnums::FAILED_DUE_SKILL_DELETED);
+            $fail(ApiError::SKILL_DELETED->localizedErrorMessage());
         }
     }
 }

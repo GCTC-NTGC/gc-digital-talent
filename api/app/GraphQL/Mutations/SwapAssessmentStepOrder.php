@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApiError;
 use App\Models\AssessmentStep;
 use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -19,12 +20,16 @@ final class SwapAssessmentStepOrder
 
         // Ensure the steps belong to the same pool
         if ($stepA->pool_id !== $stepB->pool_id) {
-            throw ValidationException::withMessages(['AssessmentStepsSamePool']);
+            throw ValidationException::withMessages([
+                'pool_id' => [ApiError::ASSESSMENT_STEP_DIFFERENT_POOL->localizedErrorMessage()],
+            ]);
         }
 
         // Don't swap the reserved first two spots
         if ($stepA->sort_order < 3 || $stepB->sort_order < 3) {
-            throw ValidationException::withMessages(['AssessmentStepCannotSwap']);
+            throw ValidationException::withMessages([
+                'sort_order' => [ApiError::ASSESSMENT_STEP_CANNOT_SWAP->localizedErrorMessage()],
+            ]);
         }
 
         DB::beginTransaction();

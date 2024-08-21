@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ApiError;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Rules\AssessmentResultJustificationsConsistent;
@@ -54,8 +55,8 @@ final class CreateAssessmentResultInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'poolSkillId' => 'SkillAssessmentResultMissingSkill',
-            'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
+            'poolSkillId' => ApiError::ASSESSMENT_RESULT_MISSING_SKILL->localizedErrorMessage(),
+            'assessmentDecisionLevel.prohibited' => ApiError::ASSESSMENT_RESULT_DECISION_LEVEL_PROHIBITED->localizedErrorMessage(),
         ];
     }
 }

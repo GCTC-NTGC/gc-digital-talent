@@ -8,11 +8,7 @@ use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreateApplicationValidator extends Validator
 {
-    public function __construct($poolId, $userId)
-    {
-        $this->poolId = $poolId;
-        $this->userId = $userId;
-    }
+    public function __construct(private string $poolId, private string $userId) {}
 
     /**
      * Return the validation rules.

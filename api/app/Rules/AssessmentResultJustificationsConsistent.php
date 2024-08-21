@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use Closure;
@@ -38,7 +39,7 @@ class AssessmentResultJustificationsConsistent implements ValidationRule
                 )
             ) > 0
         ) {
-            $fail('SkillJustificationsForEducationAssessment');
+            $fail(ApiError::ASSESSMENT_RESULT_EDUCATION_ASSESSMENT_SKILL_JUSTIFICATION_PROHIBITED->localizedErrorMessage());
         }
 
         if (
@@ -56,7 +57,7 @@ class AssessmentResultJustificationsConsistent implements ValidationRule
                 )
             ) > 0
         ) {
-            $fail('EducationJustificationsForSkillAssessment');
+            $fail(ApiError::ASSESSMENT_RESULT_SKILL_ASSESSMENMT_EDUCATION_JUSTIFICATION_PROHIBITED->localizedErrorMessage());
         }
     }
 }

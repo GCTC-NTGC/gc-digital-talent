@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Models\PoolCandidate;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 
 class NotAlreadyApplied implements Rule
@@ -39,6 +39,6 @@ class NotAlreadyApplied implements Rule
      */
     public function message()
     {
-        return ApiEnums::POOL_CANDIDATE_EXISTS;
+        return ApiError::APPLICATION_EXISTS->localizedErrorMessage();
     }
 }

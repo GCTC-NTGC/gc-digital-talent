@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApiError;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -35,7 +36,9 @@ final class VerifyUserEmail
         }
 
         if (! $isValid) {
-            throw ValidationException::withMessages(['VERIFICATION_FAILED']);
+            throw ValidationException::withMessages([
+                'code' => [ApiError::EMAIL_VERIFICATION_FAILED->localizedErrorMessage()],
+            ]);
         }
 
         // by now, token seems good

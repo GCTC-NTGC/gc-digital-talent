@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 
 class UserProfileComplete implements Rule
@@ -39,6 +39,6 @@ class UserProfileComplete implements Rule
      */
     public function message()
     {
-        return ApiEnums::POOL_CANDIDATE_PROFILE_INCOMPLETE;
+        return ApiError::USER_PROFILE_INCOMPLETE->localizedErrorMessage();
     }
 }

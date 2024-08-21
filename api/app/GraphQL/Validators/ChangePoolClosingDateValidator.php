@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ApiError;
 use App\Enums\PoolSkillType;
 use App\Models\Pool;
 use App\Rules\PoolSkillsNotDeleted;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -53,9 +53,9 @@ final class ChangePoolClosingDateValidator extends Validator
     public function messages(): array
     {
         return [
-            'closingDate.after_or_equal' => ApiErrorEnums::PROCESS_CLOSING_DATE_EXTEND,
-            'closingDate.after' => ApiErrorEnums::PROCESS_CLOSING_DATE_FUTURE,
-            'id.App\\Rules\\PoolSkillsNotDeleted' => ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL,
+            'closingDate.after_or_equal' => ApiError::PROCESS_CLOSING_DATE_EXTEND->localizedErrorMessage(),
+            'closingDate.after' => ApiError::PROCESS_CLOSING_DATE_FUTURE->localizedErrorMessage(),
+            'id.App\\Rules\\PoolSkillsNotDeleted' => ApiError::PROCESS_CANNOT_REOPEN_DELETED_SKILL->localizedErrorMessage(),
         ];
     }
 }

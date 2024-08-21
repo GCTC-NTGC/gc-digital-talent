@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Models\Pool;
 use Closure;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class PoolNotClosed implements ValidationRule
@@ -28,7 +28,7 @@ class PoolNotClosed implements ValidationRule
         $passes = is_null($pool->closing_date) || $pool->closing_date->isFuture();
 
         if (! $passes) {
-            $fail(ApiEnums::POOL_CANDIDATE_POOL_CLOSED);
+            $fail(ApiError::APPLICATION_POOL_CLOSED->localizedErrorMessage());
         }
     }
 }

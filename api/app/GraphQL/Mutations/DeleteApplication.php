@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApiError;
 use App\GraphQL\Validators\Mutation\DeleteApplicationValidator;
 use App\Models\PoolCandidate;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -28,7 +28,9 @@ final class DeleteApplication
         // execute hard delete and verify model was deleted by checking that is not true
         $success = $application->forceDelete();
         if (! $success) {
-            throw ValidationException::withMessages([ApiErrorEnums::APPLICATION_DELETE_FAILED]);
+            throw ValidationException::withMessages([
+                'id' => [ApiError::APPLICATION_DELETE_FAILED->localizedErrorMessage()],
+            ]);
         }
 
         return $application;

@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Models\PoolCandidate;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 
 class HasEducationRequirement implements Rule
@@ -43,6 +43,6 @@ class HasEducationRequirement implements Rule
      */
     public function message()
     {
-        return ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE;
+        return ApiError::APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE->localizedErrorMessage();
     }
 }

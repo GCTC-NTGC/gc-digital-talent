@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ApiError;
 use App\Enums\PoolLanguage;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Rules\SkillNotDeleted;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -79,13 +79,11 @@ final class PoolIsCompleteValidator extends Validator
             'required' => ':attribute required',
             'exists' => ':attribute does not exist.',
             'closing_date.required' => 'ClosingDateRequired',
-            'closing_date.after' => 'Closing date must be after today.',
+            'closing_date.after' => ApiError::PROCESS_CLOSING_DATE_FUTURE->localizedErrorMessage(),
             'advertisement_location.*.required_if' => 'PoolLocationRequired',
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
             'essential_skills.required' => 'EssentialSkillRequired',
-            'essential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::ESSENTIAL_SKILLS_CONTAINS_DELETED,
-            'nonessential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::NONESSENTIAL_SKILLS_CONTAINS_DELETED,
             'key_tasks.en.required' => 'EnglishWorkTasksRequired',
             'key_tasks.fr.required' => 'FrenchWorkTasksRequired',
             'your_impact.en.required' => 'EnglishYourImpactRequired',

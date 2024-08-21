@@ -2,11 +2,11 @@
 
 namespace App\Rules;
 
+use App\Enums\ApiError;
 use App\Models\ExperienceSkill;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 
 class HasEssentialSkills implements Rule
@@ -62,7 +62,7 @@ class HasEssentialSkills implements Rule
      */
     public function message()
     {
-        return ApiEnums::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS;
+        return ApiError::APPLICATION_MISSING_ESSENTIAL_SKILLS->localizedErrorMessage();
     }
 
     /**

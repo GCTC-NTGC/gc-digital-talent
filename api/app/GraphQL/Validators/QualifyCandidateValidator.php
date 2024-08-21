@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ApiError;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -32,7 +32,9 @@ final class QualifyCandidateValidator extends Validator
         ];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_QUALIFICATION]);
+            throw ValidationException::withMessages([
+                'status' => [ApiError::POOL_CANDIDATE_INVALID_STATUS_QUALIFICATION->localizedErrorMessage()],
+            ]);
         }
 
         return [
@@ -43,8 +45,8 @@ final class QualifyCandidateValidator extends Validator
     public function messages(): array
     {
         return [
-            'expiryDate.required' => ApiErrorEnums::EXPIRY_DATE_REQUIRED,
-            'expiryDate.after' => ApiErrorEnums::EXPIRY_DATE_AFTER_TODAY,
+            'expiryDate.required' => ApiError::EXPIRTY_DATE_REQUIRED->localizedErrorMessage(),
+            'expiryDate.after' => ApiError::EXPIRY_DATE_AFTER_TODAY->localizedErrorMessage(),
         ];
     }
 }
