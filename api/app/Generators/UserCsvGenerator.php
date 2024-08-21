@@ -81,7 +81,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 
                 $department = $user->department()->first();
                 $preferences = $user->getOperationalRequirements();
-                $indigenousCommunities = Arr::where($user->indigenous_communities, function ($community) {
+                $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
                     return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
                 });
                 $userSkills = $user->userSkills->map(function ($userSkill) {
