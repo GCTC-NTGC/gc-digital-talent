@@ -932,13 +932,6 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view")
-  poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
-    @all(scopes: ["notDraft"])
-    @guard
-    @canResolved(ability: "view")
-    @deprecated(
-      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
-    )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
