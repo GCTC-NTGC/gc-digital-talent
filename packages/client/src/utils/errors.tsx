@@ -3,7 +3,7 @@ import { CombinedError } from "urql";
 import { IntlShape } from "react-intl";
 import { ReactNode } from "react";
 
-import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
+import { getLocale, tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
 
 export const extractErrorMessages = (combinedError: CombinedError) =>
   combinedError.graphQLErrors.flatMap((error) => error.message);
@@ -29,7 +29,10 @@ const isExtensionWithValidation = (
       Object.values(value2.validation).every(
         (property) =>
           Array.isArray(property) &&
-          property.every((message) => typeof message === "string"),
+          property.every(
+            (message) =>
+              typeof message === "string" || typeof message === "object",
+          ),
       )
     );
   }
@@ -57,7 +60,11 @@ export const buildValidationErrorMessageNode = (
   errorMessages: Array<string>,
   intl: IntlShape,
 ): ReactNode => {
+  const locale = getLocale(intl);
   const localizedMessages = errorMessages.map((errorMessage) => {
+    if (typeof errorMessage === "object" && locale in errorMessage) {
+      return errorMessage[locale];
+    }
     const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
     if (localizedMessageDescriptor) {
       return intl.formatMessage(localizedMessageDescriptor);
