@@ -149,6 +149,9 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
         id
         name
       }
+      community {
+        teamIdForRoleAssignment
+      }
     }
   }
 `);
@@ -192,11 +195,11 @@ export const AssessmentPlanBuilderPage = () => {
           authorizedRoleAssignment.team?.name ===
             queryData?.pool?.team?.name) ||
         (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityRecruiter &&
-          authorizedRoleAssignment.team?.name ===
-            queryData?.pool?.team?.name) ||
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.community?.teamIdForRoleAssignment) ||
         (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityAdmin &&
-          authorizedRoleAssignment.team?.name ===
-            queryData?.pool?.team?.name) ||
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.community?.teamIdForRoleAssignment) ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
