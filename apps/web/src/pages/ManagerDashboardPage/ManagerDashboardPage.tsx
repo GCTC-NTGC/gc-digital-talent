@@ -3,7 +3,14 @@ import { useQuery } from "urql";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import { ReactNode } from "react";
 
-import { ThrowNotFound, Pending, Heading, Link } from "@gc-digital-talent/ui";
+import {
+  ThrowNotFound,
+  Pending,
+  Heading,
+  Link,
+  TaskCard,
+  PreviewList,
+} from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -89,31 +96,127 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
               data-h2-flex-direction="base(column)"
               data-h2-gap="base(x1)"
             >
-              <div data-h2-background-color="base(primary.lightest)">
-                <Heading
-                  Icon={WrenchScrewdriverIcon}
-                  level="h2"
-                  data-h2-margin="base(0)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Your manager tools",
-                    id: "iChSXW",
-                    description: "Card title for the manager tools",
-                  })}
-                </Heading>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "When you submit a request for talent using the “<a>Find talent</a>” feature, it will appear in this list while it remains active. Recipients of your request will have a fixed amount of time to reply, after which, only those who have accepted to share their information will remain available to you.",
-                    id: "Z4lyjB",
-                    description: "Helper instructions for the manager tools",
-                  },
-                  {
-                    a: (chunks: ReactNode) =>
-                      linkAccessor(paths.search(), chunks),
-                  },
-                )}
-              </div>
+              <TaskCard.Root
+                icon={WrenchScrewdriverIcon}
+                title={intl.formatMessage({
+                  defaultMessage: "Your manager tools",
+                  id: "iChSXW",
+                  description: "Card title for the manager tools",
+                })}
+                headingColor="primary"
+                headingAs="h2"
+              >
+                <TaskCard.Item>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(column)"
+                    data-h2-gap="base(x0.5)"
+                  >
+                    <div>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage: "Your talent searches ({count})",
+                          id: "aeCkWS",
+                          description:
+                            "Title for a list of talent searches with a count",
+                        },
+                        {
+                          count: "0",
+                        },
+                      )}
+                    </div>
+                    <div>
+                      <Link>View all searches</Link>
+                      &bull;
+                      <Link>Start a new search</Link>
+                    </div>
+                    <div>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "When you submit a request for talent using the “<a>Find talent</a>” feature, it will appear in this list while it remains active. Recipients of your request will have a fixed amount of time to reply, after which, only those who have accepted to share their information will remain available to you.",
+                          id: "Z4lyjB",
+                          description:
+                            "Helper instructions for the manager tools",
+                        },
+                        {
+                          a: (chunks: ReactNode) =>
+                            linkAccessor(paths.search(), chunks),
+                        },
+                      )}
+                    </div>
+
+                    <PreviewList.Root>
+                      <PreviewList.Item
+                        title="IT01: Junior application developer"
+                        metaData={[
+                          {
+                            key: "status-chip",
+                            type: "chip",
+                            color: "secondary",
+                            children: "Submitted",
+                          },
+                          {
+                            key: "match-count",
+                            type: "text",
+                            children: "40 potential matches",
+                          },
+                          {
+                            key: "open-date",
+                            type: "text",
+                            children: "Opened on: April 30th, 2024",
+                          },
+                        ]}
+                        buttonName="IT01: Junior application developer"
+                      />
+                      <PreviewList.Item
+                        title="IT-02: Application developer"
+                        metaData={[
+                          {
+                            key: "status-chip",
+                            type: "chip",
+                            color: "secondary",
+                            children: "Submitted",
+                          },
+                          {
+                            key: "match-count",
+                            type: "text",
+                            children: "56 potential matches",
+                          },
+                          {
+                            key: "open-date",
+                            type: "text",
+                            children: "Opened on: April 30th, 2024",
+                          },
+                        ]}
+                        buttonName="IT-02: Application developer"
+                      />
+                      <PreviewList.Item
+                        title="IT-02: Database architect"
+                        metaData={[
+                          {
+                            key: "status-chip",
+                            type: "chip",
+                            color: "warning",
+                            children: "Awaiting response",
+                          },
+                          {
+                            key: "match-count",
+                            type: "text",
+                            children: "12 potential matches",
+                          },
+                          {
+                            key: "open-date",
+                            type: "text",
+                            children: "Opened on: April 30th, 2024",
+                          },
+                        ]}
+                        buttonName="IT-02: Database architect"
+                      />
+                    </PreviewList.Root>
+                  </div>
+                </TaskCard.Item>
+              </TaskCard.Root>
             </div>
             {/* Sidebar */}
             <div
