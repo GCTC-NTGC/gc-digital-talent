@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApiError;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
@@ -15,7 +16,6 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -641,7 +641,7 @@ class PoolTest extends TestCase
         )
             ->assertJsonFragment([
                 'validation' => [
-                    'id' => [ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL],
+                    'id' => ['code' => ApiError::PROCESS_CANNOT_REOPEN_DELETED_SKILL->name],
                 ],
             ]);
 

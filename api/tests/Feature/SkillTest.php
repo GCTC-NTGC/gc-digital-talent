@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApiError;
 use App\Models\CommunityExperience;
 use App\Models\ExperienceSkill;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -261,7 +261,7 @@ class SkillTest extends TestCase
         // assert you can't delete skill if active poster is using it
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, ['id' => $skill1->id])
-            ->assertGraphQLValidationError('id', ApiErrorEnums::SKILL_USED_ACTIVE_POSTER);
+            ->assertGraphQLValidationError('id', ApiError::SKILL_DELETE_IN_USE->name);
 
         $pool->update(['closing_date' => config('constants.past_datetime')]);
 
