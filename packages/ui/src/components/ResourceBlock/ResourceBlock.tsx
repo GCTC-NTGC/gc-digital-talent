@@ -76,7 +76,7 @@ const Root = ({
 }: RootProps) => {
   const headingId = useId();
   return (
-    <div
+    <nav
       data-h2-shadow="base(larger)"
       data-h2-border-radius="base(rounded)"
       data-h2-background-color="base(foreground)"
@@ -111,7 +111,7 @@ const Root = ({
       >
         {children}
       </div>
-    </div>
+    </nav>
   );
 };
 
