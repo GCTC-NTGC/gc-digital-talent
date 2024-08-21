@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useId } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ArrowSmallRightIcon from "@heroicons/react/20/solid/ArrowSmallRightIcon";
@@ -74,11 +74,14 @@ const Root = ({
   headingAs = "h3",
   children,
 }: RootProps) => {
+  const headingId = useId();
   return (
     <div
       data-h2-shadow="base(larger)"
       data-h2-border-radius="base(rounded)"
       data-h2-background-color="base(foreground)"
+      role="list"
+      aria-labelledby={headingId}
     >
       {/* heading bar */}
       <div
@@ -95,6 +98,7 @@ const Root = ({
             size="h4"
             data-h2-margin="base(0)"
             data-h2-text-align="base(center)"
+            id={headingId}
           >
             {title}
           </Heading>
@@ -178,6 +182,7 @@ const Item = ({ title, href, description, state }: ItemProps) => {
       // make the containing block for state icon
       data-h2-position="base(relative)"
       aria-label={accessibleLabel}
+      role="listitem"
       {...extraStateStyles}
     >
       <StateIcon state={state} />
