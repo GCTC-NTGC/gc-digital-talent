@@ -278,8 +278,8 @@ export const SkillShowcase = ({
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Where your top skills highlight your strengths, this section allows you to provide us with a bit of insight on the skills you're actively working to improve. The skills listed below don't necessarily have to be weaknesses - if you’re interested in improving the skill through experience or training, include it here.",
-                  id: "gn1vl8",
+                    "Where your top skills highlight your strengths, this section allows you to provide us with a bit of insight on the skills you're actively working to improve. These skills don't necessarily have to be weaknesses - if you’re interested in improving the skill through experience or training, include it here.",
+                  id: "K73zGq",
                   description:
                     "Description of the skills to improve section and how to use it.",
                 })}
