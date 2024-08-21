@@ -2,6 +2,9 @@ import { ReactElement, ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ArrowSmallRightIcon from "@heroicons/react/20/solid/ArrowSmallRightIcon";
+import { useIntl } from "react-intl";
+
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Heading, { HeadingLevel } from "../Heading";
 import Link, { LinkProps } from "../Link";
@@ -141,6 +144,7 @@ interface ItemProps {
 }
 
 const Item = ({ title, href, description, state }: ItemProps) => {
+  const intl = useIntl();
   const extraStateStyles =
     state === "incomplete"
       ? {
@@ -149,6 +153,18 @@ const Item = ({ title, href, description, state }: ItemProps) => {
             "base(radial-gradient(circle x5 at top x1.125 right x1.125, error.10, foreground))",
         }
       : {};
+
+  let accessibleLabel;
+  switch (state) {
+    case "incomplete":
+      accessibleLabel = `${title} (${intl.formatMessage(commonMessages.incomplete)})`;
+      break;
+    case "complete":
+      accessibleLabel = `${title} (${intl.formatMessage(commonMessages.complete)})`;
+      break;
+    default:
+      accessibleLabel = title;
+  }
 
   return (
     <div
@@ -161,6 +177,7 @@ const Item = ({ title, href, description, state }: ItemProps) => {
       data-h2-border-radius="base:all:selectors[:last-child](0 0 rounded rounded)"
       // make the containing block for state icon
       data-h2-position="base(relative)"
+      aria-label={accessibleLabel}
       {...extraStateStyles}
     >
       <StateIcon state={state} />

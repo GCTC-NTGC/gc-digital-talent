@@ -285,6 +285,16 @@ const commonMessages = defineMessages({
     id: "5RTQe6",
     description: "Message to user when they request a file for download",
   },
+  complete: {
+    defaultMessage: "Complete",
+    id: "S0w3o5",
+    description: "Simple status label for a complete item",
+  },
+  incomplete: {
+    defaultMessage: "Incomplete",
+    id: "vOCLQA",
+    description: "Simple status label for an incomplete item",
+  },
 });
 
 export default commonMessages;
