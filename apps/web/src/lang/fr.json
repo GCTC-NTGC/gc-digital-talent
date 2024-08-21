@@ -535,10 +535,6 @@
     "defaultMessage": "Utilisez le bouton \"Créer une compétence\" pour commencer.",
     "description": "Instructions for adding a skill item."
   },
-  "0k3vfO": {
-    "defaultMessage": "Vérifier votre adresse courriel de contact",
-    "description": "Button label for submit and verify email button on getting started form."
-  },
   "0k6j4V": {
     "defaultMessage": "Tâches de travail (anglais)",
     "description": "Label for a process' English work tasks"
@@ -4330,6 +4326,10 @@
   "LocjmN": {
     "defaultMessage": "Retourner aux équipes",
     "description": "Button text to return to the table of teams page"
+  },
+  "LpCMiC": {
+    "defaultMessage": "Vérifiez votre adresse courriel de contact",
+    "description": "Verify your contact email text"
   },
   "LphzpW": {
     "defaultMessage": "Que faire si j’ai besoin de choisir plus que {maxSteps} méthodes d’évaluation?",
