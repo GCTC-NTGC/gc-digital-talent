@@ -36,4 +36,12 @@ trait HasLocalization
             self::caseKey($value)
         );
     }
+
+    public function localize(): array
+    {
+        return [
+            'value' => $this->name,
+            'label' => self::localizedString($this->name),
+        ];
+    }
 }
