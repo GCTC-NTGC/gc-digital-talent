@@ -877,13 +877,6 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @canResolved(ability: "view")
-  applicants(includeIds: [ID]! @in(key: "id")): [User]!
-    @all(model: "User")
-    @guard
-    @canModel(ability: "viewAny", model: "User")
-    @deprecated(
-      reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
-    )
   userPublicProfilesPaginated(
     where: UserPublicProfileFilterInput
     excludeIds: [ID!] @notIn(key: "id")
