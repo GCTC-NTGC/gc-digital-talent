@@ -137,8 +137,8 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "When you submit a request for talent using the “<a>Find talent</a>” feature, it will appear in this list while it remains active. Recipients of your request will have a fixed amount of time to reply, after which, only those who have accepted to share their information will remain available to you.",
-                          id: "Z4lyjB",
+                            'When you submit a request for talent using the "<a>Find talent</a>" feature, it will appear in this list while it remains active. Recipients of your request will have a fixed amount of time to reply, after which, only those who have accepted to share their information will remain available to you.',
+                          id: "HnrJJR",
                           description:
                             "Helper instructions for the manager tools",
                         },
@@ -286,8 +286,8 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 <Heading level="h3">
                   {intl.formatMessage({
                     defaultMessage: "Account and privacy",
-                    id: "8KTW4C",
-                    description: "Link to account and privacy page",
+                    id: "BMWvU8",
+                    description: "Link to the 'Account and privacy' page",
                   })}
                 </Heading>
                 {intl.formatMessage({
@@ -330,16 +330,15 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
-                  id: "DPN4v3",
+                  id: "ZCDsMF",
                   description:
-                    "Helper instructions for an 'browse job templates' card",
+                    "Helper instructions for the 'browse job templates' card",
                 })}
                 <Heading level="h3">
                   {intl.formatMessage({
                     defaultMessage: "Directive on Digital Talent",
-                    id: "H+qaPk",
-                    description:
-                      "Link for the 'directive on digital talent' card",
+                    id: "xXwUGs",
+                    description: "Title for the digital talent directive page",
                   })}
                 </Heading>
                 {intl.formatMessage({
