@@ -260,20 +260,36 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 </TaskCard.Item>
               </TaskCard.Root>
               <div data-h2-background-color="base(quaternary.lightest)">
-                <Heading level="h2" data-h2-margin="base(0)">
+                <Heading level="h2">
                   {intl.formatMessage({
                     defaultMessage: "Your information",
                     id: "jALTj0",
                     description: "Card title for an information card",
                   })}
                 </Heading>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Describe your leadership style and team culture to give applicants an idea of what working with you is like.",
-                  id: "lbtzDG",
-                  description:
-                    "Helper instructions for a 'manager profile' card",
-                })}
+                <Heading level="h3">
+                  {intl.formatMessage({
+                    defaultMessage: "Manager profile",
+                    id: "hkvlOx",
+                    description: "Link to manager profile page",
+                  })}
+                </Heading>
+                <div>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Describe your leadership style and team culture to give applicants an idea of what working with you is like.",
+                    id: "lbtzDG",
+                    description:
+                      "Helper instructions for a 'manager profile' card",
+                  })}
+                </div>
+                <Heading level="h3">
+                  {intl.formatMessage({
+                    defaultMessage: "Account and privacy",
+                    id: "8KTW4C",
+                    description: "Link to account and privacy page",
+                  })}
+                </Heading>
                 {intl.formatMessage({
                   defaultMessage:
                     "Manage your name, contact info, privacy settings, notifications, or delete your account.",
@@ -283,11 +299,18 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 })}
               </div>
               <div data-h2-background-color="base(tertiary.lightest)">
-                <Heading level="h2" data-h2-margin="base(0)">
+                <Heading level="h2">
                   {intl.formatMessage({
                     defaultMessage: "Resources",
                     id: "nGSUzp",
                     description: "Card title for a 'resources' card",
+                  })}
+                </Heading>
+                <Heading level="h3">
+                  {intl.formatMessage({
+                    defaultMessage: "Learn about skills",
+                    id: "n40Nry",
+                    description: "Link for the 'learn about skills' card",
                   })}
                 </Heading>
                 {intl.formatMessage({
@@ -297,6 +320,13 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   description:
                     "Helper instructions for a 'learn about skills' card",
                 })}
+                <Heading level="h3">
+                  {intl.formatMessage({
+                    defaultMessage: "Browse job templates",
+                    id: "bLxoQL",
+                    description: "Link for the 'browse job templates' card",
+                  })}
+                </Heading>
                 {intl.formatMessage({
                   defaultMessage:
                     "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
@@ -304,6 +334,14 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   description:
                     "Helper instructions for an 'browse job templates' card",
                 })}
+                <Heading level="h3">
+                  {intl.formatMessage({
+                    defaultMessage: "Directive on Digital Talent",
+                    id: "H+qaPk",
+                    description:
+                      "Link for the 'directive on digital talent' card",
+                  })}
+                </Heading>
                 {intl.formatMessage({
                   defaultMessage:
                     "Learn more about the directive, how it applies to your context, and understand your obligations.",
