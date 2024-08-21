@@ -16,7 +16,7 @@ import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup
 import experienceMessages from "~/messages/experienceMessages";
 
 interface CareerTimelineSectionProps {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 }
 
 const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {

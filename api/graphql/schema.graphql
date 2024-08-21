@@ -240,6 +240,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
+  id: UUID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
@@ -772,7 +773,7 @@ input PoolFilterInput {
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
   classifications: [ClassificationFilterInput!] @scope
-  canAdmin: Boolean @scope(name: "authorizedToViewAsAdmin")
+  canAdmin: Boolean @scope
 }
 
 input PoolTeamDisplayNameOrderByInput {
@@ -800,7 +801,7 @@ input ApplicantFilterInput {
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  community: IdInput
+  community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
 input PoolCandidateSearchInput {
@@ -986,9 +987,9 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [PoolCandidateSearchRequest]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 500)
+    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
     @guard
-    @canModel(ability: "viewAny")
+    @canResolved(ability: "view")
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
@@ -998,6 +999,7 @@ type Query {
     @canModel(ability: "view")
   genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
 
+  community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
@@ -1374,6 +1376,18 @@ input UpdateTeamInput {
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
+}
+
+input CreateCommunityInput {
+  key: String!
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
+input UpdateCommunityInput {
+  key: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
 }
 
 input CreateApplicantFilterInput {
@@ -1852,12 +1866,8 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
-  sendUserEmailVerification(id: ID!): User
-    @guard
-    @canFind(ability: "update", find: "id")
-  verifyUserEmail(id: ID!, code: String!): User
-    @guard
-    @canFind(ability: "update", find: "id")
+  sendUserEmailVerification: User @guard
+  verifyUserEmail(code: String!): User @guard
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(
@@ -2166,6 +2176,16 @@ type Mutation {
     @canFind(ability: "assignTeamMembers", find: "teamId")
     @deprecated(reason: "use updateUserRoles")
 
+  # Communities mutations
+  createCommunity(community: CreateCommunityInput! @spread): Community
+    @create
+    @canModel(ability: "create")
+    @validator
+  updateCommunity(
+    id: UUID!
+    community: UpdateCommunityInput! @spread
+  ): Community @update @canFind(ability: "update", find: "id") @validator
+
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   markNotificationAsUnread(id: UUID!): Notification @guard
@@ -2237,8 +2257,18 @@ type Mutation {
 
   # File downloads
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
-  downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
+  downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadUsersDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
 }
 
 #import directiveForms.graphql

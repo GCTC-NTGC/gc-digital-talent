@@ -295,6 +295,11 @@ const commonMessages = defineMessages({
     id: "vOCLQA",
     description: "Simple status label for an incomplete item",
   },
+  selectACommunity: {
+    defaultMessage: "Select a community",
+    id: "m0iNdp",
+    description: "Null selection for community select input.",
+  },
 });
 
 export default commonMessages;

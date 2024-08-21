@@ -20,7 +20,6 @@ import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDoc
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
-    ...ProfileDocument
     id
     email
     firstName
@@ -158,9 +157,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         name {
@@ -216,10 +212,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -310,9 +302,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     topTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -334,9 +323,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     topBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -358,9 +344,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     improveTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -382,9 +365,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     improveBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key

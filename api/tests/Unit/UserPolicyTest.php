@@ -2,20 +2,17 @@
 
 namespace Tests\Unit;
 
-use App\Models\Pool;
-use App\Models\PoolCandidate;
+use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Tests\UsesProtectedRequestContext;
 
 class UserPolicyTest extends TestCase
 {
     use RefreshDatabase;
-    use UsesProtectedRequestContext;
     use WithFaker;
 
     protected $guest;
@@ -157,48 +154,42 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->platformAdmin->can('delete', $this->platformAdmin));
     }
 
-    /**
-     * Only Request Responders can view any applicant profile.
-     *
-     * @return void
-     */
-    public function viewAnyApplicants()
+    public function testCanUpdateManagerRole()
     {
-        $this->assertFalse($this->guest->can('viewAnyApplicants', User::class));
-        $this->assertFalse($this->applicant->can('viewAnyApplicants', User::class));
-        $this->assertFalse($this->poolOperator->can('viewAnyApplicants', User::class));
-        $this->assertTrue($this->requestResponder->can('viewAnyApplicants', User::class));
-        $this->assertFalse($this->platformAdmin->can('viewAnyApplicants', User::class));
-    }
+        $managerRoleId = Role::where('name', 'manager')->sole()->id;
 
-    /**
-     * Request Responders can view any applicant profile.
-     * Pool Operators can view an applicant profile if they have applied to a pool in their team.
-     *
-     * @return void
-     */
-    public function viewApplicant()
-    {
-        $pool = Pool::factory()->create([
-            'team_id' => $this->team->id,
-        ]);
-        PoolCandidate::factory()->create([
-            'user_id' => $this->applicant->id,
-            'pool_id' => $pool->id,
-        ]);
+        $policyArgsForAttach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'attach' => [
+                        ['roleId' => $managerRoleId],
+                    ],
+                ],
+            ],
+        ];
+        $policyArgsForDetach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'detach' => [
+                        ['roleId' => $managerRoleId],
+                    ],
+                ],
+            ],
+        ];
 
-        // This pool is in a different team than $this->poolOperator
-        $otherPool = Pool::factory()->create();
-        PoolCandidate::factory()->create([
-            'user_id' => $this->otherApplicant->id,
-            'pool_id' => $otherPool->id,
-        ]);
-
-        $this->assertFalse($this->guest->can('viewApplicant', $this->applicant));
-        $this->assertFalse($this->applicant->can('viewApplicant', $this->applicant));
-        $this->assertTrue($this->poolOperator->can('viewApplicant', $this->applicant));
-        $this->assertFalse($this->poolOperator->can('viewApplicant', $this->otherApplicant));
-        $this->assertTrue($this->requestResponder->can('viewApplicant', $this->applicant));
-        $this->assertFalse($this->platformAdmin->can('viewApplicant', $this->applicant));
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->poolOperator->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->poolOperator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForDetach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
     }
 }

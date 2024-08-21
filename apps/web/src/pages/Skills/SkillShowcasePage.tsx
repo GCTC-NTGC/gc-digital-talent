@@ -35,9 +35,6 @@ export const SkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
     skillLevel
     topSkillsRank
     improveSkillsRank
-    user {
-      id
-    }
     skill {
       id
       key

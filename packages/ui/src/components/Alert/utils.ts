@@ -67,18 +67,26 @@ export const iconStyleMap: Record<AlertType, Record<string, string>> = {
   success: {
     "data-h2-background-color": "base:all(success.lightest)",
     "data-h2-color": "base:all(success.darker)",
+    "data-h2-border-color":
+      "base:selectors[::after](transparent transparent transparent rgba(var(--h2-color-success-lightest-locked), 1))",
   },
   warning: {
     "data-h2-background-color": "base:all(warning.lightest)",
     "data-h2-color": "base:all(warning.darker)",
+    "data-h2-border-color":
+      "base:selectors[::after](transparent transparent transparent rgba(var(--h2-color-warning-lightest-locked), 1))",
   },
   info: {
     "data-h2-background-color": "base:all(secondary.lightest)",
     "data-h2-color": "base:all(secondary.darker)",
+    "data-h2-border-color":
+      "base:selectors[::after](transparent transparent transparent rgba(var(--h2-color-secondary-lightest-locked), 1))",
   },
   error: {
     "data-h2-background-color": "base:all(error.lightest)",
     "data-h2-color": "base:all(error.darker)",
+    "data-h2-border-color":
+      "base:selectors[::after](transparent transparent transparent rgba(var(--h2-color-error-lightest-locked), 1))",
   },
 };
 

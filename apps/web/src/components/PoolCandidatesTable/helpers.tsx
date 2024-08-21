@@ -72,6 +72,9 @@ export const priorityCell = (
     case 30:
       priority = PriorityWeight.CitizenOrPermanentResident;
       break;
+    case 40:
+      priority = PriorityWeight.Other;
+      break;
     default:
     // null
   }
@@ -435,6 +438,7 @@ export function transformPoolCandidateSearchInputToFormValues(
       ? input.suspendedStatus
       : CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
+    community: input?.applicantFilter?.community?.id ?? "",
   };
 }
 
@@ -471,6 +475,7 @@ export function transformFormValuesToFilterState(
       skills: data.skills.map((id) => {
         return { id };
       }),
+      community: data.community ? { id: data.community } : undefined,
     },
     poolCandidateStatus: data.poolCandidateStatus
       .map((status) => {

@@ -87,7 +87,7 @@ module.exports = {
         td: ["gridcell"],
       },
     ],
-    "@typescript-eslint/ban-types": [
+    "@typescript-eslint/no-restricted-types": [
       "warn",
       {
         types: {
@@ -95,6 +95,18 @@ module.exports = {
             "https://github.com/facebook/create-react-app/pull/8177",
           "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
         },
+      },
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+        caughtErrors: "all",
+        caughtErrorsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
       },
     ],
     "react/function-component-definition": "off",

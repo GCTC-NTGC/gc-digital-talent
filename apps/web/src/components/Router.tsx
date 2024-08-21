@@ -132,14 +132,30 @@ const createRoute = (locale: Locales) =>
               lazy: () => import("../pages/Auth/SignInPage/SignInPage"),
             },
             {
-              path: "create-account",
+              path: "getting-started",
               lazy: () =>
-                import("../pages/Auth/CreateAccountPage/CreateAccountPage"),
+                import(
+                  "../pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedPage"
+                ),
+            },
+            {
+              path: "email-verification",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/RegistrationContactEmailVerificationPage"
+                ),
+            },
+            {
+              path: "employee-registration",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/EmployeeInformationPage/EmployeeInformationPage"
+                ),
             },
             {
               path: "applicant",
               lazy: () =>
-                import("../pages/Auth/CreateAccountPage/CreateAccountRedirect"),
+                import("../pages/Auth/RegistrationPages/RegistrationRedirect"),
               children: [
                 {
                   index: true,
@@ -477,6 +493,45 @@ const createRoute = (locale: Locales) =>
                       path: "edit",
                       lazy: () =>
                         import("../pages/Users/UpdateUserPage/UpdateUserPage"),
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/Communities/IndexCommunityPage/IndexCommunityPage"
+                    ),
+                },
+                {
+                  path: "create",
+                  lazy: () =>
+                    import(
+                      "../pages/Communities/CreateCommunityPage/CreateCommunityPage"
+                    ),
+                },
+                {
+                  path: ":communityId",
+                  lazy: () => import("../pages/Communities/CommunityLayout"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/ViewCommunityPage/ViewCommunityPage"
+                        ),
+                    },
+                    {
+                      path: "manage-access",
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
+                        ),
                     },
                   ],
                 },

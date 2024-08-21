@@ -296,6 +296,22 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
+     */
+    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    {
+        if (empty($communityId)) {
+            return $query;
+        }
+
+        $query->whereHas('pool', function ($query) use ($communityId) {
+            $query->where('community_id', $communityId);
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -714,30 +730,19 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
-        }
-
-        $hasSomePermission = $user->isAbleTo('view-own-application')
-            || $user->isAbleTo('view-team-submittedApplication')
-            || $user->isAbleTo('view-any-submittedApplication');
-
-        // User does not have any of the required permissions
-        if (! $hasSomePermission) {
-            return $query->where('id', null);
-        }
-
+        // we might want to add some filters for some candidates
+        $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-any-submittedApplication')) {
+            if ($user?->isAbleTo('view-any-submittedApplication')) {
                 $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
             }
 
-            if ($user->isAbleTo('view-team-submittedApplication')) {
+            if ($user?->isAbleTo('view-team-submittedApplication')) {
                 $allTeam = $user->rolesTeams()->get();
                 $teamIds = $allTeam->filter(function ($team) use ($user) {
                     return $user->isAbleTo('view-team-submittedApplication', $team);
@@ -759,12 +764,17 @@ class PoolCandidate extends Model
                 });
             }
 
-            if ($user->isAbleTo('view-own-application')) {
+            if ($user?->isAbleTo('view-own-application')) {
                 $query->orWhere('user_id', $user->id);
             }
         });
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
+        }
 
-        return $query;
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     /**
@@ -1087,9 +1097,16 @@ class PoolCandidate extends Model
                         $snapshot = $this->profile_snapshot;
 
                         if ($snapshot) {
-                            $claimedSkills = collect($snapshot['userSkills']);
-                            $isClaimed = $claimedSkills->contains(function ($userSkill) use ($poolSkill) {
-                                return $userSkill['skill']['id'] === $poolSkill->skill_id;
+                            $experiences = collect($snapshot['experiences']);
+
+                            $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
+                                foreach ($experience['skills'] as $skill) {
+                                    if ($skill['id'] === $poolSkill->skill_id) {
+                                        return true;
+                                    }
+                                }
+
+                                return false;
                             });
                         }
 
@@ -1108,6 +1125,11 @@ class PoolCandidate extends Model
 
             if ($isApplicationScreening) {
                 $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
+
+                // automatically to assess if education results null or empty
+                if (! isset($educationResults) || count($educationResults) == 0) {
+                    $hasToAssess = true;
+                }
 
                 foreach ($educationResults as $result) {
                     if (! $result || is_null($result->assessment_decision)) {

@@ -295,7 +295,7 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create a user and attempt to add a non-team role with a team.  Assert that validation fails.
+    // Create a user and attempt to add a non-team role with a team. Assert that validation fails.
     public function testAdminCannotAddNonTeamRoleWithATeam()
     {
         $role = Role::factory()->create(['is_team_based' => false]);
@@ -334,7 +334,7 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create a user and attempt to add a team role without a team.  Assert that validation fails.
+    // Create a user and attempt to add a team role without a team. Assert that validation fails.
     public function testAdminCannotAddTeamRoleWithoutATeam()
     {
         $role = Role::factory()->create(['is_team_based' => true]);

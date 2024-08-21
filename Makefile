@@ -51,4 +51,4 @@ queue-work:
 	docker-compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
 
 test:
-	$(DOCKER_API) "php artisan test"
+	$(DOCKER_API) "php artisan test $(CMD)"

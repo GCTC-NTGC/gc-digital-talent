@@ -70,6 +70,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     skills: (skills) => skills?.filter(notEmpty).map(pickId),
     positionDuration: identity,
     qualifiedStreams: localizedEnumArrayToInput,
+    community: (community) => (community ? pickId(community) : undefined),
   };
 
   const emptyFilter: ApplicantFilterInput = {};

@@ -13,7 +13,10 @@ import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
 import Counter from "./components/Button/Counter";
-import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
+import Breadcrumbs, {
+  Crumb,
+  type BreadcrumbsProps,
+} from "./components/Breadcrumbs";
 import Board from "./components/Board/Board";
 import {
   CardBasic,
@@ -88,6 +91,8 @@ import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
+import TaskCard from "./components/TaskCard";
+import PreviewList from "./components/PreviewList/PreviewList";
 
 export type {
   Color,
@@ -136,6 +141,7 @@ export {
   useAnnouncer,
   Board,
   Breadcrumbs,
+  Crumb,
   Button,
   CardBasic,
   CardFlat,
@@ -159,6 +165,7 @@ export {
   Loading,
   LoadingErrorMessage,
   Pending,
+  PreviewList,
   NotFound,
   ThrowNotFound,
   ScrollArea,
@@ -177,6 +184,7 @@ export {
   Switch,
   TableOfContents,
   Tabs,
+  TaskCard,
   ToggleGroup,
   ToggleSection,
   TreeView,
