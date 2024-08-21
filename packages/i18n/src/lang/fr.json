@@ -23,10 +23,6 @@
     "defaultMessage": "Octobre",
     "description": "Name of the tenth month"
   },
-  "/I9tx9": {
-    "defaultMessage": "Cette demande ne peut pas être supprimée. Vous pouvez uniquement supprimer les demandes avant leur soumission.",
-    "description": "Error message that the application cannot be deleted."
-  },
   "/OQLmo": {
     "defaultMessage": "Maîtrise approfondie",
     "description": "The behavioural skill level for lead"
@@ -34,10 +30,6 @@
   "/SBJ7g": {
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
-  },
-  "/qdFyj": {
-    "defaultMessage": "Cette compétence ne peut pas être supprimée. Elle est utilisée par un processus qui accepte actuellement les demandes.",
-    "description": "Error message for when skill is used by an active process"
   },
   "/sSeis": {
     "defaultMessage": "Minorité visible",
@@ -50,10 +42,6 @@
   "0NInjL": {
     "defaultMessage": "Anglais",
     "description": "Name of English language"
-  },
-  "0OPWbJ": {
-    "defaultMessage": "Vous avez déjà postulé dans ce bassin",
-    "description": "Message displayed when a user attempts to apply to pool more than once"
   },
   "0OSmXn": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
@@ -74,10 +62,6 @@
   "14Cv7d": {
     "defaultMessage": "Retrait en cours...",
     "description": "Submitting text for delete button."
-  },
-  "16AY+M": {
-    "defaultMessage": "Incapable de postuler pour ce bassin",
-    "description": "Message displayed when user attempts to apply to an unpublished pool"
   },
   "17dZD4": {
     "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
@@ -110,10 +94,6 @@
   "2W9CMn": {
     "defaultMessage": "Activer ou désactiver le contexte",
     "description": "Label to toggle the context description of a field set."
-  },
-  "2bzpLi": {
-    "defaultMessage": "La question donnée à l'écran n'existe pas.",
-    "description": "Error message that the screening question could not be found."
   },
   "2wKf2U": {
     "defaultMessage": "Modifiez",
@@ -171,10 +151,6 @@
     "defaultMessage": "Avancé",
     "description": "The technical skill level for expert"
   },
-  "556RGm": {
-    "defaultMessage": "Une erreur s’est produite au moment d’annuler la décision finale. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
-    "description": "Error message that reverting the final decision for a candidate failed"
-  },
   "5RTQe6": {
     "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
     "description": "Message to user when they request a file for download"
@@ -191,10 +167,6 @@
     "defaultMessage": "Décision finale relative à l’évaluation",
     "description": "Final assessment decision"
   },
-  "6O1sjV": {
-    "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
-    "description": "Error message that the given user identifier is already in use when updating."
-  },
   "6iZHGg": {
     "defaultMessage": "Alerte d’avertissement :",
     "description": "Descriptor for a warning alert"
@@ -202,22 +174,6 @@
   "6tekaa": {
     "defaultMessage": "Septembre",
     "description": "Name of the ninth month"
-  },
-  "72usGv": {
-    "defaultMessage": "Il est impossible de supprimer un candidat qui a déjà été placé.",
-    "description": "Message displayed to user after attempting to remove an already placed candidate."
-  },
-  "76QTNv": {
-    "defaultMessage": "La demande a déjà été soumise.",
-    "description": "Error message that the given application is already submitted."
-  },
-  "7D58wn": {
-    "defaultMessage": "Vous ne pouvez pas archiver un bassin à moins que le statut indique qu'il soit fermé.",
-    "description": "Error message when attempting to archive a pool with an invalid status."
-  },
-  "7QH2G/": {
-    "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
-    "description": "Error message that the pool advertisement assessments are lacking a skill"
   },
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
@@ -231,17 +187,9 @@
     "defaultMessage": "La date limite de soumission est passée.",
     "description": "Message displayed when a closing date has passed."
   },
-  "8kUa5H": {
-    "defaultMessage": "Une erreur s’est produite au moment de placer le candidat. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
-    "description": "Error message that placing a candidate failed"
-  },
   "99cWuv": {
     "defaultMessage": "réussite",
     "description": "Message for the success status"
-  },
-  "9QsHXO": {
-    "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
-    "description": "Error message for when an error occurs during role assignment"
   },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
@@ -267,10 +215,6 @@
     "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
     "description": "Prefix when a step has been completed."
   },
-  "A1fb/r": {
-    "defaultMessage": "Il y a une exigence linguistique manquante",
-    "description": "Message displayed when user attempts to apply to a pool without the language requirement"
-  },
   "AAFkmX": {
     "defaultMessage": "Date d'expiration",
     "description": "Label for expiry Date"
@@ -282,10 +226,6 @@
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
-  },
-  "AlECuf": {
-    "defaultMessage": "Le statut du candidat est irrégulier.",
-    "description": "Message displayed to user after attempting to update a candidate with an unexpected status."
   },
   "AvBSV+": {
     "defaultMessage": "Oh non... ",
@@ -299,17 +239,9 @@
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
   },
-  "C/2HT9": {
-    "defaultMessage": "Cette clé de collectivité est déjà utilisé",
-    "description": "Error message that the given community key is already in use"
-  },
   "C/mdCs": {
     "defaultMessage": "Sans objet",
     "description": "Not applicable, context or state does apply."
-  },
-  "C/tnCE": {
-    "defaultMessage": "Le profil est incomplet",
-    "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
   },
   "CDJH4s": {
     "defaultMessage": "Ce processus ne peut pas être rouvert. Il comporte une compétence requise qui a été supprimée.",
@@ -419,10 +351,6 @@
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed preferred communication language"
   },
-  "Hu321P": {
-    "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
-    "description": "Error message that a given pool skill is not valid."
-  },
   "IKGhHj": {
     "defaultMessage": "Important",
     "description": "Important note or caption"
@@ -435,10 +363,6 @@
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
     "description": "Message indicating which errors the form has"
   },
-  "IxWjU1": {
-    "defaultMessage": "Une erreur s’est produite pendant la disqualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
-    "description": "Error message that disqualifying a candidate failed"
-  },
   "J+0v2z": {
     "defaultMessage": "Par ordre de titre (alphabétiquement)",
     "description": "Select the option to sort by title, ascending"
@@ -446,10 +370,6 @@
   "J2V3XI": {
     "defaultMessage": "Un champ obligatoire est vide : Exigence linguistique",
     "description": "Error message that the pool advertisement must have an advertisement language."
-  },
-  "J30FT0": {
-    "defaultMessage": "La signature représente un champ obligatoire",
-    "description": "Message displayed when user attempts to apply to a pool without a signature"
   },
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
@@ -495,25 +415,13 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
-  "LBqw5w": {
-    "defaultMessage": "Vous devez répondre à toutes les questions filtres",
-    "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
-  },
   "LJ2r4A": {
     "defaultMessage": "Autre",
     "description": "Different or distinct from one already mentioned"
   },
-  "M3c9Yo": {
-    "defaultMessage": "Erreur : la suppression de la candidature a échoué",
-    "description": "Message displayed to user after application fails to get deleted."
-  },
   "MBnBcY": {
     "defaultMessage": "Démonstration de compétences",
     "description": "Name of the skill showcase page"
-  },
-  "Mco0Km": {
-    "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
-    "description": "Error message that at least one Essential Skill is required"
   },
   "Me66rb": {
     "defaultMessage": "L’opération a échoué. Cette compétence a déjà été supprimée.",
@@ -523,17 +431,9 @@
     "defaultMessage": "Supprimer le lien",
     "description": "Label for removing a link in the rich text editor"
   },
-  "Mm+Me1": {
-    "defaultMessage": "Impossible d’appliquer à un bassin fermé",
-    "description": "Message displayed when user attempts to apply to a closed pool"
-  },
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
-  },
-  "NQhU3F": {
-    "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
-    "description": "Error message that Special note for this process in French must be filled"
   },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
@@ -619,10 +519,6 @@
     "defaultMessage": "Accueil",
     "description": "Name of Home page"
   },
-  "S2BTqm": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
-    "description": "Error message that Special note for this process in English must be filled"
-  },
   "S9BRBL": {
     "defaultMessage": "Durée (court terme, long terme)",
     "description": "Duration of a non-permanent length"
@@ -683,10 +579,6 @@
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
   },
-  "V3+fXY": {
-    "defaultMessage": "L’exigence relative à l’éducation est incomplete",
-    "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
-  },
   "VV8TA5": {
     "defaultMessage": "Retour",
     "description": "An action to go back to a previous location"
@@ -694,10 +586,6 @@
   "VYbDJk": {
     "defaultMessage": "cela me demande de transporter, soulever et déposer des équipements pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "VqrVpT": {
-    "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
-    "description": "Error message that the given email address is already in use when updating."
   },
   "W5Dkd1": {
     "defaultMessage": "Économique et services de sciences sociales",
@@ -735,10 +623,6 @@
     "defaultMessage": "Lien",
     "description": "Label for adding a link in the rich text editor"
   },
-  "XFFFCu": {
-    "defaultMessage": "Vérification échouée.",
-    "description": "Error message that the verification was not successful."
-  },
   "XNDPQM": {
     "defaultMessage": "Un champ obligatoire est vide : Date de fin",
     "description": "Error message that the pool advertisement must have an expiry date."
@@ -746,10 +630,6 @@
   "XTuwjA": {
     "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
     "description": "Error message that the given skill family key is already in use."
-  },
-  "XUR5dD": {
-    "defaultMessage": "Les étapes d'évaluation doivent appartenir au même bassin.",
-    "description": "Error message that the assessment steps must belong to the same pool."
   },
   "XZl6Ks": {
     "defaultMessage": "Modifiez cette section",
@@ -807,10 +687,6 @@
     "defaultMessage": "possède des équipes de garde 24/7.",
     "description": "The operational requirement described as 24/7 on-call."
   },
-  "aMkZ80": {
-    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
-    "description": "Error message that advertisement locations must be filled in English and French."
-  },
   "aTHtqQ": {
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Option for education requirement, graduation with degree"
@@ -835,10 +711,6 @@
     "defaultMessage": "\"J'ai un contrat d'employé(e) temporaire.\"",
     "description": "Casual selection for government employee type."
   },
-  "bXECaV": {
-    "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
-    "description": "Error message that the user has attempted to set an invalid notification family as ignored."
-  },
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
@@ -850,14 +722,6 @@
   "clDpR4": {
     "defaultMessage": "Modérément développée",
     "description": "The behavioural skill level for intermediate"
-  },
-  "csLjMi": {
-    "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
-    "description": "Error message that the given skill closing date must be after today."
-  },
-  "ctpoN9": {
-    "defaultMessage": "Ce nom d’équipe est déjà utilisé",
-    "description": "Error message that the given team name is already in use."
   },
   "dIZ4oj": {
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
@@ -894,10 +758,6 @@
   "euigxa": {
     "defaultMessage": "Aucun renseignement n'a été fourni.",
     "description": "Sentence when some form of information not provided"
-  },
-  "euwgms": {
-    "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
-    "description": "Error message that Work Tasks in French must be filled"
   },
   "exPBiQ": {
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
@@ -955,10 +815,6 @@
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
     "description": "The operational requirement described as regular overtime."
   },
-  "hpBnAk": {
-    "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
-    "description": "Error message when attempting to un-archive a pool with an invalid status."
-  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
@@ -999,10 +855,6 @@
     "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran without bolding"
   },
-  "juklNA": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
-    "description": "Error message that Your Impact in English must be filled"
-  },
   "jwPlv1": {
     "defaultMessage": "Durée",
     "description": "Duration of a non-permanent length (short-form for limited space)"
@@ -1011,29 +863,13 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
-  "k8IB9g": {
-    "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
-    "description": "Error message that an expiry date must be in the future"
-  },
   "k8NLSx": {
     "defaultMessage": "\"J'ai un poste doté pour une période déterminée.\"",
     "description": "Term selection for government employee type."
   },
-  "kDw+xr": {
-    "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
-    "description": "Error message that the pool advertisement skills are lacking an assessment"
-  },
   "kQTtt9": {
     "defaultMessage": "Enum introuvable",
     "description": "Error message when human readable message not found"
-  },
-  "kg28xx": {
-    "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
-    "description": "Error message that Your Impact in French must be filled"
-  },
-  "l+x5JF": {
-    "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
-    "description": "Error message that one of the assessment steps cannot have its sort order changed."
   },
   "l0aGCz": {
     "defaultMessage": "Intégré",
@@ -1042,10 +878,6 @@
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",
     "description": "declaring one to be a Canadian citizen"
-  },
-  "lXgeJr": {
-    "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
-    "description": "Message displayed when user attempts to apply to a pool without connecting all essential skills."
   },
   "lYtXQJ": {
     "defaultMessage": "Souvent démontrée comme étant bien développée dans la plupart des situations quotidiennes auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress et dans des situations modérément difficiles.",
@@ -1066,14 +898,6 @@
   "mDOWWQ": {
     "defaultMessage": "Soumission",
     "description": "Default text for submitting button."
-  },
-  "mcL1kc": {
-    "defaultMessage": "La date d’expiration n’est pas indiquée. Veuillez saisir une date.",
-    "description": "Error message that an expiry date must be added"
-  },
-  "mhZmff": {
-    "defaultMessage": "La demande doit être soumise.",
-    "description": "Error message that the given application must already be submitted."
   },
   "n+SiHy": {
     "defaultMessage": "Juillet",
@@ -1103,10 +927,6 @@
     "defaultMessage": "Services administratifs",
     "description": "Full name of abbreviation for AS classification"
   },
-  "oCrAvX": {
-    "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
-    "description": "Error message that the pool closing date is required."
-  },
   "oGXgxJ": {
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
@@ -1127,10 +947,6 @@
     "defaultMessage": "Groupe de la direction",
     "description": "Full name of abbreviation for EX"
   },
-  "or2gwQ": {
-    "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
-    "description": "Error message that qualifying a candidate failed"
-  },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
@@ -1142,10 +958,6 @@
   "qVI4xG": {
     "defaultMessage": "réussite partielle",
     "description": "Message for the partial success status"
-  },
-  "qmEyxS": {
-    "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
-    "description": "Error message that the pool closing date isn't in the future."
   },
   "qnYbyw": {
     "defaultMessage": "m'exige de <strong>voyager</strong>.",
@@ -1215,10 +1027,6 @@
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires occasionnelles</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
-  "skfKnv": {
-    "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
-    "description": "Error message that the user has selected both status and non-status first nations."
-  },
   "sotCgD": {
     "defaultMessage": "N'importe quelle langue",
     "description": "Any language"
@@ -1242,10 +1050,6 @@
   "tExKws": {
     "defaultMessage": "Retiré",
     "description": "Removed"
-  },
-  "tW4k56": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
-    "description": "Error message that Work Tasks in English must be filled"
   },
   "tgt0og": {
     "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
@@ -1299,10 +1103,6 @@
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
     "description": "The operational requirement described as regular overtime."
   },
-  "vy6A5+": {
-    "defaultMessage": "Le candidat a déjà été supprimé.",
-    "description": "Message displayed to user after attempting to remove an already removed candidate."
-  },
   "w2tWfH": {
     "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
@@ -1310,10 +1110,6 @@
   "w6vHXf": {
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is in progress."
-  },
-  "wUJqDi": {
-    "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
-    "description": "Error message that the skill selected is already linked to the user profile."
   },
   "x61BXA": {
     "defaultMessage": "Mars",
@@ -1330,10 +1126,6 @@
   "xEkbvy": {
     "defaultMessage": "Sélectionnez un niveau",
     "description": "Null selection of level for select input"
-  },
-  "xH10Pp": {
-    "defaultMessage": "Ce numéro de ministère est déjà utilisé",
-    "description": "Error message that the input department number is already in use."
   },
   "xNESdj": {
     "defaultMessage": "Février",
