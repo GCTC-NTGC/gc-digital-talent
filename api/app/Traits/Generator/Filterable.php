@@ -5,9 +5,11 @@ namespace App\Traits\Generator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
-trait GeneratorIsFilterable
+trait Filterable
 {
     protected ?array $filters;
+
+    protected ?array $ids;
 
     /**
      * Set the filters to be applied
@@ -18,6 +20,19 @@ trait GeneratorIsFilterable
     public function setFilters(?array $filters)
     {
         $this->filters = $filters;
+
+        return $this;
+    }
+
+    /**
+     * Set the ids to be applied
+     *
+     * @param  ?array  $ids  The ids being applied
+     * @return GeneratorIsFilterable The class instance
+     */
+    public function setIds(?array $ids)
+    {
+        $this->ids = $ids;
 
         return $this;
     }
@@ -53,17 +68,21 @@ trait GeneratorIsFilterable
      */
     public function applyFilters(Builder $query, string $class, ?array $scopeMap): Builder
     {
-        if (is_null($this->filters)) {
+        if (is_null($this->filters) && is_null($this->ids)) {
             return $query;
         }
 
-        $filters = $this->flattenFilters($this->filters);
+        $filters = $this->flattenFilters($this->filters ?? []);
         foreach ($filters as $key => $value) {
             $scope = $scopeMap[$key] ?? $key;
 
             if (method_exists($class, 'scope'.ucfirst($scope)) && $value) {
                 $query?->$scope($value);
             }
+        }
+
+        if (! is_null($this->ids)) {
+            $query->whereIn('id', $this->ids);
         }
 
         return $query;

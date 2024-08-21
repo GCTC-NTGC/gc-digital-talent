@@ -17,17 +17,15 @@ use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
-use App\Traits\Generator\GeneratorFiltersById;
-use App\Traits\Generator\GeneratorIsFilterable;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
+    use Filterable;
     use GeneratesFile;
-    use GeneratorFiltersById;
-    use GeneratorIsFilterable;
 
     protected array $generalQuestionIds = [];
 
@@ -282,7 +280,6 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             ],
         ]);
 
-        $query = $this->applyIdFilter($query);
         $query = $this->applyFilters($query, PoolCandidate::class, [
             'priorityWeight' => 'candidateCategory',
             'poolcandidateStatus' => 'poolcandidateStatuses',

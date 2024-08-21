@@ -12,17 +12,15 @@ use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\WorkRegion;
 use App\Models\User;
+use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
-use App\Traits\Generator\GeneratorFiltersById;
-use App\Traits\Generator\GeneratorIsFilterable;
 use Illuminate\Support\Arr;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
+    use Filterable;
     use GeneratesFile;
-    use GeneratorFiltersById;
-    use GeneratorIsFilterable;
 
     protected array $generatedHeaders = [
         'general_questions' => [],
@@ -159,7 +157,6 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
             'userSkills' => ['skill'],
         ]);
 
-        $query = $this->applyIdFilter($query);
         $query = $this->applyFilters($query, User::class, [
             'roles' => 'roleAssignments',
         ]);
