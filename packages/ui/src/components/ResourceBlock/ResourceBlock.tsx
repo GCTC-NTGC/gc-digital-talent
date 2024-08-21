@@ -80,7 +80,6 @@ const Root = ({
       data-h2-shadow="base(larger)"
       data-h2-border-radius="base(rounded)"
       data-h2-background-color="base(foreground)"
-      role="list"
       aria-labelledby={headingId}
     >
       {/* heading bar */}
@@ -105,7 +104,11 @@ const Root = ({
         </div>
       </div>
       {/* content */}
-      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        role="list"
+      >
         {children}
       </div>
     </div>
