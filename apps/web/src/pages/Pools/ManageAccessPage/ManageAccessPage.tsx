@@ -184,7 +184,7 @@ export const Component = () => (
       ROLE_NAME.ProcessOperator,
       ROLE_NAME.PlatformAdmin,
       ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityManager,
     ]}
   >
     <ManageAccessPoolPage />
