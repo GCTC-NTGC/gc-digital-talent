@@ -57,6 +57,7 @@ import Pending, {
   type PendingProps,
   LoadingErrorMessage,
 } from "./components/Pending";
+import ResourceBlock from "./components/ResourceBlock";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -114,6 +115,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
+  ResourceBlock,
   ChipProps,
   SidebarProps,
   SideMenuProps,
