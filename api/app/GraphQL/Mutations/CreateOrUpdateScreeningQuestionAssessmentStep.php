@@ -2,13 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApiError;
 use App\Enums\AssessmentStepType;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
 use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
-use Exception;
 use Illuminate\Support\Facades\DB;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class CreateOrUpdateScreeningQuestionAssessmentStep
 {
@@ -36,7 +37,9 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                 foreach ($incomingAssessmentStep['poolSkills']['sync'] as $skillID) {
                     $skill = PoolSkill::find($skillID);
                     if ($skill === null || $skill->pool_id !== $pool->id) {
-                        throw new Exception('PoolSkillNotValid');
+                        throw ValidationException::withMessages([
+                            'assessmentStep.poolSkills' => [ApiError::POOL_SKILL_DOES_NOT_EXIST->localizedErrorMessage()],
+                        ]);
                     }
                 }
                 $assessmentStep->poolSkills()->sync($incomingAssessmentStep['poolSkills']['sync']);
@@ -48,7 +51,9 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                     array_push($incomingQuestionIds, $incomingQuestion['id']);
                     $questionToUpdate = $existingQuestions->find($incomingQuestion['id']);
                     if ($questionToUpdate === null) {
-                        throw new Exception('ScreeningQuestionNotExist');
+                        throw ValidationException::withMessages([
+                            'screeningQuestions' => [ApiError::SCREENING_QUESTION_DOES_NOT_EXIST->localizedErrorMessage()],
+                        ]);
                     }
 
                     $questionToUpdate->question = $incomingQuestion['question'];

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
-use Database\Helpers\ApiErrorEnums;
+use App\Enums\ApiError;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class UpdatePublishedPoolInputValidator extends Validator
@@ -40,7 +40,7 @@ final class UpdatePublishedPoolInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'changeJustification.required' => ApiErrorEnums::CHANGE_JUSTIFICATION_REQUIRED,
+            'changeJustification.required' => ApiError::PROCESS_CHANGE_JUSTIFICATION_REQUIRED->localizedErrorMessage(),
         ];
     }
 }

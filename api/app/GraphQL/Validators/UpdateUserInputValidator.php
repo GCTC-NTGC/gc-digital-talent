@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ApiError;
 use App\Rules\IsStatusOrNonStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -45,8 +46,8 @@ final class UpdateUserInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'email.unique' => 'EmailAddressInUse',
-            'sub.unique' => 'SubInUse',
+            'email.unique' => ApiError::EMAIL_IN_USE->localizedErrorMessage(),
+            'sub.unique' => ApiError::USER_SUB_IN_USE->localizedErrorMessage(),
         ];
     }
 }
