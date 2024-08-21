@@ -3244,7 +3244,7 @@
     "description": "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
   },
   "FpDMGu": {
-    "defaultMessage": "Lien établi avec l’expérience!",
+    "defaultMessage": "Lien avec l’expérience supprimé!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
   "Fs444j": {
