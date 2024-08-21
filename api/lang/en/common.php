@@ -18,4 +18,7 @@ return [
     'present' => 'Present',
     'at' => 'at',
     'not_provided' => 'Not provided',
+
+    // Error messages
+    'role_assignment' => 'An error occurred during role assignment. Contact support if this problem persists.',
 ];

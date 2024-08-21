@@ -18,4 +18,7 @@ return [
     'present' => 'Aujourd’hui',
     'at' => 'à',
     'not_provided' => 'Renseignements manquants',
+
+    // Error messages
+    'role_assignment' => 'Une erreur s’est produite pendant l\'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.',
 ];
