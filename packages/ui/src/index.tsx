@@ -90,6 +90,7 @@ import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
+import TaskCard from "./components/TaskCard";
 import PreviewList from "./components/PreviewList/PreviewList";
 
 export type {
@@ -181,6 +182,7 @@ export {
   Switch,
   TableOfContents,
   Tabs,
+  TaskCard,
   ToggleGroup,
   ToggleSection,
   TreeView,
