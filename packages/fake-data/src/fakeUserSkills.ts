@@ -22,7 +22,10 @@ const generateUserSkill = (
   user: User,
   experiences: AnyGeneratedExperience[],
   uniqueEnforcerId: UniqueEnforcer,
+  index: number,
 ) => {
+  faker.seed(index); // repeatable results
+
   const uniqueId = uniqueEnforcerId.enforce(() => {
     return faker.string.uuid();
   });
@@ -55,10 +58,9 @@ export default (
   user = mockUser,
   experiences: AnyGeneratedExperience[] = [],
 ): UserSkill[] => {
-  faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
-  return [...Array(numToGenerate)].map(() =>
-    generateUserSkill(skill, user, experiences, uniqueEnforcerId),
+  return [...Array(numToGenerate)].map((_x, index) =>
+    generateUserSkill(skill, user, experiences, uniqueEnforcerId, index),
   );
 };
