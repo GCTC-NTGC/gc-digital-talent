@@ -519,6 +519,14 @@
     "defaultMessage": "Accueil",
     "description": "Name of Home page"
   },
+  "S0w3o5": {
+    "defaultMessage": "Complet",
+    "description": "Simple status label for a complete item"
+  },
+  "S2BTqm": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
+    "description": "Error message that Special note for this process in English must be filled"
+  },
   "S9BRBL": {
     "defaultMessage": "Durée (court terme, long terme)",
     "description": "Duration of a non-permanent length"
@@ -1095,6 +1103,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vOCLQA": {
+    "defaultMessage": "Incomplet",
+    "description": "Simple status label for an incomplete item"
+  },
   "vPDtGU": {
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
@@ -1120,7 +1132,7 @@
     "description": "The work region of Canada described as Telework."
   },
   "xAxxmc": {
-    "defaultMessage": "Oupse! Vous avez des erreurs!",
+    "defaultMessage": "Oups! Vous avez des erreurs!",
     "description": "Title for error summary on profile forms"
   },
   "xEkbvy": {

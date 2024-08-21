@@ -57,6 +57,7 @@ import Pending, {
   type PendingProps,
   LoadingErrorMessage,
 } from "./components/Pending";
+import ResourceBlock from "./components/ResourceBlock";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -90,6 +91,7 @@ import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
+import TaskCard from "./components/TaskCard";
 import PreviewList from "./components/PreviewList/PreviewList";
 
 export type {
@@ -113,6 +115,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
+  ResourceBlock,
   ChipProps,
   SidebarProps,
   SideMenuProps,
@@ -181,6 +184,7 @@ export {
   Switch,
   TableOfContents,
   Tabs,
+  TaskCard,
   ToggleGroup,
   ToggleSection,
   TreeView,
