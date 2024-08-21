@@ -9,7 +9,6 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Carbon;
 
 class PoolPolicy
 {
@@ -159,18 +158,18 @@ class PoolPolicy
      */
     public function publish(User $user, Pool $pool)
     {
-        // The status must be DRAFT to be able to publish it.
-        if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
-            // The closing date must be greater than today's date at the end of day.
-            if ($pool->closing_date && $pool->closing_date > Carbon::now()->endOfDay()) {
-                if ($user->isAbleTo('publish-any-draftPool')) {
-                    return true;
-                }
-            } else {
-                return Response::deny('Expiry date must be a future date.');
-            }
-        } else {
+        if (! $pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
             return Response::deny('Pool has already been published.');
+        }
+
+        if ($user->isAbleTo('publish-any-draftPool')) {
+            return true;
+        }
+
+        $pool->loadMissing(['community.team']);
+
+        if (isset($pool->community->team) && $user->isAbleTo('publish-team-draftPool', $pool->community->team)) {
+            return true;
         }
 
         return Response::deny('Cannot publish that pool.');
