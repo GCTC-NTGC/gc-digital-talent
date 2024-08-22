@@ -269,6 +269,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 })}
               >
                 <ResourceBlock.Item
+                  state="complete"
                   title={intl.formatMessage({
                     defaultMessage: "Manager profile",
                     id: "hkvlOx",
@@ -284,6 +285,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   })}
                 />
                 <ResourceBlock.Item
+                  state="complete"
                   title={intl.formatMessage({
                     defaultMessage: "Account and privacy",
                     id: "BMWvU8",
