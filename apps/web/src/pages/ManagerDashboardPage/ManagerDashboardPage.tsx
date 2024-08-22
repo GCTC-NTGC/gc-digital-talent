@@ -7,12 +7,12 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import {
   ThrowNotFound,
   Pending,
-  Heading,
   Link,
   TaskCard,
   PreviewList,
   DropdownMenu,
   Button,
+  ResourceBlock,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -259,96 +259,101 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   </div>
                 </TaskCard.Item>
               </TaskCard.Root>
-              <div data-h2-background-color="base(quaternary.lightest)">
-                <Heading level="h2">
-                  {intl.formatMessage({
-                    defaultMessage: "Your information",
-                    id: "jALTj0",
-                    description: "Card title for an information card",
-                  })}
-                </Heading>
-                <Heading level="h3">
-                  {intl.formatMessage({
+              <ResourceBlock.Root
+                headingColor="quaternary"
+                headingAs="h2"
+                title={intl.formatMessage({
+                  defaultMessage: "Your information",
+                  id: "jALTj0",
+                  description: "Card title for an information card",
+                })}
+              >
+                <ResourceBlock.Item
+                  title={intl.formatMessage({
                     defaultMessage: "Manager profile",
                     id: "hkvlOx",
                     description: "Link to manager profile page",
                   })}
-                </Heading>
-                <div>
-                  {intl.formatMessage({
+                  href="#"
+                  description={intl.formatMessage({
                     defaultMessage:
                       "Describe your leadership style and team culture to give applicants an idea of what working with you is like.",
                     id: "lbtzDG",
                     description:
                       "Helper instructions for a 'manager profile' card",
                   })}
-                </div>
-                <Heading level="h3">
-                  {intl.formatMessage({
+                />
+                <ResourceBlock.Item
+                  title={intl.formatMessage({
                     defaultMessage: "Account and privacy",
                     id: "BMWvU8",
                     description: "Link to the 'Account and privacy' page",
                   })}
-                </Heading>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Manage your name, contact info, privacy settings, notifications, or delete your account.",
-                  id: "3d4GDu",
-                  description:
-                    "Helper instructions for an 'account and privacy' card",
-                })}
-              </div>
-              <div data-h2-background-color="base(tertiary.lightest)">
-                <Heading level="h2">
-                  {intl.formatMessage({
-                    defaultMessage: "Resources",
-                    id: "nGSUzp",
-                    description: "Card title for a 'resources' card",
+                  href="#"
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Manage your name, contact info, privacy settings, notifications, or delete your account.",
+                    id: "3d4GDu",
+                    description:
+                      "Helper instructions for an 'account and privacy' card",
                   })}
-                </Heading>
-                <Heading level="h3">
-                  {intl.formatMessage({
+                />
+              </ResourceBlock.Root>
+              <ResourceBlock.Root
+                headingColor="tertiary"
+                headingAs="h2"
+                title={intl.formatMessage({
+                  defaultMessage: "Resources",
+                  id: "nGSUzp",
+                  description: "Card title for a 'resources' card",
+                })}
+              >
+                <ResourceBlock.Item
+                  title={intl.formatMessage({
                     defaultMessage: "Learn about skills",
                     id: "n40Nry",
                     description: "Link for the 'learn about skills' card",
                   })}
-                </Heading>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Browse a complete list of available skills, learn how they’re organized, and submit skill recommendations.",
-                  id: "p3UL9X",
-                  description:
-                    "Helper instructions for a 'learn about skills' card",
-                })}
-                <Heading level="h3">
-                  {intl.formatMessage({
+                  href="#"
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Browse a complete list of available skills, learn how they’re organized, and submit skill recommendations.",
+                    id: "p3UL9X",
+                    description:
+                      "Helper instructions for a 'learn about skills' card",
+                  })}
+                />
+                <ResourceBlock.Item
+                  title={intl.formatMessage({
                     defaultMessage: "Browse job templates",
                     id: "bLxoQL",
                     description: "Link for the 'browse job templates' card",
                   })}
-                </Heading>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
-                  id: "ZCDsMF",
-                  description:
-                    "Helper instructions for the 'browse job templates' card",
-                })}
-                <Heading level="h3">
-                  {intl.formatMessage({
+                  href="#"
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
+                    id: "ZCDsMF",
+                    description:
+                      "Helper instructions for the 'browse job templates' card",
+                  })}
+                />
+                <ResourceBlock.Item
+                  title={intl.formatMessage({
                     defaultMessage: "Directive on Digital Talent",
                     id: "xXwUGs",
                     description: "Title for the digital talent directive page",
                   })}
-                </Heading>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Learn more about the directive, how it applies to your context, and understand your obligations.",
-                  id: "548yXW",
-                  description:
-                    "Helper instructions for a 'directive on digital talent' card",
-                })}
-              </div>
+                  href="#"
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Learn more about the directive, how it applies to your context, and understand your obligations.",
+                    id: "548yXW",
+                    description:
+                      "Helper instructions for a 'directive on digital talent' card",
+                  })}
+                />
+              </ResourceBlock.Root>
             </div>
           </div>
         </div>
