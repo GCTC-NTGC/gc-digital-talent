@@ -1019,6 +1019,10 @@
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
   },
+  "3d4GDu": {
+    "defaultMessage": "Gérez votre nom, vos coordonnées, vos paramètres de confidentialité et vos notifications, ou supprimez votre compte.",
+    "description": "Helper instructions for an 'account and privacy' card"
+  },
   "3e965x": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
@@ -1318,6 +1322,10 @@
   "53MCSe": {
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
     "description": "Description for bilingual positions in language requirements dialog"
+  },
+  "548yXW": {
+    "defaultMessage": "Apprenez-en plus sur la directive et comment elle s'applique à votre contexte, et comprenez vos obligations.",
+    "description": "Helper instructions for a 'directive on digital talent' card"
   },
   "55Me4a": {
     "defaultMessage": "Titre (Français)",
@@ -2415,6 +2423,10 @@
     "defaultMessage": "Veuillez préciser votre ministère ou organisme",
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
   },
+  "BMWvU8": {
+    "defaultMessage": "Compte et confidentialité",
+    "description": "Link to the 'Account and privacy' page"
+  },
   "BRpssM": {
     "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
     "description": "First message for the general resources section."
@@ -2518,6 +2530,10 @@
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
+  },
+  "C0LMCq": {
+    "defaultMessage": "Rôle actuel",
+    "description": "Card title for a nav role switcher"
   },
   "C3YsFy": {
     "defaultMessage": "Annuler la décision d’évaluation finale",
@@ -3566,6 +3582,10 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
+  },
+  "HnrJJR": {
+    "defaultMessage": "Lorsque vous soumettez une demande de talents à l'aide de la fonctionnalité « <a>Trouver des talents</a> » , elle apparaîtra dans cette liste tant qu'elle sera active. Les destinataires de votre demande disposeront d'un délai fixe pour répondre, après quoi seules les personnes ayant accepté de partager leurs informations resteront à votre disposition.",
+    "description": " Helper instructions for the manager tools"
   },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
@@ -6774,6 +6794,10 @@
     "defaultMessage": "Filtrer les candidats par ordre de nom",
     "description": "Label for candidate search input"
   },
+  "ZCDsMF": {
+    "defaultMessage": "Découvrez une bibliothèque de modèles d'offres d'emploi qui constituent un excellent point de départ pour votre prochain processus d'embauche.",
+    "description": "Helper instructions for the 'browse job templates' card"
+  },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
     "description": "Message displayed to user after education requirement fails to be updated."
@@ -7014,6 +7038,10 @@
     "defaultMessage": "Clé",
     "description": "Title for key field"
   },
+  "aeCkWS": {
+    "defaultMessage": "Vos recherches de talents ({count})",
+    "description": "Title for a list of talent searches with a count"
+  },
   "aemElP": {
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
     "description": "Label displayed on Personal Experience form for current experience input"
@@ -7121,6 +7149,10 @@
   "bLcy4q": {
     "defaultMessage": "Plateforme de données",
     "description": "The menu category for platform data items"
+  },
+  "bLxoQL": {
+    "defaultMessage": "Parcourir les modèles d'emploi",
+    "description": "Link for the 'browse job advertisement templates' card"
   },
   "bMY93S": {
     "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
@@ -8134,6 +8166,10 @@
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
   },
+  "gPvdHC": {
+    "defaultMessage": "Passez facilement d'un rôle à l'autre en fonction des accès de votre compte.",
+    "description": "Helper instructions for a nav role switcher"
+  },
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
@@ -8414,6 +8450,10 @@
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
   },
+  "hkvlOx": {
+    "defaultMessage": "Profil de gestionnaire",
+    "description": "Link to manager profile page"
+  },
   "hl4QA9": {
     "defaultMessage": "un contrat de source unique pour une société de conseil afin de mener des recherches sur les utilisateurs d'un produit numérique;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -8529,6 +8569,10 @@
   "iA1Q8d": {
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
+  },
+  "iChSXW": {
+    "defaultMessage": "Vos outils de gestionnaire",
+    "description": "Card title for the manager tools"
   },
   "iEIzSc": {
     "defaultMessage": "Mes rôles",
@@ -8721,6 +8765,10 @@
   "jAFzzR": {
     "defaultMessage": "Découvrez les dernières perspectives d’emploi du <abbreviation>GC</abbreviation> dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
     "description": "Description for the digital government job opportunities"
+  },
+  "jALTj0": {
+    "defaultMessage": "Vos informations",
+    "description": "Card title for an information card"
   },
   "jAPSUd": {
     "defaultMessage": "Conseiller principal ou Gestionnaire I T 4",
@@ -9102,6 +9150,10 @@
     "defaultMessage": "Indiquer si ce contrat est soumis à des accords commerciaux",
     "description": "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
   },
+  "lYp2e8": {
+    "defaultMessage": "Gérez vos recherches de talents et établissez votre profil de gestionnaire.",
+    "description": "subtitle for the 'Manager dashboard' page"
+  },
   "lZ8lct": {
     "defaultMessage": "Process mis en signet.",
     "description": "Alert displayed to the user when they mark a pool as bookmarked."
@@ -9121,6 +9173,10 @@
   "lb7SoP": {
     "defaultMessage": "Anglais - Votre travail",
     "description": "Label for the English - Your Work textarea in the edit pool page."
+  },
+  "lbtzDG": {
+    "defaultMessage": "Décrivez votre style de leadership et votre culture d'équipe pour que les candidats aient un aperçu du travail avec vous.",
+    "description": "Helper instructions for a 'manager profile' card"
   },
   "leFf/M": {
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
@@ -9414,6 +9470,10 @@
     "defaultMessage": "Fermer ce dialogue",
     "description": "Button text to close a dialog"
   },
+  "n40Nry": {
+    "defaultMessage": "En savoir plus sur les compétences",
+    "description": "Link for the 'learn about skills' card"
+  },
   "n4pt+y": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
     "description": "Label for the English team display name input"
@@ -9437,6 +9497,10 @@
   "nDm9dX": {
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
+  },
+  "nGSUzp": {
+    "defaultMessage": "Ressources",
+    "description": "Card title for a 'resources' card"
   },
   "nGx7Xt": {
     "defaultMessage": "Mesures",
@@ -9582,6 +9646,10 @@
     "defaultMessage": "Il ou elle perdra tous les rôles suivants au sein de l’équipe ",
     "description": "Lead text for the list of roles the user will lose"
   },
+  "o1jXs5": {
+    "defaultMessage": "Tableau de bord du gestionnaire",
+    "description": "title for the 'Manager dashboard' page"
+  },
   "o4EnIo": {
     "defaultMessage": "Ce processus est programmé pour se clôturer automatiquement le : ",
     "description": "Third paragraph for publish process dialog"
@@ -9725,6 +9793,10 @@
   "p2sBh3": {
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
+  },
+  "p3UL9X": {
+    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et soumettez des recommandations de compétences.",
+    "description": "Helper instructions for a 'learn about skills' card"
   },
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
