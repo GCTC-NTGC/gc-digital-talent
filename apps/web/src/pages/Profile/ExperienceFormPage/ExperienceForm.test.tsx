@@ -350,7 +350,7 @@ describe("ExperienceForm", () => {
       skillsQuery: skillFragments,
     });
 
-    await act(() => {
+    act(() => {
       screen
         .getAllByRole("button", {
           name: /add a skill/i,
