@@ -329,7 +329,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       {
         id: "status",
         enableColumnFilter: false,
-        // TO DO: Reenable when relation order by added
+        // TODO: Re-enable when relation order by added.
         enableSorting: false,
         header: intl.formatMessage(commonMessages.status),
       },
