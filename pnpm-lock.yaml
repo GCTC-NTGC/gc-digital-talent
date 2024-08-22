@@ -18,8 +18,8 @@ importers:
   apps/playwright:
     dependencies:
       '@axe-core/playwright':
-        specifier: ^4.9.1
-        version: 4.9.1(playwright-core@1.46.0)
+        specifier: ^4.10.0
+        version: 4.10.0(playwright-core@1.46.0)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -1255,8 +1255,8 @@ packages:
     resolution: {integrity: sha512-xhlTqH0m31mnsG0tIP4ETgfSB6gXDaYYsUWTrlUV93fFQPI9dd8hE0Ot6MHLCtqgB32hwJAC3YZMWlXZw7AleA==}
     engines: {node: '>=14'}
 
-  '@axe-core/playwright@4.9.1':
-    resolution: {integrity: sha512-8m4WZbZq7/aq7ZY5IG8GqV+ZdvtGn/iJdom+wBg+iv/3BAOBIfNQtIu697a41438DzEEyptXWmC3Xl5Kx/o9/g==}
+  '@axe-core/playwright@4.10.0':
+    resolution: {integrity: sha512-kEr3JPEVUSnKIYp/egV2jvFj+chIjCjPp3K3zlpJMza/CB3TFw8UZNbI9agEC2uMz4YbgAOyzlbUy0QS+OofFA==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
 
@@ -8669,9 +8669,9 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@axe-core/playwright@4.9.1(playwright-core@1.46.0)':
+  '@axe-core/playwright@4.10.0(playwright-core@1.46.0)':
     dependencies:
-      axe-core: 4.9.1
+      axe-core: 4.10.0
       playwright-core: 1.46.0
 
   '@babel/code-frame@7.24.7':
