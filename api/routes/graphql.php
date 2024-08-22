@@ -35,6 +35,9 @@ Route::middleware([
     // Logs slow running GraphQL queries
     App\Http\Middleware\SlowQueryLoggerMiddleware::class,
 
+    // Set the app locale
+    App\Http\Middleware\AcceptLanguageMiddleware::class,
+
     // Throttles based on RateLimiter in RouteServiceProvider.
     'throttle:graphql',
 ])->group(function () {
