@@ -1,206 +1,247 @@
 type LocalizedApiError {
   value: ApiError!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedArmedForcesStatus {
   value: ArmedForcesStatus!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedAssessmentDecision {
   value: AssessmentDecision!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedAssessmentDecisionLevel {
   value: AssessmentDecisionLevel!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedAssessmentResultJustification {
   value: AssessmentResultJustification!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedAssessmentStepType {
   value: AssessmentStepType!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedAwardedScope {
   value: AwardedScope!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedAwardedTo {
   value: AwardedTo!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedCandidateExpiryFilter {
   value: CandidateExpiryFilter!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedCandidateRemovalReason {
   value: CandidateRemovalReason!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedCandidateSuspendedFilter {
   value: CandidateSuspendedFilter!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedCitizenshipStatus {
   value: CitizenshipStatus!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedEducationStatus {
   value: EducationStatus!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedEducationType {
   value: EducationType!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedEstimatedLanguageAbility {
   value: EstimatedLanguageAbility!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedEvaluatedLanguageAbility {
   value: EvaluatedLanguageAbility!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedFinalDecision {
   value: FinalDecision!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedIndigenousCommunity {
   value: IndigenousCommunity!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedLanguage {
   value: Language!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedLanguageAbility {
   value: LanguageAbility!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedOperationalRequirement {
   value: OperationalRequirement!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPlacementType {
   value: PlacementType!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolCandidateSearchPositionType {
   value: PoolCandidateSearchPositionType!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolCandidateSearchRequestReason {
   value: PoolCandidateSearchRequestReason!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolCandidateSearchStatus {
   value: PoolCandidateSearchStatus!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolCandidateStatus {
   value: PoolCandidateStatus!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolLanguage {
   value: PoolLanguage!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolOpportunityLength {
   value: PoolOpportunityLength!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolSkillType {
   value: PoolSkillType!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolStatus {
   value: PoolStatus!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPoolStream {
   value: PoolStream!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPositionDuration {
   value: PositionDuration!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPriorityWeight {
   value: PriorityWeight!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedProvinceOrTerritory {
   value: ProvinceOrTerritory!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedPublishingGroup {
   value: PublishingGroup!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedSecurityStatus {
   value: SecurityStatus!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedSkillCategory {
   value: SkillCategory!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedSkillLevel {
   value: SkillLevel!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type LocalizedWorkRegion {
   value: WorkRegion!
-  label: LocalizedString!
+  label: String!
+  locales: LocalizedString!
 }
 
 type Query {
@@ -2391,33 +2432,64 @@ enum ApiError {
   APPLICATION_MISSING_QUESTION_RESPONSE
   APPLICATION_NOT_SUBMITTED
   APPLICATION_POOL_CLOSED
-  APPLICATION_PROFILE_INCOMPLETE
+  APPLICATION_POOL_NOT_PUBLISHED
   APPLICATION_SIGNATURE_REQUIRED
   APPLICATION_SUBMITTED
   ASSESSMENT_RESULT_MISSING_SKILL
   ASSESSMENT_RESULT_EDUCATION_ASSESSMENT_SKILL_JUSTIFICATION_PROHIBITED
   ASSESSMENT_RESULT_DECISION_LEVEL_PROHIBITED
+  ASSESSMENT_RESULT_SKILL_ASSESSMENT_EDUCATION_JUSTIFICATION_PROHIBITED
   ASSESSMENT_STEP_MISSING_SKILLS
-  ASSESSMENT_RESULT_SKILL_ASSESSMENMT_EDUCATION_JUSTIFICATION_PROHIBITED
+  ASSESSMENT_STEP_CANNOT_SWAP
+  ASSESSMENT_STEP_DIFFERENT_POOL
+  ASSESSMENT_STEP_REFERENCES_MULTIPLE_POOLS
   COMMUNITY_KEY_IN_USE
   DEPARTMENT_NUMBER_IN_USE
+  EMAIL_IN_USE
+  EMAIL_VERIFICATION_FAILED
+  ENUM_NOT_FOUND
+  ENUM_NOT_LOCALIZED
   EXPIRTY_DATE_REQUIRED
   EXPIRY_DATE_AFTER_TODAY
   NOTIFICATION_FAMILY_CANNOT_ENABLE
   POOL_SKILL_NOT_ASSESSED
+  POOL_CANDIDATE_ALREADY_PLACED
+  POOL_CANDIDATE_ALREADY_REMOVED
   POOL_CANDIDATE_INVALID_STATUS_DISQUALIFICATION
   POOL_CANDIDATE_INVALID_STATUS_PLACING
   POOL_CANDIDATE_INVALID_STATUS_QUALIFICATION
   POOL_CANDIDATE_INVALID_STATUS_REVERT_FINAL_DECISION
+  POOL_CANDIDATE_UNEXPECTED_STATUS
+  POOL_SKILL_DOES_NOT_EXIST
   PROCESS_ARCHIVE_INVALID_STATUS
+  PROCESS_CHANGE_JUSTIFICATION_REQUIRED
   PROCESS_CLOSING_DATE_EXTEND
   PROCESS_CLOSING_DATE_FUTURE
+  PROCESS_CLOSING_DATE_REQUIRED
   PROCESS_CANNOT_REOPEN_DELETED_SKILL
+  PROCESS_ESSENTIAL_SKILL_REQUIRED
+  PROCESS_LOCATION_REQUIRED
+  PROCESS_LOCATION_BOTH_LANGUAGES_REQUIRED
+  PROCESS_SPECIAL_NOTE_EN_REQUIRED
+  PROCESS_SPECIAL_NOTE_FR_REQUIRED
+  PROCESS_UNARCHIVE_INVALID_STATUS
+  PROCESS_WORK_TASKS_EN_REQUIRED
+  PROCESS_WORK_TASKS_FR_REQUIRED
+  PROCESS_YOUR_IMPACT_EN_REQUIRED
+  PROCESS_YOUR_IMPACT_FR_REQUIRED
+  ROLE_NOT_FOUND
+  ROLE_NOT_TEAM_ROLE
+  SCREENING_QUESTION_DOES_NOT_EXIST
   SKILL_DELETED
   SKILL_DELETE_IN_USE
   SKILL_ESSENTIAL_CONTAINS_DELETED
   SKILL_NONESSENTIAL_CONTAINS_DELETED
+  TEAM_DOES_NOT_EXIST
+  TEAM_ID_REQUIRED
   TEAM_NAME_IN_USE
+  USER_BOTH_STATUS_NON_STATUS_FIRST_NATIONS
+  USER_PROFILE_INCOMPLETE
+  USER_SUB_IN_USE
   USER_SKILL_EXISTS
 }
 

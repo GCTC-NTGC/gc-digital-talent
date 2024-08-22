@@ -17,6 +17,13 @@ trait HasLocalization
         return Str::lower(constant("self::$enumCase")->name);
     }
 
+    public static function localized(string $value)
+    {
+        $key = self::getLangKey($value);
+
+        return __($key);
+    }
+
     public static function localizedString(string $value, ?string $parentKey = null)
     {
         $key = self::getLangKey($value, $parentKey);

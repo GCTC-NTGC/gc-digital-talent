@@ -22,6 +22,9 @@ Route::middleware([
     // Always set the `Accept: application/json` header.
     Nuwave\Lighthouse\Http\Middleware\AcceptJson::class,
 
+    // Set the locale from the `Accept-Language` header
+    App\Http\Middleware\LocaleMiddleware::class,
+
     // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
     // middleware, this delegates auth and permission checks to the field level.
     Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,

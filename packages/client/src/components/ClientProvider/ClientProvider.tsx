@@ -21,6 +21,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { LogoutReason } from "@gc-digital-talent/auth";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import {
   buildValidationErrorMessageNode,
@@ -53,6 +54,7 @@ const ClientProvider = ({
   children?: ReactNode;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
   // Create a mutable object to hold the auth state
@@ -68,6 +70,11 @@ const ClientProvider = ({
       createClient({
         url: `${apiHost}${apiUri}`,
         requestPolicy: "cache-and-network",
+        fetchOptions: {
+          headers: {
+            "Accept-Language": locale,
+          },
+        },
         exchanges: [
           cacheExchange,
           protectedEndpointExchange,

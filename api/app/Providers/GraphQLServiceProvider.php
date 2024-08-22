@@ -63,7 +63,8 @@ class GraphQLServiceProvider extends ServiceProvider
             $resolver = function ($value, $args, $context, ResolveInfo $info) use ($enum) {
                 switch ($info->fieldName) {
                     case 'value': return $value;
-                    case 'label': return $enum::localizedString($value);
+                    case 'label': return $enum::localized($value);
+                    case 'locales': return $enum::localizedString($value);
                     default: return null;
                 }
             };
@@ -74,7 +75,8 @@ class GraphQLServiceProvider extends ServiceProvider
                     'fields' => function () use ($typeRegistry, $name): array {
                         return [
                             'value' => Type::nonNull($typeRegistry->get($name)),
-                            'label' => Type::nonNull($typeRegistry->get('LocalizedString')),
+                            'label' => Type::nonNull(Type::string()),
+                            'locales' => Type::nonNull($typeRegistry->get('LocalizedString')),
                         ];
                     },
                     'resolveField' => $resolver,
