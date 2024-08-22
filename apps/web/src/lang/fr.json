@@ -3259,6 +3259,10 @@
     "defaultMessage": "Voir les bassins ouverts",
     "description": "Link text to view all open pools"
   },
+  "FtxA9/": {
+    "defaultMessage": "Sélectionnez les rôles à confier au membre :",
+    "description": "Label for the roles select field on process team dialog"
+  },
   "FtxUlB": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (texte clair)",
     "description": "Aria label for download guidance for procurement officers plain text link."
@@ -8266,6 +8270,10 @@
     "defaultMessage": "De quelle manière sera vérifié le statut?",
     "description": "Heading for the self-declaration verification dialog"
   },
+  "h5AUW9": {
+    "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à ce processus :",
+    "description": "Label for the user select field on process team dialog"
+  },
   "h5OdMq": {
     "defaultMessage": "Apprenez-en davantage sur les types d’expérience que vous pouvez ajouter",
     "description": "Button text to open section describing experience types"
@@ -10778,6 +10786,10 @@
     "defaultMessage": "Modifier les renseignements de l'équipe",
     "description": "Title for the edit team page"
   },
+  "vUtN1U": {
+    "defaultMessage": "Rechercher les membres du processus",
+    "description": "Label for the process team members table search input"
+  },
   "vV0SDz": {
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
@@ -10949,6 +10961,10 @@
   "wYct8d": {
     "defaultMessage": "Lorsque vous êtes admis dans un processus de recrutement de talents, vous acceptez de recevoir des notifications sur d’éventuelles possibilités qui répondent aux critères du processus. Ces notifications ne seront envoyées que si vous avez activé les notifications « Alerte d’emploi » dans la section des « paramètres de notification » de cette page. Vous pouvez aussi désactiver ces notifications pour chaque processus à l’aide des contrôles figurant sur les cartes fournies.",
     "description": "Subtitle for recruitment availability section on account settings page."
+  },
+  "wYohzF": {
+    "defaultMessage": "Membres du processus",
+    "description": "Page title for the manage process members page"
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
@@ -11418,6 +11434,10 @@
     "defaultMessage": "Veuillez ne pas fournir des renseignements personnels supplémentaires qui ne sont pas requis à cette fin.",
     "description": "Paragraph for privacy policy page"
   },
+  "zRw5Fs": {
+    "defaultMessage": "Retirez {userName} de {poolName}.",
+    "description": "Label for the dialog trigger to remove a user from a process/pool"
+  },
   "zXkLL2": {
     "defaultMessage": "Non démontrée (supprimée du processus)",
     "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
@@ -11437,6 +11457,10 @@
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
     "description": "Heading for the education requirement option secondary school diploma."
+  },
+  "zejtvd": {
+    "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
+    "description": "Lead text for the list of roles the user will lose"
   },
   "zemp3H": {
     "defaultMessage": "Niveau de sécurité",
