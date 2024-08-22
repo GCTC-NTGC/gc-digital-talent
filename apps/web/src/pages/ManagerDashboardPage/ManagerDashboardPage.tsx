@@ -13,6 +13,7 @@ import {
   DropdownMenu,
   Button,
   ResourceBlock,
+  Accordion,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -98,6 +99,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
               data-h2-gap="base(x1)"
+              data-h2-flex-grow="p-tablet(2)"
             >
               <TaskCard.Root
                 icon={WrenchScrewdriverIcon}
@@ -110,114 +112,125 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 headingAs="h2"
               >
                 <TaskCard.Item>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x0.5)"
-                  >
-                    <div>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage: "Your talent searches ({count})",
-                          id: "aeCkWS",
-                          description:
-                            "Title for a list of talent searches with a count",
-                        },
-                        {
-                          count: "0",
-                        },
-                      )}
-                    </div>
-                    <div>
-                      <Link>View all searches</Link>
-                      &bull;
-                      <Link>Start a new search</Link>
-                    </div>
-                    <div>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            'When you submit a request for talent using the "<a>Find talent</a>" feature, it will appear in this list while it remains active. Recipients of your request will have a fixed amount of time to reply, after which, only those who have accepted to share their information will remain available to you.',
-                          id: "HnrJJR",
-                          description:
-                            "Helper instructions for the manager tools",
-                        },
-                        {
-                          a: (chunks: ReactNode) =>
-                            linkAccessor(paths.search(), chunks),
-                        },
-                      )}
-                    </div>
+                  <Accordion.Root type="multiple" defaultValue={["item1"]}>
+                    <Accordion.Item value="item1">
+                      <Accordion.Trigger>
+                        {intl.formatMessage(
+                          {
+                            defaultMessage: "Your talent searches ({count})",
+                            id: "aeCkWS",
+                            description:
+                              "Title for a list of talent searches with a count",
+                          },
+                          {
+                            count: "0",
+                          },
+                        )}
+                      </Accordion.Trigger>
+                      <div
+                        // match accordion padding
+                        data-h2-padding="base(0 x1 x0.75 x1.3)"
+                        data-h2-display="base(flex)"
+                        data-h2-gap="base(x0.5)"
+                      >
+                        <Link color="primary">View all searches</Link>
+                        &bull;
+                        <Link color="primary">Start a new search</Link>
+                      </div>
+                      <Accordion.Content>
+                        <div
+                          data-h2-display="base(flex)"
+                          data-h2-flex-direction="base(column)"
+                          data-h2-gap="base(x0.5)"
+                        >
+                          <div>
+                            {intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  'When you submit a request for talent using the "<a>Find talent</a>" feature, it will appear in this list while it remains active. Recipients of your request will have a fixed amount of time to reply, after which, only those who have accepted to share their information will remain available to you.',
+                                id: "HnrJJR",
+                                description:
+                                  "Helper instructions for the manager tools",
+                              },
+                              {
+                                a: (chunks: ReactNode) =>
+                                  linkAccessor(paths.search(), chunks),
+                              },
+                            )}
+                          </div>
 
-                    <PreviewList.Root>
-                      <PreviewList.Item
-                        title="IT01: Junior application developer"
-                        metaData={[
-                          {
-                            key: "status-chip",
-                            type: "chip",
-                            color: "secondary",
-                            children: "Submitted",
-                          },
-                          {
-                            key: "match-count",
-                            type: "text",
-                            children: "40 potential matches",
-                          },
-                          {
-                            key: "open-date",
-                            type: "text",
-                            children: "Opened on: April 30th, 2024",
-                          },
-                        ]}
-                        buttonName="IT01: Junior application developer"
-                      />
-                      <PreviewList.Item
-                        title="IT-02: Application developer"
-                        metaData={[
-                          {
-                            key: "status-chip",
-                            type: "chip",
-                            color: "secondary",
-                            children: "Submitted",
-                          },
-                          {
-                            key: "match-count",
-                            type: "text",
-                            children: "56 potential matches",
-                          },
-                          {
-                            key: "open-date",
-                            type: "text",
-                            children: "Opened on: April 30th, 2024",
-                          },
-                        ]}
-                        buttonName="IT-02: Application developer"
-                      />
-                      <PreviewList.Item
-                        title="IT-02: Database architect"
-                        metaData={[
-                          {
-                            key: "status-chip",
-                            type: "chip",
-                            color: "warning",
-                            children: "Awaiting response",
-                          },
-                          {
-                            key: "match-count",
-                            type: "text",
-                            children: "12 potential matches",
-                          },
-                          {
-                            key: "open-date",
-                            type: "text",
-                            children: "Opened on: April 30th, 2024",
-                          },
-                        ]}
-                        buttonName="IT-02: Database architect"
-                      />
-                    </PreviewList.Root>
-                  </div>
+                          <PreviewList.Root>
+                            <PreviewList.Item
+                              title="IT01: Junior application developer"
+                              metaData={[
+                                {
+                                  key: "status-chip",
+                                  type: "chip",
+                                  color: "secondary",
+                                  children: "Submitted",
+                                },
+                                {
+                                  key: "match-count",
+                                  type: "text",
+                                  children: "40 potential matches",
+                                },
+                                {
+                                  key: "open-date",
+                                  type: "text",
+                                  children: "Opened on: April 30th, 2024",
+                                },
+                              ]}
+                              buttonName="IT01: Junior application developer"
+                            />
+                            <PreviewList.Item
+                              title="IT-02: Application developer"
+                              metaData={[
+                                {
+                                  key: "status-chip",
+                                  type: "chip",
+                                  color: "secondary",
+                                  children: "Submitted",
+                                },
+                                {
+                                  key: "match-count",
+                                  type: "text",
+                                  children: "56 potential matches",
+                                },
+                                {
+                                  key: "open-date",
+                                  type: "text",
+                                  children: "Opened on: April 30th, 2024",
+                                },
+                              ]}
+                              buttonName="IT-02: Application developer"
+                            />
+                            <PreviewList.Item
+                              title="IT-02: Database architect"
+                              metaData={[
+                                {
+                                  key: "status-chip",
+                                  type: "chip",
+                                  color: "warning",
+                                  children: "Awaiting response",
+                                },
+                                {
+                                  key: "match-count",
+                                  type: "text",
+                                  children: "12 potential matches",
+                                },
+                                {
+                                  key: "open-date",
+                                  type: "text",
+                                  children: "Opened on: April 30th, 2024",
+                                },
+                              ]}
+                              buttonName="IT-02: Database architect"
+                            />
+                          </PreviewList.Root>
+                        </div>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  </Accordion.Root>
                 </TaskCard.Item>
               </TaskCard.Root>
             </div>
