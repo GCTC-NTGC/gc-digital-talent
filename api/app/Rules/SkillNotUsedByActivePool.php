@@ -27,7 +27,7 @@ class SkillNotUsedByActivePool implements ValidationRule
             ->get();
 
         if (isset($activePoolsUsingSkill) && count($activePoolsUsingSkill) > 0) {
-            $fail(ApiError::SKILL_DELETE_IN_USE->localizedErrorMessage());
+            $fail(ApiError::SKILL_DELETE_IN_USE->localizedMessage());
         }
     }
 }

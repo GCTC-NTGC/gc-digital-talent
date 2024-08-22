@@ -54,8 +54,8 @@ final class SubmitApplicationValidator extends Validator
     public function messages(): array
     {
         return [
-            'submitted_at.prohibited' => ApiError::APPLICATION_SUBMITTED->localizedErrorMessage(),
-            'signature.required' => ApiError::APPLICATION_SIGNATURE_REQUIRED->localizedErrorMessage(),
+            'submitted_at.prohibited' => ApiError::APPLICATION_SUBMITTED->localizedMessage(),
+            'signature.required' => ApiError::APPLICATION_SIGNATURE_REQUIRED->localizedMessage(),
         ];
     }
 }

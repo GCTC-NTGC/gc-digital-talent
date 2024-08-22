@@ -29,7 +29,7 @@ final class UpdateDepartmentValidator extends Validator
     public function messages(): array
     {
         return [
-            'department.departmentNumber.unique' => ApiError::DEPARTMENT_NUMBER_IN_USE->localizedErrorMessage(),
+            'department.departmentNumber.unique' => ApiError::DEPARTMENT_NUMBER_IN_USE->localizedMessage(),
         ];
     }
 }

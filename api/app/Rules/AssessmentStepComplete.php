@@ -20,7 +20,7 @@ class AssessmentStepComplete implements ValidationRule
 
         // check step has at least one pool skill
         if (count($assessmentStep->poolSkills) === 0 && $assessmentStep->type !== AssessmentStepType::APPLICATION_SCREENING->name) {
-            $fail(ApiError::ASSESSMENT_STEP_MISSING_SKILLS->localizedErrorMessage());
+            $fail(ApiError::ASSESSMENT_STEP_MISSING_SKILLS->localizedMessage());
         }
     }
 }

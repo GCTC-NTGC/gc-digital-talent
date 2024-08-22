@@ -35,7 +35,7 @@ final class CreateUserSkill
                 return $existingModel;
             }
             throw ValidationException::withMessages([
-                'skill_id' => [ApiError::USER_SKILL_EXISTS->localizedErrorMessage()],
+                'skill_id' => [ApiError::USER_SKILL_EXISTS->localizedMessage()],
             ]);
         }
 

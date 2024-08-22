@@ -24,18 +24,18 @@ class RoleTeamConsistent implements ValidationRule
 
         if ($role?->is_team_based) {
             if (is_null($teamId)) {
-                $fail(ApiError::TEAM_ID_REQUIRED->localizedErrorMessage());
+                $fail(ApiError::TEAM_ID_REQUIRED->localizedMessage());
             }
             $teamExists = Team::where('id', $teamId)->exists();
             if (! $teamExists) {
-                $fail(ApiError::TEAM_DOES_NOT_EXIST->localizedErrorMessage());
+                $fail(ApiError::TEAM_DOES_NOT_EXIST->localizedMessage());
             }
         } else {
             if (! is_null($teamId)) {
-                $fail(ApiError::ROLE_NOT_TEAM_ROLE->localizedErrorMessage());
+                $fail(ApiError::ROLE_NOT_TEAM_ROLE->localizedMessage());
             }
             if (is_null($role)) {
-                $fail(ApiError::ROLE_NOT_FOUND->localizedErrorMessage());
+                $fail(ApiError::ROLE_NOT_FOUND->localizedMessage());
             }
         }
     }

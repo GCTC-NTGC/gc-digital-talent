@@ -29,7 +29,7 @@ final class DeleteApplication
         $success = $application->forceDelete();
         if (! $success) {
             throw ValidationException::withMessages([
-                'id' => [ApiError::APPLICATION_DELETE_FAILED->localizedErrorMessage()],
+                'id' => [ApiError::APPLICATION_DELETE_FAILED->localizedMessage()],
             ]);
         }
 

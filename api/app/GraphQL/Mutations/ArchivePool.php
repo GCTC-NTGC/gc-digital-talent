@@ -21,7 +21,7 @@ final class ArchivePool
         if ($pool->getStatusAttribute() !== PoolStatus::CLOSED->name) {
             throw ValidationException::withMessages([
                 'status' => [
-                    ApiError::PROCESS_ARCHIVE_INVALID_STATUS->localizedErrorMessage(),
+                    ApiError::PROCESS_ARCHIVE_INVALID_STATUS->localizedMessage(),
                 ],
             ]);
         }

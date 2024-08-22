@@ -21,14 +21,14 @@ final class SwapAssessmentStepOrder
         // Ensure the steps belong to the same pool
         if ($stepA->pool_id !== $stepB->pool_id) {
             throw ValidationException::withMessages([
-                'pool_id' => [ApiError::ASSESSMENT_STEP_DIFFERENT_POOL->localizedErrorMessage()],
+                'pool_id' => [ApiError::ASSESSMENT_STEP_DIFFERENT_POOL->localizedMessage()],
             ]);
         }
 
         // Don't swap the reserved first two spots
         if ($stepA->sort_order < 3 || $stepB->sort_order < 3) {
             throw ValidationException::withMessages([
-                'sort_order' => [ApiError::ASSESSMENT_STEP_CANNOT_SWAP->localizedErrorMessage()],
+                'sort_order' => [ApiError::ASSESSMENT_STEP_CANNOT_SWAP->localizedMessage()],
             ]);
         }
 

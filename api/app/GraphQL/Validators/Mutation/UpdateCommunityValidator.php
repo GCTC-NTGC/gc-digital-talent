@@ -29,7 +29,7 @@ final class UpdateCommunityValidator extends Validator
     public function messages(): array
     {
         return [
-            'community.key.unique' => ApiError::COMMUNITY_KEY_IN_USE->localizedErrorMessage(),
+            'community.key.unique' => ApiError::COMMUNITY_KEY_IN_USE->localizedMessage(),
         ];
     }
 }

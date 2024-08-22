@@ -40,7 +40,7 @@ final class UpdatePublishedPoolInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'changeJustification.required' => ApiError::PROCESS_CHANGE_JUSTIFICATION_REQUIRED->localizedErrorMessage(),
+            'changeJustification.required' => ApiError::PROCESS_CHANGE_JUSTIFICATION_REQUIRED->localizedMessage(),
         ];
     }
 }

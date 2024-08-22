@@ -29,7 +29,7 @@ final class UpdateTeamValidator extends Validator
     public function messages(): array
     {
         return [
-            'team.name.unique' => ApiError::TEAM_NAME_IN_USE->localizedErrorMessage(),
+            'team.name.unique' => ApiError::TEAM_NAME_IN_USE->localizedMessage(),
         ];
     }
 }

@@ -43,6 +43,6 @@ class PoolPublished implements Rule
      */
     public function message()
     {
-        return ApiError::APPLICATION_POOL_NOT_PUBLISHED->localizedErrorMessage();
+        return ApiError::APPLICATION_POOL_NOT_PUBLISHED->localizedMessage();
     }
 }

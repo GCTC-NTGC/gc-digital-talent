@@ -19,9 +19,9 @@ class LocalizedEnumExists implements ValidationRule
         $enum = 'App\\Enums\\'.$value;
 
         if (! enum_exists($enum)) {
-            $fail(ApiError::ENUM_NOT_FOUND->localizedErrorMessage());
+            $fail(ApiError::ENUM_NOT_FOUND->localizedMessage());
         } elseif (! method_exists($enum, 'localizedString')) {
-            $fail(ApiError::ENUM_NOT_LOCALIZED->localizedErrorMessage());
+            $fail(ApiError::ENUM_NOT_LOCALIZED->localizedMessage());
         }
     }
 }

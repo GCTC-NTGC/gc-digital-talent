@@ -46,8 +46,8 @@ final class UpdateUserInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'email.unique' => ApiError::EMAIL_IN_USE->localizedErrorMessage(),
-            'sub.unique' => ApiError::USER_SUB_IN_USE->localizedErrorMessage(),
+            'email.unique' => ApiError::EMAIL_IN_USE->localizedMessage(),
+            'sub.unique' => ApiError::USER_SUB_IN_USE->localizedMessage(),
         ];
     }
 }

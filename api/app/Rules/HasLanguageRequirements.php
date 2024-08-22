@@ -47,6 +47,6 @@ class HasLanguageRequirements implements Rule
      */
     public function message()
     {
-        return ApiError::APPLICATION_MISSING_LANGUAGE_REQUIREMENTS->localizedErrorMessage();
+        return ApiError::APPLICATION_MISSING_LANGUAGE_REQUIREMENTS->localizedMessage();
     }
 }

@@ -62,7 +62,7 @@ class HasEssentialSkills implements Rule
      */
     public function message()
     {
-        return ApiError::APPLICATION_MISSING_ESSENTIAL_SKILLS->localizedErrorMessage();
+        return ApiError::APPLICATION_MISSING_ESSENTIAL_SKILLS->localizedMessage();
     }
 
     /**

@@ -43,12 +43,12 @@ class AssessmentResultPoolConsistent implements ValidationRule
                     $this->parentAssessmentStep->pool_id === $this->parentPoolCandidate->pool_id &&
                     $this->parentAssessmentStep->pool_id === $this->parentPoolSkill->pool_id)
             ) {
-                $fail(ApiError::ASSESSMENT_STEP_REFERENCES_MULTIPLE_POOLS->localizedErrorMessage());
+                $fail(ApiError::ASSESSMENT_STEP_REFERENCES_MULTIPLE_POOLS->localizedMessage());
             }
         } elseif (
             ! ($this->parentAssessmentStep->pool_id === $this->parentPoolCandidate->pool_id)
         ) {
-            $fail(ApiError::ASSESSMENT_STEP_REFERENCES_MULTIPLE_POOLS->localizedErrorMessage());
+            $fail(ApiError::ASSESSMENT_STEP_REFERENCES_MULTIPLE_POOLS->localizedMessage());
         }
     }
 }

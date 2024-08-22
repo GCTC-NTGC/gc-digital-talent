@@ -38,7 +38,7 @@ class QuestionsAnswered implements ValidationRule
                 ->count();
 
             if ($responseCount < count($generalQuestions)) {
-                $fail(ApiError::APPLICATION_MISSING_QUESTION_RESPONSE->localizedErrorMessage());
+                $fail(ApiError::APPLICATION_MISSING_QUESTION_RESPONSE->localizedMessage());
             }
         }
 
@@ -52,7 +52,7 @@ class QuestionsAnswered implements ValidationRule
                 ->count();
 
             if ($responseCount < count($screeningQuestions)) {
-                $fail(ApiError::APPLICATION_MISSING_QUESTION_RESPONSE->localizedErrorMessage());
+                $fail(ApiError::APPLICATION_MISSING_QUESTION_RESPONSE->localizedMessage());
             }
         }
     }

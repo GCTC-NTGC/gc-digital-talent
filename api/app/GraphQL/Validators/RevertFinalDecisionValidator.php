@@ -31,7 +31,7 @@ final class RevertFinalDecisionValidator extends Validator
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
             throw ValidationException::withMessages([
-                'status' => [ApiError::POOL_CANDIDATE_INVALID_STATUS_REVERT_FINAL_DECISION->localizedErrorMessage()],
+                'status' => [ApiError::POOL_CANDIDATE_INVALID_STATUS_REVERT_FINAL_DECISION->localizedMessage()],
             ]);
         }
 

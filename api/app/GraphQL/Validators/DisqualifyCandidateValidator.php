@@ -30,7 +30,7 @@ final class DisqualifyCandidateValidator extends Validator
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
             throw ValidationException::withMessages([
-                'status' => [ApiError::POOL_CANDIDATE_INVALID_STATUS_DISQUALIFICATION->localizedErrorMessage()],
+                'status' => [ApiError::POOL_CANDIDATE_INVALID_STATUS_DISQUALIFICATION->localizedMessage()],
             ]);
         }
 

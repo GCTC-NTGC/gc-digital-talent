@@ -37,9 +37,9 @@ final class UpdatePoolCandidateClaimVerificationInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'priorityVerificationExpiry.required' => ApiError::EXPIRTY_DATE_REQUIRED->localizedErrorMessage(),
-            'priorityVerificationExpiry.after' => ApiError::EXPIRY_DATE_AFTER_TODAY->localizedErrorMessage(),
-            'veteranVerificationExpiry.after' => ApiError::EXPIRY_DATE_AFTER_TODAY->localizedErrorMessage(),
+            'priorityVerificationExpiry.required' => ApiError::EXPIRTY_DATE_REQUIRED->localizedMessage(),
+            'priorityVerificationExpiry.after' => ApiError::EXPIRY_DATE_AFTER_TODAY->localizedMessage(),
+            'veteranVerificationExpiry.after' => ApiError::EXPIRY_DATE_AFTER_TODAY->localizedMessage(),
         ];
     }
 }

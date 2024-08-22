@@ -53,9 +53,9 @@ final class ChangePoolClosingDateValidator extends Validator
     public function messages(): array
     {
         return [
-            'closingDate.after_or_equal' => ApiError::PROCESS_CLOSING_DATE_EXTEND->localizedErrorMessage(),
-            'closingDate.after' => ApiError::PROCESS_CLOSING_DATE_FUTURE->localizedErrorMessage(),
-            'id.App\\Rules\\PoolSkillsNotDeleted' => ApiError::PROCESS_CANNOT_REOPEN_DELETED_SKILL->localizedErrorMessage(),
+            'closingDate.after_or_equal' => ApiError::PROCESS_CLOSING_DATE_EXTEND->localizedMessage(),
+            'closingDate.after' => ApiError::PROCESS_CLOSING_DATE_FUTURE->localizedMessage(),
+            'id.App\\Rules\\PoolSkillsNotDeleted' => ApiError::PROCESS_CANNOT_REOPEN_DELETED_SKILL->localizedMessage(),
         ];
     }
 }

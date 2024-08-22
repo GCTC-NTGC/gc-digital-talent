@@ -19,7 +19,7 @@ class SkillNotDeleted implements ValidationRule
         $inputSkillId = $value;
 
         if (in_array($inputSkillId, $deletedSkillsIds)) {
-            $fail(ApiError::SKILL_DELETED->localizedErrorMessage());
+            $fail(ApiError::SKILL_DELETED->localizedMessage());
         }
     }
 }

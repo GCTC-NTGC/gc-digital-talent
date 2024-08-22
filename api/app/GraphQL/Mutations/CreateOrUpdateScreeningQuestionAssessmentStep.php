@@ -38,7 +38,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                     $skill = PoolSkill::find($skillID);
                     if ($skill === null || $skill->pool_id !== $pool->id) {
                         throw ValidationException::withMessages([
-                            'assessmentStep.poolSkills' => [ApiError::POOL_SKILL_DOES_NOT_EXIST->localizedErrorMessage()],
+                            'assessmentStep.poolSkills' => [ApiError::POOL_SKILL_DOES_NOT_EXIST->localizedMessage()],
                         ]);
                     }
                 }
@@ -52,7 +52,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                     $questionToUpdate = $existingQuestions->find($incomingQuestion['id']);
                     if ($questionToUpdate === null) {
                         throw ValidationException::withMessages([
-                            'screeningQuestions' => [ApiError::SCREENING_QUESTION_DOES_NOT_EXIST->localizedErrorMessage()],
+                            'screeningQuestions' => [ApiError::SCREENING_QUESTION_DOES_NOT_EXIST->localizedMessage()],
                         ]);
                     }
 

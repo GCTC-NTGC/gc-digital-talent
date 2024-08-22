@@ -28,7 +28,7 @@ final class DeleteApplicationValidator extends Validator
     public function messages(): array
     {
         return [
-            'in' => ApiError::APPLICATION_INVALID_STATUS_DELETE->localizedErrorMessage(),
+            'in' => ApiError::APPLICATION_INVALID_STATUS_DELETE->localizedMessage(),
         ];
     }
 }

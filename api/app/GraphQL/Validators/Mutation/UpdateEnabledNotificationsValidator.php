@@ -30,7 +30,7 @@ final class UpdateEnabledNotificationsValidator extends Validator
     public function messages(): array
     {
         return [
-            'in' => ApiError::NOTIFICATION_FAMILY_CANNOT_ENABLE->localizedErrorMessage(),
+            'in' => ApiError::NOTIFICATION_FAMILY_CANNOT_ENABLE->localizedMessage(),
         ];
     }
 }

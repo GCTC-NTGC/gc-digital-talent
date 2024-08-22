@@ -55,8 +55,8 @@ final class CreateAssessmentResultInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'poolSkillId' => ApiError::ASSESSMENT_RESULT_MISSING_SKILL->localizedErrorMessage(),
-            'assessmentDecisionLevel.prohibited' => ApiError::ASSESSMENT_RESULT_DECISION_LEVEL_PROHIBITED->localizedErrorMessage(),
+            'poolSkillId' => ApiError::ASSESSMENT_RESULT_MISSING_SKILL->localizedMessage(),
+            'assessmentDecisionLevel.prohibited' => ApiError::ASSESSMENT_RESULT_DECISION_LEVEL_PROHIBITED->localizedMessage(),
         ];
     }
 }

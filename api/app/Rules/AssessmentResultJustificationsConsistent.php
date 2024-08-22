@@ -39,7 +39,7 @@ class AssessmentResultJustificationsConsistent implements ValidationRule
                 )
             ) > 0
         ) {
-            $fail(ApiError::ASSESSMENT_RESULT_EDUCATION_ASSESSMENT_SKILL_JUSTIFICATION_PROHIBITED->localizedErrorMessage());
+            $fail(ApiError::ASSESSMENT_RESULT_EDUCATION_ASSESSMENT_SKILL_JUSTIFICATION_PROHIBITED->localizedMessage());
         }
 
         if (
@@ -57,7 +57,7 @@ class AssessmentResultJustificationsConsistent implements ValidationRule
                 )
             ) > 0
         ) {
-            $fail(ApiError::ASSESSMENT_RESULT_SKILL_ASSESSMENMT_EDUCATION_JUSTIFICATION_PROHIBITED->localizedErrorMessage());
+            $fail(ApiError::ASSESSMENT_RESULT_SKILL_ASSESSMENMT_EDUCATION_JUSTIFICATION_PROHIBITED->localizedMessage());
         }
     }
 }

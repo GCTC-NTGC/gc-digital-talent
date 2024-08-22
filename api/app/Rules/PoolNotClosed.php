@@ -28,7 +28,7 @@ class PoolNotClosed implements ValidationRule
         $passes = is_null($pool->closing_date) || $pool->closing_date->isFuture();
 
         if (! $passes) {
-            $fail(ApiError::APPLICATION_POOL_CLOSED->localizedErrorMessage());
+            $fail(ApiError::APPLICATION_POOL_CLOSED->localizedMessage());
         }
     }
 }

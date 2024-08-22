@@ -25,7 +25,7 @@ final class RevertPlaceCandidateValidator extends Validator
 
         if (! (in_array($candidate->pool_candidate_status, $placedStatuses))) {
             throw ValidationException::withMessages([
-                'status' => [ApiError::POOL_CANDIDATE_ALREADY_PLACED->localizedErrorMessage()],
+                'status' => [ApiError::POOL_CANDIDATE_ALREADY_PLACED->localizedMessage()],
             ]);
         }
 

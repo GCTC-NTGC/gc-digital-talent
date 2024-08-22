@@ -43,6 +43,6 @@ class HasEducationRequirement implements Rule
      */
     public function message()
     {
-        return ApiError::APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE->localizedErrorMessage();
+        return ApiError::APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE->localizedMessage();
     }
 }

@@ -39,6 +39,6 @@ class NotAlreadyApplied implements Rule
      */
     public function message()
     {
-        return ApiError::APPLICATION_EXISTS->localizedErrorMessage();
+        return ApiError::APPLICATION_EXISTS->localizedMessage();
     }
 }

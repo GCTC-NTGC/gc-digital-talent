@@ -33,7 +33,7 @@ final class QualifyCandidateValidator extends Validator
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
             throw ValidationException::withMessages([
-                'status' => [ApiError::POOL_CANDIDATE_INVALID_STATUS_QUALIFICATION->localizedErrorMessage()],
+                'status' => [ApiError::POOL_CANDIDATE_INVALID_STATUS_QUALIFICATION->localizedMessage()],
             ]);
         }
 
@@ -45,8 +45,8 @@ final class QualifyCandidateValidator extends Validator
     public function messages(): array
     {
         return [
-            'expiryDate.required' => ApiError::EXPIRTY_DATE_REQUIRED->localizedErrorMessage(),
-            'expiryDate.after' => ApiError::EXPIRY_DATE_AFTER_TODAY->localizedErrorMessage(),
+            'expiryDate.required' => ApiError::EXPIRTY_DATE_REQUIRED->localizedMessage(),
+            'expiryDate.after' => ApiError::EXPIRY_DATE_AFTER_TODAY->localizedMessage(),
         ];
     }
 }

@@ -20,7 +20,7 @@ class PoolSkillIsAssessed implements ValidationRule
 
         // check essential pool skills have at least one assessment connected
         if (count($poolSkill->assessmentSteps) === 0 && $poolSkill->type === PoolSkillType::ESSENTIAL->name) {
-            $fail(ApiError::POOL_SKILL_NOT_ASSESSED->localizedErrorMessage());
+            $fail(ApiError::POOL_SKILL_NOT_ASSESSED->localizedMessage());
         }
     }
 }

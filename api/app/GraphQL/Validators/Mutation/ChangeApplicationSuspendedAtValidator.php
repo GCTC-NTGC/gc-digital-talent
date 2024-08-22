@@ -23,7 +23,7 @@ final class ChangeApplicationSuspendedAtValidator extends Validator
     public function messages(): array
     {
         return [
-            'submitted_at' => ApiError::APPLICATION_NOT_SUBMITTED->localizedErrorMessage(),
+            'submitted_at' => ApiError::APPLICATION_NOT_SUBMITTED->localizedMessage(),
         ];
     }
 }

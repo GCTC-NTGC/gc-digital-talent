@@ -37,7 +37,7 @@ final class VerifyUserEmail
 
         if (! $isValid) {
             throw ValidationException::withMessages([
-                'code' => [ApiError::EMAIL_VERIFICATION_FAILED->localizedErrorMessage()],
+                'code' => [ApiError::EMAIL_VERIFICATION_FAILED->localizedMessage()],
             ]);
         }
 

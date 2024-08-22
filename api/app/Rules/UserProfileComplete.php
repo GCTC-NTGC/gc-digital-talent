@@ -39,6 +39,6 @@ class UserProfileComplete implements Rule
      */
     public function message()
     {
-        return ApiError::USER_PROFILE_INCOMPLETE->localizedErrorMessage();
+        return ApiError::USER_PROFILE_INCOMPLETE->localizedMessage();
     }
 }

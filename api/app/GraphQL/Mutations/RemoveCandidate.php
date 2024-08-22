@@ -48,7 +48,7 @@ final class RemoveCandidate
             case PoolCandidateStatus::PLACED_TERM->name:
             case PoolCandidateStatus::PLACED_INDETERMINATE->name:
                 throw ValidationException::withMessages([
-                    'status' => [ApiError::POOL_CANDIDATE_ALREADY_PLACED->localizedErrorMessage()],
+                    'status' => [ApiError::POOL_CANDIDATE_ALREADY_PLACED->localizedMessage()],
                 ]);
                 break;
             case PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name:
@@ -57,12 +57,12 @@ final class RemoveCandidate
             case PoolCandidateStatus::QUALIFIED_WITHDREW->name:
             case PoolCandidateStatus::REMOVED->name:
                 throw ValidationException::withMessages([
-                    'status' => [ApiError::POOL_CANDIDATE_ALREADY_REMOVED->localizedErrorMessage()],
+                    'status' => [ApiError::POOL_CANDIDATE_ALREADY_REMOVED->localizedMessage()],
                 ]);
                 break;
             default:
                 throw ValidationException::withMessages([
-                    'status' => [ApiError::POOL_CANDIDATE_UNEXPECTED_STATUS->localizedErrorMessage()],
+                    'status' => [ApiError::POOL_CANDIDATE_UNEXPECTED_STATUS->localizedMessage()],
                 ]);
                 break;
         }

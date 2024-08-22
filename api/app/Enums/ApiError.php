@@ -95,7 +95,7 @@ enum ApiError
 
     case USER_SKILL_EXISTS;
 
-    public function localizedErrorMessage()
+    public function localizedMessage()
     {
         $localizedEnum = $this->localize();
 
