@@ -25,9 +25,7 @@ class AcceptLanguageMiddleware
     public function handle(Request $request, Closure $next)
     {
         $locale = $request->getPreferredLanguage($this->availableLocales);
-        if ($locale == 'en' || $locale == 'fr') {
-            App::setLocale($locale);
-        }
+        App::setLocale($locale);
 
         return $next($request);
     }
