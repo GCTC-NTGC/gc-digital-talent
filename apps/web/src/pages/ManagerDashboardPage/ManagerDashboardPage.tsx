@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import {
   ThrowNotFound,
@@ -10,8 +9,6 @@ import {
   Link,
   TaskCard,
   PreviewList,
-  DropdownMenu,
-  Button,
   ResourceBlock,
   Accordion,
 } from "@gc-digital-talent/ui";
@@ -241,7 +238,8 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
               data-h2-gap="base(x1)"
               data-h2-max-width="p-tablet(x14)"
             >
-              <TaskCard.Root
+              {/* Switch to new component in #11031 */}
+              <ResourceBlock.Root
                 headingColor="quinary"
                 headingAs="h2"
                 title={intl.formatMessage({
@@ -250,28 +248,17 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   description: "Card title for a nav role switcher",
                 })}
               >
-                <TaskCard.Item>
-                  <DropdownMenu.Root>
-                    <DropdownMenu.Trigger>
-                      <Button utilityIcon={ChevronDownIcon}>Role</Button>
-                    </DropdownMenu.Trigger>
-                    <DropdownMenu.Content align="end" collisionPadding={2}>
-                      <DropdownMenu.Item>Applicant</DropdownMenu.Item>
-                      <DropdownMenu.Item>Manager</DropdownMenu.Item>
-                      <DropdownMenu.Item>Admin</DropdownMenu.Item>
-                    </DropdownMenu.Content>
-                  </DropdownMenu.Root>
-                  <div>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Easily switch between roles your account has access to.",
-                      id: "gPvdHC",
-                      description:
-                        "Helper instructions for a nav role switcher",
-                    })}
-                  </div>
-                </TaskCard.Item>
-              </TaskCard.Root>
+                <ResourceBlock.Item
+                  title="Manager"
+                  href="#"
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Easily switch between roles your account has access to.",
+                    id: "gPvdHC",
+                    description: "Helper instructions for a nav role switcher",
+                  })}
+                ></ResourceBlock.Item>
+              </ResourceBlock.Root>
               <ResourceBlock.Root
                 headingColor="quaternary"
                 headingAs="h2"
