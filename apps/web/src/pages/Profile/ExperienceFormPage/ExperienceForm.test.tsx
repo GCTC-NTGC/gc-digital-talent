@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
-import { screen, waitFor } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { never, fromValue } from "wonka";
 
@@ -343,22 +343,21 @@ describe("ExperienceForm", () => {
     await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
   });
 
-  // TODO: Commenting out test below until the <SkillBrowserDialog /> error is resolved... When skill dialog is opened this console.error() appears -> "Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
-  // it("should add skill", async () => {
-  //   renderExperienceForm({
-  //     userId: mockUserId,
-  //     experienceType: "award",
-  //     skillsQuery: skillFragments,
-  //   });
+  it("should add skill", async () => {
+    renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "award",
+      skillsQuery: skillFragments,
+    });
 
-  //   await act(() => {
-  //     screen
-  //       .getAllByRole("button", {
-  //         name: /add a skill/i,
-  //       })[0]
-  //       .click();
-  //   });
-  // });
+    await act(() => {
+      screen
+        .getAllByRole("button", {
+          name: /add a skill/i,
+        })[0]
+        .click();
+    });
+  });
 
   it("delete should not render when edit is false", async () => {
     renderExperienceForm({
