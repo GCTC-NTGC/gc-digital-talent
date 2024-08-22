@@ -33,7 +33,7 @@ const linkAccessor = (href: string, chunks: ReactNode) => {
   );
 };
 
-export const ManagerDashboardUser_Fragment = graphql(/* GraphQL */ `
+const ManagerDashboardUser_Fragment = graphql(/* GraphQL */ `
   fragment ManagerDashboardUser on User {
     id
     firstName

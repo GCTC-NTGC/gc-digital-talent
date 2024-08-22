@@ -32,14 +32,16 @@ const createRoute = (locale: Locales) =>
                   lazy: () =>
                     import("../pages/Home/ManagerHomePage/ManagerHomePage"),
                 },
-                // Unfinished page:
-                // {
-                //   path: "dashboard",
-                //   lazy: () =>
-                //     import(
-                //       "../pages/ManagerDashboardPage/ManagerDashboardPage"
-                //     ),
-                // },
+                {
+                  path: "dashboard",
+                  loader: async () => {
+                    throw new Response("Not Found", { status: 404 }); // unfinished page
+                  },
+                  lazy: () =>
+                    import(
+                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                    ),
+                },
               ],
             },
             {
