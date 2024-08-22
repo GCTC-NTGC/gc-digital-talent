@@ -99,7 +99,7 @@
     "tsconfig": "workspace:*",
     "typescript": "^5.5.4",
     "vite": "^5.4.0",
-    "vite-plugin-compression2": "^1.1.4",
+    "vite-plugin-compression2": "^1.2.0",
     "vite-plugin-html": "^3.2.2"
   }
 }
