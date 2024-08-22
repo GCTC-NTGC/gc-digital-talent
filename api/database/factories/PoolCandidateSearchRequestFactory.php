@@ -9,6 +9,7 @@ use App\Models\ApplicantFilter;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolCandidateSearchRequestFactory extends Factory
@@ -29,8 +30,10 @@ class PoolCandidateSearchRequestFactory extends Factory
     {
 
         $communityFetched = Community::inRandomOrder()->first();
-
         $community = isset($communityFetched) ? $communityFetched : Community::factory()->create();
+        $guestUser = null;
+        $users = [User::inRandomOrder()->first(), $guestUser];
+        $user = $users[array_rand($users)];
 
         return [
             'full_name' => $this->faker->name(),
@@ -49,6 +52,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'position_type' => $this->faker->randomElement(PoolCandidateSearchPositionType::cases())->name,
             'reason' => $this->faker->randomElement(PoolCandidateSearchRequestReason::cases())->name,
             'community_id' => $community->id,
+            'user_id' => $user?->id,
         ];
     }
 

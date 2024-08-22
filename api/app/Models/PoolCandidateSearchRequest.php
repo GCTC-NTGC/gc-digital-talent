@@ -55,6 +55,22 @@ class PoolCandidateSearchRequest extends Model
     ];
 
     /**
+     * Boot function for using with PoolCandidateSearchRequest
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        parent::boot();
+        static::creating(function ($searchRequest) use ($user) {
+            $searchRequest->user_id = $user?->id;
+        });
+    }
+
+    /**
      * The "booted" method of the model.
      */
     protected static function booted(): void

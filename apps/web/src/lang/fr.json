@@ -535,10 +535,6 @@
     "defaultMessage": "Utilisez le bouton \"Créer une compétence\" pour commencer.",
     "description": "Instructions for adding a skill item."
   },
-  "0k3vfO": {
-    "defaultMessage": "Vérifier votre adresse courriel de contact",
-    "description": "Button label for submit and verify email button on getting started form."
-  },
   "0k6j4V": {
     "defaultMessage": "Tâches de travail (anglais)",
     "description": "Label for a process' English work tasks"
@@ -1912,7 +1908,7 @@
     "description": "Label displayed on the additional pools field of the change candidate status dialog"
   },
   "8W/am2": {
-    "defaultMessage": "Cette liste vous permet de mettre en évidence <strong>jusqu’à 5 comportements ou compétences « générales »</strong> que vous maîtrisez. Montrez-nous qui vous êtes!",
+    "defaultMessage": "Cette liste vous permet de mettre en évidence <strong>jusqu'à 5 compétences comportementales ou « générales »</strong> que vous maîtrisez.",
     "description": "Description of a users top behavioural skills"
   },
   "8Y+eEc": {
@@ -2972,7 +2968,7 @@
     "description": "Breadcrumb title for the create classification page link."
   },
   "EB70Il": {
-    "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe",
+    "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe.",
     "description": "Description of the top skills section and how to use it."
   },
   "EBE5Gv": {
@@ -3012,7 +3008,7 @@
     "description": "Label for preferred lang for interviews in profile details box."
   },
   "EVkmeA": {
-    "defaultMessage": "Modifier les principales compétences comportementales",
+    "defaultMessage": "Modifiez les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
   "EWq+u3": {
@@ -3248,7 +3244,7 @@
     "description": "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
   },
   "FpDMGu": {
-    "defaultMessage": "Lien établi avec l’expérience!",
+    "defaultMessage": "Lien avec l’expérience supprimé!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
   "Fs444j": {
@@ -3876,7 +3872,7 @@
     "description": "Text telling users that Digital Community Management can still help them"
   },
   "JWAyQT": {
-    "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner",
+    "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner.",
     "description": "Description of a users technical skills to be improved"
   },
   "JamdKo": {
@@ -3998,6 +3994,10 @@
   "K6Tzh1": {
     "defaultMessage": "Reliez votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
+  },
+  "K73zGq": {
+    "defaultMessage": "Si vos compétences principales mettent en évidence vos points forts, cette section vous permet de nous donner un aperçu des compétences que vous vous efforcez d’améliorer. Ces compétences ne doivent pas nécessairement être des faiblesses. Si vous souhaitez améliorer une compétence grâce à l’expérience ou à la formation, mentionnez-la ici.",
+    "description": "Description of the skills to improve section and how to use it."
   },
   "K8CPir": {
     "defaultMessage": "Posez votre candidature à {poolName}",
@@ -4327,6 +4327,10 @@
     "defaultMessage": "Retourner aux équipes",
     "description": "Button text to return to the table of teams page"
   },
+  "LpCMiC": {
+    "defaultMessage": "Vérifiez votre adresse courriel de contact",
+    "description": "Verify your contact email text"
+  },
   "LphzpW": {
     "defaultMessage": "Que faire si j’ai besoin de choisir plus que {maxSteps} méthodes d’évaluation?",
     "description": "second question in the organize section in the assessment plan builder"
@@ -4560,7 +4564,7 @@
     "description": "Heading for the Scope of the contract section on the digital services contracting questionnaire"
   },
   "N6DlK/": {
-    "defaultMessage": "Modifier les compétences techniques de haut niveau",
+    "defaultMessage": "Modifiez les compétences techniques de haut niveau",
     "description": "Link text for editing a users top technical skills"
   },
   "N6kGOU": {
@@ -7591,7 +7595,7 @@
     "description": "GCKey question and answer for more support"
   },
   "dnKWUf": {
-    "defaultMessage": "Ajouter des compétences à cette liste.",
+    "defaultMessage": "Ajoutez des compétences à cette liste.",
     "description": "Text displayed when no skills have been added to a ranking"
   },
   "doatZI": {
@@ -8193,10 +8197,6 @@
   "glDA2j": {
     "defaultMessage": "Le fournisseur et ses employés devront-ils avoir accès à des renseignements ou à des actifs protégés et/ou classifiés?",
     "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "gn1vl8": {
-    "defaultMessage": "Si vos compétences principales mettent en évidence vos points forts, cette section vous permet de nous donner un aperçu des compétences que vous vous efforcez d’améliorer. Les compétences énumérées ci-dessous ne doivent pas nécessairement être des faiblesses. Si vous souhaitez améliorer une compétence grâce à l’expérience ou à la formation, mentionnez-la ici.",
-    "description": "Description of the skills to improve section and how to use it."
   },
   "gnGAe8": {
     "defaultMessage": "Niveau de classification actuel",
