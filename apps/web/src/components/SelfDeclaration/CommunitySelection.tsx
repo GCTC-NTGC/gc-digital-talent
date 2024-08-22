@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { ReactNode, useState, useEffect, useId } from "react";
+import { ReactNode, useEffect, useId } from "react";
 
 import {
   FieldLabels,
@@ -9,12 +9,10 @@ import {
   Checkbox,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { Alert } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 
-import HelpLink from "./HelpLink";
 import { hasCommunityAndOther } from "./utils";
 import CommunityIcon from "./CommunityIcon";
 import CommunityChips from "./CommunityChips";
@@ -40,8 +38,6 @@ interface CommunityListProps {
 
 export const CommunityList = ({ labels }: CommunityListProps) => {
   const intl = useIntl();
-  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
-  const [hasDismissedAlert, setHasDismissedAlert] = useState<boolean>(false);
   const { watch, setValue, resetField, setError, clearErrors, formState } =
     useFormContext();
 
@@ -51,11 +47,6 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   ] = watch(["communities", "isStatus"]);
 
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
-
-  useEffect(() => {
-    // Is not represented and has at least on other community selected
-    setIsAlertOpen(!!(isOtherAndHasCommunity && !hasDismissedAlert));
-  }, [isOtherAndHasCommunity, setIsAlertOpen, hasDismissedAlert]);
 
   useEffect(() => {
     if (
@@ -77,11 +68,6 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
     }
   }, [clearErrors, communitiesValue, intl, setError]);
   const customAlertId = useId();
-
-  const handleAlertDismiss = () => {
-    setIsAlertOpen(false);
-    setHasDismissedAlert(true);
-  };
 
   const handleDismissCommunity = (community: string) => {
     const newCommunities = communitiesValue.filter(
@@ -245,34 +231,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
       <CommunityChips
         communities={communitiesValue}
         status={isStatus}
-        otherAlert={!!(isOtherAndHasCommunity && isAlertOpen)}
+        otherAlert={!!isOtherAndHasCommunity}
         onDismiss={handleDismissCommunity}
       />
-      {isAlertOpen && (
-        <Alert.Root type="warning" dismissible onDismiss={handleAlertDismiss}>
-          <Alert.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                'Are you sure you meant to select "I am Indigenous and I don\'t see my community here?"',
-              id: "at11n5",
-              description:
-                "Title for the alert warning users about selection not represented and a represented community",
-            })}
-          </Alert.Title>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "The program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada. At a later step of the application process, you may be asked to provide proof that you are Indigenous. You can read more about how this will be verified below.",
-              id: "Ap86I/",
-              description:
-                "Text explaining the program and the possibility of needing to provide proof.",
-            })}
-          </p>
-          <Alert.Footer>
-            <HelpLink />
-          </Alert.Footer>
-        </Alert.Root>
-      )}
     </>
   );
 };
