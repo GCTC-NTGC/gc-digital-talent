@@ -32,13 +32,14 @@ const createRoute = (locale: Locales) =>
                   lazy: () =>
                     import("../pages/Home/ManagerHomePage/ManagerHomePage"),
                 },
-                {
-                  path: "dashboard",
-                  lazy: () =>
-                    import(
-                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
-                    ),
-                },
+                // Unfinished page:
+                // {
+                //   path: "dashboard",
+                //   lazy: () =>
+                //     import(
+                //       "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                //     ),
+                // },
               ],
             },
             {

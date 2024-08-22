@@ -61,6 +61,9 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
     ],
   });
 
+  // Easily identify parts of the page that are unfinished still.
+  const showUnfinishedPieces = true;
+
   return (
     <>
       <SEO
@@ -130,9 +133,29 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         data-h2-display="base(flex)"
                         data-h2-gap="base(x0.5)"
                       >
-                        <Link color="primary">View all searches</Link>
-                        &bull;
-                        <Link color="primary">Start a new search</Link>
+                        {showUnfinishedPieces ? (
+                          // This link is missing an href since the page doesn't exist yet.  Probably #10982
+                          <>
+                            <Link color="primary" href="#">
+                              {intl.formatMessage({
+                                defaultMessage: "View all searches",
+                                id: "N2GuzJ",
+                                description:
+                                  "Link to a page to view all the searches",
+                              })}
+                            </Link>
+                            &bull;
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                        <Link color="primary" href={paths.search()}>
+                          {intl.formatMessage({
+                            defaultMessage: "Start a new search",
+                            id: "qmeqdf",
+                            description: "Link to a page to start a new search",
+                          })}
+                        </Link>
                       </div>
                       <Accordion.Content>
                         <div
@@ -268,38 +291,48 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   description: "Card title for an information card",
                 })}
               >
-                <ResourceBlock.Item
-                  state="complete"
-                  title={intl.formatMessage({
-                    defaultMessage: "Manager profile",
-                    id: "hkvlOx",
-                    description: "Link to manager profile page",
-                  })}
-                  href="#"
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Describe your leadership style and team culture to give applicants an idea of what working with you is like.",
-                    id: "lbtzDG",
-                    description:
-                      "Helper instructions for a 'manager profile' card",
-                  })}
-                />
-                <ResourceBlock.Item
-                  state="complete"
-                  title={intl.formatMessage({
-                    defaultMessage: "Account and privacy",
-                    id: "BMWvU8",
-                    description: "Link to the 'Account and privacy' page",
-                  })}
-                  href="#"
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Manage your name, contact info, privacy settings, notifications, or delete your account.",
-                    id: "3d4GDu",
-                    description:
-                      "Helper instructions for an 'account and privacy' card",
-                  })}
-                />
+                {showUnfinishedPieces ? (
+                  // This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state.
+                  <ResourceBlock.Item
+                    state="complete"
+                    title={intl.formatMessage({
+                      defaultMessage: "Manager profile",
+                      id: "hkvlOx",
+                      description: "Link to manager profile page",
+                    })}
+                    href="#"
+                    description={intl.formatMessage({
+                      defaultMessage:
+                        "Describe your leadership style and team culture to give applicants an idea of what working with you is like.",
+                      id: "lbtzDG",
+                      description:
+                        "Helper instructions for a 'manager profile' card",
+                    })}
+                  />
+                ) : (
+                  <></>
+                )}
+                {showUnfinishedPieces ? (
+                  // This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state.
+                  <ResourceBlock.Item
+                    state="complete"
+                    title={intl.formatMessage({
+                      defaultMessage: "Account and privacy",
+                      id: "BMWvU8",
+                      description: "Link to the 'Account and privacy' page",
+                    })}
+                    href="#"
+                    description={intl.formatMessage({
+                      defaultMessage:
+                        "Manage your name, contact info, privacy settings, notifications, or delete your account.",
+                      id: "3d4GDu",
+                      description:
+                        "Helper instructions for an 'account and privacy' card",
+                    })}
+                  />
+                ) : (
+                  <></>
+                )}
               </ResourceBlock.Root>
               <ResourceBlock.Root
                 headingColor="tertiary"
@@ -316,7 +349,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                     id: "n40Nry",
                     description: "Link for the 'learn about skills' card",
                   })}
-                  href="#"
+                  href={paths.skills()}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Browse a complete list of available skills, learn how they’re organized, and submit skill recommendations.",
@@ -325,28 +358,33 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                       "Helper instructions for a 'learn about skills' card",
                   })}
                 />
-                <ResourceBlock.Item
-                  title={intl.formatMessage({
-                    defaultMessage: "Browse job templates",
-                    id: "bLxoQL",
-                    description: "Link for the 'browse job templates' card",
-                  })}
-                  href="#"
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
-                    id: "ZCDsMF",
-                    description:
-                      "Helper instructions for the 'browse job templates' card",
-                  })}
-                />
+                {showUnfinishedPieces ? (
+                  // This block is missing an href since the page doesn't exist yet.
+                  <ResourceBlock.Item
+                    title={intl.formatMessage({
+                      defaultMessage: "Browse job templates",
+                      id: "bLxoQL",
+                      description: "Link for the 'browse job templates' card",
+                    })}
+                    href="#"
+                    description={intl.formatMessage({
+                      defaultMessage:
+                        "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
+                      id: "ZCDsMF",
+                      description:
+                        "Helper instructions for the 'browse job templates' card",
+                    })}
+                  />
+                ) : (
+                  <></>
+                )}
                 <ResourceBlock.Item
                   title={intl.formatMessage({
                     defaultMessage: "Directive on Digital Talent",
                     id: "xXwUGs",
                     description: "Title for the digital talent directive page",
                   })}
-                  href="#"
+                  href={paths.directive()}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Learn more about the directive, how it applies to your context, and understand your obligations.",
