@@ -58,7 +58,7 @@ export const Component = () => {
       >
         <img
           alt=""
-          src={(mode === "dark" ? flourishTopDark : flourishTopLight)}
+          src={mode === "dark" ? flourishTopDark : flourishTopLight}
           {...getFlourishStyles(true)}
         />
         <div
