@@ -17,6 +17,8 @@ const specialErrorExchange = ({ intl }: { intl: IntlShape }) => {
         forward,
         tap((result) => {
           if (
+            // NOTE: Comes from the library
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             result?.error?.response?.status === 403 &&
             result?.error?.networkError?.message?.includes("Request Rejected")
           ) {

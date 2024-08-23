@@ -119,6 +119,8 @@ const ClientProvider = ({
               if (errorMessageNode) toast.error(errorMessageNode);
             },
           }),
+          // NOTE: Requires async function as arg
+          // eslint-disable-next-line @typescript-eslint/require-await
           authExchange(async (utils) => {
             return {
               addAuthToOperation: (operation) => {
@@ -138,7 +140,9 @@ const ClientProvider = ({
               didAuthError(error) {
                 const didError =
                   error && error.response
-                    ? error.response.status === 401 ||
+                    ? // NOTE: Comes from the library
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                      error.response.status === 401 ||
                       error.graphQLErrors.some(
                         (e) => e.extensions?.category === "authentication",
                       )
