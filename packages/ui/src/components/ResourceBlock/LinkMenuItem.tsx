@@ -26,8 +26,13 @@ const LinkMenuItem = ({
 
   const dropdown = (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button utilityIcon={ChevronDownIcon} mode="inline" color="black">
+      <DropdownMenu.Trigger asChild>
+        <Button
+          utilityIcon={ChevronDownIcon}
+          mode="inline"
+          color="black"
+          data-h2-transform="base:children[svg](rotate(0deg)) base:selectors[[data-state='open']]:children[svg](rotate(180deg))"
+        >
           {selectedLink?.title}
         </Button>
       </DropdownMenu.Trigger>
