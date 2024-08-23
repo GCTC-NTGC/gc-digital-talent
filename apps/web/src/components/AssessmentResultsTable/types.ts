@@ -24,6 +24,7 @@ export type AssessmentTableRowColumn = ColumnDef<AssessmentTableRow>;
 
 const assessmentResultsTableFragmentSteps: AssessmentResultsTableFragmentType["pool"]["assessmentSteps"] =
   [];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const assessmentResultsTableFragmentStepsUnpacked = unpackMaybes(
   assessmentResultsTableFragmentSteps,
 );

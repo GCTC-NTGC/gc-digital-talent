@@ -116,7 +116,7 @@
     "description": "Error message that the screening question could not be found."
   },
   "2wKf2U": {
-    "defaultMessage": "Modifier",
+    "defaultMessage": "Modifiez",
     "description": "Text to trigger edit action"
   },
   "3I2Qke": {
@@ -239,6 +239,10 @@
     "defaultMessage": "réussite",
     "description": "Message for the success status"
   },
+  "9QsHXO": {
+    "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message for when an error occurs during role assignment"
+  },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
     "description": "The operational requirement described as travel as required."
@@ -294,6 +298,10 @@
   "Bvr4b6": {
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
+  },
+  "C/2HT9": {
+    "defaultMessage": "Cette clé de collectivité est déjà utilisé",
+    "description": "Error message that the given community key is already in use"
   },
   "C/mdCs": {
     "defaultMessage": "Sans objet",
@@ -611,6 +619,10 @@
     "defaultMessage": "Accueil",
     "description": "Name of Home page"
   },
+  "S0w3o5": {
+    "defaultMessage": "Complet",
+    "description": "Simple status label for a complete item"
+  },
   "S2BTqm": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
     "description": "Error message that Special note for this process in English must be filled"
@@ -696,7 +708,7 @@
     "description": "Full name of abbreviation for EC"
   },
   "WGoaKQ": {
-    "defaultMessage": "Sauvegarder les modifications",
+    "defaultMessage": "Sauvegardez les modifications",
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {
@@ -744,7 +756,7 @@
     "description": "Error message that the assessment steps must belong to the same pool."
   },
   "XZl6Ks": {
-    "defaultMessage": "Modifier cette section",
+    "defaultMessage": "Modifiez cette section",
     "description": "Text to trigger edit of section action"
   },
   "XpK4rL": {
@@ -812,7 +824,7 @@
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
   },
   "atqjXB": {
-    "defaultMessage": "Annuler",
+    "defaultMessage": "Annulez",
     "description": "Stop the current action"
   },
   "ayG2k7": {
@@ -904,7 +916,7 @@
     "description": "Name of the fourth month"
   },
   "fMcKtJ": {
-    "defaultMessage": "Annuler et revenir en arrière",
+    "defaultMessage": "Annulez et revenez en arrière",
     "description": "Text to cancel changes to a form"
   },
   "fO0cRR": {
@@ -1283,6 +1295,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vOCLQA": {
+    "defaultMessage": "Incomplet",
+    "description": "Simple status label for an incomplete item"
+  },
   "vPDtGU": {
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
@@ -1316,7 +1332,7 @@
     "description": "The work region of Canada described as Telework."
   },
   "xAxxmc": {
-    "defaultMessage": "Oupse! Vous avez des erreurs!",
+    "defaultMessage": "Oups! Vous avez des erreurs!",
     "description": "Title for error summary on profile forms"
   },
   "xEkbvy": {

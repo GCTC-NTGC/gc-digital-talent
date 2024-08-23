@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -151,5 +152,44 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->requestResponder->can('delete', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('delete', $this->applicant));
         $this->assertFalse($this->platformAdmin->can('delete', $this->platformAdmin));
+    }
+
+    public function testCanUpdateManagerRole()
+    {
+        $managerRoleId = Role::where('name', 'manager')->sole()->id;
+
+        $policyArgsForAttach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'attach' => [
+                        ['roleId' => $managerRoleId],
+                    ],
+                ],
+            ],
+        ];
+        $policyArgsForDetach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'detach' => [
+                        ['roleId' => $managerRoleId],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->poolOperator->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->poolOperator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForDetach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
     }
 }

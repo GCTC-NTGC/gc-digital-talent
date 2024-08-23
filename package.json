@@ -5,13 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": ">=20.11.0",
-    "pnpm": ">=9.5.0"
+    "pnpm": ">=9.7.1"
   },
-  "packageManager": "pnpm@9.5.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@9.7.1",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "h2-build && turbo run build --filter @gc-digital-talent/web",
@@ -47,6 +43,6 @@
   },
   "devDependencies": {
     "@hydrogen-css/hydrogen": "2.1.0",
-    "turbo": "^2.0.13"
+    "turbo": "^2.0.14"
   }
 }

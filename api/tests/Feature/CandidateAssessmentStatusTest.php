@@ -16,6 +16,7 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -515,7 +516,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'team_id' => $this->team->id,
             ]);
 
-        $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(2)->get();
+        $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(3)->get();
         $poolSkillOne = PoolSkill::create([
             'pool_id' => $pool->id,
             'skill_id' => $technicalSkills[0]->id,
@@ -526,6 +527,11 @@ class CandidateAssessmentStatusTest extends TestCase
         $poolSkillTwo = PoolSkill::create([
             'pool_id' => $pool->id,
             'skill_id' => $technicalSkills[1]->id,
+            'type' => PoolSkillType::NONESSENTIAL->name,
+        ]);
+        $poolSkillThree = PoolSkill::create([
+            'pool_id' => $pool->id,
+            'skill_id' => $technicalSkills[2]->id,
             'type' => PoolSkillType::NONESSENTIAL->name,
         ]);
 
@@ -542,6 +548,17 @@ class CandidateAssessmentStatusTest extends TestCase
         UserSkill::factory()->create([
             'user_id' => $user->id,
             'skill_id' => $poolSkillTwo->skill_id,
+        ]);
+        // Skill is not considered claimed unless it has an attached experience
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $user->id,
+            'skill_id' => $poolSkillThree->skill_id,
+        ]);
+        $experience = WorkExperience::factory()->create([
+            'user_id' => $user->id,
+        ]);
+        $experience->userSkills()->sync([
+            $userSkill->id => ['details' => 'first skill'],
         ]);
 
         $candidate = PoolCandidate::factory()->withSnapshot()->create([
@@ -598,10 +615,10 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $stepOne->id,
                 'pool_candidate_id' => $candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
-                'pool_skill_id' => $poolSkillTwo->id,
+                'pool_skill_id' => $poolSkillThree->id,
             ]);
         //
-        // Both skills are now assessed so we can increment the step
+        // Both claimed skills are now assessed so we can increment the step
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($this->query, ['id' => $candidate->id])
             ->assertJson([
@@ -626,7 +643,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testNonEssentialAssessmentDiaqualifiedPasses()
+    public function testNonEssentialAssessmentDisqualifiedPasses()
     {
 
         $pool = Pool::factory()

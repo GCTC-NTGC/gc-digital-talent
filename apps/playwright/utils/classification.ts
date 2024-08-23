@@ -1,8 +1,8 @@
 import { Classification } from "@gc-digital-talent/graphql";
 
-import { graphqlRequest } from "./graphql";
+import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
-export const Test_ClassificationsQueryDocument = /* GraphQL */ `
+const Test_ClassificationsQueryDocument = /* GraphQL */ `
   query Test_Classifications {
     classifications {
       id
@@ -15,11 +15,15 @@ export const Test_ClassificationsQueryDocument = /* GraphQL */ `
 /**
  * Get Classifications
  *
- * Get all the classifications directly from
- * the API.
+ * Get all the classifications directly from the API.
  */
-export async function getClassifications(): Promise<Classification[]> {
-  const res = await graphqlRequest(Test_ClassificationsQueryDocument);
-
-  return res.classifications;
-}
+export const getClassifications: GraphQLRequestFunc<Classification[]> = async (
+  ctx,
+) => {
+  return await ctx
+    .post(Test_ClassificationsQueryDocument)
+    .then(
+      (res: GraphQLResponse<"classifications", Classification[]>) =>
+        res.classifications,
+    );
+};

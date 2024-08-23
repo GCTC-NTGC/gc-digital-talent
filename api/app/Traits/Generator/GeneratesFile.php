@@ -13,7 +13,7 @@ trait GeneratesFile
      *
      * @param  string  $enum  The value of the enum
      */
-    protected function sanitizeEnum(string $enum): string
+    protected function sanitizeEnum(?string $enum): string
     {
         return ucwords(strtolower(str_replace('_', ' ', $enum)));
     }

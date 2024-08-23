@@ -240,6 +240,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
+  id: UUID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
@@ -876,13 +877,6 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @canResolved(ability: "view")
-  applicants(includeIds: [ID]! @in(key: "id")): [User]!
-    @all(model: "User")
-    @guard
-    @canModel(ability: "viewAny", model: "User")
-    @deprecated(
-      reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
-    )
   userPublicProfilesPaginated(
     where: UserPublicProfileFilterInput
     excludeIds: [ID!] @notIn(key: "id")
@@ -931,13 +925,6 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view")
-  poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
-    @all(scopes: ["notDraft"])
-    @guard
-    @canResolved(ability: "view")
-    @deprecated(
-      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
-    )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
@@ -998,6 +985,7 @@ type Query {
     @canModel(ability: "view")
   genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
 
+  community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
@@ -1374,6 +1362,18 @@ input UpdateTeamInput {
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
+}
+
+input CreateCommunityInput {
+  key: String!
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
+input UpdateCommunityInput {
+  key: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
 }
 
 input CreateApplicantFilterInput {
@@ -2162,6 +2162,16 @@ type Mutation {
     @canFind(ability: "assignTeamMembers", find: "teamId")
     @deprecated(reason: "use updateUserRoles")
 
+  # Communities mutations
+  createCommunity(community: CreateCommunityInput! @spread): Community
+    @create
+    @canModel(ability: "create")
+    @validator
+  updateCommunity(
+    id: UUID!
+    community: UpdateCommunityInput! @spread
+  ): Community @update @canFind(ability: "update", find: "id") @validator
+
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   markNotificationAsUnread(id: UUID!): Notification @guard
@@ -2233,10 +2243,18 @@ type Mutation {
 
   # File downloads
   downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
   downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  downloadUsersDoc(
+    ids: [UUID!]!
+    anonymous: Boolean!
+    locale: Language
+  ): Boolean! @guard
 }
 
 #import directiveForms.graphql

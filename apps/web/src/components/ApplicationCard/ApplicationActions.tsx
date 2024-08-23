@@ -136,9 +136,8 @@ const SeeAdvertisementAction = ({
     </Link>
   );
 };
-interface SupportActionProps extends ActionProps {}
 
-const SupportAction = ({ show, title }: SupportActionProps) => {
+const SupportAction = ({ show, title }: ActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   if (!show) {
