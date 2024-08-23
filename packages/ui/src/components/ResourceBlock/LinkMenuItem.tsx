@@ -11,11 +11,17 @@ interface LinkMenuItemProps {
     href: LinkProps["href"];
     isSelected?: boolean;
   }>;
+  accessibleLabel?: BaseItemProps["accessibleLabel"];
   description: BaseItemProps["description"];
   state?: BaseItemProps["state"];
 }
 
-const LinkMenuItem = ({ links, description, state }: LinkMenuItemProps) => {
+const LinkMenuItem = ({
+  links,
+  accessibleLabel,
+  description,
+  state,
+}: LinkMenuItemProps) => {
   const selectedLink = links.find((link) => link.isSelected) ?? links?.[0];
 
   const dropdown = (
@@ -34,7 +40,14 @@ const LinkMenuItem = ({ links, description, state }: LinkMenuItemProps) => {
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );
-  return <BaseItem title={dropdown} description={description} state={state} />;
+  return (
+    <BaseItem
+      title={dropdown}
+      accessibleLabel={accessibleLabel ?? selectedLink.title}
+      description={description}
+      state={state}
+    />
+  );
 };
 
 export default LinkMenuItem;

@@ -5,6 +5,7 @@ import BaseItem, { BaseItemProps } from "./BaseItem";
 
 interface SingleLinkItemProps {
   title: string;
+  accessibleLabel?: BaseItemProps["accessibleLabel"];
   href: LinkProps["href"];
   description: BaseItemProps["description"];
   state?: BaseItemProps["state"];
@@ -12,6 +13,7 @@ interface SingleLinkItemProps {
 
 const SingleLinkItem = ({
   title,
+  accessibleLabel,
   href,
   description,
   state,
@@ -37,6 +39,7 @@ const SingleLinkItem = ({
           />
         </Link>
       }
+      accessibleLabel={accessibleLabel ?? title}
       description={description}
       state={state}
     />

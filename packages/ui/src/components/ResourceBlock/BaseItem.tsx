@@ -37,11 +37,17 @@ const StateIcon = ({ state }: { state: BaseItemProps["state"] }) => {
 
 export interface BaseItemProps {
   title: ReactNode;
+  accessibleLabel: string;
   description: string;
   state?: "incomplete" | "complete";
 }
 
-const BaseItem = ({ title, description, state }: BaseItemProps) => {
+const BaseItem = ({
+  title,
+  accessibleLabel,
+  description,
+  state,
+}: BaseItemProps) => {
   const intl = useIntl();
   const extraStateStyles =
     state === "incomplete"
@@ -52,16 +58,16 @@ const BaseItem = ({ title, description, state }: BaseItemProps) => {
         }
       : {};
 
-  let accessibleLabel;
+  let combinedLabel;
   switch (state) {
     case "incomplete":
-      accessibleLabel = `${title?.toString()} (${intl.formatMessage(commonMessages.incomplete)})`;
+      combinedLabel = `${accessibleLabel} (${intl.formatMessage(commonMessages.incomplete)})`;
       break;
     case "complete":
-      accessibleLabel = `${title?.toString()} (${intl.formatMessage(commonMessages.complete)})`;
+      combinedLabel = `${accessibleLabel} (${intl.formatMessage(commonMessages.complete)})`;
       break;
     default:
-      accessibleLabel = title?.toString() ?? undefined;
+      combinedLabel = accessibleLabel;
   }
 
   return (
@@ -75,7 +81,7 @@ const BaseItem = ({ title, description, state }: BaseItemProps) => {
       data-h2-border-radius="base:all:selectors[:last-child](0 0 rounded rounded)"
       // make the containing block for state icon
       data-h2-position="base(relative)"
-      aria-label={accessibleLabel}
+      aria-label={combinedLabel}
       role="listitem"
       {...extraStateStyles}
     >
