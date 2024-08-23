@@ -29,12 +29,11 @@ However:
 -	Use impératif for headings that include a possessive pronoun/adjective (often found on pages that request concrete info or actions from the users)
 -	Use infinitif for buttons that are more generic. (For example that lead to more information (e.g. Learn more, Expand all, View results, Browse jobs))
 
-See for more info on the distinction between impératif and inifinitif the website of the [Office quebecois de la langue française](https://vitrinelinguistique.oqlf.gouv.qc.ca/24208/la-grammaire/le-verbe/modes/imperatif/distinction-entre-limperatif-et-linfinitif).
-## Capitalization
-[…]
+See for more info on the distinction between impératif and infinitif the website of the [Office québécois de la langue française](https://vitrinelinguistique.oqlf.gouv.qc.ca/24208/la-grammaire/le-verbe/modes/imperatif/distinction-entre-limperatif-et-linfinitif).
+
 ## Inclusive writing in French
 Aim to use neutral formulation whenever possible. This includes using collective nouns, gender-neutral words (nouns, adjectives, pronouns), and rephrasing when necessary.
-For more details, see the GC’s [Clés de la redaction](https://www.noslangues-ourlanguages.gc.ca/fr/cles-de-la-redaction/ecriture-inclusive-lignes-directrices-ressources) or the guidelines from the [Office québecois de la langue française](https://vitrinelinguistique.oqlf.gouv.qc.ca/25030/banque-de-depannage-linguistique/la-redaction-et-la-communication/redaction-pour-le-web/redaction-epicene-sur-le-web). 
+For more details, see the GC’s [Clés de la redaction](https://www.noslangues-ourlanguages.gc.ca/fr/cles-de-la-redaction/ecriture-inclusive-lignes-directrices-ressources) or the guidelines from the [Office québécois de la langue française](https://vitrinelinguistique.oqlf.gouv.qc.ca/25030/banque-de-depannage-linguistique/la-redaction-et-la-communication/redaction-pour-le-web/redaction-epicene-sur-le-web). 
 ### Doublets
 -	It is generally recommended to use full doublets instead of abbreviated doublets. 
     * E.g. : « les étudiantes et étudiants » instead of « les étudiant(e)s.
