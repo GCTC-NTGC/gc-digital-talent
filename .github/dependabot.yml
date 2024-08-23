@@ -58,7 +58,7 @@ updates:
       turbo:
         patterns:
           - "turbo"
-          - "eslint-plugin-turbo-repo"
+          - "eslint-plugin-turbo"
         update-types:
           - "minor"
           - "patch"
