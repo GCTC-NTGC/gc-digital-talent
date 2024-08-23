@@ -93,7 +93,7 @@ test.describe("Talent search", () => {
 
     const applicantCtx = await graphql.newContext(sub);
     const applicant = await me(applicantCtx);
-    const poolId = createdPool.id as string;
+    const poolId = createdPool.id;
 
     const application = await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,

@@ -75,7 +75,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
         fr: "Bassins",
       },
       options: pools.map(({ id, name }) => ({
-        value: id as string,
+        value: id,
         label: getLocalizedName(name, intl) || "",
       })) as Option[],
     },

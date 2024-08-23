@@ -5,14 +5,14 @@ namespace App\GraphQL\Scalars;
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\StringValueNode;
-use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
 use Illuminate\Support\Str;
+use MLL\GraphQLScalars\StringScalar;
 
 /**
  * Read more about scalars here https://webonyx.github.io/graphql-php/type-definitions/scalars
  */
-final class UUID extends ScalarType
+final class UUID extends StringScalar
 {
     /**
      * Serializes an internal value to include in a response.
@@ -20,7 +20,7 @@ final class UUID extends ScalarType
      * @param  mixed  $value
      * @return string valid uuid
      */
-    public function serialize($value)
+    public function serialize($value): string
     {
         return $this->isValidUuid($value, InvariantViolation::class);
     }
@@ -31,7 +31,7 @@ final class UUID extends ScalarType
      * @param  mixed  $value
      * @return string valid uuid
      */
-    public function parseValue($value)
+    public function parseValue($value): string
     {
         return $this->isValidUuid($value, InvariantViolation::class);
     }
@@ -45,7 +45,7 @@ final class UUID extends ScalarType
      *
      * @throws \GraphQL\Error\Error
      */
-    public function parseLiteral($valueNode, ?array $variables = null)
+    public function parseLiteral($valueNode, ?array $variables = null): string
     {
         if (! $valueNode instanceof StringValueNode) {
             throw new Error(
@@ -74,5 +74,10 @@ final class UUID extends ScalarType
         }
 
         return $value;
+    }
+
+    protected function isValid(string $stringValue): bool
+    {
+        return Str::isUuid($stringValue);
     }
 }

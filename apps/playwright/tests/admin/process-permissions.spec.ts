@@ -56,7 +56,7 @@ test.describe("Process permissions", () => {
     });
 
     await updatePool(adminCtx, {
-      poolId: createdPool.id as string,
+      poolId: createdPool.id,
       pool: {
         name: {
           en: poolName,

@@ -72,7 +72,7 @@ test.describe("Application", () => {
   });
 
   test("Can submit application", async ({ appPage }) => {
-    const application = new ApplicationPage(appPage.page, pool.id as string);
+    const application = new ApplicationPage(appPage.page, pool.id);
     await loginBySub(application.page, sub, false);
 
     await application.create();

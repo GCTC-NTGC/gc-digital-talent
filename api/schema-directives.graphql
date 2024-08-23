@@ -647,6 +647,23 @@ directive @hasOne(
   scopes: [String!]
 ) on FIELD_DEFINITION
 
+# Directive class: Nuwave\Lighthouse\Schema\Directives\HasOneThroughDirective
+"""
+Corresponds to [the Eloquent relationship HasOneThrough](https://laravel.com/docs/eloquent-relationships#has-one-through).
+"""
+directive @hasOneThrough(
+  """
+  Specify the relationship method name in the model class,
+  if it is named different from the field in the schema.
+  """
+  relation: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+) on FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Schema\Directives\HashDirective
 """
 Use Laravel hashing to transform an argument value.
