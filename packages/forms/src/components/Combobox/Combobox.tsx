@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Controller, FieldError, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 import omit from "lodash/omit";
 
@@ -74,10 +74,10 @@ const Combobox = ({
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
-  const error = errors[name]?.message as FieldError;
+  const error = errors[name]?.message as string;
   const isRequired = !!rules?.required;
-  const defaultValue = defaultValues && defaultValues[name];
-  const currentValue = watch(name);
+  const defaultValue = defaultValues && (defaultValues[name] as string);
+  const currentValue = watch(name) as string;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {

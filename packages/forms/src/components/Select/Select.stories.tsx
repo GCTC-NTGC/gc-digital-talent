@@ -47,6 +47,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
   const intl = useIntl();
   const departments = fakeDepartments();
   const pools = fakePools();
+
   const groups = [
     {
       id: 1,
@@ -74,9 +75,9 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
         fr: "Bassins",
       },
       options: pools.map(({ id, name }) => ({
-        value: id,
+        value: id as string,
         label: getLocalizedName(name, intl) || "",
-      })),
+      })) as Option[],
     },
   ];
   const groupOptions: OptGroup[] = groups.map((group) => ({

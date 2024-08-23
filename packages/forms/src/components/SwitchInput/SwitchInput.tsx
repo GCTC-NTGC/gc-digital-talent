@@ -1,5 +1,5 @@
 import { forwardRef, ElementRef } from "react";
-import { Controller, FieldError, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 import { Switch, SwitchProps } from "@gc-digital-talent/ui";
 
@@ -26,8 +26,8 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
       watch,
       formState: { errors, defaultValues },
     } = useFormContext();
-    const error = errors[name]?.message as FieldError;
-    const value = watch(name);
+    const error = errors[name]?.message as string;
+    const value = watch(name) as boolean;
     const defaultValue = Boolean(defaultValues && defaultValues[name]);
     const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
       id,
@@ -82,9 +82,7 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
               />
             </div>
             {error && (
-              <Field.Error id={descriptionIds?.error}>
-                {error?.toString()}
-              </Field.Error>
+              <Field.Error id={descriptionIds?.error}>{error}</Field.Error>
             )}
           </div>
         )}

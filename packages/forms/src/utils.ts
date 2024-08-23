@@ -103,7 +103,7 @@ export function getValues<T>(list: { value: T; label: string }[]): T[] {
  * @param unescapedString String that you want escaped characters in
  * @returns { string } String with certain characters escaped
  */
-export function escapeAString(unescapedString: string) {
+export function escapeAString(unescapedString: string): string {
   const inputStringArray = unescapedString.split("");
   const outputStringArray = inputStringArray.map((character) => {
     if (character.match(/[+*()?[\]\\]/)) {
@@ -125,7 +125,7 @@ export function escapeAString(unescapedString: string) {
 export function matchStringCaseDiacriticInsensitive(
   needle: string,
   compareString: string,
-) {
+): boolean {
   if (needle.length > 1000) {
     // short-circuit for very long needle cases, prevents RegExp crashing
     defaultLogger.warning(
@@ -243,7 +243,8 @@ export function flattenErrors(
         }
         // If it is a field array, loop through, hoisting up field names
         if (Array.isArray(fieldError)) {
-          fieldError.forEach((subFieldError, index) => {
+          const errorArr = fieldError as FieldErrors<FieldValues>[];
+          errorArr.forEach((subFieldError, index) => {
             errorNames = [
               ...errorNames,
               ...flattenErrors(

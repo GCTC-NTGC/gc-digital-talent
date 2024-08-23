@@ -37,7 +37,7 @@ const ControlledInput = ({
   const inputStyles = useInputStyles();
   const selectStyles = useInputStyles("select");
   const { year, month, day } = splitSegments(
-    defaultValues ? defaultValues[name] : undefined,
+    defaultValues ? (defaultValues[name] as string) : undefined,
   );
   const ID = {
     YEAR: `${name}Year`,
@@ -47,7 +47,7 @@ const ControlledInput = ({
 
   const handleChange = (segmentValue: string, segment: DateSegment) => {
     const newValue = setComputedValue({
-      initialValue: value,
+      initialValue: value as string,
       value: segmentValue,
       segment,
       show,

@@ -31,7 +31,7 @@ const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
        * save invalid fields, we prefer error message over
        * the unsaved message
        */
-      const fieldDirty = dirtyFields[field];
+      const fieldDirty = dirtyFields[field] as boolean;
       const fieldInvalid = errors[field];
       if (labels && field in labels && fieldDirty && !fieldInvalid) {
         return {

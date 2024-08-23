@@ -122,7 +122,7 @@ const ValidationDependantInputs = ({
   ...rest
 }: DateInputProps) => {
   const { watch } = useFormContext();
-  const watchFirstInput = watch(name);
+  const watchFirstInput = watch(name) as string;
 
   return (
     <>
@@ -130,7 +130,7 @@ const ValidationDependantInputs = ({
       <DateInput
         name={`${name}Two`}
         id={`${id}Two`}
-        legend={`${legend} Two`}
+        legend={`${legend?.toString()} Two`}
         rules={{
           min: {
             value: watchFirstInput,
@@ -156,7 +156,7 @@ export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
 const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   const { watch } = useFormContext();
-  const watchFirstInput = watch(name);
+  const watchFirstInput = watch(name) as string;
   const inputDate = watchFirstInput
     ? formDateStringToDate(watchFirstInput)
     : null;
@@ -200,7 +200,7 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
 
   useEffect(() => {
     setFetching(true);
-    mockQuery()
+    void mockQuery()
       .then((res: Pool) => {
         setPool(res);
       })

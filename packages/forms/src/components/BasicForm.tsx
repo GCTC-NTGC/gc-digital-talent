@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   PropsWithChildren,
   ReactElement,
@@ -10,6 +11,7 @@ import {
   FieldValues,
   FormProvider,
   Path,
+  PathValue,
   SubmitErrorHandler,
   SubmitHandler,
   useForm,
@@ -93,7 +95,7 @@ function BasicForm<TFieldValues extends FieldValues>({
     }
     setShowErrorSummary(false);
     // Fire the submit we passed in
-    return onSubmit(data);
+    return await onSubmit(data);
   };
 
   const handleInvalidSubmit: SubmitErrorHandler<TFieldValues> = (errors) => {
@@ -120,11 +122,16 @@ function BasicForm<TFieldValues extends FieldValues>({
         Object.keys(cachedValues).forEach((field) => {
           // Hack: Type our field name
           const typedFieldName = field as Path<TFieldValues>;
-          const value = cachedValues[field];
+          const value = cachedValues[field] as PathValue<
+            TFieldValues,
+            Path<TFieldValues>
+          >;
           const defaultValues = options?.defaultValues as
             | TFieldValues
             | undefined;
-          const defaultValue = defaultValues ? defaultValues[field] : null;
+          const defaultValue = defaultValues
+            ? (defaultValues[field] as string)
+            : null;
           if (value) {
             if (!defaultValue || value !== defaultValue) {
               methods.setValue(typedFieldName, value, {

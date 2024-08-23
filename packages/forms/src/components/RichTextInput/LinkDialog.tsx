@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useIntl } from "react-intl";
 import { Editor } from "@tiptap/react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
@@ -85,7 +87,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
       const attributes = editor?.getAttributes("link");
       if (newOpen && (attributes?.href || attributes?.target)) {
         if (attributes?.href) {
-          methods.setValue("href", attributes.href);
+          methods.setValue("href", attributes.href as string);
         }
         if (attributes?.target) {
           methods.setValue("newTab", attributes.target === "_blank");

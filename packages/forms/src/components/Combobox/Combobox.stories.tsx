@@ -49,7 +49,7 @@ const Template: StoryFn<ComboboxType> = (args) => {
       ? (term: string) => {
           setIsSearching(true);
           setFilteredOptions([]);
-          mockSearch(term)
+          void mockSearch(term)
             .then((newOptions) => {
               setFilteredOptions(newOptions);
             })

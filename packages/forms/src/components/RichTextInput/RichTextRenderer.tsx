@@ -18,15 +18,21 @@ const DocNode: NodeRenderer = ({ children }) => (
   </div>
 );
 
+interface LinkAttrs {
+  href?: string;
+  target?: string;
+}
+
 const TextNode: NodeRenderer = ({ node }) => {
-  const content: string = node.text;
+  const content: string = node.text as string;
 
   let linkProps: LinkProps = {};
   const isLink = node?.marks?.find((mark) => {
     if (mark.type === "link") {
+      const attrs: LinkAttrs = mark.attrs as LinkAttrs;
       linkProps = {
-        href: mark.attrs?.href ?? "",
-        newTab: mark.attrs?.target === "_blank",
+        href: attrs?.href ?? "",
+        newTab: attrs?.target === "_blank",
       };
       return true;
     }
