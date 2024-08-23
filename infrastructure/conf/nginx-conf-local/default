@@ -39,7 +39,7 @@ server {
     add_header Content-Security-Policy-Report-Only
       "default-src 'self';
       font-src fonts.gstatic.com 'self';
-      style-src-elem fonts.googleapis.com 'self';
+      style-src-elem fonts.googleapis.com 'self' 'unsafe-inline';
       script-src-elem 'self' 'nonce-$cspNonce';
       img-src 'self' data:;
       report-uri /api/csp-report/;
