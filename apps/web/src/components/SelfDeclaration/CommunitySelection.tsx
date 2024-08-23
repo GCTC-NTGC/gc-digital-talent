@@ -9,7 +9,7 @@ import {
   Checkbox,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 
@@ -38,6 +38,7 @@ interface CommunityListProps {
 
 export const CommunityList = ({ labels }: CommunityListProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const { watch, setValue, resetField, setError, clearErrors, formState } =
     useFormContext();
 
@@ -79,6 +80,130 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
     }
   };
 
+  const firstNations = (
+    <>
+      <Row>
+        <div data-h2-grid-column="base(span 3)">
+          <Checkbox
+            id="firstNations"
+            name="communities"
+            boundingBox
+            boundingBoxLabel={labels.firstNations}
+            trackUnsaved={false}
+            value="firstNations"
+            label={intl.formatMessage({
+              defaultMessage: '"I am First Nations"',
+              id: "Wpj2OY",
+              description:
+                "Text for the option to self-declare as first nations",
+            })}
+            aria-describedby={customAlertId}
+          />
+          {formState.errors.firstNationsCustom && (
+            <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
+              {formState.errors.firstNationsCustom.message?.toString()}
+            </Field.Error>
+          )}
+        </div>
+        <div>
+          <CommunityIcon values={["firstNations"]} community="first-nations" />
+        </div>
+      </Row>
+      {communitiesValue.includes("firstNations") && (
+        <Row>
+          <div data-h2-grid-column="base(span 3)">
+            <RadioGroup
+              idPrefix="firstNationsStatus"
+              name="isStatus"
+              legend={intl.formatMessage({
+                defaultMessage: "First Nations status",
+                id: "0KY1My",
+                description:
+                  "Legend for selecting First Nations status or non-status",
+              })}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              items={[
+                {
+                  value: "status",
+                  label: intl.formatMessage({
+                    defaultMessage: '"I am Status First Nations"',
+                    id: "ssJxrj",
+                    description:
+                      "Text for the option to self-declare as a status first nations",
+                  }),
+                },
+                {
+                  value: "nonStatus",
+                  label: intl.formatMessage({
+                    defaultMessage: '"I am Non-Status First Nations"',
+                    id: "sSE4kt",
+                    description:
+                      "Text for the option to self-declare as a non-status first nations",
+                  }),
+                },
+              ]}
+            />
+          </div>
+          <div />
+        </Row>
+      )}
+    </>
+  );
+
+  const inuk = (
+    <Row>
+      <div data-h2-grid-column="base(span 3)">
+        <Checklist
+          idPrefix="inuk"
+          id="inuk"
+          name="communities"
+          legend={labels.inuk}
+          trackUnsaved={false}
+          items={[
+            {
+              value: "inuk",
+              label: intl.formatMessage({
+                defaultMessage: `"I am Inuk"`,
+                id: "vDb+O+",
+                description: "Label text for Inuk community declaration",
+              }),
+            },
+          ]}
+        />
+      </div>
+      <div>
+        <CommunityIcon values={["inuk"]} community="inuit" />
+      </div>
+    </Row>
+  );
+
+  const metis = (
+    <Row>
+      <div data-h2-grid-column="base(span 3)">
+        <Checklist
+          idPrefix="metis"
+          id="metis"
+          name="communities"
+          legend={labels.metis}
+          trackUnsaved={false}
+          items={[
+            {
+              value: "metis",
+              label: intl.formatMessage({
+                defaultMessage: `"I am Métis"`,
+                id: "/81xCT",
+                description: "Label text for Métis community declaration",
+              }),
+            },
+          ]}
+        />
+      </div>
+      <div>
+        <CommunityIcon values={["metis"]} community="metis" />
+      </div>
+    </Row>
+  );
+
   return (
     <>
       <div
@@ -86,122 +211,19 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
         data-h2-gap="base(x1 0)"
         data-h2-flex-direction="base(column)"
       >
-        <Row>
-          <div data-h2-grid-column="base(span 3)">
-            <Checkbox
-              id="firstNations"
-              name="communities"
-              boundingBox
-              boundingBoxLabel={labels.firstNations}
-              trackUnsaved={false}
-              value="firstNations"
-              label={intl.formatMessage({
-                defaultMessage: '"I am First Nations"',
-                id: "Wpj2OY",
-                description:
-                  "Text for the option to self-declare as first nations",
-              })}
-              aria-describedby={customAlertId}
-            />
-            {formState.errors.firstNationsCustom && (
-              <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
-                {formState.errors.firstNationsCustom.message?.toString()}
-              </Field.Error>
-            )}
-          </div>
-          <div>
-            <CommunityIcon
-              values={["firstNations"]}
-              community="first-nations"
-            />
-          </div>
-        </Row>
-        {communitiesValue.includes("firstNations") && (
-          <Row>
-            <div data-h2-grid-column="base(span 3)">
-              <RadioGroup
-                idPrefix="firstNationsStatus"
-                name="isStatus"
-                legend={intl.formatMessage({
-                  defaultMessage: "First Nations status",
-                  id: "0KY1My",
-                  description:
-                    "Legend for selecting First Nations status or non-status",
-                })}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                items={[
-                  {
-                    value: "status",
-                    label: intl.formatMessage({
-                      defaultMessage: '"I am Status First Nations"',
-                      id: "ssJxrj",
-                      description:
-                        "Text for the option to self-declare as a status first nations",
-                    }),
-                  },
-                  {
-                    value: "nonStatus",
-                    label: intl.formatMessage({
-                      defaultMessage: '"I am Non-Status First Nations"',
-                      id: "sSE4kt",
-                      description:
-                        "Text for the option to self-declare as a non-status first nations",
-                    }),
-                  },
-                ]}
-              />
-            </div>
-            <div />
-          </Row>
+        {locale === "fr" ? (
+          <>
+            {inuk}
+            {metis}
+            {firstNations}
+          </>
+        ) : (
+          <>
+            {firstNations}
+            {inuk}
+            {metis}
+          </>
         )}
-        <Row>
-          <div data-h2-grid-column="base(span 3)">
-            <Checklist
-              idPrefix="inuk"
-              id="inuk"
-              name="communities"
-              legend={labels.inuk}
-              trackUnsaved={false}
-              items={[
-                {
-                  value: "inuk",
-                  label: intl.formatMessage({
-                    defaultMessage: `"I am Inuk"`,
-                    id: "vDb+O+",
-                    description: "Label text for Inuk community declaration",
-                  }),
-                },
-              ]}
-            />
-          </div>
-          <div>
-            <CommunityIcon values={["inuk"]} community="inuit" />
-          </div>
-        </Row>
-        <Row>
-          <div data-h2-grid-column="base(span 3)">
-            <Checklist
-              idPrefix="metis"
-              id="metis"
-              name="communities"
-              legend={labels.metis}
-              trackUnsaved={false}
-              items={[
-                {
-                  value: "metis",
-                  label: intl.formatMessage({
-                    defaultMessage: `"I am Métis"`,
-                    id: "/81xCT",
-                    description: "Label text for Métis community declaration",
-                  }),
-                },
-              ]}
-            />
-          </div>
-          <div>
-            <CommunityIcon values={["metis"]} community="metis" />
-          </div>
-        </Row>
         <Row>
           <div data-h2-grid-column="base(span 3)">
             <Checklist
