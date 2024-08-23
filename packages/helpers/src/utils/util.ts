@@ -158,8 +158,7 @@ export function groupBy<
  * @param x Not used, but important that it is typed _never_
  */
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function assertUnreachable(x: never): never {
+export function assertUnreachable(_: never): never {
   throw new Error("Didn't expect to be reachable.");
 }
 
@@ -193,7 +192,7 @@ export function pickMap<T, K extends keyof T>(
  */
 export function localizedEnumHasValue<
   T extends {
-    value?: Maybe<unknown> | undefined;
+    value?: unknown;
   },
 >(localizedEnum: T): boolean {
   return !!localizedEnum.value;
