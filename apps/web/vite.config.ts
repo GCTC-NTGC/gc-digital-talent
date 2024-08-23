@@ -6,7 +6,6 @@ import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
-
 import { hydrogen_watch } from "@hydrogen-css/hydrogen";
 
 dotenv.config({ path: "./.env" });
@@ -101,6 +100,9 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     port: 3000,
+  },
+  html: {
+    cspNonce: "**CSP_NONCE**",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".json", ".js"],
@@ -224,6 +226,6 @@ export default defineConfig(({ command }) => ({
         ],
       },
     }),
-    compression(),
+    compression({ exclude: /index\.html/i }),
   ],
 }));
