@@ -300,7 +300,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         description:
           "Title displayed for the Pool table Group and Level column.",
       }),
-      // TO DO: Move to filter
       enableColumnFilter: false,
       cell: ({ row: { original: pool } }) =>
         classificationCell(pool.classification),
@@ -309,7 +308,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       ({ stream }) => getLocalizedName(stream?.label, intl),
       {
         id: "stream",
-        // TO DO: Move to filters
         enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Stream",
@@ -330,9 +328,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       ({ status }) => getLocalizedName(status?.label, intl),
       {
         id: "status",
-        // TO DO: Reenable when scope is added
         enableColumnFilter: false,
-        // TO DO: Reenable when relation order by added
         enableSorting: false,
         header: intl.formatMessage(commonMessages.status),
       },
