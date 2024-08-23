@@ -50,6 +50,7 @@ class PoolFactory extends Factory
         }
 
         $teamId = Team::inRandomOrder()
+            ->whereNull('teamable_id')
             ->limit(1)
             ->pluck('id')
             ->first();
