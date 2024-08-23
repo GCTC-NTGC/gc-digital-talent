@@ -8,7 +8,9 @@ export default {
 
 const Template: StoryFn = (args) => {
   const { headingMessage, children } = args;
-  return <NotFound headingMessage={headingMessage}>{children}</NotFound>;
+  return (
+    <NotFound headingMessage={headingMessage as string}>{children}</NotFound>
+  );
 };
 
 export const Default = Template.bind({});

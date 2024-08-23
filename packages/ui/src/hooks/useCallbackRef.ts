@@ -1,8 +1,6 @@
 import { useRef, useEffect, useMemo } from "react";
 
-// Note: This is a generic type and can accept any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type GenericFunc = (...args: any[]) => any;
+type GenericFunc = (...args: unknown[]) => unknown;
 
 /**
  * Stabilize a callback with React.useRef

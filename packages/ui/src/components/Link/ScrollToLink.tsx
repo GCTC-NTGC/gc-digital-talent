@@ -48,7 +48,7 @@ const ScrollToLink = ({
   newTab = false,
   ...rest
 }: ScrollToLinkProps) => {
-  const { pathname, hash, search, state } = useLocation();
+  const { pathname, hash, search, ...location } = useLocation();
   const [targetSection, setTargetSection] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const ScrollToLink = ({
         search,
         hash: to,
       }}
-      state={state}
+      state={location.state as unknown}
       replace
       preventScrollReset={false}
       {...getButtonStyles({ mode, color, block, disabled })}

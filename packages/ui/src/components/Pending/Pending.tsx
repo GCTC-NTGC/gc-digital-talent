@@ -34,6 +34,8 @@ const Pending = ({
 
   if (error) {
     if (isUuidError(error)) {
+      // NOTE: Used by react-router as a 404 error
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw new Response("", {
         status: 404,
         statusText: intl.formatMessage(commonMessages.notFound),

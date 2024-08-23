@@ -28,8 +28,9 @@ const ReactRouterDecorator: Decorator<Args> = (Story, options) => {
   useEffect(() => {
     action("location")(location);
   }, [location]);
+  const steps = args.steps as StepType[];
 
-  const currentIndex = args.steps.findIndex(
+  const currentIndex = steps.findIndex(
     (step: StepType) => step.href === location.pathname,
   );
 

@@ -51,7 +51,7 @@ describe("Tabs", () => {
     await axeTest(container);
   });
 
-  it("should only render opened tabpanel", async () => {
+  it("should only render opened tabpanel", () => {
     renderTabs({
       defaultValue: "one",
     });

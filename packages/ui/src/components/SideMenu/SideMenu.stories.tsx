@@ -45,7 +45,7 @@ export default {
 const TemplateSideMenu: StoryFn = (args) => {
   const intl = useIntl();
   const { isOpen: defaultOpen } = args;
-  const [isOpen, setOpen] = useState<boolean>(defaultOpen);
+  const [isOpen, setOpen] = useState<boolean>(defaultOpen as boolean);
 
   const handleToggle = () => {
     setOpen(!isOpen);
