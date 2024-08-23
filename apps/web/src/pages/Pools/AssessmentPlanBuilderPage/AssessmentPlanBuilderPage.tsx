@@ -152,6 +152,7 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
       community {
         teamIdForRoleAssignment
       }
+      teamIdForRoleAssignment
     }
   }
 `);
@@ -192,8 +193,8 @@ export const AssessmentPlanBuilderPage = () => {
           authorizedRoleAssignment.team?.name ===
             queryData?.pool?.team?.name) ||
         (authorizedRoleAssignment.role?.name === ROLE_NAME.ProcessOperator &&
-          authorizedRoleAssignment.team?.name ===
-            queryData?.pool?.team?.name) ||
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.teamIdForRoleAssignment) ||
         (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityRecruiter &&
           authorizedRoleAssignment.team?.id ===
             queryData?.pool?.community?.teamIdForRoleAssignment) ||
