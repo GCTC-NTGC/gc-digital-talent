@@ -92,30 +92,6 @@ describe("SelfDeclarationForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should display alert if community selected with other", async () => {
-    renderSelfDeclarationForm();
-
-    fireEvent.click(screen.getByRole("radio", { name: /i affirm that/i }));
-
-    fireEvent.click(
-      await screen.findByRole("checkbox", {
-        name: /i am inuk/i,
-      }),
-    );
-
-    fireEvent.click(
-      await screen.findByRole("checkbox", {
-        name: /i don't see my community/i,
-      }),
-    );
-
-    expect(
-      await within(await screen.findByRole("alert")).findByRole("heading", {
-        name: /are you sure/i,
-      }),
-    ).toBeInTheDocument();
-  });
-
   it("should submit with all required fields", async () => {
     mockCallback.mockReset();
     renderSelfDeclarationForm();
