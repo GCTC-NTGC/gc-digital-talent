@@ -38,7 +38,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
 
   const value = useMemo(
     () => ({
-      items: items ?? [],
+      items: items ?? ([] as ItemWithId<T>[]),
       onUpdate: (newItems: ItemWithId<T>[]) => setItems(newItems),
       id,
       moveDisabledIndexes,
