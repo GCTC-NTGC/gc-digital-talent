@@ -105,6 +105,10 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   );
 };
 
+type LocationState = {
+  referrer?: string;
+};
+
 const SupportForm = ({
   showSupportForm,
   onFormToggle,
@@ -113,7 +117,8 @@ const SupportForm = ({
 }: SupportFormProps) => {
   const intl = useIntl();
   const location = useLocation();
-  const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
+  const state = location.state as LocationState;
+  const previousUrl = state?.referrer ?? document?.referrer ?? ("" as string);
   const methods = useForm<FormValues>({
     defaultValues: {
       user_id: currentUser?.id || "",
@@ -268,12 +273,18 @@ const defaultErrorMessage = defineMessage({
   id: "rNVDaA",
   description: "Support form toast message error",
 });
+
 const emailErrorMessage = defineMessage({
   defaultMessage:
     "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
   id: "DOn3Hm",
   description: "Support form toast message error",
 });
+
+type SubmitResponse = {
+  serviceResponse?: string;
+  errorDetail?: string;
+};
 
 const SupportFormApi = () => {
   const intl = useIntl();
@@ -299,7 +310,7 @@ const SupportFormApi = () => {
     }
 
     // we didn't get an OK so let's take a closer look at the response
-    const responseBody = await response.json();
+    const responseBody = (await response.json()) as SubmitResponse;
     const errorCode = `${response.status} - ${response.statusText}`;
     logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
 

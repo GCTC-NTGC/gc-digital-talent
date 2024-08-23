@@ -103,8 +103,8 @@ const EquityOptions = ({
       });
   };
 
-  const handleMultipleFieldSave = (data: UpdateUserAsUserInput) => {
-    onUpdate(data).then((res) => {
+  const handleMultipleFieldSave = async (data: UpdateUserAsUserInput) => {
+    await onUpdate(data).then((res) => {
       if (res) toast.success(intl.formatMessage(profileMessages.userUpdated));
       else {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
@@ -149,8 +149,8 @@ const EquityOptions = ({
               option="indigenous"
               indigenousCommunities={resolvedIndigenousCommunities}
               signature={indigenousDeclarationSignature ?? undefined}
-              onSave={(newValues) => {
-                handleMultipleFieldSave(newValues);
+              onSave={async (newValues) => {
+                await handleMultipleFieldSave(newValues);
               }}
               title={intl.formatMessage(
                 getEmploymentEquityStatement("indigenous"),
@@ -254,8 +254,8 @@ const EquityOptions = ({
                     option="indigenous"
                     indigenousCommunities={resolvedIndigenousCommunities}
                     signature={indigenousDeclarationSignature ?? undefined}
-                    onSave={(newValues) => {
-                      handleMultipleFieldSave(newValues);
+                    onSave={async (newValues) => {
+                      await handleMultipleFieldSave(newValues);
                     }}
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("indigenous"),

@@ -70,9 +70,7 @@ const defaultProps: AssessmentStepTrackerProps = {
 };
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const renderAssessmentStepTracker = (
   overrideProps?: AssessmentStepTrackerProps,
@@ -99,8 +97,8 @@ describe("AssessmentStepTracker", () => {
 
   it("should have no accessibility errors", async () => {
     const { container } = renderAssessmentStepTracker();
-    await waitFor(() => {
-      axeTest(container);
+    await waitFor(async () => {
+      await axeTest(container);
     });
   });
 
@@ -265,7 +263,7 @@ describe("AssessmentStepTracker", () => {
           decision: NO_DECISION,
           poolCandidate: expect.objectContaining({
             id: "unassessed",
-          }),
+          }) as CandidateAssessmentResult,
         }),
       ]),
     );
@@ -292,7 +290,7 @@ describe("AssessmentStepTracker", () => {
         expect.objectContaining({
           poolCandidate: expect.objectContaining({
             id: "armed-forces",
-          }),
+          }) as CandidateAssessmentResult,
         }),
       ]),
     );
@@ -312,7 +310,7 @@ describe("AssessmentStepTracker", () => {
         expect.objectContaining({
           poolCandidate: expect.objectContaining({
             id: "unassessed",
-          }),
+          }) as CandidateAssessmentResult,
         }),
       ]),
     );

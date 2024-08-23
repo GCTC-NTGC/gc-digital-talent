@@ -1,7 +1,7 @@
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { makeFragmentData, Pool } from "@gc-digital-talent/graphql";
 
 import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
@@ -10,7 +10,7 @@ const fakedPool = fakedPools[0];
 const fakedPoolNull = fakedPools[0];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nullPool: any = {};
+const nullPool: Record<string, unknown> = {};
 Object.keys(fakedPoolNull).forEach((key) => {
   nullPool[key] = null;
 });
@@ -28,5 +28,5 @@ export const Default = Template.bind({});
 
 export const Null = Template.bind({});
 Null.args = {
-  poolQuery: makeFragmentData(nullPool, PoolCard_Fragment),
+  poolQuery: makeFragmentData(nullPool as Pool, PoolCard_Fragment),
 };

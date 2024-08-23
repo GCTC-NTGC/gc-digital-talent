@@ -37,6 +37,7 @@ import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import { rejectMutation } from "~/utils/errors";
 
 import messages from "../utils/messages";
 
@@ -272,7 +273,7 @@ export const GettingStartedForm = ({
   });
 
   const onSubmit = (values: FormValues) => {
-    handleSubmit(
+    void handleSubmit(
       {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -404,13 +405,13 @@ const GettingStarted = () => {
       },
     }).then((generalResult) => {
       if (generalResult.data?.updateUserAsUser) {
-        executeNotificationMutation({
+        void executeNotificationMutation({
           enabledEmailNotifications: notificationInput,
         }).then((notificationResult) => {
           if (notificationResult.data?.updateEnabledNotifications) {
             return generalResult.data?.updateUserAsUser;
           }
-          return Promise.reject(notificationResult.error);
+          return rejectMutation(notificationResult.error);
         });
       }
     });

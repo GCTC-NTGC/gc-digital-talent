@@ -89,7 +89,9 @@ const CheckListSection = ({
   path,
 }: CheckListSectionProps) => {
   const intl = useIntl();
-  const educationRequirement = useWatch({ name: "educationRequirement" });
+  const educationRequirement = useWatch({
+    name: "educationRequirement",
+  }) as EducationRequirementOption;
   // decide whether to show the "select experiences in" helper list
   const showEssentialExperienceMessage: boolean = group !== "EC";
   switch (educationRequirement) {

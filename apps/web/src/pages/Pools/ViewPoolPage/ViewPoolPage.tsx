@@ -544,6 +544,8 @@ const ViewPoolPage = () => {
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
             }}
+            // NOTE: Required for function colouring
+            // eslint-disable-next-line @typescript-eslint/require-await
             onClose={async (reason: string) => {
               return mutations.close(poolId, reason);
             }}

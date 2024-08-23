@@ -10,7 +10,7 @@ const generateLink = (
   state: LinkProps["state"],
   chunks: ReactNode,
 ) => (
-  <Link newTab external href={href} state={state}>
+  <Link newTab external href={href} state={state as unknown}>
     {chunks}
   </Link>
 );

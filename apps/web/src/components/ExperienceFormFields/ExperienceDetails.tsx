@@ -19,7 +19,7 @@ interface ExperienceDetailsProps {
 
 const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const intl = useIntl();
-  const type = useWatch({ name: "experienceType" });
+  const type = useWatch({ name: "experienceType" }) as ExperienceType;
   const derivedType: ExperienceType = type ?? experienceType;
   const labels = getExperienceFormLabels(intl, derivedType);
 

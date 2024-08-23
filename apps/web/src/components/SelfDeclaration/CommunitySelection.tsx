@@ -189,10 +189,10 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   const { watch, setValue, resetField, setError, clearErrors, formState } =
     useFormContext();
 
-  const [communitiesValue, isStatus]: [
+  const [communitiesValue, isStatus] = watch(["communities", "isStatus"]) as [
     string[],
     FirstNationsStatus | undefined,
-  ] = watch(["communities", "isStatus"]);
+  ];
 
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 
@@ -302,7 +302,7 @@ interface CommunitySelectionProps {
 const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
   const { watch } = useFormContext();
 
-  const [isIndigenousValue] = watch(["isIndigenous"]);
+  const [isIndigenousValue] = watch(["isIndigenous"]) as [string];
   const isIndigenous = isIndigenousValue === "yes";
 
   return isIndigenous ? <CommunityList labels={labels} /> : null;

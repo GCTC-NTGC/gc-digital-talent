@@ -30,6 +30,10 @@ function useAsyncFileDownload({
   const [fetching, setFetching] = useState<boolean>(false);
   const controller = useRef<AbortController>(new AbortController());
 
+  function abort() {
+    controller.current.abort();
+  }
+
   async function downloadFile(): Promise<void> {
     // Abort any current requests
     if (fetching) {
@@ -50,7 +54,7 @@ function useAsyncFileDownload({
           if (res.status === 404) {
             return Promise.reject(new Error("not found"));
           }
-          return Promise.reject();
+          return Promise.reject(new Error("error downloading file"));
         }
 
         return res.blob();
@@ -75,7 +79,7 @@ function useAsyncFileDownload({
       .finally(() => setFetching(false));
   }
 
-  return [{ fetching, abort: controller.current.abort }, downloadFile];
+  return [{ fetching, abort }, downloadFile];
 }
 
 export default useAsyncFileDownload;

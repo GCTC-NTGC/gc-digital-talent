@@ -24,6 +24,7 @@ import {
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { rejectMutation } from "~/utils/errors";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
 
@@ -96,7 +97,7 @@ const ChangeDateDialog = ({
     if (result.data?.updatePoolCandidateStatus) {
       return result.data.updatePoolCandidateStatus;
     }
-    return Promise.reject(result.error);
+    return rejectMutation(result.error);
   };
 
   const submitForm: SubmitHandler<FormValues> = async (

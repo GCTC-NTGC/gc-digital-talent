@@ -40,7 +40,7 @@ const TalentSourcingDecisionSection = () => {
     "contractingRationalePrimary",
     "contractingRationalesSecondary",
     "ocioConfirmedTalentShortage",
-  ]);
+  ]) as [ContractingRationale, ContractingRationale, YesNo];
   const isContractingRationalePrimaryOther =
     selectedContractingRationalePrimary === ContractingRationale.Other;
   const isContractingRationalePrimaryShortageOfTalent =

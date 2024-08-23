@@ -32,7 +32,7 @@ function assertParam(
   param?: string,
   enforceUUID: boolean = true,
   logger: Logger = defaultLogger,
-): asserts param is string | never {
+): asserts param is string {
   invariant(
     notEmpty(param),
     `Could not find required URL parameter "${param}"`,
@@ -83,6 +83,7 @@ const useRequiredParams = <
     } catch (_err) {
       const errorMessage =
         message ?? intl.formatMessage(commonMessages.notFound);
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw new Response(errorMessage, {
         status: 404,
         statusText: errorMessage,

@@ -22,6 +22,7 @@ import {
 
 import SkillDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillDialogFormValues } from "~/components/SkillBrowser/types";
+import { rejectMutation } from "~/utils/errors";
 
 import { enumToOptions, stringToEnum } from "../../util";
 import {
@@ -59,7 +60,7 @@ const PersonnelRequirementFieldset = ({
       `${fieldsetName}.skillRequirements`,
       `${fieldsetName}.language`,
       `${fieldsetName}.security`,
-    ]);
+    ]) as [string, PersonnelLanguage, PersonnelScreeningLevel];
 
   const selectedSkillRequirements: Array<SkillRequirementFormValues> =
     Array.isArray(selectedSkillRequirementsUntyped) &&
@@ -102,7 +103,7 @@ const PersonnelRequirementFieldset = ({
       ]);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return rejectMutation();
   };
 
   const handleSkillDialogEdit = (
@@ -117,7 +118,7 @@ const PersonnelRequirementFieldset = ({
       setValue(`${fieldsetName}.skillRequirements.${index}`, newEntry);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return rejectMutation();
   };
 
   const removeSkill = (skillId: string) => {

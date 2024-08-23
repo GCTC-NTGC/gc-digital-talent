@@ -144,7 +144,9 @@ export const ViewPoolCandidate = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
+  const parsedSnapshot: Maybe<User> = JSON.parse(
+    poolCandidate.profileSnapshot as string,
+  ) as Maybe<User>;
   const snapshotCandidate: PoolCandidate | undefined =
     parsedSnapshot?.poolCandidates
       ?.filter(notEmpty)

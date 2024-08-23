@@ -91,7 +91,7 @@ const EmailVerification = ({
     return () => clearTimeout(timerId);
   }, [canRequestACode]);
 
-  const requestACode = async () => {
+  const requestACode = () => {
     executeSendEmailMutation({})
       .then((result) => {
         if (!result.data?.sendUserEmailVerification?.id) {
@@ -105,7 +105,7 @@ const EmailVerification = ({
       });
   };
 
-  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
     executeVerifyUserEmailMutation({
       code: data.verificationCode,
     })

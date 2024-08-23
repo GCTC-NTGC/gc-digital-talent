@@ -42,7 +42,7 @@ const Template: StoryFn<typeof ApplicationCard> = () => {
       >
         {applications.map((application) => (
           <div
-            key={`${application.id}-${application.status}-${application.archivedAt}`}
+            key={`${application.id}-${application.status.value}-${application.archivedAt}`}
           >
             <h2 data-h2-margin="base(x1, 0, x0.5, 0)">
               {isExpired(application.status.value, application.expiryDate) &&

@@ -204,7 +204,7 @@ export const buildColumn = ({
               }
               poolCandidate={{
                 id: poolCandidate.id,
-                profileSnapshot: poolCandidate.profileSnapshot,
+                profileSnapshot: poolCandidate.profileSnapshot as string,
                 pool: {
                   classification: poolCandidate.pool.classification,
                   publishingGroup: poolCandidate.pool.publishingGroup,
@@ -231,7 +231,7 @@ export const buildColumn = ({
               assessmentResult={assessmentResult} // always undefined
               poolCandidate={{
                 id: poolCandidate.id,
-                profileSnapshot: poolCandidate.profileSnapshot,
+                profileSnapshot: poolCandidate.profileSnapshot as string,
                 pool: {
                   classification: poolCandidate.pool.classification,
                   publishingGroup: poolCandidate.pool.publishingGroup,

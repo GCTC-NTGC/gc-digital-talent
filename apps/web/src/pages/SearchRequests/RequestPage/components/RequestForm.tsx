@@ -53,6 +53,7 @@ import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
+import { rejectMutation } from "~/utils/errors";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -793,7 +794,7 @@ const RequestFormApi = ({
       if (result.data?.createPoolCandidateSearchRequest) {
         return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   return (

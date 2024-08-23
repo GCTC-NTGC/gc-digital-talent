@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
@@ -26,6 +26,8 @@ import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import useReturnPath from "~/hooks/useReturnPath";
+import { rejectMutation } from "~/utils/errors";
 
 export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentForm on Department {
@@ -64,9 +66,7 @@ export const UpdateDepartmentForm = ({
   });
   const { handleSubmit } = methods;
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.departmentTable();
-
+  const navigateTo = useReturnPath(paths.departmentTable());
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateDepartment(initialDepartment.id, {
       departmentNumber: Number(data.departmentNumber),
@@ -188,7 +188,7 @@ const UpdateDepartmentPage = () => {
       if (result.data?.updateDepartment) {
         return result.data?.updateDepartment;
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   const navigationCrumbs = useBreadcrumbs({

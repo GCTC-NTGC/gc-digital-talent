@@ -40,6 +40,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { splitAndJoin } from "~/utils/nameUtils";
+import { rejectMutation } from "~/utils/errors";
 
 import messages from "../utils/messages";
 
@@ -97,7 +98,7 @@ export const EmployeeInformationFormFields = ({
   const [govEmployee, groupSelection] = watch([
     "govEmployeeYesNo",
     "currentClassificationGroup",
-  ]);
+  ]) as [string, string];
 
   const classGroupsWithDupes: {
     label: string;
@@ -504,7 +505,7 @@ const EmployeeInformation = () => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   const onSubmit = async (input: UpdateUserAsUserInput) => {

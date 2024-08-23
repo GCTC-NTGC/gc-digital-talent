@@ -24,7 +24,7 @@ type UseInitialState = {
 
 export const useInitialFilters = (pools: Pool[]): UseInitialState => {
   const location = useLocation();
-  const { state }: { state: LocationState } = location;
+  const state = location.state as LocationState;
 
   const initialFilters = state?.applicantFilter ?? {
     pools,

@@ -143,7 +143,7 @@ const usePoolMutations = (returnPath?: string) => {
       }),
     );
 
-    return Promise.reject();
+    return Promise.reject(new Error("Could not update"));
   };
 
   const update = async (id: string, pool: UpdatePoolInput) => {
@@ -205,7 +205,7 @@ const usePoolMutations = (returnPath?: string) => {
             }),
           );
         } else {
-          handleUpdateError();
+          void handleUpdateError();
         }
       })
       .catch(handleUpdateError);

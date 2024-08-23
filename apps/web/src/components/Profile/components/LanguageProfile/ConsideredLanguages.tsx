@@ -87,7 +87,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const [consideredLanguages, secondLanguageExamCompleted] = watch([
     "consideredPositionLanguages",
     "secondLanguageExamCompleted",
-  ]);
+  ]) as [string[], boolean];
 
   const evaluatedAbilityItems = localizedEnumToOptions(
     sortEvaluatedLanguageAbility(data?.evaluatedLanguageAbilities),

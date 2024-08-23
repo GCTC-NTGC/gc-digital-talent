@@ -27,7 +27,10 @@ const OperationsConsiderationsSection = () => {
   const [
     selectedHasOperationsConsiderations,
     selectedOperationsConsiderations,
-  ] = watch(["hasOperationsConsiderations", "operationsConsiderations"]);
+  ] = watch(["hasOperationsConsiderations", "operationsConsiderations"]) as [
+    YesNo,
+    OperationsConsideration,
+  ];
 
   const hasOperationsConsiderationsIsYes =
     selectedHasOperationsConsiderations === YesNo.Yes;

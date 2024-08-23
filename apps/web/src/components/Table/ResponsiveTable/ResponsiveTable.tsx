@@ -155,10 +155,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const {
     sorting: sortingState,
     columnFilters: columnFilterState,
-    globalFilter: globalFilterState,
     columnVisibility: columnVisibilityState,
     pagination: paginationState,
+    ...tableState
   } = table.getState();
+  const globalFilterState = tableState.globalFilter as string;
 
   useEffect(() => {
     if (urlSync) {

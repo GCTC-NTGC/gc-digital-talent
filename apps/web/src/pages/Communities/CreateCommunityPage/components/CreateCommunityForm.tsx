@@ -1,5 +1,5 @@
 import { SubmitHandler } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
 
@@ -21,6 +21,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import useReturnPath from "~/hooks/useReturnPath";
 
 type FormValues = {
   key: string;
@@ -55,8 +56,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
   const paths = useRoutes();
   const navigate = useNavigate();
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.communityTable();
+  const navigateTo = useReturnPath(paths.communityTable());
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(formValuesToSubmitData(data))

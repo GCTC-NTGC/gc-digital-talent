@@ -6,7 +6,7 @@ import { Well } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { normalizeString } from "@gc-digital-talent/helpers";
-import { Skill } from "@gc-digital-talent/graphql";
+import { Skill, SkillFamily } from "@gc-digital-talent/graphql";
 
 import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";
@@ -30,7 +30,7 @@ const SkillSelection = ({
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
 
-  const [family, skill] = watch(["family", "skill"]);
+  const [family, skill] = watch(["family", "skill"]) as [SkillFamily, string];
 
   const filteredFamilies = useMemo(() => {
     return getFilteredFamilies({ skills }).sort((familyA, familyB) => {

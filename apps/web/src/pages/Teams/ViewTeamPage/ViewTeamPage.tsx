@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
 import { useQuery } from "urql";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -12,6 +11,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import ViewTeam, { ViewTeamPageFragment } from "./components/ViewTeam";
 
@@ -58,8 +58,7 @@ const ViewTeamPage = () => {
     variables: { id: teamId },
   });
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? routes.teamTable();
+  const navigateTo = useReturnPath(routes.teamTable());
 
   return (
     <AdminContentWrapper>

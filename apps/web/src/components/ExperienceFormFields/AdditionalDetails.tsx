@@ -21,7 +21,7 @@ interface AdditionalDetailsProps {
 const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
   const intl = useIntl();
   const experienceLabels = getExperienceFormLabels(intl);
-  const type = useWatch({ name: "experienceType" });
+  const type = useWatch({ name: "experienceType" }) as ExperienceType;
   const derivedType = type ?? experienceType;
 
   return (

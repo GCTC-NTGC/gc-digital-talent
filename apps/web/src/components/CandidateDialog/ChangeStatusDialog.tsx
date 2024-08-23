@@ -31,6 +31,7 @@ import {
   getShortPoolTitleHtml,
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
+import { rejectMutation } from "~/utils/errors";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
 
@@ -76,8 +77,7 @@ const StatusInput = () => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ChangeStatusDialog_UserFragment = graphql(/* GraphQL */ `
+const _ = graphql(/* GraphQL */ `
   fragment ChangeStatusDialog_User on User {
     firstName
     lastName
@@ -230,12 +230,10 @@ const ChangeStatusDialog = ({
     if (result.data?.updatePoolCandidateStatus) {
       return result.data.updatePoolCandidateStatus;
     }
-    return Promise.reject(result.error);
+    return rejectMutation(result.error);
   };
 
-  const submitForm: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {
+  const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
     // we need to update the original pool candidate, and possibly additional ones from other pools
     const poolCandidatesToUpdate = [
       selectedCandidate,

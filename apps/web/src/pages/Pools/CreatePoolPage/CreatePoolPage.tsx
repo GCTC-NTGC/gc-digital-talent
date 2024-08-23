@@ -32,6 +32,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import messages from "~/messages/adminMessages";
+import { rejectMutation } from "~/utils/errors";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -373,7 +374,7 @@ const CreatePoolPage = () => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);

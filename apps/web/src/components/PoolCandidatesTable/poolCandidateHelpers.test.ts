@@ -4,6 +4,7 @@
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
+  PoolCandidateSearchRequestInput,
 } from "@gc-digital-talent/graphql";
 
 import { transformFormValuesToFilterState } from "./helpers";
@@ -38,7 +39,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { hasDisability: true },
-        }),
+        }) as Partial<PoolCandidateSearchRequestInput>,
       }),
     );
 
@@ -51,7 +52,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isWoman: true },
-        }),
+        }) as Partial<PoolCandidateSearchRequestInput>,
       }),
     );
 
@@ -64,7 +65,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isVisibleMinority: true },
-        }),
+        }) as Partial<PoolCandidateSearchRequestInput>,
       }),
     );
 
@@ -77,7 +78,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isIndigenous: true },
-        }),
+        }) as Partial<PoolCandidateSearchRequestInput>,
       }),
     );
   });
@@ -92,7 +93,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { hasDisability: true, isIndigenous: true },
-        }),
+        }) as Partial<PoolCandidateSearchRequestInput>,
       }),
     );
 
@@ -110,7 +111,7 @@ describe("Transform form values to filter state", () => {
             isWoman: true,
             isVisibleMinority: true,
           },
-        }),
+        }) as Partial<PoolCandidateSearchRequestInput>,
       }),
     );
   });

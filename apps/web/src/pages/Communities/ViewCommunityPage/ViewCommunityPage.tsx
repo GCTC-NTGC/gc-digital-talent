@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
 import { useMutation, useQuery } from "urql";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -17,6 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import CommunitySection from "./components/CommunitySection";
 
@@ -72,8 +72,7 @@ const ViewCommunityPage = () => {
     );
   };
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? routes.communityTable();
+  const navigateTo = useReturnPath(routes.communityTable());
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Community information",

@@ -58,7 +58,7 @@ const ScopeOfContractSection = () => {
     "methodOfSupply",
     "instrumentType",
     "contractStartDate",
-  ]);
+  ]) as [ContractCommodity, ContractSupplyMethod, ContractInstrument, string];
   const isCommodityTypeOther =
     selectedCommodityType === ContractCommodity.Other;
   const isMethodOfSupplyOther =

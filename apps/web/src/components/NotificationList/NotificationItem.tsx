@@ -122,11 +122,11 @@ const NotificationItem = ({
 
   const isTogglingReadStatus = markingAsRead || markingAsUnread;
 
-  const toggleReadStatus = () => {
+  const toggleReadStatus = async () => {
     const mutation = isUnread
       ? executeMarkAsReadMutation
       : executeMarkAsUnreadMutation;
-    mutation({ id: notification.id });
+    await mutation({ id: notification.id });
   };
 
   const createdAt = notification.createdAt

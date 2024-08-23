@@ -36,6 +36,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
+import { rejectMutation } from "~/utils/errors";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {
@@ -306,11 +307,11 @@ const AssessmentDetailsDialog = ({
     }
   }, [dialogMode, setValue]);
 
-  const submitCreateAssessmentStepMutation = (
+  const submitCreateAssessmentStepMutation = async (
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      poolId: values.poolId,
+      poolId: values.poolId ?? "",
       assessmentStep: {
         type: values.typeOfAssessment,
         title: {
@@ -322,21 +323,21 @@ const AssessmentDetailsDialog = ({
         },
       },
     };
-    return executeCreateAssessmentStepMutation(mutationParameters).then(
+    return await executeCreateAssessmentStepMutation(mutationParameters).then(
       (result) => {
         if (result?.data?.createAssessmentStep?.id) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return rejectMutation();
       },
     );
   };
 
-  const submitUpdateAssessmentStepMutation = (
+  const submitUpdateAssessmentStepMutation = async (
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      id: values.id,
+      id: values.id ?? "",
       assessmentStep: {
         type: values.typeOfAssessment,
         title: {
@@ -348,21 +349,18 @@ const AssessmentDetailsDialog = ({
         },
       },
     };
-    return executeUpdateAssessmentStepMutation(mutationParameters).then(
-      (res) => {
-        if (res?.data?.updateAssessmentStep?.id) {
-          return Promise.resolve();
-        }
-        return Promise.reject();
-      },
-    );
+    const res = await executeUpdateAssessmentStepMutation(mutationParameters);
+    if (res?.data?.updateAssessmentStep?.id) {
+      return Promise.resolve();
+    }
+    return rejectMutation();
   };
 
-  const submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation = (
+  const submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation = async (
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      poolId: values.poolId,
+      poolId: values.poolId ?? "",
       screeningQuestions: values.screeningQuestionFieldArray?.map(
         ({ screeningQuestion }, index) => ({
           question: {
@@ -385,14 +383,14 @@ const AssessmentDetailsDialog = ({
         },
       },
     };
-    return executeCreateOrUpdateScreeningQuestionAssessmentStepMutation(
-      mutationParameters,
-    ).then((res) => {
-      if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
-        return Promise.resolve();
-      }
-      return Promise.reject();
-    });
+    const res =
+      await executeCreateOrUpdateScreeningQuestionAssessmentStepMutation(
+        mutationParameters,
+      );
+    if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
+      return Promise.resolve();
+    }
+    return rejectMutation();
   };
 
   const submitForm = (values: FormValues) => {

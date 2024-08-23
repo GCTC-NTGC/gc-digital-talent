@@ -168,13 +168,17 @@ const SkillTable = ({
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: SkillFilterInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+  const initialFilters: SkillFilterInput | undefined = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as SkillFilterInput)
+        : undefined,
     [filtersEncoded],
   );
 
-  const [filterState, setFilterState] =
-    useState<SkillFilterInput>(initialFilters);
+  const [filterState, setFilterState] = useState<SkillFilterInput | undefined>(
+    initialFilters,
+  );
 
   const [dataState, setDataState] = useState<Skill[]>(skills);
 

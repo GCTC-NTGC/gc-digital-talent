@@ -1,5 +1,5 @@
 import { SubmitHandler } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
 
@@ -17,6 +17,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import CreateTeamFormFields from "./CreateTeamFormFields";
 import { TeamDepartmentOption_Fragment } from "../../operations";
@@ -58,8 +59,7 @@ const CreateTeamForm = ({
     departmentsQuery,
   );
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.teamTable();
+  const navigateTo = useReturnPath(paths.teamTable());
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(formValuesToSubmitData(data))

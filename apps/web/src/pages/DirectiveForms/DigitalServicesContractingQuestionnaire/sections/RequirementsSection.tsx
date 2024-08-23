@@ -62,7 +62,14 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     "hasOtherRequirements",
     "requirementOthers",
     "hasPersonnelRequirements",
-  ]);
+  ]) as [
+    PersonnelScreeningLevel,
+    PersonnelLanguage,
+    PersonnelWorkLocation,
+    YesNo,
+    PersonnelOtherRequirement,
+    YesNo,
+  ];
 
   const doesRequirementScreeningLevelsIncludeOther =
     Array.isArray(selectedRequirementScreeningLevels) &&

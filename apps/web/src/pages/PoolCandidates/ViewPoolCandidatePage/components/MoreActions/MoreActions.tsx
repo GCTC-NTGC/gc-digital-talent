@@ -76,7 +76,9 @@ const MoreActions = ({
     poolCandidate.user.lastName,
     intl,
   );
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
+  const parsedSnapshot: Maybe<User> = JSON.parse(
+    poolCandidate.profileSnapshot as string,
+  ) as Maybe<User>;
 
   return (
     <div

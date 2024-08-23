@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -18,6 +18,8 @@ import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import useReturnPath from "~/hooks/useReturnPath";
+import { rejectMutation } from "~/utils/errors";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -34,8 +36,7 @@ export const CreateClassificationForm = ({
   const { handleSubmit, watch } = methods;
   const watchMinSalary = watch("minSalary");
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.classificationTable();
+  const navigateTo = useReturnPath(paths.classificationTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const classification: FormValues = {
@@ -209,7 +210,7 @@ const CreateClassification = () => {
       if (result.data?.createClassification) {
         return result.data?.createClassification;
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   const navigationCrumbs = useBreadcrumbs({

@@ -243,9 +243,9 @@ const SkillLibraryTable = ({
             context="library"
             skills={unclaimedSkills}
             onSave={async (value) => {
-              executeCreateMutation({
-                userId: userAuthInfo?.id,
-                skillId: value?.skill,
+              await executeCreateMutation({
+                userId: userAuthInfo?.id ?? "",
+                skillId: value?.skill ?? "",
                 userSkill: {
                   skillLevel: value.skillLevel,
                   whenSkillUsed: value.whenSkillUsed,

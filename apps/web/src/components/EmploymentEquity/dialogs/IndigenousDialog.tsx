@@ -49,7 +49,7 @@ const IndigenousDialog = ({
   const communities = watch("communities");
   const hasCommunitiesSelected = communities && communities.length > 0;
 
-  const submitHandler: SubmitHandler<FormValuesWithSignature> = async (
+  const submitHandler: SubmitHandler<FormValuesWithSignature> = (
     data: FormValuesWithSignature,
   ) => {
     const newCommunities = formValuesToApiCommunities(data);

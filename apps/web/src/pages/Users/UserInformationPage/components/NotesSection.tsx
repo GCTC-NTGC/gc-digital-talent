@@ -32,10 +32,12 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
     if (res.data?.updatePoolCandidateNotes) {
       return res.data.updatePoolCandidateNotes;
     }
-    return Promise.reject(res.error);
+    return Promise.reject(new Error(res.error?.message ?? "unknown error"));
   };
 
-  const handleSubmit = async (formValues: { [x: string]: string }) => {
+  const handleSubmit = (formValues: { [x: string]: string }) => {
+    // TODO: This is too hard for now fix in #11368
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     user?.poolCandidates?.forEach(async (candidate) => {
       if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
         await handleUpdateCandidate(

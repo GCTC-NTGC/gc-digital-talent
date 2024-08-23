@@ -200,6 +200,7 @@ const Layout = () => {
 
   if (error) {
     if (isUuidError(error)) {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
       throw new Response("", {
         status: 404,
         statusText: intl.formatMessage(commonMessages.notFound),

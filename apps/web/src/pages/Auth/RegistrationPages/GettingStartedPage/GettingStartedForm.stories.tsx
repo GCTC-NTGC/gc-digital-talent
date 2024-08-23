@@ -25,6 +25,7 @@ const Template: StoryFn<typeof GettingStartedForm> = () => {
     <GettingStartedForm
       cacheKey=""
       query={mockFragmentData}
+      // eslint-disable-next-line @typescript-eslint/require-await
       handleSubmit={async (data) => {
         action("submit")(data);
       }}

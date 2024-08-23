@@ -5,6 +5,7 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { normalizeString } from "@gc-digital-talent/helpers";
+import { SkillFamily } from "@gc-digital-talent/graphql";
 
 import { BaseSkillBrowserProps } from "./types";
 import skillBrowserMessages from "./messages";
@@ -34,7 +35,10 @@ const SkillBrowser = ({
     category: `${id}-${INPUT_NAME.CATEGORY}`,
     family: `${id}-${INPUT_NAME.FAMILY}`,
   };
-  const [family, skillValue] = watch([inputNames.family, name]);
+  const [family, skillValue] = watch([inputNames.family, name]) as [
+    SkillFamily,
+    string,
+  ];
 
   const filteredFamilies = useMemo(() => {
     return getFilteredFamilies({ skills }).sort((familyA, familyB) => {

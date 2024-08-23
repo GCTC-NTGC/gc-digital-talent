@@ -62,7 +62,7 @@ const ChangeDateDialog = ({
 
   const handleChangeDate = useCallback(
     async (formValues: FormValues) => {
-      if (formValues.type === "close") {
+      if (formValues.type === "close" && onClose) {
         await onClose(formValues.reason ?? "").then(() => setIsOpen(false));
       } else {
         const closingDateInUtc = formValues.expiryEndDate

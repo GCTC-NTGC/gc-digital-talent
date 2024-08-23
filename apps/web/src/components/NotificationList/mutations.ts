@@ -2,6 +2,8 @@ import { useMutation } from "urql";
 
 import { graphql, Scalars } from "@gc-digital-talent/graphql";
 
+import { rejectMutation } from "~/utils/errors";
+
 export const MarkNotificationAsRead_Mutation = graphql(/* GraphQL */ `
   mutation MarkNotificationAsRead($id: UUID!) {
     markNotificationAsRead(id: $id) {
@@ -47,12 +49,12 @@ export function useMarkAsRead(
     return executeMutation({ id })
       .then((res) => {
         if (!res.data?.markNotificationAsRead) {
-          return Promise.reject();
+          return rejectMutation();
         }
 
         return Promise.resolve();
       })
-      .catch(() => Promise.reject());
+      .catch(() => rejectMutation());
   }
 
   return [{ fetching }, markAsRead];

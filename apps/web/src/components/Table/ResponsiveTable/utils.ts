@@ -47,6 +47,8 @@ export const getColumnHeader = <T>(
   if (metaKey) {
     const { meta } = column.columnDef;
     const metaHeader = (meta && metaKey in meta ? meta[metaKey] : header) || "";
+    // NOTE: Willing to take the chance here
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return metaHeader.toString();
   }
 

@@ -16,9 +16,9 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
   // to toggle whether endDate is required, the state of the current-role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "currentRole" });
+  const isCurrent = useWatch({ name: "currentRole" }) as boolean;
   // ensuring endDate isn't before startDate, using this as a minimum value
-  const startDate = useWatch({ name: "startDate" });
+  const startDate = useWatch({ name: "startDate" }) as string;
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">

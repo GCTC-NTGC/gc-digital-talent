@@ -72,7 +72,9 @@ const RemoveCandidateOptions_Query = graphql(/* GraphQL */ `
 const RemovalInput = () => {
   const intl = useIntl();
   const [{ data }] = useQuery({ query: RemoveCandidateOptions_Query });
-  const removalReason = useWatch({ name: "removalReason" });
+  const removalReason = useWatch({
+    name: "removalReason",
+  }) as CandidateRemovalReason;
 
   return (
     <>

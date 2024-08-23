@@ -49,6 +49,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                   to={`experience-${experience.id}`}
                   mode="inline"
                   color="tertiary"
+                  // eslint-disable-next-line @typescript-eslint/no-base-to-string
                   aria-label={intl
                     .formatMessage(
                       {

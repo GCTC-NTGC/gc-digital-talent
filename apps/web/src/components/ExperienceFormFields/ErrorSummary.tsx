@@ -18,7 +18,7 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
   const [showErrorSummary, setShowErrorSummary] = useState<boolean>(false);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
   const intl = useIntl();
-  const type = useWatch({ name: "experienceType" });
+  const type = useWatch({ name: "experienceType" }) as ExperienceType;
   const derivedType = type ?? experienceType;
   const labels = getExperienceFormLabels(intl, derivedType);
   const {

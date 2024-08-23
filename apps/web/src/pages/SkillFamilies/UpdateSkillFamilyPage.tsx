@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -39,6 +39,8 @@ import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
+import { rejectMutation } from "~/utils/errors";
 
 type Option<V> = { value: V; label: string };
 
@@ -148,9 +150,7 @@ export const UpdateSkillFamilyForm = ({
   });
   const { handleSubmit } = methods;
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.skillFamilyTable();
-
+  const navigateTo = useReturnPath(paths.skillFamilyTable());
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateSkillFamily(
       initialSkillFamily.id,
@@ -323,7 +323,7 @@ const UpdateSkillFamilyPage = () => {
       if (result.data?.updateSkillFamily) {
         return result.data?.updateSkillFamily;
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   const navigationCrumbs = useBreadcrumbs({

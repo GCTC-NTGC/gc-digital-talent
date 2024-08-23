@@ -7,6 +7,7 @@ import {
   UpdateUserSkillRankingsInput,
   Skill,
   SkillCategory,
+  UserSkill,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
@@ -34,28 +35,27 @@ const SkillShowcaseCard = ({
   const [, updateUserSkillRankingsMutation] = useMutation(
     UpdateUserSkillRankings_Mutation,
   );
-  const { items } = useCardRepeaterContext();
+  const { items } = useCardRepeaterContext<UserSkill>();
 
   const getSkill = (skillId: string | undefined) =>
     skills.find((skill) => skill.id === skillId);
 
   // the mutation has be done at the card level.  If done in the parent the card is unmounted and dialog is lost if there is an error.
-  const handleRemove = (): Promise<void> => {
-    const copyOfItems = [...(items || [])];
+  const handleRemove = async (): Promise<void> => {
+    const copyOfItems = [...(items || [])] as UserSkill[];
     copyOfItems.splice(index, 1);
-    return updateUserSkillRankingsMutation({
-      userId: userAuthInfo?.id,
+    const res = await updateUserSkillRankingsMutation({
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         [userSkillRanking]: [
           ...copyOfItems.map((userSkill) => userSkill.skill),
         ],
       },
-    }).then((res) => {
-      if (res.data?.updateUserSkillRankings) {
-        return;
-      }
-      throw new Error("No data returned");
     });
+    if (res.data?.updateUserSkillRankings) {
+      return;
+    }
+    throw new Error("No data returned");
   };
 
   return (

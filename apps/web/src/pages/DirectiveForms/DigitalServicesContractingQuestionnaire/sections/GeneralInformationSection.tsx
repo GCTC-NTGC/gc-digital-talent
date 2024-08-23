@@ -65,7 +65,7 @@ const GeneralInformationSection = ({
     "authoritiesInvolved",
     "contractForDigitalInitiative",
     "digitalInitiativePlanSubmitted",
-  ]);
+  ]) as [string, YesNo, ContractAuthority, YesNoUnsure, YesNoUnsure];
 
   const isDepartmentOther = selectedDepartment === OTHER_ID;
   const isAuthorityInvolvedYes = selectedIsAuthorityInvolved === YesNo.Yes;

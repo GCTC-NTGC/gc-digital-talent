@@ -15,6 +15,8 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 
+import { rejectMutation } from "~/utils/errors";
+
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 import { PAGE_SECTION_ID } from "../navigation";
 import {
@@ -142,7 +144,7 @@ const OrganizeSection = ({
         if (res.data?.deleteAssessmentStep?.id) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return rejectMutation();
       })
       .then(() => {
         toast.success(
@@ -181,7 +183,7 @@ const OrganizeSection = ({
         ) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return rejectMutation();
       })
       .then(() => {
         toast.success(

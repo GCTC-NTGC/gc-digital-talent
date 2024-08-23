@@ -110,7 +110,7 @@ const FormFields = ({
       "govEmployeeType",
       "currentClassificationGroup",
       "priorityEntitlementYesNo",
-    ]);
+    ]) as [string, GovEmployeeType, string, string];
 
   const groupOptions = getGroupOptions([...classifications], intl);
   const levelOptions = getLevelOptions([...classifications], groupSelection);

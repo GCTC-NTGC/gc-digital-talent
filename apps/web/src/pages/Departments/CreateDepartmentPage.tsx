@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -17,6 +17,8 @@ import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import useReturnPath from "~/hooks/useReturnPath";
+import { rejectMutation } from "~/utils/errors";
 
 type FormValues = CreateDepartmentInput;
 
@@ -33,9 +35,7 @@ export const CreateDepartmentForm = ({
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.departmentTable();
-
+  const navigateTo = useReturnPath(paths.departmentTable());
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateDepartment({
       departmentNumber: Number(data.departmentNumber),
@@ -137,7 +137,7 @@ const CreateDepartmentPage = () => {
       if (result.data?.createDepartment) {
         return result.data?.createDepartment;
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   const navigationCrumbs = useBreadcrumbs({

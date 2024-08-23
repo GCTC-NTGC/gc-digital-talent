@@ -128,7 +128,7 @@ export const ApplicationSkills = ({
       "Descriptive text about how optional skills are used in the application process",
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     executeMutation({
       id: application.id,
       application: {

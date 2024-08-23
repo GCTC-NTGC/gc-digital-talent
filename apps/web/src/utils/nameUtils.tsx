@@ -136,7 +136,7 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
     description:
       "Message shown to user when the abbreviation text is not found.",
   });
-  const stringifyText = text && text.toString(); // grabs text from ReactNode (is there a better way to get text from ReactNode type?)
+  const stringifyText = text?.toString(); // grabs text from ReactNode (is there a better way to get text from ReactNode type?)
   if (typeof stringifyText !== "string") {
     return (
       <abbr title={fallbackTitle}>

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -31,6 +31,8 @@ import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import useReturnPath from "~/hooks/useReturnPath";
+import { rejectMutation } from "~/utils/errors";
 
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {
@@ -66,8 +68,7 @@ export const UpdateClassificationForm = ({
   const { handleSubmit, watch } = methods;
   const watchMinSalary = watch("minSalary");
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.classificationTable();
+  const navigateTo = useReturnPath(paths.classificationTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const classification: FormValues = {
@@ -270,7 +271,7 @@ const UpdateClassification = () => {
       if (result.data?.updateClassification) {
         return Promise.resolve(result.data?.updateClassification);
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
 
   const navigationCrumbs = useBreadcrumbs({

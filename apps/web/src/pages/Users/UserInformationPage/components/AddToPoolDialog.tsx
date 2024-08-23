@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -127,18 +128,16 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
     if (result.data?.createPoolCandidateAsAdmin) {
       return result.data.createPoolCandidateAsAdmin;
     }
-    return Promise.reject(result.error);
+    return Promise.reject(new Error(result.error?.message ?? ""));
   };
 
-  const submitForm: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {
+  const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
     const poolsToUpdate = formValues.pools
       .map((poolId) => poolMap.get(poolId))
       .filter(notEmpty);
 
-    const promises = poolsToUpdate.map((pool) => {
-      return requestMutation({
+    const promises = poolsToUpdate.map(async (pool) => {
+      return await requestMutation({
         pool: {
           connect: pool?.id,
         },
@@ -146,8 +145,6 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
           connect: id,
         },
         expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
-      }).catch((err) => {
-        throw err;
       });
     });
 

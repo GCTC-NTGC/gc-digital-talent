@@ -337,7 +337,9 @@ export const ScreeningDecisionDialog = ({
     skill: poolSkill?.skill,
   });
 
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
+  const parsedSnapshot: Maybe<User> = JSON.parse(
+    poolCandidate.profileSnapshot as string,
+  ) as Maybe<User>;
   const snapshotCandidate = parsedSnapshot?.poolCandidates
     ?.filter(notEmpty)
     .find(({ id }) => id === poolCandidate.id);

@@ -113,7 +113,7 @@ describe("EmailVerification", () => {
     const submitButton = screen.getByRole("button", {
       name: "Submit",
     });
-    await act(() => {
+    act(() => {
       submitButton.click();
     });
     expect(mutation.mock.calls).toHaveLength(1);

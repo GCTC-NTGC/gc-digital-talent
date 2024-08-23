@@ -38,7 +38,7 @@ const UpdateUserSubForm = ({
 
   const handleUpdateSub = async (formValues: FormValues) => {
     return onUpdateSub({
-      userId: authInfo?.id,
+      userId: authInfo?.id ?? "",
       sub: formValues.sub,
     }).then(() => {
       toast.success(

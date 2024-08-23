@@ -20,15 +20,15 @@ const renderThemeSwitcher = () => {
 describe("ThemeSwitcher", () => {
   // Spy on local storage methods to allow for testing them
   jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
-  Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
+  Object.setPrototypeOf(void window.localStorage.setItem, jest.fn());
 
-  it("should change theme to light mode", async () => {
+  it("should change theme to light mode", () => {
     renderThemeSwitcher();
     fireEvent.click(
       screen.getByRole("radio", { name: /activate light mode/i }),
     );
 
-    expect(window.localStorage.setItem).toHaveBeenCalledWith(
+    expect(void window.localStorage.setItem).toHaveBeenCalledWith(
       "theme",
       JSON.stringify({
         key: "default",
@@ -41,11 +41,11 @@ describe("ThemeSwitcher", () => {
     ).toHaveAttribute("data-state", "on");
   });
 
-  it("should change theme to dark mode", async () => {
+  it("should change theme to dark mode", () => {
     renderThemeSwitcher();
     fireEvent.click(screen.getByRole("radio", { name: /activate dark mode/i }));
 
-    expect(window.localStorage.setItem).toHaveBeenCalledWith(
+    expect(void window.localStorage.setItem).toHaveBeenCalledWith(
       "theme",
       JSON.stringify({
         key: "default",
@@ -58,7 +58,7 @@ describe("ThemeSwitcher", () => {
     ).toHaveAttribute("data-state", "on");
   });
 
-  it("should change theme to pref mode", async () => {
+  it("should change theme to pref mode", () => {
     renderThemeSwitcher();
     fireEvent.click(
       screen.getByRole("radio", {

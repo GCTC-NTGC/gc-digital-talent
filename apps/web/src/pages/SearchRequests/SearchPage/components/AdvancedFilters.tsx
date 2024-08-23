@@ -87,7 +87,7 @@ const AdvancedFilters = () => {
       "educationRequirement",
       "employmentDuration",
       "operationalRequirements",
-    ]);
+    ]) as [string, string, string];
 
   const educationRequirementOptions = [
     {

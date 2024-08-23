@@ -66,7 +66,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     application.pool.generalQuestions?.filter(notEmpty) || [];
   const generalQuestionResponses =
     application.generalQuestionResponses?.filter(notEmpty) || [];
-  const handleSubmit = async (formValues: FormValues) => {
+  const handleSubmit = (formValues: FormValues) => {
     const data = formValuesToSubmitData(
       formValues,
       screeningQuestionResponses,

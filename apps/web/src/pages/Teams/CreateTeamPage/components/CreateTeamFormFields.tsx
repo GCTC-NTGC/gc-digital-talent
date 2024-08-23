@@ -33,7 +33,7 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
 
   const handleDisplayBlur = (e: FocusEvent<HTMLInputElement>) => {
     const { value: newValue } = e.target;
-    const value = getValues("name");
+    const value = getValues("name") as string;
     if (!value) {
       setValue("name", kebabCase(newValue));
     }

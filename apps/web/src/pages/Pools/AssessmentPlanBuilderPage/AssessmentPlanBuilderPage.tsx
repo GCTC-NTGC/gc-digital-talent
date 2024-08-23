@@ -168,6 +168,7 @@ export const AssessmentPlanBuilderPage = () => {
   );
 
   if (!poolId) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw new Response(notFoundMessage, {
       status: 404,
       statusText: "Not Found",

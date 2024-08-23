@@ -23,9 +23,9 @@ const ExperienceSkills = ({
 }: ExperienceSkillsProps) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
-  const type = watch("experienceType");
+  const type = watch("experienceType") as ExperienceType;
   const derivedType = type ?? experienceType;
-  const watchedSkills: FormSkills = watch("skills");
+  const watchedSkills: FormSkills = watch("skills") as FormSkills;
   const { fields, remove, append } = useFieldArray({
     control,
     name: "skills",
@@ -33,6 +33,8 @@ const ExperienceSkills = ({
 
   const [accordionState, setAccordionState] = useState<AccordionStates>("");
 
+  // NOTE: Prop requires an async function
+  // eslint-disable-next-line @typescript-eslint/require-await
   const handleAddSkill = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
     const skill = skills.find(({ id }) => id === skillId);

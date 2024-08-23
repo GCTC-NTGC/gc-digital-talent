@@ -11,6 +11,7 @@ import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import { rejectMutation } from "~/utils/errors";
 
 import CreateCommunityForm from "./components/CreateCommunityForm";
 
@@ -43,7 +44,7 @@ const CreateCommunityPage = () => {
       if (result.data?.createCommunity) {
         return Promise.resolve(result.data?.createCommunity);
       }
-      return Promise.reject(result.error);
+      return rejectMutation(result.error);
     });
   };
 

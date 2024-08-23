@@ -38,9 +38,7 @@ const defaultProps = {
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const renderCard = (props: QualifiedRecruitmentCardProps) =>
   renderWithProviders(
@@ -55,7 +53,7 @@ describe("QualifiedRecruitmentCard", () => {
     await axeTest(container);
   });
 
-  it("PLACED_CASUAL and UN-SUSPENDED", async () => {
+  it("PLACED_CASUAL and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -89,7 +87,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_CASUAL and SUSPENDED", async () => {
+  it("PLACED_CASUAL and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -123,7 +121,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_INDETERMINATE and UN-SUSPENDED", async () => {
+  it("PLACED_INDETERMINATE and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -157,7 +155,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_INDETERMINATE and SUSPENDED", async () => {
+  it("PLACED_INDETERMINATE and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -191,7 +189,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_TERM and UN-SUSPENDED", async () => {
+  it("PLACED_TERM and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -225,7 +223,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_TERM and SUSPENDED", async () => {
+  it("PLACED_TERM and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -259,7 +257,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_AVAILABLE and UN-SUSPENDED", async () => {
+  it("QUALIFIED_AVAILABLE and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -284,7 +282,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(3);
   });
 
-  it("QUALIFIED_AVAILABLE and SUSPENDED", async () => {
+  it("QUALIFIED_AVAILABLE and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -311,7 +309,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(3);
   });
 
-  it("QUALIFIED_UNAVAILABLE and UN-SUSPENDED", async () => {
+  it("QUALIFIED_UNAVAILABLE and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -345,7 +343,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_UNAVAILABLE and SUSPENDED", async () => {
+  it("QUALIFIED_UNAVAILABLE and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -379,7 +377,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_WITHDREW and UN-SUSPENDED", async () => {
+  it("QUALIFIED_WITHDREW and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -413,7 +411,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_WITHDREW and SUSPENDED", async () => {
+  it("QUALIFIED_WITHDREW and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -447,7 +445,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("EXPIRED and UN-SUSPENDED", async () => {
+  it("EXPIRED and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
@@ -481,7 +479,7 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("EXPIRED and SUSPENDED", async () => {
+  it("EXPIRED and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(

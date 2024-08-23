@@ -57,9 +57,9 @@ interface SearchRequestTableProps {
 }
 
 const transformSearchRequestInput = (
-  filterState: PoolCandidateSearchRequestInput,
-  searchBarTerm: string | undefined,
-  searchType: string | undefined,
+  filterState?: PoolCandidateSearchRequestInput,
+  searchBarTerm?: string | undefined,
+  searchType?: string | undefined,
 ): InputMaybe<PoolCandidateSearchRequestInput> => {
   if (
     filterState === undefined &&
@@ -190,8 +190,11 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const paths = useRoutes();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchRequestInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+  const initialFilters: PoolCandidateSearchRequestInput | undefined = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchRequestInput)
+        : undefined,
     [filtersEncoded],
   );
   const filterRef = useRef<PoolCandidateSearchRequestInput | undefined>(
@@ -206,8 +209,9 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const [sortState, setSortState] = useState<SortingState | undefined>(
     sortInitialState,
   );
-  const [filterState, setFilterState] =
-    useState<PoolCandidateSearchRequestInput>(initialFilters);
+  const [filterState, setFilterState] = useState<
+    PoolCandidateSearchRequestInput | undefined
+  >(initialFilters);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     setPaginationState((previous) => ({

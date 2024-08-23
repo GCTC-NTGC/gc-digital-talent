@@ -28,7 +28,7 @@ const closedPool = {
   closingDate: FAR_PAST_DATE,
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nullPool: any = {};
+const nullPool: Record<string, null | string> = {};
 Object.keys(fakePool).forEach((key) => {
   nullPool[key] = null;
 });
@@ -63,7 +63,7 @@ Closed.args = {
 
 export const Null = Template.bind({});
 Null.args = {
-  poolQuery: makeFragmentData(nullPool, PoolAdvertisement_Fragment),
+  poolQuery: makeFragmentData(nullPool as Pool, PoolAdvertisement_Fragment),
 };
 
 export const ClosedEarly = Template.bind({});

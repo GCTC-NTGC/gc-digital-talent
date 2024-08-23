@@ -45,9 +45,9 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const todayDate = new Date();
   const [{ data }] = useQuery({ query: EducationOptions_Query });
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "currentRole" });
+  const isCurrent = useWatch({ name: "currentRole" }) as boolean;
   // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch({ name: "startDate" });
+  const watchStartDate = useWatch({ name: "startDate" }) as string;
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">

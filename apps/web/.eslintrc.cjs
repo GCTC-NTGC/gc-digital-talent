@@ -9,6 +9,7 @@ module.exports = {
     },
   },
   rules: {
+    "@typescript-eslint/no-misused-promises": "off",
     "import/no-unused-modules": (() => {
       // Trigger warning on CI only, because of performance issues locally
       if (process.env.CI) {

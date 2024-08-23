@@ -61,7 +61,7 @@ function parseFormIntField(field: Maybe<string>): number | null {
 function parseFormEnumField<T extends object>(
   typeObject: T,
   field: Maybe<string>,
-): ReturnType<typeof stringToEnum> | null {
+) {
   if (field === null || field === undefined) {
     return null;
   }

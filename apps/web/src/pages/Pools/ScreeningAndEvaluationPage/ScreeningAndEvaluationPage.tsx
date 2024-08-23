@@ -127,18 +127,18 @@ const ScreeningAndEvaluationPage = () => {
     [client, intl, lastPage],
   );
 
-  const handleFilterSubmit: SubmitHandler<FormValues> = (formData) => {
+  const handleFilterSubmit: SubmitHandler<FormValues> = async (formData) => {
     const transformedData: PoolCandidateSearchInput =
       transformFormValuesToFilterState(formData, poolId);
 
-    batchLoader(transformedData).then((res) => {
+    await batchLoader(transformedData).then((res) => {
       setCandidates(res);
     });
   };
 
   useEffect(() => {
     if (lastPage) {
-      batchLoader({
+      void batchLoader({
         applicantFilter: { pools: [{ id: poolId }] },
         suspendedStatus: CandidateSuspendedFilter.Active,
         expiryStatus: CandidateExpiryFilter.Active,

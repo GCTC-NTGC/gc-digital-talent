@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useIntl } from "react-intl";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
@@ -83,6 +85,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
 
         // There should be way to get the types to work without using "any", but I'm having trouble.
         // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
+        // TODO: Fix this in #11369
 
         // eslint-disable-next-line no-param-reassign
         applicantFilterInput[typedKey] = transform(

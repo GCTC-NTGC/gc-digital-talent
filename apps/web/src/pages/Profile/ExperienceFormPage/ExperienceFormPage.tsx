@@ -643,6 +643,11 @@ type RouteParams = {
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];
 };
+
+type LocationState = {
+  experienceType?: ExperienceType;
+};
+
 interface ExperienceFormContainerProps {
   edit?: boolean;
 }
@@ -651,7 +656,8 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
   const { experienceId } = useParams<RouteParams>();
-  const { state } = useLocation();
+  const location = useLocation();
+  const state = location.state as LocationState;
 
   const [{ data, fetching, error }] = useQuery({
     query: ExperienceFormData_Query,
@@ -664,7 +670,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
 
   const experienceType = experience
     ? deriveExperienceType(experience)
-    : state?.experienceType || "";
+    : (state?.experienceType ?? "work");
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -673,7 +679,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           edit={edit}
           experienceQuery={experience}
           experienceId={experienceId || ""}
-          experienceType={experienceType}
+          experienceType={experienceType ?? "work"}
           skillsQuery={skills}
           userId={userAuthInfo?.id || ""}
         />

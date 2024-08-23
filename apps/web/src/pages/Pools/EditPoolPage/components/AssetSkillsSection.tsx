@@ -60,11 +60,11 @@ const AssetSkillsSection = ({
       // Note: We need to clean these types up
       category: poolSkill.skill?.category ?? {
         value: SkillCategory.Technical,
-        label: { en: undefined, fr: undefined },
+        label: { en: "", fr: "" },
       },
       description: poolSkill.skill?.description,
       id: poolSkill.skill?.id ?? poolSkill.id,
-      key: poolSkill.skill?.key,
+      key: poolSkill.skill?.key ?? "",
       name: poolSkill.skill?.name ?? {},
       poolSkillId: poolSkill.id,
       requiredLevel: poolSkill.requiredLevel ?? undefined,
@@ -75,7 +75,7 @@ const AssetSkillsSection = ({
     skillSelected: string,
     skillLevel: SkillLevel,
   ) => {
-    poolSkillMutations.create(pool.id, skillSelected, {
+    await poolSkillMutations.create(pool.id, skillSelected, {
       type: PoolSkillType.Nonessential,
       requiredLevel: skillLevel,
     });
@@ -85,13 +85,13 @@ const AssetSkillsSection = ({
     poolSkillSelected: string,
     skillLevel: SkillLevel,
   ) => {
-    poolSkillMutations.update(poolSkillSelected, {
+    await poolSkillMutations.update(poolSkillSelected, {
       requiredLevel: skillLevel,
     });
   };
 
   const handleRemove = async (poolSkillSelected: string) => {
-    poolSkillMutations.delete(poolSkillSelected);
+    await poolSkillMutations.delete(poolSkillSelected);
   };
 
   // disabled unless status is draft

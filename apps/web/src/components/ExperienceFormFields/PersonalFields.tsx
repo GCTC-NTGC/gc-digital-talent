@@ -22,10 +22,12 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
     formState: { defaultValues },
   } = useFormContext();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "currentRole" });
+  const isCurrent = useWatch({ name: "currentRole" }) as boolean;
   // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch({ name: "startDate" });
-  const watchDescription = useWatch({ name: "experienceDescription" });
+  const watchStartDate = useWatch({ name: "startDate" }) as string;
+  const watchDescription = useWatch({
+    name: "experienceDescription",
+  }) as string;
 
   useEffect(() => {
     if (watchDescription !== defaultValues?.experienceDescription) {

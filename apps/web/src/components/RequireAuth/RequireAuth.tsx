@@ -81,6 +81,7 @@ const RequireAuth = ({
         pathname: location.pathname,
       }),
     );
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw new Response("", {
       status: 401,
       statusText: "Unauthorized",
