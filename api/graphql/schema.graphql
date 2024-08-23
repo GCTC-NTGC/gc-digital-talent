@@ -1743,12 +1743,6 @@ input RolesForTeamHasMany {
   sync: RolesForTeamInput
 }
 
-input UpdateUserTeamRolesInput {
-  teamId: ID!
-  userId: UUID!
-  roleAssignments: RolesForTeamHasMany!
-}
-
 input GeneralResponseBelongsTo {
   connect: ID!
 }
@@ -2155,12 +2149,6 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateUserTeamRoles(
-    teamRoleAssignments: UpdateUserTeamRolesInput! @spread
-  ): Team
-    @guard
-    @canFind(ability: "assignTeamMembers", find: "teamId")
-    @deprecated(reason: "use updateUserRoles")
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community
