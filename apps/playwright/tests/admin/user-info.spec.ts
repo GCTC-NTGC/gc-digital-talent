@@ -119,7 +119,7 @@ test.describe("User information", () => {
     const applicant = await me(applicantCtx);
     await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,
-      poolId: dcmPool.id,
+      poolId: dcmPool.id as string,
       experienceId: applicant.experiences[0].id,
       signature: `${user.firstName} signature`,
     });

@@ -7,6 +7,10 @@ type GraphQLRequestOptions = {
   isPrivileged?: boolean;
 };
 
+type GraphQLResponseData = {
+  data: Record<string, unknown>;
+};
+
 /**
  * Context for sending graphql requests
  *
@@ -60,7 +64,7 @@ export class GraphQLContext {
    */
   async post(query: string, opts?: GraphQLRequestOptions) {
     const headers = this.getHeaders();
-    const json = await this.ctx
+    const json: GraphQLResponseData = (await this.ctx
       .post(this.getEndpoint(opts?.isPrivileged), {
         headers,
         data: {
@@ -68,7 +72,7 @@ export class GraphQLContext {
           variables: opts?.variables,
         },
       })
-      .then((res) => res.json());
+      .then((res) => res.json())) as GraphQLResponseData;
 
     return json.data;
   }
@@ -87,6 +91,10 @@ async function newContext(sub?: string): Promise<GraphQLContext> {
 
   return new GraphQLContext(tokens, context);
 }
+
+export type GraphqlDocument = {
+  operationName: string;
+};
 
 /** Type constraint for GraphQL responses */
 export type GraphQLResponse<K extends string, T> = {

@@ -1,6 +1,15 @@
+import { User } from "@gc-digital-talent/graphql";
+
 import { test, expect } from "~/fixtures";
 import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
 import ClockHelper from "~/utils/clock";
+import { GraphqlDocument } from "~/utils/graphql";
+
+type AuthResponse = {
+  data: {
+    myAuth: User;
+  };
+};
 
 test.describe("Login and logout", () => {
   let clockHelper: ClockHelper;
@@ -38,19 +47,21 @@ test.describe("Login and logout", () => {
     await page
       .waitForResponse(async (resp) => {
         if (resp.url()?.includes("/graphql")) {
-          const reqJson = await resp.request()?.postDataJSON();
+          const reqJson = (await resp
+            .request()
+            ?.postDataJSON()) as GraphqlDocument;
           return reqJson?.operationName === "authorizationQuery";
         }
         return false;
       })
       .then(async (interception) => {
         // make sure we get a user ID back
-        const response = await interception.json();
+        const response = (await interception.json()) as AuthResponse;
         expect(response.data.myAuth.id).toMatch(
           /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
         );
         // make sure it uses the access token
-        const req = await interception.request();
+        const req = interception.request();
         expect(req.headers().authorization).toEqual(
           `Bearer ${searchParamAccessToken}`,
         );
@@ -61,7 +72,9 @@ test.describe("Login and logout", () => {
     // stub the "user deleted" API response.
     // the auth response will indicate the user was deleted.
     await page.route("**/graphql", async (route) => {
-      const reqJson = await route.request()?.postDataJSON();
+      const reqJson = (await route
+        .request()
+        ?.postDataJSON()) as GraphqlDocument;
       if (reqJson.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },
@@ -108,7 +121,7 @@ test.describe("Login and logout", () => {
 
     const request = await requestPromise;
     await page.goto("/en/applicant");
-    const refreshToken = await new URL(request.url()).searchParams.get(
+    const refreshToken = new URL(request.url()).searchParams.get(
       "refresh_token",
     );
 
@@ -120,7 +133,7 @@ test.describe("Login and logout", () => {
     const authorization = await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
+          const reqJson = (await req.postDataJSON()) as GraphqlDocument;
           return typeof reqJson.operationName !== "undefined";
         }
         return false;
@@ -146,12 +159,12 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
+          const reqJson = (await req.postDataJSON()) as GraphqlDocument;
           return typeof reqJson.operationName !== "undefined";
         }
         return false;
       })
-      .then(async (request) => {
+      .then((request) => {
         // make sure it uses the access token
         expect(request.headers().authorization).toEqual(
           `Bearer ${tokenSet1.accessToken}`,
@@ -177,7 +190,7 @@ test.describe("Login and logout", () => {
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 1 from request 1 URL
-    const refreshToken1 = await new URL(request.url()).searchParams.get(
+    const refreshToken1 = new URL(request.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
@@ -190,12 +203,12 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
+          const reqJson = (await req.postDataJSON()) as GraphqlDocument;
           return typeof reqJson.operationName !== "undefined";
         }
         return false;
       })
-      .then(async (req) => {
+      .then((req) => {
         // make sure it uses the second access token
         expect(req.headers().authorization).toEqual(
           `Bearer ${tokenSet2.accessToken}`,
@@ -211,7 +224,7 @@ test.describe("Login and logout", () => {
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 2 from request URL
-    const refreshToken2 = await new URL(request2.url()).searchParams.get(
+    const refreshToken2 = new URL(request2.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 2 to match refresh token 2 from request 2 URL
@@ -224,12 +237,12 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
+          const reqJson = (await req.postDataJSON()) as GraphqlDocument;
           return typeof reqJson.operationName !== "undefined";
         }
         return false;
       })
-      .then(async (req) => {
+      .then((req) => {
         // make sure it uses the third access token
         expect(req.headers().authorization).toEqual(
           `Bearer ${tokenSet3.accessToken}`,
@@ -245,7 +258,7 @@ test.describe("Login and logout", () => {
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 3 from request URL
-    const refreshToken3 = await new URL(request3.url()).searchParams.get(
+    const refreshToken3 = new URL(request3.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 3 to match refresh token 3 from request 3 URL
@@ -266,7 +279,7 @@ test.describe("Login and logout", () => {
     await page.goto("/en/logged-out");
     await page.getByRole("button", { name: "Sign out" }).click();
 
-    await requestPromise.then(async (req) => {
+    await requestPromise.then((req) => {
       const url = new URL(req.url());
       const searchParamPostLogoutRedirectUri = url.searchParams.get(
         "post_logout_redirect_uri",
@@ -283,7 +296,9 @@ test.describe("Login and logout", () => {
 
     // simulate the API indicating the token is inactive
     await page.route("**/graphql", async (route) => {
-      const reqJson = await route.request()?.postDataJSON();
+      const reqJson = (await route
+        .request()
+        ?.postDataJSON()) as GraphqlDocument;
       if (reqJson.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },

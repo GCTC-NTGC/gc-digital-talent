@@ -78,13 +78,13 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
   let teamId = opts.teamId;
   if (!teamId) {
     const team = await getDCM(ctx);
-    teamId = team.id;
+    teamId = team.id as string;
   }
 
   let communityId = opts.communityId;
   if (!communityId) {
     const communities = await getCommunities(ctx);
-    communityId = communities[0].id;
+    communityId = communities[0].id as string;
   }
 
   let classificationId = opts.classificationId;
@@ -246,8 +246,9 @@ export const createAndPublishPool: GraphQLRequestFunc<
     classificationId,
     departmentId,
   }).then(async (pool) => {
+    const poolId = pool.id as string;
     await updatePool(ctx, {
-      poolId: pool.id,
+      poolId,
       pool: {
         ...defaultPool,
         name: name ?? {
@@ -259,7 +260,7 @@ export const createAndPublishPool: GraphQLRequestFunc<
     });
 
     await createPoolSkill(ctx, {
-      poolId: pool.id,
+      poolId,
       skillId,
       poolSkill: {
         type: PoolSkillType.Essential,
@@ -267,6 +268,6 @@ export const createAndPublishPool: GraphQLRequestFunc<
       },
     });
 
-    return await publishPool(ctx, pool.id);
+    return await publishPool(ctx, poolId);
   });
 };
