@@ -183,6 +183,8 @@ export const poolTitle = (
   if (pool === null || pool === undefined)
     return {
       html: fallbackTitle,
+      // NOTE: I'm willing to take that chance
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       label: fallbackTitle.toString(),
     };
 

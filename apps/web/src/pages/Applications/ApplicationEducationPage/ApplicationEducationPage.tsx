@@ -143,7 +143,7 @@ const ApplicationEducation = ({
           EducationRequirementOption.Education &&
           experiences.filter(
             (experience) =>
-              isEducationExperience(experience as ExperienceForDate) &&
+              isEducationExperience(experience) &&
               includesExperience(experience.id),
           ).length > 0));
 

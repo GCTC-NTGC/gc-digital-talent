@@ -335,14 +335,14 @@ const SkillAccordion = ({
       return (
         <ul data-h2-padding="base(0, 0, 0, x1)" key={experience?.id}>
           <li data-h2-margin="base(x1, 0, 0, 0)">
-            {isPersonalExperience(experience!) &&
+            {isPersonalExperience(experience) &&
               getPersonalExperience(experience)}
-            {isEducationExperience(experience!) &&
+            {isEducationExperience(experience) &&
               getEducationExperience(experience)}
-            {isAwardExperience(experience!) && getAwardExperience(experience)}
-            {isCommunityExperience(experience!) &&
+            {isAwardExperience(experience) && getAwardExperience(experience)}
+            {isCommunityExperience(experience) &&
               getCommunityExperience(experience)}
-            {isWorkExperience(experience!) && getWorkExperience(experience)}
+            {isWorkExperience(experience) && getWorkExperience(experience)}
           </li>
         </ul>
       );
