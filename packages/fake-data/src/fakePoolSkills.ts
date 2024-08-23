@@ -26,5 +26,5 @@ const generatePoolSkill = (): PoolSkill => {
 export default (numToGenerate?: number): PoolSkill[] => {
   faker.seed(0); // repeatable results
   const amountToGenerate = numToGenerate || 20;
-  return [...Array(amountToGenerate)].map(() => generatePoolSkill());
+  return [...Array<number>(amountToGenerate)].map(() => generatePoolSkill());
 };

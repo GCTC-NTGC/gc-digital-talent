@@ -63,7 +63,7 @@ export default (
   faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
-  return [...Array(numToGenerate)].map(() =>
+  return [...Array<number>(numToGenerate)].map(() =>
     generateSkill(skillFamilies, uniqueEnforcerId, overrideCategory),
   );
 };

@@ -26,5 +26,5 @@ export default (
 ): Team[] => {
   faker.seed(0); // repeatable results
 
-  return [...Array(numToGenerate)].map(() => generateTeam(departments));
+  return [...Array<number>(numToGenerate)].map(() => generateTeam(departments));
 };

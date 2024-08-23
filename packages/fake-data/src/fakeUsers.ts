@@ -183,7 +183,7 @@ const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
   const personalExperiences: GeneratedPersonalExperience[] = [];
   const workExperiences: GeneratedWorkExperience[] = [];
 
-  return [...Array(numToGenerate)].map((_x, index) =>
+  return [...Array<number>(numToGenerate)].map((_x, index) =>
     generateUser(
       departments,
       classifications,

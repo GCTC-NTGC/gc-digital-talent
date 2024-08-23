@@ -87,7 +87,7 @@ export default (amount: number = 20): PoolCandidate[] => {
   const pools = fakePools();
   const users = fakeUsers();
 
-  return [...Array(amount)].map((_x, index) =>
+  return [...Array<number>(amount)].map((_x, index) =>
     generatePoolCandidate(pools, users, index),
   );
 };

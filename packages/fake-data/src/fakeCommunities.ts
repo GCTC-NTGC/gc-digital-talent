@@ -13,7 +13,7 @@ const generateCommunity = (): Community => {
   };
 };
 
-export default (numToGenerate = 10): Community[] => {
+export default (numToGenerate: number = 10): Community[] => {
   faker.seed(0); // repeatable results
-  return [...Array(numToGenerate)].map(() => generateCommunity());
+  return [...Array<number>(numToGenerate)].map(() => generateCommunity());
 };

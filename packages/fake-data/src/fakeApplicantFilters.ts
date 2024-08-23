@@ -50,6 +50,7 @@ const generateApplicantFilters = (
       Object.values(PositionDuration),
     ),
     skills,
+    qualifiedClassifications: classifications,
     qualifiedStreams: faker.helpers
       .arrayElements<PoolStream>(Object.values(PoolStream), 1)
       .map((stream) => toLocalizedEnum(stream)),
@@ -66,7 +67,7 @@ export default (): ApplicantFilter[] => {
   const skills = fakeSkills(5);
 
   faker.seed(0); // repeatable results
-  return [...Array(20)].map(() =>
+  return [...Array<number>(20)].map(() =>
     generateApplicantFilters(
       classifications,
       operationalRequirements,

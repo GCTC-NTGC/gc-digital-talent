@@ -60,7 +60,7 @@ export default (
 ): UserSkill[] => {
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
-  return [...Array(numToGenerate)].map((_x, index) =>
+  return [...Array<number>(numToGenerate)].map((_x, index) =>
     generateUserSkill(skill, user, experiences, uniqueEnforcerId, index),
   );
 };

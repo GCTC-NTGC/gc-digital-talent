@@ -158,7 +158,7 @@ export default (
 ): Pool[] => {
   const users = fakeUsers();
 
-  return [...Array(numToGenerate)].map((_, index) => {
+  return [...Array<number>(numToGenerate)].map((_, index) => {
     switch (index) {
       case 0:
         return generatePool(

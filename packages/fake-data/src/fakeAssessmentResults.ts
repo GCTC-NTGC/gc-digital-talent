@@ -52,7 +52,7 @@ export default (
   poolSkill?: Maybe<PoolSkill>,
 ): AssessmentResult[] => {
   const amountToGenerate = numToGenerate || 20;
-  return [...Array(amountToGenerate)].map((_x, index) =>
+  return [...Array<number>(amountToGenerate)].map((_x, index) =>
     generateAssessmentResult(index, assessmentStep, poolSkill),
   );
 };
