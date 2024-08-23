@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode, useId } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import ArrowSmallRightIcon from "@heroicons/react/20/solid/ArrowSmallRightIcon";
 import { useIntl } from "react-intl";
 
@@ -9,6 +10,8 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import Heading, { HeadingLevel } from "../Heading";
 import Link, { LinkProps } from "../Link";
 import { HydrogenAttributes } from "../../types";
+import DropdownMenu from "../DropdownMenu";
+import Button from "../Button";
 
 export const colorOptions = [
   "primary",
@@ -65,7 +68,7 @@ interface RootProps {
   title: ReactNode;
   headingColor?: CardColor;
   headingAs?: HeadingLevel;
-  children: ReactElement<ItemProps> | Array<ReactElement<ItemProps>>; // Restricts children to only expected items;
+  children: ReactElement<BaseItemProps> | Array<ReactElement<BaseItemProps>>; // Restricts children to only expected items;
 }
 
 const Root = ({
@@ -116,7 +119,7 @@ const Root = ({
 };
 
 // an icon pinned to the top-right to show the completion state
-const StateIcon = ({ state }: { state: ItemProps["state"] }) => {
+const StateIcon = ({ state }: { state: BaseItemProps["state"] }) => {
   const commonStyles: HydrogenAttributes = {
     "data-h2-width": "base(x0.75)",
     "data-h2-height": "base(x0.75)",
@@ -143,14 +146,13 @@ const StateIcon = ({ state }: { state: ItemProps["state"] }) => {
   return null;
 };
 
-interface ItemProps {
-  title: string;
-  href: LinkProps["href"];
+interface BaseItemProps {
+  title: ReactNode;
   description: string;
   state?: "incomplete" | "complete";
 }
 
-const Item = ({ title, href, description, state }: ItemProps) => {
+const BaseItem = ({ title, description, state }: BaseItemProps) => {
   const intl = useIntl();
   const extraStateStyles =
     state === "incomplete"
@@ -164,13 +166,13 @@ const Item = ({ title, href, description, state }: ItemProps) => {
   let accessibleLabel;
   switch (state) {
     case "incomplete":
-      accessibleLabel = `${title} (${intl.formatMessage(commonMessages.incomplete)})`;
+      accessibleLabel = `${title?.toString()} (${intl.formatMessage(commonMessages.incomplete)})`;
       break;
     case "complete":
-      accessibleLabel = `${title} (${intl.formatMessage(commonMessages.complete)})`;
+      accessibleLabel = `${title?.toString()} (${intl.formatMessage(commonMessages.complete)})`;
       break;
     default:
-      accessibleLabel = title;
+      accessibleLabel = title?.toString() ?? undefined;
   }
 
   return (
@@ -189,31 +191,13 @@ const Item = ({ title, href, description, state }: ItemProps) => {
       {...extraStateStyles}
     >
       <StateIcon state={state} />
-      <Link
-        href={href}
-        color="black"
-        // yuck, style exception 😞
-        data-h2-font-weight="base(bold)"
-        // big click target black magic 🧙
-        data-h2-position="base:selectors[::after](absolute)"
-        data-h2-content="base:selectors[::after](' ')"
-        data-h2-inset="base:selectors[::after](0)"
-        data-h2-justify-self="base(end)"
+      <div
         // icon extends margin + icons size: x0.75 + x0.75 = x1.5
         // item margin is base(x1) l-tablet(x1.5)
         data-h2-padding-right="base(x0.5) l-tablet(0)"
       >
         {title}
-        {/* issue #11284 */}
-        <ArrowSmallRightIcon // eslint-disable-line deprecation/deprecation
-          data-h2-width="base(auto)"
-          data-h2-height="base(x0.75)"
-          data-h2-color="base(black.light)"
-          data-h2-margin="base(x0.15)"
-          data-h2-vertical-align="base(top)"
-          aria-hidden
-        />
-      </Link>
+      </div>
       <p data-h2-color="base(black.light)" data-h2-font-size="base(caption)">
         {description}
       </p>
@@ -221,9 +205,83 @@ const Item = ({ title, href, description, state }: ItemProps) => {
   );
 };
 
+interface SingleLinkItemProps {
+  title: string;
+  href: LinkProps["href"];
+  description: BaseItemProps["description"];
+  state?: BaseItemProps["state"];
+}
+
+const SingleLinkItem = ({
+  title,
+  href,
+  description,
+  state,
+}: SingleLinkItemProps) => {
+  return (
+    <BaseItem
+      title={
+        <Link
+          href={href}
+          color="black"
+          // yuck, style exception 😞
+          data-h2-font-weight="base(bold)"
+        >
+          {title}
+          {/* issue #11284 */}
+          <ArrowSmallRightIcon // eslint-disable-line deprecation/deprecation
+            data-h2-width="base(auto)"
+            data-h2-height="base(x0.75)"
+            data-h2-color="base(black.light)"
+            data-h2-margin="base(x0.15)"
+            data-h2-vertical-align="base(top)"
+            aria-hidden
+          />
+        </Link>
+      }
+      description={description}
+      state={state}
+    />
+  );
+};
+
+interface LinkMenuItemProps {
+  links: Array<{
+    title: string;
+    href: LinkProps["href"];
+    isSelected?: boolean;
+  }>;
+  description: BaseItemProps["description"];
+  state?: BaseItemProps["state"];
+}
+
+const LinkMenuItem = ({ links, description, state }: LinkMenuItemProps) => {
+  const selectedLink = links.find((link) => link.isSelected) ?? links?.[0];
+
+  const dropdown = (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <Button utilityIcon={ChevronDownIcon} mode="inline" color="black">
+          {selectedLink?.title}
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content align="end" collisionPadding={2}>
+        {links.map((link) => (
+          <DropdownMenu.Item key={link.title + link.href} asChild color="black">
+            <Link href={link.href}>{link.title}</Link>
+          </DropdownMenu.Item>
+        ))}
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+  return <BaseItem title={dropdown} description={description} state={state} />;
+};
+
 const ResourceBlock = {
   Root,
-  Item,
+  BaseItem,
+  SingleLinkItem,
+  LinkMenuItem,
 };
 
 export default ResourceBlock;
