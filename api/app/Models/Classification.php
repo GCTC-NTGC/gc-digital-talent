@@ -54,6 +54,12 @@ class Classification extends Model
         );
     }
 
+    /**
+     * Used to limit the results for the search page input
+     * to IT up to level 5 and PM up to level 4
+     *
+     * TODO: Update in #9483 to derive from new column
+     */
     public static function scopeAvailableInSearch(Builder $query, bool $availableInSearch)
     {
         if (! $availableInSearch) {
