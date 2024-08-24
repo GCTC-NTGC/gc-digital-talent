@@ -182,7 +182,7 @@ const JobPlacementDialog = ({
       await executePlacedCandidate({
         id: poolCandidateId,
         placeCandidate: {
-          departmentId: values.placedDepartment,
+          departmentId: values.placedDepartment ?? "",
           placementType: values.placementType,
         },
       })

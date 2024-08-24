@@ -400,7 +400,7 @@ export const UpdateUserSkillForm = ({
 
   const handleDelete = () => {
     executeDeleteMutation({
-      id: userSkill?.id,
+      id: userSkill?.id ?? "",
     })
       .then(() =>
         handleSuccess(

@@ -3,7 +3,7 @@ import { OperationContext, useMutation, useQuery } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
@@ -117,10 +117,12 @@ const TopTechnicalSkills = ({
     formValues: FormValues,
   ): Promise<void> =>
     executeMutation({
-      userId: userAuthInfo?.id,
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         topTechnicalSkillsRanked: [
-          ...formValues.userSkills.map((userSkill) => userSkill.skill),
+          ...unpackMaybes(
+            formValues.userSkills.map((userSkill) => userSkill.skill),
+          ),
         ],
       },
     }).then((res) => {
@@ -130,27 +132,26 @@ const TopTechnicalSkills = ({
       throw new Error("No data returned");
     });
 
-  const updateRankingsAfterAddingSkill = (
+  const updateRankingsAfterAddingSkill = async (
     initialSkillRanking: string[],
     newSkillId: string,
   ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    return executeMutation({
-      userId: userAuthInfo?.id,
+    const res = await executeMutation({
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         topTechnicalSkillsRanked: mergedSkillIds,
       },
-    }).then((res) => {
-      if (res.data?.updateUserSkillRankings) {
-        return;
-      }
-      throw new Error("No data returned");
     });
+    if (res.data?.updateUserSkillRankings) {
+      return;
+    }
+    throw new Error("No data returned");
   };
 
   return (
     <UpdateSkillShowcase
-      userId={userAuthInfo?.id}
+      userId={userAuthInfo?.id ?? ""}
       crumbs={crumbs}
       pageInfo={pageInfo}
       allSkills={skills}

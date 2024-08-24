@@ -99,7 +99,7 @@ export const UpdateSkillShowcase_SkillFragment = graphql(/* GraphQL */ `
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
 interface UpdateSkillShowcaseProps {
-  userId: Scalars["UUID"];
+  userId: Scalars["UUID"]["input"];
   allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
   allSkills: UpdateSkillShowcaseSkillFragmentType[];
   initialData: FormValues;
@@ -161,7 +161,7 @@ const UpdateSkillShowcase = ({
 
   const handleAdd = (values: SkillBrowserDialogFormValues): Promise<void> => {
     setIsBusy(true);
-    const skillId = values.skill;
+    const skillId = values.skill ?? "";
     const userHasSkill =
       allUserSkills.filter((userSkill) => userSkill.skill.id === values.skill)
         .length > 0 ||
@@ -172,9 +172,10 @@ const UpdateSkillShowcase = ({
     const mutationPromise = userHasSkill
       ? // update existing userSkill
         executeUpdateMutation({
-          id: allUserSkills.find(
-            (userSkill) => userSkill.skill.id === values.skill,
-          )?.id,
+          id:
+            allUserSkills.find(
+              (userSkill) => userSkill.skill.id === values.skill,
+            )?.id ?? "",
           userSkill: {
             skillLevel: values.skillLevel,
             whenSkillUsed: values.whenSkillUsed,

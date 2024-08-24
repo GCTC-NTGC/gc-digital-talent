@@ -15,8 +15,8 @@ export type SkillBrowserDialogContext =
 
 export interface FormValues {
   category?: SkillCategory | "all" | "";
-  family?: Scalars["ID"]["output"];
-  skill?: Scalars["ID"]["output"];
+  family?: Scalars["ID"]["input"];
+  skill?: Scalars["ID"]["input"];
   details?: string;
   skillLevel?: SkillLevel;
   whenSkillUsed?: WhenSkillUsed;
