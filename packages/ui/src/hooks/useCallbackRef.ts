@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useEffect, useMemo } from "react";
 
-type GenericFunc = (...args: unknown[]) => unknown;
+type GenericFunc = (...args: any[]) => unknown;
 
 /**
  * Stabilize a callback with React.useRef
@@ -14,6 +15,7 @@ const useCallbackRef = <T extends GenericFunc>(callback: T | undefined): T => {
     callbackRef.current = callback;
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return useMemo(() => ((...args) => callbackRef.current?.(...args)) as T, []);
 };
 

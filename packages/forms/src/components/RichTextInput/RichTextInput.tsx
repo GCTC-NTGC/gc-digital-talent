@@ -1,4 +1,4 @@
-import { FieldError, useFormContext, Controller } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
@@ -43,7 +43,7 @@ const RichTextInput = ({
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
+  const error = get(errors, name)?.message?.toString();
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,

@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, SelectHTMLAttributes, useMemo } from "react";
-import { FieldError, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import get from "lodash/get";
 
 import Field from "../Field";
@@ -57,7 +57,7 @@ const Select = ({
     formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
+  const error = get(errors, name)?.message?.toString();
   const baseStyles = useInputStyles("select");
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);

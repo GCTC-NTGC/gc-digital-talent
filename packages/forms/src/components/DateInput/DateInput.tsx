@@ -9,7 +9,7 @@ import { isSameDay } from "date-fns/isSameDay";
 import { isSameMonth } from "date-fns/isSameMonth";
 import { isSameYear } from "date-fns/isSameYear";
 import { isValid } from "date-fns/isValid";
-import { FieldError, useFormContext, Controller } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { ReactNode } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -57,7 +57,7 @@ const DateInput = ({
     formState: { errors },
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
+  const error = get(errors, name)?.message?.toString();
   const required = !!rules.required;
   const fieldState = useFieldState(name, !trackUnsaved);
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
