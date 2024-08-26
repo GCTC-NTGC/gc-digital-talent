@@ -100,6 +100,8 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         $query->chunk(200, function ($candidates) use ($sheet, &$currentCandidate) {
             foreach ($candidates as $candidate) {
 
+                // Push this candidates pool into the pool IDs to get the pool data
+                // for skill and question headers
                 if (! in_array($candidate->pool_id, $this->poolIds)) {
                     $this->poolIds[] = $candidate->pool_id;
                 }
