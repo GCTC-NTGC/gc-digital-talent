@@ -226,6 +226,13 @@ export default defineConfig(({ command }) => ({
         ],
       },
     }),
+    /**
+     * NOTE: We are not compressing the index.html
+     * so we can use the ngx_http_sub_module to
+     * replace values at runtime
+     *
+     * REF: https://nginx.org/en/docs/http/ngx_http_sub_module.html
+     */
     compression({ exclude: /index\.html/i }),
   ],
 }));
