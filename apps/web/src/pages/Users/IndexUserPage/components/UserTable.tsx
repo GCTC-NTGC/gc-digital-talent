@@ -184,6 +184,16 @@ const UserTable = ({ title }: UserTableProps) => {
     });
   };
 
+  const handleCsvDownloadAll = () => {
+    downloadCsv({
+      where: transformUserInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
+    });
+  };
+
   const handlePaginationStateChange = ({
     pageIndex,
     pageSize,
@@ -387,6 +397,11 @@ const UserTable = ({ title }: UserTableProps) => {
           }),
       }}
       download={{
+        all: {
+          enable: true,
+          onClick: handleCsvDownloadAll,
+          downloading: downloadingCsv,
+        },
         csv: {
           enable: true,
           onClick: handleCsvDownload,

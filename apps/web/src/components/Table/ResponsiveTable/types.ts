@@ -106,10 +106,12 @@ interface DownloadButton {
 export interface DownloadDef {
   csv?: DownloadButton;
   doc?: DownloadButton;
-  all?: {
-    csv: Csv;
-    label?: ReactNode;
-  };
+  all?:
+    | DownloadButton
+    | {
+        csv: Csv;
+        label?: ReactNode;
+      };
 }
 
 export interface PaginationDef {
