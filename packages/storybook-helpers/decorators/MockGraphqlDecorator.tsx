@@ -7,12 +7,12 @@ import random from "lodash/random";
 import merge from "lodash/merge";
 import { DocumentNode } from "graphql";
 
-type DelayConfig = {
+interface DelayConfig {
   latency: {
     min: number;
     max: number;
   };
-};
+}
 
 // Random latency delay added to each GraphQL API operation (in milliseconds).
 // Default: 0. (no latency)
