@@ -124,12 +124,12 @@ export function emailLinkAccessor(
 }
 
 export function ownerNameAccessor(pool: Pool) {
-  const firstName =
-    pool.owner?.firstName
-      ? pool.owner.firstName.toLowerCase()
-      : "";
-  const lastName =
-    pool.owner?.lastName ? pool.owner.lastName.toLowerCase() : "";
+  const firstName = pool.owner?.firstName
+    ? pool.owner.firstName.toLowerCase()
+    : "";
+  const lastName = pool.owner?.lastName
+    ? pool.owner.lastName.toLowerCase()
+    : "";
   return `${firstName} ${lastName}`;
 }
 

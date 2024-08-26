@@ -47,10 +47,9 @@ const grabSkillJustification = (
     (skillIterator) => skillIterator.id === accordionSkill.id,
   );
   // guarding against possible undefined
-  const justification =
-    specificSkill?.experienceSkillRecord?.details
-      ? specificSkill.experienceSkillRecord.details
-      : "";
+  const justification = specificSkill?.experienceSkillRecord?.details
+    ? specificSkill.experienceSkillRecord.details
+    : "";
   return justification;
 };
 

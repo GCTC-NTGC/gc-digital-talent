@@ -136,13 +136,12 @@ const ClientProvider = ({
                 return isTokenKnownToBeExpired(accessToken);
               },
               didAuthError(error) {
-                const didError =
-                  error?.response
-                    ? error.response.status === 401 ||
-                      error.graphQLErrors.some(
-                        (e) => e.extensions?.category === "authentication",
-                      )
-                    : false;
+                const didError = error?.response
+                  ? error.response.status === 401 ||
+                    error.graphQLErrors.some(
+                      (e) => e.extensions?.category === "authentication",
+                    )
+                  : false;
 
                 return didError;
               },

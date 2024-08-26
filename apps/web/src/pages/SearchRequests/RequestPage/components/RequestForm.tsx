@@ -276,10 +276,9 @@ export const RequestForm = ({
       },
       applicantFilter: {
         create: {
-          positionDuration:
-            applicantFilter?.positionDuration
-              ? applicantFilter.positionDuration
-              : null,
+          positionDuration: applicantFilter?.positionDuration
+            ? applicantFilter.positionDuration
+            : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,

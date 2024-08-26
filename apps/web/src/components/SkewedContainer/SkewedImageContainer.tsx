@@ -3,10 +3,8 @@ import { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 interface SkewedImageContainerProps {
   children: ReactNode;
   imgSrc: string;
-  imgProps?: DetailedHTMLProps<
-    HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > & Record<string, string>;
+  imgProps?: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
+    Record<string, string>;
 }
 
 const SkewedImageContainer = ({

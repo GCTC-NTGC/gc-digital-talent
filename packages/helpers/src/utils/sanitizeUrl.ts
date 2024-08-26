@@ -24,10 +24,7 @@ const sanitizeUrl = (url: string | undefined) => {
     return "about:blank";
   }
 
-  if (
-    trimmedUrl.match(SAFE_URL_PATTERN) ||
-    (DATA_URL_PATTERN.exec(trimmedUrl))
-  ) {
+  if (trimmedUrl.match(SAFE_URL_PATTERN) || DATA_URL_PATTERN.exec(trimmedUrl)) {
     return trimmedUrl;
   }
 

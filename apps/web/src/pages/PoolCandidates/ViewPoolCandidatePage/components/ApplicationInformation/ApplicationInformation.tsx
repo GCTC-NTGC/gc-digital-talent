@@ -82,9 +82,7 @@ interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
   application?: // comes from snapshot
   | (PoolCandidate & {
-        screeningQuestionResponses?: Maybe<
-          Maybe<ScreeningQuestionResponse>[]
-        >;
+        screeningQuestionResponses?: Maybe<Maybe<ScreeningQuestionResponse>[]>;
       })
     | null;
   snapshot: User; // recreated from Json

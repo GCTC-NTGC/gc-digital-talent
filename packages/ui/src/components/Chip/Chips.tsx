@@ -6,10 +6,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { ChipProps } from "./Chip";
 
 type ChipsProps = Omit<HTMLProps<HTMLUListElement>, "children"> & {
-  children:
-    | ReactElement<ChipProps>
-    | (ReactElement<ChipProps> | null)[]
-    | null;
+  children: ReactElement<ChipProps> | (ReactElement<ChipProps> | null)[] | null;
 };
 
 const Chips = ({ children, ...rest }: ChipsProps) => (
