@@ -7,9 +7,9 @@ use Illuminate\Support\Arr;
 
 trait Filterable
 {
-    protected ?array $filters;
+    protected ?array $filters = null;
 
-    protected ?array $ids;
+    protected ?array $ids = null;
 
     /**
      * Set the filters to be applied
@@ -66,7 +66,7 @@ trait Filterable
      * @param  array  $scopeMap  A map of $filterKey => $scopeName
      * @return Builder $query The query builder with scopes applied
      */
-    public function applyFilters(Builder &$query, string $class, ?array $scopeMap): Builder
+    public function applyFilters(Builder &$query, ?array $scopeMap): Builder
     {
         if (is_null($this->filters) && is_null($this->ids)) {
             return $query;
@@ -76,8 +76,8 @@ trait Filterable
         foreach ($filters as $key => $value) {
             $scope = $scopeMap[$key] ?? $key;
 
-            if (method_exists($class, 'scope'.ucfirst($scope)) && $value) {
-                $query?->$scope($value);
+            if ($query->hasNamedScope($scope) && $value) {
+                $query->$scope($value);
             }
         }
 
