@@ -112,7 +112,7 @@ export interface DownloadDef {
         csv: Csv;
         label?: ReactNode;
       };
-};
+}
 
 export interface PaginationDef {
   /** Allows the table to manage search */
