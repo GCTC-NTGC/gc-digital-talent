@@ -21,7 +21,7 @@ const validLinkRegex =
 const looseProtocolRegex = /^(?!(?:\w+?:)?\/\/)/;
 const localHostRegex = /^\.*\/|^(?!localhost)\w+?:/;
 
-const prependHttp = (url: string, https: boolean = false): string => {
+const prependHttp = (url: string, https = false): string => {
   const transformedUrl = url.trim();
 
   // Don't prepend to localhost or a hash
@@ -36,11 +36,11 @@ const prependHttp = (url: string, https: boolean = false): string => {
   );
 };
 
-type FormValues = {
+interface FormValues {
   href: string;
   newTab?: boolean;
   action: "add" | "remove";
-};
+}
 
 interface LinkDialogProps {
   editor: Editor | null;
