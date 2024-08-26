@@ -15,7 +15,7 @@ const uuidRegEx =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 const isUUID = (str: string): boolean => {
-  return !!(uuidRegEx.exec(str));
+  return !!uuidRegEx.exec(str);
 };
 
 /**
@@ -32,7 +32,7 @@ function assertParam(
   param?: string,
   enforceUUID = true,
   logger: Logger = defaultLogger,
-): asserts param is string | never {
+): asserts param is string {
   invariant(
     notEmpty(param),
     `Could not find required URL parameter "${param}"`,

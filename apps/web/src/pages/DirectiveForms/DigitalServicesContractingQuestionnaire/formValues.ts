@@ -61,7 +61,7 @@ function parseFormIntField(field: Maybe<string>): number | null {
 function parseFormEnumField<T extends object>(
   typeObject: T,
   field: Maybe<string>,
-): ReturnType<typeof stringToEnum> | null {
+) {
   if (field === null || field === undefined) {
     return null;
   }
@@ -139,10 +139,7 @@ export interface FormValues {
 
   // personnel requirements section
   hasPersonnelRequirements: Maybe<string>;
-  personnelRequirements:
-    | PersonnelRequirementFormValues[]
-    | null
-    | undefined;
+  personnelRequirements: PersonnelRequirementFormValues[] | null | undefined;
   qualificationRequirement: Maybe<string>;
   requirementAccessToSecure: Maybe<string>;
   requirementScreeningLevels: Maybe<string[]>;

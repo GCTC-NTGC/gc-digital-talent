@@ -159,7 +159,7 @@ export function groupBy<
  */
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function assertUnreachable(x: never): never {
+export function assertUnreachable(_: never): never {
   throw new Error("Didn't expect to be reachable.");
 }
 
@@ -168,9 +168,7 @@ export function assertUnreachable(x: never): never {
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(
-  data?: Maybe<(Maybe<T> | undefined)[]>,
-): T[] {
+export function unpackMaybes<T>(data?: Maybe<(Maybe<T> | undefined)[]>): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 
@@ -193,7 +191,7 @@ export function pickMap<T, K extends keyof T>(
  */
 export function localizedEnumHasValue<
   T extends {
-    value?: Maybe<unknown> | undefined;
+    value?: unknown;
   },
 >(localizedEnum: T): boolean {
   return !!localizedEnum.value;

@@ -5,7 +5,7 @@ import { useParameter } from "@storybook/preview-api";
 import { StoryFn } from "@storybook/react";
 import random from "lodash/random";
 import merge from "lodash/merge";
-import { DocumentNode } from "graphql";
+import { DocumentNode, Kind } from "graphql";
 
 interface DelayConfig {
   latency: {
@@ -39,7 +39,7 @@ const mockRequest = (
 ) => {
   let operationName: string | undefined;
   for (const node of doc.definitions) {
-    if (node.kind === "OperationDefinition") {
+    if (node.kind === Kind.OPERATION_DEFINITION) {
       operationName = node.name ? node.name.value : undefined;
       break;
     }

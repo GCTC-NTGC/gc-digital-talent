@@ -31,7 +31,10 @@ export const unpackIds = (
   data?: Maybe<(Maybe<{ id: string }> | undefined)[]>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
-interface Option { value: string; label: string }
+interface Option {
+  value: string;
+  label: string;
+}
 
 /**
  * Converts a string enum to a list of options for select input.
@@ -164,7 +167,7 @@ export function matchStringsCaseDiacriticInsensitive(
  * @returns number
  */
 export const countNumberOfWords = (text: string): number => {
-  if (text && text.trim()) {
+  if (text?.trim()) {
     return text.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;

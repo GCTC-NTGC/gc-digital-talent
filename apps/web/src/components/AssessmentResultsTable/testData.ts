@@ -19,7 +19,6 @@ import {
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
-  Skill,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 
@@ -101,7 +100,9 @@ const applicationScreeningResults: AssessmentResult[] = [
 
 const experience = fakeExperiences(1)[0];
 const experiencePoolSkill = fakePoolSkills(1)[0];
-experience.skills?.push(experiencePoolSkill?.skill!);
+if (experiencePoolSkill.skill) {
+  experience.skills?.push(experiencePoolSkill?.skill);
+}
 
 /* Screening questions step (Unsuccessful status) */
 export const screeningQuestionsStep: AssessmentStep = {
