@@ -137,7 +137,7 @@ const ClientProvider = ({
               },
               didAuthError(error) {
                 const didError =
-                  error && error.response
+                  error?.response
                     ? error.response.status === 401 ||
                       error.graphQLErrors.some(
                         (e) => e.extensions?.category === "authentication",
