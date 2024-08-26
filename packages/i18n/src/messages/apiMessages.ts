@@ -4,7 +4,7 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 // Ideally, this could be automatically extracted from the schema but for now we do it manually.
 // The object keys match their source in the api and return a MessageDescriptor object
 
-export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
+export const apiMessages: Record<string, MessageDescriptor> = defineMessages(
   {
     "Internal server error": {
       defaultMessage: "Unknown error",
