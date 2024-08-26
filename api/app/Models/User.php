@@ -1042,9 +1042,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        $userId = $args['userId'] ?? null;
-        if ($userId) {
-            $user = User::find($userId);
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
         }
 
         // can see any user - return with no filters added

@@ -735,9 +735,8 @@ class PoolCandidate extends Model
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        $userId = $args['userId'] ?? null;
-        if ($userId) {
-            $user = User::find($userId);
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
         }
 
         // we might want to add some filters for some candidates
