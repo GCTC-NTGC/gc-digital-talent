@@ -132,10 +132,10 @@ const ChangeStatusDialog_UserFragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   status: PoolCandidateStatus;
   additionalPools?: Pool["id"][];
-};
+}
 
 export const ChangeStatusDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment ChangeStatusDialog_PoolCandidate on PoolCandidate {

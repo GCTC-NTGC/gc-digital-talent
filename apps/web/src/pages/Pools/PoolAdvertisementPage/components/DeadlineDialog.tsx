@@ -17,9 +17,9 @@ const generateLink = (
   </Link>
 );
 
-type DeadlineDialogProps = {
+interface DeadlineDialogProps {
   deadline: Date;
-};
+}
 
 const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
   const intl = useIntl();

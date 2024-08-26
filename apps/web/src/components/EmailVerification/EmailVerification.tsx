@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -31,24 +31,25 @@ const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
 
 const getTitle = (
   emailType: NonNullable<EmailVerificationProps["emailType"]>,
+  intl: IntlShape,
 ) => {
   switch (emailType) {
-    // presumably we'll have more than one type eventually
+    // presumably we'll have more than one type eventually.
     case "contact":
     default:
-      return {
+      return intl.formatMessage({
         defaultMessage: "Verify your contact email",
-        id: "TguSOt",
-        description: "Heading for email verification form",
-      };
+        id: "LpCMiC",
+        description: "Verify your contact email text",
+      });
   }
 };
 
 const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
 
-type FormValues = {
+interface FormValues {
   verificationCode: string;
-};
+}
 
 export interface EmailVerificationProps {
   emailType?: "contact";
@@ -176,7 +177,7 @@ const EmailVerification = ({
         color="primary"
         data-h2-text-align="base(center) p-tablet(left)"
       >
-        {intl.formatMessage(getTitle(emailType))}
+        {getTitle(emailType, intl)}
       </Heading>
       <p>
         {emailAddress

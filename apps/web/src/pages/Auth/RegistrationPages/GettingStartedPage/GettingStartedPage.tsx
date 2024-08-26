@@ -192,9 +192,8 @@ export const GettingStartedFormFields = ({
         >
           {intl.formatMessage({
             defaultMessage: "Verify your contact email",
-            id: "0k3vfO",
-            description:
-              "Button label for submit and verify email button on getting started form.",
+            id: "LpCMiC",
+            description: "Verify your contact email text",
           })}
         </Button>
         <Button

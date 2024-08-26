@@ -17,10 +17,10 @@ import { FormValues, LocationState } from "~/types/searchRequest";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
 
-type UseInitialState = {
+interface UseInitialState {
   defaultValues: FormValues;
   initialFilters: ApplicantFilterInput;
-};
+}
 
 export const useInitialFilters = (pools: Pool[]): UseInitialState => {
   const location = useLocation();
@@ -55,13 +55,13 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type UseCandidateCountReturn = {
+interface UseCandidateCountReturn {
   fetching: boolean;
   candidateCount: number;
   results?: (Pick<CandidateSearchPoolResult, "candidateCount"> & {
     pool: SearchResultCard_PoolFragment;
   })[];
-};
+}
 
 export const useCandidateCount = (
   filters: ApplicantFilterInput,

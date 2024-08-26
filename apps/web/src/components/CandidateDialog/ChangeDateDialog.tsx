@@ -27,9 +27,9 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
 
-type FormValues = {
+interface FormValues {
   expiryDate: PoolCandidate["expiryDate"];
-};
+}
 
 export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment ChangeDateDialog_PoolCandidate on PoolCandidate {

@@ -22,11 +22,11 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
-type FormValues = {
+interface FormValues {
   key: string;
   name?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
-};
+}
 
 const TEXT_AREA_MAX_WORDS = 200;
 

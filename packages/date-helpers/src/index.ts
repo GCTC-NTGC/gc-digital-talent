@@ -56,13 +56,13 @@ export const formatDate = ({
 };
 
 // parameters for the relativeClosingDate function
-export type relativeClosingDateOptions = {
+export interface relativeClosingDateOptions {
   closingDate: Date;
   now?: Date;
   intl: IntlShape;
   timeZone?: string;
   customFormat?: string;
-};
+}
 
 /**
  * Calculate a friendly date/time string, optionally in a different time zone

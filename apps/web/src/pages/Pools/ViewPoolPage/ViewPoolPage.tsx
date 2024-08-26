@@ -505,6 +505,7 @@ export const ViewPool = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
 };

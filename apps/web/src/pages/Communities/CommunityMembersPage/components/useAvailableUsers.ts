@@ -37,11 +37,11 @@ const CommunityMembers_AvailableUsersQuery = graphql(/* GraphQL */ `
   }
 `);
 
-type UseAvailableUsersReturn = {
+interface UseAvailableUsersReturn {
   users: UserPublicProfile[];
   total: number;
   fetching: boolean;
-};
+}
 
 const useAvailableUsers = (
   members: CommunityMember[],

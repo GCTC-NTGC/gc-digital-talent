@@ -32,7 +32,7 @@ export default {
   },
 };
 
-const colors: Array<Color> = [
+const colors: Color[] = [
   "primary",
   "secondary",
   "tertiary",
@@ -45,7 +45,7 @@ const colors: Array<Color> = [
   "white",
 ];
 
-const modes: Array<ButtonLinkMode> = [
+const modes: ButtonLinkMode[] = [
   "solid",
   "placeholder",
   "text",

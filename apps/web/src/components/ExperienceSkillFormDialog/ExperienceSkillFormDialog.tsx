@@ -8,11 +8,11 @@ import { Skill, Experience, Scalars } from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 
-type FormValues = {
+interface FormValues {
   experience?: Scalars["ID"]["output"];
   skill?: Scalars["ID"]["output"];
   details?: string;
-};
+}
 
 const deriveDefaultValues = (
   skill?: Skill,

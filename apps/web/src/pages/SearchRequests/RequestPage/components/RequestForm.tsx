@@ -60,7 +60,7 @@ const directiveLink = (chunks: ReactNode, href: string) => (
   </Link>
 );
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
-type FormValues = {
+interface FormValues {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
   email?: CreatePoolCandidateSearchRequestInput["email"];
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
@@ -71,24 +71,24 @@ type FormValues = {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
-      sync?: Array<Maybe<Classification["id"]>>;
+      sync?: Maybe<Classification["id"]>[];
     };
     qualifiedStreams?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
-      sync?: Array<Maybe<Skill["id"]>>;
+      sync?: Maybe<Skill["id"]>[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: Array<Maybe<OperationalRequirement>>;
+    operationalRequirements?: Maybe<OperationalRequirement>[];
     pools?: {
-      sync?: Array<Maybe<Pool["id"]>>;
+      sync?: Maybe<Pool["id"]>[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
   };
   department?: DepartmentBelongsTo["connect"];
-};
+}
 
 export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormClassification on Classification {
@@ -276,10 +276,9 @@ export const RequestForm = ({
       },
       applicantFilter: {
         create: {
-          positionDuration:
-            applicantFilter && applicantFilter.positionDuration
-              ? applicantFilter.positionDuration
-              : null,
+          positionDuration: applicantFilter?.positionDuration
+            ? applicantFilter.positionDuration
+            : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,

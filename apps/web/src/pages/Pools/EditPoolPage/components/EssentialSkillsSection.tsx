@@ -22,12 +22,12 @@ import SkillTable from "./SkillTable";
 import { PoolSkillMutationsType } from "../types";
 import { EditPoolSkills_Fragment } from "../fragments";
 
-type EssentialSkillsSectionProps = {
+interface EssentialSkillsSectionProps {
   poolQuery: FragmentType<typeof EditPoolSkills_Fragment>;
   sectionMetadata: EditPoolSectionMetadata;
-  skills: Array<Skill>;
+  skills: Skill[];
   poolSkillMutations: PoolSkillMutationsType;
-};
+}
 
 const EssentialSkillsSection = ({
   poolQuery,
@@ -60,11 +60,11 @@ const EssentialSkillsSection = ({
       // Note: This is ugly and should be cleaned up
       category: poolSkill.skill?.category ?? {
         value: SkillCategory.Technical,
-        label: { en: undefined, fr: undefined },
+        label: { en: "", fr: "" },
       },
       description: poolSkill.skill?.description,
       id: poolSkill.skill?.id ?? poolSkill.id,
-      key: poolSkill.skill?.key,
+      key: poolSkill.skill?.key ?? "",
       name: poolSkill.skill?.name ?? {},
       poolSkillId: poolSkill.id,
       requiredLevel: poolSkill.requiredLevel ?? undefined,

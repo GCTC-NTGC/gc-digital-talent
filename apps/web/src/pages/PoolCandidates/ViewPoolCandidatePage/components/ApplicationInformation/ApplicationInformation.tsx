@@ -66,25 +66,23 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
 
 // stopgap as screening questions become general questions while a new screening questions backend is set up
 // preserve snapshot functionality
-type ScreeningQuestion = {
+interface ScreeningQuestion {
   id: Scalars["ID"]["output"];
   question?: Maybe<LocalizedString>;
   sortOrder?: Maybe<Scalars["Int"]["output"]>;
-};
+}
 
-type ScreeningQuestionResponse = {
+interface ScreeningQuestionResponse {
   answer?: Maybe<Scalars["String"]["output"]>;
   screeningQuestion?: Maybe<ScreeningQuestion>;
   id: Scalars["ID"]["output"];
-};
+}
 
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
   application?: // comes from snapshot
   | (PoolCandidate & {
-        screeningQuestionResponses?: Maybe<
-          Array<Maybe<ScreeningQuestionResponse>>
-        >;
+        screeningQuestionResponses?: Maybe<Maybe<ScreeningQuestionResponse>[]>;
       })
     | null;
   snapshot: User; // recreated from Json
@@ -156,8 +154,8 @@ const ApplicationInformation = ({
           data-h2-align-items="base(flex-end)"
           data-h2-gap="base(0 x.5)"
         >
-          {application && (
-            <DownloadButton id={application.id} userId={application.user.id} />
+          {application && snapshot && (
+            <DownloadButton id={application.id} userId={snapshot.id} />
           )}
           <Button mode="inline" color="secondary" onClick={toggleSections}>
             {hasOpenSections

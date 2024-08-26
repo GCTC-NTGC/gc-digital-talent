@@ -2,10 +2,10 @@ import { APIRequestContext, request } from "@playwright/test";
 
 import { AuthTokens, getTokenForSub } from "./auth";
 
-type GraphQLRequestOptions = {
+interface GraphQLRequestOptions {
   variables?: Record<string, unknown>;
   isPrivileged?: boolean;
-};
+}
 
 /**
  * Context for sending graphql requests
@@ -15,7 +15,7 @@ type GraphQLRequestOptions = {
  */
 export class GraphQLContext {
   private readonly tokens: AuthTokens;
-  private endpoint: string = "/graphql";
+  private endpoint = "/graphql";
   private ctx: APIRequestContext;
 
   constructor(authTokens: AuthTokens, context: APIRequestContext) {

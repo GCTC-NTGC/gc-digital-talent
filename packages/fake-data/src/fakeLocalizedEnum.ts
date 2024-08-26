@@ -53,7 +53,7 @@ function toLocalizedEnum<T extends string>(
   };
 }
 
-type EnumType = { [k: number]: string };
+type EnumType = Record<number, string>;
 
 /**
  * Converts an enum to a localized version

@@ -25,13 +25,13 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "./useRoutes";
 
-type NotificationInfo = {
+interface NotificationInfo {
   message: ReactNode;
   label: string;
   href?: string;
   download?: string;
   external?: boolean;
-};
+}
 
 function isApplicationDeadlineApproachingNotification(
   notification: GraphqlType,

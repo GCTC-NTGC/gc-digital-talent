@@ -43,10 +43,10 @@ export type SectionKey =
   | "notificationSettings"
   | "recruitmentAvailability";
 
-type Section = {
+interface Section {
   id: string;
   title: ReactNode;
-};
+}
 
 const pageTitle = defineMessage({
   defaultMessage: "Account settings",

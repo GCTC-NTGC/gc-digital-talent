@@ -84,10 +84,10 @@ const AvailablePoolsToAddTo_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
-  pools: Array<Pool["id"]>;
+interface FormValues {
+  pools: Pool["id"][];
   expiryDate: PoolCandidate["expiryDate"];
-};
+}
 
 type UserInfoFragmentPoolCandidates =
   NonNullable<UserInfoFragmentType>["poolCandidates"];

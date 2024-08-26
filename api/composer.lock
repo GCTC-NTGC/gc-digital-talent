@@ -2788,16 +2788,16 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.1.24",
+            "version": "v0.1.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "409b0b4305273472f3754826e68f4edbd0150149"
+                "reference": "7b4029a84c37cb2725fc7f011586e2997040bc95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/409b0b4305273472f3754826e68f4edbd0150149",
-                "reference": "409b0b4305273472f3754826e68f4edbd0150149",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/7b4029a84c37cb2725fc7f011586e2997040bc95",
+                "reference": "7b4029a84c37cb2725fc7f011586e2997040bc95",
                 "shasum": ""
             },
             "require": {
@@ -2840,9 +2840,9 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.1.24"
+                "source": "https://github.com/laravel/prompts/tree/v0.1.25"
             },
-            "time": "2024-06-17T13:58:22+00:00"
+            "time": "2024-08-12T22:06:33+00:00"
         },
         {
             "name": "laravel/scout",
@@ -3188,16 +3188,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.5.2",
+            "version": "2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "df09d5b6a4188f8f3c3ab2e43a109076a5eeb767"
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/df09d5b6a4188f8f3c3ab2e43a109076a5eeb767",
-                "reference": "df09d5b6a4188f8f3c3ab2e43a109076a5eeb767",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/b650144166dfa7703e62a22e493b853b58d874b0",
+                "reference": "b650144166dfa7703e62a22e493b853b58d874b0",
                 "shasum": ""
             },
             "require": {
@@ -3210,8 +3210,8 @@
             },
             "require-dev": {
                 "cebe/markdown": "^1.0",
-                "commonmark/cmark": "0.31.0",
-                "commonmark/commonmark.js": "0.31.0",
+                "commonmark/cmark": "0.31.1",
+                "commonmark/commonmark.js": "0.31.1",
                 "composer/package-versions-deprecated": "^1.8",
                 "embed/embed": "^4.4",
                 "erusev/parsedown": "^1.0",
@@ -3290,7 +3290,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-14T10:56:57+00:00"
+            "time": "2024-08-16T11:46:16+00:00"
         },
         {
             "name": "league/config",
@@ -4552,16 +4552,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.42.2",
+            "version": "v6.43.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "b7ba38c959e8f1200f679ddb55ec6192bd1f6223"
+                "reference": "39f86b2efdab9808eed4aa42a9955f3da1a1260e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/b7ba38c959e8f1200f679ddb55ec6192bd1f6223",
-                "reference": "b7ba38c959e8f1200f679ddb55ec6192bd1f6223",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/39f86b2efdab9808eed4aa42a9955f3da1a1260e",
+                "reference": "39f86b2efdab9808eed4aa42a9955f3da1a1260e",
                 "shasum": ""
             },
             "require": {
@@ -4582,7 +4582,7 @@
                 "webonyx/graphql-php": "^15"
             },
             "require-dev": {
-                "algolia/algoliasearch-client-php": "^3 || ^4",
+                "algolia/algoliasearch-client-php": "^3",
                 "bensampo/laravel-enum": "^5 || ^6",
                 "dms/phpunit-arraysubset-asserts": "^0.4 || ^0.5",
                 "ergebnis/composer-normalize": "^2.2.2",
@@ -4678,7 +4678,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-08-05T17:35:49+00:00"
+            "time": "2024-08-23T09:11:14+00:00"
         },
         {
             "name": "phpoffice/math",
@@ -5383,16 +5383,16 @@
         },
         {
             "name": "psr/log",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+                "reference": "79dff0b268932c640297f5208d6298f71855c03e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/79dff0b268932c640297f5208d6298f71855c03e",
+                "reference": "79dff0b268932c640297f5208d6298f71855c03e",
                 "shasum": ""
             },
             "require": {
@@ -5427,9 +5427,9 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/3.0.0"
+                "source": "https://github.com/php-fig/log/tree/3.0.1"
             },
-            "time": "2021-07-14T16:46:02+00:00"
+            "time": "2024-08-21T13:31:24+00:00"
         },
         {
             "name": "psr/simple-cache",
