@@ -34,9 +34,10 @@ const UpdateTeamData_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   teamId: string;
-}
+};
 
 const EditTeamPage = () => {
   const intl = useIntl();

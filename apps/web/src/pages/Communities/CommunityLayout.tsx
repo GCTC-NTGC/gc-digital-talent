@@ -111,9 +111,10 @@ const CommunityLayoutCommunityName_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   communityId: string;
-}
+};
 
 const CommunityLayout = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");

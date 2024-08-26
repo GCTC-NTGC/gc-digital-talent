@@ -121,9 +121,10 @@ const TeamLayoutTeamName_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   teamId: string;
-}
+};
 
 const TeamLayout = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");

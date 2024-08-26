@@ -802,9 +802,10 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   poolId: Scalars["ID"]["output"];
-}
+};
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["PoolSkill"],

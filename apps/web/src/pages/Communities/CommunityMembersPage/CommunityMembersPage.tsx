@@ -160,9 +160,10 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   communityId: Scalars["ID"]["output"];
-}
+};
 
 const CommunityMembersPage = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");

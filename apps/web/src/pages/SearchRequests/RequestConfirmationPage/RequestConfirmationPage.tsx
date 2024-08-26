@@ -32,9 +32,10 @@ const subTitle = defineMessage({
   description: "Subtitle for the request confirmation page.",
 });
 
-interface RequestConfirmationParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RequestConfirmationParams = {
   requestId: Scalars["ID"]["output"];
-}
+};
 
 const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">

@@ -424,9 +424,10 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   userId: Scalars["ID"]["output"];
-}
+};
 
 const AdminUserProfilePage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");

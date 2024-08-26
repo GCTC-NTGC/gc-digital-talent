@@ -400,7 +400,7 @@ export const UpdateUserSkillForm = ({
 
   const handleDelete = () => {
     executeDeleteMutation({
-      id: userSkill?.id,
+      id: userSkill?.id ?? "",
     })
       .then(() =>
         handleSuccess(
@@ -769,9 +769,10 @@ export const UpdateUserSkillForm = ({
   );
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   skillId: Scalars["ID"]["output"];
-}
+};
 
 const UpdateUserSkill_Query = graphql(/* GraphQL */ `
   query UserSkill($skillId: UUID!) {

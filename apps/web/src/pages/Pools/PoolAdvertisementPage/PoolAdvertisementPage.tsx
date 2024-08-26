@@ -340,12 +340,10 @@ export const PoolPoster = ({
       })
     : getLocalizedName(pool.location, intl);
 
-  const showAboutUs = !!(pool.aboutUs?.[locale]);
-  const showSpecialNote = !!(pool.specialNote?.[locale]);
-  const showWhatToExpect = !!(pool.whatToExpect?.[locale]);
-  const showWhatToExpectAdmission = !!(
-    pool.whatToExpectAdmission?.[locale]
-  );
+  const showAboutUs = !!pool.aboutUs?.[locale];
+  const showSpecialNote = !!pool.specialNote?.[locale];
+  const showWhatToExpect = !!pool.whatToExpect?.[locale];
+  const showWhatToExpectAdmission = !!pool.whatToExpectAdmission?.[locale];
 
   const opportunityLength = getLocalizedName(
     pool.opportunityLength?.label,
@@ -1293,9 +1291,10 @@ const PoolNotFound = () => {
   );
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   poolId: Scalars["ID"]["output"];
-}
+};
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
   query PoolAdvertisementPage($id: UUID!) {

@@ -220,9 +220,10 @@ export const UpdateClassificationForm = ({
   );
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   classificationId: Scalars["ID"]["output"];
-}
+};
 
 const Classification_Query = graphql(/* GraphQL */ `
   query Classification($id: UUID!) {

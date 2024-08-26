@@ -505,9 +505,10 @@ export const ViewPool = ({
   );
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   poolId: Scalars["ID"]["output"];
-}
+};
 
 const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {

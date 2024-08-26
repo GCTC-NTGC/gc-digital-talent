@@ -195,7 +195,7 @@ describe("Create Account Form tests", () => {
     const levelOption = screen.queryByRole("option", {
       name: mockClassifications[0].level.toString(),
     })!;
-    fireEvent.change(level, { target: { value: levelOption.value } });
+    fireEvent.change(level, { target: { value: levelOption } });
 
     fireEvent.submit(screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {

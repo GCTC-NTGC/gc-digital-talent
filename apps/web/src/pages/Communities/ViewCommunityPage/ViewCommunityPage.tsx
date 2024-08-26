@@ -20,9 +20,10 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CommunitySection from "./components/CommunitySection";
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   communityId: Scalars["ID"]["output"];
-}
+};
 
 const ViewCommunity_Query = graphql(/* GraphQL */ `
   query ViewCommunity($id: UUID!) {

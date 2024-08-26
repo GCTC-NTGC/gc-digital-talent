@@ -62,10 +62,11 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   experienceId: string;
   applicationId: string;
-}
+};
 
 interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
   experience: AnyExperience;

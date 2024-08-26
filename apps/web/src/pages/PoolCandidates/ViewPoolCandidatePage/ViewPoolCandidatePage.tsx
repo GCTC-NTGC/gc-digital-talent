@@ -358,10 +358,11 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["AssessmentResult"],
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
-}
+};
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();

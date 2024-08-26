@@ -146,9 +146,10 @@ export const UpdateDepartmentForm = ({
   );
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   departmentId: Scalars["ID"]["output"];
-}
+};
 
 const Department_Query = graphql(/* GraphQL */ `
   query Department($id: UUID!) {

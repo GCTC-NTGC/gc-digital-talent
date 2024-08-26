@@ -44,7 +44,7 @@ const SkillShowcaseCard = ({
     const copyOfItems = [...(items || [])];
     copyOfItems.splice(index, 1);
     return updateUserSkillRankingsMutation({
-      userId: userAuthInfo?.id,
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         [userSkillRanking]: [
           ...copyOfItems.map((userSkill) => userSkill.skill),

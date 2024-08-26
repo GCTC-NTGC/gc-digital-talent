@@ -6,9 +6,10 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ViewSearchRequestApi from "./components/ViewSearchRequest";
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   searchRequestId: Scalars["ID"]["output"];
-}
+};
 
 export const SingleSearchRequestPage = () => {
   const { searchRequestId } = useRequiredParams<RouteParams>("searchRequestId");

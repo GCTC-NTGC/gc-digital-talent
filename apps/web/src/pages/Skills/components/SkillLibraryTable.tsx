@@ -244,8 +244,8 @@ const SkillLibraryTable = ({
             skills={unclaimedSkills}
             onSave={async (value) => {
               executeCreateMutation({
-                userId: userAuthInfo?.id,
-                skillId: value?.skill,
+                userId: userAuthInfo?.id ?? "",
+                skillId: value?.skill ?? "",
                 userSkill: {
                   skillLevel: value.skillLevel,
                   whenSkillUsed: value.whenSkillUsed,

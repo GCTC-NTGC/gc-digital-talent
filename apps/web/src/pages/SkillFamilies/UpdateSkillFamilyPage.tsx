@@ -40,7 +40,10 @@ import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-interface Option<V> { value: V; label: string }
+interface Option<V> {
+  value: V;
+  label: string;
+}
 
 type FormValues = Pick<SkillFamily, "name" | "description"> & {
   skills: string[];
@@ -270,9 +273,10 @@ export const UpdateSkillFamilyForm = ({
   );
 };
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   skillFamilyId: Scalars["ID"]["output"];
-}
+};
 
 const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `
   query SkillFamilySkillsData($id: UUID!) {

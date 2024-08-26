@@ -201,9 +201,10 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type RouteParams = {
   poolId: string;
-}
+};
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");

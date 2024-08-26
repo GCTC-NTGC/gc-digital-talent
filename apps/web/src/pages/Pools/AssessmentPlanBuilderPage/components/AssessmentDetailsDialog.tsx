@@ -310,7 +310,7 @@ const AssessmentDetailsDialog = ({
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      poolId: values.poolId,
+      poolId: values.poolId ?? "",
       assessmentStep: {
         type: values.typeOfAssessment,
         title: {
@@ -336,7 +336,7 @@ const AssessmentDetailsDialog = ({
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      id: values.id,
+      id: values.id ?? "",
       assessmentStep: {
         type: values.typeOfAssessment,
         title: {
@@ -362,7 +362,7 @@ const AssessmentDetailsDialog = ({
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      poolId: values.poolId,
+      poolId: values.poolId ?? "",
       screeningQuestions: values.screeningQuestionFieldArray?.map(
         ({ screeningQuestion }, index) => ({
           question: {
