@@ -35,7 +35,7 @@ final class DownloadUsersCsv
                 lang: strtolower($locale),
             );
 
-            $generator = $generator
+            $generator
                 ->setUserId($user->id)
                 ->setIds($ids)
                 ->setFilters($filters);

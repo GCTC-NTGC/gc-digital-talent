@@ -282,7 +282,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             ],
         ]);
 
-        $query = $this->applyFilters($query, PoolCandidate::class, [
+        $this->applyFilters($query, PoolCandidate::class, [
             'priorityWeight' => 'candidateCategory',
             'poolCandidateStatus' => 'poolCandidateStatuses',
             'pools' => 'availableInPools',

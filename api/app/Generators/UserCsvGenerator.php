@@ -157,7 +157,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
             'userSkills' => ['skill'],
         ]);
 
-        $query = $this->applyFilters($query, User::class, [
+        $this->applyFilters($query, User::class, [
             'roles' => 'roleAssignments',
             'skills' => 'skillsAdditive',
         ]);
