@@ -824,7 +824,6 @@ input PoolCandidateSearchInput {
   processNumber: String @scope(name: "processNumber")
 }
 
-
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
   departments: [ID] @scope
