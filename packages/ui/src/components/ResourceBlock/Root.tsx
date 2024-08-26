@@ -54,7 +54,7 @@ const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
-interface RootProps {
+export interface RootProps {
   title: ReactNode;
   headingColor?: CardColor;
   headingAs?: HeadingLevel;
