@@ -104,7 +104,7 @@ export const dataToFormValues = (
   data: ApplicantFilterInput,
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
 ): FormValues => {
-  const stream = data?.qualifiedStreams?.filter(notEmpty)[0];
+  const stream = data?.qualifiedStreams?.find(notEmpty);
 
   return {
     classification: getCurrentClassification(selectedClassifications),
