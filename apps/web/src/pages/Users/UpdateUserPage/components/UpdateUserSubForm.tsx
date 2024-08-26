@@ -11,9 +11,9 @@ import {
   UserAuthInfo,
 } from "@gc-digital-talent/graphql";
 
-type FormValues = {
+interface FormValues {
   sub: string;
-};
+}
 
 interface UpdateUserSubFormProps {
   authInfo: UserAuthInfo | undefined | null;

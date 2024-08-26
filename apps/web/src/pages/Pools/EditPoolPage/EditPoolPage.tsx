@@ -230,7 +230,7 @@ export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
   departments: FragmentType<typeof PoolDepartment_Fragment>[];
-  skills: Array<Skill>;
+  skills: Skill[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
   poolSkillMutations: PoolSkillMutationsType;
@@ -802,9 +802,9 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["PoolSkill"],

@@ -8,9 +8,9 @@ import { Skill } from "@gc-digital-talent/graphql";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import PersonnelRequirementFieldset from "../fieldsSets/PersonnelRequirementFieldset";
 
-type PersonnelRequirementsSectionProps = {
-  skills: Array<Skill>;
-};
+interface PersonnelRequirementsSectionProps {
+  skills: Skill[];
+}
 
 const PersonnelRequirementsSection = ({
   skills,

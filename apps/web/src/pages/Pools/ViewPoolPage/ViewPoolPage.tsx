@@ -505,9 +505,9 @@ export const ViewPool = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {

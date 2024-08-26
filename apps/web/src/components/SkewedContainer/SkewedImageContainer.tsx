@@ -6,9 +6,7 @@ interface SkewedImageContainerProps {
   imgProps?: DetailedHTMLProps<
     HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
-  > & {
-    [data: string]: string;
-  };
+  > & Record<string, string>;
 }
 
 const SkewedImageContainer = ({

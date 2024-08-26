@@ -358,10 +358,10 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["AssessmentResult"],
 };
 
-type RouteParams = {
+interface RouteParams {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
-};
+}
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();

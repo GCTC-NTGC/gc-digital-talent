@@ -136,9 +136,9 @@ export const AssessmentPlanBuilder = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
   query AssessmentPlanBuilderPage($poolId: UUID!) {

@@ -160,9 +160,9 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   communityId: Scalars["ID"]["output"];
-};
+}
 
 const CommunityMembersPage = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");

@@ -41,9 +41,9 @@ import {
 import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
 
-type GeneralInformationSectionProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-};
+interface GeneralInformationSectionProps {
+  departments: Omit<Department, "departmentNumber">[];
+}
 
 const GeneralInformationSection = ({
   departments,

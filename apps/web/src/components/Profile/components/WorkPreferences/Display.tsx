@@ -30,7 +30,7 @@ const Display = ({
     acceptedOperationalRequirements?.filter(notEmpty);
 
   const durationMessage =
-    positionDuration && positionDuration.includes(PositionDuration.Temporary)
+    positionDuration?.includes(PositionDuration.Temporary)
       ? intl.formatMessage({
           defaultMessage:
             "any duration (short term, long term, indeterminate).",

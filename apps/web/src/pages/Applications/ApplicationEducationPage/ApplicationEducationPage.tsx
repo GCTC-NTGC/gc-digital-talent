@@ -33,11 +33,11 @@ import useApplication from "../useApplication";
 
 type PageAction = "continue" | "cancel";
 
-type FormValues = {
+interface FormValues {
   educationRequirement: EducationRequirementOption;
   educationRequirementExperiences: string[]; // List of ids
   action: PageAction;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -78,7 +78,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationEducationProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiences: ExperienceForDate[];
 }
 
 const ApplicationEducation = ({
@@ -143,7 +143,7 @@ const ApplicationEducation = ({
           EducationRequirementOption.Education &&
           experiences.filter(
             (experience) =>
-              isEducationExperience(experience as ExperienceForDate) &&
+              isEducationExperience(experience) &&
               includesExperience(experience.id),
           ).length > 0));
 

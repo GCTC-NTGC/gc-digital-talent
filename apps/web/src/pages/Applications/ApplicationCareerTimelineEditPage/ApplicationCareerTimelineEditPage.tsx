@@ -62,10 +62,10 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-type RouteParams = {
+interface RouteParams {
   experienceId: string;
   applicationId: string;
-};
+}
 
 interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
   experience: AnyExperience;

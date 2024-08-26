@@ -638,11 +638,11 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   userId: Scalars["ID"]["output"];
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];
-};
+}
 interface ExperienceFormContainerProps {
   edit?: boolean;
 }

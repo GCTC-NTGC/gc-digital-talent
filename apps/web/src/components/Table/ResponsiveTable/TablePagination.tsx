@@ -44,7 +44,7 @@ const TablePagination = <T,>({
     }
   };
 
-  let currentPageIndex: number = 0;
+  let currentPageIndex = 0;
   if (
     !pagination?.internal &&
     typeof pagination?.state?.pageIndex !== "undefined"

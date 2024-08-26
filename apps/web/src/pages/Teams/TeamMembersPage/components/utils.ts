@@ -5,7 +5,7 @@ import { Role } from "@gc-digital-talent/graphql";
 
 // eslint-disable-next-line import/prefer-default-export
 export const getTeamBasedRoleOptions = (
-  roles: Array<Role>,
+  roles: Role[],
   intl: IntlShape,
 ) => {
   return roles.map((role) => ({

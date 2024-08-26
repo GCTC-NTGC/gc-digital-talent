@@ -115,9 +115,9 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   );
 };
 
-type RouteParams = {
+interface RouteParams {
   userId: string;
-};
+}
 
 const UserName_Query = graphql(/* GraphQL */ `
   query UserName($userId: UUID!) {

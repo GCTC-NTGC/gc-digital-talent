@@ -2,15 +2,15 @@ import { useRef, useState } from "react";
 
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
 
-type UseAsyncFileDownloadArgs = {
+interface UseAsyncFileDownloadArgs {
   url: string;
   fileName: string;
-};
+}
 
-type UseAsyncFileDownloadData = {
+interface UseAsyncFileDownloadData {
   fetching: boolean;
   abort: AbortController["abort"];
-};
+}
 
 type UseAsyncFileDownloadReturn = [
   UseAsyncFileDownloadData,

@@ -147,8 +147,7 @@ export function transformUserFilterInputToFormValues(
     skills:
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     employmentDuration:
-      input?.applicantFilter?.positionDuration &&
-      input.applicantFilter.positionDuration.includes(
+      input?.applicantFilter?.positionDuration?.includes(
         PositionDuration.Temporary,
       )
         ? "TERM"

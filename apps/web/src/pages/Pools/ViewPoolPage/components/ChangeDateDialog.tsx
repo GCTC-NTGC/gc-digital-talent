@@ -18,11 +18,11 @@ import { Pool, Scalars } from "@gc-digital-talent/graphql";
 
 import { ProcessDialogProps } from "./types";
 
-type FormValues = {
+interface FormValues {
   type?: "extend" | "close";
   expiryEndDate?: Pool["closingDate"];
   reason?: string;
-};
+}
 
 type ChangeDateDialogProps = ProcessDialogProps & {
   closingDate?: Pool["closingDate"];

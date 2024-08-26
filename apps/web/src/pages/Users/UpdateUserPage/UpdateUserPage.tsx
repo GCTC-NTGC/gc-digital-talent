@@ -279,9 +279,9 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-type RouteParams = {
+interface RouteParams {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserPage = () => {
   const intl = useIntl();

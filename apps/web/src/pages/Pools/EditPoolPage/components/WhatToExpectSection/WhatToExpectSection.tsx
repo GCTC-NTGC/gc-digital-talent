@@ -46,10 +46,10 @@ const EditPoolWhatToExpect_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   whatToExpectEn?: LocalizedString["en"];
   whatToExpectFr?: LocalizedString["fr"];
-};
+}
 
 export type WhatToExpectSubmitData = Pick<UpdatePoolInput, "whatToExpect">;
 

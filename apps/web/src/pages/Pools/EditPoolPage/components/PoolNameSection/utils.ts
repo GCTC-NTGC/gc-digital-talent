@@ -15,7 +15,7 @@ import {
   Department,
 } from "@gc-digital-talent/graphql";
 
-export type FormValues = {
+export interface FormValues {
   classification?: Classification["id"];
   department?: Department["id"];
   stream?: PoolStream;
@@ -24,7 +24,7 @@ export type FormValues = {
   processNumber?: string;
   publishingGroup?: Maybe<PublishingGroup>;
   opportunityLength?: Maybe<PoolOpportunityLength>;
-};
+}
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
   classification: initialData.classification?.id ?? "",

@@ -424,9 +424,9 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const AdminUserProfilePage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");

@@ -146,7 +146,7 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
   }
   switch (stringifyText) {
     // Regex that matches all IT classifications with levels
-    case stringifyText.match(/[IT]-0\d/)?.input:
+    case (/[IT]-0\d/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
           <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
@@ -155,14 +155,14 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
         </abbr>
       );
     // Regex that matches all IT(en)/TI(fr)
-    case stringifyText.match(/[IT][TI]/)?.input:
+    case (/[IT][TI]/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
     // Regex that matches all AS classifications with levels
-    case stringifyText.match(/[AS]-0\d/)?.input:
+    case (/[AS]-0\d/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
           <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
@@ -170,37 +170,37 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
           </span>
         </abbr>
       );
-    case stringifyText.match("AS")?.input:
+    case (/AS/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
-    case stringifyText.match("GC")?.input:
+    case (/GC/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("GC"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
-    case stringifyText.match("EX")?.input:
+    case (/EX/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("EX"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
-    case stringifyText.match("PM")?.input:
+    case (/PM/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("PM"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
-    case stringifyText.match("CS")?.input:
+    case (/CS/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("CS"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
-    case stringifyText.match("EC")?.input:
+    case (/EC/.exec(stringifyText))?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("EC"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>

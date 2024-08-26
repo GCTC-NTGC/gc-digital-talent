@@ -96,7 +96,7 @@ export const UpdateSkillShowcase_SkillFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
+export interface FormValues { userSkills: SkillBrowserDialogFormValues[] }
 
 interface UpdateSkillShowcaseProps {
   userId: Scalars["UUID"];

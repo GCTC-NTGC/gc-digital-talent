@@ -143,9 +143,9 @@ const TeamMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   teamId: Scalars["ID"]["output"];
-};
+}
 
 const TeamMembersPage = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");

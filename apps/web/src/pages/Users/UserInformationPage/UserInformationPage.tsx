@@ -473,9 +473,9 @@ const UserInformation_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UserInformationPage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");

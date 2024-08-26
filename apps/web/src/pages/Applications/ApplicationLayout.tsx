@@ -31,9 +31,9 @@ import { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
 import { getApplicationSteps } from "./utils";
 
-type RouteParams = {
+interface RouteParams {
   experienceId: string;
-};
+}
 
 interface ApplicationPageWrapperProps {
   query: FragmentType<typeof Application_PoolCandidateFragment>;

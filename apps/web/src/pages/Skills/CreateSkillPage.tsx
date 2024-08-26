@@ -37,7 +37,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { SkillFormOptions_Query } from "./operations";
 
-type Option<V> = { value: V; label: string };
+interface Option<V> { value: V; label: string }
 
 type FormValues = Pick<Skill, "description"> & {
   key: string;

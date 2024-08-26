@@ -15,7 +15,7 @@ const uuidRegEx =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 const isUUID = (str: string): boolean => {
-  return !!str.match(uuidRegEx);
+  return !!(uuidRegEx.exec(str));
 };
 
 /**
@@ -30,7 +30,7 @@ const isUUID = (str: string): boolean => {
  */
 function assertParam(
   param?: string,
-  enforceUUID: boolean = true,
+  enforceUUID = true,
   logger: Logger = defaultLogger,
 ): asserts param is string | never {
   invariant(
@@ -61,8 +61,8 @@ const useRequiredParams = <
   T extends Record<string, string>,
   K extends keyof T = keyof T,
 >(
-  keys: K | Array<K>,
-  enforceUUID: boolean = true,
+  keys: K | K[],
+  enforceUUID = true,
   message: string | undefined = undefined,
 ): Record<K, string> => {
   const intl = useIntl();

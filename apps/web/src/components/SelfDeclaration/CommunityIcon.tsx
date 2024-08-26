@@ -42,7 +42,7 @@ const CommunityIcon = ({ community, values }: CommunityIconProps) => {
   const { watch } = useFormContext();
   const communitiesValue = watch("communities");
   const isOn = values.some((value) =>
-    partOfCommunity(value as string, communitiesValue),
+    partOfCommunity(value, communitiesValue),
   );
   const [iconOn, iconOff, iconOffDark] = getCommunityIcon(community);
 

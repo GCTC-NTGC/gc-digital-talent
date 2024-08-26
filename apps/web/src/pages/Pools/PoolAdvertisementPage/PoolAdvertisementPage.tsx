@@ -75,11 +75,11 @@ import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
 import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
 import DeadlineValue from "./components/DeadlineValue";
 
-type SectionContent = {
+interface SectionContent {
   id: string;
   linkText?: string;
   title: string;
-};
+}
 
 const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
   return email ? (
@@ -340,11 +340,11 @@ export const PoolPoster = ({
       })
     : getLocalizedName(pool.location, intl);
 
-  const showAboutUs = !!(pool.aboutUs && pool.aboutUs[locale]);
-  const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
-  const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
+  const showAboutUs = !!(pool.aboutUs?.[locale]);
+  const showSpecialNote = !!(pool.specialNote?.[locale]);
+  const showWhatToExpect = !!(pool.whatToExpect?.[locale]);
   const showWhatToExpectAdmission = !!(
-    pool.whatToExpectAdmission && pool.whatToExpectAdmission[locale]
+    pool.whatToExpectAdmission?.[locale]
   );
 
   const opportunityLength = getLocalizedName(
@@ -1293,9 +1293,9 @@ const PoolNotFound = () => {
   );
 };
 
-type RouteParams = {
+interface RouteParams {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
   query PoolAdvertisementPage($id: UUID!) {

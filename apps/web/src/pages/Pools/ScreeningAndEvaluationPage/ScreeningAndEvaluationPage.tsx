@@ -24,9 +24,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
 
-type RouteParams = {
+interface RouteParams {
   poolId: Scalars["ID"]["input"];
-};
+}
 
 const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
   query ScreeningAndEvaluation_Pools(

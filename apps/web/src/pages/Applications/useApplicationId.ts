@@ -1,8 +1,8 @@
 import useRequiredParams from "~/hooks/useRequiredParams";
 
-type RouteParams = {
+interface RouteParams {
   applicationId: string;
-};
+}
 
 const useApplicationId = () => {
   const { applicationId } = useRequiredParams<RouteParams>("applicationId");

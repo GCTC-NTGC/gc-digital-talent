@@ -201,9 +201,9 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   poolId: string;
-};
+}
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");

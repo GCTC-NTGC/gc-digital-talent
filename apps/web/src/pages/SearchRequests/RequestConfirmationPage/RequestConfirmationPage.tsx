@@ -32,9 +32,9 @@ const subTitle = defineMessage({
   description: "Subtitle for the request confirmation page.",
 });
 
-type RequestConfirmationParams = {
+interface RequestConfirmationParams {
   requestId: Scalars["ID"]["output"];
-};
+}
 
 const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">

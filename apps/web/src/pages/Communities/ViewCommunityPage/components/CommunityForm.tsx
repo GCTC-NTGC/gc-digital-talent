@@ -12,13 +12,13 @@ import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
 import adminMessages from "~/messages/adminMessages";
 
-type FormValues = {
+interface FormValues {
   key: string;
   nameEn: string;
   nameFr: string;
   descriptionEn: string;
   descriptionFr: string;
-};
+}
 
 const TEXT_AREA_MAX_WORDS = 200;
 

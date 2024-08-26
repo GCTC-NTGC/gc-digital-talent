@@ -111,9 +111,9 @@ const CommunityLayoutCommunityName_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams {
   communityId: string;
-};
+}
 
 const CommunityLayout = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");

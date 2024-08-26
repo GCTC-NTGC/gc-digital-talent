@@ -1,6 +1,6 @@
 import { LocalizedString } from "@gc-digital-talent/graphql";
 
-export type MyRoleTeam = {
+export interface MyRoleTeam {
   communityId: string;
   roleName: LocalizedString;
-};
+}

@@ -220,9 +220,9 @@ export const UpdateClassificationForm = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams {
   classificationId: Scalars["ID"]["output"];
-};
+}
 
 const Classification_Query = graphql(/* GraphQL */ `
   query Classification($id: UUID!) {

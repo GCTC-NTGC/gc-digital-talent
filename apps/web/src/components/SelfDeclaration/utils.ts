@@ -39,12 +39,12 @@ export const getSelfDeclarationLabels = (intl: IntlShape) => ({
 
 export const partOfCommunity = (
   community: string,
-  selectedCommunities?: Array<string>,
+  selectedCommunities?: string[],
 ) => {
-  return selectedCommunities && selectedCommunities.includes(community);
+  return selectedCommunities?.includes(community);
 };
 
-export const hasCommunityAndOther = (selectedCommunities?: Array<string>) => {
+export const hasCommunityAndOther = (selectedCommunities?: string[]) => {
   return (
     selectedCommunities &&
     selectedCommunities.length > 1 &&
@@ -96,11 +96,11 @@ const getCommunityLabels = (intl: IntlShape) =>
     ],
   ]);
 
-type GetCommunityLabelArgs = {
+interface GetCommunityLabelArgs {
   community: string;
   intl: IntlShape;
   status?: FirstNationsStatus;
-};
+}
 
 export const getCommunityLabel = ({
   community,

@@ -22,12 +22,12 @@ import SkillTable from "./SkillTable";
 import { PoolSkillMutationsType } from "../types";
 import { EditPoolSkills_Fragment } from "../fragments";
 
-type AssetSkillsSectionProps = {
+interface AssetSkillsSectionProps {
   poolQuery: FragmentType<typeof EditPoolSkills_Fragment>;
   sectionMetadata: EditPoolSectionMetadata;
-  skills: Array<Skill>;
+  skills: Skill[];
   poolSkillMutations: PoolSkillMutationsType;
-};
+}
 
 const AssetSkillsSection = ({
   poolQuery,

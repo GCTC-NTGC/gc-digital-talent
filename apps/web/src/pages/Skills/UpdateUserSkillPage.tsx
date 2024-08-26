@@ -50,16 +50,16 @@ import {
   UpdateUserSkill_Mutation,
 } from "./operations";
 
-type PageSection = {
+interface PageSection {
   id: string;
   title: ReactNode;
-};
+}
 type PageSections = Record<string, PageSection>;
 
-type FormValues = {
+interface FormValues {
   skillLevel: SkillLevel;
   whenSkillUsed: WhenSkillUsed;
-};
+}
 
 interface NullExperienceMessageProps {
   hasExperiences: boolean;
@@ -769,9 +769,9 @@ export const UpdateUserSkillForm = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams {
   skillId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserSkill_Query = graphql(/* GraphQL */ `
   query UserSkill($skillId: UUID!) {

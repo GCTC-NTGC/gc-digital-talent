@@ -46,10 +46,10 @@ import {
 } from "../constants";
 import { poolSkillToOption } from "../utils";
 
-type AssessedSkillsItems = {
+interface AssessedSkillsItems {
   essentialSkillItems: CheckboxOption[];
   assetSkills: CheckboxOption[];
-};
+}
 
 const AssessmentDetailsDialog_CreateMutation = graphql(/* GraphQL */ `
   mutation createAssessmentStep(
@@ -150,13 +150,13 @@ const allowedStepTypes = [
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
-type FormValues = {
+interface FormValues {
   id?: Maybe<Scalars["ID"]["output"]>;
   poolId?: Maybe<Scalars["ID"]["output"]>;
   typeOfAssessment?: Maybe<AssessmentStepType>;
   assessmentTitleEn?: Maybe<string>;
   assessmentTitleFr?: Maybe<string>;
-  screeningQuestionFieldArray?: Array<{
+  screeningQuestionFieldArray?: {
     id: string | null;
     screeningQuestion: {
       id?: Maybe<Scalars["ID"]["output"]>;
@@ -164,17 +164,17 @@ type FormValues = {
       en?: Maybe<string>;
       fr?: Maybe<string>;
     };
-  }>;
-  assessedSkills?: Maybe<Array<Scalars["ID"]["output"]>>;
-  assessedSkillsScreeningQuestions?: Maybe<Array<Scalars["ID"]["output"]>>;
-};
+  }[];
+  assessedSkills?: Maybe<Scalars["ID"]["output"][]>;
+  assessedSkillsScreeningQuestions?: Maybe<Scalars["ID"]["output"][]>;
+}
 
 type InitialValues = Omit<
   FormValues,
   "poolId" | "screeningQuestionFieldArray"
 > & {
   poolId: NonNullable<FormValues["poolId"]>;
-  screeningQuestions?: Array<ScreeningQuestion>;
+  screeningQuestions?: ScreeningQuestion[];
 };
 
 interface AssessmentDetailsDialogProps {

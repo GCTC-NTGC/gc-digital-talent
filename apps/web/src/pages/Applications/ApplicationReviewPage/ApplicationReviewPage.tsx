@@ -48,9 +48,9 @@ const Application_SubmitMutation = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   signature: string;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -90,7 +90,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationReviewProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiences: ExperienceForDate[];
 }
 
 const ApplicationReview = ({

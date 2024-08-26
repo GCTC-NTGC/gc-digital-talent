@@ -166,11 +166,11 @@ describe("Create Account Form tests", () => {
 
     const department = screen.getByRole("combobox", {
       name: /home department/i,
-    }) as HTMLSelectElement;
+    });
 
     const departmentOption = screen.getByRole("option", {
       name: mockDepartments[0].name.en || "",
-    }) as HTMLOptionElement;
+    });
     await act(async () => {
       await user.click(department);
       await user.click(departmentOption);
@@ -178,11 +178,11 @@ describe("Create Account Form tests", () => {
 
     const group = screen.getByRole("combobox", {
       name: /group/i,
-    }) as HTMLSelectElement;
+    });
 
     const groupOption = screen.getByRole("option", {
       name: mockClassifications[0].group,
-    }) as HTMLOptionElement;
+    });
     await act(async () => {
       await user.click(group);
       await user.click(groupOption);
@@ -190,11 +190,11 @@ describe("Create Account Form tests", () => {
 
     const level = screen.getByRole("combobox", {
       name: /level/i,
-    }) as HTMLSelectElement;
+    });
 
     const levelOption = screen.queryByRole("option", {
       name: mockClassifications[0].level.toString(),
-    }) as HTMLOptionElement;
+    })!;
     fireEvent.change(level, { target: { value: levelOption.value } });
 
     fireEvent.submit(screen.getByRole("button", { name: /save/i }));

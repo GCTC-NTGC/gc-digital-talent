@@ -15,7 +15,7 @@ import { PageNavInfo, PageNavMap } from "../types/pages";
  * @returns PageNavInfo | undefined
  */
 const useCurrentPage = <K>(
-  pages: PageNavMap<K> | Array<PageNavInfo>,
+  pages: PageNavMap<K> | PageNavInfo[],
 ): PageNavInfo | undefined => {
   const { pathname } = useLocation();
 

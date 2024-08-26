@@ -20,9 +20,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CommunitySection from "./components/CommunitySection";
 
-type RouteParams = {
+interface RouteParams {
   communityId: Scalars["ID"]["output"];
-};
+}
 
 const ViewCommunity_Query = graphql(/* GraphQL */ `
   query ViewCommunity($id: UUID!) {
