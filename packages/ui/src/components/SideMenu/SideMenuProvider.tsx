@@ -1,10 +1,10 @@
 import { ReactNode, createContext, useContext, useMemo } from "react";
 
-type SideMenuContextValue = {
+interface SideMenuContextValue {
   open: boolean;
   onOpenToggle?: () => void;
   onOpenChange?: (newOpen: boolean) => void;
-};
+}
 
 const SideMenuContext = createContext<SideMenuContextValue | undefined>(
   undefined,

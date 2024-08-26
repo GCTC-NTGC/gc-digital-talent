@@ -8,7 +8,7 @@ import { ChipProps } from "./Chip";
 type ChipsProps = Omit<HTMLProps<HTMLUListElement>, "children"> & {
   children:
     | ReactElement<ChipProps>
-    | Array<ReactElement<ChipProps> | null>
+    | (ReactElement<ChipProps> | null)[]
     | null;
 };
 

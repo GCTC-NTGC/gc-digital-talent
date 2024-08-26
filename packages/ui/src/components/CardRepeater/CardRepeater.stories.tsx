@@ -16,15 +16,15 @@ export default {
   component: CardRepeater.Root,
 };
 
-type CardItem = {
+interface CardItem {
   id: string;
   value: string;
-};
+}
 
-type EditDialogProps = {
+interface EditDialogProps {
   item: CardItem;
   index: number;
-};
+}
 
 const EditDialog = ({ item, index }: EditDialogProps) => {
   const { update } = useCardRepeaterContext();
@@ -74,10 +74,10 @@ const EditDialog = ({ item, index }: EditDialogProps) => {
   );
 };
 
-type RemoveDialogProps = {
+interface RemoveDialogProps {
   item: CardItem;
   index: number;
-};
+}
 
 const RemoveDialog = ({ item, index }: RemoveDialogProps) => {
   const { remove } = useCardRepeaterContext();

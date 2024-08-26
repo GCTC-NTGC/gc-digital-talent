@@ -65,7 +65,7 @@ interface RootProps {
   title: ReactNode;
   headingColor?: CardColor;
   headingAs?: HeadingLevel;
-  children: ReactElement<ItemProps> | Array<ReactElement<ItemProps>>; // Restricts children to only expected items;
+  children: ReactElement<ItemProps> | ReactElement<ItemProps>[]; // Restricts children to only expected items;
 }
 
 const Root = ({

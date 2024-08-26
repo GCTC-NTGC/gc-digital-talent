@@ -6,12 +6,12 @@ import Chip from "../Chip/Chip";
 import { Color } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
-export type MetaDataProps = {
+export interface MetaDataProps {
   children: ReactNode;
   color?: Color;
   key: string;
   type: "text" | "chip";
-};
+}
 
 const MetaData = ({ children, type, color }: MetaDataProps) => {
   switch (type) {
@@ -104,7 +104,7 @@ const Item = ({
 type PreviewItemElement = ReactElement<ItemProps>;
 
 export interface RootProps {
-  children: PreviewItemElement | Array<PreviewItemElement>;
+  children: PreviewItemElement | PreviewItemElement[];
 }
 
 const Root = ({ children, ...rest }: RootProps) => {

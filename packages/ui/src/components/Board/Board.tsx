@@ -201,7 +201,7 @@ const Root = forwardRef<HTMLDivElement, RootProps>(
 
       if (notEmpty(targetItem)) {
         columns.every((column, colIndex) => {
-          let continueSearch: boolean = true;
+          let continueSearch = true;
           column.items.every((item, index) => {
             if (notEmpty(targetItem) && item.isSameNode(targetItem)) {
               selectItem(index, colIndex, true);
@@ -319,14 +319,14 @@ const ColumnHeader = forwardRef<HTMLDivElement, ColumnHeaderProps>(
   },
 );
 
-type InfoProps = {
+interface InfoProps {
   title: string;
   counter?: number;
   children: ReactNode;
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (newOpen: boolean) => void;
-};
+}
 
 const Info = ({
   title,
