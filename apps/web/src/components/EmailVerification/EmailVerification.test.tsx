@@ -113,9 +113,9 @@ describe("EmailVerification", () => {
     const submitButton = screen.getByRole("button", {
       name: "Submit",
     });
-    act(() => {
-      submitButton.click();
-    });
+
+    await userEvent.click(submitButton);
+
     expect(mutation.mock.calls).toHaveLength(1);
 
     const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];

@@ -12,9 +12,9 @@ type LocationState = {
  */
 function useReturnPath(defaultPath: string): string {
   const location = useLocation();
-  const state = location.state as LocationState;
+  const state = location.state as LocationState | undefined;
 
-  return state.from ?? defaultPath;
+  return state?.from ?? defaultPath;
 }
 
 export default useReturnPath;
