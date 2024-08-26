@@ -195,7 +195,8 @@ server {
 
     # serve other asset files files
     # NOTE: this is set up like this to mirror prod version, where different location blocks allow unique cach-control headers
-    location ~ "\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
+    # NOTE2: this excludes assets starting with /static/ since there's a redirect to static hosting for that case below
+    location ~ "^(?!/static/).*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
         # contenthashed asset files get cached for a year
         location ~ "^/(.*\.)?[a-z0-9]{20}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
             # add_header Cache-Control "public, max-age=31536000"; # 1 year
@@ -211,6 +212,11 @@ server {
     location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
         # add_header Cache-Control "public, max-age=604800"; # 1 week
         try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
+    }
+
+    # The reverse proxy is not present locally so this provides a temporty redirect to prod static hosting for testing
+    location /static/ {
+        return 307 https://talent.canada.ca$request_uri;
     }
 
     # for all other uris, serve SPA index with no caching
