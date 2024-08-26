@@ -38,16 +38,16 @@ import {
 
 import { FormValues } from "./types";
 
-export type CandidateAssessmentResult = {
+export interface CandidateAssessmentResult {
   poolCandidate: AssessmentStepTracker_CandidateFragment;
   decision: NullableDecision;
-};
+}
 
-type DecisionInfo = {
+interface DecisionInfo {
   colorStyle: Record<string, string>;
   icon: IconType;
   name: string;
-};
+}
 
 export const getDecisionInfo = (
   decision: Maybe<NullableDecision> | undefined,
@@ -195,11 +195,11 @@ const stepTrackerFragmentSteps: AssessmentStepTrackerPoolType["assessmentSteps"]
 const _unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
 type StepTrackerFragmentStepType = (typeof _unpackedSteps)[number];
 
-type StepWithGroupedCandidates = {
+interface StepWithGroupedCandidates {
   step: StepTrackerFragmentStepType;
   resultCounts?: ResultDecisionCounts;
   results: CandidateAssessmentResult[];
-};
+}
 
 export const groupPoolCandidatesByStep = (
   steps: AssessmentStepTrackerPoolType["assessmentSteps"],
@@ -260,13 +260,13 @@ export const groupPoolCandidatesByStep = (
   return stepsWithGroupedCandidates;
 };
 
-export type ResultFilters = {
+export interface ResultFilters {
   query: string;
   [NO_DECISION]: boolean;
   [AssessmentDecision.Successful]: boolean;
   [AssessmentDecision.Hold]: boolean;
   [AssessmentDecision.Unsuccessful]: boolean;
-};
+}
 
 export const defaultFilters: ResultFilters = {
   query: "",

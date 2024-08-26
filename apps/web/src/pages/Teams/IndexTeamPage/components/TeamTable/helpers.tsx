@@ -84,7 +84,7 @@ export function myRolesCell(
 export function roleAssignmentsToRoleTeamArray(
   roleAssignments: RoleAssignment[],
 ): MyRoleTeam[] {
-  let collection: Array<MyRoleTeam> = [];
+  let collection: MyRoleTeam[] = [];
 
   roleAssignments.forEach((roleAssignment) => {
     if (

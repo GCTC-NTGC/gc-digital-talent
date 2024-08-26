@@ -45,6 +45,8 @@ const CheckButton = ({
     onToggle();
   };
 
+  // NOTE: Not redundant
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   let Icon: string | IconType = "span";
   if (indeterminate) {
     Icon = MinusIcon;

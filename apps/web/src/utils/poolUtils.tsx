@@ -396,11 +396,11 @@ export const getAdvertisementStatus = (
   return pool.isComplete ? "complete" : "incomplete";
 };
 
-type StatusBadge = {
+interface StatusBadge {
   color: Color;
   label?: MessageDescriptor | string;
   icon?: IconType;
-};
+}
 
 const defaultCompleteness: StatusBadge = {
   color: "error",

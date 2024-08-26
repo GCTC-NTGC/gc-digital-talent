@@ -39,13 +39,13 @@ export const pageTitle = defineMessage({
     "Title for the Digital services contracting questionnaire form page",
 });
 
-export type DigitalServicesContractingQuestionnaireProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-  skills: Array<Skill>;
+export interface DigitalServicesContractingQuestionnaireProps {
+  departments: Omit<Department, "departmentNumber">[];
+  skills: Skill[];
   isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;
   defaultValues?: Partial<FormValues>;
-};
+}
 
 export const DigitalServicesContractingQuestionnaire = ({
   departments,

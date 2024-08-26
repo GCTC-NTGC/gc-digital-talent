@@ -561,7 +561,7 @@ const PoolCandidatesTable = ({
     },
   });
 
-  const filteredData: Array<PoolCandidateWithSkillCount> = useMemo(() => {
+  const filteredData: PoolCandidateWithSkillCount[] = useMemo(() => {
     const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);

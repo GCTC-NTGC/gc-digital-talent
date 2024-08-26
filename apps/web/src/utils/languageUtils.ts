@@ -23,8 +23,8 @@ const isMissingLookingForBilingual = (
 export const getMissingLanguageRequirements = (
   user?: PartialUser,
   pool?: Pick<Pool, "language"> | null,
-): Array<MessageDescriptor> => {
-  const errorMessages: Array<MessageDescriptor> = [];
+): MessageDescriptor[] => {
+  const errorMessages: MessageDescriptor[] = [];
 
   if (isMissingLookingForBilingual(user, pool))
     errorMessages.push({

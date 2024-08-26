@@ -381,12 +381,12 @@ export const getRowSelectionColumn = <TData extends object>(
   },
 });
 
-type RowSelectCellArgs<T> = {
+interface RowSelectCellArgs<T> {
   /** The specific row definition */
   row: Row<T>;
   /** Label for the button to select the item */
   label: string;
-};
+}
 
 /**
  * Generate the cell for row selection

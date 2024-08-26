@@ -28,10 +28,13 @@ import { OptGroupOrOption } from "./types";
  * @returns string[]
  */
 export const unpackIds = (
-  data?: Maybe<Array<Maybe<{ id: string }> | undefined>>,
+  data?: Maybe<(Maybe<{ id: string }> | undefined)[]>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
-type Option = { value: string; label: string };
+interface Option {
+  value: string;
+  label: string;
+}
 
 /**
  * Converts a string enum to a list of options for select input.
@@ -106,7 +109,7 @@ export function getValues<T>(list: { value: T; label: string }[]): T[] {
 export function escapeAString(unescapedString: string) {
   const inputStringArray = unescapedString.split("");
   const outputStringArray = inputStringArray.map((character) => {
-    if (character.match(/[+*()?[\]\\]/)) {
+    if (/[+*()?[\]\\]/.exec(character)) {
       // looks a little funny due to needing to escape "\" and "]" characters themselves for matching
       return `\\${character}`;
     }
@@ -164,7 +167,7 @@ export function matchStringsCaseDiacriticInsensitive(
  * @returns number
  */
 export const countNumberOfWords = (text: string): number => {
-  if (text && text.trim()) {
+  if (text?.trim()) {
     return text.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;

@@ -15,6 +15,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ViewTeam, { ViewTeamPageFragment } from "./components/ViewTeam";
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   teamId: Scalars["ID"]["output"];
 };

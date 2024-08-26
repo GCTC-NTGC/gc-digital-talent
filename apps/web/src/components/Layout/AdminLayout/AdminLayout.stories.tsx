@@ -16,10 +16,10 @@ import AdminLayout from "./AdminLayout";
 
 const availableRoles = Object.values(ROLE_NAME);
 
-type AdminLayoutArgs = {
+interface AdminLayoutArgs {
   loggedIn: boolean;
   roles: RoleName[];
-};
+}
 
 export default {
   component: AdminLayout,

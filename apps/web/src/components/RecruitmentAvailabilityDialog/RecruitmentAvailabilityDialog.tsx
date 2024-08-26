@@ -11,9 +11,9 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { poolTitle } from "~/utils/poolUtils";
 
-type FormValues = {
+interface FormValues {
   isSuspended: "true" | "false"; // Note: RadioGroup only accepts strings
-};
+}
 
 const RecruitmentAvailabilityChangeSuspendedAt_Mutation = graphql(
   /* GraphQL */ `

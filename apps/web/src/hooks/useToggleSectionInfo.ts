@@ -15,10 +15,10 @@ interface GetToggleSectionIconArgs {
   optional?: boolean | null;
 }
 
-export type SectionIcon = {
+export interface SectionIcon {
   icon: IconType;
   color?: HeadingProps["color"];
-};
+}
 
 type GetToggleSectionIconFn = (args: GetToggleSectionIconArgs) => SectionIcon;
 

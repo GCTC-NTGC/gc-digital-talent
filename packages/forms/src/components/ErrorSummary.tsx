@@ -18,11 +18,11 @@ import {
 import type { FieldLabels } from "../types";
 import { flattenErrors } from "../utils";
 
-type FieldNameWithLabel = {
+interface FieldNameWithLabel {
   label: ReactNode;
   name: string;
   index?: string;
-};
+}
 
 const numberRegex = /(\d+)/g;
 

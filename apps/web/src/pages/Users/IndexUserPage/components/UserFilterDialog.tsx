@@ -28,7 +28,7 @@ import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
-export type FormValues = {
+export interface FormValues {
   pools: string[];
   languageAbility: string;
   operationalRequirement: string[];
@@ -39,7 +39,7 @@ export type FormValues = {
   govEmployee: string;
   roles: string[];
   trashed: string;
-};
+}
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas

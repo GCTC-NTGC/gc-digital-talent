@@ -29,21 +29,19 @@ const Display = ({
   const acceptedRequirements =
     acceptedOperationalRequirements?.filter(notEmpty);
 
-  const durationMessage =
-    positionDuration && positionDuration.includes(PositionDuration.Temporary)
-      ? intl.formatMessage({
-          defaultMessage:
-            "any duration (short term, long term, indeterminate).",
-          id: "YqWNkT",
-          description:
-            "Label displayed on Work Preferences form for any duration option",
-        })
-      : intl.formatMessage({
-          defaultMessage: "indeterminate (permanent only).",
-          id: "+YUDhx",
-          description:
-            "Label displayed on Work Preferences form for indeterminate duration option.",
-        });
+  const durationMessage = positionDuration?.includes(PositionDuration.Temporary)
+    ? intl.formatMessage({
+        defaultMessage: "any duration (short term, long term, indeterminate).",
+        id: "YqWNkT",
+        description:
+          "Label displayed on Work Preferences form for any duration option",
+      })
+    : intl.formatMessage({
+        defaultMessage: "indeterminate (permanent only).",
+        id: "+YUDhx",
+        description:
+          "Label displayed on Work Preferences form for indeterminate duration option.",
+      });
 
   return (
     <div data-h2-display="base(grid)" data-h2-gap="base(x1)">

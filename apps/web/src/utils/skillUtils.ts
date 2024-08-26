@@ -81,7 +81,7 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Maybe<Array<Skill>> | undefined,
+  skills: Maybe<Skill[]> | undefined,
   category: SkillCategory,
 ) {
   return skills
@@ -90,8 +90,8 @@ export function filterSkillsByCategory(
 }
 
 export function categorizeSkill(
-  skills: Maybe<Array<Skill>> | undefined,
-): Record<SkillCategory, Maybe<Array<Skill> | undefined>> {
+  skills: Maybe<Skill[]> | undefined,
+): Record<SkillCategory, Maybe<Skill[] | undefined>> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -218,7 +218,7 @@ export const filterPoolSkillsByType = (
 
 export function groupPoolSkillByType(
   poolSkills?: Maybe<Maybe<PoolSkill>[]>,
-): Map<PoolSkillType, Array<Skill>> {
+): Map<PoolSkillType, Skill[]> {
   return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
     const { type, skill } = poolSkill;
     if (type?.value && skill) {
@@ -228,7 +228,7 @@ export function groupPoolSkillByType(
       map.get(type.value)?.push(skill);
     }
     return map;
-  }, new Map<PoolSkillType, Array<Skill>>());
+  }, new Map<PoolSkillType, Skill[]>());
 }
 
 export function poolSkillsToSkills(poolSkills?: Maybe<Maybe<PoolSkill>[]>) {

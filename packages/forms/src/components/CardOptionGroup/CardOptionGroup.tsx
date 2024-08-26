@@ -12,7 +12,7 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 // some colors are inappropriate for icons
 type IconColor = Exclude<Color, "blackFixed" | "white" | "whiteFixed">;
 
-export type CardOption = {
+export interface CardOption {
   /** form value */
   value: string;
   /** label beside the icon */
@@ -23,7 +23,7 @@ export type CardOption = {
   selectedIcon: IconType;
   /** icon color when selected */
   selectedIconColor: IconColor;
-};
+}
 
 const siblingIconColor: Record<IconColor, Record<string, string>> = {
   primary: {

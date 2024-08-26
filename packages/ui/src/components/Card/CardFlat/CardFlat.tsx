@@ -8,13 +8,11 @@ export interface CardFlatProps {
   color: CardColor;
   title: ReactNode;
   children?: ReactNode;
-  links?: Array<
-    Omit<CardFlatLinkProps, "color"> & {
-      [key: `data-${string}`]: unknown;
-      // add a natural key since mocked files do not have unique hrefs
-      naturalKey?: string;
-    }
-  >;
+  links?: (Omit<CardFlatLinkProps, "color"> & {
+    [key: `data-${string}`]: unknown;
+    // add a natural key since mocked files do not have unique hrefs
+    naturalKey?: string;
+  })[];
 }
 
 const colorMap: Record<CardColor, Record<string, string>> = {

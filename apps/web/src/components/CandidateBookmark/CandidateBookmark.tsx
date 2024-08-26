@@ -27,12 +27,12 @@ const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
   }
 `);
 
-type CandidateBookmarkProps = {
+interface CandidateBookmarkProps {
   candidateQuery: FragmentType<typeof PoolCandidate_BookmarkFragment>;
   onBookmarkChange?: (newIsBookmarked: boolean) => void;
   bookmarked?: boolean;
   size?: "sm" | "md" | "lg";
-};
+}
 
 const CandidateBookmark = ({
   candidateQuery,

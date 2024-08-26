@@ -20,6 +20,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CommunitySection from "./components/CommunitySection";
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   communityId: Scalars["ID"]["output"];
 };

@@ -39,10 +39,10 @@ const Text = ({ children }: { children: ReactNode }) => (
   <p data-h2-margin="base(x1 0)">{children}</p>
 );
 
-type Section = {
+interface Section {
   id: string;
   title: ReactNode;
-};
+}
 
 export const Component = () => {
   const intl = useIntl();

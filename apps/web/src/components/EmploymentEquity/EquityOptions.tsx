@@ -23,7 +23,7 @@ import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
   hasDisability?: Maybe<boolean>;
-  indigenousCommunities?: Maybe<Array<Maybe<LocalizedIndigenousCommunity>>>;
+  indigenousCommunities?: Maybe<Maybe<LocalizedIndigenousCommunity>[]>;
   indigenousDeclarationSignature?: Maybe<string>;
   isVisibleMinority?: Maybe<boolean>;
   isWoman?: Maybe<boolean>;
@@ -36,8 +36,8 @@ interface EquityOptionsProps {
 
 const resolveMaybe = (value: Maybe<boolean> | undefined): boolean => !!value;
 const resolveMaybeArray = <T,>(
-  value: Maybe<Array<Maybe<T> | undefined>> | undefined,
-): Array<T> => {
+  value: Maybe<(Maybe<T> | undefined)[]> | undefined,
+): T[] => {
   return value?.filter(notEmpty) ?? [];
 };
 

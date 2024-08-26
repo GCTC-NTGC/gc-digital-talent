@@ -22,7 +22,7 @@ const IAPPool = {
   publishingGroup: PublishingGroup.Iap,
 };
 
-const messages: Map<string, Messages> = new Map([
+const messages = new Map<string, Messages>([
   ["crg", crgMessages],
   ["crk", crkMessages],
   ["ojw", ojwMessages],

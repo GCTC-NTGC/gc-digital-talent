@@ -32,6 +32,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the request confirmation page.",
 });
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RequestConfirmationParams = {
   requestId: Scalars["ID"]["output"];
 };

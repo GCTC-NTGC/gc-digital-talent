@@ -38,7 +38,7 @@ interface TrackApplicationsProps {
   applicationsQuery: FragmentType<typeof TrackApplicationsCandidate_Fragment>[];
 }
 
-type AccordionItems = Array<"in_progress" | "past" | "">;
+type AccordionItems = ("in_progress" | "past" | "")[];
 
 const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
   const intl = useIntl();

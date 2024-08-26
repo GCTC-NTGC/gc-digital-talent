@@ -39,10 +39,10 @@ import {
 import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
 
-export type PersonnelRequirementFieldsetProps = {
+export interface PersonnelRequirementFieldsetProps {
   fieldsetName: string;
-  skills: Array<Skill>;
-};
+  skills: Skill[];
+}
 
 const PersonnelRequirementFieldset = ({
   fieldsetName,
@@ -61,7 +61,7 @@ const PersonnelRequirementFieldset = ({
       `${fieldsetName}.security`,
     ]);
 
-  const selectedSkillRequirements: Array<SkillRequirementFormValues> =
+  const selectedSkillRequirements: SkillRequirementFormValues[] =
     Array.isArray(selectedSkillRequirementsUntyped) &&
     selectedSkillRequirementsUntyped.every((e) =>
       isSkillRequirementFormValues(e),

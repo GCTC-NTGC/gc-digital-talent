@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form";
 
-export type HiddenInputProps = {
+export interface HiddenInputProps {
   name: string;
-};
+}
 
 const HiddenInput = ({ name }: HiddenInputProps) => {
   const { register } = useFormContext();

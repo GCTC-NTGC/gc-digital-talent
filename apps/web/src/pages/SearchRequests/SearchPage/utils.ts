@@ -70,8 +70,6 @@ export const getClassificationLabel = (
  * from applicant filters and location state.
  *
  * As well as transforming it to a useable string.
- *
- * @param {ApplicantFilterInput} data
  * @param {Maybe<Classification[]>} selectedClassifications
  * @returns {string}
  */
@@ -148,7 +146,7 @@ export const dataToFormValues = (
     safePools.some(({ id }) => id === pool.id),
   );
 
-  let stream = data?.qualifiedStreams?.filter(notEmpty)[0];
+  let stream = data?.qualifiedStreams?.find(notEmpty);
   if (selectedPool?.stream) {
     stream = selectedPool.stream.value;
   }

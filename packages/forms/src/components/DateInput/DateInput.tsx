@@ -33,7 +33,7 @@ export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
     /** Set of validation rules and error messages to impose on all input elements. */
     rules?: DateRegisterOptions;
     /** Select which segments are visible to the user */
-    show?: Array<DateSegment>;
+    show?: DateSegment[];
   };
 
 /**
