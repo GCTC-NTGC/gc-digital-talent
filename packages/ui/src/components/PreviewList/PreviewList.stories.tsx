@@ -1,5 +1,4 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
@@ -16,7 +15,7 @@ const previewDetails: MetaDataProps[] = [
   {
     key: "it-text-2-id",
     type: "text",
-    children: `Manager: ${faker.person.firstName()} ${faker.person.lastName()}`,
+    children: "Manager: Dale Monroe",
   },
   {
     key: "it-text-3-id",

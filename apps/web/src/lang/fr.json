@@ -220,7 +220,7 @@
     "description": "How it works, step 2 heading"
   },
   "/81xCT": {
-    "defaultMessage": "« Je suis métis(se) »",
+    "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
   },
   "/8qCuC": {
@@ -2310,10 +2310,6 @@
   "Ao/+Ba": {
     "defaultMessage": "Ce numéro de processus est obtenu auprès de votre atelier RH",
     "description": "Additional context describing the pools process number."
-  },
-  "Ap86I/": {
-    "defaultMessage": "Ce programme s’adresse aux membres des Premières Nations, aux Inuits et aux Métis qui se trouvent au Canada. Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Vous pouvez en savoir plus sur la vérification de votre statut ci-dessous.",
-    "description": "Text explaining the program and the possibility of needing to provide proof."
   },
   "Aqz3Ma": {
     "defaultMessage": "La spécialisation est pertinente à l’exigence du diplôme",
@@ -7041,10 +7037,6 @@
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Link text to register instead of signing in"
-  },
-  "at11n5": {
-    "defaultMessage": "Êtes-vous sûr de vouloir sélectionner : « Je suis autochtone, mais je ne trouve pas ma communauté ici? »",
-    "description": "Title for the alert warning users about selection not represented and a represented community"
   },
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",

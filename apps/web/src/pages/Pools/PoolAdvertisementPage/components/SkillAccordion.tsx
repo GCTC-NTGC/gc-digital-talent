@@ -47,7 +47,7 @@ const Context = ({ required }: ContextProps) => {
 interface AccordionSubtitleProps {
   isSkillLevelAvailable: boolean;
   skillLevelItem: string;
-  screeningTime: string;
+  screeningTime?: string | null;
 }
 
 const AccordionSubtitle = ({
@@ -67,10 +67,14 @@ const AccordionSubtitle = ({
     {isSkillLevelAvailable && (
       <>
         <span>{skillLevelItem}</span>
-        <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
       </>
     )}
-    <span>{screeningTime}</span>
+    {screeningTime && (
+      <>
+        <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
+        <span>{screeningTime}</span>
+      </>
+    )}
   </span>
 );
 
@@ -149,7 +153,7 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
           <AccordionSubtitle
             isSkillLevelAvailable={!!poolSkill.requiredLevel}
             skillLevelItem={skillLevelItem}
-            screeningTime={screeningTime}
+            screeningTime={required ? screeningTime : null}
           />
         }
       >

@@ -46,7 +46,7 @@ const Item = ({
   buttonAriaLabel,
 }: ItemProps) => {
   return (
-    <li
+    <div
       data-h2-position="base(relative)"
       data-h2-display="base(flex)"
       data-h2-justify-content="base(space-between)"
@@ -58,6 +58,7 @@ const Item = ({
       data-h2-transition="base:children[.PreviewList__Heading](transform 200ms ease)"
       data-h2-color="base:selectors[:has(button:hover) .PreviewList__Heading](secondary.darker) base:selectors[:has(button:focus-visible) .PreviewList__Heading](black)"
       data-h2-background-color="base:selectors[:has(button:focus-visible) .PreviewList__Heading](focus)"
+      role="listitem"
     >
       <div>
         <Heading
@@ -101,7 +102,7 @@ const Item = ({
       >
         {buttonName}
       </Button>
-    </li>
+    </div>
   );
 };
 
@@ -113,9 +114,9 @@ export interface RootProps {
 
 const Root = ({ children, ...rest }: RootProps) => {
   return (
-    <ul data-h2-margin="base(x1 0)" data-h2-padding="base(0 x1)" {...rest}>
+    <div role="list" {...rest}>
       {children}
-    </ul>
+    </div>
   );
 };
 
