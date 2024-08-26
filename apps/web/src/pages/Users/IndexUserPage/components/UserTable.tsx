@@ -353,7 +353,7 @@ const UserTable = ({ title }: UserTableProps) => {
     },
   });
 
-  const filteredData: Array<User> = useMemo(() => {
+  const filteredData: User[] = useMemo(() => {
     const users = data?.usersPaginated?.data ?? [];
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);

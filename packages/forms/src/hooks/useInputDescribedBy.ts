@@ -8,7 +8,7 @@ type InputDescription = "error" | "context" | "unsaved";
 /** Contains the IDs used for each description element */
 export type DescriptionIds = Record<InputDescription, string>;
 
-type UseInputDescribedByArgs = {
+interface UseInputDescribedByArgs {
   /** Unique identifier for the input */
   id: string;
   /** Existing description */
@@ -19,7 +19,7 @@ type UseInputDescribedByArgs = {
     context?: ReactNode;
     unsaved?: boolean;
   };
-};
+}
 
 type UseInputDescribedByReturn = [
   /** The IDs that will be assigned to each description element */

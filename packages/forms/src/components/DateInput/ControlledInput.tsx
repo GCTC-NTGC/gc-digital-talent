@@ -23,7 +23,7 @@ interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
   formState: UseFormStateReturn<FieldValues>;
-  show: Array<DateSegment>;
+  show: DateSegment[];
   stateStyles: StyleRecord;
 }
 

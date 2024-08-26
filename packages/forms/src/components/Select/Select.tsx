@@ -99,7 +99,7 @@ const Select = ({
         {optionsModified.map((option) =>
           Object.prototype.hasOwnProperty.call(option, "options") ? (
             <optgroup
-              key={`optgroup${option.label}`}
+              key={`optgroup${option.label?.toString()}`}
               label={option.label?.toString() ?? ""}
             >
               {option.options?.map(

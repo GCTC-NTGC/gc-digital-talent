@@ -358,6 +358,7 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["AssessmentResult"],
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];

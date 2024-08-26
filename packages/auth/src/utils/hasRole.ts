@@ -5,7 +5,7 @@ import { RoleName } from "../const";
 
 const hasRole = (
   checkRole: RoleName | RoleName[],
-  userRoles: Maybe<Array<Maybe<RoleAssignment> | undefined>> | undefined,
+  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
 ): boolean => {
   if (Array.isArray(checkRole)) {
     const userRolesName = userRoles

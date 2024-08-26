@@ -56,7 +56,7 @@ export function stringToEnum<T extends object>(
 // typed helper function to turn an enum into an array of options
 export function enumToOptions<T extends object>(
   typeObject: T,
-  sortOrder?: Array<T[keyof T]>,
+  sortOrder?: T[keyof T][],
 ): { value: T[keyof T]; label: string }[] {
   const entries = Object.entries(typeObject);
   if (sortOrder) {

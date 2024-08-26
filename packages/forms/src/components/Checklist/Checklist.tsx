@@ -10,10 +10,10 @@ import useInputStyles from "../../hooks/useInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
-export type CheckboxOption = {
+export interface CheckboxOption {
   value: string | number;
   label: string | ReactNode;
-};
+}
 
 export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
   HTMLFieldsetProps & {

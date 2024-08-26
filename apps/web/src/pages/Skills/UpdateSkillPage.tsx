@@ -46,7 +46,10 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { SkillFormOptions_Query } from "./operations";
 
-type Option<V> = { value: V; label: string };
+interface Option<V> {
+  value: V;
+  label: string;
+}
 
 type FormValues = Pick<Skill, "name" | "description"> & {
   category?: SkillCategory;
@@ -326,6 +329,7 @@ export const UpdateSkillForm = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   skillId: Scalars["ID"]["output"];
 };

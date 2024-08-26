@@ -35,7 +35,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
     return Promise.reject(res.error);
   };
 
-  const handleSubmit = async (formValues: { [x: string]: string }) => {
+  const handleSubmit = async (formValues: Record<string, string>) => {
     user?.poolCandidates?.forEach(async (candidate) => {
       if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
         await handleUpdateCandidate(

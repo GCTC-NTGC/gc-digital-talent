@@ -16,7 +16,7 @@ import useNavContext from "../NavContext/useNavContext";
 
 interface RequireAuthProps {
   children: ReactNode;
-  roles: Array<RoleName>;
+  roles: RoleName[];
   loginPath?: string;
 }
 

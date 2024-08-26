@@ -29,10 +29,10 @@ import NotificationDownload from "./NotificationDownload";
 import NotificationLink from "./NotificationLink";
 import NotificationButton from "./NotificationButton";
 
-type LinkWrapperProps = {
+interface LinkWrapperProps {
   inDialog?: boolean;
   children: ReactNode;
-};
+}
 
 const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment

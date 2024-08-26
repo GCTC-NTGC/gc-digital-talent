@@ -34,7 +34,6 @@ export const getClassificationLabel = (
  * from applicant filters and location state.
  *
  * As well as transforming it to a useable string.
- *
  * @param {Maybe<Classification[]>} selectedClassifications
  * @returns {string}
  */

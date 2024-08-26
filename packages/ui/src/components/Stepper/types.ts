@@ -8,10 +8,10 @@ export type StepState =
   | "error"
   | "default";
 
-export type StepType = {
+export interface StepType {
   href: string;
   label: ReactNode;
   completed?: boolean | null;
   disabled?: boolean | null;
   error?: boolean | null;
-};
+}

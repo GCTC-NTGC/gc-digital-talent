@@ -217,10 +217,10 @@ const computeInAssessmentStatusChip = (
   };
 };
 
-type StatusChip = {
+interface StatusChip {
   color: Color;
   label: ReactNode;
-};
+}
 
 export const getCandidateStatusChip = (
   finalDecision: Maybe<LocalizedFinalDecision> | undefined,

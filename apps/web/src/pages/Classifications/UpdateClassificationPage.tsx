@@ -220,6 +220,7 @@ export const UpdateClassificationForm = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   classificationId: Scalars["ID"]["output"];
 };
