@@ -95,6 +95,22 @@ module.exports = {
     "import/no-named-as-default": process.env.CI ? "warn" : "off",
     "import/namespace": process.env.CI ? "error" : "off",
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
+
+    // Temporarily disabled to ease transition to typed linting
+    "@typescript-eslint/prefer-nullish-coalescing": "off", // Remove in #11376
+    "@typescript-eslint/require-await": "off", // Remove in #11377
+    "@typescript-eslint/only-throw-error": "off", // Remove in #11378
+    "@typescript-eslint/no-misused-promises": "off", // Remove in #11379
+    "@typescript-eslint/no-base-to-string": "off", // Remove in #11380
+    "@typescript-eslint/no-floating-promises": "off", // Remove in #11381
+    "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
+
+    // Remove in
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
   },
   settings: {
     react: {
