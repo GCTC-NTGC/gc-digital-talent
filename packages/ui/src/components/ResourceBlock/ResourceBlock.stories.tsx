@@ -31,7 +31,11 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
     data-h2-gap="base(x1)"
   >
     {colorOptions.map((colour) => (
-      <ResourceBlock.Root headingColor={colour} {...args} key={colour}>
+      <ResourceBlock.Root
+        headingColor={colour}
+        title={`${args.title} ${colour}`}
+        key={colour}
+      >
         <ResourceBlock.SingleLinkItem
           title={faker.lorem.words(10)}
           href={faker.internet.url()}
