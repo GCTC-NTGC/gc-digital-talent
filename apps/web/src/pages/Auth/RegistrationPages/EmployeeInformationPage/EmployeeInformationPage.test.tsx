@@ -149,6 +149,7 @@ describe("Create Account Form tests", () => {
   });
 
   it("should submit successfully with required fields", async () => {
+    mockSave.mockReset();
     renderEmployeeInformationForm({
       query: mockFragmentData,
       onSubmit: mockSave,
@@ -157,12 +158,12 @@ describe("Create Account Form tests", () => {
     const isGovEmployee = screen.getByRole("radio", {
       name: /i am a government of canada employee/i,
     });
-    fireEvent.click(isGovEmployee);
+    await user.click(isGovEmployee);
 
     const isStudent = screen.getByRole("radio", {
       name: /i am a student/i,
     });
-    fireEvent.click(isStudent);
+    await user.click(isStudent);
 
     const department = screen.getByRole("combobox", {
       name: /home department/i,
@@ -171,10 +172,8 @@ describe("Create Account Form tests", () => {
     const departmentOption = screen.getByRole("option", {
       name: mockDepartments[0].name.en || "",
     });
-    await act(async () => {
-      await user.click(department);
-      await user.click(departmentOption);
-    });
+    await user.click(department);
+    await user.click(departmentOption);
 
     const group = screen.getByRole("combobox", {
       name: /group/i,
@@ -183,23 +182,20 @@ describe("Create Account Form tests", () => {
     const groupOption = screen.getByRole("option", {
       name: mockClassifications[0].group,
     });
-    await act(async () => {
-      await user.click(group);
-      await user.click(groupOption);
-    });
+    await user.click(group);
+    await user.click(groupOption);
 
     const level = screen.getByRole("combobox", {
       name: /level/i,
     });
 
-    const levelOption = screen.queryByRole("option", {
-      name: mockClassifications[0].level.toString(),
-    })!;
-    fireEvent.change(level, { target: { value: levelOption } });
+    await user.selectOptions(level, [mockClassifications[0].level.toString()]);
 
-    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
-    await waitFor(() => {
-      expect(mockSave).toHaveBeenCalled();
-    });
+    await user.click(
+      screen.getByRole("button", { name: /save and continue/i }),
+    );
+
+    expect(screen.queryAllByRole("alert")).toHaveLength(0);
+    expect(mockSave).toHaveBeenCalled();
   });
 });
