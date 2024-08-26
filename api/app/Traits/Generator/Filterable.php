@@ -66,7 +66,7 @@ trait Filterable
      * @param  array  $scopeMap  A map of $filterKey => $scopeName
      * @return Builder $query The query builder with scopes applied
      */
-    public function applyFilters(Builder &$query, string $class, ?array $scopeMap): void
+    public function applyFilters(Builder &$query, string $class, ?array $scopeMap): Builder
     {
         if (is_null($this->filters) && is_null($this->ids)) {
             return $query;
@@ -85,5 +85,6 @@ trait Filterable
             $query->whereIn('id', $this->ids);
         }
 
+        return $query;
     }
 }
