@@ -39,7 +39,7 @@ export function getId<T extends { id: string }>(item: T): string {
  * @param key
  */
 export function hasKey<T>(
-  object: { [key: string]: T },
+  object: Record<string, T>,
   key: string | number,
 ): boolean {
   return object[key] !== undefined;
@@ -52,7 +52,7 @@ export function hasKey<T>(
  * @param errorMessage
  */
 export function getOrThrowError<T>(
-  object: { [key: string]: T },
+  object: Record<string, T>,
   key: string | number,
   errorMessage: string,
 ): T {
@@ -169,7 +169,7 @@ export function assertUnreachable(x: never): never {
  * @returns T[]
  */
 export function unpackMaybes<T>(
-  data?: Maybe<Array<Maybe<T> | undefined>>,
+  data?: Maybe<(Maybe<T> | undefined)[]>,
 ): T[] {
   return data?.filter(notEmpty) ?? [];
 }

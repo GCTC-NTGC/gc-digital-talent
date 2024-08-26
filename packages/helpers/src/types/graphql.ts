@@ -1,3 +1,3 @@
-export type GraphqlType = {
+export interface GraphqlType {
   __typename?: string;
-};
+}
