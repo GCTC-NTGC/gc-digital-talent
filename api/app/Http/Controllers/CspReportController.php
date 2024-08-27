@@ -11,9 +11,10 @@ class CspReportController extends Controller
     {
         $report = $request->json()->all();
         $message = sprintf(
-            'CSP violation, %s, %s, %s',
+            'CSP violation, %s, %s, %s, %s',
             $report['csp-report']['blocked-uri'] ?? '',
             $report['csp-report']['violated-directive'] ?? '',
+            $report['csp-report']['source-file'] ?? '',
             json_encode($report['csp-report'])
         );
 
