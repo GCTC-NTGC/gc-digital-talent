@@ -9,6 +9,7 @@ import AdminPage from "./AdminPage";
 import ApplicantPage from "./ApplicantPage";
 import CommunityRecruiterPage from "./CommunityRecruiterPage";
 import CommunityAdminPage from "./CommunityAdminPage";
+import ProcessOperatorPage from "./ProcessOperatorPage";
 
 interface AppFixtures {
   // Base unauthenticated page
@@ -17,6 +18,8 @@ interface AppFixtures {
   adminPage: AdminPage;
   // Authenticated as applicant page
   applicantPage: ApplicantPage;
+  // Authenticated as process operator page
+  processOperatorPage: ProcessOperatorPage;
   // Authenticated as community recruiter page
   communityRecruiterPage: CommunityRecruiterPage;
   // Authenticated as community admin page
@@ -48,6 +51,15 @@ export const test = base.extend<AppFixtures>({
     });
     const admin = new ApplicantPage(await context.newPage());
     await use(admin);
+    await context.close();
+  },
+
+  processOperatorPage: async ({ browser }, use) => {
+    const context = await browser.newContext({
+      storageState: auth.STATE.PROCESS_OPERATOR,
+    });
+    const processOperator = new ProcessOperatorPage(await context.newPage());
+    await use(processOperator);
     await context.close();
   },
 

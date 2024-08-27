@@ -43,10 +43,11 @@ class PoolSkillPolicy
             return true;
         }
 
-        $poolSkill->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $poolSkill->loadMissing(['pool.team', 'pool.legacyTeam', 'pool.community.team']);
         $teamPermission = ! is_null($poolSkill->pool->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->team);
         $legacyTeamPermission = ! is_null($poolSkill->pool->legacyTeam) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->legacyTeam);
+        $communityPermission = ! is_null($poolSkill->pool->community->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->community->team);
 
-        return $teamPermission || $legacyTeamPermission;
+        return $teamPermission || $legacyTeamPermission || $communityPermission;
     }
 }

@@ -596,6 +596,9 @@ export const Component = () => (
       ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <ViewPoolPage />

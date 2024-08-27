@@ -87,7 +87,15 @@ export const IndexPoolCandidatePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.RequestResponder]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
+    ]}
+  >
     <IndexPoolCandidatePage />
   </RequireAuth>
 );

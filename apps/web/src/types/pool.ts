@@ -14,6 +14,12 @@ export interface EditPoolSectionMetadata {
   inList?: boolean;
 }
 
-export type PageNavKeys = "view" | "edit" | "plan" | "screening" | "candidates";
+export type PageNavKeys =
+  | "view"
+  | "edit"
+  | "plan"
+  | "screening"
+  | "candidates"
+  | "manage-access";
 
 export type PoolCompleteness = "incomplete" | "complete" | "submitted";

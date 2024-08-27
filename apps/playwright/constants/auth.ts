@@ -5,5 +5,6 @@ export default {
     APPLICANT: ".auth/applicant.json",
     COMMUNITY_RECRUITER: ".auth/community-recruiter.json",
     COMMUNITY_ADMIN: ".auth/community-admin.json",
+    PROCESS_OPERATOR: ".auth/process-operator.json",
   },
 };

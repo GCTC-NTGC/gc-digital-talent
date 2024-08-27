@@ -170,7 +170,15 @@ const ScreeningAndEvaluationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
+    ]}
+  >
     <ScreeningAndEvaluationPage />
   </RequireAuth>
 );
