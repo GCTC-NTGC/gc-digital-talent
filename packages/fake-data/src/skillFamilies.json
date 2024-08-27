@@ -864,6 +864,22 @@
             }
           },
           {
+            "id": "ab139eb1-a880-443f-8f34-ba66ac7f4856",
+            "key": "business_intelligence_tools",
+            "name": {
+              "en": "Business intelligence tools",
+              "fr": "Outils d’informatique décisionnelle"
+            },
+            "description": {
+              "en": "Demonstrated ability to comfortably use common Business Intelligence tools to create, develop, and deploy interactive dashboards, visualizations and reports, enabling data-driven decision-making. This may include products such as Tableau, Power BI, or Looker.",
+              "fr": "Capacité démontrée à utiliser aisément des outils d’informatique décisionnelle courants pour concevoir, élaborer et déployer des tableaux de bord, des représentations visuelles et des rapports interactifs permettant la prise de décisions fondées sur des données. Cela peut inclure des produits tels que Tableau, Power BI ou Looker."
+            },
+            "keywords": {
+              "en": ["Business", "intelligence", "tools"],
+              "fr": ["Outils", "d’informatique", "décisionnelle"]
+            }
+          },
+          {
             "id": "64657e15-7a26-44c0-b642-45986bbd9915",
             "key": "data_analysis_and_synthesis",
             "name": {
@@ -1180,6 +1196,22 @@
             }
           },
           {
+            "id": "9aceab16-841c-4d6f-b60a-cca64710fbb4",
+            "key": "tableau",
+            "name": {
+              "en": "Tableau",
+              "fr": "Tableau"
+            },
+            "description": {
+              "en": "Demonstrated ability to apply concrete knowledge of this tool to create interactive and dynamic visualizations, dashboards and reports.",
+              "fr": "Capacité démontrée à mettre en profit des connaissances de la plateforme Tableau pour créer des représentations visuelles, des tableaux de bord et des rapports interactifs et dynamiques."
+            },
+            "keywords": {
+              "en": ["Tableau"],
+              "fr": ["Tableau"]
+            }
+          },
+          {
             "id": "713f8a61-396b-4442-8b7f-68ea6aad7f4e",
             "key": "test_documentation",
             "name": {
@@ -1323,6 +1355,22 @@
             }
           },
           {
+            "id": "ab139eb1-a880-443f-8f34-ba66ac7f4856",
+            "key": "business_intelligence_tools",
+            "name": {
+              "en": "Business intelligence tools",
+              "fr": "Outils d’informatique décisionnelle"
+            },
+            "description": {
+              "en": "Demonstrated ability to comfortably use common Business Intelligence tools to create, develop, and deploy interactive dashboards, visualizations and reports, enabling data-driven decision-making. This may include products such as Tableau, Power BI, or Looker.",
+              "fr": "Capacité démontrée à utiliser aisément des outils d’informatique décisionnelle courants pour concevoir, élaborer et déployer des tableaux de bord, des représentations visuelles et des rapports interactifs permettant la prise de décisions fondées sur des données. Cela peut inclure des produits tels que Tableau, Power BI ou Looker."
+            },
+            "keywords": {
+              "en": ["Business", "intelligence", "tools"],
+              "fr": ["Outils", "d’informatique", "décisionnelle"]
+            }
+          },
+          {
             "id": "511f3dca-625b-4cb7-937b-5915a739645a",
             "key": "data_engineering_and_manipulation",
             "name": {
@@ -1385,6 +1433,22 @@
               "en": ["Machine", "Learning", "Modeling."],
               "fr": ["Modélisation", "apprentissage", "automatique."]
             }
+          },
+          {
+            "id": "9aceab16-841c-4d6f-b60a-cca64710fbb4",
+            "key": "tableau",
+            "name": {
+              "en": "Tableau",
+              "fr": "Tableau"
+            },
+            "description": {
+              "en": "Demonstrated ability to apply concrete knowledge of this tool to create interactive and dynamic visualizations, dashboards and reports.",
+              "fr": "Capacité démontrée à mettre en profit des connaissances de la plateforme Tableau pour créer des représentations visuelles, des tableaux de bord et des rapports interactifs et dynamiques."
+            },
+            "keywords": {
+              "en": ["Tableau"],
+              "fr": ["Tableau"]
+            }
           }
         ]
       },
@@ -1400,6 +1464,22 @@
           "fr": "Les opérations de systèmes de données consistent à développer et à construire des produits et services de données et à les intégrer dans des systèmes et des processus commerciaux."
         },
         "skills": [
+          {
+            "id": "ab139eb1-a880-443f-8f34-ba66ac7f4856",
+            "key": "business_intelligence_tools",
+            "name": {
+              "en": "Business intelligence tools",
+              "fr": "Outils d’informatique décisionnelle"
+            },
+            "description": {
+              "en": "Demonstrated ability to comfortably use common Business Intelligence tools to create, develop, and deploy interactive dashboards, visualizations and reports, enabling data-driven decision-making. This may include products such as Tableau, Power BI, or Looker.",
+              "fr": "Capacité démontrée à utiliser aisément des outils d’informatique décisionnelle courants pour concevoir, élaborer et déployer des tableaux de bord, des représentations visuelles et des rapports interactifs permettant la prise de décisions fondées sur des données. Cela peut inclure des produits tels que Tableau, Power BI ou Looker."
+            },
+            "keywords": {
+              "en": ["Business", "intelligence", "tools"],
+              "fr": ["Outils", "d’informatique", "décisionnelle"]
+            }
+          },
           {
             "id": "64657e15-7a26-44c0-b642-45986bbd9915",
             "key": "data_analysis_and_synthesis",
@@ -1580,6 +1660,22 @@
             "keywords": {
               "en": ["Data", "Troubleshooting", "Problem", "Resolution."],
               "fr": ["Dépannage", "résolution", "problèmes", "données."]
+            }
+          },
+          {
+            "id": "9aceab16-841c-4d6f-b60a-cca64710fbb4",
+            "key": "tableau",
+            "name": {
+              "en": "Tableau",
+              "fr": "Tableau"
+            },
+            "description": {
+              "en": "Demonstrated ability to apply concrete knowledge of this tool to create interactive and dynamic visualizations, dashboards and reports.",
+              "fr": "Capacité démontrée à mettre en profit des connaissances de la plateforme Tableau pour créer des représentations visuelles, des tableaux de bord et des rapports interactifs et dynamiques."
+            },
+            "keywords": {
+              "en": ["Tableau"],
+              "fr": ["Tableau"]
             }
           }
         ]
@@ -8283,6 +8379,22 @@
             "keywords": {
               "en": ["Service Integration", "Planning"],
               "fr": ["Intégration des services", "Planification"]
+            }
+          },
+          {
+            "id": "55d4e4ea-6b25-4028-9f14-ecd807dd1720",
+            "key": "thinking_things_through",
+            "name": {
+              "en": "Thinking things through",
+              "fr": "Réflexion approfondie"
+            },
+            "description": {
+              "en": "Demonstrated ability to analyze all aspects of a situation, assess risks and potential solutions, and make informed decisions by thoroughly considering all relevant factors.",
+              "fr": "Capacité démontrée à analyser rigoureusement tous les aspects (facteurs pertinents, risques, solutions potentielles) d’une situation donnée pour prendre des décisions éclairées."
+            },
+            "keywords": {
+              "en": ["Thinking", "things", "through"],
+              "fr": ["Réflexion", "approfondie"]
             }
           },
           {
