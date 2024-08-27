@@ -84,6 +84,9 @@ const ScreeningDecisionDialogForm = ({
       AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
     watchJustifications ===
       AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency;
+  const decisionNotesRequired = watchJustifications?.includes(
+    AssessmentResultJustification.FailedOther,
+  );
 
   /**
    * Reset un-rendered fields
@@ -234,7 +237,7 @@ const ScreeningDecisionDialogForm = ({
             wordLimit={TEXT_AREA_MAX_WORDS}
             label={labels.decisionNotes}
             rules={
-              isAssessmentOnHold
+              isAssessmentOnHold || decisionNotesRequired
                 ? { required: intl.formatMessage(errorMessages.required) }
                 : { required: undefined }
             }
