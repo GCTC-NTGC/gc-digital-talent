@@ -2154,6 +2154,63 @@
         ]
       },
       {
+        "id": "ab139eb1-a880-443f-8f34-ba66ac7f4856",
+        "key": "business_intelligence_tools",
+        "name": {
+          "en": "Business intelligence tools",
+          "fr": "Outils d’informatique décisionnelle"
+        },
+        "description": {
+          "en": "Demonstrated ability to comfortably use common Business Intelligence tools to create, develop, and deploy interactive dashboards, visualizations and reports, enabling data-driven decision-making. This may include products such as Tableau, Power BI, or Looker.",
+          "fr": "Capacité démontrée à utiliser aisément des outils d’informatique décisionnelle courants pour concevoir, élaborer et déployer des tableaux de bord, des représentations visuelles et des rapports interactifs permettant la prise de décisions fondées sur des données. Cela peut inclure des produits tels que Tableau, Power BI ou Looker."
+        },
+        "keywords": {
+          "en": ["Business", "intelligence", "tools"],
+          "fr": ["Outils", "d’informatique", "décisionnelle"]
+        },
+        "category": {
+          "value": "TECHNICAL"
+        },
+        "families": [
+          {
+            "id": "b729c38c-c4b1-46bb-92f4-3af60753bb9c",
+            "key": "data_services_data_analytics",
+            "name": {
+              "en": "Data Services - Data Analytics",
+              "fr": "Services de données - Analyse de données"
+            },
+            "description": {
+              "en": "Data analytics consists collecting, organizing and studying data to provide business insights, identify and solve business problems.",
+              "fr": "L'analyse des données consiste à collecter, organiser et étudier des données pour fournir des informations commerciales, identifier et résoudre des problèmes commerciaux."
+            }
+          },
+          {
+            "id": "923cb145-8fc2-4f43-950f-039366cf6ef3",
+            "key": "data_services_data_science",
+            "name": {
+              "en": "Data Services - Data Science",
+              "fr": "Services de données - Science des données"
+            },
+            "description": {
+              "en": "Data science encompasses various techniques, including data cleaning, exploratory data analysis, machine learning, and data visualization, to derive meaningful and actionable insights from large and diverse data sources.",
+              "fr": "La science des données englobe diverses techniques, notamment le nettoyage des données, l'analyse exploratoire des données, l'apprentissage automatique et la visualisation des données, pour obtenir des informations significatives et exploitables à partir de sources de données vastes et diverses."
+            }
+          },
+          {
+            "id": "d33d5602-37f3-413b-a548-6b121febe056",
+            "key": "data_services_data_systems",
+            "name": {
+              "en": "Data Services - Data Systems Operations",
+              "fr": "Services de données - Opérations des systèmes de données"
+            },
+            "description": {
+              "en": "Data Systems operations consists of developing and constructing data products and services and integrates them into systems and business processes.",
+              "fr": "Les opérations de systèmes de données consistent à développer et à construire des produits et services de données et à les intégrer dans des systèmes et des processus commerciaux."
+            }
+          }
+        ]
+      },
+      {
         "id": "f38fc9e5-6f0e-447c-ac1b-89130e49e3ee",
         "key": "change_management",
         "name": {
@@ -13424,6 +13481,63 @@
         ]
       },
       {
+        "id": "9aceab16-841c-4d6f-b60a-cca64710fbb4",
+        "key": "tableau",
+        "name": {
+          "en": "Tableau",
+          "fr": "Tableau"
+        },
+        "description": {
+          "en": "Demonstrated ability to apply concrete knowledge of this tool to create interactive and dynamic visualizations, dashboards and reports.",
+          "fr": "Capacité démontrée à mettre en profit des connaissances de la plateforme Tableau pour créer des représentations visuelles, des tableaux de bord et des rapports interactifs et dynamiques."
+        },
+        "keywords": {
+          "en": ["Tableau"],
+          "fr": ["Tableau"]
+        },
+        "category": {
+          "value": "TECHNICAL"
+        },
+        "families": [
+          {
+            "id": "b729c38c-c4b1-46bb-92f4-3af60753bb9c",
+            "key": "data_services_data_analytics",
+            "name": {
+              "en": "Data Services - Data Analytics",
+              "fr": "Services de données - Analyse de données"
+            },
+            "description": {
+              "en": "Data analytics consists collecting, organizing and studying data to provide business insights, identify and solve business problems.",
+              "fr": "L'analyse des données consiste à collecter, organiser et étudier des données pour fournir des informations commerciales, identifier et résoudre des problèmes commerciaux."
+            }
+          },
+          {
+            "id": "923cb145-8fc2-4f43-950f-039366cf6ef3",
+            "key": "data_services_data_science",
+            "name": {
+              "en": "Data Services - Data Science",
+              "fr": "Services de données - Science des données"
+            },
+            "description": {
+              "en": "Data science encompasses various techniques, including data cleaning, exploratory data analysis, machine learning, and data visualization, to derive meaningful and actionable insights from large and diverse data sources.",
+              "fr": "La science des données englobe diverses techniques, notamment le nettoyage des données, l'analyse exploratoire des données, l'apprentissage automatique et la visualisation des données, pour obtenir des informations significatives et exploitables à partir de sources de données vastes et diverses."
+            }
+          },
+          {
+            "id": "d33d5602-37f3-413b-a548-6b121febe056",
+            "key": "data_services_data_systems",
+            "name": {
+              "en": "Data Services - Data Systems Operations",
+              "fr": "Services de données - Opérations des systèmes de données"
+            },
+            "description": {
+              "en": "Data Systems operations consists of developing and constructing data products and services and integrates them into systems and business processes.",
+              "fr": "Les opérations de systèmes de données consistent à développer et à construire des produits et services de données et à les intégrer dans des systèmes et des processus commerciaux."
+            }
+          }
+        ]
+      },
+      {
         "id": "9f88e006-a9c4-41b8-a54a-62cb6827f43d",
         "key": "team_leadership",
         "name": {
@@ -13773,6 +13887,39 @@
             "description": {
               "en": "Data analytics consists collecting, organizing and studying data to provide business insights, identify and solve business problems.",
               "fr": "L'analyse des données consiste à collecter, organiser et étudier des données pour fournir des informations commerciales, identifier et résoudre des problèmes commerciaux."
+            }
+          }
+        ]
+      },
+      {
+        "id": "55d4e4ea-6b25-4028-9f14-ecd807dd1720",
+        "key": "thinking_things_through",
+        "name": {
+          "en": "Thinking things through",
+          "fr": "Réflexion approfondie"
+        },
+        "description": {
+          "en": "Demonstrated ability to analyze all aspects of a situation, assess risks and potential solutions, and make informed decisions by thoroughly considering all relevant factors.",
+          "fr": "Capacité démontrée à analyser rigoureusement tous les aspects (facteurs pertinents, risques, solutions potentielles) d’une situation donnée pour prendre des décisions éclairées."
+        },
+        "keywords": {
+          "en": ["Thinking", "things", "through"],
+          "fr": ["Réflexion", "approfondie"]
+        },
+        "category": {
+          "value": "BEHAVIOURAL"
+        },
+        "families": [
+          {
+            "id": "9af02837-4088-48fd-8fd6-9becd839b8e2",
+            "key": "thinking",
+            "name": {
+              "en": "Thinking Skills",
+              "fr": "Capacités de raisonnement"
+            },
+            "description": {
+              "en": "Behavioural - Thinking",
+              "fr": "Comportemental - Réfléchir"
             }
           }
         ]
