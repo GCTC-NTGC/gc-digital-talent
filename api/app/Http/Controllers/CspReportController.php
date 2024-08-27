@@ -13,7 +13,7 @@ class CspReportController extends Controller
         $message = sprintf(
             'CSP violation, %s, %s, %s',
             $report['csp-report']['blocked-uri'] ?? '',
-            $report['csp-report']['column-number'] ?? '',
+            $report['csp-report']['violated-directive'] ?? '',
             json_encode($report['csp-report'])
         );
 
