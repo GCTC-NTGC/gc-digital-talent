@@ -67,6 +67,7 @@ const NotificationDownload = forwardRef<
       ref={forwardedRef}
       href={href}
       onClick={handleClick}
+      data-notification-link
       {...styles.link(isUnread, fetching || downloadingFile)}
     >
       {children}
