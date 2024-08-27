@@ -214,7 +214,7 @@ server {
         try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
     }
 
-    # The reverse proxy is not present locally so this provides a temporty redirect to prod static hosting for testing
+    # The reverse proxy is not present locally so this provides a temporary redirect to prod static hosting for testing
     location /static/ {
         return 307 https://talent.canada.ca$request_uri;
     }
