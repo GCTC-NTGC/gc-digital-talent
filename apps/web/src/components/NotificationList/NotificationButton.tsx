@@ -29,6 +29,7 @@ const NotificationButton = forwardRef<HTMLButtonElement, NotificationLinkProps>(
         type="button"
         ref={forwardedRef}
         onClick={handleClick}
+        data-notification-link
         data-h2-text-align="base(left)"
         data-h2-background="base(none)"
         {...styles.link(isUnread, fetching)}
