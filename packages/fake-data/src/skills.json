@@ -1,3 +1,25 @@
+/*
+GraphQL:
+query Skills {
+  skills {
+    id
+    key
+    name { en fr }
+    description { en fr }
+    keywords { en fr }
+    category { value }
+    families {
+      id
+      key
+      name { en fr }
+      description { en fr }
+    }
+  }
+
+Sort extension: https://marketplace.visualstudio.com/items?itemName=Thinker.sort-json
+Custom comparator: isList ? ( a.key == b.key ? 0 : a.key > b.key ? 1 : -1) : 0
+*/
+
 {
   "data": {
     "skills": [
