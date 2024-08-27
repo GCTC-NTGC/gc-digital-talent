@@ -13,7 +13,7 @@ import RemovePoolMembershipDialog from "./RemovePoolMembershipDialog";
 import { ManageAccessPagePoolFragmentRoleType, PoolTeamMember } from "./types";
 
 function orderRoles(
-  roles: Array<ManageAccessPagePoolFragmentRoleType>,
+  roles: ManageAccessPagePoolFragmentRoleType[],
   intl: IntlShape,
 ) {
   return orderBy(roles, (role) => {

@@ -7,12 +7,12 @@ import {
 
 import { ManageAccessPage_PoolFragment } from "./operations";
 
-export type ManageAccessFormValues = {
+export interface ManageAccessFormValues {
   teamId: Scalars["UUID"]["output"];
   userId: Scalars["UUID"]["output"];
   userDisplay: Scalars["UUID"]["output"];
-  roles: Array<Scalars["UUID"]["output"]>;
-};
+  roles: Scalars["UUID"]["output"][];
+}
 
 export type ManageAccessPageFragment = FragmentType<
   typeof ManageAccessPage_PoolFragment
@@ -23,7 +23,7 @@ type ManageAccessPagePoolFragmentUserType = NonNullable<
 >[number]["user"];
 
 export type PoolTeamMember = {
-  roles: Array<Role>;
+  roles: Role[];
 } & ManageAccessPagePoolFragmentUserType;
 
 export type ManageAccessPagePoolFragmentRoleType = NonNullable<

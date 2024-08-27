@@ -28,7 +28,7 @@ import { UpdateUserProcessRoles_Mutation } from "./operations";
 
 interface AddPoolMembershipDialogProps {
   pool: ManageAccessPagePoolFragmentType;
-  members: Array<PoolTeamMember>;
+  members: PoolTeamMember[];
 }
 
 const AddPoolMembershipDialog = ({
@@ -53,7 +53,7 @@ const AddPoolMembershipDialog = ({
   const methods = useForm<ManageAccessFormValues>({
     defaultValues: {
       userId: "",
-      teamId,
+      teamId: teamId ?? undefined,
       roles: [],
     },
   });
