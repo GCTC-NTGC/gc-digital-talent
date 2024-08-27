@@ -169,8 +169,8 @@ export const Component = () => {
               icon={ArrowDownTrayIcon}
               href={
                 locale === "en"
-                  ? "/documents/Manager package - ITAPIP.pptx"
-                  : "/documents/Trousse du gestionnaire - PATIPA.pptx"
+                  ? "/static/documents/Manager package - ITAPIP.pptx"
+                  : "/static/documents/Trousse du gestionnaire - PATIPA.pptx"
               }
               color="primary"
               data-h2-text-align="base(center)"
@@ -304,8 +304,8 @@ export const Component = () => {
                     external
                     href={
                       locale === "en"
-                        ? "/documents/Manager package - ITAPIP.pptx"
-                        : "/documents/Trousse du gestionnaire - PATIPA.pptx"
+                        ? "/static/documents/Manager package - ITAPIP.pptx"
+                        : "/static/documents/Trousse du gestionnaire - PATIPA.pptx"
                     }
                     color="primary"
                     data-h2-text-align="base(center)"
@@ -697,8 +697,8 @@ export const Component = () => {
                     external
                     href={
                       locale === "en"
-                        ? "/documents/Manager package - ITAPIP.pptx"
-                        : "/documents/Trousse du gestionnaire - PATIPA.pptx"
+                        ? "/static/documents/Manager package - ITAPIP.pptx"
+                        : "/static/documents/Trousse du gestionnaire - PATIPA.pptx"
                     }
                     color="secondary"
                     data-h2-text-align="base(center)"

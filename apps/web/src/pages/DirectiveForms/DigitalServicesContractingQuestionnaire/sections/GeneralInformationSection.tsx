@@ -379,8 +379,8 @@ const GeneralInformationSection = ({
                     const locale = getLocale(intl);
                     const url =
                       locale === "en"
-                        ? "/documents/Forward_Talent_Plan_EN.docx"
-                        : "/documents/Plan_prospectif_sur_les_talents_FR.docx";
+                        ? "/static/documents/Forward_Talent_Plan_EN.docx"
+                        : "/static/documents/Plan_prospectif_sur_les_talents_FR.docx";
                     return buildExternalLink(url, chunks);
                   },
                   link2: (chunks: ReactNode) =>
