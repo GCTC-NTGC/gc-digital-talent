@@ -93,7 +93,7 @@ export function roleAssignmentsToRoleTeamArray(
 ): MyRoleTeam[] {
   const roleAssignments = getFragment(CommunityRoleAssignment_Fragment, query);
 
-  let collection: Array<MyRoleTeam> = [];
+  let collection: MyRoleTeam[] = [];
 
   roleAssignments.forEach((roleAssignment) => {
     if (

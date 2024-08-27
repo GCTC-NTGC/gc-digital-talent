@@ -71,8 +71,8 @@ const Resources = () => {
               download
               href={
                 locale === "en"
-                  ? "/documents/Decision_Tree_PDF_EN.pdf"
-                  : "/documents/Arbre_decisionnel_PDF_FR.pdf"
+                  ? "/static/documents/Decision_Tree_PDF_EN.pdf"
+                  : "/static/documents/Arbre_decisionnel_PDF_FR.pdf"
               }
               data-h2-margin="base(0, 0, x1, 0)"
             >
@@ -92,8 +92,8 @@ const Resources = () => {
               download
               href={
                 locale === "en"
-                  ? "/documents/Decision_Tree_Text_EN.docx"
-                  : "/documents/Arbre_decisionnel_texte_FR.docx"
+                  ? "/static/documents/Decision_Tree_Text_EN.docx"
+                  : "/static/documents/Arbre_decisionnel_texte_FR.docx"
               }
             >
               {intl.formatMessage({
@@ -187,8 +187,8 @@ const Resources = () => {
                   download
                   href={
                     locale === "en"
-                      ? "/documents/Guidance_Manager_PDF_EN.pdf"
-                      : "/documents/Orientation_gestionnaire_PDF_FR.pdf"
+                      ? "/static/documents/Guidance_Manager_PDF_EN.pdf"
+                      : "/static/documents/Orientation_gestionnaire_PDF_FR.pdf"
                   }
                   aria-label={intl.formatMessage({
                     defaultMessage:
@@ -218,8 +218,8 @@ const Resources = () => {
                   })}
                   href={
                     locale === "en"
-                      ? "/documents/Guidance_Manager_text_EN.docx"
-                      : "/documents/Orientation_gestionnaire_texte_FR.docx"
+                      ? "/static/documents/Guidance_Manager_text_EN.docx"
+                      : "/static/documents/Orientation_gestionnaire_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
@@ -295,8 +295,8 @@ const Resources = () => {
                   })}
                   href={
                     locale === "en"
-                      ? "/documents/Guidance_HR_PDF_EN.pdf"
-                      : "/documents/Orientation_RH_PDF_FR.pdf"
+                      ? "/static/documents/Guidance_HR_PDF_EN.pdf"
+                      : "/static/documents/Orientation_RH_PDF_FR.pdf"
                   }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(x1, 0, x1, 0)"
@@ -319,8 +319,8 @@ const Resources = () => {
                   })}
                   href={
                     locale === "en"
-                      ? "/documents/Guidance_HR_text_EN.docx"
-                      : "/documents/Orientation_RH_texte_FR.docx"
+                      ? "/static/documents/Guidance_HR_text_EN.docx"
+                      : "/static/documents/Orientation_RH_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
@@ -390,8 +390,8 @@ const Resources = () => {
                   download
                   href={
                     locale === "en"
-                      ? "/documents/Guidance_Procurement_PDF_EN.pdf"
-                      : "/documents/Orientation_approvisionnement_PDF_FR.pdf"
+                      ? "/static/documents/Guidance_Procurement_PDF_EN.pdf"
+                      : "/static/documents/Orientation_approvisionnement_PDF_FR.pdf"
                   }
                   aria-label={intl.formatMessage({
                     defaultMessage:
@@ -421,8 +421,8 @@ const Resources = () => {
                   })}
                   href={
                     locale === "en"
-                      ? "/documents/Guidance_Procurement_text_EN.docx"
-                      : "/documents/Orientation_approvisionnement_texte_FR.docx"
+                      ? "/static/documents/Guidance_Procurement_text_EN.docx"
+                      : "/static/documents/Orientation_approvisionnement_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"

@@ -24,6 +24,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   poolId: Scalars["ID"]["input"];
 };

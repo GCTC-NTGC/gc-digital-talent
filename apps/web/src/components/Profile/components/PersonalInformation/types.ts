@@ -6,7 +6,7 @@ import {
   ProvinceOrTerritory,
 } from "@gc-digital-talent/graphql";
 
-export type FormValues = {
+export interface FormValues {
   armedForcesStatus?: Maybe<ArmedForcesStatus>;
   citizenship?: Maybe<CitizenshipStatus>;
   preferredLang?: Maybe<Language>;
@@ -19,4 +19,4 @@ export type FormValues = {
   lastName?: Maybe<string>;
   email?: Maybe<string>;
   isEmailVerified?: Maybe<boolean>;
-};
+}

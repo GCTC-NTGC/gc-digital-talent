@@ -60,7 +60,7 @@ describe("PoolCard", () => {
     expect(
       // Only way this works
       // eslint-disable-next-line testing-library/no-node-access
-      await screen.getByText(/Salary range/i).closest("p"),
+      screen.getByText(/Salary range/i).closest("p"),
     ).toHaveTextContent(/salary range: not available/i);
     expect(screen.getByText(/(No skills required)/i)).toBeInTheDocument();
     expect(screen.getByText(/(To be determined)/i)).toBeInTheDocument();

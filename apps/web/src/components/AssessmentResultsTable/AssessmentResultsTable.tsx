@@ -181,7 +181,7 @@ const AssessmentResultsTable = ({
   );
 
   // Get assessment steps from pool
-  const assessmentSteps: Array<AssessmentStep> = unpackMaybes(
+  const assessmentSteps: AssessmentStep[] = unpackMaybes(
     poolCandidate?.pool?.assessmentSteps,
   );
 
@@ -202,7 +202,7 @@ const AssessmentResultsTable = ({
   const assessmentResults = assessmentResultsMaybes.filter(notEmpty);
 
   // Create data for table containing pool skill with matching results and sort pool skills
-  const assessmentTableRows: Array<AssessmentTableRow> = poolSkills
+  const assessmentTableRows: AssessmentTableRow[] = poolSkills
     .map((poolSkill) => {
       const matchingAssessmentResults = assessmentResults.filter(
         (result) => result.poolSkill?.id === poolSkill.id,

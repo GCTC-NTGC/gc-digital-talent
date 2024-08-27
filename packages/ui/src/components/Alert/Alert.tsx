@@ -24,9 +24,9 @@ import {
 } from "./utils";
 import { AlertHeadingLevel, AlertType } from "./types";
 
-type AlertContextValue = {
+interface AlertContextValue {
   type: AlertType;
-};
+}
 
 const AlertContext = createContext<AlertContextValue | undefined>(undefined);
 

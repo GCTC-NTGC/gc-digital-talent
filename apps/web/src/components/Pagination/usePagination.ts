@@ -13,7 +13,7 @@ const range = (start: number, end: number): number[] => {
 
 type UsePaginationReturn = (number | typeof DOTS)[];
 
-type UsePaginationArgs = {
+interface UsePaginationArgs {
   /** The current page  */
   currentPage: number;
   /** Total available pages */
@@ -22,7 +22,7 @@ type UsePaginationArgs = {
   siblings?: number;
   /** Amount of elements visible on left/right edges, defaults to 1  */
   boundaries?: number;
-};
+}
 
 type UsePagination = (args: UsePaginationArgs) => UsePaginationReturn;
 

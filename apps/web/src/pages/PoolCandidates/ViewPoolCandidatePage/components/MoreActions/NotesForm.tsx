@@ -26,9 +26,9 @@ const NotesForm_Fragment = graphql(/* Graphql */ `
     notes
   }
 `);
-type FormValues = {
+interface FormValues {
   notes?: PoolCandidate["notes"];
-};
+}
 
 interface NotesFormProps {
   poolCandidate: FragmentType<typeof NotesForm_Fragment>;

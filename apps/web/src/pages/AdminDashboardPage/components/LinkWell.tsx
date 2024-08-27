@@ -8,7 +8,7 @@ type WellLink = Omit<LinkProps, "children"> & {
 
 interface LinkWellProps {
   title: ReactNode;
-  links: Array<WellLink>;
+  links: WellLink[];
 }
 
 const LinkWell = ({ title, links }: LinkWellProps) => (

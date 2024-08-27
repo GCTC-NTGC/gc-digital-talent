@@ -212,7 +212,7 @@ export const publishPool: GraphQLRequestFunc<Pool, string> = async (
     .then((res: GraphQLResponse<"publishPool", Pool>) => res.publishPool);
 };
 
-type CreateAndPublishPoolArgs = {
+interface CreateAndPublishPoolArgs {
   userId: string;
   teamId?: string;
   communityId?: string;
@@ -221,7 +221,7 @@ type CreateAndPublishPoolArgs = {
   departmentId?: string;
   skillId?: string;
   input?: UpdatePoolInput;
-};
+}
 
 export const createAndPublishPool: GraphQLRequestFunc<
   Pool,

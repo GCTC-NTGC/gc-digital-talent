@@ -201,10 +201,10 @@ const tollFreeLink = (chunks: ReactNode) => (
   </Link>
 );
 
-type Section = {
+interface Section {
   id: string;
   title: ReactNode;
-};
+}
 
 export const Component = () => {
   const intl = useIntl();

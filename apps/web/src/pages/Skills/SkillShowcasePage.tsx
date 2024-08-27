@@ -23,10 +23,10 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-type PageSection = {
+interface PageSection {
   id: string;
   title: ReactNode;
-};
+}
 type PageSections = Record<string, PageSection>;
 
 export const SkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `

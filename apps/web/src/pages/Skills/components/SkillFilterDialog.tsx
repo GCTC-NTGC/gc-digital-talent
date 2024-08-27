@@ -26,10 +26,10 @@ const SkillFilterOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export type FormValues = {
+export interface FormValues {
   skillFamilies?: string[];
   skillCategories?: SkillCategory[];
-};
+}
 
 type SkillFilterDialogProps = CommonFilterDialogProps<FormValues> & {
   skillFamilies: SkillFamily[];

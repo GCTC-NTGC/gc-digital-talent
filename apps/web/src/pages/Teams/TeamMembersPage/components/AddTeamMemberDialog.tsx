@@ -32,7 +32,7 @@ import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface AddTeamMemberDialogProps {
   team: TeamMembersPageTeamFragmentType;
-  members: Array<TeamMember>;
+  members: TeamMember[];
 }
 
 const AddTeamMemberDialog = ({

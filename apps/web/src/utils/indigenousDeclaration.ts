@@ -5,7 +5,7 @@ type FormCommunity = "firstNations" | "inuk" | "metis" | "other";
 export type FirstNationsStatus = "status" | "nonStatus";
 
 interface FormFields {
-  communities: Array<FormCommunity>;
+  communities: FormCommunity[];
   isStatus?: FirstNationsStatus;
 }
 
@@ -22,10 +22,10 @@ export interface FormValuesWithBoolean extends FormFields {
 }
 
 function apiCommunitiesToFormCommunityFields(
-  apiCommunities: Array<IndigenousCommunity>,
+  apiCommunities: IndigenousCommunity[],
 ): FormFields {
   // array of form communities that will be built and returned
-  const formCommunities: Array<FormCommunity> = [];
+  const formCommunities: FormCommunity[] = [];
   let isStatus: FirstNationsStatus | null = null;
 
   if (apiCommunities.includes(IndigenousCommunity.StatusFirstNations)) {
@@ -53,7 +53,7 @@ function apiCommunitiesToFormCommunityFields(
 }
 
 export function apiCommunitiesToFormValuesWithYesNo(
-  apiCommunities: Array<IndigenousCommunity> | undefined,
+  apiCommunities: IndigenousCommunity[] | undefined,
 ): FormValuesWithYesNo {
   let isIndigenous: FormValuesWithYesNo["isIndigenous"];
   if (apiCommunities === undefined) isIndigenous = null;
@@ -67,7 +67,7 @@ export function apiCommunitiesToFormValuesWithYesNo(
 }
 
 export function apiCommunitiesToFormValuesWithBoolean(
-  apiCommunities: Array<IndigenousCommunity>,
+  apiCommunities: IndigenousCommunity[],
 ): FormValuesWithBoolean {
   // assemble object from pre-computed values
   return {
@@ -78,9 +78,9 @@ export function apiCommunitiesToFormValuesWithBoolean(
 
 export function formValuesToApiCommunities(
   formValues: FormValuesWithYesNo | FormValuesWithBoolean,
-): Array<IndigenousCommunity> {
+): IndigenousCommunity[] {
   // array of API communities that will be built and returned
-  const apiCommunities: Array<IndigenousCommunity> = [];
+  const apiCommunities: IndigenousCommunity[] = [];
 
   if (
     formValues.communities.includes("firstNations") &&

@@ -28,7 +28,7 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
     } = useFormContext();
     const error = errors[name]?.message as FieldError;
     const value = watch(name);
-    const defaultValue = Boolean(defaultValues && defaultValues[name]);
+    const defaultValue = Boolean(defaultValues?.[name]);
     const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
       id,
       show: {

@@ -14,7 +14,7 @@ export type DeleteUserFunc = (
   id: string,
 ) => Promise<DeleteUserMutation["deleteUser"]>;
 
-export type TeamAssignment = {
+export interface TeamAssignment {
   team: Pick<Team, "id" | "name" | "displayName">;
   roles: Role[];
-};
+}

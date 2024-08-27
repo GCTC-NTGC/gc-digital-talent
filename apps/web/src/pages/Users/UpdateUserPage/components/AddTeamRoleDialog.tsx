@@ -40,15 +40,15 @@ const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
-  roles: Array<string>;
+interface FormValues {
+  roles: string[];
   team: string | null;
-};
+}
 
 interface AddTeamRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Array<Role>;
+  availableRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

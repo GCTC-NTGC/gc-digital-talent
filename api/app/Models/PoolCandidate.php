@@ -730,10 +730,14 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
 
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);

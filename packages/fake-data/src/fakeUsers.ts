@@ -41,7 +41,7 @@ type GeneratedUser = User & {
       | GeneratedWorkExperience
     >[]
   >;
-  poolCandidates?: Maybe<Array<Maybe<GeneratedPoolCandidate>>>;
+  poolCandidates?: Maybe<Maybe<GeneratedPoolCandidate>[]>;
 };
 
 const generateUser = (

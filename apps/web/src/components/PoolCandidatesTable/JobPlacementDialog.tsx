@@ -101,10 +101,10 @@ export type JobPlacementOptionsFragmentType = FragmentType<
   typeof JobPlacementOptions_Query
 >;
 
-type FormValues = {
+interface FormValues {
   placementType?: PlacementType | "NOT_PLACED";
   placedDepartment?: string;
-};
+}
 
 interface JobPlacementDialogProps {
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
@@ -195,7 +195,7 @@ const JobPlacementDialog = ({
       await executePlacedCandidate({
         id: poolCandidateId,
         placeCandidate: {
-          departmentId: values.placedDepartment,
+          departmentId: values.placedDepartment ?? "",
           placementType: values.placementType,
         },
       })

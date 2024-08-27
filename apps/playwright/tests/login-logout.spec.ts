@@ -50,7 +50,7 @@ test.describe("Login and logout", () => {
           /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
         );
         // make sure it uses the access token
-        const req = await interception.request();
+        const req = interception.request();
         expect(req.headers().authorization).toEqual(
           `Bearer ${searchParamAccessToken}`,
         );
@@ -108,7 +108,7 @@ test.describe("Login and logout", () => {
 
     const request = await requestPromise;
     await page.goto("/en/applicant");
-    const refreshToken = await new URL(request.url()).searchParams.get(
+    const refreshToken = new URL(request.url()).searchParams.get(
       "refresh_token",
     );
 
@@ -177,7 +177,7 @@ test.describe("Login and logout", () => {
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 1 from request 1 URL
-    const refreshToken1 = await new URL(request.url()).searchParams.get(
+    const refreshToken1 = new URL(request.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
@@ -211,7 +211,7 @@ test.describe("Login and logout", () => {
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 2 from request URL
-    const refreshToken2 = await new URL(request2.url()).searchParams.get(
+    const refreshToken2 = new URL(request2.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 2 to match refresh token 2 from request 2 URL
@@ -245,7 +245,7 @@ test.describe("Login and logout", () => {
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 3 from request URL
-    const refreshToken3 = await new URL(request3.url()).searchParams.get(
+    const refreshToken3 = new URL(request3.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 3 to match refresh token 3 from request 3 URL

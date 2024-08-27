@@ -21,6 +21,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { LogoutReason } from "@gc-digital-talent/auth";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import {
   buildValidationErrorMessageNode,
@@ -53,6 +54,7 @@ const ClientProvider = ({
   children?: ReactNode;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
   // Create a mutable object to hold the auth state
@@ -68,6 +70,7 @@ const ClientProvider = ({
       createClient({
         url: `${apiHost}${apiUri}`,
         requestPolicy: "cache-and-network",
+        fetchOptions: { headers: { "Accept-Language": locale } },
         exchanges: [
           cacheExchange,
           protectedEndpointExchange,
@@ -136,13 +139,12 @@ const ClientProvider = ({
                 return isTokenKnownToBeExpired(accessToken);
               },
               didAuthError(error) {
-                const didError =
-                  error && error.response
-                    ? error.response.status === 401 ||
-                      error.graphQLErrors.some(
-                        (e) => e.extensions?.category === "authentication",
-                      )
-                    : false;
+                const didError = error?.response
+                  ? error.response.status === 401 ||
+                    error.graphQLErrors.some(
+                      (e) => e.extensions?.category === "authentication",
+                    )
+                  : false;
 
                 return didError;
               },
@@ -162,7 +164,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger]);
+  }, [client, intl, locale, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
