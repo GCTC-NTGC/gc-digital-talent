@@ -39,9 +39,9 @@ const careerTimelineLink = (children: ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
-type FormValues = {
+interface FormValues {
   skillsMissingExperiences: number;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -77,7 +77,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 export interface ApplicationSkillsProps extends ApplicationPageProps {
-  experiences: Array<AnyExperience>;
+  experiences: AnyExperience[];
 }
 
 export const ApplicationSkills = ({

@@ -17,7 +17,7 @@ import { normalizedText } from "~/components/Table/sortingFns";
 const columnHelper = createColumnHelper<SkillFamily>();
 
 interface SkillFamilyTableProps {
-  skillFamilies: Array<SkillFamily>;
+  skillFamilies: SkillFamily[];
   title: string;
 }
 

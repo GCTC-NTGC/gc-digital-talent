@@ -24,12 +24,12 @@ export interface EquityDialogProps {
 }
 
 export interface IndigenousUpdateProps {
-  indigenousCommunities: Array<IndigenousCommunity>;
+  indigenousCommunities: IndigenousCommunity[];
   indigenousDeclarationSignature?: string | null;
 }
 
 export interface IndigenousDialogProps {
-  indigenousCommunities: Array<LocalizedIndigenousCommunity>;
+  indigenousCommunities: LocalizedIndigenousCommunity[];
   signature: string | undefined;
   onSave: (data: IndigenousUpdateProps) => void;
   children: ReactNode;

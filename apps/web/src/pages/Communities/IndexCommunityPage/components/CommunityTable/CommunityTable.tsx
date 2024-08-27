@@ -45,7 +45,7 @@ type CommunityTableFragment = FragmentType<
 
 interface CommunityTableProps {
   communitiesQuery: CommunityTableFragment;
-  myRolesAndTeams: Array<MyRoleTeam>;
+  myRolesAndTeams: MyRoleTeam[];
   title: string;
 }
 

@@ -24,10 +24,10 @@ export type SectionKey =
   | "accessibilityCommitment"
   | "socialMedia";
 
-type Section = {
+interface Section {
   id: string;
   title: ReactNode;
-};
+}
 
 const privacyPolicyLink = (path: string, chunks: ReactNode) => (
   <Link href={path}>{chunks}</Link>

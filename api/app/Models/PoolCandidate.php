@@ -730,10 +730,14 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
 
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);
@@ -1066,9 +1070,16 @@ class PoolCandidate extends Model
                         $snapshot = $this->profile_snapshot;
 
                         if ($snapshot) {
-                            $claimedSkills = collect($snapshot['userSkills']);
-                            $isClaimed = $claimedSkills->contains(function ($userSkill) use ($poolSkill) {
-                                return $userSkill['skill']['id'] === $poolSkill->skill_id;
+                            $experiences = collect($snapshot['experiences']);
+
+                            $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
+                                foreach ($experience['skills'] as $skill) {
+                                    if ($skill['id'] === $poolSkill->skill_id) {
+                                        return true;
+                                    }
+                                }
+
+                                return false;
                             });
                         }
 

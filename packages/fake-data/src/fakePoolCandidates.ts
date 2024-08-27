@@ -19,7 +19,13 @@ import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
-const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
+const generatePoolCandidate = (
+  pools: Pool[],
+  users: User[],
+  index: number,
+): PoolCandidate => {
+  faker.seed(index); // repeatable results
+
   const pool = faker.helpers.arrayElement<Pool>(pools);
   const user = faker.helpers.arrayElement<User>(users);
   const generalQuestionResponses =
@@ -77,12 +83,11 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   };
 };
 
-export default (amount?: number): PoolCandidate[] => {
+export default (amount = 20): PoolCandidate[] => {
   const pools = fakePools();
   const users = fakeUsers();
 
-  faker.seed(0); // repeatable results
-  return [...Array(amount || 20)].map(() =>
-    generatePoolCandidate(pools, users),
+  return [...Array(amount)].map((_x, index) =>
+    generatePoolCandidate(pools, users, index),
   );
 };

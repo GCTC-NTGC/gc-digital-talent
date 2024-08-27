@@ -25,11 +25,22 @@ class PoolCandidateSearchRequestTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
+    protected $adminUser;
+
     protected function setUp(): void
     {
         parent::setUp();
-
+        $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
+
+        $this->adminUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     /**
@@ -255,5 +266,81 @@ class PoolCandidateSearchRequestTest extends TestCase
         $this->actingAs($requestResponder, 'api')
             ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest2)
             ->assertJsonFragment(['id' => $searchRequest2->id]);
+    }
+
+    /**
+     * Test that the user_id is null when a guest user creates a PoolCandidateSearchRequest
+     *
+     * @return void
+     */
+    public function testUserIdForGuestUsers()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        // Assert user_id is null when guest user creates a pool candidate search request
+        $this->runCreateMutation([
+            'department' => [
+                'connect' => Department::inRandomOrder()->first()->id,
+            ],
+            'community' => [
+                'connect' => Community::inRandomOrder()->first()->id,
+            ],
+            'applicantFilter' => [
+                'create' => [
+                    'hasDiploma' => true,
+                    'community' => [
+                        'connect' => Community::inRandomOrder()->first()->id,
+                    ],
+                ],
+            ],
+        ])->assertSuccessful();
+
+        $searchRequest = PoolCandidateSearchRequest::first();
+        $this->assertNull($searchRequest->user_id);
+    }
+
+    /**
+     * Test that the user_id is set and correct when a logged in user creates a PooLCandidateSearchRequest
+     *
+     * @return void
+     */
+    public function testUserIdForLoggedInUsers()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        // Assert user_id is not null after creating with logged in user,
+        // and it has the correct id.
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            mutation createPoolCandidateSearchRequest($input: CreatePoolCandidateSearchRequestInput!) {
+                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $input) {
+                    id
+                }
+            }
+            ',
+            [
+                'input' => $this->getInput([
+                    'department' => [
+                        'connect' => Department::inRandomOrder()->first()->id,
+                    ],
+                    'community' => [
+                        'connect' => Community::inRandomOrder()->first()->id,
+                    ],
+                    'applicantFilter' => [
+                        'create' => [
+                            'hasDiploma' => true,
+                            'community' => [
+                                'connect' => Community::inRandomOrder()->first()->id,
+                            ],
+                        ],
+                    ],
+                ]),
+            ]
+        )->assertSuccessful();
+
+        $this->assertTrue(PoolCandidateSearchRequest::where('user_id', $this->adminUser->id)->exists());
     }
 }

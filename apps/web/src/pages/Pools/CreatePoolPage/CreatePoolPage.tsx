@@ -65,12 +65,12 @@ const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   classification: string;
   team: string;
   department: string;
   community: string;
-};
+}
 
 interface CreatePoolFormProps {
   userId: string;
@@ -268,9 +268,9 @@ export const CreatePoolForm = ({
   );
 };
 
-type ConstrainedTeamOnRoleAssignment = {
+interface ConstrainedTeamOnRoleAssignment {
   team?: Maybe<Pick<Team, "id" | "displayName">>;
-};
+}
 
 const roleAssignmentsToTeams = (
   roleAssignmentArray: Maybe<ConstrainedTeamOnRoleAssignment[]>,

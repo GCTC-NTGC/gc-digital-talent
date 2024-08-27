@@ -174,7 +174,7 @@ const ApplicationInformation = ({
           data-h2-align-items="base(flex-end)"
           data-h2-gap="base(0 x.5)"
         >
-          {application && (
+          {application && snapshot && (
             <DownloadButton id={application.id} userId={snapshot.id} />
           )}
           <Button mode="inline" color="secondary" onClick={toggleSections}>

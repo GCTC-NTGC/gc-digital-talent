@@ -62,6 +62,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   experienceId: string;
   applicationId: string;

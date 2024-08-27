@@ -13,7 +13,7 @@ describe("hasRole tests", () => {
   test("single role and user missing it", () => {
     const testRole: RoleName = "base_user";
     const testUserRoles:
-      | Maybe<Array<Maybe<RoleAssignment> | undefined>>
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
       | undefined = [];
 
     expect(f(testRole, testUserRoles)).toBeFalsy();
@@ -22,7 +22,7 @@ describe("hasRole tests", () => {
   test("single role and user has it", () => {
     const testRole: RoleName = "base_user";
     const testUserRoles:
-      | Maybe<Array<Maybe<RoleAssignment> | undefined>>
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
       | undefined = [
       {
         id: "id-123",
@@ -39,7 +39,7 @@ describe("hasRole tests", () => {
   test("array of roles and user missing all of them", () => {
     const testRole: RoleName[] = ["base_user", "community_admin"];
     const testUserRoles:
-      | Maybe<Array<Maybe<RoleAssignment> | undefined>>
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
       | undefined = [];
 
     expect(f(testRole, testUserRoles)).toBeFalsy();
@@ -48,7 +48,7 @@ describe("hasRole tests", () => {
   test("array of roles and user has one", () => {
     const testRole: RoleName[] = ["base_user", "community_admin"];
     const testUserRoles:
-      | Maybe<Array<Maybe<RoleAssignment> | undefined>>
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
       | undefined = [
       {
         id: "id-123",
@@ -65,7 +65,7 @@ describe("hasRole tests", () => {
   test("array of roles and user has null role assignments", () => {
     const testRole: RoleName[] = ["base_user", "community_admin"];
     const testUserRoles:
-      | Maybe<Array<Maybe<RoleAssignment> | undefined>>
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
       | undefined = null;
 
     expect(f(testRole, testUserRoles)).toBeFalsy();

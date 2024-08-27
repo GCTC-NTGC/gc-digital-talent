@@ -36,10 +36,10 @@ import useApplication from "../useApplication";
 
 type SortOptions = "date_desc" | "type_asc";
 
-type FormValues = {
+interface FormValues {
   sortExperiencesBy: SortOptions;
   experienceCount: number;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -156,7 +156,7 @@ function formatExperienceCount(
 }
 
 interface ApplicationCareerTimelineProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiences: ExperienceForDate[];
 }
 
 export const ApplicationCareerTimeline = ({

@@ -31,7 +31,7 @@ import { UpdateUserCommunityRoles_Mutation } from "./operations";
 
 interface AddCommunityMemberDialogProps {
   community: CommunityMembersPageCommunityFragmentType;
-  members: Array<CommunityMember>;
+  members: CommunityMember[];
 }
 
 const AddCommunityMemberDialog = ({

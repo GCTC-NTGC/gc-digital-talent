@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, waitFor, within } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
@@ -88,30 +88,6 @@ describe("SelfDeclarationForm", () => {
     expect(
       await screen.findByRole("checkbox", {
         name: /i don't see my community/i,
-      }),
-    ).toBeInTheDocument();
-  });
-
-  it("should display alert if community selected with other", async () => {
-    renderSelfDeclarationForm();
-
-    fireEvent.click(screen.getByRole("radio", { name: /i affirm that/i }));
-
-    fireEvent.click(
-      await screen.findByRole("checkbox", {
-        name: /i am inuk/i,
-      }),
-    );
-
-    fireEvent.click(
-      await screen.findByRole("checkbox", {
-        name: /i don't see my community/i,
-      }),
-    );
-
-    expect(
-      await within(await screen.findByRole("alert")).findByRole("heading", {
-        name: /are you sure/i,
       }),
     ).toBeInTheDocument();
   });

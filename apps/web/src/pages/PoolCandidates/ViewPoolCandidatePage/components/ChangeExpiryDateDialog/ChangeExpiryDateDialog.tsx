@@ -18,9 +18,9 @@ import applicationMessages from "~/messages/applicationMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
-type FormValues = {
+interface FormValues {
   expiryDate: string;
-};
+}
 
 const ChangeExpiryDate_Mutation = graphql(/* GraphQL */ `
   mutation ChangeExpiryDate(

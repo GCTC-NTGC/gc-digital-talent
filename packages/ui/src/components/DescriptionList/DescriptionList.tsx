@@ -94,7 +94,7 @@ interface RootProps
     HTMLAttributes<HTMLDListElement>,
     HTMLDListElement
   > {
-  children: ListItemElement | Array<ListItemElement>;
+  children: ListItemElement | ListItemElement[];
 }
 
 const Root = ({ children, ...rest }: RootProps) => (

@@ -115,6 +115,7 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   userId: string;
 };

@@ -1,5 +1,6 @@
 import useRequiredParams from "~/hooks/useRequiredParams";
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   applicationId: string;
 };

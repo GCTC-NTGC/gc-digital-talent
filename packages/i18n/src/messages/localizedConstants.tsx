@@ -29,7 +29,7 @@ const enumNotFound = defineMessage({
  * @param errorMessage
  */
 function getOrDisplayError<T>(
-  object: { [key: string]: T },
+  object: Record<string, T>,
   key: string | number,
   msg: string,
 ): T | MessageDescriptor {

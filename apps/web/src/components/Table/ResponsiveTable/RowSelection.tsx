@@ -146,6 +146,55 @@ export const actionButtonStyles: Pick<
   fontSize: "caption",
 };
 
+interface DownloadAllButtonProps {
+  download: DownloadDef["all"];
+}
+
+const DownloadAllButton = ({ download }: DownloadAllButtonProps) => {
+  const intl = useIntl();
+  if (!download) return null;
+
+  const label =
+    "label" in download && download?.label
+      ? download.label
+      : intl.formatMessage({
+          defaultMessage: "Download full dataset",
+          id: "B6XXtf",
+          description:
+            "Text label for button to download a csv file of all items in a table.",
+        });
+
+  if ("csv" in download) {
+    return (
+      <DownloadCsv {...download.csv} {...actionButtonStyles}>
+        {label}
+      </DownloadCsv>
+    );
+  }
+
+  if ("component" in download && download.component) {
+    return download.component;
+  }
+
+  if ("onClick" in download) {
+    return (
+      <Button
+        {...actionButtonStyles}
+        onClick={download.onClick}
+        disabled={download.downloading}
+        data-h2-font-weight="base(400)"
+        {...(download.downloading && {
+          icon: SpinnerIcon,
+        })}
+      >
+        {label}
+      </Button>
+    );
+  }
+
+  return null;
+};
+
 interface ActionsProps {
   /** Indicates whether the table actually have selection enabled */
   rowSelect: boolean;
@@ -325,17 +374,7 @@ const Actions = ({
       )}
       {download?.all && (
         <Column>
-          {!isLoading && (
-            <DownloadCsv {...download.all.csv} {...actionButtonStyles}>
-              {download.all.label ||
-                intl.formatMessage({
-                  defaultMessage: "Download full dataset",
-                  id: "B6XXtf",
-                  description:
-                    "Text label for button to download a csv file of all items in a table.",
-                })}
-            </DownloadCsv>
-          )}
+          {!isLoading && <DownloadAllButton download={download.all} />}
         </Column>
       )}
     </div>
@@ -381,12 +420,12 @@ export const getRowSelectionColumn = <TData extends object>(
   },
 });
 
-type RowSelectCellArgs<T> = {
+interface RowSelectCellArgs<T> {
   /** The specific row definition */
   row: Row<T>;
   /** Label for the button to select the item */
   label: string;
-};
+}
 
 /**
  * Generate the cell for row selection

@@ -11,11 +11,11 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import getCheckboxRadioStyles from "../../utils/getCheckboxRadioStyles";
 
-export type Radio = {
+export interface Radio {
   value: string | number;
   label: string | ReactNode;
   contentBelow?: ReactNode;
-};
+}
 
 type ColumnRange = 1 | 2 | 3 | 4;
 

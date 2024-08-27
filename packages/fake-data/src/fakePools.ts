@@ -46,7 +46,10 @@ const generatePool = (
   englishName = "",
   frenchName = "",
   essentialSkillCount = -1,
+  index: number,
 ): Pool => {
+  faker.seed(index); // repeatable results
+
   const ownerUser: User = faker.helpers.arrayElement<User>(users);
   const essentialSkills = faker.helpers.arrayElements(
     skills,
@@ -154,7 +157,6 @@ export default (
   essentialSkillCount = -1,
 ): Pool[] => {
   const users = fakeUsers();
-  faker.seed(0); // repeatable results
 
   return [...Array(numToGenerate)].map((_, index) => {
     switch (index) {
@@ -167,6 +169,7 @@ export default (
           "CMO",
           "CMO",
           essentialSkillCount,
+          0,
         );
       case 1:
         return generatePool(
@@ -177,6 +180,7 @@ export default (
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
           essentialSkillCount,
+          0,
         );
       default:
         return generatePool(
@@ -187,6 +191,7 @@ export default (
           "",
           "",
           essentialSkillCount,
+          index,
         );
     }
   });

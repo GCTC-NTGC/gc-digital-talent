@@ -877,13 +877,6 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @canResolved(ability: "view")
-  applicants(includeIds: [ID]! @in(key: "id")): [User]!
-    @all(model: "User")
-    @guard
-    @canModel(ability: "viewAny", model: "User")
-    @deprecated(
-      reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
-    )
   userPublicProfilesPaginated(
     where: UserPublicProfileFilterInput
     excludeIds: [ID!] @notIn(key: "id")
@@ -932,13 +925,6 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view")
-  poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
-    @all(scopes: ["notDraft"])
-    @guard
-    @canResolved(ability: "view")
-    @deprecated(
-      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
-    )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
@@ -1757,12 +1743,6 @@ input RolesForTeamHasMany {
   sync: RolesForTeamInput
 }
 
-input UpdateUserTeamRolesInput {
-  teamId: ID!
-  userId: UUID!
-  roleAssignments: RolesForTeamHasMany!
-}
-
 input GeneralResponseBelongsTo {
   connect: ID!
 }
@@ -2169,12 +2149,6 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateUserTeamRoles(
-    teamRoleAssignments: UpdateUserTeamRolesInput! @spread
-  ): Team
-    @guard
-    @canFind(ability: "assignTeamMembers", find: "teamId")
-    @deprecated(reason: "use updateUserRoles")
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community
@@ -2256,13 +2230,21 @@ type Mutation {
   ): SitewideAnnouncement @guard
 
   # File downloads
-  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesCsv(
+    ids: [UUID!],
+    where: PoolCandidateSearchInput,
+    locale: Language
+  ): Boolean! @guard
   downloadPoolCandidatesDoc(
     ids: [UUID!]!
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
-  downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadUsersCsv(
+    ids: [UUID!],
+    where: UserFilterInput
+    locale: Language
+  ): Boolean! @guard
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadUsersDoc(
     ids: [UUID!]!

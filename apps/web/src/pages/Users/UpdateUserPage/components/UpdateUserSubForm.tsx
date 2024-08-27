@@ -11,9 +11,9 @@ import {
   UserAuthInfo,
 } from "@gc-digital-talent/graphql";
 
-type FormValues = {
+interface FormValues {
   sub: string;
-};
+}
 
 interface UpdateUserSubFormProps {
   authInfo: UserAuthInfo | undefined | null;
@@ -38,7 +38,7 @@ const UpdateUserSubForm = ({
 
   const handleUpdateSub = async (formValues: FormValues) => {
     return onUpdateSub({
-      userId: authInfo?.id,
+      userId: authInfo?.id ?? "",
       sub: formValues.sub,
     }).then(() => {
       toast.success(

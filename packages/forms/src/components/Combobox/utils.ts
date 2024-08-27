@@ -18,10 +18,10 @@ const orderItems = (options: Option[]): Option[] => {
 const optionQueryMatcher = (option: Option, query: string): boolean =>
   !!option.label?.toLocaleString().toLowerCase().includes(query.toLowerCase());
 
-type GetFilteredItemsArgs = {
+interface GetFilteredItemsArgs {
   options: Option[];
   query?: string;
-};
+}
 
 type GetSingleFilteredItems = GetFilteredItemsArgs & {
   selected?: Option | null;

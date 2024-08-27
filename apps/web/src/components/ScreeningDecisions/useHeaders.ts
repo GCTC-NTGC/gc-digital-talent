@@ -6,14 +6,14 @@ import { Maybe } from "@gc-digital-talent/graphql";
 
 import { DialogType } from "./useDialogType";
 
-type Args = {
+interface Args {
   type?: DialogType;
   title?: string;
   customTitle?: Maybe<string>;
   candidateName?: Maybe<string>;
   skillName?: Maybe<string>;
   skillLevel?: Maybe<string>;
-};
+}
 
 const getHeaders = (intl: IntlShape, args: Args) => {
   const { type, title, candidateName, skillName, skillLevel, customTitle } =

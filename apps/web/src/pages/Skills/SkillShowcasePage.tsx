@@ -23,10 +23,10 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-type PageSection = {
+interface PageSection {
   id: string;
   title: ReactNode;
-};
+}
 type PageSections = Record<string, PageSection>;
 
 export const SkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
@@ -278,8 +278,8 @@ export const SkillShowcase = ({
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Where your top skills highlight your strengths, this section allows you to provide us with a bit of insight on the skills you're actively working to improve. The skills listed below don't necessarily have to be weaknesses - if you’re interested in improving the skill through experience or training, include it here.",
-                  id: "gn1vl8",
+                    "Where your top skills highlight your strengths, this section allows you to provide us with a bit of insight on the skills you're actively working to improve. These skills don't necessarily have to be weaknesses - if you’re interested in improving the skill through experience or training, include it here.",
+                  id: "K73zGq",
                   description:
                     "Description of the skills to improve section and how to use it.",
                 })}

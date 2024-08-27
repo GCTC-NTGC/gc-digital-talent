@@ -15,32 +15,33 @@ type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {
   skill?: Maybe<Pick<Skill, "id" | "name" | "category" | "key">>;
 };
 
-export type AssessmentTableRow = {
+export interface AssessmentTableRow {
   poolSkill?: PoolSkillForTableRow;
   assessmentResults: AssessmentResultsTableFragmentType["assessmentResults"];
-};
+}
 
 export type AssessmentTableRowColumn = ColumnDef<AssessmentTableRow>;
 
 const assessmentResultsTableFragmentSteps: AssessmentResultsTableFragmentType["pool"]["assessmentSteps"] =
   [];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const assessmentResultsTableFragmentStepsUnpacked = unpackMaybes(
   assessmentResultsTableFragmentSteps,
 );
 export type AssessmentResultsTableFragmentStepType =
   (typeof assessmentResultsTableFragmentStepsUnpacked)[number];
 
-export type AssessmentTableRowColumnProps = {
+export interface AssessmentTableRowColumnProps {
   id: string;
   poolCandidate: AssessmentResultsTableFragmentType;
   assessmentStep: AssessmentResultsTableFragmentStepType;
   intl: IntlShape;
   header: JSX.Element;
-};
+}
 
 export type StatusColor = "error" | "hold" | "toAssess" | "success" | "gray";
 
-export type ColumnStatus = {
+export interface ColumnStatus {
   icon: IconType | null;
   color: StatusColor;
-};
+}

@@ -10,7 +10,7 @@ import ApplicantPage from "./ApplicantPage";
 import CommunityRecruiterPage from "./CommunityRecruiterPage";
 import CommunityAdminPage from "./CommunityAdminPage";
 
-type AppFixtures = {
+interface AppFixtures {
   // Base unauthenticated page
   appPage: AppPage;
   // Authenticated as admin page
@@ -24,7 +24,7 @@ type AppFixtures = {
   // Axe test builder
   makeAxeBuilder: () => AxeBuilder;
   fakeClock: sinon.SinonFakeTimers;
-};
+}
 
 // Extend base text with our fixtures
 export const test = base.extend<AppFixtures>({

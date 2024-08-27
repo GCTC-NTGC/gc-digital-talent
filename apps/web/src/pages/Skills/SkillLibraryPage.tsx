@@ -34,10 +34,10 @@ const SkillLibraryPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type PageSection = {
+interface PageSection {
   id: string;
   title: string;
-};
+}
 type PageSections = Record<string, PageSection>;
 
 interface SkillLibraryProps {

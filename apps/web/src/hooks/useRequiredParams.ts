@@ -15,7 +15,7 @@ const uuidRegEx =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 const isUUID = (str: string): boolean => {
-  return !!str.match(uuidRegEx);
+  return !!uuidRegEx.exec(str);
 };
 
 /**
@@ -30,9 +30,9 @@ const isUUID = (str: string): boolean => {
  */
 function assertParam(
   param?: string,
-  enforceUUID: boolean = true,
+  enforceUUID = true,
   logger: Logger = defaultLogger,
-): asserts param is string | never {
+): asserts param is string {
   invariant(
     notEmpty(param),
     `Could not find required URL parameter "${param}"`,
@@ -61,8 +61,8 @@ const useRequiredParams = <
   T extends Record<string, string>,
   K extends keyof T = keyof T,
 >(
-  keys: K | Array<K>,
-  enforceUUID: boolean = true,
+  keys: K | K[],
+  enforceUUID = true,
   message: string | undefined = undefined,
 ): Record<K, string> => {
   const intl = useIntl();
@@ -80,7 +80,7 @@ const useRequiredParams = <
       if (key) {
         newParams = { ...newParams, [key]: param }; // param must be a string if assertParam didn't throw an error.
       }
-    } catch (err) {
+    } catch (_err) {
       const errorMessage =
         message ?? intl.formatMessage(commonMessages.notFound);
       throw new Response(errorMessage, {
