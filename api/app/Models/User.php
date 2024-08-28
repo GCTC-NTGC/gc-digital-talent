@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -736,9 +737,24 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     /**
      * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public static function scopeTalentSearchablePublishingGroup(Builder $query): Builder
+    public static function scopeTalentSearchablePublishingGroup(Builder $query, $args): Builder
     {
-        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
+
+        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) use ($args) {
+            $filters = Arr::get($args ?? [], 'where', []);
+
+            $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
+                $query->wasPublished();
+
+                if (array_key_exists('qualifiedClassifications', $filters)) {
+                    Pool::scopeClassifications($query, $filters['qualifiedClassifications']);
+                }
+
+                if (array_key_exists('qualifiedStreams', $filters)) {
+                    Pool::scopeStreams($query, $filters['qualifiedStreams']);
+                }
+            });
+
             PoolCandidate::scopeAvailable($innerQueryBuilder);
             PoolCandidate::scopeInTalentSearchablePublishingGroup($innerQueryBuilder);
 
