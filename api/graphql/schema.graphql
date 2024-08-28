@@ -302,6 +302,10 @@ type Pool implements HasRoleAssignments {
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
   department: Department @belongsTo @canQuery(ability: "view")
+  areaOfSelection: LocalizedPoolAreaOfSelection
+    @rename(attribute: "area_of_selection")
+  selectionLimitations: [LocalizedPoolSelectionLimitation!]
+    @rename(attribute: "selection_limitations")
 }
 
 type GeneralQuestionResponse {
@@ -1647,6 +1651,9 @@ input UpdatePoolInput {
   opportunityLength: PoolOpportunityLength
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
+  areaOfSelection: PoolAreaOfSelection @rename(attribute: "area_of_selection")
+  selectionLimitations: [LocalizedPoolSelectionLimitation!]
+    @rename(attribute: "selection_limitations")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -2231,8 +2238,8 @@ type Mutation {
 
   # File downloads
   downloadPoolCandidatesCsv(
-    ids: [UUID!],
-    where: PoolCandidateSearchInput,
+    ids: [UUID!]
+    where: PoolCandidateSearchInput
     locale: Language
   ): Boolean! @guard
   downloadPoolCandidatesDoc(
@@ -2241,7 +2248,7 @@ type Mutation {
     locale: Language
   ): Boolean! @guard
   downloadUsersCsv(
-    ids: [UUID!],
+    ids: [UUID!]
     where: UserFilterInput
     locale: Language
   ): Boolean! @guard
