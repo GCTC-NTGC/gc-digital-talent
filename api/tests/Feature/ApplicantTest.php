@@ -1923,7 +1923,6 @@ class ApplicantTest extends TestCase
 
     }
 
-
     public function testClassificationAndStreamsFilter()
     {
         $targetClassification = Classification::factory()->create();
@@ -1938,7 +1937,7 @@ class ApplicantTest extends TestCase
         ]);
         $targetStreamPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $excludedClassification,
-            'stream' => $targetStream
+            'stream' => $targetStream,
         ]);
         $targetStreamAndClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $targetClassification,
@@ -1946,7 +1945,7 @@ class ApplicantTest extends TestCase
         ]);
         $excludedPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $excludedClassification,
-            'stream' => $excludedStream
+            'stream' => $excludedStream,
         ]);
 
         $targetUser = User::factory()->create();
@@ -1957,43 +1956,43 @@ class ApplicantTest extends TestCase
         // Should show up for classification filter only
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $targetUser,
-            'pool_id' => $targetClassificationPool
+            'pool_id' => $targetClassificationPool,
         ]);
 
         // Should should up for stream filter only
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $targetUser,
-            'pool_id' => $targetStreamPool
+            'pool_id' => $targetStreamPool,
         ]);
 
         // Should show up for both stream + classification filters
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $targetUser,
-            'pool_id' => $targetStreamAndClassificationPool
+            'pool_id' => $targetStreamAndClassificationPool,
         ]);
 
         // Should show up for classification filter only
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $targetClassificationUser,
-            'pool_id' => $targetClassificationPool
+            'pool_id' => $targetClassificationPool,
         ]);
 
         // Should should up for stream filter only
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $targetStreamUser,
-            'pool_id' => $targetStreamPool
+            'pool_id' => $targetStreamPool,
         ]);
 
         // Should never show up
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $targetUser,
-            'pool_id' => $excludedPool
+            'pool_id' => $excludedPool,
         ]);
 
         // Should never show up
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $excludedUser,
-            'pool_id' => $excludedPool
+            'pool_id' => $excludedPool,
         ]);
 
         $query = /* GraphQL */ '
@@ -2010,8 +2009,8 @@ class ApplicantTest extends TestCase
                             [
                                 'group' => $targetClassification->group,
                                 'level' => $targetClassification->level,
-                            ]
-                        ]
+                            ],
+                        ],
                     ],
                 ]
             )->assertJson([
@@ -2024,7 +2023,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedStreams' => [ $targetStream ]
+                        'qualifiedStreams' => [$targetStream],
                     ],
                 ]
             )->assertJson([
@@ -2041,11 +2040,11 @@ class ApplicantTest extends TestCase
                             [
                                 'group' => $targetClassification->group,
                                 'level' => $targetClassification->level,
-                            ]
+                            ],
                         ],
                         'qualifiedStreams' => [
-                            $targetStream
-                        ]
+                            $targetStream,
+                        ],
                     ],
                 ]
             )->assertJson([
