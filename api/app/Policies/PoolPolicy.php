@@ -147,8 +147,18 @@ class PoolPolicy
      */
     public function updatePublished(User $user, Pool $pool)
     {
-        return $pool->getStatusAttribute() === PoolStatus::PUBLISHED->name
-            && $user->isAbleTo('update-any-publishedPool');
+        if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
+            return false;
+        }
+
+        if ($user->isAbleTo('update-any-publishedPool')) {
+            return true;
+        }
+
+        $pool->loadMissing(['community.team']);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
+
+        return $communityPermission;
     }
 
     /**
