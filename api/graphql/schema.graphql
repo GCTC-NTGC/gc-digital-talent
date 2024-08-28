@@ -2251,6 +2251,7 @@ type Mutation {
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
+  downloadUserDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "User")
 }
 
 #import directiveForms.graphql

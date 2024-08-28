@@ -403,6 +403,7 @@ type Mutation {
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput, locale: Language): Boolean!
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean!
   downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
