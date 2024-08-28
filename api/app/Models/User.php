@@ -60,6 +60,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $verbal_level
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
+ * @property string $work_email
+ * @property Illuminate\Support\Carbon work_email_verified_at
  * @property bool $has_priority_entitlement
  * @property string $priority_number
  * @property string $department
@@ -455,9 +457,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     $candidate->delete();
                 }
 
-                // Modify the email to allow it to be used for another user
-                $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newEmail]);
+                // Modify the email(s) to allow use by another user
+                $newContactEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newContactEmail]);
+                if (! is_null($user->work_email)) {
+                    $newWorkEmail = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                    $user->update(['email' => $newWorkEmail]);
+                }
             }
             $user->searchable();
         });
@@ -468,8 +474,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $candidate->restore();
             }
 
-            $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
-            $user->update(['email' => $newEmail]);
+            $newContactEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
+            $user->update(['email' => $newContactEmail]);
+            if (! is_null($user->work_email)) {
+                $newWorkEmail = $user->work_email.'-restored-at-'.Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newWorkEmail]);
+            }
         });
     }
 

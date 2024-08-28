@@ -83,6 +83,7 @@ type User {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email")
   govEmployeeType: LocalizedGovEmployeeType
     @rename(attribute: "gov_employee_type")
   currentClassification: Classification @belongsTo # Users current classification
@@ -1029,7 +1030,12 @@ input CreateUserInput {
   email: Email
     @lowerCase
     @rules(
-      apply: ["sometimes", "nullable", "unique:users,email"]
+      apply: [
+        "sometimes"
+        "nullable"
+        "unique:users,email"
+        "unique:users,work_email"
+      ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
   telephone: PhoneNumber
@@ -1061,6 +1067,18 @@ input CreateUserInput {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email
+    @rename(attribute: "work_email")
+    @lowerCase
+    @rules(
+      apply: [
+        "sometimes"
+        "nullable"
+        "unique:users,email"
+        "unique:users,work_email"
+      ]
+      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
+    )
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1133,6 +1151,7 @@ input UpdateUserAsAdminInput
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email") @lowerCase
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1212,6 +1231,7 @@ input UpdateUserAsUserInput
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email") @lowerCase
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
