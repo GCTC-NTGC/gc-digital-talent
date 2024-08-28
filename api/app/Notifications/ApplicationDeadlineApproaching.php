@@ -72,7 +72,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
         $localizedClosingDateString = Carbon::executeWithLocale($locale,
-            fn () => $this->closingDate->translatedFormat('F j, Y')
+            fn () => $this->closingDate->translatedFormat($locale === 'en' ? 'F j, Y' : 'j F Y')
         );
 
         if ($locale == Language::EN->value) {
