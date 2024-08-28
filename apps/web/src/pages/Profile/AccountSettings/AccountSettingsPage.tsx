@@ -116,7 +116,7 @@ const AccountSettingsPage = () => {
     crumbs: [
       {
         label: formattedPageTitle,
-        url: paths.accessibility(),
+        url: paths.accountSettings(),
       },
     ],
   });
