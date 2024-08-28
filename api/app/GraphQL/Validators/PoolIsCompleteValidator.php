@@ -2,7 +2,9 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
+use App\Enums\PoolSelectionLimitation;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Rules\SkillNotDeleted;
@@ -70,6 +72,9 @@ final class PoolIsCompleteValidator extends Validator
             'what_to_expect_admission.en' => ['required_with:what_to_expect_admission.fr', 'string', 'nullable'],
             'what_to_expect_admission.fr' => ['required_with:what_to_expect_admission.en', 'string', 'nullable'],
             'publishing_group' => ['required', Rule::in(array_column(PublishingGroup::cases(), 'name'))],
+            'area_of_selection' => ['required', Rule::in(array_column(PoolAreaOfSelection::cases(), 'name'))],
+            'selection_limitations' => ['prohibited_unless:area_of_selection,'.PoolAreaOfSelection::PUBLIC->name],
+            'selection_limitations.*' => [Rule::in(array_column(PoolSelectionLimitation::cases(), 'name'))],
         ];
     }
 
@@ -92,6 +97,7 @@ final class PoolIsCompleteValidator extends Validator
             'your_impact.fr.required' => 'FrenchYourImpactRequired',
             'special_note.en.required' => 'EnglishSpecialNoteRequired',
             'special_note.fr.required' => 'EnglishSpecialNoteRequired',
+            'area_of_selection.required' => 'PoolAreaOfSelectionRequired',
         ];
     }
 }
