@@ -19,7 +19,7 @@ final readonly class DownloadUserDoc
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         try {
-            $fileName = sprintf('%s_%s.docx', __('filename.user'), date('Y-m-d_His'));
+            $fileName = sprintf('%s_%s.docx', trim(__('filename.user')), date('Y-m-d_His'));
 
             $generator = new UserDocGenerator(
                 ids: [$args['id']],
@@ -31,7 +31,7 @@ final readonly class DownloadUserDoc
 
             $generator->generate()->write();
 
-            return trim($generator->getFileName());
+            return $generator->getFileName();
         } catch (\Exception $e) {
             Log::error('Error starting user document generation '.$e->getMessage());
 
