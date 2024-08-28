@@ -56,7 +56,7 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQuery(): void
     {
         // Get the ID of the base admin user
-        $user = User::All()->first();
+        $user = User::all()->first();
         $ITPool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
             'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,

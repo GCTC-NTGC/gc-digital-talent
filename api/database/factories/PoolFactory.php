@@ -274,7 +274,7 @@ class PoolFactory extends Factory
      */
     public function candidatesAvailableInSearch()
     {
-        return $this->state(function () {
+        return $this->published()->state(function () {
             return [
                 'publishing_group' => $this->faker->randomElement([
                     PublishingGroup::IT_JOBS->name,
