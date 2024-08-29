@@ -28,6 +28,7 @@ import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
+import SiteNavMenu from "../NavMenu/SiteNavMenu";
 
 export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 
@@ -131,15 +132,13 @@ export const Component = () => {
         data-h2-margin="base(0)"
         data-h2-color="base(black)"
       >
-        <div>
-          <Header />
-          <SitewideBanner />
-          {!iapPersonality ? (
-            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
-          ) : (
-            <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
-          )}
-        </div>
+        <Header />
+        <SitewideBanner />
+        {!iapPersonality ? (
+          <SiteNavMenu />
+        ) : (
+          <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
+        )}
         <main id="main">
           <Outlet />
         </main>

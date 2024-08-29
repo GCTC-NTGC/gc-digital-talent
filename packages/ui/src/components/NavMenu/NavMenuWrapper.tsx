@@ -1,0 +1,162 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import FocusLock from "react-focus-lock";
+import { RemoveScroll } from "react-remove-scroll";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
+import {
+  KeyboardEventHandler,
+  ReactNode,
+  RefObject,
+  useCallback,
+  JSX,
+} from "react";
+
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
+
+import useControllableState from "../../hooks/useControllableState";
+import { NavMenuProvider } from "./NavMenuProvider";
+import NavMenu from "./NavMenu";
+
+export interface NavMenuProps {
+  /** Sets the section to be 'open' by default */
+  defaultOpen?: boolean;
+  /** Controllable open state */
+  open?: boolean;
+  /** Callback when the section has been 'opened */
+  onOpenChange?: (open: boolean) => void;
+  /** Accessible name for the navigation region */
+  label: string;
+  /** Ref for the button that triggers the opening (for focus management)  */
+  triggerRef?: RefObject<HTMLButtonElement>;
+  /** Main menu items */
+  children?: ReactNode;
+  /** Reduce motion (needs to be here for context) */
+  shouldReduceMotion?: boolean | null;
+}
+
+const NavMenuWrapper = ({
+  defaultOpen,
+  open: openProp,
+  onOpenChange,
+  label,
+  children,
+  triggerRef,
+}: NavMenuProps) => {
+  const shouldReduceMotion = useReducedMotion();
+  const [open = false, setOpen] = useControllableState<boolean>({
+    controlledProp: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
+  const isSmallScreen = useIsSmallScreen(1080);
+  const handleOpenToggle = useCallback(() => {
+    setOpen((prevOpen) => {
+      const newOpen = !prevOpen;
+      return newOpen;
+    });
+  }, [setOpen]);
+
+  const handleKeyDown: KeyboardEventHandler = (event) => {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      setOpen(false);
+    }
+  };
+
+  const showMenu = !isSmallScreen || open;
+  const showOverlay = isSmallScreen && open;
+
+  const animConfig = shouldReduceMotion
+    ? {}
+    : {
+        initial: { transform: "translateY(0)" },
+        animate: { transform: "translateY(0)" },
+        exit: { transform: "translateY(0)" },
+      };
+
+  return (
+    <NavMenuProvider
+      open={open}
+      onOpenToggle={handleOpenToggle}
+      onOpenChange={setOpen}
+    >
+      <AnimatePresence>
+        {showMenu ? (
+          <m.div
+            data-h2-flex-item="base(content)"
+            data-h2-position="base(fixed) l-tablet(sticky)"
+            data-h2-top="base(auto) l-tablet(0)"
+            data-h2-bottom="base(x4) l-tablet(auto)"
+            data-h2-right="base(x.75) l-tablet(auto)"
+            data-h2-left="base(x.75) l-tablet(auto)"
+            data-h2-width="l-tablet(100%)"
+            data-h2-z-index="base(9999)"
+            {...animConfig}
+          >
+            <div
+              data-h2-position="base(sticky) l-tablet(sticky)"
+              data-h2-location="base(0, auto, auto, auto)"
+            >
+              <FocusLock
+                returnFocus
+                disabled={!showOverlay}
+                onDeactivation={() => {
+                  window.setTimeout(() => {
+                    if (triggerRef?.current) {
+                      triggerRef.current.focus();
+                    }
+                  }, 0);
+                }}
+              >
+                <RemoveScroll
+                  enabled={isSmallScreen && open}
+                  // data-h2-background-color="base:all(gray.darkest)"
+                  // data-h2-border-right="l-tablet(1px solid black.2)"
+                  // data-h2-overflow-y="base(auto)"
+                  // data-h2-overflow-x="base(hidden)"
+                  // data-h2-display="base(flex)"
+                  // data-h2-flex-direction="base(column)"
+                  // data-h2-height="base(100%)"
+                >
+                  <NavMenu.Root
+                    /**
+                     * Ignore `no-noninteractive-element-interactions` since
+                     * this is captured to close the element
+                     */
+                    onKeyDown={handleKeyDown}
+                    aria-label={label}
+                    data-state={open ? "open" : "closed"}
+                    data-h2-background-color="base(foreground) l-tablet:all(black.9)"
+                    data-h2-border="base:all(1px solid background.darker) l-tablet(none)"
+                    data-h2-radius="base(rounded) l-tablet(none)"
+                    data-h2-padding="base(x1)"
+                  >
+                    <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+                      {children}
+                    </div>
+                  </NavMenu.Root>
+                </RemoveScroll>
+              </FocusLock>
+            </div>
+          </m.div>
+        ) : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showOverlay && (
+          <m.div
+            onClick={() => setOpen(false)}
+            data-h2-position="base(fixed)"
+            data-h2-location="base(0, 0, 0, 0)"
+            data-h2-background-color="base:all(black.light.85)"
+            data-h2-z-index="base(9998)"
+            data-h2-overflow="base(auto)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            exit={{ opacity: 0 }}
+          />
+        )}
+      </AnimatePresence>
+    </NavMenuProvider>
+  );
+};
+
+export default NavMenuWrapper;
