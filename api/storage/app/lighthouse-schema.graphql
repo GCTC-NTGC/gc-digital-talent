@@ -214,7 +214,7 @@ type Query {
   poolCandidate(id: UUID!): PoolCandidate
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
-  classifications: [Classification]!
+  classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
