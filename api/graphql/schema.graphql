@@ -366,6 +366,12 @@ type PoolSkill {
     @canRoot(ability: "viewAssessmentSteps")
 }
 
+type PoolCandidateCategory {
+  weight: Int!
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -373,6 +379,7 @@ type PoolCandidate {
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
+  category: PoolCandidateCategory @with(relation: "user")
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")

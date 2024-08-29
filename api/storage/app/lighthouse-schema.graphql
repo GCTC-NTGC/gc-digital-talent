@@ -705,11 +705,18 @@ type PoolSkill {
   assessmentSteps: [AssessmentStep]
 }
 
+type PoolCandidateCategory {
+  weight: Int!
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
   expiryDate: Date
+  category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
   statusWeight: Int
   notes: String

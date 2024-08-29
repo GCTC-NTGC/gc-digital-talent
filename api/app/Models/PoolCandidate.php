@@ -71,9 +71,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $removal_reason
  * @property string $removal_reason_other
  * @property string $veteran_verification
- * @property Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property \Illuminate\Support\Carbon $veteran_verification_expiry
  * @property string $priority_verification
- * @property Illuminate\Support\Carbon $priority_verification_expiry
+ * @property \Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
  * @property int $computed_final_decision_weight
  * @property string $computed_final_decision
@@ -271,6 +271,43 @@ class PoolCandidate extends Model
             'experience_id'
         )
             ->withTimestamps();
+    }
+
+    public function getCategoryAttribute()
+    {
+        $category = null;
+
+        switch($this->user->priority_weight) {
+            case 10:
+                if(ClaimVerificationResult::claimActive($this->priority_verification, $this->priority_verification_expiry)) {
+                    $category = PriorityWeight::PRIORITY_ENTITLEMENT;
+                    break;
+                }
+
+            case 20:
+                if(ClaimVerificationResult::claimActive($this->veteran_verification, $this->veteran_verification_expiry)) {
+                    $category = PriorityWeight::VETERAN;
+                    break;
+                }
+
+            case 30:
+                $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
+                break;
+
+            case 40:
+                $category = PriorityWeight::OTHER;
+                break;
+
+            default:
+                return null;
+
+        }
+
+        return [
+            'weight' => $category->weight($category->name),
+            'value' => $category->name,
+            'label' => PriorityWeight::localizedString($category->name)
+        ];
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
