@@ -46,8 +46,6 @@ use RecursiveArrayIterator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-use function Psy\debug;
-
 /**
  * Class PoolCandidate
  *
@@ -917,13 +915,11 @@ class PoolCandidate extends Model
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*');
 
-            if (!!$args['useBookmark']) {
+            if ((bool) $args['useBookmark']) {
                 $query->orderBy('is_bookmarked', 'DESC');
             }
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
-
-            Log::debug($order);
 
             $query->orderByRaw($order);
         }
