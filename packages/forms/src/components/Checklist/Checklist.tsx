@@ -87,6 +87,9 @@ const Checklist = ({
                   disabled={disabled}
                   value={value}
                   inCheckList
+                  {...(contentBelow && {
+                    "aria-describedby": `${id}-content-below`,
+                  })}
                 />
                 {contentBelow && (
                   <div
