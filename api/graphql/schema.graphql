@@ -242,7 +242,7 @@ type ScreeningQuestion {
 interface HasRoleAssignments {
   id: UUID!
   roleAssignments: [RoleAssignment!]
-  teamIdForRoleAssignment: ID @with(relation: "team") # Used to assign roles associated with this resource using the updateUserRoles mutation.
+  teamIdForRoleAssignment: ID# Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
@@ -495,7 +495,7 @@ type Team implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canRoot(ability: "viewTeamMembers")
-  teamIdForRoleAssignment: ID @rename(attribute: "id") @with(relation: "team")
+  teamIdForRoleAssignment: ID @rename(attribute: "id")
 }
 
 type Role {
