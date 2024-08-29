@@ -1,5 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
@@ -44,4 +45,13 @@ export const DisabledChecklist = Template.bind({});
 DisabledChecklist.args = {
   ...Default.args,
   disabled: true,
+};
+
+export const ContentBelow = Template.bind({});
+ContentBelow.args = {
+  ...Default.args,
+  items: Default.args.items?.map((item) => ({
+    ...item,
+    contentBelow: faker.lorem.lines(6),
+  })),
 };
