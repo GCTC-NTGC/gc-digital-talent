@@ -17,9 +17,9 @@ import { DisplayProps } from "../../types";
 
 const Display = ({
   pool,
-  poolSelectionLimitations: allSelectionLimitations,
+  allPoolSelectionLimitations,
 }: DisplayProps<EditPoolNameFragment> & {
-  poolSelectionLimitations: LocalizedEnumString[] | null | undefined;
+  allPoolSelectionLimitations: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -34,12 +34,6 @@ const Display = ({
     publishingGroup,
     opportunityLength,
   } = pool;
-
-  allSelectionLimitations?.sort((a, b) =>
-    getLocalizedName(a.label, intl).localeCompare(
-      getLocalizedName(b.label, intl),
-    ),
-  );
 
   return (
     <>
@@ -67,7 +61,7 @@ const Display = ({
             data-h2-gap="base(x0.25)"
             data-h2-margin-top="base(x0.25)"
           >
-            {allSelectionLimitations?.map((singleSelectionLimitation) => {
+            {allPoolSelectionLimitations?.map((singleSelectionLimitation) => {
               return (
                 <div
                   key={singleSelectionLimitation.value}

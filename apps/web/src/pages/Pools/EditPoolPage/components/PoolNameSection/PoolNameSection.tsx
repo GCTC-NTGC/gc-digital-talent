@@ -10,9 +10,12 @@ import {
   formMessages,
   uiMessages,
   sortOpportunityLength,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
+  Checklist,
   Input,
+  RadioGroup,
   Select,
   Submit,
   localizedEnumToOptions,
@@ -22,6 +25,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  LocalizedEnumString,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -157,7 +161,16 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    poolSelectionLimitations: localizedEnumStrings(
+    allPoolAreaOfSelections: localizedEnumStrings(
+      enumName: "PoolAreaOfSelection"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    allPoolSelectionLimitations: localizedEnumStrings(
       enumName: "PoolSelectionLimitation"
     ) {
       value
@@ -217,6 +230,20 @@ const PoolNameSection = ({
       .catch(() => methods.reset(formValues));
   };
 
+  const enumCompare = (
+    a: Pick<LocalizedEnumString, "label">,
+    b: Pick<LocalizedEnumString, "label">,
+  ) =>
+    getLocalizedName(a.label, intl).localeCompare(
+      getLocalizedName(b.label, intl),
+    );
+
+  const allPoolSelectionLimitations = data?.allPoolSelectionLimitations ?? [];
+  allPoolSelectionLimitations.sort(enumCompare);
+
+  const allPoolAreaOfSelections = data?.allPoolAreaOfSelections ?? [];
+  allPoolSelectionLimitations.sort(enumCompare);
+
   // disabled unless status is draft
   const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
@@ -256,7 +283,7 @@ const PoolNameSection = ({
           ) : (
             <Display
               pool={pool}
-              poolSelectionLimitations={data?.poolSelectionLimitations}
+              allPoolSelectionLimitations={allPoolSelectionLimitations}
             />
           )}
         </ToggleSection.InitialContent>
@@ -269,6 +296,33 @@ const PoolNameSection = ({
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
                 data-h2-margin-bottom="base(x1)"
               >
+                <div data-h2-grid-column="l-tablet(1 / span 2)">
+                  <RadioGroup
+                    id="areaOfSelection"
+                    idPrefix="areaOfSelection"
+                    legend={intl.formatMessage(processMessages.areaOfSelection)}
+                    name="areaOfSelection"
+                    disabled={formDisabled}
+                    items={localizedEnumToOptions(
+                      allPoolAreaOfSelections,
+                      intl,
+                    )}
+                  />
+                </div>
+                <div data-h2-grid-column="l-tablet(1 / span 2)">
+                  <Checklist
+                    id="selectionLimitations"
+                    idPrefix="selectionLimitations"
+                    name="selectionLimitations"
+                    legend={intl.formatMessage(
+                      processMessages.selectionLimitations,
+                    )}
+                    items={localizedEnumToOptions(
+                      allPoolSelectionLimitations,
+                      intl,
+                    )}
+                  />
+                </div>
                 <Select
                   id="classification"
                   label={intl.formatMessage({
