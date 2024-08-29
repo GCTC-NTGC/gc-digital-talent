@@ -94,6 +94,19 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    areaOfSelection {
+      label {
+        en
+        fr
+      }
+    }
+    selectionLimitations {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -137,6 +150,15 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
     }
     opportunityLengths: localizedEnumStrings(
       enumName: "PoolOpportunityLength"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    poolSelectionLimitations: localizedEnumStrings(
+      enumName: "PoolSelectionLimitation"
     ) {
       value
       label {
@@ -229,7 +251,14 @@ const PoolNameSection = ({
       <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
+          {isNull ? (
+            <ToggleForm.NullDisplay />
+          ) : (
+            <Display
+              pool={pool}
+              poolSelectionLimitations={data?.poolSelectionLimitations}
+            />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
