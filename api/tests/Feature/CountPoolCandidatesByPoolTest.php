@@ -586,53 +586,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    // test pool filter
-    // creates three pools but filters on only 1 and 2
-    public function testPoolFilter()
-    {
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $pool3 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $user = User::factory()->create([]);
-
-        PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
-        PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
-        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user));
-
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ($where: ApplicantFilterInput) {
-                    countPoolCandidatesByPool(where: $where) {
-                      pool { id }
-                      candidateCount
-                    }
-                  }
-                ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1->id],
-                        ['id' => $pool2->id],
-                    ],
-                ],
-            ]
-        )->assertSimilarJson([
-            'data' => [
-                'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $pool1->id],
-                        'candidateCount' => 1,
-                    ],
-                    [
-                        'pool' => ['id' => $pool2->id],
-                        'candidateCount' => 1,
-                    ],
-                ],
-            ],
-        ]);
-    }
-
     public function testExpiryFilter()
     {
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());

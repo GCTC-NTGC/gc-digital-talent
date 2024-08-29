@@ -58,7 +58,7 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    poolSkills {
+    poolSkills(type: ESSENTIAL) {
       id
       type {
         value

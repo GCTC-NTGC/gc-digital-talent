@@ -961,7 +961,7 @@ type Query {
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
-  classifications: [Classification]! @all @canModel(ability: "viewAny")
+  classifications(availableInSearch: Boolean @scope): [Classification]! @all @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
   departments: [Department]! @all @canModel(ability: "viewAny")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
