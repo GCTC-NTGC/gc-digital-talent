@@ -883,13 +883,46 @@ class PoolCandidate extends Model
 
     public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
     {
-        $orderWithoutDirection = '
-                    CASE
-                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
-                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
-                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
-                    else 10
-                    END';
+        $orderWithoutDirection = "
+        CASE
+            WHEN
+                (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
+                AND
+                (priority_verification_expiry > NOW())
+            THEN
+                40
+            WHEN
+                (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
+                AND
+                (veteran_verification_expiry IS NULL OR veteran_verification_expiry > NOW())
+                AND
+                (
+                    (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                    AND
+                    (priority_verification_expiry IS NULL OR priority_verification_expiry < NOW())
+                )
+            THEN
+                30
+            WHEN
+                (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
+                AND
+                (
+                    (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                    AND
+                    (priority_verification_expiry IS NULL OR priority_verification_expiry < NOW())
+                )
+                AND
+                (
+                    (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                    AND
+                    (veteran_verification_expiry IS NULL OR veteran_verification_expiry < NOW())
+                )
+            THEN
+                20
+            ELSE
+                10
+        END
+        ";
 
         if ($sortOrder && $sortOrder == 'DESC') {
             $order = $orderWithoutDirection.' DESC';
@@ -897,7 +930,6 @@ class PoolCandidate extends Model
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*')
-                ->orderBy('is_bookmarked', 'DESC')
                 ->orderByRaw($order);
         } elseif ($sortOrder && $sortOrder == 'ASC') {
             $order = $orderWithoutDirection.' ASC';
@@ -905,7 +937,6 @@ class PoolCandidate extends Model
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*')
-                ->orderBy('is_bookmarked', 'DESC')
                 ->orderByRaw($order);
         }
 

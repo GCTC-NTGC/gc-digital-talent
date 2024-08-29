@@ -13,6 +13,7 @@ enum ClaimVerificationResult
 
     public static function claimActive(?string $verification, ?Carbon $expiry)
     {
+
         return $verification && $verification !== self::REJECTED->name && (is_null($expiry) || $expiry->isFuture());
     }
 }

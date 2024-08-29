@@ -43,7 +43,6 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
 import commonTableMessages from "~/components/Table/tableMessages";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
@@ -175,6 +174,14 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialog
           id
           ...PoolCandidate_Bookmark
+          category {
+            weight
+            value
+            label {
+              en
+              fr
+            }
+          }
           pool {
             id
             processNumber
@@ -552,16 +559,8 @@ const PoolCandidatesTable = ({
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(
-        sortState,
-        filterState,
-        doNotUseBookmark,
-        currentPool,
-      ),
-      orderByClaimVerification: getClaimVerificationSort(
-        sortState,
-        currentPool,
-      ),
+      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      orderByClaimVerification: getClaimVerificationSort(sortState),
     },
   });
 
@@ -725,28 +724,19 @@ const PoolCandidatesTable = ({
           ),
         ]),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
-        getLocalizedName(user.priority?.label, intl),
+      ({ poolCandidate: { category } }) =>
+        getLocalizedName(category?.label, intl),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
-            original: { poolCandidate },
+            original: {
+              poolCandidate: { category },
+            },
           },
         }) =>
-          priorityCell(
-            poolCandidate.user.priorityWeight
-              ? priorityWeightAfterVerification(
-                  poolCandidate.user.priorityWeight,
-                  poolCandidate.priorityVerification,
-                  poolCandidate.veteranVerification,
-                  poolCandidate.user.citizenship?.value,
-                )
-              : null,
-            tableData?.priorities,
-            intl,
-          ),
+          category ? priorityCell(category.weight, category.label, intl) : null,
       },
     ),
     columnHelper.accessor(
