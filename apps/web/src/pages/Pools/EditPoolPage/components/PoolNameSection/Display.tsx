@@ -35,6 +35,12 @@ const Display = ({
     opportunityLength,
   } = pool;
 
+  allSelectionLimitations?.sort((a, b) =>
+    getLocalizedName(a.label, intl).localeCompare(
+      getLocalizedName(b.label, intl),
+    ),
+  );
+
   return (
     <>
       <div
