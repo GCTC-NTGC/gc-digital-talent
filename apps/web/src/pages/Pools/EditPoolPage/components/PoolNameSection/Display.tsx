@@ -82,7 +82,7 @@ const Display = ({
                     ) ? (
                     <CheckCircleIcon
                       data-h2-height="base(x0.75)"
-                      data-h2-color="base(success.lighter )"
+                      data-h2-color="base(success) base:dark(success.lighter)"
                     />
                   ) : (
                     <XCircleIcon
