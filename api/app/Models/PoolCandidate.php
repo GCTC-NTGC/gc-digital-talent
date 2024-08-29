@@ -46,6 +46,8 @@ use RecursiveArrayIterator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+use function Psy\debug;
+
 /**
  * Class PoolCandidate
  *
@@ -277,15 +279,15 @@ class PoolCandidate extends Model
     {
         $category = null;
 
-        switch($this->user->priority_weight) {
+        switch ($this->user->priority_weight) {
             case 10:
-                if(ClaimVerificationResult::claimActive($this->priority_verification, $this->priority_verification_expiry)) {
+                if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
                     $category = PriorityWeight::PRIORITY_ENTITLEMENT;
                     break;
                 }
 
             case 20:
-                if(ClaimVerificationResult::claimActive($this->veteran_verification, $this->veteran_verification_expiry)) {
+                if ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
                     $category = PriorityWeight::VETERAN;
                     break;
                 }
@@ -306,7 +308,7 @@ class PoolCandidate extends Model
         return [
             'weight' => $category->weight($category->name),
             'value' => $category->name,
-            'label' => PriorityWeight::localizedString($category->name)
+            'label' => PriorityWeight::localizedString($category->name),
         ];
     }
 
@@ -881,42 +883,29 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
+    public function scopeOrderByClaimVerification(Builder $query, ?array $args)
     {
-        $orderWithoutDirection = "
+
+        if (isset($args['order'])) {
+
+            $orderWithoutDirection = "
         CASE
             WHEN
                 (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
-                AND
-                (priority_verification_expiry > NOW())
             THEN
                 40
             WHEN
                 (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
                 AND
-                (veteran_verification_expiry IS NULL OR veteran_verification_expiry > NOW())
-                AND
-                (
-                    (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                    AND
-                    (priority_verification_expiry IS NULL OR priority_verification_expiry < NOW())
-                )
+                (priority_verification IS NULL OR priority_verification = 'REJECTED')
             THEN
                 30
             WHEN
                 (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
                 AND
-                (
-                    (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                    AND
-                    (priority_verification_expiry IS NULL OR priority_verification_expiry < NOW())
-                )
+                (priority_verification IS NULL OR priority_verification = 'REJECTED')
                 AND
-                (
-                    (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
-                    AND
-                    (veteran_verification_expiry IS NULL OR veteran_verification_expiry < NOW())
-                )
+                (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
             THEN
                 20
             ELSE
@@ -924,20 +913,19 @@ class PoolCandidate extends Model
         END
         ";
 
-        if ($sortOrder && $sortOrder == 'DESC') {
-            $order = $orderWithoutDirection.' DESC';
-
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*')
-                ->orderByRaw($order);
-        } elseif ($sortOrder && $sortOrder == 'ASC') {
-            $order = $orderWithoutDirection.' ASC';
+                ->select('users.citizenship', 'pool_candidates.*');
 
-            $query
-                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*')
-                ->orderByRaw($order);
+            if (!!$args['useBookmark']) {
+                $query->orderBy('is_bookmarked', 'DESC');
+            }
+
+            $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
+
+            Log::debug($order);
+
+            $query->orderByRaw($order);
         }
 
         return $query;

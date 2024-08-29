@@ -158,7 +158,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
-    $orderByClaimVerification: SortOrder
+    $orderByClaimVerification: ClaimVerificationSort
   ) {
     poolCandidatesPaginated(
       where: $where
@@ -560,7 +560,10 @@ const PoolCandidatesTable = ({
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
-      orderByClaimVerification: getClaimVerificationSort(sortState),
+      orderByClaimVerification: getClaimVerificationSort(
+        sortState,
+        doNotUseBookmark,
+      ),
     },
   });
 

@@ -872,6 +872,11 @@ input SitewideAnnouncementInput {
   message: LocalizedStringInput!
 }
 
+input ClaimVerificationSort {
+  order: SortOrder!
+  useBookmark: Boolean
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -935,7 +940,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: SortOrder @scope
+    orderByClaimVerification: ClaimVerificationSort @scope
     orderBy: _
       @orderBy(
         relations: [

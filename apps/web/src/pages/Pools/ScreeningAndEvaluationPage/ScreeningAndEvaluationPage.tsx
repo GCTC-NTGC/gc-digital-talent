@@ -41,7 +41,7 @@ const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
     poolCandidatesPaginated(
       first: $first
       where: $where
-      orderByClaimVerification: DESC
+      orderByClaimVerification: { order: DESC }
     ) {
       paginatorInfo {
         lastPage

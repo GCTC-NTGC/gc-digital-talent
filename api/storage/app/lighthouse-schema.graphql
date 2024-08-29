@@ -273,7 +273,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
-    orderByClaimVerification: SortOrder
+    orderByClaimVerification: ClaimVerificationSort
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1127,6 +1127,11 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+}
+
+input ClaimVerificationSort {
+  order: SortOrder!
+  useBookmark: Boolean
 }
 
 input ClassificationBelongsTo {

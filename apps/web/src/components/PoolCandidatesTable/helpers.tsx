@@ -32,6 +32,7 @@ import {
   LocalizedFinalDecision,
   InputMaybe,
   LocalizedString,
+  ClaimVerificationSort,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -340,16 +341,20 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-): Maybe<SortOrder> | undefined {
+  doNotUseBookmark?: boolean,
+): Maybe<ClaimVerificationSort> {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
     const sortOrder = sortingState.find((rule) => rule.id === "priority");
     if (sortOrder) {
-      return sortOrder.desc ? SortOrder.Desc : SortOrder.Asc;
+      return {
+        order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
+        useBookmark: !doNotUseBookmark,
+      };
     }
   }
 
-  return undefined;
+  return null;
 }
 
 export function getPoolNameSort(
