@@ -5879,6 +5879,10 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
   },
+  "Ulbls0": {
+    "defaultMessage": "Un agencement d'études, de formation ou d'expérience.",
+    "description": "Applied work experience description for CR group"
+  },
   "Un0ubb": {
     "defaultMessage": "Pouvez-vous supprimer l'authentification à deux facteurs de mon compte afin que je puisse le réinitialiser?",
     "description": "GCKey question for ability to remove two-factor authentication"
@@ -7901,6 +7905,10 @@
   "fNYEBT": {
     "defaultMessage": "Rappel : Les candidats doivent fournir des renseignements sur la manière dont leurs compétences répondent à chaque exigence dans le cadre du processus de candidature normale.",
     "description": "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions"
+  },
+  "fOP6Ny": {
+    "defaultMessage": "La réussite de deux années d'études secondaires.",
+    "description": "Descriptive text explaining education requirement for CR group"
   },
   "fOl4Ez": {
     "defaultMessage": "Mots-clés (français)",
@@ -11105,6 +11113,10 @@
   "xYJi2Y": {
     "defaultMessage": "La compétence <strong>ne sera pas ajoutée à vos présentations de compétences</strong>",
     "description": "Notice that re-adding a skill will not add it back to a users skill showcase"
+  },
+  "xZr1kv": {
+    "defaultMessage": "<strong>Ma situation correspond à l'option de deux années d'études secondaires</strong>",
+    "description": "Radio group option for education requirement filter in application education form."
   },
   "xb4jXA": {
     "defaultMessage": "Apprentissage intégré au travail et formation en TI",
