@@ -603,7 +603,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
-  id: UUID!
+  id: ID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
 }
