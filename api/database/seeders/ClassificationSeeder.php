@@ -38,6 +38,11 @@ class ClassificationSeeder extends Seeder
             'name' => ['en' => 'Executive', 'fr' => 'Cadre'],
         ];
 
+        $crGroup = [
+            'group' => 'CR',
+            'name' => ['en' => 'Clerical and Regulatory', 'fr' => 'Commis aux écritures et aux règlements'],
+        ];
+
         $classifications = [
             // IT classifications 01-05.
             array_merge(
@@ -249,6 +254,14 @@ class ClassificationSeeder extends Seeder
                     'level' => 3,
                     'min_salary' => 169165,
                     'max_salary' => 198939,
+                ]
+            ),
+            array_merge(
+                $crGroup,
+                [
+                    'level' => 4,
+                    'min_salary' => 57217,
+                    'max_salary' => 61761,
                 ]
             ),
         ];
