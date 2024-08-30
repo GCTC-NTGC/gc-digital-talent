@@ -30,3 +30,9 @@ export const Null = Template.bind({});
 Null.args = {
   poolQuery: makeFragmentData(nullPool, PoolCard_Fragment),
 };
+
+export const WithWhoCanApply = Template.bind({});
+WithWhoCanApply.args = {
+  poolQuery: makeFragmentData(nullPool, PoolCard_Fragment),
+  whoCanApply: "Employees only. At-level only, Department preference.",
+};

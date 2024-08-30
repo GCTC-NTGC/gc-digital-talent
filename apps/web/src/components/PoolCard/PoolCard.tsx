@@ -107,9 +107,15 @@ const getSalaryRange = (
 export interface PoolCardProps {
   poolQuery: FragmentType<typeof PoolCard_Fragment>;
   headingLevel?: HeadingRank;
+  // this will soon be part of the Pool model
+  whoCanApply?: string;
 }
 
-const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
+const PoolCard = ({
+  poolQuery,
+  headingLevel = "h3",
+  whoCanApply,
+}: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
