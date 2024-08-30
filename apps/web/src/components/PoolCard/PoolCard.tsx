@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
+import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
 import {
   Heading,
@@ -215,7 +216,7 @@ const PoolCard = ({
         <div
           data-h2-display="base(block) l-tablet(flex)"
           data-h2-gap="base(x2)"
-          data-h2-margin-top="base(x1) base:children[>p:last-child](x1) l-tablet:children[>p:last-child](0px)"
+          data-h2-margin-top="base(x1) base:children[>p](x1) l-tablet:children[>p](0px)"
         >
           <IconLabel
             icon={CalendarIcon}
@@ -250,6 +251,20 @@ const PoolCard = ({
                   id: "Hd0nHP",
                 })}
           </IconLabel>
+          {whoCanApply ? (
+            <IconLabel
+              icon={UsersIcon}
+              label={
+                intl.formatMessage({
+                  defaultMessage: "Who can apply",
+                  id: "/lByjT",
+                  description: "Label for pool advertisement area of selection",
+                }) + intl.formatMessage(commonMessages.dividingColon)
+              }
+            >
+              {whoCanApply}
+            </IconLabel>
+          ) : undefined}
           <IconLabel
             icon={CurrencyDollarIcon}
             label={
