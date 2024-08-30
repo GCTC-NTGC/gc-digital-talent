@@ -915,7 +915,7 @@ class PoolCandidate extends Model
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*');
 
-            if ((bool) $args['useBookmark']) {
+            if (isset($args['useBookmark']) && $args['useBookmark']) {
                 $query->orderBy('is_bookmarked', 'DESC');
             }
 
