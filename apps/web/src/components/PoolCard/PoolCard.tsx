@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
@@ -105,17 +105,70 @@ const getSalaryRange = (
   );
 };
 
+const deriveWhoCanApplyString = (
+  areaOfSelection: PoolCardProps["areaOfSelection"],
+  selectionLimitations: PoolCardProps["selectionLimitations"],
+  intl: IntlShape,
+): string | null => {
+  if (areaOfSelection == "PUBLIC") {
+    return intl.formatMessage({
+      defaultMessage: "Open to the public",
+      id: "L0eho2",
+      description: "Combined eligibility string for 'open to the public'",
+    });
+  }
+  if (areaOfSelection == "EMPLOYEES") {
+    if (
+      selectionLimitations?.includes("AT_LEVEL_ONLY") &&
+      selectionLimitations?.includes("DEPARTMENTAL_PREFERENCE")
+    ) {
+      return intl.formatMessage({
+        defaultMessage: "Employees (at-level, departmental preference)",
+        id: "4VQGU4",
+        description:
+          "Combined eligibility string for 'employees only', 'at-level only', and 'departmental preference'",
+      });
+    }
+    if (selectionLimitations?.includes("AT_LEVEL_ONLY")) {
+      return intl.formatMessage({
+        defaultMessage: "Employees (at-level)",
+        id: "JCX6jN",
+        description:
+          "Combined eligibility string for 'employees only' and 'at-level only'",
+      });
+    }
+    if (selectionLimitations?.includes("DEPARTMENTAL_PREFERENCE")) {
+      return intl.formatMessage({
+        defaultMessage: "Employees (departmental preference)",
+        id: "g6coYl",
+        description:
+          "Combined eligibility string for 'employees only' and 'departmental preference'",
+      });
+    }
+    // fall-through for employees only
+    return intl.formatMessage({
+      defaultMessage: "Employees",
+      id: "TOnXeM",
+      description:
+        "Combined eligibility string for 'employees only' with no other limitations",
+    });
+  }
+  return null;
+};
+
 export interface PoolCardProps {
   poolQuery: FragmentType<typeof PoolCard_Fragment>;
   headingLevel?: HeadingRank;
-  // this will soon be part of the Pool model
-  whoCanApply?: string;
+  // these will soon be part of the Pool model
+  areaOfSelection?: "PUBLIC" | "EMPLOYEES";
+  selectionLimitations?: ("AT_LEVEL_ONLY" | "DEPARTMENTAL_PREFERENCE")[];
 }
 
 const PoolCard = ({
   poolQuery,
   headingLevel = "h3",
-  whoCanApply,
+  areaOfSelection,
+  selectionLimitations,
 }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -251,7 +304,7 @@ const PoolCard = ({
                   id: "Hd0nHP",
                 })}
           </IconLabel>
-          {whoCanApply ? (
+          {areaOfSelection ? (
             <IconLabel
               icon={UsersIcon}
               label={
@@ -262,7 +315,11 @@ const PoolCard = ({
                 }) + intl.formatMessage(commonMessages.dividingColon)
               }
             >
-              {whoCanApply}
+              {deriveWhoCanApplyString(
+                areaOfSelection,
+                selectionLimitations,
+                intl,
+              ) ?? intl.formatMessage(commonMessages.notAvailable)}
             </IconLabel>
           ) : undefined}
           <IconLabel

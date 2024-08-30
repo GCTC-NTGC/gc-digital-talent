@@ -34,9 +34,6 @@ Null.args = {
 export const WithWhoCanApply = Template.bind({});
 WithWhoCanApply.args = {
   ...Default.args,
-  whoCanApply: [
-    "Employees only",
-    "At-level only",
-    "Departmental preference",
-  ].join(" • "),
+  areaOfSelection: "EMPLOYEES",
+  selectionLimitations: ["AT_LEVEL_ONLY", "DEPARTMENTAL_PREFERENCE"],
 };
