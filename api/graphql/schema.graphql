@@ -2251,6 +2251,11 @@ type Mutation {
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
+
+  # Downloads for single entity, returning file name if successful or null on error
+  downloadUserDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "User")
+  downloadPoolCandidateDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadApplicationDoc(id: UUID!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
 
 #import directiveForms.graphql
