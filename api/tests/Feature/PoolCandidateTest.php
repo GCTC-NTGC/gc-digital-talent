@@ -810,7 +810,7 @@ class PoolCandidateTest extends TestCase
         $bookmarkedNoClaims = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
-                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::OTHER->name]),
+                'user_id' => User::factory()->create(['citizenship' => null]),
             ],
         );
         $bookmarkedNoClaims->update([
