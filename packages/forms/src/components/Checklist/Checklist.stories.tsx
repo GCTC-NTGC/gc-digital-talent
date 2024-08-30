@@ -12,6 +12,8 @@ export default {
   component: Checklist,
 };
 
+faker.seed(0);
+
 const Template: StoryFn<typeof Checklist> = (args) => (
   <Form onSubmit={action("Submit Form")}>
     <Checklist {...args} />
