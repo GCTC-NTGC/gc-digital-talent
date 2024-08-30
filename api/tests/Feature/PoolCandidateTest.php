@@ -797,7 +797,7 @@ class PoolCandidateTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query PoolCandidates($orderByClaimVerification: SortOrder) {
+            query PoolCandidates($orderByClaimVerification: ClaimVerificationSort) {
                 poolCandidatesPaginated(orderByClaimVerification: $orderByClaimVerification) {
                     data {
                         id
@@ -807,6 +807,18 @@ class PoolCandidateTest extends TestCase
         ';
 
         $poolOne = Pool::factory()->published()->create();
+        $bookmarkedNoClaims = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::OTHER->name]),
+            ],
+        );
+        $bookmarkedNoClaims->update([
+            'is_bookmarked' => true,
+            'priority_verification' => null,
+            'veteran_verification' => null,
+            'submitted_at' => config('constants.past_date'),
+        ]);
         $bookmarkedAcceptedPriority = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
@@ -869,12 +881,12 @@ class PoolCandidateTest extends TestCase
         ]);
 
         // assert in both cases that veteran + priority treated as priority
-        // priority > veteran > citizen/permanent resident > rest
+        // priority > bookmarked > veteran > citizen/permanent resident > rest
 
         // assert sorting by bookmarked then DESCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
-                'orderByClaimVerification' => 'DESC',
+                'orderByClaimVerification' => ['order' => 'DESC', 'useBookmark' => true],
             ])
             ->assertJson([
                 'data' => [
@@ -882,6 +894,9 @@ class PoolCandidateTest extends TestCase
                         'data' => [
                             [
                                 'id' => $bookmarkedAcceptedPriority->id,
+                            ],
+                            [
+                                'id' => $bookmarkedNoClaims->id,
                             ],
                             [
                                 'id' => $unverifiedPriorityAndAcceptedVeteran->id,
@@ -903,15 +918,19 @@ class PoolCandidateTest extends TestCase
         // assert sorting by bookmarked first but then ASCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
-                'orderByClaimVerification' => 'ASC',
+                'orderByClaimVerification' => ['order' => 'ASC', 'useBookmark' => true],
             ])
             ->assertJson([
                 'data' => [
                     'poolCandidatesPaginated' => [
                         'data' => [
                             [
+                                'id' => $bookmarkedNoClaims->id,
+                            ],
+                            [
                                 'id' => $bookmarkedAcceptedPriority->id,
                             ],
+
                             [
                                 'id' => $rejectedVeteranCitizenOther->id,
                             ],
@@ -924,6 +943,39 @@ class PoolCandidateTest extends TestCase
                             [
                                 'id' => $unverifiedPriorityAndAcceptedVeteran->id,
                             ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // assert sorting without bookmarked first but then DESCENDING category
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderByClaimVerification' => ['order' => 'DESC'],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $bookmarkedAcceptedPriority->id,
+                            ],
+                            [
+                                'id' => $unverifiedPriorityAndAcceptedVeteran->id,
+                            ],
+                            [
+                                'id' => $acceptedVeteran->id,
+                            ],
+                            [
+                                'id' => $citizenOnly->id,
+                            ],
+                            [
+                                'id' => $bookmarkedNoClaims->id,
+                            ],
+                            [
+                                'id' => $rejectedVeteranCitizenOther->id,
+                            ],
+
                         ],
                     ],
                 ],
