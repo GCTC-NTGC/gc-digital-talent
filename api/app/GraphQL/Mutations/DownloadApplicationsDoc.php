@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\ApplicationDocGenerator;
 use App\Jobs\GenerateUserFile;
-use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -23,17 +22,10 @@ final class DownloadApplicationsDoc
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
+        $ids = $args['ids'] ?? [];
         $locale = $args['locale'] ?? 'en';
 
         try {
-            // Make sure this user can see candidates before sending
-            // them to the generation job
-            $ids = PoolCandidate::whereIn('id', $args['ids'])
-                // ->authorizedToView()
-                ->get('id')
-                ->pluck('id') // Seems weird but we are just flattening it out
-                ->toArray();
-
             $key = count($ids) > 1 ? 'candidates' : 'candidate';
             $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
 
@@ -43,6 +35,8 @@ final class DownloadApplicationsDoc
                 dir: $user->id,
                 lang: strtolower($locale),
             );
+
+            $generator->setUserId($user->id);
 
             GenerateUserFile::dispatch($generator, $user);
 

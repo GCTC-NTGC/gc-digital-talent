@@ -24,17 +24,10 @@ final class DownloadUsersDoc
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
+        $ids = $args['ids'] ?? [];
         $locale = $args['locale'] ?? 'en';
 
         try {
-            // Make sure this user can see candidates before sending
-            // them to the generation job
-            $ids = User::whereIn('id', $args['ids'])
-                ->authorizedToView()
-                ->get('id')
-                ->pluck('id') // Seems weird but we are just flattening it out
-                ->toArray();
-
             $key = count($ids) > 1 ? 'users' : 'user';
             $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
 
@@ -45,6 +38,9 @@ final class DownloadUsersDoc
                 dir: $user->id,
                 lang: strtolower($locale),
             );
+
+
+        $generator->setUserId($user->id);
 
             GenerateUserFile::dispatch($generator, $user);
 
