@@ -6,7 +6,7 @@ import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { UseQueryExecute } from "urql";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
   DialogPrimitive,
@@ -16,6 +16,7 @@ import {
   Link,
   commonStyles as sideMenuStyles,
   SideMenuItemChildren,
+  Color,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -67,8 +68,8 @@ const DialogPortalWithPresence = ({
     <Dialog.Portal forceMount>
       <Overlay
         forceMount
-        initial={{ opacity: 0.3 }}
-        animate={{ opacity: 0.3 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.8 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         data-h2-background-color="base:all(black)"
@@ -95,7 +96,7 @@ const DialogPortalWithPresence = ({
           data-h2-margin="base(x.5 x.5 x.5 auto)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-          data-h2-z-index="base(9)"
+          data-h2-z-index="base(9998)"
         >
           <div data-h2-padding="base(x1)">
             <div
@@ -134,14 +135,12 @@ const DialogPortalWithPresence = ({
               </div>
             </div>
             <DialogPrimitive.Description>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
-                  id: "qek0N+",
-                  description: "Instructions on how to manage notifications",
-                })}
-              </p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
+                id: "qek0N+",
+                description: "Instructions on how to manage notifications",
+              })}
             </DialogPrimitive.Description>
           </div>
           <NotificationList live inDialog limit={30} onRead={executeQuery} />
@@ -162,9 +161,34 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
-const NotificationDialog = ({ sideMenu }: { sideMenu?: boolean }) => {
+interface NotificationDialog {
+  /** Controllable open state */
+  open?: boolean;
+  /** Callback when the section has been 'opened */
+  onOpenChange?: (open: boolean) => void;
+  /** Trigger color */
+  color?: Color;
+}
+const NotificationDialog = ({
+  open,
+  onOpenChange,
+  color,
+}: NotificationDialog) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const isSmallScreen = useIsSmallScreen(1080);
+
+  useEffect(() => {
+    if (open) {
+      // Pushing the change to the end of the call stack
+      const timer = setTimeout(() => {
+        document.body.style.pointerEvents = "";
+      }, 0);
+
+      return () => clearTimeout(timer);
+    } else {
+      document.body.style.pointerEvents = "auto";
+    }
+  }, [open]);
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
@@ -173,39 +197,38 @@ const NotificationDialog = ({ sideMenu }: { sideMenu?: boolean }) => {
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
 
   return (
-    <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
-      <DialogPrimitive.Trigger asChild>
-        {sideMenu ? (
-          <Button
-            mode="text"
-            data-h2-position="base(relative)"
-            data-h2-margin-top="base(-x1)"
-            {...sideMenuStyles}
-          >
-            <SideMenuItemChildren
-              icon={
-                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
-              }
-            >
-              {intl.formatMessage(notificationMessages.title)}
-            </SideMenuItemChildren>
-          </Button>
-        ) : (
+    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
+      {open ? (
+        <Dialog.Close asChild>
           <Button
             mode="icon_only"
             color="black"
-            icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
+            icon={XMarkIcon}
+            aria-label={intl.formatMessage({
+              defaultMessage: "Close notifications",
+              id: "J1n6QO",
+              description: "Button text to close the notifications dialog",
+            })}
+          />
+        </Dialog.Close>
+      ) : (
+        <DialogPrimitive.Trigger asChild>
+          <Button
+            mode="icon_only"
+            color={color || isSmallScreen ? "black" : "whiteFixed"}
             data-h2-position="base(relative)"
+            icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
             aria-label={intl.formatMessage({
               defaultMessage: "View notifications",
               id: "ztx8xL",
               description: "Button text to open the notifications dialog",
             })}
           />
-        )}
-      </DialogPrimitive.Trigger>
+        </DialogPrimitive.Trigger>
+      )}
+
       <AnimatePresence initial={false}>
-        {isOpen && <DialogPortalWithPresence executeQuery={executeQuery} />}
+        {open && <DialogPortalWithPresence executeQuery={executeQuery} />}
       </AnimatePresence>
     </DialogPrimitive.Root>
   );

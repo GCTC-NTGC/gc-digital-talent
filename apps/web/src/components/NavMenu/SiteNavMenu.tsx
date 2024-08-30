@@ -12,18 +12,23 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 
+import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
+import NotificationDialog from "../NotificationDialog/NotificationDialog";
+
 interface SiteNavMenuProps {}
 
 const SiteNavMenu = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen(1080);
   // retain menu preference in storage
-  const [isMenuOpen, setMenuOpen] = useState(true);
+  const [isMenuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     if (isSmallScreen) {
       setMenuOpen(false); // collapse menu if window resized to small
     }
   }, [isSmallScreen, setMenuOpen]);
+
+  const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
   return (
     <>
       <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
@@ -96,24 +101,38 @@ const SiteNavMenu = () => {
               </NavMenu.List>
             </NavMenu.Content>
           </NavMenu.Item>
+          <NavMenu.Item data-h2-display="base(none) l-tablet(inline-flex)">
+            <NotificationDialog
+              open={isNotificationDialogOpen}
+              onOpenChange={setNotificationDialogOpen}
+            />
+          </NavMenu.Item>
         </NavMenu.List>
       </NavMenuWrapper>
       {isSmallScreen && (
-        <Button
-          color="white"
-          data-h2-background-color="base:all(gray.darkest)"
-          data-h2-color="base:all(white)"
+        <div
           data-h2-position="base(fixed)"
           data-h2-bottom="base(x.75)"
           data-h2-right="base(x.75)"
           data-h2-z-index="base(9999)"
-          icon={isMenuOpen ? XMarkIcon : Bars3Icon}
-          onClick={() => setMenuOpen(!isMenuOpen)}
+          data-h2-display="base(flex)"
+          data-h2-gap="base(x.75)"
         >
-          {isMenuOpen
-            ? intl.formatMessage(uiMessages.closeMenu)
-            : intl.formatMessage(uiMessages.openMenu)}
-        </Button>
+          <Button
+            color="black"
+            mode="cta"
+            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+            onClick={() => setMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen
+              ? intl.formatMessage(uiMessages.closeMenu)
+              : intl.formatMessage(uiMessages.openMenu)}
+          </Button>
+          <NotificationDialog
+            open={isNotificationDialogOpen}
+            onOpenChange={setNotificationDialogOpen}
+          />
+        </div>
       )}
     </>
   );

@@ -15,7 +15,7 @@ interface SiteNavMenuProps {}
 
 const SiteNavMenu = () => {
   const intl = useIntl();
-  const isSmallScreen = useIsSmallScreen(1080);
+  const isSmallScreen = useIsSmallScreen();
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useState(true);
   useEffect(() => {

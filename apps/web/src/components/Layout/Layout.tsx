@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
 
-import { MenuLink } from "@gc-digital-talent/ui";
+import { Flourish, MenuLink } from "@gc-digital-talent/ui";
 import {
   useAuthentication,
   useAuthorization,
@@ -134,6 +134,7 @@ export const Component = () => {
       >
         <Header />
         <SitewideBanner />
+        <Flourish />
         {!iapPersonality ? (
           <SiteNavMenu />
         ) : (
