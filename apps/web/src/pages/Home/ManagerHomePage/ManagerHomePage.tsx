@@ -204,7 +204,7 @@ export const Component = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "Support career pathways for First Nations, Inuit and Métis apprentices with a passion for IT and help create a more diverse, equitable and inclusive public service. Hire through the IT Apprenticeship Program for Indigenous Peoples.",
-                id: 'Qm8QWW',
+                id: "Qm8QWW",
                 description:
                   "Description for the IT Apprenticehip program for Indigenous peoples",
               })}
