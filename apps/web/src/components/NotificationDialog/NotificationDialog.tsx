@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import { AnimatePresence, m, usePresence } from "framer-motion";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
@@ -48,6 +48,7 @@ const DialogPortalWithPresence = ({
   const paths = useRoutes();
   const [isPresent] = usePresence();
   const [render, setRender] = useState<boolean>(isPresent);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
@@ -62,6 +63,12 @@ const DialogPortalWithPresence = ({
     }
     return () => clearTimeout(timerId);
   }, [isPresent]);
+
+  const handleCloseFocus = () => {
+    if (containerRef?.current) {
+      containerRef.current.scrollTop = 0;
+    }
+  };
 
   return render ? (
     <Dialog.Portal forceMount>
@@ -78,6 +85,7 @@ const DialogPortalWithPresence = ({
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
+          ref={containerRef}
           initial={{ x: "100%", scale: 0.95 }}
           animate={{ x: 0, scale: 1 }}
           exit={{ x: "100%", scale: 0.95 }}
@@ -123,6 +131,7 @@ const DialogPortalWithPresence = ({
                     mode="icon_only"
                     color="black"
                     icon={XMarkIcon}
+                    onFocus={handleCloseFocus}
                     aria-label={intl.formatMessage({
                       defaultMessage: "Close notifications",
                       id: "J1n6QO",

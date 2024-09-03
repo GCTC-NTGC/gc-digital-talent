@@ -403,6 +403,9 @@ type Mutation {
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput, locale: Language): Boolean!
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean!
   downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
+  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
+  downloadApplicationDoc(id: UUID!): String
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -603,7 +606,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
-  id: UUID!
+  id: ID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
 }

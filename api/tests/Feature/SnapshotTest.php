@@ -88,13 +88,6 @@ class SnapshotTest extends TestCase
 
         $decodedActual = json_decode($actualSnapshot, true);
 
-        // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
-        // array_values reindexes the array from zero https://stackoverflow.com/a/3401863
-        $filteredPoolCandidates = array_values(array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
-            return $poolCandidate['id'] === $individualPoolCandidate['id'];
-        }));
-        $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
-
         // line-up query format with how the snapshot is ordered
         $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
         unset($expectedSnapshot['authInfo']);

@@ -14,11 +14,20 @@ import {
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { useApiRoutes } from "@gc-digital-talent/auth";
+
+import useAsyncFileDownload from "./useAsyncFileDownload";
 
 interface DownloadCsvArgs {
   ids?: Scalars["UUID"]["output"][];
   where?: InputMaybe<UserFilterInput>;
 }
+
+const DownloadUserDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUserDoc($id: UUID!, $anonymous: Boolean!) {
+    downloadUserDoc(id: $id, anonymous: $anonymous)
+  }
+`);
 
 const DownloadUsersDoc_Mutation = graphql(/* GraphQL */ `
   mutation DownloadUsersDoc(
@@ -43,12 +52,17 @@ const DownloadUsersCsv_Mutation = graphql(/* GraphQL */ `
 const useUserDownloads = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useApiRoutes();
+  const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
+    useAsyncFileDownload();
   const [{ fetching: downloadingDoc }, executeDocMutation] = useMutation(
     DownloadUsersDoc_Mutation,
   );
   const [{ fetching: downloadingCsv }, executeCsvMutation] = useMutation(
     DownloadUsersCsv_Mutation,
   );
+  const [{ fetching: downloadingSingleUserDoc }, executeSingleUserMutation] =
+    useMutation(DownloadUserDoc_Mutation);
 
   const handleDownloadError = () => {
     toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
@@ -78,6 +92,27 @@ const useUserDownloads = () => {
       .catch(handleDownloadError);
   };
 
+  const downloadSingleUserDoc = ({
+    id,
+    anonymous,
+  }: {
+    id: Scalars["UUID"]["input"];
+    anonymous: boolean;
+  }) => {
+    executeSingleUserMutation({ id, anonymous })
+      .then((res) => {
+        if (res?.data?.downloadUserDoc) {
+          executeAsyncDownload({
+            url: paths.userGeneratedFile(res.data.downloadUserDoc),
+            fileName: res.data.downloadUserDoc,
+          });
+        } else {
+          handleDownloadError();
+        }
+      })
+      .catch(handleDownloadRes);
+  };
+
   const downloadCsv = ({ ids, where }: DownloadCsvArgs) => {
     executeCsvMutation({
       ids,
@@ -88,7 +123,14 @@ const useUserDownloads = () => {
       .catch(handleDownloadError);
   };
 
-  return { downloadDoc, downloadingDoc, downloadCsv, downloadingCsv };
+  return {
+    downloadDoc,
+    downloadingDoc,
+    downloadCsv,
+    downloadingCsv,
+    downloadSingleUserDoc,
+    downloadingSingleUserDoc: downloadingSingleUserDoc || downloadingAsyncFile,
+  };
 };
 
 export default useUserDownloads;

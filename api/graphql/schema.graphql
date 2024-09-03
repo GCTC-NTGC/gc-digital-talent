@@ -240,9 +240,9 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
-  id: UUID!
+  id: ID!
   roleAssignments: [RoleAssignment!]
-  teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
+  teamIdForRoleAssignment: ID# Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
@@ -300,7 +300,7 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  teamIdForRoleAssignment: ID
+  teamIdForRoleAssignment: ID @with(relation: "team")
   department: Department @belongsTo @canQuery(ability: "view")
 }
 
@@ -477,7 +477,7 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  teamIdForRoleAssignment: ID
+  teamIdForRoleAssignment: ID @with(relation: "team")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
@@ -2251,6 +2251,11 @@ type Mutation {
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
+
+  # Downloads for single entity, returning file name if successful or null on error
+  downloadUserDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "User")
+  downloadPoolCandidateDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadApplicationDoc(id: UUID!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
 
 #import directiveForms.graphql
