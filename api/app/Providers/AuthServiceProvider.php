@@ -21,6 +21,7 @@ use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
 use App\Services\OpenIdBearerTokenService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
@@ -95,10 +96,16 @@ class AuthServiceProvider extends ServiceProvider
 
             // By this point we have verified that the token is legitimate
             $userMatch = User::where('sub', $sub)->withTrashed()->first();
+            $now = Carbon::now();
+
             if ($userMatch) {
                 if ($userMatch->deleted_at != null) {
                     throw new AuthenticationException('Login as deleted user: '.$userMatch->sub, 'user_deleted');
                 }
+
+                // update last active field now that sign in confirmed
+                $userMatch->last_sign_in_at = $now;
+                $userMatch->save();
 
                 return $userMatch;
             } else {
@@ -110,6 +117,10 @@ class AuthServiceProvider extends ServiceProvider
                     Role::where('name', 'base_user')->sole(),
                     Role::where('name', 'applicant')->sole(),
                 ], null);
+
+                // fill in last active with first login
+                $newUser->last_sign_in_at = $now;
+                $newUser->save();
 
                 return $newUser;
             }
