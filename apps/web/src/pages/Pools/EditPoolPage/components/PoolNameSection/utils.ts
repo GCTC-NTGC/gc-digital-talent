@@ -59,8 +59,8 @@ export type PoolNameSubmitData = Pick<
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): PoolNameSubmitData => ({
-  areaOfSelection: formValues.areaOfSelection ?? undefined,
-  selectionLimitations: formValues.selectionLimitations ?? undefined,
+  areaOfSelection: formValues.areaOfSelection,
+  selectionLimitations: formValues.selectionLimitations ?? [],
   classification: formValues.classification
     ? {
         connect: formValues.classification,

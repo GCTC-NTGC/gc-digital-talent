@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
@@ -221,7 +221,26 @@ const PoolNameSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch, resetField } = methods;
+
+  // hooks to watch, needed for conditional rendering
+  const [selectedAreaOfSelection] = watch(["areaOfSelection"]);
+  const isAreaOfSelectionEmployeesOnly =
+    selectedAreaOfSelection === PoolAreaOfSelection.Employees;
+
+  /**
+   * Reset un-rendered fields
+   */
+  useEffect(() => {
+    const resetDirtyField = (name: keyof FormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+
+    // Reset all optional fields
+    if (!isAreaOfSelectionEmployeesOnly) {
+      resetDirtyField("selectionLimitations");
+    }
+  }, [resetField, isAreaOfSelectionEmployeesOnly]);
 
   const handleSave = async (formValues: FormValues) => {
     return onSave(formValuesToSubmitData(formValues))
@@ -334,17 +353,19 @@ const PoolNameSection = ({
                     )}
                   />
                 </div>
-                <div data-h2-grid-column="l-tablet(1 / span 2)">
-                  <Checklist
-                    id="selectionLimitations"
-                    idPrefix="selectionLimitations"
-                    name="selectionLimitations"
-                    legend={intl.formatMessage(
-                      processMessages.selectionLimitations,
-                    )}
-                    items={allPoolSelectionLimitationItems}
-                  />
-                </div>
+                {isAreaOfSelectionEmployeesOnly && (
+                  <div data-h2-grid-column="l-tablet(1 / span 2)">
+                    <Checklist
+                      id="selectionLimitations"
+                      idPrefix="selectionLimitations"
+                      name="selectionLimitations"
+                      legend={intl.formatMessage(
+                        processMessages.selectionLimitations,
+                      )}
+                      items={allPoolSelectionLimitationItems}
+                    />
+                  </div>
+                )}
                 <Select
                   id="classification"
                   label={intl.formatMessage({

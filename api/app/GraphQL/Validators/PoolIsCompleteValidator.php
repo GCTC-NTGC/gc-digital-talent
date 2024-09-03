@@ -73,7 +73,7 @@ final class PoolIsCompleteValidator extends Validator
             'what_to_expect_admission.fr' => ['required_with:what_to_expect_admission.en', 'string', 'nullable'],
             'publishing_group' => ['required', Rule::in(array_column(PublishingGroup::cases(), 'name'))],
             'area_of_selection' => ['required', Rule::in(array_column(PoolAreaOfSelection::cases(), 'name'))],
-            'selection_limitations' => ['prohibited_unless:area_of_selection,'.PoolAreaOfSelection::PUBLIC->name],
+            'selection_limitations' => ['prohibited_unless:area_of_selection,'.PoolAreaOfSelection::EMPLOYEES->name],
             'selection_limitations.*' => [Rule::in(array_column(PoolSelectionLimitation::cases(), 'name'))],
         ];
     }
