@@ -109,7 +109,7 @@ const WorkPreferences = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display user={user} />}
+          {isNull ? <NullDisplay /> : <Display user={user} labels={labels} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <BasicForm

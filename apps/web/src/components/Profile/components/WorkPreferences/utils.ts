@@ -1,25 +1,47 @@
 import { IntlShape } from "react-intl";
 
 import {
+  LocalizedProvinceOrTerritory,
+  Maybe,
   PositionDuration,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { FormValues, PartialUser } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
-  wouldAcceptTemporary: intl.formatMessage({
-    defaultMessage: "I would consider accepting a job that lasts for...",
-    id: "/DCykA",
+  contractDuration: intl.formatMessage({
+    defaultMessage: "Contract duration preference",
+    id: "VFK3wC",
     description:
       "Legend Text for required work preferences options in work preferences form",
   }),
   acceptedOperationalRequirements: intl.formatMessage({
-    defaultMessage: "I would consider accepting a job that...",
-    id: "82Oe0C",
+    defaultMessage: "Acceptable job requirements",
+    id: "6UgbrG",
     description:
       "Legend for optional work preferences check list in work preferences form",
+  }),
+  currentLocation: intl.formatMessage({
+    defaultMessage: "Your current location",
+    id: "J3yJhp",
+    description: "Legend for users current location",
+  }),
+  currentProvince: intl.formatMessage({
+    defaultMessage: "Province, territory or region",
+    id: "fm2lKX",
+    description: "Label for current province or territory field",
+  }),
+  currentCity: intl.formatMessage({
+    defaultMessage: "City or town",
+    id: "Qvep+v",
+    description: "Label for current city field in About Me form",
+  }),
+  workLocationPreferences: intl.formatMessage({
+    defaultMessage: "Work location preferences", id: 'ahK7mI',
+    description: "Legend for the work location preferences section",
   }),
   locationPreferences: intl.formatMessage({
     defaultMessage: "I am willing to work in the...",
@@ -47,6 +69,8 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
     acceptedOperationalRequirements: unpackMaybes(
       data.acceptedOperationalRequirements?.map((req) => req?.value),
     ),
+    currentProvince: data?.currentProvince?.value,
+    currentCity: data?.currentCity,
     locationPreferences: unpackMaybes(
       data.locationPreferences?.map((pref) => pref?.value),
     ),
@@ -72,5 +96,29 @@ export const formValuesToSubmitData = (
     acceptedOperationalRequirements: values.acceptedOperationalRequirements,
     locationPreferences: values.locationPreferences,
     locationExemptions: values.locationExemptions,
+    currentCity: values.currentCity,
+    currentProvince: values.currentProvince,
   };
+};
+
+interface FormatLocationArgs {
+  city?: Maybe<string>;
+  region?: Maybe<LocalizedProvinceOrTerritory>;
+  intl: IntlShape;
+}
+
+export const formatLocation = ({
+  city,
+  region,
+  intl,
+}: FormatLocationArgs): string => {
+  if (city && region?.label) {
+    return `${city}, ${getLocalizedName(region.label, intl)}`;
+  }
+
+  if (city && !region) return city;
+
+  if (region && !city) return getLocalizedName(region.label, intl);
+
+  return intl.formatMessage(commonMessages.notProvided);
 };

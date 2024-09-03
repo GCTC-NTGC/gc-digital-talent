@@ -7,20 +7,26 @@ import {
   getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
 import { PositionDuration } from "@gc-digital-talent/graphql";
+import { FieldLabels } from "@gc-digital-talent/forms";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
+import { formatLocation } from "./utils";
 
 interface DisplayProps {
   user: PartialUser;
+  labels: FieldLabels;
 }
 
 const Display = ({
+  labels,
   user: {
     acceptedOperationalRequirements,
     positionDuration,
     locationPreferences,
     locationExemptions,
+    currentCity,
+    currentProvince,
   },
 }: DisplayProps) => {
   const intl = useIntl();
@@ -31,14 +37,14 @@ const Display = ({
 
   const durationMessage = positionDuration?.includes(PositionDuration.Temporary)
     ? intl.formatMessage({
-        defaultMessage: "any duration (short term, long term, indeterminate).",
-        id: "YqWNkT",
+        defaultMessage: "Any duration (short term, long term, indeterminate)",
+        id: "ohQoWa",
         description:
           "Label displayed on Work Preferences form for any duration option",
       })
     : intl.formatMessage({
-        defaultMessage: "indeterminate (permanent only).",
-        id: "+YUDhx",
+        defaultMessage: "Indeterminate (permanent only)",
+        id: 'aB5p3B',
         description:
           "Label displayed on Work Preferences form for indeterminate duration option.",
       });
@@ -47,11 +53,7 @@ const Display = ({
     <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
       <FieldDisplay
         hasError={empty(positionDuration)}
-        label={intl.formatMessage({
-          defaultMessage: "Job duration",
-          id: "/yOfhq",
-          description: "Job duration label",
-        })}
+        label={labels.contractDuration}
       >
         {positionDuration
           ? `${intl.formatMessage({
@@ -63,13 +65,7 @@ const Display = ({
           : notProvided}
       </FieldDisplay>
       <div>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Job contexts",
-            id: "4pJgUJ",
-            description: "Work details label",
-          })}
-        />
+        <FieldDisplay label={labels.acceptedOperationalRequirements} />
         {acceptedRequirements?.length ? (
           <ul>
             {acceptedRequirements.map((requirement) => (
@@ -92,6 +88,9 @@ const Display = ({
           notProvided
         )}
       </div>
+      <FieldDisplay label={labels.currentLocation}>
+        {formatLocation({ city: currentCity, region: currentProvince, intl })}
+      </FieldDisplay>
       <div>
         <FieldDisplay
           label={intl.formatMessage({
