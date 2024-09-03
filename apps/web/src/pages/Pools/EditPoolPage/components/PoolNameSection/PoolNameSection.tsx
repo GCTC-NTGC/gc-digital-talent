@@ -13,6 +13,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
+  CheckboxOption,
   Checklist,
   Input,
   RadioGroup,
@@ -25,8 +26,10 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  LocalizedEnumString,
+  PoolSelectionLimitation,
+  PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   isInNullState,
@@ -99,6 +102,7 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
       fr
     }
     areaOfSelection {
+      value
       label {
         en
         fr
@@ -230,19 +234,36 @@ const PoolNameSection = ({
       .catch(() => methods.reset(formValues));
   };
 
-  const enumCompare = (
-    a: Pick<LocalizedEnumString, "label">,
-    b: Pick<LocalizedEnumString, "label">,
-  ) =>
-    getLocalizedName(a.label, intl).localeCompare(
-      getLocalizedName(b.label, intl),
-    );
+  const allPoolSelectionLimitations = unpackMaybes(
+    data?.allPoolSelectionLimitations,
+  );
 
-  const allPoolSelectionLimitations = data?.allPoolSelectionLimitations ?? [];
-  allPoolSelectionLimitations.sort(enumCompare);
+  const poolSelectionLimitationsCaptions: Record<
+    PoolSelectionLimitation,
+    string
+  > = {
+    AT_LEVEL_ONLY: intl.formatMessage({
+      defaultMessage:
+        "This will indicate to applicants that only at-level or equivalent level employees will be considered for this opportunity.",
+      id: "p+rROQ",
+      description: "Caption for the at-level-only selection limitation",
+    }),
+    DEPARTMENTAL_PREFERENCE: intl.formatMessage({
+      defaultMessage:
+        "This will indicate to applicants that people employed by the departments linked to this opportunity will be given preference during selection.",
+      id: "js5ZcB",
+      description:
+        "Caption for the departmental-preference selection limitation",
+    }),
+  };
 
-  const allPoolAreaOfSelections = data?.allPoolAreaOfSelections ?? [];
-  allPoolSelectionLimitations.sort(enumCompare);
+  const allPoolSelectionLimitationItems =
+    allPoolSelectionLimitations.map<CheckboxOption>(({ value, label }) => ({
+      value: value,
+      label: getLocalizedName(label, intl),
+      contentBelow:
+        poolSelectionLimitationsCaptions[value as PoolSelectionLimitation],
+    }));
 
   // disabled unless status is draft
   const formDisabled = pool.status?.value !== PoolStatus.Draft;
@@ -304,8 +325,12 @@ const PoolNameSection = ({
                     name="areaOfSelection"
                     disabled={formDisabled}
                     items={localizedEnumToOptions(
-                      allPoolAreaOfSelections,
+                      data?.allPoolAreaOfSelections,
                       intl,
+                      [
+                        PoolAreaOfSelection.Public,
+                        PoolAreaOfSelection.Employees,
+                      ],
                     )}
                   />
                 </div>
@@ -317,10 +342,7 @@ const PoolNameSection = ({
                     legend={intl.formatMessage(
                       processMessages.selectionLimitations,
                     )}
-                    items={localizedEnumToOptions(
-                      allPoolSelectionLimitations,
-                      intl,
-                    )}
+                    items={allPoolSelectionLimitationItems}
                   />
                 </div>
                 <Select
