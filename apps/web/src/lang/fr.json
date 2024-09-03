@@ -751,6 +751,10 @@
     "defaultMessage": "Cette section porte sur les renseignements qui fournissent au demandeur le contexte du type de travail qu'il fera, avec qui il travaillera et l'incidence du rôle sur les Canadiens et les Canadiennes.",
     "description": "Sub title for basic information"
   },
+  "22KlYO": {
+    "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
+    "description": "Link text to the IT Apprenticehip program for Indigenous peoples page"
+  },
   "23/pqm": {
     "defaultMessage": "Aucune compétence n'a été liée à des expériences.",
     "description": "Null state for when no skills have been linked to any experiences"
@@ -990,10 +994,6 @@
   "3GLqD1": {
     "defaultMessage": "Fermer le processus immédiatement",
     "description": "Submit button text to close a process"
-  },
-  "3GOVZI": {
-    "defaultMessage": "Développez des connaissances sur les données",
-    "description": "Heading for the direct on digital talent section"
   },
   "3GkMHE": {
     "defaultMessage": "3. Remplissez vos <strong>questions de récupération</strong>. Vous devez utiliser une <strong>personne</strong> et <strong>une date mémorables</strong>.",
@@ -1498,10 +1498,6 @@
   "5wKh/o": {
     "defaultMessage": "Démontré",
     "description": "Option for assessment decision when candidate has successful assessment."
-  },
-  "5yYtE6": {
-    "defaultMessage": "À venir à l’automne 2023",
-    "description": "Text displayed for soon to come data talent data portal"
   },
   "5yv4Ko": {
     "defaultMessage": "Quantité",
@@ -2586,10 +2582,6 @@
   "CMtxbk": {
     "defaultMessage": "Niveau de communication orale",
     "description": "Label displayed on the language information form oral communication field."
-  },
-  "CMxMEW": {
-    "defaultMessage": "Apprenez-en davantage<hidden> sur la Directive sur les talents numériques</hidden>",
-    "description": "Link text to the directive on digital talent page"
   },
   "COJ3St": {
     "defaultMessage": "Sélectionnez une équipe",
@@ -4887,6 +4879,10 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
+  "P06ncG": {
+    "defaultMessage": "Embaucher des talents autochtones",
+    "description": "Heading for the IT Apprenticehip program for Indigenous peoples section"
+  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -5214,6 +5210,10 @@
   "QkZ7Oy": {
     "defaultMessage": "Comment une personne peut-elle présenter une demande pour devenir apprentie?",
     "description": "Learn more dialog question eleven heading"
+  },
+  "Qm8QWW": {
+    "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
+    "description": "Description for the IT Apprenticehip program for Indigenous peoples"
   },
   "QnfjbI": {
     "defaultMessage": "constituent de l’usurpation d’identité, de la publicité ou un pourriel",
@@ -11121,10 +11121,6 @@
   "xPaVvi": {
     "defaultMessage": "Comme l’indiquent les <link>Procédures obligatoires sur les talents numériques</link>, il incombe au chef opérationnel de remplir et de soumettre le questionnaire sur les contrats de services numériques s’il fournit des services numériques.",
     "description": "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_"
-  },
-  "xQfIcL": {
-    "defaultMessage": "Consultez notre nouveau Portail de données sur les talents numériques pour connaître des tendances, des pistes de réflexion et des idées afin de renforcer vos propres stratégies de planification des talents et de recrutement.",
-    "description": "Description for the digital talent data portal"
   },
   "xSSp8E": {
     "defaultMessage": "aucune date d’échéance fournie",
