@@ -22,6 +22,8 @@ class UserResource extends JsonResource
 
     protected $poolSkillIds;
 
+    public int $version;
+
     public function poolSkillIds($value)
     {
         $this->poolSkillIds = $value;
@@ -64,6 +66,7 @@ class UserResource extends JsonResource
         }
 
         return [
+            'version' => $this->version,
             'id' => $this->id,
             'sub' => $this->sub,
             'firstName' => $this->first_name,
