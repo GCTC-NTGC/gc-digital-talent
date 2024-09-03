@@ -10,6 +10,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\ValueObjects\ProfileSnapshot;
 use Database\Seeders\RolePermissionSeeder;
 use Faker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -87,6 +88,9 @@ class SnapshotTest extends TestCase
         )->json('data.poolCandidate.profileSnapshot');
 
         $decodedActual = json_decode($actualSnapshot, true);
+
+        // Add version number
+        $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
 
         // line-up query format with how the snapshot is ordered
         $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
