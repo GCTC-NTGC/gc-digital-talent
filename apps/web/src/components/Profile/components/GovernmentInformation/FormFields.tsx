@@ -22,6 +22,7 @@ import {
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { getGroupOptions, getLevelOptions } from "./utils";
+import { workEmailDomainRegex } from "../../../../../../../packages/helpers/src/constants/regularExpressions";
 
 const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
@@ -276,6 +277,26 @@ const FormFields = ({
             )}
           </div>
         </>
+      )}
+      {isGovEmployee && (
+        <Input
+          id="workEmail"
+          name="workEmail"
+          type="email"
+          label={labels.workEmail}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            pattern: {
+              value: workEmailDomainRegex,
+              message: intl.formatMessage({
+                defaultMessage:
+                  "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our help desk.",
+                id: "UwHuX6",
+                description: "Description for rule pattern on work email field",
+              }),
+            },
+          }}
+        />
       )}
       <RadioGroup
         idPrefix="priorityEntitlementYesNo"

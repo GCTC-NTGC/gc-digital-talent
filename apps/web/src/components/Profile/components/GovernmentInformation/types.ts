@@ -13,6 +13,8 @@ export type PartialUser = Pick<
   | "priorityNumber"
   | "govEmployeeType"
   | "department"
+  | "workEmail"
+  | "isWorkEmailVerified"
 > & {
   currentClassification?: Maybe<PartialClassification>;
 };
@@ -25,4 +27,5 @@ export type FormValues = {
   currentClassificationLevel?: string;
   priorityEntitlementYesNo?: "yes" | "no";
   priorityEntitlementNumber?: string;
+  workEmail?: Maybe<string>;
 };

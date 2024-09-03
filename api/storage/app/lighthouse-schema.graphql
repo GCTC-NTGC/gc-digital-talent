@@ -478,6 +478,8 @@ type User {
   verbalLevel: LocalizedEvaluatedLanguageAbility
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
+  isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
   currentClassification: Classification
   department: Department
@@ -1156,6 +1158,7 @@ input CreateUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1203,6 +1206,7 @@ input UpdateUserAsAdminInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1259,6 +1263,7 @@ input UpdateUserAsUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo

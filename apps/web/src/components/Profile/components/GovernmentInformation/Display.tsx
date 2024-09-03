@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
+import { Chip } from "@gc-digital-talent/ui";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
@@ -11,6 +12,7 @@ import { PartialUser } from "./types";
 
 interface DisplayProps {
   user: PartialUser;
+  showEmailVerification?: boolean;
 }
 
 const Display = ({
@@ -21,7 +23,10 @@ const Display = ({
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
+    workEmail,
+    isWorkEmailVerified,
   },
+  showEmailVerification = false,
 }: DisplayProps) => {
   const intl = useIntl();
 
@@ -50,6 +55,41 @@ const Display = ({
         id: "I6Qz7N",
         description: "affirm no entitlement",
       });
+
+  const emailVerificationComponents = isWorkEmailVerified ? (
+    <Chip color="success">
+      {intl.formatMessage({
+        defaultMessage: "Verified",
+        id: "GMglI5",
+        description: "The email address has been verified to be owned by user",
+      })}
+    </Chip>
+  ) : (
+    <>
+      <Chip color="error">
+        {intl.formatMessage({
+          defaultMessage: "Unverified",
+          id: "tUIvbq",
+          description:
+            "The email address has not been verified to be owned by user",
+        })}
+      </Chip>
+      {/* <Button
+        type="button"
+        mode="inline"
+        color="error"
+        data-h2-margin="base(0 0 x.15 0)" // line up with chip
+        onClick={handleVerifyNowClick}
+        disabled={mutationSubmitting}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Verify now",
+          id: "ADPfNp",
+          description: "Button to start the email address verification process",
+        })}
+      </Button> */}
+    </>
+  );
 
   return (
     <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
@@ -91,6 +131,27 @@ const Display = ({
                 )
               : notProvided}
           </FieldDisplay>
+          <div
+            data-h2-grid-column-start="p-tablet(1)"
+            data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-gap="base(x0.5)"
+            data-h2-align-items="base(end)"
+          >
+            <FieldDisplay
+              hasError={!workEmail}
+              label={intl.formatMessage({
+                defaultMessage: "Work email",
+                id: "tj9Dz3",
+                description: "Work email label",
+              })}
+              data-h2-margin="base(0 0 x.15 0)" // line up with chip
+            >
+              {workEmail || notProvided}
+            </FieldDisplay>
+            {showEmailVerification ? emailVerificationComponents : null}
+          </div>
         </>
       )}
       <FieldDisplay
