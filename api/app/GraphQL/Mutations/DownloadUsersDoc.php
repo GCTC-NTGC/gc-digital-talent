@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\UserDocGenerator;
 use App\Jobs\GenerateUserFile;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -39,8 +38,7 @@ final class DownloadUsersDoc
                 lang: strtolower($locale),
             );
 
-
-        $generator->setUserId($user->id);
+            $generator->setUserId($user->id);
 
             GenerateUserFile::dispatch($generator, $user);
 
