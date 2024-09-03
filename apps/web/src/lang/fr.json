@@ -339,6 +339,10 @@
     "defaultMessage": "Avez-vous un droit de priorité?",
     "description": "Priority Entitlement Status in Government Info Form"
   },
+  "/lByjT": {
+    "defaultMessage": "Qui peut postuler",
+    "description": "Label for pool advertisement area of selection"
+  },
   "/lVSP/": {
     "defaultMessage": "Voir toutes les notifications",
     "description": "Link text for the notifications page"
@@ -1198,6 +1202,10 @@
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
     "description": "Link text to the managers community"
+  },
+  "4VQGU4": {
+    "defaultMessage": "Employé(e)s (de même niveau, préférences ministérielles)",
+    "description": "Combined eligibility string for 'employees only', 'at-level only', and 'departmental preference'"
   },
   "4W8uc/": {
     "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 10 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
@@ -3851,6 +3859,10 @@
     "defaultMessage": "Confirmation du besoin d’une note spéciale ",
     "description": "Label for input confirmation of need for special note on edit pool."
   },
+  "JCX6jN": {
+    "defaultMessage": "Employé(e)s (de même niveau)",
+    "description": "Combined eligibility string for 'employees only' and 'at-level only'"
+  },
   "JDQvla": {
     "defaultMessage": "Ces notes sont disponibles pour tous les gestionnaires de ce bassin, mais pas pour les candidats.",
     "description": "Description of pool candidate notes field"
@@ -4186,6 +4198,10 @@
   "Kyf9At": {
     "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
     "description": "Description of a process' advertisement"
+  },
+  "L0eho2": {
+    "defaultMessage": "Ouvert au public",
+    "description": "Combined eligibility string for 'open to the public'"
   },
   "L1tQMY": {
     "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
@@ -5674,6 +5690,10 @@
   "TN9ndX": {
     "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
     "description": "Message displayed when no skills match a users filters"
+  },
+  "TOnXeM": {
+    "defaultMessage": "Employé(e)s",
+    "description": "Combined eligibility string for 'employees only' with no other limitations"
   },
   "TPw/0u": {
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
@@ -8077,6 +8097,10 @@
   "g5JeNf": {
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
+  },
+  "g6coYl": {
+    "defaultMessage": "Employé(e)s (préférences ministérielles)",
+    "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
   },
   "g7RC9u": {
     "defaultMessage": "Note spéciale (français)",
