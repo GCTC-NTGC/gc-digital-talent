@@ -1,4 +1,4 @@
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
@@ -270,6 +270,12 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    department {
+      name {
+        en
+        fr
+      }
+    }
     areaOfSelection {
       value
     }
@@ -296,15 +302,14 @@ const subTitle = defineMessage({
 const deriveAreaOfSelectionMessages = (
   areaOfSelection: PoolAreaOfSelection | null | undefined,
   selectionLimitations: PoolSelectionLimitation[],
+  classificationString: string,
+  departmentString: string,
+  intl: IntlShape,
 ): {
-  title: MessageDescriptor;
-  body: MessageDescriptor;
-  finePrint?: MessageDescriptor;
+  title: ReactNode;
+  body: ReactNode;
+  finePrint?: ReactNode;
 } | null => {
-  if (areaOfSelection == PoolAreaOfSelection.Public) {
-    // no note for public pools
-    return null;
-  }
   if (areaOfSelection == PoolAreaOfSelection.Employees) {
     if (
       selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly) &&
@@ -313,46 +318,69 @@ const deriveAreaOfSelectionMessages = (
       )
     ) {
       return {
-        title: defineMessage({
-          defaultMessage:
-            "This opportunity is for internal employees with a classification of IT-02 or equivalent with preference given to those at the departments listed*",
-          id: "MB5xq+",
-          description:
-            "Title of a note describing that a pool is only open to employees, at-level, with departmental preference",
-        }),
-        body: defineMessage({
-          defaultMessage:
-            "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as IT-02 or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-          id: "0XIVna",
-          description:
-            "Body of a note describing that a pool is only open to employees, at-level, with departmental preference",
-        }),
-        finePrint: defineMessage({
-          defaultMessage:
-            "* Preference will be given to persons employed with the following departments or agencies: Canadian Space Agency.",
-          id: "ZNsAyq",
-          description:
-            "Fine print of a note describing that a pool is only open to employees, at-level, with departmental preference",
-        }),
+        title: intl.formatMessage(
+          {
+            defaultMessage:
+              "This opportunity is for internal employees with a classification of {classification} or equivalent with preference given to those at the departments listed*",
+            id: "66xc/o",
+            description:
+              "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print.",
+          },
+          {
+            classification: classificationString,
+          },
+        ),
+        body: intl.formatMessage(
+          {
+            defaultMessage:
+              "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+            id: "t+92o9",
+            description:
+              "Body of a note describing that a pool is only open to employees, at-level, with departmental preference",
+          },
+          { classification: classificationString },
+        ),
+        finePrint: intl.formatMessage(
+          {
+            defaultMessage:
+              "* Preference will be given to persons employed with the following departments or agencies: {department}.",
+            id: "SoW0qk",
+            description:
+              "Fine print of a note describing that a pool is only open to employees, at-level, with departmental preference",
+          },
+          {
+            department: departmentString,
+          },
+        ),
       };
     }
 
     if (selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly)) {
       return {
-        title: defineMessage({
-          defaultMessage:
-            "This opportunity is for internal employees with a classification of IT-02 or equivalent",
-          id: "WPGtVj",
-          description:
-            "Title of a note describing that a pool is only open to employees at-level",
-        }),
-        body: defineMessage({
-          defaultMessage:
-            "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as IT-02 or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-          id: "Lwn4Il",
-          description:
-            "Body of a note describing that a pool is only open to employees at-level",
-        }),
+        title: intl.formatMessage(
+          {
+            defaultMessage:
+              "This opportunity is for internal employees with a classification of {classification} or equivalent",
+            id: "4l0wGu",
+            description:
+              "Title of a note describing that a pool is only open to employees at-level",
+          },
+          {
+            classification: classificationString,
+          },
+        ),
+        body: intl.formatMessage(
+          {
+            defaultMessage:
+              "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+            id: "pVx/jP",
+            description:
+              "Body of a note describing that a pool is only open to employees at-level",
+          },
+          {
+            classification: classificationString,
+          },
+        ),
       };
     }
     if (
@@ -361,39 +389,44 @@ const deriveAreaOfSelectionMessages = (
       )
     ) {
       return {
-        title: defineMessage({
+        title: intl.formatMessage({
           defaultMessage:
             "This opportunity is for internal employees with preference given to those at the departments listed*",
-          id: "8onVC9",
+          id: "JKEDRo",
           description:
-            "Title of a note describing that a pool is only open to employees with departmental preference",
+            "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print.",
         }),
-        body: defineMessage({
+        body: intl.formatMessage({
           defaultMessage:
             "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
           id: "LdpAcC",
           description:
             "Body of a note describing that a pool is only open to employees with departmental preference",
         }),
-        finePrint: defineMessage({
-          defaultMessage:
-            "* Preference will be given to persons employed with the following departments or agencies: Canadian Space Agency.",
-          id: "wzzK7Z",
-          description:
-            "Fine print of a note describing that a pool is only open to employees with departmental preference",
-        }),
+        finePrint: intl.formatMessage(
+          {
+            defaultMessage:
+              "* Preference will be given to persons employed with the following departments or agencies: {department}.",
+            id: "8t1KYs",
+            description:
+              "Fine print of a note describing that a pool is only open to employees with departmental preference",
+          },
+          {
+            department: departmentString,
+          },
+        ),
       };
     }
 
     // fall-through for employees only
     return {
-      title: defineMessage({
+      title: intl.formatMessage({
         defaultMessage: "This opportunity is for internal employees",
         id: "WcU42I",
         description:
           "Title of a note describing that a pool is only open to employees",
       }),
-      body: defineMessage({
+      body: intl.formatMessage({
         defaultMessage:
           "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
         id: "k9moOJ",
@@ -610,6 +643,9 @@ export const PoolPoster = ({
   const areaOfSelectionMessages = deriveAreaOfSelectionMessages(
     pool.areaOfSelection?.value,
     unpackMaybes(pool.selectionLimitations).map((l) => l.value),
+    classificationString,
+    getLocalizedName(pool.department?.name, intl),
+    intl,
   );
 
   return (
@@ -774,15 +810,15 @@ export const PoolPoster = ({
                     data-h2-margin-top="base(0)"
                     data-h2-font-size="base(body)"
                   >
-                    {intl.formatMessage(areaOfSelectionMessages.title)}
+                    {areaOfSelectionMessages.title}
                   </Heading>
-                  {intl.formatMessage(areaOfSelectionMessages.body)}
+                  {areaOfSelectionMessages.body}
                   {areaOfSelectionMessages.finePrint ? (
                     <div
                       data-h2-font-size="base(caption)"
                       data-h2-margin-top="base(x0.5)"
                     >
-                      {intl.formatMessage(areaOfSelectionMessages.finePrint)}
+                      {areaOfSelectionMessages.finePrint}
                     </div>
                   ) : null}
                 </Well>
