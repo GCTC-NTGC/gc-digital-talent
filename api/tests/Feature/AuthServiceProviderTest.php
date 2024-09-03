@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lcobucci\JWT\Token\DataSet;
@@ -14,6 +15,9 @@ use Lcobucci\JWT\Validation\ConstraintViolation;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Mockery\MockInterface;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertGreaterThanOrEqual;
+use function PHPUnit\Framework\assertLessThanOrEqual;
 
 class AuthServiceProviderTest extends TestCase
 {
@@ -166,5 +170,38 @@ class AuthServiceProviderTest extends TestCase
         $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
         // make sure our test user did not get wiped
         $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => 'test']);
+    }
+
+    public function testUserLoginWithLastActive()
+    {
+        $testSub = 'test-sub';
+        $beforeLoginTime = Carbon::now()->toDateTimeString();
+        $mockClaims = \Mockery::mock(new DataSet(['sub' => $testSub], ''));
+
+        $fakeToken = 'fake-token';
+        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService->shouldReceive('validateAndGetClaims')
+            ->with($fakeToken)
+            ->andReturn($mockClaims);
+
+        // create user manually
+        $existingUser = new User;
+        $existingUser->sub = 'test-sub';
+        $existingUser->first_name = 'test';
+        $existingUser->save();
+
+        // they should exist now
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => 'test']);
+
+        // simulate logging in
+        $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
+
+        $lastActiveString = $resolvedUser->last_sign_in_at->toDateTimeString();
+        $afterLoginTime = Carbon::now()->toDateTimeString();
+
+        // assert login filled in a value for last active
+        // exact matching flaky, so assert it is between, inclusively, the before and after strings
+        assertGreaterThanOrEqual($beforeLoginTime, $lastActiveString);
+        assertLessThanOrEqual($afterLoginTime, $lastActiveString);
     }
 }
