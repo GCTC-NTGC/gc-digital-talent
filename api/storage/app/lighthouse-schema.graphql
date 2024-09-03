@@ -1658,7 +1658,7 @@ input UpdatePoolInput {
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection
-  selectionLimitations: [LocalizedPoolSelectionLimitation!]
+  selectionLimitations: [PoolSelectionLimitation!]
 }
 
 input UpdatePublishedPoolInput {

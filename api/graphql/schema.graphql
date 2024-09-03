@@ -1652,7 +1652,7 @@ input UpdatePoolInput {
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection @rename(attribute: "area_of_selection")
-  selectionLimitations: [LocalizedPoolSelectionLimitation!]
+  selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
 }
 
