@@ -1,4 +1,4 @@
-import { defineMessage, useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
@@ -44,6 +44,8 @@ import {
   PoolSkillType,
   FragmentType,
   getFragment,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -268,6 +270,12 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    areaOfSelection {
+      value
+    }
+    selectionLimitations {
+      value
+    }
   }
 `);
 
@@ -284,6 +292,119 @@ const subTitle = defineMessage({
   id: "H5EXEi",
   description: "Subtitle for a pool advertisement page",
 });
+
+const deriveAreaOfSelectionMessages = (
+  areaOfSelection: PoolAreaOfSelection | null | undefined,
+  selectionLimitations: PoolSelectionLimitation[],
+): {
+  title: MessageDescriptor;
+  body: MessageDescriptor;
+  finePrint?: MessageDescriptor;
+} | null => {
+  if (areaOfSelection == PoolAreaOfSelection.Public) {
+    // no note for public pools
+    return null;
+  }
+  if (areaOfSelection == PoolAreaOfSelection.Employees) {
+    if (
+      selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly) &&
+      selectionLimitations?.includes(
+        PoolSelectionLimitation.DepartmentalPreference,
+      )
+    ) {
+      return {
+        title: defineMessage({
+          defaultMessage:
+            "This opportunity is for internal employees with a classification of IT-02 or equivalent with preference given to those at the departments listed*",
+          id: "MB5xq+",
+          description:
+            "Title of a note describing that a pool is only open to employees, at-level, with departmental preference",
+        }),
+        body: defineMessage({
+          defaultMessage:
+            "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as IT-02 or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+          id: "0XIVna",
+          description:
+            "Body of a note describing that a pool is only open to employees, at-level, with departmental preference",
+        }),
+        finePrint: defineMessage({
+          defaultMessage:
+            "* Preference will be given to persons employed with the following departments or agencies: Canadian Space Agency.",
+          id: "ZNsAyq",
+          description:
+            "Fine print of a note describing that a pool is only open to employees, at-level, with departmental preference",
+        }),
+      };
+    }
+
+    if (selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly)) {
+      return {
+        title: defineMessage({
+          defaultMessage:
+            "This opportunity is for internal employees with a classification of IT-02 or equivalent",
+          id: "WPGtVj",
+          description:
+            "Title of a note describing that a pool is only open to employees at-level",
+        }),
+        body: defineMessage({
+          defaultMessage:
+            "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as IT-02 or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+          id: "Lwn4Il",
+          description:
+            "Body of a note describing that a pool is only open to employees at-level",
+        }),
+      };
+    }
+    if (
+      selectionLimitations?.includes(
+        PoolSelectionLimitation.DepartmentalPreference,
+      )
+    ) {
+      return {
+        title: defineMessage({
+          defaultMessage:
+            "This opportunity is for internal employees with preference given to those at the departments listed*",
+          id: "8onVC9",
+          description:
+            "Title of a note describing that a pool is only open to employees with departmental preference",
+        }),
+        body: defineMessage({
+          defaultMessage:
+            "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+          id: "LdpAcC",
+          description:
+            "Body of a note describing that a pool is only open to employees with departmental preference",
+        }),
+        finePrint: defineMessage({
+          defaultMessage:
+            "* Preference will be given to persons employed with the following departments or agencies: Canadian Space Agency.",
+          id: "wzzK7Z",
+          description:
+            "Fine print of a note describing that a pool is only open to employees with departmental preference",
+        }),
+      };
+    }
+
+    // fall-through for employees only
+    return {
+      title: defineMessage({
+        defaultMessage: "This opportunity is for internal employees",
+        id: "WcU42I",
+        description:
+          "Title of a note describing that a pool is only open to employees",
+      }),
+      body: defineMessage({
+        defaultMessage:
+          "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+        id: "k9moOJ",
+        description:
+          "Body of a note describing that a pool is only open to employees",
+      }),
+    };
+  }
+
+  return null;
+};
 
 interface PoolAdvertisementProps {
   poolQuery: FragmentType<typeof PoolAdvertisement_Fragment>;
@@ -486,6 +607,11 @@ export const PoolPoster = ({
 
   const classificationGroup = pool.classification?.group;
 
+  const areaOfSelectionMessages = deriveAreaOfSelectionMessages(
+    pool.areaOfSelection?.value,
+    unpackMaybes(pool.selectionLimitations).map((l) => l.value),
+  );
+
   return (
     <>
       <SEO title={poolTitle} description={formattedSubTitle} />
@@ -640,6 +766,27 @@ export const PoolPoster = ({
                   />
                 </Well>
               )}
+              {areaOfSelectionMessages ? (
+                <Well data-h2-margin="base(x1 0)" color="warning">
+                  <Heading
+                    level="h3"
+                    size="h6"
+                    data-h2-margin-top="base(0)"
+                    data-h2-font-size="base(body)"
+                  >
+                    {intl.formatMessage(areaOfSelectionMessages.title)}
+                  </Heading>
+                  {intl.formatMessage(areaOfSelectionMessages.body)}
+                  {areaOfSelectionMessages.finePrint ? (
+                    <div
+                      data-h2-font-size="base(caption)"
+                      data-h2-margin-top="base(x0.5)"
+                    >
+                      {intl.formatMessage(areaOfSelectionMessages.finePrint)}
+                    </div>
+                  ) : null}
+                </Well>
+              ) : null}
 
               <CardBasic>
                 <DataRow
