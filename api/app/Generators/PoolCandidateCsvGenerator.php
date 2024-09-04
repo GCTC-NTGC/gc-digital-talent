@@ -72,10 +72,10 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'current_classification',
         'priority_entitlement',
         'priority_number',
-        'location_preferences',
-        'location_exemptions',
         'accept_temporary',
         'accepted_operational_requirements',
+        'location_preferences',
+        'location_exemptions',
         'woman',
         'indigenous',
         'visible_minority',
@@ -143,10 +143,10 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $candidate->user->getClassification(), // Current classification
                     $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement
                     $candidate->user->priority_number ?? '', // Priority number
-                    $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
-                    $candidate->user->location_exemptions, // Location exemptions
                     $candidate->user->position_duration ? $this->yesOrNo($candidate->user->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
+                    $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
+                    $candidate->user->location_exemptions, // Location exemptions
                     $this->yesOrNo($candidate->user->is_woman), // Woman
                     $this->localizeEnumArray($candidate->user->indigenous_communities, IndigenousCommunity::class),
                     $this->yesOrNo($candidate->user->is_visible_minority), // Visible minority
