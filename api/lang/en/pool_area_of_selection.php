@@ -2,5 +2,5 @@
 
 return [
     'public' => 'The public',
-    'employees' => 'Persons employed',
+    'employees' => 'Employees and persons employed',
 ];
