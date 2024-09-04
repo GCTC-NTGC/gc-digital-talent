@@ -211,6 +211,10 @@
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
   },
+  "/18wM8": {
+    "defaultMessage": "Gérez vos recherches de talents et établissez votre profil de gestionnaire.",
+    "description": "Subtitle for the 'Manager dashboard' page"
+  },
   "/2Vhvl": {
     "defaultMessage": "Sécurité de la TI",
     "description": "Label for the 'security' IT work stream"
@@ -5083,6 +5087,10 @@
     "defaultMessage": "La fourniture de renseignements dans Talents numériques du GC est facultative. Si vous partagez vos renseignements personnels, Talents numériques du GC <link>s’engage à les protéger</link>.",
     "description": "Paragraph 2, importance of self-declaration"
   },
+  "Q914Cl": {
+    "defaultMessage": "Tableau de bord du gestionnaire",
+    "description": "Title for the 'Manager dashboard' page"
+  },
   "Q9c+Kg": {
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
     "description": "Title for the find a skill dialog within the skill showcase"
@@ -9150,10 +9158,6 @@
     "defaultMessage": "Indiquer si ce contrat est soumis à des accords commerciaux",
     "description": "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
   },
-  "lYp2e8": {
-    "defaultMessage": "Gérez vos recherches de talents et établissez votre profil de gestionnaire.",
-    "description": "subtitle for the 'Manager dashboard' page"
-  },
   "lZ8lct": {
     "defaultMessage": "Process mis en signet.",
     "description": "Alert displayed to the user when they mark a pool as bookmarked."
@@ -9645,10 +9649,6 @@
   "o1M2Kc": {
     "defaultMessage": "Il ou elle perdra tous les rôles suivants au sein de l’équipe ",
     "description": "Lead text for the list of roles the user will lose"
-  },
-  "o1jXs5": {
-    "defaultMessage": "Tableau de bord du gestionnaire",
-    "description": "title for the 'Manager dashboard' page"
   },
   "o4EnIo": {
     "defaultMessage": "Ce processus est programmé pour se clôturer automatiquement le : ",
