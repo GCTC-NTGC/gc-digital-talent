@@ -14,7 +14,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
-export const PoolAreaOfSelectionNote_Fragment = graphql(/* GraphQL */ `
+const PoolAreaOfSelectionNote_Fragment = graphql(/* GraphQL */ `
   fragment AreaOfSelectionNote on Pool {
     classification {
       group
@@ -35,7 +35,7 @@ export const PoolAreaOfSelectionNote_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const deriveAreaOfSelectionMessages = (
+const deriveAreaOfSelectionMessages = (
   areaOfSelection: PoolAreaOfSelection,
   selectionLimitations: PoolSelectionLimitation[],
   classificationString: string,
