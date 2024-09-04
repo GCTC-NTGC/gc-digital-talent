@@ -20,11 +20,11 @@ const backgroundMap = new Map<Color, StyleRecord>([
   ],
 ]);
 
-type ExampleProps = {
+interface ExampleProps {
   subtitle?: string;
   color: Color;
   showBorder: boolean;
-};
+}
 
 const Example = ({ subtitle, color, showBorder }: ExampleProps) => {
   const intl = useIntl();

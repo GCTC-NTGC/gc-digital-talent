@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 
-type SignPostProps = {
+interface SignPostProps {
   title: string;
   introduction?: ReactNode;
-};
+}
 
 // This component is for adding information into a long form to help the user know what's coming up without using a sematic header.
 const SignPost = ({ title, introduction }: SignPostProps) => {

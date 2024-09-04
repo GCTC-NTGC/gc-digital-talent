@@ -50,6 +50,7 @@ class PoolFactory extends Factory
         }
 
         $teamId = Team::inRandomOrder()
+            ->whereNull('teamable_id')
             ->limit(1)
             ->pluck('id')
             ->first();
@@ -274,7 +275,7 @@ class PoolFactory extends Factory
      */
     public function candidatesAvailableInSearch()
     {
-        return $this->state(function () {
+        return $this->published()->state(function () {
             return [
                 'publishing_group' => $this->faker->randomElement([
                     PublishingGroup::IT_JOBS->name,

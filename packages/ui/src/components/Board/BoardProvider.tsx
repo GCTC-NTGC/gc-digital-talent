@@ -9,18 +9,18 @@ import {
 
 import { BoardColumn } from "./types";
 
-type ControlledContext = {
+interface ControlledContext {
   id: string;
   selectedItem: number;
   selectedColumn: number;
   onItemChange?: (newItem: number) => void;
   onColumnChange?: (newColumn: number) => void;
   columns: BoardColumn[];
-};
+}
 
-type ContextEvents = {
+interface ContextEvents {
   handleClickItem: MouseEventHandler;
-};
+}
 
 type BoardContextValue = ControlledContext & ContextEvents;
 

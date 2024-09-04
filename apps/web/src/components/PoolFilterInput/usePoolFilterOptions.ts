@@ -56,11 +56,11 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type UsePoolFilterOptionsReturn = {
+interface UsePoolFilterOptionsReturn {
   poolOptions: Option[];
   total: number;
   fetching: boolean;
-};
+}
 
 const usePoolFilterOptions = (
   where?: PoolFilterInput,

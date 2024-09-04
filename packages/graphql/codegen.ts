@@ -17,6 +17,8 @@ const config: CodegenConfig = {
           DateTime: "string",
           Email: "string",
           PhoneNumber: "string",
+          KeyString: "string",
+          UUID: "string",
         },
       },
       presetConfig: {

@@ -51,10 +51,10 @@ const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   aboutUsEn?: LocalizedString["en"];
   aboutUsFr?: LocalizedString["fr"];
-};
+}
 
 export type AboutUsSubmitData = Pick<UpdatePoolInput, "aboutUs">;
 

@@ -637,6 +637,13 @@ const createRoute = (locale: Locales) =>
                         ),
                     },
                     {
+                      path: "manage-access",
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/ManageAccessPage/ManageAccessPage"
+                        ),
+                    },
+                    {
                       path: "plan",
                       lazy: () =>
                         import(

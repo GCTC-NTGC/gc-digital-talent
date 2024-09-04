@@ -240,9 +240,9 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
-  id: UUID!
+  id: ID!
   roleAssignments: [RoleAssignment!]
-  teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
+  teamIdForRoleAssignment: ID# Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
@@ -300,7 +300,7 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  teamIdForRoleAssignment: ID
+  teamIdForRoleAssignment: ID @with(relation: "team")
   department: Department @belongsTo @canQuery(ability: "view")
 }
 
@@ -477,7 +477,7 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  teamIdForRoleAssignment: ID
+  teamIdForRoleAssignment: ID @with(relation: "team")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
@@ -961,7 +961,7 @@ type Query {
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
-  classifications: [Classification]! @all @canModel(ability: "viewAny")
+  classifications(availableInSearch: Boolean @scope): [Classification]! @all @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
   departments: [Department]! @all @canModel(ability: "viewAny")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
@@ -1743,12 +1743,6 @@ input RolesForTeamHasMany {
   sync: RolesForTeamInput
 }
 
-input UpdateUserTeamRolesInput {
-  teamId: ID!
-  userId: UUID!
-  roleAssignments: RolesForTeamHasMany!
-}
-
 input GeneralResponseBelongsTo {
   connect: ID!
 }
@@ -2155,12 +2149,6 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateUserTeamRoles(
-    teamRoleAssignments: UpdateUserTeamRolesInput! @spread
-  ): Team
-    @guard
-    @canFind(ability: "assignTeamMembers", find: "teamId")
-    @deprecated(reason: "use updateUserRoles")
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community
@@ -2242,19 +2230,32 @@ type Mutation {
   ): SitewideAnnouncement @guard
 
   # File downloads
-  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadPoolCandidatesCsv(
+    ids: [UUID!],
+    where: PoolCandidateSearchInput,
+    locale: Language
+  ): Boolean! @guard
   downloadPoolCandidatesDoc(
     ids: [UUID!]!
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
-  downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadUsersCsv(
+    ids: [UUID!],
+    where: UserFilterInput
+    locale: Language
+  ): Boolean! @guard
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
   downloadUsersDoc(
     ids: [UUID!]!
     anonymous: Boolean!
     locale: Language
   ): Boolean! @guard
+
+  # Downloads for single entity, returning file name if successful or null on error
+  downloadUserDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "User")
+  downloadPoolCandidateDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadApplicationDoc(id: UUID!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
 
 #import directiveForms.graphql

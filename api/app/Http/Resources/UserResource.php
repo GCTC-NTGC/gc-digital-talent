@@ -103,7 +103,6 @@ class UserResource extends JsonResource
             'locationExemptions' => $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->localizeEnumArray($this->accepted_operational_requirements, OperationalRequirement::class),
             'positionDuration' => $this->position_duration,
-            'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),
             'experiences' => $collection,
             'priorityNumber' => $this->priority_number,
             'isProfileComplete' => $this->isProfileComplete,

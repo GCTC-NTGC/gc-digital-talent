@@ -4,9 +4,9 @@ import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import useApplication from "./useApplication";
 
-export type ApplicationPageProps = {
+export interface ApplicationPageProps {
   application: Application_PoolCandidateFragment;
-};
+}
 
 interface ApplicationApiProps {
   PageComponent: (props: ApplicationPageProps) => JSX.Element;

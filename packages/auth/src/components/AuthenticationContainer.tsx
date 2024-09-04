@@ -38,7 +38,7 @@ interface TokenSet {
 export const AuthenticationContext =
   createContext<AuthenticationState>(defaultAuthState);
 
-type logoutAndRefreshPageParameters = {
+interface logoutAndRefreshPageParameters {
   // the "end session" URI of the auth provider
   logoutUri: string;
   // the logout landing page of our app (whitelisted)
@@ -49,7 +49,7 @@ type logoutAndRefreshPageParameters = {
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
   logoutReason?: LogoutReason;
-};
+}
 
 const logoutAndRefreshPage = ({
   logoutUri,

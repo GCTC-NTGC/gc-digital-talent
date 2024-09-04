@@ -23,10 +23,10 @@ type FilterOptions =
   | NonNullable<PersonalExperience["__typename"]>
   | NonNullable<WorkExperience["__typename"]>;
 
-export type FormValues = {
+export interface FormValues {
   sortBy: SortOptions;
   filterBy: FilterOptions;
-};
+}
 
 interface ExperienceSortAndFilterProps {
   initialFormValues: FormValues;
@@ -54,10 +54,10 @@ const ExperienceSortAndFilter = ({
     return () => subscription.unsubscribe();
   }, [initialFormValues, onChange, watch]);
 
-  const sortOptions: Array<{
+  const sortOptions: {
     value: FormValues["sortBy"];
     label: ReactNode;
-  }> = [
+  }[] = [
     {
       value: "date_desc",
       label: intl.formatMessage(formMessages.byDateDescending),
@@ -68,10 +68,10 @@ const ExperienceSortAndFilter = ({
     },
   ];
 
-  const filterOptions: Array<{
+  const filterOptions: {
     value: FormValues["filterBy"];
     label: ReactNode;
-  }> = [
+  }[] = [
     {
       value: "none",
       label: intl.formatMessage(formMessages.allTypes),

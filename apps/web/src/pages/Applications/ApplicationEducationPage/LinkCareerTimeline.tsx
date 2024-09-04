@@ -72,10 +72,10 @@ const ExperienceChecklist = ({ items }: { items: CheckboxOption[] }) => {
   );
 };
 
-type ExperienceItems = {
+interface ExperienceItems {
   educationExperiences: CheckboxOption[];
   allExperiences: CheckboxOption[];
-};
+}
 
 interface CheckListSectionProps {
   group?: Classification["group"];

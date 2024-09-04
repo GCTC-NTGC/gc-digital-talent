@@ -8,10 +8,10 @@ import useRoutes from "./useRoutes";
 
 type Crumbs = BreadcrumbsProps["crumbs"];
 
-type useBreadcrumbsProps = {
+interface useBreadcrumbsProps {
   crumbs: Crumbs;
   isAdmin?: boolean;
-};
+}
 
 const useBreadcrumbs = ({ crumbs, isAdmin }: useBreadcrumbsProps) => {
   const intl = useIntl();

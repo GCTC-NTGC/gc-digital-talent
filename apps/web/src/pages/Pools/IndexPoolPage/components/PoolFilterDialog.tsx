@@ -17,12 +17,12 @@ import FilterDialog, {
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 
-export type FormValues = {
+export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
   classifications: Scalars["UUID"]["output"][];
   streams: PoolStream[];
-};
+}
 
 const PoolFilterDialog_Query = graphql(/* GraphQL */ `
   query PoolFilterDialog {

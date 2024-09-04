@@ -37,7 +37,7 @@ export interface StepperProps {
   currentIndex: number | undefined;
   headingLevel?: HeadingLevel;
   label: string;
-  steps: Maybe<Array<StepType>>;
+  steps: Maybe<StepType[]>;
 }
 
 const Stepper = ({

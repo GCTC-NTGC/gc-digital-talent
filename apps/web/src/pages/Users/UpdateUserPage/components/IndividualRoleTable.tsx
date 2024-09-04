@@ -21,7 +21,7 @@ const columnHelper = createColumnHelper<Role>();
 interface IndividualRoleTableProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Array<Role>;
+  availableRoles: Role[];
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 

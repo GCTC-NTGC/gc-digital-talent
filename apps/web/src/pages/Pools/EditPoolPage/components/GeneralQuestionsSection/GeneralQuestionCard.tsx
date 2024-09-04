@@ -17,11 +17,11 @@ const GeneralQuestionCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type GeneralQuestionCardProps = {
+interface GeneralQuestionCardProps {
   index: number;
   generalQuestionQuery: FragmentType<typeof GeneralQuestionCard_Fragment>;
   disabled?: boolean;
-};
+}
 
 const GeneralQuestionCard = ({
   index,

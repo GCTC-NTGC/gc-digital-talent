@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Community;
+use App\Models\Permission;
+use App\Models\Pool;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
@@ -296,6 +299,168 @@ class RolePermissionTest extends TestCase
 
         $this->assertTrue($this->user->hasRole('community_manager'));
         $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Process Operator Role
+     *
+     * @return void
+     */
+    public function testProcessOperatorRole()
+    {
+        $pool = Pool::factory()
+            ->draft()
+            ->create();
+        $otherPool = Pool::factory()
+            ->draft()
+            ->create();
+        $processOperator = User::factory()
+            ->asProcessOperator($pool->id)
+            ->create();
+        $processOperator->removeRole('base_user'); // isolate process_operator
+
+        $permissionsToCheck = [
+            'view-team-applicantProfile',
+            'view-team-draftPool',
+            'update-team-draftPool',
+            'view-team-assessmentPlan',
+            'update-team-assessmentPlan',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'view-team-poolTeamMembers',
+        ];
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($processOperator->hasRole('process_operator', $pool->team));
+        $this->assertTrue($processOperator->isAbleTo($permissionsToCheck, $pool->team, true));
+
+        $this->assertFalse($processOperator->hasRole('process_operator', $otherPool->team));
+        $this->assertFalse($processOperator->isAbleTo($permissionsToCheck, $otherPool->team, false));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($processOperator->isAbleTo($notPossessedPermissions, false));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Community Recruiter Role
+     *
+     * @return void
+     */
+    public function testCommunityRecruiterRole()
+    {
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityRecruiter = User::factory()
+            ->asCommunityRecruiter($community->id)
+            ->create();
+        $communityRecruiter->removeRole('base_user'); // isolate community_recruiter
+
+        $permissionsToCheck = [
+            'view-any-userBasicInfo',
+            'view-team-applicantProfile',
+            'view-team-draftPool',
+            'create-team-draftPool',
+            'update-team-draftPool',
+            'delete-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-assessmentPlan',
+            'update-team-assessmentPlan',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
+            'view-team-searchRequest',
+            'update-team-searchRequest',
+            'delete-team-searchRequest',
+            'view-team-community',
+            'view-team-communityTeamMembers',
+            'view-team-poolTeamMembers',
+            'update-team-processOperatorMembership',
+        ];
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($communityRecruiter->hasRole('community_recruiter', $community->team));
+        $this->assertTrue($communityRecruiter->isAbleTo($permissionsToCheck, $community->team, true));
+
+        $this->assertFalse($communityRecruiter->hasRole('community_recruiter', $otherCommunity->team));
+        $this->assertFalse($communityRecruiter->isAbleTo($permissionsToCheck, $otherCommunity->team, false));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($communityRecruiter->isAbleTo($notPossessedPermissions, false));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Community Admin Role
+     *
+     * @return void
+     */
+    public function testCommunityAdminRole()
+    {
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityAdmin = User::factory()
+            ->asCommunityAdmin($community->id)
+            ->create();
+        $communityAdmin->removeRole('base_user'); // isolate community_admin
+
+        $permissionsToCheck = [
+            'view-any-userBasicInfo',
+            'view-team-applicantProfile',
+            'view-team-draftPool',
+            'create-team-draftPool',
+            'update-team-draftPool',
+            'delete-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-assessmentPlan',
+            'update-team-assessmentPlan',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
+            'view-team-searchRequest',
+            'update-team-searchRequest',
+            'delete-team-searchRequest',
+            'view-team-community',
+            'view-team-communityTeamMembers',
+            'view-team-poolTeamMembers',
+            'update-team-processOperatorMembership',
+            'publish-team-draftPool',
+            'update-team-publishedPool',
+            'update-team-community',
+            'update-team-communityRecruiterMembership',
+        ];
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($communityAdmin->hasRole('community_admin', $community->team));
+        $this->assertTrue($communityAdmin->isAbleTo($permissionsToCheck, $community->team, true));
+
+        $this->assertFalse($communityAdmin->hasRole('community_admin', $otherCommunity->team));
+        $this->assertFalse($communityAdmin->isAbleTo($permissionsToCheck, $otherCommunity->team, false));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($communityAdmin->isAbleTo($notPossessedPermissions, false));
 
         $this->cleanup();
     }

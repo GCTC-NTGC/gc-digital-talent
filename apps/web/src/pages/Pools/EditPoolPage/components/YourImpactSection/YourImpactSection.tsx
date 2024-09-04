@@ -49,10 +49,10 @@ const EditPoolYourImpact_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   yourImpactEn?: LocalizedString["en"];
   yourImpactFr?: LocalizedString["fr"];
-};
+}
 
 export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 

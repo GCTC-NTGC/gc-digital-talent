@@ -146,13 +146,11 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
     skills:
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    employmentDuration:
-      input?.applicantFilter?.positionDuration &&
-      input.applicantFilter.positionDuration.includes(
-        PositionDuration.Temporary,
-      )
-        ? "TERM"
-        : "INDETERMINATE",
+    employmentDuration: input?.applicantFilter?.positionDuration?.includes(
+      PositionDuration.Temporary,
+    )
+      ? "TERM"
+      : "INDETERMINATE",
     govEmployee: input?.isGovEmployee ? "true" : "",
     profileComplete: input?.isProfileComplete ? "true" : "",
     pools:

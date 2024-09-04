@@ -14,7 +14,7 @@ export type FormValues = Pick<
   "locationPreferences" | "operationalRequirements"
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
-  employmentDuration: string | typeof NullSelection;
+  employmentDuration: string;
   classification: string | undefined;
   stream: PoolStream | "";
   skills: string[] | undefined;
@@ -29,10 +29,10 @@ export type FormValues = Pick<
 
 export type LocationState = BrowserHistoryState | null;
 
-export type BrowserHistoryState = {
+export interface BrowserHistoryState {
   applicantFilter?: ApplicantFilterInput;
   candidateCount: number;
   initialValues?: FormValues;
   selectedClassifications?: Pick<Classification, "group" | "level">[];
   allPools?: boolean;
-};
+}

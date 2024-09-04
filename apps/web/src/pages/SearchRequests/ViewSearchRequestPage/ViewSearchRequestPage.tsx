@@ -6,6 +6,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ViewSearchRequestApi from "./components/ViewSearchRequest";
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   searchRequestId: Scalars["ID"]["output"];
 };

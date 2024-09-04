@@ -23,9 +23,7 @@ interface ControlledInputProps {
   trackUnsaved?: boolean;
   /** Current field state (to update styles) */
   fieldState: FieldState;
-  inputProps?: {
-    [name: string]: string;
-  };
+  inputProps?: Record<string, string>;
 }
 
 const ControlledInput = ({

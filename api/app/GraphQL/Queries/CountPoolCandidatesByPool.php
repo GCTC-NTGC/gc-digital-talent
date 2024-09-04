@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,6 +11,8 @@ final class CountPoolCandidatesByPool
 {
     /**
      * @param  array{}  $args
+     *
+     * @disregard P1003 We are not using this var
      */
     public function __invoke($_, array $args)
     {
@@ -18,16 +21,17 @@ final class CountPoolCandidatesByPool
         // query counts pool candidate rows, so start on that model
         $queryBuilder = PoolCandidate::query();
 
-        // pool candidate filters go here
+        $queryBuilder->whereHas('pool', function ($query) use ($filters) {
+            $query->wasPublished();
 
-        // candidate pool scope
-        if (array_key_exists('pools', $filters)) {
-            // pool candidate filter uses Pool while Applicant filter users IdInput
-            $pools = array_map(function ($id) {
-                return ['id' => $id];
-            }, $filters['pools']);
-            PoolCandidate::scopeAvailableInPools($queryBuilder, $pools);
-        }
+            if (array_key_exists('qualifiedClassifications', $filters)) {
+                Pool::scopeClassifications($query, $filters['qualifiedClassifications']);
+            }
+
+            if (array_key_exists('qualifiedStreams', $filters)) {
+                Pool::scopeStreams($query, $filters['qualifiedStreams']);
+            }
+        });
 
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL, or PLACED_TENTATIVE)
         PoolCandidate::scopeAvailable($queryBuilder);

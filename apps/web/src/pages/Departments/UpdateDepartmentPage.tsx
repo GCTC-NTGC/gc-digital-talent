@@ -146,6 +146,7 @@ export const UpdateDepartmentForm = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   departmentId: Scalars["ID"]["output"];
 };

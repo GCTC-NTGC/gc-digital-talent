@@ -26,10 +26,10 @@ const commonStyles = {
   "data-h2-font-weight": "base:selectors[.active](700)",
 };
 
-type SideMenuCategoryProps = {
+interface SideMenuCategoryProps {
   title: string;
   children: ReactNode;
-};
+}
 
 const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
   const ctx = useSideMenuContext();

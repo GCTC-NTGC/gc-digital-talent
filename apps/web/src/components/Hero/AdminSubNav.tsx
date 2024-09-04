@@ -2,10 +2,10 @@ import { ReactNode } from "react";
 
 import { Breadcrumbs, NavTabs } from "@gc-digital-talent/ui";
 
-type NavItem = {
+interface NavItem {
   label: ReactNode;
   url: string;
-};
+}
 
 type NavMode = "crumbs" | "subNav";
 

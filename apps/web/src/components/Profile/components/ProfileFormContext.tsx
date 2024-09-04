@@ -10,7 +10,7 @@ import {
 import { SectionKey } from "../types";
 
 interface ProfileFormContextState {
-  dirtySections: Array<SectionKey>;
+  dirtySections: SectionKey[];
   isSubmitting: boolean;
   setSubmitting: (newSubmitting: boolean) => void;
   toggleDirty: (section: SectionKey, isDirty: boolean) => void;
@@ -42,7 +42,7 @@ interface ProfileFormProviderProps {
 
 const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
-  const [dirtySections, setDirtySections] = useState<Array<SectionKey>>([]);
+  const [dirtySections, setDirtySections] = useState<SectionKey[]>([]);
 
   const toggleDirty = useCallback(
     (section: SectionKey, isDirty: boolean) => {

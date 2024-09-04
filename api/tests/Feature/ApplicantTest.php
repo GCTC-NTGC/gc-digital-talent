@@ -8,10 +8,12 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
+use App\Models\Classification;
 use App\Models\CommunityExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -56,7 +58,7 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQuery(): void
     {
         // Get the ID of the base admin user
-        $user = User::All()->first();
+        $user = User::all()->first();
         $ITPool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
             'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
@@ -1916,6 +1918,138 @@ class ApplicantTest extends TestCase
                             'total' => 5,
                         ],
                     ],
+                ],
+            ]);
+
+    }
+
+    public function testClassificationAndStreamsFilter()
+    {
+        $targetClassification = Classification::factory()->create();
+        $excludedClassification = Classification::factory()->create();
+
+        $targetStream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
+        $excludedStream = PoolStream::ACCESS_INFORMATION_PRIVACY->name;
+
+        $targetClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification,
+            'stream' => $excludedStream,
+        ]);
+        $targetStreamPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $excludedClassification,
+            'stream' => $targetStream,
+        ]);
+        $targetStreamAndClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification,
+            'stream' => $targetStream,
+        ]);
+        $excludedPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $excludedClassification,
+            'stream' => $excludedStream,
+        ]);
+
+        $targetUser = User::factory()->create();
+        $targetClassificationUser = User::factory()->create();
+        $targetStreamUser = User::factory()->create();
+        $excludedUser = User::factory()->create();
+
+        // Should show up for classification filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $targetClassificationPool,
+        ]);
+
+        // Should should up for stream filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $targetStreamPool,
+        ]);
+
+        // Should show up for both stream + classification filters
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $targetStreamAndClassificationPool,
+        ]);
+
+        // Should show up for classification filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetClassificationUser,
+            'pool_id' => $targetClassificationPool,
+        ]);
+
+        // Should should up for stream filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetStreamUser,
+            'pool_id' => $targetStreamPool,
+        ]);
+
+        // Should never show up
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $excludedPool,
+        ]);
+
+        // Should never show up
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $excludedUser,
+            'pool_id' => $excludedPool,
+        ]);
+
+        $query = /* GraphQL */ '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ';
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'qualifiedClassifications' => [
+                            [
+                                'group' => $targetClassification->group,
+                                'level' => $targetClassification->level,
+                            ],
+                        ],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'countApplicants' => 2,
+                ],
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'qualifiedStreams' => [$targetStream],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'countApplicants' => 2,
+                ],
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'qualifiedClassifications' => [
+                            [
+                                'group' => $targetClassification->group,
+                                'level' => $targetClassification->level,
+                            ],
+                        ],
+                        'qualifiedStreams' => [
+                            $targetStream,
+                        ],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'countApplicants' => 1,
                 ],
             ]);
 

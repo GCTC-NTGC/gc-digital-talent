@@ -25,9 +25,9 @@ import { useProfileFormContext } from "~/components/Profile/components/ProfileFo
 import useUpdateApplicationMutation from "../../useUpdateApplicationMutation";
 import { useApplicationContext } from "../../ApplicationContext";
 
-type ProfileActionFormValues = {
+interface ProfileActionFormValues {
   action: "continue" | "quit";
-};
+}
 
 interface StepNavigationProps {
   application: Application_PoolCandidateFragment;

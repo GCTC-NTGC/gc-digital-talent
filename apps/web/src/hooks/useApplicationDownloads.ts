@@ -8,6 +8,9 @@ import {
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { useApiRoutes } from "@gc-digital-talent/auth";
+
+import useAsyncFileDownload from "./useAsyncFileDownload";
 
 const DownloadApplicationsDoc_Mutation = graphql(/* GraphQL */ `
   mutation DownloadApplicationsDoc($ids: [UUID!]!, $locale: Language) {
@@ -15,12 +18,23 @@ const DownloadApplicationsDoc_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadApplicationDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadApplicationDoc($id: UUID!) {
+    downloadApplicationDoc(id: $id)
+  }
+`);
+
 const useApplicationDownloads = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useApiRoutes();
+  const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
+    useAsyncFileDownload();
   const [{ fetching: downloadingDoc }, executeDocMutation] = useMutation(
     DownloadApplicationsDoc_Mutation,
   );
+  const [{ fetching: downloadingSingleDoc }, executeSingleDocMutation] =
+    useMutation(DownloadApplicationDoc_Mutation);
 
   const handleDownloadError = () => {
     toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
@@ -43,7 +57,27 @@ const useApplicationDownloads = () => {
       .catch(handleDownloadError);
   };
 
-  return { downloadDoc, downloadingDoc };
+  const downloadSingleDoc = ({ id }: { id: Scalars["UUID"]["input"] }) => {
+    executeSingleDocMutation({ id })
+      .then((res) => {
+        if (res?.data?.downloadApplicationDoc) {
+          executeAsyncDownload({
+            url: paths.userGeneratedFile(res.data.downloadApplicationDoc),
+            fileName: res.data.downloadApplicationDoc,
+          });
+        } else {
+          handleDownloadError();
+        }
+      })
+      .catch(handleDownloadError);
+  };
+
+  return {
+    downloadDoc,
+    downloadingDoc,
+    downloadSingleDoc,
+    downloadingSingleDoc: downloadingSingleDoc || downloadingAsyncFile,
+  };
 };
 
 export default useApplicationDownloads;

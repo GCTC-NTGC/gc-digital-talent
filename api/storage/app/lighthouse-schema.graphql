@@ -214,7 +214,7 @@ type Query {
   poolCandidate(id: UUID!): PoolCandidate
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
-  classifications: [Classification]!
+  classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
@@ -378,7 +378,6 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
-  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team @deprecated(reason: "use updateUserRoles")
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   markNotificationAsRead(id: UUID!): Notification
@@ -399,11 +398,14 @@ type Mutation {
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
-  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean!
+  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, locale: Language): Boolean!
   downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
-  downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean!
+  downloadUsersCsv(ids: [UUID!], where: UserFilterInput, locale: Language): Boolean!
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean!
   downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
+  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
+  downloadApplicationDoc(id: UUID!): String
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -604,7 +606,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
-  id: UUID!
+  id: ID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
 }
@@ -1717,12 +1719,6 @@ input RolesForTeamHasMany {
   attach: RolesForTeamInput
   detach: RolesForTeamInput
   sync: RolesForTeamInput
-}
-
-input UpdateUserTeamRolesInput {
-  teamId: ID!
-  userId: UUID!
-  roleAssignments: RolesForTeamHasMany!
 }
 
 input GeneralResponseBelongsTo {

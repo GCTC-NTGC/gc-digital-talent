@@ -12,12 +12,12 @@ import {
   stringToEnumStream,
 } from "~/utils/requestUtils";
 
-export type FormValues = {
+export interface FormValues {
   status?: string[];
   departments?: string[];
   classifications?: string[];
   streams?: string[];
-};
+}
 
 export function transformFormValuesToSearchRequestFilterInput(
   data: FormValues,

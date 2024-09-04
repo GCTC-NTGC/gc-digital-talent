@@ -1,5 +1,4 @@
 #!/bin/env node
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-console */
 import fs from "node:fs";
 import path from "node:path";
@@ -49,6 +48,15 @@ const argv = yargs(process.argv.slice(2))
   .help()
   .parseSync();
 
+interface Message {
+  defaultMessage: string;
+  description: string;
+}
+
+type Messages = Record<string, Message>;
+
+type Whitelist = string[];
+
 /**
  * Loads data from a json or yml file as a js object or array.
  * @param {*} filename
@@ -64,10 +72,10 @@ const readDataFile = (
   }
   const ext = path.extname(filename);
   if (ext === ".json") {
-    return JSON.parse(fs.readFileSync(filename, "utf8"));
+    return JSON.parse(fs.readFileSync(filename, "utf8")) as Messages;
   }
   if (ext === ".yml" || ext === ".yaml") {
-    return yaml.load(fs.readFileSync(filename, "utf8"));
+    return yaml.load(fs.readFileSync(filename, "utf8")) as Whitelist;
   }
   // For unknown file types, throw error
   throw new Error(
@@ -81,11 +89,11 @@ if (argv.dir) {
 }
 
 // First read all relevant files and convert to js objects.
-const en = readDataFile(argv.en, {});
-const frOriginal = readDataFile(argv.fr, {});
-const whitelist = readDataFile(argv?.whitelist ?? "", []);
+const en = readDataFile(argv.en, {}) as Messages;
+const frOriginal = readDataFile(argv.fr, {}) as Messages;
+const whitelist = readDataFile(argv?.whitelist ?? "", []) as Whitelist;
 const mergeFr = argv?.["merge-fr"] ?? "";
-const frNew = readDataFile(mergeFr, {});
+const frNew = readDataFile(mergeFr, {}) as Messages;
 
 // This variable is used to track changes that may need to be made to fr.json. That way, we only update the file once, at the end.
 let outputFr = { ...frOriginal, ...frNew };
@@ -195,7 +203,7 @@ if (
 }
 
 if (argv["rm-orphaned"] && orphanedKeys.length > 0) {
-  outputFr = omit(outputFr, orphanedKeys);
+  outputFr = omit(outputFr, orphanedKeys) as Messages;
   console.warn(
     "These values were removed from fr as they are not in en:",
     orphaned,
