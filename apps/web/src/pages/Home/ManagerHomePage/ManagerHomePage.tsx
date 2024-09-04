@@ -189,7 +189,7 @@ export const Component = () => {
             })}
             links={[
               {
-                href: paths.iap(),
+                href: paths.iapManager(),
                 mode: "solid",
                 label: intl.formatMessage({
                   defaultMessage: "Hire an IT apprentice",
