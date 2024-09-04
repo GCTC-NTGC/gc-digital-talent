@@ -29,6 +29,8 @@ final readonly class DownloadUserDoc
                 lang: App::getLocale(),
             );
 
+            $generator->setUserId($user->id);
+
             $generator->generate()->write();
 
             return $generator->getFileName();
