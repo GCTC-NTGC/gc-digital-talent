@@ -5,10 +5,10 @@ import { Button, CardRepeater, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-type RemoveDialogProps = {
+interface RemoveDialogProps {
   onRemove: () => Promise<void>;
   index: number;
-};
+}
 
 const RemoveDialog = ({ onRemove, index }: RemoveDialogProps) => {
   const intl = useIntl();

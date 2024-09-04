@@ -65,7 +65,7 @@ export function localeRedirect(locale: Locales) {
 export const getLocalizedName = (
   name: Maybe<LocalizedString> | undefined,
   intl: IntlShape,
-  emptyNotFound: boolean = false,
+  emptyNotFound = false,
 ): string => {
   const locale = getLocale(intl);
 
@@ -73,23 +73,23 @@ export const getLocalizedName = (
     ? ""
     : intl.formatMessage(commonMessages.notAvailable);
 
-  if (!name || !name[locale]) {
+  if (!name?.[locale]) {
     return notAvailable;
   }
 
   return name[locale] ?? notAvailable;
 };
 
-export type LocalizedArray = {
+export interface LocalizedArray {
   __typename?: "LocalizedString";
-  en?: Maybe<Array<Scalars["String"]>>;
-  fr?: Maybe<Array<Scalars["String"]>>;
-};
+  en?: Maybe<Scalars["String"][]>;
+  fr?: Maybe<Scalars["String"][]>;
+}
 
 export const getLocalizedArray = (
   name: Maybe<LocalizedArray>,
   intl: IntlShape,
-  emptyNotFound: boolean = false,
+  emptyNotFound = false,
 ): string => {
   const locale = getLocale(intl);
 
@@ -97,7 +97,7 @@ export const getLocalizedArray = (
     ? ""
     : intl.formatMessage(commonMessages.notAvailable);
 
-  if (!name || !name[locale]) {
+  if (!name?.[locale]) {
     return notAvailable;
   }
 

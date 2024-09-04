@@ -111,11 +111,11 @@ export const addRolesToUser: GraphQLRequestFunc<
   });
 };
 
-type CreateUserWithRolesInput = {
+interface CreateUserWithRolesInput {
   user?: Partial<CreateUserInput>;
   roles: RoleInput[];
   team?: string;
-};
+}
 
 export const createUserWithRoles: GraphQLRequestFunc<
   User,

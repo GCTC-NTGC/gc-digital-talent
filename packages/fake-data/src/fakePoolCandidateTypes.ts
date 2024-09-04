@@ -10,11 +10,11 @@ import {
 
 export type GeneratedPoolCandidate = PoolCandidate & {
   __typename: "PoolCandidate";
-  educationRequirementExperiences: Array<
+  educationRequirementExperiences: (
     | GeneratedAwardExperience
     | GeneratedCommunityExperience
     | GeneratedEducationExperience
     | GeneratedPersonalExperience
     | GeneratedWorkExperience
-  >;
+  )[];
 };

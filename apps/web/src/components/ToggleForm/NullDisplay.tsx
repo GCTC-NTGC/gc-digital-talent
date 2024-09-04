@@ -3,11 +3,11 @@ import { ReactNode } from "react";
 
 import { Well } from "@gc-digital-talent/ui";
 
-type NullDisplayProps = {
+interface NullDisplayProps {
   title?: ReactNode;
   content?: ReactNode;
   optional?: boolean;
-};
+}
 
 const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
   const intl = useIntl();

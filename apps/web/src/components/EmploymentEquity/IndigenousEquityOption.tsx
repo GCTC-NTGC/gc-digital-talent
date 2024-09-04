@@ -17,7 +17,7 @@ import { IndigenousDialogProps, IndigenousUpdateProps } from "./types";
 type EquityGroup = "indigenous";
 
 interface EquityOptionProps {
-  indigenousCommunities: Array<LocalizedIndigenousCommunity>;
+  indigenousCommunities: LocalizedIndigenousCommunity[];
   signature: string | undefined;
   option: EquityGroup;
   // Note: Just defining the func signature

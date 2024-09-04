@@ -8,11 +8,11 @@ import { ReactNode } from "react";
 
 import { Button } from "@gc-digital-talent/ui";
 
-type SortButtonProps<T> = {
+interface SortButtonProps<T> {
   column: Column<T, unknown>;
   children: ReactNode;
   locked?: boolean;
-};
+}
 
 const SortButton = <T,>({ column, locked, children }: SortButtonProps<T>) => {
   const intl = useIntl();

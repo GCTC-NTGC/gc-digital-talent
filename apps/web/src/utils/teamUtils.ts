@@ -8,14 +8,12 @@ import {
 } from "@gc-digital-talent/graphql";
 
 export type TeamMember = {
-  roles: Array<Role>;
+  roles: Role[];
 } & UserPublicProfile;
 
 // eslint-disable-next-line import/prefer-default-export
-export const groupRoleAssignmentsByUser = (
-  assignments: Array<RoleAssignment>,
-) => {
-  let users: Array<TeamMember> = [];
+export const groupRoleAssignmentsByUser = (assignments: RoleAssignment[]) => {
+  let users: TeamMember[] = [];
   const filteredAssignments = assignments.filter((assignment) => {
     return (
       notEmpty(assignment.user) &&

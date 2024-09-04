@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -736,9 +737,24 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     /**
      * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public static function scopeTalentSearchablePublishingGroup(Builder $query): Builder
+    public static function scopeTalentSearchablePublishingGroup(Builder $query, $args): Builder
     {
-        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
+
+        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) use ($args) {
+            $filters = Arr::get($args ?? [], 'where', []);
+
+            $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
+                $query->wasPublished();
+
+                if (array_key_exists('qualifiedClassifications', $filters)) {
+                    Pool::scopeClassifications($query, $filters['qualifiedClassifications']);
+                }
+
+                if (array_key_exists('qualifiedStreams', $filters)) {
+                    Pool::scopeStreams($query, $filters['qualifiedStreams']);
+                }
+            });
+
             PoolCandidate::scopeAvailable($innerQueryBuilder);
             PoolCandidate::scopeInTalentSearchablePublishingGroup($innerQueryBuilder);
 
@@ -1037,10 +1053,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
 
         // can see any user - return with no filters added
         if ($user?->isAbleTo('view-any-user')) {
@@ -1052,7 +1072,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $query->where(function (Builder $query) use ($user) {
             if ($user?->isAbleTo('view-team-applicantProfile')) {
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
-                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $allTeams = $user->rolesTeams()->get();
+                    $teamIds = $allTeams->filter(function ($team) use ($user) {
+                        return $user->isAbleTo('view-team-applicantProfile', $team);
+                    })->pluck('id');
+
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
                         $query
                             ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
@@ -1062,6 +1086,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                                         return $query->whereIn('id', $teamIds);
                                     })
                                     ->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })
+                                    ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('id', $teamIds);
                                     });
                             });

@@ -29,9 +29,9 @@ interface WithThemeFromHydrogenConfig {
   defaultTheme: string;
 }
 
-type ThemeSetterProps = {
+interface ThemeSetterProps {
   theme: Theme;
-};
+}
 const ThemeSetter = ({ theme }: ThemeSetterProps) => {
   const { setTheme, key, mode } = useTheme();
 

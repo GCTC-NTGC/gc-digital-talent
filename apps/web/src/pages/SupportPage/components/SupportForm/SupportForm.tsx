@@ -23,14 +23,14 @@ import {
   TALENTSEARCH_SUPPORT_EMAIL,
 } from "~/constants/talentSearchConstants";
 
-type FormValues = {
+interface FormValues {
   user_id: string;
   name: string;
   email: string;
   description: string;
   subject: string;
   previous_url: string;
-};
+}
 
 interface SupportFormProps {
   showSupportForm: boolean;

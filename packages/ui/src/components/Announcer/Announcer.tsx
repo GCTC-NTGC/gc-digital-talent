@@ -7,9 +7,9 @@ import {
   useMemo,
 } from "react";
 
-type AnnouncerContextValue = {
+interface AnnouncerContextValue {
   announce: (announcement: ReactNode) => void;
-};
+}
 
 const AnnouncerContext = createContext<AnnouncerContextValue>({
   announce: () => {
@@ -23,7 +23,7 @@ export const useAnnouncer = () => {
   return context;
 };
 
-type AnnouncerProps = {
+interface AnnouncerProps {
   children: ReactNode;
   /**
    * How live the announcement is (`aria-live`)
@@ -45,7 +45,7 @@ type AnnouncerProps = {
    * Set a delay to when the announcement is made (milliseconds)
    */
   timeout?: number;
-};
+}
 
 const Announcer = ({
   children,

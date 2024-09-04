@@ -24,6 +24,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   poolId: Scalars["ID"]["input"];
 };
@@ -169,7 +170,15 @@ const ScreeningAndEvaluationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
+    ]}
+  >
     <ScreeningAndEvaluationPage />
   </RequireAuth>
 );

@@ -25,10 +25,10 @@ import {
 
 import { OTHER_ID, stringToEnum } from "../util";
 
-export type SkillRequirementFormValues = {
+export interface SkillRequirementFormValues {
   skillId: string;
   level: string;
-};
+}
 
 export function isSkillRequirementFormValues(
   value: unknown,
@@ -61,7 +61,7 @@ function parseFormIntField(field: Maybe<string>): number | null {
 function parseFormEnumField<T extends object>(
   typeObject: T,
   field: Maybe<string>,
-): ReturnType<typeof stringToEnum> | null {
+) {
   if (field === null || field === undefined) {
     return null;
   }
@@ -70,27 +70,27 @@ function parseFormEnumField<T extends object>(
 
 function parseFormEnumArrayField<T extends object>(
   typeObject: T,
-  field: Maybe<Array<string>>,
-): Array<ReturnType<typeof stringToEnum>> | null {
+  field: Maybe<string[]>,
+): ReturnType<typeof stringToEnum>[] | null {
   if (field === null || field === undefined) {
     return null;
   }
   return field.map((item) => parseFormEnumField(typeObject, item));
 }
 
-export type PersonnelRequirementFormValues = {
+export interface PersonnelRequirementFormValues {
   resourceType: Maybe<string>;
-  skillRequirements: Maybe<Array<SkillRequirementFormValues>>;
+  skillRequirements: Maybe<SkillRequirementFormValues[]>;
   language: Maybe<string>;
   languageOther: Maybe<string>;
   security: Maybe<string>;
   securityOther: Maybe<string>;
   telework: Maybe<string>;
   quantity: Maybe<string>;
-};
+}
 
 // backing object for questionnaire form
-export type FormValues = {
+export interface FormValues {
   // preamble section
   readPreamble: Maybe<boolean>;
 
@@ -105,7 +105,7 @@ export type FormValues = {
   financialAuthorityJobTitle: Maybe<string>;
   financialAuthorityEmail: Maybe<string>;
   isAuthorityInvolved: Maybe<string>;
-  authoritiesInvolved: Maybe<Array<string>>;
+  authoritiesInvolved: Maybe<string[]>;
   authorityInvolvedOther: Maybe<string>;
   contractBehalfOfGc: Maybe<string>;
   contractServiceOfGc: Maybe<string>;
@@ -139,22 +139,19 @@ export type FormValues = {
 
   // personnel requirements section
   hasPersonnelRequirements: Maybe<string>;
-  personnelRequirements:
-    | Array<PersonnelRequirementFormValues>
-    | null
-    | undefined;
+  personnelRequirements: PersonnelRequirementFormValues[] | null | undefined;
   qualificationRequirement: Maybe<string>;
   requirementAccessToSecure: Maybe<string>;
-  requirementScreeningLevels: Maybe<Array<string>>;
+  requirementScreeningLevels: Maybe<string[]>;
   requirementScreeningLevelOther: Maybe<string>;
-  requirementWorkLanguages: Maybe<Array<string>>;
+  requirementWorkLanguages: Maybe<string[]>;
   requirementWorkLanguageOther: Maybe<string>;
-  requirementWorkLocations: Maybe<Array<string>>;
+  requirementWorkLocations: Maybe<string[]>;
   requirementWorkLocationGcSpecific: Maybe<string>;
   requirementWorkLocationOffsiteSpecific: Maybe<string>;
 
   hasOtherRequirements: Maybe<string>;
-  requirementOthers: Maybe<Array<string>>;
+  requirementOthers: Maybe<string[]>;
   requirementOtherOther: Maybe<string>;
 
   // technological change section
@@ -165,13 +162,13 @@ export type FormValues = {
 
   // operations considerations section
   hasOperationsConsiderations: Maybe<string>;
-  operationsConsiderations: Maybe<Array<string>>;
+  operationsConsiderations: Maybe<string[]>;
   operationsConsiderationsOther: Maybe<string>;
 
   // Talent sourcing decision section
   contractingRationalePrimary: Maybe<string>;
   contractingRationalePrimaryOther: Maybe<string>;
-  contractingRationalesSecondary: Maybe<Array<string>>;
+  contractingRationalesSecondary: Maybe<string[]>;
   contractingRationalesSecondaryOther: Maybe<string>;
   ocioConfirmedTalentShortage: Maybe<string>;
   talentSearchTrackingNumber: Maybe<string>;
@@ -179,7 +176,7 @@ export type FormValues = {
   knowledgeTransferInContract: Maybe<string>;
   employeesHaveAccessToKnowledge: Maybe<string>;
   ocioEngagedForTraining: Maybe<string>;
-};
+}
 
 export function convertFormValuesToApiInput(
   formValues: FormValues,

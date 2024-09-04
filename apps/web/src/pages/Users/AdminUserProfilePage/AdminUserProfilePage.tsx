@@ -393,10 +393,11 @@ interface AdminUserProfileProps {
 
 export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
   const user = getFragment(AdminUserProfileUser_Fragment, userQuery);
-  const { downloadDoc, downloadingDoc } = useUserDownloads();
+  const { downloadSingleUserDoc, downloadingSingleUserDoc } =
+    useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
-    downloadDoc({ ids: [user.id], anonymous });
+    downloadSingleUserDoc({ id: user.id, anonymous });
   };
 
   return (
@@ -406,9 +407,9 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
         data-h2-text-align="base(right)"
       >
         <DownloadUsersDocButton
-          disabled={downloadingDoc}
+          disabled={downloadingSingleUserDoc}
           onClick={handleDocDownload}
-          isDownloading={downloadingDoc}
+          isDownloading={downloadingSingleUserDoc}
         />
       </div>
       <UserProfile user={user} headingLevel="h3" />
@@ -424,6 +425,7 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
   }
 `);
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   userId: Scalars["ID"]["output"];
 };
@@ -462,6 +464,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <AdminUserProfilePage />

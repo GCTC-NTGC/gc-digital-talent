@@ -130,7 +130,7 @@ const ValidationDependantInputs = ({
       <DateInput
         name={`${name}Two`}
         id={`${id}Two`}
-        legend={`${legend} Two`}
+        legend={`${legend?.toString()} Two`}
         rules={{
           min: {
             value: watchFirstInput,

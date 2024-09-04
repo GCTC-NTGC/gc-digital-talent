@@ -29,10 +29,10 @@ import {
 } from "./helpers";
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
-type RoleTeamPair = {
+interface RoleTeamPair {
   role: Role;
   team: Pick<Team, "id" | "name">;
-};
+}
 
 const columnHelper = createColumnHelper<TeamAssignment>();
 
@@ -41,7 +41,7 @@ type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"]["output"];
 interface TeamRoleTableProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Array<Role>;
+  availableRoles: Role[];
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
@@ -121,7 +121,7 @@ const TeamRoleTable = ({
   const data = useMemo(() => {
     const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
       .map((assignment) => {
-        if (assignment?.team && assignment.role && assignment.role.isTeamBased)
+        if (assignment?.team && assignment.role?.isTeamBased)
           return {
             role: assignment.role,
             team: assignment.team,

@@ -30,9 +30,9 @@ export const DuplicatePoolDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   department: Scalars["ID"]["output"] | undefined;
-};
+}
 
 type DuplicateProcessDialogProps = ProcessDialogProps & {
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];

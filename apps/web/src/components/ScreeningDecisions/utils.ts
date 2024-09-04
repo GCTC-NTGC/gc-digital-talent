@@ -14,26 +14,26 @@ import { NO_DECISION } from "~/utils/assessmentResults";
 
 type MaybeJustification = Maybe<AssessmentResultJustification>;
 
-export type FormValues = {
+export interface FormValues {
   assessmentDecision?: Maybe<AssessmentDecision | typeof NO_DECISION>;
   justifications?: MaybeJustification[] | MaybeJustification;
   assessmentDecisionLevel?: Maybe<AssessmentDecisionLevel>;
   skillDecisionNotes?: Maybe<string>;
-};
+}
 
-type FormValuesToApiCreateInputArgs = {
+interface FormValuesToApiCreateInputArgs {
   formValues: FormValues;
   assessmentStepId: string;
   poolCandidateId: string;
   poolSkillId: string;
   assessmentResultType: AssessmentResultType;
-};
+}
 
-type FormValuesToApiUpdateInputArgs = {
+interface FormValuesToApiUpdateInputArgs {
   formValues: FormValues;
   assessmentResultId: string;
   assessmentResultType: AssessmentResultType;
-};
+}
 
 // If justification is for education requirement assessment, it is just a string, need to tuck it into an array
 const justificationsConverted = (

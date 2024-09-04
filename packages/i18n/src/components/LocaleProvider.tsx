@@ -19,7 +19,7 @@ const guessLocale = (): Locales => {
 
   // If stored locale or browser locale is unavailable or invalid, default to english
   if (isLocale(locale)) {
-    return locale as Locales;
+    return locale;
   }
 
   return "en";

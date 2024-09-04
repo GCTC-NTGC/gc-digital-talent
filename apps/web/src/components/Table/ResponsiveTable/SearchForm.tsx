@@ -39,7 +39,7 @@ const SearchForm = <T,>({
 
   const [column, setColumn] = useState<SearchColumn | undefined>(initialColumn);
   const [searchTerm, setSearchTerm] = useState<string | undefined>(state?.term);
-  const showDropdown = searchBy && searchBy.length;
+  const showDropdown = searchBy?.length;
 
   const updateTable = useCallback(
     (newState: SearchState) => {

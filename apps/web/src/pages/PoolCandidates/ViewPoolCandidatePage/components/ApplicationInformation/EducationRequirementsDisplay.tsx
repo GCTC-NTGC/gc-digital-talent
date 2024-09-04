@@ -1,25 +1,62 @@
 import { useIntl } from "react-intl";
 
-import { Maybe, PoolCandidate } from "@gc-digital-talent/graphql";
+import {
+  Experience,
+  FragmentType,
+  getFragment,
+  graphql,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEducationRequirementOption,
 } from "@gc-digital-talent/i18n";
 import { TreeView } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 
+const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment EducationRequirement_PoolCandidate on PoolCandidate {
+    pool {
+      classification {
+        group
+      }
+    }
+    educationRequirementOption {
+      value
+    }
+    educationRequirementExperiences {
+      id
+    }
+  }
+`);
+
 interface EducationRequirementsDisplayProps {
-  application?: Maybe<PoolCandidate>; // comes from snapshot
+  experiences?: Maybe<Maybe<Experience>[]>;
+  educationRequirementQuery: FragmentType<
+    typeof EducationRequirement_PoolCandidateFragment
+  >;
 }
 
 const EducationRequirementsDisplay = ({
-  application,
+  educationRequirementQuery,
+  experiences,
 }: EducationRequirementsDisplayProps) => {
   const intl = useIntl();
+  const application = getFragment(
+    EducationRequirement_PoolCandidateFragment,
+    educationRequirementQuery,
+  );
 
   const classificationGroup = application?.pool.classification?.group ?? "";
+  const educationExperiences = unpackMaybes(
+    experiences?.filter((experience) => {
+      return application?.educationRequirementExperiences?.some(
+        (educationExperience) => educationExperience?.id === experience?.id,
+      );
+    }),
+  );
 
   return (
     <>
@@ -56,9 +93,7 @@ const EducationRequirementsDisplay = ({
           </p>
           <TreeView.Root>
             <ExperienceTreeItems
-              experiences={application?.educationRequirementExperiences.filter(
-                notEmpty,
-              )}
+              experiences={educationExperiences.filter(notEmpty)}
             />
           </TreeView.Root>
         </>

@@ -70,8 +70,8 @@ export const Component = () => {
   const departmentFormLinks = getFormLinks({
     intl,
     files: {
-      en: "/documents/Digital_Recruitment_Template_EN.docx",
-      fr: "/documents/Modele_de_recrutement_numerique_FR.docx",
+      en: "/static/documents/Digital_Recruitment_Template_EN.docx",
+      fr: "/static/documents/Modele_de_recrutement_numerique_FR.docx",
     },
     formName: intl.formatMessage({
       defaultMessage: "Department-Specific Recruitment",
@@ -107,8 +107,8 @@ export const Component = () => {
     : getFormLinks({
         intl,
         files: {
-          en: "/documents/Digital_Contracting_Questionnaire_EN.docx",
-          fr: "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
+          en: "/static/documents/Digital_Contracting_Questionnaire_EN.docx",
+          fr: "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
         },
         formName: intl.formatMessage({
           defaultMessage: "Digital Services Contracting",
@@ -120,8 +120,8 @@ export const Component = () => {
   const talentPlanFormLinks = getFormLinks({
     intl,
     files: {
-      en: "/documents/Forward_Talent_Plan_EN.docx",
-      fr: "/documents/Plan_prospectif_sur_les_talents_FR.docx",
+      en: "/static/documents/Forward_Talent_Plan_EN.docx",
+      fr: "/static/documents/Plan_prospectif_sur_les_talents_FR.docx",
     },
     formName: intl.formatMessage({
       defaultMessage: "Forward Talent Plan",
@@ -347,8 +347,8 @@ export const Component = () => {
                       data-h2-padding="base(x.5, x1)"
                       href={
                         locale === "en"
-                          ? "/documents/Enabling_Conditions_Guidance_EN.docx"
-                          : "/documents/Orientation_sur_les_conditions_habilitantes_FR.docx"
+                          ? "/static/documents/Enabling_Conditions_Guidance_EN.docx"
+                          : "/static/documents/Orientation_sur_les_conditions_habilitantes_FR.docx"
                       }
                       download
                     >

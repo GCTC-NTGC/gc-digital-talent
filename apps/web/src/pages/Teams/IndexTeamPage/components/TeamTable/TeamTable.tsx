@@ -55,7 +55,7 @@ type TeamTableFragment = FragmentType<typeof TeamTable_TeamFragment>[];
 
 export interface TeamTableProps {
   teamsQuery: TeamTableFragment;
-  myRolesAndTeams: Array<MyRoleTeam>;
+  myRolesAndTeams: MyRoleTeam[];
   title: string;
 }
 

@@ -41,9 +41,9 @@ import {
 import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
 
-type GeneralInformationSectionProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-};
+interface GeneralInformationSectionProps {
+  departments: Omit<Department, "departmentNumber">[];
+}
 
 const GeneralInformationSection = ({
   departments,
@@ -379,8 +379,8 @@ const GeneralInformationSection = ({
                     const locale = getLocale(intl);
                     const url =
                       locale === "en"
-                        ? "/documents/Forward_Talent_Plan_EN.docx"
-                        : "/documents/Plan_prospectif_sur_les_talents_FR.docx";
+                        ? "/static/documents/Forward_Talent_Plan_EN.docx"
+                        : "/static/documents/Plan_prospectif_sur_les_talents_FR.docx";
                     return buildExternalLink(url, chunks);
                   },
                   link2: (chunks: ReactNode) =>

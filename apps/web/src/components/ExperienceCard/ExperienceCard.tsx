@@ -43,7 +43,7 @@ interface ExperienceCardProps {
   id?: string;
   experience: AnyExperience;
   headingLevel?: HeadingRank;
-  showSkills?: boolean | Skill | Array<Skill>;
+  showSkills?: boolean | Skill | Skill[];
   showEdit?: boolean;
   hideDetails?: boolean;
   editParam?: string;

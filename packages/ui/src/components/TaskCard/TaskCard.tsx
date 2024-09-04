@@ -87,7 +87,7 @@ const TaskCardHeading = ({
   const CustomHeading = headingAs;
   return (
     <CustomHeading
-      {...headingStyles["h4"]}
+      {...headingStyles.h4}
       data-h2-margin="base(0)" // remove from imported styles
       {...(Icon && {
         // icon only appears greater than p-tablet width
@@ -121,7 +121,7 @@ interface RootProps {
     href: LinkProps["href"];
   };
   headingAs?: HeadingLevel;
-  children?: ReactElement<ItemProps> | Array<ReactElement<ItemProps>>; // Restricts children to only expected items;
+  children?: ReactElement<ItemProps> | ReactElement<ItemProps>[]; // Restricts children to only expected items;
 }
 
 const Root = ({

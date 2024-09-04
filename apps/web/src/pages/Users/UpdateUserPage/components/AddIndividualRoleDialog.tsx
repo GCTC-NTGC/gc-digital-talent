@@ -24,14 +24,14 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
-type FormValues = {
-  roles: Array<string>;
-};
+interface FormValues {
+  roles: string[];
+}
 
 interface AddIndividualRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Array<Role>;
+  availableRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

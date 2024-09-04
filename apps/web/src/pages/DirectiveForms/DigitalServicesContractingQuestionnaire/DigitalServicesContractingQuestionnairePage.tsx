@@ -39,13 +39,13 @@ export const pageTitle = defineMessage({
     "Title for the Digital services contracting questionnaire form page",
 });
 
-export type DigitalServicesContractingQuestionnaireProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-  skills: Array<Skill>;
+export interface DigitalServicesContractingQuestionnaireProps {
+  departments: Omit<Department, "departmentNumber">[];
+  skills: Skill[];
   isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;
   defaultValues?: Partial<FormValues>;
-};
+}
 
 export const DigitalServicesContractingQuestionnaire = ({
   departments,
@@ -119,8 +119,8 @@ export const DigitalServicesContractingQuestionnaire = ({
               external
               href={
                 locale === "fr"
-                  ? "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
-                  : "/documents/Digital_Contracting_Questionnaire_EN.docx"
+                  ? "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
+                  : "/static/documents/Digital_Contracting_Questionnaire_EN.docx"
               }
             >
               {intl.formatMessage({

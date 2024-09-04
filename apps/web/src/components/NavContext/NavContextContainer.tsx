@@ -17,7 +17,7 @@ type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
 
 export interface NavContextState {
   navRole: NavRole;
-  onAuthorizedRolesChanged: (roles: Array<RoleName>) => void;
+  onAuthorizedRolesChanged: (roles: RoleName[]) => void;
 }
 
 export const NavContext = createContext<NavContextState>({
@@ -51,7 +51,7 @@ function convertRoleToNavRole(role: RoleName): NavRole {
 
 export function chooseNavRole(
   currentNavRole: NavRole,
-  authorizedRoles: Array<RoleName>,
+  authorizedRoles: RoleName[],
 ): NavRole {
   // if there are no roles from some reason, fall back to least privileged
   if (authorizedRoles.length === 0) {
@@ -84,7 +84,7 @@ const NavContextContainer = ({ children }: NavContextContainerProps) => {
   const state = useMemo<NavContextState>(() => {
     return {
       navRole,
-      onAuthorizedRolesChanged: (authorizedRoles: Array<RoleName>) => {
+      onAuthorizedRolesChanged: (authorizedRoles: RoleName[]) => {
         const newNavRole = chooseNavRole(navRole, authorizedRoles);
         logger.debug(`new nav role: ${newNavRole}`); // feel free to remove this in  #10793 when the container is used
         setNavRole(newNavRole);

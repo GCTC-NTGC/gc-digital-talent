@@ -12,7 +12,7 @@ export function getFromStorage<T>(
     // Get from local storage by key
     const item = store.getItem(key);
     // Parse stored json or if none return defaultValue
-    return item ? JSON.parse(item) : defaultValue;
+    return item ? (JSON.parse(item) as T) : defaultValue;
   } catch (_error) {
     // If error also return defaultValue
     // console.log(error);

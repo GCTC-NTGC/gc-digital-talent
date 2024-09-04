@@ -127,11 +127,11 @@ const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   finalAssessmentDecision?: string;
   disqualifiedDecision?: string;
   expiryDate?: string;
-};
+}
 
 interface FinalDecisionDialogProps {
   poolCandidate: FragmentType<typeof FinalDecisionDialog_Fragment>;

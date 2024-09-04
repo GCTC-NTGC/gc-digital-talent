@@ -20,16 +20,14 @@ const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
   const applicationDoc = useApplicationDownloads();
 
   const handleProfileDocDownload = (anonymous: boolean) => {
-    profileDoc.downloadDoc({
-      ids: [userId],
+    profileDoc.downloadSingleUserDoc({
+      id: userId,
       anonymous,
     });
   };
 
   const handleApplicationDocDownload = () => {
-    applicationDoc.downloadDoc({
-      ids: [id],
-    });
+    applicationDoc.downloadSingleDoc({ id });
   };
 
   const isDownloading =
