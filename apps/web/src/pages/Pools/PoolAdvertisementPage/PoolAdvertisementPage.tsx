@@ -1,4 +1,4 @@
-import { defineMessage, useIntl } from "react-intl";
+import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
@@ -44,6 +44,9 @@ import {
   PoolSkillType,
   FragmentType,
   getFragment,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
+  Classification,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -126,6 +129,93 @@ const DeadlineDialogReturn = ({
   }
 
   return null;
+};
+
+const buildWhoCanApplyText = (
+  areaOfSelection: PoolAreaOfSelection | null | undefined,
+  selectionLimitations: PoolSelectionLimitation[] | undefined,
+  classification: Pick<Classification, "group" | "level"> | null | undefined,
+  intl: IntlShape,
+) => {
+  let body: ReactNode;
+  const classificationString =
+    !!classification?.group && !!classification?.level
+      ? formatClassificationString({
+          group: classification.group,
+          level: classification.level,
+        })
+      : intl.formatMessage(commonMessages.notProvided);
+
+  if (areaOfSelection == PoolAreaOfSelection.Employees) {
+    body = (
+      <>
+        {intl.formatMessage({
+          defaultMessage: "Employees of the Government of Canada who:",
+          id: "KY4zuB",
+          description:
+            "Title for a list of criteria needed for employees to apply",
+        })}
+        <ul>
+          {selectionLimitations?.includes(
+            PoolSelectionLimitation.AtLevelOnly,
+          ) ? (
+            <li data-h2-margin-top="base(x0.5)">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Currently hold an {classificationString} classification in their substantive role",
+                  id: "pVnp82",
+                  description: "At-level application criteria",
+                },
+                {
+                  classificationString,
+                },
+              )}
+            </li>
+          ) : null}
+          <li data-h2-margin-top="base(x0.5)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Are residing in Canada, are Canadian citizens, or are permanent residents abroad",
+              id: "F6AwoP",
+              description: "Regular criteria item needed in order to apply",
+            })}
+          </li>
+        </ul>
+      </>
+    );
+  } else {
+    body = (
+      <>
+        {intl.formatMessage({
+          defaultMessage:
+            "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
+          id: "faWz84",
+          description: "List of criteria needed in order to apply",
+        })}
+      </>
+    );
+  }
+
+  const finePrint = intl.formatMessage({
+    defaultMessage:
+      "* Preference will be given to veterans, Canadian citizens, and to permanent residents.",
+    id: "PAOXlo",
+    description: "Fine print for hiring policy for pool advertisement",
+  });
+
+  return (
+    <>
+      <Text data-h2-margin-top="base(0)">{body}</Text>
+      <Text
+        data-h2-margin-bottom="base(0)"
+        data-h2-font-size="base(caption)"
+        data-h2-color="base(black.70)"
+      >
+        {finePrint}
+      </Text>
+    </>
+  );
 };
 
 export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
@@ -270,6 +360,12 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       }
     }
     ...AreaOfSelectionNote
+    areaOfSelection {
+      value
+    }
+    selectionLimitations {
+      value
+    }
   }
 `);
 
@@ -1081,24 +1177,12 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin-top="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
-                        id: "faWz84",
-                        description:
-                          "List of criteria needed in order to apply",
-                      })}
-                    </Text>
-                    <Text data-h2-margin-bottom="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
-                        id: "aCg/OZ",
-                        description:
-                          "First hiring policy for pool advertisement",
-                      })}
-                    </Text>
+                    {buildWhoCanApplyText(
+                      pool.areaOfSelection?.value,
+                      pool.selectionLimitations?.map((l) => l.value),
+                      pool.classification,
+                      intl,
+                    )}
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericJobTitles.length ? (

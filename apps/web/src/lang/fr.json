@@ -4911,6 +4911,10 @@
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
   },
+  "PAOXlo": {
+    "defaultMessage": "* La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
+    "description": "Fine print for hiring policy for pool advertisement"
+  },
   "PAySDr": {
     "defaultMessage": "Familles de compétences (français)",
     "description": "Title for skill families in French"
@@ -6969,10 +6973,6 @@
   "aCKQVB": {
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
-  },
-  "aCg/OZ": {
-    "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
-    "description": "First hiring policy for pool advertisement"
   },
   "aDRIDD": {
     "defaultMessage": "Éducation actuelle",
