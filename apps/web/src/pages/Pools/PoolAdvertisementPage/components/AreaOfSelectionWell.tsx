@@ -77,13 +77,14 @@ export const deriveAreaOfSelectionMessages = (
           },
           { classification: classificationString },
         ),
+        // The same message is used for just departmental preference. There is no mention of being at-level.
         finePrint: intl.formatMessage(
           {
             defaultMessage:
               "* Preference will be given to persons employed with the following departments or agencies: {department}.",
-            id: "SoW0qk",
+            id: "8t1KYs",
             description:
-              "Fine print of a note describing that a pool is only open to employees, at-level, with departmental preference",
+              "Fine print of a note describing that a pool is only open to employees with departmental preference",
           },
           {
             department: departmentString,
