@@ -1,4 +1,4 @@
-import { defineMessage, IntlShape, useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
@@ -44,8 +44,6 @@ import {
   PoolSkillType,
   FragmentType,
   getFragment,
-  PoolAreaOfSelection,
-  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -76,6 +74,7 @@ import SkillLevelDialog from "./components/SkillLevelDialog";
 import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
 import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
 import DeadlineValue from "./components/DeadlineValue";
+import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
 
 interface SectionContent {
   id: string;
@@ -270,18 +269,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    department {
-      name {
-        en
-        fr
-      }
-    }
-    areaOfSelection {
-      value
-    }
-    selectionLimitations {
-      value
-    }
+    ...AreaOfSelectionNote
   }
 `);
 
@@ -298,146 +286,6 @@ const subTitle = defineMessage({
   id: "H5EXEi",
   description: "Subtitle for a pool advertisement page",
 });
-
-const deriveAreaOfSelectionMessages = (
-  areaOfSelection: PoolAreaOfSelection | null | undefined,
-  selectionLimitations: PoolSelectionLimitation[],
-  classificationString: string,
-  departmentString: string,
-  intl: IntlShape,
-): {
-  title: ReactNode;
-  body: ReactNode;
-  finePrint?: ReactNode;
-} | null => {
-  if (areaOfSelection == PoolAreaOfSelection.Employees) {
-    if (
-      selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly) &&
-      selectionLimitations?.includes(
-        PoolSelectionLimitation.DepartmentalPreference,
-      )
-    ) {
-      return {
-        title: intl.formatMessage(
-          {
-            defaultMessage:
-              "This opportunity is for internal employees with a classification of {classification} or equivalent with preference given to those at the departments listed*",
-            id: "66xc/o",
-            description:
-              "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print.",
-          },
-          {
-            classification: classificationString,
-          },
-        ),
-        body: intl.formatMessage(
-          {
-            defaultMessage:
-              "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-            id: "t+92o9",
-            description:
-              "Body of a note describing that a pool is only open to employees, at-level, with departmental preference",
-          },
-          { classification: classificationString },
-        ),
-        finePrint: intl.formatMessage(
-          {
-            defaultMessage:
-              "* Preference will be given to persons employed with the following departments or agencies: {department}.",
-            id: "SoW0qk",
-            description:
-              "Fine print of a note describing that a pool is only open to employees, at-level, with departmental preference",
-          },
-          {
-            department: departmentString,
-          },
-        ),
-      };
-    }
-
-    if (selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly)) {
-      return {
-        title: intl.formatMessage(
-          {
-            defaultMessage:
-              "This opportunity is for internal employees with a classification of {classification} or equivalent",
-            id: "4l0wGu",
-            description:
-              "Title of a note describing that a pool is only open to employees at-level",
-          },
-          {
-            classification: classificationString,
-          },
-        ),
-        body: intl.formatMessage(
-          {
-            defaultMessage:
-              "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-            id: "pVx/jP",
-            description:
-              "Body of a note describing that a pool is only open to employees at-level",
-          },
-          {
-            classification: classificationString,
-          },
-        ),
-      };
-    }
-    if (
-      selectionLimitations?.includes(
-        PoolSelectionLimitation.DepartmentalPreference,
-      )
-    ) {
-      return {
-        title: intl.formatMessage({
-          defaultMessage:
-            "This opportunity is for internal employees with preference given to those at the departments listed*",
-          id: "JKEDRo",
-          description:
-            "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print.",
-        }),
-        body: intl.formatMessage({
-          defaultMessage:
-            "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-          id: "LdpAcC",
-          description:
-            "Body of a note describing that a pool is only open to employees with departmental preference",
-        }),
-        finePrint: intl.formatMessage(
-          {
-            defaultMessage:
-              "* Preference will be given to persons employed with the following departments or agencies: {department}.",
-            id: "8t1KYs",
-            description:
-              "Fine print of a note describing that a pool is only open to employees with departmental preference",
-          },
-          {
-            department: departmentString,
-          },
-        ),
-      };
-    }
-
-    // fall-through for employees only
-    return {
-      title: intl.formatMessage({
-        defaultMessage: "This opportunity is for internal employees",
-        id: "WcU42I",
-        description:
-          "Title of a note describing that a pool is only open to employees",
-      }),
-      body: intl.formatMessage({
-        defaultMessage:
-          "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-        id: "k9moOJ",
-        description:
-          "Body of a note describing that a pool is only open to employees",
-      }),
-    };
-  }
-
-  return null;
-};
 
 interface PoolAdvertisementProps {
   poolQuery: FragmentType<typeof PoolAdvertisement_Fragment>;
@@ -640,14 +488,6 @@ export const PoolPoster = ({
 
   const classificationGroup = pool.classification?.group;
 
-  const areaOfSelectionMessages = deriveAreaOfSelectionMessages(
-    pool.areaOfSelection?.value,
-    unpackMaybes(pool.selectionLimitations).map((l) => l.value),
-    classificationString,
-    getLocalizedName(pool.department?.name, intl),
-    intl,
-  );
-
   return (
     <>
       <SEO title={poolTitle} description={formattedSubTitle} />
@@ -802,27 +642,7 @@ export const PoolPoster = ({
                   />
                 </Well>
               )}
-              {areaOfSelectionMessages ? (
-                <Well data-h2-margin="base(x1 0)" color="warning">
-                  <Heading
-                    level="h3"
-                    size="h6"
-                    data-h2-margin-top="base(0)"
-                    data-h2-font-size="base(body)"
-                  >
-                    {areaOfSelectionMessages.title}
-                  </Heading>
-                  {areaOfSelectionMessages.body}
-                  {areaOfSelectionMessages.finePrint ? (
-                    <div
-                      data-h2-font-size="base(caption)"
-                      data-h2-margin-top="base(x0.5)"
-                    >
-                      {areaOfSelectionMessages.finePrint}
-                    </div>
-                  ) : null}
-                </Well>
-              ) : null}
+              <AreaOfSelectionWell poolQuery={pool} />
 
               <CardBasic>
                 <DataRow
