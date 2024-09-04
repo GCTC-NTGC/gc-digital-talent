@@ -9,6 +9,7 @@ return [
     'notes' => 'Notes',
     'current_province' => 'Province',
     'current_city' => 'City',
+    'current_location' => 'Current location',
     'date_received' => 'Date received',
     'expiry_date' => 'Expiry date',
     'archival_date' => 'Archival date',
