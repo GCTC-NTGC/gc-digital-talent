@@ -8182,10 +8182,6 @@
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
   },
-  "ghg7uN": {
-    "defaultMessage": "J'accepterais un emploi d'une durée de...",
-    "description": "Start of sentence describing a users accepted working term"
-  },
   "giUfys": {
     "defaultMessage": "Expérience professionnelle",
     "description": "Title for work experience section"
@@ -10325,10 +10321,6 @@
   "sSnNWm": {
     "defaultMessage": "Supprimer l’adhésion<hidden> dans {team}</hidden>",
     "description": "Label for the form to remove a team role from a user"
-  },
-  "sTzKQs": {
-    "defaultMessage": "J'accepterais un emploi qui",
-    "description": "Start of sentence describing a users accepted working condition"
   },
   "sWBbdX": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en français",

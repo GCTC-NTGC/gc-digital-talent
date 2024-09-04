@@ -49,14 +49,7 @@ const Display = ({
         hasError={empty(positionDuration)}
         label={labels.contractDuration}
       >
-        {positionDuration
-          ? `${intl.formatMessage({
-              defaultMessage: "I would accept a job that lasts for",
-              id: "ghg7uN",
-              description:
-                "Start of sentence describing a users accepted working term",
-            })} ${durationMessage}`
-          : notProvided}
+        {positionDuration ? durationMessage : notProvided}
       </FieldDisplay>
       <div>
         <FieldDisplay label={labels.acceptedOperationalRequirements} />
@@ -64,17 +57,12 @@ const Display = ({
           <ul>
             {acceptedRequirements.map((requirement) => (
               <li key={requirement.value}>
-                {`${intl.formatMessage({
-                  defaultMessage: "I would accept a job that",
-                  id: "sTzKQs",
-                  description:
-                    "Start of sentence describing a users accepted working condition",
-                })} ${intl.formatMessage(
+                {intl.formatMessage(
                   getOperationalRequirement(
                     requirement.value,
                     "firstPersonNoBold",
                   ),
-                )}`}
+                )}
               </li>
             ))}
           </ul>
