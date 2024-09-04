@@ -9,9 +9,11 @@ import {
 import { PositionDuration } from "@gc-digital-talent/graphql";
 import { FieldLabels } from "@gc-digital-talent/forms";
 
+import profileMessages from "~/messages/profileMessages";
+import { formatLocation } from "~/utils/userUtils";
+
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
-import { formatLocation } from "./utils";
 
 interface DisplayProps {
   user: PartialUser;
@@ -35,19 +37,11 @@ const Display = ({
   const acceptedRequirements =
     acceptedOperationalRequirements?.filter(notEmpty);
 
-  const durationMessage = positionDuration?.includes(PositionDuration.Temporary)
-    ? intl.formatMessage({
-        defaultMessage: "Any duration (short term, long term, indeterminate)",
-        id: "ohQoWa",
-        description:
-          "Label displayed on Work Preferences form for any duration option",
-      })
-    : intl.formatMessage({
-        defaultMessage: "Indeterminate (permanent only)",
-        id: 'aB5p3B',
-        description:
-          "Label displayed on Work Preferences form for indeterminate duration option.",
-      });
+  const durationMessage = intl.formatMessage(
+    positionDuration?.includes(PositionDuration.Temporary)
+      ? profileMessages.anyDuration
+      : profileMessages.permanentDuration,
+  );
 
   return (
     <div data-h2-display="base(grid)" data-h2-gap="base(x1)">

@@ -1,34 +1,21 @@
 import { IntlShape } from "react-intl";
 
 import {
-  LocalizedProvinceOrTerritory,
-  Maybe,
   PositionDuration,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+
+import profileMessages from "~/messages/profileMessages";
 
 import { FormValues, PartialUser } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
-  contractDuration: intl.formatMessage({
-    defaultMessage: "Contract duration preference",
-    id: "VFK3wC",
-    description:
-      "Legend Text for required work preferences options in work preferences form",
-  }),
-  acceptedOperationalRequirements: intl.formatMessage({
-    defaultMessage: "Acceptable job requirements",
-    id: "6UgbrG",
-    description:
-      "Legend for optional work preferences check list in work preferences form",
-  }),
-  currentLocation: intl.formatMessage({
-    defaultMessage: "Your current location",
-    id: "J3yJhp",
-    description: "Legend for users current location",
-  }),
+  contractDuration: intl.formatMessage(profileMessages.contractDuration),
+  acceptedOperationalRequirements: intl.formatMessage(
+    profileMessages.acceptableRequirements,
+  ),
+  currentLocation: intl.formatMessage(profileMessages.currentLocation),
   currentProvince: intl.formatMessage({
     defaultMessage: "Province, territory or region",
     id: "fm2lKX",
@@ -40,7 +27,8 @@ export const getLabels = (intl: IntlShape) => ({
     description: "Label for current city field in About Me form",
   }),
   workLocationPreferences: intl.formatMessage({
-    defaultMessage: "Work location preferences", id: 'ahK7mI',
+    defaultMessage: "Work location preferences",
+    id: "ahK7mI",
     description: "Legend for the work location preferences section",
   }),
   locationPreferences: intl.formatMessage({
@@ -99,26 +87,4 @@ export const formValuesToSubmitData = (
     currentCity: values.currentCity,
     currentProvince: values.currentProvince,
   };
-};
-
-interface FormatLocationArgs {
-  city?: Maybe<string>;
-  region?: Maybe<LocalizedProvinceOrTerritory>;
-  intl: IntlShape;
-}
-
-export const formatLocation = ({
-  city,
-  region,
-  intl,
-}: FormatLocationArgs): string => {
-  if (city && region?.label) {
-    return `${city}, ${getLocalizedName(region.label, intl)}`;
-  }
-
-  if (city && !region) return city;
-
-  if (region && !city) return getLocalizedName(region.label, intl);
-
-  return intl.formatMessage(commonMessages.notProvided);
 };

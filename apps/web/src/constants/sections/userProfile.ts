@@ -3,7 +3,6 @@ export const PAGE_SECTION_ID = {
   DEI: "diversity-equity-inclusion-section",
   LANGUAGE: "language-section",
   GOVERNMENT: "government-section",
-  WORK_LOCATION: "work-location-section",
   WORK_PREFERENCES: "work-preferences-section",
   CAREER_TIMELINE_AND_RECRUITMENT: "career-timeline-section",
   SKILL_SHOWCASE: "skill-showcase",

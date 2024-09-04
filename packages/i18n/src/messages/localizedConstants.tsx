@@ -462,7 +462,7 @@ const operationalRequirementLabelFirstPersonNoBold = defineMessages({
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
       "I am willing to work a job that requires me to have a valid driver's license or personal mobility to the degree normally associated with the possession of a valid driver's license.",
-    id: 'uu2OuP',
+    id: "uu2OuP",
     description: "The operational requirement described as driver's license.",
   },
 });

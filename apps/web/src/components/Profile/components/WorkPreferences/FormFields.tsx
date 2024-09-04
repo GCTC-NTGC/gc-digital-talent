@@ -48,13 +48,16 @@ const FormFields = ({ labels }: FormFieldProps) => {
   useDirtyFields("work");
 
   return (
-    <>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-row-gap="base(x1)"
+    >
       <RadioGroup
         idPrefix="required-work-preferences"
         legend={labels.contractDuration}
         name="wouldAcceptTemporary"
         id="wouldAcceptTemporary"
-        data-h2-margin-bottom="base(x1)"
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
@@ -85,7 +88,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
         legend={labels.acceptedOperationalRequirements}
         name="acceptedOperationalRequirements"
         id="acceptedOperationalRequirements"
-        data-h2-margin-bottom="base(x1)"
         items={OperationalRequirements.map((value) => ({
           value,
           label: intl.formatMessage(
@@ -93,7 +95,11 @@ const FormFields = ({ labels }: FormFieldProps) => {
           ),
         }))}
       />
-      <Field.Fieldset>
+      <Field.Fieldset
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1)"
+      >
         <Field.Legend
           data-h2-font-size="base(h6)"
           data-h2-font-weight="base(700)"
@@ -105,7 +111,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
           id="currentCity"
           name="currentCity"
           type="text"
-          data-h2-margin-bottom="base(x1)"
           label={labels.currentCity}
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -114,7 +119,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
         <Select
           id="currentProvince"
           name="currentProvince"
-          data-h2-margin-bottom="base(x1)"
           label={labels.currentProvince}
           nullSelection={intl.formatMessage({
             defaultMessage: "Select a province or territory",
@@ -128,7 +132,11 @@ const FormFields = ({ labels }: FormFieldProps) => {
           }}
         />
       </Field.Fieldset>
-      <Field.Fieldset>
+      <Field.Fieldset
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1)"
+      >
         <Field.Legend
           data-h2-font-size="base(h6)"
           data-h2-font-weight="base(700)"
@@ -141,7 +149,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
           legend={labels.locationPreferences}
           name="locationPreferences"
           id="locationPreferences"
-          data-h2-margin-bottom="base(x1)"
           items={localizedEnumToOptions(
             sortWorkRegion(data?.workRegions),
             intl,
@@ -157,7 +164,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           aria-describedby="location-exemption-description"
         />
       </Field.Fieldset>
-    </>
+    </div>
   );
 };
 

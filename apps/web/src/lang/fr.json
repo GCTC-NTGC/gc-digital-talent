@@ -1927,10 +1927,6 @@
     "defaultMessage": "Français - Votre travail",
     "description": "Label for the French - Your Work textarea in the edit pool page."
   },
-  "8cRL8r": {
-    "defaultMessage": "Durée permanente",
-    "description": "Permanent duration only"
-  },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
     "description": "No preference for employment duration - will accept any"
@@ -3818,10 +3814,6 @@
   "J3Ud6R": {
     "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
     "description": "Application snapshot minimum experience section description"
-  },
-  "J3yJhp": {
-    "defaultMessage": "Votre lieu de résidence actuel",
-    "description": "Legend for users current location"
   },
   "J6atIv": {
     "defaultMessage": "Liste de compétences",
@@ -5767,10 +5759,6 @@
     "defaultMessage": "Gestionnaires de l'initiative sur le numérique",
     "description": "Title for group-specific resource card"
   },
-  "TwSvmH": {
-    "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
-    "description": "would not accept job line before a list"
-  },
   "TxVbLI": {
     "defaultMessage": "Filtre de classification",
     "description": "Heading for classification filter of the search form."
@@ -6065,10 +6053,6 @@
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Title that appears when a user is missing a language requirement."
-  },
-  "Vc9vE7": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
-    "description": "Label for what length of position user prefers, followed by colon"
   },
   "VcOlXA": {
     "defaultMessage": "Énoncé de confidentialité",
@@ -9038,10 +9022,6 @@
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
   },
-  "l/jGX9": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
-    "description": "Label for what conditions a user will accept, followed by a colon"
-  },
   "l1f8zy": {
     "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
     "description": "Lead-in text to list of pools managers can request candidates from"
@@ -10637,10 +10617,6 @@
   "uEqA50": {
     "defaultMessage": "Ajouter une nouvelle question",
     "description": "Button text to add a new general question to a pool"
-  },
-  "uHx3G7": {
-    "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
-    "description": "Label displayed on Work Preferences form for any duration option"
   },
   "uIUSdN": {
     "defaultMessage": "Apprenez-en davantage sur les modalités du site Talents numériques du GC.",
