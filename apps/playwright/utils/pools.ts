@@ -2,6 +2,7 @@ import {
   CreatePoolSkillInput,
   LocalizedString,
   Pool,
+  PoolAreaOfSelection,
   PoolLanguage,
   PoolOpportunityLength,
   PoolSkill,
@@ -39,6 +40,8 @@ const defaultPool: Partial<UpdatePoolInput> = {
   },
   isRemote: true,
   publishingGroup: PublishingGroup.ItJobs,
+  areaOfSelection: PoolAreaOfSelection.Public,
+  selectionLimitations: [],
 };
 
 const Test_CreatePoolMutationDocument = /* GraphQL */ `
