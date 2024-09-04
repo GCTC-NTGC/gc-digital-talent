@@ -66,13 +66,14 @@ export const deriveAreaOfSelectionMessages = (
             classification: classificationString,
           },
         ),
+        // The body is the same as the message for just at-level. No mention of departmental preference.
         body: intl.formatMessage(
           {
             defaultMessage:
               "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-            id: "t+92o9",
+            id: "pVx/jP",
             description:
-              "Body of a note describing that a pool is only open to employees, at-level, with departmental preference",
+              "Body of a note describing that a pool is only open to employees at-level",
           },
           { classification: classificationString },
         ),
@@ -132,12 +133,13 @@ export const deriveAreaOfSelectionMessages = (
           description:
             "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print.",
         }),
+        // The same message is used for employees only. There is no mention of the departmental preference.
         body: intl.formatMessage({
           defaultMessage:
             "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-          id: "LdpAcC",
+          id: "k9moOJ",
           description:
-            "Body of a note describing that a pool is only open to employees with departmental preference",
+            "Body of a note describing that a pool is only open to employees",
         }),
         finePrint: intl.formatMessage(
           {
