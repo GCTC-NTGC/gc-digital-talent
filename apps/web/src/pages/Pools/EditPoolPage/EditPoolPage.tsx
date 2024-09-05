@@ -211,7 +211,9 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       }
     }
     isRemote
-    areaOfSelection
+    areaOfSelection {
+      value
+    }
   }
 `);
 

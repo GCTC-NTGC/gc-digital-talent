@@ -44,7 +44,7 @@ export function hasEmptyRequiredFields({
   | "opportunityLength"
 >): boolean {
   return !!(
-    !areaOfSelection ||
+    !areaOfSelection?.value ||
     !classification ||
     !department ||
     !stream ||
