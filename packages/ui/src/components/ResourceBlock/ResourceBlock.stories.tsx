@@ -35,7 +35,7 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
         headingColor={colour}
         title={
           <>
-            `${args.title} ${colour}`
+            {args.title} {colour}
           </>
         }
         key={colour}
