@@ -23,7 +23,7 @@ test.describe("User Profile", () => {
     await expect(applicantPage.page.getByRole("alert").last()).toContainText(
       /information updated successfully/i,
     );
-    await expect(applicantPage.page.getByText(/test city/i)).toBeVisible();
+    await expect(applicantPage.page.getByText("123-456-7890")).toBeVisible();
 
     // Edit work preferences
     await applicantPage.page
