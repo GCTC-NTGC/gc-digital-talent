@@ -1,4 +1,4 @@
-import { LocalizedPoolAreaOfSelection, Pool } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 
 /*
   Checks null state for advertisement details section of edit pool page.
