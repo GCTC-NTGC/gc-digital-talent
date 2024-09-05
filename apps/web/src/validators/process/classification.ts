@@ -24,6 +24,7 @@ export function isInNullState({
 }
 
 export function hasEmptyRequiredFields({
+  areaOfSelection,
   classification,
   department,
   stream,
@@ -33,6 +34,7 @@ export function hasEmptyRequiredFields({
   opportunityLength,
 }: Pick<
   Pool,
+  | "areaOfSelection"
   | "classification"
   | "department"
   | "stream"
@@ -42,6 +44,7 @@ export function hasEmptyRequiredFields({
   | "opportunityLength"
 >): boolean {
   return !!(
+    !areaOfSelection ||
     !classification ||
     !department ||
     !stream ||

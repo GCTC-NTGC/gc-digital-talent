@@ -211,6 +211,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       }
     }
     isRemote
+    areaOfSelection
   }
 `);
 
@@ -263,6 +264,7 @@ export const EditPoolForm = ({
 
   const basicInfoHasError =
     poolNameError({
+      areaOfSelection: pool.areaOfSelection,
       classification: pool.classification,
       department: pool.department,
       stream: pool.stream,
