@@ -34,6 +34,7 @@ export function hasEmptyRequiredFields({
   opportunityLength,
 }: Pick<
   Pool,
+  | "areaOfSelection"
   | "classification"
   | "department"
   | "stream"
@@ -41,11 +42,9 @@ export function hasEmptyRequiredFields({
   | "processNumber"
   | "publishingGroup"
   | "opportunityLength"
-> & {
-  areaOfSelection: LocalizedPoolAreaOfSelection["value"] | undefined;
-}): boolean {
+>): boolean {
   return !!(
-    !areaOfSelection ||
+    !areaOfSelection?.value ||
     !classification ||
     !department ||
     !stream ||
