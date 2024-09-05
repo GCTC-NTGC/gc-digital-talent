@@ -83,12 +83,16 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
                 >
                   {acceptedRequirements.includes(requirement) ? (
                     <CheckCircleIcon
+                      aria-label={intl.formatMessage(commonMessages.accepted)}
                       data-h2-color="base(success)"
                       data-h2-width="base(x.5)"
                       data-h2-flex-shrink="base(0)"
                     />
                   ) : (
                     <XCircleIcon
+                      aria-label={intl.formatMessage(
+                        commonMessages.notAccepted,
+                      )}
                       data-h2-color="base(gray)"
                       data-h2-width="base(x.5)"
                       data-h2-flex-shrink="base(0)"
