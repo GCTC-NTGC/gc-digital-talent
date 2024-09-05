@@ -730,10 +730,14 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
 
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);
@@ -883,50 +887,19 @@ class PoolCandidate extends Model
             'userSkills.skill',
             'awardExperiences',
             'awardExperiences.skills',
-            'awardExperiences.user',
             'communityExperiences',
             'communityExperiences.skills',
-            'communityExperiences.user',
             'educationExperiences',
             'educationExperiences.skills',
-            'educationExperiences.user',
             'personalExperiences',
             'personalExperiences.skills',
-            'personalExperiences.user',
             'workExperiences',
             'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.pool.classification.genericJobTitles',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementAwardExperiences.user',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.user',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.user',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.user',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.user',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-            'poolCandidates.user',
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection
         $pool = Pool::with(['poolSkills'])->findOrFail($this->pool_id);
         $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
-
-        // filter out any non-applicable PoolCandidate models attached to User
-        $poolCandidateCollection = $user->poolCandidates;
-        $filteredPoolCandidateCollection = $poolCandidateCollection->filter(function ($individualPoolCandidate) {
-            return $individualPoolCandidate->id === $this->id;
-        });
-        $user->poolCandidates = $filteredPoolCandidateCollection;
 
         $profile = new UserResource($user);
         $profile = $profile->poolSkillIds($poolSkillIds);

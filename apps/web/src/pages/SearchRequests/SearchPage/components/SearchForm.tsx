@@ -11,15 +11,13 @@ import {
   Classification,
   ApplicantFilterInput,
   Skill,
-  getFragment,
-  SearchForm_PoolFragment as SearchFormPoolFragmentType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 
-import { getAvailableClassifications, formValuesToData } from "../utils";
+import { formValuesToData } from "../utils";
 import { useCandidateCount, useInitialFilters } from "../hooks";
 import FormFields from "./FormFields";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -38,20 +36,15 @@ const styledCount = (chunks: ReactNode) => (
 );
 
 interface SearchFormProps {
-  pools: SearchFormPoolFragmentType[];
   classifications: Pick<Classification, "group" | "level" | "id">[];
   skills: Skill[];
 }
 
-export const SearchForm = ({
-  pools,
-  classifications,
-  skills,
-}: SearchFormProps) => {
+export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { defaultValues, initialFilters } = useInitialFilters(pools);
+  const { defaultValues, initialFilters } = useInitialFilters();
 
   const [applicantFilter, setApplicantFilter] =
     useState<ApplicantFilterInput>(initialFilters);
@@ -71,18 +64,16 @@ export const SearchForm = ({
     const subscription = watch((newValues) => {
       const newFilters = formValuesToData(
         newValues as FormValues,
-        pools,
         classifications,
       );
       setApplicantFilter(newFilters);
     });
 
     return () => subscription.unsubscribe();
-  }, [classifications, pools, watch]);
+  }, [classifications, watch]);
 
   const handleSubmit = (values: FormValues) => {
     const poolIds = values.pool ? [{ id: values.pool }] : [];
-    const selectedPool = pools.find((pool) => pool.id === values.pool);
 
     navigate(paths.request(), {
       state: {
@@ -92,9 +83,8 @@ export const SearchForm = ({
         },
         allPools: values.allPools,
         candidateCount: values.count,
-        selectedClassifications: selectedPool?.classification
-          ? [selectedPool.classification]
-          : applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+        selectedClassifications:
+          applicantFilter?.qualifiedClassifications?.filter(notEmpty),
       },
     });
   };
@@ -238,22 +228,12 @@ export const SearchForm = ({
   );
 };
 
-const SearchForm_PoolFragment = graphql(/* GraphQL */ `
-  fragment SearchForm_Pool on Pool {
-    ...SearchResultCard_Pool
-    id
-    classification {
+const SearchForm_Query = graphql(/* GraphQL */ `
+  query SearchForm {
+    classifications(availableInSearch: true) {
       id
       group
       level
-    }
-  }
-`);
-
-const SearchForm_Query = graphql(/* GraphQL */ `
-  query SearchForm {
-    publishedPools {
-      ...SearchForm_Pool
     }
     skills {
       id
@@ -293,20 +273,11 @@ const SearchFormAPI = () => {
   const [{ data, fetching, error }] = useQuery({ query: SearchForm_Query });
 
   const skills = unpackMaybes<Skill>(data?.skills);
-  const fragmentPublishedPools = unpackMaybes(data?.publishedPools);
-  const publishedPools = getFragment(
-    SearchForm_PoolFragment,
-    fragmentPublishedPools,
-  );
-  const classifications = getAvailableClassifications(publishedPools);
+  const classifications = unpackMaybes(data?.classifications);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SearchForm
-        skills={skills}
-        pools={publishedPools}
-        classifications={classifications}
-      />
+      <SearchForm skills={skills} classifications={classifications} />
     </Pending>
   );
 };

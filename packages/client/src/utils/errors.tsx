@@ -15,7 +15,7 @@ const isNotNullObject = (value: unknown): value is NonNullable<object> => {
 
 // expected shape of validation extension, returned as type unknown
 interface ExtensionWithValidation {
-  validation: Array<{ [attributeName: string]: Array<string> }>;
+  validation: Record<string, string[]>[];
 }
 
 // custom type guard for expected validation extension shape
@@ -54,7 +54,7 @@ export const extractValidationMessageKeys = (
 
 // Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
 export const buildValidationErrorMessageNode = (
-  errorMessages: Array<string>,
+  errorMessages: string[],
   intl: IntlShape,
 ): ReactNode => {
   const localizedMessages = errorMessages.map((errorMessage) => {

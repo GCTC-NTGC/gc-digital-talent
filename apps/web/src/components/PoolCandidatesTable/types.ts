@@ -1,4 +1,4 @@
-export type FormValues = {
+export interface FormValues {
   languageAbility: string;
   classifications: string[];
   stream: string[];
@@ -14,4 +14,4 @@ export type FormValues = {
   publishingGroups: string[];
   govEmployee: string;
   community: string;
-};
+}

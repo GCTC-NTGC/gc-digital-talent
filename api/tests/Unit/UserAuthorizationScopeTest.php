@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
@@ -266,5 +267,68 @@ class UserAuthorizationScopeTest extends TestCase
         ], $userIds->toArray());
     }
 
-    // TODO: add tests for new roles as part of #10609
+    // process operator can only see the user that submitted an application to the pool they are an operator on
+    // and their own self
+    public function testScopeAuthorizedToViewAsProcessOperator(): void
+    {
+        $processOperator = User::factory()
+            ->asProcessOperator($this->pool1->id)
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($processOperator);
+
+        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $processOperator->id,
+            $this->user1->id,
+        ], $userIds);
+    }
+
+    // community recruiter can only see the user that submitted an application to the pool that is connected to the community that they belong to
+    // and their own self
+    public function testScopeAuthorizedToViewAsCommunityRecruiter(): void
+    {
+        $community = Community::factory()->create();
+        $this->pool2->community_id = $community->id;
+        $this->pool2->save();
+
+        $communityRecruiter = User::factory()
+            ->asCommunityRecruiter($community->id)
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($communityRecruiter);
+
+        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $communityRecruiter->id,
+            $this->user2->id,
+        ], $userIds);
+    }
+
+    // community admin can only see the user that submitted an application to the pool that is connected to the community that they belong to
+    // and their own self
+    public function testScopeAuthorizedToViewAsCommunityAdmin(): void
+    {
+        $community = Community::factory()->create();
+        $this->pool2->community_id = $community->id;
+        $this->pool2->save();
+
+        $communityAdmin = User::factory()
+            ->asCommunityAdmin($community->id)
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($communityAdmin);
+
+        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $communityAdmin->id,
+            $this->user2->id,
+        ], $userIds);
+    }
 }

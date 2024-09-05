@@ -29,7 +29,7 @@ interface FieldOption {
 
 const getFieldLabel = (
   value: string | string[],
-  options: Array<FieldOption>,
+  options: FieldOption[],
   intl: IntlShape,
 ) => {
   let label;

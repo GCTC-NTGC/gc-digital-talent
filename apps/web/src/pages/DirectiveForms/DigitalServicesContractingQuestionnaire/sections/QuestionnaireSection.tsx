@@ -13,11 +13,11 @@ import TechnologicalChangeSection from "./TechnologicalChangeSection";
 import OperationsConsiderationsSection from "./OperationsConsiderationsSection";
 import TalentSourcingDecisionSection from "./TalentSourcingDecisionSection";
 
-type QuestionnaireSectionProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-  skills: Array<Skill>;
+interface QuestionnaireSectionProps {
+  departments: Omit<Department, "departmentNumber">[];
+  skills: Skill[];
   isSubmitting: boolean;
-};
+}
 
 const QuestionnaireSection = ({
   departments,

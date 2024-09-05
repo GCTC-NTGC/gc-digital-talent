@@ -23,10 +23,10 @@ import { isDraftStatus, isToAssessStatus } from "./poolCandidate";
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
-  stepsInfosInApplication: Array<ApplicationStepInfo>,
-  prerequisiteSteps: Maybe<Array<ApplicationStep>> | undefined,
-  submittedSteps: Maybe<Array<ApplicationStep>> | undefined,
-): Maybe<Array<ApplicationStep>> | undefined => {
+  stepsInfosInApplication: ApplicationStepInfo[],
+  prerequisiteSteps: Maybe<ApplicationStep[]> | undefined,
+  submittedSteps: Maybe<ApplicationStep[]> | undefined,
+): Maybe<ApplicationStep[]> | undefined => {
   // figure out the application step enum values for this flow (may or may not include conditional steps)
   const stepsInThisApplication = stepsInfosInApplication.map(
     (step) => step.applicationStep,
@@ -46,7 +46,7 @@ const missingPrerequisitesFromThisApplication = (
 
 // What step should we go to, to resume the application
 export function getNextStepToSubmit(
-  stepsInThisApplication: Array<ApplicationStepInfo>,
+  stepsInThisApplication: ApplicationStepInfo[],
   submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): ApplicationStepInfo {
   let nextStep = stepsInThisApplication[0];
@@ -69,7 +69,7 @@ export function getNextStepToSubmit(
 // check if the current page should be disabled and figure out where to return the user to
 export function isOnDisabledPage(
   currentPageUrl: string | undefined,
-  steps: Array<ApplicationStepInfo>,
+  steps: ApplicationStepInfo[],
   submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): boolean {
   // where are we right now?
@@ -93,7 +93,7 @@ export function isOnDisabledPage(
 }
 
 export function applicationStepsToStepperArgs(
-  applicationSteps: Array<ApplicationStepInfo>,
+  applicationSteps: ApplicationStepInfo[],
   application: Application_PoolCandidateFragment,
 ): StepType[] {
   return applicationSteps

@@ -660,14 +660,14 @@ export const getExperienceDate = (
   return getDateRange({ startDate, endDate, intl });
 };
 
-type ExperienceInfo = {
+interface ExperienceInfo {
   title: string;
   titleHtml: ReactNode;
   editPath?: string;
   typeMessage: ReactNode;
   icon: IconType;
   date?: ReactNode;
-};
+}
 
 type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
 

@@ -24,14 +24,14 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-type FormValues = {
-  roles: Array<Scalars["UUID"]["output"]>;
-};
+interface FormValues {
+  roles: Scalars["UUID"]["output"][];
+}
 
 interface EditTeamRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
-  initialRoles: Array<Role>;
-  allRoles: Array<Role>;
+  initialRoles: Role[];
+  allRoles: Role[];
   team: Pick<Team, "id" | "displayName">;
   onEditRoles: (
     submitData: UpdateUserRolesInput,

@@ -162,10 +162,15 @@ class UserPolicy
         return PoolCandidate::where('user_id', $applicant->id)
             ->notDraft()
             ->whereHas('pool', function ($query) use ($teamIds) {
-                return $query->whereIn('team_id', $teamIds)
-                    ->orWhereHas('community.team', function ($query) use ($teamIds) {
+                return $query->where(function ($query) use ($teamIds) {
+                    $query->orWhereHas('legacyTeam', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('team', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('community.team', function ($query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     });
+                });
             })
             ->exists();
     }
@@ -191,11 +196,12 @@ class UserPolicy
                 return $actor->isAbleTo('assign-any-teamRole');
             case 'process_operator':
                 // Community roles have the update-team-processOperatorMembership permission, and it should give them the ability to assign processOperator roles to pools in their community.
-                $communityTeam = $team?->teamable?->team;
+                // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
+                $poolTeam = $team->loadMissing(['teamable.community.team']);
 
                 return $actor->isAbleTo('update-any-processOperatorMembership')
                     || $actor->isAbleTo('update-team-processOperatorMembership', $team)
-                || (isset($communityTeam) && $actor->isAbleTo('update-team-processOperatorMembership', $communityTeam));
+                || (isset($poolTeam->teamable->community->team) && $actor->isAbleTo('update-team-processOperatorMembership', $poolTeam->teamable->community->team));
             case 'community_recruiter':
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':

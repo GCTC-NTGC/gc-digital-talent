@@ -11,12 +11,12 @@ import { FormValues as SearchFormValues } from "~/types/searchRequest";
 
 import CreateRequest from "./components/RequestForm";
 
-type LocationState = {
+interface LocationState {
   applicantFilter: ApplicantFilterInput;
   initialValues: SearchFormValues;
   candidateCount: number;
   selectedClassifications?: Pick<Classification, "group" | "level">[];
-};
+}
 
 export const Component = () => {
   const intl = useIntl();
@@ -52,7 +52,7 @@ export const Component = () => {
           data-h2-text-align="base(left)"
         >
           <CreateRequest
-            applicantFilter={applicantFilter as ApplicantFilterInput}
+            applicantFilter={applicantFilter}
             searchFormInitialValues={initialValues}
             candidateCount={candidateCount}
             selectedClassifications={selectedClassifications}

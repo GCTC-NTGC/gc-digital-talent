@@ -136,7 +136,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         assertEquals(config('notify.templates.application_deadline_approaching_fr'), $message->templateId);
         assertEquals('example@example.org', $message->emailAddress);
         assertEquals([
-            'closing date' => 'décembre 31, 2999',
+            'closing date' => '31 décembre 2999',
             'opportunity title' => 'poolNameFr',
             'job advertisement link' => config('app.url').'/fr/browse/pools/1',
             'application link' => config('app.url').'/fr/applications/2'],

@@ -4,12 +4,12 @@ import { GeneralQuestion, UpdatePoolInput } from "@gc-digital-talent/graphql";
 
 type QuestionDialogAction = "save" | "delete";
 
-export type FormValues = {
+export interface FormValues {
   id: string;
   questionEn?: string;
   questionFr?: string;
   action?: QuestionDialogAction;
-};
+}
 
 export const dataToFormValues = (
   initialData?: GeneralQuestion | null,

@@ -43,10 +43,10 @@ export type SectionKey =
   | "notificationSettings"
   | "recruitmentAvailability";
 
-type Section = {
+interface Section {
   id: string;
   title: ReactNode;
-};
+}
 
 const pageTitle = defineMessage({
   defaultMessage: "Account settings",
@@ -116,7 +116,7 @@ const AccountSettingsPage = () => {
     crumbs: [
       {
         label: formattedPageTitle,
-        url: paths.accessibility(),
+        url: paths.accountSettings(),
       },
     ],
   });

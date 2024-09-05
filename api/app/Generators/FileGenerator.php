@@ -9,6 +9,8 @@ class FileGenerator
 {
     protected ?string $lang;
 
+    protected ?string $userId;
+
     public function __construct(protected string $fileName, protected ?string $dir) {}
 
     public function getFileName(): string
@@ -37,5 +39,17 @@ class FileGenerator
         }
 
         return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->fileName));
+    }
+
+    /**
+     * Set the user ID for the generator scopes
+     *
+     * @param  string  $userId  The user to scope the generator to
+     */
+    public function setUserId(string $userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
     }
 }

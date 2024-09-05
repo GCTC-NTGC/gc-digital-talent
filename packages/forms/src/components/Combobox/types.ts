@@ -14,7 +14,7 @@ export type HTMLSpanProps = Omit<
   "ref"
 >;
 
-export type BaseProps = {
+export interface BaseProps {
   /** All available options */
   options: Option[];
   /** If this input is required or not */
@@ -33,4 +33,4 @@ export type BaseProps = {
   toggleLabel?: string;
   /** Optional: Total number available options (use for API driven where options is not the total length) */
   total: number;
-};
+}

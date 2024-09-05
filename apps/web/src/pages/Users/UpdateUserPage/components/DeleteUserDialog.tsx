@@ -15,10 +15,10 @@ import { User, DeleteUserMutation } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
-type FormValues = {
-  roles: Array<string>;
+interface FormValues {
+  roles: string[];
   team: string | null;
-};
+}
 
 interface AddTeamRoleDialogProps {
   user: Pick<User, "deletedDate" | "firstName" | "lastName">;

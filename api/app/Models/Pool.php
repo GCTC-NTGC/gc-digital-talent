@@ -153,6 +153,9 @@ class Pool extends Model
                 'type' => AssessmentStepType::APPLICATION_SCREENING->name,
                 'sort_order' => 1,
             ]);
+            $pool->team()->firstOrCreate([], [
+                'name' => 'pool-'.$pool->id,
+            ]);
         });
     }
 
@@ -587,9 +590,14 @@ class Pool extends Model
                     }
                 }
 
-                // This will need to be updated when we give the new roles access to Pools in #10609.
                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                     $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
                 });
             });
 
@@ -663,6 +671,12 @@ class Pool extends Model
                 }
 
                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                    $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });
             }

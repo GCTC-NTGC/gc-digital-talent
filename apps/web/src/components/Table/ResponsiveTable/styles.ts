@@ -1,18 +1,18 @@
-type GetCellStyleArgs = {
+interface GetCellStyleArgs {
   /** Determine if this cell acts as the "title" for the row */
   isRowTitle?: boolean;
   /** Determine if this cell is the selection cell  */
   isRowSelect?: boolean;
   /** Determine if this cell should shrink below the min width of x8  */
   shouldShrink?: boolean;
-};
+}
 
-type CellStyles = {
+interface CellStyles {
   /** Styles for the actual `td` element */
   td: Record<string, string>;
   /** Styles for the inner span (mobile layout) */
   value: Record<string, string>;
-};
+}
 
 type GetCellStyles = (args: GetCellStyleArgs) => CellStyles;
 

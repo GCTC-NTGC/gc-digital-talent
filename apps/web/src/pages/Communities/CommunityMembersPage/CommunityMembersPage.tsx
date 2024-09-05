@@ -160,6 +160,7 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   communityId: Scalars["ID"]["output"];
 };

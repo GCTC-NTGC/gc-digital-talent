@@ -18,7 +18,7 @@ export default {
   component: SwitchInput,
 };
 
-const colors: Array<Color> = [
+const colors: Color[] = [
   "primary",
   "secondary",
   "tertiary",

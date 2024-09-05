@@ -76,7 +76,7 @@ const Combobox = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
-  const defaultValue = defaultValues && defaultValues[name];
+  const defaultValue = defaultValues?.[name];
   const currentValue = watch(name);
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,

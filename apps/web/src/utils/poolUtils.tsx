@@ -37,24 +37,6 @@ import messages from "~/messages/adminMessages";
 import { wrapAbbr } from "./nameUtils";
 
 /**
- * Check if a pool matches a
- * classification
- *
- * @param pool
- * @param classification
- * @returns boolean
- */
-export const poolMatchesClassification = (
-  pool: { classification?: Maybe<Pick<Classification, "group" | "level">> },
-  classification: Pick<Classification, "group" | "level">,
-): boolean => {
-  return (
-    pool.classification?.group === classification?.group &&
-    pool.classification?.level === classification?.level
-  );
-};
-
-/**
  * Determine if the advertisement can be
  * viewed based on user roles and status
  *
@@ -378,6 +360,19 @@ export const useAdminPoolPages = (
         },
       },
     ],
+    [
+      "manage-access",
+      {
+        title: intl.formatMessage({
+          defaultMessage: "Manage access",
+          id: "J0i4xY",
+          description: "Title for members page",
+        }),
+        link: {
+          url: paths.poolManageAccess(pool.id),
+        },
+      },
+    ],
   ]);
 };
 
@@ -396,11 +391,11 @@ export const getAdvertisementStatus = (
   return pool.isComplete ? "complete" : "incomplete";
 };
 
-type StatusBadge = {
+interface StatusBadge {
   color: Color;
   label?: MessageDescriptor | string;
   icon?: IconType;
-};
+}
 
 const defaultCompleteness: StatusBadge = {
   color: "error",

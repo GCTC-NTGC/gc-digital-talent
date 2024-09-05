@@ -50,16 +50,16 @@ import {
   UpdateUserSkill_Mutation,
 } from "./operations";
 
-type PageSection = {
+interface PageSection {
   id: string;
   title: ReactNode;
-};
+}
 type PageSections = Record<string, PageSection>;
 
-type FormValues = {
+interface FormValues {
   skillLevel: SkillLevel;
   whenSkillUsed: WhenSkillUsed;
-};
+}
 
 interface NullExperienceMessageProps {
   hasExperiences: boolean;
@@ -400,7 +400,7 @@ export const UpdateUserSkillForm = ({
 
   const handleDelete = () => {
     executeDeleteMutation({
-      id: userSkill?.id,
+      id: userSkill?.id ?? "",
     })
       .then(() =>
         handleSuccess(
@@ -769,6 +769,7 @@ export const UpdateUserSkillForm = ({
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   skillId: Scalars["ID"]["output"];
 };

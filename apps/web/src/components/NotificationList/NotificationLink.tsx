@@ -35,6 +35,7 @@ const NotificationLink = forwardRef<
       ref={forwardedRef}
       to={href}
       onClick={handleClick}
+      data-notification-link
       {...styles.link(isUnread, fetching)}
     >
       {children}

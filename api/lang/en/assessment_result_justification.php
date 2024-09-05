@@ -8,5 +8,5 @@ return [
     'education_failed_requirement_not_met' => 'Not enough education or experience to meet the requirement',
     'skill_failed_insufficiently_demonstrated' => 'Not sufficiently demonstrated to meet the requirement',
     'failed_not_enough_information' => 'Not enough information provided',
-    'failed_other' => 'Other reason for screening out.',
+    'failed_other' => 'Other reason for screening out',
 ];

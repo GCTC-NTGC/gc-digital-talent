@@ -64,7 +64,7 @@ const ApplicantFilters = ({
   });
 
   const employmentDuration: string | undefined =
-    applicantFilter && applicantFilter.positionDuration
+    applicantFilter?.positionDuration
       ? intl.formatMessage(
           getEmploymentDuration(
             positionDurationToEmploymentDuration(

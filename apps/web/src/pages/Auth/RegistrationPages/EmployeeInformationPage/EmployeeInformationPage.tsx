@@ -49,14 +49,14 @@ const specificTitle = defineMessage({
   description: "Main heading in employee information page.",
 });
 
-type FormValues = {
+interface FormValues {
   govEmployeeYesNo: "yes" | "no";
   govEmployeeType: GovEmployeeType | null;
   lateralDeployBool: boolean;
   department: string;
   currentClassificationGroup: string;
   currentClassificationLevel: string;
-};
+}
 
 export const EmployeeInformation_QueryFragment = graphql(/** GraphQL */ `
   fragment EmployeeInformation_QueryFragment on Query {

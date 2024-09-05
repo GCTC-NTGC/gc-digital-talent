@@ -18,10 +18,10 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import profileMessages from "~/messages/profileMessages";
 
-type FormValues = {
+interface FormValues {
   result: ClaimVerificationResult;
   expiry?: Scalars["DateTime"]["input"];
-};
+}
 
 const UpdateClaimVerification_Mutation = graphql(/* GraphQL */ `
   mutation UpdatePriorityVerification(

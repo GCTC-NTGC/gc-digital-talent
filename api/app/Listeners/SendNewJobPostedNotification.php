@@ -14,6 +14,23 @@ use Throwable;
 class SendNewJobPostedNotification implements ShouldQueue
 {
     /**
+     * The number of seconds the job can run before timing out.
+     * Locally, I can queue about 7400 jobs per minute.
+     *
+     * @var int
+     */
+    public $timeout = 60 * 10;
+
+    /**
+     * The number of times the job may be attempted.
+     * Duplicate runs of this job will result in
+     * duplicate notifications being sent.
+     *
+     * @var int
+     */
+    public $tries = 1;
+
+    /**
      * Create the event listener.
      */
     public function __construct() {}

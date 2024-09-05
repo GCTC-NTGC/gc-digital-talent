@@ -1,5 +1,5 @@
 import { test as base } from "@playwright/test";
-import AxeBuilder from "@axe-core/playwright";
+import { AxeBuilder } from "@axe-core/playwright";
 import * as sinon from "sinon";
 
 import auth from "~/constants/auth";
@@ -9,14 +9,17 @@ import AdminPage from "./AdminPage";
 import ApplicantPage from "./ApplicantPage";
 import CommunityRecruiterPage from "./CommunityRecruiterPage";
 import CommunityAdminPage from "./CommunityAdminPage";
+import ProcessOperatorPage from "./ProcessOperatorPage";
 
-type AppFixtures = {
+interface AppFixtures {
   // Base unauthenticated page
   appPage: AppPage;
   // Authenticated as admin page
   adminPage: AdminPage;
   // Authenticated as applicant page
   applicantPage: ApplicantPage;
+  // Authenticated as process operator page
+  processOperatorPage: ProcessOperatorPage;
   // Authenticated as community recruiter page
   communityRecruiterPage: CommunityRecruiterPage;
   // Authenticated as community admin page
@@ -24,7 +27,7 @@ type AppFixtures = {
   // Axe test builder
   makeAxeBuilder: () => AxeBuilder;
   fakeClock: sinon.SinonFakeTimers;
-};
+}
 
 // Extend base text with our fixtures
 export const test = base.extend<AppFixtures>({
@@ -48,6 +51,15 @@ export const test = base.extend<AppFixtures>({
     });
     const admin = new ApplicantPage(await context.newPage());
     await use(admin);
+    await context.close();
+  },
+
+  processOperatorPage: async ({ browser }, use) => {
+    const context = await browser.newContext({
+      storageState: auth.STATE.PROCESS_OPERATOR,
+    });
+    const processOperator = new ProcessOperatorPage(await context.newPage());
+    await use(processOperator);
     await context.close();
   },
 
