@@ -107,15 +107,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
         >
           {labels.currentLocation}
         </Field.Legend>
-        <Input
-          id="currentCity"
-          name="currentCity"
-          type="text"
-          label={labels.currentCity}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
         <Select
           id="currentProvince"
           name="currentProvince"
@@ -127,6 +118,15 @@ const FormFields = ({ labels }: FormFieldProps) => {
               "Placeholder displayed on the About Me form province or territory field.",
           })}
           options={localizedEnumToOptions(data?.provinceOrTerritories, intl)}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+        <Input
+          id="currentCity"
+          name="currentCity"
+          type="text"
+          label={labels.currentCity}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
