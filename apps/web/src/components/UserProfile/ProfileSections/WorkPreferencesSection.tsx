@@ -76,28 +76,26 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           <ul data-h2-padding="base(0, 0, 0, x1)">
             {OperationalRequirements.map((requirement) => (
               <li key={requirement}>
-                <span
-                  data-h2-display="base(flex)"
-                  data-h2-align-items="base(flex-start)"
-                  data-h2-gap="base(x.25)"
-                >
-                  {acceptedRequirements.includes(requirement) ? (
-                    <CheckCircleIcon
-                      aria-label={intl.formatMessage(commonMessages.accepted)}
-                      data-h2-color="base(success)"
-                      data-h2-width="base(x.5)"
-                      data-h2-flex-shrink="base(0)"
-                    />
-                  ) : (
-                    <XCircleIcon
-                      aria-label={intl.formatMessage(
-                        commonMessages.notAccepted,
-                      )}
-                      data-h2-color="base(gray)"
-                      data-h2-width="base(x.5)"
-                      data-h2-flex-shrink="base(0)"
-                    />
-                  )}
+                <span data-h2-display="base(flex)" data-h2-gap="base(x.25)">
+                  <span
+                    data-h2-width="base(x.5)"
+                    data-h2-flex-shrink="base(0)"
+                    data-h2-vertical-align="base(bottom)"
+                  >
+                    {acceptedRequirements.includes(requirement) ? (
+                      <CheckCircleIcon
+                        aria-label={intl.formatMessage(commonMessages.accepted)}
+                        data-h2-color="base(success)"
+                      />
+                    ) : (
+                      <XCircleIcon
+                        aria-label={intl.formatMessage(
+                          commonMessages.notAccepted,
+                        )}
+                        data-h2-color="base(gray)"
+                      />
+                    )}
+                  </span>
                   <span>
                     {intl.formatMessage(
                       getOperationalRequirement(
