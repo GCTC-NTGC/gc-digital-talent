@@ -5235,6 +5235,10 @@
     "defaultMessage": "Études minimales",
     "description": "Title for application education"
   },
+  "Qvep+v": {
+    "defaultMessage": "Ville ou municipalité",
+    "description": "Label for current city field in About Me form"
+  },
   "QvyQc3": {
     "defaultMessage": "Expériences de travail",
     "description": "Heading for work experiences"
@@ -7990,6 +7994,10 @@
     "defaultMessage": "Plan d'évaluation",
     "description": "Title for the assessment plan builder"
   },
+  "fm2lKX": {
+    "defaultMessage": "Province, territoire ou région",
+    "description": "Label for current province or territory field"
+  },
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
@@ -10733,6 +10741,10 @@
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
     "description": "Title for application updates checklist"
+  },
+  "v9A5Cb": {
+    "defaultMessage": "Emplacement actuel",
+    "description": "Legend for users current location"
   },
   "v9mTgX": {
     "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",

@@ -407,6 +407,10 @@
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
     "description": "Error message that a given pool skill is not valid."
   },
+  "I1jrAG": {
+    "defaultMessage": "Non accepté",
+    "description": "Indicates a user has not accepted some criteria"
+  },
   "IKGhHj": {
     "defaultMessage": "Important",
     "description": "Important note or caption"
@@ -574,6 +578,10 @@
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "Pj4lW9": {
+    "defaultMessage": "Accepté",
+    "description": "Indicates a user has accepted some criteria"
   },
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
