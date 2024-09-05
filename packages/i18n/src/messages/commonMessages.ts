@@ -307,7 +307,7 @@ const commonMessages = defineMessages({
   },
   notAccepted: {
     defaultMessage: "Not accepted",
-    id: 'I1jrAG',
+    id: "I1jrAG",
     description: "Indicates a user has not accepted some criteria",
   },
 });
