@@ -78,11 +78,15 @@ const Display = ({
                       <CheckCircleIcon
                         data-h2-height="base(x0.75)"
                         data-h2-color="base(success) base:dark(success.lighter)"
+                        aria-hidden="false"
+                        aria-label={intl.formatMessage(commonMessages.yes)}
                       />
                     ) : (
                       <XCircleIcon
                         data-h2-height="base(x0.75)"
                         data-h2-color="base(background.darker)"
+                        aria-hidden="false"
+                        aria-label={intl.formatMessage(commonMessages.no)}
                       />
                     )}
                     {getLocalizedName(singleSelectionLimitation.label, intl)}
