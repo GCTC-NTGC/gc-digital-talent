@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\EmailType;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
@@ -1107,12 +1108,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
-     * Determine if the user has verified their email address.
+     * Determine if the user has verified their contact email address.
      * Part of the MustVerifyEmail contract.
      *
      * @return bool
      */
-    public function hasVerifiedEmail()
+    public function hasVerifiedContactEmail()
     {
         // might be refined later, eg, must be verified within the last X months
         return ! is_null($this->email_verified_at);
@@ -1124,9 +1125,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return bool
      */
-    public function markEmailAsVerified()
+    public function markEmailAsVerified(EmailType $emailType)
     {
-        $this->email_verified_at = Carbon::now();
+        if ($emailType == EmailType::CONTACT) {
+            $this->email_verified_at = Carbon::now();
+        } else {
+            $this->work_email_verified_at = Carbon::now();
+        }
     }
 
     /**
@@ -1135,9 +1140,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return void
      */
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification(EmailType $emailType)
     {
-        $message = new VerifyEmail();
+        $message = new VerifyEmail($emailType);
         $this->notify($message);
     }
 
@@ -1147,9 +1152,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return string
      */
-    public function getEmailForVerification()
+    public function getEmailForVerification(EmailType $emailType)
     {
-        return $this->email;
+        return $emailType == EmailType::CONTACT ? $this->email : $this->work_email;
     }
 
     /**
@@ -1157,7 +1162,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function getIsEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedEmail();
+        return $this->hasVerifiedContactEmail();
     }
 
     /**

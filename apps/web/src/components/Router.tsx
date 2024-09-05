@@ -265,7 +265,14 @@ const createRoute = (locale: Locales) =>
                   path: "verify-contact-email",
                   lazy: () =>
                     import(
-                      "../pages/EmailVerificationPage/ProfileContactEmailVerificationPage"
+                      "../pages/EmailVerificationPages/ProfileContactEmailVerificationPage"
+                    ),
+                },
+                {
+                  path: "verify-work-email",
+                  lazy: () =>
+                    import(
+                      "../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage"
                     ),
                 },
               ],

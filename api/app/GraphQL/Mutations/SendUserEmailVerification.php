@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\EmailType;
 use Illuminate\Support\Facades\Auth;
 
 final class SendUserEmailVerification
@@ -11,11 +12,12 @@ final class SendUserEmailVerification
      *
      * @param  array{}  $args
      */
-    public function __invoke($_)
+    public function __invoke($_, array $args)
     {
         /** @var \App\Models\User */
         $user = Auth::user();
-        $user->sendEmailVerificationNotification();
+        $emailType = isset($args['emailType']) && $args['emailType'] === EmailType::WORK->name ? EmailType::WORK : EmailType::CONTACT;
+        $user->sendEmailVerificationNotification($emailType);
 
         return $user;
     }

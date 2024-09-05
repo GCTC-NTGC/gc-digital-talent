@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\EmailType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -17,17 +18,19 @@ final class VerifyUserEmail
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+        $emailType = isset($args['emailType']) && $args['emailType'] === EmailType::WORK->name ? EmailType::WORK : EmailType::CONTACT;
+        $field = $emailType == EmailType::CONTACT ? 'email' : 'work_email';
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));
 
-        $key = 'email-verification-'.$user->id;
+        $key = $emailType == EmailType::CONTACT ? 'email-verification-'.$user->id : 'work-email-verification-'.$user->id;
         $token = Cache::get($key);
 
         if (
             ! is_null($token) &&
             $token['code'] == $normalizedCode &&
-            $token['field'] == 'email' &&
-            $token['value'] == $user->getEmailForVerification()
+            $token['field'] == $field &&
+            $token['value'] == $user->getEmailForVerification($emailType)
         ) {
             $isValid = true;
         } else {
@@ -39,8 +42,9 @@ final class VerifyUserEmail
         }
 
         // by now, token seems good
-        if (! $user->hasVerifiedEmail()) {
-            $user->markEmailAsVerified();
+        if (($emailType == EmailType::CONTACT && ! $user->hasVerifiedContactEmail())
+            || ! $user->hasVerifiedWorkEmail()) {
+            $user->markEmailAsVerified($emailType);
         }
         $user->save();
 

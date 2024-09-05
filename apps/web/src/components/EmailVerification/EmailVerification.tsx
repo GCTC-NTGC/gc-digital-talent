@@ -8,23 +8,21 @@ import { Button, Heading } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { graphql } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
 
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
-  mutation SendUserEmailVerification {
-    sendUserEmailVerification {
+  mutation SendUserEmailVerification($emailType: EmailType) {
+    sendUserEmailVerification(emailType: $emailType) {
       id
-      isEmailVerified
     }
   }
 `);
 
 const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
-  mutation VerifyUserEmail($code: String!) {
-    verifyUserEmail(code: $code) {
+  mutation VerifyUserEmail($emailType: EmailType, $code: String!) {
+    verifyUserEmail(emailType: $emailType, code: $code) {
       id
-      isEmailVerified
     }
   }
 `);
@@ -34,7 +32,12 @@ const getTitle = (
   intl: IntlShape,
 ) => {
   switch (emailType) {
-    // presumably we'll have more than one type eventually.
+    case "work":
+      return intl.formatMessage({
+        defaultMessage: "Verify your work email",
+        id: "T7irec",
+        description: "Verify your work email text",
+      });
     case "contact":
     default:
       return intl.formatMessage({
@@ -52,7 +55,7 @@ type FormValues = {
 };
 
 export interface EmailVerificationProps {
-  emailType?: "contact";
+  emailType?: "contact" | "work";
   // The email address that the code was sent to.  Displayed to the user.
   emailAddress?: string | null;
   // Event if verification is successful.
@@ -92,7 +95,9 @@ const EmailVerification = ({
   }, [canRequestACode]);
 
   const requestACode = async () => {
-    executeSendEmailMutation({})
+    executeSendEmailMutation({
+      emailType: emailType === "work" ? EmailType.Work : EmailType.Contact,
+    })
       .then((result) => {
         if (!result.data?.sendUserEmailVerification?.id) {
           throw new Error("Send email error");
@@ -107,6 +112,7 @@ const EmailVerification = ({
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
     executeVerifyUserEmailMutation({
+      emailType: emailType === "work" ? EmailType.Work : EmailType.Contact,
       code: data.verificationCode,
     })
       .then((result) => {

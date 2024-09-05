@@ -233,6 +233,7 @@ const getRoutes = (lang: Locales) => {
         createSearchQuery(searchParams)
       );
     },
+    verifyWorkEmail: () => [applicantUrl, "verify-work-email"].join("/"),
 
     // Career timeline and recruitment Routes
     careerTimelineAndRecruitment: (opts?: {
