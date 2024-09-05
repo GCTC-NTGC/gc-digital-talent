@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\JobPosterTemplate;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 
 class JobPosterTemplatePolicy
 {
@@ -29,8 +28,6 @@ class JobPosterTemplatePolicy
      */
     public function create(User $user): bool
     {
-        Log::debug(json_encode($user));
-
         return $user->isAbleTo('create-any-jobPosterTemplate');
     }
 
