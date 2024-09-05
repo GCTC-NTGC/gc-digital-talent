@@ -98,7 +98,7 @@
     "ts-node": "^10.9.2",
     "tsconfig": "workspace:*",
     "typescript": "^5.5.4",
-    "vite": "^5.4.2",
+    "vite": "^5.4.3",
     "vite-plugin-compression2": "^1.2.0",
     "vite-plugin-html": "^3.2.2"
   }
