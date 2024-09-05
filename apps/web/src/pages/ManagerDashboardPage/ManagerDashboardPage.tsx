@@ -271,16 +271,26 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   description: "Card title for a nav role switcher",
                 })}
               >
-                <ResourceBlock.Item
-                  title="Manager"
-                  href="#"
+                <ResourceBlock.LinkMenuItem
+                  links={[
+                    {
+                      title: "Applicant",
+                      href: "#",
+                      isSelected: false,
+                    },
+                    {
+                      title: "Manager",
+                      href: "#",
+                      isSelected: true,
+                    },
+                  ]}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Easily switch between roles your account has access to.",
                     id: "gPvdHC",
                     description: "Helper instructions for a nav role switcher",
                   })}
-                ></ResourceBlock.Item>
+                />
               </ResourceBlock.Root>
               <ResourceBlock.Root
                 headingColor="quaternary"
@@ -293,7 +303,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
               >
                 {showUnfinishedPieces ? (
                   // This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state.
-                  <ResourceBlock.Item
+                  <ResourceBlock.SingleLinkItem
                     state="complete"
                     title={intl.formatMessage({
                       defaultMessage: "Manager profile",
@@ -314,7 +324,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 )}
                 {showUnfinishedPieces ? (
                   // This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state.
-                  <ResourceBlock.Item
+                  <ResourceBlock.SingleLinkItem
                     state="complete"
                     title={intl.formatMessage({
                       defaultMessage: "Account and privacy",
@@ -343,7 +353,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   description: "Card title for a 'resources' card",
                 })}
               >
-                <ResourceBlock.Item
+                <ResourceBlock.SingleLinkItem
                   title={intl.formatMessage({
                     defaultMessage: "Learn about skills",
                     id: "n40Nry",
@@ -360,7 +370,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 />
                 {showUnfinishedPieces ? (
                   // This block is missing an href since the page doesn't exist yet.
-                  <ResourceBlock.Item
+                  <ResourceBlock.SingleLinkItem
                     title={intl.formatMessage({
                       defaultMessage: "Browse job templates",
                       id: "bLxoQL",
@@ -378,7 +388,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 ) : (
                   <></>
                 )}
-                <ResourceBlock.Item
+                <ResourceBlock.SingleLinkItem
                   title={intl.formatMessage({
                     defaultMessage: "Directive on Digital Talent",
                     id: "xXwUGs",
