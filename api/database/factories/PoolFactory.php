@@ -207,7 +207,7 @@ class PoolFactory extends Factory
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
                 'area_of_selection' => $this->faker->optional()->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
                 'selection_limitations' => function (array $attributes) {
-                    return $attributes['area_of_selection'] == PoolAreaOfSelection::PUBLIC->name
+                    return $attributes['area_of_selection'] == PoolAreaOfSelection::EMPLOYEES->name
                         ? $this->faker->randomElements(
                             array_column(PoolSelectionLimitation::cases(), 'name'),
                             $this->faker->numberBetween(0, count(PoolSelectionLimitation::cases()))
