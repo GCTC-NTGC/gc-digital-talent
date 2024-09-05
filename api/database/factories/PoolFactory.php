@@ -248,7 +248,7 @@ class PoolFactory extends Factory
                 'change_justification' => $this->faker->boolean(50) ? $this->faker->paragraph() : null,
                 'area_of_selection' => $this->faker->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
                 'selection_limitations' => function (array $attributes) {
-                    return $attributes['area_of_selection'] == PoolAreaOfSelection::PUBLIC->name
+                    return $attributes['area_of_selection'] == PoolAreaOfSelection::EMPLOYEES->name
                         ? $this->faker->randomElements(
                             array_column(PoolSelectionLimitation::cases(), 'name'),
                             $this->faker->numberBetween(0, count(PoolSelectionLimitation::cases()))
