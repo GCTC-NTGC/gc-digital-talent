@@ -25,6 +25,8 @@ import {
   SkillLevel,
   Department,
   PoolOpportunityLength,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -87,6 +89,9 @@ const generatePool = (
       };
     }),
   ];
+  const areaOfSelection = toLocalizedEnum(
+    faker.helpers.arrayElement(Object.values(PoolAreaOfSelection)),
+  );
   return {
     id: faker.string.uuid(),
     owner: pick(ownerUser, [
@@ -146,6 +151,15 @@ const generatePool = (
       )[0],
       fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup)[0],
     ],
+    areaOfSelection: areaOfSelection,
+    selectionLimitations:
+      areaOfSelection.value == PoolAreaOfSelection.Employees
+        ? faker.helpers.arrayElements(
+            Object.values(PoolSelectionLimitation).map((l) =>
+              toLocalizedEnum(l),
+            ),
+          )
+        : [],
   };
 };
 

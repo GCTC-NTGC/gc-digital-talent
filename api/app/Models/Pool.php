@@ -49,6 +49,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $team_id
  * @property string $department_id
  * @property string $community_id
+ * @property string $area_of_selection
+ * @property array $selection_limitations
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $closing_date
@@ -82,6 +84,7 @@ class Pool extends Model
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
         'archived_at' => 'datetime',
+        'selection_limitations' => 'array',
     ];
 
     /**
