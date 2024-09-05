@@ -14,8 +14,8 @@ test.describe("User Profile", () => {
       "PersonalInformationFormOptions",
     );
     await applicantPage.page
-      .getByRole("textbox", { name: /current city/i })
-      .fill("Test city");
+      .getByRole("textbox", { name: /telephone/i })
+      .fill("123-456-7890");
     await applicantPage.page
       .getByRole("button", { name: /save changes/i })
       .click();
