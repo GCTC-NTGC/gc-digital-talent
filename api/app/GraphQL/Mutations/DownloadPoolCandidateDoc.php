@@ -30,6 +30,8 @@ final readonly class DownloadPoolCandidateDoc
                 lang: App::getLocale()
             );
 
+            $generator->setUserId($user->id);
+
             $generator->generate()->write();
 
             return $generator->getFileName();
