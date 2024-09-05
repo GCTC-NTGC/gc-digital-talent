@@ -266,7 +266,7 @@ export const EditPoolForm = ({
 
   const basicInfoHasError =
     poolNameError({
-      areaOfSelection: pool.areaOfSelection,
+      areaOfSelection: pool.areaOfSelection?.value,
       classification: pool.classification,
       department: pool.department,
       stream: pool.stream,
