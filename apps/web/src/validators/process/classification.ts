@@ -1,4 +1,4 @@
-import { Pool } from "@gc-digital-talent/graphql";
+import { LocalizedPoolAreaOfSelection, Pool } from "@gc-digital-talent/graphql";
 
 /*
   Checks null state for advertisement details section of edit pool page.
@@ -34,7 +34,6 @@ export function hasEmptyRequiredFields({
   opportunityLength,
 }: Pick<
   Pool,
-  | "areaOfSelection"
   | "classification"
   | "department"
   | "stream"
@@ -42,9 +41,11 @@ export function hasEmptyRequiredFields({
   | "processNumber"
   | "publishingGroup"
   | "opportunityLength"
->): boolean {
+> & {
+  areaOfSelection: LocalizedPoolAreaOfSelection["value"] | undefined;
+}): boolean {
   return !!(
-    !areaOfSelection?.value ||
+    !areaOfSelection ||
     !classification ||
     !department ||
     !stream ||
