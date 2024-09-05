@@ -2,5 +2,5 @@
 
 return [
     'public' => 'The public',
-    'employees' => 'Employees and persons employed',
+    'employees' => 'Existing employees of the Government of Canada or persons employed by an agency',
 ];
