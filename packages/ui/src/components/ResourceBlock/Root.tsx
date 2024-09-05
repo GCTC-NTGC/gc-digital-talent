@@ -58,7 +58,7 @@ export interface RootProps {
   title: ReactNode;
   headingColor?: CardColor;
   headingAs?: HeadingLevel;
-  children: ReactElement<BaseItemProps> | Array<ReactElement<BaseItemProps>>; // Restricts children to only expected items;
+  children: ReactElement<BaseItemProps> | ReactElement<BaseItemProps>[]; // Restricts children to only expected items;
 }
 
 const Root = ({

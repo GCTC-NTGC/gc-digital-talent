@@ -33,7 +33,11 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
     {colorOptions.map((colour) => (
       <ResourceBlock.Root
         headingColor={colour}
-        title={`${args.title} ${colour}`}
+        title={
+          <>
+            `${args.title} ${colour}`
+          </>
+        }
         key={colour}
       >
         <ResourceBlock.SingleLinkItem

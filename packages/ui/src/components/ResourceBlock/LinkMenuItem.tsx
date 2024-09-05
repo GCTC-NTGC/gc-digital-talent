@@ -6,11 +6,11 @@ import Button from "../Button";
 import BaseItem, { BaseItemProps } from "./BaseItem";
 
 interface LinkMenuItemProps {
-  links: Array<{
+  links: {
     title: string;
     href: LinkProps["href"];
     isSelected?: boolean;
-  }>;
+  }[];
   accessibleLabel?: BaseItemProps["accessibleLabel"];
   description: BaseItemProps["description"];
   state?: BaseItemProps["state"];
