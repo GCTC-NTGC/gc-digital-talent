@@ -736,7 +736,7 @@ type JobPosterTemplate {
   stream: LocalizedPoolStream!
   workDescription: LocalizedString @rename(attribute: "work_description")
   tasks: LocalizedString!
-  keywords: LocalizedString
+  keywords: LocalizedString!
   essentialTechnicalSkillsNotes: LocalizedString
     @rename(attribute: "essential_technical_skills_notes")
   essentialBehaviouralSkillsNotes: LocalizedString

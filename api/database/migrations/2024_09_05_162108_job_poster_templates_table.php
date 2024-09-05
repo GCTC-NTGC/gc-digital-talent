@@ -22,7 +22,7 @@ return new class extends Migration
             $table->jsonb('description')->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('work_description')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('tasks')->default(json_encode(['en' => '', 'fr' => '']));
-            $table->jsonb('keywords')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('keywords')->default(json_encode(['en' => [], 'fr' => []]));
             $table->jsonb('essential_technical_skills_notes')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('essential_behavioural_skills_notes')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('nonessential_technical_skills_notes')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
