@@ -89,6 +89,11 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedFinalDecision {
+  value: FinalDecision!
+  label: LocalizedString!
+}
+
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
   label: LocalizedString!
@@ -161,6 +166,11 @@ type LocalizedPoolStatus {
 
 type LocalizedPoolStream {
   value: PoolStream!
+  label: LocalizedString!
+}
+
+type LocalizedPositionDuration {
+  value: PositionDuration!
   label: LocalizedString!
 }
 
@@ -577,7 +587,6 @@ enum AssessmentResultJustification {
   EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE
   EDUCATION_FAILED_NOT_RELEVANT
   EDUCATION_FAILED_REQUIREMENT_NOT_MET
-  SKILL_ACCEPTED
   SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED
   FAILED_NOT_ENOUGH_INFORMATION
   FAILED_OTHER
@@ -859,6 +868,20 @@ enum EvaluatedLanguageAbility {
   NOT_ASSESSED
 }
 
+enum FinalDecision {
+  DISQUALIFIED
+  DISQUALIFIED_PENDING
+  DISQUALIFIED_REMOVED
+  QUALIFIED
+  QUALIFIED_EXPIRED
+  QUALIFIED_PENDING
+  QUALIFIED_PLACED
+  QUALIFIED_REMOVED
+  REMOVED
+  TO_ASSESS
+  TO_ASSESS_REMOVED
+}
+
 enum GenericJobTitleKey {
   TECHNICIAN_IT01
   ANALYST_IT02
@@ -1057,6 +1080,11 @@ enum SkillLevel {
   INTERMEDIATE
   ADVANCED
   LEAD
+}
+
+enum SupervisoryStatus {
+  INDIVIDUAL_CONTRIBUTER
+  SUPERVISOR
 }
 
 enum WhenSkillUsed {
