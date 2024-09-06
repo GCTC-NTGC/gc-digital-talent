@@ -866,6 +866,9 @@ return [
             'applicantCount' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view'],
+            ],
             'searchRequest' => [
                 'any' => ['create'],
             ],
@@ -1173,7 +1176,7 @@ return [
                 'any' => ['view'],
             ],
             'jobPosterTemplate' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['view', 'create', 'update', 'delete'],
             ],
             'searchRequest' => [
                 'any' => ['view'],
