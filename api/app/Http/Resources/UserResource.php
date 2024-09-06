@@ -89,6 +89,7 @@ class UserResource extends JsonResource
             'verbalLevel' => $this->localizeEnum($this->verbal_level, EvaluatedLanguageAbility::class),
             'estimatedLanguageAbility' => $this->localizeEnum($this->estimated_language_ability, EstimatedLanguageAbility::class),
             'isGovEmployee' => $this->is_gov_employee,
+            'workEmail' => $this->work_email,
             'hasPriorityEntitlement' => $this->has_priority_entitlement,
             'govEmployeeType' => $this->localizeEnum($this->gov_employee_type, GovEmployeeType::class),
             'department' => $this->department ? (new DepartmentResource(Department::find($this->department))) : null,

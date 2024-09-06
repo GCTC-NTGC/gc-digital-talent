@@ -1212,6 +1212,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'verbal_level' => ['verbalLevel', true],
             'estimated_language_ability' => ['estimatedLanguageAbility', true],
             'is_gov_employee' => ['isGovEmployee'],
+            'work_email' => ['workEmail'],
             'gov_employee_type' => ['govEmployeeType', true],
             'has_priority_entitlement' => ['hasPriorityEntitlement'],
             'priority_number' => ['priorityNumber'],

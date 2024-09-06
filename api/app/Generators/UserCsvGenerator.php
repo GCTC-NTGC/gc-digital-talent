@@ -42,6 +42,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'government_employee',
         'department',
         'employee_type',
+        'work_email',
         'current_classification',
         'priority_entitlement',
         'priority_number',
@@ -107,6 +108,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                         $this->yesOrNo($user->is_gov_employee), // Government employee
                         $department->name[$this->lang] ?? '', // Department
                         $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class),
+                        $user->work_email, // Work email
                         $user->getClassification(), // Current classification
                         $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement
                         $user->priority_number ?? '', // Priority number

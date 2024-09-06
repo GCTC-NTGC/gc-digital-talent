@@ -59,6 +59,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'government_employee',
         'department',
         'employee_type',
+        'work_email',
         'current_classification',
         'priority_entitlement',
         'priority_number',
@@ -157,6 +158,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                         $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
                         $department->name[$this->lang] ?? '', // Department
                         $this->localizeEnum($candidate->user->gov_employee_type, GovEmployeeType::class),
+                        $candidate->user->work_email, // Work email
                         $candidate->user->getClassification(), // Current classification
                         $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement
                         $candidate->user->priority_number ?? '', // Priority number
