@@ -47,10 +47,10 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'current_classification',
         'priority_entitlement',
         'priority_number',
-        'location_preferences',
-        'location_exemptions',
         'accept_temporary',
         'accepted_operational_requirements',
+        'location_preferences',
+        'location_exemptions',
         'woman',
         'indigenous',
         'visible_minority',
@@ -107,10 +107,10 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $user->getClassification(), // Current classification
                     $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement
                     $user->priority_number ?? '', // Priority number
-                    $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
-                    $user->location_exemptions, // Location exemptions
                     $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
+                    $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
+                    $user->location_exemptions, // Location exemptions
                     $this->yesOrNo($user->is_woman), // Woman
                     $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
                     $this->yesOrNo($user->is_visible_minority), // Visible minority

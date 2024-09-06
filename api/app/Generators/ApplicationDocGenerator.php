@@ -93,7 +93,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                     $this->status($section, $user);
                     $this->languageInfo($section, $user);
                     $this->governmentInfo($section, $user);
-                    $this->workLocation($section, $user);
                     $this->workPreferences($section, $user);
                     $this->dei($section, $user);
 

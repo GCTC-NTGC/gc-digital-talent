@@ -16,10 +16,6 @@ import {
   type PartialUser as PartialUserLanguage,
 } from "./languageInformation";
 import {
-  hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
-  type PartialUser as PartialUserLocation,
-} from "./workLocation";
-import {
   hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
   type PartialUser as PartialUserPreferences,
 } from "./workPreferences";
@@ -34,7 +30,6 @@ export {
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
-  workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
   careerTimelineIsIncomplete,
   skillRequirementsIsIncomplete,
@@ -44,6 +39,5 @@ export {
   PartialUserDei,
   PartialUserGovernment,
   PartialUserLanguage,
-  PartialUserLocation,
   PartialUserPreferences,
 };

@@ -31,16 +31,6 @@ export const getLabels = (intl: IntlShape) => ({
     id: "boPmF+",
     description: "Legend text for written exam language preference for exams",
   }),
-  currentProvince: intl.formatMessage({
-    defaultMessage: "Province or territory",
-    id: "yzgwjd",
-    description: "Label for current province or territory field",
-  }),
-  currentCity: intl.formatMessage({
-    defaultMessage: "Current city",
-    id: "de/Vcy",
-    description: "Label for current city field in About Me form",
-  }),
   telephone: intl.formatMessage(commonMessages.telephone),
   firstName: intl.formatMessage({
     defaultMessage: "Given name",
@@ -67,8 +57,6 @@ export const dataToFormValues = (
   preferredLang: data?.preferredLang?.value,
   preferredLanguageForInterview: data?.preferredLanguageForInterview?.value,
   preferredLanguageForExam: data?.preferredLanguageForExam?.value,
-  currentProvince: data?.currentProvince?.value,
-  currentCity: data?.currentCity,
   telephone: data?.telephone,
   firstName: data?.firstName,
   lastName: data?.lastName,
