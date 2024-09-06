@@ -3,7 +3,10 @@ import { useQuery } from "urql";
 
 import {
   Checklist,
+  Field,
+  Input,
   RadioGroup,
+  Select,
   TextArea,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
@@ -27,6 +30,15 @@ const WorkPreferencesOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    provinceOrTerritories: localizedEnumStrings(
+      enumName: "ProvinceOrTerritory"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -36,54 +48,102 @@ const FormFields = ({ labels }: FormFieldProps) => {
   useDirtyFields("work");
 
   return (
-    <>
-      <div data-h2-padding-top="base(x1)">
-        <RadioGroup
-          idPrefix="required-work-preferences"
-          legend={labels.wouldAcceptTemporary}
-          name="wouldAcceptTemporary"
-          id="wouldAcceptTemporary"
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-row-gap="base(x1)"
+    >
+      <RadioGroup
+        idPrefix="required-work-preferences"
+        legend={labels.contractDuration}
+        name="wouldAcceptTemporary"
+        id="wouldAcceptTemporary"
+        rules={{
+          required: intl.formatMessage(errorMessages.required),
+        }}
+        items={[
+          {
+            value: "true",
+            label: intl.formatMessage({
+              defaultMessage:
+                "Any duration (short term, long term, indeterminate)",
+              id: "ohQoWa",
+              description:
+                "Label displayed on Work Preferences form for any duration option",
+            }),
+          },
+          {
+            value: "false",
+            label: intl.formatMessage({
+              defaultMessage: "Indeterminate (permanent only)",
+              id: "aB5p3B",
+              description:
+                "Label displayed on Work Preferences form for indeterminate duration option.",
+            }),
+          },
+        ]}
+      />
+      <Checklist
+        idPrefix="optional-work-preferences"
+        legend={labels.acceptedOperationalRequirements}
+        name="acceptedOperationalRequirements"
+        id="acceptedOperationalRequirements"
+        items={OperationalRequirements.map((value) => ({
+          value,
+          label: intl.formatMessage(
+            getOperationalRequirement(value, "firstPerson"),
+          ),
+        }))}
+      />
+      <Field.Fieldset
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1)"
+      >
+        <Field.Legend
+          data-h2-font-size="base(h6)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin-bottom="base(x1)"
+        >
+          {labels.currentLocation}
+        </Field.Legend>
+        <Select
+          id="currentProvince"
+          name="currentProvince"
+          label={labels.currentProvince}
+          nullSelection={intl.formatMessage({
+            defaultMessage: "Select a province or territory",
+            id: "H1wLfA",
+            description:
+              "Placeholder displayed on the About Me form province or territory field.",
+          })}
+          options={localizedEnumToOptions(data?.provinceOrTerritories, intl)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={[
-            {
-              value: "true",
-              label: intl.formatMessage({
-                defaultMessage:
-                  "any duration (short term, long term, indeterminate).",
-                id: "YqWNkT",
-                description:
-                  "Label displayed on Work Preferences form for any duration option",
-              }),
-            },
-            {
-              value: "false",
-              label: intl.formatMessage({
-                defaultMessage: "indeterminate (permanent only).",
-                id: "+YUDhx",
-                description:
-                  "Label displayed on Work Preferences form for indeterminate duration option.",
-              }),
-            },
-          ]}
         />
-      </div>
-      <div data-h2-padding-top="base(x1)">
-        <Checklist
-          idPrefix="optional-work-preferences"
-          legend={labels.acceptedOperationalRequirements}
-          name="acceptedOperationalRequirements"
-          id="acceptedOperationalRequirements"
-          items={OperationalRequirements.map((value) => ({
-            value,
-            label: intl.formatMessage(
-              getOperationalRequirement(value, "firstPerson"),
-            ),
-          }))}
+        <Input
+          id="currentCity"
+          name="currentCity"
+          type="text"
+          label={labels.currentCity}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
         />
-      </div>
-      <div data-h2-padding-top="base(x1)">
+      </Field.Fieldset>
+      <Field.Fieldset
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1)"
+      >
+        <Field.Legend
+          data-h2-font-size="base(h6)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin-bottom="base(x1)"
+        >
+          {labels.workLocationPreferences}
+        </Field.Legend>
         <Checklist
           idPrefix="work-location"
           legend={labels.locationPreferences}
@@ -97,16 +157,14 @@ const FormFields = ({ labels }: FormFieldProps) => {
             required: intl.formatMessage(errorMessages.required),
           }}
         />
-      </div>
-      <div data-h2-padding-top="base(x1)">
         <TextArea
           id="location-exemptions"
           label={labels.locationExemptions}
           name="locationExemptions"
           aria-describedby="location-exemption-description"
         />
-      </div>
-    </>
+      </Field.Fieldset>
+    </div>
   );
 };
 

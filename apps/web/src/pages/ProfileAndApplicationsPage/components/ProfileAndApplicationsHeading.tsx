@@ -30,7 +30,6 @@ import {
   aboutSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 import {
@@ -428,7 +427,6 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             layout="hero"
             title={intl.formatMessage(navigationMessages.workPreferences)}
             status={
-              workLocationSectionHasEmptyRequiredFields(user) ||
               workPreferencesSectionHasEmptyRequiredFields(user)
                 ? "error"
                 : "success"

@@ -6,6 +6,7 @@ import {
   CandidateSuspendedFilter,
   LanguageAbility,
   LocalizedEvaluatedLanguageAbility,
+  LocalizedProvinceOrTerritory,
   Maybe,
   OperationalRequirement,
   PoolCandidateStatus,
@@ -13,7 +14,7 @@ import {
   PriorityWeight,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 // convert string type to Enum types for various selections
 export function stringToEnumLanguage(
@@ -121,4 +122,26 @@ export const getEvaluatedLanguageLevels = (
     writtenLevel?.label ? getLocalizedName(writtenLevel.label, intl) : "",
     verbalLevel?.label ? getLocalizedName(verbalLevel.label, intl) : "",
   ].join(", ");
+};
+
+interface FormatLocationArgs {
+  city?: Maybe<string>;
+  region?: Maybe<LocalizedProvinceOrTerritory>;
+  intl: IntlShape;
+}
+
+export const formatLocation = ({
+  city,
+  region,
+  intl,
+}: FormatLocationArgs): string => {
+  if (city && region?.label) {
+    return `${city}, ${getLocalizedName(region.label, intl)}`;
+  }
+
+  if (city && !region) return city;
+
+  if (region && !city) return getLocalizedName(region.label, intl);
+
+  return intl.formatMessage(commonMessages.notProvided);
 };

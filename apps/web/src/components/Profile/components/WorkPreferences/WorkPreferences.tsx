@@ -10,12 +10,8 @@ import { Pool } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
-  hasAllEmptyFields as hasAllEmptyLocationFields,
-  hasEmptyRequiredFields as hasEmptyRequiredLocationFields,
-} from "~/validators/profile/workLocation";
-import {
-  hasAllEmptyFields as hasAllEmptyPreferenceFields,
-  hasEmptyRequiredFields as hasEmptyRequiredPreferenceFields,
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
 } from "~/validators/profile/workPreferences";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
@@ -35,11 +31,8 @@ const WorkPreferences = ({
   pool,
 }: SectionProps<Pick<Pool, "id">>) => {
   const intl = useIntl();
-  const isNull =
-    hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);
-  const emptyRequired =
-    hasEmptyRequiredLocationFields(user) ||
-    hasEmptyRequiredPreferenceFields(user);
+  const isNull = hasAllEmptyFields(user);
+  const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
     section: "work",
     isNull,
@@ -109,7 +102,7 @@ const WorkPreferences = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display user={user} />}
+          {isNull ? <NullDisplay /> : <Display user={user} labels={labels} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <BasicForm

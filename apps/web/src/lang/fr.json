@@ -95,10 +95,6 @@
     "defaultMessage": "Résultats de l’évaluation",
     "description": "Title for assessment results"
   },
-  "+YUDhx": {
-    "defaultMessage": "indéterminée (emploi permanent seulement).",
-    "description": "Label displayed on Work Preferences form for indeterminate duration option."
-  },
   "+agJAH": {
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table's My Roles column header."
@@ -234,10 +230,6 @@
   "/BWol9": {
     "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
     "description": "The directives digital enabling conditions component"
-  },
-  "/DCykA": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de...",
-    "description": "Legend Text for required work preferences options in work preferences form"
   },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
@@ -386,10 +378,6 @@
   "/voRGj": {
     "defaultMessage": "Afficher tous<hidden> les filtres avancés</hidden>",
     "description": "Button text to show all advanced filters"
-  },
-  "/yOfhq": {
-    "defaultMessage": "Durée de l’emploi ",
-    "description": "Job duration label "
   },
   "/zVZCP": {
     "defaultMessage": "Collectivité des cadres",
@@ -1287,10 +1275,6 @@
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
   },
-  "4pJgUJ": {
-    "defaultMessage": "Contextes professionnels",
-    "description": "Work details label"
-  },
   "4qdoau": {
     "defaultMessage": "Compétence introuvable",
     "description": "Link to suggestions on what to do if you can't find a skill in the skill browser."
@@ -1562,6 +1546,10 @@
   "6UVZOY": {
     "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des <abbreviation>TI</abbreviation> préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
     "description": "Summary for to go to the search page on Browse IT jobs page"
+  },
+  "6UgbrG": {
+    "defaultMessage": "Exigences de poste acceptables",
+    "description": "Legend for optional work preferences check list in work preferences form"
   },
   "6VyRZ/": {
     "defaultMessage": "Expériences personnelles",
@@ -1847,10 +1835,6 @@
     "defaultMessage": "On vous demandera de confirmer les renseignements que vous avez fournis.",
     "description": "How it works, step 3 content sentence 1"
   },
-  "82Oe0C": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi qui...",
-    "description": "Legend for optional work preferences check list in work preferences form"
-  },
   "84XrK+": {
     "defaultMessage": "On ne trouve aucun élément ici.",
     "description": "Default message for an empty table"
@@ -1950,10 +1934,6 @@
   "8bJgxK": {
     "defaultMessage": "Français - Votre travail",
     "description": "Label for the French - Your Work textarea in the edit pool page."
-  },
-  "8cRL8r": {
-    "defaultMessage": "Durée permanente",
-    "description": "Permanent duration only"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -3847,6 +3827,10 @@
     "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
     "description": "Application snapshot minimum experience section description"
   },
+  "J3yJhp": {
+    "defaultMessage": "Votre lieu de résidence actuel",
+    "description": "Legend for users current location"
+  },
   "J6atIv": {
     "defaultMessage": "Liste de compétences",
     "description": "Link text for explore skills page"
@@ -5287,6 +5271,10 @@
     "defaultMessage": "Études minimales",
     "description": "Title for application education"
   },
+  "Qvep+v": {
+    "defaultMessage": "Ville ou municipalité",
+    "description": "Label for current city field in About Me form"
+  },
   "QvyQc3": {
     "defaultMessage": "Expériences de travail",
     "description": "Heading for work experiences"
@@ -5811,10 +5799,6 @@
     "defaultMessage": "Gestionnaires de l'initiative sur le numérique",
     "description": "Title for group-specific resource card"
   },
-  "TwSvmH": {
-    "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
-    "description": "would not accept job line before a list"
-  },
   "TxVbLI": {
     "defaultMessage": "Filtre de classification",
     "description": "Heading for classification filter of the search form."
@@ -6038,6 +6022,10 @@
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
   },
+  "VFK3wC": {
+    "defaultMessage": "Préférence pour la durée du contrat",
+    "description": "Legend Text for required work preferences options in work preferences form"
+  },
   "VHG9Gm": {
     "defaultMessage": "Désélectionner <hidden> rangées sélectionnées</hidden>",
     "description": "Button text to deselect all table rows"
@@ -6105,10 +6093,6 @@
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Title that appears when a user is missing a language requirement."
-  },
-  "Vc9vE7": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
-    "description": "Label for what length of position user prefers, followed by colon"
   },
   "VcOlXA": {
     "defaultMessage": "Énoncé de confidentialité",
@@ -6774,10 +6758,6 @@
     "defaultMessage": "Vous n’avez pas encore d’expérience de parcours professionnel.",
     "description": "Null state messages for career timeline list"
   },
-  "YqWNkT": {
-    "defaultMessage": "n'importe quelle durée (court terme, long terme, période indéterminée).",
-    "description": "Label displayed on Work Preferences form for any duration option"
-  },
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
@@ -7002,6 +6982,10 @@
     "defaultMessage": "Processus",
     "description": "Link to the Pools page in the nav menu."
   },
+  "aB5p3B": {
+    "defaultMessage": "Indéterminée (emploi permanent seulement)",
+    "description": "Label displayed on Work Preferences form for indeterminate duration option."
+  },
   "aCKQVB": {
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
@@ -7085,6 +7069,10 @@
   "agiL8L": {
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
+  },
+  "ahK7mI": {
+    "defaultMessage": "Préférences pour le lieu de travail",
+    "description": "Legend for the work location preferences section"
   },
   "aiYTNf": {
     "defaultMessage": "Cet utilisateur a été supprimé.",
@@ -7594,10 +7582,6 @@
     "defaultMessage": "Veuillez indiquer s'il y a une ville que vous aimeriez exclure d'une région.",
     "description": "Location Exemptions field label for work location preference form"
   },
-  "de/Vcy": {
-    "defaultMessage": "Ville actuelle",
-    "description": "Label for current city field in About Me form"
-  },
   "deE+LO": {
     "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
     "description": "Subtitle for general question dialog"
@@ -8046,6 +8030,10 @@
     "defaultMessage": "Plan d'évaluation",
     "description": "Title for the assessment plan builder"
   },
+  "fm2lKX": {
+    "defaultMessage": "Province, territoire ou région",
+    "description": "Label for current province or territory field"
+  },
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
@@ -8237,10 +8225,6 @@
   "ge40rv": {
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
-  },
-  "ghg7uN": {
-    "defaultMessage": "J'accepterais un emploi d'une durée de...",
-    "description": "Start of sentence describing a users accepted working term"
   },
   "giUfys": {
     "defaultMessage": "Expérience professionnelle",
@@ -9086,10 +9070,6 @@
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
   },
-  "l/jGX9": {
-    "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
-    "description": "Label for what conditions a user will accept, followed by a colon"
-  },
   "l1f8zy": {
     "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
     "description": "Lead-in text to list of pools managers can request candidates from"
@@ -9750,6 +9730,10 @@
     "defaultMessage": "Candidat non rétabli",
     "description": "Error message for reinstating a candidate"
   },
+  "ohQoWa": {
+    "defaultMessage": "N'importe quelle durée (court terme, long terme, période indéterminée)",
+    "description": "Label displayed on Work Preferences form for any duration option"
+  },
   "oiaUxW": {
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
@@ -10402,10 +10386,6 @@
     "defaultMessage": "Supprimer l’adhésion<hidden> dans {team}</hidden>",
     "description": "Label for the form to remove a team role from a user"
   },
-  "sTzKQs": {
-    "defaultMessage": "J'accepterais un emploi qui",
-    "description": "Start of sentence describing a users accepted working condition"
-  },
   "sWBbdX": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
     "description": "French Positions message"
@@ -10694,10 +10674,6 @@
     "defaultMessage": "Ajouter une nouvelle question",
     "description": "Button text to add a new general question to a pool"
   },
-  "uHx3G7": {
-    "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
-    "description": "Label displayed on Work Preferences form for any duration option"
-  },
   "uIUSdN": {
     "defaultMessage": "Apprenez-en davantage sur les modalités du site Talents numériques du GC.",
     "description": "Subtitle for the terms and conditions page."
@@ -10821,6 +10797,10 @@
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
     "description": "Title for application updates checklist"
+  },
+  "v9A5Cb": {
+    "defaultMessage": "Emplacement actuel",
+    "description": "Legend for users current location"
   },
   "v9mTgX": {
     "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",
@@ -11437,10 +11417,6 @@
   "yypk6/": {
     "defaultMessage": "Ajouter au nouveau bassin",
     "description": "Confirmation button for add to pool dialog"
-  },
-  "yzgwjd": {
-    "defaultMessage": "Province ou territoire",
-    "description": "Label for current province or territory field"
   },
   "z/J4uL": {
     "defaultMessage": "Statut de l’employé :",
