@@ -43,6 +43,7 @@ const getRoutes = (lang: Locales) => {
     gettingStarted: () => [baseUrl, "getting-started"].join("/"),
     emailVerification: () => [baseUrl, "email-verification"].join("/"),
     employeeInformation: () => [baseUrl, "employee-registration"].join("/"),
+    workEmailVerification: () => [baseUrl, "work-email-verification"].join("/"),
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
     accessibility: () => [baseUrl, "accessibility-statement"].join("/"),

@@ -153,6 +153,13 @@ const createRoute = (locale: Locales) =>
                 ),
             },
             {
+              path: "work-email-verification",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/RegistrationWorkEmailVerificationPage"
+                ),
+            },
+            {
               path: "applicant",
               lazy: () =>
                 import("../pages/Auth/RegistrationPages/RegistrationRedirect"),

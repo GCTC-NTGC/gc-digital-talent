@@ -21,8 +21,8 @@ const { pageTitle } = profilePageMessages;
 
 const { subTitle } = profilePageMessages;
 
-const ProfileWorkEmailVerification_Query = graphql(/* GraphQL */ `
-  query ProfileWorkEmailVerification {
+const WorkEmailVerification_Query = graphql(/* GraphQL */ `
+  query WorkEmailVerification {
     me {
       workEmail
     }
@@ -34,7 +34,7 @@ const ProfileWorkEmailVerificationPage = () => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const [{ data }] = useQuery({
-    query: ProfileWorkEmailVerification_Query,
+    query: WorkEmailVerification_Query,
   });
 
   const crumbs = useBreadcrumbs({
