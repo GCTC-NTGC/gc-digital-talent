@@ -7,7 +7,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 export interface AuthorizationState {
-  roleAssignments: Maybe<Array<RoleAssignment>>;
+  roleAssignments: Maybe<RoleAssignment[]>;
   userAuthInfo?: Maybe<UserAuthInfo>;
   isLoaded: boolean;
 }
@@ -19,7 +19,7 @@ export const AuthorizationContext = createContext<AuthorizationState>({
 });
 
 interface AuthorizationContainerProps {
-  roleAssignments: Maybe<Array<RoleAssignment>>;
+  roleAssignments: Maybe<RoleAssignment[]>;
   userAuthInfo?: Maybe<UserAuthInfo>;
   isLoaded: boolean;
   children?: ReactNode;

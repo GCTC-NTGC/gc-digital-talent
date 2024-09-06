@@ -5,7 +5,7 @@ import { Maybe, PositionDuration } from "@gc-digital-talent/graphql";
 export const positionDurationToEmploymentDuration = (
   durations: Maybe<PositionDuration>[],
 ): string => {
-  if (durations && durations.includes(PositionDuration.Temporary)) {
+  if (durations?.includes(PositionDuration.Temporary)) {
     return EmploymentDuration.Term;
   }
   // Search/Request currently selects TEMPORARY or PERMANENT or NULL, no combinations

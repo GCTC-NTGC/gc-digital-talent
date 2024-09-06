@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -285,5 +286,145 @@ class PoolAuthorizationScopeTest extends TestCase
         ], $poolIds->toArray());
     }
 
-    // TODO: add tests for new roles as part of #10609
+    // process operator can see all except the draft pools they are not teamed with thru authorizedToView
+    public function testScopeAuthorizedToViewAsProcessOperator(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolDraft1->community_id = $community->id;
+        $this->poolDraft1->save();
+        $additionalCommunityPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team1->id,
+            'community_id' => $community->id,
+        ]);
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asProcessOperator($this->poolDraft1->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolDraft1->id,
+            $this->poolPublished1->id,
+            $this->poolClosed1->id,
+            $this->poolArchived1->id,
+            $this->poolPublished2->id, // poolDraft2 not present here, nor is additionalCommunityPool
+            $this->poolClosed2->id,
+            $this->poolArchived2->id,
+        ], $poolIds);
+    }
+
+    // community recruiter can see all except the draft pool they are not teamed with by pool->community thru authorizedToView
+    public function testScopeAuthorizedToViewAsCommunityRecruiter(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolDraft1->community_id = $community->id;
+        $this->poolDraft1->save();
+        $additionalCommunityPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team1->id,
+            'community_id' => $community->id,
+        ]);
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityRecruiter($community->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolDraft1->id,
+            $this->poolPublished1->id,
+            $this->poolClosed1->id,
+            $this->poolArchived1->id,
+            $additionalCommunityPool->id,
+            $this->poolPublished2->id, // poolDraft2 not present here
+            $this->poolClosed2->id,
+            $this->poolArchived2->id,
+        ], $poolIds);
+    }
+
+    // community admin can see all except the draft pool they are not teamed with by pool->community thru authorizedToView
+    public function testScopeAuthorizedToViewAsCommunityAdmin(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolDraft1->community_id = $community->id;
+        $this->poolDraft1->save();
+        $additionalCommunityPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team1->id,
+            'community_id' => $community->id,
+        ]);
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityAdmin($community->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolDraft1->id,
+            $this->poolPublished1->id,
+            $this->poolClosed1->id,
+            $this->poolArchived1->id,
+            $additionalCommunityPool->id,
+            $this->poolPublished2->id, // poolDraft2 not present here
+            $this->poolClosed2->id,
+            $this->poolArchived2->id,
+        ], $poolIds);
+    }
+
+    // process operator can only see their attached pool thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsProcessOperator(): void
+    {
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asProcessOperator($this->poolDraft1->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolDraft1->id,
+        ], $poolIds);
+    }
+
+    // community recruiter can only see their attached pool via community thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsCommunityRecruiter(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolPublished1->community_id = $community->id;
+        $this->poolPublished1->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityRecruiter($community->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolPublished1->id,
+        ], $poolIds);
+    }
+
+    // community admin can only see their attached pool via community thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsCommunityAdmin(): void
+    {
+        $community = Community::factory()->create();
+        $this->poolPublished1->community_id = $community->id;
+        $this->poolPublished1->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asCommunityAdmin($community->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolPublished1->id,
+        ], $poolIds);
+    }
 }

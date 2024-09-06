@@ -143,6 +143,7 @@ const TeamMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   teamId: Scalars["ID"]["output"];
 };

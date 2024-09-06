@@ -21,10 +21,10 @@ const CommunityMembers_AvailableRolesQuery = graphql(/* GraphQL */ `
   }
 `);
 
-type UseAvailableRolesReturn = {
+interface UseAvailableRolesReturn {
   roles: Role[];
   fetching: boolean;
-};
+}
 
 const useAvailableRoles = (): UseAvailableRolesReturn => {
   const [{ data, fetching }] = useQuery({

@@ -46,10 +46,11 @@ class PoolCandidatePolicy
                 return true;
             }
 
-            $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+            $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam', 'pool.community.team']);
             $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->team);
             $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->legacyTeam);
-            if ($teamPermission || $legacyTeamPermission) {
+            $communityPermission = ! is_null($poolCandidate?->pool?->community?->team) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->community->team);
+            if ($teamPermission || $legacyTeamPermission || $communityPermission) {
                 return true;
             }
         }

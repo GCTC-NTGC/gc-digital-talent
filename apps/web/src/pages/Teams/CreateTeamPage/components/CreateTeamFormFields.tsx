@@ -18,7 +18,7 @@ const TEXT_AREA_ROWS = 4;
 const TEXT_AREA_MAX_WORDS = 200;
 
 interface CreateTeamFormFieldsProps {
-  departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
+  departments?: Maybe<Maybe<Omit<Department, "teams">>[]>;
 }
 
 const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {

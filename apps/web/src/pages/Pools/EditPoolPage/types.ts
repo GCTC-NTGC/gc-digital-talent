@@ -34,20 +34,20 @@ type PoolDisplayFragments =
   | EditPoolWhatToExpectFragment
   | EditPoolYourImpactFragment;
 
-export type DisplayProps<T extends PoolDisplayFragments> = {
+export interface DisplayProps<T extends PoolDisplayFragments> {
   pool: T;
   subtitle?: ReactNode;
-};
+}
 
-export type SectionProps<T, F> = {
+export interface SectionProps<T, F> {
   poolQuery: F;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: T) => Promise<void>;
-};
+}
 
-export type PublishedEditableSectionProps = {
+export interface PublishedEditableSectionProps {
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
-};
+}
 
 export type SectionKey =
   | "basicInfo"
@@ -68,7 +68,7 @@ export type SectionKey =
   | "whatToExpectAdmission"
   | "generalQuestions";
 
-export type PoolSkillMutationsType = {
+export interface PoolSkillMutationsType {
   create: (
     poolId: string,
     skillId: string,
@@ -76,4 +76,4 @@ export type PoolSkillMutationsType = {
   ) => Promise<void>;
   update: (id: string, poolSkill: UpdatePoolSkillInput) => Promise<void>;
   delete: (id: string) => Promise<void>;
-};
+}

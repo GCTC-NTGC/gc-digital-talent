@@ -38,12 +38,12 @@ const getSkillArgs = (
 
 type FormAction = "connect" | "remove";
 
-type FormValues = {
+interface FormValues {
   experience?: Scalars["ID"]["output"];
   skill?: Scalars["ID"]["output"];
   details?: string;
   action?: FormAction;
-};
+}
 
 interface ExperienceSkillFormProps {
   defaultValues: FormValues;

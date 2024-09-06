@@ -26,10 +26,10 @@ import {
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
-type FormValues = {
+interface FormValues {
   removalReason?: CandidateRemovalReason;
   removalReasonOther?: string;
-};
+}
 
 const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
   mutation RemoveCandidate(

@@ -83,7 +83,7 @@ const generatePoolCandidate = (
   };
 };
 
-export default (amount: number = 20): PoolCandidate[] => {
+export default (amount = 20): PoolCandidate[] => {
   const pools = fakePools();
   const users = fakeUsers();
 

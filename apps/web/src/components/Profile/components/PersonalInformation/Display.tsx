@@ -37,8 +37,6 @@ type PartialUser = Pick<
   | "preferredLang"
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
-  | "currentCity"
-  | "currentProvince"
   | "citizenship"
   | "armedForcesStatus"
 >;
@@ -58,8 +56,6 @@ const Display = ({
     preferredLang,
     preferredLanguageForInterview,
     preferredLanguageForExam,
-    currentCity,
-    currentProvince,
     citizenship,
     armedForcesStatus,
   },
@@ -185,28 +181,6 @@ const Display = ({
         ) : (
           notProvided
         )}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!currentCity}
-        label={intl.formatMessage({
-          defaultMessage: "Current city",
-          id: "de/Vcy",
-          description: "Label for current city field in About Me form",
-        })}
-      >
-        {currentCity || notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!currentProvince}
-        label={intl.formatMessage({
-          defaultMessage: "Province or territory",
-          id: "yzgwjd",
-          description: "Label for current province or territory field",
-        })}
-      >
-        {currentProvince?.label
-          ? getLocalizedName(currentProvince.label, intl)
-          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLang}

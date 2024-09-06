@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
@@ -10,9 +10,13 @@ import {
   formMessages,
   uiMessages,
   sortOpportunityLength,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
+  CheckboxOption,
+  Checklist,
   Input,
+  RadioGroup,
   Select,
   Submit,
   localizedEnumToOptions,
@@ -22,7 +26,10 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  PoolSelectionLimitation,
+  PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   isInNullState,
@@ -94,6 +101,20 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    areaOfSelection {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    selectionLimitations {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -144,6 +165,24 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    allPoolAreaOfSelections: localizedEnumStrings(
+      enumName: "PoolAreaOfSelection"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    allPoolSelectionLimitations: localizedEnumStrings(
+      enumName: "PoolSelectionLimitation"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -182,7 +221,26 @@ const PoolNameSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch, resetField } = methods;
+
+  // hooks to watch, needed for conditional rendering
+  const [selectedAreaOfSelection] = watch(["areaOfSelection"]);
+  const isAreaOfSelectionEmployeesOnly =
+    selectedAreaOfSelection === PoolAreaOfSelection.Employees;
+
+  /**
+   * Reset un-rendered fields
+   */
+  useEffect(() => {
+    const resetDirtyField = (name: keyof FormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+
+    // Reset all optional fields
+    if (!isAreaOfSelectionEmployeesOnly) {
+      resetDirtyField("selectionLimitations");
+    }
+  }, [resetField, isAreaOfSelectionEmployeesOnly]);
 
   const handleSave = async (formValues: FormValues) => {
     return onSave(formValuesToSubmitData(formValues))
@@ -194,6 +252,37 @@ const PoolNameSection = ({
       })
       .catch(() => methods.reset(formValues));
   };
+
+  const allPoolSelectionLimitations = unpackMaybes(
+    data?.allPoolSelectionLimitations,
+  );
+
+  const poolSelectionLimitationsCaptions: Record<
+    PoolSelectionLimitation,
+    string
+  > = {
+    AT_LEVEL_ONLY: intl.formatMessage({
+      defaultMessage:
+        "This will indicate to applicants that only at-level or equivalent level employees will be considered for this opportunity.",
+      id: "p+rROQ",
+      description: "Caption for the at-level-only selection limitation",
+    }),
+    DEPARTMENTAL_PREFERENCE: intl.formatMessage({
+      defaultMessage:
+        "This will indicate to applicants that people employed by the departments linked to this opportunity will be given preference during selection.",
+      id: "js5ZcB",
+      description:
+        "Caption for the departmental-preference selection limitation",
+    }),
+  };
+
+  const allPoolSelectionLimitationItems =
+    allPoolSelectionLimitations.map<CheckboxOption>(({ value, label }) => ({
+      value: value,
+      label: getLocalizedName(label, intl),
+      contentBelow:
+        poolSelectionLimitationsCaptions[value as PoolSelectionLimitation],
+    }));
 
   // disabled unless status is draft
   const formDisabled = pool.status?.value !== PoolStatus.Draft;
@@ -229,7 +318,14 @@ const PoolNameSection = ({
       <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
+          {isNull ? (
+            <ToggleForm.NullDisplay />
+          ) : (
+            <Display
+              pool={pool}
+              allPoolSelectionLimitations={allPoolSelectionLimitations}
+            />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
@@ -240,6 +336,36 @@ const PoolNameSection = ({
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
                 data-h2-margin-bottom="base(x1)"
               >
+                <div data-h2-grid-column="l-tablet(1 / span 2)">
+                  <RadioGroup
+                    id="areaOfSelection"
+                    idPrefix="areaOfSelection"
+                    legend={intl.formatMessage(processMessages.areaOfSelection)}
+                    name="areaOfSelection"
+                    disabled={formDisabled}
+                    items={localizedEnumToOptions(
+                      data?.allPoolAreaOfSelections,
+                      intl,
+                      [
+                        PoolAreaOfSelection.Public,
+                        PoolAreaOfSelection.Employees,
+                      ],
+                    )}
+                  />
+                </div>
+                {isAreaOfSelectionEmployeesOnly && (
+                  <div data-h2-grid-column="l-tablet(1 / span 2)">
+                    <Checklist
+                      id="selectionLimitations"
+                      idPrefix="selectionLimitations"
+                      name="selectionLimitations"
+                      legend={intl.formatMessage(
+                        processMessages.selectionLimitations,
+                      )}
+                      items={allPoolSelectionLimitationItems}
+                    />
+                  </div>
+                )}
                 <Select
                   id="classification"
                   label={intl.formatMessage({

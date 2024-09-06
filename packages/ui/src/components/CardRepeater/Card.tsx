@@ -10,9 +10,9 @@ import { formMessages } from "@gc-digital-talent/i18n";
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
 import { Action, Edit, Remove } from "./Button";
 
-type ActionsProps = {
+interface ActionsProps {
   children: ReactNode;
-};
+}
 
 const Actions = ({ children }: ActionsProps) => (
   <div
@@ -44,14 +44,14 @@ const DisabledAction = () => (
 
 export const CARD_CLASS_NAME = "Card__Repeater";
 
-export type CardProps = {
+export interface CardProps {
   index: number;
   children: ReactNode;
   edit?: ReactNode;
   remove?: ReactNode;
   error?: boolean;
   onMove?: (from: number, to: number) => void;
-};
+}
 
 const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
   const intl = useIntl();

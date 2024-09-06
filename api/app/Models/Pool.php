@@ -49,6 +49,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $team_id
  * @property string $department_id
  * @property string $community_id
+ * @property string $area_of_selection
+ * @property array $selection_limitations
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $closing_date
@@ -82,6 +84,7 @@ class Pool extends Model
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
         'archived_at' => 'datetime',
+        'selection_limitations' => 'array',
     ];
 
     /**
@@ -152,6 +155,9 @@ class Pool extends Model
             $pool->assessmentSteps()->create([
                 'type' => AssessmentStepType::APPLICATION_SCREENING->name,
                 'sort_order' => 1,
+            ]);
+            $pool->team()->firstOrCreate([], [
+                'name' => 'pool-'.$pool->id,
             ]);
         });
     }
@@ -587,9 +593,14 @@ class Pool extends Model
                     }
                 }
 
-                // This will need to be updated when we give the new roles access to Pools in #10609.
                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                     $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
                 });
             });
 
@@ -663,6 +674,12 @@ class Pool extends Model
                 }
 
                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                    $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });
             }

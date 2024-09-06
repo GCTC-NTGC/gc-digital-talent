@@ -20,7 +20,7 @@ export type PartialUser = Pick<
   | "secondLanguageExamValidity"
 >;
 
-export type FormValues = {
+export interface FormValues {
   comprehensionLevel?: Maybe<EvaluatedLanguageAbility>;
   writtenLevel?: Maybe<EvaluatedLanguageAbility>;
   verbalLevel?: Maybe<EvaluatedLanguageAbility>;
@@ -29,4 +29,4 @@ export type FormValues = {
   secondLanguageExamCompleted?: Maybe<boolean>;
   consideredPositionLanguages: string[];
   secondLanguageExamValidity?: "currently_valid" | "expired" | null;
-};
+}

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type ProcessDialogProps = {
+export interface ProcessDialogProps {
   isFetching: boolean;
   poolName: ReactNode;
-};
+}

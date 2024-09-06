@@ -34,9 +34,7 @@ export type IconType =
 
 type HydrogenAttributeKey = `data-h2-${string}`;
 
-export type HydrogenAttributes = {
-  [dataAttribute: HydrogenAttributeKey]: unknown;
-};
+export type HydrogenAttributes = Record<HydrogenAttributeKey, unknown>;
 
 export type ButtonLinkMode =
   | "solid"

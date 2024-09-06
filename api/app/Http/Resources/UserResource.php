@@ -22,6 +22,8 @@ class UserResource extends JsonResource
 
     protected $poolSkillIds;
 
+    public int $version;
+
     public function poolSkillIds($value)
     {
         $this->poolSkillIds = $value;
@@ -64,6 +66,7 @@ class UserResource extends JsonResource
         }
 
         return [
+            'version' => $this->version,
             'id' => $this->id,
             'sub' => $this->sub,
             'firstName' => $this->first_name,
@@ -104,7 +107,6 @@ class UserResource extends JsonResource
             'locationExemptions' => $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->localizeEnumArray($this->accepted_operational_requirements, OperationalRequirement::class),
             'positionDuration' => $this->position_duration,
-            'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),
             'experiences' => $collection,
             'priorityNumber' => $this->priority_number,
             'isProfileComplete' => $this->isProfileComplete,

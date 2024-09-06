@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
@@ -10,26 +9,17 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\EducationRequirementOption;
-use App\Enums\EstimatedLanguageAbility;
-use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\FinalDecision;
-use App\Enums\GovEmployeeType;
-use App\Enums\Language;
-use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
-use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
-use App\Enums\WorkRegion;
-use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
+use App\ValueObjects\ProfileSnapshot;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,7 +32,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use RecursiveArrayIterator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -96,7 +85,7 @@ class PoolCandidate extends Model
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
         'suspended_at' => 'datetime',
-        'profile_snapshot' => 'json',
+        'profile_snapshot' => ProfileSnapshot::class,
         'submitted_steps' => 'array',
         'is_bookmarked' => 'boolean',
         'placed_at' => 'datetime',
@@ -730,10 +719,14 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
 
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);
@@ -873,157 +866,11 @@ class PoolCandidate extends Model
 
     public function setApplicationSnapshot(bool $save = true)
     {
-        if (! is_null($this->profile_snapshot)) {
-            return null;
-        }
+        $this->profile_snapshot = ['userId' => $this->user_id, 'poolId' => $this->pool_id];
 
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'userSkills.skill',
-            'awardExperiences',
-            'awardExperiences.skills',
-            'awardExperiences.user',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'communityExperiences.user',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'educationExperiences.user',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'personalExperiences.user',
-            'workExperiences',
-            'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.pool.classification.genericJobTitles',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementAwardExperiences.user',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.user',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.user',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.user',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.user',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-            'poolCandidates.user',
-        ])->findOrFail($this->user_id);
-
-        // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with(['poolSkills'])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
-
-        // filter out any non-applicable PoolCandidate models attached to User
-        $poolCandidateCollection = $user->poolCandidates;
-        $filteredPoolCandidateCollection = $poolCandidateCollection->filter(function ($individualPoolCandidate) {
-            return $individualPoolCandidate->id === $this->id;
-        });
-        $user->poolCandidates = $filteredPoolCandidateCollection;
-
-        $profile = new UserResource($user);
-        $profile = $profile->poolSkillIds($poolSkillIds);
-
-        $this->profile_snapshot = $profile;
         if ($save) {
             $this->save();
         }
-    }
-
-    /**
-     * Transform an enum value from the snapshot
-     * into a localized enum if it already isn't one.
-     */
-    private function parseSnapshotEnum(mixed $value, $enum): mixed
-    {
-
-        if (method_exists($enum, 'localizedString')) {
-            if (is_string($value)) {
-                return [
-                    'value' => $value,
-                    'label' => $enum::localizedString($value),
-                ];
-            }
-        }
-
-        return $value;
-    }
-
-    /**
-     * Iterate through the snapshot and transform
-     * non-localized enum values into their localized
-     * version.
-     *
-     * NOTE: This is to handle legacy snapshots.
-     * We can remove this once we are no longer using non-localized
-     * enums in the snapshots.
-     */
-    private function parseSnapshotRecursive(RecursiveArrayIterator $rai, array $accumulator, $enumMap)
-    {
-        foreach ($rai as $k => $v) {
-            if (array_key_exists($k, $enumMap)) {
-                $enum = $enumMap[$k];
-                if (is_array($v) && array_is_list($v)) {
-                    $accumulator[$k] = array_map(function ($item) use ($enum) {
-                        return $this->parseSnapshotEnum($item, $enum);
-                    }, $v);
-                } else {
-                    $accumulator[$k] = $this->parseSnapshotEnum($v, $enum);
-                }
-            } else {
-                if ($rai->hasChildren()) {
-                    $accumulator[$k] = $this->parseSnapshotRecursive($rai->getChildren(), [], $enumMap);
-                } else {
-                    $accumulator[$k] = $v;
-                }
-            }
-        }
-
-        return $accumulator;
-    }
-
-    protected function profileSnapshot(): Attribute
-    {
-        return Attribute::make(
-            get: function (?string $value) {
-                if (! $value) {
-                    return null;
-                }
-
-                $snapshot = json_decode($value, true);
-                $enumMap = [
-                    'acceptedOperationalRequirements' => OperationalRequirement::class,
-                    'armedForcesStatus' => ArmedForcesStatus::class,
-                    'citizenship' => CitizenshipStatus::class,
-                    'comprehensionLevel' => EvaluatedLanguageAbility::class,
-                    'currentProvince' => ProvinceOrTerritory::class,
-                    'educationRequirementOption' => EducationRequirementOption::class,
-                    'estimatedLanguageAbility' => EstimatedLanguageAbility::class,
-                    'firstOfficialLanguage' => Language::class,
-                    'govEmployeeType' => GovEmployeeType::class,
-                    'locationPreferences' => WorkRegion::class,
-                    'preferredLang' => Language::class,
-                    'preferredLanguageForInterview' => Language::class,
-                    'preferredLanguageForExam' => Language::class,
-                    'verbalLevel' => EvaluatedLanguageAbility::class,
-                    'writtenLevel' => EvaluatedLanguageAbility::class,
-                ];
-
-                $iterator = new RecursiveArrayIterator($snapshot);
-
-                $parsedSnapshot = [];
-                $parsedSnapshot = $this->parseSnapshotRecursive($iterator, $parsedSnapshot, $enumMap);
-
-                return $parsedSnapshot;
-            }
-        );
     }
 
     /**

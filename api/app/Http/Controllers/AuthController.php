@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\OpenIdBearerTokenService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
@@ -112,6 +114,15 @@ class AuthController extends Controller
             strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
             new InvalidArgumentException('Invalid session nonce')
         );
+
+        // nothing to break the session now, mark login successful with a last active update
+        $sub = $token->claims()->get('sub');
+        $userMatch = User::where('sub', $sub)->withTrashed()->first();
+        $now = Carbon::now();
+        if (isset($userMatch)) {
+            $userMatch->last_sign_in_at = $now;
+            $userMatch->save();
+        }
 
         $query = http_build_query($response->json());
 

@@ -22,7 +22,7 @@ const apiRoutes = {
 
     const url = apiHost
       ? new URL(loginPath, apiHost)
-      : ["login"].join("/") + (searchString ? `?${searchString}` : "");
+      : ["/login"].join("/") + (searchString ? `?${searchString}` : "");
 
     return url.toString();
   },

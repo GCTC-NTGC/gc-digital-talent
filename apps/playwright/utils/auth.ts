@@ -2,11 +2,11 @@
 import { Cookie, Page, expect, request } from "@playwright/test";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
-export type AuthTokens = {
+export interface AuthTokens {
   idToken?: string;
   accessToken?: string;
   refreshToken?: string;
-};
+}
 
 /**
  * Login by sub
@@ -71,10 +71,10 @@ export async function getTokenForSub(sub: string) {
   };
 }
 
-export type AuthCookies = {
+export interface AuthCookies {
   apiSession?: Cookie;
   xsrf?: Cookie;
-};
+}
 
 /**
  * Get Auth Cookies

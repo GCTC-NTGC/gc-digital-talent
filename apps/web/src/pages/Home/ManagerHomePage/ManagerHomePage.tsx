@@ -182,38 +182,31 @@ export const Component = () => {
           <CardFlat
             color="tertiary"
             title={intl.formatMessage({
-              defaultMessage: "Gain data insights",
-              id: "3GOVZI",
-              description: "Heading for the direct on digital talent section",
+              defaultMessage: "Hire Indigenous talent",
+              id: "P06ncG",
+              description:
+                "Heading for the IT Apprenticehip program for Indigenous peoples section",
             })}
             links={[
               {
-                href: paths.directive(),
+                href: paths.iapManager(),
                 mode: "solid",
                 label: intl.formatMessage({
-                  defaultMessage:
-                    "Learn more<hidden> about the directive on digital talent</hidden>",
-                  id: "CMxMEW",
+                  defaultMessage: "Hire an IT apprentice",
+                  id: "22KlYO",
                   description:
-                    "Link text to the directive on digital talent page",
+                    "Link text to the IT Apprenticehip program for Indigenous peoples page",
                 }),
               },
             ]}
           >
-            <p data-h2-margin-bottom="base(x.5)">
-              {intl.formatMessage({
-                defaultMessage: "Coming Fall 2023",
-                id: "5yYtE6",
-                description:
-                  "Text displayed for soon to come data talent data portal",
-              })}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Check out our new Digital Talent Data Portal for trends, insights and ideas to strengthen your own talent planning and recruitment strategies.",
-                id: "xQfIcL",
-                description: "Description for the digital talent data portal",
+                  "Support career pathways for First Nations, Inuit and Métis apprentices with a passion for IT and help create a more diverse, equitable and inclusive public service. Hire through the IT Apprenticeship Program for Indigenous Peoples.",
+                id: "Qm8QWW",
+                description:
+                  "Description for the IT Apprenticehip program for Indigenous peoples",
               })}
             </p>
           </CardFlat>

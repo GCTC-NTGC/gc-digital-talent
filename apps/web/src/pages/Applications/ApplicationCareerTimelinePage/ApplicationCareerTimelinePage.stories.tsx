@@ -36,7 +36,7 @@ const hasExperiencesProps: ApplicationCareerTimelineStory["args"] = {
       experiences: fakeExperiences(5),
     },
   },
-  experiences: fakeExperiences(5) as Array<ExperienceForDate>,
+  experiences: fakeExperiences(5) as ExperienceForDate[],
 };
 
 export default {

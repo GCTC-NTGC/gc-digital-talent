@@ -113,6 +113,11 @@ type LocalizedPlacementType {
   label: LocalizedString!
 }
 
+type LocalizedPoolAreaOfSelection {
+  value: PoolAreaOfSelection!
+  label: LocalizedString!
+}
+
 type LocalizedPoolCandidateSearchPositionType {
   value: PoolCandidateSearchPositionType!
   label: LocalizedString!
@@ -140,6 +145,11 @@ type LocalizedPoolLanguage {
 
 type LocalizedPoolOpportunityLength {
   value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolSelectionLimitation {
+  value: PoolSelectionLimitation!
   label: LocalizedString!
 }
 
@@ -214,7 +224,7 @@ type Query {
   poolCandidate(id: UUID!): PoolCandidate
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
-  classifications: [Classification]!
+  classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
@@ -398,11 +408,14 @@ type Mutation {
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
-  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean!
+  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, locale: Language): Boolean!
   downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
-  downloadUsersCsv(ids: [UUID!]!, locale: Language): Boolean!
+  downloadUsersCsv(ids: [UUID!], where: UserFilterInput, locale: Language): Boolean!
   downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean!
   downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
+  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
+  downloadApplicationDoc(id: UUID!): String
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -605,7 +618,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
-  id: UUID!
+  id: ID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
 }
@@ -650,6 +663,8 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   department: Department
+  areaOfSelection: LocalizedPoolAreaOfSelection
+  selectionLimitations: [LocalizedPoolSelectionLimitation!]
 }
 
 type GeneralQuestionResponse {
@@ -1054,7 +1069,7 @@ input PoolBookmarksOrderByInput {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
@@ -1169,7 +1184,7 @@ input CreateUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1217,7 +1232,7 @@ input UpdateUserAsAdminInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1274,7 +1289,7 @@ input UpdateUserAsUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1404,7 +1419,7 @@ input UpdateCommunityInput {
 }
 
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -1647,6 +1662,8 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+  areaOfSelection: PoolAreaOfSelection
+  selectionLimitations: [PoolSelectionLimitation!]
 }
 
 input UpdatePublishedPoolInput {
@@ -2770,6 +2787,11 @@ enum PlacementType {
   PLACED_INDETERMINATE
 }
 
+enum PoolAreaOfSelection {
+  PUBLIC
+  EMPLOYEES
+}
+
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
@@ -2827,6 +2849,11 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolSelectionLimitation {
+  AT_LEVEL_ONLY
+  DEPARTMENTAL_PREFERENCE
 }
 
 enum PoolSkillType {

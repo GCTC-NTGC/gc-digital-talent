@@ -29,6 +29,7 @@ class PoolCandidateUserDocGenerator extends DocGenerator implements FileGenerato
             'generalQuestionResponses' => ['generalQuestion'],
         ])
             ->whereIn('id', $this->ids)
+            ->authorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) use ($section) {
                 foreach ($candidates as $candidate) {
                     $this->generateUser($section, $candidate->user);

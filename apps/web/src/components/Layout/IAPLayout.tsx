@@ -28,7 +28,7 @@ import SitewideBanner from "./SitewideBanner";
 
 export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 
-const messages: Map<string, Messages> = new Map([
+const messages = new Map<string, Messages>([
   ["crg", crgMessages],
   ["crk", crkMessages],
   ["ojw", ojwMessages],

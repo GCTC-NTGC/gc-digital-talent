@@ -14,6 +14,11 @@ setup("authenticate as applicant", async ({ page }) => {
   await page.context().storageState({ path: auth.STATE.APPLICANT });
 });
 
+setup("authenticate as process operator", async ({ page }) => {
+  await loginBySub(page, "process@test.com", false);
+  await page.context().storageState({ path: auth.STATE.PROCESS_OPERATOR });
+});
+
 setup("authenticate as community recruiter", async ({ page }) => {
   await loginBySub(page, "recruiter@test.com", false);
   await page.context().storageState({ path: auth.STATE.COMMUNITY_RECRUITER });

@@ -5,7 +5,8 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -45,14 +46,14 @@ module.exports = {
   ],
   rules: {
     camelcase: [
-      "warn",
+      "error",
       {
         allow: ["w*Query$", "w*Fragment$", "w*Mutation$", "w*Document$"],
       },
     ],
-    "consistent-return": "warn",
+    "consistent-return": "error",
     "import/no-extraneous-dependencies": "off",
-    "import/extensions": ["warn", "never", { json: "always" }],
+    "import/extensions": ["error", "never", { json: "always" }],
     "import/order": [
       "error",
       {
@@ -80,20 +81,36 @@ module.exports = {
       },
     ],
     "no-only-tests/no-only-tests": "error",
-    "no-param-reassign": "warn",
+    "no-param-reassign": "error",
     "no-use-before-define": "off",
     "no-shadow": "off",
     "no-console": "error",
     "no-alert": "error",
-    "@typescript-eslint/no-use-before-define": "warn",
+    "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
-    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-empty-function": "error",
     "no-underscore-dangle": ["error", { allow: ["__typename"] }],
 
-    // CI Only rules to keep local snappy
-    "import/no-named-as-default": process.env.CI ? "warn" : "off",
+    // CI Only rules to keep local snappy, deprecation kept as a warn
+    "import/no-named-as-default": process.env.CI ? "error" : "off",
     "import/namespace": process.env.CI ? "error" : "off",
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
+
+    // Temporarily disabled to ease transition to typed linting
+    "@typescript-eslint/prefer-nullish-coalescing": "off", // Remove in #11376
+    "@typescript-eslint/require-await": "off", // Remove in #11377
+    "@typescript-eslint/only-throw-error": "off", // Remove in #11378
+    "@typescript-eslint/no-misused-promises": "off", // Remove in #11379
+    "@typescript-eslint/no-base-to-string": "off", // Remove in #11380
+    "@typescript-eslint/no-floating-promises": "off", // Remove in #11381
+    "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
+
+    // Remove in #11384
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
   },
   settings: {
     react: {

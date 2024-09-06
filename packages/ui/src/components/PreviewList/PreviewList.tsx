@@ -6,12 +6,12 @@ import Chip from "../Chip/Chip";
 import { Color } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
-export type MetaDataProps = {
+export interface MetaDataProps {
   children: ReactNode;
   color?: Color;
   key: string;
   type: "text" | "chip";
-};
+}
 
 const MetaData = ({ children, type, color }: MetaDataProps) => {
   switch (type) {
@@ -55,16 +55,21 @@ const Item = ({
       data-h2-padding="base(x1 0)"
       data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid)"
       data-h2-border-bottom-color="base:all:selectors[:not(:last-child)](gray.lighter)"
+      data-h2-transition="base:children[.PreviewList__Heading](transform 200ms ease)"
+      data-h2-color="base:selectors[:has(button:hover) .PreviewList__Heading](secondary.darker) base:selectors[:has(button:focus-visible) .PreviewList__Heading](black)"
+      data-h2-background-color="base:selectors[:has(button:focus-visible) .PreviewList__Heading](focus)"
       role="listitem"
     >
       <div>
         <Heading
+          className="PreviewList__Heading"
           level={headingAs}
           data-h2-font-size="base(body)"
           data-h2-font-weight="base(700)"
           data-h2-text-decoration="base(underline)"
           data-h2-margin-bottom="base(x.5)"
           data-h2-margin-top="base(0)"
+          data-h2-display="base(inline-block)"
         >
           {title}
         </Heading>
@@ -104,7 +109,7 @@ const Item = ({
 type PreviewItemElement = ReactElement<ItemProps>;
 
 export interface RootProps {
-  children: PreviewItemElement | Array<PreviewItemElement>;
+  children: PreviewItemElement | PreviewItemElement[];
 }
 
 const Root = ({ children, ...rest }: RootProps) => {

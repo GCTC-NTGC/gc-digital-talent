@@ -211,6 +211,13 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       }
     }
     isRemote
+    areaOfSelection {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -230,7 +237,7 @@ export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
   departments: FragmentType<typeof PoolDepartment_Fragment>[];
-  skills: Array<Skill>;
+  skills: Skill[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
   poolSkillMutations: PoolSkillMutationsType;
@@ -263,6 +270,7 @@ export const EditPoolForm = ({
 
   const basicInfoHasError =
     poolNameError({
+      areaOfSelection: pool.areaOfSelection,
       classification: pool.classification,
       department: pool.department,
       stream: pool.stream,
@@ -300,6 +308,7 @@ export const EditPoolForm = ({
     poolName: {
       id: "pool-name",
       hasError: poolNameError({
+        areaOfSelection: pool.areaOfSelection,
         classification: pool.classification,
         department: pool.department,
         stream: pool.stream,
@@ -802,6 +811,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
 };
@@ -880,6 +890,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <EditPoolPage />

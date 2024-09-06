@@ -25,10 +25,10 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@testing-library/react": "^16.0.0",
+    "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest-axe": "^3.5.9",
-    "@types/react": "^18.3.4",
+    "@types/react": "^18.3.5",
     "eslint": "^8.57.0",
     "jest-axe": "^9.0.0",
     "react": "^18.3.1",

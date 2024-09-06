@@ -46,7 +46,7 @@ module.exports = {
     "react/require-default-props": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": [
-      "warn",
+      "error",
       {
         additionalHooks: "(useDeepCompareEffect)",
       },
@@ -88,7 +88,7 @@ module.exports = {
       },
     ],
     "@typescript-eslint/no-restricted-types": [
-      "warn",
+      "error",
       {
         types: {
           "React.FunctionComponent":

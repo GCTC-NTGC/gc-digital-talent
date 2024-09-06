@@ -18,7 +18,7 @@ export type PartialUser = Pick<
 > & {
   currentClassification?: Maybe<PartialClassification>;
 };
-export type FormValues = {
+export interface FormValues {
   govEmployeeYesNo?: "yes" | "no";
   govEmployeeType?: GovEmployeeType | null;
   lateralDeployBool?: boolean;
@@ -28,4 +28,4 @@ export type FormValues = {
   priorityEntitlementYesNo?: "yes" | "no";
   priorityEntitlementNumber?: string;
   workEmail?: Maybe<string>;
-};
+}

@@ -50,9 +50,9 @@ const getTitle = (
 
 const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
 
-type FormValues = {
+interface FormValues {
   verificationCode: string;
-};
+}
 
 export interface EmailVerificationProps {
   emailType?: "contact" | "work";

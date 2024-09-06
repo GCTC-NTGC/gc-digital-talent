@@ -4,8 +4,10 @@ namespace Database\Factories;
 
 use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
+use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
+use App\Enums\PoolSelectionLimitation;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
@@ -50,6 +52,7 @@ class PoolFactory extends Factory
         }
 
         $teamId = Team::inRandomOrder()
+            ->whereNull('teamable_id')
             ->limit(1)
             ->pluck('id')
             ->first();
@@ -202,6 +205,15 @@ class PoolFactory extends Factory
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
+                'area_of_selection' => $this->faker->optional()->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
+                'selection_limitations' => function (array $attributes) {
+                    return $attributes['area_of_selection'] == PoolAreaOfSelection::EMPLOYEES->name
+                        ? $this->faker->randomElements(
+                            array_column(PoolSelectionLimitation::cases(), 'name'),
+                            $this->faker->numberBetween(0, count(PoolSelectionLimitation::cases()))
+                        )
+                        : [];
+                },
             ];
         });
     }
@@ -234,6 +246,15 @@ class PoolFactory extends Factory
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
                 'change_justification' => $this->faker->boolean(50) ? $this->faker->paragraph() : null,
+                'area_of_selection' => $this->faker->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
+                'selection_limitations' => function (array $attributes) {
+                    return $attributes['area_of_selection'] == PoolAreaOfSelection::EMPLOYEES->name
+                        ? $this->faker->randomElements(
+                            array_column(PoolSelectionLimitation::cases(), 'name'),
+                            $this->faker->numberBetween(0, count(PoolSelectionLimitation::cases()))
+                        )
+                        : [];
+                },
             ];
         });
     }
@@ -274,7 +295,7 @@ class PoolFactory extends Factory
      */
     public function candidatesAvailableInSearch()
     {
-        return $this->state(function () {
+        return $this->published()->state(function () {
             return [
                 'publishing_group' => $this->faker->randomElement([
                     PublishingGroup::IT_JOBS->name,
