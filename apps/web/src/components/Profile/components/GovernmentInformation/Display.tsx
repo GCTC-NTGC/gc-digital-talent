@@ -164,8 +164,6 @@ const Display = ({
               : notProvided}
           </FieldDisplay>
           <div
-            data-h2-grid-column-start="p-tablet(1)"
-            data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(row)"
             data-h2-gap="base(x0.5)"
