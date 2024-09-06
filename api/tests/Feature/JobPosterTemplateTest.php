@@ -47,6 +47,15 @@ class JobPosterTemplateTest extends TestCase
     }
     GRAPHQL;
 
+    private string $update = <<<'GRAPHQL'
+        mutation Update($id: UUID!, $template: UpdateJobPosterTemplateInput!) {
+            updateJobPosterTemplate(id: $id, jobPosterTemplate: $template) {
+                id
+                referenceId
+            }
+        }
+    GRAPHQL;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -118,6 +127,48 @@ class JobPosterTemplateTest extends TestCase
         ]);
 
         $this->assertNotNull($res['data']['createJobPosterTemplate']);
+    }
+
+    public function testAnonymousUserCannotUpdate()
+    {
+        $this->graphQL($this->update, [
+            'id' => $this->template->id,
+            'template' => ['referenceId' => 'new_id'],
+        ])->assertGraphQLErrorMessage('Unauthenticated.');
+    }
+
+    public function testNonAdminUserCannotUpdate()
+    {
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->update, [
+            'id' => $this->template->id,
+            'template' => ['referenceId' => 'new_ref'],
+        ])->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testAdminCanUpdate()
+    {
+        $this->actingAs($this->adminUser, 'api')->graphQL($this->update, [
+            'id' => $this->template->id,
+            'template' => ['referenceId' => 'new_ref'],
+        ])->assertJson([
+            'data' => [
+                'updateJobPosterTemplate' => [
+                    'id' => $this->template->id,
+                    'referenceId' => 'new_ref',
+                ],
+            ],
+        ]);
+    }
+
+    public function testReferenceIdIsUnique()
+    {
+        $input = $this->getCreateInput();
+        $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'referenceId' => $this->template->reference_id,
+            ],
+        ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
     private function getCreateInput(): array
