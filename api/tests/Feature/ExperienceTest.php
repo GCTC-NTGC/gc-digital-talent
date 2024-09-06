@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\AwardExperience;
+use App\Models\Experience;
 use App\Models\ExperienceSkill;
 use App\Models\Skill;
 use App\Models\User;
@@ -523,5 +524,76 @@ class ExperienceTest extends TestCase
         $skills = $response['data']['user']['experiences'][0]['skills'];
         // assert 3 skills grabbed, therefore soft deleted skill still reached
         assertEquals(count($skills), 3);
+    }
+
+    // older snapshots have raw enums in them unlike than the newer ones with the localized enums
+    public function testHydrateRawEnums(): void
+    {
+        $string = <<<'JSON'
+            [
+                {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "type": "CERTIFICATION",
+                    "user": {
+                        "id": "00000000-0000-0000-0000-000000000000",
+                        "email": "user@example.org"
+                    },
+                    "skills": [],
+                    "status": "SUCCESS_CREDENTIAL",
+                    "details": "Itaque exercitationem ea in neque et eos laudantium. Qui natus placeat ipsa modi maiores eius rerum. Enim nostrum voluptatem ea explicabo.",
+                    "endDate": "2018-03-01",
+                    "startDate": "2018-01-01",
+                    "__typename": "EducationExperience",
+                    "areaOfStudy": "Teacher",
+                    "institution": "ExitCertified",
+                    "thesisTitle": null
+                }
+            ]
+        JSON;
+        $json = json_decode($string, true);
+
+        $experiences = collect(Experience::hydrateSnapshot($json));
+        assertEquals($experiences->sole()->type, 'CERTIFICATION');
+        assertEquals($experiences->sole()->status, 'SUCCESS_CREDENTIAL');
+
+    }
+
+    // newer snapshots have localized enums in them unlike than the older ones with the raw enums
+    public function testHydrateLocalizedEnums(): void
+    {
+        $string = <<<'JSON'
+            [
+                {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "type": {
+                        "label": {
+                        "en": "Bachelor's Degree",
+                        "fr": "Baccalauréat"
+                        },
+                        "value": "BACHELORS_DEGREE"
+                    },
+                    "skills": [],
+                    "status": {
+                        "label": {
+                        "en": "Audited",
+                        "fr": "Audité"
+                        },
+                        "value": "AUDITED"
+                    },
+                    "details": "Itaque exercitationem ea in neque et eos laudantium. Qui natus placeat ipsa modi maiores eius rerum. Enim nostrum voluptatem ea explicabo.",
+                    "endDate": null,
+                    "startDate": "2012-10-09",
+                    "__typename": "EducationExperience",
+                    "areaOfStudy": "Teacher",
+                    "institution": "Sanford-Ernser",
+                    "thesisTitle": "utilize intuitive architectures"
+                }
+            ]
+        JSON;
+        $json = json_decode($string, true);
+
+        $experiences = collect(Experience::hydrateSnapshot($json));
+        assertEquals($experiences->sole()->type, 'BACHELORS_DEGREE');
+        assertEquals($experiences->sole()->status, 'AUDITED');
     }
 }
