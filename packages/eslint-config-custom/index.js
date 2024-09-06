@@ -46,14 +46,14 @@ module.exports = {
   ],
   rules: {
     camelcase: [
-      "warn",
+      "error",
       {
         allow: ["w*Query$", "w*Fragment$", "w*Mutation$", "w*Document$"],
       },
     ],
-    "consistent-return": "warn",
+    "consistent-return": "error",
     "import/no-extraneous-dependencies": "off",
-    "import/extensions": ["warn", "never", { json: "always" }],
+    "import/extensions": ["error", "never", { json: "always" }],
     "import/order": [
       "error",
       {
@@ -81,18 +81,18 @@ module.exports = {
       },
     ],
     "no-only-tests/no-only-tests": "error",
-    "no-param-reassign": "warn",
+    "no-param-reassign": "error",
     "no-use-before-define": "off",
     "no-shadow": "off",
     "no-console": "error",
     "no-alert": "error",
-    "@typescript-eslint/no-use-before-define": "warn",
+    "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
-    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-empty-function": "error",
     "no-underscore-dangle": ["error", { allow: ["__typename"] }],
 
-    // CI Only rules to keep local snappy
-    "import/no-named-as-default": process.env.CI ? "warn" : "off",
+    // CI Only rules to keep local snappy, deprecation kept as a warn
+    "import/no-named-as-default": process.env.CI ? "error" : "off",
     "import/namespace": process.env.CI ? "error" : "off",
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
 
