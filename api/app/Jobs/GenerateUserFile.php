@@ -35,6 +35,12 @@ class GenerateUserFile implements ShouldQueue
             // Notify the user something went wrong
             $this->user->notify(new UserFileGenerationError($this->generator->getFileName()));
             Log::error($e);
+
+            // workaround until we get better logging in prod
+            Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/jobs.log'),
+            ])->error($e);
         }
 
     }

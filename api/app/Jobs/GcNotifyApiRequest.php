@@ -66,6 +66,15 @@ class GcNotifyApiRequest implements ShouldQueue
             $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. '.$firstApiErrorMessage.' ';
             Log::error($errorMessage);
             Log::debug($response->body());
+
+            // workaround until we get better logging in prod
+            $onDemandLog = Log::build([
+                'driver' => 'single',
+                'path' => storage_path('logs/jobs.log'),
+            ]);
+            $onDemandLog->error($errorMessage);
+            $onDemandLog->debug($response->body());
+
             throw new Exception($errorMessage);
         }
     }
