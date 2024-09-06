@@ -3827,6 +3827,10 @@
     "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
     "description": "Application snapshot minimum experience section description"
   },
+  "J3yJhp": {
+    "defaultMessage": "Votre lieu de résidence actuel",
+    "description": "Legend for users current location"
+  },
   "J6atIv": {
     "defaultMessage": "Liste de compétences",
     "description": "Link text for explore skills page"

@@ -15,7 +15,11 @@ export const getLabels = (intl: IntlShape) => ({
   acceptedOperationalRequirements: intl.formatMessage(
     profileMessages.acceptableRequirements,
   ),
-  currentLocation: intl.formatMessage(profileMessages.currentLocation),
+  currentLocation: intl.formatMessage({
+    defaultMessage: "Your current location",
+    id: "J3yJhp",
+    description: "Legend for users current location",
+  }),
   currentProvince: intl.formatMessage({
     defaultMessage: "Province, territory or region",
     id: "fm2lKX",
