@@ -1009,7 +1009,7 @@ type Query {
   departments: [Department]! @all @canModel(ability: "viewAny")
   jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
     @find
-    @canModel(ability: "view")
+    @canFind(ability: "view", find: "id")
   jobPosterTemplates: [JobPosterTemplate!] @all @canModel(ability: "viewAny")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
@@ -1887,7 +1887,7 @@ input UpdateJobPosterTemplateSkillsInput {
   detach: [UUID!]
 }
 
-input CreateJobPosterTemplateInput {
+input CreateJobPosterTemplateInput @validator {
   referenceId: String! @rename(attribute: "reference_id")
   name: LocalizedStringInput!
   description: LocalizedStringInput!
@@ -1906,7 +1906,7 @@ input CreateJobPosterTemplateInput {
   skills: UpdateJobPosterTemplateSkillsInput
 }
 
-input UpdateJobPosterTemplateInput {
+input UpdateJobPosterTemplateInput @validator {
   referenceId: String @rename(attribute: "reference_id")
   name: LocalizedStringInput
   description: LocalizedStringInput
