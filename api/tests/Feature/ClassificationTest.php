@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Classification;
+use App\Models\Community;
+use App\Models\Pool;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,6 +26,16 @@ class ClassificationTest extends TestCase
 
     protected $adminUser;
 
+    protected $processOperatorUser;
+
+    protected $communityRecruiterUser;
+
+    protected $communityAdminUser;
+
+    protected $community;
+
+    protected $teamPool;
+
     protected $uuid;
 
     protected $toBeDeletedUUID;
@@ -35,6 +47,11 @@ class ClassificationTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
+
+        $this->community = Community::factory()->create(['name' => 'test-team']);
+        $this->teamPool = Pool::factory()->create([
+            'community_id' => $this->community->id,
+        ]);
 
         $this->baseUser = User::create([
             'email' => 'base-user@test.com',
@@ -52,6 +69,24 @@ class ClassificationTest extends TestCase
             'sub' => 'admin-user@test.com',
         ]);
         $this->adminUser->addRole('platform_admin');
+
+        $this->processOperatorUser = User::factory()
+            ->asProcessOperator($this->teamPool->id)
+            ->create([
+                'email' => 'process-operator-user@test.com',
+            ]);
+
+        $this->communityRecruiterUser = User::factory()
+            ->asCommunityRecruiter($this->community->id)
+            ->create([
+                'email' => 'community-recruiter-user@test.com',
+            ]);
+
+        $this->communityAdminUser = User::factory()
+            ->asCommunityAdmin($this->community->id)
+            ->create([
+                'email' => 'community-admin-user@test.com',
+            ]);
 
         $this->uuid = $this->faker->UUID();
         $this->toBeDeletedUUID = $this->faker->UUID();
@@ -103,7 +138,7 @@ class ClassificationTest extends TestCase
     }
 
     /**
-     * Test updating a classification
+     * Only Platform Admin can update
      *
      * @return void
      */
@@ -137,14 +172,24 @@ class ClassificationTest extends TestCase
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+        // succeeds
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['id' => $this->uuid, 'name' => $variables['classification']['name']]);
     }
 
     /**
-     * Test creation of classification
+     * Only Platform Admin can create
      *
      * @return void
      */
@@ -178,14 +223,24 @@ class ClassificationTest extends TestCase
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+        // succeeds
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['name' => $variables['classification']['name']]);
     }
 
     /**
-     * Test base user cannot update or delete
+     * Only Platform Admin can delete
      *
      * @return void
      */
@@ -206,7 +261,17 @@ class ClassificationTest extends TestCase
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+        // succeeds
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['id' => $this->toBeDeletedUUID]);

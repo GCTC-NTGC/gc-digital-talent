@@ -739,6 +739,10 @@
     "defaultMessage": "Cette section porte sur les renseignements qui fournissent au demandeur le contexte du type de travail qu'il fera, avec qui il travaillera et l'incidence du rôle sur les Canadiens et les Canadiennes.",
     "description": "Sub title for basic information"
   },
+  "22KlYO": {
+    "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
+    "description": "Link text to the IT Apprenticehip program for Indigenous peoples page"
+  },
   "23/pqm": {
     "defaultMessage": "Aucune compétence n'a été liée à des expériences.",
     "description": "Null state for when no skills have been linked to any experiences"
@@ -952,7 +956,7 @@
     "description": "Message displayed to user after application question responses fail to be updated."
   },
   "39RER8": {
-    "defaultMessage": "Embaucher un·e apprenti·e en TI",
+    "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Page title for IAP manager homepage"
   },
   "3BLgOa": {
@@ -978,10 +982,6 @@
   "3GLqD1": {
     "defaultMessage": "Fermer le processus immédiatement",
     "description": "Submit button text to close a process"
-  },
-  "3GOVZI": {
-    "defaultMessage": "Développez des connaissances sur les données",
-    "description": "Heading for the direct on digital talent section"
   },
   "3GkMHE": {
     "defaultMessage": "3. Remplissez vos <strong>questions de récupération</strong>. Vous devez utiliser une <strong>personne</strong> et <strong>une date mémorables</strong>.",
@@ -1251,6 +1251,10 @@
     "defaultMessage": "Pour toute question ou préoccupation concernant le questionnaire, veuillez contacter <link>Talents numériques du GC</link> pour obtenir de plus amples renseignements.",
     "description": "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_"
   },
+  "4l0wGu": {
+    "defaultMessage": "Cette possibilité s'adresse aux employés internes de classification {classification} ou équivalente",
+    "description": "Title of a note describing that a pool is only open to employees at-level"
+  },
   "4lRUZt": {
     "defaultMessage": "Vous êtes sur le point de modifier l’information publiée dans l’annonce suivante",
     "description": "Warning message when attempting to update a published process advertisement"
@@ -1391,6 +1395,10 @@
     "defaultMessage": "Mentionner des prix et des marques de reconnaissance en particulier que vous avez reçus pour votre dévouement exceptionnel.",
     "description": "Description for award experience section"
   },
+  "5S5zo0": {
+    "defaultMessage": "Limites de la sélection des employés",
+    "description": "Label for a process' selection limitations"
+  },
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
@@ -1483,10 +1491,6 @@
     "defaultMessage": "Démontré",
     "description": "Option for assessment decision when candidate has successful assessment."
   },
-  "5yYtE6": {
-    "defaultMessage": "À venir à l’automne 2023",
-    "description": "Text displayed for soon to come data talent data portal"
-  },
   "5yv4Ko": {
     "defaultMessage": "Quantité",
     "description": "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_"
@@ -1498,6 +1502,10 @@
   "66qMwD": {
     "defaultMessage": "« ... réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
     "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
+  },
+  "66xc/o": {
+    "defaultMessage": "Cette possibilité s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
+    "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
   },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
@@ -1958,6 +1966,10 @@
   "8ownC2": {
     "defaultMessage": "Veuillez préciser la raison",
     "description": "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_"
+  },
+  "8t1KYs": {
+    "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
+    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
   },
   "8v/v3u": {
     "defaultMessage": "Compétences requises",
@@ -2567,10 +2579,6 @@
     "defaultMessage": "Niveau de communication orale",
     "description": "Label displayed on the language information form oral communication field."
   },
-  "CMxMEW": {
-    "defaultMessage": "Apprenez-en davantage<hidden> sur la Directive sur les talents numériques</hidden>",
-    "description": "Link text to the directive on digital talent page"
-  },
   "COJ3St": {
     "defaultMessage": "Sélectionnez une équipe",
     "description": "Placeholder displayed for team selection input."
@@ -3090,6 +3098,10 @@
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
+  },
+  "F6AwoP": {
+    "defaultMessage": "Qui résident au Canada, sont citoyens canadiens ou résidents permanents à l'étranger",
+    "description": "Regular criteria item needed in order to apply"
   },
   "F6L/Rv": {
     "defaultMessage": "Modifier {skillName}",
@@ -3859,6 +3871,10 @@
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
   },
+  "JKEDRo": {
+    "defaultMessage": "Cette possibilité s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
+    "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
+  },
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
     "description": "Title for the Digital Community Management"
@@ -4074,6 +4090,10 @@
   "KXy+Ei": {
     "defaultMessage": "AC",
     "description": "Short form code representing 'veteran'"
+  },
+  "KY4zuB": {
+    "defaultMessage": "Les employés du gouvernement du Canada qui : ",
+    "description": "Title for a list of criteria needed for employees to apply"
   },
   "KZtBcM": {
     "defaultMessage": "Examiner la demande<hidden> {name}</hidden>",
@@ -4867,6 +4887,10 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
+  "P06ncG": {
+    "defaultMessage": "Embaucher des talents autochtones",
+    "description": "Heading for the IT Apprenticehip program for Indigenous peoples section"
+  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -4890,6 +4914,10 @@
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
+  },
+  "PAOXlo": {
+    "defaultMessage": "* La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
+    "description": "Fine print for hiring policy for pool advertisement"
   },
   "PAySDr": {
     "defaultMessage": "Familles de compétences (français)",
@@ -5194,6 +5222,10 @@
   "QkZ7Oy": {
     "defaultMessage": "Comment une personne peut-elle présenter une demande pour devenir apprentie?",
     "description": "Learn more dialog question eleven heading"
+  },
+  "Qm8QWW": {
+    "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
+    "description": "Description for the IT Apprenticehip program for Indigenous peoples"
   },
   "QnfjbI": {
     "defaultMessage": "constituent de l’usurpation d’identité, de la publicité ou un pourriel",
@@ -6242,6 +6274,10 @@
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
   },
+  "WcU42I": {
+    "defaultMessage": "Cette possibilité s'adresse aux employés internes",
+    "description": "Title of a note describing that a pool is only open to employees"
+  },
   "Wd9+xg": {
     "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle compétence\" pour commencer.",
     "description": "Null message description for asset skills table."
@@ -6949,10 +6985,6 @@
   "aCKQVB": {
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
-  },
-  "aCg/OZ": {
-    "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
-    "description": "First hiring policy for pool advertisement"
   },
   "aDRIDD": {
     "defaultMessage": "Éducation actuelle",
@@ -8866,6 +8898,10 @@
     "defaultMessage": "Travail à distance facultatif (recommandé)",
     "description": "Label displayed for 'remote optional' option"
   },
+  "js5ZcB": {
+    "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
+    "description": "Caption for the departmental-preference selection limitation"
+  },
   "jtEouE": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Title of the 'Add user to pools' section of the view-user page"
@@ -8925,6 +8961,10 @@
   "k8lEf0": {
     "defaultMessage": "Niveaux de compétence technique",
     "description": "Heading for the skills level definitions of technical skills"
+  },
+  "k9moOJ": {
+    "defaultMessage": "Cette possibilité est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
+    "description": "Body of a note describing that a pool is only open to employees"
   },
   "kHypfJ": {
     "defaultMessage": "Du concept au code",
@@ -9730,6 +9770,10 @@
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
     "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
   },
+  "p+rROQ": {
+    "defaultMessage": "Cela indiquera aux candidats que seuls les employés à niveau ou de niveau équivalent seront pris en considération pour cette possibilité.",
+    "description": "Caption for the at-level-only selection limitation"
+  },
   "p/Qp/u": {
     "defaultMessage": "Nom du candidat",
     "description": "Title displayed on the Pool Candidates table name column."
@@ -9853,6 +9897,14 @@
   "pVCsBB": {
     "defaultMessage": "Catégorie de travail",
     "description": "Label for pool advertisement stream"
+  },
+  "pVnp82": {
+    "defaultMessage": "Présentement, vous êtes titulaire d'un {classificationString} la classification du poste d’attache",
+    "description": "At-level application criteria"
+  },
+  "pVx/jP": {
+    "defaultMessage": "Cette possibilité est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
+    "description": "Body of a note describing that a pool is only open to employees at-level"
   },
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
@@ -11098,10 +11150,6 @@
     "defaultMessage": "Comme l’indiquent les <link>Procédures obligatoires sur les talents numériques</link>, il incombe au chef opérationnel de remplir et de soumettre le questionnaire sur les contrats de services numériques s’il fournit des services numériques.",
     "description": "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_"
   },
-  "xQfIcL": {
-    "defaultMessage": "Consultez notre nouveau Portail de données sur les talents numériques pour connaître des tendances, des pistes de réflexion et des idées afin de renforcer vos propres stratégies de planification des talents et de recrutement.",
-    "description": "Description for the digital talent data portal"
-  },
   "xSSp8E": {
     "defaultMessage": "aucune date d’échéance fournie",
     "description": "Message for when an expiration date has not been provided"
@@ -11441,6 +11489,10 @@
   "zMa59V": {
     "defaultMessage": "Veuillez ne pas fournir des renseignements personnels supplémentaires qui ne sont pas requis à cette fin.",
     "description": "Paragraph for privacy policy page"
+  },
+  "zNgDex": {
+    "defaultMessage": "Zone de sélection",
+    "description": "Label for a process' area of selection"
   },
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
