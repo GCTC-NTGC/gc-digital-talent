@@ -9,6 +9,7 @@ import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { AuthorizationContainer } from "@gc-digital-talent/auth";
+import { EmailType } from "@gc-digital-talent/graphql";
 
 import EmailVerification, { EmailVerificationProps } from "./EmailVerification";
 
@@ -119,6 +120,7 @@ describe("EmailVerification", () => {
     const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
     expect(callFirstArg).toHaveProperty("variables", {
       code: "123456",
+      emailType: EmailType.Contact,
     });
     expect(callFirstArg).toHaveProperty(
       "query.definitions[0].name.value",
