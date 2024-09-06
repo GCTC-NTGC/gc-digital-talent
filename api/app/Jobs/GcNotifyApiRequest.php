@@ -72,7 +72,7 @@ class GcNotifyApiRequest implements ShouldQueue
             $onDemandLog = Log::build([
                 'driver' => 'single',
                 'path' => App::isProduction() // workaround for storage_path misconfigured in prod #11471
-                    ? '/tmp/api/storage/logs'
+                    ? '/tmp/api/storage/logs/jobs.log'
                     : storage_path('logs/jobs.log'),
             ]);
             $onDemandLog->error($errorMessage);
