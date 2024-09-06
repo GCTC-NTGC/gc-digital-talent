@@ -162,6 +162,16 @@ const messages = defineMessages({
     id: "LyUTqa",
     description: "Education requirement title",
   },
+  areaOfSelection: {
+    defaultMessage: "Area of selection",
+    id: "zNgDex",
+    description: "Label for a process' area of selection",
+  },
+  selectionLimitations: {
+    defaultMessage: "Employee selection limitations",
+    id: "5S5zo0",
+    description: "Label for a process' selection limitations",
+  },
 });
 
 export default messages;

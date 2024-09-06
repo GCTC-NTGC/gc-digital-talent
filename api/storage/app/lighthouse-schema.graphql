@@ -113,6 +113,11 @@ type LocalizedPlacementType {
   label: LocalizedString!
 }
 
+type LocalizedPoolAreaOfSelection {
+  value: PoolAreaOfSelection!
+  label: LocalizedString!
+}
+
 type LocalizedPoolCandidateSearchPositionType {
   value: PoolCandidateSearchPositionType!
   label: LocalizedString!
@@ -140,6 +145,11 @@ type LocalizedPoolLanguage {
 
 type LocalizedPoolOpportunityLength {
   value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolSelectionLimitation {
+  value: PoolSelectionLimitation!
   label: LocalizedString!
 }
 
@@ -655,6 +665,8 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   department: Department
+  areaOfSelection: LocalizedPoolAreaOfSelection
+  selectionLimitations: [LocalizedPoolSelectionLimitation!]
 }
 
 type GeneralQuestionResponse {
@@ -1682,6 +1694,8 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+  areaOfSelection: PoolAreaOfSelection
+  selectionLimitations: [PoolSelectionLimitation!]
 }
 
 input UpdatePublishedPoolInput {
@@ -2855,6 +2869,11 @@ enum PlacementType {
   PLACED_INDETERMINATE
 }
 
+enum PoolAreaOfSelection {
+  PUBLIC
+  EMPLOYEES
+}
+
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
@@ -2912,6 +2931,11 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolSelectionLimitation {
+  AT_LEVEL_ONLY
+  DEPARTMENTAL_PREFERENCE
 }
 
 enum PoolSkillType {

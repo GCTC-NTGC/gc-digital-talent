@@ -23,10 +23,13 @@ import {
   Classification,
   FragmentType,
   Maybe,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
   PoolSkillType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -89,6 +92,12 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    areaOfSelection {
+      value
+    }
+    selectionLimitations {
+      value
+    }
   }
 `);
 
@@ -106,21 +115,23 @@ const getSalaryRange = (
 };
 
 const deriveWhoCanApplyString = (
-  areaOfSelection: PoolCardProps["areaOfSelection"],
-  selectionLimitations: PoolCardProps["selectionLimitations"],
+  areaOfSelection: PoolAreaOfSelection,
+  selectionLimitations: PoolSelectionLimitation[],
   intl: IntlShape,
 ): string | null => {
-  if (areaOfSelection == "PUBLIC") {
+  if (areaOfSelection == PoolAreaOfSelection.Public) {
     return intl.formatMessage({
       defaultMessage: "Open to the public",
       id: "L0eho2",
       description: "Combined eligibility string for 'open to the public'",
     });
   }
-  if (areaOfSelection == "EMPLOYEES") {
+  if (areaOfSelection == PoolAreaOfSelection.Employees) {
     if (
-      selectionLimitations?.includes("AT_LEVEL_ONLY") &&
-      selectionLimitations?.includes("DEPARTMENTAL_PREFERENCE")
+      selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly) &&
+      selectionLimitations?.includes(
+        PoolSelectionLimitation.DepartmentalPreference,
+      )
     ) {
       return intl.formatMessage({
         defaultMessage: "Employees (at-level, departmental preference)",
@@ -129,7 +140,7 @@ const deriveWhoCanApplyString = (
           "Combined eligibility string for 'employees only', 'at-level only', and 'departmental preference'",
       });
     }
-    if (selectionLimitations?.includes("AT_LEVEL_ONLY")) {
+    if (selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly)) {
       return intl.formatMessage({
         defaultMessage: "Employees (at-level)",
         id: "JCX6jN",
@@ -137,7 +148,11 @@ const deriveWhoCanApplyString = (
           "Combined eligibility string for 'employees only' and 'at-level only'",
       });
     }
-    if (selectionLimitations?.includes("DEPARTMENTAL_PREFERENCE")) {
+    if (
+      selectionLimitations?.includes(
+        PoolSelectionLimitation.DepartmentalPreference,
+      )
+    ) {
       return intl.formatMessage({
         defaultMessage: "Employees (departmental preference)",
         id: "g6coYl",
@@ -159,17 +174,9 @@ const deriveWhoCanApplyString = (
 export interface PoolCardProps {
   poolQuery: FragmentType<typeof PoolCard_Fragment>;
   headingLevel?: HeadingRank;
-  // these will soon be part of the Pool model
-  areaOfSelection?: "PUBLIC" | "EMPLOYEES";
-  selectionLimitations?: ("AT_LEVEL_ONLY" | "DEPARTMENTAL_PREFERENCE")[];
 }
 
-const PoolCard = ({
-  poolQuery,
-  headingLevel = "h3",
-  areaOfSelection,
-  selectionLimitations,
-}: PoolCardProps) => {
+const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -304,7 +311,7 @@ const PoolCard = ({
                   id: "Hd0nHP",
                 })}
           </IconLabel>
-          {areaOfSelection ? (
+          {pool.areaOfSelection ? (
             <IconLabel
               icon={UsersIcon}
               label={
@@ -316,8 +323,8 @@ const PoolCard = ({
               }
             >
               {deriveWhoCanApplyString(
-                areaOfSelection,
-                selectionLimitations,
+                pool.areaOfSelection.value,
+                unpackMaybes(pool.selectionLimitations).map((l) => l.value),
                 intl,
               ) ?? intl.formatMessage(commonMessages.notAvailable)}
             </IconLabel>

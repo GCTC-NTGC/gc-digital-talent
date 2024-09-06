@@ -74,6 +74,8 @@ import SkillLevelDialog from "./components/SkillLevelDialog";
 import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
 import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
 import DeadlineValue from "./components/DeadlineValue";
+import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
+import WhoCanApplyText from "./components/WhoCanApplyText";
 
 interface SectionContent {
   id: string;
@@ -268,6 +270,8 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    ...AreaOfSelectionNote
+    ...WhoCanApplyText
   }
 `);
 
@@ -640,6 +644,7 @@ export const PoolPoster = ({
                   />
                 </Well>
               )}
+              <AreaOfSelectionWell poolQuery={pool} />
 
               <CardBasic>
                 <DataRow
@@ -1078,24 +1083,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin-top="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
-                        id: "faWz84",
-                        description:
-                          "List of criteria needed in order to apply",
-                      })}
-                    </Text>
-                    <Text data-h2-margin-bottom="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
-                        id: "aCg/OZ",
-                        description:
-                          "First hiring policy for pool advertisement",
-                      })}
-                    </Text>
+                    <WhoCanApplyText poolQuery={pool} />
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericJobTitles.length ? (
