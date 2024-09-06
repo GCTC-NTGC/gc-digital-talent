@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use App\Generators\ApplicationDocGenerator;
+use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -18,9 +19,19 @@ final readonly class DownloadApplicationDoc
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
+        $targetApplicant = PoolCandidate::find($args['id'])->load(['user']);
+        $firstName = $targetApplicant?->user?->first_name;
+        $lastName = $targetApplicant?->user?->last_name;
+        if (isset($firstName)) {
+            $firstName = trim(filter_var($firstName, FILTER_SANITIZE_EMAIL));
+        }
+        if (isset($lastName)) {
+            $lastName = trim(filter_var($lastName, FILTER_SANITIZE_EMAIL));
+        }
+
         try {
 
-            $fileName = sprintf('%s_%s.docx', __('filename.candidate'), date('Y-m-d_His'));
+            $fileName = sprintf('%s - %s - Application - Candidature.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
 
             $generator = new ApplicationDocGenerator(
                 ids: [$args['id']],

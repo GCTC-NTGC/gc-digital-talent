@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use App\Generators\UserDocGenerator;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -18,8 +19,21 @@ final readonly class DownloadUserDoc
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
+        $targetUser = User::find($args['id']);
+        $firstName = $targetUser?->first_name;
+        $lastName = $targetUser?->last_name;
+        if (isset($firstName)) {
+            $firstName = trim(filter_var($firstName, FILTER_SANITIZE_EMAIL));
+        }
+        if (isset($lastName)) {
+            $lastName = trim(filter_var($lastName, FILTER_SANITIZE_EMAIL));
+        }
+
         try {
-            $fileName = sprintf('%s_%s.docx', trim(__('filename.user')), date('Y-m-d_His'));
+
+            $fileName = $args['anonymous'] ?
+                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? substr($lastName, 0, 1) : '') :
+                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
 
             $generator = new UserDocGenerator(
                 ids: [$args['id']],
