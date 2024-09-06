@@ -1007,12 +1007,17 @@ type JobPosterTemplate {
   stream: LocalizedPoolStream!
   workDescription: LocalizedString
   tasks: LocalizedString!
-  keywords: LocalizedString!
+  keywords: LocalizedKeywords!
   essentialTechnicalSkillsNotes: LocalizedString
   essentialBehaviouralSkillsNotes: LocalizedString
   nonessentialTechnicalSkillsNotes: LocalizedString
   classification: Classification!
   skills: [JobPosterTemplateSkill!]
+}
+
+type LocalizedKeywords {
+  en: [String!]
+  fr: [String!]
 }
 
 type JobPosterTemplateSkillPivot {
@@ -1811,6 +1816,11 @@ input DateRange {
   to: DateTime!
 }
 
+input LocalizedKeyordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 input NotificationFilterInput {
   onlyUnread: Boolean
   readAt: DateRange
@@ -1843,7 +1853,7 @@ input CreateJobPosterTemplateInput {
   stream: PoolStream!
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput!
-  keywords: LocalizedStringInput
+  keywords: LocalizedKeyordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
   essentialBehaviouralSkillsNotes: LocalizedStringInput
   nonessentialTechnicalSkillsNotes: LocalizedStringInput

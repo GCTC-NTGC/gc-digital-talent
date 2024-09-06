@@ -736,7 +736,7 @@ type JobPosterTemplate {
   stream: LocalizedPoolStream!
   workDescription: LocalizedString @rename(attribute: "work_description")
   tasks: LocalizedString!
-  keywords: LocalizedString!
+  keywords: LocalizedKeywords!
   essentialTechnicalSkillsNotes: LocalizedString
     @rename(attribute: "essential_technical_skills_notes")
   essentialBehaviouralSkillsNotes: LocalizedString
@@ -746,6 +746,11 @@ type JobPosterTemplate {
 
   classification: Classification! @belongsTo
   skills: [JobPosterTemplateSkill!] @belongsToMany(model: "Skill")
+}
+
+type LocalizedKeywords {
+  en: [String!]
+  fr: [String!]
 }
 
 type JobPosterTemplateSkillPivot {
@@ -1846,6 +1851,11 @@ input DateRange {
   to: DateTime! @rules(apply: ["after_or_equal:from"])
 }
 
+input LocalizedKeyordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 input NotificationFilterInput {
   onlyUnread: Boolean @scope
   readAt: DateRange @whereBetween(key: "read_at")
@@ -1878,7 +1888,7 @@ input CreateJobPosterTemplateInput {
   stream: PoolStream!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
-  keywords: LocalizedStringInput
+  keywords: LocalizedKeyordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
     @rename(attribute: "essential_technical_skills_notes")
   essentialBehaviouralSkillsNotes: LocalizedStringInput

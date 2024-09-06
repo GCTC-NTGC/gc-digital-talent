@@ -53,8 +53,8 @@ class JobPosterTemplateFactory extends Factory
                 'fr' => $this->faker->paragraph().' (FR)',
             ],
             'keywords' => [
-                'en' => implode(', ', $this->faker->words()),
-                'fr' => implode(', ', $this->faker->words()),
+                'en' => $this->faker->words(),
+                'fr' => $this->faker->words(),
             ],
             'work_description' => [
                 'en' => $this->faker->url(),
