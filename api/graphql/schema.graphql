@@ -2256,6 +2256,10 @@ type Mutation {
     id: UUID!
     jobPosterTemplate: UpdateJobPosterTemplateInput! @spread
   ): JobPosterTemplate @update @guard @canFind(ability: "update", find: "id")
+  deleteJobPosterTemplate(id: UUID! @whereKey): JobPosterTemplate
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team

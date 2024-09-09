@@ -56,6 +56,14 @@ class JobPosterTemplateTest extends TestCase
         }
     GRAPHQL;
 
+    private string $delete = <<<'GRAPHQL'
+        mutation Delete($id: UUID!) {
+            deleteJobPosterTemplate(id: $id) {
+                id
+            }
+        }
+    GRAPHQL;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -66,8 +74,6 @@ class JobPosterTemplateTest extends TestCase
             SkillFamilySeeder::class,
             SkillSeeder::class,
         ]);
-
-        $this->bootRefreshesSchemaCache();
 
         // Add a few elevated roles to confirm unauthorized
         $this->baseUser = User::factory()
@@ -157,6 +163,30 @@ class JobPosterTemplateTest extends TestCase
                 'updateJobPosterTemplate' => [
                     'id' => $this->template->id,
                     'referenceId' => 'new_ref',
+                ],
+            ],
+        ]);
+    }
+
+    public function testNonAdminUserCannotDelete()
+    {
+        $template = JobPosterTemplate::factory()->create();
+
+        $this->actingAs($this->baseUser, 'api')->graphQL($this->delete, [
+            'id' => $template->id,
+        ])->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testAdminCanDelete()
+    {
+        $template = JobPosterTemplate::factory()->create();
+
+        $this->actingAs($this->adminUser, 'api')->graphQL($this->delete, [
+            'id' => $template->id,
+        ])->assertJson([
+            'data' => [
+                'deleteJobPosterTemplate' => [
+                    'id' => $template->id,
                 ],
             ],
         ]);
