@@ -1858,7 +1858,7 @@ input DateRange {
   to: DateTime! @rules(apply: ["after_or_equal:from"])
 }
 
-input LocalizedKeyordsInput {
+input LocalizedKeywordsInput {
   en: [String!]
   fr: [String!]
 }
@@ -1895,7 +1895,7 @@ input CreateJobPosterTemplateInput @validator {
   stream: PoolStream!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
-  keywords: LocalizedKeyordsInput
+  keywords: LocalizedKeywordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
     @rename(attribute: "essential_technical_skills_notes")
   essentialBehaviouralSkillsNotes: LocalizedStringInput

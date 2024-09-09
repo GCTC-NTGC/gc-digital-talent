@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum SupervisoryStatus
 {
-    case INDIVIDUAL_CONTRIBUTER;
+    case INDIVIDUAL_CONTRIBUTOR;
     case SUPERVISOR;
 }

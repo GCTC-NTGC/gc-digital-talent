@@ -1830,7 +1830,7 @@ input DateRange {
   to: DateTime!
 }
 
-input LocalizedKeyordsInput {
+input LocalizedKeywordsInput {
   en: [String!]
   fr: [String!]
 }
@@ -1867,7 +1867,7 @@ input CreateJobPosterTemplateInput {
   stream: PoolStream!
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput!
-  keywords: LocalizedKeyordsInput
+  keywords: LocalizedKeywordsInput
   essentialTechnicalSkillsNotes: LocalizedStringInput
   essentialBehaviouralSkillsNotes: LocalizedStringInput
   nonessentialTechnicalSkillsNotes: LocalizedStringInput
@@ -3019,7 +3019,7 @@ enum SkillLevel {
 }
 
 enum SupervisoryStatus {
-  INDIVIDUAL_CONTRIBUTER
+  INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
 }
 
