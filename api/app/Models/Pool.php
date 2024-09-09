@@ -11,7 +11,6 @@ use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use App\Observers\PoolObserver;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -402,45 +400,6 @@ class Pool extends Model
     public function getTeamIdForRoleAssignmentAttribute()
     {
         return $this->team?->id;
-    }
-
-    /**
-     * Custom sort to handle issues with how laravel aliases
-     * aggregate selects and orderBys for json fields in `lighthouse-php`
-     *
-     * The column used in the orderBy is `table_aggregate_column->property`
-     * But is actually aliased to snake case `table_aggregate_columnproperty`
-     */
-    public function scopeOrderByTeamDisplayName(Builder $query, ?array $args): Builder
-    {
-        extract($args);
-
-        if ($order && $locale) {
-            $query = $query->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
-        }
-
-        return $query;
-
-    }
-
-    public function scopeOrderByPoolBookmarks(Builder $query, ?array $args): Builder
-    {
-        extract($args);
-
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        // order the pools so that the bookmarks connected to current user sticks to the top
-        if ($order && $user) {
-            $query->orderBy(
-                $user->selectRaw('1')
-                    ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
-                    ->where('pool_user_bookmarks.user_id', $user->id)
-                    ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
-            );
-        }
-
-        return $query;
     }
 
     public static function getSelectableColumns()
