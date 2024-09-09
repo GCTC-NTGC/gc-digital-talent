@@ -2,10 +2,16 @@
 
 namespace Tests\Unit;
 
+use App\Facades\Notify;
 use App\Models\Experience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\RolePermissionSeeder;
+use Database\Seeders\SkillFamilySeeder;
+use Database\Seeders\SkillSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -13,6 +19,14 @@ use function PHPUnit\Framework\assertEqualsCanonicalizing;
 
 class HydrationTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Notify::spy(); // don't send any notifications
+    }
+
     // older snapshots have raw enums in them unlike than the newer ones with the localized enums
     public function testHydrateRawEnums(): void
     {
@@ -86,21 +100,21 @@ class HydrationTest extends TestCase
 
     public function testHydrateUser(): void
     {
-        $pool = Pool::factory()->create();
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(RolePermissionSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
+        $this->seed(SkillSeeder::class);
 
-        $userOrig = User::factory()
-            ->create();
+        $pool = Pool::factory()->create();
+        $userOrig = User::factory()->create();
 
         $candidate = PoolCandidate::factory()
             ->for($pool)
             ->for($userOrig)
             ->create();
-
         $candidate->setApplicationSnapshot();
 
-        $snapshot = $candidate->profile_snapshot;
-
-        $userHyd = User::hydrateSnapshot($snapshot);
+        $userHyd = User::hydrateSnapshot($candidate->profile_snapshot);
 
         // plain strings
         assertEquals($userOrig->first_name, $userHyd->first_name);
