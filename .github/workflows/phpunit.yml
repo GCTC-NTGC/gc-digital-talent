@@ -58,7 +58,7 @@ jobs:
           DB_HOST: localhost
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            php artisan test --coverage-clover=coverage.xml
+            php artisan test --stop-on-error --stop-on-failure --verbose --coverage-clover=coverage.xml
           else
             php artisan test
           fi
