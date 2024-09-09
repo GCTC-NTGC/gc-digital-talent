@@ -166,6 +166,44 @@ class PoolBuilder extends Builder
     }
 
     /**
+     * Custom sort to handle issues with how laravel aliases
+     * aggregate selects and orderBys for json fields in `lighthouse-php`
+     *
+     * The column used in the orderBy is `table_aggregate_column->property`
+     * But is actually aliased to snake case `table_aggregate_columnproperty`
+     */
+    public function orderByTeamDisplayName(?array $args): self
+    {
+        extract($args);
+
+        if ($order && $locale) {
+            return $this->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
+        }
+
+        return $this;
+    }
+
+    public function orderByPoolBookmarks(?array $args): self
+    {
+        extract($args);
+
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        // order the pools so that the bookmarks connected to current user sticks to the top
+        if ($order && $user) {
+            return $this->orderBy(
+                $user->selectRaw('1')
+                    ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+                    ->where('pool_user_bookmarks.user_id', $user->id)
+                    ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
+            );
+        }
+
+        return $this;
+    }
+
+    /**
      * Filter for pools the user is allowed to admin, based on scopeAuthorizedToAdmin
      */
     public function canAdmin(?bool $canAdmin): self
