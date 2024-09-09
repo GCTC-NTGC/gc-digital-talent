@@ -404,110 +404,16 @@ class Pool extends Model
         return $this->team?->id;
     }
 
-    public static function scopeName(Builder $query, ?string $name): Builder
-    {
-        if ($name) {
-            $query->where(function ($query) use ($name) {
-                $term = sprintf('%%%s%%', $name);
-
-                return $query->where('name->en', 'ilike', $term)
-                    ->orWhere('name->fr', 'ilike', $term);
-            });
-        }
-
-        return $query;
-    }
-
-    public static function scopeProcessNumber(Builder $query, ?string $number): Builder
-    {
-        if ($number) {
-            $query->where('process_number', 'ilike', sprintf('%%%s%%', $number));
-        }
-
-        return $query;
-    }
-
-    public static function scopeTeam(Builder $query, ?string $team): Builder
-    {
-        if ($team) {
-            $query->whereHas('legacyTeam', function ($query) use ($team) {
-                Team::scopeDisplayName($query, $team);
-            });
-        }
-
-        return $query;
-    }
-
-    public static function scopeNotArchived(Builder $query)
-    {
-        $query->where(function ($query) {
-            $query->whereNull('archived_at')
-                ->orWhere('archived_at', '>', Carbon::now());
-        });
-
-        return $query;
-    }
-
-    public static function scopeNotClosed(Builder $query): Builder
-    {
-        $query->where(function ($query) {
-            $query->whereNull('closing_date')->orWhere('closing_date', '>', Carbon::now());
-        });
-
-        return $query;
-    }
-
-    public static function scopeStatuses(Builder $query, ?array $statuses): Builder
-    {
-        if (! empty($statuses)) {
-
-            $query->where(function ($query) use ($statuses) {
-
-                if (in_array(PoolStatus::ARCHIVED->name, $statuses)) {
-                    $query->orWhere('archived_at', '<=', Carbon::now());
-                }
-
-                if (in_array(PoolStatus::CLOSED->name, $statuses)) {
-                    $query->orWhere(function ($query) {
-                        $query->where('closing_date', '<=', Carbon::now());
-                        self::scopeNotArchived($query);
-                    });
-                }
-
-                if (in_array(PoolStatus::PUBLISHED->name, $statuses)) {
-                    $query->orWhere(function ($query) {
-                        $query->where('published_at', '<=', Carbon::now());
-                        self::scopeNotClosed($query);
-                        self::scopeNotArchived($query);
-                    });
-                }
-
-                if (in_array(PoolStatus::DRAFT->name, $statuses)) {
-                    $query->orWhereNull('published_at');
-                }
-            });
-
-            return $query;
-        }
-
-        // empty defaults to all but archived
-        $query->where(function ($query) {
-            self::scopeNotArchived($query);
-        });
-
-        return $query;
-    }
-
     public static function scopeGeneralSearch(Builder $query, ?string $term): Builder
     {
         if ($term) {
             $query->where(function ($query) use ($term) {
-                self::scopeName($query, $term);
+                $query->name($term);
 
                 $query->orWhere(function ($query) use ($term) {
-                    self::scopeTeam($query, $term);
+                    $query->team($term);
                 })->orWhere(function ($query) use ($term) {
-                    self::scopeProcessNumber($query, $term);
+                    $query->processNumber($term);
                 });
             });
         }

@@ -1086,7 +1086,7 @@ class PoolCandidate extends Model
         }
 
         $query = $query->whereHas('pool', function ($query) use ($processNumber) {
-            $query->where('process_number', 'ilike', "%$processNumber%");
+            $query->processNumber($processNumber);
         });
 
         return $query;
