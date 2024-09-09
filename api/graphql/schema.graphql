@@ -733,14 +733,14 @@ type ExperienceSkillRecord {
 
 type JobPosterTemplate {
   id: UUID!
-  referenceId: String! @rename(attribute: "reference_id")
-  name: LocalizedString!
-  description: LocalizedString!
-  supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
-  stream: LocalizedPoolStream!
+  referenceId: String @rename(attribute: "reference_id")
+  name: LocalizedString
+  description: LocalizedString
+  supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
+  stream: LocalizedPoolStream
   workDescription: LocalizedString @rename(attribute: "work_description")
-  tasks: LocalizedString!
-  keywords: LocalizedKeywords!
+  tasks: LocalizedString
+  keywords: LocalizedKeywords
   essentialTechnicalSkillsNotes: LocalizedString
     @rename(attribute: "essential_technical_skills_notes")
   essentialBehaviouralSkillsNotes: LocalizedString
@@ -748,7 +748,7 @@ type JobPosterTemplate {
   nonessentialTechnicalSkillsNotes: LocalizedString
     @rename(attribute: "nonessential_technical_skills_notes")
 
-  classification: Classification! @belongsTo
+  classification: Classification @belongsTo
   skills: [JobPosterTemplateSkill!] @belongsToMany(model: "Skill")
 }
 

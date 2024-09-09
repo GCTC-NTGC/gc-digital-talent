@@ -1012,18 +1012,18 @@ type ExperienceSkillRecord {
 
 type JobPosterTemplate {
   id: UUID!
-  referenceId: String!
-  name: LocalizedString!
-  description: LocalizedString!
-  supervisoryStatus: SupervisoryStatus!
-  stream: LocalizedPoolStream!
+  referenceId: String
+  name: LocalizedString
+  description: LocalizedString
+  supervisoryStatus: SupervisoryStatus
+  stream: LocalizedPoolStream
   workDescription: LocalizedString
-  tasks: LocalizedString!
-  keywords: LocalizedKeywords!
+  tasks: LocalizedString
+  keywords: LocalizedKeywords
   essentialTechnicalSkillsNotes: LocalizedString
   essentialBehaviouralSkillsNotes: LocalizedString
   nonessentialTechnicalSkillsNotes: LocalizedString
-  classification: Classification!
+  classification: Classification
   skills: [JobPosterTemplateSkill!]
 }
 
