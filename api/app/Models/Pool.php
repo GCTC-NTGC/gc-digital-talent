@@ -404,60 +404,6 @@ class Pool extends Model
         return $this->team?->id;
     }
 
-    public static function scopeGeneralSearch(Builder $query, ?string $term): Builder
-    {
-        if ($term) {
-            $query->where(function ($query) use ($term) {
-                $query->name($term);
-
-                $query->orWhere(function ($query) use ($term) {
-                    $query->team($term);
-                })->orWhere(function ($query) use ($term) {
-                    $query->processNumber($term);
-                });
-            });
-        }
-
-        return $query;
-    }
-
-    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups): Builder
-    {
-        if (! empty($publishingGroups)) {
-            $query->whereIn('publishing_group', $publishingGroups);
-        }
-
-        return $query;
-    }
-
-    public static function scopeStreams(Builder $query, ?array $streams): Builder
-    {
-        if (! empty($streams)) {
-            $query->whereIn('stream', $streams);
-        }
-
-        return $query;
-    }
-
-    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
-    {
-        if (empty($classifications)) {
-            return $query;
-        }
-
-        $query->whereHas('classification', function ($query) use ($classifications) {
-            $query->where(function ($query) use ($classifications) {
-                foreach ($classifications as $classification) {
-                    $query->orWhere(function ($query) use ($classification) {
-                        $query->where('group', $classification['group'])->where('level', $classification['level']);
-                    });
-                }
-            });
-        });
-
-        return $query;
-    }
-
     /**
      * Filter for pools the user is allowed to admin, based on scopeAuthorizedToAdmin
      */

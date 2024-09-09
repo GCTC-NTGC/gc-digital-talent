@@ -313,7 +313,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('pool', function ($query) use ($classifications) {
-            Pool::scopeClassifications($query, $classifications);
+            $query->whereClassifications($classifications);
         });
 
         return $query;
@@ -357,7 +357,7 @@ class PoolCandidate extends Model
         }
 
         $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
-            $query->whereIn('publishing_group', $publishingGroups);
+            $query->publishingGroups($publishingGroups);
         });
 
         return $query;

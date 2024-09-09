@@ -776,7 +776,8 @@ input PoolFilterInput {
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
-  classifications: [ClassificationFilterInput!] @scope
+  classifications: [ClassificationFilterInput!]
+    @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
 }
 

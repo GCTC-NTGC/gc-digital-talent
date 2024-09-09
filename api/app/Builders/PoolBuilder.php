@@ -109,6 +109,58 @@ class PoolBuilder extends Builder
 
         // empty defaults to all but archived
         return $this->whereNotArchived();
+    }
+
+    public function generalSearch(?string $term): self
+    {
+        if (! $term) {
+            return $this;
+        }
+
+        return $this->where(function ($query) use ($term) {
+            $query->name($term)
+                ->orWhere(function ($query) use ($term) {
+                    $query->team($term);
+                })->orWhere(function ($query) use ($term) {
+                    $query->processNumber($term);
+                });
+        });
+    }
+
+    public function publishingGroups(?array $publishingGroups): self
+    {
+        if (empty($publishingGroups)) {
+            return $this;
+        }
+
+        return $this->whereIn('publishing_group', $publishingGroups);
+    }
+
+    public function streams(?array $streams): self
+    {
+
+        if (empty($streams)) {
+            return $this;
+        }
+
+        return $this->whereIn('stream', $streams);
+    }
+
+    public function whereClassifications(?array $classifications): self
+    {
+        if (empty($classifications)) {
+            return $this;
+        }
+
+        return $this->whereHas('classification', function ($query) use ($classifications) {
+            $query->where(function ($query) use ($classifications) {
+                foreach ($classifications as $classification) {
+                    $query->orWhere(function ($query) use ($classification) {
+                        $query->where('group', $classification['group'])->where('level', $classification['level']);
+                    });
+                }
+            });
+        });
 
     }
 }
