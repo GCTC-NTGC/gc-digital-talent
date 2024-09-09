@@ -73,10 +73,10 @@ const Content = forwardRef<
     ref={forwardedRef}
     data-h2-margin-top="base(x1) l-tablet(0)"
     data-h2-position="l-tablet(absolute)"
-    data-h2-top="l-tablet(x1)"
+    data-h2-top="l-tablet(x1.25)"
     data-h2-left="l-tablet(-25%)"
     data-h2-background-color="l-tablet(foreground)"
-    data-h2-padding="l-tablet(x.5)"
+    data-h2-padding="l-tablet(x.25 x.5)"
     data-h2-radius="l-tablet(s)"
     data-h2-shadow="l-tablet(s)"
     data-h2-width="l-tablet(150%)"
@@ -158,6 +158,7 @@ const Link = forwardRef<
     >
       <OurLink
         ref={linkRef}
+        href={href}
         color={color || isSmallScreen ? "black" : "whiteFixed"}
         data-h2-text-decoration="base(none)"
       >

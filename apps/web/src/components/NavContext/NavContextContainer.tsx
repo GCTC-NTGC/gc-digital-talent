@@ -13,7 +13,7 @@ const NAV_ROLES_BY_PRIVILEGE = [
   "admin",
 ] as const;
 
-type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
+export type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
 
 export interface NavContextState {
   navRole: NavRole;

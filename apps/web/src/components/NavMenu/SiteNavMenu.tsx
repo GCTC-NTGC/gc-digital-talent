@@ -3,23 +3,39 @@ import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
 
-import { useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { uiMessages } from "@gc-digital-talent/i18n";
+import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   NavMenu,
   NavMenuWrapper,
   Separator,
 } from "@gc-digital-talent/ui";
+import {
+  ROLE_NAME,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
+
+import useRoutes from "~/hooks/useRoutes";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
+import useNavContext from "../NavContext/useNavContext";
+import { useMainLinks } from "./navlinks";
 
 interface SiteNavMenuProps {}
 
 const SiteNavMenu = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen(1080);
+  const { navRole } = useNavContext();
+  const { userAuthInfo } = useAuthorization();
+  const { loggedIn } = useAuthentication();
+  const { mainLinks, accountLinks, authLinks } = useMainLinks(
+    navRole,
+    loggedIn,
+  );
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -29,84 +45,84 @@ const SiteNavMenu = () => {
   }, [isSmallScreen, setMenuOpen]);
 
   const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
+
+  const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty);
+  const onlyHasApplicantRole =
+    roleAssignments?.length === 1 &&
+    roleAssignments?.find(
+      (roleAssignment) => roleAssignment.role?.name === ROLE_NAME.Applicant,
+    );
+  const currentRoleName = roleAssignments?.find(
+    (roleAssignment) => roleAssignment.role?.name === navRole,
+  )?.role?.displayName;
   return (
     <>
       <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
         <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
-          <NavMenu.Item>
-            <NavMenu.Trigger
-              color={isSmallScreen ? "black" : "whiteFixed"}
-              mode="text"
-              block={false}
-            >
-              Admin
-            </NavMenu.Trigger>
-            <NavMenu.Content>
-              <NavMenu.List>
-                <NavMenu.Item>
-                  <NavMenu.Link title="Applicant" href="#" color="black">
-                    Applicant
-                  </NavMenu.Link>
-                </NavMenu.Item>
-                <NavMenu.Item>
-                  <NavMenu.Link title="Manager" href="#" color="black">
-                    Manager
-                  </NavMenu.Link>
-                </NavMenu.Item>
-              </NavMenu.List>
-            </NavMenu.Content>
-          </NavMenu.Item>
+          {!onlyHasApplicantRole ? (
+            <NavMenu.Item>
+              <NavMenu.Trigger
+                color={isSmallScreen ? "black" : "whiteFixed"}
+                mode="text"
+                block={false}
+              >
+                {getLocalizedName(currentRoleName, intl)}
+              </NavMenu.Trigger>
+              <NavMenu.Content>
+                <NavMenu.List>
+                  {roleAssignments?.map((roleAssignment) => (
+                    <NavMenu.Item key={roleAssignment.role?.name}>
+                      <NavMenu.Link
+                        title={roleAssignment.role?.name}
+                        href="/"
+                        color="black"
+                      >
+                        {getLocalizedName(
+                          roleAssignment.role?.displayName,
+                          intl,
+                        )}
+                      </NavMenu.Link>
+                    </NavMenu.Item>
+                  ))}
+                </NavMenu.List>
+              </NavMenu.Content>
+            </NavMenu.Item>
+          ) : null}
           <Separator space="none" data-h2-display="l-tablet(none)" />
-          <NavMenu.Item>
-            <NavMenu.Link title="Home" href="#">
-              Home
-            </NavMenu.Link>
-          </NavMenu.Item>
-          <NavMenu.Item>
-            <NavMenu.Link title="Dashboard" href="#">
-              Dashboard
-            </NavMenu.Link>
-          </NavMenu.Item>
-          <NavMenu.Item>
-            <NavMenu.Link title="Find a job" href="#">
-              Find a job
-            </NavMenu.Link>
-          </NavMenu.Item>
+          {mainLinks}
           <Separator space="none" data-h2-display="l-tablet(none)" />
-          <NavMenu.Item data-h2-margin-left="l-tablet(auto)">
-            <NavMenu.Trigger
-              color={isSmallScreen ? "black" : "whiteFixed"}
-              mode="text"
-              block={false}
-            >
-              Your account
-            </NavMenu.Trigger>
-            <NavMenu.Content>
-              <NavMenu.List>
-                <NavMenu.Item>
-                  <NavMenu.Link title="Applicant" href="#" color="black">
-                    Applicant profile
-                  </NavMenu.Link>
-                </NavMenu.Item>
-                <NavMenu.Item>
-                  <NavMenu.Link title="Career" href="#" color="black">
-                    Career timeline
-                  </NavMenu.Link>
-                </NavMenu.Item>
-                <NavMenu.Item>
-                  <NavMenu.Link title="Skill" href="#" color="black">
-                    Skill library
-                  </NavMenu.Link>
-                </NavMenu.Item>
-              </NavMenu.List>
-            </NavMenu.Content>
-          </NavMenu.Item>
-          <NavMenu.Item data-h2-display="base(none) l-tablet(inline-flex)">
-            <NotificationDialog
-              open={isNotificationDialogOpen}
-              onOpenChange={setNotificationDialogOpen}
-            />
-          </NavMenu.Item>
+        </NavMenu.List>
+        <NavMenu.List
+          data-h2-flex-direction="base(column) l-tablet(row)"
+          data-h2-margin-top="base(x1) l-tablet(0)"
+        >
+          {accountLinks && (
+            <NavMenu.Item>
+              <NavMenu.Trigger
+                color={isSmallScreen ? "black" : "whiteFixed"}
+                mode="text"
+                block={false}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Your account",
+                  id: "CBedVL",
+                  description: "Nav menu trigger for account links sub menu",
+                })}
+              </NavMenu.Trigger>
+              <NavMenu.Content>
+                <NavMenu.List>{accountLinks}</NavMenu.List>
+              </NavMenu.Content>
+            </NavMenu.Item>
+          )}
+          {loggedIn && (
+            <NavMenu.Item data-h2-display="base(none) l-tablet(inline-flex)">
+              <NotificationDialog
+                open={isNotificationDialogOpen}
+                onOpenChange={setNotificationDialogOpen}
+              />
+            </NavMenu.Item>
+          )}
+          {authLinks}
         </NavMenu.List>
       </NavMenuWrapper>
       {isSmallScreen && (
@@ -116,11 +132,11 @@ const SiteNavMenu = () => {
           data-h2-right="base(x.75)"
           data-h2-z-index="base(9999)"
           data-h2-display="base(flex)"
-          data-h2-gap="base(x.75)"
+          data-h2-gap="base(x.5)"
         >
           <Button
-            color="black"
-            mode="cta"
+            color="blackFixed"
+            mode="solid"
             icon={isMenuOpen ? XMarkIcon : Bars3Icon}
             onClick={() => setMenuOpen(!isMenuOpen)}
           >

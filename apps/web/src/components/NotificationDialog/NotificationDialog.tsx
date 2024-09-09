@@ -210,28 +210,31 @@ const NotificationDialog = ({
       {open ? (
         <Dialog.Close asChild>
           <Button
-            mode="icon_only"
-            color="black"
+            mode={isSmallScreen ? "solid" : "icon_only"}
+            color={color || isSmallScreen ? "blackFixed" : "whiteFixed"}
             icon={XMarkIcon}
             aria-label={intl.formatMessage({
               defaultMessage: "Close notifications",
               id: "J1n6QO",
               description: "Button text to close the notifications dialog",
             })}
+            data-h2-margin-right="base:selectors[>*:first-child](-x.25)"
+            data-h2-padding="base(calc(x.5 - 3px) calc(x.5 - 3px)) l-tablet(0)"
           />
         </Dialog.Close>
       ) : (
         <DialogPrimitive.Trigger asChild>
           <Button
-            mode="icon_only"
-            color={color || isSmallScreen ? "black" : "whiteFixed"}
-            data-h2-position="base(relative)"
+            mode={isSmallScreen ? "solid" : "icon_only"}
+            color={color || isSmallScreen ? "blackFixed" : "whiteFixed"}
             icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
             aria-label={intl.formatMessage({
               defaultMessage: "View notifications",
               id: "ztx8xL",
               description: "Button text to open the notifications dialog",
             })}
+            data-h2-margin-right="base:selectors[>*:first-child](-x.25)"
+            data-h2-padding="base(calc(x.5 - 3px) calc(x.5 - 3px)) l-tablet(0)"
           />
         </DialogPrimitive.Trigger>
       )}

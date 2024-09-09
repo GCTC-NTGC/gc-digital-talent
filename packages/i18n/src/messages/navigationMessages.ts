@@ -81,6 +81,41 @@ const navigationMessages = defineMessages({
     id: "Ro+gP0",
     description: "Name of Home page",
   },
+  applicantProfile: {
+    defaultMessage: "Applicant profile",
+    id: "/pzsYm",
+    description: "Name of Applicant profile page",
+  },
+  managerProfile: {
+    defaultMessage: "Manager profile",
+    id: "oIfw3w",
+    description: "Name of Manager profile page",
+  },
+  accountSettings: {
+    defaultMessage: "Account settings",
+    id: "YSNrLG",
+    description: "Name of Account settings page",
+  },
+  processes: {
+    defaultMessage: "Processes",
+    id: "gt0xAi",
+    description: "Name of Processes page",
+  },
+  candidates: {
+    defaultMessage: "Candidates",
+    id: "g6az2A",
+    description: "Name of Candidates page",
+  },
+  users: {
+    defaultMessage: "Users",
+    id: "LySK4b",
+    description: "Name of Users page",
+  },
+  requests: {
+    defaultMessage: "Requests",
+    id: "qIOz/5",
+    description: "Name of Requests page",
+  },
 });
 
 export default navigationMessages;
