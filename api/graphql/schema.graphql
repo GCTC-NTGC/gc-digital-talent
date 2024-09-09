@@ -242,7 +242,7 @@ type ScreeningQuestion {
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
-  teamIdForRoleAssignment: ID# Used to assign roles associated with this resource using the updateUserRoles mutation.
+  teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
@@ -903,7 +903,7 @@ type Query {
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
-    @all(scopes: ["wasPublished", "notArchived"])
+    @all(scopes: ["wherePublished", "notArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
@@ -965,7 +965,9 @@ type Query {
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
-  classifications(availableInSearch: Boolean @scope): [Classification]! @all @canModel(ability: "viewAny")
+  classifications(availableInSearch: Boolean @scope): [Classification]!
+    @all
+    @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
   departments: [Department]! @all @canModel(ability: "viewAny")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
@@ -2260,9 +2262,15 @@ type Mutation {
   ): Boolean! @guard
 
   # Downloads for single entity, returning file name if successful or null on error
-  downloadUserDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "User")
-  downloadPoolCandidateDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
-  downloadApplicationDoc(id: UUID!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "User")
+  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadApplicationDoc(id: UUID!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
 
 #import directiveForms.graphql

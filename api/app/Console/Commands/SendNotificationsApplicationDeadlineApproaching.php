@@ -41,10 +41,10 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
         $this->info('Running for closing date '.$closingDayInPacific->toDateString().' (Pacific)');
         $startOfClosingDayInUtc = $closingDayInPacific->copy()->startOfDay()->setTimezone('Etc/UTC')->toDateTimeString();
         $endOfClosingDayInUtc = $closingDayInPacific->copy()->endOfDay()->setTimezone('Etc/UTC')->toDateTimeString();
-
         $this->info("Finding pools closing between $startOfClosingDayInUtc and $endOfClosingDayInUtc (UTC)");
 
-        $poolsClosingOnClosingDay = Pool::wasPublished()
+        $poolsClosingOnClosingDay = Pool::query()
+            ->wherePublished()
             ->where('closing_date', '>=', $startOfClosingDayInUtc)
             ->where('closing_date', '<=', $endOfClosingDayInUtc)
             ->with('classification')

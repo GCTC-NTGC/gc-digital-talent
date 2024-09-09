@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\PoolBuilder;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -160,6 +161,11 @@ class Pool extends Model
                 'name' => 'pool-'.$pool->id,
             ]);
         });
+    }
+
+    public function newEloquentBuilder($query): PoolBuilder
+    {
+        return new PoolBuilder($query);
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -396,13 +402,6 @@ class Pool extends Model
     public function getTeamIdForRoleAssignmentAttribute()
     {
         return $this->team?->id;
-    }
-
-    public function scopeWasPublished(Builder $query)
-    {
-        $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
-
-        return $query;
     }
 
     public static function scopeCurrentlyActive(Builder $query)
