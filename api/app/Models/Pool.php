@@ -405,56 +405,6 @@ class Pool extends Model
     }
 
     /**
-     * Filter for pools the user is allowed to admin, based on scopeAuthorizedToAdmin
-     */
-    public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): void
-    {
-        if ($canAdmin) {
-            $query->authorizedToAdmin();
-        }
-    }
-
-    public static function scopeAuthorizedToAdmin(Builder $query): void
-    {
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        // if they can view any, then nothing filtered out
-        if ($user?->isAbleTo('view-any-assessmentPlan')) {
-            return;
-        }
-
-        // if they can view team plans, then filter by teams
-        if ($user?->isAbleTo('view-team-assessmentPlan')) {
-            $query->where(function (Builder $query) use ($user) {
-                // Only add teams the user can view pools in to the query for `whereHas`
-                $teams = $user->rolesTeams()->get();
-                $teamIds = [];
-                foreach ($teams as $team) {
-                    if ($user->isAbleTo('view-team-assessmentPlan', $team)) {
-                        $teamIds[] = $team->id;
-                    }
-                }
-
-                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                    $query->whereIn('id', $teamIds);
-                });
-                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                    return $query->whereIn('id', $teamIds);
-                });
-                $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                    return $query->whereIn('id', $teamIds);
-                });
-            });
-
-            return;
-        }
-
-        // the user can't see any assessment plans
-        $query->where('id', null);
-    }
-
-    /**
      * Custom sort to handle issues with how laravel aliases
      * aggregate selects and orderBys for json fields in `lighthouse-php`
      *
@@ -491,53 +441,6 @@ class Pool extends Model
         }
 
         return $query;
-    }
-
-    public function scopeAuthorizedToView(Builder $query): void
-    {
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        // can view any pool - return query with no filters added
-        if ($user?->isAbleTo('view-any-pool')) {
-            return;
-        }
-
-        // we might want to add some filters for some pools
-        $filterCountBefore = count($query->getQuery()->wheres);
-        $query->where(function (Builder $query) use ($user) {
-            if ($user?->isAbleTo('view-team-draftPool')) {
-                // Only add teams the user can view pools in to the query for `whereHas`
-                $teams = $user->rolesTeams()->get();
-                $teamIds = [];
-                foreach ($teams as $team) {
-                    if ($user->isAbleTo('view-team-draftPool', $team)) {
-                        $teamIds[] = $team->id;
-                    }
-                }
-
-                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                    $query->whereIn('id', $teamIds);
-                });
-                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                    return $query->whereIn('id', $teamIds);
-                });
-                $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                    return $query->whereIn('id', $teamIds);
-                });
-            }
-
-            if ($user?->isAbleTo('view-any-publishedPool')) {
-                $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
-            }
-        });
-        $filterCountAfter = count($query->getQuery()->wheres); // will not increment if an empty "where" subquery above
-        if ($filterCountAfter > $filterCountBefore) {
-            return;
-        }
-
-        // fall through - anyone can view a published pool
-        $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
     }
 
     public static function getSelectableColumns()
