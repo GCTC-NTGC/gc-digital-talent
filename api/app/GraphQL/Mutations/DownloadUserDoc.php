@@ -23,17 +23,21 @@ final readonly class DownloadUserDoc
         $firstName = $targetUser?->first_name;
         $lastName = $targetUser?->last_name;
         if (isset($firstName)) {
-            $firstName = trim(filter_var($firstName, FILTER_SANITIZE_EMAIL));
+            $firstName = iconv('UTF-8', 'ASCII//TRANSLIT', $firstName); // handle accented characters
+            $firstName = preg_replace('/[^a-zA-Z]+/', '', $firstName); // remove anything that isn't an alphabet character
+            $firstName = trim($firstName);
         }
         if (isset($lastName)) {
-            $lastName = trim(filter_var($lastName, FILTER_SANITIZE_EMAIL));
+            $lastName = iconv('UTF-8', 'ASCII//TRANSLIT', $lastName);
+            $lastName = preg_replace('/[^a-zA-Z]+/', '', $lastName);
+            $lastName = trim($lastName);
         }
 
         try {
 
             $fileName = $args['anonymous'] ?
-                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? substr($lastName, 0, 1) : '') :
-                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
+                sprintf('%s-%s-Profile-Profil.docx', $firstName ? $firstName : '', $lastName ? substr($lastName, 0, 1) : '') :
+                sprintf('%s-%s-Profile-Profil.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
 
             $generator = new UserDocGenerator(
                 ids: [$args['id']],
