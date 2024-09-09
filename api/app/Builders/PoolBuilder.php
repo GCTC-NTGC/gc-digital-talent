@@ -10,4 +10,14 @@ class PoolBuilder extends Builder
     {
         return $this->where('published_at', '<=', now());
     }
+
+    public function whereNotClosed(): self
+    {
+        return $this->where('closing_date', '>', now());
+    }
+
+    public function whereCurrentlyActive(): self
+    {
+        return $this->wherePublished()->whereNotClosed();
+    }
 }

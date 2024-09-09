@@ -16,9 +16,8 @@ class SkillNotUsedByActivePool implements ValidationRule
     {
         // validation fails if skill is in use by an active pool
         $skillId = $value;
-        $activePoolsUsingSkill = Pool::where((function ($query) {
-            Pool::scopeCurrentlyActive($query);
-        }))
+        $activePoolsUsingSkill = Pool::query()
+            ->whereCurrentlyActive()
             ->where(function ($query) use ($skillId) {
                 $query->whereHas('poolSkills', function ($query) use ($skillId) {
                     return $query->where('skill_id', $skillId);

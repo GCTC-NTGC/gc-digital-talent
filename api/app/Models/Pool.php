@@ -404,14 +404,6 @@ class Pool extends Model
         return $this->team?->id;
     }
 
-    public static function scopeCurrentlyActive(Builder $query)
-    {
-        $query->where('published_at', '<=', Carbon::now()->toDateTimeString())
-            ->where('closing_date', '>', Carbon::now()->toDateTimeString());
-
-        return $query;
-    }
-
     public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {
