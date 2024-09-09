@@ -36,8 +36,8 @@ final readonly class DownloadUserDoc
         try {
 
             $fileName = $args['anonymous'] ?
-                sprintf('%s-%s-Profile-Profil.docx', $firstName ? $firstName : '', $lastName ? substr($lastName, 0, 1) : '') :
-                sprintf('%s-%s-Profile-Profil.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
+                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? substr($lastName, 0, 1) : '') :
+                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
 
             $generator = new UserDocGenerator(
                 ids: [$args['id']],

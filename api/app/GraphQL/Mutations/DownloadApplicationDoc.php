@@ -35,7 +35,7 @@ final readonly class DownloadApplicationDoc
 
         try {
 
-            $fileName = sprintf('%s-%s-Application-Candidature.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
+            $fileName = sprintf('%s - %s - Application - Candidature.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
 
             $generator = new ApplicationDocGenerator(
                 ids: [$args['id']],
