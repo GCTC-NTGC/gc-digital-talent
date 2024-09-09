@@ -31,8 +31,8 @@ trait HydratesSnapshot
     public static function hydrateFields(mixed $snapshot, array $fields, Model $model): Model
     {
         foreach ($fields as $attribute => $snapshotField) {
-            $isLocalizedEnum = Arr::has($snapshot, [$attribute.'.value', $attribute.'.label.en', $attribute.'.label.fr']);
-            if ($hydratedField = self::hydrateField($snapshot, $snapshotField[0], $isLocalizedEnum)) {
+            $isLocalizedEnum = Arr::has($snapshot, [$snapshotField.'.value', $snapshotField.'.label.en', $snapshotField.'.label.fr']);
+            if ($hydratedField = self::hydrateField($snapshot, $snapshotField, $isLocalizedEnum)) {
                 $model->$attribute = $hydratedField;
             }
         }
