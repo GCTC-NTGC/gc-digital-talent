@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Helpers for hydrating models from a snapshot
@@ -19,19 +20,45 @@ trait HydratesSnapshot
      */
     abstract public static function hydrateSnapshot(mixed $snapshot): Model|array;
 
+    protected static function isFieldLocalizedEnum(mixed $snapshot, mixed $snapshotField): bool
+    {
+        // validator for a single localized enum
+        $singleEnumValidator = Validator::make($snapshot, [
+            $snapshotField.'.value' => 'required|string',
+            $snapshotField.'.label.en' => 'required|string',
+            $snapshotField.'.label.fr' => 'required|string',
+        ]);
+        if ($singleEnumValidator->passes()) {
+            return true;
+        }
+
+        // validator for an array of localized enums
+        $arrayEnumValidator = Validator::make($snapshot, [
+            $snapshotField => 'array',
+            $snapshotField.'.*.value' => 'required|string',
+            $snapshotField.'.*.label.en' => 'required|string',
+            $snapshotField.'.*.label.fr' => 'required|string',
+        ]);
+        if ($arrayEnumValidator->passes()) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Hydrates a assoc array of fields on the model ffApp
      *
      * @param  mixed  $snapshot  The snapshot being hydrated
      * @param  array  $fields  Assoc array of fields to be hydrated
-     *                         [['model_attribute' => ['snapshotKey', bool $isLocalizedEnum]]
+     *                         ['model_attribute' => 'snapshotKey']
      * @param  Model  $model  The model being hydrated
      * @return Model The hydrated model
      */
     public static function hydrateFields(mixed $snapshot, array $fields, Model $model): Model
     {
         foreach ($fields as $attribute => $snapshotField) {
-            $isLocalizedEnum = Arr::has($snapshot, [$snapshotField.'.value', $snapshotField.'.label.en', $snapshotField.'.label.fr']);
+            $isLocalizedEnum = self::isFieldLocalizedEnum($snapshot, $snapshotField);
             if ($hydratedField = self::hydrateField($snapshot, $snapshotField, $isLocalizedEnum)) {
                 $model->$attribute = $hydratedField;
             }
