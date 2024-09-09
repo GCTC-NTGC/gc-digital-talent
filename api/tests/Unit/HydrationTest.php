@@ -6,6 +6,9 @@ use App\Models\Experience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\CommunitySeeder;
+use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Tests\TestCase;
@@ -88,6 +91,10 @@ class HydrationTest extends TestCase
 
     public function testHydrateUser(): void
     {
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(CommunitySeeder::class);
+        $this->seed(GenericJobTitleSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
 
