@@ -1135,15 +1135,20 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
-     * Determine if the user has verified their contact email address.
+     * Determine if the user has verified their email address.
      * Part of the MustVerifyEmail contract.
      *
      * @return bool
      */
-    public function hasVerifiedContactEmail()
+    public function hasVerifiedEmail(EmailType $emailType)
     {
         // might be refined later, eg, must be verified within the last X months
-        return ! is_null($this->email_verified_at);
+        if ($emailType == EmailType::CONTACT) {
+            return ! is_null($this->email_verified_at);
+        } else {
+            return ! is_null($this->work_email_verified_at);
+        }
+
     }
 
     /**
@@ -1189,19 +1194,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function getIsEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedContactEmail();
-    }
-
-    /**
-     * Determine if the user has verified their work email address.
-     * Part of the MustVerifyEmail contract.
-     *
-     * @return bool
-     */
-    public function hasVerifiedWorkEmail()
-    {
-        // might be refined later, eg, must be verified within the last X months
-        return ! is_null($this->work_email_verified_at);
+        return $this->hasVerifiedEmail(EmailType::CONTACT);
     }
 
     /**
@@ -1209,7 +1202,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function getIsWorkEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedWorkEmail();
+        return $this->hasVerifiedEmail(EmailType::WORK);
     }
 
     public static function hydrateSnapshot(mixed $snapshot): Model|array

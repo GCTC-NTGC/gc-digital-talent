@@ -41,8 +41,7 @@ final class VerifyUserEmail
         }
 
         // by now, token seems good
-        if (($emailType == EmailType::CONTACT && ! $user->hasVerifiedContactEmail())
-            || ! $user->hasVerifiedWorkEmail()) {
+        if (! $user->hasVerifiedEmail($emailType)) {
             $user->markEmailAsVerified($emailType);
         }
         $user->save();
