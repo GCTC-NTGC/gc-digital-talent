@@ -47,13 +47,13 @@ class EducationExperience extends Experience
     ];
 
     protected static $hydrationFields = [
-        'institution' => ['institution'],
-        'area_of_study' => ['areaOfStudy'],
-        'thesis_title' => ['thesisTitle'],
-        'type' => ['type', true],
-        'status' => ['status', true],
-        'start_date' => ['startDate'],
-        'end_date' => ['endDate'],
+        'institution' => 'institution',
+        'area_of_study' => 'areaOfStudy',
+        'thesis_title' => 'thesisTitle',
+        'type' => 'type',
+        'status' => 'status',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
     ];
 
     public function getTitle(?string $lang = 'en'): string
