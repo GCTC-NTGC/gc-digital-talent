@@ -18,7 +18,7 @@ final class VerifyUserEmail
     {
         /** @var \App\Models\User */
         $user = Auth::user();
-        $emailType = isset($args['emailType']) && $args['emailType'] === EmailType::WORK->name ? EmailType::WORK : EmailType::CONTACT;
+        $emailType = isset($args['emailType']) ? EmailType::fromName($args['emailType']) : EmailType::CONTACT;
         $field = $emailType == EmailType::CONTACT ? 'email' : 'work_email';
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));

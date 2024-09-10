@@ -16,7 +16,7 @@ final class SendUserEmailVerification
     {
         /** @var \App\Models\User */
         $user = Auth::user();
-        $emailType = isset($args['emailType']) && $args['emailType'] === EmailType::WORK->name ? EmailType::WORK : EmailType::CONTACT;
+        $emailType = isset($args['emailType']) ? EmailType::fromName($args['emailType']) : EmailType::CONTACT;
         $user->sendEmailVerificationNotification($emailType);
 
         return $user;
