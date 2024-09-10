@@ -1181,7 +1181,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function getEmailForVerification(EmailType $emailType)
     {
-        return $emailType == EmailType::CONTACT ? $this->email : $this->work_email;
+        return $this->{$emailType->value};
     }
 
     /**

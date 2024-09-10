@@ -2,10 +2,11 @@
 
 namespace App\Enums;
 
-enum EmailType
+enum EmailType: string
 {
-    case CONTACT;
-    case WORK;
+    // Matching these values to the field names in the database
+    case CONTACT = 'email';
+    case WORK = 'work_email';
 
     public static function fromName(string $name): EmailType
     {

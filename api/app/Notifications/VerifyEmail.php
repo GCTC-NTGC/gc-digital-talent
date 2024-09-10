@@ -82,7 +82,7 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
 
         $token = [
             'code' => $code,
-            'field' => $this->emailType == EmailType::CONTACT ? 'email' : 'work_email',
+            'field' => $this->emailType->value,
             'value' => $user->getEmailForVerification($this->emailType),
         ];
         Cache::put($key, $token, now()->addHours(2));
