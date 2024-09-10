@@ -32,8 +32,8 @@ return new class extends Migration
 
         Schema::create('job_poster_template_skill', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(new Expression('public.gen_random_uuid()'));
-            $table->foreignUuid('job_poster_template_id')->constrained();
-            $table->foreignUuid('skill_id')->constrained();
+            $table->foreignUuid('job_poster_template_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('skill_id')->constrained()->onDelete('cascade');
             $table->string('type');
             $table->string('required_skill_level');
         });
