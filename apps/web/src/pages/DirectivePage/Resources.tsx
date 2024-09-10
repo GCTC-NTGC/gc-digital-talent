@@ -115,8 +115,8 @@ const Resources = () => {
           data-h2-margin="base(x3, 0, x1, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Group-specific resources",
-            id: "ewckox",
+            defaultMessage: "Resources",
+            id: "Kwfc/6",
             description:
               "Heading for section for the group-specific resources section.",
           })}
@@ -163,8 +163,8 @@ const Resources = () => {
                 <p data-h2-padding="base(0 x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "These resources are designed to support digital initiative managers and leads in fulfilling their responsibilities under the Directive on Digital Talent. This implementation guidance explains why the directive is needed and what is required. Use the decision tree to navigate the reporting requirements.",
-                    id: "Iz8E+y",
+                      "This implementation guidance is designed to support digital initiative managers and leads in fulfilling their responsibilities under the Directive on Digital Talent. This implementation guidance explains why the directive is needed and what is required.",
+                    id: "J+vkLs",
                     description:
                       "Body message for digital initiative managers section.",
                   })}
@@ -264,8 +264,8 @@ const Resources = () => {
                 <p data-h2-padding="base(0 x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the Directive on Digital Talent and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. These resources are designed to help HR advisors in carrying out these responsibilities.",
-                    id: "pQwNEB",
+                      "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the Directive on Digital Talent and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. This implementation guidance is designed to help HR advisors in carrying out these responsibilities.",
+                    id: "4XoNS/",
                     description:
                       "Body message for digital initiative human resources section.",
                   })}
@@ -365,8 +365,8 @@ const Resources = () => {
                 <p data-h2-margin="base(x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to digital initiative leads. These resources are designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
-                    id: "b8mC0r",
+                      "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to business owners. These resources are designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
+                    id: "xWRQer",
                     description:
                       "Body message for digital initiative procurement section.",
                   })}

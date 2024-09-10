@@ -711,8 +711,8 @@
     "defaultMessage": "Remplir la Formulaire d’autodéclaration à l’intention des peuples autochtones",
     "description": "How it works, step 1 heading"
   },
-  "1pbvy+": {
-    "defaultMessage": "La Directive sur les talents numériques introduit de nouvelles exigences pour les ministères, qui doivent informer le Bureau du dirigeant principal de l’information du Canada des besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
+  "SlBNsw": {
+    "defaultMessage": "La Directive sur les talents numériques impose aux ministères d’informer le Bureau du dirigeant principal de l’information de leurs besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
     "description": "The directives planning and reporting component"
   },
   "1q/MmU": {
@@ -2436,7 +2436,7 @@
     "description": "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_"
   },
   "BVgb+I": {
-    "defaultMessage": "Le Bureau du dirigeant principal de l’information du Canada (BDPI) surveille de près l’efficacité de la Directive sur les talents numériques depuis son entrée en vigueur en avril 2023.",
+    "defaultMessage": "Le Bureau du dirigeant principal de l’information du Canada (BDPI) surveille de près l’efficacité de la Directive sur les talents numériques depuis son entrée en vigueur en avril 2023.",
     "description": "first paragraph describing the 2024 changes to the directive on digital talent"
   },
   "BWh6S1": {
@@ -3819,8 +3819,8 @@
     "defaultMessage": "Dissimuler les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
   },
-  "Iz8E+y": {
-    "defaultMessage": "Ces ressources sont conçues pour aider les responsables des initiatives numériques à assumer leurs responsabilités dans le cadre de la Directive sur les talents numériques. Ce guide de mise en œuvre explique pourquoi la Directive est nécessaire et ce qu'il faut faire. Utiliser l'arbre décisionnel pour naviguer dans les exigences de déclaration.",
+  "J+vkLs": {
+    "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la Directive sur les talents numériques. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
     "description": "Body message for digital initiative managers section."
   },
   "J+MAUg": {
@@ -4239,8 +4239,8 @@
     "defaultMessage": "Ouvert au public",
     "description": "Combined eligibility string for 'open to the public'"
   },
-  "L1tQMY": {
-    "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
+  "L6Cx1M": {
+    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
     "description": "The directives digital talent and sourcing component"
   },
   "L6MgeM": {
@@ -5207,8 +5207,8 @@
     "defaultMessage": "Suivre le placement de ce candidat à l'aide des options suivantes.",
     "description": "Subtitle for job placement dialog"
   },
-  "QVWGaL": {
-    "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
+  "oiTphL": {
+    "defaultMessage": "Questionnaire d’octroi de contrats sur les services numériques",
     "description": "Heading for the digital Services contracting form"
   },
   "QXiUo/": {
@@ -5836,7 +5836,7 @@
     "description": "Lead in text for the add role to user form."
   },
   "Tvsi5A": {
-    "defaultMessage": "Gestionnaires de l'initiative sur le numérique",
+    "defaultMessage": "Gestionnaires de l'initiative numérique",
     "description": "Title for group-specific resource card"
   },
   "TxVbLI": {
@@ -6350,8 +6350,8 @@
     "defaultMessage": "Nos développeurs prêtent une attention particulière aux éléments suivants : ",
     "description": "Intro to list of items developers consider for accessibility"
   },
-  "WieVH/": {
-    "defaultMessage": "En vertu de la nouvelle Directive, les ministères sont tenus de fournir des renseignements supplémentaires au Bureau du dirigeant principal de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
+  "0QM++s": {
+    "defaultMessage": "En vertu de cette directive, les ministères sont tenus de fournir des informations au Bureau du dirigeant principal de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
   },
   "WlMSeh": {
@@ -6494,8 +6494,8 @@
     "defaultMessage": "un changement technologique d’un système, d’un logiciel ou d’un matériel d’une nature fondamentalement différente de ceux utilisés précédemment.",
     "description": "technological change factor - technological change to a system"
   },
-  "XVWN/C": {
-    "defaultMessage": "Remplir les formulaires obligatoires",
+  "g7W+56": {
+    "defaultMessage": "Rapports obligatoires",
     "description": "Heading for section for the downloadable forms section"
   },
   "XXZ2i3": {
@@ -7162,8 +7162,8 @@
     "defaultMessage": "Confirmation du préambule",
     "description": "Preamble confirmation label of the _digital services contracting questionnaire_"
   },
-  "b8mC0r": {
-    "defaultMessage": "La Directive n'introduit pas d'étapes de la procédure supplémentaires pour les responsables de l'approvisionnement, mais il existe des exigences en matière d'établissement de rapports liés à l'approvisionnement qui incombent aux responsables de l'initiative sur le numérique. Ces ressources sont conçues pour aider les responsables de l'approvisionnement à soutenir leurs clients lorsqu'ils achètent des services numériques (p. ex., des talents numériques, produits liés à la TI, à la gestion de l'information, etc.)",
+  "xWRQer": {
+    "defaultMessage": "La Directive n’introduit pas d’étapes procédurales supplémentaires pour les responsables de l’approvisionnement, mais elle contient des exigences de rapport liées à l’approvisionnement qui incombent aux propriétaires fonctionnels. Cette ressource est conçue pour aider les responsables de l’approvisionnement à soutenir leurs clients lorsqu’ils acquièrent des services numériques (p. ex., des talents numériques, des services liés à la TI ou à la GI, etc.).",
     "description": "Body message for digital initiative procurement section."
   },
   "bBIZ3a": {
@@ -7635,7 +7635,7 @@
     "description": "Instructions to enter the date in the API DateTime scalar format"
   },
   "deiUXj": {
-    "defaultMessage": "Par conséquent, le BDPI apporte actuellement certaines mises à jour aux Procédures obligatoires, qui entreront en vigueur le 30 septembre 2024.",
+    "defaultMessage": "Par conséquent, le BDPI apporte actuellement certaines mises à jour aux Procédures obligatoires, qui entreront en vigueur le 30 septembre 2024.",
     "description": "fourth paragraph describing the 2024 changes to the directive on digital talent"
   },
   "deiylo": {
@@ -7922,8 +7922,8 @@
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
   },
-  "ewckox": {
-    "defaultMessage": "Ressources propres à un groupe",
+  "Kwfc/6": {
+    "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
   },
   "exxM/M": {
@@ -8078,8 +8078,8 @@
     "defaultMessage": "Province, territoire ou région",
     "description": "Label for current province or territory field"
   },
-  "fpdcE/": {
-    "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
+  "s7kVFi": {
+    "defaultMessage": "Les gestionnaires sont tenus de remplir le questionnaire d’octroi de contrats sur les services numériques lorsqu’ils lancent un processus d’approvisionnement pour des services ou des talents numériques dépassant 40 000 $ (taxes et frais applicables compris).<br/>Si vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>la plateforme Talents numériques du GC</link>.",
     "description": "Description for the digital Services contracting form"
   },
   "fqa45V": {
@@ -8398,8 +8398,8 @@
     "defaultMessage": "Commencez<hidden> à remplir votre profil linguistique</hidden>",
     "description": "Call to action to begin editing language profile"
   },
-  "hBVKqk": {
-    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder les talents numériques du GC comme une collectivité cohésive et évolutive.",
+  "PN3PMn": {
+    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
     "description": "The directives digital talent and development component"
   },
   "hBf/ab": {
@@ -9938,8 +9938,8 @@
     "defaultMessage": "Cette section couvre les éléments de base du processus, y compris la classification, le titre du poste et la date de clôture",
     "description": "Describes selecting a advertisement details for a process."
   },
-  "pQwNEB": {
-    "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la Directive sur les talents numériques et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ces ressources sont conçues pour aider les conseillers en ressources humaines à assumer ces responsabilités.",
+  "4XoNS/": {
+    "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la Directive sur les talents numériques et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
     "description": "Body message for digital initiative human resources section."
   },
   "pR/Xr2": {

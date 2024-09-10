@@ -50,7 +50,21 @@ const procurementLink = (locale: Locales, chunks: ReactNode) => (
     href={
       locale === "en"
         ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32692&section=procedure&p=F"
-        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692&section=procedure&p=F"
+        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const talentSearchLink = (locale: Locales, chunks: ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://talent.canada.ca/en/search"
+        : "https://talent.canada.ca/fr/search"
     }
   >
     {chunks}
@@ -233,8 +247,8 @@ export const Component = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Under the new directive, departments are required to submit additional information to the Office of the Chief Information Officer of Canada. This data is then used to create business intelligence and accelerated recruitment processes that serve departments and agencies across the GC. The goal is to ensure that the GC digital community has access to the talent it needs to deliver modern, effective digital services to Canadians.",
-              id: "WieVH/",
+                "Under the directive, departments are required to submit information to the Office of the Chief Information Officer of Canada. This data is then used to create business intelligence and accelerated recruitment processes that serve departments and agencies across the GC. The goal is to ensure that the GC digital community has access to the talent it needs to deliver modern, effective digital services to Canadians.",
+              id: "0QM++s",
               description:
                 "Second paragraph describing the directive on digital talent",
             })}
@@ -272,8 +286,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent introduces new requirements for departments to inform the Office of the Chief Information Officer about current and planned digital talent needs. This data collection is aggregated and cross-referenced with other data sources. It is then used to provide government-wide and department-specific business intelligence, and to improve targeted recruitment and training.",
-                      id: "1pbvy+",
+                        "The Directive on Digital Talent outlines requirements for departments to inform the Office of the Chief Information Officer about current and planned digital talent needs. This data collection is aggregated and cross-referenced with other data sources. It is then used to provide government-wide and department-specific business intelligence, and to improve targeted recruitment and training.",
+                      id: "SlBNsw",
                       description:
                         "The directives planning and reporting component",
                     })}
@@ -293,8 +307,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent provides additional clarity on the requirements and decision-making around talent sourcing decisions in support of the development and delivery of digital initiatives, products, and services. It aims to provide practical steps to those involved in talent sourcing decisions, and to gather data that will then be used to continuously improve the quality, speed, and availability of digital talent sourcing.",
-                      id: "L1tQMY",
+                        "The Directive on Digital Talent provides additional clarity on the requirements and decision-making around talent sourcing decisions in support of the development and delivery of digital initiatives, products, and services. It provides practical steps to those involved in talent sourcing decisions, and to gather data that will then be used to continuously improve the quality, speed, and availability of digital talent sourcing.",
+                      id: "L6Cx1M",
                       description:
                         "The directives digital talent and sourcing component",
                     })}
@@ -314,8 +328,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent introduces steps for enhanced interdepartmental coordination on talent development and upskilling, as well as steps to improve equity advancement. The intention of the Directive is to approach the GC digital talent as a cohesive and evolving community.",
-                      id: "hBVKqk",
+                        "The Directive on Digital Talent introduces steps for enhanced interdepartmental coordination on talent development and upskilling, as well as steps to improve equity advancement. The intention of the Directive is to approach the GC digital workforce as a cohesive and evolving community.",
+                      id: "PN3PMn",
                       description:
                         "The directives digital talent and development component",
                     })}
@@ -407,8 +421,8 @@ export const Component = () => {
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
-              defaultMessage: "Complete your mandatory forms",
-              id: "XVWN/C",
+              defaultMessage: "Mandatory reporting",
+              id: "g7W+56",
               description:
                 "Heading for section for the downloadable forms section",
             })}
@@ -442,21 +456,27 @@ export const Component = () => {
             <CardFlat
               color="secondary"
               title={intl.formatMessage({
-                defaultMessage: "Digital Services Contracting Form",
-                id: "QVWGaL",
+                defaultMessage: "Digital services contracting questionnaire",
+                id: "oiTphL",
                 description:
                   "Heading for the digital Services contracting form",
               })}
               links={contractingFormLinks}
             >
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<strong>Mandatory reporting</strong>. This is now required when you want to run a procurement process for digital talent, especially if you’re planning to contract because you’re having trouble finding the right talent to hire. No extra approvals - just let us know what you're planning!",
-                  id: "fpdcE/",
-                  description:
-                    "Description for the digital Services contracting form",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "This is required when you initiate a procurement process for digital services that exceeds $40,000. If you’re procuring <strong>due to a talent shortage</strong>, you’ll also need to verify that no talent is available through a <link>GC digital talent request</link>.",
+                    id: "s7kVFi",
+                    description:
+                      "Description for the digital Services contracting form",
+                  },
+                  {
+                    link: (chunks: ReactNode) =>
+                      talentSearchLink(locale, chunks),
+                  },
+                )}
               </p>
             </CardFlat>
             <CardFlat
