@@ -64,7 +64,7 @@ class GcNotifyApiRequest implements ShouldQueue
 
         if (! is_null($response) && ! $response->successful()) {
             $firstApiErrorMessage = Arr::get($response->json(), 'errors.0.message');
-            $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. '.$firstApiErrorMessage.' ';
+            $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. ['.$firstApiErrorMessage.'] Template ID: '.$this->message->templateId;
             Log::error($errorMessage);
             Log::debug($response->body());
 
