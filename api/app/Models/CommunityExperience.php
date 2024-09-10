@@ -45,11 +45,11 @@ class CommunityExperience extends Experience
     ];
 
     protected static $hydrationFields = [
-        'title' => ['title'],
-        'organization' => ['organization'],
-        'project' => ['project'],
-        'start_date' => ['startDate'],
-        'end_date' => ['endDate'],
+        'title' => 'title',
+        'organization' => 'organization',
+        'project' => 'project',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
     ];
 
     public function getTitle(?string $lang = 'en'): string

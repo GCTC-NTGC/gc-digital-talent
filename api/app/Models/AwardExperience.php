@@ -44,11 +44,11 @@ class AwardExperience extends Experience
     ];
 
     protected static $hydrationFields = [
-        'title' => ['title'],
-        'issued_by' => ['issuedBy'],
-        'awarded_date' => ['awardedDate'],
-        'awarded_to' => ['awardedTo', true],
-        'awarded_scope' => ['awardedScope', true],
+        'title' => 'title',
+        'issued_by' => 'issuedBy',
+        'awarded_date' => 'awardedDate',
+        'awarded_to' => 'awardedTo',
+        'awarded_scope' => 'awardedScope',
     ];
 
     public function getTitle(): string
