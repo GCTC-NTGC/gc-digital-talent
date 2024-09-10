@@ -22,7 +22,7 @@ final class VerifyUserEmail
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));
 
-        $key = $emailType == EmailType::CONTACT ? 'email-verification-'.$user->id : 'work-email-verification-'.$user->id;
+        $key = $emailType->name.'-email-verification-'.$user->id;
         $token = Cache::get($key);
 
         if (

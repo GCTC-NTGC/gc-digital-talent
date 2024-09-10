@@ -72,7 +72,7 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
      */
     protected function createVerificationCode(User $user)
     {
-        $key = $this->emailType == EmailType::CONTACT ? 'email-verification-'.$user->id : 'work-email-verification-'.$user->id;
+        $key = $this->emailType->name.'-email-verification-'.$user->id;
 
         // once we get to PHP 8.3 this will provide a larger codespace using all the alphabetical chars:
         // Random\Randomizer::getBytesFromString('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
