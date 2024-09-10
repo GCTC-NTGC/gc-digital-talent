@@ -20,7 +20,7 @@ trait HydratesSnapshot
      */
     abstract public static function hydrateSnapshot(mixed $snapshot): Model|array;
 
-    protected static function isFieldLocalizedEnum(mixed $snapshot, mixed $snapshotField): bool
+    public static function isFieldLocalizedEnum(mixed $snapshot, mixed $snapshotField): bool
     {
         // validator for a single localized enum
         $singleEnumValidator = Validator::make($snapshot, [

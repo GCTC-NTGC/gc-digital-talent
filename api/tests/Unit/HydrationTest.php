@@ -2,11 +2,13 @@
 
 namespace Tests\Unit;
 
+use App\Enums\Language;
 use App\Facades\Notify;
 use App\Models\Experience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use App\Traits\HydratesSnapshot;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
@@ -25,6 +27,53 @@ class HydrationTest extends TestCase
     {
         parent::setUp();
         Notify::spy(); // don't send any notifications
+    }
+
+    /**
+     * @dataProvider provideIsFieldLocalizedEnumData
+     */
+    public function testIsFieldLocalizedEnum($expectedResult, $input): void
+    {
+        assertEquals($expectedResult, HydratesSnapshot::isFieldLocalizedEnum($input[0], $input[1]));
+    }
+
+    public static function provideIsFieldLocalizedEnumData()
+    {
+        return [
+            'string' => [
+                false,
+                [['x' => 'value'], 'x'],
+            ],
+            'boolean' => [
+                false,
+                [['x' => true], 'x'],
+            ],
+            'numeric' => [
+                false,
+                [['x' => 1], 'x'],
+            ],
+            'enum' => [
+                false,
+                [['x' => Language::EN], 'x'],
+            ],
+            'single localized enum' => [
+                true,
+                [
+                    ['x' => ['value' => 'EN', 'label' => ['en' => 'English', 'fr' => 'Anglais']]],
+                    'x',
+                ],
+            ],
+            'array of localized enum' => [
+                true,
+                [
+                    ['x' => [
+                        ['value' => 'EN', 'label' => ['en' => 'English', 'fr' => 'Anglais']],
+                        ['value' => 'FR', 'label' => ['en' => 'French', 'fr' => 'Français']],
+                    ]],
+                    'x',
+                ],
+            ],
+        ];
     }
 
     // older snapshots have raw enums in them unlike than the newer ones with the localized enums
