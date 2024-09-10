@@ -244,7 +244,7 @@ type ScreeningQuestion {
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
-  teamIdForRoleAssignment: ID# Used to assign roles associated with this resource using the updateUserRoles mutation.
+  teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
@@ -733,6 +733,43 @@ type ExperienceSkillRecord {
   details: String
 }
 
+type JobPosterTemplate {
+  id: UUID!
+  referenceId: String @rename(attribute: "reference_id")
+  name: LocalizedString
+  description: LocalizedString
+  supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
+  stream: LocalizedPoolStream
+  workDescription: LocalizedString @rename(attribute: "work_description")
+  tasks: LocalizedString
+  keywords: LocalizedKeywords
+  essentialTechnicalSkillsNotes: LocalizedString
+    @rename(attribute: "essential_technical_skills_notes")
+  essentialBehaviouralSkillsNotes: LocalizedString
+    @rename(attribute: "essential_behavioural_skills_notes")
+  nonessentialTechnicalSkillsNotes: LocalizedString
+    @rename(attribute: "nonessential_technical_skills_notes")
+
+  classification: Classification @belongsTo
+  skills: [JobPosterTemplateSkill!] @belongsToMany(model: "Skill")
+}
+
+type LocalizedKeywords {
+  en: [String!]
+  fr: [String!]
+}
+
+type JobPosterTemplateSkillPivot {
+  type: LocalizedPoolSkillType!
+  requiredLevel: SkillLevel! @rename(attribute: "required_skill_level")
+}
+
+type JobPosterTemplateSkill {
+  id: UUID!
+  skill: Skill! @self
+  pivot: JobPosterTemplateSkillPivot
+}
+
 input ClassificationFilterInput {
   group: String!
   level: Int!
@@ -967,9 +1004,15 @@ type Query {
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
-  classifications(availableInSearch: Boolean @scope): [Classification]! @all @canModel(ability: "viewAny")
+  classifications(availableInSearch: Boolean @scope): [Classification]!
+    @all
+    @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
   departments: [Department]! @all @canModel(ability: "viewAny")
+  jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
+    @find
+    @canFind(ability: "view", find: "id")
+  jobPosterTemplates: [JobPosterTemplate!] @all @canModel(ability: "viewAny")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -1836,10 +1879,71 @@ input DateRange {
   to: DateTime! @rules(apply: ["after_or_equal:from"])
 }
 
+input LocalizedKeywordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 input NotificationFilterInput {
   onlyUnread: Boolean @scope
   readAt: DateRange @whereBetween(key: "read_at")
   createdAt: DateRange @whereBetween(key: "created_at")
+}
+
+input AttachJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType!
+  requiredLevel: SkillLevel! @rename(attribute: "required_skill_level")
+}
+
+input SyncJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
+}
+
+input UpdateJobPosterTemplateSkillsInput {
+  attach: [AttachJobPosterTemplateSkillInput!]
+  sync: [SyncJobPosterTemplateSkillInput!]
+  detach: [UUID!]
+}
+
+input CreateJobPosterTemplateInput @validator {
+  referenceId: String! @rename(attribute: "reference_id")
+  name: LocalizedStringInput!
+  description: LocalizedStringInput!
+  supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
+  stream: PoolStream!
+  workDescription: LocalizedStringInput @rename(attribute: "work_description")
+  tasks: LocalizedStringInput!
+  keywords: LocalizedKeywordsInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_technical_skills_notes")
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_behavioural_skills_notes")
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "nonessential_technical_skills_notes")
+  classification: ClassificationBelongsTo!
+  skills: UpdateJobPosterTemplateSkillsInput
+}
+
+input UpdateJobPosterTemplateInput @validator {
+  referenceId: String @rename(attribute: "reference_id")
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
+  stream: PoolStream
+  workDescription: LocalizedStringInput @rename(attribute: "work_description")
+  tasks: LocalizedStringInput
+  keywords: LocalizedStringInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_technical_skills_notes")
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_behavioural_skills_notes")
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "nonessential_technical_skills_notes")
+  classification: ClassificationBelongsTo
+  skills: UpdateJobPosterTemplateSkillsInput
 }
 
 type Mutation {
@@ -2165,6 +2269,19 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
 
+  # Job poster template mutations
+  createJobPosterTemplate(
+    jobPosterTemplate: CreateJobPosterTemplateInput! @spread
+  ): JobPosterTemplate @create @guard @canModel(ability: "create")
+  updateJobPosterTemplate(
+    id: UUID!
+    jobPosterTemplate: UpdateJobPosterTemplateInput! @spread
+  ): JobPosterTemplate @update @guard @canFind(ability: "update", find: "id")
+  deleteJobPosterTemplate(id: UUID! @whereKey): JobPosterTemplate
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
+
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team
     @create
@@ -2281,9 +2398,15 @@ type Mutation {
   ): Boolean! @guard
 
   # Downloads for single entity, returning file name if successful or null on error
-  downloadUserDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "User")
-  downloadPoolCandidateDoc(id: UUID! anonymous: Boolean!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
-  downloadApplicationDoc(id: UUID!): String @guard @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "User")
+  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadApplicationDoc(id: UUID!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
 
 #import directiveForms.graphql
