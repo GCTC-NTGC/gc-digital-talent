@@ -124,6 +124,11 @@ type LocalizedPlacementType {
   label: LocalizedString!
 }
 
+type LocalizedPoolAreaOfSelection {
+  value: PoolAreaOfSelection!
+  label: LocalizedString!
+}
+
 type LocalizedPoolCandidateSearchPositionType {
   value: PoolCandidateSearchPositionType!
   label: LocalizedString!
@@ -151,6 +156,11 @@ type LocalizedPoolLanguage {
 
 type LocalizedPoolOpportunityLength {
   value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolSelectionLimitation {
+  value: PoolSelectionLimitation!
   label: LocalizedString!
 }
 
@@ -943,6 +953,11 @@ enum PlacementType {
   PLACED_INDETERMINATE
 }
 
+enum PoolAreaOfSelection {
+  PUBLIC
+  EMPLOYEES
+}
+
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
@@ -1000,6 +1015,11 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolSelectionLimitation {
+  AT_LEVEL_ONLY
+  DEPARTMENTAL_PREFERENCE
 }
 
 enum PoolSkillType {
@@ -1083,7 +1103,7 @@ enum SkillLevel {
 }
 
 enum SupervisoryStatus {
-  INDIVIDUAL_CONTRIBUTER
+  INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
 }
 
