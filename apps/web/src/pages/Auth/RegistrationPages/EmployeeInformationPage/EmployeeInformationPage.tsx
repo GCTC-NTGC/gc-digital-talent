@@ -23,7 +23,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
   graphql,
   FragmentType,
@@ -49,7 +49,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { splitAndJoin } from "~/utils/nameUtils";
 
 import messages from "../utils/messages";
-import { workEmailDomainRegex } from "../../../../../../../packages/helpers/src/constants/regularExpressions";
 
 const specificTitle = defineMessage({
   defaultMessage: "Employee information",

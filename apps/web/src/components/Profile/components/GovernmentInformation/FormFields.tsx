@@ -12,7 +12,7 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
   GovEmployeeType,
@@ -22,7 +22,6 @@ import {
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { getGroupOptions, getLevelOptions } from "./utils";
-import { workEmailDomainRegex } from "../../../../../../../packages/helpers/src/constants/regularExpressions";
 
 const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
