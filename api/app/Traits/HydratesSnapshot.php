@@ -25,8 +25,8 @@ trait HydratesSnapshot
         // validator for a single localized enum
         $singleEnumValidator = Validator::make($snapshot, [
             $snapshotField.'.value' => 'required|string',
-            $snapshotField.'.label.en' => 'required|string',
-            $snapshotField.'.label.fr' => 'required|string',
+            $snapshotField.'.label.en' => 'nullable|string',
+            $snapshotField.'.label.fr' => 'nullable|string',
         ]);
         if ($singleEnumValidator->passes()) {
             return true;
@@ -36,8 +36,8 @@ trait HydratesSnapshot
         $arrayEnumValidator = Validator::make($snapshot, [
             $snapshotField => 'array',
             $snapshotField.'.*.value' => 'required|string',
-            $snapshotField.'.*.label.en' => 'required|string',
-            $snapshotField.'.*.label.fr' => 'required|string',
+            $snapshotField.'.*.label.en' => 'nullable|string',
+            $snapshotField.'.*.label.fr' => 'nullable|string',
         ]);
         if ($arrayEnumValidator->passes()) {
             return true;

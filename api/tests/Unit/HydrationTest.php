@@ -73,6 +73,23 @@ class HydrationTest extends TestCase
                     'x',
                 ],
             ],
+            'single localized enum with missing labels' => [
+                true,
+                [
+                    ['x' => ['value' => 'EN', 'label' => ['en' => null, 'fr' => null]]],
+                    'x',
+                ],
+            ],
+            'array of localized enum with missing labels' => [
+                true,
+                [
+                    ['x' => [
+                        ['value' => 'EN', 'label' => ['en' => null, 'fr' => null]],
+                        ['value' => 'FR', 'label' => ['en' => null, 'fr' => null]],
+                    ]],
+                    'x',
+                ],
+            ],
         ];
     }
 
