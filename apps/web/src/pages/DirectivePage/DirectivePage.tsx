@@ -50,7 +50,7 @@ const procurementLink = (locale: Locales, chunks: ReactNode) => (
     href={
       locale === "en"
         ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32692&section=procedure&p=F"
-        : "#"
+        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692&section=procedure&p=F"
     }
   >
     {chunks}

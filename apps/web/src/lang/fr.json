@@ -2299,6 +2299,10 @@
     "defaultMessage": "Quel est le titre de votre poste?",
     "description": "Input label asking for the user's job title."
   },
+  "AgtPO+": {
+    "defaultMessage": "Alignement sur les nouvelles procédures obligatoires dirigées par le BCG",
+    "description": "fourth 2024 key change rationale to the directive"
+  },
   "AhZlU1": {
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
@@ -2430,6 +2434,10 @@
   "BSkVBd": {
     "defaultMessage": "Veuillez préciser la langue de travail",
     "description": "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "BVgb+I": {
+    "defaultMessage": "Le Bureau du dirigeant principal de l’information du Canada (BDPI) surveille de près l’efficacité de la Directive sur les talents numériques depuis son entrée en vigueur en avril 2023.",
+    "description": "first paragraph describing the 2024 changes to the directive on digital talent"
   },
   "BWh6S1": {
     "defaultMessage": "Renseignements personnels et coordonnées",
@@ -2807,6 +2815,10 @@
     "defaultMessage": "Oui, l’évaluation du français a été effectuée",
     "description": "Completed a French language evaluation"
   },
+  "DVBh+y": {
+    "defaultMessage": "Les données peuvent être sécurisées par d’autres moyens (p. ex., la plateforme Talents numériques du GC, le contrôle accru des données)",
+    "description": "first 2024 key change rationale to the directive"
+  },
   "DXjJyD": {
     "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
     "description": "Text describing expiry dates for candidates, what it is for and a recommendation"
@@ -2858,6 +2870,10 @@
   "Di1aEV": {
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences qui sont liées à votre profil, et votre démonstration des compétences. Sélectionnez le titre d’une compétences pour gérer de plus amples détails, y compris les détails ayant trait à votre niveau et à vos expériences de carrière connexes.",
     "description": "Description on how to use behavioural skills"
+  },
+  "DjRrK4": {
+    "defaultMessage": "Retrait de l’obligation de partager des copies des descriptions d’emploi TI non standard",
+    "description": "third 2024 key change to the directive"
   },
   "DnXch4": {
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
@@ -3127,6 +3143,10 @@
     "defaultMessage": "Créer - famille",
     "description": "Page title for the skill family creation page"
   },
+  "FDGVHB": {
+    "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
+    "description": "third 2024 key change rationale to the directive"
+  },
   "FDZh4D": {
     "defaultMessage": "Vous êtes sur le point de publier l'annonce de ce processus : {poolName}",
     "description": "Text to confirm the process to be published"
@@ -3267,6 +3287,10 @@
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (texte clair)",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
+  "FuqYtW": {
+    "defaultMessage": "Consultez les récents changements apportés aux Procédures obligatoires sur les talents numériques, notamment la réduction des exigences en matière de rapports! Les modifications entrent en vigueur le 30 septembre 2024.",
+    "description": "Body of an alert about the directive changing"
+  },
   "FvbONe": {
     "defaultMessage": "Compétences à améliorer",
     "description": "Title for skills to improve showcase section"
@@ -3274,6 +3298,10 @@
   "Fz49kD": {
     "defaultMessage": "3. Autre…",
     "description": "Paragraph 4 of a manager's email for apprenticeship"
+  },
+  "G+dXAH": {
+    "defaultMessage": "Cela a toujours été le cas et est maintenant formalisé après l’annonce de la plateforme par le ministre",
+    "description": "fifth 2024 key change rationale to the directive"
   },
   "G0OY3I": {
     "defaultMessage": "la gestion de l’information;",
@@ -3538,6 +3566,10 @@
   "HMm2S4": {
     "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
     "description": "Contract value range between one-million and two-point-five-million"
+  },
+  "HRmtdK": {
+    "defaultMessage": "Bien que les Procédures obligatoires soient également efficaces, il est possible d’en améliorer la clarté, de réduire la charge de travail des ministères en matière de rapports et de mieux les aligner sur les nouvelles <link>procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels</link> menées par le Bureau du contrôleur général du Canada (BCG).",
+    "description": "third paragraph describing the 2024 changes to the directive on digital talent"
   },
   "HX/Tj+": {
     "defaultMessage": "Secret",
@@ -4223,6 +4255,10 @@
     "defaultMessage": "Décrivez comment vous avez utilisé cette compétence",
     "description": "Label for skill experience details input"
   },
+  "L819mr": {
+    "defaultMessage": "Mises à jour du questionnaire sur l’octroi de contrats sur les services numériques",
+    "description": "fourth 2024 key change to the directive"
+  },
   "L8k+lC": {
     "defaultMessage": "Précédent",
     "description": "Back button located next to the submit button on the request form."
@@ -4738,6 +4774,10 @@
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
     "description": "Toast for successful add user to pool on view-user page"
+  },
+  "O8YvBD": {
+    "defaultMessage": "Retrait du plan prospectif de gestion des talents",
+    "description": "first 2024 key change to the directive"
   },
   "O8nHiQ": {
     "defaultMessage": "Retourner aux demandes",
@@ -7594,6 +7634,10 @@
     "defaultMessage": "Entrer la date selon le format suivant : aaaa-MM-jj HH:mm:ss",
     "description": "Instructions to enter the date in the API DateTime scalar format"
   },
+  "deiUXj": {
+    "defaultMessage": "Par conséquent, le BDPI apporte actuellement certaines mises à jour aux Procédures obligatoires, qui entreront en vigueur le 30 septembre 2024.",
+    "description": "fourth paragraph describing the 2024 changes to the directive on digital talent"
+  },
   "deiylo": {
     "defaultMessage": "Meilleures compétences",
     "description": "Title for top skills showcase section"
@@ -8373,6 +8417,10 @@
   "hHYn/8": {
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
+  },
+  "hI5cty": {
+    "defaultMessage": "Confirmation de l’utilisation de la plateforme de talents numériques du GC pour vérifier la disponibilité de talents qualifiés",
+    "description": "fifth 2024 key change to the directive"
   },
   "hIaETV": {
     "defaultMessage": "Statut du bassin",
@@ -9654,6 +9702,10 @@
     "defaultMessage": "Voir les définitions pour \"{skillName}\" et \"{skillLevel}\"",
     "description": "Accordion title for skill and skill level header on screening decision dialog."
   },
+  "o6Vyr+": {
+    "defaultMessage": "Retrait du formulaire de processus de recrutement spécifique au ministère",
+    "description": "second 2024 key change to the directive"
+  },
   "o7OKLq": {
     "defaultMessage": "Anglais - À quoi s’attendre",
     "description": "Label for the English - What to expect textarea in the edit pool page."
@@ -10078,6 +10130,10 @@
     "defaultMessage": "un arrangement en matière d’approvisionnement pour qu'un fournisseur construise une application numérique;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "qQmKgl": {
+    "defaultMessage": "La directive étant très performante, elle restera telle quelle.",
+    "description": "second paragraph describing the 2024 changes to the directive on digital talent"
+  },
   "qRPPY2": {
     "defaultMessage": "Cet approvisionnement complète-t-il d’autres activités de recherche de talents (p. ex., recrutement, formation) dans le cadre de cette initiative?",
     "description": "Label for _digital initiative plan complemented_ fieldset in the _digital services contracting questionnaire_"
@@ -10237,6 +10293,10 @@
   "rXdaZW": {
     "defaultMessage": "Obtenir du soutien",
     "description": "Link text to direct a user to the support page"
+  },
+  "rZ0GyE": {
+    "defaultMessage": "Modifications apportées aux procédures obligatoires en 2024",
+    "description": "Heading for section describing the 2024 changes to the directive"
   },
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
@@ -10669,6 +10729,10 @@
   "uD7QTb": {
     "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
     "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
+  },
+  "uEporM": {
+    "defaultMessage": "Les procédures obligatoires ont changé",
+    "description": "Title for an alert about the directive changing"
   },
   "uEqA50": {
     "defaultMessage": "Ajouter une nouvelle question",
