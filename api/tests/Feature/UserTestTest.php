@@ -29,7 +29,7 @@ use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertSame;
 
-class AAAUserTest extends TestCase
+class UserTestTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
