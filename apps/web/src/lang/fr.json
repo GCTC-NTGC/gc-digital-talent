@@ -5371,8 +5371,8 @@
     "defaultMessage": "Télécharger une copie de ce formulaire",
     "description": "Button text to download this form"
   },
-  "RA6v6+": {
-    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden>",
+  "cTSaxx": {
+    "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
   },
   "RBsGRp": {
@@ -11661,5 +11661,25 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
+  },
+  "eRiod2": {
+    "defaultMessage": "Mises à jour des procédures obligatoires ",
+    "description": "Heading for the mandatory procedures card"
+  },
+  "ox2by6": {
+    "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
+    "description": "Link text to a page to learn more about something"
+  },
+  "iumEhu": {
+    "defaultMessage": "Les Procédures obligatoires sur les talents numériques ont été mises à jour pour plus de clarté et afin de réduire les exigences en matière de rapports et mieux les aligner sur d’autres instruments politiques. La directive reste inchangée.",
+    "description": "Description for the mandatory procedures card"
+  },
+  "vbiWgW": {
+    "defaultMessage": "Politiques connexes",
+    "description": "Heading for the related policies card"
+  },
+  "4t/ETT": {
+    "defaultMessage": "D’autres exigences s’appliquent pour l’approvisionnement en services professionnels. Consultez les Procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels menées par le Bureau du contrôleur général du Canada.",
+    "description": "Description for the related policies card"
   }
 }

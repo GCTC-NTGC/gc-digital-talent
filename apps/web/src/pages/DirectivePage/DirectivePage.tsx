@@ -20,13 +20,11 @@ import {
   navigationMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
-import getFormLinks from "./utils";
 import Resources from "./Resources";
 
 const policyLink = (locale: Locales, chunks: ReactNode) => (
@@ -81,7 +79,6 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const { directiveForms: directiveFormsFlag } = useFeatureFlags();
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -101,69 +98,6 @@ export const Component = () => {
     defaultMessage: "Read the Directive",
     id: "RDAVsP",
     description: "Link text to read the entire directive.",
-  });
-
-  const departmentFormLinks = getFormLinks({
-    intl,
-    files: {
-      en: "/static/documents/Digital_Recruitment_Template_EN.docx",
-      fr: "/static/documents/Modele_de_recrutement_numerique_FR.docx",
-    },
-    formName: intl.formatMessage({
-      defaultMessage: "Department-Specific Recruitment",
-      id: "uJyWDM",
-      description: "Short name for Department-Specific Recruitment Form",
-    }),
-  });
-
-  const contractingFormLinks = directiveFormsFlag
-    ? [
-        {
-          label: intl.formatMessage(
-            {
-              defaultMessage: "Complete the <hidden>{formName} </hidden>form",
-              id: "V7ld7D",
-              description: "Link text for a form page",
-            },
-            {
-              formName: intl.formatMessage({
-                defaultMessage: "Digital Services Contracting",
-                id: "X3bPom",
-                description: "Short name for Digital Services Contracting Form",
-              }),
-            },
-          ),
-          href: paths.digitalServicesContractingQuestionnaire(),
-          mode: "solid",
-          "data-h2-padding": "base(x.5, x1)",
-          download: false,
-          external: false,
-        } as const,
-      ]
-    : getFormLinks({
-        intl,
-        files: {
-          en: "/static/documents/Digital_Contracting_Questionnaire_EN.docx",
-          fr: "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
-        },
-        formName: intl.formatMessage({
-          defaultMessage: "Digital Services Contracting",
-          id: "X3bPom",
-          description: "Short name for Digital Services Contracting Form",
-        }),
-      });
-
-  const talentPlanFormLinks = getFormLinks({
-    intl,
-    files: {
-      en: "/static/documents/Forward_Talent_Plan_EN.docx",
-      fr: "/static/documents/Plan_prospectif_sur_les_talents_FR.docx",
-    },
-    formName: intl.formatMessage({
-      defaultMessage: "Forward Talent Plan",
-      id: "G0RoYe",
-      description: "Short name for Forward Talent Plan Form",
-    }),
   });
 
   return (
@@ -417,7 +351,7 @@ export const Component = () => {
           <Heading
             Icon={BookmarkSquareIcon}
             size="h3"
-            color="primary"
+            color="tertiary"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -436,32 +370,39 @@ export const Component = () => {
             <CardFlat
               color="quaternary"
               title={intl.formatMessage({
-                defaultMessage: "Department-Specific Recruitment Form",
-                id: "x0SRaQ",
-                description:
-                  "Heading for the department-specific recruitment form",
-              })}
-              links={departmentFormLinks}
-            >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<strong>Mandatory reporting</strong>. This is now required when you want to run a recruitment for digital talent that will create a pool of candidates. No extra approvals - just let us know what you're planning!",
-                  id: "0DILS7",
-                  description:
-                    "Description for the department-specific recruitment form",
-                })}
-              </p>
-            </CardFlat>
-            <CardFlat
-              color="secondary"
-              title={intl.formatMessage({
                 defaultMessage: "Digital services contracting questionnaire",
                 id: "oiTphL",
                 description:
                   "Heading for the digital Services contracting form",
               })}
-              links={contractingFormLinks}
+              links={[
+                {
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Download the questionnaire<hidden>: {formName}</hidden>",
+                      id: "cTSaxx",
+                      description: "Link text for form download",
+                    },
+                    {
+                      formName: intl.formatMessage({
+                        defaultMessage: "Digital Services Contracting",
+                        id: "X3bPom",
+                        description:
+                          "Short name for Digital Services Contracting Form",
+                      }),
+                    },
+                  ),
+                  href:
+                    intl.locale === "en"
+                      ? "/static/documents/Digital_Contracting_Questionnaire_EN.docx"
+                      : "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
+                  mode: "solid",
+                  "data-h2-padding": "base(x.5, x1)",
+                  download: true,
+                  external: true,
+                } as const,
+              ]}
             >
               <p>
                 {intl.formatMessage(
@@ -480,20 +421,88 @@ export const Component = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="tertiary"
+              color="secondary"
               title={intl.formatMessage({
-                defaultMessage: "Forward Talent Plan Form",
-                id: "sKAo0/",
-                description: "Heading for the forward talent plan form",
+                defaultMessage: "Updates to the Mandatory Procedures",
+                id: "eRiod2",
+                description: "Heading for the mandatory procedures card",
               })}
-              links={talentPlanFormLinks}
+              links={[
+                {
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage: "Learn more<hidden>: {topic}</hidden>",
+                      id: "ox2by6",
+                      description:
+                        "Link text to a page to learn more about something",
+                    },
+                    {
+                      topic: intl.formatMessage({
+                        defaultMessage: "Updates to the Mandatory Procedures",
+                        id: "eRiod2",
+                        description:
+                          "Heading for the mandatory procedures card",
+                      }),
+                    },
+                  ),
+                  href: "#",
+                  mode: "solid",
+                  "data-h2-padding": "base(x.5, x1)",
+                  download: false,
+                  external: false,
+                } as const,
+              ]}
             >
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Mandatory reporting</strong>. This is now required when you plan a new or expanded digital initiative that will add 10 or more full-time equivalent positions to your department. We want to help make sure that fully qualified, ready-to-hire talent is there when you need it.",
-                  id: "ydjXm7",
-                  description: "Description for the forward talent plan form",
+                    "The Mandatory Procedures on Digital Talent have been updated for improved clarity, fewer reporting requirements, and better alignment with other policy instruments.  The Directive remains unchanged.",
+                  id: "iumEhu",
+                  description: "Description for the mandatory procedures card",
+                })}
+              </p>
+            </CardFlat>
+            <CardFlat
+              color="tertiary"
+              title={intl.formatMessage({
+                defaultMessage: "Related policies",
+                id: "vbiWgW",
+                description: "Heading for the related policies card",
+              })}
+              links={[
+                {
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage: "Learn more<hidden>: {topic}</hidden>",
+                      id: "ox2by6",
+                      description:
+                        "Link text to a page to learn more about something",
+                    },
+                    {
+                      topic: intl.formatMessage({
+                        defaultMessage: "Related policies",
+                        id: "vbiWgW",
+                        description: "Heading for the related policies card",
+                      }),
+                    },
+                  ),
+                  href:
+                    locale === "en"
+                      ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32692&section=procedure&p=F"
+                      : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692",
+                  mode: "solid",
+                  "data-h2-padding": "base(x.5, x1)",
+                  download: false,
+                  external: true,
+                } as const,
+              ]}
+            >
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "There are other requirements if you are procuring professional services. Check out the Mandatory Procedures for Business Owners When Procuring Professional Services led by the Office of the Comptroller General of Canada.",
+                  id: "4t/ETT",
+                  description: "Description for the related policies card",
                 })}
               </p>
             </CardFlat>
