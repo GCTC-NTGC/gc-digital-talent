@@ -14,6 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
 class GcNotifyApiRequest implements ShouldQueue
@@ -63,9 +64,20 @@ class GcNotifyApiRequest implements ShouldQueue
 
         if (! is_null($response) && ! $response->successful()) {
             $firstApiErrorMessage = Arr::get($response->json(), 'errors.0.message');
-            $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. '.$firstApiErrorMessage.' ';
+            $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. ['.$firstApiErrorMessage.'] Template ID: '.$this->message->templateId;
             Log::error($errorMessage);
             Log::debug($response->body());
+
+            // workaround until we get better logging in prod #11289
+            $onDemandLog = Log::build([
+                'driver' => 'single',
+                'path' => App::isProduction() // workaround for storage_path misconfigured in prod #11471
+                    ? '/tmp/api/storage/logs/jobs.log'
+                    : storage_path('logs/jobs.log'),
+            ]);
+            $onDemandLog->error($errorMessage);
+            $onDemandLog->debug($response->body());
+
             throw new Exception($errorMessage);
         }
     }
