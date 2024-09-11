@@ -1,12 +1,19 @@
 import { useIntl } from "react-intl";
+import React, { ReactNode } from "react";
+import uniqBy from "lodash/unionBy";
 
 import { NavMenu } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 
-import { NavRole } from "../NavContext/NavContextContainer";
+import {
+  convertRoleToNavRole,
+  NavRole,
+} from "../NavContext/NavContextContainer";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
 
@@ -37,7 +44,11 @@ const NavItem = ({
  * @param loggedIn If the user is logged in
  * @returns
  */
-export const useMainLinks = (navRole: NavRole, loggedIn: boolean) => {
+export const useMainLinks = (
+  navRole: NavRole,
+  loggedIn: boolean,
+  roleAssignments: RoleAssignment[],
+) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -176,14 +187,52 @@ export const useMainLinks = (navRole: NavRole, loggedIn: boolean) => {
     </SignOutConfirmation>
   );
 
+  const getRoleName = {
+    ["guest"]: "Guest",
+    ["applicant"]: "Applicant",
+    ["manager"]: "Manager",
+    ["community"]: "Community",
+    ["admin"]: "Admin",
+  };
+
+  const roles: Record<string, string> = {
+    ["guest"]: paths.home(),
+    ["applicant"]: paths.applicantDashboard(),
+    ["manager"]: paths.manager(),
+    ["community"]: paths.community(),
+    ["admin"]: paths.adminDashboard(),
+  };
+
+  const roleLinks = roleAssignments
+    .filter(
+      (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
+    )
+    .map((roleAssignment) => {
+      const role = convertRoleToNavRole(roleAssignment.role?.name as RoleName);
+
+      return {
+        name: getRoleName[role],
+        href: roles[role],
+      };
+    });
+
+  const roleLinksNoDuplicates = uniqBy(roleLinks, "name");
+
+  const defaultLinks = {
+    roleLinks: roleLinksNoDuplicates,
+    currentRoleName: navRole,
+    authLinks: !loggedIn ? [SignIn, SignUp] : null,
+  };
+
   switch (navRole) {
     case "guest":
       return {
+        ...defaultLinks,
         mainLinks: [Home, BrowseJobs],
-        authLinks: !loggedIn ? [SignIn, SignUp] : null,
       };
     case "applicant":
       return {
+        ...defaultLinks,
         mainLinks: [Home, BrowseJobs],
         accountLinks: loggedIn
           ? [
@@ -194,32 +243,33 @@ export const useMainLinks = (navRole: NavRole, loggedIn: boolean) => {
               SignOut,
             ]
           : null,
-        authLinks: !loggedIn ? [SignIn, SignUp] : null,
       };
     case "manager":
       return {
+        ...defaultLinks,
         mainLinks: [Home, FindTalent],
         accountLinks: loggedIn
           ? [ManagerProfile, AccountSettings, SignOut]
           : null,
-        authLinks: !loggedIn ? [SignIn, SignUp] : null,
       };
     case "community":
       return {
+        ...defaultLinks,
         mainLinks: [Home, Processes, Candidates],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
-        authLinks: !loggedIn ? [SignIn, SignUp] : null,
       };
     case "admin":
       return {
+        ...defaultLinks,
         mainLinks: [Home, ViewUsers, AdminProcesses, Requests],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
-        authLinks: !loggedIn ? [SignIn, SignUp] : null,
       };
     default:
       return {
+        roleLinks: defaultLinks.roleLinks,
         mainLinks: [Home, BrowseJobs],
-        authLinks: !loggedIn ? [SignIn, SignUp] : null,
+        accountLinks: [],
+        authLinks: defaultLinks.authLinks,
       };
   }
 };

@@ -805,6 +805,18 @@ const createRoute = (locale: Locales) =>
       ],
     },
     {
+      path: `${locale}/community`,
+      lazy: () => import("./Layout/AdminLayout/AdminLayout"),
+      children: [
+        {
+          index: true,
+          loader: () => {
+            throw new Response("Not Found", { status: 404 });
+          },
+        },
+      ],
+    },
+    {
       path: `${locale}/indigenous-it-apprentice`,
       lazy: () => import("./Layout/IAPLayout"),
       children: [

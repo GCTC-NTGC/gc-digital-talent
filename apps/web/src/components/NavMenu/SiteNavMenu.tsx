@@ -4,7 +4,7 @@ import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
 
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
+import { uiMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   NavMenu,
@@ -19,22 +19,21 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 
-import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
 import { useMainLinks } from "./navlinks";
 
-interface SiteNavMenuProps {}
-
 const SiteNavMenu = () => {
   const intl = useIntl();
+  const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen(1080);
   const { navRole } = useNavContext();
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
-  const { mainLinks, accountLinks, authLinks } = useMainLinks(
+  const { roleLinks, mainLinks, accountLinks, authLinks } = useMainLinks(
     navRole,
     loggedIn,
+    userAuthInfo?.roleAssignments?.filter(notEmpty) || [],
   );
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -46,49 +45,61 @@ const SiteNavMenu = () => {
 
   const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
 
-  const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty);
-  const onlyHasApplicantRole =
-    roleAssignments?.length === 1 &&
-    roleAssignments?.find(
-      (roleAssignment) => roleAssignment.role?.name === ROLE_NAME.Applicant,
+  const [navRoleState, setNavRoleState] = useState(navRole);
+
+  useEffect(() => {
+    if (navRole !== navRoleState) {
+      setNavRoleState(navRole);
+    }
+  }, [navRole, navRoleState]);
+
+  const roleAssignments = userAuthInfo?.roleAssignments
+    ?.filter(notEmpty)
+    .filter(
+      (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
     );
-  const currentRoleName = roleAssignments?.find(
-    (roleAssignment) => roleAssignment.role?.name === navRole,
-  )?.role?.displayName;
+
+  const getRoleName: Record<string, string> = {
+    ["guest"]: "Guest",
+    ["applicant"]: "Applicant",
+    ["manager"]: "Manager",
+    ["community"]: "Community",
+    ["admin"]: "Admin",
+  };
+
   return (
     <>
       <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
         <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
-          {!onlyHasApplicantRole ? (
-            <NavMenu.Item>
-              <NavMenu.Trigger
-                color={isSmallScreen ? "black" : "whiteFixed"}
-                mode="text"
-                block={false}
-              >
-                {getLocalizedName(currentRoleName, intl)}
-              </NavMenu.Trigger>
-              <NavMenu.Content>
-                <NavMenu.List>
-                  {roleAssignments?.map((roleAssignment) => (
-                    <NavMenu.Item key={roleAssignment.role?.name}>
-                      <NavMenu.Link
-                        title={roleAssignment.role?.name}
-                        href="/"
-                        color="black"
-                      >
-                        {getLocalizedName(
-                          roleAssignment.role?.displayName,
-                          intl,
-                        )}
-                      </NavMenu.Link>
-                    </NavMenu.Item>
-                  ))}
-                </NavMenu.List>
-              </NavMenu.Content>
-            </NavMenu.Item>
+          {roleAssignments !== undefined && roleAssignments.length > 1 ? (
+            <>
+              <NavMenu.Item>
+                <NavMenu.Trigger
+                  color={isSmallScreen ? "black" : "whiteFixed"}
+                  mode="text"
+                  block={false}
+                >
+                  {getRoleName[navRole]}
+                </NavMenu.Trigger>
+                <NavMenu.Content>
+                  <NavMenu.List>
+                    {roleLinks.map((roleLink) => (
+                      <NavMenu.Item key={roleLink.name}>
+                        <NavMenu.Link
+                          title={roleLink.name}
+                          href={roleLink.href}
+                          color="black"
+                        >
+                          {roleLink.name}
+                        </NavMenu.Link>
+                      </NavMenu.Item>
+                    ))}
+                  </NavMenu.List>
+                </NavMenu.Content>
+              </NavMenu.Item>
+              <Separator space="none" data-h2-display="l-tablet(none)" />
+            </>
           ) : null}
-          <Separator space="none" data-h2-display="l-tablet(none)" />
           {mainLinks}
           <Separator space="none" data-h2-display="l-tablet(none)" />
         </NavMenu.List>
@@ -144,10 +155,12 @@ const SiteNavMenu = () => {
               ? intl.formatMessage(uiMessages.closeMenu)
               : intl.formatMessage(uiMessages.openMenu)}
           </Button>
-          <NotificationDialog
-            open={isNotificationDialogOpen}
-            onOpenChange={setNotificationDialogOpen}
-          />
+          {loggedIn && (
+            <NotificationDialog
+              open={isNotificationDialogOpen}
+              onOpenChange={setNotificationDialogOpen}
+            />
+          )}
         </div>
       )}
     </>

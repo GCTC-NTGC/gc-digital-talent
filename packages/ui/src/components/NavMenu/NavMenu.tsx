@@ -161,6 +161,13 @@ const Link = forwardRef<
         href={href}
         color={color || isSmallScreen ? "black" : "whiteFixed"}
         data-h2-text-decoration="base(none)"
+        {...(isActive && {
+          "data-state": "active", // Needed for active styles
+          "data-h2-color":
+            "base(secondary.darker) base:dark(secondary.lightest) l-tablet:all(secondary.lighter)",
+          "data-h2-text-decoration":
+            "base(none) base:children[>span](none!important)", // TODO: FIX UNDERLINE WHEN ACTIVE
+        })}
       >
         {children}
       </OurLink>

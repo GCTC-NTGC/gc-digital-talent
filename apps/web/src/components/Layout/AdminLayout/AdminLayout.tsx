@@ -32,6 +32,7 @@ import pageTitles from "~/messages/pageTitles";
 import pageIcons from "~/utils/pageIcons";
 import useErrorMessages from "~/hooks/useErrorMessages";
 import NotificationDialog from "~/components/NotificationDialog/NotificationDialog";
+import SiteNavMenu from "~/components/NavMenu/SiteNavMenu";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
@@ -104,254 +105,26 @@ export const Component = () => {
       />
       <SkipLink />
       <div data-h2-flex-grid="base(stretch, 0)">
-        <SideMenu
-          label={intl.formatMessage({
-            defaultMessage: "Main Menu",
-            id: "QjF2CL",
-            description:
-              "Label for the main menu on the pool manager admin portal.",
-          })}
-          onOpenChange={setMenuOpen}
-          open={isMenuOpen}
-          footer={<SignInOrSignOut />}
+        <div
+          data-h2-min-height="base(100%)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
         >
-          <SideMenuButton
-            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
-            onClick={() => setMenuOpen(!isMenuOpen)}
+          <Header width="full" />
+          <SitewideBanner />
+          <SiteNavMenu />
+          <main
+            id="main"
+            data-h2-flex-grow="base(1)"
+            data-h2-background-color="base(background)"
           >
-            {isMenuOpen
-              ? intl.formatMessage(uiMessages.closeMenu)
-              : intl.formatMessage(uiMessages.openMenu)}
-          </SideMenuButton>
-          {checkRole(
-            [
-              ROLE_NAME.PoolOperator,
-              ROLE_NAME.RequestResponder,
-              ROLE_NAME.CommunityManager,
-              ROLE_NAME.PlatformAdmin,
-              ROLE_NAME.CommunityAdmin,
-              ROLE_NAME.CommunityRecruiter,
-              ROLE_NAME.ProcessOperator,
-            ],
-            roleAssignments,
-          ) && (
-            <>
-              <SideMenuItem
-                href={paths.adminDashboard()}
-                icon={pageIcons.dashboard.outline}
-              >
-                {intl.formatMessage(pageTitles.dashboard)}
-              </SideMenuItem>
-              {loggedIn && <NotificationDialog sideMenu />}
-            </>
-          )}
-          <SideMenuCategory
-            title={intl.formatMessage({
-              defaultMessage: "Recruitment",
-              id: "G65IrS",
-              description: "The menu category for recruitment items",
-            })}
-          >
-            {checkRole(
-              [
-                ROLE_NAME.PoolOperator,
-                ROLE_NAME.RequestResponder,
-                ROLE_NAME.PlatformAdmin,
-              ],
-              roleAssignments,
-            ) && (
-              <SideMenuItem
-                href={paths.poolCandidates()}
-                icon={pageIcons.poolCandidates.outline}
-              >
-                {intl.formatMessage(pageTitles.candidateSearch)}
-              </SideMenuItem>
-            )}
-            {checkRole(
-              [
-                ROLE_NAME.PoolOperator,
-                ROLE_NAME.CommunityManager,
-                ROLE_NAME.PlatformAdmin,
-                ROLE_NAME.CommunityAdmin,
-                ROLE_NAME.CommunityRecruiter,
-                ROLE_NAME.ProcessOperator,
-              ],
-              roleAssignments,
-            ) && (
-              <SideMenuItem
-                href={paths.poolTable()}
-                icon={pageIcons.processes.outline}
-              >
-                {intl.formatMessage(pageTitles.processes)}
-              </SideMenuItem>
-            )}
-            {checkRole(
-              [
-                ROLE_NAME.CommunityAdmin,
-                ROLE_NAME.CommunityRecruiter,
-                ROLE_NAME.PlatformAdmin,
-              ],
-              roleAssignments,
-            ) && (
-              <SideMenuItem
-                href={paths.communityTable()}
-                icon={pageIcons.communities.outline}
-              >
-                {intl.formatMessage(pageTitles.communities)}
-              </SideMenuItem>
-            )}
-            {checkRole(
-              [
-                ROLE_NAME.PoolOperator,
-                ROLE_NAME.CommunityManager,
-                ROLE_NAME.PlatformAdmin,
-              ],
-              roleAssignments,
-            ) && (
-              <SideMenuItem
-                href={paths.teamTable()}
-                icon={pageIcons.teams.outline}
-              >
-                {intl.formatMessage(pageTitles.teams)}
-              </SideMenuItem>
-            )}
-            {checkRole(
-              [
-                ROLE_NAME.PoolOperator,
-                ROLE_NAME.RequestResponder,
-                ROLE_NAME.CommunityManager,
-                ROLE_NAME.PlatformAdmin,
-              ],
-              roleAssignments,
-            ) && (
-              <SideMenuItem
-                href={paths.skills()}
-                icon={pageIcons.skillsList.outline}
-              >
-                {intl.formatMessage(pageTitles.skillsList)}
-              </SideMenuItem>
-            )}
-          </SideMenuCategory>
-          <SideMenuCategory
-            title={intl.formatMessage({
-              defaultMessage: "Requests",
-              id: "0D3ZhO",
-              description: "The menu category for requests items",
-            })}
-          >
-            {checkRole(
-              [
-                ROLE_NAME.RequestResponder,
-                ROLE_NAME.CommunityRecruiter,
-                ROLE_NAME.CommunityAdmin,
-              ],
-              roleAssignments,
-            ) && (
-              <SideMenuItem
-                href={paths.searchRequestTable()}
-                icon={pageIcons.talentRequests.outline}
-              >
-                {intl.formatMessage(pageTitles.talentRequests)}
-              </SideMenuItem>
-            )}
-          </SideMenuCategory>
-          <SideMenuCategory
-            title={intl.formatMessage({
-              defaultMessage: "Platform data",
-              id: "bLcy4q",
-              description: "The menu category for platform data items",
-            })}
-          >
-            {checkRole(
-              [
-                ROLE_NAME.PoolOperator,
-                ROLE_NAME.RequestResponder,
-                ROLE_NAME.PlatformAdmin,
-              ],
-              roleAssignments,
-            ) && (
-              <SideMenuItem
-                href={paths.userTable()}
-                icon={pageIcons.users.outline}
-              >
-                {intl.formatMessage(pageTitles.users)}
-              </SideMenuItem>
-            )}
-            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem
-                href={paths.classificationTable()}
-                icon={pageIcons.classifications.outline}
-              >
-                {intl.formatMessage(pageTitles.classifications)}
-              </SideMenuItem>
-            )}
-            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem
-                href={paths.departmentTable()}
-                icon={pageIcons.departments.outline}
-              >
-                {intl.formatMessage(pageTitles.departments)}
-              </SideMenuItem>
-            )}
-            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem
-                href={paths.skillTable()}
-                icon={pageIcons.skillsEditor.outline}
-              >
-                {intl.formatMessage(pageTitles.skillsEditor)}
-              </SideMenuItem>
-            )}
-            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem
-                href={paths.skillFamilyTable()}
-                icon={pageIcons.skillFamilies.outline}
-              >
-                {intl.formatMessage(pageTitles.skillFamilies)}
-              </SideMenuItem>
-            )}
-            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem
-                href={paths.announcements()}
-                icon={pageIcons.announcements.outline}
-              >
-                {intl.formatMessage(pageTitles.announcements)}
-              </SideMenuItem>
-            )}
-          </SideMenuCategory>
-        </SideMenu>
-        <SideMenuContentWrapper>
-          <div
-            data-h2-min-height="base(100%)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-          >
-            <Header width="full" />
-            <SitewideBanner />
-            <OpenMenuButton
-              onClick={() => setMenuOpen(true)}
-              show={isSmallScreen}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Open Menu",
-                id: "crzWxb",
-                description:
-                  "Text label for header button that opens side menu.",
-              })}
-            </OpenMenuButton>
-            <main
-              id="main"
-              data-h2-flex-grow="base(1)"
-              data-h2-background-color="base(background)"
-            >
-              <div data-h2-min-height="base(100%)">
-                <Outlet />
-              </div>
-            </main>
-            <Footer width="full" />
-          </div>
-        </SideMenuContentWrapper>
+            <div data-h2-min-height="base(100%)">
+              <Outlet />
+            </div>
+          </main>
+          <Footer width="full" />
+        </div>
       </div>
-
       <ScrollRestoration
         getKey={(location) => {
           return location.pathname;
