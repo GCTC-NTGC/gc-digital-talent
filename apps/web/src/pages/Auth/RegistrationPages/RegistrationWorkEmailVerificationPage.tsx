@@ -9,7 +9,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import EmailVerification from "~/components/EmailVerification/EmailVerification";
+import EmailVerificationApi from "~/components/EmailVerification/EmailVerification";
 
 import messages from "./utils/messages";
 
@@ -64,7 +64,7 @@ const RegistrationWorkEmailVerificationPage = () => {
         data-h2-radius="p-tablet(rounded)"
         data-h2-shadow="base(large)"
       >
-        <EmailVerification
+        <EmailVerificationApi
           emailAddress={data?.me?.workEmail}
           onVerificationSuccess={handleVerificationSuccess}
           emailType={EmailType.Work}

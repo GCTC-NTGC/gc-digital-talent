@@ -11,7 +11,9 @@ import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { AuthorizationContainer } from "@gc-digital-talent/auth";
 import { EmailType } from "@gc-digital-talent/graphql";
 
-import EmailVerification, { EmailVerificationProps } from "./EmailVerification";
+import EmailVerificationApi, {
+  EmailVerificationProps,
+} from "./EmailVerification";
 
 const getDefaultProps = (): EmailVerificationProps => ({
   emailType: EmailType.Contact,
@@ -37,7 +39,7 @@ const renderComponent = (
       isLoaded
     >
       <GraphqlProvider value={graphqlClient}>
-        <EmailVerification {...props} />
+        <EmailVerificationApi {...props} />
       </GraphqlProvider>
     </AuthorizationContainer>,
   );
