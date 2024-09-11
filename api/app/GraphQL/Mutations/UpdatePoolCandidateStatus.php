@@ -6,7 +6,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
-use Illuminate\Support\Facades\Log;
 
 final readonly class UpdatePoolCandidateStatus
 {
@@ -14,8 +13,6 @@ final readonly class UpdatePoolCandidateStatus
     public function __invoke(null $_, array $args)
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
-
-        Log::debug($args);
 
         if (isset($args['pool_candidate_status']) && $args['pool_candidate_status'] !== $candidate->pool_candidate_status) {
             $status = $args['pool_candidate_status'];
