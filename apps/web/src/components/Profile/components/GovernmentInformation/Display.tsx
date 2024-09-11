@@ -1,12 +1,9 @@
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 import { useNavigate } from "react-router-dom";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 import { Button, Chip } from "@gc-digital-talent/ui";
-import { EmailType, graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
@@ -14,15 +11,6 @@ import useRoutes from "~/hooks/useRoutes";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
-
-const SendWorkVerificationEmail_Mutation = graphql(/* GraphQL */ `
-  mutation SendWorkVerificationEmail($emailType: EmailType) {
-    sendUserEmailVerification(emailType: $emailType) {
-      id
-      workEmail
-    }
-  }
-`);
 
 interface DisplayProps {
   user: PartialUser;
@@ -45,8 +33,6 @@ const Display = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const routes = useRoutes();
-  const [{ fetching: mutationSubmitting }, executeSendEmailMutation] =
-    useMutation(SendWorkVerificationEmail_Mutation);
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
@@ -75,17 +61,7 @@ const Display = ({
       });
 
   const handleVerifyNowClick = () => {
-    executeSendEmailMutation({ emailType: EmailType.Work })
-      .then((result) => {
-        if (result.data?.sendUserEmailVerification) {
-          navigate(routes.verifyWorkEmail());
-        } else {
-          throw new Error("Failed to submit");
-        }
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(commonMessages.error));
-      });
+    navigate(routes.verifyWorkEmail());
   };
 
   const emailVerificationComponents = isWorkEmailVerified ? (
@@ -112,7 +88,6 @@ const Display = ({
         color="error"
         data-h2-margin="base(0 0 x.15 0)" // line up with chip
         onClick={handleVerifyNowClick}
-        disabled={mutationSubmitting}
       >
         {intl.formatMessage({
           defaultMessage: "Verify now",

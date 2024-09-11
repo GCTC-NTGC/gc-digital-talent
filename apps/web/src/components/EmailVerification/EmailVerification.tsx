@@ -64,7 +64,7 @@ export interface EmailVerificationProps {
   onSkip?: () => void;
 }
 
-const EmailVerification = ({
+export const EmailVerification = ({
   emailType = "contact",
   emailAddress,
   onVerificationSuccess,
@@ -273,4 +273,33 @@ const EmailVerification = ({
   );
 };
 
-export default EmailVerification;
+const EmailVerificationApi = ({
+  emailType,
+  ...rest
+}: EmailVerificationProps) => {
+  const intl = useIntl();
+  const logger = useLogger();
+  const [, executeSendEmailMutation] = useMutation(
+    SendUserEmailVerification_Mutation,
+  );
+
+  useEffect(() => {
+    // Send initial verification email on page load
+    executeSendEmailMutation({
+      emailType: emailType === "work" ? EmailType.Work : EmailType.Contact,
+    })
+      .then((result) => {
+        if (!result.data?.sendUserEmailVerification?.id) {
+          throw new Error("Send email error");
+        }
+        logger.debug("Initial code was sent");
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.error));
+      });
+  }, [emailType, executeSendEmailMutation, intl, logger]);
+
+  return <EmailVerification emailType={emailType} {...rest} />;
+};
+
+export default EmailVerificationApi;

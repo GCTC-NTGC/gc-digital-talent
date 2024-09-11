@@ -1,9 +1,7 @@
-import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 
-import { graphql, User } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
+import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 import { Button, Chip, Link } from "@gc-digital-talent/ui";
 import {
@@ -17,15 +15,6 @@ import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 
 import FieldDisplay from "../FieldDisplay";
-
-const SendVerificationEmail_Mutation = graphql(/* GraphQL */ `
-  mutation SendVerificationEmail {
-    sendUserEmailVerification {
-      id
-      email
-    }
-  }
-`);
 
 type PartialUser = Pick<
   User,
@@ -66,25 +55,12 @@ const Display = ({
   const navigate = useNavigate();
   const routes = useRoutes();
 
-  const [{ fetching: mutationSubmitting }, executeSendEmailMutation] =
-    useMutation(SendVerificationEmail_Mutation);
-
   const handleVerifyNowClick = () => {
-    executeSendEmailMutation({})
-      .then((result) => {
-        if (result.data?.sendUserEmailVerification) {
-          navigate(
-            routes.verifyContactEmail({
-              emailAddress: result.data.sendUserEmailVerification.email,
-            }),
-          );
-        } else {
-          throw new Error("Failed to submit");
-        }
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(commonMessages.error));
-      });
+    navigate(
+      routes.verifyContactEmail({
+        emailAddress: email,
+      }),
+    );
   };
 
   const emailVerificationComponents = isEmailVerified ? (
@@ -111,7 +87,6 @@ const Display = ({
         color="error"
         data-h2-margin="base(0 0 x.15 0)" // line up with chip
         onClick={handleVerifyNowClick}
-        disabled={mutationSubmitting}
       >
         {intl.formatMessage({
           defaultMessage: "Verify now",

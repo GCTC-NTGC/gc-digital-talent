@@ -30,10 +30,8 @@ import {
   getFragment,
   GovEmployeeType,
   UpdateUserAsUserInput,
-  EmailType,
 } from "@gc-digital-talent/graphql";
 import {
-  commonMessages,
   errorMessages,
   getGovEmployeeType,
   getLocalizedName,
@@ -586,15 +584,6 @@ const EmployeeInformation_Mutation = graphql(/** GraphQL */ `
   }
 `);
 
-const SendWorkVerificationEmail_Mutation = graphql(/* GraphQL */ `
-  mutation SendWorkVerificationEmail($emailType: EmailType) {
-    sendUserEmailVerification(emailType: $emailType) {
-      id
-      workEmail
-    }
-  }
-`);
-
 const EmployeeInformation = () => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -606,10 +595,6 @@ const EmployeeInformation = () => {
     query: EmployeeInformation_Query,
   });
   const meId = data?.me?.id;
-
-  const [, executeSendEmailMutation] = useMutation(
-    SendWorkVerificationEmail_Mutation,
-  );
 
   const [, executeMutation] = useMutation(EmployeeInformation_Mutation);
   const handleUpdateEmployee = (id: string, input: UpdateUserAsUserInput) =>
@@ -651,20 +636,10 @@ const EmployeeInformation = () => {
           const navigationTarget = from || paths.profileAndApplications();
           navigate(navigationTarget);
         } else {
-          executeSendEmailMutation({ emailType: EmailType.Work })
-            .then((result) => {
-              if (result.data?.sendUserEmailVerification) {
-                navigate({
-                  pathname: paths.workEmailVerification(),
-                  search: from ? createSearchParams({ from }).toString() : "",
-                });
-              } else {
-                throw new Error("Failed to submit");
-              }
-            })
-            .catch(() => {
-              toast.error(intl.formatMessage(commonMessages.error));
-            });
+          navigate({
+            pathname: paths.workEmailVerification(),
+            search: from ? createSearchParams({ from }).toString() : "",
+          });
         }
       })
       .catch(() => {

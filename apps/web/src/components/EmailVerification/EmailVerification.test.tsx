@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { act, screen } from "@testing-library/react";
+import { act, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
@@ -45,7 +45,9 @@ const renderComponent = (
 describe("EmailVerification", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderComponent(getDefaultProps(), getMockClient());
-    await axeTest(container);
+    await waitFor(() => {
+      axeTest(container);
+    });
   });
 
   it("should not have a skip button if not handler provided", () => {
@@ -78,21 +80,37 @@ describe("EmailVerification", () => {
     expect(handleSkip.mock.calls).toHaveLength(1);
   });
 
+  it("should make an API request to request a code on page load", () => {
+    const mutation = jest.fn(() => pipe(fromValue({}), delay(0)));
+    renderComponent(getDefaultProps(), {
+      ...getMockClient(),
+      executeMutation: mutation,
+    });
+    expect(mutation.mock.calls).toHaveLength(1);
+
+    const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
+    expect(callFirstArg).toHaveProperty(
+      "query.definitions[0].name.value",
+      "SendUserEmailVerification",
+    );
+  });
+
   it("should make an API request when a code is requested", () => {
     const mutation = jest.fn(() => pipe(fromValue({}), delay(0)));
     renderComponent(getDefaultProps(), {
       ...getMockClient(),
       executeMutation: mutation,
     });
+    expect(mutation.mock.calls).toHaveLength(1);
     const requestButton = screen.getByRole("button", {
       name: "Send another one.",
     });
     act(() => {
       requestButton.click();
     });
-    expect(mutation.mock.calls).toHaveLength(1);
+    expect(mutation.mock.calls).toHaveLength(2);
 
-    const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
+    const callFirstArg = (mutation.mock.calls[1] as unknown[])[0];
     expect(callFirstArg).toHaveProperty(
       "query.definitions[0].name.value",
       "SendUserEmailVerification",
@@ -105,6 +123,7 @@ describe("EmailVerification", () => {
       ...getMockClient(),
       executeMutation: mutation,
     });
+    expect(mutation.mock.calls).toHaveLength(1);
     const codeInput = screen.getByRole("textbox", {
       name: "Verification code *",
     });
@@ -115,9 +134,9 @@ describe("EmailVerification", () => {
       name: "Submit",
     });
     await userEvent.click(submitButton);
-    expect(mutation.mock.calls).toHaveLength(1);
+    expect(mutation.mock.calls).toHaveLength(2);
 
-    const callFirstArg = (mutation.mock.calls[0] as unknown[])[0];
+    const callFirstArg = (mutation.mock.calls[1] as unknown[])[0];
     expect(callFirstArg).toHaveProperty("variables", {
       code: "123456",
       emailType: EmailType.Contact,

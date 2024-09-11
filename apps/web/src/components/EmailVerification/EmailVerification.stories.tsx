@@ -1,7 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import EmailVerification from "./EmailVerification";
+import { EmailVerification } from "./EmailVerification";
 
 export default {
   component: EmailVerification,
@@ -15,6 +15,14 @@ export const ContactEmail = Template.bind({});
 ContactEmail.args = {
   emailType: "contact",
   emailAddress: "example@example.org",
+  onSkip: action("onSkip"),
+  onVerificationSuccess: action("onVerificationSuccess"),
+};
+
+export const WorkEmail = Template.bind({});
+WorkEmail.args = {
+  emailType: "work",
+  emailAddress: "example@gc.ca",
   onSkip: action("onSkip"),
   onVerificationSuccess: action("onVerificationSuccess"),
 };
