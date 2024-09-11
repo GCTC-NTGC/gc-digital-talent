@@ -70,8 +70,8 @@ const Resources = () => {
                 <p data-h2-padding="base(0 x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "This implementation guidance is designed to support digital initiative managers and leads in fulfilling their responsibilities under the Directive on Digital Talent. This implementation guidance explains why the directive is needed and what is required.",
-                    id: "J+vkLs",
+                      "This implementation guidance is designed to support digital initiative managers and leads in fulfilling their responsibilities under the <cite>Directive on Digital Talent</cite>. This implementation guidance explains why the directive is needed and what is required.",
+                    id: "dnhe2X",
                     description:
                       "Body message for digital initiative managers section.",
                   })}
@@ -139,8 +139,8 @@ const Resources = () => {
                 <p data-h2-padding="base(0 x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the Directive on Digital Talent and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. This implementation guidance is designed to help HR advisors in carrying out these responsibilities.",
-                    id: "4XoNS/",
+                      "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the <cite>Directive on Digital Talent</cite> and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. This implementation guidance is designed to help HR advisors in carrying out these responsibilities.",
+                    id: "Msshus",
                     description:
                       "Body message for digital initiative human resources section.",
                   })}

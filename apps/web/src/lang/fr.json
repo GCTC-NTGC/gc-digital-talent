@@ -1199,8 +1199,8 @@
     "defaultMessage": "Il est probable qu’une nouvelle version de cette annonce soit publiée à l’avenir, alors n’hésitez pas à revenir pour obtenir de plus amples informations.",
     "description": "Second paragraph for the closed early pool deadlines dialog"
   },
-  "4XoNS/": {
-    "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la Directive sur les talents numériques et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
+  "Msshus": {
+    "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
     "description": "Body message for digital initiative human resources section."
   },
   "4Z3/xp": {
@@ -3799,8 +3799,8 @@
     "defaultMessage": "Vos renseignements personnels et vos coordonnées ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their personal and contact information."
   },
-  "J+vkLs": {
-    "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la Directive sur les talents numériques. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
+  "dnhe2X": {
+    "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la <cite>Directive sur les talents numériques</cite>. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
     "description": "Body message for digital initiative managers section."
   },
   "J/JdxQ": {
@@ -7774,7 +7774,7 @@
     "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de vérifier cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
     "description": "Message on getting started page about the contact email address - part 1."
   },
-  "eRiod2": {
+  "6ceoYt": {
     "defaultMessage": "Mises à jour des procédures obligatoires ",
     "description": "Heading for the mandatory procedures card"
   },

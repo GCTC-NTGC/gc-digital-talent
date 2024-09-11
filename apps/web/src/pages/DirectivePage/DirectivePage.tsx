@@ -437,8 +437,8 @@ export const Component = () => {
             <CardFlat
               color="secondary"
               title={intl.formatMessage({
-                defaultMessage: "Updates to the Mandatory Procedures",
-                id: "eRiod2",
+                defaultMessage: "Updates to the mandatory procedures",
+                id: "6ceoYt",
                 description: "Heading for the mandatory procedures card",
               })}
               links={[
@@ -452,8 +452,8 @@ export const Component = () => {
                     },
                     {
                       topic: intl.formatMessage({
-                        defaultMessage: "Updates to the Mandatory Procedures",
-                        id: "eRiod2",
+                        defaultMessage: "Updates to the mandatory procedures",
+                        id: "6ceoYt",
                         description:
                           "Heading for the mandatory procedures card",
                       }),
