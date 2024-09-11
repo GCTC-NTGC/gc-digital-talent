@@ -60,16 +60,8 @@ const procurementLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
-const talentSearchLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    newTab
-    external
-    href={
-      locale === "en"
-        ? "https://talent.canada.ca/en/search"
-        : "https://talent.canada.ca/fr/search"
-    }
-  >
+const talentSearchLink = (localizedLink: string, chunks: ReactNode) => (
+  <Link newTab external href={localizedLink}>
     {chunks}
   </Link>
 );
@@ -429,7 +421,7 @@ export const Component = () => {
                   },
                   {
                     link: (chunks: ReactNode) =>
-                      talentSearchLink(locale, chunks),
+                      talentSearchLink(paths.search(), chunks),
                   },
                 )}
               </p>
