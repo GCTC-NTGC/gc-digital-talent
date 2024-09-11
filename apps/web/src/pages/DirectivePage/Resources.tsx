@@ -1,12 +1,10 @@
 import { useIntl } from "react-intl";
-import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
-import ArrowDownOnSquareIcon from "@heroicons/react/24/outline/ArrowDownOnSquareIcon";
+import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 
 import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
-import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import decisionTree from "~/assets/img/Directive_landing_page_graphics_R1-02.webp";
 import managers from "~/assets/img/Managers_image.webp";
 import hr from "~/assets/img/Human_resources_image.webp";
 import procurement from "~/assets/img/Procurement_officer_image.webp";
@@ -80,51 +78,13 @@ const Resources = () => {
                 </p>
               </div>
               <div data-h2-padding="base(x1)">
-                <p data-h2-font-weight="base(bold)">
-                  {intl.formatMessage({
-                    defaultMessage: "Implementation guidance for managers",
-                    id: "wJ9hiY",
-                    description:
-                      "label above download guidance for managers pdf and text.",
-                  })}
-                </p>
                 <Link
-                  mode="inline"
+                  mode="text"
+                  data-h2-font-weight="base(bold)"
                   color="secondary"
                   block
                   external
                   download
-                  href={
-                    locale === "en"
-                      ? "/static/documents/Guidance_Manager_PDF_EN.pdf"
-                      : "/static/documents/Orientation_gestionnaire_PDF_FR.pdf"
-                  }
-                  aria-label={intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for managers (PDF)",
-                    id: "FdXLKJ",
-                    description:
-                      "Aria label for download guidance for managers pdf link.",
-                  })}
-                  icon={ArrowDownOnSquareIcon}
-                  data-h2-margin="base(x1, 0, x1, 0)"
-                  data-h2-justify-content="base(flex-start)"
-                >
-                  {intl.formatMessage(uiMessages.downloadPdf)}
-                </Link>
-                <Link
-                  mode="inline"
-                  color="secondary"
-                  block
-                  external
-                  download
-                  aria-label={intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for managers (plain text)",
-                    id: "thgFzS",
-                    description:
-                      "Aria label for download guidance for managers plain text link.",
-                  })}
                   href={
                     locale === "en"
                       ? "/static/documents/Guidance_Manager_text_EN.docx"
@@ -133,7 +93,13 @@ const Resources = () => {
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage(uiMessages.downloadPlainText)}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for managers",
+                    id: "yNPkM8",
+                    description:
+                      "Aria label for download guidance for managers plain text link.",
+                  })}
                 </Link>
               </div>
             </div>
@@ -181,51 +147,13 @@ const Resources = () => {
                 </p>
               </div>
               <div data-h2-padding="base(x1)">
-                <p data-h2-font-weight="base(bold)">
-                  {intl.formatMessage({
-                    defaultMessage: "Implementation guidance for HR advisors",
-                    id: "2etyqD",
-                    description:
-                      "Label above download guidance for human resources pdf and text.",
-                  })}
-                </p>
                 <Link
-                  mode="inline"
+                  mode="text"
+                  data-h2-font-weight="base(bold)"
                   color="secondary"
                   block
                   external
                   download
-                  aria-label={intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for HR advisors (PDF)",
-                    id: "9gEfud",
-                    description:
-                      "Aria label for download guidance for human resources pdf link.",
-                  })}
-                  href={
-                    locale === "en"
-                      ? "/static/documents/Guidance_HR_PDF_EN.pdf"
-                      : "/static/documents/Orientation_RH_PDF_FR.pdf"
-                  }
-                  icon={ArrowDownOnSquareIcon}
-                  data-h2-margin="base(x1, 0, x1, 0)"
-                  data-h2-justify-content="base(flex-start)"
-                >
-                  {intl.formatMessage(uiMessages.downloadPdf)}
-                </Link>
-                <Link
-                  mode="inline"
-                  color="secondary"
-                  block
-                  external
-                  download
-                  aria-label={intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for HR advisors (plain text)",
-                    id: "eEXEtz",
-                    description:
-                      "Aria label for download guidance for human resources plain text link.",
-                  })}
                   href={
                     locale === "en"
                       ? "/static/documents/Guidance_HR_text_EN.docx"
@@ -234,7 +162,13 @@ const Resources = () => {
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage(uiMessages.downloadPlainText)}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for HR advisors",
+                    id: "xV43au",
+                    description:
+                      "Aria label for download guidance for human resources plain text link.",
+                  })}
                 </Link>
               </div>
             </div>
@@ -282,52 +216,13 @@ const Resources = () => {
                 </p>
               </div>
               <div data-h2-padding="base(x1)">
-                <p data-h2-font-weight="base(bold)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Implementation guidance for procurement officers",
-                    id: "QjXLW4",
-                    description:
-                      "Label above download guidance for procurement pdf and text.",
-                  })}
-                </p>
                 <Link
-                  mode="inline"
+                  mode="text"
+                  data-h2-font-weight="base(bold)"
                   color="secondary"
                   block
                   external
                   download
-                  href={
-                    locale === "en"
-                      ? "/static/documents/Guidance_Procurement_PDF_EN.pdf"
-                      : "/static/documents/Orientation_approvisionnement_PDF_FR.pdf"
-                  }
-                  aria-label={intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for procurement officers (PDF)",
-                    id: "TKD+D2",
-                    description:
-                      "Aria label for download guidance for procurement officers pdf link.",
-                  })}
-                  icon={ArrowDownOnSquareIcon}
-                  data-h2-margin="base(x1, 0, x1, 0)"
-                  data-h2-justify-content="base(flex-start)"
-                >
-                  {intl.formatMessage(uiMessages.downloadPdf)}
-                </Link>
-                <Link
-                  mode="inline"
-                  color="secondary"
-                  block
-                  external
-                  download
-                  aria-label={intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for procurement officers (plain text)",
-                    id: "FtxUlB",
-                    description:
-                      "Aria label for download guidance for procurement officers plain text link.",
-                  })}
                   href={
                     locale === "en"
                       ? "/static/documents/Guidance_Procurement_text_EN.docx"
@@ -336,7 +231,13 @@ const Resources = () => {
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage(uiMessages.downloadPlainText)}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for procurement officers",
+                    id: "7JQCZ0",
+                    description:
+                      "Aria label for download guidance for procurement officers plain text link.",
+                  })}
                 </Link>
               </div>
             </div>

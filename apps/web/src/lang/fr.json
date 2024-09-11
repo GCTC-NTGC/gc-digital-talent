@@ -3283,12 +3283,12 @@
     "defaultMessage": "Sélectionnez les rôles à confier au membre :",
     "description": "Label for the roles select field on process team dialog"
   },
-  "FtxUlB": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (texte clair)",
+  "7JQCZ0": {
+    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
-  "FuqYtW": {
-    "defaultMessage": "Consultez les récents changements apportés aux Procédures obligatoires sur les talents numériques, notamment la réduction des exigences en matière de rapports! Les modifications entrent en vigueur le 30 septembre 2024.",
+  "Zpu+m1": {
+    "defaultMessage": "<link>Consultez les récents changements apportés aux Procédures obligatoires sur les talents numériques</link>, notamment la réduction des exigences en matière de rapports! Les modifications entrent en vigueur le 30 septembre 2024.",
     "description": "Body of an alert about the directive changing"
   },
   "FvbONe": {
@@ -7782,8 +7782,8 @@
     "defaultMessage": "Cette section résume votre parcours professionnel tel qu’il sera perçu par les gestionnaires d’embauche pour ces postes.",
     "description": "Blurb for career timeline section of the application review page."
   },
-  "eEXEtz": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (texte clair)",
+  "xV43au": {
+    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",
     "description": "Aria label for download guidance for human resources plain text link."
   },
   "eFNBND": {
@@ -10634,8 +10634,8 @@
     "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
     "description": "Message to direct users to the talent placement page"
   },
-  "thgFzS": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
+  "yNPkM8": {
+    "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
   },
   "tiv5J7": {

@@ -14,6 +14,7 @@ import {
   CardFlat,
   Alert,
   CardBasic,
+  ScrollToLink,
 } from "@gc-digital-talent/ui";
 import {
   Locales,
@@ -26,6 +27,10 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 import Resources from "./Resources";
+
+const sectionIds = {
+  changes: "changes",
+} as const;
 
 const policyLink = (locale: Locales, chunks: ReactNode) => (
   <Link
@@ -69,15 +74,15 @@ const talentSearchLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
+const recentChangesLink = (chunks: ReactNode) => (
+  <ScrollToLink to={sectionIds.changes}>{chunks}</ScrollToLink>
+);
+
 export const pageTitle = defineMessage({
   defaultMessage: "Directive on Digital Talent",
   id: "xXwUGs",
   description: "Title for the digital talent directive page",
 });
-
-const sectionIds = {
-  changes: "changes",
-} as const;
 
 export const Component = () => {
   const intl = useIntl();
@@ -149,17 +154,22 @@ export const Component = () => {
                 description: "Title for an alert about the directive changing",
               })}
             </Alert.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "Check out the recent changes to the Mandatory Procedures on Digital Talent, including fewer reporting requirements! Changes are in effect as of September 30th, 2024.",
-              id: "FuqYtW",
-              description: "Body of an alert about the directive changing",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "<link>Check out the recent changes to the Mandatory Procedures on Digital Talent</link>, including fewer reporting requirements! Changes are in effect as of September 30th, 2024.",
+                id: "Zpu+m1",
+                description: "Body of an alert about the directive changing",
+              },
+              {
+                link: (chunks: ReactNode) => recentChangesLink(chunks),
+              },
+            )}
           </Alert.Root>
           <Heading
             Icon={MapIcon}
             size="h3"
-            color="tertiary"
+            color="primary"
             data-h2-margin="base(0, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -192,7 +202,7 @@ export const Component = () => {
             })}
           </p>
           <p>
-            <Link color="primary" mode="solid" href={directiveUrl} external>
+            <Link color="secondary" mode="solid" href={directiveUrl} external>
               {readDirectiveMessage}
             </Link>
           </p>
