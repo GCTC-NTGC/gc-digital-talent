@@ -1,10 +1,10 @@
 import { ReactNode, createContext, useContext, useMemo } from "react";
 
-type NavMenuContextValue = {
+interface NavMenuContextValue {
   open: boolean;
   onOpenToggle?: () => void;
   onOpenChange?: (newOpen: boolean) => void;
-};
+}
 
 const NavMenuContext = createContext<NavMenuContextValue | undefined>(
   undefined,

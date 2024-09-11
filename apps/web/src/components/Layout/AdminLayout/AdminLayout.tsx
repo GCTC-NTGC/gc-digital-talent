@@ -1,91 +1,23 @@
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
-import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { HTMLProps, forwardRef, useEffect } from "react";
 
-import { useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { useLocalStorage } from "@gc-digital-talent/storage";
-import {
-  Button,
-  SideMenu,
-  SideMenuButton,
-  SideMenuCategory,
-  SideMenuContentWrapper,
-  SideMenuItem,
-} from "@gc-digital-talent/ui";
-import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
-import {
-  ROLE_NAME,
-  useAuthentication,
-  useAuthorization,
-} from "@gc-digital-talent/auth";
+import { getLocale } from "@gc-digital-talent/i18n";
 import { useLogger } from "@gc-digital-talent/logger";
 
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
 import SEO, { Favicon } from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
-import { checkRole } from "~/utils/teamUtils";
-import pageTitles from "~/messages/pageTitles";
-import pageIcons from "~/utils/pageIcons";
 import useErrorMessages from "~/hooks/useErrorMessages";
-import NotificationDialog from "~/components/NotificationDialog/NotificationDialog";
 import SiteNavMenu from "~/components/NavMenu/SiteNavMenu";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
-import SignInOrSignOut from "./SignInOrSignOut";
-
-interface OpenMenuButtonProps extends HTMLProps<HTMLButtonElement> {
-  show: boolean;
-}
-
-const OpenMenuButton = forwardRef<
-  HTMLButtonElement,
-  Omit<OpenMenuButtonProps, "ref">
->(({ children, onClick, show }, ref) =>
-  show ? (
-    <Button
-      ref={ref}
-      icon={Bars3Icon}
-      onClick={onClick}
-      type="button"
-      color="blackFixed"
-      data-h2-text-align="base(left)"
-      data-h2-radius="base(0)"
-      data-h2-align-self="base(flex-start)"
-      data-h2-align-items="base(flex-start)"
-      data-h2-position="base(sticky)"
-      data-h2-top="base(0)"
-      data-h2-width="base(100%)"
-      data-h2-z-index="base(1)"
-    >
-      {children}
-    </Button>
-  ) : null,
-);
 
 export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const paths = useRoutes();
   useLayoutTheme("default");
-  const isSmallScreen = useIsSmallScreen();
-  const { roleAssignments } = useAuthorization();
-  const { loggedIn } = useAuthentication();
-
-  // retain menu preference in storage
-  const [isMenuOpen, setMenuOpen] = useLocalStorage(
-    "digitaltalent-menustate",
-    true,
-  );
-  useEffect(() => {
-    if (isSmallScreen) {
-      setMenuOpen(false); // collapse menu if window resized to small
-    }
-  }, [isSmallScreen, setMenuOpen]);
 
   return (
     <>

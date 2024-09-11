@@ -11,8 +11,6 @@ import Separator from "../Separator";
 import NavMenu from "./NavMenu";
 import NavMenuWrapper from "./NavMenuWrapper";
 
-interface SiteNavMenuProps {}
-
 const SiteNavMenu = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();

@@ -1,14 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import FocusLock from "react-focus-lock";
-import { RemoveScroll } from "react-remove-scroll";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
-import {
-  KeyboardEventHandler,
-  ReactNode,
-  RefObject,
-  useCallback,
-  JSX,
-} from "react";
+import { KeyboardEventHandler, ReactNode, RefObject, useCallback } from "react";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 

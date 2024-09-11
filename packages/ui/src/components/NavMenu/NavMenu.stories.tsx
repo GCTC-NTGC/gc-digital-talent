@@ -21,7 +21,7 @@ export default {
   },
 };
 
-const Template: StoryFn<typeof NavMenu.Root> = (args) => (
+const Template: StoryFn<typeof NavMenu.Root> = () => (
   <div
     data-h2-position="base(relative)"
     data-h2-width="base(90vw) l-tablet(97vw)"
