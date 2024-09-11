@@ -4,7 +4,12 @@ import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
 
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { uiMessages } from "@gc-digital-talent/i18n";
+import {
+  localizePath,
+  oppositeLocale,
+  uiMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import {
   Button,
   NavMenu,
@@ -22,9 +27,16 @@ import useRoutes from "~/hooks/useRoutes";
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
 import { useMainLinks } from "./navlinks";
+import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 const SiteNavMenu = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
+
+  const changeToLang = oppositeLocale(locale);
+  const languageTogglePath = localizePath(location, changeToLang);
+
   const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen(1080);
   const { navRole } = useNavContext();
@@ -70,8 +82,34 @@ const SiteNavMenu = () => {
   return (
     <>
       <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
+        <div
+          data-h2-display="base(flex) l-tablet(none)"
+          data-h2-justify-content="base(space-between)"
+          data-h2-align-items="base(center)"
+        >
+          <ThemeSwitcher />
+          <a
+            data-h2-background-color="base:focus-visible(focus)"
+            data-h2-outline="base(none)"
+            data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
+            href={languageTogglePath}
+            lang={changeToLang === "en" ? "en" : "fr"}
+          >
+            {intl.formatMessage({
+              defaultMessage: "<hidden>Changer la langue en </hidden>Français",
+              id: "Z3h103",
+              description: "Title for the language toggle link.",
+            })}
+          </a>
+        </div>
+        <Separator
+          space="none"
+          data-h2-display="l-tablet(none)"
+          data-h2-margin="base(x1 0) l-tablet(0)"
+        />
         <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
-          {roleAssignments !== undefined && roleAssignments.length > 1 ? (
+          {navRole !== "guest" ||
+          (roleAssignments !== undefined && roleAssignments.length > 1) ? (
             <>
               <NavMenu.Item>
                 <NavMenu.Trigger
@@ -101,12 +139,13 @@ const SiteNavMenu = () => {
             </>
           ) : null}
           {mainLinks}
-          <Separator space="none" data-h2-display="l-tablet(none)" />
+          <Separator
+            space="none"
+            data-h2-display="l-tablet(none)"
+            data-h2-margin-bottom="base(x1) l-tablet(0)"
+          />
         </NavMenu.List>
-        <NavMenu.List
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-margin-top="base(x1) l-tablet(0)"
-        >
+        <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
           {accountLinks && (
             <NavMenu.Item>
               <NavMenu.Trigger

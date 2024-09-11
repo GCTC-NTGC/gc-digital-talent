@@ -110,7 +110,7 @@ export const Component = () => {
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
         >
-          <Header width="full" />
+          <Header />
           <SitewideBanner />
           <SiteNavMenu />
           <main
@@ -122,7 +122,7 @@ export const Component = () => {
               <Outlet />
             </div>
           </main>
-          <Footer width="full" />
+          <Footer />
         </div>
       </div>
       <ScrollRestoration
