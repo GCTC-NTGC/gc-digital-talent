@@ -161,6 +161,12 @@ class Pool extends Model
         });
     }
 
+    /**
+     * Binds the eloquent builder to the model to allow for
+     * applying scopes directly to Pool query builders
+     *
+     * i.e Pool::query()->wherePublished();
+     */
     public function newEloquentBuilder($query): PoolBuilder
     {
         return new PoolBuilder($query);
