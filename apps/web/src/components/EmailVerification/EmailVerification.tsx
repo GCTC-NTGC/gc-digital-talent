@@ -32,13 +32,13 @@ const getTitle = (
   intl: IntlShape,
 ) => {
   switch (emailType) {
-    case "work":
+    case EmailType.Work:
       return intl.formatMessage({
         defaultMessage: "Verify your work email",
         id: "T7irec",
         description: "Verify your work email text",
       });
-    case "contact":
+    case EmailType.Contact:
     default:
       return intl.formatMessage({
         defaultMessage: "Verify your contact email",
@@ -55,7 +55,7 @@ interface FormValues {
 }
 
 export interface EmailVerificationProps {
-  emailType?: "contact" | "work";
+  emailType?: EmailType;
   // The email address that the code was sent to.  Displayed to the user.
   emailAddress?: string | null;
   // Event if verification is successful.
@@ -65,7 +65,7 @@ export interface EmailVerificationProps {
 }
 
 export const EmailVerification = ({
-  emailType = "contact",
+  emailType = EmailType.Contact,
   emailAddress,
   onVerificationSuccess,
   onSkip,
@@ -96,7 +96,7 @@ export const EmailVerification = ({
 
   const requestACode = async () => {
     executeSendEmailMutation({
-      emailType: emailType === "work" ? EmailType.Work : EmailType.Contact,
+      emailType,
     })
       .then((result) => {
         if (!result.data?.sendUserEmailVerification?.id) {
@@ -112,7 +112,7 @@ export const EmailVerification = ({
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
     executeVerifyUserEmailMutation({
-      emailType: emailType === "work" ? EmailType.Work : EmailType.Contact,
+      emailType,
       code: data.verificationCode,
     })
       .then((result) => {
@@ -286,7 +286,7 @@ const EmailVerificationApi = ({
   useEffect(() => {
     // Send initial verification email on page load
     executeSendEmailMutation({
-      emailType: emailType === "work" ? EmailType.Work : EmailType.Contact,
+      emailType,
     })
       .then((result) => {
         if (!result.data?.sendUserEmailVerification?.id) {

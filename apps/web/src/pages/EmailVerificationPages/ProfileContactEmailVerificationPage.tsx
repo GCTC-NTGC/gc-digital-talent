@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { EmailType } from "@gc-digital-talent/graphql";
 
 // importing from a shared file, not the page itself
 // eslint-disable-next-line no-restricted-imports
@@ -72,7 +73,7 @@ const ProfileContactEmailVerificationPage = () => {
           <EmailVerification
             emailAddress={emailAddress}
             onVerificationSuccess={handleVerificationSuccess}
-            emailType="contact"
+            emailType={EmailType.Contact}
             onSkip={handleSkip}
           />
         </div>

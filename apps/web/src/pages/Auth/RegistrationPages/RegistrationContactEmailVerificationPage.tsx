@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { EmailType } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -63,7 +64,7 @@ const RegistrationContactEmailVerificationPage = () => {
         <EmailVerification
           emailAddress={emailAddress}
           onVerificationSuccess={handleVerificationSuccess}
-          emailType="contact"
+          emailType={EmailType.Contact}
           onSkip={handleSkip}
         />
       </div>

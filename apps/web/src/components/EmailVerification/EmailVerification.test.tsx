@@ -14,7 +14,7 @@ import { EmailType } from "@gc-digital-talent/graphql";
 import EmailVerification, { EmailVerificationProps } from "./EmailVerification";
 
 const getDefaultProps = (): EmailVerificationProps => ({
-  emailType: "contact",
+  emailType: EmailType.Contact,
   emailAddress: "example@example.org",
   onSkip: jest.fn(),
   onVerificationSuccess: jest.fn(),

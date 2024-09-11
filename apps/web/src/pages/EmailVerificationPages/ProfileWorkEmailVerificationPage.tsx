@@ -4,7 +4,7 @@ import { useQuery } from "urql";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { graphql } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
 // importing from a shared file, not the page itself
 // eslint-disable-next-line no-restricted-imports
@@ -82,7 +82,7 @@ const ProfileWorkEmailVerificationPage = () => {
           <EmailVerification
             emailAddress={data?.me?.workEmail}
             onVerificationSuccess={handleVerificationSuccess}
-            emailType="work"
+            emailType={EmailType.Work}
             onSkip={handleSkip}
           />
         </div>

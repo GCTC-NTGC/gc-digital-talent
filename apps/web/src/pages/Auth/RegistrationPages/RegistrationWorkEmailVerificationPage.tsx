@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { graphql } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -67,7 +67,7 @@ const RegistrationWorkEmailVerificationPage = () => {
         <EmailVerification
           emailAddress={data?.me?.workEmail}
           onVerificationSuccess={handleVerificationSuccess}
-          emailType="work"
+          emailType={EmailType.Work}
           onSkip={handleSkip}
         />
       </div>
