@@ -65,7 +65,7 @@ class ExperienceTest extends TestCase
             $userSkills[2]->id => ['details' => 'third skill'],
         ]);
 
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(<<<'GRAPHQL'
+        $response = $this->actingAs($this->platformAdmin, 'api')->graphQL(<<<'GRAPHQL'
             query getUser($id: UUID!) {
                 user(id: $id) {
                     workExperiences {
@@ -83,22 +83,29 @@ class ExperienceTest extends TestCase
             [
                 'id' => $this->platformAdmin->id,
             ]
-        )->assertJsonFragment([
-            'id' => $userSkills[0]->skill->id,
-            'experienceSkillRecord' => [
-                'details' => 'first skill',
+        );
+
+        $this->assertEqualsCanonicalizing([
+            [
+
+                'id' => $userSkills[0]->skill->id,
+                'experienceSkillRecord' => [
+                    'details' => 'first skill',
+                ],
             ],
-        ])->assertJsonFragment([
-            'id' => $userSkills[1]->skill->id,
-            'experienceSkillRecord' => [
-                'details' => 'second skill',
+            [
+                'id' => $userSkills[1]->skill->id,
+                'experienceSkillRecord' => [
+                    'details' => 'second skill',
+                ],
             ],
-        ])->assertJsonFragment([
-            'id' => $userSkills[2]->skill->id,
-            'experienceSkillRecord' => [
-                'details' => 'third skill',
+            [
+                'id' => $userSkills[2]->skill->id,
+                'experienceSkillRecord' => [
+                    'details' => 'third skill',
+                ],
             ],
-        ]);
+        ], $response['data']['user']['workExperiences'][0]['skills']);
     }
 
     protected function checkCreatesUserSkills($method): void
