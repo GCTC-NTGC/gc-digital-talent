@@ -75,6 +75,10 @@ export const pageTitle = defineMessage({
   description: "Title for the digital talent directive page",
 });
 
+const sectionIds = {
+  changes: "changes",
+} as const;
+
 export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -445,11 +449,9 @@ export const Component = () => {
                       }),
                     },
                   ),
-                  href: "#",
+                  to: sectionIds.changes,
                   mode: "solid",
                   "data-h2-padding": "base(x.5, x1)",
-                  download: false,
-                  external: false,
                 } as const,
               ]}
             >
@@ -508,7 +510,7 @@ export const Component = () => {
             </CardFlat>
           </div>
           <Resources />
-          <section>
+          <section id={sectionIds.changes}>
             <Heading
               Icon={Cog8ToothIcon}
               size="h3"
