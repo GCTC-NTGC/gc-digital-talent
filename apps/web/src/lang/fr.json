@@ -10335,7 +10335,7 @@
     "description": "Support services contract commodity"
   },
   "s7kVFi": {
-    "defaultMessage": "Les gestionnaires sont tenus de remplir le questionnaire d’octroi de contrats sur les services numériques lorsqu’ils lancent un processus d’approvisionnement pour des services ou des talents numériques dépassant 40 000 $ (taxes et frais applicables compris).<br/>Si vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>la plateforme Talents numériques du GC</link>.",
+    "defaultMessage": "Les gestionnaires sont tenus de remplir le questionnaire d’octroi de contrats sur les services numériques lorsqu’ils lancent un processus d’approvisionnement pour des services ou des talents numériques dépassant 40 000 $ (taxes et frais applicables compris).\n\nSi vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>la plateforme Talents numériques du GC</link>.",
     "description": "Description for the digital Services contracting form"
   },
   "s9unRt": {
