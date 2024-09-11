@@ -6,20 +6,34 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import profileMessages from "~/messages/profileMessages";
+
 import { FormValues, PartialUser } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
-  wouldAcceptTemporary: intl.formatMessage({
-    defaultMessage: "I would consider accepting a job that lasts for...",
-    id: "/DCykA",
-    description:
-      "Legend Text for required work preferences options in work preferences form",
+  contractDuration: intl.formatMessage(profileMessages.contractDuration),
+  acceptedOperationalRequirements: intl.formatMessage(
+    profileMessages.acceptableRequirements,
+  ),
+  currentLocation: intl.formatMessage({
+    defaultMessage: "Your current location",
+    id: "J3yJhp",
+    description: "Legend for users current location",
   }),
-  acceptedOperationalRequirements: intl.formatMessage({
-    defaultMessage: "I would consider accepting a job that...",
-    id: "82Oe0C",
-    description:
-      "Legend for optional work preferences check list in work preferences form",
+  currentProvince: intl.formatMessage({
+    defaultMessage: "Province, territory or region",
+    id: "fm2lKX",
+    description: "Label for current province or territory field",
+  }),
+  currentCity: intl.formatMessage({
+    defaultMessage: "City or town",
+    id: "Qvep+v",
+    description: "Label for current city field in About Me form",
+  }),
+  workLocationPreferences: intl.formatMessage({
+    defaultMessage: "Work location preferences",
+    id: "ahK7mI",
+    description: "Legend for the work location preferences section",
   }),
   locationPreferences: intl.formatMessage({
     defaultMessage: "I am willing to work in the...",
@@ -47,6 +61,8 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
     acceptedOperationalRequirements: unpackMaybes(
       data.acceptedOperationalRequirements?.map((req) => req?.value),
     ),
+    currentProvince: data?.currentProvince?.value,
+    currentCity: data?.currentCity,
     locationPreferences: unpackMaybes(
       data.locationPreferences?.map((pref) => pref?.value),
     ),
@@ -72,5 +88,7 @@ export const formValuesToSubmitData = (
     acceptedOperationalRequirements: values.acceptedOperationalRequirements,
     locationPreferences: values.locationPreferences,
     locationExemptions: values.locationExemptions,
+    currentCity: values.currentCity,
+    currentProvince: values.currentProvince,
   };
 };

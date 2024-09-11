@@ -6,13 +6,11 @@ import {
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
-  workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
   PartialUserAbout,
   PartialUserDei,
   PartialUserGovernment,
   PartialUserLanguage,
-  PartialUserLocation,
   PartialUserPreferences,
 } from "~/validators/profile";
 
@@ -20,13 +18,11 @@ type PartialUser = PartialUserAbout &
   PartialUserDei &
   PartialUserGovernment &
   PartialUserLanguage &
-  PartialUserLocation &
   PartialUserPreferences;
 
 const stepHasError = (user: PartialUser, pool: Pool) => {
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(user) ||
-    workLocationSectionHasEmptyRequiredFields(user) ||
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
     governmentInformationSectionHasEmptyRequiredFields(user) ||
     languageInformationSectionHasEmptyRequiredFields(user) ||

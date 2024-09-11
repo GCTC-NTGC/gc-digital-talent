@@ -27,6 +27,7 @@ import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferen
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
+import { getLabels } from "~/components/Profile/components/WorkPreferences/utils";
 
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
@@ -356,7 +357,7 @@ const ApplicationInformation = ({
             {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
-            <WorkPreferencesDisplay user={snapshot} />
+            <WorkPreferencesDisplay user={snapshot} labels={getLabels(intl)} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.GOV_INFO}>

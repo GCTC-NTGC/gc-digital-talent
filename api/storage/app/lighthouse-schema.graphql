@@ -113,6 +113,11 @@ type LocalizedPlacementType {
   label: LocalizedString!
 }
 
+type LocalizedPoolAreaOfSelection {
+  value: PoolAreaOfSelection!
+  label: LocalizedString!
+}
+
 type LocalizedPoolCandidateSearchPositionType {
   value: PoolCandidateSearchPositionType!
   label: LocalizedString!
@@ -140,6 +145,11 @@ type LocalizedPoolLanguage {
 
 type LocalizedPoolOpportunityLength {
   value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolSelectionLimitation {
+  value: PoolSelectionLimitation!
   label: LocalizedString!
 }
 
@@ -217,6 +227,8 @@ type Query {
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
+  jobPosterTemplate(id: UUID!): JobPosterTemplate
+  jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
@@ -375,6 +387,9 @@ type Mutation {
   deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
+  createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
+  updateJobPosterTemplate(id: UUID!, jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
+  deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
@@ -651,6 +666,8 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   department: Department
+  areaOfSelection: LocalizedPoolAreaOfSelection
+  selectionLimitations: [LocalizedPoolSelectionLimitation!]
 }
 
 type GeneralQuestionResponse {
@@ -994,6 +1011,39 @@ type ExperienceSkillRecord {
   details: String
 }
 
+type JobPosterTemplate {
+  id: UUID!
+  referenceId: String
+  name: LocalizedString
+  description: LocalizedString
+  supervisoryStatus: SupervisoryStatus
+  stream: LocalizedPoolStream
+  workDescription: LocalizedString
+  tasks: LocalizedString
+  keywords: LocalizedKeywords
+  essentialTechnicalSkillsNotes: LocalizedString
+  essentialBehaviouralSkillsNotes: LocalizedString
+  nonessentialTechnicalSkillsNotes: LocalizedString
+  classification: Classification
+  skills: [JobPosterTemplateSkill!]
+}
+
+type LocalizedKeywords {
+  en: [String!]
+  fr: [String!]
+}
+
+type JobPosterTemplateSkillPivot {
+  type: LocalizedPoolSkillType!
+  requiredLevel: SkillLevel!
+}
+
+type JobPosterTemplateSkill {
+  id: UUID!
+  skill: Skill!
+  pivot: JobPosterTemplateSkillPivot
+}
+
 input ClassificationFilterInput {
   group: String!
   level: Int!
@@ -1055,7 +1105,7 @@ input PoolBookmarksOrderByInput {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
@@ -1169,7 +1219,7 @@ input CreateUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1216,7 +1266,7 @@ input UpdateUserAsAdminInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1272,7 +1322,7 @@ input UpdateUserAsUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1402,7 +1452,7 @@ input UpdateCommunityInput {
 }
 
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -1645,6 +1695,8 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+  areaOfSelection: PoolAreaOfSelection
+  selectionLimitations: [PoolSelectionLimitation!]
 }
 
 input UpdatePublishedPoolInput {
@@ -1779,10 +1831,65 @@ input DateRange {
   to: DateTime!
 }
 
+input LocalizedKeywordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 input NotificationFilterInput {
   onlyUnread: Boolean
   readAt: DateRange
   createdAt: DateRange
+}
+
+input AttachJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType!
+  requiredLevel: SkillLevel!
+}
+
+input SyncJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType
+  requiredLevel: SkillLevel
+}
+
+input UpdateJobPosterTemplateSkillsInput {
+  attach: [AttachJobPosterTemplateSkillInput!]
+  sync: [SyncJobPosterTemplateSkillInput!]
+  detach: [UUID!]
+}
+
+input CreateJobPosterTemplateInput {
+  referenceId: String!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput!
+  supervisoryStatus: SupervisoryStatus!
+  stream: PoolStream!
+  workDescription: LocalizedStringInput
+  tasks: LocalizedStringInput!
+  keywords: LocalizedKeywordsInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+  classification: ClassificationBelongsTo!
+  skills: UpdateJobPosterTemplateSkillsInput
+}
+
+input UpdateJobPosterTemplateInput {
+  referenceId: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  supervisoryStatus: SupervisoryStatus
+  stream: PoolStream
+  workDescription: LocalizedStringInput
+  tasks: LocalizedStringInput
+  keywords: LocalizedStringInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+  classification: ClassificationBelongsTo
+  skills: UpdateJobPosterTemplateSkillsInput
 }
 
 type DigitalContractingPersonnelSkill {
@@ -2763,6 +2870,11 @@ enum PlacementType {
   PLACED_INDETERMINATE
 }
 
+enum PoolAreaOfSelection {
+  PUBLIC
+  EMPLOYEES
+}
+
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
@@ -2820,6 +2932,11 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolSelectionLimitation {
+  AT_LEVEL_ONLY
+  DEPARTMENTAL_PREFERENCE
 }
 
 enum PoolSkillType {
@@ -2900,6 +3017,11 @@ enum SkillLevel {
   INTERMEDIATE
   ADVANCED
   LEAD
+}
+
+enum SupervisoryStatus {
+  INDIVIDUAL_CONTRIBUTOR
+  SUPERVISOR
 }
 
 enum WhenSkillUsed {

@@ -76,6 +76,7 @@ return [
         'applicationPlacement' => 'applicationPlacement',
         'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision, but can't be fully removed until after #8671.
         'applicantCount' => 'applicantCount',
+        'jobPosterTemplate' => 'jobPosterTemplate',
         'searchRequest' => 'searchRequest',
         'role' => 'role',
         'announcement' => 'announcement',
@@ -427,6 +428,23 @@ return [
         'view-any-applicantCount' => [
             'en' => 'View the count result of any filter-Applicant query',
             'fr' => 'Visualiser le résultat du comptage de n\'importe quelle requête filtre-demandeur',
+        ],
+
+        'view-any-jobPosterTemplate' => [
+            'en' => 'View any job poster template',
+            'fr' => 'Voir n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'create-any-jobPosterTemplate' => [
+            'en' => 'Create any job poster template',
+            'fr' => 'Créer n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'update-any-jobPosterTemplate' => [
+            'en' => 'Update any job poster template',
+            'fr' => 'Mise à jour de tout modèle d\'affiche d\'emploi',
+        ],
+        'delete-any-jobPosterTemplate' => [
+            'en' => 'Delete any job poster template',
+            'fr' => 'Supprimer un modèle d\'offre d\'emploi',
         ],
 
         'create-any-searchRequest' => [
@@ -803,6 +821,9 @@ return [
             'applicantCount' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view'],
+            ],
             'searchRequest' => [
                 'any' => ['create'],
             ],
@@ -843,6 +864,9 @@ return [
                 'any' => ['view'],
             ],
             'applicantCount' => [
+                'any' => ['view'],
+            ],
+            'jobPosterTemplate' => [
                 'any' => ['view'],
             ],
             'searchRequest' => [
@@ -1150,6 +1174,9 @@ return [
             ],
             'applicationPlacement' => [
                 'any' => ['view'],
+            ],
+            'jobPosterTemplate' => [
+                'any' => ['view', 'create', 'update', 'delete'],
             ],
             'searchRequest' => [
                 'any' => ['view'],

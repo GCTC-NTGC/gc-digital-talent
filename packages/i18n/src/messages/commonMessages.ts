@@ -300,6 +300,16 @@ const commonMessages = defineMessages({
     id: "m0iNdp",
     description: "Null selection for community select input.",
   },
+  accepted: {
+    defaultMessage: "Accepted",
+    id: "Pj4lW9",
+    description: "Indicates a user has accepted some criteria",
+  },
+  notAccepted: {
+    defaultMessage: "Not accepted",
+    id: "I1jrAG",
+    description: "Indicates a user has not accepted some criteria",
+  },
 });
 
 export default commonMessages;

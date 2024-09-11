@@ -7,6 +7,8 @@ import {
   ArmedForcesStatus,
   CreateUserInput,
   User,
+  UpdateUserAsUserInput,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
@@ -71,6 +73,35 @@ const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
     }
   }
 `;
+
+export const Test_UpdateUserMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateUser($id: ID!, $user: UpdateUserAsUserInput!) {
+    updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`;
+
+interface UpdateUserAsUserArgs {
+  user: Partial<UpdateUserAsUserInput>;
+  id: Scalars["ID"]["input"];
+}
+
+export const updateUser: GraphQLRequestFunc<
+  User,
+  UpdateUserAsUserArgs
+> = async (ctx, { id, user }) => {
+  return ctx
+    .post(Test_UpdateUserMutationDocument, {
+      variables: {
+        id,
+        user,
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"updateUserAsUser", User>) => res.updateUserAsUser,
+    );
+};
 
 type RoleInput = string | [string, string];
 

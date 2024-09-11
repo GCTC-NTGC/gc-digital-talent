@@ -45,11 +45,11 @@ class WorkExperience extends Experience
     ];
 
     protected static $hydrationFields = [
-        'organization' => ['organization'],
-        'role' => ['role'],
-        'division' => ['division'],
-        'start_date' => ['startDate'],
-        'end_date' => ['endDate'],
+        'organization' => 'organization',
+        'role' => 'role',
+        'division' => 'division',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
     ];
 
     public function getTitle(?string $lang = 'en'): string

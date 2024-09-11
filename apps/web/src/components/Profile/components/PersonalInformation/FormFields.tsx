@@ -4,7 +4,6 @@ import { useQuery } from "urql";
 import {
   Input,
   RadioGroup,
-  Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
@@ -22,15 +21,6 @@ import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 const PersonalInformationFormOptions_Query = graphql(/* GraphQL */ `
   query PersonalInformationFormOptions {
     languages: localizedEnumStrings(enumName: "Language") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    provinceOrTerritories: localizedEnumStrings(
-      enumName: "ProvinceOrTerritory"
-    ) {
       value
       label {
         en
@@ -88,30 +78,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
           type="tel"
           label={labels.telephone}
           placeholder={intl.formatMessage(formMessages.phonePlaceholder)}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Input
-          id="currentCity"
-          name="currentCity"
-          type="text"
-          label={labels.currentCity}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Select
-          id="currentProvince"
-          name="currentProvince"
-          label={labels.currentProvince}
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a province or territory",
-            id: "H1wLfA",
-            description:
-              "Placeholder displayed on the About Me form province or territory field.",
-          })}
-          options={localizedEnumToOptions(data?.provinceOrTerritories, intl)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
