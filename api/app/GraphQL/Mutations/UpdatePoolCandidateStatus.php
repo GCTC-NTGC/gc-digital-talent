@@ -23,6 +23,7 @@ final readonly class UpdatePoolCandidateStatus
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name => 'final_decision_at',
 
                 PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
                 PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name,
                 PoolCandidateStatus::REMOVED->name => 'removed_at',
