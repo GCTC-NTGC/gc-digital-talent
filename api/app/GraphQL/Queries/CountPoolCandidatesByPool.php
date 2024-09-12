@@ -22,14 +22,14 @@ final class CountPoolCandidatesByPool
         $queryBuilder = PoolCandidate::query();
 
         $queryBuilder->whereHas('pool', function ($query) use ($filters) {
-            $query->wasPublished();
+            $query->wherePublished();
 
             if (array_key_exists('qualifiedClassifications', $filters)) {
-                Pool::scopeClassifications($query, $filters['qualifiedClassifications']);
+                $query->whereClassifications($filters['qualifiedClassifications']);
             }
 
             if (array_key_exists('qualifiedStreams', $filters)) {
-                Pool::scopeStreams($query, $filters['qualifiedStreams']);
+                $query->streams($filters['qualifiedStreams']);
             }
         });
 

@@ -683,9 +683,7 @@ class PoolTest extends TestCase
         $allPools = Pool::all();
         assertSame(count($allPools), 7);
 
-        $activePools = Pool::where((function ($query) {
-            Pool::scopeCurrentlyActive($query);
-        }))->get();
+        $activePools = Pool::query()->whereCurrentlyActive()->get();
         assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
     }
 

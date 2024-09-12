@@ -813,7 +813,8 @@ input PoolFilterInput {
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
-  classifications: [ClassificationFilterInput!] @scope
+  classifications: [ClassificationFilterInput!]
+    @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
 }
 
@@ -940,10 +941,10 @@ type Query {
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
-    @all(scopes: ["wasPublished", "notArchived"])
+    @all(scopes: ["wherePublished", "whereNotArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
-    @all(scopes: ["authorizedToView", "notArchived"])
+    @all(scopes: ["authorizedToView", "whereNotArchived"])
     @canResolved(ability: "view")
     @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
