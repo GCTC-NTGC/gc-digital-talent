@@ -30,7 +30,7 @@ class JobPosterTemplateSeeder extends Seeder
         // Check for duplicate reference ids
         $referenceIds = array_map(
             function ($model) {
-                return $model->reference_id;
+                return $model->referenceId;
             },
             $models
         );
@@ -39,17 +39,16 @@ class JobPosterTemplateSeeder extends Seeder
         }
 
         foreach ($models as $model) {
-            $classificationId = DB::table('classification')
+            $classificationObject = DB::table('classifications')
                 ->where('group', $model->classification->group)
                 ->where('level', $model->classification->level)
-                ->firstOrFail()
-                ->value('id');
+                ->first();
 
             $createdOrUpdatedTemplate = JobPosterTemplate::updateOrCreate(
                 ['reference_id' => $model->referenceId],
                 [
                     'stream' => $model->stream,
-                    'classification_id' => $classificationId,
+                    'classification_id' => $classificationObject->id,
                     'supervisory_status' => $model->supervisoryStatus,
                     'name' => [
                         'en' => $model->name->en,
@@ -108,50 +107,54 @@ class JobPosterTemplateSeeder extends Seeder
 
             // add skills for all four groupings
             foreach ($essentialTechnicalSkills as $essentialTechnicalSkill) {
-                $skillToAttachId = DB::table('skills')
+                $skillToAttachObject = DB::table('skills')
                     ->where('key', $essentialTechnicalSkill->key)
-                    ->firstOrFail()
-                    ->value('id');
+                    ->first();
 
-                $createdOrUpdatedTemplate->skills()->attach($skillToAttachId, [
-                    'type' => PoolSkillType::ESSENTIAL->name,
-                    'required_skill_level' => $essentialTechnicalSkill->skillLevel,
+                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
+                    $skillToAttachObject->id => [
+                        'type' => PoolSkillType::ESSENTIAL->name,
+                        'required_skill_level' => $essentialTechnicalSkill->skillLevel,
+                    ],
                 ]);
             }
 
             foreach ($essentialBehaviouralSkills as $essentialBehaviouralSkill) {
-                $skillToAttachId = DB::table('skills')
+                $skillToAttachObject = DB::table('skills')
                     ->where('key', $essentialBehaviouralSkill->key)
-                    ->firstOrFail()
-                    ->value('id');
+                    ->first();
 
-                $createdOrUpdatedTemplate->skills()->attach($skillToAttachId, [
-                    'type' => PoolSkillType::ESSENTIAL->name,
-                    'required_skill_level' => $essentialBehaviouralSkill->skillLevel,
+                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
+                    $skillToAttachObject->id => [
+                        'type' => PoolSkillType::ESSENTIAL->name,
+                        'required_skill_level' => $essentialBehaviouralSkill->skillLevel,
+                    ],
                 ]);
             }
 
             foreach ($nonessentialTechnicalSkills as $nonessentialTechnicalSkill) {
-                $skillToAttachId = DB::table('skills')
+                $skillToAttachObject = DB::table('skills')
                     ->where('key', $nonessentialTechnicalSkill->key)
-                    ->firstOrFail()
-                    ->value('id');
+                    ->first();
 
-                $createdOrUpdatedTemplate->skills()->attach($skillToAttachId, [
-                    'type' => PoolSkillType::NONESSENTIAL->name,
-                    'required_skill_level' => $nonessentialTechnicalSkill->skillLevel,
+                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
+                    $skillToAttachObject->id => [
+                        'type' => PoolSkillType::NONESSENTIAL->name,
+                        'required_skill_level' => $nonessentialTechnicalSkill->skillLevel,
+                    ],
                 ]);
             }
 
             foreach ($nonessentialBehaviouralSkills as $nonessentialBehaviouralSkill) {
-                $skillToAttachId = DB::table('skills')
+                $skillToAttachObject = DB::table('skills')
                     ->where('key', $nonessentialBehaviouralSkill->key)
-                    ->firstOrFail()
-                    ->value('id');
+                    ->first();
 
-                $createdOrUpdatedTemplate->skills()->attach($skillToAttachId, [
-                    'type' => PoolSkillType::NONESSENTIAL->name,
-                    'required_skill_level' => $nonessentialBehaviouralSkill->skillLevel,
+                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
+                    $skillToAttachObject->id => [
+                        'type' => PoolSkillType::NONESSENTIAL->name,
+                        'required_skill_level' => $nonessentialBehaviouralSkill->skillLevel,
+                    ],
                 ]);
             }
 
@@ -160,12 +163,11 @@ class JobPosterTemplateSeeder extends Seeder
             $skillsToRemoveKeys = array_diff($allSkillsAttachedToTemplate, $allSkillsNeededKeys);
 
             foreach ($skillsToRemoveKeys as $skillToRemoveKey) {
-                $skillToRemoveId = DB::table('skills')
+                $skillToRemoveObject = DB::table('skills')
                     ->where('key', $skillToRemoveKey)
-                    ->firstOrFail()
-                    ->value('id');
+                    ->first();
 
-                $createdOrUpdatedTemplate->skills()->detach($skillToRemoveId);
+                $createdOrUpdatedTemplate->skills()->detach($skillToRemoveObject->id);
             }
         }
     }
