@@ -1,0 +1,51 @@
+{
+  "data": {
+    "jobPosterTemplates": [
+      {
+        "referenceId": "",
+        "stream": "",
+        "classification": {
+          "group": "",
+          "level": 1
+        },
+        "supervisoryStatus": "",
+        "name": {
+          "en": "",
+          "fr": ""
+        },
+        "description": {
+          "en": "",
+          "fr": ""
+        },
+        "workDescription": {
+          "en": "",
+          "fr": ""
+        },
+        "tasks": {
+          "en": "",
+          "fr": ""
+        },
+        "keywords": {
+          "en": [],
+          "fr": []
+        },
+        "essentialTechnicalSkills": [],
+        "essentialBehaviouralSkills": [],
+        "nonessentialTechnicalSkills": [],
+        "nonessentialBehaviouralSkills": [],
+        "essentialTechnicalSkillsNotes": {
+          "en": "",
+          "fr": ""
+        },
+        "essentialBehaviouralSkillsNotes": {
+          "en": "",
+          "fr": ""
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "",
+          "fr": ""
+        }
+      }
+    ]
+  }
+}
