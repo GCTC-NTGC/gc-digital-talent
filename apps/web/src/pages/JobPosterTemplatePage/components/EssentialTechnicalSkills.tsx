@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import sections from "../sections";
 
@@ -9,6 +10,10 @@ const JobPosterTemplateEssentialTechnicalSkills_Fragment = graphql(
     fragment JobPosterTemplateEssentialTechnicalSkills on JobPosterTemplate {
       skills {
         id
+      }
+      essentialTechnicalSkillsNotes {
+        en
+        fr
       }
     }
   `,
@@ -27,6 +32,11 @@ const EssentialTechnicalSkills = ({
   const jobPosterTemplate = getFragment(
     JobPosterTemplateEssentialTechnicalSkills_Fragment,
     jobPosterTemplateQuery,
+  );
+  const note = getLocalizedName(
+    jobPosterTemplate.essentialTechnicalSkillsNotes,
+    intl,
+    true,
   );
   return (
     <>
@@ -47,15 +57,7 @@ const EssentialTechnicalSkills = ({
           return skill.id;
         })}
       </div>
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "* Please note that “Application development languages and tools” should be replaced with the specific languages and/or tools needed for the role.",
-          id: "zGGWPD",
-          description:
-            "Fine print displayed on the job poster template 'essential technical skills' section.",
-        })}
-      </div>
+      {note ? <div>{note}</div> : null}
     </>
   );
 };
