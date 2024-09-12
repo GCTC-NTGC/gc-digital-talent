@@ -26,8 +26,23 @@ const createRoute = (locale: Locales) =>
             },
             {
               path: "manager",
-              lazy: () =>
-                import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+                },
+                {
+                  path: "dashboard",
+                  loader: async () => {
+                    throw new Response("Not Found", { status: 404 }); // unfinished page
+                  },
+                  lazy: () =>
+                    import(
+                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                    ),
+                },
+              ],
             },
             {
               path: "support",
