@@ -2,32 +2,52 @@
   "data": {
     "jobPosterTemplates": [
       {
-        "referenceId": "",
-        "stream": "",
+        "referenceId": "IT-02-01-IC-001",
+        "stream": "BUSINESS_ADVISORY_SERVICES",
         "classification": {
-          "group": "",
-          "level": 1
+          "group": "IT",
+          "level": 2
         },
-        "supervisoryStatus": "",
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
         "name": {
-          "en": "",
-          "fr": ""
+          "en": "Analyst - IT Business Line Advisory Services",
+          "fr": "Analyste - Services consultatifs auprès des secteurs de la TI"
         },
         "description": {
-          "en": "",
-          "fr": ""
+          "en": "As an IT-02 Analyst in Business Line Advisory Services, you will analyze business processes, market trends, and client needs to provide insights and recommendations. You will conduct research, gather data, and perform financial or operational analysis to support strategic decision-making. Your role involves translating analysis into actionable insights and collaborating with stakeholders to drive business outcomes. ",
+          "fr": "En tant qu’analyste des services consultatifs auprès des secteurs d’activité IT-02, vous analyserez les processus opérationnels, les tendances du marché et les besoins des clients afin de fournir des renseignements et des recommandations. Vous effectuerez des recherches, recueillerez des données et effectuerez des analyses financières ou opérationnelles pour appuyer la prise de décisions stratégiques. Votre rôle consiste à traduire l’analyse en renseignements exploitables et à collaborer avec les intervenants pour obtenir des résultats opérationnels. "
         },
         "workDescription": {
-          "en": "",
-          "fr": ""
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/7/70/BLA-SCT_Analyst%28e%29_GCIT020005_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/3/37/BLA-SCT_Analyst%28e%29_GCIT020005_FR.docx"
         },
         "tasks": {
-          "en": "",
-          "fr": ""
+          "en": "Conducts research and analysis to support strategic IT Business Line Advisory Services (BLA), covering business analysis, client and project portfolio management, and supplier relationship management. \n Develops, documents, plans, and conducts analysis within IT project plans to identify issues and risks and contribute to work and communication plans. \n Collaborates with stakeholders to define and document IT requirements. \n Conducts impact analysis studies, analyzes IT solutions, and identifies solutions or improvements. \n Acts as a liaison with clients, testing teams and stakeholders to ensure clear understanding of business and IT requirements. \n Participates in project teams, may lead short-term projects or components of larger project. \n Supports continuous improvement of IT business solutions through research, learning, collaboration, and soliciting and responding to stakeholder feedback. \n Stays updated on trends and developments.",
+          "fr": "Effectuer des recherches et des analyses pour appuyer les services consultatifs auprès des secteurs d’activité de la TI, notamment l’analyse des activités opérationnelles, la gestion des portefeuilles de clients et de projects et la gestion des relations avec les fournisseurs. \n Élaborer, documenter, planifier et effectuer des analyses dans les plans de projet de TI afin de cerner les problèmes et les risques et de contribuer aux plans de travail et de communication. \n Collaborer avec les parties prenantes pour définir et documenter les exigences en matière de TI. \n Effectuer des études d’impact, analyser des solutions de TI et identifier des solutions ou des améliorations. \n Assurer la liaison avec les clients, les équipes de mise à l’essai et les  parties prenantes pour assurer une compréhension claire des exigences opérationnelles et en matière de TI. \n Participer à des équipes de projet, éventuellement diriger des projets à court terme ou des composantes de projets de plus grande envergure. \n Appuyer l’amélioration continue des solutions opérationnelles de TI en effectuant des recherches, en apprenant, en collaborant et en sollicitant et en répondant aux commentaires des intervenants. \n Rester au courant des tendances et des développements."
         },
         "keywords": {
-          "en": [],
-          "fr": []
+          "en": [
+            "supplier relationship management",
+            "business analysis",
+            "project portfolio management",
+            "client portfolio management",
+            "project executive",
+            "project administrator",
+            "project coordinator",
+            "project scheduler",
+            "change management consultant"
+          ],
+          "fr": [
+            "Gestion des relations avec les fournisseurs",
+            "analyse opérationnelle",
+            "gestion du portefeuille de projets",
+            "gestion du portefeuille de clients",
+            "gestionnaire de projet",
+            " administrateur de projet",
+            "coordonnateur de projet",
+            "ordonnanceur de projet",
+            "expert-conseil en gestion du changement"
+          ]
         },
         "essentialTechnicalSkills": [],
         "essentialBehaviouralSkills": [],
