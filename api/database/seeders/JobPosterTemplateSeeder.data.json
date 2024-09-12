@@ -132,6 +132,75 @@
           "en": "",
           "fr": ""
         }
+      },
+      {
+        "referenceId": "IT-03-01-SU-003",
+        "stream": "BUSINESS_ADVISORY_SERVICES",
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "name": {
+          "en": "Team Leader - IT Business Line Advisory Services",
+          "fr": "Chef d'équipe - Services consultatifs auprès des secteurs de la TI"
+        },
+        "description": {
+          "en": "As an IT-03 Team Leader in Business Line Advisory Services, you will oversee a team of analysts and advisors to deliver strategic insights and advisory services to clients or internal stakeholders. You will provide leadership, mentorship, and direction to ensure the team meets project objectives and client expectations. Your role involves managing resources, defining project scopes, and fostering a collaborative environment for innovation and growth.",
+          "fr": "En tant que chef d’équipe des services consultatifs auprès des secteurs d’activité IT-03, vous superviserez une équipe d’analystes et de conseillères et conseillers pour fournir des renseignements stratégiques et des services consultatifs aux clients ou aux parties prenantes internes. Vous assurerez le leadership, le mentorat et l’orientation pour veiller à ce que l’équipe atteigne les objectifs du projet et réponde aux attentes des clients. Votre rôle consiste à gérer les ressources, à définir la portée des projets et à favoriser un environnement de collaboration pour l’innovation et la croissance."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/2/21/BLA-SCT_TL-ChE_GCIT030017_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/7/7e/BLA-SCT_TL-ChE_GCIT030017_FR.docx"
+        },
+        "tasks": {
+          "en": "Leads multidisciplinary teams providing strategic IT Business Line Advisory Services (BLA), covering business analysis,client and project portfolio management,  and supplier relationship management. \nSupervises a team of analysts, sets goals, manages project funds, and ensures service delivery. \nProvides technical advice to client departments, aids in understanding IT capabilities and requirements for achieving organizational objectives. \nDevelops work plans, requirements, and communication strategies, advocating for the benefits of BLA. \nAssesses IT products and services for strategic initiatives \nMonitors and reviews stakeholders IT environments to inform proposed changes or opportunities. \nTranslates business requirements into clear IT solutions for stakeholders. \nRepresents the unit in discussions with senior managers and stakeholders to resolve issues and finalize requirements. \nCollaborates with stakeholders to assess impacts of IT changes and recommend innovative solutions. \nDevelops business solutions and evaluates IT projects, products, and services. \nStays updated on trends and best practices.",
+          "fr": "Diriger des équipes pluridisciplinaires en fournissant des services consultatifs auprès des secteurs d’activité de la TI, notamment l’analyse des activités, le portefeuille de clients de la TI, les projets ou la gestion des relations avec les fournisseurs. \nSuperviser une équipe d’analystes, établir des objectifs, gérer les fonds des projets et assurer la prestation des services. \nFournir des conseils techniques aux ministères clients pour les aider à comprendre les capacités et les exigences en matière de TI afin d’atteindre les objectifs de l’organisation. \nÉlaborer des plans de travail, des exigences et des stratégies de communication pour promouvoir les avantages des services consultatifs auprès des secteurs d’activité. \nÉvaluer les produits et services de TI pour les initiatives stratégiques. \nSurveiller et examiner les environnements de TI des parties prenantes pour éclairer les changements proposés ou les possibilités. \nTraduire les exigences opérationnelles en solutions de TI claires pour les parties prenantes. \nReprésenter l’unité dans les discussions avec les cadres supérieurs et les  parties prenantes pour résoudre les problèmes et finaliser les exigences. \nCollaborer avec les parties prenantes pour évaluer les répercussions des changements de la TI et recommander des solutions novatrices. \nDévelopper des solutions opérationnelles et évaluer les projets, produits et services de TI. \nRester au courant des tendances et des pratiques exemplaires."
+        },
+        "keywords": {
+          "en": [
+            "supplier relationship management",
+            "business analysis",
+            "project portfolio management",
+            "client portfolio management",
+            "project executive",
+            "project administrator",
+            "project coordinator",
+            "project leader",
+            "project manager",
+            "project scheduler",
+            "change management consultant"
+          ],
+          "fr": [
+            "Gestion des relations avec les fournisseurs",
+            "analyse opérationnelle",
+            "gestion du portefeuille de projets",
+            "gestion du portefeuille de clients",
+            "gestionnaire de projet",
+            "administrateur de projet",
+            "coordonnateur de projet",
+            "gestionnaire de projet",
+            "chef de projet",
+            "ordonnanceur de projet",
+            "expert-conseil en gestion du changement"
+          ]
+        },
+        "essentialTechnicalSkills": [],
+        "essentialBehaviouralSkills": [],
+        "nonessentialTechnicalSkills": [],
+        "nonessentialBehaviouralSkills": [],
+        "essentialTechnicalSkillsNotes": {
+          "en": "",
+          "fr": ""
+        },
+        "essentialBehaviouralSkillsNotes": {
+          "en": "",
+          "fr": ""
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "",
+          "fr": ""
+        }
       }
     ]
   }
