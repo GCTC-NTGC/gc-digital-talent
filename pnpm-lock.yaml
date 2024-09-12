@@ -251,8 +251,8 @@ importers:
         specifier: ^5.4.3
         version: 5.4.3(@types/node@22.5.4)(lightningcss@1.25.1)(terser@5.31.1)
       vite-plugin-compression2:
-        specifier: ^1.2.0
-        version: 1.2.0(rollup@4.21.0)
+        specifier: ^1.3.0
+        version: 1.3.0(rollup@4.21.0)
       vite-plugin-html:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.4.3(@types/node@22.5.4)(lightningcss@1.25.1)(terser@5.31.1))
@@ -8036,8 +8036,8 @@ packages:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
 
-  tar-mini@0.1.0:
-    resolution: {integrity: sha512-klU/ZiWwgAKugpvd4SsmmuZO/FRpvMBzPV+7s46Jn1LWC7GiIZ2BwCnRYl8CtudSD8S1EaHJ/LRdNPF50n+V5w==}
+  tar-mini@0.2.0:
+    resolution: {integrity: sha512-+qfUHz700DWnRutdUsxRRVZ38G1Qr27OetwaMYTdg8hcPxf46U0S1Zf76dQMWRBmusOt2ZCK5kbIaiLkoGO7WQ==}
 
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
@@ -8444,8 +8444,8 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vite-plugin-compression2@1.2.0:
-    resolution: {integrity: sha512-3RYEAwQW9JKHt6lmCudoTVO1YaiAGEDkg86MDNvl74btmwtWuCXt8r5WUByZEQLjCZz8nYf5BEh7NELUXr+4LA==}
+  vite-plugin-compression2@1.3.0:
+    resolution: {integrity: sha512-/cYzISoYOo/SwPUBReS1E02a8eNTpQm8+lQUBj5NNGxuq4iZ3JOfWExUlobhVhPMJuejD7dipT+cMLbaWsMbdw==}
 
   vite-plugin-html@3.2.2:
     resolution: {integrity: sha512-vb9C9kcdzcIo/Oc3CLZVS03dL5pDlOFuhGlZYDCJ840BhWl/0nGeZWf3Qy7NlOayscY4Cm/QRgULCQkEZige5Q==}
@@ -16797,7 +16797,7 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  tar-mini@0.1.0: {}
+  tar-mini@0.2.0: {}
 
   tar@6.2.1:
     dependencies:
@@ -17216,10 +17216,10 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-plugin-compression2@1.2.0(rollup@4.21.0):
+  vite-plugin-compression2@1.3.0(rollup@4.21.0):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
-      tar-mini: 0.1.0
+      tar-mini: 0.2.0
     transitivePeerDependencies:
       - rollup
 
