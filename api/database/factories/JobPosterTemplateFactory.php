@@ -41,8 +41,8 @@ class JobPosterTemplateFactory extends Factory
             'reference_id' => implode('_', $this->faker->words()),
             'classification_id' => $classification->id,
             'name' => [
-                'en' => $this->faker->text(100).' (EN)',
-                'fr' => $this->faker->text(100).'(FR)',
+                'en' => $this->faker->jobTitle().' (EN)',
+                'fr' => $this->faker->jobTitle().' (FR)',
             ],
             'description' => [
                 'en' => $this->faker->paragraph().' (EN)',
