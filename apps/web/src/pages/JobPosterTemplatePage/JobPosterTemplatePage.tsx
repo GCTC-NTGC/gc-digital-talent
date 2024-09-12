@@ -37,6 +37,7 @@ const JobPosterTemplateTopLevel_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    ...JobPosterTemplateBasicDetails
   }
 `);
 interface JobPosterTemplateProps {
@@ -141,21 +142,29 @@ const JobPosterTemplate = ({
           </div>
         </TableOfContents.Navigation>
         <TableOfContents.Content>
-          <TableOfContents.Section id={sections.basicDetails.id}>
-            <BasicDetails />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.keyTasks.id}>
-            <KeyTasks />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.essentialTechnicalSkills.id}>
-            <EssentialTechnicalSkills />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.essentialBehaviouralSkills.id}>
-            <EssentialBehaviouralSkills />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.assetTechnicalSkills.id}>
-            <AssetTechnicalSkills />
-          </TableOfContents.Section>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x3)"
+          >
+            <TableOfContents.Section id={sections.basicDetails.id}>
+              <BasicDetails jobPosterTemplateQuery={jobPosterTemplate} />
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.keyTasks.id}>
+              <KeyTasks />
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.essentialTechnicalSkills.id}>
+              <EssentialTechnicalSkills />
+            </TableOfContents.Section>
+            <TableOfContents.Section
+              id={sections.essentialBehaviouralSkills.id}
+            >
+              <EssentialBehaviouralSkills />
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.assetTechnicalSkills.id}>
+              <AssetTechnicalSkills />
+            </TableOfContents.Section>
+          </div>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
     </>
