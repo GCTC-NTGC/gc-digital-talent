@@ -12,7 +12,7 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
   GovEmployeeType,
@@ -276,6 +276,26 @@ const FormFields = ({
             )}
           </div>
         </>
+      )}
+      {isGovEmployee && (
+        <Input
+          id="workEmail"
+          name="workEmail"
+          type="email"
+          label={labels.workEmail}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            pattern: {
+              value: workEmailDomainRegex,
+              message: intl.formatMessage({
+                defaultMessage:
+                  "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our help desk.",
+                id: "UwHuX6",
+                description: "Description for rule pattern on work email field",
+              }),
+            },
+          }}
+        />
       )}
       <RadioGroup
         idPrefix="priorityEntitlementYesNo"

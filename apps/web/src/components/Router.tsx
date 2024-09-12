@@ -168,6 +168,13 @@ const createRoute = (locale: Locales) =>
                 ),
             },
             {
+              path: "work-email-verification",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/RegistrationWorkEmailVerificationPage"
+                ),
+            },
+            {
               path: "applicant",
               lazy: () =>
                 import("../pages/Auth/RegistrationPages/RegistrationRedirect"),
@@ -280,7 +287,14 @@ const createRoute = (locale: Locales) =>
                   path: "verify-contact-email",
                   lazy: () =>
                     import(
-                      "../pages/EmailVerificationPage/ProfileContactEmailVerificationPage"
+                      "../pages/EmailVerificationPages/ProfileContactEmailVerificationPage"
+                    ),
+                },
+                {
+                  path: "verify-work-email",
+                  lazy: () =>
+                    import(
+                      "../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage"
                     ),
                 },
               ],

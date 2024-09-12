@@ -150,6 +150,7 @@ trait GeneratesUserDoc
             $department = $user->department()->first();
             $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class));
+            $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
             $this->addLabelText($section, $this->localizeHeading('current_classification'), $user->getClassification());
         }
 

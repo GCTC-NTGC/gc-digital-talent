@@ -98,6 +98,11 @@ describe("Create Account Form tests", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
+      screen.queryByRole("textbox", {
+        name: /work email address/i,
+      }),
+    ).not.toBeInTheDocument();
+    expect(
       screen.queryByRole("combobox", {
         name: /group/i,
       }),
@@ -123,6 +128,11 @@ describe("Create Account Form tests", () => {
     expect(
       screen.getByRole("combobox", {
         name: /home department/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("textbox", {
+        name: /work email address/i,
       }),
     ).toBeInTheDocument();
     expect(
@@ -175,6 +185,11 @@ describe("Create Account Form tests", () => {
     await user.click(department);
     await user.click(departmentOption);
 
+    const workEmail = screen.getByRole("textbox", {
+      name: /work email address/i,
+    });
+    fireEvent.change(workEmail, { target: { value: "email@gc.ca" } });
+
     const group = screen.getByRole("combobox", {
       name: /group/i,
     });
@@ -192,7 +207,7 @@ describe("Create Account Form tests", () => {
     await user.selectOptions(level, [mockClassifications[0].level.toString()]);
 
     await user.click(
-      screen.getByRole("button", { name: /save and continue/i }),
+      screen.getByRole("button", { name: /verify your work email/i }),
     );
 
     expect(screen.queryAllByRole("alert")).toHaveLength(0);

@@ -4223,6 +4223,10 @@
     "defaultMessage": "Une option de prolongation du contrat est-elle actuellement prévue?",
     "description": "Label for _contract extendable_ fieldset in the _digital services contracting questionnaire_"
   },
+  "KtXvdO": {
+    "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
+    "description": "Message on getting started page about the contact email address - part 1."
+  },
   "Kyf9At": {
     "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
     "description": "Description of a process' advertisement"
@@ -5691,6 +5695,10 @@
     "defaultMessage": "la gestion des données pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "T7irec": {
+    "defaultMessage": "Vérifiez votre adresse courriel professionnelle",
+    "description": "Verify your work email text"
+  },
   "T8J2Lp": {
     "defaultMessage": "Vos coordonnées",
     "description": "Form header for filling in contact information section."
@@ -5981,6 +5989,10 @@
   "UvKDXK": {
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
+  },
+  "UwHuX6": {
+    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre bureau d'aide.",
+    "description": "Description for rule pattern on work email field"
   },
   "Uwtkv6": {
     "defaultMessage": "Ce à quoi s’attendre après l’admission",
@@ -8846,6 +8858,10 @@
     "defaultMessage": "Exigence",
     "description": "Header for requirement section of assessment results table"
   },
+  "jBjIJT": {
+    "defaultMessage": "En fournissant et en vérifiant votre adresse courriel professionnelle, vous aurez accès à des outils, à des caractéristiques et à des occasions propres aux employés. Il peut être nécessaire de revérifier les adresses courriel professionnelles périodiquement. Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à communiquer avec nous.",
+    "description": "Message on getting started page about the contact email address - part 2."
+  },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
@@ -8913,6 +8929,10 @@
   "jVfVFG": {
     "defaultMessage": "Pourquoi faut-il recueillir ces données?",
     "description": "Heading for the Why collect section on the digital services contracting questionnaire"
+  },
+  "jWx0oF": {
+    "defaultMessage": "Adresse courriel professionnelle",
+    "description": "Label displayed on work email input"
   },
   "jXUnrt": {
     "defaultMessage": "Vous n’avez toujours pas ajouté de questions.",
@@ -10661,6 +10681,10 @@
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
+  },
+  "tj9Dz3": {
+    "defaultMessage": "Adresse courriel professionnelle",
+    "description": "Work email label"
   },
   "tlAiJm": {
     "defaultMessage": "La création de la candidature a échoué",

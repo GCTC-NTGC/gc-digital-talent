@@ -1,12 +1,9 @@
 import { useIntl } from "react-intl";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { EmailType } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -16,13 +13,23 @@ import EmailVerificationApi from "~/components/EmailVerification/EmailVerificati
 
 import messages from "./utils/messages";
 
-const RegistrationContactEmailVerificationPage = () => {
+const WorkEmailVerification_Query = graphql(/* GraphQL */ `
+  query WorkEmailVerification {
+    me {
+      workEmail
+    }
+  }
+`);
+
+const RegistrationWorkEmailVerificationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const [{ data }] = useQuery({
+    query: WorkEmailVerification_Query,
+  });
 
   const [searchParams] = useSearchParams();
-  const emailAddress = searchParams.get("emailAddress");
   const from = searchParams.get("from");
 
   const crumbs = useBreadcrumbs({
@@ -35,17 +42,13 @@ const RegistrationContactEmailVerificationPage = () => {
   });
 
   const handleVerificationSuccess = (): void => {
-    navigate({
-      pathname: paths.employeeInformation(),
-      search: from ? createSearchParams({ from }).toString() : "",
-    });
+    const navigationTarget = from || paths.profileAndApplications();
+    navigate(navigationTarget);
   };
 
   const handleSkip = (): void => {
-    navigate({
-      pathname: paths.employeeInformation(),
-      search: from ? createSearchParams({ from }).toString() : "",
-    });
+    const navigationTarget = from || paths.profileAndApplications();
+    navigate(navigationTarget);
   };
 
   return (
@@ -62,9 +65,9 @@ const RegistrationContactEmailVerificationPage = () => {
         data-h2-shadow="base(large)"
       >
         <EmailVerificationApi
-          emailAddress={emailAddress}
+          emailAddress={data?.me?.workEmail}
           onVerificationSuccess={handleVerificationSuccess}
-          emailType={EmailType.Contact}
+          emailType={EmailType.Work}
           onSkip={handleSkip}
         />
       </div>
@@ -74,8 +77,8 @@ const RegistrationContactEmailVerificationPage = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <RegistrationContactEmailVerificationPage />
+    <RegistrationWorkEmailVerificationPage />
   </RequireAuth>
 );
 
-export default RegistrationContactEmailVerificationPage;
+export default RegistrationWorkEmailVerificationPage;

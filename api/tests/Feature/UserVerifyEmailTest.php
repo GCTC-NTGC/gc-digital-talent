@@ -33,16 +33,16 @@ class UserVerifyEmailTest extends TestCase
 
     private $sendVerificationEmailMutation =
         /** @lang GraphQL */
-        'mutation SendVerificationEmail {
-            sendUserEmailVerification {
+        'mutation SendVerificationEmail($emailType: EmailType) {
+            sendUserEmailVerification(emailType: $emailType) {
                 id
             }
         }';
 
     private $verifyEmailMutation =
         /** @lang GraphQL */
-        'mutation VerifyMyEmail($code: String!) {
-            verifyUserEmail(code: $code) {
+        'mutation VerifyMyEmail($code: String!, $emailType: EmailType) {
+            verifyUserEmail(code: $code, emailType: $emailType) {
                 id
                 isEmailVerified
             }
@@ -63,6 +63,8 @@ class UserVerifyEmailTest extends TestCase
                 'id' => '00000000-0000-0000-0000-000000000001',
                 'email' => 'regular.user@example.org',
                 'email_verified_at' => null,
+                'work_email' => 'regular.user@gc.ca',
+                'work_email_verified_at' => null,
             ]);
 
         $this->adminUser = User::factory()
@@ -90,7 +92,7 @@ class UserVerifyEmailTest extends TestCase
             $this->sendVerificationEmailMutation,
         );
 
-        $token = Cache::get('email-verification-00000000-0000-0000-0000-000000000001');
+        $token = Cache::get('CONTACT-email-verification-00000000-0000-0000-0000-000000000001');
         assertNotNull($token);
         assertNotNull($token['code']);
         assertEquals('email', $token['field']);
@@ -100,7 +102,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCanVerifyWithCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -123,7 +125,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithBadCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -146,7 +148,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithBadField()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'work_email',
@@ -169,7 +171,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithBadEmail()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -192,7 +194,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithExpiredCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -227,5 +229,60 @@ class UserVerifyEmailTest extends TestCase
 
         // check that verification was cleared
         assertNull($this->regularUser->email_verified_at);
+    }
+
+    public function testWorkEmailCodeSaved()
+    {
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->sendVerificationEmailMutation,
+            [
+                'emailType' => 'WORK',
+            ]
+        );
+
+        $token = Cache::get('WORK-email-verification-00000000-0000-0000-0000-000000000001');
+        assertNotNull($token);
+        assertNotNull($token['code']);
+        assertEquals('work_email', $token['field']);
+        assertEquals($this->regularUser->work_email, $token['value']);
+    }
+
+    public function testCanVerifyWorkEmailWithCode()
+    {
+        Cache::put(
+            'WORK-email-verification-00000000-0000-0000-0000-000000000001',
+            [
+                'code' => '1234',
+                'field' => 'work_email',
+                'value' => 'regular.user@gc.ca',
+            ],
+            now()->addHours(2)
+        );
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->verifyEmailMutation,
+            [
+                'code' => '1234',
+                'emailType' => 'WORK',
+            ]
+        );
+
+        $this->regularUser->refresh();
+        assertNotNull($this->regularUser->work_email_verified_at);
+    }
+
+    public function testChangingWorkEmailClearsVerification()
+    {
+        // start off verified
+        $this->regularUser->work_email_verified_at = Carbon::now();
+        $this->regularUser->save();
+        assertNotNull($this->regularUser->work_email_verified_at);
+
+        // change email away from the verified one
+        $this->regularUser->work_email = 'new.email@gc.ca';
+        $this->regularUser->save();
+
+        // check that verification was cleared
+        assertNull($this->regularUser->work_email_verified_at);
     }
 }
