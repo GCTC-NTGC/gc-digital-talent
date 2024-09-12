@@ -15,7 +15,6 @@ import sections from "../sections";
 
 const JobPosterTemplateBasicDetails_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateBasicDetails on JobPosterTemplate {
-    id
     name {
       en
       fr

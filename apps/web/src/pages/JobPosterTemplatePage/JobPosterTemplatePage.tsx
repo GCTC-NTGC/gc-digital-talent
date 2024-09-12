@@ -38,6 +38,7 @@ const JobPosterTemplateTopLevel_Fragment = graphql(/* GraphQL */ `
       fr
     }
     ...JobPosterTemplateBasicDetails
+    ...JobPosterTemplateKeyTasks
   }
 `);
 interface JobPosterTemplateProps {
@@ -151,7 +152,7 @@ const JobPosterTemplate = ({
               <BasicDetails jobPosterTemplateQuery={jobPosterTemplate} />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.keyTasks.id}>
-              <KeyTasks />
+              <KeyTasks jobPosterTemplateQuery={jobPosterTemplate} />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.essentialTechnicalSkills.id}>
               <EssentialTechnicalSkills />
