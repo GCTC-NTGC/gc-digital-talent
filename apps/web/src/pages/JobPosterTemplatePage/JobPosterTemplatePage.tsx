@@ -8,12 +8,20 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import useRoutes from "~/hooks/useRoutes";
+
+import pageMessages from "./messages";
+import jobPosterTemplatesPageMessages from "../JobPosterTemplatesPage/messages";
 
 const JobPosterTemplateTopLevel_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateTopLevel on JobPosterTemplate {
+    id
     name {
       en
       fr
@@ -29,11 +37,46 @@ interface JobPosterTemplateProps {
 const JobPosterTemplate = ({
   jobPosterTemplateQuery,
 }: JobPosterTemplateProps) => {
+  const paths = useRoutes();
+  const intl = useIntl();
+
   const jobPosterTemplate = getFragment(
     JobPosterTemplateTopLevel_Fragment,
     jobPosterTemplateQuery,
   );
-  return <span>{`Hello World! ${jobPosterTemplate.name?.en}`}</span>;
+
+  const templateName = getLocalizedName(jobPosterTemplate?.name, intl, true);
+
+  const formattedCrumbLabel =
+    templateName ?? intl.formatMessage(pageMessages.pageTitle);
+  const formattedPageTitle = templateName
+    ? `${intl.formatMessage(pageMessages.pageTitle)}${intl.formatMessage(commonMessages.dividingColon)}${templateName}`
+    : templateName;
+  const formattedPageSubtitle = intl.formatMessage(pageMessages.subTitle);
+
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(jobPosterTemplatesPageMessages.pageTitle),
+        url: paths.jobPosterTemplates(),
+      },
+      {
+        label: formattedCrumbLabel,
+        url: paths.jobPosterTemplate(jobPosterTemplate?.id),
+      },
+    ],
+  });
+
+  return (
+    <>
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
+      <Hero
+        title={formattedPageTitle}
+        subtitle={formattedPageSubtitle}
+        crumbs={crumbs}
+      />
+    </>
+  );
 };
 
 const JobPosterTemplatePage_Query = graphql(/* GraphQL */ `
