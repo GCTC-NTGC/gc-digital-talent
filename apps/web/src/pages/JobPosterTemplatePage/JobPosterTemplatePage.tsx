@@ -7,7 +7,12 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Link,
+  Pending,
+  TableOfContents,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -18,6 +23,12 @@ import useRoutes from "~/hooks/useRoutes";
 
 import pageMessages from "./messages";
 import jobPosterTemplatesPageMessages from "../JobPosterTemplatesPage/messages";
+import sections from "./sections";
+import BasicDetails from "./components/BasicDetails";
+import KeyTasks from "./components/KeyTasks";
+import EssentialTechnicalSkills from "./components/EssentialTechnicalSkills";
+import EssentialBehaviouralSkills from "./components/EssentialBehaviouralSkills";
+import AssetTechnicalSkills from "./components/AssetTechnicalSkills";
 
 const JobPosterTemplateTopLevel_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateTopLevel on JobPosterTemplate {
@@ -75,6 +86,78 @@ const JobPosterTemplate = ({
         subtitle={formattedPageSubtitle}
         crumbs={crumbs}
       />
+      <TableOfContents.Wrapper>
+        <TableOfContents.Navigation>
+          <TableOfContents.List>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={sections.basicDetails.id}>
+                {intl.formatMessage(sections.basicDetails.title)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={sections.keyTasks.id}>
+                {intl.formatMessage(sections.keyTasks.shortTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={sections.essentialTechnicalSkills.id}
+              >
+                {intl.formatMessage(
+                  sections.essentialTechnicalSkills.shortTitle,
+                )}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={sections.essentialBehaviouralSkills.id}
+              >
+                {intl.formatMessage(
+                  sections.essentialBehaviouralSkills.shortTitle,
+                )}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={sections.assetTechnicalSkills.id}>
+                {intl.formatMessage(sections.assetTechnicalSkills.shortTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          </TableOfContents.List>
+          <div>
+            <Link>
+              {intl.formatMessage({
+                defaultMessage: "Download (EN)",
+                id: "+Ln2X/",
+                description: "Link to download a file in English",
+              })}
+            </Link>
+            <Link>
+              {intl.formatMessage({
+                defaultMessage: "Download (FR)",
+                id: "v1obWV",
+                description: "Link to download a file in French",
+              })}
+            </Link>
+          </div>
+        </TableOfContents.Navigation>
+        <TableOfContents.Content>
+          <TableOfContents.Section id={sections.basicDetails.id}>
+            <BasicDetails />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.keyTasks.id}>
+            <KeyTasks />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.essentialTechnicalSkills.id}>
+            <EssentialTechnicalSkills />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.essentialBehaviouralSkills.id}>
+            <EssentialBehaviouralSkills />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.assetTechnicalSkills.id}>
+            <AssetTechnicalSkills />
+          </TableOfContents.Section>
+        </TableOfContents.Content>
+      </TableOfContents.Wrapper>
     </>
   );
 };
