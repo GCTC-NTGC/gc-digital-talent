@@ -38,12 +38,12 @@
             "change management consultant"
           ],
           "fr": [
-            "Gestion des relations avec les fournisseurs",
+            "gestion des relations avec les fournisseurs",
             "analyse opérationnelle",
             "gestion du portefeuille de projets",
             "gestion du portefeuille de clients",
             "gestionnaire de projet",
-            " administrateur de projet",
+            "administrateur de projet",
             "coordonnateur de projet",
             "ordonnanceur de projet",
             "expert-conseil en gestion du changement"
@@ -104,7 +104,7 @@
             "change management consultant"
           ],
           "fr": [
-            "Gestion des relations avec les fournisseurs",
+            "gestion des relations avec les fournisseurs",
             "analyse opérationnelle",
             "gestion du portefeuille de projets",
             "gestion du portefeuille de clients",
@@ -179,6 +179,70 @@
             "gestionnaire de projet",
             "administrateur de projet",
             "coordonnateur de projet",
+            "gestionnaire de projet",
+            "chef de projet",
+            "ordonnanceur de projet",
+            "expert-conseil en gestion du changement"
+          ]
+        },
+        "essentialTechnicalSkills": [],
+        "essentialBehaviouralSkills": [],
+        "nonessentialTechnicalSkills": [],
+        "nonessentialBehaviouralSkills": [],
+        "essentialTechnicalSkillsNotes": {
+          "en": "",
+          "fr": ""
+        },
+        "essentialBehaviouralSkillsNotes": {
+          "en": "",
+          "fr": ""
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "",
+          "fr": ""
+        }
+      },
+
+      {
+        "referenceId": "IT-04-01-SU-004",
+        "stream": "BUSINESS_ADVISORY_SERVICES",
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "name": {
+          "en": "Manager - IT Business Line Advisory Services",
+          "fr": "Gestionnaire -  Services consultatifs auprès des secteurs de la TI"
+        },
+        "description": {
+          "en": "As an IT-04 Manager in Business Line Advisory Services, you will lead the strategic direction and execution of IT project plans including technical components, project management methodologies, business requirements, proposals, analysis, standards, plans, and designs to ensure they align with business objectives. You will oversee multiple projects, manage client relationships, and drive business growth through innovative solutions while ensuring government-wide direction and standards are being met and consistently improved. Your role includes managing budgets, resources, and timelines to deliver high-value outcomes for clients or stakeholders.",
+          "fr": "En tant que gestionnaire des services consultatifs auprès des secteurs d’activité IT-04, vous dirigerez l’orientation stratégique et l’exécution des plans de projet de TI, y compris les composantes techniques, les méthodologies de gestion de projet, les exigences opérationnelles, les propositions, l’analyse, les normes, les plans et les conceptions, afin de s’assurer qu’ils correspondent aux objectifs commerciaux. Vous superviserez de multiples projets, gérerez les relations avec les clients et stimulerez la croissance de l’entreprise grâce à des solutions novatrices, tout en veillant à ce que l’orientation et les normes à l’échelle du gouvernement soient respectées et constamment améliorées. Votre rôle comprend la gestion des budgets, des ressources et des échéanciers afin d’obtenir des résultats de grande valeur pour les clients ou les parties prenantes."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d3/BLA-SCT_Mgr-Ges_GCIT040017_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/b/bd/BLA-SCT_Mgr-Ges_GCIT040017_FR.docx"
+        },
+        "tasks": {
+          "en": "Manages strategic IT Business Line Advisory Services (BLA) to support departmental and agency objectives, covering business analysis,client and project portfolio management,  and supplier relationship management. \nOversees an IT section and multidisciplinary project groups, assessing business requirements, IT system effectiveness, and collaboration opportunities. \nServes as a senior IT authority, delivering expert technical advisory services to achieve operational and strategic goals. \nRepresents the department or agency, engaging with senior managers and officials to address current and future needs. \nChairs project meetings to negotiate agreements on delivering BLA services, and establishes and manages project teams, budgets, and agreements. \nProvides expert IT advice to senior management and stakeholders on project plans, methodologies, requirements, and standards to enhance system effectiveness. \nStays updated on trends and best practices in relevant BLA disciplines and contributes to developing BLA policies and guidelines. \nDevelops IT Business Line Advisory Services policies, directives, procedures, guidelines and processes.",
+          "fr": "Gérer les services consultatifs stratégiques auprès des secteurs d’activité de la TI pour appuyer les objectifs des ministères et des organismes, ce qui comprend l’analyse opérationnelle, le portefeuille de clients, les projets ou la gestion des relations avec les fournisseurs. \nSuperviser une section de la TI et des groupes de projets pluridisciplinaires, évaluer les exigences opérationnelles, l’efficacité des systèmes de TI et les possibilités de collaboration. \nAgir à titre d’autorité principale de la TI et fournir des services consultatifs techniques spécialisés pour atteindre les objectifs opérationnels et stratégiques. \nReprésenter le ministère ou l’organisme en collaborant avec les cadres supérieurs et les fonctionnaires pour répondre aux besoins actuels et futurs. \nPrésider des réunions de projet pour négocier des ententes sur la prestation des services consultatifs auprès des secteurs d’activité, et établir et gérer des équipes de projet, des budgets et des ententes. \nFournir des conseils d’expert en TI à la haute direction et aux parties prenantes sur les plans de projet, les méthodologies, les exigences et les normes afin d’améliorer l’efficacité du système. \nSe tenir au courant des tendances et des pratiques exemplaires dans les disciplines pertinentes des services consultatifs auprès des secteurs d’activité et contribuer à l’élaboration des politiques et des lignes directrices des services consultatifs auprès des secteurs d’activité. \nÉlaborer les politiques, les directives, les procédures, les lignes directrices et les processus des services consultatifs auprès des secteurs d’activité de la TI."
+        },
+        "keywords": {
+          "en": [
+            "supplier relationship management",
+            "business analysis",
+            "project portfolio management",
+            "client portfolio management",
+            "project executive",
+            "project leader",
+            "project manager",
+            "change management consultant"
+          ],
+          "fr": [
+            "gestion des relations avec les fournisseurs",
+            "analyse opérationnelle",
+            "gestion du portefeuille de projets",
+            "gestion du portefeuille de clients",
             "gestionnaire de projet",
             "chef de projet",
             "ordonnanceur de projet",
