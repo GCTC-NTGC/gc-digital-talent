@@ -1,15 +1,38 @@
 import { useIntl } from "react-intl";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Accordion, Heading } from "@gc-digital-talent/ui";
+
+import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 
 import sections from "../sections";
 
 const JobPosterTemplateEssentialTechnicalSkills_Fragment = graphql(
   /* GraphQL */ `
     fragment JobPosterTemplateEssentialTechnicalSkills on JobPosterTemplate {
-      skills {
+      skillRelationships: skills {
         id
+        pivot {
+          requiredLevel
+          type {
+            value
+          }
+        }
+        skill {
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          category {
+            value
+          }
+        }
       }
       essentialTechnicalSkillsNotes {
         en
@@ -40,9 +63,14 @@ const EssentialTechnicalSkills = ({
   );
   return (
     <>
-      <div>
+      <Heading
+        Icon={BoltIcon}
+        size="h2"
+        color="tertiary"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
         {intl.formatMessage(sections.essentialTechnicalSkills.longTitle)}
-      </div>
+      </Heading>
       <div>
         {intl.formatMessage({
           defaultMessage:
@@ -52,11 +80,46 @@ const EssentialTechnicalSkills = ({
             "Description displayed on the job poster template 'essential technical skills' section.",
         })}
       </div>
-      <div>
-        {jobPosterTemplate.skills?.map((skill) => {
-          return skill.id;
-        })}
-      </div>
+      <Accordion.Root mode="card" type="single" size="sm" collapsible>
+        {jobPosterTemplate.skillRelationships?.map((relationship) => (
+          <Accordion.Item key={relationship.id} value={relationship.id}>
+            <Accordion.Trigger subtitle={relationship.pivot?.requiredLevel}>
+              {getLocalizedName(relationship.skill.name, intl)}
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x0.5)"
+              >
+                <FieldDisplay
+                  label={intl.formatMessage({
+                    defaultMessage: "This skill is defined as:",
+                    id: "Yqh01h",
+                    description: "Title for a skill definition",
+                  })}
+                >
+                  {getLocalizedName(relationship.skill.description, intl)}
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(
+                    {
+                      defaultMessage: "The “{skillLevel}” level is defined as:",
+                      id: "qFLygw",
+                      description: "Title for a skill level definition",
+                    },
+                    {
+                      skillLevel: relationship.pivot?.requiredLevel,
+                    },
+                  )}
+                >
+                  {getLocalizedName(relationship.skill.description, intl)}
+                </FieldDisplay>
+              </div>
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+      </Accordion.Root>
       {note ? <div>{note}</div> : null}
     </>
   );

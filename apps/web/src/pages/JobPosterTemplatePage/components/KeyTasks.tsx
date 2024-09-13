@@ -35,7 +35,7 @@ const KeyTasks = ({ jobPosterTemplateQuery }: KeyTasksProps) => {
         Icon={ClipboardDocumentIcon}
         size="h2"
         color="secondary"
-        data-h2-margin-top="base(0)"
+        data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(sections.keyTasks.longTitle)}
       </Heading>
