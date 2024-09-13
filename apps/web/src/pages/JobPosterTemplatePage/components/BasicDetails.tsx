@@ -67,7 +67,12 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
 
   return (
     <>
-      <Heading Icon={QueueListIcon} size="h2" color="primary">
+      <Heading
+        Icon={QueueListIcon}
+        size="h2"
+        color="primary"
+        data-h2-margin-top="base(0)"
+      >
         {intl.formatMessage(sections.basicDetails.title)}
       </Heading>
       <CardBasic data-h2-padding="base(x1.5)">

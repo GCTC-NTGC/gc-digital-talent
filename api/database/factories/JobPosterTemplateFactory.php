@@ -35,6 +35,17 @@ class JobPosterTemplateFactory extends Factory
             $classification = Classification::factory()->create();
         }
 
+        $keyTasks = collect();
+        for ($i = 0; $i < $this->faker->numberBetween(2, 10); $i++) {
+            $keyTasks->add($this->faker->sentence());
+        }
+        $keyTasksHtmlEn = '<ul>'
+            .$keyTasks->reduce(fn ($carry, $task) => $carry.'<li><p>'.$task.' (EN)</p></li>')
+            .'</ul>';
+        $keyTasksHtmlFr = '<ul>'
+            .$keyTasks->reduce(fn ($carry, $task) => $carry.'<li><p>'.$task.' (FR)</p></li>')
+            .'</ul>';
+
         return [
             'supervisory_status' => $this->faker->randomElement(SupervisoryStatus::cases())->name,
             'stream' => $this->faker->randomElement(PoolStream::cases())->name,
@@ -49,8 +60,8 @@ class JobPosterTemplateFactory extends Factory
                 'fr' => $this->faker->paragraph().' (FR)',
             ],
             'tasks' => [
-                'en' => $this->faker->paragraph().' (EN)',
-                'fr' => $this->faker->paragraph().' (FR)',
+                'en' => $keyTasksHtmlEn,
+                'fr' => $keyTasksHtmlFr,
             ],
             'keywords' => [
                 'en' => $this->faker->words(),
