@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 interface ContextProps {
-  required?: boolean;
+  required: boolean;
 }
 
 const Context = ({ required }: ContextProps) => {
@@ -78,7 +78,7 @@ const AccordionSubtitle = ({
   </span>
 );
 
-const PoolSkillAccordion_Fragment = graphql(/* GraphQL */ `
+export const PoolSkillAccordion_Fragment = graphql(/* GraphQL */ `
   fragment PoolSkillAccordion on PoolSkill {
     id
     requiredLevel
@@ -148,7 +148,9 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
     <Accordion.Item value={poolSkill.skill.id}>
       <Accordion.Trigger
         as="h3"
-        context={<Context required={required} />}
+        context={
+          required !== undefined ? <Context required={required} /> : null
+        }
         subtitle={
           <AccordionSubtitle
             isSkillLevelAvailable={!!poolSkill.requiredLevel}
