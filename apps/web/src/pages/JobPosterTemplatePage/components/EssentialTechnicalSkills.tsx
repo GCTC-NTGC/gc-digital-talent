@@ -2,52 +2,26 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
 import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
 
-import PoolSkillAccordion, {
-  PoolSkillAccordion_Fragment,
-} from "~/components/PoolSkillAccordion/PoolSkillAccordion";
+import PoolSkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
 
 import sections from "../sections";
+import {
+  convertTemplateSkillToPoolSkillFragment,
+  JobPosterTemplateSkills_Fragment,
+} from "../templateSkills";
 
 const JobPosterTemplateEssentialTechnicalSkills_Fragment = graphql(
   /* GraphQL */ `
     fragment JobPosterTemplateEssentialTechnicalSkills on JobPosterTemplate {
-      skillRelationships: skills {
-        id
-        pivot {
-          requiredLevel
-          type {
-            value
-          }
-        }
-        skill {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category {
-            value
-          }
-        }
-      }
       essentialTechnicalSkillsNotes {
         en
         fr
       }
+      ...JobPosterTemplateSkills
     }
   `,
 );
@@ -67,35 +41,26 @@ const EssentialTechnicalSkills = ({
     JobPosterTemplateEssentialTechnicalSkills_Fragment,
     jobPosterTemplateQuery,
   );
+
   const note = getLocalizedName(
     jobPosterTemplate.essentialTechnicalSkillsNotes,
     intl,
     true,
   );
-
-  const skillRelationships =
-    jobPosterTemplate.skillRelationships?.filter(
-      (r) =>
-        r.pivot?.type.value == "ESSENTIAL" &&
-        r.skill.category.value == "TECHNICAL",
+  const templateSkills =
+    getFragment(
+      JobPosterTemplateSkills_Fragment,
+      jobPosterTemplate,
+    ).templateSkills?.filter(
+      (templateSkill) =>
+        templateSkill.pivot?.type.value == "ESSENTIAL" &&
+        templateSkill.skill.category.value == "TECHNICAL",
     ) ?? [];
 
   // the accordion is made for PoolSkills, not JobPosterTemplateSkills
-  const accordionItems: {
-    poolSkillQuery: React.ComponentProps<
-      typeof PoolSkillAccordion
-    >["poolSkillQuery"];
-    key: string;
-  }[] = skillRelationships.map((r) => ({
-    poolSkillQuery: makeFragmentData(
-      {
-        id: r.id,
-        requiredLevel: r.pivot?.requiredLevel,
-        skill: r.skill,
-      },
-      PoolSkillAccordion_Fragment,
-    ),
-    key: r.id,
+  const accordionItems = templateSkills.map((templateSkill) => ({
+    key: templateSkill.id,
+    poolSkillFragment: convertTemplateSkillToPoolSkillFragment(templateSkill),
   }));
 
   const toggleExpandedSkillsValue = () => {
@@ -178,7 +143,7 @@ const EssentialTechnicalSkills = ({
             {accordionItems.map((accordionItem) => (
               <PoolSkillAccordion
                 key={accordionItem.key}
-                poolSkillQuery={accordionItem.poolSkillQuery}
+                poolSkillQuery={accordionItem.poolSkillFragment}
               />
             ))}
           </Accordion.Root>
