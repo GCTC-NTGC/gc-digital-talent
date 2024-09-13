@@ -51,6 +51,7 @@ return [
     'education_requirement_experiences' => 'Expériences relatives aux exigences pédagogiques',
     'skills' => 'Compétences',
     // Section headings
+    'application_snapshot' => 'Capture d\'écran de la demande',
     'candidate_profiles' => 'Profils des candidats',
     'candidate_profile' => 'Profil des candidat',
     'user_profile' => 'Profil de l\'utilisateur',
