@@ -11,9 +11,9 @@ import {
 import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
 import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
 
-import SkillAccordion, {
+import PoolSkillAccordion, {
   PoolSkillAccordion_Fragment,
-} from "~/pages/Pools/PoolAdvertisementPage/components/SkillAccordion";
+} from "~/components/PoolSkillAccordion/PoolSkillAccordion";
 
 import sections from "../sections";
 
@@ -80,9 +80,10 @@ const EssentialTechnicalSkills = ({
         r.skill.category.value == "TECHNICAL",
     ) ?? [];
 
+  // the accordion is made for PoolSkills, not JobPosterTemplateSkills
   const accordionItems: {
     poolSkillQuery: React.ComponentProps<
-      typeof SkillAccordion
+      typeof PoolSkillAccordion
     >["poolSkillQuery"];
     key: string;
   }[] = skillRelationships.map((r) => ({
@@ -90,15 +91,7 @@ const EssentialTechnicalSkills = ({
       {
         id: r.id,
         requiredLevel: r.pivot?.requiredLevel,
-        skill: {
-          id: r.skill.id,
-          key: r.skill.key,
-          category: {
-            value: r.skill.category.value,
-          },
-          name: r.skill.name,
-          description: r.skill.description,
-        },
+        skill: r.skill,
       },
       PoolSkillAccordion_Fragment,
     ),
@@ -183,7 +176,7 @@ const EssentialTechnicalSkills = ({
             onValueChange={setExpandedSkillsValue}
           >
             {accordionItems.map((accordionItem) => (
-              <SkillAccordion
+              <PoolSkillAccordion
                 key={accordionItem.key}
                 poolSkillQuery={accordionItem.poolSkillQuery}
               />

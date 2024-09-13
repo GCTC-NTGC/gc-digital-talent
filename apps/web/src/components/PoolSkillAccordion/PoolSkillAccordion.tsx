@@ -100,12 +100,15 @@ export const PoolSkillAccordion_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface SkillAccordionProps {
+interface PoolSkillAccordionProps {
   poolSkillQuery: FragmentType<typeof PoolSkillAccordion_Fragment>;
   required?: ContextProps["required"];
 }
 
-const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
+const PoolSkillAccordion = ({
+  poolSkillQuery,
+  required,
+}: PoolSkillAccordionProps) => {
   const intl = useIntl();
   const poolSkill = getFragment(PoolSkillAccordion_Fragment, poolSkillQuery);
   if (!poolSkill.skill) return null;
@@ -194,4 +197,4 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
   );
 };
 
-export default SkillAccordion;
+export default PoolSkillAccordion;
