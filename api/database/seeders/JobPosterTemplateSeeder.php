@@ -89,71 +89,38 @@ class JobPosterTemplateSeeder extends Seeder
 
             // format skills in json file as
             // [{key: key, skillLevel: SkillLevelEnum}]
-            $essentialTechnicalSkills = $model->essentialTechnicalSkills;
-            $essentialBehaviouralSkills = $model->essentialBehaviouralSkills;
-            $nonessentialTechnicalSkills = $model->nonessentialTechnicalSkills;
-            $nonessentialBehaviouralSkills = $model->nonessentialBehaviouralSkills;
-
-            $essentialTechnicalSkillsKeys = $this->getSkillKeys($essentialTechnicalSkills);
-            $essentialBehaviouralSkillsKeys = $this->getSkillKeys($essentialBehaviouralSkills);
-            $nonessentialTechnicalSkillsKeys = $this->getSkillKeys($nonessentialTechnicalSkills);
-            $nonessentialBehaviouralSkillsKeys = $this->getSkillKeys($nonessentialBehaviouralSkills);
+            $essentialSkills = $model->essentialSkills;
+            $nonessentialSkills = $model->nonessentialSkills;
+            $essentialSkillsKeys = $this->getSkillKeys($essentialSkills);
+            $nonessentialSkillsKeys = $this->getSkillKeys($nonessentialSkills);
             $allSkillsNeededKeys = array_merge(
-                $essentialTechnicalSkillsKeys,
-                $essentialBehaviouralSkillsKeys,
-                $nonessentialTechnicalSkillsKeys,
-                $nonessentialBehaviouralSkillsKeys
+                $essentialSkillsKeys,
+                $nonessentialSkillsKeys,
             );
 
-            // add skills for all four groupings
-            foreach ($essentialTechnicalSkills as $essentialTechnicalSkill) {
+            // add skills both groupings
+            foreach ($essentialSkills as $essentialSkill) {
                 $skillToAttachObject = DB::table('skills')
-                    ->where('key', $essentialTechnicalSkill->key)
+                    ->where('key', $essentialSkill->key)
                     ->first();
 
                 $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
                     $skillToAttachObject->id => [
                         'type' => PoolSkillType::ESSENTIAL->name,
-                        'required_skill_level' => $essentialTechnicalSkill->skillLevel,
+                        'required_skill_level' => $essentialSkill->skillLevel,
                     ],
                 ]);
             }
 
-            foreach ($essentialBehaviouralSkills as $essentialBehaviouralSkill) {
+            foreach ($nonessentialSkills as $nonessentialSkill) {
                 $skillToAttachObject = DB::table('skills')
-                    ->where('key', $essentialBehaviouralSkill->key)
-                    ->first();
-
-                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
-                    $skillToAttachObject->id => [
-                        'type' => PoolSkillType::ESSENTIAL->name,
-                        'required_skill_level' => $essentialBehaviouralSkill->skillLevel,
-                    ],
-                ]);
-            }
-
-            foreach ($nonessentialTechnicalSkills as $nonessentialTechnicalSkill) {
-                $skillToAttachObject = DB::table('skills')
-                    ->where('key', $nonessentialTechnicalSkill->key)
+                    ->where('key', $nonessentialSkill->key)
                     ->first();
 
                 $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
                     $skillToAttachObject->id => [
                         'type' => PoolSkillType::NONESSENTIAL->name,
-                        'required_skill_level' => $nonessentialTechnicalSkill->skillLevel,
-                    ],
-                ]);
-            }
-
-            foreach ($nonessentialBehaviouralSkills as $nonessentialBehaviouralSkill) {
-                $skillToAttachObject = DB::table('skills')
-                    ->where('key', $nonessentialBehaviouralSkill->key)
-                    ->first();
-
-                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
-                    $skillToAttachObject->id => [
-                        'type' => PoolSkillType::NONESSENTIAL->name,
-                        'required_skill_level' => $nonessentialBehaviouralSkill->skillLevel,
+                        'required_skill_level' => $nonessentialSkill->skillLevel,
                     ],
                 ]);
             }
