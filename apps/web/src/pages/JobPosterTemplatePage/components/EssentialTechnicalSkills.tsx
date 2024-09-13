@@ -2,7 +2,13 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  PoolSkillType,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
 import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
 
@@ -53,8 +59,8 @@ const EssentialTechnicalSkills = ({
       jobPosterTemplate,
     ).templateSkills?.filter(
       (templateSkill) =>
-        templateSkill.pivot?.type.value == "ESSENTIAL" &&
-        templateSkill.skill.category.value == "TECHNICAL",
+        templateSkill.pivot?.type.value == PoolSkillType.Essential &&
+        templateSkill.skill.category.value == SkillCategory.Technical,
     ) ?? [];
 
   // the accordion is made for PoolSkills, not JobPosterTemplateSkills
