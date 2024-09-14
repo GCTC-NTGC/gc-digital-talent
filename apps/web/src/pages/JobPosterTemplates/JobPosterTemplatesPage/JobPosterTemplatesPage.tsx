@@ -2,7 +2,9 @@ import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+import debounce from "lodash/debounce";
 
 import {
   Button,
@@ -30,12 +32,13 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 
 interface FormValues {
   keyword: string;
@@ -147,12 +150,27 @@ function previewMetaData(
   return metaData;
 }
 
-const PAGE_SIZE = 8;
+function searchParamHref(
+  name: string,
+  value: string | number,
+  params: URLSearchParams,
+): string {
+  const hrefParams = new URLSearchParams(params);
+  hrefParams.set(name, String(value));
+  return `?${hrefParams.toString()}`;
+}
+
+const PAGE_SIZE = 1;
+
+type SortKey = "classification" | "title";
 
 const JobPosterTemplatesPage = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
-  const [pagesLoaded, setPagesLoaded] = useState<number>(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = (searchParams.get("sortBy") ?? "classification") as SortKey;
+  const page = parseInt(searchParams.get("page") ?? "1");
   const [{ data, fetching }] = useQuery({
     query: JobPosterTemplates_Query,
   });
@@ -172,10 +190,25 @@ const JobPosterTemplatesPage = () => {
 
   const jobPosterTemplates = unpackMaybes(data?.jobPosterTemplates);
   const total = jobPosterTemplates.length;
-  const hasMore = total > PAGE_SIZE * pagesLoaded;
+  let maxShown = PAGE_SIZE * page;
+  if (maxShown > total) maxShown = total;
+  const hasMore = total > maxShown;
   const filteredJobPosterTemplates = useMemo(() => {
     const allTemplates = jobPosterTemplates.filter((jobPosterTemplate) => {
       let show = true;
+
+      if (formData.keyword.length) {
+        const keywords = formData.keyword.split(",");
+        show =
+          show &&
+          keywords.some((term) => {
+            const sanitizedTerm = term.toLowerCase().trim();
+            return jobPosterTemplate.keywords?.[locale]?.some((keyword) => {
+              return keyword.toLowerCase().trim().includes(sanitizedTerm);
+            });
+          });
+      }
+
       show =
         show &&
         assertIncludes(
@@ -195,8 +228,63 @@ const JobPosterTemplatesPage = () => {
       return show;
     });
 
-    return allTemplates.splice(0, PAGE_SIZE * pagesLoaded);
-  }, [formData, jobPosterTemplates, pagesLoaded]);
+    return allTemplates.splice(0, maxShown).sort((a, b) => {
+      if (sortBy === "classification") {
+        return (
+          (a.classification?.group ?? "").localeCompare(
+            b.classification?.group ?? "",
+          ) || (a?.classification?.level ?? 0) - (b?.classification?.level ?? 0)
+        );
+      }
+
+      const aName = getLocalizedName(a.name, intl, true);
+      const bName = getLocalizedName(b.name, intl, true);
+
+      return aName.localeCompare(bName);
+    });
+  }, [
+    jobPosterTemplates,
+    maxShown,
+    formData.keyword,
+    formData.classifications,
+    formData.supervisoryStatuses,
+    formData.streams,
+    locale,
+    sortBy,
+    intl,
+  ]);
+
+  const showing = Math.min(filteredJobPosterTemplates.length, maxShown);
+
+  const debouncedResetPage = useMemo(
+    () =>
+      debounce(() => {
+        methods.handleSubmit(() => {
+          const newParams = new URLSearchParams(searchParams);
+          newParams.set("page", "1");
+          setSearchParams(newParams);
+        })();
+      }, 100),
+    [methods, searchParams, setSearchParams],
+  );
+
+  const handleSubmit = useCallback(
+    () => debouncedResetPage(),
+    [debouncedResetPage],
+  );
+
+  useEffect(() => {
+    if (methods.formState.isDirty) {
+      handleSubmit();
+    }
+  }, [
+    formData.keyword,
+    formData.classifications,
+    formData.streams,
+    formData.supervisoryStatuses,
+    handleSubmit,
+    methods.formState.isDirty,
+  ]);
 
   return (
     <>
@@ -313,6 +401,65 @@ const JobPosterTemplatesPage = () => {
           <Sidebar.Content>
             {filteredJobPosterTemplates.length ? (
               <>
+                <div
+                  data-h2-margin-bottom="base(x.25)"
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column) l-tablet(row)"
+                  data-h2-gap="base(x.25)"
+                  data-h2-justify-content="base(space-between)"
+                >
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-column-gap="base(x.25)"
+                  >
+                    <span id="sortBy">
+                      {intl.formatMessage({
+                        defaultMessage: "Sory by",
+                        id: "58Pfbo",
+                        description:
+                          "Label for the links to change how the list is sorted",
+                      })}
+                    </span>
+                    <Link
+                      aria-describedby="sortBy"
+                      href={searchParamHref(
+                        "sortBy",
+                        "classification",
+                        searchParams,
+                      )}
+                      {...(sortBy === "classification"
+                        ? { color: "secondary", mode: "inline" }
+                        : { color: "black", mode: "text" })}
+                    >
+                      {intl.formatMessage(processMessages.classification)}
+                    </Link>
+                    <Link
+                      aria-describedby="sortBy"
+                      href={searchParamHref("sortBy", "title", searchParams)}
+                      {...(sortBy === "title"
+                        ? { color: "secondary", mode: "inline" }
+                        : { color: "black", mode: "text" })}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Job title",
+                        id: "zDYHRr",
+                        description: "Link text to sort by job title",
+                      })}
+                    </Link>
+                  </div>
+                  <span data-h2-font-weight="base(700)">
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Showing {showing} of {total} available template(s)",
+                        id: "vCRIuq",
+                        description:
+                          "Number of job poster templates being displayed in the list",
+                      },
+                      { showing, total },
+                    )}
+                  </span>
+                </div>
                 <CardBasic>
                   <PreviewList.Root>
                     {filteredJobPosterTemplates.map((jobPosterTemplate) => (
@@ -349,10 +496,14 @@ const JobPosterTemplatesPage = () => {
                 {hasMore && (
                   <>
                     <Separator orientation="horizontal" decorative space="md" />
-                    <Button
-                      type="button"
-                      onClick={() => setPagesLoaded((current) => current + 1)}
+                    <Link
+                      mode="solid"
                       color="secondary"
+                      href={searchParamHref(
+                        "page",
+                        Math.min(page + 1, total),
+                        searchParams,
+                      )}
                     >
                       {intl.formatMessage({
                         defaultMessage: "Load more results",
@@ -360,7 +511,7 @@ const JobPosterTemplatesPage = () => {
                         description:
                           "Button text to load the next set of results",
                       })}
-                    </Button>
+                    </Link>
                   </>
                 )}
               </>
