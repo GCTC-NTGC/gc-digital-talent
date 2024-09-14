@@ -1,17 +1,26 @@
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
-import { defineMessage, useIntl } from "react-intl";
+import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
+import { useMemo, useState } from "react";
 
 import {
   Button,
+  CardBasic,
   Heading,
+  Link,
   Loading,
+  PreviewList,
   Separator,
   Sidebar,
+  Well,
+  type PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import {
+  Classification,
   graphql,
+  LocalizedPoolStream,
+  Maybe,
   PoolStream,
   SupervisoryStatus,
 } from "@gc-digital-talent/graphql";
@@ -21,6 +30,7 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -28,16 +38,16 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 interface FormValues {
-  keyword?: string;
-  classifications?: string[];
-  supervisoryStatus?: SupervisoryStatus[];
-  streams?: PoolStream[];
+  keyword: string;
+  classifications: string[];
+  supervisoryStatuses: SupervisoryStatus[];
+  streams: PoolStream[];
 }
 
 const defaultValues = {
   keyword: "",
   classifications: [],
-  supervisoryStatus: [],
+  supervisoryStatuses: [],
   streams: [],
 } satisfies FormValues;
 
@@ -54,8 +64,8 @@ const pageDescription = defineMessage({
   description: "Description for the page showing list of job poster templates",
 });
 
-const JobPostersFormData_Query = graphql(/* GraphQL */ `
-  query JobPostersFormData {
+const JobPosterTemplates_Query = graphql(/* GraphQL */ `
+  query JobPosterTemplates {
     classifications {
       id
       group
@@ -75,14 +85,76 @@ const JobPostersFormData_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    jobPosterTemplates {
+      id
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      supervisoryStatus
+      keywords {
+        en
+        fr
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      classification {
+        id
+        group
+        level
+      }
+    }
   }
 `);
+
+function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
+  if (!haystack.length || (needle && haystack.includes(needle))) return true;
+
+  return false;
+}
+
+function previewMetaData(
+  intl: IntlShape,
+  classification?: Maybe<Classification>,
+  stream?: Maybe<LocalizedPoolStream>,
+): PreviewMetaData[] {
+  const metaData = [];
+  if (classification) {
+    metaData.push({
+      key: classification.id,
+      type: "chip",
+      children: `${classification.group}-0${classification.level}`,
+    } satisfies PreviewMetaData);
+  }
+
+  if (stream) {
+    metaData.push({
+      key: stream.value,
+      type: "text",
+      children: getLocalizedName(stream.label, intl),
+    } satisfies PreviewMetaData);
+  }
+
+  return metaData;
+}
+
+const PAGE_SIZE = 8;
 
 const JobPosterTemplatesPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [{ data: formData, fetching: formDataFetching }] = useQuery({
-    query: JobPostersFormData_Query,
+  const [pagesLoaded, setPagesLoaded] = useState<number>(1);
+  const [{ data, fetching }] = useQuery({
+    query: JobPosterTemplates_Query,
   });
 
   const crumbs = useBreadcrumbs({
@@ -95,6 +167,36 @@ const JobPosterTemplatesPage = () => {
   });
 
   const methods = useForm<FormValues>({ defaultValues });
+  const { reset, watch } = methods;
+  const formData = watch();
+
+  const jobPosterTemplates = unpackMaybes(data?.jobPosterTemplates);
+  const total = jobPosterTemplates.length;
+  const hasMore = total > PAGE_SIZE * pagesLoaded;
+  const filteredJobPosterTemplates = useMemo(() => {
+    const allTemplates = jobPosterTemplates.filter((jobPosterTemplate) => {
+      let show = true;
+      show =
+        show &&
+        assertIncludes(
+          formData.classifications,
+          jobPosterTemplate?.classification?.id,
+        );
+      show =
+        show &&
+        assertIncludes(
+          formData.supervisoryStatuses,
+          jobPosterTemplate.supervisoryStatus,
+        );
+      show =
+        show &&
+        assertIncludes(formData.streams, jobPosterTemplate?.stream?.value);
+
+      return show;
+    });
+
+    return allTemplates.splice(0, PAGE_SIZE * pagesLoaded);
+  }, [formData, jobPosterTemplates, pagesLoaded]);
 
   return (
     <>
@@ -124,9 +226,9 @@ const JobPosterTemplatesPage = () => {
               "Description of how to use the form to filter job poster templates",
           })}
         </p>
-        <FormProvider {...methods}>
-          <Sidebar.Wrapper>
-            <Sidebar.Sidebar>
+        <Sidebar.Wrapper>
+          <Sidebar.Sidebar>
+            <FormProvider {...methods}>
               <div
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
@@ -142,7 +244,7 @@ const JobPosterTemplatesPage = () => {
                     description: "Label for the keyword search input",
                   })}
                 />
-                {formDataFetching ? (
+                {fetching ? (
                   <Loading inline />
                 ) : (
                   <>
@@ -154,7 +256,7 @@ const JobPosterTemplatesPage = () => {
                         id: "SaPE+p",
                         description: "Label for the classification input",
                       })}
-                      items={unpackMaybes(formData?.classifications)
+                      items={unpackMaybes(data?.classifications)
                         .filter(
                           (classification) => classification.group === "IT",
                         )
@@ -167,7 +269,7 @@ const JobPosterTemplatesPage = () => {
                       idPrefix="supervisoryStatuses"
                       name="supervisoryStatuses"
                       items={localizedEnumToOptions(
-                        unpackMaybes(formData?.supervisoryStatuses),
+                        unpackMaybes(data?.supervisoryStatuses),
                         intl,
                       )}
                       legend={intl.formatMessage({
@@ -180,7 +282,7 @@ const JobPosterTemplatesPage = () => {
                       idPrefix="streams"
                       name="streams"
                       items={localizedEnumToOptions(
-                        unpackMaybes(formData?.poolStreams),
+                        unpackMaybes(data?.poolStreams),
                         intl,
                       )}
                       legend={intl.formatMessage({
@@ -197,7 +299,7 @@ const JobPosterTemplatesPage = () => {
                   mode="inline"
                   color="secondary"
                   block
-                  onClick={() => methods.reset()}
+                  onClick={() => reset()}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Reset all filters",
@@ -206,9 +308,76 @@ const JobPosterTemplatesPage = () => {
                   })}
                 </Button>
               </div>
-            </Sidebar.Sidebar>
-          </Sidebar.Wrapper>
-        </FormProvider>
+            </FormProvider>
+          </Sidebar.Sidebar>
+          <Sidebar.Content>
+            {filteredJobPosterTemplates.length ? (
+              <>
+                <CardBasic>
+                  <PreviewList.Root>
+                    {filteredJobPosterTemplates.map((jobPosterTemplate) => (
+                      <PreviewList.Item
+                        key={jobPosterTemplate.id}
+                        title={
+                          <Link
+                            href={paths.jobPosterTemplate(jobPosterTemplate.id)}
+                            color="black"
+                          >
+                            {getLocalizedName(jobPosterTemplate.name, intl)}
+                          </Link>
+                        }
+                        headingAs="h3"
+                        metaData={previewMetaData(
+                          intl,
+                          jobPosterTemplate.classification,
+                          jobPosterTemplate.stream,
+                        )}
+                      >
+                        {jobPosterTemplate.description && (
+                          <p data-h2-margin-bottom="base(x1)">
+                            {getLocalizedName(
+                              jobPosterTemplate.description,
+                              intl,
+                              true,
+                            )}
+                          </p>
+                        )}
+                      </PreviewList.Item>
+                    ))}
+                  </PreviewList.Root>
+                </CardBasic>
+                {hasMore && (
+                  <>
+                    <Separator orientation="horizontal" decorative space="md" />
+                    <Button
+                      type="button"
+                      onClick={() => setPagesLoaded((current) => current + 1)}
+                      color="secondary"
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Load more results",
+                        id: "HuA8aL",
+                        description:
+                          "Button text to load the next set of results",
+                      })}
+                    </Button>
+                  </>
+                )}
+              </>
+            ) : (
+              <Well data-h2-text-align="base(center)">
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "No job advertisement templates found.",
+                    id: "L47tv9",
+                    description:
+                      "Message displayed when there are no job poster templates meeting a specific criteria",
+                  })}
+                </p>
+              </Well>
+            )}
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
       </div>
     </>
   );
