@@ -31,11 +31,12 @@ const MetaData = ({ children, type, color }: MetaDataProps) => {
 };
 
 interface ItemProps {
-  title: string;
+  title: ReactNode;
   metaData: MetaDataProps[];
-  buttonName: string;
+  buttonName?: string;
   headingAs?: HeadingLevel;
   buttonAriaLabel?: string;
+  children?: ReactNode;
 }
 
 const Item = ({
@@ -44,6 +45,7 @@ const Item = ({
   metaData,
   buttonName,
   buttonAriaLabel,
+  children,
 }: ItemProps) => {
   return (
     <div
@@ -52,7 +54,6 @@ const Item = ({
       data-h2-justify-content="base(space-between)"
       data-h2-align-items="base(flex-start) p-tablet(center)"
       data-h2-gap="base(x.25)"
-      data-h2-padding="base(x1 0)"
       data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid)"
       data-h2-border-bottom-color="base:all:selectors[:not(:last-child)](gray.lighter)"
       data-h2-transition="base:children[.PreviewList__Heading](transform 200ms ease)"
@@ -73,6 +74,7 @@ const Item = ({
         >
           {title}
         </Heading>
+        {children && <div>{children}</div>}
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) p-tablet(row)"
@@ -89,19 +91,21 @@ const Item = ({
           ))}
         </div>
       </div>
-      <Button
-        mode="icon_only"
-        color="black"
-        fontSize="caption"
-        icon={MagnifyingGlassPlusIcon}
-        data-h2-position="base:selectors[::after](absolute)"
-        data-h2-content="base:selectors[::after](' ')"
-        data-h2-inset="base:selectors[::after](0)"
-        data-h2-justify-self="base(end)"
-        aria-label={buttonAriaLabel}
-      >
-        {buttonName}
-      </Button>
+      {buttonName && (
+        <Button
+          mode="icon_only"
+          color="black"
+          fontSize="caption"
+          icon={MagnifyingGlassPlusIcon}
+          data-h2-position="base:selectors[::after](absolute)"
+          data-h2-content="base:selectors[::after](' ')"
+          data-h2-inset="base:selectors[::after](0)"
+          data-h2-justify-self="base(end)"
+          aria-label={buttonAriaLabel}
+        >
+          {buttonName}
+        </Button>
+      )}
     </div>
   );
 };
@@ -114,7 +118,14 @@ export interface RootProps {
 
 const Root = ({ children, ...rest }: RootProps) => {
   return (
-    <div role="list" {...rest}>
+    <div
+      role="list"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-row-gap="base(x1)"
+      data-h2-padding-bottom="base:children[:last-child](0) base:children[>](x1)"
+      {...rest}
+    >
       {children}
     </div>
   );
