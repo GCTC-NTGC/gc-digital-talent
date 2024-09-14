@@ -32,7 +32,11 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -228,20 +232,23 @@ const JobPosterTemplatesPage = () => {
       return show;
     });
 
-    return allTemplates.splice(0, maxShown).sort((a, b) => {
-      if (sortBy === "classification") {
-        return (
-          (a.classification?.group ?? "").localeCompare(
-            b.classification?.group ?? "",
-          ) || (a?.classification?.level ?? 0) - (b?.classification?.level ?? 0)
-        );
-      }
+    return allTemplates
+      .sort((a, b) => {
+        if (sortBy === "classification") {
+          return (
+            (a.classification?.group ?? "").localeCompare(
+              b.classification?.group ?? "",
+            ) ||
+            (a?.classification?.level ?? 0) - (b?.classification?.level ?? 0)
+          );
+        }
 
-      const aName = getLocalizedName(a.name, intl, true);
-      const bName = getLocalizedName(b.name, intl, true);
+        const aName = getLocalizedName(a.name, intl, true);
+        const bName = getLocalizedName(b.name, intl, true);
 
-      return aName.localeCompare(bName);
-    });
+        return aName.localeCompare(bName);
+      })
+      .splice(0, maxShown);
   }, [
     jobPosterTemplates,
     maxShown,
@@ -419,6 +426,7 @@ const JobPosterTemplatesPage = () => {
                         description:
                           "Label for the links to change how the list is sorted",
                       })}
+                      {intl.formatMessage(commonMessages.dividingColon)}
                     </span>
                     <Link
                       aria-describedby="sortBy"
