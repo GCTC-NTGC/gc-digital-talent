@@ -295,6 +295,11 @@ const getRoutes = (lang: Locales) => {
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
+    // Job poster templates
+    jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),
+    jobPosterTemplate: (templateId: string) =>
+      [baseUrl, "job-templates", templateId].join("/"),
+
     /**
      * Deprecated
      *
