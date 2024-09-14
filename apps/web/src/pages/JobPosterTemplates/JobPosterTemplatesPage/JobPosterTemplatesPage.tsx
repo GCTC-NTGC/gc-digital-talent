@@ -164,7 +164,7 @@ function searchParamHref(
   return `?${hrefParams.toString()}`;
 }
 
-const PAGE_SIZE = 1;
+const PAGE_SIZE = 8;
 
 type SortKey = "classification" | "title";
 
