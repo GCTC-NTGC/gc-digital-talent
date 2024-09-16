@@ -101,7 +101,9 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
           fr
         }
       }
-      supervisoryStatus
+      supervisoryStatus {
+        value
+      }
       keywords {
         en
         fr
@@ -223,7 +225,7 @@ const JobPosterTemplatesPage = () => {
         show &&
         assertIncludes(
           formData.supervisoryStatuses,
-          jobPosterTemplate.supervisoryStatus,
+          jobPosterTemplate.supervisoryStatus?.value,
         );
       show =
         show &&
@@ -421,8 +423,8 @@ const JobPosterTemplatesPage = () => {
                   >
                     <span id="sortBy">
                       {intl.formatMessage({
-                        defaultMessage: "Sory by",
-                        id: "58Pfbo",
+                        defaultMessage: "Sort by",
+                        id: "W9SXxj",
                         description:
                           "Label for the links to change how the list is sorted",
                       })}
