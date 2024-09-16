@@ -123,7 +123,7 @@ const Root = ({ children, ...rest }: RootProps) => {
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-row-gap="base(x1)"
-      data-h2-padding-bottom="base:children[:last-child](0) base:children[>](x1)"
+      data-h2-padding-bottom="base:children[>:last-child](0) base:children[>](x1)"
       {...rest}
     >
       {children}
