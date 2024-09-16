@@ -72,7 +72,7 @@ class SkillSeeder extends Seeder
                         'en' => $model->description->en,
                         'fr' => $model->description->fr,
                     ],
-                    'category' => $model->category,
+                    'category' => $model->category->value,
                     'keywords' => [
                         'en' => $model->keywords->en,
                         'fr' => $model->keywords->fr,
