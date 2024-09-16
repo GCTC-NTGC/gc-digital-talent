@@ -121,7 +121,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
                     $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
                     $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
-                    $candidate->archived_at ? $candidate->archival_at->format('Y-m-d') : '', // Archival date
+                    $candidate->archived_at ? $candidate->archived_at->format('Y-m-d') : '', // Archival date
                     $candidate->user->first_name, // First name
                     $candidate->user->last_name, // Last name
                     $candidate->user->email, // Email
