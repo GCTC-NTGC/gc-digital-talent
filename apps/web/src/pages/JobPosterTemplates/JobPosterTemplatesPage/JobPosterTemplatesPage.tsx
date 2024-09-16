@@ -209,9 +209,15 @@ const JobPosterTemplatesPage = () => {
           show &&
           keywords.some((term) => {
             const sanitizedTerm = term.toLowerCase().trim();
-            return jobPosterTemplate.keywords?.[locale]?.some((keyword) => {
-              return keyword.toLowerCase().trim().includes(sanitizedTerm);
-            });
+            return (
+              jobPosterTemplate.name?.[locale]
+                ?.toLowerCase()
+                .trim()
+                .includes(sanitizedTerm) ||
+              jobPosterTemplate.keywords?.[locale]?.some((keyword) => {
+                return keyword.toLowerCase().trim().includes(sanitizedTerm);
+              })
+            );
           });
       }
 
