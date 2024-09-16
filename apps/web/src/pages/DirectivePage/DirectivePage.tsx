@@ -149,8 +149,8 @@ export const Component = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "<link>Check out the recent changes to the Mandatory Procedures on Digital Talent</link>, including fewer reporting requirements! Changes are in effect as of September 30th, 2024.",
-                id: "Zpu+m1",
+                  "<link>Check out the recent changes to the Mandatory Procedures on Digital Talent</link>, including fewer reporting requirements. Changes are in effect as of September 30th, 2024.",
+                id: "bpULlB",
                 description: "Body of an alert about the directive changing",
               },
               {
@@ -289,8 +289,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent provides clarification on existing Policy on Service and Digital requirements related to CIO appointments and talent management. The intention is to continue to advance support for executive career pathways, with a focus on modern digital government service delivery.",
-                      id: "Z9xByk",
+                        "The Directive on Digital Talent provides clarification on existing Policy on Service and Digital requirements related to Chief Information Officer appointments and talent management. The intention is to continue to advance support for executive career pathways, with a focus on modern digital government service delivery.",
+                      id: "9ffYBC",
                       description:
                         "The directives digital executive roles and structures component",
                     })}
@@ -460,8 +460,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "The Mandatory Procedures on Digital Talent have been updated for improved clarity, fewer reporting requirements, and better alignment with other policy instruments.  The Directive remains unchanged.",
-                  id: "iumEhu",
+                    "The Mandatory Procedures on Digital Talent have been updated for improved clarity, fewer reporting requirements, and better alignment with other policy instruments. The Directive remains unchanged.",
+                  id: "/ZPTlP",
                   description: "Description for the mandatory procedures card",
                 })}
               </p>

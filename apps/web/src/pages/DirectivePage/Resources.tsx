@@ -70,8 +70,8 @@ const Resources = () => {
                 <p data-h2-padding="base(0 x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "This implementation guidance is designed to support digital initiative managers and leads in fulfilling their responsibilities under the <cite>Directive on Digital Talent</cite>. This implementation guidance explains why the directive is needed and what is required.",
-                    id: "dnhe2X",
+                      "This implementation guidance is designed to support digital initiative managers and leads in fulfilling their responsibilities under the <cite>Directive on Digital Talent</cite>. It explains why the directive is needed and what is required.",
+                    id: "vYi5/y",
                     description:
                       "Body message for digital initiative managers section.",
                   })}
@@ -208,8 +208,8 @@ const Resources = () => {
                 <p data-h2-margin="base(x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to business owners. These resources are designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
-                    id: "xWRQer",
+                      "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to business owners. This resource is designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
+                    id: "+76ObM",
                     description:
                       "Body message for digital initiative procurement section.",
                   })}
