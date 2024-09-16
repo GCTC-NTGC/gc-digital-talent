@@ -467,8 +467,8 @@ const JobPosterTemplatesPage = () => {
                     {intl.formatMessage(
                       {
                         defaultMessage:
-                          "Showing {showing} of {total} available template(s)",
-                        id: "vCRIuq",
+                          "Showing {showing} of {total} available templates",
+                        id: "Pjfjeg",
                         description:
                           "Number of job poster templates being displayed in the list",
                       },
