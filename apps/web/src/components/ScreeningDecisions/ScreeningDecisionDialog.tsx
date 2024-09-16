@@ -17,6 +17,7 @@ import {
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
+  Scalars,
   Skill,
   UpdateAssessmentResultInput,
   User,
@@ -302,9 +303,15 @@ interface ScreeningDecisionDialogProps {
   assessmentResult?: Maybe<
     Pick<AssessmentResult, "assessmentDecision" | "assessmentDecisionLevel">
   >;
-  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+  poolCandidate: Pick<
+    PoolCandidate,
+    "id" | "educationRequirementOption" | "profileSnapshot"
+  > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
+  } & {
+    educationRequirementExperiences: { id: Scalars["UUID"]["output"] }[];
   };
+  experiences: Omit<Experience, "user">[];
   hasBeenAssessed: boolean;
   poolSkill?: Pick<PoolSkill, "requiredLevel" | "type" | "skill">;
   initialValues?: FormValues;
@@ -318,6 +325,7 @@ export const ScreeningDecisionDialog = ({
   assessmentStep,
   assessmentResult,
   poolCandidate,
+  experiences: experiencesProp,
   hasBeenAssessed,
   poolSkill,
   initialValues,
@@ -354,14 +362,17 @@ export const ScreeningDecisionDialog = ({
   });
   const labels = useLabels();
 
+  const educationRequirementExperiences = unpackMaybes(
+    poolCandidate?.educationRequirementExperiences,
+  );
   const experiences =
     dialogType === "EDUCATION"
-      ? snapshotCandidate?.educationRequirementExperiences?.filter(notEmpty) ||
-        []
-      : getExperienceSkills(
-          parsedSnapshot?.experiences?.filter(notEmpty) || [],
-          skill,
-        );
+      ? experiencesProp.filter((exp) =>
+          educationRequirementExperiences.some(
+            (eduExp) => eduExp.id === exp.id,
+          ),
+        )
+      : getExperienceSkills(experiencesProp?.filter(notEmpty) || [], skill);
 
   const experienceAttachedToSkill =
     getExperienceSkills(unpackMaybes(parsedSnapshot?.experiences), skill)
@@ -376,7 +387,7 @@ export const ScreeningDecisionDialog = ({
     isIAPPool(poolCandidate.pool.publishingGroup?.value),
   ).find(
     (option) =>
-      option.value === snapshotCandidate?.educationRequirementOption?.value,
+      option.value === poolCandidate?.educationRequirementOption?.value,
   )?.label;
 
   const defaultValues: FormValues = {
@@ -528,13 +539,20 @@ const UpdateAssessmentResult_Mutation = graphql(/* GraphQL */ `
 const ScreeningDecisionDialogApi = ({
   assessmentStep,
   poolCandidate,
+  experiences,
   assessmentResult,
   poolSkillToAssess,
   educationRequirement,
 }: {
   assessmentStep: Pick<AssessmentStep, "id" | "type" | "title">;
-  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+  experiences: Omit<Experience, "user">[];
+  poolCandidate: Pick<
+    PoolCandidate,
+    "id" | "educationRequirementOption" | "profileSnapshot"
+  > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
+  } & {
+    educationRequirementExperiences: { id: Scalars["UUID"]["output"] }[];
   };
   assessmentResult?: Maybe<
     Pick<
@@ -662,6 +680,7 @@ const ScreeningDecisionDialogApi = ({
       initialValues={initialValues}
       hasBeenAssessed={hasBeenAssessed}
       educationRequirement={educationRequirement}
+      experiences={experiences}
       onSubmit={(formValues) =>
         hasBeenAssessed
           ? handleUpdateAssessment(

@@ -7,6 +7,7 @@ import {
   PoolSkill,
   Skill,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
+  Experience,
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -34,6 +35,7 @@ export type AssessmentResultsTableFragmentStepType =
 export interface AssessmentTableRowColumnProps {
   id: string;
   poolCandidate: AssessmentResultsTableFragmentType;
+  experiences: Omit<Experience, "user">[];
   assessmentStep: AssessmentResultsTableFragmentStepType;
   intl: IntlShape;
   header: JSX.Element;
