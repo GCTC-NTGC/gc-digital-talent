@@ -26,7 +26,7 @@ const sections = {
     }),
   },
   essentialTechnicalSkills: {
-    id: "essential-technical skills",
+    id: "essential-technical-skills",
     shortTitle: defineMessage({
       defaultMessage: "Essential technical skills",
       id: "fpm0Bt",
@@ -41,7 +41,7 @@ const sections = {
     }),
   },
   essentialBehaviouralSkills: {
-    id: "essential-behavioural skills",
+    id: "essential-behavioural-skills",
     shortTitle: defineMessage({
       defaultMessage: "Essential behavioural skills",
       id: "4wIDU6",
@@ -56,7 +56,7 @@ const sections = {
     }),
   },
   assetTechnicalSkills: {
-    id: "asset-technical skills",
+    id: "asset-technical-skills",
     shortTitle: defineMessage({
       defaultMessage: "Asset technical skills",
       id: "haVipy",
