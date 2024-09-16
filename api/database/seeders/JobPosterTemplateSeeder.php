@@ -47,7 +47,7 @@ class JobPosterTemplateSeeder extends Seeder
             $createdOrUpdatedTemplate = JobPosterTemplate::updateOrCreate(
                 ['reference_id' => $model->referenceId],
                 [
-                    'stream' => $model->stream,
+                    'stream' => $model->stream->value,
                     'classification_id' => $classificationObject->id,
                     'supervisory_status' => $model->supervisoryStatus,
                     'name' => [
@@ -89,8 +89,10 @@ class JobPosterTemplateSeeder extends Seeder
 
             // format skills in json file as
             // [{key: key, skillLevel: SkillLevelEnum}]
-            $essentialSkills = $model->essentialSkills;
-            $nonessentialSkills = $model->nonessentialSkills;
+            // $essentialSkills = $model->essentialSkills;
+            // $nonessentialSkills = $model->nonessentialSkills;
+            $essentialSkills = [];
+            $nonessentialSkills = [];
             $essentialSkillsKeys = $this->getSkillKeys($essentialSkills);
             $nonessentialSkillsKeys = $this->getSkillKeys($nonessentialSkills);
             $allSkillsNeededKeys = array_merge(
