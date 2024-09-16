@@ -2451,10 +2451,6 @@
     "defaultMessage": "Compte et confidentialité",
     "description": "Link to the 'Account and privacy' page"
   },
-  "BRpssM": {
-    "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
-    "description": "First message for the general resources section."
-  },
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
@@ -4243,13 +4239,13 @@
     "defaultMessage": "Une option de prolongation du contrat est-elle actuellement prévue?",
     "description": "Label for _contract extendable_ fieldset in the _digital services contracting questionnaire_"
   },
-  "Kwfc/6": {
-    "defaultMessage": "Ressources",
-    "description": "Heading for section for the group-specific resources section."
-  },
   "KtXvdO": {
     "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
     "description": "Message on getting started page about the contact email address - part 1."
+  },
+  "Kwfc/6": {
+    "defaultMessage": "Ressources",
+    "description": "Heading for section for the group-specific resources section."
   },
   "Kyf9At": {
     "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
