@@ -6,6 +6,8 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import PreviewList, { MetaDataProps } from "./PreviewList";
 
+faker.seed(0);
+
 const previewDetails: MetaDataProps[] = [
   {
     key: "it-chip-id",
