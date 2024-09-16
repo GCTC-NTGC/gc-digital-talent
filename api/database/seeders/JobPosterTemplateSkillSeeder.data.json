@@ -1,0 +1,6607 @@
+{
+  "data": {
+    "jobPosterTemplates": [
+      {
+        "referenceId": "IT-03-03-SU-012",
+        "skills": [
+          {
+            "skill": {
+              "key": "business_analysis_general"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_supervision"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "planning_and_reporting_for_digital_products_and_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "organizational_reporting"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-06-SU-029",
+        "skills": [
+          {
+            "skill": {
+              "key": "application_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_supervision"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "application_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-02-SU-009",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "respect_for_diversity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "entrepreneurial_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-06-IC-024",
+        "skills": [
+          {
+            "skill": {
+              "key": "web_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "front_end_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "web_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-06-SU-025",
+        "skills": [
+          {
+            "skill": {
+              "key": "web_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "front_end_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-06-IC-018",
+        "skills": [
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "usability_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-06-SU-019",
+        "skills": [
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "usability_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-03-SU-013",
+        "skills": [
+          {
+            "skill": {
+              "key": "planning_and_reporting_for_digital_products_and_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "organizational_reporting"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "respect_for_diversity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "entrepreneurial_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-01-06-IC-020",
+        "skills": [
+          {
+            "skill": {
+              "key": "web_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "front_end_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "web_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "attention_to_detail"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "teamwork"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "general_communication"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-06-IC-028",
+        "skills": [
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "application_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "application_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-02-IC-006",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-02-06-IC-021",
+        "skills": [
+          {
+            "skill": {
+              "key": "web_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "front_end_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "web_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "attention_to_detail"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "teamwork"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-06-IC-22",
+        "skills": [
+          {
+            "skill": {
+              "key": "web_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "front_end_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "web_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-06-SU-023",
+        "skills": [
+          {
+            "skill": {
+              "key": "web_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_supervision"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "front_end_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "web_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-01-06-IC-026",
+        "skills": [
+          {
+            "skill": {
+              "key": "application_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "application_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "teamwork"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "general_communication"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-02-06-IC-027",
+        "skills": [
+          {
+            "skill": {
+              "key": "application_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "application_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "teamwork"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-02-02-IC-005",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-02-SU-007",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_supervision"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-02-IC-008",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "respect_for_diversity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "entrepreneurial_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-01-SU-004",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "business_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "respect_for_diversity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "entrepreneurial_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "organizational_acumen"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-02-06-IC-015",
+        "skills": [
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "automated_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "usability_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "data_cleaning"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "attention_to_detail"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "teamwork"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-02-01-IC-001",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "business_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-01-IC-002",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "business_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-01-SU-003",
+        "skills": [
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "business_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_supervision"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "communication_of_technical_information_to_non_technical_audiences"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-01-06-IC-014",
+        "skills": [
+          {
+            "skill": {
+              "key": "bug_fixing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "automated_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "usability_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "data_cleaning"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "attention_to_detail"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "teamwork"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "adaptability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-06-IC-016",
+        "skills": [
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "automated_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "usability_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "attention_to_detail"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-06-SU-017",
+        "skills": [
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "automated_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_supervision"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "usability_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "collaboration"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-02-03-IC-010",
+        "skills": [
+          {
+            "skill": {
+              "key": "business_analysis_general"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "planning_and_reporting_for_digital_products_and_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "analytical_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "attention_to_detail"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "general_communication"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "BEGINNER"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "INTERMEDIATE"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-03-03-IC-011",
+        "skills": [
+          {
+            "skill": {
+              "key": "business_analysis_general"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_progress_monitoring"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_to_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "risk_assessment"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "planning_and_reporting_for_digital_products_and_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "enhanced_management_framework_for_it_projects"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_and_it_project_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_portfolio_management_tools"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "it_project_estimating_and_planning_techniques"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "organizational_reporting"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "accountability"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-06-IC-030",
+        "skills": [
+          {
+            "skill": {
+              "key": "application_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "version_control"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "application_content_development"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "mobile_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "functional_testing"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      },
+      {
+        "referenceId": "IT-04-06-SU-31",
+        "skills": [
+          {
+            "skill": {
+              "key": "application_development_languages"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "ADVANCED"
+            }
+          },
+          {
+            "skill": {
+              "key": "requirements_analysis"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "advice_senior_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "technical_writing"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "human_resources_management"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "client_services"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "devops"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "agile_methodologies"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "digital_product_accessibility"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "api_design"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "government_of_canada_it_policies_and_standards"
+            },
+            "pivot": {
+              "type": {
+                "value": "NONESSENTIAL"
+              },
+              "requiredLevel": null
+            }
+          },
+          {
+            "skill": {
+              "key": "strategic_thinking"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "stakeholder_relations"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "complex_problem_solving"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "integrity"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "judgement"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          },
+          {
+            "skill": {
+              "key": "ethical_decision_making"
+            },
+            "pivot": {
+              "type": {
+                "value": "ESSENTIAL"
+              },
+              "requiredLevel": "LEAD"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
