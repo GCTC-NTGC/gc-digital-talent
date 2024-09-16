@@ -16,6 +16,71 @@ class JobPosterTemplateSeeder extends Seeder
      */
     public function run()
     {
+        // Grab templates to create JSON
+        // query templates {
+        //     jobPosterTemplates {
+        //       referenceId
+        //       name {
+        //         en
+        //         fr
+        //       }
+        //       description {
+        //         en
+        //         fr
+        //       }
+        //       tasks {
+        //         en
+        //         fr
+        //       }
+        //       supervisoryStatus
+        //       essentialBehaviouralSkillsNotes {
+        //         fr
+        //         en
+        //       }
+        //       essentialTechnicalSkillsNotes {
+        //         en
+        //         fr
+        //       }
+        //       nonessentialTechnicalSkillsNotes {
+        //         en
+        //         fr
+        //       }
+        //       workDescription {
+        //         en
+        //         fr
+        //       }
+        //       stream {
+        //         value
+        //       }
+        //       classification {
+        //         group
+        //         level
+        //       }
+        //       keywords {
+        //         en
+        //         fr
+        //       }
+        //     }
+        //   }
+
+        // Grab skills to create JSON
+        // query templatesSkills {
+        //     jobPosterTemplates {
+        //       referenceId
+        //       skills {
+        //         skill {
+        //           key
+        //         }
+        //         pivot {
+        //           type {
+        //             value
+        //           }
+        //           requiredLevel
+        //         }
+        //       }
+        //     }
+        //   }
+
         $templatesFileContents = file_get_contents(base_path('database/seeders/JobPosterTemplateSeeder.data.json'));
         if (! $templatesFileContents) {
             throw new Exception('Failed to load Templates JSON file');
