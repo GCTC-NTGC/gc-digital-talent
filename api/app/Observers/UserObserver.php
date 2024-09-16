@@ -19,10 +19,16 @@ class UserObserver
      */
     public function updated(User $user): void
     {
-        $oldEmail = $user->getOriginal('email');
-        $newEmail = $user->email;
-        if ($newEmail != $oldEmail && ! is_null($user->email_verified_at)) {
+        $oldContactEmail = $user->getOriginal('email');
+        $newContactEmail = $user->email;
+        if ($newContactEmail != $oldContactEmail && ! is_null($user->email_verified_at)) {
             $user->email_verified_at = null;
+        }
+
+        $oldWorkEmail = $user->getOriginal('work_email');
+        $newWorkEmail = $user->work_email;
+        if ($newWorkEmail != $oldWorkEmail && ! is_null($user->work_email_verified_at)) {
+            $user->work_email_verified_at = null;
         }
 
         $user->saveQuietly();

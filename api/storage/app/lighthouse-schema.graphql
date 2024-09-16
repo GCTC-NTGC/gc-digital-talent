@@ -227,6 +227,8 @@ type Query {
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
+  jobPosterTemplate(id: UUID!): JobPosterTemplate
+  jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
@@ -322,8 +324,8 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
-  sendUserEmailVerification: User
-  verifyUserEmail(code: String!): User
+  sendUserEmailVerification(emailType: EmailType): User
+  verifyUserEmail(emailType: EmailType, code: String!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
@@ -385,6 +387,9 @@ type Mutation {
   deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
+  createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
+  updateJobPosterTemplate(id: UUID!, jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
+  deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
@@ -491,6 +496,8 @@ type User {
   verbalLevel: LocalizedEvaluatedLanguageAbility
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
+  isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
   currentClassification: Classification
   department: Department
@@ -1006,6 +1013,39 @@ type ExperienceSkillRecord {
   details: String
 }
 
+type JobPosterTemplate {
+  id: UUID!
+  referenceId: String
+  name: LocalizedString
+  description: LocalizedString
+  supervisoryStatus: SupervisoryStatus
+  stream: LocalizedPoolStream
+  workDescription: LocalizedString
+  tasks: LocalizedString
+  keywords: LocalizedKeywords
+  essentialTechnicalSkillsNotes: LocalizedString
+  essentialBehaviouralSkillsNotes: LocalizedString
+  nonessentialTechnicalSkillsNotes: LocalizedString
+  classification: Classification
+  skills: [JobPosterTemplateSkill!]
+}
+
+type LocalizedKeywords {
+  en: [String!]
+  fr: [String!]
+}
+
+type JobPosterTemplateSkillPivot {
+  type: LocalizedPoolSkillType!
+  requiredLevel: SkillLevel!
+}
+
+type JobPosterTemplateSkill {
+  id: UUID!
+  skill: Skill!
+  pivot: JobPosterTemplateSkillPivot
+}
+
 input ClassificationFilterInput {
   group: String!
   level: Int!
@@ -1171,6 +1211,7 @@ input CreateUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1218,6 +1259,7 @@ input UpdateUserAsAdminInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1274,6 +1316,7 @@ input UpdateUserAsUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1793,10 +1836,65 @@ input DateRange {
   to: DateTime!
 }
 
+input LocalizedKeywordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 input NotificationFilterInput {
   onlyUnread: Boolean
   readAt: DateRange
   createdAt: DateRange
+}
+
+input AttachJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType!
+  requiredLevel: SkillLevel!
+}
+
+input SyncJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType
+  requiredLevel: SkillLevel
+}
+
+input UpdateJobPosterTemplateSkillsInput {
+  attach: [AttachJobPosterTemplateSkillInput!]
+  sync: [SyncJobPosterTemplateSkillInput!]
+  detach: [UUID!]
+}
+
+input CreateJobPosterTemplateInput {
+  referenceId: String!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput!
+  supervisoryStatus: SupervisoryStatus!
+  stream: PoolStream!
+  workDescription: LocalizedStringInput
+  tasks: LocalizedStringInput!
+  keywords: LocalizedKeywordsInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+  classification: ClassificationBelongsTo!
+  skills: UpdateJobPosterTemplateSkillsInput
+}
+
+input UpdateJobPosterTemplateInput {
+  referenceId: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  supervisoryStatus: SupervisoryStatus
+  stream: PoolStream
+  workDescription: LocalizedStringInput
+  tasks: LocalizedStringInput
+  keywords: LocalizedStringInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+  classification: ClassificationBelongsTo
+  skills: UpdateJobPosterTemplateSkillsInput
 }
 
 type DigitalContractingPersonnelSkill {
@@ -2686,6 +2784,11 @@ enum EducationType {
   OTHER
 }
 
+enum EmailType {
+  CONTACT
+  WORK
+}
+
 enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
@@ -2924,6 +3027,11 @@ enum SkillLevel {
   INTERMEDIATE
   ADVANCED
   LEAD
+}
+
+enum SupervisoryStatus {
+  INDIVIDUAL_CONTRIBUTOR
+  SUPERVISOR
 }
 
 enum WhenSkillUsed {

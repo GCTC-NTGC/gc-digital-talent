@@ -22,11 +22,11 @@
     "@faker-js/faker": "^9.0.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@storybook/react": "^8.2.9",
+    "@storybook/react": "^8.3.0",
     "@types/react": "^18.3.5",
     "eslint": "^8.57.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   }
 }

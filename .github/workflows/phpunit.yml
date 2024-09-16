@@ -44,6 +44,7 @@ jobs:
         with:
           php-version: "8.2"
           extensions: bcmath
+          coverage: pcov
 
       - name: Install api dependencies
         working-directory: api
@@ -58,7 +59,7 @@ jobs:
           DB_HOST: localhost
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            php artisan test --coverage-clover=coverage.xml
+            php artisan test --parallel --processes=2 --coverage-clover=coverage.xml
           else
             php artisan test
           fi

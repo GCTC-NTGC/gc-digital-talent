@@ -32,7 +32,7 @@
     "@tiptap/starter-kit": "^2.6.6",
     "date-fns": "^3.6.0",
     "downshift": "^9.0.8",
-    "framer-motion": "^11.5.2",
+    "framer-motion": "^11.5.4",
     "lodash": "^4.17.21",
     "react-dom": "^18.2.0"
   },
@@ -43,8 +43,8 @@
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@storybook/addon-actions": "^8.2.9",
-    "@storybook/react": "^8.2.9",
+    "@storybook/addon-actions": "^8.3.0",
+    "@storybook/react": "^8.3.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
@@ -59,6 +59,6 @@
     "react-hook-form": "^7.53.0",
     "react-intl": "^6.6.8",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   }
 }

@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\EmailType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -17,17 +18,18 @@ final class VerifyUserEmail
     {
         /** @var \App\Models\User */
         $user = Auth::user();
+        $emailType = isset($args['emailType']) ? EmailType::fromName($args['emailType']) : EmailType::CONTACT;
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));
 
-        $key = 'email-verification-'.$user->id;
+        $key = $emailType->name.'-email-verification-'.$user->id;
         $token = Cache::get($key);
 
         if (
             ! is_null($token) &&
             $token['code'] == $normalizedCode &&
-            $token['field'] == 'email' &&
-            $token['value'] == $user->getEmailForVerification()
+            $token['field'] == $emailType->value &&
+            $token['value'] == $user->getEmailForVerification($emailType)
         ) {
             $isValid = true;
         } else {
@@ -39,8 +41,8 @@ final class VerifyUserEmail
         }
 
         // by now, token seems good
-        if (! $user->hasVerifiedEmail()) {
-            $user->markEmailAsVerified();
+        if (! $user->hasVerifiedEmail($emailType)) {
+            $user->markEmailAsVerified($emailType);
         }
         $user->save();
 

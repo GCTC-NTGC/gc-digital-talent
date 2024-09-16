@@ -96,6 +96,8 @@ query getProfile($userId: UUID!) {
       }
     }
     isGovEmployee
+    workEmail
+    isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
     govEmployeeType {

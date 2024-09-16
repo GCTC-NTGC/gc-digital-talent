@@ -1,6 +1,7 @@
 import {
   keyStringRegex,
   phoneNumberRegex,
+  workEmailDomainRegex,
 } from "./constants/regularExpressions";
 import lazyRetry from "./utils/lazyRetry";
 import normalizeString from "./utils/normalizeString";
@@ -32,6 +33,7 @@ export {
   assertUnreachable,
   keyStringRegex,
   phoneNumberRegex,
+  workEmailDomainRegex,
   identity,
   notEmpty,
   empty,

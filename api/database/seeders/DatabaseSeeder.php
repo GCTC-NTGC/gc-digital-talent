@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             UserRandomSeeder::class,
             AssessmentResultRandomSeeder::class,
             SearchRequestRandomSeeder::class,
+            JobPosterTemplateRandomSeeder::class,
             DigitalContractingQuestionnaireRandomSeeder::class,
             DepartmentSpecificRecruitmentProcessFormRandomSeeder::class,
         ]);

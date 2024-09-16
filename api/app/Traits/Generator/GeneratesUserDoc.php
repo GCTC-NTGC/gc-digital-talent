@@ -150,6 +150,7 @@ trait GeneratesUserDoc
             $department = $user->department()->first();
             $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class));
+            $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
             $this->addLabelText($section, $this->localizeHeading('current_classification'), $user->getClassification());
         }
 
@@ -317,8 +318,8 @@ trait GeneratesUserDoc
             $experience->userSkills->each(function ($userSkill) use ($section) {
                 $skillRun = $section->addListItemRun();
                 $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
-                if (isset($skill->experience_skill->details)) {
-                    $skillRun->addText(': '.$skill->experience_skill->details);
+                if (isset($userSkill->experience_skill->details)) {
+                    $skillRun->addText($this->colon().$userSkill->experience_skill->details);
                 }
             });
         }
