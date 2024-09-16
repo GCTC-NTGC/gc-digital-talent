@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\PoolSkillType;
 use App\Models\JobPosterTemplate;
 use Exception;
 use Illuminate\Database\Seeder;
@@ -17,138 +16,107 @@ class JobPosterTemplateSeeder extends Seeder
      */
     public function run()
     {
-        $fileContents = file_get_contents(base_path('database/seeders/JobPosterTemplateSeeder.data.json'));
-        if (! $fileContents) {
-            throw new Exception('Failed to load JSON file');
+        $templatesFileContents = file_get_contents(base_path('database/seeders/JobPosterTemplateSeeder.data.json'));
+        if (! $templatesFileContents) {
+            throw new Exception('Failed to load Templates JSON file');
         }
-        $fileJson = json_decode($fileContents);
-        if (! $fileJson) {
-            throw new Exception('Failed to decode JSON file');
+        $templatesFileJson = json_decode($templatesFileContents);
+        if (! $templatesFileJson) {
+            throw new Exception('Failed to decode Templates JSON file');
         }
-        $models = $fileJson->data->jobPosterTemplates;
+        $templatesModels = $templatesFileJson->data->jobPosterTemplates;
+        $skillsFileContents = file_get_contents(base_path('database/seeders/JobPosterTemplateSkillSeeder.data.json'));
+        if (! $skillsFileContents) {
+            throw new Exception('Failed to load Skills JSON file');
+        }
+        $skillsFileJson = json_decode($skillsFileContents);
+        if (! $skillsFileJson) {
+            throw new Exception('Failed to decode Skills JSON file');
+        }
+        $skillsModels = $skillsFileJson->data->jobPosterTemplates;
 
-        // Check for duplicate reference ids
+        // Check for duplicate reference ids in templates
         $referenceIds = array_map(
             function ($model) {
                 return $model->referenceId;
             },
-            $models
+            $templatesModels
         );
-        if (count(array_unique($referenceIds)) != count($models)) {
+        if (count(array_unique($referenceIds)) != count($templatesModels)) {
             throw new Exception('The reference ids are not unique');
         }
 
-        foreach ($models as $model) {
+        // TEMPLATES
+        // update or create all the templates
+        foreach ($templatesModels as $templateModel) {
             $classificationObject = DB::table('classifications')
-                ->where('group', $model->classification->group)
-                ->where('level', $model->classification->level)
+                ->where('group', $templateModel->classification->group)
+                ->where('level', $templateModel->classification->level)
                 ->first();
 
-            $createdOrUpdatedTemplate = JobPosterTemplate::updateOrCreate(
-                ['reference_id' => $model->referenceId],
+            JobPosterTemplate::updateOrCreate(
+                ['reference_id' => $templateModel->referenceId],
                 [
-                    'stream' => $model->stream->value,
+                    'stream' => $templateModel->stream->value,
                     'classification_id' => $classificationObject->id,
-                    'supervisory_status' => $model->supervisoryStatus,
+                    'supervisory_status' => $templateModel->supervisoryStatus,
                     'name' => [
-                        'en' => $model->name->en,
-                        'fr' => $model->name->fr,
+                        'en' => $templateModel->name->en,
+                        'fr' => $templateModel->name->fr,
                     ],
                     'description' => [
-                        'en' => $model->description->en,
-                        'fr' => $model->description->fr,
+                        'en' => $templateModel->description->en,
+                        'fr' => $templateModel->description->fr,
                     ],
                     'work_description' => [
-                        'en' => $model->workDescription->en,
-                        'fr' => $model->workDescription->fr,
+                        'en' => $templateModel->workDescription->en,
+                        'fr' => $templateModel->workDescription->fr,
                     ],
                     'tasks' => [
-                        'en' => $model->tasks->en,
-                        'fr' => $model->tasks->fr,
+                        'en' => $templateModel->tasks->en,
+                        'fr' => $templateModel->tasks->fr,
                     ],
                     'keywords' => [
-                        'en' => $model->keywords->en,
-                        'fr' => $model->keywords->fr,
+                        'en' => $templateModel->keywords->en,
+                        'fr' => $templateModel->keywords->fr,
                     ],
                     'essential_technical_skills_notes' => [
-                        'en' => $model->essentialTechnicalSkillsNotes->en,
-                        'fr' => $model->essentialTechnicalSkillsNotes->fr,
+                        'en' => $templateModel->essentialTechnicalSkillsNotes->en,
+                        'fr' => $templateModel->essentialTechnicalSkillsNotes->fr,
                     ],
                     'essential_behavioural_skills_notes' => [
-                        'en' => $model->essentialBehaviouralSkillsNotes->en,
-                        'fr' => $model->essentialBehaviouralSkillsNotes->fr,
+                        'en' => $templateModel->essentialBehaviouralSkillsNotes->en,
+                        'fr' => $templateModel->essentialBehaviouralSkillsNotes->fr,
                     ],
                     'nonessential_technical_skills_notes' => [
-                        'en' => $model->nonessentialTechnicalSkillsNotes->en,
-                        'fr' => $model->nonessentialTechnicalSkillsNotes->fr,
+                        'en' => $templateModel->nonessentialTechnicalSkillsNotes->en,
+                        'fr' => $templateModel->nonessentialTechnicalSkillsNotes->fr,
                     ],
                 ]
             );
+        }
 
-            // skill relations changes
+        // SKILLS
+        // wipe existing pivot entries
+        DB::table('job_poster_template_skill')->truncate();
 
-            // format skills in json file as
-            // [{key: key, skillLevel: SkillLevelEnum}]
-            // $essentialSkills = $model->essentialSkills;
-            // $nonessentialSkills = $model->nonessentialSkills;
-            $essentialSkills = [];
-            $nonessentialSkills = [];
-            $essentialSkillsKeys = $this->getSkillKeys($essentialSkills);
-            $nonessentialSkillsKeys = $this->getSkillKeys($nonessentialSkills);
-            $allSkillsNeededKeys = array_merge(
-                $essentialSkillsKeys,
-                $nonessentialSkillsKeys,
-            );
-
-            // add skills both groupings
-            foreach ($essentialSkills as $essentialSkill) {
-                $skillToAttachObject = DB::table('skills')
-                    ->where('key', $essentialSkill->key)
+        // loop through data and insert records
+        foreach ($skillsModels as $skillModel) {
+            $templateObject = DB::table('job_poster_templates')
+                ->where('reference_id', $skillModel->referenceId)
+                ->first();
+            $attachedSkills = $skillModel->skills;
+            foreach ($attachedSkills as $attachedSkill) {
+                $skillObject = DB::table('skills')
+                    ->where('key', $attachedSkill->skill->key)
                     ->first();
-
-                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
-                    $skillToAttachObject->id => [
-                        'type' => PoolSkillType::ESSENTIAL->name,
-                        'required_skill_level' => $essentialSkill->skillLevel,
-                    ],
+                DB::table('job_poster_template_skill')->insert([
+                    'job_poster_template_id' => $templateObject->id,
+                    'skill_id' => $skillObject->id,
+                    'type' => $attachedSkill->pivot->type->value,
+                    'required_skill_level' => $attachedSkill->pivot->requiredLevel,
                 ]);
-            }
-
-            foreach ($nonessentialSkills as $nonessentialSkill) {
-                $skillToAttachObject = DB::table('skills')
-                    ->where('key', $nonessentialSkill->key)
-                    ->first();
-
-                $createdOrUpdatedTemplate->skills()->syncWithoutDetaching([
-                    $skillToAttachObject->id => [
-                        'type' => PoolSkillType::NONESSENTIAL->name,
-                        'required_skill_level' => $nonessentialSkill->skillLevel,
-                    ],
-                ]);
-            }
-
-            // now check if any skills need to be deleted
-            $allSkillsAttachedToTemplate = $createdOrUpdatedTemplate->skills->pluck('key')->toArray();
-            $skillsToRemoveKeys = array_diff($allSkillsAttachedToTemplate, $allSkillsNeededKeys);
-
-            foreach ($skillsToRemoveKeys as $skillToRemoveKey) {
-                $skillToRemoveObject = DB::table('skills')
-                    ->where('key', $skillToRemoveKey)
-                    ->first();
-
-                $createdOrUpdatedTemplate->skills()->detach($skillToRemoveObject->id);
             }
         }
-    }
-
-    // given an array of skill objects, return an array of skill keys
-    private function getSkillKeys(mixed $skillsArray): array
-    {
-        return array_map(
-            function ($skillArray) {
-                return $skillArray->key;
-            },
-            $skillsArray
-        );
     }
 }
