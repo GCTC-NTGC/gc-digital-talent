@@ -481,15 +481,17 @@ const JobPosterTemplatesPage = () => {
                     {filteredJobPosterTemplates.map((jobPosterTemplate) => (
                       <PreviewList.Item
                         key={jobPosterTemplate.id}
-                        title={
-                          <Link
-                            href={paths.jobPosterTemplate(jobPosterTemplate.id)}
-                            color="black"
-                          >
-                            {getLocalizedName(jobPosterTemplate.name, intl)}
-                          </Link>
-                        }
+                        title={getLocalizedName(jobPosterTemplate.name, intl)}
                         headingAs="h3"
+                        action={
+                          <PreviewList.Link
+                            href={paths.jobPosterTemplate(jobPosterTemplate.id)}
+                            label={getLocalizedName(
+                              jobPosterTemplate.name,
+                              intl,
+                            )}
+                          />
+                        }
                         metaData={previewMetaData(
                           intl,
                           jobPosterTemplate.classification,
@@ -497,7 +499,7 @@ const JobPosterTemplatesPage = () => {
                         )}
                       >
                         {jobPosterTemplate.description && (
-                          <p data-h2-margin-bottom="base(x1)">
+                          <p>
                             {getLocalizedName(
                               jobPosterTemplate.description,
                               intl,
