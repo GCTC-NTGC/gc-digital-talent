@@ -1,5 +1,4 @@
 import { defineMessage, useIntl } from "react-intl";
-import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
@@ -24,6 +23,7 @@ import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-lapt
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
+import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 
 const pageTitle = defineMessage({
   defaultMessage: "Managers community",
@@ -382,34 +382,7 @@ export const Component = () => {
             }}
           />
         </div>
-        <Heading
-          Icon={MagnifyingGlassCircleIcon}
-          color="tertiary"
-          size="h3"
-          data-h2-font-weight="base(400)"
-          data-h2-margin-top="base(x5)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Directive on Digital Talent",
-            id: "xXwUGs",
-            description: "Title for the digital talent directive page",
-          })}
-        </Heading>
-        <p data-h2-margin="base(x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "The GC Digital Talent platform offers a handful of helpful resources to make completing your responsibilities under the Directive on Digital Talent as easy as possible. This includes online forms, implementation guidance, and links to the Directive.",
-            id: "tSAjnB",
-            description: "Summary of the directive on digital talent",
-          })}
-        </p>
-        <Link href={paths.directive()} color="tertiary" mode="solid">
-          {intl.formatMessage({
-            defaultMessage: "Learn more<hidden> about the directive</hidden>",
-            id: "+cqG9n",
-            description: "Link text to the directive on digital talent page",
-          })}
-        </Link>
+        <DirectiveBlock />
       </FlourishContainer>
       <Flourish />
     </>

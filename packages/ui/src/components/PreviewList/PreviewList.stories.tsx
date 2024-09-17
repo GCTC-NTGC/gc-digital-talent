@@ -1,8 +1,12 @@
 import { Meta, StoryFn } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
+import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import PreviewList, { MetaDataProps } from "./PreviewList";
+
+faker.seed(0);
 
 const previewDetails: MetaDataProps[] = [
   {
@@ -85,18 +89,51 @@ Default.args = {
       <PreviewList.Item
         title="IT-01: Junior application developer"
         metaData={previewDetails}
-        buttonName="View preview button one"
+        action={
+          <PreviewList.Button
+            label="View preview button one"
+            onClick={() => action("preview button one clicked")()}
+          />
+        }
       />
       <PreviewList.Item
         title="IT-02: Application developer"
         metaData={previewDetailsTwo}
-        buttonName="View preview button two"
+        action={
+          <PreviewList.Button
+            label="View preview button two"
+            onClick={() => action("preview button two clicked")()}
+          />
+        }
       />
       <PreviewList.Item
         title="IT-03: Database architect"
         metaData={previewDetailsThree}
-        buttonName="View preview button three"
+        action={
+          <PreviewList.Button
+            label="View preview button three"
+            onClick={() => action("preview button three clicked")()}
+          />
+        }
       />
     </>
+  ),
+};
+
+export const WithChildren = Template.bind({});
+WithChildren.args = {
+  children: (
+    <PreviewList.Item
+      title="IT-01: Junior application developer"
+      metaData={previewDetails}
+      action={
+        <PreviewList.Button
+          label="View preview button one"
+          onClick={() => action("preview button one clicked")()}
+        />
+      }
+    >
+      <p>{faker.lorem.paragraph()}</p>
+    </PreviewList.Item>
   ),
 };
