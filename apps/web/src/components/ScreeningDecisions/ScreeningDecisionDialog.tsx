@@ -298,7 +298,7 @@ const SupportingEvidence = ({
   );
 };
 
-export type EducationRequirementExperiences = Maybe<
+type EducationRequirementExperiences = Maybe<
   Maybe<{
     id: Scalars["UUID"]["output"];
   }>[]
