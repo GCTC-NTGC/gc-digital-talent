@@ -1,5 +1,5 @@
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
-import { defineMessage, IntlShape, useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
 import { useCallback, useMemo } from "react";
@@ -46,6 +46,8 @@ import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 
+import pageMessages from "./messages";
+
 interface FormValues {
   keyword: string;
   classifications: string[];
@@ -59,19 +61,6 @@ const defaultValues = {
   supervisoryStatuses: [],
   streams: [],
 } satisfies FormValues;
-
-const pageTitle = defineMessage({
-  defaultMessage: "Job advertisement templates",
-  id: "58+Hom",
-  description: "Heading for the page showing list of job poster templates",
-});
-
-const pageDescription = defineMessage({
-  defaultMessage:
-    "Browse a library of pre-built job advertisements that include suggestions for key tasks, required, and optional skills.",
-  id: "s7jEFt",
-  description: "Description for the page showing list of job poster templates",
-});
 
 const JobPosterTemplates_Query = graphql(/* GraphQL */ `
   query JobPosterTemplates {
@@ -186,7 +175,7 @@ const JobPosterTemplatesPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(pageTitle),
+        label: intl.formatMessage(pageMessages.breadcrumb),
         url: paths.jobPosterTemplates(),
       },
     ],
@@ -298,12 +287,12 @@ const JobPosterTemplatesPage = () => {
   return (
     <>
       <SEO
-        title={intl.formatMessage(pageTitle)}
-        description={intl.formatMessage(pageDescription)}
+        title={intl.formatMessage(pageMessages.title)}
+        description={intl.formatMessage(pageMessages.description)}
       />
       <Hero
-        title={intl.formatMessage(pageTitle)}
-        subtitle={intl.formatMessage(pageDescription)}
+        title={intl.formatMessage(pageMessages.title)}
+        subtitle={intl.formatMessage(pageMessages.description)}
         crumbs={crumbs}
       />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
