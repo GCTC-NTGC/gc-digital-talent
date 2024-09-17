@@ -117,7 +117,7 @@ class JobPosterTemplateSeeder extends Seeder
             $classificationObject = DB::table('classifications')
                 ->where('group', $templateModel->classification->group)
                 ->where('level', $templateModel->classification->level)
-                ->first();
+                ->sole();
 
             JobPosterTemplate::updateOrCreate(
                 ['reference_id' => $templateModel->referenceId],
