@@ -55,8 +55,8 @@ const Featured = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Learn more about the new Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out new reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
-            id: "jO2uif",
+              "Learn more about the Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
+            id: "L0ugLs",
             description:
               "Summary of the directive on digital talent featured item",
           })}
