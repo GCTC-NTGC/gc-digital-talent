@@ -162,25 +162,38 @@ class JobPosterTemplateSeeder extends Seeder
         }
 
         // SKILLS
-        // wipe existing pivot entries
-        DB::table('job_poster_template_skill')->truncate();
-
-        // loop through data and insert records
+        // loop through data and syncWithoutDetaching the records in the pivot
         foreach ($skillsModels as $skillModel) {
-            $templateObject = DB::table('job_poster_templates')
-                ->where('reference_id', $skillModel->referenceId)
-                ->first();
-            $attachedSkills = $skillModel->skills;
-            foreach ($attachedSkills as $attachedSkill) {
+            $templateEloquentModel = JobPosterTemplate::where('reference_id', $skillModel->referenceId)->sole();
+            $skillsToSync = $skillModel->skills;
+            $allSkillsNeededKeys = array_map(
+                function ($attachedSkill) {
+                    return $attachedSkill->skill->key;
+                },
+                $skillsToSync
+            );
+
+            foreach ($skillsToSync as $skillToSync) {
                 $skillObject = DB::table('skills')
-                    ->where('key', $attachedSkill->skill->key)
+                    ->where('key', $skillToSync->skill->key)
                     ->first();
-                DB::table('job_poster_template_skill')->insert([
-                    'job_poster_template_id' => $templateObject->id,
-                    'skill_id' => $skillObject->id,
-                    'type' => $attachedSkill->pivot->type->value,
-                    'required_skill_level' => $attachedSkill->pivot->requiredLevel,
+                $templateEloquentModel->skills()->syncWithoutDetaching([
+                    $skillObject->id => [
+                        'type' => $skillToSync->pivot->type->value,
+                        'required_skill_level' => $skillToSync->pivot->requiredLevel,
+                    ],
                 ]);
+            }
+
+            // now that skills have been synced, in the case of skills being changed across re-runs of seeder, clear records if needed
+            $allSkillsAttachedToTemplate = $templateEloquentModel->skills->pluck('key')->toArray();
+            $skillsToRemoveKeys = array_diff($allSkillsAttachedToTemplate, $allSkillsNeededKeys);
+            foreach ($skillsToRemoveKeys as $skillToRemoveKey) {
+                $skillToRemoveObject = DB::table('skills')
+                    ->where('key', $skillToRemoveKey)
+                    ->first();
+
+                $templateEloquentModel->skills()->detach($skillToRemoveObject->id);
             }
         }
     }
