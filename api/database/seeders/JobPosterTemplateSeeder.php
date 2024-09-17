@@ -162,39 +162,23 @@ class JobPosterTemplateSeeder extends Seeder
         }
 
         // SKILLS
-        // loop through data and syncWithoutDetaching the records in the pivot
+        // loop through models, each being a reference id and associated skills
         foreach ($skillsModels as $skillModel) {
             $templateEloquentModel = JobPosterTemplate::where('reference_id', $skillModel->referenceId)->sole();
             $skillsToSync = $skillModel->skills;
-            $allSkillsNeededKeys = array_map(
-                function ($attachedSkill) {
-                    return $attachedSkill->skill->key;
-                },
-                $skillsToSync
-            );
 
+            // build key-value collection of ids and pivot data, then sync to model
+            $collectionToSync = [];
             foreach ($skillsToSync as $skillToSync) {
                 $skillObject = DB::table('skills')
                     ->where('key', $skillToSync->skill->key)
                     ->first();
-                $templateEloquentModel->skills()->syncWithoutDetaching([
-                    $skillObject->id => [
-                        'type' => $skillToSync->pivot->type->value,
-                        'required_skill_level' => $skillToSync->pivot->requiredLevel,
-                    ],
-                ]);
+                $collectionToSync[$skillObject->id] = [
+                    'type' => $skillToSync->pivot->type->value,
+                    'required_skill_level' => $skillToSync->pivot->requiredLevel,
+                ];
             }
-
-            // now that skills have been synced, in the case of skills being changed across re-runs of seeder, clear records if needed
-            $allSkillsAttachedToTemplate = $templateEloquentModel->skills->pluck('key')->toArray();
-            $skillsToRemoveKeys = array_diff($allSkillsAttachedToTemplate, $allSkillsNeededKeys);
-            foreach ($skillsToRemoveKeys as $skillToRemoveKey) {
-                $skillToRemoveObject = DB::table('skills')
-                    ->where('key', $skillToRemoveKey)
-                    ->first();
-
-                $templateEloquentModel->skills()->detach($skillToRemoveObject->id);
-            }
+            $templateEloquentModel->skills()->sync($collectionToSync);
         }
     }
 }
