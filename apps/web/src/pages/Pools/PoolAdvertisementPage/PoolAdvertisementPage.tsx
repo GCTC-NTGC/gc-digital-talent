@@ -63,9 +63,9 @@ import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 import ApplicationLink, {
   ApplicationLinkProps,
 } from "~/components/ApplicationLink/ApplicationLink";
+import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
 
 import Text from "./components/Text";
-import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
@@ -936,6 +936,7 @@ export const PoolPoster = ({
                   <SkillAccordion
                     key={poolSkill.id}
                     poolSkillQuery={poolSkill}
+                    required={false}
                   />
                 ))}
               </Accordion.Root>
