@@ -28,7 +28,7 @@ import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
-import SiteNavMenu from "../NavMenu/SiteNavMenu";
+import SiteNavMenu from "../NavMenu/MainNavMenu";
 
 export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 

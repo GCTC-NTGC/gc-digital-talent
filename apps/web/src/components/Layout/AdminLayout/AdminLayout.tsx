@@ -9,7 +9,7 @@ import Header from "~/components/Header/Header";
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 import useErrorMessages from "~/hooks/useErrorMessages";
-import SiteNavMenu from "~/components/NavMenu/SiteNavMenu";
+import SiteNavMenu from "~/components/NavMenu/MainNavMenu";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
@@ -36,26 +36,24 @@ export const Component = () => {
         })}
       />
       <SkipLink />
-      <div data-h2-flex-grid="base(stretch, 0)">
-        <div
-          data-h2-min-height="base(100%)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
+      <div
+        data-h2-min-height="base(100%)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+      >
+        <Header />
+        <SitewideBanner />
+        <SiteNavMenu />
+        <main
+          id="main"
+          data-h2-flex-grow="base(1)"
+          data-h2-background-color="base(background)"
         >
-          <Header />
-          <SitewideBanner />
-          <SiteNavMenu />
-          <main
-            id="main"
-            data-h2-flex-grow="base(1)"
-            data-h2-background-color="base(background)"
-          >
-            <div data-h2-min-height="base(100%)">
-              <Outlet />
-            </div>
-          </main>
-          <Footer />
-        </div>
+          <div data-h2-min-height="base(100%)">
+            <Outlet />
+          </div>
+        </main>
+        <Footer />
       </div>
       <ScrollRestoration
         getKey={(location) => {

@@ -121,10 +121,10 @@ const NavMenuWrapper = ({
                   data-h2-background-color="base(foreground) l-tablet:all(black.9)"
                   data-h2-border="base:all(1px solid background.darker) l-tablet(none)"
                   data-h2-radius="base(rounded) l-tablet(initial)"
-                  data-h2-padding="base(x1) l-tablet(x1 0)"
+                  data-h2-padding="l-tablet(x1 0)"
                 >
                   <div
-                    data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
+                    data-h2-wrapper="p-tablet(center, large, x2)"
                     data-h2-display="l-tablet(flex)"
                     data-h2-justify-content="l-tablet(space-between)"
                   >

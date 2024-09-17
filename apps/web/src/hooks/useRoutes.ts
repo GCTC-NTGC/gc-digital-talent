@@ -26,6 +26,7 @@ const getRoutes = (lang: Locales) => {
   const adminUrl = [baseUrl, "admin"].join("/");
   const applicantUrl = [baseUrl, "applicant"].join("/");
   const communityUrl = [baseUrl, "community"].join("/");
+  const managerUrl = [baseUrl, "manager"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
 
   return {
@@ -58,6 +59,9 @@ const getRoutes = (lang: Locales) => {
 
     // Admin
     adminDashboard: () => adminUrl,
+
+    // Manager
+    managerDashboard: () => [managerUrl, "dashboard"].join("/"),
 
     // Admin - Communities
     community: () => communityUrl,

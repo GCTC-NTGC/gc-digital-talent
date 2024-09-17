@@ -17,7 +17,7 @@ import {
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
 
-const NavItem = ({
+export const NavItem = ({
   key,
   href,
   title,
@@ -59,13 +59,7 @@ export const useMainLinks = (
       title={intl.formatMessage(navigationMessages.home)}
     />
   );
-  const FindTalent = (
-    <NavItem
-      key="findTalent"
-      href={paths.search()}
-      title={intl.formatMessage(navigationMessages.findTalent)}
-    />
-  );
+
   const BrowseJobs = (
     <NavItem
       key="browseJobs"
@@ -74,7 +68,46 @@ export const useMainLinks = (
     />
   );
 
-  /* COMMUNITY ROLE MAIN LINKS */
+  const ViewUsers = (
+    <NavItem
+      key="viewUsers"
+      href={paths.userTable()}
+      title={intl.formatMessage(navigationMessages.users)}
+    />
+  );
+
+  const ApplicantDashboard = (
+    <NavItem
+      key="applicantDashboard"
+      href={paths.applicantDashboard()}
+      title={intl.formatMessage(navigationMessages.dashboard)}
+    />
+  );
+
+  const ManagerDashboard = (
+    <NavItem
+      key="managerDashboard"
+      href={paths.managerDashboard()}
+      title={intl.formatMessage(navigationMessages.dashboard)}
+    />
+  );
+
+  const AdminProcesses = (
+    <NavItem
+      key="adminProcesses"
+      href={paths.poolTable()}
+      title={intl.formatMessage(navigationMessages.processes)}
+    />
+  );
+
+  const Requests = (
+    <NavItem
+      key="requests"
+      href={paths.searchRequestTable()}
+      title={intl.formatMessage(navigationMessages.requests)}
+    />
+  );
+
   const Processes = (
     <NavItem
       key="communityProcesses"
@@ -90,30 +123,14 @@ export const useMainLinks = (
     />
   );
 
-  /* ADMIN ROLE MAIN LINKS */
-  const ViewUsers = (
+  const FindTalent = (
     <NavItem
-      key="viewUsers"
-      href={paths.userTable()}
-      title={intl.formatMessage(navigationMessages.users)}
-    />
-  );
-  const AdminProcesses = (
-    <NavItem
-      key="adminProcesses"
-      href={paths.poolTable()}
-      title={intl.formatMessage(navigationMessages.processes)}
-    />
-  );
-  const Requests = (
-    <NavItem
-      key="requests"
-      href={paths.searchRequestTable()}
-      title={intl.formatMessage(navigationMessages.requests)}
+      key="findTalent"
+      href={paths.search()}
+      title={intl.formatMessage(navigationMessages.findTalent)}
     />
   );
 
-  /* APPLICANT ROLE ACCOUNT LINKS */
   const ApplicantProfile = (
     <NavItem
       key="applicantProfile"
@@ -122,6 +139,7 @@ export const useMainLinks = (
       subMenu
     />
   );
+
   const CareerTimeline = (
     <NavItem
       key="careerTimeline"
@@ -132,6 +150,7 @@ export const useMainLinks = (
       subMenu
     />
   );
+
   const SkillLibrary = (
     <NavItem
       key="skillLibrary"
@@ -141,7 +160,6 @@ export const useMainLinks = (
     />
   );
 
-  /* MANAGER ROLE ACCOUNT LINKS */
   const ManagerProfile = (
     <NavItem
       key="managerProfile"
@@ -150,12 +168,6 @@ export const useMainLinks = (
       subMenu
     />
   );
-
-  /* COMMUNITY ROLE ACCOUNT LINKS */
-  // none
-
-  /* ADMIN ROLE ACCOUNT LINKS */
-  // none
 
   const AccountSettings = (
     <NavItem
@@ -173,6 +185,7 @@ export const useMainLinks = (
       title={intl.formatMessage(authMessages.signIn)}
     />
   );
+
   const SignUp = (
     <NavItem
       key="signUp"
@@ -233,7 +246,7 @@ export const useMainLinks = (
     case "applicant":
       return {
         ...defaultLinks,
-        mainLinks: [Home, BrowseJobs],
+        mainLinks: [Home, ApplicantDashboard, BrowseJobs],
         accountLinks: loggedIn
           ? [
               ApplicantProfile,
@@ -247,7 +260,7 @@ export const useMainLinks = (
     case "manager":
       return {
         ...defaultLinks,
-        mainLinks: [Home, FindTalent],
+        mainLinks: [Home, ManagerDashboard, FindTalent],
         accountLinks: loggedIn
           ? [ManagerProfile, AccountSettings, SignOut]
           : null,

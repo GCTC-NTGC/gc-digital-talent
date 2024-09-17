@@ -30,7 +30,7 @@ import { useMainLinks } from "./navlinks";
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
-const SiteNavMenu = () => {
+const MainNavMenu = () => {
   const intl = useIntl();
   const { locale } = useLocale();
 
@@ -86,6 +86,7 @@ const SiteNavMenu = () => {
           data-h2-display="base(flex) l-tablet(none)"
           data-h2-justify-content="base(space-between)"
           data-h2-align-items="base(center)"
+          data-h2-margin="base(x1 x1 0 x1) l-tablet(0)"
         >
           <ThemeSwitcher />
           <a
@@ -145,7 +146,10 @@ const SiteNavMenu = () => {
             data-h2-margin-bottom="base(x1) l-tablet(0)"
           />
         </NavMenu.List>
-        <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
+        <NavMenu.List
+          data-h2-flex-direction="base(column) l-tablet(row)"
+          data-h2-margin-bottom="base(x1) l-tablet(0)"
+        >
           {accountLinks && (
             <NavMenu.Item>
               <NavMenu.Trigger
@@ -206,4 +210,4 @@ const SiteNavMenu = () => {
   );
 };
 
-export default SiteNavMenu;
+export default MainNavMenu;

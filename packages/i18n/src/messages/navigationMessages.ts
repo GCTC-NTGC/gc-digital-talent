@@ -116,6 +116,11 @@ const navigationMessages = defineMessages({
     id: "qIOz/5",
     description: "Name of Requests page",
   },
+  dashboard: {
+    defaultMessage: "Dashboard",
+    id: "jDYG3j",
+    description: "Name of Dashboard page",
+  },
 });
 
 export default navigationMessages;
