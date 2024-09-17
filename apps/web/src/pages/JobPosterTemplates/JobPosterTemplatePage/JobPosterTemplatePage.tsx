@@ -24,7 +24,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 import pageMessages from "./messages";
-import jobPosterTemplatesPageMessages from "../JobPosterTemplates/JobPosterTemplatesPage/messages";
+import jobPosterTemplatesPageMessages from "../JobPosterTemplatesPage/messages";
 import sections from "./sections";
 import BasicDetails from "./components/BasicDetails";
 import KeyTasks from "./components/KeyTasks";
