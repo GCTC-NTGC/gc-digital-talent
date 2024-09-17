@@ -298,6 +298,12 @@ const SupportingEvidence = ({
   );
 };
 
+export type EducationRequirementExperiences = Maybe<
+  Maybe<{
+    id: Scalars["UUID"]["output"];
+  }>[]
+>;
+
 interface ScreeningDecisionDialogProps {
   assessmentStep?: Maybe<Pick<AssessmentStep, "type" | "title">>;
   assessmentResult?: Maybe<
@@ -309,7 +315,7 @@ interface ScreeningDecisionDialogProps {
   > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
   } & {
-    educationRequirementExperiences: { id: Scalars["UUID"]["output"] }[];
+    educationRequirementExperiences?: EducationRequirementExperiences;
   };
   experiences: Omit<Experience, "user">[];
   hasBeenAssessed: boolean;
@@ -545,14 +551,14 @@ const ScreeningDecisionDialogApi = ({
   educationRequirement,
 }: {
   assessmentStep: Pick<AssessmentStep, "id" | "type" | "title">;
-  experiences: Omit<Experience, "user">[];
+  experiences?: Omit<Experience, "user">[];
   poolCandidate: Pick<
     PoolCandidate,
     "id" | "educationRequirementOption" | "profileSnapshot"
   > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
   } & {
-    educationRequirementExperiences: { id: Scalars["UUID"]["output"] }[];
+    educationRequirementExperiences?: EducationRequirementExperiences;
   };
   assessmentResult?: Maybe<
     Pick<
@@ -680,7 +686,7 @@ const ScreeningDecisionDialogApi = ({
       initialValues={initialValues}
       hasBeenAssessed={hasBeenAssessed}
       educationRequirement={educationRequirement}
-      experiences={experiences}
+      experiences={unpackMaybes(experiences)}
       onSubmit={(formValues) =>
         hasBeenAssessed
           ? handleUpdateAssessment(
