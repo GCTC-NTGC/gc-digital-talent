@@ -415,136 +415,155 @@ const JobPosterTemplatesPage = () => {
             </FormProvider>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            {filteredJobPosterTemplates.length ? (
+            {fetching ? (
+              <Loading inline />
+            ) : (
               <>
-                <div
-                  data-h2-margin-bottom="base(x.25)"
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column) l-tablet(row)"
-                  data-h2-gap="base(x.25)"
-                  data-h2-justify-content="base(space-between)"
-                >
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-column-gap="base(x.25)"
-                  >
-                    <span id="sortBy">
-                      {intl.formatMessage({
-                        defaultMessage: "Sort by",
-                        id: "W9SXxj",
-                        description:
-                          "Label for the links to change how the list is sorted",
-                      })}
-                      {intl.formatMessage(commonMessages.dividingColon)}
-                    </span>
-                    <Link
-                      aria-describedby="sortBy"
-                      href={searchParamHref(
-                        "sortBy",
-                        "classification",
-                        searchParams,
-                      )}
-                      {...(sortBy === "classification"
-                        ? { color: "secondary", mode: "inline" }
-                        : { color: "black", mode: "text" })}
+                {filteredJobPosterTemplates.length ? (
+                  <>
+                    <div
+                      data-h2-margin-bottom="base(x.25)"
+                      data-h2-display="base(flex)"
+                      data-h2-flex-direction="base(column) l-tablet(row)"
+                      data-h2-gap="base(x.25)"
+                      data-h2-justify-content="base(space-between)"
                     >
-                      {intl.formatMessage(processMessages.classification)}
-                    </Link>
-                    <Link
-                      aria-describedby="sortBy"
-                      href={searchParamHref("sortBy", "title", searchParams)}
-                      {...(sortBy === "title"
-                        ? { color: "secondary", mode: "inline" }
-                        : { color: "black", mode: "text" })}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Job title",
-                        id: "zDYHRr",
-                        description: "Link text to sort by job title",
-                      })}
-                    </Link>
-                  </div>
-                  <span data-h2-font-weight="base(700)">
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Showing {showing} of {total} available templates",
-                        id: "Pjfjeg",
-                        description:
-                          "Number of job poster templates being displayed in the list",
-                      },
-                      { showing, total },
-                    )}
-                  </span>
-                </div>
-                <CardBasic>
-                  <PreviewList.Root>
-                    {filteredJobPosterTemplates.map((jobPosterTemplate) => (
-                      <PreviewList.Item
-                        key={jobPosterTemplate.id}
-                        title={getLocalizedName(jobPosterTemplate.name, intl)}
-                        headingAs="h3"
-                        action={
-                          <PreviewList.Link
-                            href={paths.jobPosterTemplate(jobPosterTemplate.id)}
-                            label={getLocalizedName(
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-column-gap="base(x.25)"
+                      >
+                        <span id="sortBy">
+                          {intl.formatMessage({
+                            defaultMessage: "Sort by",
+                            id: "W9SXxj",
+                            description:
+                              "Label for the links to change how the list is sorted",
+                          })}
+                          {intl.formatMessage(commonMessages.dividingColon)}
+                        </span>
+                        <Link
+                          aria-describedby="sortBy"
+                          href={searchParamHref(
+                            "sortBy",
+                            "classification",
+                            searchParams,
+                          )}
+                          {...(sortBy === "classification"
+                            ? { color: "secondary", mode: "inline" }
+                            : { color: "black", mode: "text" })}
+                        >
+                          {intl.formatMessage(processMessages.classification)}
+                        </Link>
+                        <Link
+                          aria-describedby="sortBy"
+                          href={searchParamHref(
+                            "sortBy",
+                            "title",
+                            searchParams,
+                          )}
+                          {...(sortBy === "title"
+                            ? { color: "secondary", mode: "inline" }
+                            : { color: "black", mode: "text" })}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Job title",
+                            id: "zDYHRr",
+                            description: "Link text to sort by job title",
+                          })}
+                        </Link>
+                      </div>
+                      <span data-h2-font-weight="base(700)">
+                        {intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "Showing {showing} of {total} available templates",
+                            id: "Pjfjeg",
+                            description:
+                              "Number of job poster templates being displayed in the list",
+                          },
+                          { showing, total },
+                        )}
+                      </span>
+                    </div>
+                    <CardBasic>
+                      <PreviewList.Root>
+                        {filteredJobPosterTemplates.map((jobPosterTemplate) => (
+                          <PreviewList.Item
+                            key={jobPosterTemplate.id}
+                            title={getLocalizedName(
                               jobPosterTemplate.name,
                               intl,
                             )}
-                          />
-                        }
-                        metaData={previewMetaData(
-                          intl,
-                          jobPosterTemplate.classification,
-                          jobPosterTemplate.stream,
-                        )}
-                      >
-                        {jobPosterTemplate.description && (
-                          <p>
-                            {getLocalizedName(
-                              jobPosterTemplate.description,
+                            headingAs="h3"
+                            action={
+                              <PreviewList.Link
+                                href={paths.jobPosterTemplate(
+                                  jobPosterTemplate.id,
+                                )}
+                                label={getLocalizedName(
+                                  jobPosterTemplate.name,
+                                  intl,
+                                )}
+                              />
+                            }
+                            metaData={previewMetaData(
                               intl,
-                              true,
+                              jobPosterTemplate.classification,
+                              jobPosterTemplate.stream,
                             )}
-                          </p>
-                        )}
-                      </PreviewList.Item>
-                    ))}
-                  </PreviewList.Root>
-                </CardBasic>
-                {hasMore && (
-                  <>
-                    <Separator orientation="horizontal" decorative space="md" />
-                    <Link
-                      mode="solid"
-                      color="secondary"
-                      href={searchParamHref(
-                        "page",
-                        Math.min(page + 1, total),
-                        searchParams,
-                      )}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Load more results",
-                        id: "HuA8aL",
-                        description:
-                          "Button text to load the next set of results",
-                      })}
-                    </Link>
+                          >
+                            {jobPosterTemplate.description && (
+                              <p>
+                                {getLocalizedName(
+                                  jobPosterTemplate.description,
+                                  intl,
+                                  true,
+                                )}
+                              </p>
+                            )}
+                          </PreviewList.Item>
+                        ))}
+                      </PreviewList.Root>
+                    </CardBasic>
+                    {hasMore && (
+                      <>
+                        <Separator
+                          orientation="horizontal"
+                          decorative
+                          space="md"
+                        />
+                        <Link
+                          mode="solid"
+                          color="secondary"
+                          href={searchParamHref(
+                            "page",
+                            Math.min(page + 1, total),
+                            searchParams,
+                          )}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Load more results",
+                            id: "HuA8aL",
+                            description:
+                              "Button text to load the next set of results",
+                          })}
+                        </Link>
+                      </>
+                    )}
                   </>
+                ) : (
+                  <Well data-h2-text-align="base(center)">
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "No job advertisement templates found.",
+                        id: "L47tv9",
+                        description:
+                          "Message displayed when there are no job poster templates meeting a specific criteria",
+                      })}
+                    </p>
+                  </Well>
                 )}
               </>
-            ) : (
-              <Well data-h2-text-align="base(center)">
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "No job advertisement templates found.",
-                    id: "L47tv9",
-                    description:
-                      "Message displayed when there are no job poster templates meeting a specific criteria",
-                  })}
-                </p>
-              </Well>
             )}
           </Sidebar.Content>
         </Sidebar.Wrapper>
