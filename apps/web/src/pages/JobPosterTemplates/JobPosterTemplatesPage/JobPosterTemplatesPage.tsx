@@ -27,6 +27,7 @@ import {
   SupervisoryStatus,
 } from "@gc-digital-talent/graphql";
 import {
+  alphaSortOptions,
   Checklist,
   Input,
   localizedEnumToOptions,
@@ -341,6 +342,11 @@ const JobPosterTemplatesPage = () => {
                   id="keyword"
                   name="keyword"
                   type="text"
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "e.g. Web design",
+                    id: "PNfAn0",
+                    description: "Placeholder for keyword search input",
+                  })}
                   label={intl.formatMessage({
                     defaultMessage: "Search by keyword",
                     id: "PYMFoh",
@@ -384,9 +390,11 @@ const JobPosterTemplatesPage = () => {
                     <Checklist
                       idPrefix="streams"
                       name="streams"
-                      items={localizedEnumToOptions(
-                        unpackMaybes(data?.poolStreams),
-                        intl,
+                      items={alphaSortOptions(
+                        localizedEnumToOptions(
+                          unpackMaybes(data?.poolStreams),
+                          intl,
+                        ),
                       )}
                       legend={intl.formatMessage({
                         defaultMessage: "Filter by work streams",
