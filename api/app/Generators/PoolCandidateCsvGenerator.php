@@ -169,10 +169,10 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 });
                 $values[] = implode(', ', $userSkills->toArray());
 
-                $poolQuestionIds = $candidate->pool->generalQuestions->pluck('id')->toArray();
-                $candidateQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
-                foreach ($poolQuestionIds as $questionId) {
-                    if (in_array($questionId, $candidateQuestionIds)) {
+                $poolGeneralQuestionIds = $candidate->pool->generalQuestions->pluck('id')->toArray();
+                $candidateGeneralQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
+                foreach ($poolGeneralQuestionIds as $questionId) {
+                    if (in_array($questionId, $candidateGeneralQuestionIds)) {
                         $response = $candidate->generalQuestionResponses->where('general_question_id', $questionId)->first();
                         $this->generalQuestionResponses[$questionId][] = [
                             'candidate' => $currentCandidate,
