@@ -80,10 +80,10 @@ class JobPosterTemplateFactory extends Factory
         return $this->afterCreating(function (JobPosterTemplate $template) use ($essentialCount, $nonessentialCount) {
             $skills = Skill::inRandomOrder()->limit($essentialCount + $nonessentialCount)->get();
             $skills->each(function (Skill $skill, int $key) use ($essentialCount, $template) {
-                $type = $essentialCount < $key ? PoolSkillType::ESSENTIAL->name : PoolSkillType::NONESSENTIAL->name;
+                $type = $essentialCount < $key ? PoolSkillType::ESSENTIAL : PoolSkillType::NONESSENTIAL;
                 $template->skills()->attach($skill->id, [
-                    'type' => $type,
-                    'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
+                    'type' => $type->name,
+                    'required_skill_level' => $type === PoolSkillType::ESSENTIAL ? $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')) : null,
                 ]);
             });
         });

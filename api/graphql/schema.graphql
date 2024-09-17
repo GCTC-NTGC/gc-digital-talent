@@ -761,7 +761,7 @@ type LocalizedKeywords {
 
 type JobPosterTemplateSkillPivot {
   type: LocalizedPoolSkillType!
-  requiredLevel: SkillLevel! @rename(attribute: "required_skill_level")
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
 type JobPosterTemplateSkill {
@@ -1894,7 +1894,7 @@ input NotificationFilterInput {
 input AttachJobPosterTemplateSkillInput {
   id: UUID!
   type: PoolSkillType!
-  requiredLevel: SkillLevel! @rename(attribute: "required_skill_level")
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
 input SyncJobPosterTemplateSkillInput {
