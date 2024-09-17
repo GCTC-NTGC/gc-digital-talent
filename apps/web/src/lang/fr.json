@@ -108,7 +108,7 @@
     "description": "IAP Requirement list item six"
   },
   "+cqG9n": {
-    "defaultMessage": "Apprenez-en davantage<hidden> sur la Directive</hidden>",
+    "defaultMessage": "En apprendre davantage<hidden> sur la Directive</hidden>",
     "description": "Link text to the directive on digital talent page"
   },
   "+d/NdU": {
@@ -4235,6 +4235,10 @@
     "defaultMessage": "Ouvert au public",
     "description": "Combined eligibility string for 'open to the public'"
   },
+  "L0ugLs": {
+    "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
+    "description": "Summary of the directive on digital talent featured item"
+  },
   "L1tQMY": {
     "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
     "description": "The directives digital talent and sourcing component"
@@ -8046,6 +8050,10 @@
     "defaultMessage": "Soumettez des commentaires",
     "description": "Support form subject field feedback option label"
   },
+  "fXl3Cm": {
+    "defaultMessage": "Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment d’un formulaire en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
+    "description": "Summary of the directive on digital talent"
+  },
   "fY0W2V": {
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
     "description": "Notification when a user attempts to apply to a pool when they already have an application there."
@@ -8901,10 +8909,6 @@
   "jNqZ46": {
     "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
     "description": "IT-03 classification aria label including titles"
-  },
-  "jO2uif": {
-    "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
-    "description": "Summary of the directive on digital talent featured item"
   },
   "jO8i+2": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
@@ -10439,7 +10443,7 @@
     "description": "Text on a button to save advertisement details"
   },
   "sGPKUt": {
-    "defaultMessage": "Veuillez consulter la Directive",
+    "defaultMessage": "Consulter la Directive",
     "description": "Link text to read the directive on digital talent"
   },
   "sICXeM": {
@@ -10645,10 +10649,6 @@
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
-  },
-  "tSAjnB": {
-    "defaultMessage": "La plateforme Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment de formulaires en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
-    "description": "Summary of the directive on digital talent"
   },
   "tUIvbq": {
     "defaultMessage": "Adresse courriel non validée",
