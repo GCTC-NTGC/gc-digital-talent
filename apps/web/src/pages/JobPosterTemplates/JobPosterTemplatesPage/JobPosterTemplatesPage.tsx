@@ -187,10 +187,8 @@ const JobPosterTemplatesPage = () => {
 
   const jobPosterTemplates = unpackMaybes(data?.jobPosterTemplates);
   const total = jobPosterTemplates.length;
-  let maxShown = PAGE_SIZE * page;
-  if (maxShown > total) maxShown = total;
-  const hasMore = maxShown < total;
-  const filteredJobPosterTemplates = useMemo(() => {
+  const maxShown = Math.min(PAGE_SIZE * page, total);
+  const [available, filteredJobPosterTemplates] = useMemo(() => {
     const allTemplates = jobPosterTemplates.filter((jobPosterTemplate) => {
       let show = true;
 
@@ -231,23 +229,26 @@ const JobPosterTemplatesPage = () => {
       return show;
     });
 
-    return allTemplates
-      .sort((a, b) => {
-        if (sortBy === "classification") {
-          return (
-            (a.classification?.group ?? "").localeCompare(
-              b.classification?.group ?? "",
-            ) ||
-            (a?.classification?.level ?? 0) - (b?.classification?.level ?? 0)
-          );
-        }
+    return [
+      allTemplates.length,
+      allTemplates
+        .sort((a, b) => {
+          if (sortBy === "classification") {
+            return (
+              (a.classification?.group ?? "").localeCompare(
+                b.classification?.group ?? "",
+              ) ||
+              (a?.classification?.level ?? 0) - (b?.classification?.level ?? 0)
+            );
+          }
 
-        const aName = getLocalizedName(a.name, intl, true);
-        const bName = getLocalizedName(b.name, intl, true);
+          const aName = getLocalizedName(a.name, intl, true);
+          const bName = getLocalizedName(b.name, intl, true);
 
-        return aName.localeCompare(bName);
-      })
-      .splice(0, maxShown);
+          return aName.localeCompare(bName);
+        })
+        .splice(0, maxShown),
+    ];
   }, [
     jobPosterTemplates,
     maxShown,
@@ -261,6 +262,7 @@ const JobPosterTemplatesPage = () => {
   ]);
 
   const showing = Math.min(filteredJobPosterTemplates.length, maxShown);
+  const hasMore = showing < total && available > showing;
 
   const debouncedResetPage = useMemo(
     () =>
