@@ -320,7 +320,7 @@ const JobPosterTemplatesPage = () => {
             description: "Heading for the form to filter job poster templates",
           })}
         </Heading>
-        <p data-h2-margin="base(x1 0)">
+        <p data-h2-margin="base(x1 0 x2 0)">
           {intl.formatMessage({
             defaultMessage:
               "This library contains a series of templates for common jobs across the communities we support. These templates include suggested information and recommendations for elements such as job title, common tasks in the role, essential and asset skills, and more. Feel free to browse the full list, or, if you have an idea of the type of role you're hiring for, you can use the search bar or filters to find templates that align with the job’s specific details.",
