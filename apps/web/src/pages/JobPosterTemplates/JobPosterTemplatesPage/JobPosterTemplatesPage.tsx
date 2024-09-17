@@ -327,8 +327,8 @@ const JobPosterTemplatesPage = () => {
                   name="keyword"
                   type="text"
                   placeholder={intl.formatMessage({
-                    defaultMessage: "e.g. Web design",
-                    id: "PNfAn0",
+                    defaultMessage: "E.g., web design",
+                    id: "J9l5Vd",
                     description: "Placeholder for keyword search input",
                   })}
                   label={intl.formatMessage({

@@ -3887,6 +3887,10 @@
     "defaultMessage": "Le Programme a été conçu pour répondre aux efforts de réconciliation et pour bâtir une relation renouvelée qui est fondée sur les droits, le respect, la collaboration et le partenariat avec les peuples autochtones.",
     "description": "How it works, step 1 content paragraph 1"
   },
+  "J9l5Vd": {
+    "defaultMessage": "P. ex., conception de sites Web",
+    "description": "Placeholder for keyword search input"
+  },
   "JBRqD9": {
     "defaultMessage": "Postes en anglais",
     "description": "Message for the english positions option"
@@ -4938,6 +4942,10 @@
   "OyV6MH": {
     "defaultMessage": "Gérer vos renseignements personnels, votre parcours professionnel, vos compétences, et faire le suivi de vos candidatures.",
     "description": "SEO description for profile and applications hero"
+  },
+  "P/DHOG": {
+    "defaultMessage": "Modèles d'emplois",
+    "description": "Text for the breadcrumb navigation link"
   },
   "P/tHlt": {
     "defaultMessage": "Par type",
