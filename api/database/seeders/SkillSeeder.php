@@ -20,11 +20,24 @@ class SkillSeeder extends Seeder
             query Skills {
                 skills {
                     key
-                    name { en fr }
-                    description { en fr }
-                    category
-                    keywords { en fr }
-                    families { key }
+                    name {
+                        en
+                        fr
+                    }
+                    description {
+                        en
+                        fr
+                    }
+                    category {
+                        value
+                    }
+                    keywords {
+                        en
+                        fr
+                    }
+                    families {
+                        key
+                    }
                 }
             }
 
