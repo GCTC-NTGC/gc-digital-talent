@@ -172,7 +172,7 @@ class JobPosterTemplateSeeder extends Seeder
             foreach ($skillsToSync as $skillToSync) {
                 $skillObject = DB::table('skills')
                     ->where('key', $skillToSync->skill->key)
-                    ->first();
+                    ->sole();
                 $collectionToSync[$skillObject->id] = [
                     'type' => $skillToSync->pivot->type->value,
                     'required_skill_level' => $skillToSync->pivot->requiredLevel,
