@@ -9166,10 +9166,6 @@
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
     "description": "Alert message displayed when a user attempts to print without selecting items first"
   },
-  "k5Jueg": {
-    "defaultMessage": "Modèles d'emplois",
-    "description": "Title for the 'job poster templates' page"
-  },
   "k5bZg7": {
     "defaultMessage": "Parlez-nous de votre expérience",
     "description": "Link text for application survey"
