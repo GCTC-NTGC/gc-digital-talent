@@ -207,6 +207,10 @@
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
   },
+  "/18wM8": {
+    "defaultMessage": "Gérez vos recherches de talents et établissez votre profil de gestionnaire.",
+    "description": "Subtitle for the 'Manager dashboard' page"
+  },
   "/2Vhvl": {
     "defaultMessage": "Sécurité de la TI",
     "description": "Label for the 'security' IT work stream"
@@ -1019,6 +1023,10 @@
     "defaultMessage": "La réussite de deux années d'études secondaires.",
     "description": "Secondary school education requirements"
   },
+  "3d4GDu": {
+    "defaultMessage": "Gérez votre nom, vos coordonnées, vos paramètres de confidentialité et vos notifications, ou supprimez votre compte.",
+    "description": "Helper instructions for an 'account and privacy' card"
+  },
   "3e965x": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
@@ -1322,6 +1330,10 @@
   "53MCSe": {
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
     "description": "Description for bilingual positions in language requirements dialog"
+  },
+  "548yXW": {
+    "defaultMessage": "Apprenez-en plus sur la directive et comment elle s'applique à votre contexte, et comprenez vos obligations.",
+    "description": "Helper instructions for a 'directive on digital talent' card"
   },
   "55Me4a": {
     "defaultMessage": "Titre (Français)",
@@ -2419,6 +2431,10 @@
     "defaultMessage": "Veuillez préciser votre ministère ou organisme",
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
   },
+  "BMWvU8": {
+    "defaultMessage": "Compte et confidentialité",
+    "description": "Link to the 'Account and privacy' page"
+  },
   "BRpssM": {
     "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
     "description": "First message for the general resources section."
@@ -2522,6 +2538,10 @@
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
+  },
+  "C0LMCq": {
+    "defaultMessage": "Rôle actuel",
+    "description": "Card title for a nav role switcher"
   },
   "C3YsFy": {
     "defaultMessage": "Annuler la décision d’évaluation finale",
@@ -3571,6 +3591,10 @@
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
   },
+  "HnrJJR": {
+    "defaultMessage": "Lorsque vous soumettez une demande de talents à l'aide de la fonctionnalité « <a>Trouver des talents</a> » , elle apparaîtra dans cette liste tant qu'elle sera active. Les destinataires de votre demande disposeront d'un délai fixe pour répondre, après quoi seules les personnes ayant accepté de partager leurs informations resteront à votre disposition.",
+    "description": " Helper instructions for the manager tools"
+  },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
     "description": "Subject line of a manager's email for apprenticeship"
@@ -4199,6 +4223,10 @@
     "defaultMessage": "Une option de prolongation du contrat est-elle actuellement prévue?",
     "description": "Label for _contract extendable_ fieldset in the _digital services contracting questionnaire_"
   },
+  "KtXvdO": {
+    "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
+    "description": "Message on getting started page about the contact email address - part 1."
+  },
   "Kyf9At": {
     "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
     "description": "Description of a process' advertisement"
@@ -4570,6 +4598,10 @@
   "N2/Y9w": {
     "defaultMessage": "Non réclamé",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
+  },
+  "N2GuzJ": {
+    "defaultMessage": "Voir toutes les recherches",
+    "description": "Link to a page to view all the searches"
   },
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
@@ -5094,6 +5126,10 @@
   "Q8hjGZ": {
     "defaultMessage": "La fourniture de renseignements dans Talents numériques du GC est facultative. Si vous partagez vos renseignements personnels, Talents numériques du GC <link>s’engage à les protéger</link>.",
     "description": "Paragraph 2, importance of self-declaration"
+  },
+  "Q914Cl": {
+    "defaultMessage": "Tableau de bord du gestionnaire",
+    "description": "Title for the 'Manager dashboard' page"
   },
   "Q9c+Kg": {
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
@@ -5659,6 +5695,10 @@
     "defaultMessage": "la gestion des données pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "T7irec": {
+    "defaultMessage": "Vérifiez votre adresse courriel professionnelle",
+    "description": "Verify your work email text"
+  },
   "T8J2Lp": {
     "defaultMessage": "Vos coordonnées",
     "description": "Form header for filling in contact information section."
@@ -5949,6 +5989,10 @@
   "UvKDXK": {
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
+  },
+  "UwHuX6": {
+    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre bureau d'aide.",
+    "description": "Description for rule pattern on work email field"
   },
   "Uwtkv6": {
     "defaultMessage": "Ce à quoi s’attendre après l’admission",
@@ -6818,6 +6862,10 @@
     "defaultMessage": "Filtrer les candidats par ordre de nom",
     "description": "Label for candidate search input"
   },
+  "ZCDsMF": {
+    "defaultMessage": "Découvrez une bibliothèque de modèles d'offres d'emploi qui constituent un excellent point de départ pour votre prochain processus d'embauche.",
+    "description": "Helper instructions for the 'browse job templates' card"
+  },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
     "description": "Message displayed to user after education requirement fails to be updated."
@@ -7058,6 +7106,10 @@
     "defaultMessage": "Clé",
     "description": "Title for key field"
   },
+  "aeCkWS": {
+    "defaultMessage": "Vos recherches de talents ({count})",
+    "description": "Title for a list of talent searches with a count"
+  },
   "aemElP": {
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
     "description": "Label displayed on Personal Experience form for current experience input"
@@ -7165,6 +7217,10 @@
   "bLcy4q": {
     "defaultMessage": "Plateforme de données",
     "description": "The menu category for platform data items"
+  },
+  "bLxoQL": {
+    "defaultMessage": "Parcourir les modèles d'emploi",
+    "description": "Link for the 'browse job advertisement templates' card"
   },
   "bMY93S": {
     "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
@@ -8186,6 +8242,10 @@
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
   },
+  "gPvdHC": {
+    "defaultMessage": "Passez facilement d'un rôle à l'autre en fonction des accès de votre compte.",
+    "description": "Helper instructions for a nav role switcher"
+  },
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
@@ -8470,6 +8530,10 @@
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
   },
+  "hkvlOx": {
+    "defaultMessage": "Profil de gestionnaire",
+    "description": "Link to manager profile page"
+  },
   "hl4QA9": {
     "defaultMessage": "un contrat de source unique pour une société de conseil afin de mener des recherches sur les utilisateurs d'un produit numérique;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -8585,6 +8649,10 @@
   "iA1Q8d": {
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
+  },
+  "iChSXW": {
+    "defaultMessage": "Vos outils de gestionnaire",
+    "description": "Card title for the manager tools"
   },
   "iEIzSc": {
     "defaultMessage": "Mes rôles",
@@ -8778,6 +8846,10 @@
     "defaultMessage": "Découvrez les dernières perspectives d’emploi du <abbreviation>GC</abbreviation> dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
     "description": "Description for the digital government job opportunities"
   },
+  "jALTj0": {
+    "defaultMessage": "Vos informations",
+    "description": "Card title for an information card"
+  },
   "jAPSUd": {
     "defaultMessage": "Conseiller principal ou Gestionnaire I T 4",
     "description": "IT-04 classification aria label including titles"
@@ -8785,6 +8857,10 @@
   "jAWP0X": {
     "defaultMessage": "Exigence",
     "description": "Header for requirement section of assessment results table"
+  },
+  "jBjIJT": {
+    "defaultMessage": "En fournissant et en vérifiant votre adresse courriel professionnelle, vous aurez accès à des outils, à des caractéristiques et à des occasions propres aux employés. Il peut être nécessaire de revérifier les adresses courriel professionnelles périodiquement. Si vous avez des questions ou si vous avez besoin d'aide, n'hésitez pas à communiquer avec nous.",
+    "description": "Message on getting started page about the contact email address - part 2."
   },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
@@ -8853,6 +8929,10 @@
   "jVfVFG": {
     "defaultMessage": "Pourquoi faut-il recueillir ces données?",
     "description": "Heading for the Why collect section on the digital services contracting questionnaire"
+  },
+  "jWx0oF": {
+    "defaultMessage": "Adresse courriel professionnelle",
+    "description": "Label displayed on work email input"
   },
   "jXUnrt": {
     "defaultMessage": "Vous n’avez toujours pas ajouté de questions.",
@@ -9182,6 +9262,10 @@
     "defaultMessage": "Anglais - Votre travail",
     "description": "Label for the English - Your Work textarea in the edit pool page."
   },
+  "lbtzDG": {
+    "defaultMessage": "Décrivez votre style de leadership et votre culture d'équipe pour que les candidats aient un aperçu du travail avec vous.",
+    "description": "Helper instructions for a 'manager profile' card"
+  },
   "leFf/M": {
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
@@ -9474,6 +9558,10 @@
     "defaultMessage": "Fermer ce dialogue",
     "description": "Button text to close a dialog"
   },
+  "n40Nry": {
+    "defaultMessage": "En savoir plus sur les compétences",
+    "description": "Link for the 'learn about skills' card"
+  },
   "n4pt+y": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
     "description": "Label for the English team display name input"
@@ -9497,6 +9585,10 @@
   "nDm9dX": {
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
+  },
+  "nGSUzp": {
+    "defaultMessage": "Ressources",
+    "description": "Card title for a 'resources' card"
   },
   "nGx7Xt": {
     "defaultMessage": "Mesures",
@@ -9793,6 +9885,10 @@
   "p2sBh3": {
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
+  },
+  "p3UL9X": {
+    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et soumettez des recommandations de compétences.",
+    "description": "Helper instructions for a 'learn about skills' card"
   },
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
@@ -10121,6 +10217,10 @@
   "qmKVmr": {
     "defaultMessage": "Décision de recherche de talents",
     "description": "Heading for the Talent sourcing decision section on the digital services contracting questionnaire"
+  },
+  "qmeqdf": {
+    "defaultMessage": "Lancer une nouvelle recherche",
+    "description": "Link to a page to start a new search"
   },
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
@@ -10581,6 +10681,10 @@
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
+  },
+  "tj9Dz3": {
+    "defaultMessage": "Adresse courriel professionnelle",
+    "description": "Work email label"
   },
   "tlAiJm": {
     "defaultMessage": "La création de la candidature a échoué",

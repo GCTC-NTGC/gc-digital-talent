@@ -26,8 +26,23 @@ const createRoute = (locale: Locales) =>
             },
             {
               path: "manager",
-              lazy: () =>
-                import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+                },
+                {
+                  path: "dashboard",
+                  loader: async () => {
+                    throw new Response("Not Found", { status: 404 }); // unfinished page
+                  },
+                  lazy: () =>
+                    import(
+                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                    ),
+                },
+              ],
             },
             {
               path: "support",
@@ -153,6 +168,13 @@ const createRoute = (locale: Locales) =>
                 ),
             },
             {
+              path: "work-email-verification",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/RegistrationWorkEmailVerificationPage"
+                ),
+            },
+            {
               path: "applicant",
               lazy: () =>
                 import("../pages/Auth/RegistrationPages/RegistrationRedirect"),
@@ -265,7 +287,14 @@ const createRoute = (locale: Locales) =>
                   path: "verify-contact-email",
                   lazy: () =>
                     import(
-                      "../pages/EmailVerificationPage/ProfileContactEmailVerificationPage"
+                      "../pages/EmailVerificationPages/ProfileContactEmailVerificationPage"
+                    ),
+                },
+                {
+                  path: "verify-work-email",
+                  lazy: () =>
+                    import(
+                      "../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage"
                     ),
                 },
               ],

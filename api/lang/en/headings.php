@@ -33,6 +33,7 @@ return [
     'government_employee' => 'Government of Canada employee',
     'department' => 'Department',
     'employee_type' => 'Employment type',
+    'work_email' => 'Work email',
     'current_classification' => 'Current classification',
     'priority_entitlement' => 'Priority entitlement',
     'priority_number' => 'Priority number',

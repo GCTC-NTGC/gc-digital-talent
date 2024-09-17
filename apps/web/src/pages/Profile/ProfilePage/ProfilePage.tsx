@@ -68,6 +68,8 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       }
 
       isGovEmployee
+      workEmail
+      isWorkEmailVerified
       hasPriorityEntitlement
       priorityNumber
       department {
@@ -214,6 +216,8 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
     }
     isGovEmployee
+    workEmail
+    isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
     govEmployeeType {

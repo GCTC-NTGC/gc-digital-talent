@@ -124,7 +124,7 @@ class UserSkill extends Model
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
             ->wherePivotNull('deleted_at')
-            ->as('experience_skill_pivot');
+            ->as('experience_skill');
     }
 
     public function experiences()
@@ -138,6 +138,6 @@ class UserSkill extends Model
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
             ->wherePivotNull('deleted_at')
-            ->as('experience_skill_pivot');
+            ->as('experience_skill');
     }
 }

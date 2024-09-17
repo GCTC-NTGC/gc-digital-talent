@@ -83,6 +83,8 @@ type User {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email")
+  isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
     @rename(attribute: "gov_employee_type")
   currentClassification: Classification @belongsTo # Users current classification
@@ -813,7 +815,8 @@ input PoolFilterInput {
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
-  classifications: [ClassificationFilterInput!] @scope
+  classifications: [ClassificationFilterInput!]
+    @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
 }
 
@@ -940,10 +943,10 @@ type Query {
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
-    @all(scopes: ["wasPublished", "notArchived"])
+    @all(scopes: ["wherePublished", "whereNotArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
-    @all(scopes: ["authorizedToView", "notArchived"])
+    @all(scopes: ["authorizedToView", "whereNotArchived"])
     @canResolved(ability: "view")
     @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
@@ -1076,7 +1079,12 @@ input CreateUserInput {
   email: Email
     @lowerCase
     @rules(
-      apply: ["sometimes", "nullable", "unique:users,email"]
+      apply: [
+        "sometimes"
+        "nullable"
+        "unique:users,email"
+        "unique:users,work_email"
+      ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
   telephone: PhoneNumber
@@ -1108,6 +1116,18 @@ input CreateUserInput {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email
+    @rename(attribute: "work_email")
+    @lowerCase
+    @rules(
+      apply: [
+        "sometimes"
+        "nullable"
+        "unique:users,email"
+        "unique:users,work_email"
+      ]
+      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
+    )
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1180,6 +1200,7 @@ input UpdateUserAsAdminInput
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email") @lowerCase
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1259,6 +1280,7 @@ input UpdateUserAsUserInput
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email") @lowerCase
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1957,8 +1979,8 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
-  sendUserEmailVerification: User @guard
-  verifyUserEmail(code: String!): User @guard
+  sendUserEmailVerification(emailType: EmailType): User @guard
+  verifyUserEmail(emailType: EmailType, code: String!): User @guard
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(
@@ -1972,7 +1994,6 @@ type Mutation {
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
-    @update
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
