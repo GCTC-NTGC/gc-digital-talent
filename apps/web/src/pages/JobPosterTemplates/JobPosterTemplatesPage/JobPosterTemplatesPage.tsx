@@ -2,7 +2,7 @@ import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import debounce from "lodash/debounce";
 
@@ -44,6 +44,7 @@ import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
+import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 
 interface FormValues {
   keyword: string;
@@ -199,7 +200,7 @@ const JobPosterTemplatesPage = () => {
   const total = jobPosterTemplates.length;
   let maxShown = PAGE_SIZE * page;
   if (maxShown > total) maxShown = total;
-  const hasMore = total > maxShown;
+  const hasMore = maxShown < total;
   const filteredJobPosterTemplates = useMemo(() => {
     const allTemplates = jobPosterTemplates.filter((jobPosterTemplate) => {
       let show = true;
@@ -275,13 +276,11 @@ const JobPosterTemplatesPage = () => {
   const debouncedResetPage = useMemo(
     () =>
       debounce(() => {
-        methods.handleSubmit(() => {
-          const newParams = new URLSearchParams(searchParams);
-          newParams.set("page", "1");
-          setSearchParams(newParams);
-        })();
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("page", "1");
+        setSearchParams(newParams);
       }, 100),
-    [methods, searchParams, setSearchParams],
+    [searchParams, setSearchParams],
   );
 
   const handleSubmit = useCallback(
@@ -289,18 +288,12 @@ const JobPosterTemplatesPage = () => {
     [debouncedResetPage],
   );
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (methods.formState.isDirty) {
       handleSubmit();
+      reset(formData);
     }
-  }, [
-    formData.keyword,
-    formData.classifications,
-    formData.streams,
-    formData.supervisoryStatuses,
-    handleSubmit,
-    methods.formState.isDirty,
-  ]);
+  }, [formData, handleSubmit, methods, reset]);
 
   return (
     <>
@@ -410,7 +403,7 @@ const JobPosterTemplatesPage = () => {
                   mode="inline"
                   color="secondary"
                   block
-                  onClick={() => reset()}
+                  onClick={() => reset(defaultValues)}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Reset all filters",
