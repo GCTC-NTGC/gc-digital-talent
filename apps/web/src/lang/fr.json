@@ -112,7 +112,7 @@
     "description": "IAP Requirement list item six"
   },
   "+cqG9n": {
-    "defaultMessage": "Apprenez-en davantage<hidden> sur la Directive</hidden>",
+    "defaultMessage": "En apprendre davantage<hidden> sur la Directive</hidden>",
     "description": "Link text to the directive on digital talent page"
   },
   "+d/NdU": {
@@ -398,6 +398,10 @@
   "/zVZCP": {
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
+  },
+  "0/jj1v": {
+    "defaultMessage": "Réinitialisez tous les filtres",
+    "description": "Button text to reset a filter form"
   },
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
@@ -1367,6 +1371,10 @@
     "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
     "description": "Hero subtitle for IAP manager homepage"
   },
+  "58+Hom": {
+    "defaultMessage": "Modèles d'offres d'emploi",
+    "description": "Heading for the page showing list of job poster templates"
+  },
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
@@ -1974,6 +1982,10 @@
   "8bJgxK": {
     "defaultMessage": "Français - Votre travail",
     "description": "Label for the French - Your Work textarea in the edit pool page."
+  },
+  "8dUPjb": {
+    "defaultMessage": "Cette bibliothèque contient une série de modèles pour des emplois courants dans les collectivités que nous soutenons. Ces modèles comprennent des informations suggérées et des recommandations pour des éléments tels que le titre du poste, les tâches courantes, les compétences essentielles et les atouts, etc. N'hésitez pas à consulter la liste complète ou, si vous avez une idée du type de poste pour lequel vous recrutez, vous pouvez utiliser la barre de recherche ou les filtres pour trouver des modèles qui correspondent aux spécificités du poste.",
+    "description": "Description of how to use the form to filter job poster templates"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -3643,6 +3655,10 @@
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
   },
+  "HuA8aL": {
+    "defaultMessage": "Charger d'autres résultats",
+    "description": "Button text to load the next set of results"
+  },
   "HvD7jI": {
     "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
@@ -3910,6 +3926,10 @@
   "J9HjFN": {
     "defaultMessage": "Le Programme a été conçu pour répondre aux efforts de réconciliation et pour bâtir une relation renouvelée qui est fondée sur les droits, le respect, la collaboration et le partenariat avec les peuples autochtones.",
     "description": "How it works, step 1 content paragraph 1"
+  },
+  "J9l5Vd": {
+    "defaultMessage": "P. ex., conception de sites Web",
+    "description": "Placeholder for keyword search input"
   },
   "JBRqD9": {
     "defaultMessage": "Postes en anglais",
@@ -4283,9 +4303,17 @@
     "defaultMessage": "Ouvert au public",
     "description": "Combined eligibility string for 'open to the public'"
   },
+  "L0ugLs": {
+    "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
+    "description": "Summary of the directive on digital talent featured item"
+  },
   "L1tQMY": {
     "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
     "description": "The directives digital talent and sourcing component"
+  },
+  "L47tv9": {
+    "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
+    "description": "Message displayed when there are no job poster templates meeting a specific criteria"
   },
   "L6MgeM": {
     "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
@@ -4967,6 +4995,10 @@
     "defaultMessage": "Gérer vos renseignements personnels, votre parcours professionnel, vos compétences, et faire le suivi de vos candidatures.",
     "description": "SEO description for profile and applications hero"
   },
+  "P/DHOG": {
+    "defaultMessage": "Modèles d'emplois",
+    "description": "Text for the breadcrumb navigation link"
+  },
   "P/tHlt": {
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
@@ -5075,6 +5107,10 @@
     "defaultMessage": "Date de début/fin",
     "description": "Label for the start/end date for an experience"
   },
+  "PYMFoh": {
+    "defaultMessage": "Recherche par mot-clé",
+    "description": "Label for the keyword search input"
+  },
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
@@ -5098,6 +5134,10 @@
   "PjK/4B": {
     "defaultMessage": "N'a pas été identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Text on view-user page that the user isn't part of any employment equity groups"
+  },
+  "Pjfjeg": {
+    "defaultMessage": "Présentation de {showing} sur {total} modèles disponibles",
+    "description": "Number of job poster templates being displayed in the list"
   },
   "PmDeul": {
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
@@ -5654,6 +5694,10 @@
   "SZ2DsZ": {
     "defaultMessage": "Secrétariat du Conseil du Trésor du Canada",
     "description": "Default department for pool"
+  },
+  "SaPE+p": {
+    "defaultMessage": "Filtrer par niveaux",
+    "description": "Label for the classification input"
   },
   "Sb2fEr": {
     "defaultMessage": "Bassin {poolId} introuvable.",
@@ -6286,6 +6330,10 @@
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
   },
+  "W9SXxj": {
+    "defaultMessage": "Trier par",
+    "description": "Label for the links to change how the list is sorted"
+  },
   "WAO4vD": {
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the change candidate expiry date dialog"
@@ -6517,6 +6565,10 @@
   "XGztC+": {
     "defaultMessage": "Raison du changement",
     "description": "Heading for form to justify updating a published process"
+  },
+  "XIDaGg": {
+    "defaultMessage": "Rechercher un modèle",
+    "description": "Heading for the form to filter job poster templates"
   },
   "XJ/xK1": {
     "defaultMessage": "Consultez notre base de données pour trouver des talents entièrement qualifiés, prêts à être embauchés sans autre processus concurrentiel. Travaillez avec notre équipe pour mettre la dernière main à vos documents de ressources humaines afin que vous puissiez faire une offre et mettre les talents en place rapidement et facilement.",
@@ -7914,6 +7966,10 @@
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
     "description": "Subtitle for a section explaining setting up mfa"
   },
+  "eeU13V": {
+    "defaultMessage": "Filtrer par volets de travail",
+    "description": "Legend for pool streams input"
+  },
   "eeyR6R": {
     "defaultMessage": "étiqueter et compléter les jeux de données fournis, le cas échéant, pour l’établissement de rapports",
     "description": "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_"
@@ -8105,6 +8161,10 @@
   "fVAMSw": {
     "defaultMessage": "Soumettez des commentaires",
     "description": "Support form subject field feedback option label"
+  },
+  "fXl3Cm": {
+    "defaultMessage": "Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment d’un formulaire en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
+    "description": "Summary of the directive on digital talent"
   },
   "fY0W2V": {
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
@@ -8973,10 +9033,6 @@
   "jNqZ46": {
     "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
     "description": "IT-03 classification aria label including titles"
-  },
-  "jO2uif": {
-    "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
-    "description": "Summary of the directive on digital talent featured item"
   },
   "jO8i+2": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
@@ -10506,6 +10562,10 @@
     "defaultMessage": "Services professionnels, administratifs, et de soutien à la gestion",
     "description": "Support services contract commodity"
   },
+  "s7jEFt": {
+    "defaultMessage": "Parcourez une bibliothèque d'offres d'emploi préétablies qui comprennent des suggestions de tâches clés, de compétences requises et de compétences facultatives.",
+    "description": "Description for the page showing list of job poster templates"
+  },
   "s9unRt": {
     "defaultMessage": "Heures supplémentaires à court terme",
     "description": "Overtime on short notice personnel other requirement"
@@ -10523,7 +10583,7 @@
     "description": "Text on a button to save advertisement details"
   },
   "sGPKUt": {
-    "defaultMessage": "Veuillez consulter la Directive",
+    "defaultMessage": "Consulter la Directive",
     "description": "Link text to read the directive on digital talent"
   },
   "sICXeM": {
@@ -10729,10 +10789,6 @@
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
-  },
-  "tSAjnB": {
-    "defaultMessage": "La plateforme Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment de formulaires en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
-    "description": "Summary of the directive on digital talent"
   },
   "tUIvbq": {
     "defaultMessage": "Adresse courriel non validée",
@@ -11069,6 +11125,10 @@
   "vi7jVU": {
     "defaultMessage": "Indiquer comme lue",
     "description": "Button text to mark a notification as read"
+  },
+  "vjbsDe": {
+    "defaultMessage": "Filtrer par type de rôle",
+    "description": "Legend for supervisory status input"
   },
   "vkAhEM": {
     "defaultMessage": "Se connecter à l’aide de CléGC",
@@ -11665,6 +11725,10 @@
   "zDO6tt": {
     "defaultMessage": "Date d'expiration",
     "description": "title for change expiry date dialog on view-user page"
+  },
+  "zDYHRr": {
+    "defaultMessage": "Titre du poste",
+    "description": "Link text to sort by job title"
   },
   "zDzzb/": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",

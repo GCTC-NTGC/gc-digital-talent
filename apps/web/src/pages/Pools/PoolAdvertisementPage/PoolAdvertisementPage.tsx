@@ -89,7 +89,7 @@ const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
       {chunks}
     </Link>
   ) : (
-    chunks
+    <>{chunks}</>
   );
 };
 
@@ -1150,9 +1150,12 @@ export const PoolPoster = ({
                             "Opening sentence asking if accommodations are needed",
                         },
                         {
-                          a: (chunks: ReactNode) =>
-                            anchorTag(chunks, contactEmail),
-                          name: getLocalizedName(pool.team?.displayName, intl),
+                          a: (chunks) => anchorTag(chunks, contactEmail),
+                          name: () => (
+                            <>
+                              {getLocalizedName(pool.team?.displayName, intl)}
+                            </>
+                          ),
                         },
                       )}
                     </Text>

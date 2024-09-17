@@ -105,7 +105,7 @@ export const formattedPoolPosterTitle = ({
   const streamString = stream ? getLocalizedName(stream.label, intl) : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
-    : (null ?? "");
+    : "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
