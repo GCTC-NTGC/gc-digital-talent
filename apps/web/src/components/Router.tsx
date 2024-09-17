@@ -469,6 +469,13 @@ const createRoute = (locale: Locales) =>
                       "../pages/JobPosterTemplates/JobPosterTemplatesPage/JobPosterTemplatesPage"
                     ),
                 },
+                {
+                  path: ":templateId",
+                  lazy: () =>
+                    import(
+                      "../pages/JobPosterTemplates/JobPosterTemplatePage/JobPosterTemplatePage"
+                    ),
+                },
               ],
             },
             {

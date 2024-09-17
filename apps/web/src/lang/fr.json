@@ -71,6 +71,10 @@
     "defaultMessage": "Compétence",
     "description": "Label for the skill select field"
   },
+  "+Ln2X/": {
+    "defaultMessage": "Téléchargez (EN)",
+    "description": "Link to download a file in English"
+  },
   "+MCd8X": {
     "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
     "description": "PSC second language evaluations list for language requirements dialog"
@@ -191,6 +195,10 @@
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "+yB0EH": {
+    "defaultMessage": "Type de poste",
+    "description": "Label displayed on the job poster template 'type of role' field."
+  },
   "+zSc5y": {
     "defaultMessage": "Utilisez le bouton \"Créer une équipe\" pour commencer.",
     "description": "Instructions for adding a team item."
@@ -234,6 +242,10 @@
   "/BWol9": {
     "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
     "description": "The directives digital enabling conditions component"
+  },
+  "/Bih8t": {
+    "defaultMessage": "Tâches principales - Exemples",
+    "description": "Long title of the 'key tasks' section of the job poster template page"
   },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
@@ -498,6 +510,10 @@
   "0T3NB0": {
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
+  },
+  "0UAx0q": {
+    "defaultMessage": "Enfin, les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas absolument nécessaires, mais qui seraient utiles pour le poste. Ces compétences pourraient constituer une lacune au sein de votre équipe ou des compétences connexes susceptibles de renforcer le travail de la personne candidate. Nous vous encourageons à inclure toutes les compétences qui vous semblent convenir à ce type de poste. Toutefois, il est important de rappeler que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler (et se qualifier) pour le poste que vous décrivez.",
+    "description": "Description displayed on the job poster template 'asset technical skills' section."
   },
   "0Uvziq": {
     "defaultMessage": "Candidats du bassin",
@@ -1315,6 +1331,10 @@
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
   },
+  "4wIDU6": {
+    "defaultMessage": "Compétences comportementales essentielles",
+    "description": "Short title of the 'essential behavioural skills' section of the job poster template page"
+  },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
@@ -1515,6 +1535,10 @@
     "defaultMessage": "Quantité",
     "description": "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_"
   },
+  "5zJ+/1": {
+    "defaultMessage": "Compétences techniques constituant un atout - Exemples",
+    "description": "Long title of the 'asset technical skills' section of the job poster template page"
+  },
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
@@ -1622,6 +1646,10 @@
   "6ntAxU": {
     "defaultMessage": "Nom de l’initiative en matière numérique",
     "description": "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "6qXF7s": {
+    "defaultMessage": "Compétences techniques essentielles - Exemples",
+    "description": "Long title of the 'essential technical skills' section of the job poster template page"
   },
   "6qu9EB": {
     "defaultMessage": "<red>Cette annonce a été fermée prématurément.</red>",
@@ -3019,6 +3047,10 @@
     "defaultMessage": "Toutes les compétences",
     "description": "Label for removing the skill family filter"
   },
+  "EJN/zZ": {
+    "defaultMessage": "Description générique du travail",
+    "description": "Label displayed on the job poster template 'generic work description' field."
+  },
   "EK+25s": {
     "defaultMessage": "Notes",
     "description": "Title for admin notes shorthand"
@@ -3150,6 +3182,10 @@
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
+  },
+  "FAioB7": {
+    "defaultMessage": "Voir sur GCpédia*",
+    "description": "Link text displayed on the job poster template 'generic work description' field. With an asterisk for fine print."
   },
   "FBSOkb": {
     "defaultMessage": "Publié",
@@ -3602,6 +3638,10 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
+  },
+  "HlAEv1": {
+    "defaultMessage": "Un modèle préétabli contenant des informations sur l'offre d'emploi et des recommandations sur les tâches et les compétences.",
+    "description": "Subtitle for the 'job poster template' page"
   },
   "HnrJJR": {
     "defaultMessage": "Lorsque vous soumettez une demande de talents à l'aide de la fonctionnalité « <a>Trouver des talents</a> » , elle apparaîtra dans cette liste tant qu'elle sera active. Les destinataires de votre demande disposeront d'un délai fixe pour répondre, après quoi seules les personnes ayant accepté de partager leurs informations resteront à votre disposition.",
@@ -4123,6 +4163,10 @@
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
     "description": "Text prompting for input when duplicating a process"
   },
+  "KPenmQ": {
+    "defaultMessage": "Les tâches principales suivantes sont des exemples du travail que la personne titulaire de ce poste pourrait effectuer. Au moment de rédiger votre offre d'emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de l'adapter aux spécificités de votre équipe et au poste que vous souhaitez pourvoir.",
+    "description": "Description displayed on the job poster template 'key tasks' section."
+  },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
@@ -4246,6 +4290,10 @@
   "KtXvdO": {
     "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
     "description": "Message on getting started page about the contact email address - part 1."
+  },
+  "KwJigi": {
+    "defaultMessage": "Compétences comportementales essentielles - Exemples",
+    "description": "Long title of the 'essential behavioural skills' section of the job poster template page"
   },
   "Kyf9At": {
     "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
@@ -6014,6 +6062,10 @@
     "defaultMessage": "Retirer {userName} de la collectivité {communityName}.",
     "description": "Label for the dialog trigger to remove a user from a community"
   },
+  "UoOv/g": {
+    "defaultMessage": "Identifiant de référence",
+    "description": "Label displayed on the job poster template 'reference id' field."
+  },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
@@ -6537,6 +6589,10 @@
   "XRbVxf": {
     "defaultMessage": "Modifier<hidden> {skillName}</hidden>",
     "description": "Button text to edit a personnel skill requirement"
+  },
+  "XRqYGj": {
+    "defaultMessage": "*Veuillez noter que cette ressource n'est disponible que pour les employées et employés du gouvernement du Canada sur les réseaux officiels.",
+    "description": "Fine print displayed on the job poster template about a resource only being available on official networks"
   },
   "XS21o1": {
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
@@ -8050,6 +8106,10 @@
     "defaultMessage": "Autodéclaration",
     "description": "Link text for the self-declaration page"
   },
+  "fMLoIF": {
+    "defaultMessage": "Modèle d'emploi",
+    "description": "Title for the 'job poster template' page"
+  },
   "fNYEBT": {
     "defaultMessage": "Rappel : Les candidats doivent fournir des renseignements sur la manière dont leurs compétences répondent à chaque exigence dans le cadre du processus de candidature normale.",
     "description": "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions"
@@ -8153,6 +8213,10 @@
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
+  },
+  "fpm0Bt": {
+    "defaultMessage": "Compétences techniques essentielles",
+    "description": "Short title of the 'essential technical skills' section of the job poster template page"
   },
   "fqa45V": {
     "defaultMessage": "Définition du niveau",
@@ -8558,6 +8622,10 @@
     "defaultMessage": "Services professionnels en informatique centrés sur les tâches (SPICT)",
     "description": "Task based informatics professional services contract supply method"
   },
+  "haVipy": {
+    "defaultMessage": "Compétences techniques constituant un atout",
+    "description": "Short title of the 'asset technical skills' section of the job poster template page"
+  },
   "hbcdJm": {
     "defaultMessage": "Notifications",
     "description": "Page title for the notifications page"
@@ -8589,6 +8657,10 @@
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
+  },
+  "hkVnr1": {
+    "defaultMessage": "Tâches principales",
+    "description": "Short title of the 'key tasks' section of the job poster template page"
   },
   "hkvlOx": {
     "defaultMessage": "Profil de gestionnaire",
@@ -9173,6 +9245,10 @@
   "kiH9nz": {
     "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
     "description": "Button text displayed for Indigenous languages dropdown"
+  },
+  "kk+ohL": {
+    "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base qu'une personne candidate doit absolument posséder pour exercer les fonctions associées au poste. Cette liste suggère des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous vous recommandons de ne choisir que les compétences qui sont absolument essentielles au poste. Un nombre réduit de compétences se traduit par des candidatures de meilleure qualité et offre aux personnes candidates une plus grande possibilité de développer les compétences clés dont vous avez besoin.",
+    "description": "Description displayed on the job poster template 'essential technical skills' section."
   },
   "kkZZfT": {
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
@@ -10278,6 +10354,10 @@
     "defaultMessage": "Lancer une nouvelle recherche",
     "description": "Link to a page to start a new search"
   },
+  "qmkRCA": {
+    "defaultMessage": "À l'instar des compétences techniques essentielles suggérées ci-dessus, cette liste propose des recommandations concernant les compétences comportementales généralement requises dans le cadre de ce poste. Là encore, nous vous recommandons de limiter les compétences comportementales essentielles aux exigences exactes de votre poste ou de votre équipe, afin que les personnes candidates aient la possibilité de décrire correctement leur expérience concernant les compétences qui comptent vraiment.",
+    "description": "Description displayed on the job poster template 'essential behavioural skills' section."
+  },
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
@@ -10722,6 +10802,10 @@
     "defaultMessage": "Échanger avec nous sur les médias sociaux",
     "description": "Title for the social media section."
   },
+  "tcL+WV": {
+    "defaultMessage": "Détails de base",
+    "description": "Title of the 'basic details' section of the job poster template page"
+  },
   "tgGPyx": {
     "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
@@ -10953,6 +11037,10 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
+  },
+  "v1obWV": {
+    "defaultMessage": "Téléchargez (FR)",
+    "description": "Link to download a file in French"
   },
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
