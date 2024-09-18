@@ -411,13 +411,22 @@ export const Component = () => {
               ]}
             >
               <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This is required when you initiate a procurement process for digital services that exceeds $40,000.",
+                  id: "Ny56Y7",
+                  description:
+                    "Description for the digital Services contracting form, paragraph 1",
+                })}
+              </p>
+              <p>
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "This is required when you initiate a procurement process for digital services that exceeds $40,000. If you’re procuring <strong>due to a talent shortage</strong>, you’ll also need to verify that no talent is available through a <link>GC digital talent request</link>.",
-                    id: "s7kVFi",
+                      "If you’re procuring <strong>due to a talent shortage</strong>, you’ll also need to verify that no talent is available through a <link>GC digital talent request</link>.",
+                    id: "ccwY2r",
                     description:
-                      "Description for the digital Services contracting form",
+                      "Description for the digital Services contracting form, paragraph 2",
                   },
                   {
                     link: (chunks: ReactNode) =>

@@ -10574,9 +10574,13 @@
     "defaultMessage": "Parcourez une bibliothèque d'offres d'emploi préétablies qui comprennent des suggestions de tâches clés, de compétences requises et de compétences facultatives.",
     "description": "Description for the page showing list of job poster templates"
   },
-  "s7kVFi": {
-    "defaultMessage": "Les gestionnaires sont tenus de remplir le questionnaire d’octroi de contrats sur les services numériques lorsqu’ils lancent un processus d’approvisionnement pour des services ou des talents numériques dépassant 40 000 $ (taxes et frais applicables compris).\n\nSi vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>la plateforme Talents numériques du GC</link>.",
-    "description": "Description for the digital Services contracting form"
+  "Ny56Y7": {
+    "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
+    "description": "Description for the digital Services contracting form, paragraph 1"
+  },
+  "ccwY2r": {
+    "defaultMessage": "Si vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>Talents numériques du GC</link>.",
+    "description": "Description for the digital Services contracting form, paragraph 2"
   },
   "s9unRt": {
     "defaultMessage": "Heures supplémentaires à court terme",
