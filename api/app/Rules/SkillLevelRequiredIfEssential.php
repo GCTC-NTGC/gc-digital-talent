@@ -8,7 +8,6 @@ use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 /**
@@ -46,7 +45,6 @@ class SkillLevelRequiredIfEssential implements DataAwareRule, ValidationRule
     public function validate(string $attribute, mixed $incomingLevel, Closure $fail): void
     {
         $incomingType = Arr::get($this->data, Str::beforeLast($attribute, '.').'.type');
-        Log::debug($this->data);
 
         // If the template already has the skill take current values into account
         $templateId = Arr::get($this->data, 'jobPosterTemplate.id');
