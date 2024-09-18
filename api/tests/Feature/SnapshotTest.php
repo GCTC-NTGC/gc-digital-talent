@@ -212,6 +212,13 @@ class SnapshotTest extends TestCase
                         ),
                     ],
                 ],
+                // Empty string details
+                // NOTE: Regression test for empty strings treated as localized enums
+                'experiences' => [
+                    [
+                        'details' => '',
+                    ],
+                ],
             ],
         ]);
 
@@ -233,6 +240,12 @@ class SnapshotTest extends TestCase
                 [
                     'value' => OperationalRequirement::ON_CALL->name,
                     'label' => OperationalRequirement::localizedString(OperationalRequirement::ON_CALL->name),
+                ],
+            ],
+            // Empty string details
+            'experiences' => [
+                [
+                    'details' => '',
                 ],
             ],
         ], $snapshot);
