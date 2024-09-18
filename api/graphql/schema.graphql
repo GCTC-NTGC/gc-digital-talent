@@ -738,7 +738,8 @@ type JobPosterTemplate {
   referenceId: String @rename(attribute: "reference_id")
   name: LocalizedString
   description: LocalizedString
-  supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
+  supervisoryStatus: LocalizedSupervisoryStatus
+    @rename(attribute: "supervisory_status")
   stream: LocalizedPoolStream
   workDescription: LocalizedString @rename(attribute: "work_description")
   tasks: LocalizedString

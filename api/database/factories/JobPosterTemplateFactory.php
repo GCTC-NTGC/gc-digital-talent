@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStream;
+use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
 use App\Enums\SupervisoryStatus;
 use App\Models\Classification;
@@ -35,22 +36,33 @@ class JobPosterTemplateFactory extends Factory
             $classification = Classification::factory()->create();
         }
 
+        $keyTasks = collect();
+        for ($i = 0; $i < $this->faker->numberBetween(2, 10); $i++) {
+            $keyTasks->add($this->faker->sentence());
+        }
+        $keyTasksHtmlEn = '<ul>'
+            .$keyTasks->reduce(fn ($carry, $task) => $carry.'<li><p>'.$task.' (EN)</p></li>')
+            .'</ul>';
+        $keyTasksHtmlFr = '<ul>'
+            .$keyTasks->reduce(fn ($carry, $task) => $carry.'<li><p>'.$task.' (FR)</p></li>')
+            .'</ul>';
+
         return [
             'supervisory_status' => $this->faker->randomElement(SupervisoryStatus::cases())->name,
             'stream' => $this->faker->randomElement(PoolStream::cases())->name,
             'reference_id' => implode('_', $this->faker->words()),
             'classification_id' => $classification->id,
             'name' => [
-                'en' => $this->faker->text(100).' (EN)',
-                'fr' => $this->faker->text(100).'(FR)',
+                'en' => $this->faker->jobTitle().' (EN)',
+                'fr' => $this->faker->jobTitle().' (FR)',
             ],
             'description' => [
                 'en' => $this->faker->paragraph().' (EN)',
                 'fr' => $this->faker->paragraph().' (FR)',
             ],
             'tasks' => [
-                'en' => $this->faker->paragraph().' (EN)',
-                'fr' => $this->faker->paragraph().' (FR)',
+                'en' => $keyTasksHtmlEn,
+                'fr' => $keyTasksHtmlFr,
             ],
             'keywords' => [
                 'en' => $this->faker->words(),
@@ -75,15 +87,30 @@ class JobPosterTemplateFactory extends Factory
         ];
     }
 
-    public function withSkills($essentialCount = 3, $nonessentialCount = 3)
+    public function withSkills($essentialTechnicalCount = 3, $essentialBehaviouralCount = 3, $nonessentialTechnicalCount = 3)
     {
-        return $this->afterCreating(function (JobPosterTemplate $template) use ($essentialCount, $nonessentialCount) {
-            $skills = Skill::inRandomOrder()->limit($essentialCount + $nonessentialCount)->get();
-            $skills->each(function (Skill $skill, int $key) use ($essentialCount, $template) {
-                $type = $essentialCount < $key ? PoolSkillType::ESSENTIAL : PoolSkillType::NONESSENTIAL;
+        return $this->afterCreating(function (JobPosterTemplate $template) use ($essentialTechnicalCount, $essentialBehaviouralCount, $nonessentialTechnicalCount) {
+            $essentialTechnicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->inRandomOrder()->limit($essentialTechnicalCount)->get();
+            $essentialTechnicalSkills->each(function (Skill $skill) use ($template) {
                 $template->skills()->attach($skill->id, [
-                    'type' => $type->name,
-                    'required_skill_level' => $type === PoolSkillType::ESSENTIAL ? $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')) : null,
+                    'type' => PoolSkillType::ESSENTIAL->name,
+                    'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
+                ]);
+            });
+
+            $essentialBehaviouralSkills = Skill::where('category', SkillCategory::BEHAVIOURAL->name)->inRandomOrder()->limit($essentialBehaviouralCount)->get();
+            $essentialBehaviouralSkills->each(function (Skill $skill) use ($template) {
+                $template->skills()->attach($skill->id, [
+                    'type' => PoolSkillType::ESSENTIAL->name,
+                    'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
+                ]);
+            });
+
+            $nonessentialTechnicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->inRandomOrder()->limit($nonessentialTechnicalCount)->get();
+            $nonessentialTechnicalSkills->each(function (Skill $skill) use ($template) {
+                $template->skills()->attach($skill->id, [
+                    'type' => PoolSkillType::NONESSENTIAL->name,
+                    'required_skill_level' => null,
                 ]);
             });
         });
