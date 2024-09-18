@@ -138,6 +138,11 @@ const emphasize = (text: ReactNode) => (
  */
 const softHyphen = () => <>&shy;</>;
 
+/**
+ * Used to mark up the title of a cited creative work.
+ */
+const cite = (text: ReactNode) => <cite>{text}</cite>;
+
 export default {
   strong,
   hidden,
@@ -153,4 +158,5 @@ export default {
   underline,
   emphasize,
   softHyphen,
+  cite,
 };
