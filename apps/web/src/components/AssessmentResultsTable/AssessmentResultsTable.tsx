@@ -44,6 +44,17 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
     educationRequirementExperiences {
       id
     }
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
     assessmentStatus {
       currentStep
       overallAssessmentStatus

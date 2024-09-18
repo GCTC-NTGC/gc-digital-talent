@@ -207,6 +207,8 @@ export const buildColumn = ({
               poolCandidate={{
                 id: poolCandidate.id,
                 profileSnapshot: poolCandidate.profileSnapshot,
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
                 educationRequirementOption:
                   poolCandidate.educationRequirementOption,
                 educationRequirementExperiences:
@@ -238,6 +240,8 @@ export const buildColumn = ({
               poolCandidate={{
                 id: poolCandidate.id,
                 profileSnapshot: poolCandidate.profileSnapshot,
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
                 pool: {
                   classification: poolCandidate.pool.classification,
                   publishingGroup: poolCandidate.pool.publishingGroup,

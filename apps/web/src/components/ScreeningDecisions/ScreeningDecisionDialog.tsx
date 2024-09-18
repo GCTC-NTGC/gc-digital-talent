@@ -219,7 +219,7 @@ const AssessmentStepTypeSection = ({
 const ScreeningQuestions = ({
   poolCandidate,
 }: {
-  poolCandidate: PoolCandidate | undefined;
+  poolCandidate: Pick<PoolCandidate, "screeningQuestionResponses"> | undefined;
 }) => {
   const intl = useIntl();
   const screeningQuestionResponses =
@@ -311,7 +311,10 @@ interface ScreeningDecisionDialogProps {
   >;
   poolCandidate: Pick<
     PoolCandidate,
-    "id" | "educationRequirementOption" | "profileSnapshot"
+    | "id"
+    | "educationRequirementOption"
+    | "profileSnapshot"
+    | "screeningQuestionResponses"
   > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
   } & {
@@ -352,9 +355,6 @@ export const ScreeningDecisionDialog = ({
   });
 
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
-  const snapshotCandidate = parsedSnapshot?.poolCandidates
-    ?.filter(notEmpty)
-    .find(({ id }) => id === poolCandidate.id);
 
   const headers = useHeaders({
     type: dialogType,
@@ -486,7 +486,7 @@ export const ScreeningDecisionDialog = ({
             type={dialogType}
           />
           {dialogType === "SCREENING_QUESTIONS" ? (
-            <ScreeningQuestions poolCandidate={snapshotCandidate} />
+            <ScreeningQuestions poolCandidate={poolCandidate} />
           ) : (
             <SupportingEvidence experiences={experiences} skill={skill} />
           )}
@@ -554,7 +554,10 @@ const ScreeningDecisionDialogApi = ({
   experiences?: Omit<Experience, "user">[];
   poolCandidate: Pick<
     PoolCandidate,
-    "id" | "educationRequirementOption" | "profileSnapshot"
+    | "id"
+    | "educationRequirementOption"
+    | "screeningQuestionResponses"
+    | "profileSnapshot"
   > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
   } & {
