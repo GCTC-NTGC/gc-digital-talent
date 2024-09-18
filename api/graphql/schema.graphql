@@ -1891,7 +1891,7 @@ input NotificationFilterInput {
   createdAt: DateRange @whereBetween(key: "created_at")
 }
 
-input AttachJobPosterTemplateSkillInput {
+input ConnectJobPosterTemplateSkillInput {
   id: UUID!
   type: PoolSkillType!
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
@@ -1904,7 +1904,7 @@ input SyncJobPosterTemplateSkillInput {
 }
 
 input UpdateJobPosterTemplateSkillsInput {
-  attach: [AttachJobPosterTemplateSkillInput!]
+  connect: [ConnectJobPosterTemplateSkillInput!]
   sync: [SyncJobPosterTemplateSkillInput!]
   detach: [UUID!]
 }
@@ -1929,6 +1929,7 @@ input CreateJobPosterTemplateInput @validator {
 }
 
 input UpdateJobPosterTemplateInput @validator {
+  id: UUID!
   referenceId: String @rename(attribute: "reference_id")
   name: LocalizedStringInput
   description: LocalizedStringInput
@@ -2274,7 +2275,6 @@ type Mutation {
     jobPosterTemplate: CreateJobPosterTemplateInput! @spread
   ): JobPosterTemplate @create @guard @canModel(ability: "create")
   updateJobPosterTemplate(
-    id: UUID!
     jobPosterTemplate: UpdateJobPosterTemplateInput! @spread
   ): JobPosterTemplate @update @guard @canFind(ability: "update", find: "id")
   deleteJobPosterTemplate(id: UUID! @whereKey): JobPosterTemplate

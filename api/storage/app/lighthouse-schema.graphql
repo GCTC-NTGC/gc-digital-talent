@@ -388,7 +388,7 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
   createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
-  updateJobPosterTemplate(id: UUID!, jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
+  updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
@@ -1847,7 +1847,7 @@ input NotificationFilterInput {
   createdAt: DateRange
 }
 
-input AttachJobPosterTemplateSkillInput {
+input ConnectJobPosterTemplateSkillInput {
   id: UUID!
   type: PoolSkillType!
   requiredLevel: SkillLevel
@@ -1860,7 +1860,7 @@ input SyncJobPosterTemplateSkillInput {
 }
 
 input UpdateJobPosterTemplateSkillsInput {
-  attach: [AttachJobPosterTemplateSkillInput!]
+  connect: [ConnectJobPosterTemplateSkillInput!]
   sync: [SyncJobPosterTemplateSkillInput!]
   detach: [UUID!]
 }
@@ -1882,6 +1882,7 @@ input CreateJobPosterTemplateInput {
 }
 
 input UpdateJobPosterTemplateInput {
+  id: UUID!
   referenceId: String
   name: LocalizedStringInput
   description: LocalizedStringInput
