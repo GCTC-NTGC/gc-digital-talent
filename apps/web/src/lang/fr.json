@@ -4847,6 +4847,10 @@
     "defaultMessage": "Statut de la candidature",
     "description": "Label for the candidacy status field"
   },
+  "Ny56Y7": {
+    "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
+    "description": "Description for the digital Services contracting form, paragraph 1"
+  },
   "NzbVyB": {
     "defaultMessage": "Compétences comportementales",
     "description": "Title for the behavioural skill rank card"
@@ -7577,6 +7581,10 @@
   "ccR/uJ": {
     "defaultMessage": "Votre démonstration de vos compétences vous permet de conserver des listes de compétences tirées de votre bibliothèque qui présentent une histoire davantage ciblée de vos forces et de vos domaines d’intérêt. Bien que votre bibliothèque agisse en tant qu’endroit central à partir duquel vous pouvez gérer toutes les compétences que vous ajoutez à votre profil, les démonstrations que vous complétez sont jumelées à vos demandes d’emploi afin d’aider les recruteurs et les gestionnaires à brosser un tableau complet de votre talent.",
     "description": "Description on what the skills showcase is."
+  },
+  "ccwY2r": {
+    "defaultMessage": "Si vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>Talents numériques du GC</link>.",
+    "description": "Description for the digital Services contracting form, paragraph 2"
   },
   "ce3IeQ": {
     "defaultMessage": "Votre parcours professionnel comprend actuellement :",
@@ -10573,14 +10581,6 @@
   "s7jEFt": {
     "defaultMessage": "Parcourez une bibliothèque d'offres d'emploi préétablies qui comprennent des suggestions de tâches clés, de compétences requises et de compétences facultatives.",
     "description": "Description for the page showing list of job poster templates"
-  },
-  "Ny56Y7": {
-    "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
-    "description": "Description for the digital Services contracting form, paragraph 1"
-  },
-  "ccwY2r": {
-    "defaultMessage": "Si vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>Talents numériques du GC</link>.",
-    "description": "Description for the digital Services contracting form, paragraph 2"
   },
   "s9unRt": {
     "defaultMessage": "Heures supplémentaires à court terme",
