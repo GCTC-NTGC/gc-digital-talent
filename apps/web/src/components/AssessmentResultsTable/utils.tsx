@@ -148,6 +148,7 @@ const columnHelper = createColumnHelper<AssessmentTableRow>();
 export const buildColumn = ({
   id,
   poolCandidate,
+  experiences,
   assessmentStep,
   intl,
   header,
@@ -202,9 +203,16 @@ export const buildColumn = ({
                     }
                   : null
               }
+              experiences={experiences}
               poolCandidate={{
                 id: poolCandidate.id,
                 profileSnapshot: poolCandidate.profileSnapshot,
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
+                educationRequirementOption:
+                  poolCandidate.educationRequirementOption,
+                educationRequirementExperiences:
+                  poolCandidate.educationRequirementExperiences,
                 pool: {
                   classification: poolCandidate.pool.classification,
                   publishingGroup: poolCandidate.pool.publishingGroup,
@@ -232,6 +240,8 @@ export const buildColumn = ({
               poolCandidate={{
                 id: poolCandidate.id,
                 profileSnapshot: poolCandidate.profileSnapshot,
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
                 pool: {
                   classification: poolCandidate.pool.classification,
                   publishingGroup: poolCandidate.pool.publishingGroup,
