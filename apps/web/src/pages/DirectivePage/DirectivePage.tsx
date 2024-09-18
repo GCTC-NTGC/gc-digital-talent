@@ -579,13 +579,13 @@ export const Component = () => {
                 data-h2-gap="base(x0.25)"
               >
                 <li>
-                  <strong>
+                  <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage: "Removal of the Forward Talent Plan",
                       id: "O8YvBD",
                       description: "first 2024 key change to the directive",
                     })}
-                  </strong>
+                  </span>
                   <div>
                     {intl.formatMessage({
                       defaultMessage:
@@ -597,14 +597,14 @@ export const Component = () => {
                   </div>
                 </li>
                 <li>
-                  <strong>
+                  <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Removal of the Department-specific Recruitment Process Form",
                       id: "o6Vyr+",
                       description: "second 2024 key change to the directive",
                     })}
-                  </strong>
+                  </span>
                   <div>
                     {intl.formatMessage({
                       // yes, this is the same rationale as for the first key change
@@ -617,14 +617,14 @@ export const Component = () => {
                   </div>
                 </li>
                 <li>
-                  <strong>
+                  <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Removal of the requirement to share copies of non-standard IT job descriptions",
                       id: "DjRrK4",
                       description: "third 2024 key change to the directive",
                     })}
-                  </strong>
+                  </span>
                   <div>
                     {intl.formatMessage({
                       defaultMessage:
@@ -636,14 +636,14 @@ export const Component = () => {
                   </div>
                 </li>
                 <li>
-                  <strong>
+                  <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Updates to the Digital Services Contracting Questionnaire",
                       id: "L819mr",
                       description: "fourth 2024 key change to the directive",
                     })}
-                  </strong>
+                  </span>
                   <div>
                     {intl.formatMessage({
                       defaultMessage:
@@ -655,14 +655,14 @@ export const Component = () => {
                   </div>
                 </li>
                 <li>
-                  <strong>
+                  <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Confirmation on the use of the GC Digital Talent platform for verifying availability of qualified talent",
                       id: "hI5cty",
                       description: "fifth 2024 key change to the directive",
                     })}
-                  </strong>
+                  </span>
                   <div>
                     {intl.formatMessage({
                       defaultMessage:
