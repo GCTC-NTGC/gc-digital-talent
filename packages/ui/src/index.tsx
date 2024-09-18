@@ -57,6 +57,9 @@ import Pending, {
   type PendingProps,
   LoadingErrorMessage,
 } from "./components/Pending";
+import PreviewList, {
+  type MetaDataProps as PreviewMetaData,
+} from "./components/PreviewList/PreviewList";
 import ResourceBlock from "./components/ResourceBlock";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
@@ -92,7 +95,6 @@ import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard";
-import PreviewList from "./components/PreviewList/PreviewList";
 
 export type {
   Color,
@@ -115,6 +117,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
+  PreviewMetaData,
   ChipProps,
   SidebarProps,
   SideMenuProps,

@@ -203,6 +203,11 @@ type LocalizedSkillLevel {
   label: LocalizedString!
 }
 
+type LocalizedSupervisoryStatus {
+  value: SupervisoryStatus!
+  label: LocalizedString!
+}
+
 type LocalizedWorkRegion {
   value: WorkRegion!
   label: LocalizedString!
@@ -1018,7 +1023,7 @@ type JobPosterTemplate {
   referenceId: String
   name: LocalizedString
   description: LocalizedString
-  supervisoryStatus: SupervisoryStatus
+  supervisoryStatus: LocalizedSupervisoryStatus
   stream: LocalizedPoolStream
   workDescription: LocalizedString
   tasks: LocalizedString

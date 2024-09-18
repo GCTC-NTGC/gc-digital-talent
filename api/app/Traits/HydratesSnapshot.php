@@ -22,6 +22,10 @@ trait HydratesSnapshot
 
     public static function isFieldLocalizedEnum(mixed $snapshot, mixed $snapshotField): bool
     {
+        if (! isset($snapshot[$snapshotField]) || is_string($snapshot[$snapshotField])) {
+            return false;
+        }
+
         // validator for a single localized enum
         $singleEnumValidator = Validator::make($snapshot, [
             $snapshotField.'.value' => 'required|string',
