@@ -460,6 +460,25 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "job-templates",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/JobPosterTemplates/JobPosterTemplatesPage/JobPosterTemplatesPage"
+                    ),
+                },
+                {
+                  path: ":templateId",
+                  lazy: () =>
+                    import(
+                      "../pages/JobPosterTemplates/JobPosterTemplatePage/JobPosterTemplatePage"
+                    ),
+                },
+              ],
+            },
+            {
               path: "*",
               loader: () => {
                 throw new Response("Not Found", { status: 404 });

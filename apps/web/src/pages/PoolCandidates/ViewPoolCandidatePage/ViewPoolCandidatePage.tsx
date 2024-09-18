@@ -294,7 +294,10 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
+              <AssessmentResultsTable
+                poolCandidateQuery={poolCandidate}
+                experiences={nonEmptyExperiences}
+              />
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (

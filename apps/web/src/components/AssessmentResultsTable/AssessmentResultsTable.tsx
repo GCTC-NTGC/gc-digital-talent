@@ -11,6 +11,7 @@ import {
   graphql,
   PoolSkillType,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
+  Experience,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
@@ -33,6 +34,27 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentResultsTable on PoolCandidate {
     id
     profileSnapshot
+    educationRequirementOption {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    educationRequirementExperiences {
+      id
+    }
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
     assessmentStatus {
       currentStep
       overallAssessmentStatus
@@ -168,10 +190,12 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
 
 interface AssessmentResultsTableProps {
   poolCandidateQuery: FragmentType<typeof AssessmentResultsTable_Fragment>;
+  experiences: Omit<Experience, "user">[];
 }
 
 const AssessmentResultsTable = ({
   poolCandidateQuery,
+  experiences,
 }: AssessmentResultsTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -272,6 +296,7 @@ const AssessmentResultsTable = ({
           id,
           header,
           poolCandidate,
+          experiences,
           assessmentStep: {
             id: assessmentStep.id,
             type: assessmentStep.type,
