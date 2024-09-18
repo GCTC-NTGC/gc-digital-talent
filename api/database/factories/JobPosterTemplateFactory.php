@@ -110,7 +110,7 @@ class JobPosterTemplateFactory extends Factory
             $nonessentialTechnicalSkills->each(function (Skill $skill) use ($template) {
                 $template->skills()->attach($skill->id, [
                     'type' => PoolSkillType::NONESSENTIAL->name,
-                    'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
+                    'required_skill_level' => null,
                 ]);
             });
         });
