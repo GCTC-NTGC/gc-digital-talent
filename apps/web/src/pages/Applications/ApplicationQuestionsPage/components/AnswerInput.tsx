@@ -26,7 +26,7 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
   const answerPrefix = isScreening ? "screeningAnswers" : "generalAnswers";
   const questionId = `${answerPrefix}.${index}.question`;
 
-  const wordCouldLimits: Record<Locales, number> = {
+  const wordCountLimits: Record<Locales, number> = {
     en: TEXT_AREA_MAX_WORDS_EN,
     fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
   } as const;
@@ -45,7 +45,7 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
         name={`${answerPrefix}.${index}.answer`}
         aria-labelledby={questionId}
         rows={TEXT_AREA_ROWS}
-        wordLimit={wordCouldLimits[locale]}
+        wordLimit={wordCountLimits[locale]}
         label={intl.formatMessage(
           {
             defaultMessage: "Answer to question {number}",

@@ -26,7 +26,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
   const type = useWatch({ name: "experienceType" });
   const derivedType = type ?? experienceType;
 
-  const wordCouldLimits: Record<Locales, number> = {
+  const wordCountLimits: Record<Locales, number> = {
     en: TEXT_AREA_MAX_WORDS_EN,
     fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
   } as const;
@@ -61,7 +61,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
               id={FIELD_NAME}
               name={FIELD_NAME}
               rows={TEXT_AREA_ROWS}
-              wordLimit={wordCouldLimits[locale]}
+              wordLimit={wordCountLimits[locale]}
               label={experienceLabels.details}
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />

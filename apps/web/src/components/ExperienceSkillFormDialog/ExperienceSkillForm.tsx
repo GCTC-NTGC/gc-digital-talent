@@ -132,7 +132,7 @@ const ExperienceSkillForm = ({
     }
   };
 
-  const wordCouldLimits: Record<Locales, number> = {
+  const wordCountLimits: Record<Locales, number> = {
     en: TEXT_AREA_MAX_WORDS_EN,
     fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
   } as const;
@@ -245,7 +245,7 @@ const ExperienceSkillForm = ({
           <TextArea
             id="details"
             name="details"
-            wordLimit={wordCouldLimits[locale]}
+            wordLimit={wordCountLimits[locale]}
             label={intl.formatMessage({
               defaultMessage: "Describe how you used this skill",
               id: "L7PqXn",
