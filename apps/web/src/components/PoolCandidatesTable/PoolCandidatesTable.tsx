@@ -467,7 +467,13 @@ const PoolCandidatesTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const initialState = getTableStateFromSearchParams(defaultState);
+  const defaultSortState = currentPool
+    ? [{ id: "finalDecision", desc: true }]
+    : [{ id: "dateReceived", desc: true }];
+  const initialState = getTableStateFromSearchParams({
+    ...defaultState,
+    sortState: defaultSortState,
+  });
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = useMemo(
@@ -931,7 +937,7 @@ const PoolCandidatesTable = ({
       sort={{
         internal: false,
         onSortChange: setSortState,
-        initialState: defaultState.sortState,
+        initialState: defaultSortState,
       }}
       filter={{
         initialState: initialFilterInput,

@@ -921,7 +921,7 @@ class PoolCandidate extends Model
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
 
-            $query->orderByRaw($order);
+            $query->orderByRaw($order)->orderBy('submitted_at', 'ASC');
         }
 
         return $query;
