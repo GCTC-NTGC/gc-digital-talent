@@ -45,6 +45,28 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "community",
+              children: [
+                {
+                  index: true,
+                  // loader: async () => {
+                  //   throw new Response("Not Found", { status: 404 }); // unfinished page
+                  // },
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityDashboardPage/CommunityDashboardPage"
+                    ),
+                },
+                {
+                  path: "dashboard",
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityDashboardPage/CommunityDashboardPage"
+                    ),
+                },
+              ],
+            },
+            {
               path: "support",
               lazy: () => import("../pages/SupportPage/SupportPage"),
             },
@@ -849,18 +871,6 @@ const createRoute = (locale: Locales) =>
               },
             },
           ],
-        },
-      ],
-    },
-    {
-      path: `${locale}/community`,
-      lazy: () => import("./Layout/AdminLayout/AdminLayout"),
-      children: [
-        {
-          index: true,
-          loader: () => {
-            throw new Response("Not Found", { status: 404 });
-          },
         },
       ],
     },

@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-elements */
 import { useEffect, useState } from "react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
@@ -5,10 +6,10 @@ import { useIntl } from "react-intl";
 
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import {
+  getLocale,
   localizePath,
   oppositeLocale,
   uiMessages,
-  useLocale,
 } from "@gc-digital-talent/i18n";
 import {
   Button,
@@ -17,29 +18,27 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import {
+  hasRole,
   ROLE_NAME,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
 
-import useRoutes from "~/hooks/useRoutes";
-
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
 import { useMainLinks } from "./navlinks";
-import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 const MainNavMenu = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
 
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
 
-  const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen(1080);
   const { navRole } = useNavContext();
+
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
   const { roleLinks, mainLinks, accountLinks, authLinks } = useMainLinks(
@@ -78,6 +77,11 @@ const MainNavMenu = () => {
     ["community"]: "Community",
     ["admin"]: "Admin",
   };
+
+  // if the navRole === guest
+  // AND the user has the applicant role
+  // Set the nam menu to applicant role (navRole === applicant)
+  const currentRole = loggedIn && hasRole("applicant", roleAssignments);
 
   return (
     <>

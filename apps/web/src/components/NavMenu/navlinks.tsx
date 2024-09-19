@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import React, { ReactNode } from "react";
 import uniqBy from "lodash/unionBy";
 
 import { NavMenu } from "@gc-digital-talent/ui";
@@ -88,6 +87,22 @@ export const useMainLinks = (
     <NavItem
       key="managerDashboard"
       href={paths.managerDashboard()}
+      title={intl.formatMessage(navigationMessages.dashboard)}
+    />
+  );
+
+  const CommunityDashboard = (
+    <NavItem
+      key="communityDashboard"
+      href={paths.communityDashboard()}
+      title={intl.formatMessage(navigationMessages.dashboard)}
+    />
+  );
+
+  const AdminDashboard = (
+    <NavItem
+      key="adminDashboard"
+      href={paths.adminDashboard()}
       title={intl.formatMessage(navigationMessages.dashboard)}
     />
   );
@@ -268,13 +283,13 @@ export const useMainLinks = (
     case "community":
       return {
         ...defaultLinks,
-        mainLinks: [Home, Processes, Candidates],
+        mainLinks: [Home, CommunityDashboard, Processes, Candidates],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
       };
     case "admin":
       return {
         ...defaultLinks,
-        mainLinks: [Home, ViewUsers, AdminProcesses, Requests],
+        mainLinks: [Home, AdminDashboard, ViewUsers, AdminProcesses, Requests],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
       };
     default:

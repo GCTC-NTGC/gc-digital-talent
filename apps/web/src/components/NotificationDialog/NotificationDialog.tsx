@@ -14,8 +14,6 @@ import {
   Heading,
   Dialog,
   Link,
-  commonStyles as sideMenuStyles,
-  SideMenuItemChildren,
   Color,
 } from "@gc-digital-talent/ui";
 
