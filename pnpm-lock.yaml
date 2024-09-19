@@ -1149,8 +1149,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       react-csv-downloader:
-        specifier: ^3.1.0
-        version: 3.1.0(react@18.3.1)
+        specifier: ^3.1.1
+        version: 3.1.1(react@18.3.1)
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
@@ -6861,8 +6861,8 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
-  react-csv-downloader@3.1.0:
-    resolution: {integrity: sha512-ART4CNMU89Y5OZQp9gR3IUlVt541djWwRfokQY+CYsGQjHNZFJAk6FvgOwLUNG0o/CxeUdexYjnMMFinMv4Xjg==}
+  react-csv-downloader@3.1.1:
+    resolution: {integrity: sha512-bQiTP8Ef3bVlFlbSVNbhtHfiSS1EmUlovU4uqvGqMaEgZ69ycZIL3nRzIcHjosUhFHcq0cTp1EH5FQrdK6UR8Q==}
     engines: {npm: '>=7.0.0'}
     peerDependencies:
       react: ^16.6.3 || ^17.0.0 || ^18.0.0
@@ -14643,7 +14643,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-csv-downloader@3.1.0(react@18.3.1):
+  react-csv-downloader@3.1.1(react@18.3.1):
     dependencies:
       file-saver: 2.0.5
       react: 18.3.1

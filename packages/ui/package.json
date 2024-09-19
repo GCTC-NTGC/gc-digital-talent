@@ -39,7 +39,7 @@
     "chromatic": "^11.9.0",
     "framer-motion": "^11.5.4",
     "lodash": "^4.17.21",
-    "react-csv-downloader": "^3.1.0",
+    "react-csv-downloader": "^3.1.1",
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.13.2",
     "react-remove-scroll": "^2.6.0",
