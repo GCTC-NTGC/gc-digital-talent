@@ -28,6 +28,7 @@ import {
   FragmentType,
   Language,
 } from "@gc-digital-talent/graphql";
+import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -44,7 +45,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
-import commonTableMessages from "~/components/Table/tableMessages";
+import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -420,6 +421,12 @@ const DownloadPoolCandidatesDoc_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadSinglePoolCandidateDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidateDoc($id: UUID!, $anonymous: Boolean!) {
+    downloadPoolCandidateDoc(id: $id, anonymous: $anonymous)
+  }
+`);
+
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
@@ -460,6 +467,7 @@ const PoolCandidatesTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const apiRoutes = useApiRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
@@ -475,6 +483,13 @@ const PoolCandidatesTable = ({
   const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
     DownloadPoolCandidatesDoc_Mutation,
   );
+
+  const [{ fetching: downloadingSingleDoc }, downloadSingleDoc] = useMutation(
+    DownloadSinglePoolCandidateDoc_Mutation,
+  );
+
+  const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
+    useAsyncFileDownload();
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
@@ -618,17 +633,30 @@ const PoolCandidatesTable = ({
   };
 
   const handleDocDownload = (anonymous: boolean) => {
-    downloadDoc({
-      ids: selectedRows,
-      anonymous,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
-  };
-
-  const handleNoRowsSelected = () => {
-    toast.warning(intl.formatMessage(commonTableMessages.noRowsSelected));
+    if (selectedRows.length === 1) {
+      downloadSingleDoc({ id: selectedRows[0], anonymous })
+        .then((res) => {
+          if (res?.data?.downloadPoolCandidateDoc) {
+            executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(
+                res.data.downloadPoolCandidateDoc,
+              ),
+              fileName: res.data.downloadPoolCandidateDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      downloadDoc({
+        ids: selectedRows,
+        anonymous,
+        locale: locale === "fr" ? Language.Fr : Language.En,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    }
   };
 
   const columns = [
@@ -986,11 +1014,16 @@ const PoolCandidatesTable = ({
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={downloadingDoc}
-              onClick={
-                hasSelectedRows ? handleDocDownload : handleNoRowsSelected
+              disabled={
+                !hasSelectedRows ||
+                downloadingDoc ||
+                downloadingSingleDoc ||
+                downloadingAsyncFile
               }
-              isDownloading={downloadingDoc}
+              onClick={handleDocDownload}
+              isDownloading={
+                downloadingDoc || downloadingSingleDoc || downloadingAsyncFile
+              }
             />
           ),
         },
