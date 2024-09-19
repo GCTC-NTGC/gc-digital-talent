@@ -4699,10 +4699,6 @@
     "defaultMessage": "Non réclamé",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
   },
-  "N2GuzJ": {
-    "defaultMessage": "Voir toutes les recherches",
-    "description": "Link to a page to view all the searches"
-  },
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
     "description": "Link text for current users teams page"
@@ -10365,10 +10361,6 @@
   "qmKVmr": {
     "defaultMessage": "Décision de recherche de talents",
     "description": "Heading for the Talent sourcing decision section on the digital services contracting questionnaire"
-  },
-  "qmeqdf": {
-    "defaultMessage": "Lancer une nouvelle recherche",
-    "description": "Link to a page to start a new search"
   },
   "qmkRCA": {
     "defaultMessage": "À l'instar des compétences techniques essentielles suggérées ci-dessus, cette liste propose des recommandations concernant les compétences comportementales généralement requises dans le cadre de ce poste. Là encore, nous vous recommandons de limiter les compétences comportementales essentielles aux exigences exactes de votre poste ou de votre équipe, afin que les personnes candidates aient la possibilité de décrire correctement leur expérience concernant les compétences qui comptent vraiment.",
