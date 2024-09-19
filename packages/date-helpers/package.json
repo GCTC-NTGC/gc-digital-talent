@@ -20,7 +20,7 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "date-fns-tz": "3.0.0",
     "react-intl": "^6.6.8"
   },

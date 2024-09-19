@@ -121,8 +121,8 @@ importers:
         specifier: ^2.2.2
         version: 2.2.2
       date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^4.1.0
+        version: 4.1.0
       framer-motion:
         specifier: ^11.5.4
         version: 11.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -425,11 +425,11 @@ importers:
         specifier: workspace:*
         version: link:../i18n
       date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^4.1.0
+        version: 4.1.0
       date-fns-tz:
         specifier: 3.0.0
-        version: 3.0.0(date-fns@3.6.0)
+        version: 3.0.0(date-fns@4.1.0)
       react-intl:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.6.2)
@@ -610,8 +610,8 @@ importers:
         specifier: ^2.7.1
         version: 2.7.1
       date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^4.1.0
+        version: 4.1.0
       downshift:
         specifier: ^9.0.8
         version: 9.0.8(react@18.3.1)
@@ -4505,8 +4505,8 @@ packages:
     peerDependencies:
       date-fns: ^3.0.0
 
-  date-fns@3.6.0:
-    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debounce@1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
@@ -11879,12 +11879,12 @@ snapshots:
 
   dataloader@2.2.2: {}
 
-  date-fns-tz@3.0.0(date-fns@3.6.0):
+  date-fns-tz@3.0.0(date-fns@4.1.0):
     dependencies:
-      date-fns: 3.6.0
+      date-fns: 4.1.0
       lodash.clonedeep: 4.5.0
 
-  date-fns@3.6.0: {}
+  date-fns@4.1.0: {}
 
   debounce@1.2.1: {}
 
