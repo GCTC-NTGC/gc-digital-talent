@@ -901,9 +901,11 @@ class PoolCandidate extends Model
             WHEN
                 (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
                 AND
-                (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                AND
-                (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                (
+                    (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                    OR
+                    (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                )
             THEN
                 20
             ELSE
