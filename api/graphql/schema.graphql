@@ -519,7 +519,7 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role @belongsTo
-  teamable: HasRoleAssignments # Returns the related team, if it has a teamable returns that instead
+  teamable: HasRoleAssignments @guard # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
 }
