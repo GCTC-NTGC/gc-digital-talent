@@ -4,6 +4,8 @@ import {
   Role,
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
+  Pool,
+  Community,
 } from "@gc-digital-talent/graphql";
 
 export type UpdateUserRolesFunc = (
@@ -14,7 +16,18 @@ export type DeleteUserFunc = (
   id: string,
 ) => Promise<DeleteUserMutation["deleteUser"]>;
 
+export type PoolPickedFields = Pick<Pool, "id" | "__typename" | "name">;
+export type CommunityPickedFields = Pick<
+  Community,
+  "id" | "__typename" | "name"
+>;
+export type TeamPickedFields = Pick<Team, "id" | "__typename" | "displayName">;
+export type Teamable =
+  | PoolPickedFields
+  | CommunityPickedFields
+  | TeamPickedFields;
+
 export interface TeamAssignment {
-  team: Pick<Team, "id" | "name" | "displayName">;
+  team: TeamPickedFields;
   roles: Role[];
 }

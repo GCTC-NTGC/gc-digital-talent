@@ -29,12 +29,27 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
               fr
             }
           }
-          team {
+          teamable {
             id
-            name
-            displayName {
-              en
-              fr
+            __typename
+            ... on Pool {
+              name {
+                en
+                fr
+              }
+            }
+            ... on Community {
+              name {
+                en
+                fr
+              }
+              key
+            }
+            ... on Team {
+              displayName {
+                en
+                fr
+              }
             }
           }
         }

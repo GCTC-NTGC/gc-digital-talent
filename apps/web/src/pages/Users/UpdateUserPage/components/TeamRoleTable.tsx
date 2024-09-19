@@ -9,7 +9,6 @@ import {
   UpdateUserRolesInput,
   Role,
   Scalars,
-  Team,
   User,
 } from "@gc-digital-talent/graphql";
 
@@ -19,9 +18,14 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
 import tableMessages from "~/components/Table/tableMessages";
 
-import { TeamAssignment, UpdateUserRolesFunc } from "../types";
+import {
+  TeamAssignment,
+  TeamPickedFields,
+  UpdateUserRolesFunc,
+} from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import {
+  isTeamTeamable,
   teamActionCell,
   teamCell,
   teamRolesAccessor,
@@ -31,7 +35,7 @@ import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
 interface RoleTeamPair {
   role: Role;
-  team: Pick<Team, "id" | "name">;
+  team: TeamPickedFields;
 }
 
 const columnHelper = createColumnHelper<TeamAssignment>();
@@ -120,11 +124,16 @@ const TeamRoleTable = ({
 
   const data = useMemo(() => {
     const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
+      .filter((roleAssignment) => isTeamTeamable(roleAssignment?.teamable)) // filter for team teamable
       .map((assignment) => {
-        if (assignment?.team && assignment.role?.isTeamBased)
+        if (
+          assignment?.teamable &&
+          isTeamTeamable(assignment.teamable) && // type coercion
+          assignment.role?.isTeamBased
+        )
           return {
             role: assignment.role,
-            team: assignment.team,
+            team: assignment.teamable,
           };
         return null;
       })

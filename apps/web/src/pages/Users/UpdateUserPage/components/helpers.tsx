@@ -6,7 +6,14 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { Role, User } from "@gc-digital-talent/graphql";
 
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
-import { TeamAssignment, UpdateUserRolesFunc } from "../types";
+import {
+  CommunityPickedFields,
+  PoolPickedFields,
+  Teamable,
+  TeamAssignment,
+  TeamPickedFields,
+  UpdateUserRolesFunc,
+} from "../types";
 import EditTeamRoleDialog from "./EditTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 
@@ -87,3 +94,30 @@ export function teamRolesAccessor(
     .sort((a, b) => a.localeCompare(b))
     .join();
 }
+
+export const isPoolTeamable = (
+  teamable: Teamable,
+): teamable is PoolPickedFields => {
+  if (teamable.__typename === "Pool") {
+    return true;
+  }
+  return false;
+};
+
+export const isCommunityTeamable = (
+  teamable: Teamable,
+): teamable is CommunityPickedFields => {
+  if (teamable.__typename === "Community") {
+    return true;
+  }
+  return false;
+};
+
+export const isTeamTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is TeamPickedFields => {
+  if (teamable && teamable.__typename === "Team") {
+    return true;
+  }
+  return false;
+};
