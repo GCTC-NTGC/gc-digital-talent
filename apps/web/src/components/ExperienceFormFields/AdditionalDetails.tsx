@@ -1,17 +1,18 @@
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale, Locales } from "@gc-digital-talent/i18n";
 import { TextArea } from "@gc-digital-talent/forms";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { ExperienceType } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import NullExperienceType from "./NullExperienceType";
 
 const TEXT_AREA_ROWS = 3;
-const TEXT_AREA_MAX_WORDS = 200;
+const TEXT_AREA_MAX_WORDS_EN = 200;
 const FIELD_NAME = "details";
 
 interface AdditionalDetailsProps {
@@ -20,9 +21,15 @@ interface AdditionalDetailsProps {
 
 const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const experienceLabels = getExperienceFormLabels(intl);
   const type = useWatch({ name: "experienceType" });
   const derivedType = type ?? experienceType;
+
+  const wordCouldLimits: Record<Locales, number> = {
+    en: TEXT_AREA_MAX_WORDS_EN,
+    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
+  } as const;
 
   return (
     <>
@@ -54,7 +61,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
               id={FIELD_NAME}
               name={FIELD_NAME}
               rows={TEXT_AREA_ROWS}
-              wordLimit={TEXT_AREA_MAX_WORDS}
+              wordLimit={wordCouldLimits[locale]}
               label={experienceLabels.details}
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
