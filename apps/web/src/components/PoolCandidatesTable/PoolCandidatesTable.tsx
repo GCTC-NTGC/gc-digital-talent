@@ -468,7 +468,7 @@ const PoolCandidatesTable = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const defaultSortState = currentPool
-    ? [{ id: "finalDecision", desc: true }]
+    ? [{ id: "finalDecision", desc: false }]
     : [{ id: "dateReceived", desc: true }];
   const initialState = getTableStateFromSearchParams({
     ...defaultState,
