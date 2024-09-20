@@ -7,46 +7,57 @@ use ZipArchive;
 
 abstract class ZipGenerator extends FileGenerator implements FileGeneratorInterface
 {
-    protected array $files;
+    protected array $files = [];
+
+    protected int $iteration = 0;
+
+    protected string $extension = 'zip';
 
     public function __construct(public string $fileName, protected ?string $dir)
     {
         parent::__construct($fileName, $dir);
-
-        $this->files = [];
     }
 
-    public function addFile(FileGeneratorInterface $fileGenerator)
+    protected function addFile(FileGeneratorInterface $fileGenerator)
     {
-        $this->files[$fileGenerator->getPath()] = $fileGenerator->getFileName();
+        $this->files[$fileGenerator->getFileNameWithExtension()] = $fileGenerator->getPath();
     }
 
-    public function addFiles()
+    protected function incrementFileName(FileGeneratorInterface $fileGenerator): FileGeneratorInterface
     {
-
-        try {
-            $zip = new ZipArchive();
-            $zipPath = $this->getPath();
-            if ($zip->open($zipPath, ZipArchive::CREATE)) {
-                foreach ($this->files as $path => $name) {
-                    $zip->addFile($path, $name);
-                }
-                $zip->close();
+        $fileName = $fileGenerator->getFileName();
+        $currentCount = array_reduce($this->files, function ($count, $item) use ($fileName) {
+            if (str_contains($item, $fileName)) {
+                $count += 1;
             }
-        } catch (\Throwable $e) {
-            Log::error($e);
 
-            return false;
+            return $count;
+        }, 0);
+
+        if ($currentCount) {
+            $fileGenerator->setFileName($fileName.' '.$currentCount);
         }
+
+        return $fileGenerator;
     }
 
     public function write()
     {
         try {
-            $this->addFiles();
+            $zip = new ZipArchive();
+            $zipPath = $this->getPath();
+            if ($zip->open($zipPath, ZipArchive::CREATE)) {
+                foreach ($this->files as $name => $path) {
+                    $zip->addFile($path, $name);
+                }
+                $zip->close();
+            }
+            foreach ($this->files as $path) {
+                unlink($path);
+            }
         } catch (\Throwable $e) {
             // Log message and bubble it up
-            Log::error('Error saving csv: '.$this->fileName.' '.$e->getMessage());
+            Log::error('Error saving zip: '.$this->fileName.' '.$e->getMessage());
             throw $e;
         }
     }

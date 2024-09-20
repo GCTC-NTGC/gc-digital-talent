@@ -24,7 +24,7 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
             ->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
                     $generator = new ApplicationDocGenerator($candidate, $this->dir, $this->lang);
-                    $generator
+                    $generator = $this->incrementFileName($generator)
                         ->generate()
                         ->write();
 

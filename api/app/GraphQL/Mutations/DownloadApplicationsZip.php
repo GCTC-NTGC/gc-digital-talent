@@ -25,12 +25,9 @@ final class DownloadApplicationsZip
         $ids = $args['ids'] ?? [];
 
         try {
-            $key = count($ids) > 1 ? 'candidates' : 'candidate';
-            $fileName = sprintf('%s_%s.zip', __('filename.'.$key), date('Y-m-d_His'));
-
             $generator = new ApplicationZipGenerator(
                 ids: $ids,
-                fileName: $fileName,
+                fileName: sprintf('%s_%s', __('filename.candidates'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
             );

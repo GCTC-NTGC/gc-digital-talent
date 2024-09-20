@@ -404,9 +404,8 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesCsv(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
-    $locale: Language
   ) {
-    downloadPoolCandidatesCsv(ids: $ids, where: $where, locale: $locale)
+    downloadPoolCandidatesCsv(ids: $ids, where: $where)
   }
 `);
 
@@ -605,10 +604,7 @@ const PoolCandidatesTable = ({
   };
 
   const handleCsvDownload = () => {
-    downloadCsv({
-      ids: selectedRows,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
+    downloadCsv({ ids: selectedRows })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };

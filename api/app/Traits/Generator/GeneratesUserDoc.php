@@ -270,10 +270,10 @@ trait GeneratesUserDoc
      * @param  Section  $section  The section to add info to
      * @param  Experience  $experience  The experience being generated
      * @param  string  $type  The type of experience being generated
-     * @param  int  $headingRank  The rank of the heading
      */
     public function experience(Section $section, Experience $experience, string $type, bool $withSkills = true, $headingRank = 4)
     {
+
         if ($type === AwardExperience::class) {
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
@@ -311,6 +311,8 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
 
         if ($withSkills) {
+            $experience->loadMissing(['userSkills' => ['skill']]);
+
             if ($experience->userSkills->count() > 0) {
                 $section->addTextBreak(1);
             }
@@ -354,6 +356,13 @@ trait GeneratesUserDoc
      */
     protected function generateUser(Section $section, User $user, $headingRank = 2)
     {
+        $user->loadMissing([
+            'department',
+            'currentClassification',
+            'experiences',
+            'userSkills',
+        ]);
+
         $this->name($section, $user, $headingRank);
         $this->contactInfo($section, $user, $headingRank + 1);
 

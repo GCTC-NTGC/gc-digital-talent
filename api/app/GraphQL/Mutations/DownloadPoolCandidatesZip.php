@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\PoolCandidateUserZipGenerator;
+use App\Generators\PoolCandidateZipGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -26,12 +26,10 @@ final class DownloadPoolCandidatesZip
         $ids = $args['ids'] ?? [];
 
         try {
-            $fileName = sprintf('%s_%s.zip', __('filename.candidates'), date('Y-m-d_His'));
-
-            $generator = new PoolCandidateUserZipGenerator(
+            $generator = new PoolCandidateZipGenerator(
                 ids: $ids,
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
-                fileName: $fileName,
+                fileName: sprintf('%s_%s', __('filename.candidates'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale()
             );

@@ -31,9 +31,9 @@ final readonly class DownloadApplicationDoc
 
             $generator->generate()->write();
 
-            return $generator->getFileName();
+            return $generator->getFileNameWithExtension();
         } catch (\Exception $e) {
-            Log::error('Error starting candidate document generation '.$e->getMessage());
+            Log::error('Error starting candidate document generation '.$e);
 
             return null;
         }

@@ -4,8 +4,8 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\PoolCandidateCsvGenerator;
 use App\Jobs\GenerateUserFile;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -25,13 +25,12 @@ final class DownloadPoolCandidatesCsv
 
         $ids = $args['ids'] ?? null;
         $filters = $args['where'] ?? null;
-        $locale = $args['locale'] ?? 'en';
 
         try {
             $generator = new PoolCandidateCsvGenerator(
-                fileName: sprintf('%s_%s.csv', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His')),
+                fileName: sprintf('%s_%s', __('filename.candidates'), date('Y-m-d_His')),
                 dir: $user->id,
-                lang: strtolower($locale),
+                lang: App::getLocale(),
             );
 
             $generator

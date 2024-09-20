@@ -11,11 +11,28 @@ class FileGenerator
 
     protected ?string $userId;
 
+    protected string $extension = '';
+
     public function __construct(protected string $fileName, protected ?string $dir) {}
 
     public function getFileName(): string
     {
         return $this->fileName;
+    }
+
+    public function getFileNameWithExtension(): string
+    {
+        return $this->fileName.'.'.$this->extension;
+    }
+
+    public function getExtension(): string
+    {
+        return $this->extension;
+    }
+
+    public function setFileName(string $fileName): void
+    {
+        $this->fileName = $fileName;
     }
 
     /**
@@ -38,7 +55,7 @@ class FileGenerator
             File::makeDirectory($disk->path($this->dir));
         }
 
-        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->fileName));
+        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->getFileNameWithExtension()));
     }
 
     /**

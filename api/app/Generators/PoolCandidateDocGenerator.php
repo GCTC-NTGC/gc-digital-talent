@@ -5,11 +5,11 @@ namespace App\Generators;
 use App\Models\PoolCandidate;
 use App\Traits\Generator\GeneratesUserDoc;
 
-class PoolCandidateUserDocGenerator extends DocGenerator implements FileGeneratorInterface
+class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInterface
 {
     use GeneratesUserDoc;
 
-    public function __construct(protected PoolCandidate $candidate, protected bool $anonymous, public ?string $dir, protected ?string $lang)
+    public function __construct(protected PoolCandidate $candidate, protected bool $anonymous, public ?string $dir, protected ?string $lang, protected ?int $iteration = null)
     {
         $candidate->loadMissing(['user' => ['first_name', 'last_name']]);
         $lastName = $this->santitizeFileNameString($candidate?->user?->last_name);
@@ -17,7 +17,7 @@ class PoolCandidateUserDocGenerator extends DocGenerator implements FileGenerato
             $lastName = substr($lastName, 0, 1);
         }
         $fileName = sprintf(
-            '%s - %s - Application - Candidature.docx',
+            '%s %s - Application - Candidature',
             $this->santitizeFileNameString($candidate?->user?->first_name),
             $lastName,
         );

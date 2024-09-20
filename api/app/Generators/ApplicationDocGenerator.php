@@ -20,9 +20,9 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
     {
         $candidate->loadMissing(['user' => ['first_name', 'last_name']]);
         $fileName = sprintf(
-            '%s - %s - Application - Candidature.docx',
+            '%s %s - Application - Candidature',
             $this->santitizeFileNameString($candidate?->user?->first_name),
-            $this->santitizeFileNameString($candidate?->user?->last_name)
+            $this->santitizeFileNameString($candidate?->user?->last_name),
         );
 
         parent::__construct($fileName, $dir);
@@ -31,18 +31,18 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
     public function generate(): self
     {
+
         $this->setup();
 
-        $this->candidate->loadMissing([
+        $section = $this->doc->addSection();
+        $section->addTitle($this->localizeHeading('application_snapshot'), 1);
+        $candidate = $this->candidate;
+        $candidate->load([
             'educationRequirementExperiences',
             'pool' => ['poolSkills' => ['skill']],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'generalQuestionResponses' => ['generalQuestion'],
         ]);
-
-        $section = $this->doc->addSection();
-        $section->addTitle($this->localizeHeading('application_snapshot'), 1);
-        $candidate = $this->candidate;
 
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);

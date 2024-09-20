@@ -4,13 +4,12 @@ namespace App\Generators;
 
 use App\Models\PoolCandidate;
 
-class PoolCandidateUserZipGenerator extends ZipGenerator implements FileGeneratorInterface
+class PoolCandidateZipGenerator extends ZipGenerator implements FileGeneratorInterface
 {
     public function __construct(protected array $ids, protected bool $anonymous, public string $fileName, public ?string $dir, protected ?string $lang) {}
 
     public function generate(): self
     {
-
         PoolCandidate::with([
             'user' => [
                 'department',
@@ -25,9 +24,9 @@ class PoolCandidateUserZipGenerator extends ZipGenerator implements FileGenerato
             ->authorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
-                    $generator = new PoolCandidateUserDocGenerator($candidate, $this->anonymous, $this->dir, $this->lang);
+                    $generator = new PoolCandidateDocGenerator($candidate, $this->anonymous, $this->dir, $this->lang);
+                    $generator = $this->incrementFileName($generator);
                     $generator->generate()->write();
-
                     $this->addFile($generator);
                 }
             });

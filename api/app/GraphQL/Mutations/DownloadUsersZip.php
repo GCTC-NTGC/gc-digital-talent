@@ -2,18 +2,18 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\UserDocGenerator;
+use App\Generators\UserZipGenerator;
 use App\Jobs\GenerateUserFile;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadUsersDoc
+final class DownloadUsersZip
 {
     /**
      * Dispatches the generation of a
-     * csv containing pool candidates
+     * zip containing pool candidates
      *
      * @disregard P1003 We never intend to use this
      */
@@ -24,18 +24,14 @@ final class DownloadUsersDoc
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         $ids = $args['ids'] ?? [];
-        $locale = $args['locale'] ?? 'en';
 
         try {
-            $key = count($ids) > 1 ? 'users' : 'user';
-            $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
-
-            $generator = new UserDocGenerator(
+            $generator = new UserZipGenerator(
                 ids: $ids,
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
-                fileName: $fileName,
                 dir: $user->id,
-                lang: strtolower($locale),
+                fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
+                lang: App::getLocale(),
             );
 
             $generator->setUserId($user->id);
