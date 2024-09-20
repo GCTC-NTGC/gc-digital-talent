@@ -290,7 +290,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
-    orderByClaimVerification: SortOrder
+    orderByClaimVerification: ClaimVerificationSort
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -393,7 +393,7 @@ type Mutation {
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
   createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
-  updateJobPosterTemplate(id: UUID!, jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
+  updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
@@ -732,11 +732,18 @@ type PoolSkill {
   assessmentSteps: [AssessmentStep]
 }
 
+type PoolCandidateCategory {
+  weight: Int!
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
   expiryDate: Date
+  category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
   statusWeight: Int
   notes: String
@@ -1042,7 +1049,7 @@ type LocalizedKeywords {
 
 type JobPosterTemplateSkillPivot {
   type: LocalizedPoolSkillType!
-  requiredLevel: SkillLevel!
+  requiredLevel: SkillLevel
 }
 
 type JobPosterTemplateSkill {
@@ -1180,6 +1187,11 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+}
+
+input ClaimVerificationSort {
+  order: SortOrder!
+  useBookmark: Boolean
 }
 
 input ClassificationBelongsTo {
@@ -1852,10 +1864,10 @@ input NotificationFilterInput {
   createdAt: DateRange
 }
 
-input AttachJobPosterTemplateSkillInput {
+input ConnectJobPosterTemplateSkillInput {
   id: UUID!
   type: PoolSkillType!
-  requiredLevel: SkillLevel!
+  requiredLevel: SkillLevel
 }
 
 input SyncJobPosterTemplateSkillInput {
@@ -1865,7 +1877,7 @@ input SyncJobPosterTemplateSkillInput {
 }
 
 input UpdateJobPosterTemplateSkillsInput {
-  attach: [AttachJobPosterTemplateSkillInput!]
+  connect: [ConnectJobPosterTemplateSkillInput!]
   sync: [SyncJobPosterTemplateSkillInput!]
   detach: [UUID!]
 }
@@ -1887,6 +1899,7 @@ input CreateJobPosterTemplateInput {
 }
 
 input UpdateJobPosterTemplateInput {
+  id: UUID!
   referenceId: String
   name: LocalizedStringInput
   description: LocalizedStringInput

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\PoolSkillType;
+use App\Enums\SkillLevel;
 use App\Models\JobPosterTemplate;
 use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
@@ -48,8 +50,8 @@ class JobPosterTemplateTest extends TestCase
     GRAPHQL;
 
     private string $update = <<<'GRAPHQL'
-        mutation Update($id: UUID!, $template: UpdateJobPosterTemplateInput!) {
-            updateJobPosterTemplate(id: $id, jobPosterTemplate: $template) {
+        mutation Update($template: UpdateJobPosterTemplateInput!) {
+            updateJobPosterTemplate(jobPosterTemplate: $template) {
                 id
                 referenceId
             }
@@ -140,24 +142,30 @@ class JobPosterTemplateTest extends TestCase
     public function testAnonymousUserCannotUpdate()
     {
         $this->graphQL($this->update, [
-            'id' => $this->template->id,
-            'template' => ['referenceId' => 'new_id'],
+            'template' => [
+                'id' => $this->template->id,
+                'referenceId' => 'new_id',
+            ],
         ])->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
     public function testNonAdminUserCannotUpdate()
     {
         $this->actingAs($this->baseUser, 'api')->graphQL($this->update, [
-            'id' => $this->template->id,
-            'template' => ['referenceId' => 'new_ref'],
+            'template' => [
+                'id' => $this->template->id,
+                'referenceId' => 'new_ref',
+            ],
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     public function testAdminCanUpdate()
     {
         $this->actingAs($this->adminUser, 'api')->graphQL($this->update, [
-            'id' => $this->template->id,
-            'template' => ['referenceId' => 'new_ref'],
+            'template' => [
+                'id' => $this->template->id,
+                'referenceId' => 'new_ref',
+            ],
         ])->assertJson([
             'data' => [
                 'updateJobPosterTemplate' => [
@@ -203,6 +211,86 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
+    public function testCannotAddEssentialSkillWithNoLevel()
+    {
+        $input = $this->getCreateInput();
+        $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::ESSENTIAL->name,
+                            'requiredLevel' => null,
+                        ],
+                    ],
+                ],
+            ],
+        ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
+    }
+
+    public function testCanAddEssentialSkillWithLevel()
+    {
+        $input = $this->getCreateInput();
+        $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::ESSENTIAL->name,
+                            'requiredLevel' => SkillLevel::ADVANCED->name,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->assertNotNull($res['data']['createJobPosterTemplate']);
+    }
+
+    public function testCannotAddAssetSkillWithLevel()
+    {
+        $input = $this->getCreateInput();
+        $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::NONESSENTIAL->name,
+                            'requiredLevel' => SkillLevel::ADVANCED->name,
+                        ],
+                    ],
+                ],
+            ],
+        ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
+    }
+
+    public function testCanAddAssetSkillWithNoLevel()
+    {
+        $input = $this->getCreateInput();
+        $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::NONESSENTIAL->name,
+                            'requiredLevel' => null,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->assertNotNull($res['data']['createJobPosterTemplate']);
+    }
+
     private function getCreateInput(): array
     {
         $template = JobPosterTemplate::factory()->make();
@@ -223,7 +311,7 @@ class JobPosterTemplateTest extends TestCase
                 'connect' => $template->classification->id,
             ],
             'skills' => [
-                'attach' => $template->skills->map(function ($skill) {
+                'connect' => $template->skills->map(function ($skill) {
                     return [
                         'id' => $skill->id,
                         'requiredLevel' => $skill->required_skill_level,

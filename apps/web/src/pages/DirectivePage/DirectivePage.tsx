@@ -5,21 +5,32 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import { ReactNode } from "react";
+import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Link,
+  Accordion,
+  CardFlat,
+  Alert,
+  CardBasic,
+  ScrollToLink,
+} from "@gc-digital-talent/ui";
 import {
   Locales,
   navigationMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
-import getFormLinks from "./utils";
 import Resources from "./Resources";
+
+const sectionIds = {
+  changes: "changes",
+} as const;
 
 const policyLink = (locale: Locales, chunks: ReactNode) => (
   <Link
@@ -35,6 +46,30 @@ const policyLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
+const procurementLink = (locale: Locales, chunks: ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32692&section=procedure&p=F"
+        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const talentSearchLink = (localizedLink: string, chunks: ReactNode) => (
+  <Link newTab external href={localizedLink}>
+    {chunks}
+  </Link>
+);
+
+const recentChangesLink = (chunks: ReactNode) => (
+  <ScrollToLink to={sectionIds.changes}>{chunks}</ScrollToLink>
+);
+
 export const pageTitle = defineMessage({
   defaultMessage: "Directive on Digital Talent",
   id: "xXwUGs",
@@ -45,7 +80,6 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const { directiveForms: directiveFormsFlag } = useFeatureFlags();
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -65,69 +99,6 @@ export const Component = () => {
     defaultMessage: "Read the Directive",
     id: "RDAVsP",
     description: "Link text to read the entire directive.",
-  });
-
-  const departmentFormLinks = getFormLinks({
-    intl,
-    files: {
-      en: "/static/documents/Digital_Recruitment_Template_EN.docx",
-      fr: "/static/documents/Modele_de_recrutement_numerique_FR.docx",
-    },
-    formName: intl.formatMessage({
-      defaultMessage: "Department-Specific Recruitment",
-      id: "uJyWDM",
-      description: "Short name for Department-Specific Recruitment Form",
-    }),
-  });
-
-  const contractingFormLinks = directiveFormsFlag
-    ? [
-        {
-          label: intl.formatMessage(
-            {
-              defaultMessage: "Complete the <hidden>{formName} </hidden>form",
-              id: "V7ld7D",
-              description: "Link text for a form page",
-            },
-            {
-              formName: intl.formatMessage({
-                defaultMessage: "Digital Services Contracting",
-                id: "X3bPom",
-                description: "Short name for Digital Services Contracting Form",
-              }),
-            },
-          ),
-          href: paths.digitalServicesContractingQuestionnaire(),
-          mode: "solid",
-          "data-h2-padding": "base(x.5, x1)",
-          download: false,
-          external: false,
-        } as const,
-      ]
-    : getFormLinks({
-        intl,
-        files: {
-          en: "/static/documents/Digital_Contracting_Questionnaire_EN.docx",
-          fr: "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
-        },
-        formName: intl.formatMessage({
-          defaultMessage: "Digital Services Contracting",
-          id: "X3bPom",
-          description: "Short name for Digital Services Contracting Form",
-        }),
-      });
-
-  const talentPlanFormLinks = getFormLinks({
-    intl,
-    files: {
-      en: "/static/documents/Forward_Talent_Plan_EN.docx",
-      fr: "/static/documents/Plan_prospectif_sur_les_talents_FR.docx",
-    },
-    formName: intl.formatMessage({
-      defaultMessage: "Forward Talent Plan",
-      id: "G0RoYe",
-      description: "Short name for Forward Talent Plan Form",
-    }),
   });
 
   return (
@@ -167,10 +138,30 @@ export const Component = () => {
           data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
         >
+          <Alert.Root type="info" data-h2-margin="base(0, 0, x3, 0)">
+            <Alert.Title>
+              {intl.formatMessage({
+                defaultMessage: "The mandatory procedures have changed",
+                id: "uEporM",
+                description: "Title for an alert about the directive changing",
+              })}
+            </Alert.Title>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "<link>Check out the recent changes to the Mandatory Procedures on Digital Talent</link>, including fewer reporting requirements. Changes are in effect as of September 30th, 2024.",
+                id: "bpULlB",
+                description: "Body of an alert about the directive changing",
+              },
+              {
+                link: (chunks: ReactNode) => recentChangesLink(chunks),
+              },
+            )}
+          </Alert.Root>
           <Heading
             Icon={MapIcon}
             size="h3"
-            color="tertiary"
+            color="primary"
             data-h2-margin="base(0, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -196,14 +187,14 @@ export const Component = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Under the new directive, departments are required to submit additional information to the Office of the Chief Information Officer of Canada. This data is then used to create business intelligence and accelerated recruitment processes that serve departments and agencies across the GC. The goal is to ensure that the GC digital community has access to the talent it needs to deliver modern, effective digital services to Canadians.",
-              id: "WieVH/",
+                "Under the directive, departments are required to submit information to the Office of the Chief Information Officer of Canada. This data is then used to create business intelligence and accelerated recruitment processes that serve departments and agencies across the GC. The goal is to ensure that the GC digital community has access to the talent it needs to deliver modern, effective digital services to Canadians.",
+              id: "0QM++s",
               description:
                 "Second paragraph describing the directive on digital talent",
             })}
           </p>
           <p>
-            <Link color="primary" mode="solid" href={directiveUrl} external>
+            <Link color="secondary" mode="solid" href={directiveUrl} external>
               {readDirectiveMessage}
             </Link>
           </p>
@@ -235,8 +226,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent introduces new requirements for departments to inform the Office of the Chief Information Officer about current and planned digital talent needs. This data collection is aggregated and cross-referenced with other data sources. It is then used to provide government-wide and department-specific business intelligence, and to improve targeted recruitment and training.",
-                      id: "1pbvy+",
+                        "The Directive on Digital Talent outlines requirements for departments to inform the Office of the Chief Information Officer about current and planned digital talent needs. This data collection is aggregated and cross-referenced with other data sources. It is then used to provide government-wide and department-specific business intelligence, and to improve targeted recruitment and training.",
+                      id: "SlBNsw",
                       description:
                         "The directives planning and reporting component",
                     })}
@@ -256,8 +247,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent provides additional clarity on the requirements and decision-making around talent sourcing decisions in support of the development and delivery of digital initiatives, products, and services. It aims to provide practical steps to those involved in talent sourcing decisions, and to gather data that will then be used to continuously improve the quality, speed, and availability of digital talent sourcing.",
-                      id: "L1tQMY",
+                        "The Directive on Digital Talent provides additional clarity on the requirements and decision-making around talent sourcing decisions in support of the development and delivery of digital initiatives, products, and services. It provides practical steps to those involved in talent sourcing decisions, and to gather data that will then be used to continuously improve the quality, speed, and availability of digital talent sourcing.",
+                      id: "L6Cx1M",
                       description:
                         "The directives digital talent and sourcing component",
                     })}
@@ -277,8 +268,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent introduces steps for enhanced interdepartmental coordination on talent development and upskilling, as well as steps to improve equity advancement. The intention of the Directive is to approach the GC digital talent as a cohesive and evolving community.",
-                      id: "hBVKqk",
+                        "The Directive on Digital Talent introduces steps for enhanced interdepartmental coordination on talent development and upskilling, as well as steps to improve equity advancement. The intention of the Directive is to approach the GC digital workforce as a cohesive and evolving community.",
+                      id: "PN3PMn",
                       description:
                         "The directives digital talent and development component",
                     })}
@@ -298,8 +289,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The Directive on Digital Talent provides clarification on existing Policy on Service and Digital requirements related to CIO appointments and talent management. The intention is to continue to advance support for executive career pathways, with a focus on modern digital government service delivery.",
-                      id: "Z9xByk",
+                        "The Directive on Digital Talent provides clarification on existing Policy on Service and Digital requirements related to Chief Information Officer appointments and talent management. The intention is to continue to advance support for executive career pathways, with a focus on modern digital government service delivery.",
+                      id: "9ffYBC",
                       description:
                         "The directives digital executive roles and structures component",
                     })}
@@ -366,12 +357,12 @@ export const Component = () => {
           <Heading
             Icon={BookmarkSquareIcon}
             size="h3"
-            color="primary"
+            color="tertiary"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
-              defaultMessage: "Complete your mandatory forms",
-              id: "XVWN/C",
+              defaultMessage: "Mandatory reporting",
+              id: "g7W+56",
               description:
                 "Heading for section for the downloadable forms section",
             })}
@@ -385,63 +376,315 @@ export const Component = () => {
             <CardFlat
               color="quaternary"
               title={intl.formatMessage({
-                defaultMessage: "Department-Specific Recruitment Form",
-                id: "x0SRaQ",
+                defaultMessage: "Digital services contracting questionnaire",
+                id: "oiTphL",
                 description:
-                  "Heading for the department-specific recruitment form",
+                  "Heading for the digital Services contracting form",
               })}
-              links={departmentFormLinks}
+              links={[
+                {
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Download the questionnaire<hidden>: {formName}</hidden>",
+                      id: "cTSaxx",
+                      description: "Link text for form download",
+                    },
+                    {
+                      formName: intl.formatMessage({
+                        defaultMessage: "Digital Services Contracting",
+                        id: "X3bPom",
+                        description:
+                          "Short name for Digital Services Contracting Form",
+                      }),
+                    },
+                  ),
+                  href:
+                    intl.locale === "en"
+                      ? "/static/documents/Digital_Contracting_Questionnaire_EN.docx"
+                      : "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
+                  mode: "solid",
+                  "data-h2-padding": "base(x.5, x1)",
+                  download: true,
+                  external: true,
+                } as const,
+              ]}
             >
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Mandatory reporting</strong>. This is now required when you want to run a recruitment for digital talent that will create a pool of candidates. No extra approvals - just let us know what you're planning!",
-                  id: "0DILS7",
+                    "This is required when you initiate a procurement process for digital services that exceeds $40,000.",
+                  id: "Ny56Y7",
                   description:
-                    "Description for the department-specific recruitment form",
+                    "Description for the digital Services contracting form, paragraph 1",
                 })}
+              </p>
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "If you’re procuring <strong>due to a talent shortage</strong>, you’ll also need to verify that no talent is available through a <link>GC digital talent request</link>.",
+                    id: "ccwY2r",
+                    description:
+                      "Description for the digital Services contracting form, paragraph 2",
+                  },
+                  {
+                    link: (chunks: ReactNode) =>
+                      talentSearchLink(paths.search(), chunks),
+                  },
+                )}
               </p>
             </CardFlat>
             <CardFlat
               color="secondary"
               title={intl.formatMessage({
-                defaultMessage: "Digital Services Contracting Form",
-                id: "QVWGaL",
-                description:
-                  "Heading for the digital Services contracting form",
+                defaultMessage: "Updates to the mandatory procedures",
+                id: "6ceoYt",
+                description: "Heading for the mandatory procedures card",
               })}
-              links={contractingFormLinks}
+              links={[
+                {
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage: "Learn more<hidden>: {topic}</hidden>",
+                      id: "ox2by6",
+                      description:
+                        "Link text to a page to learn more about something",
+                    },
+                    {
+                      topic: intl.formatMessage({
+                        defaultMessage: "Updates to the mandatory procedures",
+                        id: "6ceoYt",
+                        description:
+                          "Heading for the mandatory procedures card",
+                      }),
+                    },
+                  ),
+                  to: sectionIds.changes,
+                  mode: "solid",
+                  "data-h2-padding": "base(x.5, x1)",
+                } as const,
+              ]}
             >
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Mandatory reporting</strong>. This is now required when you want to run a procurement process for digital talent, especially if you’re planning to contract because you’re having trouble finding the right talent to hire. No extra approvals - just let us know what you're planning!",
-                  id: "fpdcE/",
-                  description:
-                    "Description for the digital Services contracting form",
+                    "The Mandatory Procedures on Digital Talent have been updated for improved clarity, fewer reporting requirements, and better alignment with other policy instruments. The Directive remains unchanged.",
+                  id: "/ZPTlP",
+                  description: "Description for the mandatory procedures card",
                 })}
               </p>
             </CardFlat>
             <CardFlat
               color="tertiary"
               title={intl.formatMessage({
-                defaultMessage: "Forward Talent Plan Form",
-                id: "sKAo0/",
-                description: "Heading for the forward talent plan form",
+                defaultMessage: "Related policies",
+                id: "vbiWgW",
+                description: "Heading for the related policies card",
               })}
-              links={talentPlanFormLinks}
+              links={[
+                {
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage: "Learn more<hidden>: {topic}</hidden>",
+                      id: "ox2by6",
+                      description:
+                        "Link text to a page to learn more about something",
+                    },
+                    {
+                      topic: intl.formatMessage({
+                        defaultMessage: "Related policies",
+                        id: "vbiWgW",
+                        description: "Heading for the related policies card",
+                      }),
+                    },
+                  ),
+                  href:
+                    locale === "en"
+                      ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32692&section=procedure&p=F"
+                      : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32692",
+                  mode: "solid",
+                  "data-h2-padding": "base(x.5, x1)",
+                  download: false,
+                  external: true,
+                } as const,
+              ]}
             >
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Mandatory reporting</strong>. This is now required when you plan a new or expanded digital initiative that will add 10 or more full-time equivalent positions to your department. We want to help make sure that fully qualified, ready-to-hire talent is there when you need it.",
-                  id: "ydjXm7",
-                  description: "Description for the forward talent plan form",
+                    "There are other requirements if you are procuring professional services. Check out the Mandatory Procedures for Business Owners When Procuring Professional Services led by the Office of the Comptroller General of Canada.",
+                  id: "4t/ETT",
+                  description: "Description for the related policies card",
                 })}
               </p>
             </CardFlat>
           </div>
           <Resources />
+          <section id={sectionIds.changes}>
+            <Heading
+              Icon={Cog8ToothIcon}
+              size="h3"
+              color="quinary"
+              data-h2-margin="base(x3, 0, x1, 0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "2024 changes to the Mandatory Procedures",
+                id: "rZ0GyE",
+                description:
+                  "Heading for section describing the 2024 changes to the directive",
+              })}
+            </Heading>
+            <div data-h2-margin="base(0, 0, x1, 0)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The Office of the Chief Information Officer of Canada (OCIO) has been closely monitoring the effectiveness of the Directive on Digital Talent since it came into effect in April 2023.",
+                  id: "BVgb+I",
+                  description:
+                    "first paragraph describing the 2024 changes to the directive on digital talent",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "As the Directive is performing strongly, it will remain as is.",
+                  id: "qQmKgl",
+                  description:
+                    "second paragraph describing the 2024 changes to the directive on digital talent",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "While the Mandatory Procedures on Digital Talent are also effective, there are opportunities for improved clarity, reduced reporting burden for departments, and better alignment with the new <link>Mandatory Procedures for Business Owners When Procuring Professional Services</link> led by the Office of the Comptroller General of Canada (OCG).",
+                    id: "HRmtdK",
+                    description:
+                      "third paragraph describing the 2024 changes to the directive on digital talent",
+                  },
+                  {
+                    link: (chunks: ReactNode) =>
+                      procurementLink(locale, chunks),
+                  },
+                )}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "As a result, OCIO is introducing some updates to the Mandatory Procedures on Digital Talent, effective September 30th, 2024.",
+                  id: "deiUXj",
+                  description:
+                    "fourth paragraph describing the 2024 changes to the directive on digital talent",
+                })}
+              </p>
+            </div>
+            <CardBasic>
+              <ul
+                data-h2-margin="base(0)"
+                data-h2-padding="base(0, 0, 0, x1)"
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x0.25)"
+              >
+                <li>
+                  <span data-h2-font-weight="base(bold)">
+                    {intl.formatMessage({
+                      defaultMessage: "Removal of the Forward Talent Plan",
+                      id: "O8YvBD",
+                      description: "first 2024 key change to the directive",
+                    })}
+                  </span>
+                  <div>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Data can be secured through other means (e.g., the GC Digital Talent platform, improved data monitoring)",
+                      id: "DVBh+y",
+                      description:
+                        "first 2024 key change rationale to the directive",
+                    })}
+                  </div>
+                </li>
+                <li>
+                  <span data-h2-font-weight="base(bold)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Removal of the Department-specific Recruitment Process Form",
+                      id: "o6Vyr+",
+                      description: "second 2024 key change to the directive",
+                    })}
+                  </span>
+                  <div>
+                    {intl.formatMessage({
+                      // yes, this is the same rationale as for the first key change
+                      defaultMessage:
+                        "Data can be secured through other means (e.g., the GC Digital Talent platform, improved data monitoring)",
+                      id: "DVBh+y",
+                      description:
+                        "first 2024 key change rationale to the directive",
+                    })}
+                  </div>
+                </li>
+                <li>
+                  <span data-h2-font-weight="base(bold)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Removal of the requirement to share copies of non-standard IT job descriptions",
+                      id: "DjRrK4",
+                      description: "third 2024 key change to the directive",
+                    })}
+                  </span>
+                  <div>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Information from departments is not proving to be necessary; reduction in collection burden for departments",
+                      id: "FDGVHB",
+                      description:
+                        "third 2024 key change rationale to the directive",
+                    })}
+                  </div>
+                </li>
+                <li>
+                  <span data-h2-font-weight="base(bold)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Updates to the Digital Services Contracting Questionnaire",
+                      id: "L819mr",
+                      description: "fourth 2024 key change to the directive",
+                    })}
+                  </span>
+                  <div>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Alignment with the new OCG-led Mandatory Procedures",
+                      id: "AgtPO+",
+                      description:
+                        "fourth 2024 key change rationale to the directive",
+                    })}
+                  </div>
+                </li>
+                <li>
+                  <span data-h2-font-weight="base(bold)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Confirmation on the use of the GC Digital Talent platform for verifying availability of qualified talent",
+                      id: "hI5cty",
+                      description: "fifth 2024 key change to the directive",
+                    })}
+                  </span>
+                  <div>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This has always been the case and is now being formalized after the platform was announced by the Minister",
+                      id: "G+dXAH",
+                      description:
+                        "fifth 2024 key change rationale to the directive",
+                    })}
+                  </div>
+                </li>
+              </ul>
+            </CardBasic>
+          </section>
         </div>
       </div>
       <div

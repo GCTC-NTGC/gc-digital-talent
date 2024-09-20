@@ -372,6 +372,12 @@ type PoolSkill {
     @canRoot(ability: "viewAssessmentSteps")
 }
 
+type PoolCandidateCategory {
+  weight: Int!
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -379,6 +385,7 @@ type PoolCandidate {
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
+  category: PoolCandidateCategory @with(relation: "user")
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
@@ -762,7 +769,7 @@ type LocalizedKeywords {
 
 type JobPosterTemplateSkillPivot {
   type: LocalizedPoolSkillType!
-  requiredLevel: SkillLevel! @rename(attribute: "required_skill_level")
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
 type JobPosterTemplateSkill {
@@ -910,6 +917,11 @@ input SitewideAnnouncementInput {
   message: LocalizedStringInput!
 }
 
+input ClaimVerificationSort {
+  order: SortOrder!
+  useBookmark: Boolean
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -973,7 +985,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: SortOrder @scope
+    orderByClaimVerification: ClaimVerificationSort @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1892,10 +1904,10 @@ input NotificationFilterInput {
   createdAt: DateRange @whereBetween(key: "created_at")
 }
 
-input AttachJobPosterTemplateSkillInput {
+input ConnectJobPosterTemplateSkillInput {
   id: UUID!
   type: PoolSkillType!
-  requiredLevel: SkillLevel! @rename(attribute: "required_skill_level")
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
 input SyncJobPosterTemplateSkillInput {
@@ -1905,7 +1917,7 @@ input SyncJobPosterTemplateSkillInput {
 }
 
 input UpdateJobPosterTemplateSkillsInput {
-  attach: [AttachJobPosterTemplateSkillInput!]
+  connect: [ConnectJobPosterTemplateSkillInput!]
   sync: [SyncJobPosterTemplateSkillInput!]
   detach: [UUID!]
 }
@@ -1930,6 +1942,7 @@ input CreateJobPosterTemplateInput @validator {
 }
 
 input UpdateJobPosterTemplateInput @validator {
+  id: UUID!
   referenceId: String @rename(attribute: "reference_id")
   name: LocalizedStringInput
   description: LocalizedStringInput
@@ -2275,7 +2288,6 @@ type Mutation {
     jobPosterTemplate: CreateJobPosterTemplateInput! @spread
   ): JobPosterTemplate @create @guard @canModel(ability: "create")
   updateJobPosterTemplate(
-    id: UUID!
     jobPosterTemplate: UpdateJobPosterTemplateInput! @spread
   ): JobPosterTemplate @update @guard @canFind(ability: "update", find: "id")
   deleteJobPosterTemplate(id: UUID! @whereKey): JobPosterTemplate
