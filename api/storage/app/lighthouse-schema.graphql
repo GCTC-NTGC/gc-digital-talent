@@ -290,7 +290,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
-    orderByClaimVerification: SortOrder
+    orderByClaimVerification: ClaimVerificationSort
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -732,11 +732,18 @@ type PoolSkill {
   assessmentSteps: [AssessmentStep]
 }
 
+type PoolCandidateCategory {
+  weight: Int!
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
   expiryDate: Date
+  category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
   statusWeight: Int
   notes: String
@@ -1180,6 +1187,11 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+}
+
+input ClaimVerificationSort {
+  order: SortOrder!
+  useBookmark: Boolean
 }
 
 input ClassificationBelongsTo {
