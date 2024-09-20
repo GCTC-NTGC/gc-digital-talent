@@ -28,6 +28,7 @@ import {
   FragmentType,
   Language,
 } from "@gc-digital-talent/graphql";
+import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -43,8 +44,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
-import commonTableMessages from "~/components/Table/tableMessages";
+import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -159,7 +159,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
-    $orderByClaimVerification: SortOrder
+    $orderByClaimVerification: ClaimVerificationSort
   ) {
     poolCandidatesPaginated(
       where: $where
@@ -175,6 +175,14 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialog
           id
           ...PoolCandidate_Bookmark
+          category {
+            weight
+            value
+            label {
+              en
+              fr
+            }
+          }
           pool {
             id
             processNumber
@@ -420,6 +428,12 @@ const DownloadPoolCandidatesDoc_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadSinglePoolCandidateDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidateDoc($id: UUID!, $anonymous: Boolean!) {
+    downloadPoolCandidateDoc(id: $id, anonymous: $anonymous)
+  }
+`);
+
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
@@ -460,7 +474,15 @@ const PoolCandidatesTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const initialState = getTableStateFromSearchParams(defaultState);
+  const apiRoutes = useApiRoutes();
+
+  const defaultSortState = currentPool
+    ? [{ id: "finalDecision", desc: false }]
+    : [{ id: "dateReceived", desc: true }];
+  const initialState = getTableStateFromSearchParams({
+    ...defaultState,
+    sortState: defaultSortState,
+  });
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = useMemo(
@@ -475,6 +497,13 @@ const PoolCandidatesTable = ({
   const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
     DownloadPoolCandidatesDoc_Mutation,
   );
+
+  const [{ fetching: downloadingSingleDoc }, downloadSingleDoc] = useMutation(
+    DownloadSinglePoolCandidateDoc_Mutation,
+  );
+
+  const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
+    useAsyncFileDownload();
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
@@ -552,15 +581,10 @@ const PoolCandidatesTable = ({
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(
-        sortState,
-        filterState,
-        doNotUseBookmark,
-        currentPool,
-      ),
+      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
-        currentPool,
+        doNotUseBookmark,
       ),
     },
   });
@@ -618,17 +642,30 @@ const PoolCandidatesTable = ({
   };
 
   const handleDocDownload = (anonymous: boolean) => {
-    downloadDoc({
-      ids: selectedRows,
-      anonymous,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
-  };
-
-  const handleNoRowsSelected = () => {
-    toast.warning(intl.formatMessage(commonTableMessages.noRowsSelected));
+    if (selectedRows.length === 1) {
+      downloadSingleDoc({ id: selectedRows[0], anonymous })
+        .then((res) => {
+          if (res?.data?.downloadPoolCandidateDoc) {
+            executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(
+                res.data.downloadPoolCandidateDoc,
+              ),
+              fileName: res.data.downloadPoolCandidateDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      downloadDoc({
+        ids: selectedRows,
+        anonymous,
+        locale: locale === "fr" ? Language.Fr : Language.En,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    }
   };
 
   const columns = [
@@ -725,28 +762,19 @@ const PoolCandidatesTable = ({
           ),
         ]),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
-        getLocalizedName(user.priority?.label, intl),
+      ({ poolCandidate: { category } }) =>
+        getLocalizedName(category?.label, intl),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
-            original: { poolCandidate },
+            original: {
+              poolCandidate: { category },
+            },
           },
         }) =>
-          priorityCell(
-            poolCandidate.user.priorityWeight
-              ? priorityWeightAfterVerification(
-                  poolCandidate.user.priorityWeight,
-                  poolCandidate.priorityVerification,
-                  poolCandidate.veteranVerification,
-                  poolCandidate.user.citizenship?.value,
-                )
-              : null,
-            tableData?.priorities,
-            intl,
-          ),
+          category ? priorityCell(category.weight, category.label, intl) : null,
       },
     ),
     columnHelper.accessor(
@@ -938,7 +966,7 @@ const PoolCandidatesTable = ({
       sort={{
         internal: false,
         onSortChange: setSortState,
-        initialState: defaultState.sortState,
+        initialState: defaultSortState,
       }}
       filter={{
         initialState: initialFilterInput,
@@ -986,11 +1014,16 @@ const PoolCandidatesTable = ({
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={downloadingDoc}
-              onClick={
-                hasSelectedRows ? handleDocDownload : handleNoRowsSelected
+              disabled={
+                !hasSelectedRows ||
+                downloadingDoc ||
+                downloadingSingleDoc ||
+                downloadingAsyncFile
               }
-              isDownloading={downloadingDoc}
+              onClick={handleDocDownload}
+              isDownloading={
+                downloadingDoc || downloadingSingleDoc || downloadingAsyncFile
+              }
             />
           ),
         },
