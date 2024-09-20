@@ -26,7 +26,6 @@ import {
   PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
-  Language,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
