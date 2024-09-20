@@ -27,6 +27,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+import { isTeamTeamable } from "./helpers";
 
 const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
   query AddTeamRoleTeams {
@@ -125,7 +126,7 @@ const AddTeamRoleDialog = ({
   useEffect(() => {
     const roleAssignments = authInfo?.roleAssignments || [];
     const activeRoleIds = roleAssignments
-      .filter((ra) => ra?.team?.id === teamId)
+      .filter((ra) => isTeamTeamable(ra?.teamable) && ra.teamable.id === teamId)
       .map((r) => r?.role?.id)
       .filter(notEmpty);
     setValue("roles", activeRoleIds);
