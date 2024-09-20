@@ -600,6 +600,7 @@ type PoolCandidateSearchRequest {
     @rename(attribute: "position_type")
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community @belongsTo
+  initialResultCount: Int @rename(attribute: "initial_result_count")
 }
 
 type SkillFamily {

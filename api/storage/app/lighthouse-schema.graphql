@@ -897,6 +897,7 @@ type PoolCandidateSearchRequest {
   positionType: LocalizedPoolCandidateSearchPositionType
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community
+  initialResultCount: Int
 }
 
 type SkillFamily {
