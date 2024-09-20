@@ -1485,6 +1485,7 @@ input CreatePoolCandidateSearchRequestInput {
   positionType: PoolCandidateSearchPositionType!
     @rename(attribute: "position_type")
   reason: PoolCandidateSearchRequestReason!
+  initialResultCount: Int @rename(attribute: "initial_result_count")
 }
 
 input UpdatePoolCandidateSearchRequestInput {

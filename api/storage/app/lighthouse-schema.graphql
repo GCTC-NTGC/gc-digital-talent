@@ -1495,6 +1495,7 @@ input CreatePoolCandidateSearchRequestInput {
   managerJobTitle: String!
   positionType: PoolCandidateSearchPositionType!
   reason: PoolCandidateSearchRequestReason!
+  initialResultCount: Int
 }
 
 input UpdatePoolCandidateSearchRequestInput {
