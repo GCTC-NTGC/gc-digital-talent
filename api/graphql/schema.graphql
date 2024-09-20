@@ -143,6 +143,8 @@ type User {
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
+  # My talent requests
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
 }
 
 interface Notification {
