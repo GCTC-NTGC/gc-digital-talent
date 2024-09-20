@@ -37,6 +37,7 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
                 en
                 fr
               }
+              teamIdForRoleAssignment
             }
             ... on Community {
               name {
@@ -44,6 +45,7 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
                 fr
               }
               key
+              teamIdForRoleAssignment
             }
             ... on Team {
               displayName {
