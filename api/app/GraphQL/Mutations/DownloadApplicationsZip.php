@@ -2,18 +2,18 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\ApplicationDocGenerator;
+use App\Generators\ApplicationZipGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadApplicationsDoc
+final class DownloadApplicationsZip
 {
     /**
      * Dispatches the generation of a
-     * csv containing pool candidates
+     * zip containing pool candidates
      *
      * @disregard P1003 No intention of using the var
      */
@@ -27,9 +27,9 @@ final class DownloadApplicationsDoc
 
         try {
             $key = count($ids) > 1 ? 'candidates' : 'candidate';
-            $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
+            $fileName = sprintf('%s_%s.zip', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
 
-            $generator = new ApplicationDocGenerator(
+            $generator = new ApplicationZipGenerator(
                 ids: $ids,
                 fileName: $fileName,
                 dir: $user->id,

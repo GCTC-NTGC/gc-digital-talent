@@ -2391,7 +2391,7 @@ type Mutation {
     where: UserFilterInput
     locale: Language
   ): Boolean! @guard
-  downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
+  downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard
   downloadUsersDoc(
     ids: [UUID!]!
     anonymous: Boolean!

@@ -27,7 +27,7 @@ const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
   };
 
   const handleApplicationDocDownload = () => {
-    applicationDoc.downloadSingleDoc({ id });
+    applicationDoc.downloadDoc({ id });
   };
 
   const isDownloading =

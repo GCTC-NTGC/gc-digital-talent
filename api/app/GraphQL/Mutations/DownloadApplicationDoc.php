@@ -19,27 +19,10 @@ final readonly class DownloadApplicationDoc
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
-        $targetApplicant = PoolCandidate::find($args['id'])->load(['user']);
-        $firstName = $targetApplicant?->user?->first_name;
-        $lastName = $targetApplicant?->user?->last_name;
-        if (isset($firstName)) {
-            $firstName = iconv('UTF-8', 'ASCII//TRANSLIT', $firstName); // handle accented characters
-            $firstName = preg_replace('/[^a-zA-Z]+/', '', $firstName); // remove anything that isn't an alphabet character
-            $firstName = trim($firstName);
-        }
-        if (isset($lastName)) {
-            $lastName = iconv('UTF-8', 'ASCII//TRANSLIT', $lastName);
-            $lastName = preg_replace('/[^a-zA-Z]+/', '', $lastName);
-            $lastName = trim($lastName);
-        }
-
         try {
-
-            $fileName = sprintf('%s - %s - Application - Candidature.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
-
+            $targetApplicant = PoolCandidate::findOrFail($args['id']);
             $generator = new ApplicationDocGenerator(
-                ids: [$args['id']],
-                fileName: $fileName,
+                candidate: $targetApplicant,
                 dir: $user->id,
                 lang: App::getLocale()
             );

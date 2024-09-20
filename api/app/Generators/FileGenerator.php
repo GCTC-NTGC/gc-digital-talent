@@ -42,6 +42,26 @@ class FileGenerator
     }
 
     /**
+     * Sanitize string for file name
+     *
+     * @param  ?string  $value  String to be sanitized
+     * @return string Sanitized string
+     */
+    public function santitizeFileNameString(?string $value)
+    {
+        if (! $value) {
+            return '';
+        }
+
+        $retval = $value;
+        $retval = iconv('UTF-8', 'ASCII//TRANSLIT', $retval); // handle accented characters
+        $retval = preg_replace('/[^a-zA-Z]+/', '', $retval); // remove anything that isn't an alphabet character
+        $retval = trim($retval);
+
+        return $retval;
+    }
+
+    /**
      * Set the user ID for the generator scopes
      *
      * @param  string  $userId  The user to scope the generator to
