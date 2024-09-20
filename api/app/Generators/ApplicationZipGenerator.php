@@ -28,7 +28,7 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
                         ->generate()
                         ->write();
 
-                    $this->files[$generator->getPath()] = $generator->fileName;
+                    $this->addFile($generator);
                 }
             });
 

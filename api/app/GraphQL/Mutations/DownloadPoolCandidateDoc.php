@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\PoolCandidateUserDocGenerator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +21,7 @@ final readonly class DownloadPoolCandidateDoc
 
             $fileName = sprintf('%s_%s.docx', __('filename.candidate'), date('Y-m-d_His'));
 
-            $generator = new PoolCandidateUserDocGenerator(
+            $generator = new PoolCandidateUserZipGenerator(
                 ids: [$args['id']],
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
                 fileName: $fileName,

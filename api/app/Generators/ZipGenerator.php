@@ -16,6 +16,11 @@ abstract class ZipGenerator extends FileGenerator implements FileGeneratorInterf
         $this->files = [];
     }
 
+    public function addFile(FileGeneratorInterface $fileGenerator)
+    {
+        $this->files[$fileGenerator->getPath()] = $fileGenerator->getFileName();
+    }
+
     public function addFiles()
     {
 

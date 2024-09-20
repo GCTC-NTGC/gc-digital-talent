@@ -410,13 +410,9 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadPoolCandidatesDoc_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesDoc(
-    $ids: [UUID!]!
-    $anonymous: Boolean!
-    $locale: Language
-  ) {
-    downloadPoolCandidatesDoc(ids: $ids, anonymous: $anonymous, locale: $locale)
+const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
+    downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
   }
 `);
 
@@ -472,8 +468,8 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesCsv_Mutation,
   );
 
-  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
-    DownloadPoolCandidatesDoc_Mutation,
+  const [{ fetching: downloadingZip }, downloadZip] = useMutation(
+    DownloadPoolCandidatesZip_Mutation,
   );
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
@@ -617,11 +613,10 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleDocDownload = (anonymous: boolean) => {
-    downloadDoc({
+  const handleZipDownload = (anonymous: boolean) => {
+    downloadZip({
       ids: selectedRows,
       anonymous,
-      locale: locale === "fr" ? Language.Fr : Language.En,
     })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
@@ -986,11 +981,11 @@ const PoolCandidatesTable = ({
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={downloadingDoc}
+              disabled={downloadingZip}
+              isDownloading={downloadingZip}
               onClick={
-                hasSelectedRows ? handleDocDownload : handleNoRowsSelected
+                hasSelectedRows ? handleZipDownload : handleNoRowsSelected
               }
-              isDownloading={downloadingDoc}
             />
           ),
         },

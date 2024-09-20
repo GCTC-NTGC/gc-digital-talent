@@ -23,7 +23,7 @@ class FileGenerator
      *
      * @param  ?string  $disk  Name of the disk we want to save file to
      */
-    public function getPath(?string $disk = 'userGenerated')
+    public function getPath(?string $disk = 'userGenerated'): string
     {
         /**
          * We don't actually put the file with
