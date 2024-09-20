@@ -277,37 +277,27 @@ class PoolCandidate extends Model
     {
         $category = null;
 
-        switch ($this->user->priority_weight) {
-            case 10:
-                if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
-                    $category = PriorityWeight::PRIORITY_ENTITLEMENT;
-                    break;
-                }
+        $this->loadMissing(['user' => [
+            'citizenship',
+            'priority_weight',
+            'armed_forces_status',
+        ]]);
 
-            case 20:
-                if ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
-                    $category = PriorityWeight::VETERAN;
-                    break;
-                }
-
-            case 30:
-                $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
-                break;
-
-            case 40:
-                $category = PriorityWeight::OTHER;
-                break;
-
-            default:
-                return null;
-
+        if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::PRIORITY_ENTITLEMENT;
+        } elseif ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::VETERAN;
+        } elseif ($this->user->citizenship === CitizenshipStatus::CITIZEN->name || $this->user->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name) {
+            $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
+        } else {
+            $category = PriorityWeight::OTHER;
         }
 
-        return [
+        return ! is_null($category) ? [
             'weight' => $category->weight($category->name),
             'value' => $category->name,
             'label' => PriorityWeight::localizedString($category->name),
-        ];
+        ] : $category;
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
@@ -886,32 +876,32 @@ class PoolCandidate extends Model
 
         if (isset($args['order'])) {
 
-            $orderWithoutDirection = "
-        CASE
-            WHEN
-                (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
-            THEN
-                40
-            WHEN
-                (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
-                AND
-                (priority_verification IS NULL OR priority_verification = 'REJECTED')
-            THEN
-                30
-            WHEN
-                (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
-                AND
-                (
-                    (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                    OR
-                    (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
-                )
-            THEN
-                20
-            ELSE
-                10
-        END
-        ";
+            $orderWithoutDirection = <<<'SQL'
+                CASE
+                    WHEN
+                        (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
+                    THEN
+                        40
+                    WHEN
+                        (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
+                        AND
+                        (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                    THEN
+                        30
+                    WHEN
+                        (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
+                        AND
+                        (
+                            (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                            OR
+                            (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                        )
+                    THEN
+                        20
+                    ELSE
+                        10
+                    END
+            SQL;
 
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
