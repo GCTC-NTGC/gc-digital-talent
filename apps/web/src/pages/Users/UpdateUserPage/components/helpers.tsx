@@ -9,6 +9,7 @@ import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import {
   CommunityAssignment,
   CommunityPickedFields,
+  PoolAssignment,
   PoolPickedFields,
   Teamable,
   TeamAssignment,
@@ -136,6 +137,50 @@ export function communityRolesAccessor(
   intl: IntlShape,
 ) {
   return teamAssignment.roles
+    .map((role) => getLocalizedName(role.displayName, intl), true)
+    .filter(notEmpty)
+    .sort((a, b) => a.localeCompare(b))
+    .join();
+}
+
+export function processActionCell(
+  poolAssignment: PoolAssignment,
+  user: Pick<User, "id" | "firstName" | "lastName">,
+  onUpdateUserRoles: UpdateUserRolesFunc,
+  availableRoles: Role[],
+) {
+  return (
+    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+      <EditCommunityRoleDialog
+        initialRoles={poolAssignment.roles}
+        user={user}
+        community={poolAssignment.pool}
+        onEditRoles={onUpdateUserRoles}
+        allRoles={availableRoles}
+      />
+      <RemoveCommunityRoleDialog
+        roles={poolAssignment.roles}
+        user={user}
+        community={poolAssignment.pool}
+        onRemoveRoles={onUpdateUserRoles}
+      />
+    </div>
+  );
+}
+
+export function processCell(displayName: string, href: string) {
+  return (
+    <Link color="black" href={href}>
+      {displayName}
+    </Link>
+  );
+}
+
+export function processRolesAccessor(
+  poolAssignment: PoolAssignment,
+  intl: IntlShape,
+) {
+  return poolAssignment.roles
     .map((role) => getLocalizedName(role.displayName, intl), true)
     .filter(notEmpty)
     .sort((a, b) => a.localeCompare(b))
