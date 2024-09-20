@@ -15,6 +15,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -807,6 +808,7 @@ class PoolCandidateTest extends TestCase
         ';
 
         $poolOne = Pool::factory()->published()->create();
+        $pastDate = Carbon::parse(config('constants.past_datetime'));
         $bookmarkedNoClaims = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
@@ -817,7 +819,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => true,
             'priority_verification' => null,
             'veteran_verification' => null,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
         $bookmarkedAcceptedPriority = PoolCandidate::factory()->create(
             [
@@ -829,7 +831,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => true,
             'priority_verification' => ClaimVerificationResult::ACCEPTED->name,
             'veteran_verification' => null,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate->addHour(1), // Add an hour to break tie
         ]);
         $unverifiedPriorityAndAcceptedVeteran = PoolCandidate::factory()->create(
             [
@@ -841,7 +843,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => false,
             'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
             'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
         $acceptedVeteran = PoolCandidate::factory()->create(
             [
@@ -853,7 +855,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => false,
             'priority_verification' => null,
             'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
         $rejectedVeteranCitizenOther = PoolCandidate::factory()->create(
             [
@@ -865,7 +867,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => false,
             'priority_verification' => null,
             'veteran_verification' => ClaimVerificationResult::REJECTED->name,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
         $citizenOnly = PoolCandidate::factory()->create(
             [
@@ -877,7 +879,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => false,
             'priority_verification' => null,
             'veteran_verification' => null,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
 
         // assert in both cases that veteran + priority treated as priority
