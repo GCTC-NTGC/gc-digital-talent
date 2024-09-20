@@ -44,7 +44,6 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
@@ -160,7 +159,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
-    $orderByClaimVerification: SortOrder
+    $orderByClaimVerification: ClaimVerificationSort
   ) {
     poolCandidatesPaginated(
       where: $where
@@ -176,6 +175,14 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialog
           id
           ...PoolCandidate_Bookmark
+          category {
+            weight
+            value
+            label {
+              en
+              fr
+            }
+          }
           pool {
             id
             processNumber
@@ -468,7 +475,14 @@ const PoolCandidatesTable = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const apiRoutes = useApiRoutes();
-  const initialState = getTableStateFromSearchParams(defaultState);
+
+  const defaultSortState = currentPool
+    ? [{ id: "finalDecision", desc: false }]
+    : [{ id: "dateReceived", desc: true }];
+  const initialState = getTableStateFromSearchParams({
+    ...defaultState,
+    sortState: defaultSortState,
+  });
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = useMemo(
@@ -567,15 +581,10 @@ const PoolCandidatesTable = ({
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(
-        sortState,
-        filterState,
-        doNotUseBookmark,
-        currentPool,
-      ),
+      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
-        currentPool,
+        doNotUseBookmark,
       ),
     },
   });
@@ -753,28 +762,19 @@ const PoolCandidatesTable = ({
           ),
         ]),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
-        getLocalizedName(user.priority?.label, intl),
+      ({ poolCandidate: { category } }) =>
+        getLocalizedName(category?.label, intl),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
-            original: { poolCandidate },
+            original: {
+              poolCandidate: { category },
+            },
           },
         }) =>
-          priorityCell(
-            poolCandidate.user.priorityWeight
-              ? priorityWeightAfterVerification(
-                  poolCandidate.user.priorityWeight,
-                  poolCandidate.priorityVerification,
-                  poolCandidate.veteranVerification,
-                  poolCandidate.user.citizenship?.value,
-                )
-              : null,
-            tableData?.priorities,
-            intl,
-          ),
+          category ? priorityCell(category.weight, category.label, intl) : null,
       },
     ),
     columnHelper.accessor(
@@ -966,7 +966,7 @@ const PoolCandidatesTable = ({
       sort={{
         internal: false,
         onSortChange: setSortState,
-        initialState: defaultState.sortState,
+        initialState: defaultSortState,
       }}
       filter={{
         initialState: initialFilterInput,

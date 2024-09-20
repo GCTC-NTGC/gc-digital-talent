@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\PoolSkillType;
+use App\Enums\SkillLevel;
 use App\Models\JobPosterTemplate;
 use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
@@ -207,6 +209,86 @@ class JobPosterTemplateTest extends TestCase
                 'referenceId' => $this->template->reference_id,
             ],
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
+    }
+
+    public function testCannotAddEssentialSkillWithNoLevel()
+    {
+        $input = $this->getCreateInput();
+        $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::ESSENTIAL->name,
+                            'requiredLevel' => null,
+                        ],
+                    ],
+                ],
+            ],
+        ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
+    }
+
+    public function testCanAddEssentialSkillWithLevel()
+    {
+        $input = $this->getCreateInput();
+        $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::ESSENTIAL->name,
+                            'requiredLevel' => SkillLevel::ADVANCED->name,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->assertNotNull($res['data']['createJobPosterTemplate']);
+    }
+
+    public function testCannotAddAssetSkillWithLevel()
+    {
+        $input = $this->getCreateInput();
+        $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::NONESSENTIAL->name,
+                            'requiredLevel' => SkillLevel::ADVANCED->name,
+                        ],
+                    ],
+                ],
+            ],
+        ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
+    }
+
+    public function testCanAddAssetSkillWithNoLevel()
+    {
+        $input = $this->getCreateInput();
+        $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
+            'template' => [
+                ...$input,
+                'skills' => [
+                    'connect' => [
+                        [
+                            'id' => $this->template->skills[0]->id,
+                            'type' => PoolSkillType::NONESSENTIAL->name,
+                            'requiredLevel' => null,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->assertNotNull($res['data']['createJobPosterTemplate']);
     }
 
     private function getCreateInput(): array
