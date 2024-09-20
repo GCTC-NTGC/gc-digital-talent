@@ -7,6 +7,7 @@ import { Role, User } from "@gc-digital-talent/graphql";
 
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import {
+  CommunityAssignment,
   CommunityPickedFields,
   PoolPickedFields,
   Teamable,
@@ -16,6 +17,8 @@ import {
 } from "../types";
 import EditTeamRoleDialog from "./EditTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
+import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
+import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
 
 export function roleCell(displayName: string) {
   return <Chip color="black">{displayName}</Chip>;
@@ -95,19 +98,63 @@ export function teamRolesAccessor(
     .join();
 }
 
+export function communityActionCell(
+  communityAssignment: CommunityAssignment,
+  user: Pick<User, "id" | "firstName" | "lastName">,
+  onUpdateUserRoles: UpdateUserRolesFunc,
+  availableRoles: Role[],
+) {
+  return (
+    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+      <EditCommunityRoleDialog
+        initialRoles={communityAssignment.roles}
+        user={user}
+        community={communityAssignment.community}
+        onEditRoles={onUpdateUserRoles}
+        allRoles={availableRoles}
+      />
+      <RemoveCommunityRoleDialog
+        roles={communityAssignment.roles}
+        user={user}
+        community={communityAssignment.community}
+        onRemoveRoles={onUpdateUserRoles}
+      />
+    </div>
+  );
+}
+
+export function communityCell(displayName: string, href: string) {
+  return (
+    <Link color="black" href={href}>
+      {displayName}
+    </Link>
+  );
+}
+
+export function communityRolesAccessor(
+  teamAssignment: CommunityAssignment,
+  intl: IntlShape,
+) {
+  return teamAssignment.roles
+    .map((role) => getLocalizedName(role.displayName, intl), true)
+    .filter(notEmpty)
+    .sort((a, b) => a.localeCompare(b))
+    .join();
+}
+
 export const isPoolTeamable = (
-  teamable: Teamable,
+  teamable: Teamable | undefined | null,
 ): teamable is PoolPickedFields => {
-  if (teamable.__typename === "Pool") {
+  if (teamable && teamable.__typename === "Pool") {
     return true;
   }
   return false;
 };
 
 export const isCommunityTeamable = (
-  teamable: Teamable,
+  teamable: Teamable | undefined | null,
 ): teamable is CommunityPickedFields => {
-  if (teamable.__typename === "Community") {
+  if (teamable && teamable.__typename === "Community") {
     return true;
   }
   return false;
