@@ -597,7 +597,6 @@ const PoolCandidatesTable = ({
         searchState?.term,
         searchState?.type,
       ),
-      locale: locale === "fr" ? Language.Fr : Language.En,
     })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
