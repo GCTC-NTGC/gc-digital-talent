@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   UpdateUserRolesInput,
   Role,
@@ -15,7 +15,6 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
-import adminMessages from "~/messages/adminMessages";
 import tableMessages from "~/components/Table/tableMessages";
 
 import {
@@ -85,15 +84,15 @@ const ProcessRoleTable = ({
     columnHelper.accessor(
       (poolAssignment) => getLocalizedName(poolAssignment.pool.name, intl),
       {
-        id: "team",
+        id: "name",
         sortingFn: normalizedText,
-        header: intl.formatMessage(adminMessages.team),
+        header: intl.formatMessage(commonMessages.name),
         cell: ({
           row: {
             original: { pool },
           },
           getValue,
-        }) => processCell(getValue(), pool ? routes.teamView(pool.id) : ""),
+        }) => processCell(getValue(), pool ? routes.poolView(pool.id) : ""),
       },
     ),
     columnHelper.accessor(
@@ -118,11 +117,10 @@ const ProcessRoleTable = ({
 
   const data = useMemo(() => {
     const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
-      .filter((roleAssignment) => isPoolTeamable(roleAssignment?.teamable)) // filter for community teamable
       .map((assignment) => {
         if (
           assignment?.teamable &&
-          isPoolTeamable(assignment.teamable) && // type coercion
+          isPoolTeamable(assignment.teamable) &&
           assignment.role?.isTeamBased
         )
           return {
@@ -168,9 +166,9 @@ const ProcessRoleTable = ({
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search community based roles",
-            id: "ryeKXV",
-            description: "Label for the community roles table search input",
+            defaultMessage: "Search process based roles",
+            id: "DbWxZl",
+            description: "Label for the process roles table search input",
           }),
         }}
         sort={{

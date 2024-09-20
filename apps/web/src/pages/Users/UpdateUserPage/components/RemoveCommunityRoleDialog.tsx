@@ -16,15 +16,16 @@ import {
   Role,
   User,
   RoleInput,
-  Community,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
+import { CommunityPickedFields } from "../types";
+
 interface RemoveCommunityRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   roles: Role[];
-  community: Pick<Community, "id" | "name" | "teamIdForRoleAssignment">;
+  community: CommunityPickedFields;
   onRemoveRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

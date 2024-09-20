@@ -23,7 +23,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
+import messages from "~/messages/processMessages";
 
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 import { isPoolTeamable } from "./helpers";
@@ -85,7 +85,7 @@ const AddProcessRoleDialog = ({
   const poolOptions = pools
     ?.filter((pool) => !!pool.teamIdForRoleAssignment)
     .map((pool) => ({
-      value: pool.teamIdForRoleAssignment ?? "",
+      value: pool.teamIdForRoleAssignment ?? "", // should never be an empty string, just satisfies type
       label: getLocalizedName(pool.name, intl),
     }));
 
@@ -136,12 +136,10 @@ const AddProcessRoleDialog = ({
     description: "Label for the form to add a process membership to a user",
   });
 
-  const roleOptions = availableRoles
-    .filter((role) => role.isTeamBased)
-    .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
-      value: role.id,
-    }));
+  const roleOptions = availableRoles.map((role) => ({
+    label: getLocalizedName(role.displayName, intl),
+    value: role.id,
+  }));
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -191,11 +189,7 @@ const AddProcessRoleDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage({
-                    defaultMessage: "Process",
-                    id: "V3+ruD",
-                    description: "Label for the process select",
-                  })}
+                  label={intl.formatMessage(messages.process)}
                   options={poolOptions ?? []}
                 />
                 <Combobox
@@ -204,9 +198,8 @@ const AddProcessRoleDialog = ({
                   isMulti
                   label={intl.formatMessage({
                     defaultMessage: "Process roles",
-                    id: "EearYR",
-                    description:
-                      "Label for the input to select role of a process role",
+                    id: "eGqjYh",
+                    description: "Heading for updating a user's process roles",
                   })}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

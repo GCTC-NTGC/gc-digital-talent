@@ -105,7 +105,7 @@ export function communityActionCell(
   communityAssignment: CommunityAssignment,
   user: Pick<User, "id" | "firstName" | "lastName">,
   onUpdateUserRoles: UpdateUserRolesFunc,
-  availableRoles: Role[],
+  communityRoles: Role[],
 ) {
   return (
     <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
@@ -114,7 +114,7 @@ export function communityActionCell(
         user={user}
         community={communityAssignment.community}
         onEditRoles={onUpdateUserRoles}
-        allRoles={availableRoles}
+        communityRoles={communityRoles}
       />
       <RemoveCommunityRoleDialog
         roles={communityAssignment.roles}
@@ -149,7 +149,7 @@ export function processActionCell(
   poolAssignment: PoolAssignment,
   user: Pick<User, "id" | "firstName" | "lastName">,
   onUpdateUserRoles: UpdateUserRolesFunc,
-  availableRoles: Role[],
+  processRoles: Role[],
 ) {
   return (
     <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
@@ -158,7 +158,7 @@ export function processActionCell(
         user={user}
         pool={poolAssignment.pool}
         onEditRoles={onUpdateUserRoles}
-        allRoles={availableRoles}
+        processRoles={processRoles}
       />
       <RemoveProcessRoleDialog
         roles={poolAssignment.roles}

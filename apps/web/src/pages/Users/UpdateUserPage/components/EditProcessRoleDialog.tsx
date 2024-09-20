@@ -32,7 +32,7 @@ interface FormValues {
 interface EditProcessRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   initialRoles: Role[];
-  allRoles: Role[];
+  processRoles: Role[];
   pool: PoolPickedFields;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
@@ -42,7 +42,7 @@ interface EditProcessRoleDialogProps {
 const EditProcessRoleDialog = ({
   user,
   initialRoles,
-  allRoles,
+  processRoles,
   pool,
   onEditRoles,
 }: EditProcessRoleDialogProps) => {
@@ -115,13 +115,10 @@ const EditProcessRoleDialog = ({
     description: "Label for the form to edit a users process membership",
   });
 
-  const roleOptions = allRoles
-    .filter((role) => role.isTeamBased)
-    .filter((role) => ["process_operator"].includes(role.name)) // These roles are meant to be connected to different kinds of Teams.
-    .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
-      value: role.id,
-    }));
+  const roleOptions = processRoles.map((role) => ({
+    label: getLocalizedName(role.displayName, intl),
+    value: role.id,
+  }));
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -149,9 +146,9 @@ const EditProcessRoleDialog = ({
           </ul>
           <p data-h2-margin="base(x1, 0 ,x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "From the following community:",
-              id: "hJDRa/",
-              description: "Follow in text for the community being updated",
+              defaultMessage: "From the following process:",
+              id: "7+HKOE",
+              description: "Follow in text for the process being updated",
             })}
           </p>
           <ul>

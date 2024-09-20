@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   UpdateUserRolesInput,
   Role,
@@ -15,7 +15,6 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
-import adminMessages from "~/messages/adminMessages";
 import tableMessages from "~/components/Table/tableMessages";
 
 import {
@@ -88,9 +87,9 @@ const CommunityRoleTable = ({
       (communityAssignment) =>
         getLocalizedName(communityAssignment.community.name, intl),
       {
-        id: "team",
+        id: "name",
         sortingFn: normalizedText,
-        header: intl.formatMessage(adminMessages.team),
+        header: intl.formatMessage(commonMessages.name),
         cell: ({
           row: {
             original: { community },
@@ -99,7 +98,7 @@ const CommunityRoleTable = ({
         }) =>
           communityCell(
             getValue(),
-            community ? routes.teamView(community.id) : "",
+            community ? routes.communityView(community.id) : "",
           ),
       },
     ),
@@ -126,11 +125,10 @@ const CommunityRoleTable = ({
 
   const data = useMemo(() => {
     const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
-      .filter((roleAssignment) => isCommunityTeamable(roleAssignment?.teamable)) // filter for community teamable
       .map((assignment) => {
         if (
           assignment?.teamable &&
-          isCommunityTeamable(assignment.teamable) && // type coercion
+          isCommunityTeamable(assignment.teamable) &&
           assignment.role?.isTeamBased
         )
           return {

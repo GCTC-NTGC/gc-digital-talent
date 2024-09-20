@@ -127,11 +127,11 @@ const AddCommunityRoleDialog = ({
   useEffect(() => {
     const roleAssignments = authInfo?.roleAssignments || [];
     const activeRoleIds = roleAssignments
-      .filter((ra) => isCommunityTeamable(ra?.teamable))
       .filter(
         (ra) =>
-          ra?.community?.teamIdForRoleAssignment ===
-          communityTeamIdForRoleAssignment,
+          isCommunityTeamable(ra?.teamable) &&
+          ra.teamable.teamIdForRoleAssignment ===
+            communityTeamIdForRoleAssignment,
       )
       .map((r) => r?.role?.id)
       .filter(notEmpty);
@@ -144,9 +144,10 @@ const AddCommunityRoleDialog = ({
 
   const communityOptions = communityData?.communities
     .filter(notEmpty)
+    .filter((community) => !!community?.teamIdForRoleAssignment)
     .map((community) => ({
       label: getLocalizedName(community.name, intl),
-      value: community.teamIdForRoleAssignment,
+      value: community.teamIdForRoleAssignment ?? "", // should never be empty, just satisfies type
     }));
 
   return (

@@ -19,10 +19,11 @@ import {
   User,
   Scalars,
   RoleInput,
-  Community,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+
+import { CommunityPickedFields } from "../types";
 
 interface FormValues {
   roles: Scalars["UUID"]["output"][];
@@ -31,8 +32,8 @@ interface FormValues {
 interface EditCommunityRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   initialRoles: Role[];
-  allRoles: Role[];
-  community: Pick<Community, "id" | "name" | "teamIdForRoleAssignment">;
+  communityRoles: Role[];
+  community: CommunityPickedFields;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -41,7 +42,7 @@ interface EditCommunityRoleDialogProps {
 const EditCommunityRoleDialog = ({
   user,
   initialRoles,
-  allRoles,
+  communityRoles,
   community,
   onEditRoles,
 }: EditCommunityRoleDialogProps) => {
@@ -114,15 +115,10 @@ const EditCommunityRoleDialog = ({
     description: "Label for the form to edit a users community membership",
   });
 
-  const roleOptions = allRoles
-    .filter((role) => role.isTeamBased)
-    .filter((role) =>
-      ["community_admin", "community_recruiter"].includes(role.name),
-    ) // These roles are meant to be connected to different kinds of Teams.
-    .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
-      value: role.id,
-    }));
+  const roleOptions = communityRoles.map((role) => ({
+    label: getLocalizedName(role.displayName, intl),
+    value: role.id,
+  }));
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
