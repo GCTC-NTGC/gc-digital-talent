@@ -12,7 +12,7 @@ import {
   Chips,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
@@ -20,7 +20,6 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
-  PoolCandidate,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -60,6 +59,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...ClaimVerification
       ...AssessmentResultsTable
       ...ChangeStatusDialog_PoolCandidate
+      ...ApplicationInformation_PoolCandidate
       id
       profileSnapshot
       finalDecision {
@@ -145,10 +145,6 @@ export const ViewPoolCandidate = ({
   const paths = useRoutes();
 
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
-  const snapshotCandidate: PoolCandidate | undefined =
-    parsedSnapshot?.poolCandidates
-      ?.filter(notEmpty)
-      .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
@@ -298,7 +294,10 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
+              <AssessmentResultsTable
+                poolCandidateQuery={poolCandidate}
+                experiences={nonEmptyExperiences}
+              />
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
@@ -307,7 +306,7 @@ export const ViewPoolCandidate = ({
                   <ApplicationInformation
                     poolQuery={poolCandidate.pool}
                     snapshot={parsedSnapshot}
-                    application={snapshotCandidate}
+                    applicationQuery={poolCandidate}
                   />
                 </ErrorBoundary>
                 <div data-h2-margin="base(x2 0)">

@@ -10,6 +10,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\ValueObjects\ProfileSnapshot;
 use Database\Seeders\RolePermissionSeeder;
 use Faker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -88,12 +89,8 @@ class SnapshotTest extends TestCase
 
         $decodedActual = json_decode($actualSnapshot, true);
 
-        // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
-        // array_values reindexes the array from zero https://stackoverflow.com/a/3401863
-        $filteredPoolCandidates = array_values(array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
-            return $poolCandidate['id'] === $individualPoolCandidate['id'];
-        }));
-        $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
+        // Add version number
+        $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
 
         // line-up query format with how the snapshot is ordered
         $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
@@ -215,6 +212,13 @@ class SnapshotTest extends TestCase
                         ),
                     ],
                 ],
+                // Empty string details
+                // NOTE: Regression test for empty strings treated as localized enums
+                'experiences' => [
+                    [
+                        'details' => '',
+                    ],
+                ],
             ],
         ]);
 
@@ -236,6 +240,12 @@ class SnapshotTest extends TestCase
                 [
                     'value' => OperationalRequirement::ON_CALL->name,
                     'label' => OperationalRequirement::localizedString(OperationalRequirement::ON_CALL->name),
+                ],
+            ],
+            // Empty string details
+            'experiences' => [
+                [
+                    'details' => '',
                 ],
             ],
         ], $snapshot);

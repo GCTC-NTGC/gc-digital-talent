@@ -16,7 +16,6 @@ class UserSkillResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => new UserResource($this->whenLoaded('user')),
             'skill' => new SkillResource($this->whenLoaded('skill')),
         ];
     }

@@ -3,7 +3,9 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import ResourceBlock, { colorOptions } from "./ResourceBlock";
+import { colorOptions } from "./Root";
+
+import ResourceBlock from "./";
 
 faker.seed(0);
 
@@ -29,19 +31,37 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
     data-h2-gap="base(x1)"
   >
     {colorOptions.map((colour) => (
-      <ResourceBlock.Root headingColor={colour} {...args} key={colour}>
-        <ResourceBlock.Item
+      <ResourceBlock.Root
+        headingColor={colour}
+        title={
+          <>
+            {args.title} {colour}
+          </>
+        }
+        key={colour}
+      >
+        <ResourceBlock.SingleLinkItem
           title={faker.lorem.words(10)}
           href={faker.internet.url()}
           description={faker.lorem.paragraph()}
         />
-        <ResourceBlock.Item
-          title={faker.commerce.productName()}
-          href={faker.internet.url()}
+        <ResourceBlock.LinkMenuItem
+          links={[
+            {
+              title: "link 1",
+              href: faker.internet.url(),
+              isSelected: false,
+            },
+            {
+              title: "link 2",
+              href: faker.internet.url(),
+              isSelected: true,
+            },
+          ]}
           description={faker.lorem.paragraph()}
           state="complete"
         />
-        <ResourceBlock.Item
+        <ResourceBlock.SingleLinkItem
           title={faker.commerce.productName()}
           href={faker.internet.url()}
           description={faker.lorem.paragraph()}

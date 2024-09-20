@@ -26,10 +26,7 @@ const NotificationDownload = forwardRef<
   const intl = useIntl();
   const [{ fetching }, markAsRead] = useMarkAsRead(id);
   const [{ fetching: downloadingFile }, executeFileDownload] =
-    useAsyncFileDownload({
-      url: href,
-      fileName,
-    });
+    useAsyncFileDownload();
 
   const handleClick: MouseEventHandler<HTMLAnchorElement> = async (event) => {
     event.stopPropagation();
@@ -39,7 +36,10 @@ const NotificationDownload = forwardRef<
       onRead?.();
     });
 
-    await executeFileDownload().catch((err) => {
+    await executeFileDownload({
+      url: href,
+      fileName,
+    }).catch((err) => {
       if (err instanceof Error && err.message === "not found") {
         toast.error(
           intl.formatMessage(

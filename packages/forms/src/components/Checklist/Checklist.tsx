@@ -1,6 +1,6 @@
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
-import { ReactNode } from "react";
+import { Fragment, ReactNode } from "react";
 
 import Checkbox from "../Checkbox";
 import Field from "../Field";
@@ -13,6 +13,7 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 export interface CheckboxOption {
   value: string | number;
   label: string | ReactNode;
+  contentBelow?: ReactNode;
 }
 
 export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
@@ -74,19 +75,34 @@ const Checklist = ({
           data-h2-gap="base(0)"
           data-h2-padding="base(x.25 0)"
         >
-          {items.map(({ value, label }) => {
+          {items.map(({ value, label, contentBelow }) => {
             const id = `${idPrefix}-${value}`;
             return (
-              <Checkbox
-                key={id}
-                id={id}
-                name={name}
-                rules={rules}
-                label={label}
-                disabled={disabled}
-                value={value}
-                inCheckList
-              />
+              <Fragment key={id}>
+                <Checkbox
+                  id={id}
+                  name={name}
+                  rules={rules}
+                  label={label}
+                  disabled={disabled}
+                  value={value}
+                  inCheckList
+                  {...(contentBelow && {
+                    "aria-describedby": `${id}-content-below`,
+                  })}
+                />
+                {contentBelow && (
+                  <div
+                    id={`${id}-content-below`}
+                    data-h2-padding-left="base(x1.7)"
+                    data-h2-padding-right="base(x0.5)"
+                    data-h2-color="base(black.light)"
+                    data-h2-font-size="base(caption)"
+                  >
+                    {contentBelow}
+                  </div>
+                )}
+              </Fragment>
             );
           })}
         </Field.BoundingBox>

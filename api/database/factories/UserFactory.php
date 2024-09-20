@@ -99,6 +99,7 @@ class UserFactory extends Factory
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
             'is_gov_employee' => $isGovEmployee,
+            'work_email' => $isGovEmployee ? $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca' : null,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
@@ -186,6 +187,7 @@ class UserFactory extends Factory
             if (! $isGovEmployee) {
                 return [
                     'is_gov_employee' => false,
+                    'work_email' => null,
                     'current_classification' => null,
                     'gov_employee_type' => null,
                     'department' => null,
@@ -197,6 +199,7 @@ class UserFactory extends Factory
 
             return [
                 'is_gov_employee' => true,
+                'work_email' => $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca',
                 'current_classification' => $randomClassification ? $randomClassification->id : null,
                 'gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
                 'department' => $randomDepartment ? $randomDepartment->id : null,
@@ -351,6 +354,18 @@ class UserFactory extends Factory
                 $community = Community::find($communityId);
                 $community->addCommunityAdmins($user->id);
             }
+        });
+    }
+
+    /**
+     * Attach the manager role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asManager()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('manager');
         });
     }
 }

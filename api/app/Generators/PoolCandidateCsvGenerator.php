@@ -21,6 +21,7 @@ use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 {
@@ -29,9 +30,15 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
     protected array $generalQuestionIds = [];
 
+    protected array $generalQuestionResponses = [];
+
     protected array $screeningQuestionIds = [];
 
+    protected array $screeningQuestionResponses = [];
+
     protected array $skillIds = [];
+
+    protected array $poolSkills = [];
 
     protected array $poolIds = [];
 
@@ -69,13 +76,14 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'government_employee',
         'department',
         'employee_type',
+        'work_email',
         'current_classification',
         'priority_entitlement',
         'priority_number',
-        'location_preferences',
-        'location_exemptions',
         'accept_temporary',
         'accepted_operational_requirements',
+        'location_preferences',
+        'location_exemptions',
         'woman',
         'indigenous',
         'visible_minority',
@@ -120,7 +128,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
                     $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
                     $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
-                    $candidate->archived_at ? $candidate->archival_at->format('Y-m-d') : '', // Archival date
+                    $candidate->archived_at ? $candidate->archived_at->format('Y-m-d') : '', // Archival date
                     $candidate->user->first_name, // First name
                     $candidate->user->last_name, // Last name
                     $candidate->user->email, // Email
@@ -140,13 +148,14 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
                     $this->localizeEnum($candidate->user->gov_employee_type, GovEmployeeType::class),
+                    $candidate->user->work_email, // Work email
                     $candidate->user->getClassification(), // Current classification
                     $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement
                     $candidate->user->priority_number ?? '', // Priority number
-                    $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
-                    $candidate->user->location_exemptions, // Location exemptions
                     $candidate->user->position_duration ? $this->yesOrNo($candidate->user->wouldAcceptTemporary()) : '', // Accept temporary
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
+                    $this->localizeEnumArray($candidate->user->location_preferences, WorkRegion::class),
+                    $candidate->user->location_exemptions, // Location exemptions
                     $this->yesOrNo($candidate->user->is_woman), // Woman
                     $this->localizeEnumArray($candidate->user->indigenous_communities, IndigenousCommunity::class),
                     $this->yesOrNo($candidate->user->is_visible_minority), // Visible minority
@@ -160,38 +169,45 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 });
                 $values[] = implode(', ', $userSkills->toArray());
 
-                $candidateQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
-                foreach ($this->generalQuestionIds as $questionId) {
-                    if (in_array($questionId, $candidateQuestionIds)) {
+                $poolGeneralQuestionIds = $candidate->pool->generalQuestions->pluck('id')->toArray();
+                $candidateGeneralQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
+                foreach ($poolGeneralQuestionIds as $questionId) {
+                    if (in_array($questionId, $candidateGeneralQuestionIds)) {
                         $response = $candidate->generalQuestionResponses->where('general_question_id', $questionId)->first();
-                        $values[] = $this->sanitizeString($response->answer);
-                    } else {
-                        $values[] = '';
+                        $this->generalQuestionResponses[$questionId][] = [
+                            'candidate' => $currentCandidate,
+                            'value' => $this->sanitizeString($response->answer),
+                        ];
                     }
                 }
 
+                $poolScreeningQuestionIds = $candidate->pool->screeningQuestions->pluck('id')->toArray();
                 $candidateScreeningQuestionIds = $candidate->screeningQuestionResponses->pluck('screening_question_id')->toArray();
-                foreach ($this->screeningQuestionIds as $questionId) {
+                foreach ($poolScreeningQuestionIds as $questionId) {
                     if (in_array($questionId, $candidateScreeningQuestionIds)) {
                         $response = $candidate->screeningQuestionResponses->where('screening_question_id', $questionId)->first();
-                        $values[] = $this->sanitizeString($response->answer);
-                    } else {
-                        $values[] = '';
+                        $this->screeningQuestionResponses[$questionId][] = [
+                            'candidate' => $currentCandidate,
+                            'value' => $this->sanitizeString($response->answer),
+                        ];
                     }
                 }
 
+                $poolSkillIds = $candidate->pool->poolSkills->pluck('skill_id')->toArray();
                 $candidateSkillIds = $candidate->user->userSkills->pluck('skill_id')->toArray();
-                foreach ($this->skillIds as $skillId) {
+                foreach ($poolSkillIds as $skillId) {
                     if (in_array($skillId, $candidateSkillIds)) {
                         $userSkill = $candidate->user->userSkills->where('skill_id', $skillId)->first();
-                        $values[] = implode("\r\n", $userSkill->experiences
-                            ->map(function ($experience) use ($userSkill) {
-                                $skill = $experience->skills->where('id', $userSkill->skill_id)->first();
 
-                                return $experience->getTitle().': '.$skill->experience_skill->details;
-                            })->toArray());
-                    } else {
-                        $values[] = '';
+                        $this->poolSkills[$skillId][] = [
+                            'candidate' => $currentCandidate,
+                            'value' => implode("\r\n", $userSkill->experiences
+                                ->map(function ($experience) use ($userSkill) {
+                                    $skill = $experience->skills->where('id', $userSkill->skill_id)->first();
+
+                                    return $experience->getTitle().': '.$skill->experience_skill->details;
+                                })->toArray()),
+                        ];
                     }
                 }
 
@@ -206,6 +222,8 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         }, $this->headerLocaleKeys);
 
         $this->generatePoolHeaders();
+        $this->generatePoolCells($sheet, count($localizedHeaders) + 1);
+
         $sheet->fromArray([
             ...$localizedHeaders,
             $this->localizeHeading('skills'),
@@ -248,7 +266,6 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
                     if ($pool->poolSkills->count() > 0) {
                         $skillsByGroup = $pool->poolSkills->groupBy('type');
-
                         foreach ($skillsByGroup as $group => $skills) {
                             foreach ($skills as $skill) {
                                 $this->skillIds[] = $skill->skill_id;
@@ -264,12 +281,50 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             });
     }
 
+    private function generatePoolCells(Worksheet $sheet, int $columnCount)
+    {
+
+        $currentColumn = $columnCount;
+
+        foreach ($this->generalQuestionIds as $generalQuestionId) {
+            $currentColumn++;
+            if (isset($this->generalQuestionResponses[$generalQuestionId])) {
+                foreach ($this->generalQuestionResponses[$generalQuestionId] as $row) {
+                    $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
+                }
+            }
+        }
+
+        foreach ($this->screeningQuestionIds as $screeningQuestionId) {
+            $currentColumn++;
+            if (isset($this->screeningQuestionResponses[$screeningQuestionId])) {
+                foreach ($this->screeningQuestionResponses[$screeningQuestionId] as $row) {
+                    $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
+                }
+            }
+        }
+
+        foreach ($this->skillIds as $skillId) {
+            $currentColumn++;
+            if (isset($this->poolSkills[$skillId])) {
+                foreach ($this->poolSkills[$skillId] as $row) {
+                    $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
+                }
+            }
+        }
+    }
+
     private function buildQuery()
     {
         $query = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'educationRequirementExperiences',
+            'pool' => [
+                'generalQuestions',
+                'screeningQuestions',
+                'poolSkills' => ['skill'],
+            ],
             'user' => [
                 'department',
                 'currentClassification',

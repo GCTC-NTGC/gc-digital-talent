@@ -29,6 +29,24 @@ final class UpdateUserInputValidator extends Validator
                  * REF: https://laravel.com/docs/9.x/validation#rule-unique
                  */
                 Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
+                Rule::unique('users', 'work_email')->ignore($this->arg('id'), 'id'),
+            ],
+            'workEmail' => [
+                'sometimes',
+                'nullable',
+                /**
+                 * Note: Ignore the email for the user passed
+                 * in when executing the mutation so it is not
+                 * included in the unique check. This is required
+                 * for allowing a user to be updated while the email
+                 * remains the same.
+                 *
+                 * REF: https://laravel.com/docs/9.x/validation#rule-unique
+                 */
+                Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
+                Rule::unique('users', 'work_email')->ignore($this->arg('id'), 'id'),
+                // Note: Domains should be kept in sync with the workEmailDomainRegex
+                'ends_with:gc.ca,canada.ca,elections.ca',
             ],
             'sub' => [
                 'sometimes',
@@ -46,6 +64,7 @@ final class UpdateUserInputValidator extends Validator
     {
         return [
             'email.unique' => 'EmailAddressInUse',
+            'workEmail.unique' => 'EmailAddressInUse',
             'sub.unique' => 'SubInUse',
         ];
     }

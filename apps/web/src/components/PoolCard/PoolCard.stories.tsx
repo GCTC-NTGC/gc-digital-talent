@@ -1,7 +1,7 @@
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { makeFragmentData, Pool } from "@gc-digital-talent/graphql";
 
 import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
@@ -14,6 +14,12 @@ const nullPool: any = {};
 Object.keys(fakedPoolNull).forEach((key) => {
   nullPool[key] = null;
 });
+
+const poolWithoutWhoCanApply: Pool = {
+  ...fakedPool,
+  areaOfSelection: null,
+  selectionLimitations: [],
+};
 
 export default {
   component: PoolCard,
@@ -29,4 +35,9 @@ export const Default = Template.bind({});
 export const Null = Template.bind({});
 Null.args = {
   poolQuery: makeFragmentData(nullPool, PoolCard_Fragment),
+};
+
+export const WithoutWhoCanApply = Template.bind({});
+WithoutWhoCanApply.args = {
+  poolQuery: makeFragmentData(poolWithoutWhoCanApply, PoolCard_Fragment),
 };

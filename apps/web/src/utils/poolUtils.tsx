@@ -105,7 +105,7 @@ export const formattedPoolPosterTitle = ({
   const streamString = stream ? getLocalizedName(stream.label, intl) : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
-    : (null ?? "");
+    : "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -456,7 +456,7 @@ export const getProcessStatusBadge = (
 };
 
 export function getClassificationName(
-  { group, level, name }: Classification,
+  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) {
   const groupLevelStr = `${group}-0${level}`;

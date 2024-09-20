@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
 
-interface UseAsyncFileDownloadArgs {
+interface FileDownloadArgs {
   url: string;
   fileName: string;
 }
@@ -14,7 +14,7 @@ interface UseAsyncFileDownloadData {
 
 type UseAsyncFileDownloadReturn = [
   UseAsyncFileDownloadData,
-  () => Promise<void | Error>,
+  (args: FileDownloadArgs) => Promise<void | Error>,
 ];
 
 /**
@@ -23,10 +23,7 @@ type UseAsyncFileDownloadReturn = [
  * returning a promise to be handled
  *
  */
-function useAsyncFileDownload({
-  url,
-  fileName,
-}: UseAsyncFileDownloadArgs): UseAsyncFileDownloadReturn {
+function useAsyncFileDownload(): UseAsyncFileDownloadReturn {
   const [fetching, setFetching] = useState<boolean>(false);
   const controller = useRef<AbortController>(new AbortController());
 
@@ -34,7 +31,10 @@ function useAsyncFileDownload({
     controller.current.abort();
   }
 
-  async function downloadFile(): Promise<void> {
+  async function downloadFile({
+    url,
+    fileName,
+  }: FileDownloadArgs): Promise<void> {
     // Abort any current requests
     if (fetching) {
       controller.current.abort();

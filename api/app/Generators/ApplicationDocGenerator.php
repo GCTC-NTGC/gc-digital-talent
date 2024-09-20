@@ -27,7 +27,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $this->setup();
 
         $section = $this->doc->addSection();
-        $section->addTitle($this->localizeHeading(count($this->ids) > 1 ? 'candidate_profiles' : 'candidate_profile'), 1);
+        $section->addTitle($this->localizeHeading('application_snapshot'), 1);
 
         PoolCandidate::with([
             'educationRequirementExperiences',
@@ -36,6 +36,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             'generalQuestionResponses' => ['generalQuestion'],
         ])
             ->whereIn('id', $this->ids)
+            ->authorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) use ($section) {
 
                 foreach ($candidates as $candidate) {
@@ -92,7 +93,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                     $this->status($section, $user);
                     $this->languageInfo($section, $user);
                     $this->governmentInfo($section, $user);
-                    $this->workLocation($section, $user);
                     $this->workPreferences($section, $user);
                     $this->dei($section, $user);
 

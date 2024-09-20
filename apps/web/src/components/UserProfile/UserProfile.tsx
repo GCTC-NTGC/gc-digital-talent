@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
@@ -23,7 +22,6 @@ import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
-import WorkLocationSection from "./ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import SkillShowcaseSection from "./SkillShowcaseSection";
 
@@ -74,15 +72,11 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             </TableOfContents.ListItem>
 
             <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_LOCATION}>
-                {intl.formatMessage(navigationMessages.workLocation)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
               <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_PREFERENCES}>
                 {intl.formatMessage(navigationMessages.workPreferences)}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
+
             <TableOfContents.ListItem>
               <TableOfContents.AnchorLink
                 id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}
@@ -139,16 +133,6 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
               {intl.formatMessage(navigationMessages.governmentInformation)}
             </TableOfContents.Heading>
             <GovernmentInformationSection user={user} />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={PAGE_SECTION_ID.WORK_LOCATION}>
-            <TableOfContents.Heading
-              as={headingLevel}
-              icon={MapPinIcon}
-              data-h2-margin="base(x1.5 0 x1 0)"
-            >
-              {intl.formatMessage(navigationMessages.workLocation)}
-            </TableOfContents.Heading>
-            <WorkLocationSection user={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
             <TableOfContents.Heading

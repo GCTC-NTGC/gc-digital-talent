@@ -57,7 +57,6 @@ trait GeneratesUserDoc
         $section->addTitle($this->localizeHeading('contact_info'), $headingRank);
         $this->addLabelText($section, $this->localizeHeading('email'), $user->email);
         $this->addLabelText($section, $this->localizeHeading('phone'), $user->telephone);
-        $this->addLabelText($section, $this->localizeHeading('current_city'), $this->currentLocation($user));
         $this->addLabelText($section, $this->localizeHeading('preferred_communication_language'), $this->localizeEnum($user->preferred_lang, Language::class));
         $this->addLabelText($section, $this->localizeHeading('preferred_spoken_interview_language'), $this->localizeEnum($user->preferred_language_for_interview, Language::class));
         $this->addLabelText($section, $this->localizeHeading('preferred_written_exam_language'), $this->localizeEnum($user->preferred_language_for_exam, Language::class));
@@ -151,6 +150,7 @@ trait GeneratesUserDoc
             $department = $user->department()->first();
             $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class));
+            $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
             $this->addLabelText($section, $this->localizeHeading('current_classification'), $user->getClassification());
         }
 
@@ -162,19 +162,6 @@ trait GeneratesUserDoc
     }
 
     /**
-     * Generate information about a users work location
-     *
-     * @param  Section  $section  The section to add info to
-     * @param  User  $user  The user being generated
-     */
-    protected function workLocation(Section $section, User $user, $headingRank = 4)
-    {
-        $section->addTitle($this->localizeHeading('work_location'), $headingRank);
-        $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
-        $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
-    }
-
-    /**
      * Generate information about a users work preferences
      *
      * @param  Section  $section  The section to add info to
@@ -183,6 +170,8 @@ trait GeneratesUserDoc
     protected function workPreferences(Section $section, User $user, $headingRank = 4)
     {
         $section->addTitle($this->localizeHeading('work_preferences'), $headingRank);
+
+        $section->addText($this->localizeHeading('contract_duration'), $this->strong);
         foreach ($user?->position_duration ?? [] as $duration) {
             $section->addListItem($this->localizeEnum($duration, PositionDuration::class));
         }
@@ -196,13 +185,12 @@ trait GeneratesUserDoc
             }
         }
 
-        if (count($preferences['not_accepted']) > 0) {
-            $section->addText($this->localizeHeading('rejected_operational_requirements'), $this->strong);
+        $section->addText($this->localizeHeading('current_location'), $this->strong);
+        $this->addLabelText($section, $this->localizeHeading('current_city'), $this->currentLocation($user));
 
-            foreach ($preferences['not_accepted'] as $preference) {
-                $section->addListItem($this->localizeEnum($preference, OperationalRequirement::class, 'long'));
-            }
-        }
+        $section->addText($this->localizeHeading('location_preferences'), $this->strong);
+        $this->addLabelText($section, $this->localizeHeading('work_location'), $this->localizeEnumArray($user->location_preferences, WorkRegion::class));
+        $this->addLabelText($section, $this->localizeHeading('location_exemptions'), $user->location_exemptions ?? '');
     }
 
     /**
@@ -330,8 +318,8 @@ trait GeneratesUserDoc
             $experience->userSkills->each(function ($userSkill) use ($section) {
                 $skillRun = $section->addListItemRun();
                 $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
-                if (isset($skill->experience_skill->details)) {
-                    $skillRun->addText(': '.$skill->experience_skill->details);
+                if (isset($userSkill->experience_skill->details)) {
+                    $skillRun->addText($this->colon().$userSkill->experience_skill->details);
                 }
             });
         }
@@ -374,7 +362,6 @@ trait GeneratesUserDoc
         $this->status($section, $user, $headingRank + 2);
         $this->languageInfo($section, $user, $headingRank + 2);
         $this->governmentInfo($section, $user, $headingRank + 2);
-        $this->workLocation($section, $user, $headingRank + 2);
         $this->workPreferences($section, $user, $headingRank + 2);
         $this->dei($section, $user, $headingRank + 2);
 

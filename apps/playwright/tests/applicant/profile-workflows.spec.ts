@@ -14,8 +14,8 @@ test.describe("User Profile", () => {
       "PersonalInformationFormOptions",
     );
     await applicantPage.page
-      .getByRole("textbox", { name: /current city/i })
-      .fill("Test city");
+      .getByRole("textbox", { name: /telephone/i })
+      .fill("123-456-7890");
     await applicantPage.page
       .getByRole("button", { name: /save changes/i })
       .click();
@@ -23,7 +23,7 @@ test.describe("User Profile", () => {
     await expect(applicantPage.page.getByRole("alert").last()).toContainText(
       /information updated successfully/i,
     );
-    await expect(applicantPage.page.getByText(/test city/i)).toBeVisible();
+    await expect(applicantPage.page.getByText("123-456-7890")).toBeVisible();
 
     // Edit work preferences
     await applicantPage.page

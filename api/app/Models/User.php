@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\EmailType;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
@@ -61,6 +62,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $verbal_level
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
+ * @property string $work_email
+ * @property Illuminate\Support\Carbon work_email_verified_at
  * @property bool $has_priority_entitlement
  * @property string $priority_number
  * @property string $department
@@ -456,9 +459,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     $candidate->delete();
                 }
 
-                // Modify the email to allow it to be used for another user
-                $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newEmail]);
+                // Modify the email(s) to allow use by another user
+                $newContactEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newContactEmail]);
+                if (! is_null($user->work_email)) {
+                    $newWorkEmail = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                    $user->update(['email' => $newWorkEmail]);
+                }
             }
             $user->searchable();
         });
@@ -469,8 +476,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $candidate->restore();
             }
 
-            $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
-            $user->update(['email' => $newEmail]);
+            $newContactEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
+            $user->update(['email' => $newContactEmail]);
+            if (! is_null($user->work_email)) {
+                $newWorkEmail = $user->work_email.'-restored-at-'.Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newWorkEmail]);
+            }
         });
     }
 
@@ -744,14 +755,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             $filters = Arr::get($args ?? [], 'where', []);
 
             $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
-                $query->wasPublished();
+                $query->wherePublished();
 
                 if (array_key_exists('qualifiedClassifications', $filters)) {
-                    Pool::scopeClassifications($query, $filters['qualifiedClassifications']);
+                    $query->whereClassifications($filters['qualifiedClassifications']);
                 }
 
                 if (array_key_exists('qualifiedStreams', $filters)) {
-                    Pool::scopeStreams($query, $filters['qualifiedStreams']);
+                    $query->streams($filters['qualifiedStreams']);
                 }
             });
 
@@ -1129,10 +1140,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return bool
      */
-    public function hasVerifiedEmail()
+    public function hasVerifiedEmail(EmailType $emailType)
     {
         // might be refined later, eg, must be verified within the last X months
-        return ! is_null($this->email_verified_at);
+        if ($emailType == EmailType::CONTACT) {
+            return ! is_null($this->email_verified_at);
+        } else {
+            return ! is_null($this->work_email_verified_at);
+        }
+
     }
 
     /**
@@ -1141,9 +1157,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return bool
      */
-    public function markEmailAsVerified()
+    public function markEmailAsVerified(EmailType $emailType)
     {
-        $this->email_verified_at = Carbon::now();
+        if ($emailType == EmailType::CONTACT) {
+            $this->email_verified_at = Carbon::now();
+        } else {
+            $this->work_email_verified_at = Carbon::now();
+        }
     }
 
     /**
@@ -1152,9 +1172,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return void
      */
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification(EmailType $emailType)
     {
-        $message = new VerifyEmail();
+        $message = new VerifyEmail($emailType);
         $this->notify($message);
     }
 
@@ -1164,17 +1184,25 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return string
      */
-    public function getEmailForVerification()
+    public function getEmailForVerification(EmailType $emailType)
     {
-        return $this->email;
+        return $this->{$emailType->value};
     }
 
     /**
-     * Is the email address currently considered verified?
+     * Is the contact email address currently considered verified?
      */
     public function getIsEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedEmail();
+        return $this->hasVerifiedEmail(EmailType::CONTACT);
+    }
+
+    /**
+     * Is the work email address currently considered verified?
+     */
+    public function getIsWorkEmailVerifiedAttribute()
+    {
+        return $this->hasVerifiedEmail(EmailType::WORK);
     }
 
     public static function hydrateSnapshot(mixed $snapshot): Model|array
@@ -1182,39 +1210,40 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $user = new User();
 
         $fields = [
-            'first_name' => ['firstName'],
-            'last_name' => ['lastName'],
-            'email' => ['email'],
-            'telephone' => ['telephone'],
-            'current_city' => ['currentCity'],
-            'current_province' => ['currentProvince', true],
-            'preferred_lang' => ['preferredLang', true],
-            'preferred_language_for_interview' => ['preferredLanguageForInterview', true],
-            'preferred_language_for_exam' => ['preferredLanguageForExam', true],
-            'citizenship' => ['citizenship', true],
-            'armed_forces_status' => ['armedForcesStatus', true],
-            'looking_for_english' => ['lookingForEnglish'],
-            'looking_for_french' => ['lookingForFrench'],
-            'looking_for_bilingual' => ['lookingForBilingual'],
-            'first_official_language' => ['firstOfficialLanguage', true],
-            'second_language_exam_completed' => ['secondLanguageExamCompleted'],
-            'second_language_exam_validity' => ['secondLanguageExamValidity'],
-            'comprehension_level' => ['comprehensionLevel', true],
-            'written_level' => ['comprehensionLevel', true],
-            'verbal_level' => ['verbalLevel', true],
-            'estimated_language_ability' => ['estimatedLanguageAbility', true],
-            'is_gov_employee' => ['isGovEmployee'],
-            'gov_employee_type' => ['govEmployeeType', true],
-            'has_priority_entitlement' => ['hasPriorityEntitlement'],
-            'priority_number' => ['priorityNumber'],
-            'location_preferences' => ['locationPreferences', true],
-            'location_exemptions' => ['locationExemptions'],
-            'accepted_operational_requirements' => ['acceptedOperationalRequirements', true],
-            'position_duration' => ['positionDuration'],
-            'is_woman' => ['isWoman'],
-            'has_disability' => ['hasDisability'],
-            'is_visible_minority' => ['isVisibleMinority'],
-            'indigenous_communities' => ['indigenousCommunities', true],
+            'first_name' => 'firstName',
+            'last_name' => 'lastName',
+            'email' => 'email',
+            'telephone' => 'telephone',
+            'current_city' => 'currentCity',
+            'current_province' => 'currentProvince',
+            'preferred_lang' => 'preferredLang',
+            'preferred_language_for_interview' => 'preferredLanguageForInterview',
+            'preferred_language_for_exam' => 'preferredLanguageForExam',
+            'citizenship' => 'citizenship',
+            'armed_forces_status' => 'armedForcesStatus',
+            'looking_for_english' => 'lookingForEnglish',
+            'looking_for_french' => 'lookingForFrench',
+            'looking_for_bilingual' => 'lookingForBilingual',
+            'first_official_language' => 'firstOfficialLanguage',
+            'second_language_exam_completed' => 'secondLanguageExamCompleted',
+            'second_language_exam_validity' => 'secondLanguageExamValidity',
+            'comprehension_level' => 'comprehensionLevel',
+            'written_level' => 'comprehensionLevel',
+            'verbal_level' => 'verbalLevel',
+            'estimated_language_ability' => 'estimatedLanguageAbility',
+            'is_gov_employee' => 'isGovEmployee',
+            'work_email' => 'workEmail',
+            'gov_employee_type' => 'govEmployeeType',
+            'has_priority_entitlement' => 'hasPriorityEntitlement',
+            'priority_number' => 'priorityNumber',
+            'location_preferences' => 'locationPreferences',
+            'location_exemptions' => 'locationExemptions',
+            'accepted_operational_requirements' => 'acceptedOperationalRequirements',
+            'position_duration' => 'positionDuration',
+            'is_woman' => 'isWoman',
+            'has_disability' => 'hasDisability',
+            'is_visible_minority' => 'isVisibleMinority',
+            'indigenous_communities' => 'indigenousCommunities',
         ];
 
         $user = self::hydrateFields($snapshot, $fields, $user);
