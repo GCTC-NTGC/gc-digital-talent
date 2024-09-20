@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
@@ -50,7 +50,7 @@ interface FormValues {
 interface AddCommunityRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Role[];
+  communityRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -59,7 +59,7 @@ interface AddCommunityRoleDialogProps {
 const AddCommunityRoleDialog = ({
   user,
   authInfo,
-  availableRoles,
+  communityRoles,
   onAddRoles,
 }: AddCommunityRoleDialogProps) => {
   const intl = useIntl();
@@ -77,7 +77,6 @@ const AddCommunityRoleDialog = ({
   const {
     handleSubmit,
     watch,
-    setValue,
     formState: { isSubmitting },
   } = methods;
 
@@ -116,27 +115,32 @@ const AddCommunityRoleDialog = ({
     description: "Label for the form to add a community membership to a user",
   });
 
-  const roleOptions = availableRoles
-    .filter((role) => role.isTeamBased)
+  // if a community is selected, eliminate existing roles from the dropdown
+  const selectedCommunity = watch("community");
+  const roleAssignments = authInfo?.roleAssignments || [];
+  const activeCommunityTeamIdRoleArray = roleAssignments
+    .map((ra) => {
+      if (
+        isCommunityTeamable(ra?.teamable) &&
+        ra.teamable.teamIdForRoleAssignment
+      ) {
+        return {
+          communityId: ra.teamable.teamIdForRoleAssignment ?? "",
+          roleId: ra?.role?.id ?? "",
+        };
+      }
+      return null;
+    })
+    .filter(notEmpty);
+  const rolesUsed = activeCommunityTeamIdRoleArray
+    .filter((communityRole) => communityRole.communityId === selectedCommunity)
+    .map((communityRole) => communityRole.roleId);
+  const roleOptions = communityRoles
+    .filter((role) => !rolesUsed.includes(role.id))
     .map((role) => ({
       label: getLocalizedName(role.displayName, intl),
       value: role.id,
     }));
-
-  const communityTeamIdForRoleAssignment = watch("community");
-  useEffect(() => {
-    const roleAssignments = authInfo?.roleAssignments || [];
-    const activeRoleIds = roleAssignments
-      .filter(
-        (ra) =>
-          isCommunityTeamable(ra?.teamable) &&
-          ra.teamable.teamIdForRoleAssignment ===
-            communityTeamIdForRoleAssignment,
-      )
-      .map((r) => r?.role?.id)
-      .filter(notEmpty);
-    setValue("roles", activeRoleIds);
-  }, [authInfo?.roleAssignments, communityTeamIdForRoleAssignment, setValue]);
 
   const [{ data: communityData }] = useQuery({
     query: AddCommunityRoleCommunities_Query,
