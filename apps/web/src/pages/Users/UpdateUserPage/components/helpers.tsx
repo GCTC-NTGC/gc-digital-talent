@@ -20,6 +20,8 @@ import EditTeamRoleDialog from "./EditTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
 import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
+import EditProcessRoleDialog from "./EditProcessRoleDialog";
+import RemoveProcessRoleDialog from "./RemoveProcessRoleDialog";
 
 export function roleCell(displayName: string) {
   return <Chip color="black">{displayName}</Chip>;
@@ -151,17 +153,17 @@ export function processActionCell(
 ) {
   return (
     <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
-      <EditCommunityRoleDialog
+      <EditProcessRoleDialog
         initialRoles={poolAssignment.roles}
         user={user}
-        community={poolAssignment.pool}
+        pool={poolAssignment.pool}
         onEditRoles={onUpdateUserRoles}
         allRoles={availableRoles}
       />
-      <RemoveCommunityRoleDialog
+      <RemoveProcessRoleDialog
         roles={poolAssignment.roles}
         user={user}
-        community={poolAssignment.pool}
+        pool={poolAssignment.pool}
         onRemoveRoles={onUpdateUserRoles}
       />
     </div>
