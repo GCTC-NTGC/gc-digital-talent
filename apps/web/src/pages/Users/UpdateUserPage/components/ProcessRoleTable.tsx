@@ -98,12 +98,11 @@ const ProcessRoleTable = ({
     columnHelper.accessor(
       (poolAssignment) => processRolesAccessor(poolAssignment, intl),
       {
-        id: "membershipRoles",
+        id: "processRoles",
         header: intl.formatMessage({
-          defaultMessage: "Membership Roles",
-          id: "GjaLl7",
-          description:
-            "Title displayed for the role table display roles column",
+          defaultMessage: "Process roles",
+          id: "eGqjYh",
+          description: "Heading for updating a user's process roles",
         }),
         cell: ({ row: { original: poolAssignment } }) =>
           teamRolesCell(
@@ -179,7 +178,7 @@ const ProcessRoleTable = ({
             <AddProcessRoleDialog
               user={user}
               authInfo={authInfo}
-              availableRoles={processRoles}
+              processRoles={processRoles}
               onAddRoles={handleEditRoles}
             />
           ),
@@ -187,9 +186,10 @@ const ProcessRoleTable = ({
         nullMessage={{
           description: intl.formatMessage({
             defaultMessage:
-              'Use the "Add new membership" button to get started.',
-            id: "/pbxol",
-            description: "Instructions for adding team membership to a user.",
+              'Use the "Add process roles" button to get started.',
+            id: "hryX4G",
+            description:
+              "Instructions for adding process membership to a user.",
           }),
         }}
       />

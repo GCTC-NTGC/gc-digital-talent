@@ -37,7 +37,7 @@ interface FormValues {
 interface AddProcessRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Role[];
+  processRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -46,7 +46,7 @@ interface AddProcessRoleDialogProps {
 const AddProcessRoleDialog = ({
   user,
   authInfo,
-  availableRoles,
+  processRoles,
   onAddRoles,
 }: AddProcessRoleDialogProps) => {
   const intl = useIntl();
@@ -136,7 +136,7 @@ const AddProcessRoleDialog = ({
     description: "Label for the form to add a process membership to a user",
   });
 
-  const roleOptions = availableRoles.map((role) => ({
+  const roleOptions = processRoles.map((role) => ({
     label: getLocalizedName(role.displayName, intl),
     value: role.id,
   }));

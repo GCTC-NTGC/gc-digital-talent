@@ -106,12 +106,11 @@ const CommunityRoleTable = ({
       (communityAssignment) =>
         communityRolesAccessor(communityAssignment, intl),
       {
-        id: "membershipRoles",
+        id: "communityRoles",
         header: intl.formatMessage({
-          defaultMessage: "Membership Roles",
-          id: "GjaLl7",
-          description:
-            "Title displayed for the role table display roles column",
+          defaultMessage: "Community roles",
+          id: "B6cKp+",
+          description: "Heading for updating a user's community roles",
         }),
         cell: ({ row: { original: communityAssignment } }) =>
           teamRolesCell(
@@ -189,7 +188,7 @@ const CommunityRoleTable = ({
             <AddCommunityRoleDialog
               user={user}
               authInfo={authInfo}
-              availableRoles={communityRoles}
+              communityRoles={communityRoles}
               onAddRoles={handleEditRoles}
             />
           ),
@@ -197,9 +196,10 @@ const CommunityRoleTable = ({
         nullMessage={{
           description: intl.formatMessage({
             defaultMessage:
-              'Use the "Add new membership" button to get started.',
-            id: "/pbxol",
-            description: "Instructions for adding team membership to a user.",
+              'Use the "Add community roles" button to get started.',
+            id: "O+2oMm",
+            description:
+              "Instructions for adding community membership to a user.",
           }),
         }}
       />
