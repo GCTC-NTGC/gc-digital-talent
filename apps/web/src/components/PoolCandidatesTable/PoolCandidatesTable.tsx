@@ -492,7 +492,7 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesZip_Mutation,
   );
 
-  const [{ fetching: downloadingSingleDoc }, downloadSingleDoc] = useMutation(
+  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
     DownloadSinglePoolCandidateDoc_Mutation,
   );
 
@@ -631,17 +631,30 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleZipDownload = (anonymous: boolean) => {
-    downloadZip({
-      ids: selectedRows,
-      anonymous,
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
-  };
-
-  const handleNoRowsSelected = () => {
-    toast.warning(intl.formatMessage(commonTableMessages.noRowsSelected));
+  const handleDocDownload = (anonymous: boolean) => {
+    if (selectedRows.length === 1) {
+      downloadDoc({ id: selectedRows[0], anonymous })
+        .then((res) => {
+          if (res?.data?.downloadPoolCandidateDoc) {
+            executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(
+                res.data.downloadPoolCandidateDoc,
+              ),
+              fileName: res.data.downloadPoolCandidateDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      downloadZip({
+        ids: selectedRows,
+        anonymous,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    }
   };
 
   const columns = [
@@ -990,11 +1003,14 @@ const PoolCandidatesTable = ({
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={downloadingZip}
-              isDownloading={downloadingZip}
-              onClick={
-                hasSelectedRows ? handleZipDownload : handleNoRowsSelected
+              disabled={
+                !hasSelectedRows ||
+                downloadingZip ||
+                downloadingDoc ||
+                downloadingAsyncFile
               }
+              isDownloading={downloadingZip}
+              onClick={handleDocDownload}
             />
           ),
         },
