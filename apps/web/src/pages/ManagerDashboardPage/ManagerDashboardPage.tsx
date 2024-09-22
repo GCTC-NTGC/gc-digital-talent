@@ -50,7 +50,7 @@ type AccordionItems = ("your_talent_searches" | "")[];
 const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   const paths = useRoutes();
   const intl = useIntl();
-  const [accordionItems, setAccordionItems] = useLocalStorage(
+  const [accordionItems, setAccordionItems] = useLocalStorage<AccordionItems>(
     "accordion_items",
     ["your_talent_searches"],
   );
