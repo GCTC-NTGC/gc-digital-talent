@@ -60,9 +60,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $removal_reason
  * @property string $removal_reason_other
  * @property string $veteran_verification
- * @property Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property \Illuminate\Support\Carbon $veteran_verification_expiry
  * @property string $priority_verification
- * @property Illuminate\Support\Carbon $priority_verification_expiry
+ * @property \Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
  * @property int $computed_final_decision_weight
  * @property string $computed_final_decision
@@ -260,6 +260,33 @@ class PoolCandidate extends Model
             'experience_id'
         )
             ->withTimestamps();
+    }
+
+    public function getCategoryAttribute()
+    {
+        $category = null;
+
+        $this->loadMissing(['user' => [
+            'citizenship',
+            'priority_weight',
+            'armed_forces_status',
+        ]]);
+
+        if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::PRIORITY_ENTITLEMENT;
+        } elseif ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::VETERAN;
+        } elseif ($this->user->citizenship === CitizenshipStatus::CITIZEN->name || $this->user->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name) {
+            $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
+        } else {
+            $category = PriorityWeight::OTHER;
+        }
+
+        return ! is_null($category) ? [
+            'weight' => $category->weight($category->name),
+            'value' => $category->name,
+            'label' => PriorityWeight::localizedString($category->name),
+        ] : $category;
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
@@ -833,32 +860,49 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
+    public function scopeOrderByClaimVerification(Builder $query, ?array $args)
     {
-        $orderWithoutDirection = '
-                    CASE
-                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
-                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
-                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
-                    else 10
-                    END';
 
-        if ($sortOrder && $sortOrder == 'DESC') {
-            $order = $orderWithoutDirection.' DESC';
+        if (isset($args['order'])) {
+
+            $orderWithoutDirection = <<<'SQL'
+                CASE
+                    WHEN
+                        (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
+                    THEN
+                        40
+                    WHEN
+                        (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
+                        AND
+                        (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                    THEN
+                        30
+                    WHEN
+                        (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
+                        AND
+                        (
+                            (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                            OR
+                            (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                        )
+                    THEN
+                        20
+                    ELSE
+                        10
+                    END
+            SQL;
 
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*')
-                ->orderBy('is_bookmarked', 'DESC')
-                ->orderByRaw($order);
-        } elseif ($sortOrder && $sortOrder == 'ASC') {
-            $order = $orderWithoutDirection.' ASC';
+                ->select('users.citizenship', 'pool_candidates.*');
 
-            $query
-                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*')
-                ->orderBy('is_bookmarked', 'DESC')
-                ->orderByRaw($order);
+            if (isset($args['useBookmark']) && $args['useBookmark']) {
+                $query->orderBy('is_bookmarked', 'DESC');
+            }
+
+            $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
+
+            $query->orderByRaw($order)->orderBy('submitted_at', 'ASC');
         }
 
         return $query;

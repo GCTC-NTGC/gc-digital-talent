@@ -38,7 +38,11 @@ const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
     pool(id: $poolId) {
       ...AssessmentStepTracker_Pool
     }
-    poolCandidatesPaginated(first: $first, where: $where) {
+    poolCandidatesPaginated(
+      first: $first
+      where: $where
+      orderByClaimVerification: { order: DESC }
+    ) {
       paginatorInfo {
         lastPage
       }
