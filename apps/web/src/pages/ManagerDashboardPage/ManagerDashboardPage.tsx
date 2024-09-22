@@ -51,7 +51,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   const paths = useRoutes();
   const intl = useIntl();
   const [accordionItems, setAccordionItems] = useLocalStorage<AccordionItems>(
-    "accordion_items",
+    "managerDashboardPage:managerToolsAccordion:expandedItems",
     ["your_talent_searches"],
   );
   const user = getFragment(ManagerDashboardUser_Fragment, userQuery);
