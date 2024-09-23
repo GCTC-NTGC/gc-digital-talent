@@ -344,4 +344,59 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         $this->assertTrue(PoolCandidateSearchRequest::where('user_id', $this->adminUser->id)->exists());
     }
+
+    public function testUserCanSeeTheirOwnRequests()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->asManager()->create();
+        $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
+        $user2 = User::factory()->asManager()->create();
+        $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequests {
+                me {
+                    poolCandidateSearchRequests {
+                        id
+                    }
+                }
+            }
+            GRAPHQL
+        )->assertExactJson([
+            'data' => [
+                'me' => [
+                    'poolCandidateSearchRequests' => [
+                        // Can only see request 1.  Request 2 belongs to another user.
+                        ['id' => $request1->id],
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    public function testAdminCanNotSeeOtherRequests()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $manager = User::factory()->asManager()->create();
+        PoolCandidateSearchRequest::factory()->create(['user_id' => $manager->id]);
+        $admin = User::factory()->asAdmin()->create();
+
+        $this->actingAs($admin, 'api')->graphQL(<<<'GRAPHQL'
+            query ManagerRequests($userId: UUID!) {
+                user(id: $userId) {
+                    poolCandidateSearchRequests {
+                       id
+                    }
+                }
+            }
+            GRAPHQL,
+            [
+                'userId' => $manager->id,
+            ]
+        )->assertGraphQLErrorMessage('This action is unauthorized.'); // even an admin should not be able to query for it
+    }
 }

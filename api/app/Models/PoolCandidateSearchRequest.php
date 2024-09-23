@@ -16,7 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * Class PoolCandidateSearchRequest
  *
- * @property int $id
+ * @property string $id
  * @property string $full_name
  * @property string $email
  * @property string $department_id
@@ -37,6 +37,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $reason
  * @property string $community_id
  * @property int $initial_result_count
+ * @property string $user_id
  */
 class PoolCandidateSearchRequest extends Model
 {
@@ -67,7 +68,8 @@ class PoolCandidateSearchRequest extends Model
 
         parent::boot();
         static::creating(function ($searchRequest) use ($user) {
-            $searchRequest->user_id = $user?->id;
+            // unless the user_id was already specified use the currently authenticated user
+            $searchRequest->user_id = $searchRequest->user_id ?? $user?->id;
         });
     }
 
