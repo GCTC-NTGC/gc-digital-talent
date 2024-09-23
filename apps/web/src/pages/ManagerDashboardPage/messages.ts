@@ -8,8 +8,8 @@ const messages = defineMessages({
   },
   subTitle: {
     defaultMessage:
-      "Manage your talent searches and curate your manager profile.",
-    id: "/18wM8",
+      "Manage your talent requests and curate your manager profile.",
+    id: "Gw0uTQ",
     description: "Subtitle for the 'Manager dashboard' page",
   },
 });

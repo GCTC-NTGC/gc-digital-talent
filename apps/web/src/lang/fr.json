@@ -219,10 +219,6 @@
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
   },
-  "/18wM8": {
-    "defaultMessage": "Gérez vos recherches de talents et établissez votre profil de gestionnaire.",
-    "description": "Subtitle for the 'Manager dashboard' page"
-  },
   "/2Vhvl": {
     "defaultMessage": "Sécurité de la TI",
     "description": "Label for the 'security' IT work stream"
@@ -1811,6 +1807,10 @@
     "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à la création d'un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
     "description": "Disclaimer before signing Indigenous self-declaration form"
   },
+  "7l6Xay": {
+    "defaultMessage": "Vos demandes de talents ({count})",
+    "description": "Title for a list of your talent requests with a count"
+  },
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
@@ -2483,6 +2483,10 @@
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
   },
+  "BGQaDq": {
+    "defaultMessage": "Nouvelle demande",
+    "description": "Link to a page to start a new request"
+  },
   "BJ38Kf": {
     "defaultMessage": "Veuillez préciser votre ministère ou organisme",
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
@@ -2674,6 +2678,10 @@
   "CRnoE8": {
     "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
+  },
+  "CTBcGm": {
+    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et proposez des compétences supplémentaires à inclure.",
+    "description": "the 'Learn about skills' tool description"
   },
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
@@ -3559,6 +3567,10 @@
     "defaultMessage": "Un grade d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économie, en sociologie ou en statistique.",
     "description": "Description for the `just education` option for EC education requirements"
   },
+  "Gw0uTQ": {
+    "defaultMessage": "Gérez vos demandes de talents et établissez votre profil de gestionnaire.",
+    "description": "Subtitle for the 'Manager dashboard' page"
+  },
   "H+83NU": {
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
     "description": "Fourth paragraph for pool deadlines dialog"
@@ -3662,10 +3674,6 @@
   "HlAEv1": {
     "defaultMessage": "Un modèle préétabli contenant des informations sur l'offre d'emploi et des recommandations sur les tâches et les compétences.",
     "description": "Subtitle for the 'job poster template' page"
-  },
-  "HnrJJR": {
-    "defaultMessage": "Lorsque vous soumettez une demande de talents à l'aide de la fonctionnalité « <a>Trouver des talents</a> » , elle apparaîtra dans cette liste tant qu'elle sera active. Les destinataires de votre demande disposeront d'un délai fixe pour répondre, après quoi seules les personnes ayant accepté de partager leurs informations resteront à votre disposition.",
-    "description": " Helper instructions for the manager tools"
   },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
@@ -4699,10 +4707,6 @@
     "defaultMessage": "Non réclamé",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
   },
-  "N2GuzJ": {
-    "defaultMessage": "Voir toutes les recherches",
-    "description": "Link to a page to view all the searches"
-  },
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
     "description": "Link text for current users teams page"
@@ -4938,6 +4942,10 @@
   "OWD/ns": {
     "defaultMessage": "6 à 10",
     "description": "Contract FTE range between six and ten"
+  },
+  "OWLaKF": {
+    "defaultMessage": "Lorsque vous soumettez une demande de talents à l'aide de la fonctionnalité « <findTalentLink>Trouver des talents</findTalentLink> » , elle apparaîtra dans cette liste tant qu'elle sera active. Les demandes clôturées peuvent être consultées sur la page « <allRequestsLink>Toutes les demandes</allRequestsLink> » .",
+    "description": "instructional text for the 'Your talent requests' tool"
   },
   "OWYrdr": {
     "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}.",
@@ -7218,10 +7226,6 @@
     "defaultMessage": "Clé",
     "description": "Title for key field"
   },
-  "aeCkWS": {
-    "defaultMessage": "Vos recherches de talents ({count})",
-    "description": "Title for a list of talent searches with a count"
-  },
   "aemElP": {
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
     "description": "Label displayed on Personal Experience form for current experience input"
@@ -8810,6 +8814,10 @@
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
   },
+  "iJrZ6t": {
+    "defaultMessage": "Décrivez votre style de leadership et votre culture d'équipe pour que les candidats aient un aperçu du travail avec vous.",
+    "description": "the 'Manager profile' tool's description"
+  },
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
     "description": "Introduction text for selecting employment equity groups"
@@ -9402,10 +9410,6 @@
     "defaultMessage": "Anglais - Votre travail",
     "description": "Label for the English - Your Work textarea in the edit pool page."
   },
-  "lbtzDG": {
-    "defaultMessage": "Décrivez votre style de leadership et votre culture d'équipe pour que les candidats aient un aperçu du travail avec vous.",
-    "description": "Helper instructions for a 'manager profile' card"
-  },
   "leFf/M": {
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
@@ -9525,6 +9529,10 @@
   "mJ1HE4": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Display text for add experience form in breadcrumbs"
+  },
+  "mJKi1Y": {
+    "defaultMessage": "Toutes les demandes",
+    "description": "Link to a page to view all the requests"
   },
   "mKrj0x": {
     "defaultMessage": "Sauvegarder et ajouter un membre",
@@ -10034,10 +10042,6 @@
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
-  "p3UL9X": {
-    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et soumettez des recommandations de compétences.",
-    "description": "Helper instructions for a 'learn about skills' card"
-  },
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
     "description": "Lead-in text for the skills level definitions of technical skills"
@@ -10365,10 +10369,6 @@
   "qmKVmr": {
     "defaultMessage": "Décision de recherche de talents",
     "description": "Heading for the Talent sourcing decision section on the digital services contracting questionnaire"
-  },
-  "qmeqdf": {
-    "defaultMessage": "Lancer une nouvelle recherche",
-    "description": "Link to a page to start a new search"
   },
   "qmkRCA": {
     "defaultMessage": "À l'instar des compétences techniques essentielles suggérées ci-dessus, cette liste propose des recommandations concernant les compétences comportementales généralement requises dans le cadre de ce poste. Là encore, nous vous recommandons de limiter les compétences comportementales essentielles aux exigences exactes de votre poste ou de votre équipe, afin que les personnes candidates aient la possibilité de décrire correctement leur expérience concernant les compétences qui comptent vraiment.",
