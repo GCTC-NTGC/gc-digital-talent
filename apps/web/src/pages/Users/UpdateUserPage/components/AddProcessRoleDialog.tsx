@@ -131,8 +131,8 @@ const AddProcessRoleDialog = ({
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Add process roles",
-    id: "pNCkXV",
+    defaultMessage: "Add process role",
+    id: "rBvWsd",
     description: "Label for the form to add a process membership to a user",
   });
 

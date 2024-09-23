@@ -169,10 +169,9 @@ const EditProcessRoleDialog = ({
                 name="roles"
                 isMulti
                 label={intl.formatMessage({
-                  defaultMessage: "Membership roles",
-                  id: "s5hTYo",
-                  description:
-                    "Label for the input to select role of a team role",
+                  defaultMessage: "Process roles",
+                  id: "eGqjYh",
+                  description: "Heading for updating a user's process roles",
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({

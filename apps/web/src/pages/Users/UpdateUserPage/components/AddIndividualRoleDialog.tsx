@@ -83,8 +83,8 @@ const AddIndividualRoleDialog = ({
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Add new role",
-    id: "2lNHxh",
+    defaultMessage: "Add individual role",
+    id: "oDr+47",
     description: "Label for the form to add a role to a user",
   });
 

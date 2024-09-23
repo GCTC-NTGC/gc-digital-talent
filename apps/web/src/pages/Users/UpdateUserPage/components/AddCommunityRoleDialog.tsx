@@ -110,8 +110,8 @@ const AddCommunityRoleDialog = ({
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Add community roles",
-    id: "KpbTtg",
+    defaultMessage: "Add community role",
+    id: "OlarTN",
     description: "Label for the form to add a community membership to a user",
   });
 

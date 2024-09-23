@@ -169,10 +169,10 @@ const EditCommunityRoleDialog = ({
                 name="roles"
                 isMulti
                 label={intl.formatMessage({
-                  defaultMessage: "Membership roles",
-                  id: "s5hTYo",
+                  defaultMessage: "Community roles",
+                  id: "6UiKYE",
                   description:
-                    "Label for the input to select role of a team role",
+                    "Label for the input to select role of a community role",
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({

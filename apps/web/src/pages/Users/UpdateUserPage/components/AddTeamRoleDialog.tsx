@@ -110,8 +110,8 @@ const AddTeamRoleDialog = ({
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Add new membership",
-    id: "Ibt1fL",
+    defaultMessage: "Add team role",
+    id: "K+vmQl",
     description: "Label for the form to add a team membership to a user",
   });
 

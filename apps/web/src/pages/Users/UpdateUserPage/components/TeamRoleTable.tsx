@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   UpdateUserRolesInput,
   Role,
@@ -109,12 +109,7 @@ const TeamRoleTable = ({
       {
         id: "membershipRoles",
         enableHiding: false,
-        header: intl.formatMessage({
-          defaultMessage: "Membership Roles",
-          id: "GjaLl7",
-          description:
-            "Title displayed for the role table display roles column",
-        }),
+        header: intl.formatMessage(commonMessages.name),
         cell: ({ row: { original: teamAssignment } }) =>
           teamRolesCell(
             teamAssignment.roles
@@ -197,9 +192,8 @@ const TeamRoleTable = ({
         }}
         nullMessage={{
           description: intl.formatMessage({
-            defaultMessage:
-              'Use the "Add new membership" button to get started.',
-            id: "/pbxol",
+            defaultMessage: 'Use the "Add team role" button to get started.',
+            id: "ZHDOB5",
             description: "Instructions for adding team membership to a user.",
           }),
         }}

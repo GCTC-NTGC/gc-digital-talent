@@ -199,8 +199,8 @@ const CommunityRoleTable = ({
         nullMessage={{
           description: intl.formatMessage({
             defaultMessage:
-              'Use the "Add community roles" button to get started.',
-            id: "O+2oMm",
+              'Use the "Add community role" button to get started.',
+            id: "MxmB1v",
             description:
               "Instructions for adding community membership to a user.",
           }),
