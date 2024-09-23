@@ -93,3 +93,7 @@ jobs:
       - name: Run Pint
         working-directory: api
         run: vendor/bin/pint --test
+
+      - name: Run static analysis
+        working-directory: api
+        run: vendor/bin/phpstan analyse -c phpstan.neon
