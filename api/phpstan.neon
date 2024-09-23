@@ -2883,11 +2883,6 @@ parameters:
       path: app/Policies/GenericJobTitlePolicy.php
 
     -
-      message: "#^Negated boolean expression is always true\\.$#"
-      count: 1
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
       message: "#^PHPDoc tag @param references unknown parameter\\: \\$poolCandidate$#"
       count: 1
       path: app/Policies/PoolCandidatePolicy.php
@@ -3035,11 +3030,6 @@ parameters:
     -
       message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
       count: 3
-      path: app/Services/OpenIdBearerTokenService.php
-
-    -
-      message: "#^Method App\\\\Services\\\\OpenIdBearerTokenService\\:\\:getConfiguration\\(\\) never returns null so it can be removed from the return type\\.$#"
-      count: 1
       path: app/Services/OpenIdBearerTokenService.php
 
     -
