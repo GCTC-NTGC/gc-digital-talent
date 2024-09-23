@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Enums\NotificationFamily;
+use App\Enums\PublishingGroup;
 use App\Events\PoolPublished;
 use App\Models\User;
 use App\Notifications\NewJobPosted;
@@ -41,6 +42,10 @@ class SendNewJobPostedNotification implements ShouldQueue
     public function handle(PoolPublished $event): void
     {
         $pool = $event->result;
+
+        if ($pool->publishing_group === PublishingGroup::OTHER->name) {
+            return;
+        }
 
         $notification = new NewJobPosted(
             $pool->name['en'],
