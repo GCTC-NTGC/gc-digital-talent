@@ -35,6 +35,7 @@ const IndividualRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
+      enableHiding: false,
       header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: role } }) =>
         actionCell(
@@ -45,6 +46,7 @@ const IndividualRoleTable = ({
     }),
     columnHelper.accessor((role) => getLocalizedName(role.displayName, intl), {
       id: "role",
+      enableHiding: false,
       sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Role",
@@ -76,7 +78,7 @@ const IndividualRoleTable = ({
 
   return (
     <>
-      <Heading level="h3" size="h4">
+      <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
       <Table<Role>

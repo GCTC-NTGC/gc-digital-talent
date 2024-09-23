@@ -74,6 +74,7 @@ const CommunityRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
+      enableHiding: false,
       header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: communityAssignment } }) =>
         communityActionCell(
@@ -88,6 +89,7 @@ const CommunityRoleTable = ({
         getLocalizedName(communityAssignment.community.name, intl),
       {
         id: "name",
+        enableHiding: false,
         sortingFn: normalizedText,
         header: intl.formatMessage(commonMessages.name),
         cell: ({
@@ -107,6 +109,7 @@ const CommunityRoleTable = ({
         communityRolesAccessor(communityAssignment, intl),
       {
         id: "communityRoles",
+        enableHiding: false,
         header: intl.formatMessage({
           defaultMessage: "Community roles",
           id: "B6cKp+",
@@ -164,7 +167,7 @@ const CommunityRoleTable = ({
 
   return (
     <>
-      <Heading level="h3" size="h4">
+      <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
       <Table<CommunityAssignment>

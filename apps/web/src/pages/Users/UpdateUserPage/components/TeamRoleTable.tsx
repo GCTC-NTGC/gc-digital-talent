@@ -78,6 +78,7 @@ const TeamRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
+      enableHiding: false,
       header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: teamAssignment } }) =>
         teamActionCell(
@@ -92,6 +93,7 @@ const TeamRoleTable = ({
         getLocalizedName(teamAssignment.team.displayName, intl),
       {
         id: "team",
+        enableHiding: false,
         sortingFn: normalizedText,
         header: intl.formatMessage(adminMessages.team),
         cell: ({
@@ -106,6 +108,7 @@ const TeamRoleTable = ({
       (teamAssignment) => teamRolesAccessor(teamAssignment, intl),
       {
         id: "membershipRoles",
+        enableHiding: false,
         header: intl.formatMessage({
           defaultMessage: "Membership Roles",
           id: "GjaLl7",
@@ -163,7 +166,7 @@ const TeamRoleTable = ({
 
   return (
     <>
-      <Heading level="h3" size="h4">
+      <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
       <Table<TeamAssignment>

@@ -72,6 +72,7 @@ const ProcessRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
+      enableHiding: false,
       header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: poolAssignment } }) =>
         processActionCell(
@@ -85,6 +86,7 @@ const ProcessRoleTable = ({
       (poolAssignment) => getLocalizedName(poolAssignment.pool.name, intl),
       {
         id: "name",
+        enableHiding: false,
         sortingFn: normalizedText,
         header: intl.formatMessage(commonMessages.name),
         cell: ({
@@ -99,6 +101,7 @@ const ProcessRoleTable = ({
       (poolAssignment) => processRolesAccessor(poolAssignment, intl),
       {
         id: "processRoles",
+        enableHiding: false,
         header: intl.formatMessage({
           defaultMessage: "Process roles",
           id: "eGqjYh",
@@ -154,7 +157,7 @@ const ProcessRoleTable = ({
 
   return (
     <>
-      <Heading level="h3" size="h4">
+      <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
       <Table<PoolAssignment>
