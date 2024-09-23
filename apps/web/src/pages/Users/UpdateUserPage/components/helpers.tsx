@@ -24,7 +24,7 @@ import EditProcessRoleDialog from "./EditProcessRoleDialog";
 import RemoveProcessRoleDialog from "./RemoveProcessRoleDialog";
 
 export function roleCell(displayName: string) {
-  return <Chip color="black">{displayName}</Chip>;
+  return <Chip color="secondary">{displayName}</Chip>;
 }
 
 export function teamRolesCell(displayNames: string[]) {
@@ -32,7 +32,7 @@ export function teamRolesCell(displayNames: string[]) {
     <Chips>
       {displayNames.map((displayName) => {
         return (
-          <Chip color="black" key={displayName}>
+          <Chip color="secondary" key={displayName}>
             {displayName}
           </Chip>
         );

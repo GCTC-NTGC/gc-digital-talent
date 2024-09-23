@@ -157,7 +157,7 @@ const AddCommunityRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="solid" icon={PlusIcon}>
+        <Button color="secondary" mode="solid" icon={PlusIcon}>
           {label}
         </Button>
       </Dialog.Trigger>

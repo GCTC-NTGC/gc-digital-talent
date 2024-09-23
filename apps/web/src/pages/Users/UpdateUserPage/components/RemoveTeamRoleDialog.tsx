@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
 import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
 import {
@@ -95,8 +95,7 @@ const RemoveTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black">
-          <TrashIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
+        <Button color="error" icon={TrashIcon} mode="icon_only">
           <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
@@ -137,8 +137,7 @@ const EditTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black">
-          <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
+        <Button color="secondary" icon={PencilSquareIcon} mode="icon_only">
           <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>
