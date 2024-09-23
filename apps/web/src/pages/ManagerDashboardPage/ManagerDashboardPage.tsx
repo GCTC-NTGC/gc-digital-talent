@@ -25,6 +25,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 import pageMessages from "./messages";
+import PoolCandidateSearchRequestPreviewListItem from "./Components/PoolCandidateSearchRequestPreviewListItem";
 
 const linkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -38,6 +39,10 @@ const ManagerDashboardUser_Fragment = graphql(/* GraphQL */ `
   fragment ManagerDashboardUser on User {
     id
     firstName
+    poolCandidateSearchRequests {
+      id
+      ...PreviewListItem
+    }
   }
 `);
 
@@ -195,80 +200,18 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                             )}
                           </div>
 
-                          <PreviewList.Root>
-                            <PreviewList.Item
-                              title="IT01: Junior application developer"
-                              metaData={[
-                                {
-                                  key: "status-chip",
-                                  type: "chip",
-                                  color: "secondary",
-                                  children: "Submitted",
-                                },
-                                {
-                                  key: "match-count",
-                                  type: "text",
-                                  children: "40 potential matches",
-                                },
-                                {
-                                  key: "open-date",
-                                  type: "text",
-                                  children: "Opened on: April 30th, 2024",
-                                },
-                              ]}
-                              action={
-                                <PreviewList.Button label="IT01: Junior application developer" />
-                              }
-                            />
-                            <PreviewList.Item
-                              title="IT-02: Application developer"
-                              metaData={[
-                                {
-                                  key: "status-chip",
-                                  type: "chip",
-                                  color: "secondary",
-                                  children: "Submitted",
-                                },
-                                {
-                                  key: "match-count",
-                                  type: "text",
-                                  children: "56 potential matches",
-                                },
-                                {
-                                  key: "open-date",
-                                  type: "text",
-                                  children: "Opened on: April 30th, 2024",
-                                },
-                              ]}
-                              action={
-                                <PreviewList.Button label="IT-02: Application developer" />
-                              }
-                            />
-                            <PreviewList.Item
-                              title="IT-02: Database architect"
-                              metaData={[
-                                {
-                                  key: "status-chip",
-                                  type: "chip",
-                                  color: "warning",
-                                  children: "Awaiting response",
-                                },
-                                {
-                                  key: "match-count",
-                                  type: "text",
-                                  children: "12 potential matches",
-                                },
-                                {
-                                  key: "open-date",
-                                  type: "text",
-                                  children: "Opened on: April 30th, 2024",
-                                },
-                              ]}
-                              action={
-                                <PreviewList.Button label="IT-02: Database architect" />
-                              }
-                            />
-                          </PreviewList.Root>
+                          {user.poolCandidateSearchRequests ? (
+                            <PreviewList.Root>
+                              {user.poolCandidateSearchRequests?.map(
+                                (request) => (
+                                  <PoolCandidateSearchRequestPreviewListItem
+                                    key={request.id}
+                                    poolCandidateSearchRequestQuery={request}
+                                  />
+                                ),
+                              )}
+                            </PreviewList.Root>
+                          ) : null}
                         </div>
                       </Accordion.Content>
                     </Accordion.Item>
