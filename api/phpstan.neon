@@ -18,23 +18,8 @@ parameters:
       path: app/Builders/PoolBuilder.php
 
     -
-      message: "#^Right side of && is always true\\.$#"
-      count: 1
-      path: app/Builders/PoolBuilder.php
-
-    -
       message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
       count: 5
-      path: app/Builders/PoolBuilder.php
-
-    -
-      message: "#^Variable \\$locale might not be defined\\.$#"
-      count: 1
-      path: app/Builders/PoolBuilder.php
-
-    -
-      message: "#^Variable \\$order might not be defined\\.$#"
-      count: 2
       path: app/Builders/PoolBuilder.php
 
     -
