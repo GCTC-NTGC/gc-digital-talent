@@ -3,7 +3,9 @@
 namespace Tests\Feature\Notifications;
 
 use App\Enums\NotificationFamily;
+use App\Enums\PublishingGroup;
 use App\Models\Notification;
+use App\Models\Pool;
 use App\Models\User;
 use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\NewJobPosted;
@@ -159,5 +161,23 @@ class NewJobPostedTest extends TestCase
             'poolId' => '1',
         ], $notification->data
         );
+    }
+
+    // does not send when publishing group is 'other'
+    public function testDoesNotSendForOtherPublishingGroup(): void
+    {
+        User::factory()
+            ->create([
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
+            ]);
+
+        $pool = Pool::factory()->draft()->create([
+            'publishing_group' => PublishingGroup::OTHER->name,
+        ]);
+        $pool->update(['published_at' => now()]);
+
+        $notification = Notification::all()->first();
+        $this->assertNull($notification);
     }
 }
