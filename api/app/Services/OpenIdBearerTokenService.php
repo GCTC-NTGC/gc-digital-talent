@@ -82,7 +82,7 @@ class OpenIdBearerTokenService
     }
 
     // get a Lcobucci\JWT\Configuration object for a given key ID
-    private function getConfiguration(string $keyId): ?Configuration
+    private function getConfiguration(string $keyId): Configuration
     {
         if (! $keyId) {
             throw new Exception('No key ID provided');
