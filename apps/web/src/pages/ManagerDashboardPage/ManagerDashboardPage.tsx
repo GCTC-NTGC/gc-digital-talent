@@ -142,7 +142,8 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                               "Title for a list of your talent requests with a count",
                           },
                           {
-                            count: "0",
+                            count:
+                              user.poolCandidateSearchRequests?.length ?? 0,
                           },
                         )}
                       </Accordion.Trigger>

@@ -1,5 +1,6 @@
 import { IntlShape, useIntl } from "react-intl";
 import uniq from "lodash/uniq";
+import { useState } from "react";
 
 import {
   FragmentType,
@@ -15,9 +16,12 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
+import ReviewTalentRequestDialog from "./ReviewTalentRequestDialog";
+
 const PreviewListItemPoolCandidateSearchRequest_Fragment = graphql(
   /* GraphQL */ `
     fragment PreviewListItem on PoolCandidateSearchRequest {
+      id
       jobTitle
       status {
         value
@@ -120,6 +124,7 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   poolCandidateSearchRequestQuery,
 }: PoolCandidateSearchRequestPreviewListItemProps) => {
   const intl = useIntl();
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const request = getFragment(
     PreviewListItemPoolCandidateSearchRequest_Fragment,
     poolCandidateSearchRequestQuery,
@@ -183,11 +188,23 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   }
 
   return (
-    <PreviewList.Item
-      title={title}
-      metaData={metaDataProps}
-      action={<PreviewList.Button label={title} />}
-    />
+    <>
+      <PreviewList.Item
+        title={title}
+        metaData={metaDataProps}
+        action={
+          <PreviewList.Button
+            label={title}
+            onClick={() => setDialogOpen(true)}
+          />
+        }
+      />
+      <ReviewTalentRequestDialog
+        open={dialogOpen}
+        setOpen={setDialogOpen}
+        id={request.id}
+      />
+    </>
   );
 };
 
