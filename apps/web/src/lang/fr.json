@@ -4187,8 +4187,8 @@
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
     "description": "Text prompting for input when duplicating a process"
   },
-  "KPenmQ": {
-    "defaultMessage": "Les tâches principales suivantes sont des exemples du travail que la personne titulaire de ce poste pourrait effectuer. Au moment de rédiger votre offre d'emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de l'adapter aux spécificités de votre équipe et au poste que vous souhaitez pourvoir.",
+  "jQd3b5": {
+    "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
     "description": "Description displayed on the job poster template 'key tasks' section."
   },
   "KS1jGw": {
