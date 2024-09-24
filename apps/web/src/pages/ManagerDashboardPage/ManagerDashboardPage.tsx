@@ -11,6 +11,7 @@ import {
   PreviewList,
   ResourceBlock,
   Accordion,
+  Well,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -180,7 +181,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         <div
                           data-h2-display="base(flex)"
                           data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x0.5)"
+                          data-h2-gap="base(x1)"
                         >
                           <div>
                             {intl.formatMessage(
@@ -200,7 +201,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                             )}
                           </div>
 
-                          {user.poolCandidateSearchRequests ? (
+                          {user.poolCandidateSearchRequests?.length ? (
                             <PreviewList.Root>
                               {user.poolCandidateSearchRequests?.map(
                                 (request) => (
@@ -211,7 +212,36 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                 ),
                               )}
                             </PreviewList.Root>
-                          ) : null}
+                          ) : (
+                            <Well data-h2-text-align="base(center)">
+                              <p data-h2-font-weight="base(bold)">
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "You don't have any active requests at the moment.",
+                                  id: "3PwQT7",
+                                  description:
+                                    "Title for notice when there are no pool candidate search requests",
+                                })}
+                              </p>
+                              <p>
+                                {intl.formatMessage(
+                                  {
+                                    defaultMessage:
+                                      'You can start a new talent request using the "<newRequestLink>New request</newRequestLink>" button or navigating to the "<findTalentLink>Find talent</findTalentLink>" page from the main navigation.',
+                                    id: "ZdA3uv",
+                                    description:
+                                      "Body for notice when there are no pool candidate search requests",
+                                  },
+                                  {
+                                    newRequestLink: (chunks: ReactNode) =>
+                                      linkAccessor(paths.search(), chunks),
+                                    findTalentLink: (chunks: ReactNode) =>
+                                      linkAccessor(paths.search(), chunks),
+                                  },
+                                )}
+                              </p>
+                            </Well>
+                          )}
                         </div>
                       </Accordion.Content>
                     </Accordion.Item>
