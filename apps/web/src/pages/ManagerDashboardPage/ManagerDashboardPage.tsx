@@ -15,6 +15,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
@@ -44,9 +45,15 @@ interface ManagerDashboardProps {
   userQuery: FragmentType<typeof ManagerDashboardUser_Fragment>;
 }
 
+type AccordionItems = ("your_talent_searches" | "")[];
+
 const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   const paths = useRoutes();
   const intl = useIntl();
+  const [accordionItems, setAccordionItems] = useLocalStorage<AccordionItems>(
+    "managerDashboardPage:managerToolsAccordion:expandedItems",
+    ["your_talent_searches"],
+  );
   const user = getFragment(ManagerDashboardUser_Fragment, userQuery);
 
   const formattedPageTitle = intl.formatMessage(pageMessages.pageTitle);
@@ -112,8 +119,14 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 headingAs="h2"
               >
                 <TaskCard.Item>
-                  <Accordion.Root type="multiple" defaultValue={["item1"]}>
-                    <Accordion.Item value="item1">
+                  <Accordion.Root
+                    value={accordionItems}
+                    onValueChange={(newValue: AccordionItems) => {
+                      setAccordionItems(newValue);
+                    }}
+                    type="multiple"
+                  >
+                    <Accordion.Item value="your_talent_searches">
                       <Accordion.Trigger>
                         {intl.formatMessage(
                           {
