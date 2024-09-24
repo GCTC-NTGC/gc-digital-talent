@@ -1,0 +1,3039 @@
+includes:
+  - vendor/larastan/larastan/extension.neon
+
+parameters:
+  level: 5
+  paths:
+    - app
+
+  ignoreErrors:
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+      count: 2
+      path: app/Builders/PoolBuilder.php
+
+    -
+      message: "#^Method App\\\\Builders\\\\PoolBuilder\\:\\:whereNotArchived\\(\\) invoked with 1 parameter, 0 required\\.$#"
+      count: 1
+      path: app/Builders/PoolBuilder.php
+
+    -
+      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
+      count: 5
+      path: app/Builders/PoolBuilder.php
+
+    -
+      message: "#^Call to function is_array\\(\\) with \\(int\\|string\\) will always evaluate to false\\.$#"
+      count: 1
+      path: app/Console/Commands/CheckIntl.php
+
+    -
+      message: "#^PHPDoc tag @var above a method has no effect\\.$#"
+      count: 1
+      path: app/Console/Commands/CheckIntl.php
+
+    -
+      message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+      count: 1
+      path: app/Console/Commands/CheckIntl.php
+
+    -
+      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Console/Commands/CheckIntl.php
+
+    -
+      message: "#^PHPDoc tag @var has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 2
+      path: app/Console/Commands/CheckIntl.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$deleted_at\\.$#"
+      count: 1
+      path: app/Console/Commands/HardDeleteOldUsers.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$operational_requirements\\.$#"
+      count: 2
+      path: app/Console/Commands/RemoveOperationalRequirement.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$classification\\.$#"
+      count: 2
+      path: app/Console/Commands/SendNotificationsApplicationDeadlineApproaching.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+      count: 2
+      path: app/Console/Commands/SendNotificationsApplicationDeadlineApproaching.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
+      count: 3
+      path: app/Console/Commands/SendNotificationsApplicationDeadlineApproaching.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolCandidates\\(\\)\\.$#"
+      count: 1
+      path: app/Console/Commands/SendNotificationsApplicationDeadlineApproaching.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:addProcessOperators\\(\\)\\.$#"
+      count: 1
+      path: app/Console/Commands/SyncPoolOperatorWithProcessOperator.php
+
+    -
+      message: "#^Match expression does not handle remaining value\\: string$#"
+      count: 1
+      path: app/Enums/PriorityWeight.php
+
+    -
+      message: "#^PHPDoc tag @var has invalid value \\(@string\\)\\: Unexpected token \"@string\", expected type at offset 9$#"
+      count: 1
+      path: app/Exceptions/AuthenticationException.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$area_of_study\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_scope\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_to\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$description\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$division\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$issued_by\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$project\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$status\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$thesis_title\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\PoolCandidate\\:\\:\\$profile_snapshot\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Call to an undefined method App\\\\Models\\\\Experience\\:\\:getTitle\\(\\)\\.$#"
+      count: 6
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Call to an undefined method PhpOffice\\\\PhpWord\\\\Element\\\\Section\\:\\:addLabelText\\(\\)\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Cannot call method getFullName\\(\\) on array\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:localize\\(\\) invoked with 2 parameters, 1 required\\.$#"
+      count: 2
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:localizeHeading\\(\\) invoked with 2 parameters, 1 required\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param for parameter \\$skills with type App\\\\Traits\\\\Generator\\\\UserSkill is not subtype of native type Illuminate\\\\Support\\\\Collection\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(array\\{string\\}   Array of the enum values are strings\\)\\: Unexpected token \"Array\", expected variable at offset 83$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocalization\\}  \\$enum  The enum class\\)\\: Unexpected token \"\\{\", expected variable at offset 115$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocation\\} \\$enum The enum class being localized\\)\\: Unexpected token \"\\{\", expected variable at offset 146$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(string String value of the enum\\)\\: Unexpected token \"String\", expected variable at offset 63$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$poolSkils$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$string$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$user$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#1 \\$value of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:yesOrNo\\(\\) expects bool\\|null, string given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#2 \\$user of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:contactInfo\\(\\) expects App\\\\Models\\\\User, array\\|Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#2 \\$user of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:dei\\(\\) expects App\\\\Models\\\\User, array\\|Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#2 \\$user of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:governmentInfo\\(\\) expects App\\\\Models\\\\User, array\\|Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#2 \\$user of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:languageInfo\\(\\) expects App\\\\Models\\\\User, array\\|Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#2 \\$user of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:status\\(\\) expects App\\\\Models\\\\User, array\\|Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#2 \\$user of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:workPreferences\\(\\) expects App\\\\Models\\\\User, array\\|Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\#3 \\$withSkills of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:experiences\\(\\) expects bool, \\(float\\|int\\) given\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Parameter \\$skills of method App\\\\Generators\\\\ApplicationDocGenerator\\:\\:skillRanks\\(\\) has invalid type App\\\\Traits\\\\Generator\\\\UserSkill\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Variable \\$text on left side of \\?\\? always exists and is not nullable\\.$#"
+      count: 1
+      path: app/Generators/ApplicationDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$generalQuestions\\.$#"
+      count: 2
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$poolSkills\\.$#"
+      count: 2
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$screeningQuestions\\.$#"
+      count: 2
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\PoolCandidateCsvGenerator\\:\\:setFilters\\(\\) has invalid return type App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\PoolCandidateCsvGenerator\\:\\:setFilters\\(\\) should return App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable but returns \\$this\\(App\\\\Generators\\\\PoolCandidateCsvGenerator\\)\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\PoolCandidateCsvGenerator\\:\\:setIds\\(\\) has invalid return type App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\PoolCandidateCsvGenerator\\:\\:setIds\\(\\) should return App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable but returns \\$this\\(App\\\\Generators\\\\PoolCandidateCsvGenerator\\)\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(array\\{string\\}   Array of the enum values are strings\\)\\: Unexpected token \"Array\", expected variable at offset 83$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocalization\\}  \\$enum  The enum class\\)\\: Unexpected token \"\\{\", expected variable at offset 115$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocation\\} \\$enum The enum class being localized\\)\\: Unexpected token \"\\{\", expected variable at offset 146$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(string String value of the enum\\)\\: Unexpected token \"String\", expected variable at offset 63$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$class$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateCsvGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$area_of_study\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_scope\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_to\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$description\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$division\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$issued_by\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$project\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$status\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$thesis_title\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Call to an undefined method App\\\\Models\\\\Experience\\:\\:getTitle\\(\\)\\.$#"
+      count: 5
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Call to an undefined method PhpOffice\\\\PhpWord\\\\Element\\\\Section\\:\\:addLabelText\\(\\)\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\PoolCandidateUserDocGenerator\\:\\:localizeHeading\\(\\) invoked with 2 parameters, 1 required\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param for parameter \\$skills with type App\\\\Traits\\\\Generator\\\\UserSkill is not subtype of native type Illuminate\\\\Support\\\\Collection\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(array\\{string\\}   Array of the enum values are strings\\)\\: Unexpected token \"Array\", expected variable at offset 83$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocalization\\}  \\$enum  The enum class\\)\\: Unexpected token \"\\{\", expected variable at offset 115$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocation\\} \\$enum The enum class being localized\\)\\: Unexpected token \"\\{\", expected variable at offset 146$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(string String value of the enum\\)\\: Unexpected token \"String\", expected variable at offset 63$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$string$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$user$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Parameter \\#1 \\$value of method App\\\\Generators\\\\PoolCandidateUserDocGenerator\\:\\:yesOrNo\\(\\) expects bool\\|null, string given\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Parameter \\#3 \\$withSkills of method App\\\\Generators\\\\PoolCandidateUserDocGenerator\\:\\:experiences\\(\\) expects bool, \\(float\\|int\\) given\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Parameter \\$skills of method App\\\\Generators\\\\PoolCandidateUserDocGenerator\\:\\:skillRanks\\(\\) has invalid type App\\\\Traits\\\\Generator\\\\UserSkill\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Variable \\$text on left side of \\?\\? always exists and is not nullable\\.$#"
+      count: 1
+      path: app/Generators/PoolCandidateUserDocGenerator.php
+
+    -
+      message: "#^Binary operation \"\\+\" between non\\-falsy\\-string and 1 results in an error\\.$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\UserCsvGenerator\\:\\:setFilters\\(\\) has invalid return type App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable\\.$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\UserCsvGenerator\\:\\:setFilters\\(\\) should return App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable but returns \\$this\\(App\\\\Generators\\\\UserCsvGenerator\\)\\.$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\UserCsvGenerator\\:\\:setIds\\(\\) has invalid return type App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable\\.$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\UserCsvGenerator\\:\\:setIds\\(\\) should return App\\\\Traits\\\\Generator\\\\GeneratorIsFilterable but returns \\$this\\(App\\\\Generators\\\\UserCsvGenerator\\)\\.$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(array\\{string\\}   Array of the enum values are strings\\)\\: Unexpected token \"Array\", expected variable at offset 83$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocalization\\}  \\$enum  The enum class\\)\\: Unexpected token \"\\{\", expected variable at offset 115$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocation\\} \\$enum The enum class being localized\\)\\: Unexpected token \"\\{\", expected variable at offset 146$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(string String value of the enum\\)\\: Unexpected token \"String\", expected variable at offset 63$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$class$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/UserCsvGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$area_of_study\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_scope\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_to\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$description\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$division\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$issued_by\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$project\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$status\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$thesis_title\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Call to an undefined method App\\\\Models\\\\Experience\\:\\:getTitle\\(\\)\\.$#"
+      count: 5
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Call to an undefined method PhpOffice\\\\PhpWord\\\\Element\\\\Section\\:\\:addLabelText\\(\\)\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Method App\\\\Generators\\\\UserDocGenerator\\:\\:localizeHeading\\(\\) invoked with 2 parameters, 1 required\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param for parameter \\$skills with type App\\\\Traits\\\\Generator\\\\UserSkill is not subtype of native type Illuminate\\\\Support\\\\Collection\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(array\\{string\\}   Array of the enum values are strings\\)\\: Unexpected token \"Array\", expected variable at offset 83$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocalization\\}  \\$enum  The enum class\\)\\: Unexpected token \"\\{\", expected variable at offset 115$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(class\\-string\\{\\\\App\\\\Traits\\\\HasLocation\\} \\$enum The enum class being localized\\)\\: Unexpected token \"\\{\", expected variable at offset 146$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(string String value of the enum\\)\\: Unexpected token \"String\", expected variable at offset 63$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$string$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$user$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Parameter \\#1 \\$value of method App\\\\Generators\\\\UserDocGenerator\\:\\:yesOrNo\\(\\) expects bool\\|null, string given\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Parameter \\#3 \\$withSkills of method App\\\\Generators\\\\UserDocGenerator\\:\\:experiences\\(\\) expects bool, \\(float\\|int\\) given\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Parameter \\$skills of method App\\\\Generators\\\\UserDocGenerator\\:\\:skillRanks\\(\\) has invalid type App\\\\Traits\\\\Generator\\\\UserSkill\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Variable \\$text on left side of \\?\\? always exists and is not nullable\\.$#"
+      count: 1
+      path: app/Generators/UserDocGenerator.php
+
+    -
+      message: "#^Method App\\\\GraphQL\\\\Directives\\\\ResolveWithDirective\\:\\:toPlainValue\\(\\) with return type void returns mixed but should not return anything\\.$#"
+      count: 1
+      path: app/GraphQL/Directives/ResolveWithDirective.php
+
+    -
+      message: "#^Result of method App\\\\GraphQL\\\\Directives\\\\ResolveWithDirective\\:\\:toPlainValue\\(\\) \\(void\\) is used\\.$#"
+      count: 1
+      path: app/GraphQL/Directives/ResolveWithDirective.php
+
+    -
+      message: "#^PHPDoc tag @return with type Nuwave\\\\Lighthouse\\\\Schema\\\\Values\\\\FieldValue is not subtype of native type callable\\.$#"
+      count: 1
+      path: app/GraphQL/Directives/SelfDirective.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getStatusAttribute\\(\\)\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ArchivePool.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ArchivePool.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ArchivePool.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
+
+    -
+      message: "#^Offset 'isSuspended' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
+
+    -
+      message: "#^Offset 'closingDate' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ChangePoolClosingDate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ChangePoolClosingDate.php
+
+    -
+      message: "#^Offset 'closing_reason' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ClosePool.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ClosePool.php
+
+    -
+      message: "#^Offset 'poolId' does not exist on array\\{\\}\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/CreateApplication.php
+
+    -
+      message: "#^Offset 'userId' does not exist on array\\{\\}\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/CreateApplication.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/CreateOrUpdateScreeningQuestionAssessmentStep.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:screeningQuestions\\(\\)\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/CreateOrUpdateScreeningQuestionAssessmentStep.php
+
+    -
+      message: "#^Offset 'poolId' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/CreateOrUpdateScreeningQuestionAssessmentStep.php
+
+    -
+      message: "#^Offset 'screeningQuestions' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/CreateOrUpdateScreeningQuestionAssessmentStep.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\UserSkill\\:\\:\\$deleted_at\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/CreateUserSkill.php
+
+    -
+      message: "#^Offset 'skill_id' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/CreateUserSkill.php
+
+    -
+      message: "#^Offset 'skill_level' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/CreateUserSkill.php
+
+    -
+      message: "#^Offset 'user_id' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/CreateUserSkill.php
+
+    -
+      message: "#^Offset 'when_skill_used' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/CreateUserSkill.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/CreateUserSkill.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DeleteApplication.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DeleteApplication.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DeleteNotification.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DisqualifyCandidate.php
+
+    -
+      message: "#^Offset 'reason' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DisqualifyCandidate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/DownloadApplicationDoc.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadApplicationDoc.php
+
+    -
+      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\PoolCandidate\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\PoolCandidate\\>\\. Use \\-\\> instead\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/DownloadApplicationDoc.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadApplicationsDoc.php
+
+    -
+      message: "#^Offset 'anonymous' on array\\{\\} on left side of \\?\\? does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadPoolCandidateDoc.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/DownloadPoolCandidateDoc.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadPoolCandidateDoc.php
+
+    -
+      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\PoolCandidate\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\PoolCandidate\\>\\. Use \\-\\> instead\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/DownloadPoolCandidateDoc.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadPoolCandidatesCsv.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadPoolCandidatesDoc.php
+
+    -
+      message: "#^Offset 'anonymous' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadUserDoc.php
+
+    -
+      message: "#^Offset 'anonymous' on \\*NEVER\\* on left side of \\?\\? always exists and is not nullable\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadUserDoc.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadUserDoc.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadUserDoc.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadUsersCsv.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DownloadUsersDoc.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$generalQuestions\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$poolSkills\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:department\\(\\)\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:generalQuestions\\(\\)\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:syncApplicationScreeningStepPoolSkills\\(\\)\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Offset 'departmentId' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/DuplicatePool.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$notifications\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/MarkAllNotificationsAsRead.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$unreadNotifications\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/MarkAllNotificationsAsRead.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/MarkNotificationAsRead.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/MarkNotificationAsUnread.php
+
+    -
+      message: "#^Offset 'departmentId' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/PlaceCandidate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/PlaceCandidate.php
+
+    -
+      message: "#^Offset 'placementType' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/PlaceCandidate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/PublishPool.php
+
+    -
+      message: "#^Offset 'expiryDate' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/QualifyCandidate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/QualifyCandidate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ReinstateCandidate.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ReinstateCandidate.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/ReinstateCandidate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/RemoveCandidate.php
+
+    -
+      message: "#^Offset 'removalReason' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/RemoveCandidate.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/RemoveCandidate.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/RemoveCandidate.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/RevertFinalDecision.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/RevertPlaceCandidate.php
+
+    -
+      message: "#^Offset 'emailType' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/SendUserEmailVerification.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/SubmitApplication.php
+
+    -
+      message: "#^Offset 'signature' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/SubmitApplication.php
+
+    -
+      message: "#^Offset 'stepIdA' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/SwapAssessmentStepOrder.php
+
+    -
+      message: "#^Offset 'stepIdB' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/SwapAssessmentStepOrder.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/SwapAssessmentStepOrder.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/TogglePoolCandidateBookmark.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/TogglePoolUserBookmark.php
+
+    -
+      message: "#^Offset 'pool_id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/TogglePoolUserBookmark.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getStatusAttribute\\(\\)\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UnarchivePool.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UnarchivePool.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UnarchivePool.php
+
+    -
+      message: "#^Offset 'enabledEmailNotific…' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdateEnabledNotifications.php
+
+    -
+      message: "#^Offset 'enabledInAppNotific…' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdateEnabledNotifications.php
+
+    -
+      message: "#^Offset 'expiry_date' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
+
+    -
+      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
+
+    -
+      message: "#^Offset 'pool_candidate…' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
+
+    -
+      message: "#^Result of && is always false\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
+
+    -
+      message: "#^Offset 'expiryDate' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
+
+    -
+      message: "#^Offset 'isEnabled' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
+
+    -
+      message: "#^Offset 'message' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
+
+    -
+      message: "#^Offset 'publishDate' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
+
+    -
+      message: "#^Offset 'title' does not exist on array\\{\\}\\.$#"
+      count: 2
+      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
+
+    -
+      message: "#^Access to offset 'improveBehaviouralS…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
+
+    -
+      message: "#^Access to offset 'improveTechnicalSki…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
+
+    -
+      message: "#^Access to offset 'topBehaviouralSkill…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
+
+    -
+      message: "#^Access to offset 'topTechnicalSkillsR…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
+      count: 3
+      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
+
+    -
+      message: "#^Parameter \\#1 \\$userId of method App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankings\\:\\:syncRankings\\(\\) expects string, App\\\\GraphQL\\\\Mutations\\\\UUID given\\.$#"
+      count: 4
+      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
+
+    -
+      message: "#^Parameter \\$args of method App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankings\\:\\:__invoke\\(\\) has invalid type App\\\\GraphQL\\\\Mutations\\\\UUID\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
+
+    -
+      message: "#^Parameter \\$args of method App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankings\\:\\:__invoke\\(\\) has invalid type App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
+
+    -
+      message: "#^Offset 'code' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/VerifyUserEmail.php
+
+    -
+      message: "#^Offset 'emailType' on array\\{\\} in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/VerifyUserEmail.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Mutations/VerifyUserEmail.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'equity' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'hasDiploma' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'languageAbility' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'locationPreferences' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'operationalRequirem…' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'positionDuration' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedClassifica…' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedStreams' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Call to function array_key_exists\\(\\) with 'skills' and array\\{\\} will always evaluate to false\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Offset 'where' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Offset 'where' on array\\{\\} in empty\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
+
+    -
+      message: "#^Offset 'enumName' does not exist on array\\{\\}\\.$#"
+      count: 1
+      path: app/GraphQL/Queries/LocalizedEnumStrings.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$closing_date\\.$#"
+      count: 3
+      path: app/GraphQL/Validators/ChangePoolClosingDateValidator.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$poolSkills\\.$#"
+      count: 2
+      path: app/GraphQL/Validators/ChangePoolClosingDateValidator.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Validators/DisqualifyCandidateValidator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\GraphQL\\\\Validators\\\\Mutation\\\\CreateApplicationValidator\\:\\:\\$poolId\\.$#"
+      count: 2
+      path: app/GraphQL/Validators/Mutation/CreateApplicationValidator.php
+
+    -
+      message: "#^Access to an undefined property App\\\\GraphQL\\\\Validators\\\\Mutation\\\\CreateApplicationValidator\\:\\:\\$userId\\.$#"
+      count: 1
+      path: app/GraphQL/Validators/Mutation/CreateApplicationValidator.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Validators/PlaceCandidateValidator.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Validators/QualifyCandidateValidator.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Validators/RevertFinalDecisionValidator.php
+
+    -
+      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
+      count: 1
+      path: app/GraphQL/Validators/RevertPlaceCandidateValidator.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
+      count: 2
+      path: app/Http/Controllers/AuthController.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
+      count: 1
+      path: app/Http/Controllers/SupportController.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$awarded_date\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$awarded_scope\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$awarded_to\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$issued_by\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$skills\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$title\\.$#"
+      count: 1
+      path: app/Http/Resources/AwardExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ClassificationResource\\:\\:\\$group\\.$#"
+      count: 1
+      path: app/Http/Resources/ClassificationResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ClassificationResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/ClassificationResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ClassificationResource\\:\\:\\$level\\.$#"
+      count: 1
+      path: app/Http/Resources/ClassificationResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ClassificationResource\\:\\:\\$max_salary\\.$#"
+      count: 1
+      path: app/Http/Resources/ClassificationResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ClassificationResource\\:\\:\\$min_salary\\.$#"
+      count: 1
+      path: app/Http/Resources/ClassificationResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ClassificationResource\\:\\:\\$name\\.$#"
+      count: 1
+      path: app/Http/Resources/ClassificationResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$end_date\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$organization\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$project\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$skills\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$start_date\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\CommunityExperienceResource\\:\\:\\$title\\.$#"
+      count: 1
+      path: app/Http/Resources/CommunityExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\DepartmentResource\\:\\:\\$department_number\\.$#"
+      count: 1
+      path: app/Http/Resources/DepartmentResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\DepartmentResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/DepartmentResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\DepartmentResource\\:\\:\\$name\\.$#"
+      count: 1
+      path: app/Http/Resources/DepartmentResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$area_of_study\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$end_date\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$institution\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$skills\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$start_date\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$status\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$thesis_title\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\EducationExperienceResource\\:\\:\\$type\\.$#"
+      count: 1
+      path: app/Http/Resources/EducationExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\GenericJobTitleResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/GenericJobTitleResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\GenericJobTitleResource\\:\\:\\$key\\.$#"
+      count: 1
+      path: app/Http/Resources/GenericJobTitleResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\GenericJobTitleResource\\:\\:\\$name\\.$#"
+      count: 1
+      path: app/Http/Resources/GenericJobTitleResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\PersonalExperienceResource\\:\\:\\$description\\.$#"
+      count: 1
+      path: app/Http/Resources/PersonalExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\PersonalExperienceResource\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Http/Resources/PersonalExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\PersonalExperienceResource\\:\\:\\$end_date\\.$#"
+      count: 1
+      path: app/Http/Resources/PersonalExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\PersonalExperienceResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/PersonalExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\PersonalExperienceResource\\:\\:\\$skills\\.$#"
+      count: 1
+      path: app/Http/Resources/PersonalExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\PersonalExperienceResource\\:\\:\\$start_date\\.$#"
+      count: 1
+      path: app/Http/Resources/PersonalExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\PersonalExperienceResource\\:\\:\\$title\\.$#"
+      count: 1
+      path: app/Http/Resources/PersonalExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\SkillResource\\:\\:\\$description\\.$#"
+      count: 1
+      path: app/Http/Resources/SkillResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\SkillResource\\:\\:\\$experience_skill\\.$#"
+      count: 1
+      path: app/Http/Resources/SkillResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\SkillResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/SkillResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\SkillResource\\:\\:\\$key\\.$#"
+      count: 1
+      path: app/Http/Resources/SkillResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\SkillResource\\:\\:\\$keywords\\.$#"
+      count: 1
+      path: app/Http/Resources/SkillResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\SkillResource\\:\\:\\$name\\.$#"
+      count: 1
+      path: app/Http/Resources/SkillResource.php
+
+    -
+      message: "#^Call to an undefined method App\\\\Http\\\\Resources\\\\SkillResource\\:\\:relationLoaded\\(\\)\\.$#"
+      count: 1
+      path: app/Http/Resources/SkillResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$accepted_operational_requirements\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$armed_forces_status\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$awardExperiences\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$citizenship\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$communityExperiences\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$comprehension_level\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$currentClassification\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$current_city\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$current_province\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$department\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$educationExperiences\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$email\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$estimated_language_ability\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$first_name\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$first_official_language\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$gov_employee_type\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$has_diploma\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$has_disability\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$has_priority_entitlement\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$indigenous_communities\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$indigenous_declaration_signature\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$isEmailVerified\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$isProfileComplete\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$isWorkEmailVerified\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$is_gov_employee\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$is_visible_minority\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$is_woman\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$last_name\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$location_exemptions\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$location_preferences\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$looking_for_bilingual\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$looking_for_english\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$looking_for_french\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$personalExperiences\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$position_duration\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$preferred_lang\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$preferred_language_for_exam\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$preferred_language_for_interview\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$priority_number\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$second_language_exam_completed\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$second_language_exam_validity\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$sub\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$telephone\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$verbal_level\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$workExperiences\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$work_email\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserResource\\:\\:\\$written_level\\.$#"
+      count: 1
+      path: app/Http/Resources/UserResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserSkillResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/UserSkillResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserStubResource\\:\\:\\$email\\.$#"
+      count: 1
+      path: app/Http/Resources/UserStubResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserStubResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/UserStubResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$details\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$division\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$end_date\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$id\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$organization\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$role\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$skills\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\WorkExperienceResource\\:\\:\\$start_date\\.$#"
+      count: 1
+      path: app/Http/Resources/WorkExperienceResource.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\ApplicantFilter\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/ApplicantFilter.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentResult\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/AssessmentResult.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentResult\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/AssessmentResult.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentStep\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/AssessmentStep.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentStep\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/AssessmentStep.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\Classification\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/Classification.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\Department\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/Department.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array advertising_platforms\\)\\: Unexpected token \"advertising_platforms\", expected variable at offset 397$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string advertisement_type\\)\\: Unexpected token \"advertisement_type\", expected variable at offset 359$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string advertising_platforms_other\\)\\: Unexpected token \"advertising_platforms_other\", expected variable at offset 439$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string branch_other\\)\\: Unexpected token \"branch_other\", expected variable at offset 137$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string department_other\\)\\: Unexpected token \"department_other\", expected variable at offset 100$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 77$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string job_advertisement_link\\)\\: Unexpected token \"job_advertisement_link\", expected variable at offset 487$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string posting_date\\)\\: Unexpected token \"posting_date\", expected variable at offset 326$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string recruitment_process_lead_email\\)\\: Unexpected token \"recruitment_process_lead_email\", expected variable at offset 275$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string recruitment_process_lead_job_title\\)\\: Unexpected token \"recruitment_process_lead_job_title\", expected variable at offset 220$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string recruitment_process_lead_name\\)\\: Unexpected token \"recruitment_process_lead_name\", expected variable at offset 170$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array employment_types\\)\\: Unexpected token \"employment_types\", expected variable at offset 215$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string classification_group\\)\\: Unexpected token \"classification_group\", expected variable at offset 104$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string classification_level\\)\\: Unexpected token \"classification_level\", expected variable at offset 145$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string employment_types_other\\)\\: Unexpected token \"employment_types_other\", expected variable at offset 252$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 81$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string job_title\\)\\: Unexpected token \"job_title\", expected variable at offset 186$#"
+      count: 1
+      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(int quantity\\)\\: Unexpected token \"quantity\", expected variable at offset 286$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 75$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string language\\)\\: Unexpected token \"language\", expected variable at offset 132$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string language_other\\)\\: Unexpected token \"language_other\", expected variable at offset 161$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string resource_type\\)\\: Unexpected token \"resource_type\", expected variable at offset 98$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string security\\)\\: Unexpected token \"security\", expected variable at offset 196$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string security_other\\)\\: Unexpected token \"security_other\", expected variable at offset 225$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string telework\\)\\: Unexpected token \"telework\", expected variable at offset 260$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelRequirement.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 69$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelSkill.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string level\\)\\: Unexpected token \"level\", expected variable at offset 92$#"
+      count: 1
+      path: app/Models/DigitalContractingPersonnelSkill.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array authorities_involved\\)\\: Unexpected token \"authorities_involved\", expected variable at offset 427$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array contracting_rationales_secondary\\)\\: Unexpected token \"contracting_rationales_secondary\", expected variable at offset 2635$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array operations_considerations\\)\\: Unexpected token \"operations_considerations\", expected variable at offset 2432$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array personnel_requirements\\)\\: Unexpected token \"personnel_requirements\", expected variable at offset 1631$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array requirement_others\\)\\: Unexpected token \"requirement_others\", expected variable at offset 2135$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array requirement_screening_levels\\)\\: Unexpected token \"requirement_screening_levels\", expected variable at offset 1768$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array requirement_work_languages\\)\\: Unexpected token \"requirement_work_languages\", expected variable at offset 1870$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(array requirement_work_locations\\)\\: Unexpected token \"requirement_work_locations\", expected variable at offset 1968$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string authority_involved_other\\)\\: Unexpected token \"authority_involved_other\", expected variable at offset 468$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string branch_other\\)\\: Unexpected token \"branch_other\", expected variable at offset 128$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string business_owner_email\\)\\: Unexpected token \"business_owner_email\", expected variable at offset 246$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string business_owner_job_title\\)\\: Unexpected token \"business_owner_job_title\", expected variable at offset 201$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string business_owner_name\\)\\: Unexpected token \"business_owner_name\", expected variable at offset 161$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string commodity_type\\)\\: Unexpected token \"commodity_type\", expected variable at offset 1212$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string commodity_type_other\\)\\: Unexpected token \"commodity_type_other\", expected variable at offset 1247$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_amendable\\)\\: Unexpected token \"contract_amendable\", expected variable at offset 1010$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_behalf_of_gc\\)\\: Unexpected token \"contract_behalf_of_gc\", expected variable at offset 513$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_end_date\\)\\: Unexpected token \"contract_end_date\", expected variable at offset 932$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_extendable\\)\\: Unexpected token \"contract_extendable\", expected variable at offset 970$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_for_digital_initiative\\)\\: Unexpected token \"contract_for_digital_initiative\", expected variable at offset 598$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_ftes\\)\\: Unexpected token \"contract_ftes\", expected variable at offset 1123$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_multiyear\\)\\: Unexpected token \"contract_multiyear\", expected variable at offset 1049$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_resources_start_timeframe\\)\\: Unexpected token \"contract_resources_start_timeframe\", expected variable at offset 1157$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_service_of_gc\\)\\: Unexpected token \"contract_service_of_gc\", expected variable at offset 555$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_start_date\\)\\: Unexpected token \"contract_start_date\", expected variable at offset 892$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_title\\)\\: Unexpected token \"contract_title\", expected variable at offset 857$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contract_value\\)\\: Unexpected token \"contract_value\", expected variable at offset 1088$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contracting_rationale_primary\\)\\: Unexpected token \"contracting_rationale_primary\", expected variable at offset 2530$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contracting_rationale_primary_other\\)\\: Unexpected token \"contracting_rationale_primary_other\", expected variable at offset 2580$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string contracting_rationales_secondary_other\\)\\: Unexpected token \"contracting_rationales_secondary_other\", expected variable at offset 2688$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string department_other\\)\\: Unexpected token \"department_other\", expected variable at offset 91$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_name\\)\\: Unexpected token \"digital_initiative_name\", expected variable at offset 650$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_plan_complemented\\)\\: Unexpected token \"digital_initiative_plan_complemented\", expected variable at offset 800$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_plan_submitted\\)\\: Unexpected token \"digital_initiative_plan_submitted\", expected variable at offset 694$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_plan_updated\\)\\: Unexpected token \"digital_initiative_plan_updated\", expected variable at offset 748$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string employees_have_access_to_knowledge\\)\\: Unexpected token \"employees_have_access_to_knowledge\", expected variable at offset 2946$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string financial_authority_email\\)\\: Unexpected token \"financial_authority_email\", expected variable at offset 382$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string financial_authority_job_title\\)\\: Unexpected token \"financial_authority_job_title\", expected variable at offset 332$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string financial_authority_name\\)\\: Unexpected token \"financial_authority_name\", expected variable at offset 287$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string has_future_impact_on_other_departments\\)\\: Unexpected token \"has_future_impact_on_other_departments\", expected variable at offset 2374$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string has_immediate_impact_on_other_departments\\)\\: Unexpected token \"has_immediate_impact_on_other_departments\", expected variable at offset 2312$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string has_impact_on_your_department\\)\\: Unexpected token \"has_impact_on_your_department\", expected variable at offset 2262$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string has_personnel_requirements\\)\\: Unexpected token \"has_personnel_requirements\", expected variable at offset 1585$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 68$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string instrument_type\\)\\: Unexpected token \"instrument_type\", expected variable at offset 1288$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string instrument_type_other\\)\\: Unexpected token \"instrument_type_other\", expected variable at offset 1324$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string is_technological_change\\)\\: Unexpected token \"is_technological_change\", expected variable at offset 2218$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string knowledge_transfer_in_contract\\)\\: Unexpected token \"knowledge_transfer_in_contract\", expected variable at offset 2895$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string method_of_supply\\)\\: Unexpected token \"method_of_supply\", expected variable at offset 1366$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string method_of_supply_other\\)\\: Unexpected token \"method_of_supply_other\", expected variable at offset 1403$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string ocio_confirmed_talent_shortage\\)\\: Unexpected token \"ocio_confirmed_talent_shortage\", expected variable at offset 2747$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string ocio_engaged_for_training\\)\\: Unexpected token \"ocio_engaged_for_training\", expected variable at offset 3001$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string ongoing_need_for_knowledge\\)\\: Unexpected token \"ongoing_need_for_knowledge\", expected variable at offset 2848$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string operations_considerations_other\\)\\: Unexpected token \"operations_considerations_other\", expected variable at offset 2478$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string qualification_requirement\\)\\: Unexpected token \"qualification_requirement\", expected variable at offset 1674$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string requirement_access_to_secure\\)\\: Unexpected token \"requirement_access_to_secure\", expected variable at offset 1720$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string requirement_other_other\\)\\: Unexpected token \"requirement_other_other\", expected variable at offset 2174$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string requirement_screening_level_other\\)\\: Unexpected token \"requirement_screening_level_other\", expected variable at offset 1817$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string requirement_work_language_other\\)\\: Unexpected token \"requirement_work_language_other\", expected variable at offset 1917$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string requirement_work_location_gc_specific\\)\\: Unexpected token \"requirement_work_location_gc_specific\", expected variable at offset 2015$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string requirement_work_location_offsite_specific\\)\\: Unexpected token \"requirement_work_location_offsite_specific\", expected variable at offset 2073$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string solicitation_procedure\\)\\: Unexpected token \"solicitation_procedure\", expected variable at offset 1446$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string subject_to_trade_agreement\\)\\: Unexpected token \"subject_to_trade_agreement\", expected variable at offset 1489$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string talent_search_tracking_number\\)\\: Unexpected token \"talent_search_tracking_number\", expected variable at offset 2798$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(string work_requirement_description\\)\\: Unexpected token \"work_requirement_description\", expected variable at offset 1536$#"
+      count: 1
+      path: app/Models/DigitalContractingQuestionnaire.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_date\\.$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$end_date\\.$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$start_date\\.$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^Called 'Model\\:\\:make\\(\\)' which performs unnecessary work, use 'new Model\\(\\)'\\.$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^Default value of the parameter \\#1 \\$attributes \\(array\\) of method App\\\\Models\\\\Experience\\:\\:newFromBuilder\\(\\) is incompatible with type object\\.$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(\\[id \\=\\> uuid, details \\=\\> undefined\\|string\\] \\$skills \\- Skills must be an array of items, each of which must have an id, and optionally have a details string\\.\\)\\: Unexpected token \"\\|\", expected '\\]' at offset 176$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(\\[id \\=\\> uuid, details \\=\\> undefined\\|string\\] \\$skills \\- Skills must be an array of items, each of which must have an id, and optionally have a details string\\.\\)\\: Unexpected token \"\\|\", expected '\\]' at offset 180$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$isLocalizedEnum$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^Parameter \\#1 \\$attributes \\(object\\) of method App\\\\Models\\\\Experience\\:\\:newFromBuilder\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:newFromBuilder\\(\\)$#"
+      count: 1
+      path: app/Models/Experience.php
+
+    -
+      message: "#^Parameter \\$set of static method Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\Attribute\\<mixed,mixed\\>\\:\\:make\\(\\) expects \\(callable\\(mixed, mixed\\=\\)\\: mixed\\)\\|null, Closure\\(mixed, array\\)\\: mixed given\\.$#"
+      count: 2
+      path: app/Models/Experience.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestion\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/GeneralQuestion.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestion\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/GeneralQuestion.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestionResponse\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/GeneralQuestionResponse.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestionResponse\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/GeneralQuestionResponse.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\GenericJobTitle\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/GenericJobTitle.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\JobPosterTemplate\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/JobPosterTemplate.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\JobPosterTemplate\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/JobPosterTemplate.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+      count: 1
+      path: app/Models/Notification.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 1
+      path: app/Models/Notification.php
+
+    -
+      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
+      count: 1
+      path: app/Models/Notification.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
+      count: 1
+      path: app/Models/Pool.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\Pool\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/Pool.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\Pool\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/Pool.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\PoolCandidate\\:\\:\\$profile_snapshot\\.$#"
+      count: 2
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Access to constant VETERAN on an unknown class App\\\\Models\\\\ArmedForcesStatus\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, App\\\\Models\\\\PoolCandidate\\>\\:\\:withTrashed\\(\\)\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with App\\\\Enums\\\\PriorityWeight\\:\\:CITIZEN_OR_PERMANENT_RESIDENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:OTHER\\|App\\\\Enums\\\\PriorityWeight\\:\\:PRIORITY_ENTITLEMENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:VETERAN will always evaluate to false\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+      count: 3
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Call to method isFuture\\(\\) on an unknown class App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Dead catch \\- UnhandledMatchError is never thrown in the try block\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Negated boolean expression is always false\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidate\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidate\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Result of \\|\\| is always false\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
+      count: 3
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Variable \\$assessmentStatus in isset\\(\\) always exists and is not nullable\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Variable \\$educationResults in isset\\(\\) always exists and is not nullable\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Variable \\$locale might not be defined\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^Variable \\$order might not be defined\\.$#"
+      count: 1
+      path: app/Models/PoolCandidate.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidateFilter\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/PoolCandidateFilter.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidateSearchRequest\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/PoolCandidateSearchRequest.php
+
+    -
+      message: "#^Property App\\\\Models\\\\PoolCandidateSearchRequest\\:\\:\\$request_status_changed_at \\(App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\CarbonImmutable\\.$#"
+      count: 1
+      path: app/Models/PoolCandidateSearchRequest.php
+
+    -
+      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
+      count: 2
+      path: app/Models/PoolCandidateSearchRequest.php
+
+    -
+      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
+      count: 1
+      path: app/Models/PoolCandidateSearchRequest.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestion\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/ScreeningQuestion.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestion\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/ScreeningQuestion.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestionResponse\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/ScreeningQuestionResponse.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestionResponse\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+      count: 1
+      path: app/Models/ScreeningQuestionResponse.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\Skill\\:\\:\\$appends is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$appends\\.$#"
+      count: 1
+      path: app/Models/Skill.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\Skill\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/Skill.php
+
+    -
+      message: "#^PHPDoc type array of property App\\\\Models\\\\SkillFamily\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+      count: 1
+      path: app/Models/SkillFamily.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
+      count: 2
+      path: app/Models/User.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$department\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate\\> supplied for foreach, only iterables are supported\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorizedToView\\(\\)\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
+      count: 2
+      path: app/Models/User.php
+
+    -
+      message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Method App\\\\Models\\\\User\\:\\:markEmailAsVerified\\(\\) should return bool but return statement is missing\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) has invalid return type App\\\\Models\\\\Eloquent\\\\Builder\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) should return App\\\\Models\\\\Eloquent\\\\Builder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\.$#"
+      count: 2
+      path: app/Models/User.php
+
+    -
+      message: "#^PHPDoc tag @param for parameter \\$query with type App\\\\Models\\\\Eloquent\\\\Builder is not subtype of native type Illuminate\\\\Database\\\\Eloquent\\\\Builder\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$isLocalizedEnum$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(Illuminate\\\\Support\\\\Carbon email_verified_at\\)\\: Unexpected token \"email_verified_at\", expected variable at offset 111$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^PHPDoc tag @property has invalid value \\(Illuminate\\\\Support\\\\Carbon work_email_verified_at\\)\\: Unexpected token \"work_email_verified_at\", expected variable at offset 884$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Parameter \\#1 \\$columns of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<App\\\\Models\\\\Department\\>\\:\\:get\\(\\) expects array\\<int, string\\>, string given\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Parameter \\$query of method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) has invalid type App\\\\Models\\\\Eloquent\\\\Builder\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
+      count: 1
+      path: app/Models/User.php
+
+    -
+      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
+      count: 3
+      path: app/Models/User.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$notifiable$#"
+      count: 1
+      path: app/Notifications/VerifyEmail.php
+
+    -
+      message: "#^Call to method isFuture\\(\\) on an unknown class App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Call to method toIso8601String\\(\\) on an unknown class App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Method App\\\\Notify\\\\Client\\:\\:buildBulkPersonalisationRowData\\(\\) is unused\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Method App\\\\Notify\\\\Client\\:\\:get\\(\\) is unused\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Offset 'email' on string in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Offset 'personalisation' on string in isset\\(\\) does not exist\\.$#"
+      count: 2
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Offset 'phone_number' on string in isset\\(\\) does not exist\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$rows$#"
+      count: 2
+      path: app/Notify/Client.php
+
+    -
+      message: "#^PHPDoc tag @throws has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 347$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^PHPDoc tag @throws has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 349$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Parameter \\#2 \\$rows of method App\\\\Notify\\\\Client\\:\\:buildBulkPayload\\(\\) expects array\\<string\\>, array\\<int, array\\<int, string\\>\\> given\\.$#"
+      count: 2
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:buildBulkEmailPayload\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:buildBulkPayload\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:buildBulkSmsPayload\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:sendBulkEmail\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:sendBulkSms\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
+      count: 1
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Unreachable statement \\- code above always terminates\\.$#"
+      count: 2
+      path: app/Notify/Client.php
+
+    -
+      message: "#^Parameter \\#1 \\$boolean of static method App\\\\Events\\\\CandidateStatusChanged\\:\\:dispatchIf\\(\\) expects bool, string given\\.$#"
+      count: 1
+      path: app/Observers/PoolCandidateObserver.php
+
+    -
+      message: "#^Parameter \\#1 \\$trackingNumber of class App\\\\Notifications\\\\TalentRequestSubmissionConfirmation constructor expects string, int given\\.$#"
+      count: 1
+      path: app/Observers/PoolCandidateSearchRequestObserver.php
+
+    -
+      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
+      count: 1
+      path: app/Observers/PoolObserver.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
+      count: 1
+      path: app/Observers/UserObserver.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
+      count: 2
+      path: app/Policies/AssessmentStepPolicy.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$legacyTeam\\.$#"
+      count: 1
+      path: app/Policies/AssessmentStepPolicy.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
+      count: 1
+      path: app/Policies/AssessmentStepPolicy.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getStatusAttribute\\(\\)\\.$#"
+      count: 1
+      path: app/Policies/AssessmentStepPolicy.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$classification$#"
+      count: 5
+      path: app/Policies/ClassificationPolicy.php
+
+    -
+      message: "#^PHPDoc tag @param for parameter \\$community with type App\\\\Models\\\\Community\\|null is not subtype of native type App\\\\Models\\\\Community\\.$#"
+      count: 2
+      path: app/Policies/CommunityPolicy.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$department$#"
+      count: 5
+      path: app/Policies/DepartmentPolicy.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$classification$#"
+      count: 5
+      path: app/Policies/GenericJobTitlePolicy.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$poolCandidate$#"
+      count: 1
+      path: app/Policies/PoolCandidatePolicy.php
+
+    -
+      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
+      count: 1
+      path: app/Policies/PoolCandidatePolicy.php
+
+    -
+      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\PoolCandidate\\. Use \\-\\> instead\\.$#"
+      count: 12
+      path: app/Policies/PoolCandidatePolicy.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
+      count: 2
+      path: app/Policies/PoolPolicy.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$legacyTeam\\.$#"
+      count: 1
+      path: app/Policies/PoolPolicy.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
+      count: 1
+      path: app/Policies/PoolPolicy.php
+
+    -
+      message: "#^Strict comparison using \\=\\=\\= between bool and 'DRAFT' will always evaluate to false\\.$#"
+      count: 1
+      path: app/Policies/PoolPolicy.php
+
+    -
+      message: "#^PHPDoc tag @param for parameter \\$user with type App\\\\Models\\\\User\\|null is not subtype of native type App\\\\Models\\\\User\\.$#"
+      count: 3
+      path: app/Policies/RolePolicy.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$role$#"
+      count: 2
+      path: app/Policies/RolePolicy.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$skillFamily$#"
+      count: 5
+      path: app/Policies/SkillFamilyPolicy.php
+
+    -
+      message: "#^PHPDoc tag @param references unknown parameter\\: \\$skill$#"
+      count: 5
+      path: app/Policies/SkillPolicy.php
+
+    -
+      message: "#^PHPDoc tag @param has invalid value \\(\\\\App\\\\Models\\\\Team/null \\$team\\)\\: Unexpected token \"/null\", expected variable at offset 117$#"
+      count: 1
+      path: app/Policies/TeamPolicy.php
+
+    -
+      message: "#^Access to offset 'id' on an unknown class App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
+      count: 2
+      path: app/Policies/UserPolicy.php
+
+    -
+      message: "#^Access to offset 'roleAssignmentsInput' on an unknown class App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
+      count: 6
+      path: app/Policies/UserPolicy.php
+
+    -
+      message: "#^Parameter \\$args of method App\\\\Policies\\\\UserPolicy\\:\\:updateRoles\\(\\) has invalid type App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
+      count: 1
+      path: app/Policies/UserPolicy.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$deleted_at\\.$#"
+      count: 1
+      path: app/Providers/AuthServiceProvider.php
+
+    -
+      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Providers/GraphQLServiceProvider.php
+
+    -
+      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
+      count: 1
+      path: app/Providers/GraphQLServiceProvider.php
+
+    -
+      message: "#^Parameter \\#2 \\$type of method Nuwave\\\\Lighthouse\\\\Schema\\\\TypeRegistry\\:\\:registerLazy\\(\\) expects callable\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\Type&GraphQL\\\\Type\\\\Definition\\\\NamedType, Closure\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\EnumType given\\.$#"
+      count: 2
+      path: app/Providers/GraphQLServiceProvider.php
+
+    -
+      message: "#^PHPDoc tag @var above a method has no effect\\.$#"
+      count: 1
+      path: app/Providers/RouteServiceProvider.php
+
+    -
+      message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+      count: 1
+      path: app/Providers/RouteServiceProvider.php
+
+    -
+      message: "#^Variable \\$experiences in isset\\(\\) always exists and is not nullable\\.$#"
+      count: 1
+      path: app/Rules/HasEducationRequirement.php
+
+    -
+      message: "#^Left side of && is always true\\.$#"
+      count: 1
+      path: app/Rules/HasLanguageRequirements.php
+
+    -
+      message: "#^Access to an undefined property App\\\\Rules\\\\NotAlreadyApplied\\:\\:\\$poolId\\.$#"
+      count: 2
+      path: app/Rules/NotAlreadyApplied.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$closing_date\\.$#"
+      count: 1
+      path: app/Rules/PoolNotClosed.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$status\\.$#"
+      count: 1
+      path: app/Rules/PoolPublished.php
+
+    -
+      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\:\\:\\$pivot\\.$#"
+      count: 2
+      path: app/Rules/SkillLevelRequiredIfEssential.php
+
+    -
+      message: "#^Using nullsafe property access on non\\-nullable type Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\. Use \\-\\> instead\\.$#"
+      count: 2
+      path: app/Rules/SkillLevelRequiredIfEssential.php
+
+    -
+      message: "#^Variable \\$activePoolsUsingSkill in isset\\(\\) always exists and is not nullable\\.$#"
+      count: 1
+      path: app/Rules/SkillNotUsedByActivePool.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
+      count: 3
+      path: app/Services/OpenIdBearerTokenService.php
+
+    -
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"
+      count: 1
+      path: app/ValueObjects/ProfileSnapshot.php
+

@@ -174,7 +174,8 @@ class PoolBuilder extends Builder
      */
     public function orderByTeamDisplayName(?array $args): self
     {
-        extract($args);
+        $order = $args['order'] ?? null;
+        $locale = $args['locale'] ?? null;
 
         if ($order && $locale) {
             return $this->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
@@ -185,10 +186,9 @@ class PoolBuilder extends Builder
 
     public function orderByPoolBookmarks(?array $args): self
     {
-        extract($args);
-
-        /** @var \App\Models\User */
+        /** @var \App\Models\User|null */
         $user = Auth::user();
+        $order = $args['order'] ?? null;
 
         // order the pools so that the bookmarks connected to current user sticks to the top
         if ($order && $user) {

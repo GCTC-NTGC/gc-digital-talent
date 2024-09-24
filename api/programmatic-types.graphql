@@ -214,6 +214,11 @@ type LocalizedSkillLevel {
   label: LocalizedString!
 }
 
+type LocalizedSupervisoryStatus {
+  value: SupervisoryStatus!
+  label: LocalizedString!
+}
+
 type LocalizedWorkRegion {
   value: WorkRegion!
   label: LocalizedString!
@@ -860,6 +865,11 @@ enum EducationType {
   ONLINE_COURSE
   CERTIFICATION
   OTHER
+}
+
+enum EmailType {
+  CONTACT
+  WORK
 }
 
 enum EstimatedLanguageAbility {
