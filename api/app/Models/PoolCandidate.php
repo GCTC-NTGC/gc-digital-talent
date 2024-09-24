@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
