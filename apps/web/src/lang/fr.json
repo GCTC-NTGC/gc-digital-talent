@@ -223,6 +223,10 @@
     "defaultMessage": "Sécurité de la TI",
     "description": "Label for the 'security' IT work stream"
   },
+  "/4z9lj": {
+    "defaultMessage": "De la même manière que pour les compétences techniques essentielles, cette liste propose des recommandations concernant les compétences comportementales généralement requises dans le cadre de ce poste. Nous recommandons de limiter les compétences comportementales essentielles aux exigences exactes de votre poste ou de votre équipe afin d’aider les personnes candidates à mettre en évidence l’expérience la plus pertinente.",
+    "description": "Description displayed on the job poster template 'essential behavioural skills' section."
+  },
   "/5tYua": {
     "defaultMessage": "Fournissez vos renseignements",
     "description": "How it works, step 2 heading"
@@ -515,10 +519,6 @@
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
   },
-  "IM/m16": {
-    "defaultMessage": "Les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas strictement requises, mais qui seraient utiles pour le poste. Il peut s’agir de combler des lacunes au sein de votre équipe ou de posséder des compétences connexes susceptibles de renforcer le travail de la personne candidate. Mentionnez toutes les compétences que vous estimez utiles pour le poste, mais n’oubliez pas que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler ou se qualifier.",
-    "description": "Description displayed on the job poster template 'asset technical skills' section."
-  },
   "0Uvziq": {
     "defaultMessage": "Candidats du bassin",
     "description": "Title for pool candidates"
@@ -802,6 +802,10 @@
   "2HGCCF": {
     "defaultMessage": "Nous utilisons également cette information pour vous offrir une expérience plus contextualisée, y compris des recommandations de possibilités fondées sur votre situation de l'emploi, votre classification, et plus encore.",
     "description": "Message after main heading in employee information page - paragraph 2."
+  },
+  "2IWEV5": {
+    "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
+    "description": "Description for the page showing list of job poster templates"
   },
   "2Ljgvn": {
     "defaultMessage": "Voir l’affiche d’emploi pour ce processus de recrutement",
@@ -1994,10 +1998,6 @@
   "8bJgxK": {
     "defaultMessage": "Français - Votre travail",
     "description": "Label for the French - Your Work textarea in the edit pool page."
-  },
-  "oOqgB/": {
-    "defaultMessage": "Cette bibliothèque contient une série de modèles pour des emplois courants dans les collectivités soutenues par Talents numériques du GC. Les modèles comprennent des informations suggérées et des recommandations pour des éléments tels que le titre du poste, les tâches courantes, les compétences essentielles et les compétences optionnelles. Parcourez la liste complète ou utilisez la barre de recherche et les filtres pour trouver des modèles qui correspondent aux spécificités du poste.",
-    "description": "Description of how to use the form to filter job poster templates"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -3671,10 +3671,6 @@
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
   },
-  "OkRLIU": {
-    "defaultMessage": "Un modèle préétabli contenant des informations sur l'offre d'emploi et des recommandations sur les tâches et les compétences.",
-    "description": "Subtitle for the 'job poster template' page"
-  },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
     "description": "Subject line of a manager's email for apprenticeship"
@@ -3766,6 +3762,10 @@
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
+  },
+  "IM/m16": {
+    "defaultMessage": "Les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas strictement requises, mais qui seraient utiles pour le poste. Il peut s’agir de combler des lacunes au sein de votre équipe ou de posséder des compétences connexes susceptibles de renforcer le travail de la personne candidate. Mentionnez toutes les compétences que vous estimez utiles pour le poste, mais n’oubliez pas que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler ou se qualifier.",
+    "description": "Description displayed on the job poster template 'asset technical skills' section."
   },
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
@@ -4186,10 +4186,6 @@
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
     "description": "Text prompting for input when duplicating a process"
-  },
-  "jQd3b5": {
-    "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
-    "description": "Description displayed on the job poster template 'key tasks' section."
   },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
@@ -4991,6 +4987,10 @@
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
   },
+  "OkRLIU": {
+    "defaultMessage": "Un modèle préétabli contenant des informations sur l'offre d'emploi et des recommandations sur les tâches et les compétences.",
+    "description": "Subtitle for the 'job poster template' page"
+  },
   "OlSnME": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Message for new job posted notification"
@@ -5778,6 +5778,10 @@
   "SnnuD+": {
     "defaultMessage": "Nous vous inviterons à créer un profil qui sera sauvegardé et présenté comme étant votre demande.",
     "description": "How it works, step 2 content sentence 2"
+  },
+  "SojYxS": {
+    "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base dont une personne candidate a besoin pour effectuer le travail. Cette liste comprend des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous recommandons de ne choisir que les compétences qui sont absolument nécessaires. Une liste plus courte de compétences requises permet de présenter des candidatures plus solides et simplifie le processus d’évaluation.",
+    "description": "Description displayed on the job poster template 'essential technical skills' section."
   },
   "Swq+OD": {
     "defaultMessage": "Toute durée",
@@ -9058,6 +9062,10 @@
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
   },
+  "jQd3b5": {
+    "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
+    "description": "Description displayed on the job poster template 'key tasks' section."
+  },
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
@@ -9261,10 +9269,6 @@
   "kiH9nz": {
     "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
     "description": "Button text displayed for Indigenous languages dropdown"
-  },
-  "SojYxS": {
-    "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base dont une personne candidate a besoin pour effectuer le travail. Cette liste comprend des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous recommandons de ne choisir que les compétences qui sont absolument nécessaires. Une liste plus courte de compétences requises permet de présenter des candidatures plus solides et simplifie le processus d’évaluation.",
-    "description": "Description displayed on the job poster template 'essential technical skills' section."
   },
   "kkZZfT": {
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
@@ -9922,6 +9926,10 @@
     "defaultMessage": "6 à 12 mois",
     "description": "Contract start timeframe of six to twelve months"
   },
+  "oOqgB/": {
+    "defaultMessage": "Cette bibliothèque contient une série de modèles pour des emplois courants dans les collectivités soutenues par Talents numériques du GC. Les modèles comprennent des informations suggérées et des recommandations pour des éléments tels que le titre du poste, les tâches courantes, les compétences essentielles et les compétences optionnelles. Parcourez la liste complète ou utilisez la barre de recherche et les filtres pour trouver des modèles qui correspondent aux spécificités du poste.",
+    "description": "Description of how to use the form to filter job poster templates"
+  },
   "oPXTG/": {
     "defaultMessage": "Situation professionnelle",
     "description": "Employee Status in Employee Info Form"
@@ -10370,10 +10378,6 @@
     "defaultMessage": "Décision de recherche de talents",
     "description": "Heading for the Talent sourcing decision section on the digital services contracting questionnaire"
   },
-  "/4z9lj": {
-    "defaultMessage": "De la même manière que pour les compétences techniques essentielles, cette liste propose des recommandations concernant les compétences comportementales généralement requises dans le cadre de ce poste. Nous recommandons de limiter les compétences comportementales essentielles aux exigences exactes de votre poste ou de votre équipe afin d’aider les personnes candidates à mettre en évidence l’expérience la plus pertinente.",
-    "description": "Description displayed on the job poster template 'essential behavioural skills' section."
-  },
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
@@ -10577,10 +10581,6 @@
   "s7Uy7q": {
     "defaultMessage": "Services professionnels, administratifs, et de soutien à la gestion",
     "description": "Support services contract commodity"
-  },
-  "2IWEV5": {
-    "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
-    "description": "Description for the page showing list of job poster templates"
   },
   "s9unRt": {
     "defaultMessage": "Heures supplémentaires à court terme",
