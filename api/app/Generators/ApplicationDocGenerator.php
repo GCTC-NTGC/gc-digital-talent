@@ -21,8 +21,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $candidate->loadMissing(['user' => ['first_name', 'last_name']]);
         $fileName = sprintf(
             '%s %s - Application - Candidature',
-            $this->santitizeFileNameString($candidate?->user?->first_name),
-            $this->santitizeFileNameString($candidate?->user?->last_name),
+            $this->sanitizeFileNameString($candidate?->user?->first_name),
+            $this->sanitizeFileNameString($candidate?->user?->last_name),
         );
 
         parent::__construct($fileName, $dir);

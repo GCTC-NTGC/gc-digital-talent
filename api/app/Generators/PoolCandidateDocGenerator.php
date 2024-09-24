@@ -12,13 +12,13 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
     public function __construct(protected PoolCandidate $candidate, protected bool $anonymous, public ?string $dir, protected ?string $lang, protected ?int $iteration = null)
     {
         $candidate->loadMissing(['user' => ['first_name', 'last_name']]);
-        $lastName = $this->santitizeFileNameString($candidate?->user?->last_name);
+        $lastName = $this->sanitizeFileNameString($candidate?->user?->last_name);
         if ($anonymous) {
             $lastName = substr($lastName, 0, 1);
         }
         $fileName = sprintf(
             '%s %s - Application - Candidature',
-            $this->santitizeFileNameString($candidate?->user?->first_name),
+            $this->sanitizeFileNameString($candidate?->user?->first_name),
             $lastName,
         );
 

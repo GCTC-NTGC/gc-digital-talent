@@ -64,7 +64,7 @@ class FileGenerator
      * @param  ?string  $value  String to be sanitized
      * @return string Sanitized string
      */
-    public function santitizeFileNameString(?string $value)
+    public function sanitizeFileNameString(?string $value)
     {
         if (! $value) {
             return '';
