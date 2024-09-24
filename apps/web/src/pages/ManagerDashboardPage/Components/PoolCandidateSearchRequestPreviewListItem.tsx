@@ -29,6 +29,7 @@ const PreviewListItemPoolCandidateSearchRequest_Fragment = graphql(
           level
         }
       }
+      initialResultCount
     }
   `,
 );
@@ -140,19 +141,20 @@ const PoolCandidateSearchRequestPreviewListItem = ({
       children: statusChip.label,
     });
   }
-  if (true) {
+  if (typeof request.initialResultCount === "number") {
     metaDataProps.push({
       key: "match-count",
       type: "text",
       children: intl.formatMessage(
         {
-          defaultMessage: "{resultCount} estimated matches",
-          id: "FivLgM",
+          defaultMessage:
+            "{resultCount, plural, one {{resultCount} estimated match} other {{resultCount} estimated matches}}",
+          id: "rRoL/0",
           description:
             "Display of estimated matches to a pool candidate search request",
         },
         {
-          resultCount: "X",
+          resultCount: request.initialResultCount,
         },
       ),
     });
