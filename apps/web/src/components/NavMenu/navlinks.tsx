@@ -83,6 +83,14 @@ export const useMainLinks = (
     />
   );
 
+  const ManagerHomePage = (
+    <NavItem
+      key="managerHomePage"
+      href={paths.manager()}
+      title={intl.formatMessage(navigationMessages.home)}
+    />
+  );
+
   const ManagerDashboard = (
     <NavItem
       key="managerDashboard"
@@ -275,7 +283,7 @@ export const useMainLinks = (
     case "manager":
       return {
         ...defaultLinks,
-        mainLinks: [Home, ManagerDashboard, FindTalent],
+        mainLinks: [ManagerHomePage, ManagerDashboard, FindTalent],
         accountLinks: loggedIn
           ? [ManagerProfile, AccountSettings, SignOut]
           : null,
