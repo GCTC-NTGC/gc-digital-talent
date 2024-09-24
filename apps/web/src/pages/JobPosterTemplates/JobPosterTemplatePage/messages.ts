@@ -8,8 +8,8 @@ const messages = defineMessages({
   },
   subTitle: {
     defaultMessage:
-      "A pre-built template containing job advertisement information and recommendations for tasks and skills.",
-    id: "HlAEv1",
+      "A prebuilt template containing job advertisement information and recommendations for tasks and skills.",
+    id: "OkRLIU",
     description: "Subtitle for the 'job poster template' page",
   },
 });
