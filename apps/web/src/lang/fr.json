@@ -515,8 +515,8 @@
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
   },
-  "0UAx0q": {
-    "defaultMessage": "Enfin, les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas absolument nécessaires, mais qui seraient utiles pour le poste. Ces compétences pourraient constituer une lacune au sein de votre équipe ou des compétences connexes susceptibles de renforcer le travail de la personne candidate. Nous vous encourageons à inclure toutes les compétences qui vous semblent convenir à ce type de poste. Toutefois, il est important de rappeler que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler (et se qualifier) pour le poste que vous décrivez.",
+  "IM/m16": {
+    "defaultMessage": "Les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas strictement requises, mais qui seraient utiles pour le poste. Il peut s’agir de combler des lacunes au sein de votre équipe ou de posséder des compétences connexes susceptibles de renforcer le travail de la personne candidate. Mentionnez toutes les compétences que vous estimez utiles pour le poste, mais n’oubliez pas que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler ou se qualifier.",
     "description": "Description displayed on the job poster template 'asset technical skills' section."
   },
   "0Uvziq": {
