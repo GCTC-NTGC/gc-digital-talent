@@ -311,7 +311,7 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
 
         if ($withSkills) {
-            $experience->loadMissing(['userSkills' => ['skill']]);
+            $experience->load(['userSkills' => ['skill']]);
 
             if ($experience->userSkills->count() > 0) {
                 $section->addTextBreak(1);
