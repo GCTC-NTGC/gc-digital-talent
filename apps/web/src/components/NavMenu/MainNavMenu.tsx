@@ -18,31 +18,45 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import {
-  hasRole,
   ROLE_NAME,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
 import { useMainLinks } from "./navlinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
+import { NavRole } from "../NavContext/NavContextContainer";
 
 const MainNavMenu = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const isSmallScreen = useIsSmallScreen(1080);
 
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
 
-  const isSmallScreen = useIsSmallScreen(1080);
   const { navRole } = useNavContext();
-
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
+
+  const [prevNavRole, setPrevNavRole] = useLocalStorage<NavRole | null>(
+    "prevNavRole",
+    null,
+  );
+
+  useEffect(() => {
+    if (navRole === "guest" && userAuthInfo?.roleAssignments === undefined) {
+      setPrevNavRole(null);
+    } else {
+      setPrevNavRole(navRole);
+    }
+  }, [navRole, loggedIn, setPrevNavRole, userAuthInfo?.roleAssignments]);
+
   const { roleLinks, mainLinks, accountLinks, authLinks } = useMainLinks(
-    navRole,
+    prevNavRole || navRole,
     loggedIn,
     userAuthInfo?.roleAssignments?.filter(notEmpty) || [],
   );
@@ -77,11 +91,6 @@ const MainNavMenu = () => {
     ["community"]: "Community",
     ["admin"]: "Admin",
   };
-
-  // if the navRole === guest
-  // AND the user has the applicant role
-  // Set the nam menu to applicant role (navRole === applicant)
-  const currentRole = loggedIn && hasRole("applicant", roleAssignments);
 
   return (
     <>
@@ -122,7 +131,7 @@ const MainNavMenu = () => {
                   mode="text"
                   block={false}
                 >
-                  {getRoleName[navRole]}
+                  {getRoleName[prevNavRole || navRole]}
                 </NavMenu.Trigger>
                 <NavMenu.Content>
                   <NavMenu.List>
