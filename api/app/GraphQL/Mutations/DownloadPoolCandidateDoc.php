@@ -48,7 +48,7 @@ final readonly class DownloadPoolCandidateDoc
 
             return $generator->getFileNameWithExtension();
         } catch (\Exception $e) {
-            Log::error('Error starting candidate document generation '.$e->getMessage());
+            Log::error('Error starting candidate document generation '.$e);
 
             return null;
         }

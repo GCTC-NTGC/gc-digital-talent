@@ -42,7 +42,7 @@ final class DownloadPoolCandidatesCsv
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting candidate csv generation '.$e->getMessage());
+            Log::error('Error starting candidate csv generation '.$e);
 
             return false;
         }

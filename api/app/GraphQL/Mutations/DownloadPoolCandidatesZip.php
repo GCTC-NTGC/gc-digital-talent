@@ -40,7 +40,7 @@ final class DownloadPoolCandidatesZip
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting candidate document generation '.$e->getMessage());
+            Log::error('Error starting candidate document generation '.$e);
 
             return false;
         }
