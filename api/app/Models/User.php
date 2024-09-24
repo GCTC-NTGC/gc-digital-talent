@@ -15,7 +15,6 @@ use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
-use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -28,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -61,9 +61,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $written_level
  * @property string $verbal_level
  * @property string $estimated_language_ability
- * @property string $is_gov_employee
+ * @property bool $is_gov_employee
  * @property string $work_email
- * @property Illuminate\Support\Carbon work_email_verified_at
+ * @property ?\Illuminate\Support\Carbon $work_email_verified_at
  * @property bool $has_priority_entitlement
  * @property string $priority_number
  * @property string $department
@@ -76,12 +76,12 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property bool $has_diploma
  * @property array $location_preferences
  * @property string $location_exemptions
- * @property array $position_duration
+ * @property ?array $position_duration
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
  * @property int $priority_weight
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  * @property string $indigenous_declaration_signature
  * @property array $indigenous_communities
  * @property string $preferred_language_for_interview
@@ -276,7 +276,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function skills()
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
     }
 
     // This method will add the specified skills to UserSkills if they don't exist yet.
@@ -288,7 +288,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
         $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
         foreach ($newSkillIds as $skillId) {
-            $userSkill = new UserSkill();
+            $userSkill = new UserSkill;
             $userSkill->skill_id = $skillId;
             $this->userSkills()->save($userSkill);
         }
@@ -1205,9 +1205,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasVerifiedEmail(EmailType::WORK);
     }
 
-    public static function hydrateSnapshot(mixed $snapshot): Model|array
+    public static function hydrateSnapshot(mixed $snapshot): User|array
     {
-        $user = new User();
+        $user = new User;
 
         $fields = [
             'first_name' => 'firstName',
@@ -1246,6 +1246,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'indigenous_communities' => 'indigenousCommunities',
         ];
 
+        /** @var User $user */
         $user = self::hydrateFields($snapshot, $fields, $user);
 
         if (isset($snapshot['department'])) {

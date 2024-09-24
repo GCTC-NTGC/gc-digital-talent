@@ -15,7 +15,6 @@ trait Filterable
      * Set the filters to be applied
      *
      * @param  ?array  $filters  The filters being applied
-     * @return GeneratorIsFilterable The class instance
      */
     public function setFilters(?array $filters)
     {
@@ -28,7 +27,6 @@ trait Filterable
      * Set the ids to be applied
      *
      * @param  ?array  $ids  The ids being applied
-     * @return GeneratorIsFilterable The class instance
      */
     public function setIds(?array $ids)
     {
@@ -62,7 +60,6 @@ trait Filterable
      * Apply filters to the query builder
      *
      * @param  Builder  $query  The query builder to apply filters to
-     * @param  class-string  $class  The model for the query builder
      * @param  array  $scopeMap  A map of $filterKey => $scopeName
      * @return Builder $query The query builder with scopes applied
      */

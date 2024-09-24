@@ -44,7 +44,5 @@ final class DownloadUsersZip
 
             return false;
         }
-
-        return false;
     }
 }

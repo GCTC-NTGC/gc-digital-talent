@@ -42,7 +42,5 @@ final class DownloadApplicationsZip
 
             return false;
         }
-
-        return false;
     }
 }

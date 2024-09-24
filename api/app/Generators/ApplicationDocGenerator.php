@@ -21,8 +21,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $candidate->loadMissing(['user' => ['first_name', 'last_name']]);
         $fileName = sprintf(
             '%s %s - Application - Candidature',
-            $this->sanitizeFileNameString($candidate?->user?->first_name),
-            $this->sanitizeFileNameString($candidate?->user?->last_name),
+            $this->sanitizeFileNameString($candidate->user?->first_name),
+            $this->sanitizeFileNameString($candidate->user?->last_name),
         );
 
         parent::__construct($fileName, $dir);
@@ -52,19 +52,20 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section->addTitle($this->localizeHeading('education_requirement'), 3);
         $this->addLabelText($section, $this->localizeHeading('requirement_selection'), $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class));
         $candidate->educationRequirementExperiences->each(function ($educationExperience) use ($section) {
+            /** @var \App\Models\EducationExperience $educationExperience */
             $section->addListItem($educationExperience->getTitle($this->lang));
         });
 
         $skillDetails = $this->getSkillDetails($candidate->pool->poolSkills, $experiences, $snapshot['experiences']);
 
-        $section->addTitle($this->localize('pool_skill_type.essential', 3));
+        $section->addTitle($this->localize('pool_skill_type.essential'), 3);
         if (isset($skillDetails[PoolSkillType::ESSENTIAL->name])) {
             $this->generateSkillsDetails($section, $skillDetails[PoolSkillType::ESSENTIAL->name]);
         } else {
             $section->addText($this->localize('common.not_provided'));
         }
 
-        $section->addTitle($this->localize('pool_skill_type.nonessential', 3));
+        $section->addTitle($this->localize('pool_skill_type.nonessential'), 3);
         if (isset($skillDetails[PoolSkillType::NONESSENTIAL->name])) {
             $this->generateSkillsDetails($section, $skillDetails[PoolSkillType::NONESSENTIAL->name]);
         } else {
@@ -111,7 +112,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
     /**
      * Get details from experiences for pool skills
      *
-     * @param  Collection  $poolSkils  Skills for the pool the candidate applied to
+     * @param  Collection  $poolSkills  Skills for the pool the candidate applied to
      * @param  array  $experiences  The experiences in the users snapshot
      * @return Collection The pools skill collection with user experiences attached
      */

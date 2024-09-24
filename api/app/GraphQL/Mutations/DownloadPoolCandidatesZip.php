@@ -44,7 +44,5 @@ final class DownloadPoolCandidatesZip
 
             return false;
         }
-
-        return false;
     }
 }

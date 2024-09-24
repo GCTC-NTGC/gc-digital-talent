@@ -13,15 +13,19 @@ use Illuminate\Validation\UnauthorizedException;
 
 final readonly class DownloadPoolCandidateDoc
 {
-    /** @param  array{}  $args */
+    /**
+     * @disregard P1003 Will not use
+     *
+     * @param  array{id: ?string, anonymous: ?boolean}  $args
+     */
     public function __invoke(null $_, array $args)
     {
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
-        $targetApplicant = PoolCandidate::find($args['id'])->load(['user']);
-        $firstName = $targetApplicant?->user?->first_name;
-        $lastName = $targetApplicant?->user?->last_name;
+        $targetApplicant = PoolCandidate::findOrFail($args['id'])->load(['user']);
+        $firstName = $targetApplicant->user?->first_name;
+        $lastName = $targetApplicant->user?->last_name;
         if (isset($firstName)) {
             $firstName = iconv('UTF-8', 'ASCII//TRANSLIT', $firstName); // handle accented characters
             $firstName = preg_replace('/[^a-zA-Z]+/', '', $firstName); // remove anything that isn't an alphabet character
@@ -52,7 +56,5 @@ final readonly class DownloadPoolCandidateDoc
 
             return null;
         }
-
-        return null;
     }
 }

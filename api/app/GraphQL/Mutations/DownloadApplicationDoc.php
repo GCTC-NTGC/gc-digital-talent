@@ -13,7 +13,7 @@ use Illuminate\Validation\UnauthorizedException;
 
 final readonly class DownloadApplicationDoc
 {
-    /** @param  array{}  $args */
+    /** @param  array{id: string|null}  $args */
     public function __invoke(null $_, array $args)
     {
         $user = Auth::user();
@@ -37,7 +37,5 @@ final readonly class DownloadApplicationDoc
 
             return null;
         }
-
-        return null;
     }
 }

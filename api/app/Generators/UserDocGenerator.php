@@ -11,13 +11,13 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
 
     public function __construct(protected User $user, protected bool $anonymous, public ?string $dir, protected ?string $lang)
     {
-        $lastName = $this->sanitizeFileNameString($user?->last_name);
+        $lastName = $this->sanitizeFileNameString($user->last_name);
         if ($anonymous) {
             $lastName = substr($lastName, 0, 1);
         }
         $fileName = sprintf(
             '%s %s - Profile - Profil',
-            $this->sanitizeFileNameString($user?->first_name),
+            $this->sanitizeFileNameString($user->first_name),
             $lastName,
         );
 

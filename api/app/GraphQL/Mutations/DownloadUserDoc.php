@@ -13,7 +13,11 @@ use Illuminate\Validation\UnauthorizedException;
 
 final readonly class DownloadUserDoc
 {
-    /** @param  array{}  $args */
+    /**
+     * @disregard P1003 No plans on using this
+     *
+     * @param  array{id: ?string, anonymous: ?bool}  $args
+     */
     public function __invoke(null $_, array $args)
     {
         $user = Auth::user();
@@ -39,7 +43,5 @@ final readonly class DownloadUserDoc
 
             return null;
         }
-
-        return null;
     }
 }

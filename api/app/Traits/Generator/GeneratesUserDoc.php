@@ -106,7 +106,7 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localizeHeading('second_language_exam_completed'), $this->yesOrNo($user->second_language_exam_completed));
         $this->addLabelText($section, $this->localizeHeading('second_language_exam_validity'), $this->yesOrNo($user->second_language_exam_validity));
 
-        $heading = $this->localizeHeading('estimated_language_ability', $this->strong);
+        $heading = $this->localizeHeading('estimated_language_ability');
 
         if ($user->second_language_exam_completed && ($user->comprehension_level || $user->written_level || $user->verbal_level)) {
             $section->addText($heading);
@@ -130,7 +130,7 @@ trait GeneratesUserDoc
             }
 
         } elseif ($user->estimated_language_ability) {
-            $section->addLabelText($section, $heading, $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class));
+            $this->addLabelText($section, $heading, $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class));
         }
     }
 
@@ -225,9 +225,11 @@ trait GeneratesUserDoc
      * Generate a users experiences
      *
      * @param  Section  $section  The section to add info to
-     * @param  User  $user  The user being generated
+     * @param  Collection  $experienceCollection  The experiences to be rendered
+     * @param  bool  $withSkills  If it should include the skills associated with experiences
+     * @param  int  $headingRank  The rank of headings
      */
-    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills = true, $headingRank = 3)
+    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills = true, int $headingRank = 3)
     {
 
         if ($experienceCollection->count() > 0) {
@@ -268,10 +270,10 @@ trait GeneratesUserDoc
      * Generate a single experience
      *
      * @param  Section  $section  The section to add info to
-     * @param  Experience  $experience  The experience being generated
+     * @param  AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience  $experience  The experience being generated
      * @param  string  $type  The type of experience being generated
      */
-    public function experience(Section $section, Experience $experience, string $type, bool $withSkills = true, $headingRank = 4)
+    public function experience(Section $section, AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience $experience, string $type, bool $withSkills = true, $headingRank = 4)
     {
 
         if ($type === AwardExperience::class) {
@@ -374,7 +376,7 @@ trait GeneratesUserDoc
         $this->workPreferences($section, $user, $headingRank + 2);
         $this->dei($section, $user, $headingRank + 2);
 
-        $this->experiences($section, $user->experiences, $headingRank + 1);
+        $this->experiences($section, $user->experiences, true, $headingRank + 1);
         $this->skillsShowcase($section, $user, $headingRank + 1);
 
         $section->addPageBreak();
@@ -405,7 +407,7 @@ trait GeneratesUserDoc
      * Add skill rank list
      *
      * @param  Section  $section  Document section to add skill ranks to
-     * @param  UserSkill  $skills  Skills to list out with ranks
+     * @param  Collection  $skills  Skills to list out with ranks
      * @param  string  $title  The title for the list
      */
     private function skillRanks(Section $section, Collection $skills, string $title, $headingRank = 4)

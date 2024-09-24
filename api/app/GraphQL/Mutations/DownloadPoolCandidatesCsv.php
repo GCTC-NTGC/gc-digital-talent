@@ -46,7 +46,5 @@ final class DownloadPoolCandidatesCsv
 
             return false;
         }
-
-        return false;
     }
 }

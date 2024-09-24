@@ -46,7 +46,5 @@ final class DownloadUsersCsv
 
             return false;
         }
-
-        return false;
     }
 }
