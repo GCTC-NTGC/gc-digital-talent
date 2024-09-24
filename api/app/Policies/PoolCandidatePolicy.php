@@ -39,9 +39,7 @@ class PoolCandidatePolicy
         // Exit early if user can view any draft application
         if ($isDraft) {
             return $user->isAbleTo('view-any-draftApplication');
-        }
-
-        if (! $isDraft) {
+        } else {
             if ($user->isAbleTo('view-any-submittedApplication')) {
                 return true;
             }
