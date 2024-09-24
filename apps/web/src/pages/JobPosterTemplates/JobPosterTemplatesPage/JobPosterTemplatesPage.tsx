@@ -309,7 +309,7 @@ const JobPosterTemplatesPage = () => {
           {intl.formatMessage({
             defaultMessage:
               "This library contains a series of templates for common jobs across the communities that GC Digital Talent supports. The templates include suggested information and recommendations for elements such as the job title, common tasks in the role, and essential and asset optional skills. Browse the full list or use the search bar and filters to find templates that align with the job’s specific details.",
-            id: 'oOqgB/',
+            id: "oOqgB/",
             description:
               "Description of how to use the form to filter job poster templates",
           })}
