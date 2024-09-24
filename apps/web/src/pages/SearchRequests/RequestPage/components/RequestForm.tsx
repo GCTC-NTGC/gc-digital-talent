@@ -337,7 +337,11 @@ export const RequestForm = ({
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
+    const submitData: CreatePoolCandidateSearchRequestInput = {
+      ...formValuesToSubmitData(data),
+      initialResultCount: candidateCount,
+    };
+    return handleCreatePoolCandidateSearchRequest(submitData)
       .then((res) => {
         if (res) {
           removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
