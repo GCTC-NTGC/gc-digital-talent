@@ -23,6 +23,7 @@ import getButtonStyle, {
   ButtonStyleInterface,
 } from "../../utils/button/getButtonStyles";
 import { Color } from "../../types";
+import { useNavMenuContext } from "./NavMenuProvider";
 
 const Root = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -137,6 +138,7 @@ const Link = forwardRef<
   const { pathname } = useLocation();
   const linkRef = useRef<HTMLAnchorElement>(null);
   const isSmallScreen = useIsSmallScreen(1080);
+  const navContext = useNavMenuContext();
 
   const isActive = pathname === href;
 
@@ -153,6 +155,12 @@ const Link = forwardRef<
     <NavigationMenuPrimitive.Link
       ref={forwardedRef}
       active={isActive}
+      onSelect={(e: Event) => {
+        e.preventDefault();
+        if (navContext?.onOpenChange) {
+          navContext.onOpenChange(false);
+        }
+      }}
       asChild
       {...rest}
     >
