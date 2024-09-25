@@ -3199,8 +3199,8 @@
     "defaultMessage": "Modifier {skillName}",
     "description": "Edit a skill"
   },
-  "F7RkOA": {
-    "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
+  "QMY4DF": {
+    "defaultMessage": "<strong>Pour commencer, passez votre profil en revue.</strong> Si vous n'avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements requis à l'étape suivante.",
     "description": "Description of the application process and the next step"
   },
   "F7nP5o": {
@@ -10878,8 +10878,8 @@
     "defaultMessage": "50 000 $ à 1 million de dollars",
     "description": "Contract value range between fifty-thousand and one-million"
   },
-  "u/DBSl": {
-    "defaultMessage": "La Plateforme de talents numériques du gouvernement du Canada est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
+  "f6UvQ4": {
+    "defaultMessage": "Talents numériques du GC est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
     "description": "Description of how the skills-based hiring platform assess candidates."
   },
   "u3CPra": {
