@@ -7898,6 +7898,10 @@
     "defaultMessage": "Cote de sécurité",
     "description": "Label for pool advertisement security clearance requirement"
   },
+  "e5BoL+": {
+    "defaultMessage": "Cette bibliothèque contient une série de modèles pour des emplois courants dans les collectivités soutenues par Talents numériques du GC. Les modèles comprennent des informations suggérées et des recommandations pour des éléments tels que le titre du poste, les tâches courantes, les compétences essentielles et les compétences optionnelles. Parcourez la liste complète ou utilisez la barre de recherche et les filtres pour trouver des modèles qui correspondent aux spécificités du poste.",
+    "description": "Description of how to use the form to filter job poster templates"
+  },
   "e5xrSy": {
     "defaultMessage": "Embauché à titre d’employé pour une période déterminée",
     "description": "Title of the 'Hired as a term employee' subsection"
@@ -9925,10 +9929,6 @@
   "oOPwam": {
     "defaultMessage": "6 à 12 mois",
     "description": "Contract start timeframe of six to twelve months"
-  },
-  "oOqgB/": {
-    "defaultMessage": "Cette bibliothèque contient une série de modèles pour des emplois courants dans les collectivités soutenues par Talents numériques du GC. Les modèles comprennent des informations suggérées et des recommandations pour des éléments tels que le titre du poste, les tâches courantes, les compétences essentielles et les compétences optionnelles. Parcourez la liste complète ou utilisez la barre de recherche et les filtres pour trouver des modèles qui correspondent aux spécificités du poste.",
-    "description": "Description of how to use the form to filter job poster templates"
   },
   "oPXTG/": {
     "defaultMessage": "Situation professionnelle",
