@@ -393,11 +393,10 @@ interface AdminUserProfileProps {
 
 export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
   const user = getFragment(AdminUserProfileUser_Fragment, userQuery);
-  const { downloadSingleUserDoc, downloadingSingleUserDoc } =
-    useUserDownloads();
+  const { downloadDoc, downloadingDoc } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
-    downloadSingleUserDoc({ id: user.id, anonymous });
+    downloadDoc({ id: user.id, anonymous });
   };
 
   return (
@@ -407,9 +406,9 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
         data-h2-text-align="base(right)"
       >
         <DownloadUsersDocButton
-          disabled={downloadingSingleUserDoc}
+          disabled={downloadingDoc}
           onClick={handleDocDownload}
-          isDownloading={downloadingSingleUserDoc}
+          isDownloading={downloadingDoc}
         />
       </div>
       <UserProfile user={user} headingLevel="h3" />
