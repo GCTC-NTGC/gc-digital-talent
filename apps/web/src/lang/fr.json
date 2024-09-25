@@ -3763,10 +3763,6 @@
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
   },
-  "IM/m16": {
-    "defaultMessage": "Les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas strictement requises, mais qui seraient utiles pour le poste. Il peut s’agir de combler des lacunes au sein de votre équipe ou de posséder des compétences connexes susceptibles de renforcer le travail de la personne candidate. Mentionnez toutes les compétences que vous estimez utiles pour le poste, mais n’oubliez pas que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler ou se qualifier.",
-    "description": "Description displayed on the job poster template 'asset technical skills' section."
-  },
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
     "description": "Second paragraph for pool deadlines dialog"
@@ -8938,6 +8934,10 @@
     "defaultMessage": "Maintenance de la plateforme",
     "description": "Heading for platform dashboard links"
   },
+  "ir/K0H": {
+    "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
+    "description": "Description displayed on the job poster template 'key tasks' section."
+  },
   "iruU4c": {
     "defaultMessage": "10 millions de dollars à 15 millions de dollars",
     "description": "Contract value range between ten-million and fifteen-million"
@@ -9066,10 +9066,6 @@
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
   },
-  "jQd3b5": {
-    "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
-    "description": "Description displayed on the job poster template 'key tasks' section."
-  },
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
@@ -9197,6 +9193,10 @@
   "k5bZg7": {
     "defaultMessage": "Parlez-nous de votre expérience",
     "description": "Link text for application survey"
+  },
+  "k7n43+": {
+    "defaultMessage": "Les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas strictement requises, mais qui seraient utiles pour le poste. Il peut s’agir de combler des lacunes au sein de votre équipe ou de posséder des compétences connexes susceptibles de renforcer le travail de la personne candidate. Mentionnez toutes les compétences que vous estimez utiles pour le poste, mais n’oubliez pas que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler ou se qualifier.",
+    "description": "Description displayed on the job poster template 'asset technical skills' section."
   },
   "k8lEf0": {
     "defaultMessage": "Niveaux de compétence technique",
