@@ -2,20 +2,32 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
+  Chip,
+  Chips,
   Dialog,
   Pending,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getEmploymentDuration,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import {
   graphql,
   ReviewTalentRequestDialogQuery,
 } from "@gc-digital-talent/graphql";
 
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import {
+  hasDiplomaToEducationLevel,
+  positionDurationToEmploymentDuration,
+} from "~/utils/searchRequestUtils";
+import { formatClassificationString } from "~/utils/poolUtils";
 
 import { talentRequestMessages } from "../messages";
+import { deriveChipSettings, deriveSingleString } from "../utils";
 
 const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
   query ReviewTalentRequestDialog($id: ID!) {
@@ -30,9 +42,11 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
       status {
         value
       }
+      additionalComments
       applicantFilter {
+        hasDiploma
         qualifiedClassifications {
-          id
+          group
           level
         }
         qualifiedStreams {
@@ -70,6 +84,15 @@ const ReviewTalentRequestDialogContent = ({
   request,
 }: ReviewTalentRequestDialogContentProps) => {
   const intl = useIntl();
+  const nullMessage = intl.formatMessage({
+    defaultMessage: "(None selected)",
+    id: "+O6J4u",
+    description: "Text shown when the filter was not selected",
+  });
+  const statusChipSettings = request.status
+    ? deriveChipSettings(request.status.value, intl)
+    : null;
+
   return (
     <>
       <div
@@ -77,27 +100,104 @@ const ReviewTalentRequestDialogContent = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1)"
       >
-        {/* <div>request purpose, submitted</div> */}
-        <div>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x0.75)"
+        >
           <FieldDisplay
             label={intl.formatMessage(talentRequestMessages.requestPurpose)}
           >
             {getLocalizedName(request.reason?.label, intl)}
           </FieldDisplay>
+          {statusChipSettings ? (
+            <Chips>
+              <Chip color={statusChipSettings.color}>
+                {statusChipSettings.label}
+              </Chip>
+            </Chips>
+          ) : null}
         </div>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
-        <div>class, job title</div>
-        <div>stream, language</div>
-        <div>supervisory</div>
-        <div>duration</div>
-        <div>education</div>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1)"
+        >
+          <FieldDisplay
+            label={intl.formatMessage(talentRequestMessages.classification)}
+          >
+            {deriveSingleString(
+              request.applicantFilter?.qualifiedClassifications,
+              formatClassificationString,
+            ) ?? nullMessage}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage(talentRequestMessages.jobTitle)}
+          >
+            {request.jobTitle ?? nullMessage}
+          </FieldDisplay>
+        </div>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1)"
+        >
+          <FieldDisplay
+            label={intl.formatMessage(talentRequestMessages.workStream)}
+          >
+            {deriveSingleString(
+              request.applicantFilter?.qualifiedStreams,
+              (stream) => getLocalizedName(stream.label, intl),
+            ) ?? nullMessage}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage(talentRequestMessages.languageProfile)}
+          >
+            {getLocalizedName(
+              request.applicantFilter?.languageAbility?.label,
+              intl,
+            ) ?? nullMessage}
+          </FieldDisplay>
+        </div>
+        <FieldDisplay
+          label={intl.formatMessage(talentRequestMessages.supervisoryStatus)}
+        >
+          {getLocalizedName(request.positionType?.label, intl) ?? nullMessage}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(talentRequestMessages.employmentDuration)}
+        >
+          {request.applicantFilter?.positionDuration
+            ? intl.formatMessage(
+                getEmploymentDuration(
+                  positionDurationToEmploymentDuration(
+                    request.applicantFilter.positionDuration,
+                  ),
+                ),
+              )
+            : nullMessage}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(talentRequestMessages.educationRequirement)}
+        >
+          {hasDiplomaToEducationLevel(
+            request.applicantFilter?.hasDiploma,
+            intl,
+          ) ?? nullMessage}
+        </FieldDisplay>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
         <div>skills</div>
         <div>equity</div>
         <div>work location</div>
         <div>coe</div>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
-        <div>comments</div>
+        <FieldDisplay
+          label={intl.formatMessage(talentRequestMessages.additionalComments)}
+        >
+          {request.additionalComments ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
       </div>
       <div
         data-h2-padding-top="base(x1.5)"

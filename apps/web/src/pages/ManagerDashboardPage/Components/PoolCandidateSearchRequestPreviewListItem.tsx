@@ -1,22 +1,21 @@
 import { IntlShape, useIntl } from "react-intl";
-import uniq from "lodash/uniq";
 import { useState } from "react";
 
 import {
   FragmentType,
   getFragment,
   graphql,
-  PoolCandidateSearchStatus,
   PreviewListItemFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { ChipProps, PreviewList } from "@gc-digital-talent/ui";
-import { assertUnreachable, notEmpty } from "@gc-digital-talent/helpers";
+import { PreviewList } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
 import ReviewTalentRequestDialog from "./ReviewTalentRequestDialog";
+import { deriveChipSettings } from "../utils";
 
 const PreviewListItemPoolCandidateSearchRequest_Fragment = graphql(
   /* GraphQL */ `
@@ -39,16 +38,12 @@ const PreviewListItemPoolCandidateSearchRequest_Fragment = graphql(
 );
 
 function buildTitle(request: PreviewListItemFragment, intl: IntlShape): string {
-  const classificationStrings =
-    request.applicantFilter?.qualifiedClassifications
-      ?.filter(notEmpty)
-      ?.map((classification) => formatClassificationString(classification));
-
-  const uniqueClassificationStrings = uniq(classificationStrings);
-
+  const classifications = unpackMaybes(
+    request.applicantFilter?.qualifiedClassifications,
+  );
   const firstPart =
-    uniqueClassificationStrings.length == 1
-      ? uniqueClassificationStrings[0]
+    classifications.length == 1
+      ? formatClassificationString(classifications[0])
       : null;
 
   const secondPart =
@@ -60,58 +55,6 @@ function buildTitle(request: PreviewListItemFragment, intl: IntlShape): string {
       : secondPart;
 
   return completedTitle;
-}
-
-function buildStatusChip(
-  status: PoolCandidateSearchStatus,
-  intl: IntlShape,
-): { color: ChipProps["color"]; label: string } {
-  switch (status) {
-    case PoolCandidateSearchStatus.New:
-      return {
-        color: "secondary",
-        label: intl.formatMessage({
-          defaultMessage: "Submitted",
-          id: "BNH3hk",
-          description:
-            "Label for pool candidate search requests that are submitted",
-        }),
-      };
-    case PoolCandidateSearchStatus.InProgress:
-      return {
-        color: "secondary",
-        label: intl.formatMessage({
-          defaultMessage: "Under review",
-          id: "YYmuJo",
-          description:
-            "Label for pool candidate search requests that are under review",
-        }),
-      };
-    case PoolCandidateSearchStatus.Waiting:
-      return {
-        color: "warning",
-        label: intl.formatMessage({
-          defaultMessage: "Awaiting response",
-          id: "MOKBPl",
-          description:
-            "Label for pool candidate search requests that are awaiting a response",
-        }),
-      };
-    case PoolCandidateSearchStatus.Done:
-    case PoolCandidateSearchStatus.DoneNoCandidates:
-    case PoolCandidateSearchStatus.NotCompliant:
-      return {
-        color: "success",
-        label: intl.formatMessage({
-          defaultMessage: "Complete",
-          id: "dwgG5b",
-          description:
-            "Label for pool candidate search requests that are complete",
-        }),
-      };
-    default:
-      return assertUnreachable(status);
-  }
 }
 
 interface PoolCandidateSearchRequestPreviewListItemProps {
@@ -138,12 +81,12 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   type MetaDataPropItem = MetaDataProps[number];
   const metaDataProps: MetaDataPropItem[] = [];
   if (request.status?.value) {
-    const statusChip = buildStatusChip(request.status?.value, intl);
+    const chipSettings = deriveChipSettings(request.status?.value, intl);
     metaDataProps.push({
       key: "status-chip",
       type: "chip",
-      color: statusChip.color,
-      children: statusChip.label,
+      color: chipSettings.color,
+      children: chipSettings.label,
     });
   }
   if (typeof request.initialResultCount === "number") {
