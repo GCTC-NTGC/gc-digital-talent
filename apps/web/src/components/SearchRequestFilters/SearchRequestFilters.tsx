@@ -23,7 +23,10 @@ import {
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
+import {
+  hasDiplomaToEducationLevel,
+  positionDurationToEmploymentDuration,
+} from "~/utils/searchRequestUtils";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/adminMessages";
 
@@ -79,20 +82,10 @@ const ApplicantFilters = ({
         });
 
   // eslint-disable-next-line deprecation/deprecation
-  const educationLevel: string | undefined = applicantFilter?.hasDiploma
-    ? intl.formatMessage({
-        defaultMessage: "Required diploma from post-secondary institution",
-        id: "/mFrpj",
-        description:
-          "Education level message when candidate has a diploma found on the request page.",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Can accept a combination of work experience and education",
-        id: "9DCx2n",
-        description:
-          "Education level message when candidate does not have a diploma found on the request page.",
-      });
+  const educationLevel: string | undefined = hasDiplomaToEducationLevel(
+    applicantFilter?.hasDiploma,
+    intl,
+  );
 
   const employmentEquity: string[] | undefined = [
     ...(applicantFilter?.equity?.isWoman
