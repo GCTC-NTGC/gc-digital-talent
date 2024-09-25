@@ -7,8 +7,8 @@
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
   },
-  "+5+rJS": {
-    "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
+  "baSmVn": {
+    "defaultMessage": "D'autres activités qui vous ont aidé à vous épanouir et à perfectionner vos compétences, y compris les passe-temps, les activités familiales et les activités extrascolaires.",
     "description": "Description for personal experience section"
   },
   "+6syC7": {
@@ -3451,8 +3451,8 @@
     "defaultMessage": "Adresse courriel validée",
     "description": "The email address has been verified to be owned by user"
   },
-  "GNHnrr": {
-    "defaultMessage": "Veuillez partager vos expériences à temps partiel, à plein temps, dans le cadre d’un emploi à votre compte, d’une bourse, d’une organisation sans but lucratif ou de tout stage.",
+  "4QF+9d": {
+    "defaultMessage": "Emploi à temps partiel ou à temps plein, travail indépendant, bourses ou stages.",
     "description": "Description for work experience section"
   },
   "GNhFh2": {
@@ -3791,8 +3791,8 @@
     "defaultMessage": "Copier l’identifiant du processus",
     "description": "Button text to copy a specific qualified recruitment's ID"
   },
-  "IWJ/Qi": {
-    "defaultMessage": "Veuillez nous faire part de prix et de reconnaissances en particulier que vous avez reçus en raison du fait que vous avez été au-delà de votre devoir.",
+  "8J5O+T": {
+    "defaultMessage": "Prix que vous avez reçus ou autres façons dont vous avez été reconnu pour avoir dépassé les attentes.",
     "description": "Description for award experience section"
   },
   "IWWSkL": {
@@ -4955,7 +4955,7 @@
     "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
     "description": "Page blurb for the top behavioural skills page"
   },
-  "OYjVy4": {
+  "mpcA6q": {
     "defaultMessage": "Nous avons tous des réalisations et des expériences diverses qui façonnent nos carrières et nos compétences. Ne communiquez que ce que vous seriez prêt à partager avec un collègue de travail. Sur cette plateforme, vous pouvez ajouter les éléments suivants à votre parcours professionnel :",
     "description": "Lead-in text for the list of experience type definitions"
   },
@@ -6226,8 +6226,8 @@
     "defaultMessage": "Premières Nations (inscrites ou non)",
     "description": "Label for First Nations community"
   },
-  "VW3KlZ": {
-    "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
+  "8BU+HQ": {
+    "defaultMessage": "Diplômes, certificats, cours en ligne, apprentissages, licences ou autres titres reçus d'établissements d’enseignement.",
     "description": "Description for education experience section"
   },
   "VWLWLY": {
@@ -7118,8 +7118,8 @@
     "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
     "description": "Message displayed when user has no experiences to feature on a skill."
   },
-  "a1Cych": {
-    "defaultMessage": "Partagez comment la participation est venue améliorer votre croissance, y compris le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
+  "oN0FFl": {
+    "defaultMessage": "Activités au sein de votre collectivité qui vous ont aidé à vous perfectionner, y compris le bénévolat et l'organisation de cérémonies ou d'autres activités.",
     "description": "Description for community experience section"
   },
   "a2ymC3": {
@@ -8106,8 +8106,8 @@
     "defaultMessage": "Supprimer cette compétence",
     "description": "Button text to remove a skill from a users profile"
   },
-  "fKaw5B": {
-    "defaultMessage": "Plus précisément, nous voulons non seulement connaître vos <strong>antécédents professionnels</strong>, mais nous attachons une grande importance <strong>à votre expérience communautaire</strong>, <strong>aux récompenses que vous avez reçues </strong>, <strong>à vos initiatives personnelles</strong>, ainsi qu’à <strong>vos études</strong> !",
+  "4XVcc2": {
+    "defaultMessage": "Parlez-nous de <strong>votre expérience professionnelle, de votre participation à la vie de la collectivité, des prix que vous avez reçus, de vos initiatives personnelles et de vos études</strong>. Vous utiliserez ces renseignements ultérieurement dans votre candidature pour nous aider à comprendre comment vous répondez aux exigences en matière d’éducation et de compétences de ce poste.",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
   "fLTOAm": {
@@ -8518,8 +8518,8 @@
     "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à ce processus :",
     "description": "Label for the user select field on process team dialog"
   },
-  "h5OdMq": {
-    "defaultMessage": "Apprenez-en davantage sur les types d’expérience que vous pouvez ajouter",
+  "EJ09b7": {
+    "defaultMessage": "Types d'expérience que vous pouvez ajouter",
     "description": "Button text to open section describing experience types"
   },
   "h7IJnu": {
@@ -9686,8 +9686,8 @@
     "defaultMessage": "Télécharger CSV",
     "description": "Text label for button to download a csv file of items in a table."
   },
-  "myEzIh": {
-    "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus d’informations sur ce qu’un certain type d’expérience peut inclure, agrandissez les informations ci-dessous pour voir des exemples.",
+  "EI0GEZ": {
+    "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
   "mzgZQs": {
