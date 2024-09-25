@@ -67,8 +67,8 @@
     "defaultMessage": "Anglais – Note spéciale pour ce processus",
     "description": "Label for the English - Special note for this process textarea on edit pool page."
   },
-  "+JnQX+": {
-    "defaultMessage": "Ces quatre groupes sont <strong>les femmes, les Autochtones, les personnes handicapées,</strong> et <strong>les membres des minorités visibles</strong>.",
+  "CR/mkO": {
+    "defaultMessage": "Les quatre groupes visés par l'équité en matière d'emploi sont les femmes, les Autochtones, les personnes en situation de handicap et les membres des minorités visibles.",
     "description": "Second paragraph for employment equity information."
   },
   "+K/smr": {
@@ -1791,8 +1791,8 @@
     "defaultMessage": "Vous avez le droit d’accéder à vos renseignements personnels, de les corriger et de les protéger en vertu de la Loi sur la protection des renseignements personnels et de déposer une plainte auprès du Commissariat à la protection de la vie privée du Canada quant à la façon dont vos renseignements personnels sont traités.",
     "description": "Paragraph for privacy policy page"
   },
-  "7fJqJP": {
-    "defaultMessage": "Si vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi et que vous ne souhaitez pas vous auto-identifier sur cette plateforme, vous n'êtes pas dans l'obligation de le faire.",
+  "WjCg7r": {
+    "defaultMessage": "La présentation de ces renseignements sur cette plateforme est entièrement facultative <strong>et ne constitue pas une obligation</strong>.",
     "description": "Third paragraph for employment equity information."
   },
   "7g4Mvc": {
@@ -2811,8 +2811,8 @@
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
   },
-  "D9Elm9": {
-    "defaultMessage": "Cette étape indique tous les renseignements de votre profil nécessaires pour cette demande. Chaque section comporte une série de zones devant être remplies pour passer à l’étape suivante. Vous ne remplirez ce profil qu’une seule fois, et les données qu’elle renferme s’afficheront automatiquement sur les demandes que vous soumettrez à l’avenir.",
+  "8IvjbH": {
+    "defaultMessage": "Cette étape indique tous les renseignements de votre profil nécessaires pour cette demande. Chaque section comporte une série de zones devant être remplies pour passer à l'étape suivante. Les renseignements que vous indiquez ici s'afficheront automatiquement sur les demandes que vous soumettrez à l'avenir.",
     "description": "Application step to complete your profile, description"
   },
   "DAmLhV": {
@@ -11018,8 +11018,8 @@
     "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is not employed by government"
   },
-  "usb0gM": {
-    "defaultMessage": "Bien que le libellé de ces catégories ait besoin d'être mis à jour, le gouvernement du Canada utilisera parfois ces catégories lors de l'embauche afin de s'assurer qu'il respecte les objectifs de l'équité en matière d'emploi.",
+  "DgjNQa": {
+    "defaultMessage": "Bien que la terminologie relative à ces catégories soit en cours d'actualisation, le gouvernement du Canada utilisera parfois ces catégories lors du recrutement afin de veiller à ce qu'il atteigne ses objectifs relatifs à l'équité en matière d'emploi.",
     "description": "Description of how the Government of Canada uses employment equity categories in hiring."
   },
   "utLdbN": {
@@ -11326,8 +11326,8 @@
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
   },
-  "wnaTtx": {
-    "defaultMessage": "En apprendre davantage sur l'équité en matière d'emploi",
+  "q+bkac": {
+    "defaultMessage": "Davantage de renseignements sur l’équité en matière d’emploi",
     "description": "Heading for opening the accordion with information on employment equity"
   },
   "wrqRvV": {
@@ -11830,8 +11830,8 @@
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
     "description": "Message displayed to user after skillFamily fails to get updated."
   },
-  "zqBqj1": {
-    "defaultMessage": "Ces renseignements seront utilisés pour vous faire correspondre aux emplois prioritaires.",
+  "SlSHQo": {
+    "defaultMessage": "Ces renseignements seront utilisés pour établir une correspondance entre votre profil et des emplois qui donnent la préférence aux personnes candidates issues des groupes visés par l'équité en matière d'emploi.",
     "description": "Explanation on how employment equity information will be used, item two"
   },
   "zrEIiB": {
