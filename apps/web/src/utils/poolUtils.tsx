@@ -456,7 +456,7 @@ export const getProcessStatusBadge = (
 };
 
 export function getClassificationName(
-  { group, level, name }: Classification,
+  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) {
   const groupLevelStr = `${group}-0${level}`;

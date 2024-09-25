@@ -48,8 +48,8 @@ class JobPosterTemplateTest extends TestCase
     GRAPHQL;
 
     private string $update = <<<'GRAPHQL'
-        mutation Update($id: UUID!, $template: UpdateJobPosterTemplateInput!) {
-            updateJobPosterTemplate(id: $id, jobPosterTemplate: $template) {
+        mutation Update($template: UpdateJobPosterTemplateInput!) {
+            updateJobPosterTemplate(jobPosterTemplate: $template) {
                 id
                 referenceId
             }
@@ -140,24 +140,30 @@ class JobPosterTemplateTest extends TestCase
     public function testAnonymousUserCannotUpdate()
     {
         $this->graphQL($this->update, [
-            'id' => $this->template->id,
-            'template' => ['referenceId' => 'new_id'],
+            'template' => [
+                'id' => $this->template->id,
+                'referenceId' => 'new_id',
+            ],
         ])->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
     public function testNonAdminUserCannotUpdate()
     {
         $this->actingAs($this->baseUser, 'api')->graphQL($this->update, [
-            'id' => $this->template->id,
-            'template' => ['referenceId' => 'new_ref'],
+            'template' => [
+                'id' => $this->template->id,
+                'referenceId' => 'new_ref',
+            ],
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     public function testAdminCanUpdate()
     {
         $this->actingAs($this->adminUser, 'api')->graphQL($this->update, [
-            'id' => $this->template->id,
-            'template' => ['referenceId' => 'new_ref'],
+            'template' => [
+                'id' => $this->template->id,
+                'referenceId' => 'new_ref',
+            ],
         ])->assertJson([
             'data' => [
                 'updateJobPosterTemplate' => [
@@ -223,7 +229,7 @@ class JobPosterTemplateTest extends TestCase
                 'connect' => $template->classification->id,
             ],
             'skills' => [
-                'attach' => $template->skills->map(function ($skill) {
+                'connect' => $template->skills->map(function ($skill) {
                     return [
                         'id' => $skill->id,
                         'requiredLevel' => $skill->required_skill_level,

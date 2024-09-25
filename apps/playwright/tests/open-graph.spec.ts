@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Open Graph", () => {
   test("should specify an image", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/en");
     const locator = await page
       .locator('head meta[property="og:image"]')
       .getAttribute("content");

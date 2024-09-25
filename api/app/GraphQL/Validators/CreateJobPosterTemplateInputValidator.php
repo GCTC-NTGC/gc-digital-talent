@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\SkillLevelRequiredIfEssential;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreateJobPosterTemplateInputValidator extends Validator
@@ -17,6 +18,8 @@ final class CreateJobPosterTemplateInputValidator extends Validator
     {
         return [
             'referenceId' => ['required', 'string', 'unique:job_poster_templates,reference_id'],
+            'skills.connect.*.requiredLevel' => [new SkillLevelRequiredIfEssential],
+            'skills.sync.*.requiredLevel' => [new SkillLevelRequiredIfEssential],
         ];
     }
 }

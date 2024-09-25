@@ -1,9 +1,10 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { ReactElement, ReactNode } from "react";
 
-import Button from "../Button";
+import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
+import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
 import Chip from "../Chip/Chip";
-import { Color } from "../../types";
+import { ButtonLinkProps, Color } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
 export interface MetaDataProps {
@@ -30,49 +31,80 @@ const MetaData = ({ children, type, color }: MetaDataProps) => {
   }
 };
 
+const actionProps = {
+  mode: "icon_only",
+  color: "black",
+  fontSize: "caption",
+  icon: MagnifyingGlassPlusIcon,
+  "data-h2-position": "base:selectors[::after](absolute)",
+  "data-h2-content": "base:selectors[::after](' ')",
+  "data-h2-inset": "base:selectors[::after](0)",
+  "data-h2-justify-self": "base(end)",
+} satisfies ButtonLinkProps;
+
+interface ButtonProps {
+  onClick?: BaseButtonProps["onClick"];
+  label: string;
+}
+
+const Button = ({ onClick, label }: ButtonProps) => (
+  <BaseButton {...actionProps} onClick={onClick} aria-label={label} />
+);
+
+interface LinkProps {
+  href: BaseLinkProps["href"];
+  label: string;
+}
+
+const Link = ({ href, label }: LinkProps) => (
+  <BaseLink {...actionProps} href={href} aria-label={label} />
+);
+
 interface ItemProps {
   title: string;
   metaData: MetaDataProps[];
-  buttonName: string;
   headingAs?: HeadingLevel;
-  buttonAriaLabel?: string;
+  children?: ReactNode;
+  action?: ReactElement<ButtonProps> | ReactElement<LinkProps> | null;
 }
 
 const Item = ({
   title,
   headingAs = "h3",
   metaData,
-  buttonName,
-  buttonAriaLabel,
+  action,
+  children,
 }: ItemProps) => {
   return (
-    <div
+    <li
       data-h2-position="base(relative)"
       data-h2-display="base(flex)"
       data-h2-justify-content="base(space-between)"
       data-h2-align-items="base(flex-start) p-tablet(center)"
-      data-h2-gap="base(x.25)"
-      data-h2-padding="base(x1 0)"
+      data-h2-gap="base(x.5)"
       data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid)"
       data-h2-border-bottom-color="base:all:selectors[:not(:last-child)](gray.lighter)"
       data-h2-transition="base:children[.PreviewList__Heading](transform 200ms ease)"
-      data-h2-color="base:selectors[:has(button:hover) .PreviewList__Heading](secondary.darker) base:selectors[:has(button:focus-visible) .PreviewList__Heading](black)"
-      data-h2-background-color="base:selectors[:has(button:focus-visible) .PreviewList__Heading](focus)"
-      role="listitem"
+      data-h2-color="base:selectors[:has(:is(button, a):hover) .PreviewList__Heading](secondary.darker) base:all:selectors[:has(:is(button, a):focus-visible) .PreviewList__Heading](black)"
+      data-h2-background-color="base:selectors[:has(:is(button, a):focus-visible) .PreviewList__Heading](focus)"
     >
-      <div>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-row-gap="base(x.5)"
+      >
         <Heading
           className="PreviewList__Heading"
           level={headingAs}
           data-h2-font-size="base(body)"
           data-h2-font-weight="base(700)"
           data-h2-text-decoration="base(underline)"
-          data-h2-margin-bottom="base(x.5)"
-          data-h2-margin-top="base(0)"
+          data-h2-margin="base(0)"
           data-h2-display="base(inline-block)"
         >
           {title}
         </Heading>
+        {children && <div>{children}</div>}
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) p-tablet(row)"
@@ -89,20 +121,8 @@ const Item = ({
           ))}
         </div>
       </div>
-      <Button
-        mode="icon_only"
-        color="black"
-        fontSize="caption"
-        icon={MagnifyingGlassPlusIcon}
-        data-h2-position="base:selectors[::after](absolute)"
-        data-h2-content="base:selectors[::after](' ')"
-        data-h2-inset="base:selectors[::after](0)"
-        data-h2-justify-self="base(end)"
-        aria-label={buttonAriaLabel}
-      >
-        {buttonName}
-      </Button>
-    </div>
+      {action}
+    </li>
   );
 };
 
@@ -114,13 +134,22 @@ export interface RootProps {
 
 const Root = ({ children, ...rest }: RootProps) => {
   return (
-    <div role="list" {...rest}>
+    <ul
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-row-gap="base(x1)"
+      data-h2-padding-left="base(0)"
+      data-h2-padding-bottom="base:children[>:last-child](0) base:children[>](x1)"
+      {...rest}
+    >
       {children}
-    </div>
+    </ul>
   );
 };
 
 export default {
   Root,
   Item,
+  Button,
+  Link,
 };

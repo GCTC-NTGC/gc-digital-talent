@@ -237,6 +237,7 @@ export const buildColumn = ({
                 title: assessmentStep.title,
               }}
               assessmentResult={assessmentResult} // always undefined
+              experiences={experiences}
               poolCandidate={{
                 id: poolCandidate.id,
                 profileSnapshot: poolCandidate.profileSnapshot,

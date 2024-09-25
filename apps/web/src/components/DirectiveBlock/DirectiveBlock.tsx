@@ -14,9 +14,9 @@ const DirectiveBlock = () => {
       <Heading
         Icon={MagnifyingGlassCircleIcon}
         color="tertiary"
-        data-h2-margin-top="base(x5)"
         size="h3"
         data-h2-font-weight="base(400)"
+        data-h2-margin-top="base(x5)"
       >
         {intl.formatMessage({
           defaultMessage: "Directive on Digital Talent",
@@ -27,8 +27,8 @@ const DirectiveBlock = () => {
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
           defaultMessage:
-            "The GC Digital Talent platform offers a handful of helpful resources to make completing your responsibilities under the Directive on Digital Talent as easy as possible. This includes online forms, implementation guidance, and links to the Directive.",
-          id: "tSAjnB",
+            "GC Digital Talent offers a handful of helpful resources to make completing your responsibilities under the Directive on Digital Talent as easy as possible. This includes an online form, implementation guidance, and links to the Directive.",
+          id: "fXl3Cm",
           description: "Summary of the directive on digital talent",
         })}
       </p>

@@ -200,7 +200,9 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   children: "Opened on: April 30th, 2024",
                                 },
                               ]}
-                              buttonName="IT01: Junior application developer"
+                              action={
+                                <PreviewList.Button label="IT01: Junior application developer" />
+                              }
                             />
                             <PreviewList.Item
                               title="IT-02: Application developer"
@@ -222,7 +224,9 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   children: "Opened on: April 30th, 2024",
                                 },
                               ]}
-                              buttonName="IT-02: Application developer"
+                              action={
+                                <PreviewList.Button label="IT-02: Application developer" />
+                              }
                             />
                             <PreviewList.Item
                               title="IT-02: Database architect"
@@ -244,7 +248,9 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   children: "Opened on: April 30th, 2024",
                                 },
                               ]}
-                              buttonName="IT-02: Database architect"
+                              action={
+                                <PreviewList.Button label="IT-02: Database architect" />
+                              }
                             />
                           </PreviewList.Root>
                         </div>

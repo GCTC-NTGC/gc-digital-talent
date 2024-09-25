@@ -52,6 +52,7 @@ return [
     'education_requirement_experiences' => 'Education requirement experiences',
     'skills' => 'Skills',
     // Section headings
+    'application_snapshot' => 'Application snapshot',
     'candidate_profiles' => 'Candidate profiles',
     'candidate_profile' => 'Candidate profile',
     'user_profile' => 'User profile',

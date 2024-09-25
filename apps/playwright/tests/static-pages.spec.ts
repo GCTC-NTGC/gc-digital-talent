@@ -80,32 +80,6 @@ test.describe("Static pages", () => {
         "Enabling_Conditions_Guidance_EN.docx",
       );
     });
-    test("download department-specific recruitment form file in English", async ({
-      page,
-    }) => {
-      await page.goto("/en/directive-on-digital-talent");
-      const downloadPromise = page.waitForEvent("download");
-      await page
-        .getByRole("link", { name: /department-specific recruitment form/i })
-        .click();
-      const download = await downloadPromise;
-      expect(download.suggestedFilename()).toContain(
-        "Digital_Recruitment_Template_EN.docx",
-      );
-    });
-    test("download forward talent plan form file in English", async ({
-      page,
-    }) => {
-      await page.goto("/en/directive-on-digital-talent");
-      const downloadPromise = page.waitForEvent("download");
-      await page
-        .getByRole("link", { name: /forward talent plan form/i })
-        .click();
-      const download = await downloadPromise;
-      expect(download.suggestedFilename()).toContain(
-        "Forward_Talent_Plan_EN.docx",
-      );
-    });
     test("download enabling conditions file in French", async ({ page }) => {
       await page.goto("/fr/directive-on-digital-talent");
       const downloadPromise = page.waitForEvent("download");
@@ -119,36 +93,6 @@ test.describe("Static pages", () => {
       const download = await downloadPromise;
       expect(download.suggestedFilename()).toContain(
         "Orientation_sur_les_conditions_habilitantes_FR.docx",
-      );
-    });
-    test("download department-specific recruitment form file in French", async ({
-      page,
-    }) => {
-      await page.goto("/fr/directive-on-digital-talent");
-      const downloadPromise = page.waitForEvent("download");
-      await page
-        .getByRole("link", {
-          name: /le formulaire recrutement particulier à un ministère/i,
-        })
-        .click();
-      const download = await downloadPromise;
-      expect(download.suggestedFilename()).toContain(
-        "Modele_de_recrutement_numerique_FR.docx",
-      );
-    });
-    test("download forward talent plan form file in French", async ({
-      page,
-    }) => {
-      await page.goto("/fr/directive-on-digital-talent");
-      const downloadPromise = page.waitForEvent("download");
-      await page
-        .getByRole("link", {
-          name: /le formulaire faire suivre le plan de talents/i,
-        })
-        .click();
-      const download = await downloadPromise;
-      expect(download.suggestedFilename()).toContain(
-        "Plan_prospectif_sur_les_talents_FR.docx",
       );
     });
   });

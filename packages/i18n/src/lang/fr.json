@@ -735,10 +735,6 @@
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
   },
-  "WwAqER": {
-    "defaultMessage": "Télécharger (texte clair)",
-    "description": "Download (plain text) action"
-  },
   "XCKYVJ": {
     "defaultMessage": "Lien",
     "description": "Label for adding a link in the rich text editor"
@@ -778,10 +774,6 @@
   "YHqVoj": {
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
-  },
-  "YOji06": {
-    "defaultMessage": "Télécharger (PDF)",
-    "description": "Download (PDF) action"
   },
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",

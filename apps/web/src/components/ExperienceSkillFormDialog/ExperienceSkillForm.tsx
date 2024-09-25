@@ -3,7 +3,12 @@ import { useForm, FormProvider } from "react-hook-form";
 
 import { Dialog, Button, Heading, Well } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  formMessages,
+  getLocale,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { Experience, Scalars } from "@gc-digital-talent/graphql";
 
@@ -12,8 +17,9 @@ import {
   getExperienceName,
 } from "~/utils/experienceUtils";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-const TEXT_AREA_MAX_WORDS = 160;
+const TEXT_AREA_MAX_WORDS_EN = 160;
 
 const getSkillArgs = (
   skillId: Scalars["ID"]["output"],
@@ -57,6 +63,7 @@ const ExperienceSkillForm = ({
   experiences,
 }: ExperienceSkillFormProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const methods = useForm<FormValues>({
     defaultValues,
   });
@@ -124,6 +131,11 @@ const ExperienceSkillForm = ({
         });
     }
   };
+
+  const wordCountLimits: Record<Locales, number> = {
+    en: TEXT_AREA_MAX_WORDS_EN,
+    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
+  } as const;
 
   return (
     <FormProvider {...methods}>
@@ -233,7 +245,7 @@ const ExperienceSkillForm = ({
           <TextArea
             id="details"
             name="details"
-            wordLimit={TEXT_AREA_MAX_WORDS}
+            wordLimit={wordCountLimits[locale]}
             label={intl.formatMessage({
               defaultMessage: "Describe how you used this skill",
               id: "L7PqXn",
