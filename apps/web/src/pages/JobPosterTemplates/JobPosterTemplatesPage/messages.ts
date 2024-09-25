@@ -8,8 +8,8 @@ const messages = defineMessages({
   },
   description: {
     defaultMessage:
-      "Browse a library of pre-built job advertisements that include suggestions for key tasks, required, and optional skills.",
-    id: "s7jEFt",
+      "Browse a library of prebuilt job advertisements with key tasks and skills suggestions.",
+    id: "2IWEV5",
     description:
       "Description for the page showing list of job poster templates",
   },
