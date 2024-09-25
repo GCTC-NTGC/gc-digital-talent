@@ -1739,8 +1739,8 @@
     "defaultMessage": "Nous avons reçu votre demande",
     "description": "Paragraph one, message to user the request was received"
   },
-  "7ET77N": {
-    "defaultMessage": "Parlons compétences",
+  "coOFBt": {
+    "defaultMessage": "Parlez-nous de vos compétences",
     "description": "Page title for the application skills introduction page"
   },
   "7FtbwK": {
@@ -4588,7 +4588,7 @@
     "description": "Description of a users technical skills to be improved for admins"
   },
   "MUwxzr": {
-    "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Comme pour l’étape d’expérience et d’études minimales, si vous avez besoin d’ajouter ou de modifier une expérience dans votre parcours professionnel, vous pouvez le faire en revenant à l’<careerTimelineLink>étape du parcours professionnel</careerTimelineLink> dans le formulaire de candidature.",
+    "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Pour ajouter ou modifier une expérience dans votre parcours professionnel, revenez à la section <careerTimelineLink>Passez en revue votre parcours professionnel</careerTimelineLink>.",
     "description": "Lead in paragraph for adding experiences to a users skills"
   },
   "MUxI+G": {
@@ -8898,8 +8898,8 @@
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Title for the EX graduation with degree requirement."
   },
-  "ikYbDD": {
-    "defaultMessage": "L’étape suivante est la partie la plus importante de votre candidature. Il vous sera demandé de dire comment vous répondez aux exigences de compétences pour ce rôle.",
+  "Qu3NZ1": {
+    "defaultMessage": "L'étape suivante est la partie la plus importante de votre candidature. Nous vous demanderons d'expliquer comment vous répondez aux exigences de compétences pour ce rôle.",
     "description": "Application step for skill requirements, introduction, description, paragraph one"
   },
   "ilZlfH": {
