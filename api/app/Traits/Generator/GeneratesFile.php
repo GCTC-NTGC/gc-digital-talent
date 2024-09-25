@@ -21,25 +21,24 @@ trait GeneratesFile
     /**
      *  Localize an enum value
      *
-     * @param string String value of the enum
-     * @param  class-string{\App\Traits\HasLocalization}  $enum  The enum class
-     *
-     * */
+     * @param  string  $value  of the enum
+     * @param  class-string  $enum  The enum class
+     */
     protected function localizeEnum(?string $value, string $enum, ?string $subKey = null): string
     {
         if (! class_exists($enum) || ! $value) {
             return '';
         }
 
-        /** @var \App\Traits\HasLocalization $enum */
+        /** @use \App\Traits\HasLocalization $enum */
         return $enum::localizedString($value, $subKey)[$this->lang] ?? '';
     }
 
     /**
      * Localize an array of enum values
      *
-     * @param   array{string}   Array of the enum values are strings
-     * @param class-string{\App\Traits\HasLocation} $enum The enum class being localized
+     * @param  array{string}  $values  Array of the enum values are strings
+     * @param  class-string  $enum  The enum class being localized
      */
     protected function localizeEnumArray(?array $values, string $enum): string
     {

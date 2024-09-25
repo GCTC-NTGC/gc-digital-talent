@@ -9,8 +9,18 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
 {
     use GeneratesUserDoc;
 
-    public function __construct(protected array $ids, protected bool $anonymous, public string $fileName, public ?string $dir, protected ?string $lang)
+    public function __construct(protected User $user, protected bool $anonymous, public ?string $dir, protected ?string $lang)
     {
+        $lastName = $this->sanitizeFileNameString($user->last_name);
+        if ($anonymous) {
+            $lastName = substr($lastName, 0, 1);
+        }
+        $fileName = sprintf(
+            '%s %s - Profile - Profil',
+            $this->sanitizeFileNameString($user->first_name),
+            $lastName,
+        );
+
         parent::__construct($fileName, $dir);
     }
 
@@ -19,21 +29,9 @@ class UserDocGenerator extends DocGenerator implements FileGeneratorInterface
         $this->setup();
 
         $section = $this->doc->addSection();
-        $section->addTitle($this->localizeHeading(count($this->ids) > 1 ? 'user_profiles' : 'user_profile'), 1);
+        $section->addTitle($this->localizeHeading('user_profile'), 1);
 
-        User::with([
-            'department',
-            'currentClassification',
-            'experiences' => ['userSkills' => ['skill']],
-            'userSkills' => ['skill'],
-        ])
-            ->whereIn('id', $this->ids)
-            ->authorizedToView(['userId' => $this->userId])
-            ->chunk(200, function ($users) use ($section) {
-                foreach ($users as $user) {
-                    $this->generateUser($section, $user);
-                }
-            });
+        $this->generateUser($section, $this->user);
 
         return $this;
     }

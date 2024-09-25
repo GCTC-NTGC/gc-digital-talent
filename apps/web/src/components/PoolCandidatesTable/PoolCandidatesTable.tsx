@@ -26,7 +26,6 @@ import {
   PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
-  Language,
 } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
@@ -412,19 +411,14 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesCsv(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
-    $locale: Language
   ) {
-    downloadPoolCandidatesCsv(ids: $ids, where: $where, locale: $locale)
+    downloadPoolCandidatesCsv(ids: $ids, where: $where)
   }
 `);
 
-const DownloadPoolCandidatesDoc_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesDoc(
-    $ids: [UUID!]!
-    $anonymous: Boolean!
-    $locale: Language
-  ) {
-    downloadPoolCandidatesDoc(ids: $ids, anonymous: $anonymous, locale: $locale)
+const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
+    downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
   }
 `);
 
@@ -494,11 +488,11 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesCsv_Mutation,
   );
 
-  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
-    DownloadPoolCandidatesDoc_Mutation,
+  const [{ fetching: downloadingZip }, downloadZip] = useMutation(
+    DownloadPoolCandidatesZip_Mutation,
   );
 
-  const [{ fetching: downloadingSingleDoc }, downloadSingleDoc] = useMutation(
+  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
     DownloadSinglePoolCandidateDoc_Mutation,
   );
 
@@ -626,24 +620,20 @@ const PoolCandidatesTable = ({
         searchState?.term,
         searchState?.type,
       ),
-      locale: locale === "fr" ? Language.Fr : Language.En,
     })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
   const handleCsvDownload = () => {
-    downloadCsv({
-      ids: selectedRows,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
+    downloadCsv({ ids: selectedRows })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
   const handleDocDownload = (anonymous: boolean) => {
     if (selectedRows.length === 1) {
-      downloadSingleDoc({ id: selectedRows[0], anonymous })
+      downloadDoc({ id: selectedRows[0], anonymous })
         .then((res) => {
           if (res?.data?.downloadPoolCandidateDoc) {
             executeAsyncDownload({
@@ -658,10 +648,9 @@ const PoolCandidatesTable = ({
         })
         .catch(handleDownloadError);
     } else {
-      downloadDoc({
+      downloadZip({
         ids: selectedRows,
         anonymous,
-        locale: locale === "fr" ? Language.Fr : Language.En,
       })
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
@@ -1016,14 +1005,12 @@ const PoolCandidatesTable = ({
               inTable
               disabled={
                 !hasSelectedRows ||
+                downloadingZip ||
                 downloadingDoc ||
-                downloadingSingleDoc ||
                 downloadingAsyncFile
               }
+              isDownloading={downloadingZip}
               onClick={handleDocDownload}
-              isDownloading={
-                downloadingDoc || downloadingSingleDoc || downloadingAsyncFile
-              }
             />
           ),
         },

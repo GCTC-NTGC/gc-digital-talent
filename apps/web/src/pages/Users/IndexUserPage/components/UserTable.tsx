@@ -171,17 +171,17 @@ const UserTable = ({ title }: UserTableProps) => {
   const {
     downloadDoc,
     downloadingDoc,
+    downloadZip,
+    downloadingZip,
     downloadCsv,
     downloadingCsv,
-    downloadSingleUserDoc,
-    downloadingSingleUserDoc,
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
     if (selectedRows.length === 1) {
-      downloadSingleUserDoc({ id: selectedRows[0], anonymous });
+      downloadDoc({ id: selectedRows[0], anonymous });
     } else {
-      downloadDoc({
+      downloadZip({
         ids: selectedRows,
         anonymous,
       });
@@ -422,11 +422,9 @@ const UserTable = ({ title }: UserTableProps) => {
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={
-                !hasSelectedRows || downloadingDoc || downloadingSingleUserDoc
-              }
+              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
+              isDownloading={downloadingZip || downloadingDoc}
               onClick={handleDocDownload}
-              isDownloading={downloadingDoc || downloadingSingleUserDoc}
             />
           ),
         },

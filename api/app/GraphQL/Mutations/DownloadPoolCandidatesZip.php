@@ -2,14 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\UserDocGenerator;
+use App\Generators\PoolCandidateZipGenerator;
 use App\Jobs\GenerateUserFile;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadUsersDoc
+final class DownloadPoolCandidatesZip
 {
     /**
      * Dispatches the generation of a
@@ -24,18 +24,14 @@ final class DownloadUsersDoc
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         $ids = $args['ids'] ?? [];
-        $locale = $args['locale'] ?? 'en';
 
         try {
-            $key = count($ids) > 1 ? 'users' : 'user';
-            $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
-
-            $generator = new UserDocGenerator(
+            $generator = new PoolCandidateZipGenerator(
                 ids: $ids,
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
-                fileName: $fileName,
+                fileName: sprintf('%s_%s', __('filename.candidates'), date('Y-m-d_His')),
                 dir: $user->id,
-                lang: strtolower($locale),
+                lang: App::getLocale()
             );
 
             $generator->setUserId($user->id);
@@ -44,11 +40,9 @@ final class DownloadUsersDoc
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting user document generation '.$e->getMessage());
+            Log::error('Error starting candidate document generation '.$e);
 
             return false;
         }
-
-        return false;
     }
 }

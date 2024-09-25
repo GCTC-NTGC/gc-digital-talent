@@ -11,6 +11,8 @@ class FileGenerator
 
     protected ?string $userId;
 
+    protected string $extension = '';
+
     public function __construct(protected string $fileName, protected ?string $dir) {}
 
     public function getFileName(): string
@@ -18,12 +20,27 @@ class FileGenerator
         return $this->fileName;
     }
 
+    public function getFileNameWithExtension(): string
+    {
+        return $this->fileName.'.'.$this->extension;
+    }
+
+    public function getExtension(): string
+    {
+        return $this->extension;
+    }
+
+    public function setFileName(string $fileName): void
+    {
+        $this->fileName = $fileName;
+    }
+
     /**
      * Get  the path to eventually write the file to
      *
      * @param  ?string  $disk  Name of the disk we want to save file to
      */
-    public function getPath(?string $disk = 'userGenerated')
+    public function getPath(?string $disk = 'userGenerated'): string
     {
         /**
          * We don't actually put the file with
@@ -38,7 +55,27 @@ class FileGenerator
             File::makeDirectory($disk->path($this->dir));
         }
 
-        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->fileName));
+        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->getFileNameWithExtension()));
+    }
+
+    /**
+     * Sanitize string for file name
+     *
+     * @param  ?string  $value  String to be sanitized
+     * @return string Sanitized string
+     */
+    public function sanitizeFileNameString(?string $value)
+    {
+        if (! $value) {
+            return '';
+        }
+
+        $retval = $value;
+        $retval = iconv('UTF-8', 'ASCII//TRANSLIT', $retval); // handle accented characters
+        $retval = preg_replace('/[^a-zA-Z]+/', '', $retval); // remove anything that isn't an alphabet character
+        $retval = trim($retval);
+
+        return $retval;
     }
 
     /**
