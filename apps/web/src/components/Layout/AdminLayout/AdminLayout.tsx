@@ -13,54 +13,27 @@ import SiteNavMenu from "~/components/NavMenu/MainNavMenu";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
+import Layout from "../Layout";
 
 export const Component = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   useLayoutTheme("default");
 
   return (
-    <>
-      <Favicon locale={locale} project="admin" />
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Admin",
-          id: "wHX/8C",
-          description: "Title tag for Admin site",
-        })}
-        description={intl.formatMessage({
-          defaultMessage:
-            "Recruit and manage IT employees in the Government of Canada.",
-          id: "J8kIar",
-          description: "Meta tag description for Admin site",
-        })}
-      />
-      <SkipLink />
-      <div
-        data-h2-min-height="base(100%)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-      >
-        <Header />
-        <SitewideBanner />
-        <SiteNavMenu />
-        <main
-          id="main"
-          data-h2-flex-grow="base(1)"
-          data-h2-background-color="base(background)"
-        >
-          <div data-h2-min-height="base(100%)">
-            <Outlet />
-          </div>
-        </main>
-        <Footer />
-      </div>
-      <ScrollRestoration
-        getKey={(location) => {
-          return location.pathname;
-        }}
-      />
-    </>
+    <Layout
+      project="admin"
+      title={intl.formatMessage({
+        defaultMessage: "Admin",
+        id: "wHX/8C",
+        description: "Title tag for Admin site",
+      })}
+      description={intl.formatMessage({
+        defaultMessage:
+          "Recruit and manage IT employees in the Government of Canada.",
+        id: "J8kIar",
+        description: "Meta tag description for Admin site",
+      })}
+    />
   );
 };
 

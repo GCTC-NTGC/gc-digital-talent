@@ -50,7 +50,9 @@ const MainNavMenu = () => {
   useEffect(() => {
     if (navRole === "guest" && userAuthInfo?.roleAssignments === undefined) {
       setPrevNavRole(null);
-    } else {
+    }
+
+    if (navRole !== "guest" && userAuthInfo?.roleAssignments !== undefined) {
       setPrevNavRole(navRole);
     }
   }, [navRole, loggedIn, setPrevNavRole, userAuthInfo?.roleAssignments]);

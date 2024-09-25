@@ -1,9 +1,8 @@
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
 
-import { Flourish } from "@gc-digital-talent/ui";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -13,11 +12,24 @@ import useLayoutTheme from "~/hooks/useLayoutTheme";
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
-import SiteNavMenu from "../NavMenu/MainNavMenu";
+import MainNavMenu from "../NavMenu/MainNavMenu";
+import { Project } from "../SEO/Favicon";
 
 export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 
-export const Component = () => {
+interface LayoutProps {
+  project: Project;
+  title: string;
+  description: string;
+  iapPersonality?: boolean;
+}
+
+export const Layout = ({
+  project,
+  title,
+  description,
+  iapPersonality,
+}: LayoutProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   useLayoutTheme("default");
@@ -25,22 +37,10 @@ export const Component = () => {
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
 
-  const [searchParams] = useSearchParams();
-
-  const iapPersonality = searchParams.get("personality") === "iap";
-
   return (
     <>
-      <Favicon locale={locale} project="digital-talent" />
-      <SEO
-        title={intl.formatMessage(commonMessages.projectTitle)}
-        description={intl.formatMessage({
-          defaultMessage:
-            "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
-          id: "jRmRd+",
-          description: "Meta tag description for Talent Search site",
-        })}
-      />
+      <Favicon locale={locale} project={project} />
+      <SEO title={title} description={description} />
       <SkipLink />
       <div
         data-h2-display="base(flex)"
@@ -51,9 +51,8 @@ export const Component = () => {
       >
         <Header />
         <SitewideBanner />
-        <Flourish />
         {!iapPersonality ? (
-          <SiteNavMenu />
+          <MainNavMenu />
         ) : (
           <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
         )}
@@ -73,4 +72,4 @@ export const Component = () => {
   );
 };
 
-Component.displayName = "Layout";
+export default Layout;
