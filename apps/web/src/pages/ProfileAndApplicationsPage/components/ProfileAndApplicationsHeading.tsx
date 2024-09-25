@@ -552,12 +552,12 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
         </HeroCard>
         <HeroCard
           color="quaternary"
-          title={intl.formatMessage(navigationMessages.skillLibrary)}
+          title={intl.formatMessage(navigationMessages.skillPortfolio)}
           href={`${skillLibraryUrl}#manage`}
         >
           <StatusItem
             layout="hero"
-            title={intl.formatMessage(navigationMessages.skillLibrary)}
+            title={intl.formatMessage(navigationMessages.skillPortfolio)}
             itemCount={skillLibraryCount}
             status={skillLibraryStatus}
             href={`${skillLibraryUrl}#manage`}

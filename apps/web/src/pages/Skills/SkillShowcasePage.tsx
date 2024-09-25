@@ -110,7 +110,7 @@ export const SkillShowcase = ({
         url: paths.profileAndApplications(),
       },
       {
-        label: intl.formatMessage(navigationMessages.skillLibrary),
+        label: intl.formatMessage(navigationMessages.skillPortfolio),
         url: paths.skillLibrary(),
       },
       {

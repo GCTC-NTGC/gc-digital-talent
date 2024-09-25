@@ -241,7 +241,7 @@ const createRoute = (locale: Locales) =>
                   children: [
                     {
                       index: true,
-                      lazy: () => import("../pages/Skills/SkillLibraryPage"),
+                      lazy: () => import("../pages/Skills/SkillPortfolioPage"),
                     },
                     {
                       path: ":skillId",

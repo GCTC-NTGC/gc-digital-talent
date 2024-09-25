@@ -20,8 +20,8 @@ import SkillLibraryTable, {
   SkillLibraryTable_UserSkillFragment,
 } from "./components/SkillLibraryTable";
 
-const SkillLibraryPage_Query = graphql(/* GraphQL */ `
-  query SkillLibraryPageQuery {
+const SkillPortfolioPage_Query = graphql(/* GraphQL */ `
+  query SkillPortfolioPageQuery {
     me {
       id
       userSkills {
@@ -40,12 +40,12 @@ interface PageSection {
 }
 type PageSections = Record<string, PageSection>;
 
-interface SkillLibraryProps {
+interface SkillPortfolioProps {
   userSkills: FragmentType<typeof SkillLibraryTable_UserSkillFragment>[];
   skills: FragmentType<typeof SkillLibraryTable_SkillFragment>[];
 }
 
-const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
+const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -71,13 +71,13 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
         url: paths.profileAndApplications(),
       },
       {
-        label: intl.formatMessage(navigationMessages.skillLibrary),
+        label: intl.formatMessage(navigationMessages.skillPortfolio),
         url: paths.skillLibrary(),
       },
     ],
   });
 
-  const pageTitle = intl.formatMessage(navigationMessages.skillLibrary);
+  const pageTitle = intl.formatMessage(navigationMessages.skillPortfolio);
 
   const pageDescription = intl.formatMessage({
     defaultMessage: "Add, edit, and manage the skills on your profile.",
@@ -163,9 +163,9 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
 };
 
-const SkillLibraryPage = () => {
+const SkillPortfolioPage = () => {
   const [{ data, fetching, error }] = useQuery({
-    query: SkillLibraryPage_Query,
+    query: SkillPortfolioPage_Query,
     context,
   });
 
@@ -174,17 +174,17 @@ const SkillLibraryPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillLibrary userSkills={userSkills} skills={skills} />
+      <SkillPortfolio userSkills={userSkills} skills={skills} />
     </Pending>
   );
 };
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <SkillLibraryPage />
+    <SkillPortfolioPage />
   </RequireAuth>
 );
 
-Component.displayName = "SkillLibraryPage";
+Component.displayName = "SkillPortfolioPage";
 
-export default SkillLibraryPage;
+export default SkillPortfolioPage;
