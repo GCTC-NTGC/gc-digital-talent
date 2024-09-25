@@ -8,7 +8,7 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
@@ -19,6 +19,12 @@ const PoolWhoCanApplyText_Fragment = graphql(/* GraphQL */ `
     classification {
       group
       level
+    }
+    department {
+      name {
+        en
+        fr
+      }
     }
     areaOfSelection {
       value
@@ -33,70 +39,64 @@ const deriveWhoCanApplyMessages = (
   areaOfSelection: PoolAreaOfSelection,
   selectionLimitations: PoolSelectionLimitation[],
   classificationString: string,
+  departmentName: string,
   intl: IntlShape,
 ): {
   body: ReactNode;
   finePrint?: ReactNode;
 } => {
   let body;
+  let finePrint;
 
   if (areaOfSelection == PoolAreaOfSelection.Employees) {
-    body = (
-      <>
-        {intl.formatMessage({
-          defaultMessage: "Employees of the Government of Canada who:",
-          id: "KY4zuB",
-          description:
-            "Title for a list of criteria needed for employees to apply",
-        })}
-        <ul>
-          {selectionLimitations?.includes(
-            PoolSelectionLimitation.AtLevelOnly,
-          ) ? (
-            <li data-h2-margin-top="base(x0.5)">
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Currently hold an {classificationString} classification in their substantive role",
-                  id: "pVnp82",
-                  description: "At-level application criteria",
-                },
-                {
-                  classificationString,
-                },
-              )}
-            </li>
-          ) : null}
-          <li data-h2-margin-top="base(x0.5)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Are residing in Canada, are Canadian citizens, or are permanent residents abroad",
-              id: "F6AwoP",
-              description: "Regular criteria item needed in order to apply",
-            })}
-          </li>
-        </ul>
-      </>
-    );
-  } else {
-    body = (
-      <>
-        {intl.formatMessage({
+    body = selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly)
+      ? intl.formatMessage(
+          {
+            defaultMessage:
+              "Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an {classificationString} classification or organizational equivalent in their substantive role.",
+            id: "yV/mQS",
+            description: "At-level application criteria",
+          },
+          {
+            classificationString,
+          },
+        )
+      : intl.formatMessage({
           defaultMessage:
-            "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
-          id: "faWz84",
-          description: "List of criteria needed in order to apply",
-        })}
-      </>
-    );
+            "Employees of the Government of Canada or persons employed by a Government of Canada agency.",
+          id: "CoIL0K",
+          description: "Employee-only application criteria",
+        });
+    finePrint = selectionLimitations?.includes(
+      PoolSelectionLimitation.DepartmentalPreference,
+    )
+      ? intl.formatMessage(
+          {
+            defaultMessage:
+              "* Preference will be given to persons employed with the following departments or agencies: {departmentName}.",
+            id: "3dwnFt",
+            description:
+              "Fine print for departmental preference for pool advertisement",
+          },
+          {
+            departmentName,
+          },
+        )
+      : null;
+  } else {
+    body = intl.formatMessage({
+      defaultMessage:
+        "All persons who are residing in Canada, are Canadian citizens, or are Canadian permanent residents abroad.",
+      id: "XCUBLw",
+      description: "Criteria for applying to public pool advertisement",
+    });
+    finePrint = intl.formatMessage({
+      defaultMessage:
+        "* Preference will be given to veterans, Canadian citizens, and to permanent residents.",
+      id: "PAOXlo",
+      description: "Fine print for hiring policy for pool advertisement",
+    });
   }
-
-  const finePrint = intl.formatMessage({
-    defaultMessage:
-      "* Preference will be given to veterans, Canadian citizens, and to permanent residents.",
-    id: "PAOXlo",
-    description: "Fine print for hiring policy for pool advertisement",
-  });
 
   return { body, finePrint };
 };
@@ -107,6 +107,7 @@ interface WhoCanApplyTextProps {
 
 const WhoCanApplyText = ({ poolQuery }: WhoCanApplyTextProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const pool = getFragment(PoolWhoCanApplyText_Fragment, poolQuery);
 
   const areaOfSelection =
@@ -123,10 +124,13 @@ const WhoCanApplyText = ({ poolQuery }: WhoCanApplyTextProps) => {
         })
       : intl.formatMessage(commonMessages.notProvided);
 
+  const departmentName = pool.department?.name[locale] || "";
+
   const { body, finePrint } = deriveWhoCanApplyMessages(
     areaOfSelection,
     selectionLimitations,
     classificationString,
+    departmentName,
     intl,
   );
 
