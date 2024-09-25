@@ -3131,8 +3131,8 @@
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
   },
-  "EpL8MD": {
-    "defaultMessage": "« À qui s'adresse ce processus de recrutement? »",
+  "Y63cqS": {
+    "defaultMessage": "À qui s'adresse ce processus de recrutement?",
     "description": "Button text to toggle the accordion for who can apply"
   },
   "EqUTLs": {
@@ -3803,8 +3803,8 @@
     "defaultMessage": "Consentement notification par courriel",
     "description": "Legend text for email notification consent checkbox in getting started form"
   },
-  "IbWzvu": {
-    "defaultMessage": "« Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation? »",
+  "2/fjEP": {
+    "defaultMessage": "Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation?",
     "description": "Button text to toggle the accordion for accommodations contact"
   },
   "Ibt1fL": {
@@ -6418,8 +6418,8 @@
     "defaultMessage": "Il y a deux façons de soumettre ce questionnaire. La première façon est de remplir ce questionnaire en ligne ici. Veuillez prendre note que le questionnaire doit être rempli et soumis en une seule fois. Vous ne pouvez pas enregistrer vos réponses en tant que brouillon. La deuxième façon de remplir ce questionnaire est de le télécharger en tant que fichier, de le compléter en dehors de la plateforme et de l’envoyer par courriel à la boîte aux lettres <link>Talents numériques du GC</link>.",
     "description": "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_"
   },
-  "WPJAiw": {
-    "defaultMessage": "« De quelle façon l'équité et l'inclusion sont-elles prises en considération dans ce processus de recrutement? »",
+  "mDsQmj": {
+    "defaultMessage": "De quelle façon l'équité et l'inclusion sont-elles prises en considération dans ce processus de recrutement?",
     "description": "Button text to toggle the accordion for diversity, equity, and inclusion"
   },
   "WSMupE": {
@@ -8706,8 +8706,8 @@
     "defaultMessage": "Exécuter des processus de recrutement pangouvernementaux pour les talents numériques",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
-  "hwVlzN": {
-    "defaultMessage": "\"À quoi devrais-je m’attendre si je réussis ce processus?\"",
+  "utlf9l": {
+    "defaultMessage": "À quoi devrais-je m’attendre si je réussis ce processus?",
     "description": "Button text to toggle the accordion for what to expect after admission"
   },
   "hx8mTr": {
@@ -10174,8 +10174,8 @@
     "defaultMessage": "Chercher les rôles",
     "description": "Label for the roles table search input"
   },
-  "pdi2SU": {
-    "defaultMessage": "« À quoi dois-je m'attendre après avoir soumise ma demande d'emploi? »",
+  "PDGUT2": {
+    "defaultMessage": "À quoi dois-je m'attendre après avoir soumise ma demande d'emploi?",
     "description": "Button text to toggle the accordion for what to expect after you apply"
   },
   "pe5WkF": {
