@@ -41,11 +41,11 @@ const Submit = ({
 
   return (
     <Button
-      color={color || "secondary"}
-      mode={mode || "solid"}
+      color={color ?? "secondary"}
+      mode={mode ?? "solid"}
       type="submit"
       icon={icon}
-      disabled={disabled || isSubmitting || overrideSubmitting}
+      disabled={disabled ?? isSubmitting ?? overrideSubmitting}
       {...rest}
     >
       {currentText}

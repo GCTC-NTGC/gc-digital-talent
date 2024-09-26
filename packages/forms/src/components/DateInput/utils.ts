@@ -61,7 +61,7 @@ const getComputedSegmentValue: GetComputedSegmentValue = ({ values, show }) => {
   }
 
   if (!show || values.current) {
-    return values.current || values.default;
+    return values.current ?? values.default;
   }
 
   return "";
