@@ -61,10 +61,12 @@ interface PoolCandidateSearchRequestPreviewListItemProps {
   poolCandidateSearchRequestQuery: FragmentType<
     typeof PreviewListItemPoolCandidateSearchRequest_Fragment
   >;
+  showUnfinishedPieces: boolean;
 }
 
 const PoolCandidateSearchRequestPreviewListItem = ({
   poolCandidateSearchRequestQuery,
+  showUnfinishedPieces,
 }: PoolCandidateSearchRequestPreviewListItemProps) => {
   const intl = useIntl();
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -146,6 +148,7 @@ const PoolCandidateSearchRequestPreviewListItem = ({
         open={dialogOpen}
         setOpen={setDialogOpen}
         id={request.id}
+        showUnfinishedPieces={showUnfinishedPieces}
       />
     </>
   );

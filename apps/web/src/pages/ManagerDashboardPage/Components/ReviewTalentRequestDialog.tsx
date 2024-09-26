@@ -3,9 +3,11 @@ import { useQuery } from "urql";
 
 import {
   Accordion,
+  Button,
   Chip,
   Chips,
   Dialog,
+  Link,
   Pending,
   Separator,
   ThrowNotFound,
@@ -348,15 +350,6 @@ const ReviewTalentRequestDialogContent = ({
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
       </div>
-      <div
-        data-h2-padding-top="base(x1.5)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1.5)"
-      >
-        <Separator orientation="horizontal" data-h2-margin="base(0)" />
-        Buttons
-      </div>
     </>
   );
 };
@@ -365,12 +358,14 @@ interface ReviewTalentRequestDialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
+  showUnfinishedPieces: boolean;
 }
 
 const ReviewTalentRequestDialog = ({
   open,
   setOpen,
   id,
+  showUnfinishedPieces,
 }: ReviewTalentRequestDialogProps) => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
@@ -410,6 +405,25 @@ const ReviewTalentRequestDialog = ({
               />
             )}
           </Pending>
+          <Dialog.Footer>
+            {showUnfinishedPieces && (
+              // unfinished - need a url to a pge that doesn't exist yet, but we do have the ID already
+              <Link color="secondary" mode="solid" href="#">
+                {intl.formatMessage({
+                  defaultMessage: "View request",
+                  id: "yycjgL",
+                  description: "Button text to go to view the request",
+                })}
+              </Link>
+            )}
+            <Button
+              color="warning"
+              mode="inline"
+              onClick={() => setOpen(false)}
+            >
+              {intl.formatMessage(commonMessages.cancel)}
+            </Button>
+          </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
