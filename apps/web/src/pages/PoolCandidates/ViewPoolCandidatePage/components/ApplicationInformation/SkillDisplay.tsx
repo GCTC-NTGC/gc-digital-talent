@@ -49,8 +49,8 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                   to={`experience-${experience.id}`}
                   mode="inline"
                   color="tertiary"
-                  aria-label={intl
-                    .formatMessage(
+                  aria-label={String(
+                    intl.formatMessage(
                       {
                         defaultMessage: "View experience for {experienceName}",
                         id: "MsLKAj",
@@ -60,8 +60,8 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                       {
                         experienceName: getExperienceName(experience, intl),
                       },
-                    )
-                    .toString()}
+                    ),
+                  )}
                 >
                   {intl.formatMessage({
                     defaultMessage: "View experience",
