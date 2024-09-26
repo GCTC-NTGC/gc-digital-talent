@@ -92,13 +92,14 @@ const NavMenuWrapper = ({
           <m.div
             data-h2-flex-item="base(content)"
             data-h2-position="base(fixed) l-tablet(sticky)"
-            data-h2-top="base(x.75) l-tablet(0)"
+            data-h2-top="l-tablet(0)"
             data-h2-bottom="base(x3.5) l-tablet(auto)"
             data-h2-right="base(x.75) l-tablet(auto)"
             data-h2-left="base(x.75) l-tablet(auto)"
             data-h2-width="l-tablet(100%)"
             data-h2-z-index="base(9998)"
             data-h2-overflow-y="base(auto)"
+            data-h2-max-height="base(85vh)"
             {...animConfig}
           >
             <FocusLock
