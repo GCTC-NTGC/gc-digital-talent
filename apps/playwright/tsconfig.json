@@ -8,9 +8,7 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
     "paths": {
-      "~/*": [
-        "./*"
-      ]
+      "~/*": ["./*"]
     }
   }
 }

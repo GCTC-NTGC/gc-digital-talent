@@ -108,9 +108,9 @@ export async function getAuthCookies(page: Page): Promise<AuthCookies> {
  */
 export async function getAuthTokens(page: Page): Promise<AuthTokens> {
   const tokens = await page.evaluate(() => ({
-    idToken: localStorage.getItem("id_token"),
-    accessToken: localStorage.getItem("access_token"),
-    refreshToken: localStorage.getItem("refresh_token"),
+    idToken: localStorage.getItem("id_token") ?? undefined,
+    accessToken: localStorage.getItem("access_token") ?? undefined,
+    refreshToken: localStorage.getItem("refresh_token") ?? undefined,
   }));
 
   return tokens;
@@ -128,6 +128,6 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 //
 export function jumpPastExpiryDate(accessToken: string): Date {
   const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
-  const newDate = new Date((decodedAccessToken.exp + 1) * 1000);
+  const newDate = new Date((decodedAccessToken?.exp ?? 0 + 1) * 1000);
   return newDate;
 }
