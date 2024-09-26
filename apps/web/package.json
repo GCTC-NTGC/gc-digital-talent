@@ -50,7 +50,7 @@
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.1.5",
-    "@microsoft/applicationinsights-web": "^3.3.2",
+    "@microsoft/applicationinsights-web": "^3.3.3",
     "@tanstack/react-table": "^8.20.5",
     "dataloader": "^2.2.2",
     "date-fns": "^3.6.0",
@@ -67,7 +67,7 @@
     "urql": "^4.1.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.0.1",
+    "@faker-js/faker": "^9.0.2",
     "@formatjs/cli": "^6.2.12",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
@@ -83,8 +83,8 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.13",
     "@types/jest-axe": "^3.5.9",
-    "@types/lodash": "^4.17.7",
-    "@types/react": "^18.3.7",
+    "@types/lodash": "^4.17.9",
+    "@types/react": "^18.3.9",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "dotenv": "^16.4.5",
