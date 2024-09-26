@@ -98,8 +98,8 @@ const NavMenuWrapper = ({
             data-h2-left="base(x.75) l-tablet(auto)"
             data-h2-width="l-tablet(100%)"
             data-h2-z-index="base(9998)"
-            data-h2-overflow-y="base(auto)"
-            data-h2-max-height="base(85vh)"
+            data-h2-overflow-y="base(auto) l-tablet(initial)"
+            data-h2-max-height="base(85vh) l-tablet(none)"
             {...animConfig}
           >
             <FocusLock

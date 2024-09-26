@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
-import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { Flourish } from "@gc-digital-talent/ui";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -51,6 +52,7 @@ export const Layout = ({
       >
         <Header />
         <SitewideBanner />
+        <Flourish />
         {!iapPersonality ? (
           <MainNavMenu />
         ) : (
