@@ -7,6 +7,7 @@ use App\Enums\Language;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Error;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Cache;
@@ -49,9 +50,14 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
                 $templateId = config('notify.templates.verify_email_fr');
             }
 
+            $email = $notifiable->getEmailForVerification($this->emailType);
+            if (! $email) {
+                throw new Exception('Email type '.$this->emailType->name.' not set');
+            }
+
             $message = new GcNotifyEmailMessage(
                 $templateId,
-                $notifiable->getEmailForVerification($this->emailType),
+                $email,
                 [
                     'person name' => $notifiable->first_name,
                     'verification code' => $this->createVerificationCode($notifiable),
