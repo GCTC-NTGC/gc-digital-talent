@@ -25,7 +25,7 @@ const NestedLanguageProvider = ({
   const { messages: fallbackMessages } = useIntl();
   const [searchParams] = useSearchParams();
   const locale = searchParams.get("locale");
-  const localeMessages = messages.get(locale || "");
+  const localeMessages = messages.get(locale ?? "");
 
   /**
    * If no locale is set or we cannot
