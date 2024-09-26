@@ -2859,10 +2859,6 @@
     "defaultMessage": "Lieu actuel :",
     "description": "Display text for the current location field on users"
   },
-  "Mqek+i": {
-    "defaultMessage": "Type d'emploi",
-    "description": "Employee Status in Employee Info Form"
-  },
   "DOmsNQ": {
     "defaultMessage": "Non démontré suffisamment dans le cadre de la présente méthode d’évaluation – faire passer à de plus amples mises à l’essai. (Ne s’applique qu’aux occasions où les points sont cumulatifs à l’échelle des méthodes d’évaluation. Ne s’applique pas dans les cas où les candidats doivent répondre à certains critères essentiels à chaque étape).",
     "description": "Note for when an assessment was unsuccessful but put on hold"
@@ -4623,6 +4619,10 @@
     "defaultMessage": "Tâches de travail (français)",
     "description": "Label for a process' French work tasks"
   },
+  "Mqek+i": {
+    "defaultMessage": "Type d'emploi",
+    "description": "Employee Status in Employee Info Form"
+  },
   "MsLKAj": {
     "defaultMessage": "Voir l’expérience pour {experienceName}",
     "description": "Assistive technology link text to view a specific experience"
@@ -4826,6 +4826,10 @@
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
     "description": "Heading label for update a user's subject form"
+  },
+  "NwlRd5": {
+    "defaultMessage": "J'accepte de recevoir des notifications par courriel de Talents numériques du GC.",
+    "description": "Text for the option consent to email notifications."
   },
   "NxrKpM": {
     "defaultMessage": "Statut de la candidature",
@@ -5915,6 +5919,14 @@
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
   },
+  "Td2+oC": {
+    "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
+    "description": "Label displayed for is a government employee option"
+  },
+  "TfEUPu": {
+    "defaultMessage": "Préférence pour la durée de l'emploi",
+    "description": "Legend Text for required work preferences options in work preferences form"
+  },
   "TfbBB7": {
     "defaultMessage": "Collectivité {communityId} introuvable.",
     "description": "Message displayed for community not found."
@@ -6193,10 +6205,6 @@
   "VD/o5X": {
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
-  },
-  "TfEUPu": {
-    "defaultMessage": "Préférence pour la durée de l'emploi",
-    "description": "Legend Text for required work preferences options in work preferences form"
   },
   "VHG9Gm": {
     "defaultMessage": "Désélectionner <hidden> rangées sélectionnées</hidden>",
@@ -10266,10 +10274,6 @@
     "defaultMessage": "Fait l’objet d’une évaluation complète en fonction de l’énoncé des critères de mérite du programme d’apprentissage en TI pour les personnes autochtones et avoir été jugé qualifié pour le rôle d’apprenti IT-01 (ou équivalent)",
     "description": "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
-  "Td2+oC": {
-    "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
-    "description": "Label displayed for is a government employee option"
-  },
   "q5FQbu": {
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
@@ -11006,10 +11010,6 @@
     "defaultMessage": "« Je comprends que je fais partie d'une collectivité qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
   },
-  "yUSG9Z": {
-    "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
-    "description": "Label displayed for is not a government employee option"
-  },
   "uqiPvH": {
     "defaultMessage": "Suivi de vos candidatures",
     "description": "Heading for track applications section on the profile and applications."
@@ -11598,6 +11598,10 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
   },
+  "yUSG9Z": {
+    "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
+    "description": "Label displayed for is not a government employee option"
+  },
   "yV/mQS": {
     "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classificationString} ou un équivalent organisationnel dans leur poste d'attache.",
     "description": "At-level application criteria"
@@ -11633,10 +11637,6 @@
   "yat9wx": {
     "defaultMessage": "Utilisez le bouton \"Créer un ministère\" pour commencer.",
     "description": "Instructions for adding a department item."
-  },
-  "NwlRd5": {
-    "defaultMessage": "J'accepte de recevoir des notifications par courriel de Talents numériques du GC.",
-    "description": "Text for the option consent to email notifications."
   },
   "yfzR+U": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
