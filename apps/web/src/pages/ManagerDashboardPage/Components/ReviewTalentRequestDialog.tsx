@@ -26,6 +26,7 @@ import {
   equitySelectionsToDescriptions,
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
+  positionTypeToYesNoSupervisoryStatement,
 } from "~/utils/searchRequestUtils";
 import { formatClassificationString } from "~/utils/poolUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -95,10 +96,7 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
       }
       jobTitle
       positionType {
-        label {
-          en
-          fr
-        }
+        value
       }
     }
   }
@@ -197,7 +195,10 @@ const ReviewTalentRequestDialogContent = ({
             data-h2-grid-column="p-tablet(span 2)"
             label={intl.formatMessage(talentRequestMessages.supervisoryStatus)}
           >
-            {getLocalizedName(request.positionType?.label, intl) ?? nullMessage}
+            {positionTypeToYesNoSupervisoryStatement(
+              request.positionType?.value,
+              intl,
+            ) ?? nullMessage}
           </FieldDisplay>
 
           <FieldDisplay
