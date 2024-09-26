@@ -72,7 +72,7 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
       },
       {
         label: intl.formatMessage(navigationMessages.skillPortfolio),
-        url: paths.skillLibrary(),
+        url: paths.skillPortfolio(),
       },
     ],
   });

@@ -111,7 +111,7 @@ export const SkillShowcase = ({
       },
       {
         label: intl.formatMessage(navigationMessages.skillPortfolio),
-        url: paths.skillLibrary(),
+        url: paths.skillPortfolio(),
       },
       {
         label: pageTitle,
@@ -161,7 +161,7 @@ export const SkillShowcase = ({
               </TableOfContents.ListItem>
             </TableOfContents.List>
             <Link
-              href={paths.skillLibrary()}
+              href={paths.skillPortfolio()}
               color="secondary"
               mode="solid"
               block={false}

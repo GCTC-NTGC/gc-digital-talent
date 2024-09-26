@@ -225,7 +225,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
   const skillShowcaseUrl = paths.skillShowcase();
-  const skillLibraryUrl = paths.skillLibrary();
+  const skillLibraryUrl = paths.skillPortfolio();
 
   const hasTopSkills =
     user.topBehaviouralSkillsRanking?.length &&
@@ -274,7 +274,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
               "whiteFixed",
             ),
           a3: (chunks: ReactNode) =>
-            buildLink(paths.skillLibrary(), chunks, "whiteFixed"),
+            buildLink(paths.skillPortfolio(), chunks, "whiteFixed"),
           a4: (chunks: ReactNode) =>
             buildScrollToLink(
               "track-applications-section",

@@ -335,7 +335,7 @@ export const UpdateUserSkillForm = ({
   const fromShowcase = from && from === "showcase";
   const returnPath = fromShowcase
     ? paths.skillShowcase()
-    : paths.skillLibrary();
+    : paths.skillPortfolio();
 
   const availableExperiences = experiences.filter(
     (exp) =>
@@ -433,7 +433,7 @@ export const UpdateUserSkillForm = ({
 
       {
         label: intl.formatMessage(navigationMessages.skillPortfolio),
-        url: paths.skillLibrary(),
+        url: paths.skillPortfolio(),
       },
       ...(fromShowcase
         ? [
