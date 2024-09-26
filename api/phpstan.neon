@@ -1778,21 +1778,6 @@ parameters:
       path: app/Models/JobPosterTemplate.php
 
     -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
       message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
       count: 1
       path: app/Models/Pool.php
