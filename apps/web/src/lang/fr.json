@@ -1047,6 +1047,10 @@
     "defaultMessage": "Gérez votre nom, vos coordonnées, vos paramètres de confidentialité et vos notifications, ou supprimez votre compte.",
     "description": "Helper instructions for an 'account and privacy' card"
   },
+  "3dwnFt": {
+    "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences suivants : {departmentName}.",
+    "description": "Fine print for departmental preference for pool advertisement"
+  },
   "3e965x": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
@@ -2731,6 +2735,10 @@
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
     "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
   },
+  "CoIL0K": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada.",
+    "description": "Employee-only application criteria"
+  },
   "CoUFQ5": {
     "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
     "description": "Toast notification for successful update of candidates notes in specified pool"
@@ -3182,10 +3190,6 @@
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
-  },
-  "F6AwoP": {
-    "defaultMessage": "Qui résident au Canada, sont citoyens canadiens ou résidents permanents à l'étranger",
-    "description": "Regular criteria item needed in order to apply"
   },
   "F6L/Rv": {
     "defaultMessage": "Modifier {skillName}",
@@ -4198,10 +4202,6 @@
   "KXy+Ei": {
     "defaultMessage": "AC",
     "description": "Short form code representing 'veteran'"
-  },
-  "KY4zuB": {
-    "defaultMessage": "Les employés du gouvernement du Canada qui : ",
-    "description": "Title for a list of criteria needed for employees to apply"
   },
   "KZtBcM": {
     "defaultMessage": "Examiner la demande<hidden> {name}</hidden>",
@@ -6570,6 +6570,10 @@
     "defaultMessage": "Ouvert",
     "description": "Simplified status label for a published process"
   },
+  "XCUBLw": {
+    "defaultMessage": "Toutes les personnes qui résident au Canada, qui sont des citoyennes ou citoyens canadiens ou qui sont des résidentes ou résidents permanents à l'étranger.",
+    "description": "Criteria for applying to public pool advertisement"
+  },
   "XD0OVN": {
     "defaultMessage": "Message (Anglais)",
     "description": "The message, in English"
@@ -8185,10 +8189,6 @@
   "fYyK2p": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
-  },
-  "faWz84": {
-    "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
-    "description": "List of criteria needed in order to apply"
   },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
@@ -10142,10 +10142,6 @@
     "defaultMessage": "Catégorie de travail",
     "description": "Label for pool advertisement stream"
   },
-  "pVnp82": {
-    "defaultMessage": "Présentement, vous êtes titulaire d'un {classificationString} la classification du poste d’attache",
-    "description": "At-level application criteria"
-  },
   "pVx/jP": {
     "defaultMessage": "Cette possibilité est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
     "description": "Body of a note describing that a pool is only open to employees at-level"
@@ -11601,6 +11597,10 @@
   "yNPkM8": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
+  },
+  "yV/mQS": {
+    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classificationString} ou un équivalent organisationnel dans leur poste d'attache.",
+    "description": "At-level application criteria"
   },
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",
