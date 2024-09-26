@@ -2023,27 +2023,7 @@ parameters:
       path: app/Notify/Client.php
 
     -
-      message: "#^Method App\\\\Notify\\\\Client\\:\\:buildBulkPersonalisationRowData\\(\\) is unused\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
       message: "#^Method App\\\\Notify\\\\Client\\:\\:get\\(\\) is unused\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'email' on string in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'personalisation' on string in isset\\(\\) does not exist\\.$#"
-      count: 2
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'phone_number' on string in isset\\(\\) does not exist\\.$#"
       count: 1
       path: app/Notify/Client.php
 
@@ -2060,11 +2040,6 @@ parameters:
     -
       message: "#^PHPDoc tag @throws has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 349$#"
       count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\#2 \\$rows of method App\\\\Notify\\\\Client\\:\\:buildBulkPayload\\(\\) expects array\\<string\\>, array\\<int, array\\<int, string\\>\\> given\\.$#"
-      count: 2
       path: app/Notify/Client.php
 
     -
@@ -2090,11 +2065,6 @@ parameters:
     -
       message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:sendBulkSms\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
       count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 2
       path: app/Notify/Client.php
 
     -
