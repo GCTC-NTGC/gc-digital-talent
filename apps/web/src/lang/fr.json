@@ -4619,10 +4619,6 @@
     "defaultMessage": "Tâches de travail (français)",
     "description": "Label for a process' French work tasks"
   },
-  "Mqek+i": {
-    "defaultMessage": "Type d'emploi",
-    "description": "Employee Status in Employee Info Form"
-  },
   "MsLKAj": {
     "defaultMessage": "Voir l’expérience pour {experienceName}",
     "description": "Assistive technology link text to view a specific experience"

@@ -441,8 +441,8 @@ export const EmployeeInformationForm = ({
     }),
     govEmployeeType: intl.formatMessage({
       defaultMessage: "Employment type",
-      id: "Mqek+i",
-      description: "Employee Status in Employee Info Form",
+      id: "xzSXz9",
+      description: "Employment type label",
     }),
     workEmail: intl.formatMessage({
       defaultMessage: "Work email address",
