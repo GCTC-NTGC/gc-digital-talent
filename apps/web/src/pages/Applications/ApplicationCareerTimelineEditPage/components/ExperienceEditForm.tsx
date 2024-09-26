@@ -49,7 +49,7 @@ const EditExperienceForm = ({
   const returnPath = paths.applicationCareerTimeline(applicationId);
   const experienceType = deriveExperienceType(experience);
   const defaultValues = queryResultToDefaultValues(
-    experienceType || "award",
+    experienceType ?? "award",
     experience,
   );
   const methods = useForm<ExperienceExperienceFormValues>({

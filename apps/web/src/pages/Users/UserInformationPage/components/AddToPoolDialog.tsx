@@ -145,7 +145,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
         user: {
           connect: id,
         },
-        expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
+        expiryDate: formValues.expiryDate ?? emptyToNull(formValues.expiryDate),
       }).catch((err) => {
         throw err;
       });

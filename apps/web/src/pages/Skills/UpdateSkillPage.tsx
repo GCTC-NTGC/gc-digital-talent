@@ -134,8 +134,8 @@ export const UpdateSkillForm = ({
     ...values,
     category: values.category.value ?? undefined,
     keywords: {
-      en: values.keywords?.en?.join(", ") || "",
-      fr: values.keywords?.fr?.join(", ") || "",
+      en: values.keywords?.en?.join(", ") ?? "",
+      fr: values.keywords?.fr?.join(", ") ?? "",
     },
     families: unpackIds(values?.families),
   });
@@ -203,7 +203,7 @@ export const UpdateSkillForm = ({
   const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
     ({ id, name }) => ({
       value: id,
-      label: name?.[locale] || "",
+      label: name?.[locale] ?? "",
     }),
   );
 

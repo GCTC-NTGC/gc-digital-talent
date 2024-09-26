@@ -180,7 +180,7 @@ describe("Create Account Form tests", () => {
     });
 
     const departmentOption = screen.getByRole("option", {
-      name: mockDepartments[0].name.en || "",
+      name: mockDepartments[0].name.en ?? "",
     });
     await user.click(department);
     await user.click(departmentOption);

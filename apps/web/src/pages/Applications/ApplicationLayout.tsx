@@ -68,7 +68,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   ]).filter(notEmpty);
 
   const currentPage = useCurrentPage(pages);
-  const currentCrumbs = currentPage?.crumbs || [];
+  const currentCrumbs = currentPage?.crumbs ?? [];
 
   const currentStepIndex = steps.findIndex(
     (step) =>

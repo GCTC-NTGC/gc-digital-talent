@@ -301,7 +301,7 @@ const Actions = ({
                   })}
                 </Button>
               </span>
-              {(download?.csv?.enable || download?.doc?.enable) && (
+              {(download?.csv?.enable ?? download?.doc?.enable) && (
                 <span
                   data-h2-align-items="base(center)"
                   data-h2-display="base(flex)"
@@ -312,7 +312,7 @@ const Actions = ({
                       <span data-h2-display="base(none) l-tablet(block)">
                         <Bullet data-h2-display="base(none) l-tablet(block)" />
                       </span>
-                      {download.csv.component || (
+                      {download.csv.component ?? (
                         <Button
                           {...actionButtonStyles}
                           onClick={
@@ -342,7 +342,7 @@ const Actions = ({
                       <span data-h2-display="base(none) l-tablet(block)">
                         <Bullet data-h2-display="base(none) l-tablet(block)" />
                       </span>
-                      {download.doc.component || (
+                      {download.doc.component ?? (
                         <Button
                           {...actionButtonStyles}
                           onClick={

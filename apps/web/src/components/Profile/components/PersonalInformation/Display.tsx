@@ -111,7 +111,7 @@ const Display = ({
           description: "Label for given name field",
         })}
       >
-        {firstName || notProvided}
+        {firstName ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!lastName}
@@ -121,7 +121,7 @@ const Display = ({
           description: "Label for surname field",
         })}
       >
-        {lastName || notProvided}
+        {lastName ?? notProvided}
       </FieldDisplay>
       <div
         data-h2-grid-column-start="p-tablet(1)"
@@ -136,7 +136,7 @@ const Display = ({
           label={intl.formatMessage(commonMessages.email)}
           data-h2-margin="base(0 0 x.15 0)" // line up with chip
         >
-          {email || notProvided}
+          {email ?? notProvided}
         </FieldDisplay>
         {showEmailVerification ? emailVerificationComponents : null}
       </div>

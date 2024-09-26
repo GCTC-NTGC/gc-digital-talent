@@ -118,7 +118,7 @@ export const getFullNameHtml = (
  * @return string
  */
 export const splitAndJoin = (text: string, split?: string, join?: string) =>
-  text.split(split || "").join(join || " ");
+  text.split(split ?? "").join(join ?? " ");
 
 /**
  * Wraps common abbreviations in abbr tags to make them more accessible

@@ -46,7 +46,7 @@ const getFieldLabel = (
   }
 
   return (
-    label ||
+    label ??
     intl.formatMessage({
       defaultMessage: "(None selected)",
       id: "+O6J4u",

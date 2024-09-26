@@ -123,17 +123,17 @@ export const formattedPoolPosterTitle = ({
             {intl.formatMessage(commonMessages.dividingColon)}
           </>
         ) : null}
-        {title || ""}
+        {title ?? ""}
       </>
     ) : (
       <>
-        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
+        {title ?? ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
     label: short
-      ? `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim()
-      : `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
+      ? `${hasGroupAndLevel ? genericTitle : ""}${title ?? ""}`.trim()
+      : `${title ?? ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 

@@ -172,13 +172,13 @@ const ApplicationReview = ({
   const allSkills = poolSkillsToSkills(application.pool.poolSkills);
 
   const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
+    application.pool.screeningQuestions?.filter(notEmpty) ?? [];
   const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+    application.screeningQuestionResponses?.filter(notEmpty) ?? [];
   const generalQuestions =
-    application.pool.generalQuestions?.filter(notEmpty) || [];
+    application.pool.generalQuestions?.filter(notEmpty) ?? [];
   const generalQuestionResponses =
-    application.generalQuestionResponses?.filter(notEmpty) || [];
+    application.generalQuestionResponses?.filter(notEmpty) ?? [];
 
   const classificationGroup = application.pool.classification?.group;
   return (

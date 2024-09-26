@@ -12,9 +12,9 @@ export function anyCriteriaSelected({
   indigenousCommunities,
 }: PartialUser): boolean {
   return !!(
-    isWoman ||
-    isVisibleMinority ||
-    hasDisability ||
+    isWoman ??
+    isVisibleMinority ??
+    hasDisability ??
     (indigenousCommunities && indigenousCommunities.length > 0)
   );
 }

@@ -39,7 +39,7 @@ describe("SkillAccordion", () => {
   const openAccordion = async (name: Maybe<string> | undefined) => {
     fireEvent.click(
       screen.getByRole("button", {
-        name: new RegExp(name || "", "i"),
+        name: new RegExp(name ?? "", "i"),
       }),
     );
   };
@@ -54,7 +54,7 @@ describe("SkillAccordion", () => {
     renderSkillAccordion(testSkill);
     expect(
       screen.getByRole("button", {
-        name: new RegExp(testSkill.name.en || "", "i"),
+        name: new RegExp(testSkill.name.en ?? "", "i"),
       }),
     ).toBeInTheDocument();
   });
@@ -66,7 +66,7 @@ describe("SkillAccordion", () => {
 
     expect(
       screen.getByRole("region", {
-        name: new RegExp(testSkill.name.en || "", "i"),
+        name: new RegExp(testSkill.name.en ?? "", "i"),
       }),
     ).toContainHTML(
       "<p>You do not have any experiences attached to this skill</p>",
@@ -83,7 +83,7 @@ describe("SkillAccordion", () => {
     expect(screen.getByText("1 experience")).toBeInTheDocument();
     expect(
       screen.getByRole("region", {
-        name: new RegExp(testSkill.name.en || "", "i"),
+        name: new RegExp(testSkill.name.en ?? "", "i"),
       }),
     ).toBeInTheDocument();
   });
@@ -102,21 +102,21 @@ describe("SkillAccordion", () => {
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
-      name: new RegExp(testSkill.name.en || "", "i"),
+      name: new RegExp(testSkill.name.en ?? "", "i"),
     });
 
     expect(detail).toBeInTheDocument();
-    expect(detail).toHaveTextContent(new RegExp(experience.details || "", "i"));
+    expect(detail).toHaveTextContent(new RegExp(experience.details ?? "", "i"));
     expect(detail).toHaveTextContent(
-      new RegExp(experience.division || "", "i"),
+      new RegExp(experience.division ?? "", "i"),
     );
     expect(detail).toHaveTextContent(
       new RegExp(`${dateRange}`.replace(/ {3}/g, " ") || "", "i"),
     );
     expect(detail).toHaveTextContent(
-      new RegExp(experience.organization || "", "i"),
+      new RegExp(experience.organization ?? "", "i"),
     );
-    expect(detail).toHaveTextContent(new RegExp(experience.role || "", "i"));
+    expect(detail).toHaveTextContent(new RegExp(experience.role ?? "", "i"));
   });
 
   it("renders proper context and detail when a community experience is provided", async () => {
@@ -129,15 +129,15 @@ describe("SkillAccordion", () => {
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
-      name: new RegExp(testSkill.name.en || "", "i"),
+      name: new RegExp(testSkill.name.en ?? "", "i"),
     });
 
     expect(detail).toBeInTheDocument();
-    expect(detail).toHaveTextContent(experience.details || "");
-    expect(detail).toHaveTextContent(experience.organization || "");
-    expect(detail).toHaveTextContent(experience.project || "");
-    expect(detail).toHaveTextContent(experience.organization || "");
-    expect(detail).toHaveTextContent(experience.title || "");
+    expect(detail).toHaveTextContent(experience.details ?? "");
+    expect(detail).toHaveTextContent(experience.organization ?? "");
+    expect(detail).toHaveTextContent(experience.project ?? "");
+    expect(detail).toHaveTextContent(experience.organization ?? "");
+    expect(detail).toHaveTextContent(experience.title ?? "");
   });
 
   it("renders proper context and detail when a education experience is provided", async () => {
@@ -155,14 +155,14 @@ describe("SkillAccordion", () => {
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
-      name: new RegExp(testSkill.name.en || "", "i"),
+      name: new RegExp(testSkill.name.en ?? "", "i"),
     });
 
     expect(detail).toBeInTheDocument();
-    expect(detail).toHaveTextContent(experience.details || "");
-    expect(detail).toHaveTextContent(experience.institution || "");
-    expect(detail).toHaveTextContent(experience.areaOfStudy || "");
-    expect(detail).toHaveTextContent(experience.thesisTitle || "");
+    expect(detail).toHaveTextContent(experience.details ?? "");
+    expect(detail).toHaveTextContent(experience.institution ?? "");
+    expect(detail).toHaveTextContent(experience.areaOfStudy ?? "");
+    expect(detail).toHaveTextContent(experience.thesisTitle ?? "");
     expect(detail).toHaveTextContent(`${dateRange}`.replace(/ {3}/g, " "));
   });
 
@@ -181,14 +181,14 @@ describe("SkillAccordion", () => {
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
-      name: new RegExp(testSkill.name.en || "", "i"),
+      name: new RegExp(testSkill.name.en ?? "", "i"),
     });
 
     expect(detail).toBeInTheDocument();
-    expect(detail).toHaveTextContent(experience.details || "");
-    expect(detail).toHaveTextContent(experience.description || "");
+    expect(detail).toHaveTextContent(experience.details ?? "");
+    expect(detail).toHaveTextContent(experience.description ?? "");
     expect(detail).toHaveTextContent(dateRange);
-    expect(detail).toHaveTextContent(experience.title || "");
+    expect(detail).toHaveTextContent(experience.title ?? "");
   });
 
   it("renders proper context and detail when more than one experiences provided", async () => {
@@ -203,11 +203,11 @@ describe("SkillAccordion", () => {
     expect(screen.getByText("2 experiences")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
-      name: new RegExp(testSkill.name.en || "", "i"),
+      name: new RegExp(testSkill.name.en ?? "", "i"),
     });
 
     expect(detail).toBeInTheDocument();
-    expect(detail).toHaveTextContent(experience1.details || "");
-    expect(detail).toHaveTextContent(experience2.details || "");
+    expect(detail).toHaveTextContent(experience1.details ?? "");
+    expect(detail).toHaveTextContent(experience2.details ?? "");
   });
 });

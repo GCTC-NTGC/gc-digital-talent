@@ -114,13 +114,13 @@ const Display = ({
           hasError={!name?.en}
           label={intl.formatMessage(processMessages.titleEn)}
         >
-          {name?.en || notProvided}
+          {name?.en ?? notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!name?.fr}
           label={intl.formatMessage(processMessages.titleFr)}
         >
-          {name?.fr || notProvided}
+          {name?.fr ?? notProvided}
         </ToggleForm.FieldDisplay>
       </div>
       <div
@@ -144,7 +144,7 @@ const Display = ({
           hasError={!processNumber}
           label={intl.formatMessage(processMessages.processNumber)}
         >
-          {processNumber || notProvided}
+          {processNumber ?? notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!publishingGroup}

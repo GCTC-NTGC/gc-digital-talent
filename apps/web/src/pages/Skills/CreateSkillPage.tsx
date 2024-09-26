@@ -123,7 +123,7 @@ export const CreateSkillForm = ({
   const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
     ({ id, name }) => ({
       value: id,
-      label: name?.[locale] || "",
+      label: name?.[locale] ?? "",
     }),
   );
 
