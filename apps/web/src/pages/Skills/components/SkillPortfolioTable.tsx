@@ -179,7 +179,7 @@ const SkillPortfolioTable = ({
         isRowTitle: true,
       },
     }),
-    columnHelper.accessor((row) => row.experiences?.length || 0, {
+    columnHelper.accessor((row) => row.experiences?.length ?? 0, {
       id: "experiences",
       header: intl.formatMessage({
         defaultMessage: "Career experience",
@@ -196,7 +196,7 @@ const SkillPortfolioTable = ({
             description: "Number of experiences linked to a skill",
           },
           {
-            count: cell.row.original.experiences?.length || 0,
+            count: cell.row.original.experiences?.length ?? 0,
           },
         ),
       enableHiding: false,
