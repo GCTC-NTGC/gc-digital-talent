@@ -144,9 +144,8 @@ const UpdateWorkExperience_Mutation = graphql(/* GraphQL */ `
 
 export const useExperienceMutations = (
   mutationType: ExperienceMutationType,
-  experienceType?: ExperienceType,
+  experienceType?: ExperienceType | "",
 ) => {
-  const type: ExperienceType = experienceType ?? "personal";
   const args: Record<ExperienceType, string> = {
     award: "awardExperience",
     community: "communityExperience",
@@ -161,7 +160,9 @@ export const useExperienceMutations = (
   ): ExperienceMutationArgs => {
     return {
       id,
-      [args[type]]: values,
+      ...(!!experienceType && {
+        [args[experienceType]]: values,
+      }),
     } as ExperienceMutationArgs;
   };
 
