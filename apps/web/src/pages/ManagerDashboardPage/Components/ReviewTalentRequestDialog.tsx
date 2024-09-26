@@ -5,7 +5,6 @@ import {
   Accordion,
   Button,
   Chip,
-  Chips,
   Dialog,
   Link,
   Pending,
@@ -29,8 +28,8 @@ import {
   positionDurationToEmploymentDuration,
 } from "~/utils/searchRequestUtils";
 import { formatClassificationString } from "~/utils/poolUtils";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
-import { talentRequestMessages } from "../messages";
 import { deriveChipSettings, deriveSingleString } from "../utils";
 
 const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `

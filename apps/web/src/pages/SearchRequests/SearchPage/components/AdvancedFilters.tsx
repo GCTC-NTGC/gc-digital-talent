@@ -19,6 +19,7 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { NullSelection } from "~/types/searchRequest";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -249,11 +250,7 @@ const AdvancedFilters = () => {
               intl,
             )}
           >
-            {intl.formatMessage({
-              defaultMessage: "Employment duration",
-              description: "Title for Employment duration section",
-              id: "Muh/+P",
-            })}
+            {intl.formatMessage(talentRequestMessages.employmentDuration)}
           </Accordion.Trigger>
           <Accordion.Content>
             <FilterBlock
@@ -307,12 +304,9 @@ const AdvancedFilters = () => {
               >
                 <Checklist
                   idPrefix="operationalRequirements"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Conditions of employment",
-                    id: "bKvvaI",
-                    description:
-                      "Legend for the Conditions of Employment filter checklist",
-                  })}
+                  legend={intl.formatMessage(
+                    talentRequestMessages.conditionsOfEmployment,
+                  )}
                   name="operationalRequirements"
                   items={operationalRequirementOptions}
                   trackUnsaved={false}

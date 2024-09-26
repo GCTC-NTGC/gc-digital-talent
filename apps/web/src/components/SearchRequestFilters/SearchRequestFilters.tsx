@@ -29,7 +29,8 @@ import {
   positionDurationToEmploymentDuration,
 } from "~/utils/searchRequestUtils";
 import processMessages from "~/messages/processMessages";
-import messages from "~/messages/adminMessages";
+import adminMessages from "~/messages/adminMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -129,7 +130,7 @@ const ApplicantFilters = ({
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
-            title={intl.formatMessage(messages.community)}
+            title={intl.formatMessage(adminMessages.community)}
             content={communityName}
           />
           <FilterBlock
@@ -209,11 +210,9 @@ const ApplicantFilters = ({
           />
           {employmentDuration && (
             <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Employment duration",
-                description: "Title for Employment duration section",
-                id: "Muh/+P",
-              })}
+              title={intl.formatMessage(
+                talentRequestMessages.employmentDuration,
+              )}
               content={employmentDuration}
             />
           )}
