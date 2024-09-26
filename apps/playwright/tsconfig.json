@@ -6,8 +6,11 @@
     "resolveJsonModule": true,
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
+    "strictNullChecks": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": [
+        "./*"
+      ]
     }
   }
 }
