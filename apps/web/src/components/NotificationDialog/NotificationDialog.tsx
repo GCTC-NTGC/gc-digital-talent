@@ -186,12 +186,7 @@ const NotificationDialog = ({
 
   useEffect(() => {
     if (open) {
-      // Pushing the change to the end of the call stack
-      const timer = setTimeout(() => {
-        document.body.style.pointerEvents = "";
-      }, 0);
-
-      return () => clearTimeout(timer);
+      document.body.style.pointerEvents = "";
     } else {
       document.body.style.pointerEvents = "auto";
     }

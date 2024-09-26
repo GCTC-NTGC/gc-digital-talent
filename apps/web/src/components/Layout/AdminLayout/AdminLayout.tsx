@@ -1,18 +1,11 @@
-import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import { getLocale } from "@gc-digital-talent/i18n";
 import { useLogger } from "@gc-digital-talent/logger";
 
-import Footer from "~/components/Footer/Footer";
-import Header from "~/components/Header/Header";
-import SEO, { Favicon } from "~/components/SEO/SEO";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 import useErrorMessages from "~/hooks/useErrorMessages";
-import SiteNavMenu from "~/components/NavMenu/MainNavMenu";
 
-import SitewideBanner from "../SitewideBanner";
-import SkipLink from "../SkipLink";
 import Layout from "../Layout";
 
 export const Component = () => {
