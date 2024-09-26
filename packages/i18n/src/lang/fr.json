@@ -859,6 +859,10 @@
     "defaultMessage": "Ce nom d’équipe est déjà utilisé",
     "description": "Error message that the given team name is already in use."
   },
+  "dBc/+T": {
+    "defaultMessage": "Bibliothèque de compétences",
+    "description": "Name of the skills library page"
+  },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
@@ -918,6 +922,10 @@
   "faMBJc": {
     "defaultMessage": "\"Je suis étudiant(e).\"",
     "description": "Student selection for government employee type."
+  },
+  "fb/Smc": {
+    "defaultMessage": "Portfolio de compétences",
+    "description": "Name of the skills portfolio page"
   },
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
@@ -1174,10 +1182,6 @@
   "ra+8d1": {
     "defaultMessage": "Erreur",
     "description": "Generic error message"
-  },
-  "rbhjTC": {
-    "defaultMessage": "Bibliothèque des compétences",
-    "description": "Name of the skill library page"
   },
   "rjHrNp": {
     "defaultMessage": "Parcourir les possibilités d'emploi",

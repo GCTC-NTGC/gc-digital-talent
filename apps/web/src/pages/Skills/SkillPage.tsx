@@ -2,12 +2,12 @@ import { defineMessage, useIntl } from "react-intl";
 import { ReactNode } from "react";
 
 import { Alert, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
-import adminMessages from "~/messages/adminMessages";
 import skillBrowserMessages from "~/components/SkillBrowser/messages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
@@ -19,7 +19,7 @@ const suggestionLink = (chunks: ReactNode, href: string) => (
   </Link>
 );
 
-const pageTitle = defineMessage(adminMessages.skills);
+const pageTitle = defineMessage(navigationMessages.skillsLibrary);
 const pageSubtitle = defineMessage({
   defaultMessage: "Explore all the skills on our site.",
   id: "eTOg2E",
