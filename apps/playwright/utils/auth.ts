@@ -3,9 +3,9 @@ import { Cookie, Page, expect, request } from "@playwright/test";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 export interface AuthTokens {
-  idToken?: string;
-  accessToken?: string;
-  refreshToken?: string;
+  idToken?: string | null;
+  accessToken?: string | null;
+  refreshToken?: string | null;
 }
 
 /**
@@ -108,9 +108,9 @@ export async function getAuthCookies(page: Page): Promise<AuthCookies> {
  */
 export async function getAuthTokens(page: Page): Promise<AuthTokens> {
   const tokens = await page.evaluate(() => ({
-    idToken: localStorage.getItem("id_token") ?? undefined,
-    accessToken: localStorage.getItem("access_token") ?? undefined,
-    refreshToken: localStorage.getItem("refresh_token") ?? undefined,
+    idToken: localStorage.getItem("id_token"),
+    accessToken: localStorage.getItem("access_token"),
+    refreshToken: localStorage.getItem("refresh_token"),
   }));
 
   return tokens;
