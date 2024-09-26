@@ -24,7 +24,7 @@ export const positionDurationToEmploymentDuration = (
 export const hasDiplomaToEducationLevel = (
   hasDiploma: Maybe<boolean> | undefined,
   intl: IntlShape,
-): string | undefined =>
+): string =>
   hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",

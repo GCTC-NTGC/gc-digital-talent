@@ -14,12 +14,14 @@ import {
 import {
   commonMessages,
   getEmploymentDuration,
+  getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   graphql,
   ReviewTalentRequestDialogQuery,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import {
@@ -112,6 +114,7 @@ const ReviewTalentRequestDialogContent = ({
   request,
 }: ReviewTalentRequestDialogContentProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const nullMessage = intl.formatMessage({
     defaultMessage: "(None selected)",
     id: "+O6J4u",
@@ -120,6 +123,10 @@ const ReviewTalentRequestDialogContent = ({
   const statusChipSettings = request.status
     ? deriveChipSettings(request.status.value, intl)
     : null;
+  const classifications = unpackMaybes(
+    request.applicantFilter?.qualifiedClassifications,
+  );
+  const workStreams = unpackMaybes(request.applicantFilter?.qualifiedStreams);
   const equityDescriptions = equitySelectionsToDescriptions(
     request.applicantFilter?.equity,
     intl,
@@ -161,10 +168,13 @@ const ReviewTalentRequestDialogContent = ({
           <FieldDisplay
             label={intl.formatMessage(talentRequestMessages.classification)}
           >
-            {deriveSingleString(
-              request.applicantFilter?.qualifiedClassifications,
-              formatClassificationString,
-            ) ?? nullMessage}
+            {classifications.length > 0
+              ? deriveSingleString(
+                  classifications,
+                  formatClassificationString,
+                  locale,
+                )
+              : nullMessage}
           </FieldDisplay>
 
           <FieldDisplay
@@ -176,44 +186,52 @@ const ReviewTalentRequestDialogContent = ({
           <FieldDisplay
             label={intl.formatMessage(talentRequestMessages.workStream)}
           >
-            {deriveSingleString(
-              request.applicantFilter?.qualifiedStreams,
-              (stream) => getLocalizedName(stream.label, intl),
-            ) ?? nullMessage}
+            {workStreams.length > 0
+              ? deriveSingleString(
+                  workStreams,
+                  (stream) => getLocalizedName(stream.label, intl),
+                  locale,
+                )
+              : nullMessage}
           </FieldDisplay>
 
           <FieldDisplay
             label={intl.formatMessage(talentRequestMessages.languageProfile)}
           >
-            {getLocalizedName(
-              request.applicantFilter?.languageAbility?.label,
-              intl,
-            ) ?? nullMessage}
+            {request.applicantFilter?.languageAbility
+              ? getLocalizedName(
+                  request.applicantFilter.languageAbility.label,
+                  intl,
+                )
+              : nullMessage}
           </FieldDisplay>
 
           <FieldDisplay
             data-h2-grid-column="p-tablet(span 2)"
             label={intl.formatMessage(talentRequestMessages.supervisoryStatus)}
           >
-            {positionTypeToYesNoSupervisoryStatement(
-              request.positionType?.value,
-              intl,
-            ) ?? nullMessage}
+            {request.positionType
+              ? positionTypeToYesNoSupervisoryStatement(
+                  request.positionType.value,
+                  intl,
+                )
+              : nullMessage}
           </FieldDisplay>
 
           <FieldDisplay
             data-h2-grid-column="p-tablet(span 2)"
             label={intl.formatMessage(talentRequestMessages.employmentDuration)}
           >
-            {request.applicantFilter?.positionDuration
-              ? intl.formatMessage(
-                  getEmploymentDuration(
-                    positionDurationToEmploymentDuration(
-                      request.applicantFilter.positionDuration,
-                    ),
+            {
+              // has its own null state
+              intl.formatMessage(
+                getEmploymentDuration(
+                  positionDurationToEmploymentDuration(
+                    unpackMaybes(request.applicantFilter?.positionDuration),
                   ),
-                )
-              : nullMessage}
+                ),
+              )
+            }
           </FieldDisplay>
 
           <FieldDisplay
@@ -222,10 +240,13 @@ const ReviewTalentRequestDialogContent = ({
               talentRequestMessages.educationRequirement,
             )}
           >
-            {hasDiplomaToEducationLevel(
-              request.applicantFilter?.hasDiploma,
-              intl,
-            ) ?? nullMessage}
+            {
+              // has its own null state
+              hasDiplomaToEducationLevel(
+                request.applicantFilter?.hasDiploma,
+                intl,
+              )
+            }
           </FieldDisplay>
         </div>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
