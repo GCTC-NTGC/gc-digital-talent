@@ -47,8 +47,8 @@ const KeyTasks = ({ jobPosterTemplateQuery }: KeyTasksProps) => {
         <div>
           {intl.formatMessage({
             defaultMessage:
-              "The following key tasks are examples of the work this role might perform. When drafting your job advertisement, you’re welcome to add, remove, or modify what is listed here to suit the specifics of your team and the job you’re hoping to fill.",
-            id: "KPenmQ",
+              "The following key tasks are examples of the work that might be part of this role. When drafting your job advertisement, you're welcome to add, remove, or modify what is listed here to better fit your team and the job you're hoping to fill.",
+            id: "ir/K0H",
             description:
               "Description displayed on the job poster template 'key tasks' section.",
           })}

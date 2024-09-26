@@ -99,7 +99,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet = new Spreadsheet;
 
         $sheet = $this->spreadsheet->getActiveSheet();
 
@@ -212,7 +212,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 }
 
                 // 1 is added to the key to account for the header row
-                $sheet->fromArray($values, null, 'A'.$currentCandidate + 1);
+                $sheet->fromArray($values, null, 'A'.$currentCandidate);
                 $currentCandidate++;
             }
         });
@@ -247,6 +247,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         Pool::with(['generalQuestions', 'screeningQuestions', 'poolSkills' => ['skill']])
             ->whereIn('id', $this->poolIds)
             ->chunk(100, function ($pools) {
+                /** @var Pool $pool */
                 foreach ($pools as $pool) {
                     if ($pool->generalQuestions->count() > 0) {
                         foreach ($pool->generalQuestions as $question) {

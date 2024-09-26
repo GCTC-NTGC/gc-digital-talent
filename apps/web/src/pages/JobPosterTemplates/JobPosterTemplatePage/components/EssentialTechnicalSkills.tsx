@@ -97,8 +97,8 @@ const EssentialTechnicalSkills = ({
         <div>
           {intl.formatMessage({
             defaultMessage:
-              "Essential or required skills (also known as merit criteria) are the core skill requirements a candidate must absolutely meet in order to perform the job. This list suggests common skills that are often required for this role, but please note that we recommend choosing only skills that are absolutely essential to the role. Fewer skills translates to higher quality applications and provides candidates with more opportunity to expand on the key skills you need.",
-            id: "kk+ohL",
+              "Essential or required skills (also known as merit criteria) are the core skill requirements a candidate needs to perform the job. This list includes common skills that are often required for this role, but we recommend choosing only the skills that are absolutely necessary. A shorter list of required skills leads to stronger applications and simplifies the evaluation process.",
+            id: "SojYxS",
             description:
               "Description displayed on the job poster template 'essential technical skills' section.",
           })}
