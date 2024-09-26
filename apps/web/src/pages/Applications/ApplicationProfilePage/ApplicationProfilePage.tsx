@@ -112,8 +112,8 @@ export const ApplicationProfile = ({
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "This step includes all of your profile information required for this application. Each section has a series of required fields that must be completed to move on to the next step. Completing this profile information will only happen once, and the information you provide here will auto-populate on applications you submit moving forward.",
-          id: "D9Elm9",
+            "This step includes all of your profile information required for this application. Each section has a series of required fields that must be completed to move on to the next step. The information you provide here will auto-populate future applications you submit.",
+          id: "8IvjbH",
           description: "Application step to complete your profile, description",
         })}
       </p>

@@ -66,8 +66,8 @@ const ApplicationQuestionsIntroduction = ({
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "This step allows hiring managers to ask two different types of questions: screening questions and general questions. Each question will be labelled so that you have a clear understanding of how your answer will be reviewed.",
-            id: "80KL2S",
+              "In this step, you may be asked screening questions and general questions. Your answers to <strong>screening questions will be evaluated</strong> as part of your application. Be sure to give thoughtful and detailed answers that really represent you and your experience.",
+            id: "QlCJM8",
             description:
               "Application step for additional questions, introduction description, paragraph one",
           })}
@@ -75,8 +75,8 @@ const ApplicationQuestionsIntroduction = ({
         <p data-h2-padding-top="base(x.5)">
           {intl.formatMessage({
             defaultMessage:
-              "Your answers to <strong>screening questions will be evaluated</strong> as a part of your application, so be sure to give each question the time and thought required for an answer that really represents you and your experience.",
-            id: "zp8FqH",
+              "We will label the questions so that you know how your answers will be reviewed.",
+            id: "ZP1qNK",
             description:
               "Application step for additional questions, introduction description, paragraph two",
           })}
