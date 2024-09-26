@@ -1077,8 +1077,8 @@ export const PoolPoster = ({
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"Who can apply to this recruitment process?"',
-                      id: "EpL8MD",
+                        "Who can apply to this recruitment process?",
+                      id: "Y63cqS",
                       description:
                         "Button text to toggle the accordion for who can apply",
                     })}
@@ -1102,8 +1102,8 @@ export const PoolPoster = ({
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"How are equity and inclusion considered in this recruitment process?"',
-                      id: "WPJAiw",
+                        "How are equity and inclusion considered in this recruitment process?",
+                      id: "mDsQmj",
                       description:
                         "Button text to toggle the accordion for diversity, equity, and inclusion",
                     })}
@@ -1128,13 +1128,12 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
-
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"Who can I contact with questions or accommodation needs?"',
-                      id: "IbWzvu",
+                        "Who can I contact with questions or accommodation needs?",
+                      id: "2/fjEP",
                       description:
                         "Button text to toggle the accordion for accommodations contact",
                     })}
@@ -1165,8 +1164,8 @@ export const PoolPoster = ({
                   <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
                     <Accordion.Trigger as="h3">
                       {intl.formatMessage({
-                        defaultMessage: '"What should I expect after I apply?"',
-                        id: "pdi2SU",
+                        defaultMessage: "What should I expect after I apply?",
+                        id: "PDGUT2",
                         description:
                           "Button text to toggle the accordion for what to expect after you apply",
                       })}
@@ -1187,8 +1186,8 @@ export const PoolPoster = ({
                     <Accordion.Trigger as="h3">
                       {intl.formatMessage({
                         defaultMessage:
-                          '"What should I expect if I\'m successful in the process?"',
-                        id: "hwVlzN",
+                          "What should I expect if I'm successful in the process?",
+                        id: "utlf9l",
                         description:
                           "Button text to toggle the accordion for what to expect after admission",
                       })}

@@ -93,8 +93,8 @@ const DiversityEquityInclusion = ({
                     "Heading for closing the accordion with information on employment equity",
                 })
               : intl.formatMessage({
-                  defaultMessage: "Learn more about employment equity",
-                  id: "wnaTtx",
+                  defaultMessage: "More information about employment equity",
+                  id: "q+bkac",
                   description:
                     "Heading for opening the accordion with information on employment equity",
                 })}
@@ -103,8 +103,8 @@ const DiversityEquityInclusion = ({
             <p data-h2-padding-bottom="base(x0.5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "While the language around these categories is in need of updating, the Government of Canada will sometimes use these categories in hiring to make sure that it is meeting the aims of employment equity.",
-                id: "usb0gM",
+                  "While the language around these categories is being updated, the Government of Canada will sometimes use these categories in hiring to ensure that it is meeting its employment equity goals.",
+                id: "DgjNQa",
                 description:
                   "Description of how the Government of Canada uses employment equity categories in hiring.",
               })}
@@ -112,19 +112,10 @@ const DiversityEquityInclusion = ({
             <p data-h2-margin-bottom="base(x0.5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "These four groups are <strong>women, Aboriginal peoples, persons with disabilities,</strong> and <strong>members of visible minorities</strong>.",
-                id: "+JnQX+",
+                  "The four equity groups are women, Aboriginal (Indigenous) peoples, persons with disabilities, and visible minorities.",
+                id: "CR/mkO",
                 description:
                   "Second paragraph for employment equity information.",
-              })}
-            </p>
-            <p data-h2-margin-bottom="base(x0.5)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so.",
-                id: "7fJqJP",
-                description:
-                  "Third paragraph for employment equity information.",
               })}
             </p>
             <p
@@ -151,8 +142,8 @@ const DiversityEquityInclusion = ({
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "This information will be used to match you to prioritized jobs.",
-                  id: "zqBqj1",
+                    "This information will be used to match you with jobs that give preference to candidates from employment equity groups.",
+                  id: "SlSHQo",
                   description:
                     "Explanation on how employment equity information will be used, item two",
                 })}
@@ -167,6 +158,15 @@ const DiversityEquityInclusion = ({
                 })}
               </li>
             </ul>
+            <p data-h2-margin="base(x.5 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "If you do not want to share this information on this platform, <strong>there is no obligation</strong> to do so.",
+                id: "WjCg7r",
+                description:
+                  "Third paragraph for employment equity information.",
+              })}
+            </p>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>

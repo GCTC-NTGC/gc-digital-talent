@@ -155,7 +155,9 @@ const Display = ({
             >
               {workEmail || notProvided}
             </FieldDisplay>
-            {showEmailVerification ? emailVerificationComponents : null}
+            {showEmailVerification && workEmail
+              ? emailVerificationComponents
+              : null}
           </div>
         </>
       )}

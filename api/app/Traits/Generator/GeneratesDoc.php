@@ -13,14 +13,14 @@ trait GeneratesDoc
      *
      * @param  Section  $section  The section to add it to
      * @param  string  $label  Label for the text
-     * @param  string  $string  The value
+     * @param  string  $text  The value
      */
     protected function addLabelText(Section $section, string $label, ?string $text)
     {
         $run = $section->addTextRun();
         $run->addText($label.$this->colon());
         if (! is_null($text)) {
-            $run->addText($text ?? '');
+            $run->addText($text);
         }
     }
 }

@@ -10,6 +10,8 @@ abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterf
 {
     protected ?Spreadsheet $spreadsheet;
 
+    protected string $extension = 'csv';
+
     public function __construct(public string $fileName, protected ?string $dir)
     {
         parent::__construct($fileName, $dir);

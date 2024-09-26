@@ -66,7 +66,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet = new Spreadsheet;
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
@@ -121,7 +121,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                 ];
 
                 // 1 is added to the key to account for the header row
-                $sheet->fromArray($values, null, 'A'.$currentUser + 1);
+                $sheet->fromArray($values, null, 'A'.$currentUser);
                 $currentUser++;
             }
         });

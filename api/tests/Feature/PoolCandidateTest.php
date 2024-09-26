@@ -836,7 +836,10 @@ class PoolCandidateTest extends TestCase
         $unverifiedPriorityAndAcceptedVeteran = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
-                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
+                'user_id' => User::factory()->create([
+                    'has_priority_entitlement' => true,
+                    'citizenship' => CitizenshipStatus::CITIZEN->name,
+                ]),
             ],
         );
         $unverifiedPriorityAndAcceptedVeteran->update([

@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 final class AuthenticationException extends Exception implements ClientAware, ProvidesExtensions
 {
-    /** @var @string */
-    protected $reason;
+    protected string $reason;
 
     public function __construct(string $message, string $reason)
     {
