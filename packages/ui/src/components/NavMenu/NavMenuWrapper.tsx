@@ -1,7 +1,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import FocusLock from "react-focus-lock";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
-import { KeyboardEventHandler, ReactNode, RefObject, useCallback } from "react";
+import {
+  KeyboardEventHandler,
+  ReactNode,
+  RefObject,
+  useCallback,
+  useEffect,
+} from "react";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
@@ -66,6 +72,15 @@ const NavMenuWrapper = ({
         exit: { transform: "translateY(0)" },
       };
 
+  useEffect(() => {
+    if (isSmallScreen && open) {
+      document.body.style.overflowY = "hidden";
+    }
+    return () => {
+      document.body.style.overflowY = "scroll";
+    };
+  }, [isSmallScreen, open]);
+
   return (
     <NavMenuProvider
       open={open}
@@ -77,30 +92,27 @@ const NavMenuWrapper = ({
           <m.div
             data-h2-flex-item="base(content)"
             data-h2-position="base(fixed) l-tablet(sticky)"
-            data-h2-top="base(auto) l-tablet(0)"
-            data-h2-bottom="base(x4) l-tablet(auto)"
+            data-h2-top="base(x.75) l-tablet(0)"
+            data-h2-bottom="base(x3.5) l-tablet(auto)"
             data-h2-right="base(x.75) l-tablet(auto)"
             data-h2-left="base(x.75) l-tablet(auto)"
             data-h2-width="l-tablet(100%)"
             data-h2-z-index="base(9998)"
+            data-h2-overflow-y="base(auto)"
             {...animConfig}
           >
-            <div
-              data-h2-position="base(sticky) l-tablet(sticky)"
-              data-h2-location="base(0, auto, auto, auto)"
+            <FocusLock
+              returnFocus
+              disabled={!showOverlay}
+              onDeactivation={() => {
+                window.setTimeout(() => {
+                  if (triggerRef?.current) {
+                    triggerRef.current.focus();
+                  }
+                }, 0);
+              }}
             >
-              <FocusLock
-                returnFocus
-                disabled={!showOverlay}
-                onDeactivation={() => {
-                  window.setTimeout(() => {
-                    if (triggerRef?.current) {
-                      triggerRef.current.focus();
-                    }
-                  }, 0);
-                }}
-              >
-                {/* <RemoveScroll
+              {/* <RemoveScroll
                   enabled={isSmallScreen && open}
                   // data-h2-background-color="base:all(gray.darkest)"
                   // data-h2-border-right="l-tablet(1px solid black.2)"
@@ -110,30 +122,29 @@ const NavMenuWrapper = ({
                   // data-h2-flex-direction="base(column)"
                   // data-h2-height="base(100%)"
                 > */}
-                <NavMenu.Root
-                  /**
-                   * Ignore `no-noninteractive-element-interactions` since
-                   * this is captured to close the element
-                   */
-                  onKeyDown={handleKeyDown}
-                  aria-label={label}
-                  data-state={open ? "open" : "closed"}
-                  data-h2-background-color="base(foreground) l-tablet:all(black.9)"
-                  data-h2-border="base:all(1px solid background.darker) l-tablet(none)"
-                  data-h2-radius="base(rounded) l-tablet(initial)"
-                  data-h2-padding="l-tablet(x1 0)"
+              <NavMenu.Root
+                /**
+                 * Ignore `no-noninteractive-element-interactions` since
+                 * this is captured to close the element
+                 */
+                onKeyDown={handleKeyDown}
+                aria-label={label}
+                data-state={open ? "open" : "closed"}
+                data-h2-background-color="base(foreground) l-tablet:all(black.9)"
+                data-h2-border="base:all(1px solid background.darker) l-tablet(none)"
+                data-h2-radius="base(rounded) l-tablet(initial)"
+                data-h2-padding="l-tablet(x1 0)"
+              >
+                <div
+                  data-h2-wrapper="p-tablet(center, large, x2)"
+                  data-h2-display="l-tablet(flex)"
+                  data-h2-justify-content="l-tablet(space-between)"
                 >
-                  <div
-                    data-h2-wrapper="p-tablet(center, large, x2)"
-                    data-h2-display="l-tablet(flex)"
-                    data-h2-justify-content="l-tablet(space-between)"
-                  >
-                    {children}
-                  </div>
-                </NavMenu.Root>
-                {/* </RemoveScroll> */}
-              </FocusLock>
-            </div>
+                  {children}
+                </div>
+              </NavMenu.Root>
+              {/* </RemoveScroll> */}
+            </FocusLock>
           </m.div>
         ) : null}
       </AnimatePresence>

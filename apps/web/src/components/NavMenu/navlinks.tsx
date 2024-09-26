@@ -264,7 +264,22 @@ export const useMainLinks = (
     case "guest":
       return {
         ...defaultLinks,
-        mainLinks: [Home, BrowseJobs],
+        mainLinks: [
+          Home,
+          BrowseJobs,
+          // // uncomment to test scrolling on mobile view
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+          // BrowseJobs,
+        ],
       };
     case "applicant":
       return {
