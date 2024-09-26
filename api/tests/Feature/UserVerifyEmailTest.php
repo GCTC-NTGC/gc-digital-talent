@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\EmailType;
 use App\Facades\Notify;
 use App\Models\User;
 use App\Notifications\VerifyEmail;
@@ -284,5 +285,19 @@ class UserVerifyEmailTest extends TestCase
 
         // check that verification was cleared
         assertNull($this->regularUser->work_email_verified_at);
+    }
+
+    public function testNullEmailFailsSending()
+    {
+        $this->regularUser->work_email = null;
+        $this->regularUser->work_email_verified_at = null;
+        $this->regularUser->save();
+
+        $this->actingAs($this->regularUser, 'api')
+            ->graphQL($this->sendVerificationEmailMutation, [
+                'emailType' => EmailType::WORK->name,
+            ])
+            ->assertGraphQLErrorMessage('Email type '.EmailType::WORK->name.' not set');
+
     }
 }

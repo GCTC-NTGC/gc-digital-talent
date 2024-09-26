@@ -58,6 +58,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             'managerJobTitle' => 'Manager',
             'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
             'reason' => PoolCandidateSearchRequestReason::GENERAL_INTEREST->name,
+            'initialResultCount' => 100,
         ];
 
         return array_merge($defaultInput, $additionalInput);
@@ -95,7 +96,7 @@ class PoolCandidateSearchRequestTest extends TestCase
     {
         $this->seed(DepartmentSeeder::class);
         $departmentId = Department::inRandomOrder()->first()->id;
-        $errorMessage = "Variable \"\$input\" got invalid value {\"fullName\":\"Test\",\"email\":\"test@domain.com\",\"jobTitle\":\"Job Title\",\"managerJobTitle\":\"Manager\",\"positionType\":\"INDIVIDUAL_CONTRIBUTOR\",\"reason\":\"GENERAL_INTEREST\",\"department\":{\"connect\":\"$departmentId\"}}; Field \"applicantFilter\" of required type \"ApplicantFilterBelongsTo!\" was not provided.";
+        $errorMessage = "Variable \"\$input\" got invalid value {\"fullName\":\"Test\",\"email\":\"test@domain.com\",\"jobTitle\":\"Job Title\",\"managerJobTitle\":\"Manager\",\"positionType\":\"INDIVIDUAL_CONTRIBUTOR\",\"reason\":\"GENERAL_INTEREST\",\"initialResultCount\":100,\"department\":{\"connect\":\"$departmentId\"}}; Field \"applicantFilter\" of required type \"ApplicantFilterBelongsTo!\" was not provided.";
 
         $this->runCreateMutation([
             'department' => [

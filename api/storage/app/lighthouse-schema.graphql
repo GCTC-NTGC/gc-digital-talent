@@ -418,11 +418,11 @@ type Mutation {
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
-  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, locale: Language): Boolean!
-  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
-  downloadUsersCsv(ids: [UUID!], where: UserFilterInput, locale: Language): Boolean!
-  downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean!
-  downloadUsersDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean!
+  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
+  downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadApplicationsZip(ids: [UUID!]!): Boolean!
+  downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
+  downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUserDoc(id: UUID!, anonymous: Boolean!): String
   downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
   downloadApplicationDoc(id: UUID!): String
@@ -904,6 +904,7 @@ type PoolCandidateSearchRequest {
   positionType: LocalizedPoolCandidateSearchPositionType
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community
+  initialResultCount: Int
 }
 
 type SkillFamily {
@@ -1506,6 +1507,7 @@ input CreatePoolCandidateSearchRequestInput {
   managerJobTitle: String!
   positionType: PoolCandidateSearchPositionType!
   reason: PoolCandidateSearchRequestReason!
+  initialResultCount: Int
 }
 
 input UpdatePoolCandidateSearchRequestInput {

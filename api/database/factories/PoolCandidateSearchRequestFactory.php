@@ -53,6 +53,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'reason' => $this->faker->randomElement(PoolCandidateSearchRequestReason::cases())->name,
             'community_id' => $community->id,
             'user_id' => $user?->id,
+            'initial_result_count' => $this->faker->optional->numberBetween(0, 999),
         ];
     }
 

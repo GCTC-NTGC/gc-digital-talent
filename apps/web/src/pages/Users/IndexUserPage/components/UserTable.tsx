@@ -168,14 +168,24 @@ const UserTable = ({ title }: UserTableProps) => {
   );
   const [filterState, setFilterState] =
     useState<UserFilterInput>(initialFilters);
-  const { downloadDoc, downloadingDoc, downloadCsv, downloadingCsv } =
-    useUserDownloads();
+  const {
+    downloadDoc,
+    downloadingDoc,
+    downloadZip,
+    downloadingZip,
+    downloadCsv,
+    downloadingCsv,
+  } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
-    downloadDoc({
-      ids: selectedRows,
-      anonymous,
-    });
+    if (selectedRows.length === 1) {
+      downloadDoc({ id: selectedRows[0], anonymous });
+    } else {
+      downloadZip({
+        ids: selectedRows,
+        anonymous,
+      });
+    }
   };
 
   const handleCsvDownload = () => {
@@ -412,9 +422,9 @@ const UserTable = ({ title }: UserTableProps) => {
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={!hasSelectedRows || downloadingDoc}
+              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
+              isDownloading={downloadingZip || downloadingDoc}
               onClick={handleDocDownload}
-              isDownloading={downloadingDoc}
             />
           ),
         },

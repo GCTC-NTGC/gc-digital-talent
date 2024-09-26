@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\PoolCandidateUserDocGenerator;
+use App\Generators\PoolCandidateDocGenerator;
+use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -12,20 +13,35 @@ use Illuminate\Validation\UnauthorizedException;
 
 final readonly class DownloadPoolCandidateDoc
 {
-    /** @param  array{}  $args */
+    /**
+     * @disregard P1003 Will not use
+     *
+     * @param  array{id: ?string, anonymous: ?boolean}  $args
+     */
     public function __invoke(null $_, array $args)
     {
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
+        $targetApplicant = PoolCandidate::findOrFail($args['id'])->load(['user']);
+        $firstName = $targetApplicant->user?->first_name;
+        $lastName = $targetApplicant->user?->last_name;
+        if (isset($firstName)) {
+            $firstName = iconv('UTF-8', 'ASCII//TRANSLIT', $firstName); // handle accented characters
+            $firstName = preg_replace('/[^a-zA-Z]+/', '', $firstName); // remove anything that isn't an alphabet character
+            $firstName = trim($firstName);
+        }
+        if (isset($lastName)) {
+            $lastName = iconv('UTF-8', 'ASCII//TRANSLIT', $lastName);
+            $lastName = preg_replace('/[^a-zA-Z]+/', '', $lastName);
+            $lastName = trim($lastName);
+        }
+
         try {
-
-            $fileName = sprintf('%s_%s.docx', __('filename.candidate'), date('Y-m-d_His'));
-
-            $generator = new PoolCandidateUserDocGenerator(
-                ids: [$args['id']],
+            $candidate = PoolCandidate::findOrFail($args['id']);
+            $generator = new PoolCandidateDocGenerator(
+                candidate: $candidate,
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
-                fileName: $fileName,
                 dir: $user->id,
                 lang: App::getLocale()
             );
@@ -34,13 +50,11 @@ final readonly class DownloadPoolCandidateDoc
 
             $generator->generate()->write();
 
-            return $generator->getFileName();
+            return $generator->getFileNameWithExtension();
         } catch (\Exception $e) {
-            Log::error('Error starting candidate document generation '.$e->getMessage());
+            Log::error('Error starting candidate document generation '.$e);
 
             return null;
         }
-
-        return null;
     }
 }

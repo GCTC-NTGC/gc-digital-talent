@@ -4,6 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
+import { useEffect } from "react";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -162,6 +163,13 @@ export const UpdateSkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialSkill),
   });
+
+  // category is populated by fetched enums, this can possibly not finish until after form has already rendered
+  // so reset to default value (initialSkill) once enums loaded
+  useEffect(() => {
+    methods.resetField("category");
+  }, [data?.categories, methods]);
+
   const { handleSubmit } = methods;
 
   const { state } = useLocation();

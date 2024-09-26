@@ -607,6 +607,7 @@ type PoolCandidateSearchRequest {
     @rename(attribute: "position_type")
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community @belongsTo
+  initialResultCount: Int @rename(attribute: "initial_result_count")
 }
 
 type SkillFamily {
@@ -1496,6 +1497,7 @@ input CreatePoolCandidateSearchRequestInput {
   positionType: PoolCandidateSearchPositionType!
     @rename(attribute: "position_type")
   reason: PoolCandidateSearchRequestReason!
+  initialResultCount: Int @rename(attribute: "initial_result_count")
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -2387,28 +2389,17 @@ type Mutation {
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
 
-  # File downloads
+  # CSV file downloads
   downloadPoolCandidatesCsv(
     ids: [UUID!]
     where: PoolCandidateSearchInput
-    locale: Language
   ): Boolean! @guard
-  downloadPoolCandidatesDoc(
-    ids: [UUID!]!
-    anonymous: Boolean!
-    locale: Language
-  ): Boolean! @guard
-  downloadUsersCsv(
-    ids: [UUID!]
-    where: UserFilterInput
-    locale: Language
-  ): Boolean! @guard
-  downloadApplicationsDoc(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadUsersDoc(
-    ids: [UUID!]!
-    anonymous: Boolean!
-    locale: Language
-  ): Boolean! @guard
+  downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+
+  # ZIP file downloads
+  downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard
+  downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean! @guard
+  downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean! @guard
 
   # Downloads for single entity, returning file name if successful or null on error
   downloadUserDoc(id: UUID!, anonymous: Boolean!): String

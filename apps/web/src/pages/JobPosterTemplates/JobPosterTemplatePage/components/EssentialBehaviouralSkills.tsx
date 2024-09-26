@@ -97,8 +97,8 @@ const EssentialBehaviouralSkills = ({
         <div>
           {intl.formatMessage({
             defaultMessage:
-              "In similar fashion to the essential technical skills suggested above, this list offers recommendations for behavioural skills this role commonly requires. Again, we recommend keeping essential behavioural skills limited to the exact requirements for your position or team to ensure candidates have the opportunity to properly describe their experience for the skills that really matter.",
-            id: "qmkRCA",
+              "In similar fashion to the essential technical skills, this list offers recommendations for the behavioural skills commonly required for this role. We recommend keeping essential behavioural skills limited to the exact requirements for your position or team to help candidates highlight the most relevant experience.",
+            id: "/4z9lj",
             description:
               "Description displayed on the job poster template 'essential behavioural skills' section.",
           })}

@@ -95,8 +95,8 @@ const AssetTechnicalSkills = ({
         <div>
           {intl.formatMessage({
             defaultMessage:
-              "Finally, asset or optional technical skills allow you to elaborate on skills that aren’t absolutely required but would benefit the role. These skills might represent a gap on your team or related skills that might bolster the candidate’s work. We encourage you to include whatever skills you feel are a good fit for this type of position, however, it’s important to remember that candidates aren’t obligated to have these skills in order to apply (and qualify) for the position you’re describing.",
-            id: "0UAx0q",
+              "Asset or optional technical skills allow you to elaborate on skills that aren't strictly required but would benefit the role. These might address gaps on your team or be related skills that could bolster the candidate's work. Include any skills you think are a good fit for the position, but keep in mind that candidates aren't obligated to have these skills to apply or qualify.",
+            id: "k7n43+",
             description:
               "Description displayed on the job poster template 'asset technical skills' section.",
           })}

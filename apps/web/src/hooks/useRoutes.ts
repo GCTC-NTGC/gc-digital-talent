@@ -268,7 +268,7 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
-    skillLibrary: () => [applicantUrl, "skills"].join("/"),
+    skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),
     editUserSkill: (skillId: string) =>
       [applicantUrl, "skills", skillId].join("/"),

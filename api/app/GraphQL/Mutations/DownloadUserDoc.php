@@ -13,36 +13,22 @@ use Illuminate\Validation\UnauthorizedException;
 
 final readonly class DownloadUserDoc
 {
-    /** @param  array{}  $args */
+    /**
+     * @disregard P1003 No plans on using this
+     *
+     * @param  array{id: ?string, anonymous: ?bool}  $args
+     */
     public function __invoke(null $_, array $args)
     {
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
-        $targetUser = User::find($args['id']);
-        $firstName = $targetUser?->first_name;
-        $lastName = $targetUser?->last_name;
-        if (isset($firstName)) {
-            $firstName = iconv('UTF-8', 'ASCII//TRANSLIT', $firstName); // handle accented characters
-            $firstName = preg_replace('/[^a-zA-Z]+/', '', $firstName); // remove anything that isn't an alphabet character
-            $firstName = trim($firstName);
-        }
-        if (isset($lastName)) {
-            $lastName = iconv('UTF-8', 'ASCII//TRANSLIT', $lastName);
-            $lastName = preg_replace('/[^a-zA-Z]+/', '', $lastName);
-            $lastName = trim($lastName);
-        }
-
         try {
-
-            $fileName = $args['anonymous'] ?
-                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? substr($lastName, 0, 1) : '') :
-                sprintf('%s - %s - Profile - Profil.docx', $firstName ? $firstName : '', $lastName ? $lastName : '');
+            $targetUser = User::findOrFail($args['id']);
 
             $generator = new UserDocGenerator(
-                ids: [$args['id']],
+                user: $targetUser,
                 anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
-                fileName: $fileName,
                 dir: $user->id,
                 lang: App::getLocale(),
             );
@@ -51,13 +37,11 @@ final readonly class DownloadUserDoc
 
             $generator->generate()->write();
 
-            return $generator->getFileName();
+            return $generator->getFileNameWithExtension();
         } catch (\Exception $e) {
-            Log::error('Error starting user document generation '.$e->getMessage());
+            Log::error('Error starting user document generation '.$e);
 
             return null;
         }
-
-        return null;
     }
 }

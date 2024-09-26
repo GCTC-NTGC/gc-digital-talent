@@ -15,6 +15,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
@@ -44,9 +45,15 @@ interface ManagerDashboardProps {
   userQuery: FragmentType<typeof ManagerDashboardUser_Fragment>;
 }
 
+type AccordionItems = ("your_talent_searches" | "")[];
+
 const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   const paths = useRoutes();
   const intl = useIntl();
+  const [accordionItems, setAccordionItems] = useLocalStorage<AccordionItems>(
+    "managerDashboardPage:managerToolsAccordion:expandedItems",
+    ["your_talent_searches"],
+  );
   const user = getFragment(ManagerDashboardUser_Fragment, userQuery);
 
   const formattedPageTitle = intl.formatMessage(pageMessages.pageTitle);
@@ -112,15 +119,21 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 headingAs="h2"
               >
                 <TaskCard.Item>
-                  <Accordion.Root type="multiple" defaultValue={["item1"]}>
-                    <Accordion.Item value="item1">
+                  <Accordion.Root
+                    value={accordionItems}
+                    onValueChange={(newValue: AccordionItems) => {
+                      setAccordionItems(newValue);
+                    }}
+                    type="multiple"
+                  >
+                    <Accordion.Item value="your_talent_searches">
                       <Accordion.Trigger>
                         {intl.formatMessage(
                           {
-                            defaultMessage: "Your talent searches ({count})",
-                            id: "aeCkWS",
+                            defaultMessage: "Your talent requests ({count})",
+                            id: "7l6Xay",
                             description:
-                              "Title for a list of talent searches with a count",
+                              "Title for a list of your talent requests with a count",
                           },
                           {
                             count: "0",
@@ -138,10 +151,10 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           <>
                             <Link color="primary" href="#">
                               {intl.formatMessage({
-                                defaultMessage: "View all searches",
-                                id: "N2GuzJ",
+                                defaultMessage: "All requests",
+                                id: "mJKi1Y",
                                 description:
-                                  "Link to a page to view all the searches",
+                                  "Link to a page to view all the requests",
                               })}
                             </Link>
                             &bull;
@@ -151,9 +164,10 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         )}
                         <Link color="primary" href={paths.search()}>
                           {intl.formatMessage({
-                            defaultMessage: "Start a new search",
-                            id: "qmeqdf",
-                            description: "Link to a page to start a new search",
+                            defaultMessage: "New request",
+                            id: "BGQaDq",
+                            description:
+                              "Link to a page to start a new request",
                           })}
                         </Link>
                       </div>
@@ -167,14 +181,16 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                             {intl.formatMessage(
                               {
                                 defaultMessage:
-                                  'When you submit a request for talent using the "<a>Find talent</a>" feature, it will appear in this list while it remains active. Recipients of your request will have a fixed amount of time to reply, after which, only those who have accepted to share their information will remain available to you.',
-                                id: "HnrJJR",
+                                  'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
+                                id: "OWLaKF",
                                 description:
-                                  "Helper instructions for the manager tools",
+                                  "instructional text for the 'Your talent requests' tool",
                               },
                               {
-                                a: (chunks: ReactNode) =>
+                                findTalentLink: (chunks: ReactNode) =>
                                   linkAccessor(paths.search(), chunks),
+                                allRequestsLink: (chunks: ReactNode) =>
+                                  linkAccessor("#", chunks),
                               },
                             )}
                           </div>
@@ -319,10 +335,9 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                     href="#"
                     description={intl.formatMessage({
                       defaultMessage:
-                        "Describe your leadership style and team culture to give applicants an idea of what working with you is like.",
-                      id: "lbtzDG",
-                      description:
-                        "Helper instructions for a 'manager profile' card",
+                        "Describe your leadership style and team culture to give applicants an idea of what it’s like to work with you.",
+                      id: "iJrZ6t",
+                      description: "the 'Manager profile' tool's description",
                     })}
                   />
                 ) : (
@@ -368,10 +383,9 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   href={paths.skills()}
                   description={intl.formatMessage({
                     defaultMessage:
-                      "Browse a complete list of available skills, learn how they’re organized, and submit skill recommendations.",
-                    id: "p3UL9X",
-                    description:
-                      "Helper instructions for a 'learn about skills' card",
+                      "Browse a complete list of available skills, learn how they’re organized, and recommend additional skills to include.",
+                    id: "CTBcGm",
+                    description: "the 'Learn about skills' tool description",
                   })}
                 />
                 {showUnfinishedPieces ? (

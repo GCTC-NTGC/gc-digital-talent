@@ -2,38 +2,36 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\ApplicationDocGenerator;
+use App\Generators\UserZipGenerator;
 use App\Jobs\GenerateUserFile;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadApplicationsDoc
+final class DownloadUsersZip
 {
     /**
      * Dispatches the generation of a
-     * csv containing pool candidates
+     * zip containing pool candidates
      *
-     * @disregard P1003 No intention of using the var
+     * @disregard P1003 We never intend to use this
      */
     public function __invoke($_, array $args)
     {
+
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         $ids = $args['ids'] ?? [];
-        $locale = $args['locale'] ?? 'en';
 
         try {
-            $key = count($ids) > 1 ? 'candidates' : 'candidate';
-            $fileName = sprintf('%s_%s.docx', Lang::get('filename.'.$key, [], $locale), date('Y-m-d_His'));
-
-            $generator = new ApplicationDocGenerator(
+            $generator = new UserZipGenerator(
                 ids: $ids,
-                fileName: $fileName,
+                anonymous: $args['anonymous'] ?? true, // Probably safer to fallback to anonymous
                 dir: $user->id,
-                lang: strtolower($locale),
+                fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
+                lang: App::getLocale(),
             );
 
             $generator->setUserId($user->id);
@@ -42,11 +40,9 @@ final class DownloadApplicationsDoc
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting application document generation '.$e->getMessage());
+            Log::error('Error starting user document generation '.$e->getMessage());
 
             return false;
         }
-
-        return false;
     }
 }

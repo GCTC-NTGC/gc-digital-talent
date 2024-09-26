@@ -26,8 +26,8 @@ import {
   PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
-  Language,
 } from "@gc-digital-talent/graphql";
+import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -43,7 +43,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import commonTableMessages from "~/components/Table/tableMessages";
+import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -411,19 +411,20 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesCsv(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
-    $locale: Language
   ) {
-    downloadPoolCandidatesCsv(ids: $ids, where: $where, locale: $locale)
+    downloadPoolCandidatesCsv(ids: $ids, where: $where)
   }
 `);
 
-const DownloadPoolCandidatesDoc_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesDoc(
-    $ids: [UUID!]!
-    $anonymous: Boolean!
-    $locale: Language
-  ) {
-    downloadPoolCandidatesDoc(ids: $ids, anonymous: $anonymous, locale: $locale)
+const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
+    downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
+  }
+`);
+
+const DownloadSinglePoolCandidateDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidateDoc($id: UUID!, $anonymous: Boolean!) {
+    downloadPoolCandidateDoc(id: $id, anonymous: $anonymous)
   }
 `);
 
@@ -467,6 +468,8 @@ const PoolCandidatesTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const apiRoutes = useApiRoutes();
+
   const defaultSortState = currentPool
     ? [{ id: "finalDecision", desc: false }]
     : [{ id: "dateReceived", desc: true }];
@@ -485,9 +488,16 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesCsv_Mutation,
   );
 
-  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
-    DownloadPoolCandidatesDoc_Mutation,
+  const [{ fetching: downloadingZip }, downloadZip] = useMutation(
+    DownloadPoolCandidatesZip_Mutation,
   );
+
+  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
+    DownloadSinglePoolCandidateDoc_Mutation,
+  );
+
+  const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
+    useAsyncFileDownload();
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
@@ -610,33 +620,41 @@ const PoolCandidatesTable = ({
         searchState?.term,
         searchState?.type,
       ),
-      locale: locale === "fr" ? Language.Fr : Language.En,
     })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
   const handleCsvDownload = () => {
-    downloadCsv({
-      ids: selectedRows,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
+    downloadCsv({ ids: selectedRows })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
   const handleDocDownload = (anonymous: boolean) => {
-    downloadDoc({
-      ids: selectedRows,
-      anonymous,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
-  };
-
-  const handleNoRowsSelected = () => {
-    toast.warning(intl.formatMessage(commonTableMessages.noRowsSelected));
+    if (selectedRows.length === 1) {
+      downloadDoc({ id: selectedRows[0], anonymous })
+        .then((res) => {
+          if (res?.data?.downloadPoolCandidateDoc) {
+            executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(
+                res.data.downloadPoolCandidateDoc,
+              ),
+              fileName: res.data.downloadPoolCandidateDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      downloadZip({
+        ids: selectedRows,
+        anonymous,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    }
   };
 
   const columns = [
@@ -985,11 +1003,14 @@ const PoolCandidatesTable = ({
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={downloadingDoc}
-              onClick={
-                hasSelectedRows ? handleDocDownload : handleNoRowsSelected
+              disabled={
+                !hasSelectedRows ||
+                downloadingZip ||
+                downloadingDoc ||
+                downloadingAsyncFile
               }
-              isDownloading={downloadingDoc}
+              isDownloading={downloadingZip}
+              onClick={handleDocDownload}
             />
           ),
         },

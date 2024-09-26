@@ -3,6 +3,7 @@
 namespace Tests\Feature\Notifications;
 
 use App\Enums\NotificationFamily;
+use App\Enums\PublishingGroup;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -74,6 +75,7 @@ class TriggerNewJobPostedTest extends TestCase
             ->for($this->adminUser)
             ->draft()
             ->create([
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'published_at' => null,
             ]);
 
