@@ -11,7 +11,7 @@ const ThrowNotFound = ({ message }: ThrowNotFoundProps) => {
 
   throw new Response("", {
     status: 404,
-    statusText: message || intl.formatMessage(commonMessages.notFound),
+    statusText: message ?? intl.formatMessage(commonMessages.notFound),
   });
 };
 
