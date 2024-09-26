@@ -24,6 +24,7 @@ import {
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
+  equitySelectionsToDescriptions,
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
 } from "~/utils/searchRequestUtils";
@@ -87,47 +88,10 @@ const ApplicantFilters = ({
     intl,
   );
 
-  const employmentEquity: string[] | undefined = [
-    ...(applicantFilter?.equity?.isWoman
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Woman",
-            id: "/fglL0",
-            description:
-              "Message for woman option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(applicantFilter?.equity?.isVisibleMinority
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Visible Minority",
-            id: "4RK/oW",
-            description:
-              "Message for visible minority option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(applicantFilter?.equity?.isIndigenous
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Indigenous",
-            id: "YoIRbn",
-            description: "Title for Indigenous",
-          }),
-        ]
-      : []),
-    ...(applicantFilter?.equity?.hasDisability
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Disability",
-            id: "GHlK/f",
-            description:
-              "Message for disability option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-  ];
+  const employmentEquity = equitySelectionsToDescriptions(
+    applicantFilter?.equity,
+    intl,
+  );
 
   const operationalRequirementIds = unpackMaybes(
     applicantFilter?.operationalRequirements?.flatMap((req) => req?.value),

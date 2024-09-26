@@ -1,7 +1,11 @@
 import { IntlShape } from "react-intl";
 
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
-import { Maybe, PositionDuration } from "@gc-digital-talent/graphql";
+import {
+  EquitySelections,
+  Maybe,
+  PositionDuration,
+} from "@gc-digital-talent/graphql";
 
 export const positionDurationToEmploymentDuration = (
   durations: Maybe<PositionDuration>[],
@@ -32,3 +36,48 @@ export const hasDiplomaToEducationLevel = (
         description:
           "Education level message when candidate does not have a diploma found on the request page.",
       });
+
+export const equitySelectionsToDescriptions = (
+  equity: Maybe<EquitySelections> | undefined,
+  intl: IntlShape,
+): string[] => [
+  ...(equity?.isWoman
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Woman",
+          id: "/fglL0",
+          description:
+            "Message for woman option in the employment equity section of the request page.",
+        }),
+      ]
+    : []),
+  ...(equity?.isVisibleMinority
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Visible Minority",
+          id: "4RK/oW",
+          description:
+            "Message for visible minority option in the employment equity section of the request page.",
+        }),
+      ]
+    : []),
+  ...(equity?.isIndigenous
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Indigenous",
+          id: "YoIRbn",
+          description: "Title for Indigenous",
+        }),
+      ]
+    : []),
+  ...(equity?.hasDisability
+    ? [
+        intl.formatMessage({
+          defaultMessage: "Disability",
+          id: "GHlK/f",
+          description:
+            "Message for disability option in the employment equity section of the request page.",
+        }),
+      ]
+    : []),
+];
