@@ -137,26 +137,28 @@ const ReviewTalentRequestDialogContent = ({
       >
         <div
           data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
           data-h2-gap="base(x0.75)"
         >
-          <FieldDisplay
-            label={intl.formatMessage(talentRequestMessages.requestPurpose)}
-          >
-            {getLocalizedName(request.reason?.label, intl)}
-          </FieldDisplay>
+          <div data-h2-flex-grow="p-tablet(2)">
+            <FieldDisplay
+              label={intl.formatMessage(talentRequestMessages.requestPurpose)}
+            >
+              {getLocalizedName(request.reason?.label, intl)}
+            </FieldDisplay>
+          </div>
           {statusChipSettings ? (
-            <Chips>
+            <div data-h2-align-self="p-tablet(center)">
               <Chip color={statusChipSettings.color}>
                 {statusChipSettings.label}
               </Chip>
-            </Chips>
+            </div>
           ) : null}
         </div>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
         <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
+          data-h2-display="base(grid)"
+          data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
           data-h2-gap="base(x1)"
         >
           <FieldDisplay
@@ -167,17 +169,13 @@ const ReviewTalentRequestDialogContent = ({
               formatClassificationString,
             ) ?? nullMessage}
           </FieldDisplay>
+
           <FieldDisplay
             label={intl.formatMessage(talentRequestMessages.jobTitle)}
           >
             {request.jobTitle ?? nullMessage}
           </FieldDisplay>
-        </div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1)"
-        >
+
           <FieldDisplay
             label={intl.formatMessage(talentRequestMessages.workStream)}
           >
@@ -186,6 +184,7 @@ const ReviewTalentRequestDialogContent = ({
               (stream) => getLocalizedName(stream.label, intl),
             ) ?? nullMessage}
           </FieldDisplay>
+
           <FieldDisplay
             label={intl.formatMessage(talentRequestMessages.languageProfile)}
           >
@@ -194,33 +193,41 @@ const ReviewTalentRequestDialogContent = ({
               intl,
             ) ?? nullMessage}
           </FieldDisplay>
-        </div>
-        <FieldDisplay
-          label={intl.formatMessage(talentRequestMessages.supervisoryStatus)}
-        >
-          {getLocalizedName(request.positionType?.label, intl) ?? nullMessage}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage(talentRequestMessages.employmentDuration)}
-        >
-          {request.applicantFilter?.positionDuration
-            ? intl.formatMessage(
-                getEmploymentDuration(
-                  positionDurationToEmploymentDuration(
-                    request.applicantFilter.positionDuration,
+
+          <FieldDisplay
+            data-h2-grid-column="p-tablet(span 2)"
+            label={intl.formatMessage(talentRequestMessages.supervisoryStatus)}
+          >
+            {getLocalizedName(request.positionType?.label, intl) ?? nullMessage}
+          </FieldDisplay>
+
+          <FieldDisplay
+            data-h2-grid-column="p-tablet(span 2)"
+            label={intl.formatMessage(talentRequestMessages.employmentDuration)}
+          >
+            {request.applicantFilter?.positionDuration
+              ? intl.formatMessage(
+                  getEmploymentDuration(
+                    positionDurationToEmploymentDuration(
+                      request.applicantFilter.positionDuration,
+                    ),
                   ),
-                ),
-              )
-            : nullMessage}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage(talentRequestMessages.educationRequirement)}
-        >
-          {hasDiplomaToEducationLevel(
-            request.applicantFilter?.hasDiploma,
-            intl,
-          ) ?? nullMessage}
-        </FieldDisplay>
+                )
+              : nullMessage}
+          </FieldDisplay>
+
+          <FieldDisplay
+            data-h2-grid-column="p-tablet(span 2)"
+            label={intl.formatMessage(
+              talentRequestMessages.educationRequirement,
+            )}
+          >
+            {hasDiplomaToEducationLevel(
+              request.applicantFilter?.hasDiploma,
+              intl,
+            ) ?? nullMessage}
+          </FieldDisplay>
+        </div>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
         <div
           data-h2-display="base(flex)"
