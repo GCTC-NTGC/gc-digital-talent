@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
+  Accordion,
   Chip,
   Chips,
   Dialog,
@@ -21,6 +22,7 @@ import {
 
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import {
+  equitySelectionsToDescriptions,
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
 } from "~/utils/searchRequestUtils";
@@ -62,6 +64,33 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
           }
         }
         positionDuration
+        skills {
+          id
+          name {
+            en
+            fr
+          }
+        }
+        equity {
+          isWoman
+          hasDisability
+          isIndigenous
+          isVisibleMinority
+        }
+        locationPreferences {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        operationalRequirements {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       jobTitle
       positionType {
@@ -92,6 +121,10 @@ const ReviewTalentRequestDialogContent = ({
   const statusChipSettings = request.status
     ? deriveChipSettings(request.status.value, intl)
     : null;
+  const equityDescriptions = equitySelectionsToDescriptions(
+    request.applicantFilter?.equity,
+    intl,
+  );
 
   return (
     <>
@@ -187,10 +220,126 @@ const ReviewTalentRequestDialogContent = ({
           ) ?? nullMessage}
         </FieldDisplay>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
-        <div>skills</div>
-        <div>equity</div>
-        <div>work location</div>
-        <div>coe</div>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x0.5)" // accordions have x0.5 margin built-in already
+        >
+          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
+            <Accordion.Item value="skills">
+              <Accordion.Trigger>
+                <span>
+                  {intl.formatMessage(talentRequestMessages.skillRequirements)}
+                </span>
+                <span
+                  data-h2-font-weight="base(normal)"
+                  data-h2-color="base(black.light)"
+                >{` (${request.applicantFilter?.skills?.length ?? 0})`}</span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                {request.applicantFilter?.skills?.length ? (
+                  <ul>
+                    {request.applicantFilter.skills.map((skill) => (
+                      <li key={skill?.id}>
+                        {getLocalizedName(skill?.name, intl)}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  nullMessage
+                )}
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+
+          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
+            <Accordion.Item value="equity-groups">
+              <Accordion.Trigger>
+                <span>
+                  {intl.formatMessage(talentRequestMessages.equityGroups)}
+                </span>
+                <span
+                  data-h2-font-weight="base(normal)"
+                  data-h2-color="base(black.light)"
+                >{` (${equityDescriptions.length})`}</span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                {equityDescriptions.length ? (
+                  <ul>
+                    {equityDescriptions.map((equityDescription) => (
+                      <li key={equityDescription}>{equityDescription}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  nullMessage
+                )}
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+
+          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
+            <Accordion.Item value="work-location">
+              <Accordion.Trigger>
+                <span>
+                  {intl.formatMessage(talentRequestMessages.workLocation)}
+                </span>
+                <span
+                  data-h2-font-weight="base(normal)"
+                  data-h2-color="base(black.light)"
+                >{` (${request.applicantFilter?.locationPreferences?.length ?? 0})`}</span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                {request.applicantFilter?.locationPreferences?.length ? (
+                  <ul>
+                    {request.applicantFilter.locationPreferences.map(
+                      (locationPreference) => (
+                        <li key={locationPreference?.value}>
+                          {getLocalizedName(locationPreference?.label, intl)}
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                ) : (
+                  nullMessage
+                )}
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+
+          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
+            <Accordion.Item value="conditions-of-employment">
+              <Accordion.Trigger>
+                <span>
+                  {intl.formatMessage(
+                    talentRequestMessages.conditionsOfEmployment,
+                  )}
+                </span>
+                <span
+                  data-h2-font-weight="base(normal)"
+                  data-h2-color="base(black.light)"
+                >{` (${request.applicantFilter?.operationalRequirements?.length ?? 0})`}</span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                {request.applicantFilter?.operationalRequirements?.length ? (
+                  <ul>
+                    {request.applicantFilter.operationalRequirements.map(
+                      (operationalRequirement) => (
+                        <li key={operationalRequirement?.value}>
+                          {getLocalizedName(
+                            operationalRequirement?.label,
+                            intl,
+                          )}
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                ) : (
+                  nullMessage
+                )}
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        </div>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
         <FieldDisplay
           label={intl.formatMessage(talentRequestMessages.additionalComments)}
