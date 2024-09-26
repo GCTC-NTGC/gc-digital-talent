@@ -154,7 +154,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         data-h2-gap="base(x0.5)"
                       >
                         {showUnfinishedPieces ? (
-                          // This link is missing an href since the page doesn't exist yet.  Probably #10982
+                          // This link is missing an href since the "Your talent requests" page doesn't exist yet.
                           <>
                             <Link color="primary" href="#">
                               {intl.formatMessage({
@@ -185,21 +185,23 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           data-h2-gap="base(x1)"
                         >
                           <div>
-                            {intl.formatMessage(
-                              {
-                                defaultMessage:
-                                  'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
-                                id: "OWLaKF",
-                                description:
-                                  "instructional text for the 'Your talent requests' tool",
-                              },
-                              {
-                                findTalentLink: (chunks: ReactNode) =>
-                                  linkAccessor(paths.search(), chunks),
-                                allRequestsLink: (chunks: ReactNode) =>
-                                  linkAccessor("#", chunks),
-                              },
-                            )}
+                            {showUnfinishedPieces
+                              ? intl.formatMessage(
+                                  {
+                                    defaultMessage:
+                                      'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
+                                    id: "OWLaKF",
+                                    description:
+                                      "instructional text for the 'Your talent requests' tool",
+                                  },
+                                  {
+                                    findTalentLink: (chunks: ReactNode) =>
+                                      linkAccessor(paths.search(), chunks),
+                                    allRequestsLink: (chunks: ReactNode) =>
+                                      linkAccessor("#", chunks), // This link is missing an href since the "Your talent requests" page doesn't exist yet.
+                                  },
+                                )
+                              : null}
                           </div>
 
                           {user.poolCandidateSearchRequests?.length ? (
@@ -226,21 +228,13 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                 })}
                               </p>
                               <p>
-                                {intl.formatMessage(
-                                  {
-                                    defaultMessage:
-                                      'You can start a new talent request using the "<newRequestLink>New request</newRequestLink>" button or navigating to the "<findTalentLink>Find talent</findTalentLink>" page from the main navigation.',
-                                    id: "ZdA3uv",
-                                    description:
-                                      "Body for notice when there are no pool candidate search requests",
-                                  },
-                                  {
-                                    newRequestLink: (chunks: ReactNode) =>
-                                      linkAccessor(paths.search(), chunks),
-                                    findTalentLink: (chunks: ReactNode) =>
-                                      linkAccessor(paths.search(), chunks),
-                                  },
-                                )}
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    'You can start a new talent request using the "New request" button or navigating to the "Find talent" page from the main navigation.',
+                                  id: "6jBrNA",
+                                  description:
+                                    "Body for notice when there are no pool candidate search requests",
+                                })}
                               </p>
                             </Well>
                           )}
