@@ -223,9 +223,8 @@ export const EmployeeInformationFormFields = ({
             {
               value: "no",
               label: intl.formatMessage({
-                defaultMessage:
-                  '"No, I am not a Government of Canada employee."',
-                id: "uoqhRN",
+                defaultMessage: "No, I am not a Government of Canada employee.",
+                id: "yUSG9Z",
                 description:
                   "Label displayed for is not a government employee option",
               }),
@@ -233,8 +232,8 @@ export const EmployeeInformationFormFields = ({
             {
               value: "yes",
               label: intl.formatMessage({
-                defaultMessage: '"Yes, I am a Government of Canada employee."',
-                id: "q2YMXX",
+                defaultMessage: "Yes, I am a Government of Canada employee.",
+                id: "Td2+oC",
                 description:
                   "Label displayed for is a government employee option",
               }),
@@ -441,8 +440,8 @@ export const EmployeeInformationForm = ({
       description: "Label for department select input in Employee Info Form",
     }),
     govEmployeeType: intl.formatMessage({
-      defaultMessage: "Contract type",
-      id: "DNpCdL",
+      defaultMessage: "Employment type",
+      id: "Mqek+i",
       description: "Employee Status in Employee Info Form",
     }),
     workEmail: intl.formatMessage({
