@@ -16,7 +16,7 @@ import {
   graphql,
   SkillCategory,
   SkillLevel,
-  SkillLibraryTable_UserSkillFragment as SkillLibraryTableUserSkillFragmentType,
+  SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -26,8 +26,8 @@ import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 
 import { CreateUserSkill_Mutation } from "../operations";
 
-export const SkillLibraryTable_UserSkillFragment = graphql(/* GraphQL */ `
-  fragment SkillLibraryTable_UserSkill on UserSkill {
+export const SkillPortfolioTable_UserSkillFragment = graphql(/* GraphQL */ `
+  fragment SkillPortfolioTable_UserSkill on UserSkill {
     id
     whenSkillUsed
     skillLevel
@@ -53,8 +53,8 @@ export const SkillLibraryTable_UserSkillFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const SkillLibraryTable_SkillFragment = graphql(/* GraphQL */ `
-  fragment SkillLibraryTable_Skill on Skill {
+export const SkillPortfolioTable_SkillFragment = graphql(/* GraphQL */ `
+  fragment SkillPortfolioTable_Skill on Skill {
     id
     key
     category {
@@ -92,16 +92,16 @@ export const SkillLibraryTable_SkillFragment = graphql(/* GraphQL */ `
 `);
 
 type UserSkillCell = CellContext<
-  SkillLibraryTableUserSkillFragmentType,
+  SkillPortfolioTableUserSkillFragmentType,
   unknown
 >;
 
 const columnHelper =
-  createColumnHelper<SkillLibraryTableUserSkillFragmentType>();
+  createColumnHelper<SkillPortfolioTableUserSkillFragmentType>();
 
 const skillLevelSort = (
-  a: Row<SkillLibraryTableUserSkillFragmentType>,
-  b: Row<SkillLibraryTableUserSkillFragmentType>,
+  a: Row<SkillPortfolioTableUserSkillFragmentType>,
+  b: Row<SkillPortfolioTableUserSkillFragmentType>,
 ) => {
   const order = [
     SkillLevel.Beginner,
@@ -133,28 +133,28 @@ const skillNameCell = (
   </Link>
 );
 
-interface SkillLibraryTableProps {
+interface SkillPortfolioTableProps {
   caption: string;
-  userSkillsQuery: FragmentType<typeof SkillLibraryTable_UserSkillFragment>[];
-  allSkillsQuery: FragmentType<typeof SkillLibraryTable_SkillFragment>[];
+  userSkillsQuery: FragmentType<typeof SkillPortfolioTable_UserSkillFragment>[];
+  allSkillsQuery: FragmentType<typeof SkillPortfolioTable_SkillFragment>[];
 }
 
-const SkillLibraryTable = ({
+const SkillPortfolioTable = ({
   caption,
   userSkillsQuery,
   allSkillsQuery,
-}: SkillLibraryTableProps) => {
+}: SkillPortfolioTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
 
   const userSkills = getFragment(
-    SkillLibraryTable_UserSkillFragment,
+    SkillPortfolioTable_UserSkillFragment,
     userSkillsQuery,
   );
   const allSkills = getFragment(
-    SkillLibraryTable_SkillFragment,
+    SkillPortfolioTable_SkillFragment,
     allSkillsQuery,
   );
 
@@ -229,10 +229,10 @@ const SkillLibraryTable = ({
       enableColumnFilter: false,
       sortingFn: skillLevelSort,
     }),
-  ] as ColumnDef<SkillLibraryTableUserSkillFragmentType>[];
+  ] as ColumnDef<SkillPortfolioTableUserSkillFragmentType>[];
 
   return (
-    <Table<SkillLibraryTableUserSkillFragmentType>
+    <Table<SkillPortfolioTableUserSkillFragmentType>
       caption={caption}
       data={userSkills}
       columns={columns}
@@ -302,4 +302,4 @@ const SkillLibraryTable = ({
   );
 };
 
-export default SkillLibraryTable;
+export default SkillPortfolioTable;

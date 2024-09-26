@@ -15,21 +15,21 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import SkillLibraryTable, {
-  SkillLibraryTable_SkillFragment,
-  SkillLibraryTable_UserSkillFragment,
-} from "./components/SkillLibraryTable";
+import SkillPortfolioTable, {
+  SkillPortfolioTable_SkillFragment,
+  SkillPortfolioTable_UserSkillFragment,
+} from "./components/SkillPortfolioTable";
 
 const SkillPortfolioPage_Query = graphql(/* GraphQL */ `
   query SkillPortfolioPageQuery {
     me {
       id
       userSkills {
-        ...SkillLibraryTable_UserSkill
+        ...SkillPortfolioTable_UserSkill
       }
     }
     skills {
-      ...SkillLibraryTable_Skill
+      ...SkillPortfolioTable_Skill
     }
   }
 `);
@@ -41,8 +41,8 @@ interface PageSection {
 type PageSections = Record<string, PageSection>;
 
 interface SkillPortfolioProps {
-  userSkills: FragmentType<typeof SkillLibraryTable_UserSkillFragment>[];
-  skills: FragmentType<typeof SkillLibraryTable_SkillFragment>[];
+  userSkills: FragmentType<typeof SkillPortfolioTable_UserSkillFragment>[];
+  skills: FragmentType<typeof SkillPortfolioTable_SkillFragment>[];
 }
 
 const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
@@ -122,7 +122,7 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
                   description: "Description on how to use behavioural skills",
                 })}
               </p>
-              <SkillLibraryTable
+              <SkillPortfolioTable
                 caption={sections.manage.title}
                 userSkillsQuery={userSkills}
                 allSkillsQuery={skills}
