@@ -353,11 +353,6 @@ parameters:
       path: app/GraphQL/Mutations/RemoveCandidate.php
 
     -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/RemoveCandidate.php
-
-    -
       message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
       count: 1
       path: app/GraphQL/Mutations/RevertFinalDecision.php
