@@ -130,9 +130,11 @@ const ScopeOfContractSection = () => {
             required: intl.formatMessage(errorMessages.required),
             min: {
               value: selectedContractStartDate,
-              message: intl.formatMessage(errorMessages.mustBeGreater, {
-                value: selectedContractStartDate,
-              }),
+              message: String(
+                intl.formatMessage(errorMessages.mustBeGreater, {
+                  value: selectedContractStartDate,
+                }),
+              ),
             },
           }}
         />
