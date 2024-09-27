@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class SimulateFirewallMiddleware
 {
     const BANNED_CHARACTERS = [
-        "\u{202F}", // https://symbl.cc/en/202F/
+        '💩',
     ];
 
     public function __construct() {}
@@ -27,7 +27,8 @@ class SimulateFirewallMiddleware
 
         foreach (SimulateFirewallMiddleware::BANNED_CHARACTERS as $bannedCharacter) {
             if (str_contains($content, $bannedCharacter)) {
-                return response("<html><head><title>Request Rejected</title></head><body>The requested URL was rejected.<a href='javascript:history.back();'>[Go Back]</a></body></html>", 403);
+                // Reconstructed from a screenshot. It would be good to get a real http response.
+                return response("<html><head><title>Request Rejected</title></head><body><p>The requested URL was rejected. Please consult with your administrator.</p><p>Your support ID is: &lt;13923429753487111250&gt;</p><p><a href='javascript:history.back();'>[Go Back]</a></p></body></html>", 403);
             }
         }
 
