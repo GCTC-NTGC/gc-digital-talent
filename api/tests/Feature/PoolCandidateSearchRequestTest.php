@@ -167,8 +167,8 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
-        $searchRequest1 = PoolCandidateSearchRequest::factory()->create(['community_id' => $community->id]);
-        $searchRequest2 = PoolCandidateSearchRequest::factory()->create(['community_id' => $otherCommunity->id]);
+        $searchRequest1 = PoolCandidateSearchRequest::factory()->create(['community_id' => $community->id, 'user_id' => null]);
+        $searchRequest2 = PoolCandidateSearchRequest::factory()->create(['community_id' => $otherCommunity->id, 'user_id' => null]);
 
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter([$community->id])
