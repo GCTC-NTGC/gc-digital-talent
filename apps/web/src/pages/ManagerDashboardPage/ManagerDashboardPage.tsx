@@ -157,7 +157,13 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   "Link to a page to view all the requests",
                               })}
                             </Link>
-                            &bull;
+                            <span
+                              data-h2-color="base(black.lighter)"
+                              data-h2-font-size="base(caption)"
+                              data-h2-align-self="base(center)"
+                            >
+                              &bull;
+                            </span>
                           </>
                         ) : (
                           <></>
