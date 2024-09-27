@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 
 import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";
 
+import nodeToString from "./nodeToString";
+
 export const getFullNameLabel = (
   firstName: string | null | undefined,
   lastName: string | null | undefined,
@@ -136,7 +138,7 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
     description:
       "Message shown to user when the abbreviation text is not found.",
   });
-  const stringifyText = text && text.toString(); // grabs text from ReactNode (is there a better way to get text from ReactNode type?)
+  const stringifyText = text && nodeToString(text);
   if (typeof stringifyText !== "string") {
     return (
       <abbr title={fallbackTitle}>

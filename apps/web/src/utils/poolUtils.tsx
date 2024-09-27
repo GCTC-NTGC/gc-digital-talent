@@ -35,6 +35,7 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
+import nodeToString from "./nodeToString";
 
 /**
  * Determine if the advertisement can be
@@ -165,7 +166,7 @@ export const poolTitle = (
   if (pool === null || pool === undefined)
     return {
       html: fallbackTitle,
-      label: fallbackTitle.toString(),
+      label: nodeToString(fallbackTitle),
     };
 
   const specificTitle = getLocalizedName(pool?.name, intl);
