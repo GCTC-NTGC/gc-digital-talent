@@ -115,10 +115,9 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams {
   userId: string;
-};
+}
 
 const UserName_Query = graphql(/* GraphQL */ `
   query UserName($userId: UUID!) {

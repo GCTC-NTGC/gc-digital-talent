@@ -58,7 +58,9 @@ function assertParam(
  * @param enforceUUID
  */
 const useRequiredParams = <
-  T extends Record<string, string>,
+  // Note: Constrained by the useParams generic also not knowing
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T extends Record<PropertyKey, any>,
   K extends keyof T = keyof T,
 >(
   keys: K | K[],

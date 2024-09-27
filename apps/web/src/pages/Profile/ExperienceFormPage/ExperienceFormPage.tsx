@@ -638,12 +638,11 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<PropertyKey, string> {
   userId: Scalars["ID"]["output"];
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];
-};
+}
 
 interface ExperienceFormContainerProps {
   edit?: boolean;

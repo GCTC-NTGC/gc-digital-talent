@@ -473,10 +473,9 @@ const UserInformation_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UserInformationPage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");

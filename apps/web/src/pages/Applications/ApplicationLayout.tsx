@@ -31,10 +31,9 @@ import { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
 import { getApplicationSteps } from "./utils";
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<PropertyKey, string> {
   experienceId: string;
-};
+}
 
 interface ApplicationPageWrapperProps {
   query: FragmentType<typeof Application_PoolCandidateFragment>;
