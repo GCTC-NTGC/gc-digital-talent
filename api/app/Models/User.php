@@ -74,20 +74,20 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?bool $has_disability
  * @property ?bool $is_visible_minority
  * @property ?bool $has_diploma
- * @property array $location_preferences
+ * @property ?array $location_preferences
  * @property ?string $location_exemptions
- * @property array $position_duration
+ * @property ?array $position_duration
  * @property array $accepted_operational_requirements
  * @property ?string $gov_employee_type
  * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property ?string $indigenous_declaration_signature
- * @property array $indigenous_communities
+ * @property ?array $indigenous_communities
  * @property ?string $preferred_language_for_interview
  * @property ?string $preferred_language_for_exam
- * @property array $enabled_email_notifications
- * @property array $enabled_in_app_notifications
+ * @property ?array $enabled_email_notifications
+ * @property ?array $enabled_in_app_notifications
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
