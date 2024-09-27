@@ -88,7 +88,7 @@ class GenericJobTitleSeeder extends Seeder
 
             ],
             [
-                'key' => GenericJobTitleKey::EXECUTIVE_EX03->name,
+                'key' => GenericJobTitleKey::DIGITAL_LEADER_EX_03->name,
                 'name' => [
                     'en' => 'Digital Leaders',
                     'fr' => 'Chefs de file du numérique',
