@@ -31,6 +31,7 @@ const LinkMenuItem = ({
           utilityIcon={ChevronDownIcon}
           mode="inline"
           color="black"
+          data-h2-height="base(x0.85)"
           data-h2-transform="base:children[svg](rotate(0deg)) base:selectors[[data-state='open']]:children[svg](rotate(180deg))"
         >
           {selectedLink?.title}
