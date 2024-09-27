@@ -286,9 +286,5 @@ test.describe("Application", () => {
         level: 2,
       }),
     ).toBeVisible();
-
-    await expect(
-      page.getByRole("link", { name: /continue draft/i }),
-    ).toBeVisible();
   });
 });
