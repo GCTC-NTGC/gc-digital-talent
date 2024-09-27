@@ -39,7 +39,11 @@ const LinkMenuItem = ({
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
         {links.map((link) => (
-          <DropdownMenu.Item key={link.title + link.href} asChild color="black">
+          <DropdownMenu.Item
+            key={link.title + link.href}
+            asChild
+            color={link.isSelected ? "secondary" : "black"}
+          >
             <Link href={link.href}>{link.title}</Link>
           </DropdownMenu.Item>
         ))}
