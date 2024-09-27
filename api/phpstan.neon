@@ -23,11 +23,6 @@ parameters:
       path: app/Builders/PoolBuilder.php
 
     -
-      message: "#^Call to function is_array\\(\\) with \\(int\\|string\\) will always evaluate to false\\.$#"
-      count: 1
-      path: app/Console/Commands/CheckIntl.php
-
-    -
       message: "#^PHPDoc tag @var above a method has no effect\\.$#"
       count: 1
       path: app/Console/Commands/CheckIntl.php
@@ -111,11 +106,6 @@ parameters:
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/ArchivePool.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
 
     -
       message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
@@ -536,51 +526,6 @@ parameters:
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/VerifyUserEmail.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'equity' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'hasDiploma' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'languageAbility' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'locationPreferences' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'operationalRequirem…' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'positionDuration' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedClassifica…' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedStreams' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'skills' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
 
     -
       message: "#^Offset 'where' does not exist on array\\{\\}\\.$#"
@@ -1788,11 +1733,6 @@ parameters:
       path: app/Models/JobPosterTemplate.php
 
     -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
       message: "#^Unreachable statement \\- code above always terminates\\.$#"
       count: 1
       path: app/Models/Notification.php
@@ -1801,11 +1741,6 @@ parameters:
       message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
       count: 1
       path: app/Models/Notification.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/Pool.php
 
     -
       message: "#^PHPDoc type array of property App\\\\Models\\\\Pool\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
@@ -1820,21 +1755,6 @@ parameters:
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, App\\\\Models\\\\PoolCandidate\\>\\:\\:withTrashed\\(\\)\\.$#"
       count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Enums\\\\PriorityWeight\\:\\:CITIZEN_OR_PERMANENT_RESIDENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:OTHER\\|App\\\\Enums\\\\PriorityWeight\\:\\:PRIORITY_ENTITLEMENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:VETERAN will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 3
       path: app/Models/PoolCandidate.php
 
     -
@@ -1965,16 +1885,6 @@ parameters:
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorizedToView\\(\\)\\.$#"
       count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 2
       path: app/Models/User.php
 
     -
@@ -2133,11 +2043,6 @@ parameters:
       path: app/Observers/PoolCandidateSearchRequestObserver.php
 
     -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Observers/PoolObserver.php
-
-    -
       message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
       count: 1
       path: app/Observers/UserObserver.php
@@ -2209,11 +2114,6 @@ parameters:
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
-      count: 1
-      path: app/Policies/PoolPolicy.php
-
-    -
-      message: "#^Strict comparison using \\=\\=\\= between bool and 'DRAFT' will always evaluate to false\\.$#"
       count: 1
       path: app/Policies/PoolPolicy.php
 
