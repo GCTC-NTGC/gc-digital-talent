@@ -151,7 +151,7 @@ test.describe("Login and logout", () => {
         }
         return false;
       })
-      .then(async (request) => {
+      .then((request) => {
         // make sure it uses the access token
         expect(request.headers().authorization).toEqual(
           `Bearer ${tokenSet1.accessToken}`,
@@ -195,7 +195,7 @@ test.describe("Login and logout", () => {
         }
         return false;
       })
-      .then(async (req) => {
+      .then((req) => {
         // make sure it uses the second access token
         expect(req.headers().authorization).toEqual(
           `Bearer ${tokenSet2.accessToken}`,
@@ -229,7 +229,7 @@ test.describe("Login and logout", () => {
         }
         return false;
       })
-      .then(async (req) => {
+      .then((req) => {
         // make sure it uses the third access token
         expect(req.headers().authorization).toEqual(
           `Bearer ${tokenSet3.accessToken}`,
@@ -266,7 +266,7 @@ test.describe("Login and logout", () => {
     await page.goto("/en/logged-out");
     await page.getByRole("button", { name: "Sign out" }).click();
 
-    await requestPromise.then(async (req) => {
+    await requestPromise.then((req) => {
       const url = new URL(req.url());
       const searchParamPostLogoutRedirectUri = url.searchParams.get(
         "post_logout_redirect_uri",
