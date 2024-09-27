@@ -126,8 +126,8 @@ const ApplicationCard = ({
     classification: application.pool.classification,
   });
 
-  const deleteApplication = () => {
-    executeDeleteMutation({
+  const deleteApplication = async () => {
+    await executeDeleteMutation({
       id: application.id,
     }).then((result) => {
       if (result.data?.deleteApplication) {

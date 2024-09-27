@@ -103,13 +103,19 @@ const EquityOptions = ({
       });
   };
 
+  const handleError = () => {
+    toast.error(intl.formatMessage(profileMessages.updatingFailed));
+  };
+
   const handleMultipleFieldSave = (data: UpdateUserAsUserInput) => {
-    onUpdate(data).then((res) => {
-      if (res) toast.success(intl.formatMessage(profileMessages.userUpdated));
-      else {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      }
-    });
+    onUpdate(data)
+      .then((res) => {
+        if (res) toast.success(intl.formatMessage(profileMessages.userUpdated));
+        else {
+          handleError();
+        }
+      })
+      .catch(handleError);
   };
 
   return (
