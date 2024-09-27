@@ -98,14 +98,7 @@ const AddCommunityRoleDialog = ({
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Role(s) added successfully",
-          id: "/17wgm",
-          description:
-            "Message displayed to user when one or more roles have been added to a user",
-        }),
-      );
+      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
 

@@ -185,6 +185,12 @@ const messages = defineMessages({
     id: "ae3u1t",
     description: "Title for key field",
   },
+  rolesAdded: {
+    defaultMessage: "Role(s) added successfully",
+    id: "/17wgm",
+    description:
+      "Message displayed to user when one or more roles have been added to a user",
+  },
 });
 
 export default messages;

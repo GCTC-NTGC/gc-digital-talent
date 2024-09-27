@@ -24,6 +24,7 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import messages from "~/messages/processMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 import { isPoolTeamable } from "./helpers";
@@ -119,14 +120,7 @@ const AddProcessRoleDialog = ({
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Role(s) added successfully",
-          id: "/17wgm",
-          description:
-            "Message displayed to user when one or more roles have been added to a user",
-        }),
-      );
+      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
 
