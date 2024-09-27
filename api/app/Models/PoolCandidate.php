@@ -64,7 +64,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $veteran_verification_expiry
  * @property ?string $priority_verification
  * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
- * @property ?array $computed_assessment_status
+ * @property array $computed_assessment_status
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
