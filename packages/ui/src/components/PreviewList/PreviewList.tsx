@@ -40,6 +40,7 @@ const actionProps = {
   "data-h2-content": "base:selectors[::after](' ')",
   "data-h2-inset": "base:selectors[::after](0)",
   "data-h2-justify-self": "base(end)",
+  "data-h2-margin-right": "base(x1) p-tablet(x1.5)",
 } satisfies ButtonLinkProps;
 
 interface ButtonProps {
