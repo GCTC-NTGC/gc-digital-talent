@@ -128,6 +128,7 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 //
 export function jumpPastExpiryDate(accessToken: string): Date {
   const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
-  const newDate = new Date((decodedAccessToken?.exp ?? 0 + 1) * 1000);
+  const expiry = decodedAccessToken?.exp ?? new Date().getUTCSeconds();
+  const newDate = new Date(expiry + 1 * 1000);
   return newDate;
 }
