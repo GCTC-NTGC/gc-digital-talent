@@ -33,7 +33,6 @@ final class ReinstateCandidate
                 break;
             default:
                 throw ValidationException::withMessages(['CandidateUnexpectedStatus']);
-                break;
         }
 
         $candidate->removed_at = null;

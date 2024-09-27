@@ -43,7 +43,7 @@ class Notification extends DatabaseNotification
     public function scopeAuthorizedToView(Builder $query): void
     {
 
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if (! is_null($user?->id)) {
