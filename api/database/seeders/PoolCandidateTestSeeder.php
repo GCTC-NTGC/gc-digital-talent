@@ -71,7 +71,7 @@ class PoolCandidateTestSeeder extends Seeder
                     user: $user,
                     status: PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                     expiryDate: now()->addYears(2),
-                    veteranStatus: ClaimVerificationResult::ACCEPTED->name,
+                    veteranStatus: ClaimVerificationResult::UNVERIFIED->name,
                 );
             })
             ->create([
