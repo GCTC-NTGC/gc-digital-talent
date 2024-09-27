@@ -2823,11 +2823,6 @@ parameters:
       path: app/Observers/PoolCandidateObserver.php
 
     -
-      message: "#^Parameter \\#1 \\$trackingNumber of class App\\\\Notifications\\\\TalentRequestSubmissionConfirmation constructor expects string, int given\\.$#"
-      count: 1
-      path: app/Observers/PoolCandidateSearchRequestObserver.php
-
-    -
       message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
       count: 1
       path: app/Observers/PoolObserver.php
