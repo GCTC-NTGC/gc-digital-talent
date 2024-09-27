@@ -518,16 +518,6 @@ parameters:
       path: app/GraphQL/Mutations/VerifyUserEmail.php
 
     -
-      message: "#^Offset 'where' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Offset 'where' on array\\{\\} in empty\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
       message: "#^Offset 'enumName' does not exist on array\\{\\}\\.$#"
       count: 1
       path: app/GraphQL/Queries/LocalizedEnumStrings.php
@@ -1738,11 +1728,6 @@ parameters:
       path: app/Models/PoolCandidate.php
 
     -
-      message: "#^Call to method isFuture\\(\\) on an unknown class App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
       message: "#^Dead catch \\- UnhandledMatchError is never thrown in the try block\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
@@ -1759,11 +1744,6 @@ parameters:
 
     -
       message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidate\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Result of \\|\\| is always false\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
 
@@ -1853,22 +1833,12 @@ parameters:
       path: app/Models/SkillFamily.php
 
     -
-      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
-      count: 2
-      path: app/Models/User.php
-
-    -
       message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate\\> supplied for foreach, only iterables are supported\\.$#"
       count: 1
       path: app/Models/User.php
 
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorizedToView\\(\\)\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
       count: 1
       path: app/Models/User.php
 
@@ -1894,11 +1864,6 @@ parameters:
 
     -
       message: "#^PHPDoc tag @param references unknown parameter\\: \\$isLocalizedEnum$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(Illuminate\\\\Support\\\\Carbon email_verified_at\\)\\: Unexpected token \"email_verified_at\", expected variable at offset 111$#"
       count: 1
       path: app/Models/User.php
 
@@ -1983,19 +1948,9 @@ parameters:
       path: app/Notify/Client.php
 
     -
-      message: "#^Parameter \\#1 \\$boolean of static method App\\\\Events\\\\CandidateStatusChanged\\:\\:dispatchIf\\(\\) expects bool, string given\\.$#"
-      count: 1
-      path: app/Observers/PoolCandidateObserver.php
-
-    -
       message: "#^Parameter \\#1 \\$trackingNumber of class App\\\\Notifications\\\\TalentRequestSubmissionConfirmation constructor expects string, int given\\.$#"
       count: 1
       path: app/Observers/PoolCandidateSearchRequestObserver.php
-
-    -
-      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
-      count: 1
-      path: app/Observers/UserObserver.php
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
