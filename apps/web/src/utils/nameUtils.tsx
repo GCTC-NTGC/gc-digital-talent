@@ -138,7 +138,8 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
     description:
       "Message shown to user when the abbreviation text is not found.",
   });
-  const stringifyText = text && nodeToString(text);
+  const stringifyText =
+    text && nodeToString(Array.isArray(text) ? text[0] : text);
   if (typeof stringifyText !== "string") {
     return (
       <abbr title={fallbackTitle}>
