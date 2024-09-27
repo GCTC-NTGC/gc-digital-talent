@@ -94,7 +94,7 @@ export const EmailVerification = ({
     return () => clearTimeout(timerId);
   }, [canRequestACode]);
 
-  const requestACode = async () => {
+  const requestACode = () => {
     executeSendEmailMutation({
       emailType,
     })
@@ -110,7 +110,7 @@ export const EmailVerification = ({
       });
   };
 
-  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
     executeVerifyUserEmailMutation({
       emailType,
       code: data.verificationCode,

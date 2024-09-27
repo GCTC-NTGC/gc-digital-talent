@@ -34,7 +34,7 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "dashboard",
-                  loader: async () => {
+                  loader: () => {
                     throw new Response("Not Found", { status: 404 }); // unfinished page
                   },
                   lazy: () =>
@@ -124,7 +124,7 @@ const createRoute = (locale: Locales) =>
             },
             {
               path: "logged-out",
-              loader: async () => {
+              loader: () => {
                 const overridePath = sessionStorage.getItem(
                   POST_LOGOUT_OVERRIDE_PATH_KEY,
                 );

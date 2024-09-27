@@ -65,7 +65,7 @@ const EditExperienceForm = ({
     experienceType,
   );
 
-  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
+  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = (
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], experienceType);

@@ -130,15 +130,13 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
     return Promise.reject(result.error);
   };
 
-  const submitForm: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {
+  const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
     const poolsToUpdate = formValues.pools
       .map((poolId) => poolMap.get(poolId))
       .filter(notEmpty);
 
-    const promises = poolsToUpdate.map((pool) => {
-      return requestMutation({
+    const promises = poolsToUpdate.map(async (pool) => {
+      return await requestMutation({
         pool: {
           connect: pool?.id,
         },
@@ -146,8 +144,6 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
           connect: id,
         },
         expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
-      }).catch((err) => {
-        throw err;
       });
     });
 

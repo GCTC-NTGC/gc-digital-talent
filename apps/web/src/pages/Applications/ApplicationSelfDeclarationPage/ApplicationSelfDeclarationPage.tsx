@@ -371,7 +371,7 @@ export const Component = () => {
 
   const resolvedIndigenousCommunities =
     application.user?.indigenousCommunities?.filter(notEmpty);
-  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
       navigate(paths.browsePools());

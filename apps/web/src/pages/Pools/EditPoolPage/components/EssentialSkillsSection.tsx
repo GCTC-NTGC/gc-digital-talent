@@ -75,7 +75,7 @@ const EssentialSkillsSection = ({
     skillSelected: string,
     skillLevel: SkillLevel,
   ) => {
-    poolSkillMutations.create(pool.id, skillSelected, {
+    await poolSkillMutations.create(pool.id, skillSelected, {
       type: PoolSkillType.Essential,
       requiredLevel: skillLevel,
     });
@@ -85,13 +85,13 @@ const EssentialSkillsSection = ({
     poolSkillSelected: string,
     skillLevel: SkillLevel,
   ) => {
-    poolSkillMutations.update(poolSkillSelected, {
+    await poolSkillMutations.update(poolSkillSelected, {
       requiredLevel: skillLevel,
     });
   };
 
   const handleRemove = async (poolSkillSelected: string) => {
-    poolSkillMutations.delete(poolSkillSelected);
+    await poolSkillMutations.delete(poolSkillSelected);
   };
 
   // disabled unless status is draft

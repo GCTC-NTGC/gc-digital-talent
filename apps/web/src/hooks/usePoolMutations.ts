@@ -258,8 +258,8 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const close = (id: string, reason: string) => {
-    executeCloseMutation({ id, reason })
+  const close = async (id: string, reason: string) => {
+    await executeCloseMutation({ id, reason })
       .then((result) => {
         if (result.data?.closePool) {
           navigateBack();
