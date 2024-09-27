@@ -1023,6 +1023,10 @@
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
   },
+  "3PwQT7": {
+    "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
+    "description": "Title for notice when there are no pool candidate search requests"
+  },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
@@ -1638,6 +1642,10 @@
   "6ft0/o": {
     "defaultMessage": "Voir et gérer l'historique de vos notifications",
     "description": "Subtitle for the notifications page"
+  },
+  "6jBrNA": {
+    "defaultMessage": "Vous pouvez lancer une nouvelle demande de talent en cliquant sur le bouton « Nouvelle demande » ou en accédant à la page « Trouver un talent » à partir du menu principal.",
+    "description": "Body for notice when there are no pool candidate search requests"
   },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
@@ -4575,6 +4583,10 @@
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
   },
+  "MOKBPl": {
+    "defaultMessage": "En attente de réponse",
+    "description": "Label for pool candidate search requests that are awaiting a response"
+  },
   "MOpG7g": {
     "defaultMessage": "Votre impact",
     "description": "Title for impact section on a pool advertisement."
@@ -6098,6 +6110,10 @@
     "defaultMessage": "Identifiant de référence",
     "description": "Label displayed on the job poster template 'reference id' field."
   },
+  "UoUzWJ": {
+    "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
+    "description": "Subtitle for the 'review talent request' dialog"
+  },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
@@ -6854,6 +6870,10 @@
     "defaultMessage": "10 000 $ à 25 000 $",
     "description": "Contract value range between ten-thousand and twenty-five-thousand"
   },
+  "YYmuJo": {
+    "defaultMessage": "En cours d'examen",
+    "description": "Label for pool candidate search requests that are under review"
+  },
   "YZMi8D": {
     "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une <link>bassin de talents coordonnée par le BDPI</link> qui pourrait répondre au besoin dans le délai imparti.",
     "description": "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_"
@@ -7205,6 +7225,10 @@
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph one."
+  },
+  "aYt7kT": {
+    "defaultMessage": "Ouvert le: {formattedDate}",
+    "description": "A formatted display of the date the pool candidate search request was opened"
   },
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
@@ -7969,6 +7993,10 @@
   "eWLKRt": {
     "defaultMessage": "Masquer les évaluations des compétences de {title}",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
+  },
+  "eWVgyx": {
+    "defaultMessage": "Objet de la demande",
+    "description": "Talent request - request purpose title"
   },
   "eZHoNJ": {
     "defaultMessage": "Rôles fondés sur l’équipe",
@@ -9786,6 +9814,10 @@
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
   },
+  "nYEPMG": {
+    "defaultMessage": "Non, il ne s'agit pas d'un poste de supervision",
+    "description": "Checkbox selection that confirms a job opportunity will not have supervising duties. "
+  },
   "nYriNg": {
     "defaultMessage": "Statut mis à jour avec succès",
     "description": "Toast for successful status update on view-user page"
@@ -10410,6 +10442,10 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
   },
+  "r4IQ0h": {
+    "defaultMessage": "Examiner une demande de talent",
+    "description": "Title for the 'review talent request' dialog"
+  },
   "r6L5aI": {
     "defaultMessage": "Auto-déclaration",
     "description": "label for the Indigenous self-declaration input"
@@ -10473,6 +10509,10 @@
   "rRREuF": {
     "defaultMessage": "Créer un processus",
     "description": "Label/title for creating a recruitment process."
+  },
+  "rRoL/0": {
+    "defaultMessage": "{resultCount, plural, one {{resultCount} correspondance estimée} other {{resultCount} correspondances estimées}}",
+    "description": "Display of estimated matches to a pool candidate search request"
   },
   "rSlYQA": {
     "defaultMessage": "p. ex., développeur de logiciels",
@@ -10977,6 +11017,10 @@
   "uPQ1t+": {
     "defaultMessage": "« ... réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
     "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
+  },
+  "uR9G1H": {
+    "defaultMessage": "Statut de supervision",
+    "description": "Talent request - supervisory status title"
   },
   "uSdcX4": {
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
@@ -11681,6 +11725,10 @@
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
+  },
+  "yycjgL": {
+    "defaultMessage": "Voir la demande",
+    "description": "Button text to go to view the request"
   },
   "yypk6/": {
     "defaultMessage": "Ajouter au nouveau bassin",
