@@ -172,7 +172,7 @@ class PoolPolicy
      */
     public function publish(User $user, Pool $pool)
     {
-        if (! $pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
+        if (! ($pool->getStatusAttribute() === PoolStatus::DRAFT->name)) {
             return Response::deny('Pool has already been published.');
         }
 
