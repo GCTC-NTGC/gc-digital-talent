@@ -350,9 +350,9 @@ class PoolCandidateSearchRequestTest extends TestCase
         $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
 
-        $user1 = User::factory()->asManager()->create();
+        $user1 = User::factory()->create();
         $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
-        $user2 = User::factory()->asManager()->create();
+        $user2 = User::factory()->create();
         $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
 
         $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
@@ -376,27 +376,48 @@ class PoolCandidateSearchRequestTest extends TestCase
         ]);
     }
 
-    public function testAdminCanNotSeeOtherRequests()
+    public function testUserCanSeeTheirOwnRequest()
     {
         $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
 
-        $manager = User::factory()->asManager()->create();
-        PoolCandidateSearchRequest::factory()->create(['user_id' => $manager->id]);
-        $admin = User::factory()->asAdmin()->create();
+        $user1 = User::factory()->create();
+        $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
 
-        $this->actingAs($admin, 'api')->graphQL(<<<'GRAPHQL'
-            query ManagerRequests($userId: UUID!) {
-                user(id: $userId) {
-                    poolCandidateSearchRequests {
-                       id
-                    }
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequest($requestId: ID!) {
+                    poolCandidateSearchRequest(id: $requestId) {
+                        id
                 }
             }
             GRAPHQL,
-            [
-                'userId' => $manager->id,
-            ]
-        )->assertGraphQLErrorMessage('This action is unauthorized.'); // even an admin should not be able to query for it
+            ['requestId' => $request1->id]
+        )->assertExactJson([
+            'data' => [
+                'poolCandidateSearchRequest' => [
+                    'id' => $request1->id,
+                ],
+            ],
+        ]);
+    }
+
+    public function testUserCanNotSeeOtherRequest()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequest($requestId: ID!) {
+                    poolCandidateSearchRequest(id: $requestId) {
+                        id
+                }
+            }
+            GRAPHQL,
+            ['requestId' => $request2->id]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }
