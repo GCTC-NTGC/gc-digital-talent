@@ -160,8 +160,8 @@ export const GettingStartedFormFields = ({
           boundingBoxLabel={labels.emailConsent}
           label={intl.formatMessage({
             defaultMessage:
-              '"I agree to receive email notifications from GC Digital Talent."',
-            id: "ydjlRN",
+              "I agree to receive email notifications from GC Digital Talent.",
+            id: "NwlRd5",
             description: "Text for the option consent to email notifications.",
           })}
         />

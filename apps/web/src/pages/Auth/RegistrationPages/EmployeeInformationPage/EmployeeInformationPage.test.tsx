@@ -89,7 +89,7 @@ describe("Create Account Form tests", () => {
     // Ensure conditional form elements don't exist yet.
     expect(
       screen.queryByRole("group", {
-        name: /contract type/i,
+        name: /employment type/i,
       }),
     ).not.toBeInTheDocument();
     expect(
@@ -122,7 +122,7 @@ describe("Create Account Form tests", () => {
 
     expect(
       screen.getByRole("group", {
-        name: /contract type/i,
+        name: /employment type/i,
       }),
     ).toBeInTheDocument();
     expect(

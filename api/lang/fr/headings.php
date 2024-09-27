@@ -39,7 +39,7 @@ return [
     'work_location' => 'Lieu de travail',
     'location_preferences' => 'Préférences pour le lieu de travail',
     'location_exemptions' => 'Exemptions de lieux',
-    'contract_duration' => 'Préférence pour la durée du contrat',
+    'contract_duration' => 'Préférence pour la durée de l\'emploi',
     'accept_temporary' => 'Accepter les temporaires',
     'accepted_operational_requirements' => 'Envisagerait d\'accepter un emploi qui : ',
     'rejected_operational_requirements' => 'N\'envisagerait pas d\'accepter un emploi qui : ',
