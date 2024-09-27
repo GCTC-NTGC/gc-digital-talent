@@ -146,7 +146,7 @@ export const UpdateDepartmentForm = ({
   );
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   departmentId: Scalars["ID"]["output"];
 }
 

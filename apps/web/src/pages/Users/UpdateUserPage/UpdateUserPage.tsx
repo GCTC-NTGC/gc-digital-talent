@@ -279,7 +279,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
 }
 

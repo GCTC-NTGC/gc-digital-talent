@@ -473,7 +473,7 @@ const UserInformation_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
 }
 

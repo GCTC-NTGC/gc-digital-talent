@@ -32,7 +32,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the request confirmation page.",
 });
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   requestId: Scalars["ID"]["output"];
 }
 

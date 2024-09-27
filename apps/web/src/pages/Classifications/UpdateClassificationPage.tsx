@@ -220,7 +220,7 @@ export const UpdateClassificationForm = ({
   );
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   classificationId: Scalars["ID"]["output"];
 }
 

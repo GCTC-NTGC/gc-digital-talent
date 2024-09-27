@@ -15,7 +15,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ViewTeam, { ViewTeamPageFragment } from "./components/ViewTeam";
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   teamId: Scalars["ID"]["output"];
 }
 

@@ -638,7 +638,7 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams extends Record<PropertyKey, string> {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];

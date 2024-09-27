@@ -160,7 +160,7 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
 }
 

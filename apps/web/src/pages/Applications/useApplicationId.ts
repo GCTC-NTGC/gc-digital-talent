@@ -1,6 +1,6 @@
 import useRequiredParams from "~/hooks/useRequiredParams";
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   applicationId: string;
 }
 

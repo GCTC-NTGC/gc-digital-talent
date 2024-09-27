@@ -218,7 +218,7 @@ const JobPosterTemplatePage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   templateId: Scalars["ID"]["output"];
 }
 

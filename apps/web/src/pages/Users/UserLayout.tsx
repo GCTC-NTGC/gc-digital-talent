@@ -115,7 +115,7 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   );
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   userId: string;
 }
 

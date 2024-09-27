@@ -201,7 +201,7 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   poolId: string;
 }
 

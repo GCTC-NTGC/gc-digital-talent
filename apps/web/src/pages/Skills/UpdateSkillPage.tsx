@@ -337,7 +337,7 @@ export const UpdateSkillForm = ({
   );
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   skillId: Scalars["ID"]["output"];
 }
 

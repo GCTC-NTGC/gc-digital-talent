@@ -143,7 +143,7 @@ const TeamMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   teamId: Scalars["ID"]["output"];
 }
 

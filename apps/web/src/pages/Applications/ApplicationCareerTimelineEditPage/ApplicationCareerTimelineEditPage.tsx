@@ -62,7 +62,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   experienceId: string;
   applicationId: string;
 }

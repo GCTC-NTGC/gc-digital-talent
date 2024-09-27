@@ -20,7 +20,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CommunitySection from "./components/CommunitySection";
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
 }
 

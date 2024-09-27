@@ -31,7 +31,7 @@ import { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
 import { getApplicationSteps } from "./utils";
 
-interface RouteParams extends Record<PropertyKey, string> {
+interface RouteParams extends Record<string, string> {
   experienceId: string;
 }
 

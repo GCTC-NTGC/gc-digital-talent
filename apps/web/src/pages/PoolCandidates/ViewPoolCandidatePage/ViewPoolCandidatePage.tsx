@@ -357,7 +357,7 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["AssessmentResult"],
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
 }

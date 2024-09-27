@@ -24,7 +24,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["input"];
 }
 

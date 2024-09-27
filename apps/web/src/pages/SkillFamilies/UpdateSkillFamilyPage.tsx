@@ -273,7 +273,7 @@ export const UpdateSkillFamilyForm = ({
   );
 };
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   skillFamilyId: Scalars["ID"]["output"];
 }
 

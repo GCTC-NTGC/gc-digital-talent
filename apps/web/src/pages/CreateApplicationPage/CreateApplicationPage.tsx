@@ -17,7 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-interface RouteParams {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
 }
 
