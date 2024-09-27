@@ -17,7 +17,7 @@ export interface MetaDataProps {
 const MetaData = ({ children, type, color }: MetaDataProps) => {
   switch (type) {
     case "text":
-      return <span data-h2-color="base(gray.darker)">{children}</span>;
+      return <span data-h2-color="base(black.light)">{children}</span>;
     case "chip":
       return (
         <span>
