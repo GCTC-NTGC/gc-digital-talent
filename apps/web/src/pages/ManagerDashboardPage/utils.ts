@@ -6,6 +6,8 @@ import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { ChipProps } from "@gc-digital-talent/ui";
 import { Locales } from "@gc-digital-talent/i18n";
 
+import messages from "./messages";
+
 // figure out what the chip should look like for a given status
 export function deriveChipSettings(
   status: PoolCandidateSearchStatus,
@@ -15,44 +17,24 @@ export function deriveChipSettings(
     case PoolCandidateSearchStatus.New:
       return {
         color: "secondary",
-        label: intl.formatMessage({
-          defaultMessage: "Submitted",
-          id: "BNH3hk",
-          description:
-            "Label for pool candidate search requests that are submitted",
-        }),
+        label: intl.formatMessage(messages.statusSubmitted),
       };
     case PoolCandidateSearchStatus.InProgress:
       return {
         color: "secondary",
-        label: intl.formatMessage({
-          defaultMessage: "Under review",
-          id: "YYmuJo",
-          description:
-            "Label for pool candidate search requests that are under review",
-        }),
+        label: intl.formatMessage(messages.statusUnderReview),
       };
     case PoolCandidateSearchStatus.Waiting:
       return {
         color: "warning",
-        label: intl.formatMessage({
-          defaultMessage: "Awaiting response",
-          id: "MOKBPl",
-          description:
-            "Label for pool candidate search requests that are awaiting a response",
-        }),
+        label: intl.formatMessage(messages.statusAwaitingResponse),
       };
     case PoolCandidateSearchStatus.Done:
     case PoolCandidateSearchStatus.DoneNoCandidates:
     case PoolCandidateSearchStatus.NotCompliant:
       return {
         color: "success",
-        label: intl.formatMessage({
-          defaultMessage: "Complete",
-          id: "dwgG5b",
-          description:
-            "Label for pool candidate search requests that are complete",
-        }),
+        label: intl.formatMessage(messages.statusComplete),
       };
     default:
       return assertUnreachable(status);

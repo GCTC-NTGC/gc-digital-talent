@@ -1,8 +1,5 @@
 import { defineMessages } from "react-intl";
 
-import processMessages from "./processMessages";
-import adminMessages from "./adminMessages";
-
 const messages = defineMessages({
   supervisoryPositionYes: {
     defaultMessage: "Yes, this is a supervisory position",
@@ -36,8 +33,16 @@ const messages = defineMessages({
     id: "eWVgyx",
     description: "Talent request - request purpose title",
   },
-  classification: processMessages.classification,
-  jobTitle: adminMessages.jobTitle,
+  classification: {
+    defaultMessage: "Classification",
+    id: "YmWKlv",
+    description: "Label for a process' classification",
+  },
+  jobTitle: {
+    defaultMessage: "Job title",
+    id: "HBuWZ0",
+    description: "Title for job title for a position",
+  },
   workStream: {
     defaultMessage: "Work stream",
     id: "UKw7sB",
@@ -53,7 +58,11 @@ const messages = defineMessages({
     id: "uR9G1H",
     description: "Talent request - supervisory status title",
   },
-  educationRequirement: processMessages.educationRequirement,
+  educationRequirement: {
+    defaultMessage: "Education requirement",
+    id: "LyUTqa",
+    description: "Education requirement title",
+  },
   skillRequirements: {
     defaultMessage: "Skill requirements",
     id: "h2h7Df",
