@@ -37,7 +37,9 @@ const ControlledInput = ({
 }: ControlledInputProps) => {
   const inputStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
-  const content = defaultValues ? String(defaultValues[name]) : undefined;
+  const content = defaultValues?.[name]
+    ? String(defaultValues[name])
+    : undefined;
 
   const editorProps = useMemo(
     () => ({
