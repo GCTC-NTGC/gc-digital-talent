@@ -20,12 +20,12 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import { PoolPickedFields } from "../types";
+import { PoolTeamable } from "../types";
 
 interface RemoveProcessRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   roles: Role[];
-  pool: PoolPickedFields;
+  pool: PoolTeamable;
   onRemoveRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

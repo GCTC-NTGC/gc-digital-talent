@@ -17,11 +17,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
 
-import {
-  PoolAssignment,
-  PoolPickedFields,
-  UpdateUserRolesFunc,
-} from "../types";
+import { PoolAssignment, PoolTeamable, UpdateUserRolesFunc } from "../types";
 import {
   isPoolTeamable,
   processActionCell,
@@ -34,7 +30,7 @@ import AddProcessRoleDialog from "./AddProcessRoleDialog";
 
 interface RoleTeamPair {
   role: Role;
-  pool: PoolPickedFields;
+  pool: PoolTeamable;
 }
 
 const columnHelper = createColumnHelper<PoolAssignment>();

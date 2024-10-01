@@ -19,7 +19,7 @@ import tableMessages from "~/components/Table/tableMessages";
 
 import {
   CommunityAssignment,
-  CommunityPickedFields,
+  CommunityTeamable,
   UpdateUserRolesFunc,
 } from "../types";
 import {
@@ -34,7 +34,7 @@ import AddCommunityRoleDialog from "./AddCommunityRoleDialog";
 
 interface RoleTeamPair {
   role: Role;
-  community: CommunityPickedFields;
+  community: CommunityTeamable;
 }
 
 const columnHelper = createColumnHelper<CommunityAssignment>();

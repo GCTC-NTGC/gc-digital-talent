@@ -16,29 +16,26 @@ export type DeleteUserFunc = (
   id: string,
 ) => Promise<DeleteUserMutation["deleteUser"]>;
 
-export type PoolPickedFields = Pick<
+export type PoolTeamable = Pick<
   Pool,
   "id" | "__typename" | "name" | "teamIdForRoleAssignment"
 >;
-export type CommunityPickedFields = Pick<
+export type CommunityTeamable = Pick<
   Community,
   "id" | "__typename" | "name" | "teamIdForRoleAssignment"
 >;
-export type TeamPickedFields = Pick<Team, "id" | "__typename" | "displayName">;
-export type Teamable =
-  | PoolPickedFields
-  | CommunityPickedFields
-  | TeamPickedFields;
+export type TeamTeamable = Pick<Team, "id" | "__typename" | "displayName">;
+export type Teamable = PoolTeamable | CommunityTeamable | TeamTeamable;
 
 export interface PoolAssignment {
-  pool: PoolPickedFields;
+  pool: PoolTeamable;
   roles: Role[];
 }
 export interface CommunityAssignment {
-  community: CommunityPickedFields;
+  community: CommunityTeamable;
   roles: Role[];
 }
 export interface TeamAssignment {
-  team: TeamPickedFields;
+  team: TeamTeamable;
   roles: Role[];
 }

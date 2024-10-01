@@ -23,7 +23,7 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import { CommunityPickedFields } from "../types";
+import { CommunityTeamable } from "../types";
 
 interface FormValues {
   roles: Scalars["UUID"]["output"][];
@@ -33,7 +33,7 @@ interface EditCommunityRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   initialRoles: Role[];
   communityRoles: Role[];
-  community: CommunityPickedFields;
+  community: CommunityTeamable;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

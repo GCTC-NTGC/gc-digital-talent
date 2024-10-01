@@ -18,11 +18,7 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
 import tableMessages from "~/components/Table/tableMessages";
 
-import {
-  TeamAssignment,
-  TeamPickedFields,
-  UpdateUserRolesFunc,
-} from "../types";
+import { TeamAssignment, TeamTeamable, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import {
   isTeamTeamable,
@@ -35,7 +31,7 @@ import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
 interface RoleTeamPair {
   role: Role;
-  team: TeamPickedFields;
+  team: TeamTeamable;
 }
 
 const columnHelper = createColumnHelper<TeamAssignment>();

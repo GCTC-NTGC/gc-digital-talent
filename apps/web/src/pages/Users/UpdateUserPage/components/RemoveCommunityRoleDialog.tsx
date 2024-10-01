@@ -20,12 +20,12 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import { CommunityPickedFields } from "../types";
+import { CommunityTeamable } from "../types";
 
 interface RemoveCommunityRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   roles: Role[];
-  community: CommunityPickedFields;
+  community: CommunityTeamable;
   onRemoveRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;

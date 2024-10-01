@@ -23,7 +23,7 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import { PoolPickedFields } from "../types";
+import { PoolTeamable } from "../types";
 
 interface FormValues {
   roles: Scalars["UUID"]["output"][];
@@ -33,7 +33,7 @@ interface EditProcessRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   initialRoles: Role[];
   processRoles: Role[];
-  pool: PoolPickedFields;
+  pool: PoolTeamable;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
