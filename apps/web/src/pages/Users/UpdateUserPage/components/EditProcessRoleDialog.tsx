@@ -89,7 +89,7 @@ const EditProcessRoleDialog = ({
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(intl.formatMessage(adminMessages.rolesAdded));
+        toast.success(intl.formatMessage(adminMessages.rolesUpdated));
       })
       .catch(() => {
         toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
