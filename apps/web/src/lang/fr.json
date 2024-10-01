@@ -1087,10 +1087,6 @@
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
   },
-  "3sbLPV": {
-    "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
-    "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
-  },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
@@ -1316,7 +1312,7 @@
     "description": "Lead-in text for the skills level definitions of behavioural skills"
   },
   "4r4MJP": {
-    "defaultMessage": "Lorsque vous postulez à un processus de recrutement et que vous réussissez l’évaluation, vous êtes admis(e) et vous pouvez commencer à être pris en considération pour les possibilités correspondantes. Cette section présente tous les processus actifs et expirés auxquels vous participez actuellement et vous permet de gérer le fait que vous apparaissiez ou non dans les recherches de talents.",
+    "defaultMessage": "Lorsque vous postulez à un processus de recrutement et que vous réussissez l’évaluation, vous êtes admis(e) et vous pouvez commencer à être pris en considération pour les possibilités d’emploi correspondantes. Cette section présente tous les processus actifs et expirés auxquels vous participez actuellement et vous permet de gérer le fait que vous apparaissiez ou non dans les recherches de talents.",
     "description": "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page."
   },
   "4rI0Yj": {
@@ -1803,10 +1799,6 @@
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
   },
-  "7i+qEB": {
-    "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à la création d'un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
-    "description": "Disclaimer before signing Indigenous self-declaration form"
-  },
   "7l6Xay": {
     "defaultMessage": "Vos demandes de talents ({count})",
     "description": "Title for a list of your talent requests with a count"
@@ -2011,6 +2003,10 @@
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
   },
+  "8hnMtx": {
+    "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
+    "description": "Text describing upcoming opportunities instructing users to update a profile when signed in"
+  },
   "8ioBIZ": {
     "defaultMessage": "Éditeur de compétence",
     "description": "Title for skills editor"
@@ -2115,6 +2111,10 @@
     "defaultMessage": "Volet",
     "description": "Title displayed for the Pool table Stream column."
   },
+  "9LR5wC": {
+    "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à la création d'un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités d'emploi.",
+    "description": "Disclaimer before signing Indigenous self-declaration form"
+  },
   "9LgnbB": {
     "defaultMessage": "Exigence linguistique",
     "description": "Label for a process' language requirement"
@@ -2150,10 +2150,6 @@
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
-  },
-  "9SZDCq": {
-    "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
-    "description": "Text describing upcoming opportunities instructing users to update a profile when signed in"
   },
   "9UZ/eS": {
     "defaultMessage": "Organisation",
@@ -3592,7 +3588,7 @@
     "description": "Placeholder displayed on the About Me form province or territory field."
   },
   "H5EXEi": {
-    "defaultMessage": "En savoir plus sur cette possibilité et commencer à rédiger une demande d'emploi.",
+    "defaultMessage": "Apprenez-en davantage sur cette possibilité d’emploi et commencez à rédiger votre candidature.",
     "description": "Subtitle for a pool advertisement page"
   },
   "H6FgWU": {
@@ -3958,6 +3954,10 @@
   "JDQvla": {
     "defaultMessage": "Ces notes sont disponibles pour tous les gestionnaires de ce bassin, mais pas pour les candidats.",
     "description": "Description of pool candidate notes field"
+  },
+  "JEKihk": {
+    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
+    "description": "Description of how application profiles works for managers/executives."
   },
   "JESKii": {
     "defaultMessage": "Vous êtes sur le point d'archiver ce processus : {poolName}",
@@ -5095,6 +5095,10 @@
     "defaultMessage": "Lieu précis (français)",
     "description": "Label for a pool advertisements specific French Location"
   },
+  "PH5Lah": {
+    "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
+    "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
+  },
   "PN3PMn": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
     "description": "The directives digital talent and development component"
@@ -5858,10 +5862,6 @@
   "TIAla1": {
     "defaultMessage": "Non réussi",
     "description": "Message displayed when candidate has not passed an assessment step"
-  },
-  "TJ+5Xn": {
-    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
-    "description": "Description of how application profiles work for managers."
   },
   "TJzeDj": {
     "defaultMessage": "Cela changera le statut d'un utilisateur pour « Archivé ». L'utilisateur n'apparaîtra plus où que ce soit sur la plateforme. <strong>Cette action ne peut pas être annulée</strong>.",
@@ -8299,7 +8299,7 @@
     "description": "Button label displayed on the search request form which saves the users personal notes."
   },
   "g+JcDC": {
-    "defaultMessage": "D'autres possibilités seront bientôt affichées!",
+    "defaultMessage": "D'autres possibilités d'emploi seront bientôt affichées",
     "description": "Heading for message about upcoming opportunities"
   },
   "g+lQO/": {
@@ -8415,7 +8415,7 @@
     "description": "Title for application career timeline add experience"
   },
   "gURsqG": {
-    "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents afin de connaître les possibilités spécifiques ou posez votre candidature à un processus de recrutement en cours dans l'un des volets de travail génériques de la TI. Consultez régulièrement le site pour connaître les nouvelles possibilités.",
+    "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents afin de connaître les possibilités d'emploi spécifiques ou posez votre candidature à un processus de recrutement en cours dans l'un des volets de travail génériques des TI. Consultez régulièrement le site pour connaître les nouvelles possibilités d'emploi.",
     "description": "Summary for the feature about finding manager jobs"
   },
   "gUb3PY": {
@@ -9817,10 +9817,6 @@
   "nZj1Gb": {
     "defaultMessage": "Supprimer le processus",
     "description": "Title to delete a process"
-  },
-  "naE1xF": {
-    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez la manière dont vous avez développé vos capacités et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi ou que vous songiez à l’avenir, un profil solide vous ouvrira la voie vers de nouvelles possibilités d’emploi.",
-    "description": "Description of how application profiles works for managers/executives."
   },
   "nc5GGm": {
     "defaultMessage": "Exploiter d’autres occasions",
@@ -11751,7 +11747,7 @@
     "description": "Description for the Career timeline and recruitment page in applicant profile."
   },
   "zJdfyv": {
-    "defaultMessage": "Prenez une longueur d’avance sur les prochaines étapes ou découvrez d’autres occasions.",
+    "defaultMessage": "Prenez une longueur d'avance sur les prochaines étapes ou découvrez d'autres possibilités d'emploi.",
     "description": "Subtitle for the application success page"
   },
   "zMZQLY": {
