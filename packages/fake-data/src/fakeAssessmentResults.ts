@@ -51,8 +51,7 @@ export default (
   assessmentStep?: Maybe<AssessmentStep>,
   poolSkill?: Maybe<PoolSkill>,
 ): AssessmentResult[] => {
-  const amountToGenerate = numToGenerate || 20;
-  return [...Array(amountToGenerate)].map((_x, index) =>
+  return Array.from({ length: numToGenerate || 20 }, (_x, index) =>
     generateAssessmentResult(index, assessmentStep, poolSkill),
   );
 };

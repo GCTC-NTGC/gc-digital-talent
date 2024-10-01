@@ -1,5 +1,3 @@
-/* eslint-disable import/no-duplicates */
-// known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
@@ -121,7 +119,7 @@ const ValidationDependantInputs = ({
   legend,
   ...rest
 }: DateInputProps) => {
-  const { watch } = useFormContext();
+  const { watch } = useFormContext<Record<string, string>>();
   const watchFirstInput = watch(name);
 
   return (
@@ -155,8 +153,8 @@ const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => (
 export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
 const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
-  const { watch } = useFormContext();
-  const watchFirstInput: string | undefined = watch(name);
+  const { watch } = useFormContext<Record<string, string>>();
+  const watchFirstInput = watch(name);
   const inputDate = watchFirstInput
     ? formDateStringToDate(watchFirstInput)
     : null;

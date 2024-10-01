@@ -8,6 +8,12 @@ export interface AuthTokens {
   refreshToken?: string;
 }
 
+interface AuthTokenResponse {
+  id_token?: string;
+  access_token?: string;
+  refresh_token?: string;
+}
+
 /**
  * Login by sub
  *
@@ -55,14 +61,14 @@ export async function getTokenForSub(sub: string) {
     client_secret: "e2e",
     sub,
   });
-  const json = await ctx
+  const json = (await ctx
     .post(`/oxauth/token`, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       data: query.toString(),
     })
-    .then((res) => res.json());
+    .then((res) => res.json())) as AuthTokenResponse;
 
   return {
     idToken: json.id_token,

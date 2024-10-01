@@ -18,7 +18,7 @@ import {
   getMultiDefaultValue,
   getSingleDefaultValue,
 } from "./utils";
-import { BaseProps } from "./types";
+import { BaseProps, ComboboxValue } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
 import { alphaSortOptions } from "../../utils";
@@ -69,15 +69,17 @@ const Combobox = ({
     control,
     setValue,
     formState: { errors, defaultValues },
-  } = useFormContext();
+  } = useFormContext<Record<string, ComboboxValue>>();
   const baseStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
-  const error = errors[name]?.message as FieldError;
+  const error = errors[name]?.message
+    ? (String(errors[name].message) as unknown as FieldError)
+    : undefined;
   const isRequired = !!rules?.required;
-  const defaultValue: string | string[] | undefined = defaultValues?.[name];
-  const currentValue: string | string[] | undefined = watch(name);
+  const defaultValue = defaultValues?.[name];
+  const currentValue = watch(name);
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
@@ -106,7 +108,7 @@ const Combobox = ({
     toggleLabel: toggleLabel || intl.formatMessage(formMessages.toggleCombobox),
   };
 
-  const isMoreThanMin = (value: string | string[]) => {
+  const isMoreThanMin = (value: ComboboxValue) => {
     if (!rules.min || !value || !isArray(value)) {
       return true;
     }
@@ -116,7 +118,7 @@ const Combobox = ({
     return value.length >= minValue || getErrorMessage(rules.min);
   };
 
-  const isLessThanMax = (value: string | string[]) => {
+  const isLessThanMax = (value: ComboboxValue) => {
     if (!rules.max || !value || !isArray(value)) {
       return true;
     }
@@ -152,7 +154,7 @@ const Combobox = ({
               onSelectedChange={(items) => {
                 setValue(
                   name,
-                  items?.map((item) => item.value),
+                  items?.map((item) => String(item.value)),
                 );
               }}
               value={getMultiDefaultValue(
@@ -165,7 +167,9 @@ const Combobox = ({
           ) : (
             <Single
               onInputChange={onSearch}
-              onSelectedChange={(item) => setValue(name, item?.value)}
+              onSelectedChange={(item) =>
+                setValue(name, item?.value ? String(item.value) : undefined)
+              }
               value={getSingleDefaultValue(
                 optionsModified,
                 Array.isArray(defaultValue)

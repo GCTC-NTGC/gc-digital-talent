@@ -17,7 +17,7 @@ const Test_RolesQueryDocument = /* GraphQL */ `
  * Get all the roles directly from the API.
  */
 export async function getRoles(ctx: GraphQLContext): Promise<Role[]> {
-  const res = await ctx.post(Test_RolesQueryDocument);
+  const res = await ctx.post<{ roles: Role[] }>(Test_RolesQueryDocument);
 
   return res.roles;
 }

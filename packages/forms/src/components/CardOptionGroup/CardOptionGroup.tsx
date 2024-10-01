@@ -126,9 +126,9 @@ const CardOptionGroup = ({
     register,
     watch,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<Record<string, string | undefined>>();
   // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
+  const error = get(errors, name)?.message as unknown as FieldError;
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({

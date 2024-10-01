@@ -13,7 +13,7 @@ import { FieldState } from "../types";
  */
 const useFieldState = (name: string, ignoreUnsaved = false): FieldState => {
   const { errors, dirtyFields } = useFormState();
-  const isDirty = get(dirtyFields, name, false);
+  const isDirty = Boolean(get(dirtyFields, name, false));
   const isInvalid = get(errors, name, false);
 
   if (isInvalid) {

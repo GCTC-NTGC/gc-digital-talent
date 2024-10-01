@@ -5,7 +5,7 @@ import isNumber from "lodash/isNumber";
 import isObject from "lodash/isObject";
 import isString from "lodash/isString";
 
-import { Option } from "./types";
+import { ComboboxValue, Option } from "./types";
 
 const orderItems = (options: Option[]): Option[] => {
   return orderBy(
@@ -109,8 +109,8 @@ export function getSingleDefaultValue<T extends Option>(
 
 export function getMultiDefaultValue<T extends Option>(
   options: T[],
-  defaultValue?: string[] | string,
-  currentValue?: string[] | string,
+  defaultValue?: ComboboxValue,
+  currentValue?: ComboboxValue,
 ): Option[] {
   let value: Option[] = [];
   const searchValue: string | string[] | undefined =

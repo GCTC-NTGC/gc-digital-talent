@@ -124,11 +124,16 @@ function BasicForm<TFieldValues extends FieldValues>({
           const value: PathValue<
             TFieldValues,
             Path<TFieldValues>
-          > = cachedValues[field];
+          > = cachedValues[field] as PathValue<
+            TFieldValues,
+            Path<TFieldValues>
+          >;
           const defaultValues = options?.defaultValues as
             | TFieldValues
             | undefined;
-          const defaultValue = defaultValues ? defaultValues[field] : null;
+          const defaultValue: unknown = defaultValues
+            ? defaultValues[field]
+            : null;
           if (value) {
             if (!defaultValue || value !== defaultValue) {
               methods.setValue(typedFieldName, value, {

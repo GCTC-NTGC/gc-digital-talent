@@ -46,7 +46,7 @@ const ControlledInput = ({
 
   const handleChange = (segmentValue: string, segment: DateSegment) => {
     const newValue = setComputedValue({
-      initialValue: value,
+      initialValue: value ? String(value) : undefined,
       value: segmentValue,
       segment,
       show,
