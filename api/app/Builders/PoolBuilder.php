@@ -88,7 +88,7 @@ class PoolBuilder extends Builder
                 if (in_array(PoolStatus::CLOSED->name, $statuses)) {
                     $query->orWhere(function ($query) {
                         $query->whereClosed()
-                            ->whereNotArchived($query);
+                            ->whereNotArchived();
                     });
                 }
 
