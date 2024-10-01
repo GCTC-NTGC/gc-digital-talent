@@ -1,6 +1,7 @@
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
+  To,
 } from "react-router-dom";
 import { DetailedHTMLProps, AnchorHTMLAttributes, forwardRef } from "react";
 
@@ -17,11 +18,12 @@ export type LinkProps = ButtonLinkProps &
       AnchorHTMLAttributes<HTMLAnchorElement>,
       HTMLAnchorElement
     >,
-    "ref"
+    "ref" | "href"
   > & {
     external?: boolean;
     newTab?: boolean;
     disabled?: boolean;
+    href?: To;
   };
 
 const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
@@ -47,7 +49,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       throw new Error("Icon is required when mode is set to 'cta'");
     }
 
-    const url = sanitizeUrl(href);
+    const url = sanitizeUrl(String(href));
 
     const commonProps = {
       ...(newTab

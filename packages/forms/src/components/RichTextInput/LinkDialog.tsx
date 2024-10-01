@@ -85,7 +85,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
       const attributes = editor?.getAttributes("link");
       if (newOpen && (attributes?.href || attributes?.target)) {
         if (attributes?.href) {
-          methods.setValue("href", attributes.href);
+          methods.setValue("href", String(attributes.href));
         }
         if (attributes?.target) {
           methods.setValue("newTab", attributes.target === "_blank");

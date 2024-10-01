@@ -76,8 +76,8 @@ const Combobox = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
-  const defaultValue = defaultValues?.[name];
-  const currentValue = watch(name);
+  const defaultValue: string | string[] | undefined = defaultValues?.[name];
+  const currentValue: string | string[] | undefined = watch(name);
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
@@ -168,8 +168,12 @@ const Combobox = ({
               onSelectedChange={(item) => setValue(name, item?.value)}
               value={getSingleDefaultValue(
                 optionsModified,
-                defaultValue,
-                currentValue,
+                Array.isArray(defaultValue)
+                  ? defaultValue.join(", ")
+                  : defaultValue,
+                Array.isArray(currentValue)
+                  ? currentValue.join(", ")
+                  : currentValue,
               )}
               {...sharedProps}
             />

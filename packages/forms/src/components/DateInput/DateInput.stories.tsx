@@ -156,7 +156,7 @@ export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
 const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   const { watch } = useFormContext();
-  const watchFirstInput = watch(name);
+  const watchFirstInput: string | undefined = watch(name);
   const inputDate = watchFirstInput
     ? formDateStringToDate(watchFirstInput)
     : null;

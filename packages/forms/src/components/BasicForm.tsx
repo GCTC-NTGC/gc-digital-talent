@@ -10,6 +10,7 @@ import {
   FieldValues,
   FormProvider,
   Path,
+  PathValue,
   SubmitErrorHandler,
   SubmitHandler,
   useForm,
@@ -120,7 +121,10 @@ function BasicForm<TFieldValues extends FieldValues>({
         Object.keys(cachedValues).forEach((field) => {
           // Hack: Type our field name
           const typedFieldName = field as Path<TFieldValues>;
-          const value = cachedValues[field];
+          const value: PathValue<
+            TFieldValues,
+            Path<TFieldValues>
+          > = cachedValues[field];
           const defaultValues = options?.defaultValues as
             | TFieldValues
             | undefined;

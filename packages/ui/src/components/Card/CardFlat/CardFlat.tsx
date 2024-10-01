@@ -119,7 +119,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
             if (isRegularLinkItem(link)) {
               return (
                 <CardFlatRegularLink
-                  key={link.naturalKey ?? link.href}
+                  key={String(link.naturalKey ?? link.href)}
                   color={color}
                   {...link}
                 />

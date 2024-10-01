@@ -36,9 +36,8 @@ const ControlledInput = ({
   const intl = useIntl();
   const inputStyles = useInputStyles();
   const selectStyles = useInputStyles("select");
-  const { year, month, day } = splitSegments(
-    defaultValues ? defaultValues[name] : undefined,
-  );
+  const defaultValue = defaultValues ? String(defaultValues[name]) : undefined;
+  const { year, month, day } = splitSegments(defaultValue);
   const ID = {
     YEAR: `${name}Year`,
     MONTH: `${name}Month`,
