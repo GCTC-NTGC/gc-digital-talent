@@ -20,6 +20,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 interface RemoveTeamRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
@@ -54,24 +55,10 @@ const RemoveTeamRoleDialog = ({
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Role removed successfully",
-            id: "XcS2q2",
-            description:
-              "Message displayed to user when a role has been removed from a user",
-          }),
-        );
+        toast.success(intl.formatMessage(adminMessages.roleRemoved));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "Ly2bBb",
-            description:
-              "Alert displayed to user when an error occurs while editing a team member's roles",
-          }),
-        );
+        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
       })
       .finally(() => setIsDeleting(false));
   };

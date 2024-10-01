@@ -22,6 +22,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { PoolTeamable } from "../types";
 
@@ -88,24 +89,10 @@ const EditProcessRoleDialog = ({
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Member roles updated successfully",
-            id: "ALIgEC",
-            description:
-              "Alert displayed to user when a team member's roles have been updated",
-          }),
-        );
+        toast.success(intl.formatMessage(adminMessages.rolesAdded));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "Ly2bBb",
-            description:
-              "Alert displayed to user when an error occurs while editing a team member's roles",
-          }),
-        );
+        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
       });
   };
 

@@ -13,6 +13,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Maybe, Role } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { UpdateUserRolesFunc } from "../types";
 
@@ -45,14 +46,7 @@ const RemoveIndividualRoleDialog = ({
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Role removed successfully",
-            id: "XcS2q2",
-            description:
-              "Message displayed to user when a role has been removed from a user",
-          }),
-        );
+        toast.success(intl.formatMessage(adminMessages.roleRemoved));
       })
       .finally(() => setIsDeleting(false));
   };
