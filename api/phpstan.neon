@@ -13,11 +13,6 @@ parameters:
       path: app/Builders/PoolBuilder.php
 
     -
-      message: "#^Method App\\\\Builders\\\\PoolBuilder\\:\\:whereNotArchived\\(\\) invoked with 1 parameter, 0 required\\.$#"
-      count: 1
-      path: app/Builders/PoolBuilder.php
-
-    -
       message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
       count: 5
       path: app/Builders/PoolBuilder.php
