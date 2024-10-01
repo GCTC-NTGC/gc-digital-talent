@@ -363,10 +363,6 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Education level message when candidate has a diploma found on the request page."
   },
-  "/pbxol": {
-    "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle adhésion\" pour commencer.",
-    "description": "Instructions for adding team membership to a user."
-  },
   "/qN7tM": {
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
@@ -882,10 +878,6 @@
   "2jFKrM": {
     "defaultMessage": "Modifier {label}",
     "description": "Label for link to edit a specific item in a table"
-  },
-  "2lNHxh": {
-    "defaultMessage": "Ajouter un nouveau rôle",
-    "description": "Label for the form to add a role to a user"
   },
   "2ly5G8": {
     "defaultMessage": "L’autodéclaration aide notre équipe à mieux comprendre le bassin de candidats. Connaître la diversité du bassin de candidats aide l’équipe de recrutement et les gestionnaires d’embauche de Talents numériques du GC à éliminer les obstacles et à rendre notre processus plus inclusif. Cela nous permet également de suivre les progrès réalisés par rapport aux objectifs en matière de diversité et de veiller à ce que les groupes sous-représentés aient des possibilités équitables.",
@@ -3539,10 +3531,6 @@
     "defaultMessage": "Citoyenneté :",
     "description": "Citizenship label"
   },
-  "GjaLl7": {
-    "defaultMessage": "Rôles des membres",
-    "description": "Title displayed for the role table display roles column"
-  },
   "Gki8Ex": {
     "defaultMessage": "{candidateCount, plural, one {<testId>{candidateCount}</testId> concordance approximative} other {<testId>{candidateCount}</testId> concordances approximatives} }",
     "description": "Message for total estimated matching candidates in pool"
@@ -3798,10 +3786,6 @@
   "Ia+zNM": {
     "defaultMessage": "Consentement notification par courriel",
     "description": "Legend text for email notification consent checkbox in getting started form"
-  },
-  "Ibt1fL": {
-    "defaultMessage": "Ajouter une nouvelle adhésion",
-    "description": "Label for the form to add a team membership to a user"
   },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
@@ -6369,10 +6353,6 @@
   "WAcWqh": {
     "defaultMessage": "{title} évaluation - {skillName}",
     "description": "Header for application screening decision dialog."
-  },
-  "WCOVvw": {
-    "defaultMessage": "Utilisez le bouton \"Ajouter un nouveau rôle\" pour commencer.",
-    "description": "Instructions for adding a role to a user."
   },
   "WDKT2K": {
     "defaultMessage": "Qu'est-ce qu'une CléGC?",
