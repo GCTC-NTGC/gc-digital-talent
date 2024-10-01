@@ -298,7 +298,7 @@ export const Component = () => {
   return (
     <>
       <Hero
-        imgPath={heroImg}
+        imgPath={String(heroImg)}
         title={pageTitle}
         subtitle={subtitle}
         crumbs={crumbs}

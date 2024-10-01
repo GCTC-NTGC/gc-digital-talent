@@ -155,6 +155,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const {
     sorting: sortingState,
     columnFilters: columnFilterState,
+    // This comes from react-table and unsure how to adjust
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     globalFilter: globalFilterState,
     columnVisibility: columnVisibilityState,
     pagination: paginationState,

@@ -1,7 +1,6 @@
 import {
   Scalars,
   Skill,
-  SkillCategory,
   SkillLevel,
   WhenSkillUsed,
 } from "@gc-digital-talent/graphql";
@@ -14,8 +13,8 @@ export type SkillBrowserDialogContext =
   | "directive_forms";
 
 export interface FormValues {
-  category?: SkillCategory | "all" | "";
-  family?: Scalars["ID"]["output"];
+  category?: string;
+  family?: string;
   skill?: Scalars["ID"]["output"];
   details?: string;
   skillLevel?: SkillLevel;

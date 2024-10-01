@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -44,6 +44,7 @@ import { parseKeywords } from "~/utils/skillUtils";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import { SkillFormOptions_Query } from "./operations";
 
@@ -172,8 +173,7 @@ export const UpdateSkillForm = ({
 
   const { handleSubmit } = methods;
 
-  const { state } = useLocation();
-  const navigateTo = String(state?.from ?? paths.skillTable()); // If location state includes a `from` parameter, navigate to that url on success.
+  const navigateTo = useReturnPath(paths.skillTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(values))

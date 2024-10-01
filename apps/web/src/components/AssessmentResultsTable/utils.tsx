@@ -206,7 +206,7 @@ export const buildColumn = ({
               experiences={experiences}
               poolCandidate={{
                 id: poolCandidate.id,
-                profileSnapshot: poolCandidate.profileSnapshot,
+                profileSnapshot: String(poolCandidate.profileSnapshot),
                 screeningQuestionResponses:
                   poolCandidate.screeningQuestionResponses,
                 educationRequirementOption:
@@ -240,7 +240,7 @@ export const buildColumn = ({
               experiences={experiences}
               poolCandidate={{
                 id: poolCandidate.id,
-                profileSnapshot: poolCandidate.profileSnapshot,
+                profileSnapshot: String(poolCandidate.profileSnapshot),
                 screeningQuestionResponses:
                   poolCandidate.screeningQuestionResponses,
                 pool: {

@@ -113,8 +113,7 @@ export function getMultiDefaultValue<T extends Option>(
   currentValue?: ComboboxValue,
 ): Option[] {
   let value: Option[] = [];
-  const searchValue: string | string[] | undefined =
-    currentValue ?? defaultValue;
+  const searchValue: ComboboxValue = currentValue ?? defaultValue;
   if (isArray(searchValue)) {
     value = options.filter((option) =>
       searchValue?.some((defaultItem) => defaultItem === option.value),

@@ -8,7 +8,7 @@ import {
 } from "@gc-digital-talent/forms";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { ExperienceType } from "~/types/experience";
+import { AllExperienceFormValues, ExperienceType } from "~/types/experience";
 
 interface ErrorSummaryProps {
   experienceType?: ExperienceType | "";
@@ -18,7 +18,9 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
   const [showErrorSummary, setShowErrorSummary] = useState<boolean>(false);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
   const intl = useIntl();
-  const type: ExperienceType | undefined = useWatch({ name: "experienceType" });
+  const type = useWatch<AllExperienceFormValues>({
+    name: "experienceType",
+  }) as ExperienceType;
   const derivedType: ExperienceType =
     type ?? (!experienceType ? "personal" : experienceType);
   const labels = getExperienceFormLabels(intl, derivedType);

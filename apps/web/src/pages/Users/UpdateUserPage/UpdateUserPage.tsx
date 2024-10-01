@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useMutation, useQuery } from "urql";
@@ -32,6 +32,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import UserRoleTable from "./components/IndividualRoleTable";
 import TeamRoleTable from "./components/TeamRoleTable";
@@ -132,9 +133,7 @@ export const UpdateUserForm = ({
     defaultValues: dataToFormValues(initialUser),
   });
   const { handleSubmit } = methods;
-
-  const { state } = useLocation();
-  const navigateTo = String(state?.from ?? paths.userTable());
+  const navigateTo = useReturnPath(paths.userTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     await handleUpdateUser(initialUser.id, formValuesToSubmitData(values))

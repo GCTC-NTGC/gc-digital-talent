@@ -146,8 +146,11 @@ const UserTable = ({ title }: UserTableProps) => {
   const initialState = getTableStateFromSearchParams(defaultState);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: UserFilterInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+  const initialFilters: UserFilterInput | undefined = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as UserFilterInput)
+        : undefined,
     [filtersEncoded],
   );
   const filterRef = useRef<UserFilterInput | undefined>(initialFilters);
@@ -166,8 +169,9 @@ const UserTable = ({ title }: UserTableProps) => {
   const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
   );
-  const [filterState, setFilterState] =
-    useState<UserFilterInput>(initialFilters);
+  const [filterState, setFilterState] = useState<UserFilterInput>(
+    initialFilters ?? {},
+  );
   const {
     downloadDoc,
     downloadingDoc,
