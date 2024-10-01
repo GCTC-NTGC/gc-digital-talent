@@ -16,7 +16,7 @@ final class VerifyUserEmail
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
         $emailType = isset($args['emailType']) ? EmailType::fromName($args['emailType']) : EmailType::CONTACT;
         $providedCode = $args['code'];

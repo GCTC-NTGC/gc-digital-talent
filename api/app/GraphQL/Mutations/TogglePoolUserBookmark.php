@@ -14,7 +14,7 @@ final class TogglePoolUserBookmark
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
         $pool = Pool::find($args['pool_id']);
         $user->poolBookmarks()->toggle($pool->id);
