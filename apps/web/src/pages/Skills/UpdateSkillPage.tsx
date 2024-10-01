@@ -21,6 +21,7 @@ import {
   getLocale,
   errorMessages,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import {
@@ -203,7 +204,7 @@ export const UpdateSkillForm = ({
   const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
     ({ id, name }) => ({
       value: id,
-      label: name?.[locale] ?? "",
+      label: getLocalizedName(name, intl),
     }),
   );
 

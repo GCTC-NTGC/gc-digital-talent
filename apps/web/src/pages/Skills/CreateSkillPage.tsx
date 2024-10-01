@@ -13,7 +13,11 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { keyStringRegex, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
@@ -123,7 +127,7 @@ export const CreateSkillForm = ({
   const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
     ({ id, name }) => ({
       value: id,
-      label: name?.[locale] ?? "",
+      label: getLocalizedName(name, intl),
     }),
   );
 

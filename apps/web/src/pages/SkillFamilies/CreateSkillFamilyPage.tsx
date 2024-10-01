@@ -6,7 +6,11 @@ import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, TextArea, Submit, Combobox } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
 import {
@@ -103,7 +107,7 @@ export const CreateSkillFamilyForm = ({
 
   const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
     value: id,
-    label: name?.[locale] ?? "",
+    label: getLocalizedName(name, intl),
   }));
 
   return (
