@@ -77,9 +77,12 @@ const AddProcessRoleDialog = ({
     pools,
     total,
     fetching: poolsFetching,
-  } = useAvailablePools(activePoolIds, {
-    name: query || undefined,
-  });
+  } = useAvailablePools(
+    activePoolIds, // Exclude the pools the user is already assigned to
+    {
+      name: query || undefined,
+    },
+  );
   const handleDebouncedSearch = debounce((newQuery: string) => {
     setQuery(newQuery);
   }, 300);

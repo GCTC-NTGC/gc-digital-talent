@@ -110,26 +110,18 @@ const AddCommunityRoleDialog = ({
 
   // if a community is selected, eliminate existing roles from the dropdown
   const selectedCommunity = watch("community");
-  const roleAssignments = authInfo?.roleAssignments || [];
-  const activeCommunityTeamIdRoleArray = roleAssignments
-    .map((ra) => {
-      if (
-        isCommunityTeamable(ra?.teamable) &&
-        ra.teamable.teamIdForRoleAssignment
-      ) {
-        return {
-          communityId: ra.teamable.teamIdForRoleAssignment ?? "",
-          roleId: ra?.role?.id ?? "",
-        };
-      }
-      return null;
-    })
-    .filter(notEmpty);
-  const rolesUsed = activeCommunityTeamIdRoleArray
-    .filter((communityRole) => communityRole.communityId === selectedCommunity)
-    .map((communityRole) => communityRole.roleId);
+  const alreadyUsedRoleIds =
+    authInfo?.roleAssignments
+      ?.filter(
+        (roleAssignment) =>
+          isCommunityTeamable(roleAssignment?.teamable) &&
+          roleAssignment?.teamable.teamIdForRoleAssignment ===
+            selectedCommunity,
+      )
+      .map((roleAssignment) => roleAssignment?.role?.id)
+      .filter(notEmpty) ?? [];
   const roleOptions = communityRoles
-    .filter((role) => !rolesUsed.includes(role.id))
+    .filter((role) => !alreadyUsedRoleIds.includes(role.id))
     .map((role) => ({
       label: getLocalizedName(role.displayName, intl),
       value: role.id,
