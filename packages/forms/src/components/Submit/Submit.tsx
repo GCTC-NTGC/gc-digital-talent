@@ -45,7 +45,7 @@ const Submit = ({
       mode={mode ?? "solid"}
       type="submit"
       icon={icon}
-      disabled={disabled ?? isSubmitting ?? overrideSubmitting}
+      disabled={disabled || isSubmitting || overrideSubmitting}
       {...rest}
     >
       {currentText}

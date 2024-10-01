@@ -73,7 +73,7 @@ const Fieldset = ({
     );
 
   const disableIncrement =
-    isLast ?? // is last item
+    isLast || // is last item
     moveDisabledIndexes.some(
       (disabledIndex) =>
         index === disabledIndex || // is move disabled item

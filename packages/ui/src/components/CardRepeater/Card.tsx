@@ -74,20 +74,20 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
   const isFirst = index === 0;
   const isLast = index === items.length - 1;
   const lockDecrement = moveDisabledIndexes?.includes(index);
-  const isEditDisabled = disabled ?? editDisabledIndexes?.includes(index);
-  const isRemoveDisabled = disabled ?? removeDisabledIndexes?.includes(index);
+  const isEditDisabled = disabled || editDisabledIndexes?.includes(index);
+  const isRemoveDisabled = disabled || removeDisabledIndexes?.includes(index);
   const disableDecrement =
-    disabled ?? // Whole repeater is disabled
-    isFirst ??
+    disabled || // Whole repeater is disabled
+    isFirst ||
     moveDisabledIndexes?.some(
       (disabledIndex) =>
         index === disabledIndex || // is move disabled item
         index - 1 === disabledIndex, // has a move-disabled item previous
     );
   const disableIncrement =
-    disabled ?? // Whole repeater is disabled
-    isLast ??
-    total <= 1 ?? // Last item
+    disabled || // Whole repeater is disabled
+    isLast ||
+    total <= 1 || // Last item
     moveDisabledIndexes?.some(
       (disabledIndex) =>
         index === disabledIndex || // is move disabled item

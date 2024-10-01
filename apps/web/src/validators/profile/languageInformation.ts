@@ -39,10 +39,9 @@ export function hasEmptyRequiredFields({
   verbalLevel,
 }: PartialUser): boolean {
   return !!(
-    ((!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
-      (lookingForBilingual &&
-        (isEmpty(firstOfficialLanguage) ||
-          isEmpty(estimatedLanguageAbility)))) ??
+    (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
+    (lookingForBilingual &&
+      (isEmpty(firstOfficialLanguage) || isEmpty(estimatedLanguageAbility))) ||
     (secondLanguageExamCompleted &&
       (secondLanguageExamValidity === null ||
         secondLanguageExamValidity === undefined ||

@@ -89,6 +89,10 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "error",
+      { ignorePrimitives: { boolean: true } },
+    ],
     "no-underscore-dangle": ["error", { allow: ["__typename"] }],
 
     // CI Only rules to keep local snappy, deprecation kept as a warn
