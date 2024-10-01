@@ -93,7 +93,7 @@ export const CreateSkillForm = ({
   });
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.skillTable();
+  const navigateTo = String(state?.from ?? paths.skillTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleCreateSkill(formValuesToSubmitData(values))

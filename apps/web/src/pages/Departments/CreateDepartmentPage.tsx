@@ -34,7 +34,7 @@ export const CreateDepartmentForm = ({
   const { handleSubmit } = methods;
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.departmentTable();
+  const navigateTo = String(state?.from ?? paths.departmentTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateDepartment({

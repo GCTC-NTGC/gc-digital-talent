@@ -56,7 +56,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.communityTable();
+  const navigateTo = String(state?.from ?? paths.communityTable());
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(formValuesToSubmitData(data))

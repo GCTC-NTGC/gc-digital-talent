@@ -144,7 +144,9 @@ export const ViewPoolCandidate = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
+  const parsedSnapshot: Maybe<User> = JSON.parse(
+    String(poolCandidate.profileSnapshot),
+  );
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,

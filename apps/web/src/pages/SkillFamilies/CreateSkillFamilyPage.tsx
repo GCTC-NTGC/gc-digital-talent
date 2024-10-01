@@ -74,7 +74,7 @@ export const CreateSkillFamilyForm = ({
   });
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.skillFamilyTable();
+  const navigateTo = String(state?.from ?? paths.skillFamilyTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateSkillFamily(formValuesToSubmitData(data))

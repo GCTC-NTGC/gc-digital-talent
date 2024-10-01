@@ -173,7 +173,7 @@ export const UpdateSkillForm = ({
   const { handleSubmit } = methods;
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.skillTable(); // If location state includes a `from` parameter, navigate to that url on success.
+  const navigateTo = String(state?.from ?? paths.skillTable()); // If location state includes a `from` parameter, navigate to that url on success.
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(values))

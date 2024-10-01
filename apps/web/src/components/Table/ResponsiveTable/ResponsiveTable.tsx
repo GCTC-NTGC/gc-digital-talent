@@ -237,7 +237,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       } else {
         newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
         if (globalFilterState) {
-          newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, globalFilterState);
+          newParams.set(
+            SEARCH_PARAM_KEY.SEARCH_TERM,
+            String(globalFilterState),
+          );
         } else {
           newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
         }

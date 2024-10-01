@@ -35,7 +35,7 @@ export const CreateClassificationForm = ({
   const watchMinSalary = watch("minSalary");
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.classificationTable();
+  const navigateTo = String(state?.from ?? paths.classificationTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const classification: FormValues = {

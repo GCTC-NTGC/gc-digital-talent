@@ -101,7 +101,7 @@ const UpdateTeamForm = ({
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.teamTable();
+  const navigateTo = String(state?.from ?? paths.teamTable());
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(team.id, formValuesToSubmitData(data))

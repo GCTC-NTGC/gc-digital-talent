@@ -86,7 +86,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
 
         // eslint-disable-next-line no-param-reassign
         applicantFilterInput[typedKey] = transform(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
           applicantFilter[typedKey] as any,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ) as any;

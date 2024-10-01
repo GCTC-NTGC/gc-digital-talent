@@ -134,7 +134,7 @@ export const UpdateUserForm = ({
   const { handleSubmit } = methods;
 
   const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.userTable();
+  const navigateTo = String(state?.from ?? paths.userTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     await handleUpdateUser(initialUser.id, formValuesToSubmitData(values))

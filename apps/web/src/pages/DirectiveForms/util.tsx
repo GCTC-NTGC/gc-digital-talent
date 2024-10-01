@@ -58,7 +58,7 @@ export function enumToOptions<T extends object>(
   typeObject: T,
   sortOrder?: T[keyof T][],
 ): { value: T[keyof T]; label: string }[] {
-  const entries = Object.entries(typeObject);
+  const entries: [string, T[keyof T]][] = Object.entries(typeObject);
   if (sortOrder) {
     entries.sort((a, b) => {
       const aPosition = sortOrder.indexOf(a[1]);
