@@ -58,19 +58,18 @@ const AddProcessRoleDialog = ({
   const roleAssignments = authInfo?.roleAssignments || [];
   const activePoolIds = roleAssignments
     .filter((ra) => isPoolTeamable(ra?.teamable))
-    .map((assignment) => {
+    .map((ra) => {
       if (
-        assignment?.teamable &&
-        isPoolTeamable(assignment.teamable) && // type coercion
-        assignment.role?.isTeamBased
-      )
-        return {
-          poolId: assignment.teamable.id,
-        };
-      return null;
+        ra?.teamable &&
+        isPoolTeamable(ra.teamable) && // type coercion
+        ra.role?.isTeamBased
+      ) {
+        return ra.teamable.id;
+      } else {
+        return null;
+      }
     })
-    .filter(notEmpty)
-    .map((r) => r.poolId);
+    .filter(notEmpty);
 
   const [query, setQuery] = useState<string>("");
   const {
