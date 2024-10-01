@@ -56,7 +56,7 @@ const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
   return (storyFn, context) => {
     const selectedTheme = pluckThemeFromContext(context);
     const { themeOverride } = useThemeParameters();
-    const selected = themeOverride ?? selectedTheme ?? defaultTheme;
+    const selected = (themeOverride ?? selectedTheme) || defaultTheme;
 
     const themeArr = useMemo(
       () =>
