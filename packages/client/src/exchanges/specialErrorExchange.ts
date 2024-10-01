@@ -16,10 +16,9 @@ const specialErrorExchange = ({ intl }: { intl: IntlShape }) => {
         // tap((op) => console.log("[Exchange debug]: Incoming operation: ", op)),
         forward,
         tap((result) => {
-          if (
-            result?.error?.response?.status === 403 &&
-            result?.error?.networkError?.message?.includes("Request Rejected")
-          ) {
+          if (result?.error?.response?.status === 403) {
+            debugger;
+            // there is no way to inspect the original response now. 😢
             toast.error(intl.formatMessage(errorMessages.requestRejected));
           }
         }),
