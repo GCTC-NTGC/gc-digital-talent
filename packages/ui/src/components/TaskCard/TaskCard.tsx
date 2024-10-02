@@ -63,7 +63,7 @@ interface ItemProps {
 const Item = ({ children }: ItemProps) => {
   return (
     <div
-      // no bottom padding on last child
+      // less bottom padding on last child
       data-h2-padding-bottom="base:selectors[:last-child](x0.25)"
       data-h2-padding="base(x1) p-tablet(x1 x1.5)"
       data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.lighter)"
