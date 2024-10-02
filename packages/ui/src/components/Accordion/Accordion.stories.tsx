@@ -18,7 +18,7 @@ const Text = () => {
   return <p>{faker.lorem.sentences(5)}</p>;
 };
 
-const metaData: AccordionMetaData[] = [
+export const metaData: AccordionMetaData[] = [
   {
     key: "button-id",
     type: "button",
