@@ -135,8 +135,8 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
       .map((poolId) => poolMap.get(poolId))
       .filter(notEmpty);
 
-    const promises = poolsToUpdate.map(async (pool) => {
-      return await requestMutation({
+    const promises = poolsToUpdate.map((pool) => {
+      return requestMutation({
         pool: {
           connect: pool?.id,
         },
