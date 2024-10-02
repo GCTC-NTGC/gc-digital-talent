@@ -69,7 +69,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
     crumbs: [
       {
         label: formattedPageTitle,
-        url: paths.profile(),
+        url: paths.managerDashboard(),
       },
     ],
   });
