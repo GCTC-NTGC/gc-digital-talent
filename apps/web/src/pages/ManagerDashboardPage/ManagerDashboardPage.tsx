@@ -11,6 +11,7 @@ import {
   PreviewList,
   ResourceBlock,
   Accordion,
+  AccordionMetaData,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -70,6 +71,36 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
 
   // Easily identify parts of the page that are unfinished still.
   const showUnfinishedPieces = true;
+
+  const talentRequestMetaData: AccordionMetaData[] = [
+    {
+      key: "request-history-key",
+      type: "link",
+      // This link is missing an href since the page doesn't exist yet.  Probably #10982
+      children: (
+        <Link color="primary" href="#">
+          {intl.formatMessage({
+            defaultMessage: "All requests",
+            id: "mJKi1Y",
+            description: "Link to a page to view all the requests",
+          })}
+        </Link>
+      ),
+    },
+    {
+      key: "new-request-key",
+      type: "link",
+      children: (
+        <Link color="primary" href={paths.search()}>
+          {intl.formatMessage({
+            defaultMessage: "New request",
+            id: "BGQaDq",
+            description: "Link to a page to start a new request",
+          })}
+        </Link>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -140,37 +171,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           },
                         )}
                       </Accordion.Trigger>
-                      <div
-                        // match accordion padding
-                        data-h2-padding="base(0 x1 x0.75 x1.3)"
-                        data-h2-display="base(flex)"
-                        data-h2-gap="base(x0.5)"
-                      >
-                        {showUnfinishedPieces ? (
-                          // This link is missing an href since the page doesn't exist yet.  Probably #10982
-                          <>
-                            <Link color="primary" href="#">
-                              {intl.formatMessage({
-                                defaultMessage: "All requests",
-                                id: "mJKi1Y",
-                                description:
-                                  "Link to a page to view all the requests",
-                              })}
-                            </Link>
-                            &bull;
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                        <Link color="primary" href={paths.search()}>
-                          {intl.formatMessage({
-                            defaultMessage: "New request",
-                            id: "BGQaDq",
-                            description:
-                              "Link to a page to start a new request",
-                          })}
-                        </Link>
-                      </div>
+                      <Accordion.MetaData metadata={talentRequestMetaData} />
                       <Accordion.Content>
                         <div
                           data-h2-display="base(flex)"
