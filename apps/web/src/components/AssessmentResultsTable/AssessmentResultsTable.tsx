@@ -252,8 +252,8 @@ const AssessmentResultsTable = ({
       }
 
       return Intl.Collator().compare(
-        a.poolSkill.skill?.name?.[locale] || "",
-        b.poolSkill.skill?.name?.[locale] || "",
+        a.poolSkill.skill?.name?.[locale] ?? "",
+        b.poolSkill.skill?.name?.[locale] ?? "",
       );
     });
 

@@ -117,7 +117,7 @@ const AddTeamRoleDialog = ({
 
   const teamId = watch("team");
   useEffect(() => {
-    const roleAssignments = authInfo?.roleAssignments || [];
+    const roleAssignments = authInfo?.roleAssignments ?? [];
     const activeRoleIds = roleAssignments
       .filter((ra) => isTeamTeamable(ra?.teamable) && ra.teamable.id === teamId)
       .map((r) => r?.role?.id)

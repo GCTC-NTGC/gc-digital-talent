@@ -24,7 +24,7 @@ const SkipLink = ({ href = "#main", children }: SkipLinkProps) => {
       data-h2-width="base:focus-visible(auto)"
       data-h2-z-index="base:focus-visible(9999)"
     >
-      {children ||
+      {children ??
         intl.formatMessage({
           defaultMessage: "Skip to main content",
           id: "A2ycww",

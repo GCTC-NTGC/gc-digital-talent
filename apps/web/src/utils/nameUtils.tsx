@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 
 import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";
 
+import nodeToString from "./nodeToString";
+
 export const getFullNameLabel = (
   firstName: string | null | undefined,
   lastName: string | null | undefined,
@@ -117,8 +119,8 @@ export const getFullNameHtml = (
  *
  * @return string
  */
-export const splitAndJoin = (text: string, split?: string, join?: string) =>
-  text.split(split || "").join(join || " ");
+export const splitAndJoin = (text: string, split = "", join = " ") =>
+  text.split(split).join(join);
 
 /**
  * Wraps common abbreviations in abbr tags to make them more accessible
@@ -136,7 +138,8 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
     description:
       "Message shown to user when the abbreviation text is not found.",
   });
-  const stringifyText = text && text.toString(); // grabs text from ReactNode (is there a better way to get text from ReactNode type?)
+  const stringifyText =
+    text && nodeToString(Array.isArray(text) ? text[0] : text);
   if (typeof stringifyText !== "string") {
     return (
       <abbr title={fallbackTitle}>

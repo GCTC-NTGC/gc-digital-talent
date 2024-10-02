@@ -13,21 +13,6 @@ parameters:
       path: app/Builders/PoolBuilder.php
 
     -
-      message: "#^Method App\\\\Builders\\\\PoolBuilder\\:\\:whereNotArchived\\(\\) invoked with 1 parameter, 0 required\\.$#"
-      count: 1
-      path: app/Builders/PoolBuilder.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 5
-      path: app/Builders/PoolBuilder.php
-
-    -
-      message: "#^Call to function is_array\\(\\) with \\(int\\|string\\) will always evaluate to false\\.$#"
-      count: 1
-      path: app/Console/Commands/CheckIntl.php
-
-    -
       message: "#^PHPDoc tag @var above a method has no effect\\.$#"
       count: 1
       path: app/Console/Commands/CheckIntl.php
@@ -111,11 +96,6 @@ parameters:
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/ArchivePool.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
 
     -
       message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
@@ -338,11 +318,6 @@ parameters:
       path: app/GraphQL/Mutations/ReinstateCandidate.php
 
     -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ReinstateCandidate.php
-
-    -
       message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
       count: 1
       path: app/GraphQL/Mutations/RemoveCandidate.php
@@ -354,11 +329,6 @@ parameters:
 
     -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/RemoveCandidate.php
-
-    -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
       count: 3
       path: app/GraphQL/Mutations/RemoveCandidate.php
 
@@ -536,61 +506,6 @@ parameters:
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/VerifyUserEmail.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'equity' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'hasDiploma' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'languageAbility' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'locationPreferences' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'operationalRequirem…' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'positionDuration' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedClassifica…' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedStreams' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'skills' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Offset 'where' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Offset 'where' on array\\{\\} in empty\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
 
     -
       message: "#^Offset 'enumName' does not exist on array\\{\\}\\.$#"
@@ -1788,26 +1703,6 @@ parameters:
       path: app/Models/JobPosterTemplate.php
 
     -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/Pool.php
-
-    -
       message: "#^PHPDoc type array of property App\\\\Models\\\\Pool\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
       count: 1
       path: app/Models/Pool.php
@@ -1819,26 +1714,6 @@ parameters:
 
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, App\\\\Models\\\\PoolCandidate\\>\\:\\:withTrashed\\(\\)\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Enums\\\\PriorityWeight\\:\\:CITIZEN_OR_PERMANENT_RESIDENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:OTHER\\|App\\\\Enums\\\\PriorityWeight\\:\\:PRIORITY_ENTITLEMENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:VETERAN will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 3
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to method isFuture\\(\\) on an unknown class App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
 
@@ -1860,16 +1735,6 @@ parameters:
     -
       message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidate\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
       count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Result of \\|\\| is always false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
-      count: 3
       path: app/Models/PoolCandidate.php
 
     -
@@ -1904,16 +1769,6 @@ parameters:
 
     -
       message: "#^Property App\\\\Models\\\\PoolCandidateSearchRequest\\:\\:\\$request_status_changed_at \\(App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\CarbonImmutable\\.$#"
-      count: 1
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 2
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
       count: 1
       path: app/Models/PoolCandidateSearchRequest.php
 
@@ -1953,32 +1808,12 @@ parameters:
       path: app/Models/SkillFamily.php
 
     -
-      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
-      count: 2
-      path: app/Models/User.php
-
-    -
       message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate\\> supplied for foreach, only iterables are supported\\.$#"
       count: 1
       path: app/Models/User.php
 
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorizedToView\\(\\)\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 2
-      path: app/Models/User.php
-
-    -
-      message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
       count: 1
       path: app/Models/User.php
 
@@ -2008,11 +1843,6 @@ parameters:
       path: app/Models/User.php
 
     -
-      message: "#^PHPDoc tag @property has invalid value \\(Illuminate\\\\Support\\\\Carbon email_verified_at\\)\\: Unexpected token \"email_verified_at\", expected variable at offset 111$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
       message: "#^Parameter \\#1 \\$columns of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<App\\\\Models\\\\Department\\>\\:\\:get\\(\\) expects array\\<int, string\\>, string given\\.$#"
       count: 1
       path: app/Models/User.php
@@ -2020,16 +1850,6 @@ parameters:
     -
       message: "#^Parameter \\$query of method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) has invalid type App\\\\Models\\\\Eloquent\\\\Builder\\.$#"
       count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
-      count: 3
       path: app/Models/User.php
 
     -
@@ -2048,27 +1868,7 @@ parameters:
       path: app/Notify/Client.php
 
     -
-      message: "#^Method App\\\\Notify\\\\Client\\:\\:buildBulkPersonalisationRowData\\(\\) is unused\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
       message: "#^Method App\\\\Notify\\\\Client\\:\\:get\\(\\) is unused\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'email' on string in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'personalisation' on string in isset\\(\\) does not exist\\.$#"
-      count: 2
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'phone_number' on string in isset\\(\\) does not exist\\.$#"
       count: 1
       path: app/Notify/Client.php
 
@@ -2085,11 +1885,6 @@ parameters:
     -
       message: "#^PHPDoc tag @throws has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 349$#"
       count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\#2 \\$rows of method App\\\\Notify\\\\Client\\:\\:buildBulkPayload\\(\\) expects array\\<string\\>, array\\<int, array\\<int, string\\>\\> given\\.$#"
-      count: 2
       path: app/Notify/Client.php
 
     -
@@ -2118,29 +1913,9 @@ parameters:
       path: app/Notify/Client.php
 
     -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 2
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\#1 \\$boolean of static method App\\\\Events\\\\CandidateStatusChanged\\:\\:dispatchIf\\(\\) expects bool, string given\\.$#"
-      count: 1
-      path: app/Observers/PoolCandidateObserver.php
-
-    -
       message: "#^Parameter \\#1 \\$trackingNumber of class App\\\\Notifications\\\\TalentRequestSubmissionConfirmation constructor expects string, int given\\.$#"
       count: 1
       path: app/Observers/PoolCandidateSearchRequestObserver.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Observers/PoolObserver.php
-
-    -
-      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
-      count: 1
-      path: app/Observers/UserObserver.php
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
@@ -2188,16 +1963,6 @@ parameters:
       path: app/Policies/PoolCandidatePolicy.php
 
     -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\PoolCandidate\\. Use \\-\\> instead\\.$#"
-      count: 12
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
       count: 2
       path: app/Policies/PoolPolicy.php
@@ -2209,11 +1974,6 @@ parameters:
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
-      count: 1
-      path: app/Policies/PoolPolicy.php
-
-    -
-      message: "#^Strict comparison using \\=\\=\\= between bool and 'DRAFT' will always evaluate to false\\.$#"
       count: 1
       path: app/Policies/PoolPolicy.php
 
@@ -2304,11 +2064,6 @@ parameters:
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\:\\:\\$pivot\\.$#"
-      count: 2
-      path: app/Rules/SkillLevelRequiredIfEssential.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\. Use \\-\\> instead\\.$#"
       count: 2
       path: app/Rules/SkillLevelRequiredIfEssential.php
 

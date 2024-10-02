@@ -192,8 +192,8 @@ const CopyApplicationIdAction = ({
       fontSize="caption"
       data-h2-vertical-align="base(top)"
       icon={linkCopied ? CheckIcon : undefined}
-      onClick={() => {
-        navigator.clipboard.writeText(id);
+      onClick={async () => {
+        await navigator.clipboard.writeText(id);
         setLinkCopied(true);
       }}
       aria-label={

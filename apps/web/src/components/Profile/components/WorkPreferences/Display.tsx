@@ -107,7 +107,7 @@ const Display = ({
           description: "Location specifics label",
         })}
       >
-        {locationExemptions || notProvided}
+        {locationExemptions ?? notProvided}
       </FieldDisplay>
     </div>
   );

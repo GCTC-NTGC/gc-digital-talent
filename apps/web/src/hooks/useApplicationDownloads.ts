@@ -52,9 +52,9 @@ const useApplicationDownloads = () => {
 
   const downloadDoc = ({ id }: { id: Scalars["UUID"]["input"] }) => {
     executeDocMutation({ id })
-      .then((res) => {
+      .then(async (res) => {
         if (res?.data?.downloadApplicationDoc) {
-          executeAsyncDownload({
+          await executeAsyncDownload({
             url: paths.userGeneratedFile(res.data.downloadApplicationDoc),
             fileName: res.data.downloadApplicationDoc,
           });

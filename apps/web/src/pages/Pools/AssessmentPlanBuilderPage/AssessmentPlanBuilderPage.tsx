@@ -21,6 +21,7 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -136,10 +137,9 @@ export const AssessmentPlanBuilder = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
   query AssessmentPlanBuilderPage($poolId: UUID!) {
@@ -173,10 +173,7 @@ export const AssessmentPlanBuilderPage = () => {
   );
 
   if (!poolId) {
-    throw new Response(notFoundMessage, {
-      status: 404,
-      statusText: "Not Found",
-    });
+    throw new NotFoundError(notFoundMessage);
   }
 
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =

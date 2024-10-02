@@ -89,7 +89,7 @@ describe("Create Account Form tests", () => {
     // Ensure conditional form elements don't exist yet.
     expect(
       screen.queryByRole("group", {
-        name: /contract type/i,
+        name: /employment type/i,
       }),
     ).not.toBeInTheDocument();
     expect(
@@ -122,7 +122,7 @@ describe("Create Account Form tests", () => {
 
     expect(
       screen.getByRole("group", {
-        name: /contract type/i,
+        name: /employment type/i,
       }),
     ).toBeInTheDocument();
     expect(
@@ -180,7 +180,7 @@ describe("Create Account Form tests", () => {
     });
 
     const departmentOption = screen.getByRole("option", {
-      name: mockDepartments[0].name.en || "",
+      name: mockDepartments[0].name.en ?? "",
     });
     await user.click(department);
     await user.click(departmentOption);

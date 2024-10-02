@@ -29,13 +29,13 @@ const CommunityDisplay = ({ initialData }: CommunityDisplayProps) => {
         hasError={!name?.en}
         label={intl.formatMessage(adminMessages.nameEn)}
       >
-        {name?.en || notProvided}
+        {name?.en ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!name?.fr}
         label={intl.formatMessage(adminMessages.nameFr)}
       >
-        {name?.fr || notProvided}
+        {name?.fr ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!description?.en}

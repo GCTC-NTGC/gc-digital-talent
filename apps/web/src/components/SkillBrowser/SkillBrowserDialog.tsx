@@ -124,7 +124,7 @@ const SkillBrowserDialog = ({
 
   const triggerProps = {
     id: trigger?.id,
-    children: trigger?.label || triggerMessage,
+    children: trigger?.label ?? triggerMessage,
     icon: derivedIcon,
     mode: trigger?.mode,
     disabled: trigger?.disabled,
@@ -133,7 +133,7 @@ const SkillBrowserDialog = ({
 
   useEffect(() => {
     if (watchSkill) {
-      formTrigger("skill");
+      void formTrigger("skill");
     }
   }, [watchSkill, formTrigger]);
 
@@ -145,7 +145,7 @@ const SkillBrowserDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
-        {customTrigger || (
+        {customTrigger ?? (
           <Button {...triggerProps} {...rest} color="secondary" />
         )}
       </Dialog.Trigger>

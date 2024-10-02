@@ -21,7 +21,7 @@ const Display = ({
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { language, securityClearance, location, isRemote } = pool;
 
-  const hasLocation = !!(isRemote || location?.[locale]);
+  const hasLocation = !!(isRemote ?? location?.[locale]);
 
   return (
     <>
@@ -69,13 +69,13 @@ const Display = ({
               hasError={!hasLocation}
               label={intl.formatMessage(processMessages.locationEn)}
             >
-              {location?.en || notProvided}
+              {location?.en ?? notProvided}
             </ToggleForm.FieldDisplay>
             <ToggleForm.FieldDisplay
               hasError={!hasLocation}
               label={intl.formatMessage(processMessages.locationFr)}
             >
-              {location?.fr || notProvided}
+              {location?.fr ?? notProvided}
             </ToggleForm.FieldDisplay>
           </>
         )}

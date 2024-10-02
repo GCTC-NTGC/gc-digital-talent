@@ -20,7 +20,7 @@ const Test_TeamsQueryDocument = /* GraphQL */ `
  *
  * Get all the DCM team directly from the API.
  */
-export const getDCM: GraphQLRequestFunc<Team> = async (ctx) => {
+export const getDCM: GraphQLRequestFunc<Team | undefined> = async (ctx, {}) => {
   return await ctx
     .post(Test_TeamsQueryDocument)
     .then((res: GraphQLResponse<"teams", Team[]>) => {

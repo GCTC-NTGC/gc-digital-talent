@@ -218,10 +218,9 @@ const JobPosterTemplatePage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   templateId: Scalars["ID"]["output"];
-};
+}
 
 const context: Partial<OperationContext> = {
   requestPolicy: "cache-first",

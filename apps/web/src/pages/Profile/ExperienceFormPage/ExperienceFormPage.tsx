@@ -317,7 +317,7 @@ export const ExperienceForm = ({
   } = useExperienceMutations(experience ? "update" : "create", type);
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    const args = getMutationArgs(experienceId || userId || "", values);
+    const args = getMutationArgs(experienceId ?? userId ?? "", values);
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
       return res
@@ -330,7 +330,7 @@ export const ExperienceForm = ({
     return undefined;
   };
 
-  const experienceIdExact = experienceId || "";
+  const experienceIdExact = experienceId ?? "";
   const executeDeletionMutation = useDeleteExperienceMutation(
     type || undefined,
   );
@@ -638,12 +638,11 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];
-};
+}
 
 interface ExperienceFormContainerProps {
   edit?: boolean;
@@ -674,10 +673,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
         <ExperienceForm
           edit={edit}
           experienceQuery={experience}
-          experienceId={experienceId || ""}
+          experienceId={experienceId ?? ""}
           experienceType={experienceType}
           skillsQuery={skills}
-          userId={userAuthInfo?.id || ""}
+          userId={userAuthInfo?.id ?? ""}
         />
       ) : (
         <ThrowNotFound

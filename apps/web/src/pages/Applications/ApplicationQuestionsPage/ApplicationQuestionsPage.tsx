@@ -59,14 +59,14 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
+    application.pool.screeningQuestions?.filter(notEmpty) ?? [];
   const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+    application.screeningQuestionResponses?.filter(notEmpty) ?? [];
   const generalQuestions =
-    application.pool.generalQuestions?.filter(notEmpty) || [];
+    application.pool.generalQuestions?.filter(notEmpty) ?? [];
   const generalQuestionResponses =
-    application.generalQuestionResponses?.filter(notEmpty) || [];
-  const handleSubmit = async (formValues: FormValues) => {
+    application.generalQuestionResponses?.filter(notEmpty) ?? [];
+  const handleSubmit = (formValues: FormValues) => {
     const data = formValuesToSubmitData(
       formValues,
       screeningQuestionResponses,

@@ -21,7 +21,7 @@ const MetaData = ({ children, type, color }: MetaDataProps) => {
     case "chip":
       return (
         <span>
-          <Chip color={color || "primary"} data-h2-font-weight="base(400)">
+          <Chip color={color ?? "primary"} data-h2-font-weight="base(400)">
             {children}
           </Chip>
         </span>

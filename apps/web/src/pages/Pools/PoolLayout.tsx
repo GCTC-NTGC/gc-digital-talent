@@ -174,7 +174,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
               }
         }
         contentRight={
-          (currentPage?.link.url.includes("edit") ||
+          (currentPage?.link.url.includes("edit") ??
             currentPage?.link.url.includes("plan")) &&
           badge.label && (
             <Chip color={badge.color} data-h2-flex-shrink="base(0)">
@@ -201,10 +201,9 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: string;
-};
+}
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");

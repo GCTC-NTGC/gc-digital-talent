@@ -50,7 +50,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
   );
 
   const members: CommunityMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(community.roleAssignments || []),
+    () => groupRoleAssignmentsByUser(community.roleAssignments ?? []),
     [community.roleAssignments],
   );
 
@@ -160,10 +160,9 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
-};
+}
 
 const CommunityMembersPage = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");

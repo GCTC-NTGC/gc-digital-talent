@@ -205,7 +205,7 @@ export const ApplicationCareerTimeline = ({
   const hasSomeExperience = !!experiences.length;
   const hasExperiencesByType = !!experienceList.length;
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     executeMutation({
       id: application.id,
       application: {
