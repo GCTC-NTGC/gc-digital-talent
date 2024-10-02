@@ -312,7 +312,7 @@ const UpdateSearchRequest = ({
           status: result.data.updatePoolCandidateSearchRequest.status?.value,
         };
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   if (fetching) return <Loading inline />;

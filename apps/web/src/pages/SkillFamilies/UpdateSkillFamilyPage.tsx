@@ -328,7 +328,7 @@ const UpdateSkillFamilyPage = () => {
       if (result.data?.updateSkillFamily) {
         return result.data?.updateSkillFamily;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({

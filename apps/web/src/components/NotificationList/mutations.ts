@@ -47,12 +47,12 @@ export function useMarkAsRead(
     return executeMutation({ id })
       .then((res) => {
         if (!res.data?.markNotificationAsRead) {
-          return Promise.reject();
+          return Promise.reject(new Error(res.error?.toString()));
         }
 
         return Promise.resolve();
       })
-      .catch(() => Promise.reject());
+      .catch(() => Promise.reject(new Error()));
   }
 
   return [{ fetching }, markAsRead];

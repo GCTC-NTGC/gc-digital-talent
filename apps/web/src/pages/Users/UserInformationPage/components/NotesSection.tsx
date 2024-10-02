@@ -32,7 +32,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
     if (res.data?.updatePoolCandidateNotes) {
       return res.data.updatePoolCandidateNotes;
     }
-    return Promise.reject(res.error);
+    return Promise.reject(new Error(res.error?.toString()));
   };
 
   const handleSubmit = (formValues: Record<string, string>) => {

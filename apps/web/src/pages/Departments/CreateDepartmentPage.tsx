@@ -137,7 +137,7 @@ const CreateDepartmentPage = () => {
       if (result.data?.createDepartment) {
         return result.data?.createDepartment;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({

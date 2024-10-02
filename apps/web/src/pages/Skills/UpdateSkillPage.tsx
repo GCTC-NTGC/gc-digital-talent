@@ -401,7 +401,7 @@ export const UpdateSkill = () => {
       if (result.data?.updateSkill) {
         return result.data?.updateSkill;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({
