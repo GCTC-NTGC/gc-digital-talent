@@ -527,6 +527,10 @@
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement à long terme sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
     "description": "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_"
   },
+  "0cevfA": {
+    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour ce ou cette membre :",
+    "description": "Lead in text for the add role to user form."
+  },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
@@ -734,6 +738,10 @@
   "1sutYh": {
     "defaultMessage": "Familles de compétences (anglais)",
     "description": "Title for skill families in English"
+  },
+  "1xI8uo": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
+    "description": "Instructions for adding a role to a user."
   },
   "2/fjEP": {
     "defaultMessage": "Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation?",
@@ -1111,6 +1119,10 @@
     "defaultMessage": "PM-04 : Analyste",
     "description": "PM-04 classification label including titles"
   },
+  "47YSK0": {
+    "defaultMessage": "Sélectionnez les rôles que vous souhaitez conserver",
+    "description": "Role editing details"
+  },
   "491LrZ": {
     "defaultMessage": "Je suis actuellement actif dans ces études",
     "description": "Label displayed on Education Experience form for current education input"
@@ -1371,6 +1383,10 @@
     "defaultMessage": "Modèles d'offres d'emploi",
     "description": "Heading for the page showing list of job poster templates"
   },
+  "58l6yP": {
+    "defaultMessage": "Sélectionnez la collectivité et les rôles que vous souhaitez ajouter",
+    "description": "Lead in text for the pick community and roles inputs."
+  },
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
@@ -1591,6 +1607,10 @@
     "defaultMessage": "Exigences de poste acceptables",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
+  "6UiKYE": {
+    "defaultMessage": "Rôles dans la collectivité",
+    "description": "Label for the input to select role of a community role"
+  },
   "6VyRZ/": {
     "defaultMessage": "Expériences personnelles",
     "description": "Heading for personal experiences in experience by type listing"
@@ -1686,6 +1706,10 @@
   "7+GPYf": {
     "defaultMessage": "Des évaluations avec de réels utilisateurs",
     "description": "Heading for how we test accessibility."
+  },
+  "7+HKOE": {
+    "defaultMessage": "Du processus suivant :",
+    "description": "Follow in text for the process being updated"
   },
   "71+GZq": {
     "defaultMessage": "Un groupe d’Autochtones qui se tiennent debout avec un tambour à main peint.",
@@ -2050,6 +2074,10 @@
   "953EAy": {
     "defaultMessage": "Compétence {skillId} non trouvée.",
     "description": "Message displayed for skill not found."
+  },
+  "95aNQ1": {
+    "defaultMessage": "Vous êtes sur le point de retirer ce ou cette membre :",
+    "description": "Lead in text for removing roles on user form."
   },
   "96AvU9": {
     "defaultMessage": "Vous avez répondu aux questions générales suivantes :",
@@ -2443,6 +2471,10 @@
     "defaultMessage": "Télécharger le jeu de données intégral",
     "description": "Text label for button to download a csv file of all items in a table."
   },
+  "B6cKp+": {
+    "defaultMessage": "Rôles dans des collectivités",
+    "description": "Heading for updating a user's community roles"
+  },
   "B75J3Q": {
     "defaultMessage": "Chef opérationnel",
     "description": "Label for _business owner_ fieldset in the _digital services contracting questionnaire_"
@@ -2715,6 +2747,10 @@
     "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
     "description": "Message displayed to user after the request status fails to be updated."
   },
+  "CcLolQ": {
+    "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
+    "description": "Lead in text for the pick process and roles inputs."
+  },
   "CdS26V": {
     "defaultMessage": "Au Canada et aux États-Unis",
     "description": "GCKey answer for who to contact about GCKey, Canada and United States area for phone number"
@@ -2855,6 +2891,10 @@
     "defaultMessage": "Adresse courriel non valide. Essayez de nouveau ou envoyez un courriel à <anchorTag>{emailAddress}</anchorTag>.",
     "description": "Support form toast message error"
   },
+  "DP8Q/M": {
+    "defaultMessage": "Retirer du processus",
+    "description": "Label for the form to remove a process role from a user"
+  },
   "DPfJ30": {
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
@@ -2902,6 +2942,10 @@
   "DZfLMk": {
     "defaultMessage": "Ce compte d'utilisateur a été supprimé. Veuillez <inlineLink>communiquer avec nous</inlineLink> si vous avez des questions.",
     "description": "Message displayed to a user after signing into a deleted account"
+  },
+  "DbWxZl": {
+    "defaultMessage": "Cherchez les rôles dans des processus",
+    "description": "Label for the process roles table search input"
   },
   "DcEinN": {
     "defaultMessage": "Erreur, incapable de charger le bassin",
@@ -3751,6 +3795,10 @@
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
     "description": "Second paragraph for pool deadlines dialog"
   },
+  "IReTZe": {
+    "defaultMessage": "Modifier les rôles dans le processus",
+    "description": "Label for the form to edit a users process membership"
+  },
   "ISSs88": {
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
@@ -4078,6 +4126,10 @@
   "K+roYh": {
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for publish pool dialog"
+  },
+  "K+vmQl": {
+    "defaultMessage": "Ajoutez un rôle dans l'équipe",
+    "description": "Label for the form to add a team membership to a user"
   },
   "K0Zkdw": {
     "defaultMessage": "Compétences constituant un atout",
@@ -4639,6 +4691,10 @@
     "defaultMessage": "Vous n'avez pas reçu de code ?",
     "description": "intro to request a new code"
   },
+  "MxmB1v": {
+    "defaultMessage": "Utilisez le bouton« Ajoutez un rôle dans la collectivité » pour commencer.",
+    "description": "Instructions for adding community membership to a user."
+  },
   "Mxu+IY": {
     "defaultMessage": "Inconnu",
     "description": "Contract start timeframe is unknown"
@@ -4895,6 +4951,10 @@
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
   },
+  "OTWd3v": {
+    "defaultMessage": "Sélectionnez la collectivité",
+    "description": "Placeholder text for community selection input"
+  },
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
     "description": "Introduction for _skills_ fieldset in the _digital services contracting questionnaire_"
@@ -4962,6 +5022,10 @@
   "OlZeZO": {
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder message when there is no skill category selected"
+  },
+  "OlarTN": {
+    "defaultMessage": "Ajoutez un rôle dans la collectivité",
+    "description": "Label for the form to add a community membership to a user"
   },
   "OleLgS": {
     "defaultMessage": "Ajouter « {title} » à votre profil",
@@ -5178,6 +5242,10 @@
   "Ps929U": {
     "defaultMessage": "Erreur : La mise à jour de votre autodéclaration a échoué",
     "description": "Message displayed to user after self-declaration fails to be updated."
+  },
+  "PsGkXc": {
+    "defaultMessage": "Modifier les rôles dans la collectivité",
+    "description": "Label for the form to edit a users community membership"
   },
   "PvH5lJ": {
     "defaultMessage": "Ce que nous entendons",
@@ -6990,6 +7058,10 @@
     "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
   },
+  "ZHDOB5": {
+    "defaultMessage": "Utilisez le bouton« Ajoutez un rôle dans l'équipe » pour commencer.",
+    "description": "Instructions for adding team membership to a user."
+  },
   "ZIDY0W": {
     "defaultMessage": "Considérations relatives aux opérations",
     "description": "Heading for the Operations considerations section on the digital services contracting questionnaire"
@@ -7934,6 +8006,10 @@
     "defaultMessage": "Sélection des compétences",
     "description": "Title for the skill filters on search page."
   },
+  "eGqjYh": {
+    "defaultMessage": "Rôles dans des processus",
+    "description": "Heading for updating a user's process roles"
+  },
   "eIxShU": {
     "defaultMessage": "IT-04 : Conseiller principal ou Gestionnaire",
     "description": "IT-04 classification label including titles"
@@ -8574,6 +8650,10 @@
     "defaultMessage": "Les compétences sont divisées en types techniques et comportementaux, et chaque type possède une échelle unique à 4 niveaux.",
     "description": "Subtitle for the skill level definitions dialog"
   },
+  "hJDRa/": {
+    "defaultMessage": "De la collectivité suivante :",
+    "description": "Follow in text for the community being updated"
+  },
   "hKofhr": {
     "defaultMessage": "Voir l’expérience",
     "description": "Link text to view a specific experience"
@@ -8605,6 +8685,10 @@
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
+  },
+  "hS96pl": {
+    "defaultMessage": "L'utilisatrice ou l'utilisateur perdra tous les rôles suivants dans le processus :",
+    "description": "Text notifying user which process roles will be removed from the user"
   },
   "hSmKjD": {
     "defaultMessage": "Absolument! Votre temps est précieux. Les apprentis recevront une rémunération et des avantages sociaux à titre d’employés du gouvernement du Canada. Au départ, les apprenti(e)s gagneront entre 29 $ et 33 $ de l’heure. Le salaire exact est déterminé au moment de l’embauche, et dépend de la convention collective en vigueur au sein de l’organisation qui les embauche. Les apprentis seront employés à temps plein, pour un total de 37,5 heures par semaine.",
@@ -8693,6 +8777,10 @@
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
+  },
+  "hryX4G": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez des rôles dans des processus  » pour commencer.",
+    "description": "Instructions for adding process membership to a user."
   },
   "htxH4r": {
     "defaultMessage": "Retourner à votre tableau de bord",
@@ -9726,6 +9814,10 @@
     "defaultMessage": "Une combinaison acceptable d’études, de formation et d’expérience, ou une note satisfaisante à l’examen de la Commission de la fonction publique qui est approuvé comme équivalence d’un diplôme d’études secondaires.",
     "description": "Descriptive text explaining valid a applied work experience for the PM classification group."
   },
+  "nBaT85": {
+    "defaultMessage": "Vous êtes sur le point de modifier les rôles de ce ou cette membre :",
+    "description": "Lead in text for the edit roles on user form."
+  },
   "nDm9dX": {
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
@@ -9897,6 +9989,10 @@
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
+  },
+  "oDr+47": {
+    "defaultMessage": "Ajoutez un rôle individuel",
+    "description": "Label for the form to add a role to a user"
   },
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
@@ -10158,6 +10254,10 @@
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
     "description": "Subtitle for confirmation to delete a skill"
   },
+  "pZ8pDw": {
+    "defaultMessage": "Retirer de la collectivité",
+    "description": "Label for the form to remove a community role from a user"
+  },
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
@@ -10406,6 +10506,10 @@
     "defaultMessage": "Aucun nom de famille fourni",
     "description": "Fallback for last name value"
   },
+  "rBvWsd": {
+    "defaultMessage": "Ajouter des rôles dans des processus",
+    "description": "Label for the form to add a process membership to a user"
+  },
   "rCpVpZ": {
     "defaultMessage": "Vous avez indiqué que vous répondiez aux <strong>exigences minimales en matière d’expérience ou d’études (2 années d’études post-secondaires)</strong> en mentionnant les expériences suivantes sur votre parcours professionnel :",
     "description": "Message on education requirements card on the application review page."
@@ -10537,6 +10641,10 @@
   "ry3jFR": {
     "defaultMessage": "Votre impact",
     "description": "Sub title for the pool introduction"
+  },
+  "ryeKXV": {
+    "defaultMessage": "Cherchez des rôles dans des collectivités",
+    "description": "Label for the community roles table search input"
   },
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
@@ -11801,6 +11909,10 @@
   "zrEIiB": {
     "defaultMessage": "Deuxièmement, dans le cadre de la mise à l’essai d’un projet pilote d’une durée d’un an, il en est ressorti que les gestionnaires ne trouvaient pas utiles les renseignements sur les compétences comportementales que les candidats avaient eux-mêmes fournis. Ils trouvaient plutôt que d’autres formes d’évaluation (comme les vérifications des références et les entrevues) étaient de bien meilleurs indicateurs que les longs paragraphes sur la façon dont le candidat devait faire preuve de son esprit de collaboration, son positivisme ou son inclusion des autres.",
     "description": "Third paragraph of first answer of the Frequently Asked Questions for logging in"
+  },
+  "zsOKOD": {
+    "defaultMessage": "L'utilisatrice ou l'utilisateur perdra tous les rôles suivants dans la collectivité :",
+    "description": "Text notifying user which community roles will be removed from the user"
   },
   "zsU6/U": {
     "defaultMessage": "Puis-je utiliser l'authentification par message texte ou courriel au lieu d'une appli?",
