@@ -43,6 +43,16 @@ const createRoute = (locale: Locales) =>
                       "../pages/Manager/ManagerDashboardPage/ManagerDashboardPage"
                     ),
                 },
+                {
+                  path: "talent-requests",
+                  loader: async () => {
+                    throw new Response("Not Found", { status: 404 }); // unfinished page
+                  },
+                  lazy: () =>
+                    import(
+                      "../pages/Manager/ManagerRequestHistoryPage/ManagerRequestHistoryPage"
+                    ),
+                },
               ],
             },
             {
