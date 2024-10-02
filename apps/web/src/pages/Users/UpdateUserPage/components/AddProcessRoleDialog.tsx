@@ -55,7 +55,7 @@ const AddProcessRoleDialog = ({
   const { id, firstName, lastName } = user;
   const userName = getFullNameHtml(firstName, lastName, intl);
 
-  const roleAssignments = authInfo?.roleAssignments || [];
+  const roleAssignments = authInfo?.roleAssignments ?? [];
   const activePoolIds = roleAssignments
     .filter((ra) => isPoolTeamable(ra?.teamable))
     .map((ra) => {
