@@ -65,7 +65,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], type);
-    const args = getMutationArgs(userAuthInfo?.id || "", submitData);
+    const args = getMutationArgs(userAuthInfo?.id ?? "", submitData);
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {

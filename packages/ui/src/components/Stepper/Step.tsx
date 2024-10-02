@@ -26,7 +26,7 @@ const StepLink = ({
     return (
       // NOTE: This is a custom disabled link component
       // eslint-disable-next-line react/forbid-elements
-      <a role="link" aria-disabled="true" {...(linkStyles || {})} {...rest}>
+      <a role="link" aria-disabled="true" {...(linkStyles ?? {})} {...rest}>
         {children}
       </a>
     );
@@ -37,7 +37,7 @@ const StepLink = ({
       aria-current={state.includes("active") ? "step" : undefined}
       href={href}
       mode="text"
-      {...(linkStyles || {})}
+      {...(linkStyles ?? {})}
       {...rest}
     >
       {children}

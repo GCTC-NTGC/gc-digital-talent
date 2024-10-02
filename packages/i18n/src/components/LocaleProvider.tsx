@@ -45,7 +45,7 @@ interface LocaleProviderProps {
 
 const LocaleProvider = ({ children }: LocaleProviderProps) => {
   const pathLocale = getPathLocale(window.location.pathname);
-  const desiredLocale = pathLocale || guessLocale(); // figure it out from the path, storage, or browser
+  const desiredLocale = pathLocale ?? guessLocale(); // figure it out from the path, storage, or browser
   const [locale, setLocale] = useState<Locales>(desiredLocale);
 
   useEffect(() => {

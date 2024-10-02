@@ -536,7 +536,7 @@ export const EditPoolForm = ({
                         asListItem={false}
                         title={meta.shortTitle ?? meta.title}
                         status={
-                          meta.hasError ? "error" : meta.status || "success"
+                          meta.hasError ? "error" : (meta.status ?? "success")
                         }
                         scrollTo={meta.id}
                       />

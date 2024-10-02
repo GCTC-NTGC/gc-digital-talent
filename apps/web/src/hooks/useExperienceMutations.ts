@@ -160,7 +160,9 @@ export const useExperienceMutations = (
   ): ExperienceMutationArgs => {
     return {
       id,
-      [args[experienceType || "personal"]]: values,
+      ...(!!experienceType && {
+        [args[experienceType]]: values,
+      }),
     } as ExperienceMutationArgs;
   };
 

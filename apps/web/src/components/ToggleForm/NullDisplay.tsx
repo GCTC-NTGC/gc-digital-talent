@@ -37,7 +37,7 @@ const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
         </p>
       )}
       <p data-h2-font-weight="base(400)" data-h2-text-align="base(center)">
-        {content ||
+        {content ??
           intl.formatMessage({
             defaultMessage: `Use the "Edit" button to get started.`,
             id: "2m5USi",

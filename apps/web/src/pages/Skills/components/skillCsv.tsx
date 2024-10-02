@@ -18,11 +18,11 @@ export const getSkillCsvData = (
         nameEn: name.en,
         categoryEn: category.label?.en,
         skillFamiliesEn: getSkillFamilies(families, intlEn),
-        descriptionEn: description?.en || "",
+        descriptionEn: description?.en ?? "",
         nameFr: name.fr,
         categoryFr: category.label?.fr,
         skillFamiliesFr: getSkillFamilies(families, intlFr),
-        descriptionFr: description?.fr || "",
+        descriptionFr: description?.fr ?? "",
       };
     },
   );

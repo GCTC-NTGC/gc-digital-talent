@@ -79,13 +79,13 @@ const ExperienceSkillForm = ({
   );
   const experienceType = selectedExperience
     ? deriveExperienceType(selectedExperience)
-    : "";
+    : "personal";
   const { executeMutation, getMutationArgs, executing } =
     useExperienceMutations("update", experienceType);
 
   const handleSubmit = async (formValues: FormValues) => {
     const args = getMutationArgs(
-      formValues.experience || "",
+      formValues.experience ?? "",
       formValues.skill
         ? {
             skills: getSkillArgs(

@@ -28,9 +28,11 @@ test.describe("Login and logout", () => {
 
     // complete login process
     const request = await requestPromise;
-    const location = await request
-      .response()
-      .then((res) => res.headerValue("location"));
+    const location = String(
+      await request
+        .response()
+        .then((res) => res?.headerValue("location") ?? ""),
+    );
     const url = new URL(location);
     const searchParamAccessToken = url.searchParams.get("access_token");
 
@@ -104,7 +106,7 @@ test.describe("Login and logout", () => {
 
     // time travel to when the tokens expire before trying to navigate
     const tokenSet1 = await getAuthTokens(page);
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1?.accessToken ?? ""));
 
     const request = await requestPromise;
     await page.goto("/en/applicant");
@@ -171,7 +173,7 @@ test.describe("Login and logout", () => {
     // get auth tokens set 1
     const tokenSet1 = await getAuthTokens(page);
     // time travel to when the tokens from token set 1 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1?.accessToken ?? ""));
 
     const request = await requestPromise;
     // navigate to a page
@@ -205,7 +207,7 @@ test.describe("Login and logout", () => {
     // reset clock
     await clockHelper.restore();
     // time travel to when the tokens from token set 2 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2?.accessToken ?? ""));
 
     const request2 = await requestPromise;
     // navigate to a page
@@ -239,7 +241,7 @@ test.describe("Login and logout", () => {
     // reset clock
     await clockHelper.restore();
     // time travel to when the tokens from token set 3 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3?.accessToken ?? ""));
 
     const request3 = await requestPromise;
     // navigate to a page

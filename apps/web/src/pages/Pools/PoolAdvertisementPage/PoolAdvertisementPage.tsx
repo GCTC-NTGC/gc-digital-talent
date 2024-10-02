@@ -311,7 +311,7 @@ export const PoolPoster = ({
 
   const { classification } = pool;
   const genericJobTitles =
-    classification?.genericJobTitles?.filter(notEmpty) || [];
+    classification?.genericJobTitles?.filter(notEmpty) ?? [];
   let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
     classificationString = formatClassificationString({
@@ -693,7 +693,7 @@ export const PoolPoster = ({
                       classification?.minSalary,
                       classification?.maxSalary,
                       locale,
-                    ) || notAvailable
+                    ) ?? notAvailable
                   }
                   suffix={
                     salaryRangeUrl && (
@@ -1319,7 +1319,7 @@ export const Component = () => {
   });
 
   const isVisible = isAdvertisementVisible(
-    auth?.roleAssignments?.filter(notEmpty) || [],
+    auth?.roleAssignments?.filter(notEmpty) ?? [],
     data?.pool?.status?.value ?? null,
   );
 

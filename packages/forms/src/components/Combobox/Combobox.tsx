@@ -101,9 +101,9 @@ const Combobox = ({
     inputProps,
     fetching,
     isExternalSearch,
-    total: total || options.length,
-    clearLabel: clearLabel || intl.formatMessage(formMessages.resetCombobox),
-    toggleLabel: toggleLabel || intl.formatMessage(formMessages.toggleCombobox),
+    total: total ?? options.length,
+    clearLabel: clearLabel ?? intl.formatMessage(formMessages.resetCombobox),
+    toggleLabel: toggleLabel ?? intl.formatMessage(formMessages.toggleCombobox),
   };
 
   const isMoreThanMin = (value: string | string[]) => {

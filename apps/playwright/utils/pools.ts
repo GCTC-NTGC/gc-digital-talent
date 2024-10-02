@@ -80,25 +80,25 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
 ) => {
   let teamId = opts.teamId;
   if (!teamId) {
-    const team = await getDCM(ctx);
-    teamId = team.id;
+    const team = await getDCM(ctx, {});
+    teamId = team?.id;
   }
 
   let communityId = opts.communityId;
   if (!communityId) {
-    const communities = await getCommunities(ctx);
+    const communities = await getCommunities(ctx, {});
     communityId = communities[0].id;
   }
 
   let classificationId = opts.classificationId;
   if (!classificationId) {
-    const classifications = await getClassifications(ctx);
+    const classifications = await getClassifications(ctx, {});
     classificationId = classifications[0].id;
   }
 
   let departmentId = opts.departmentId;
   if (!departmentId) {
-    const departments = await getDepartments(ctx);
+    const departments = await getDepartments(ctx, {});
     departmentId = departments[0].id;
   }
 
@@ -172,12 +172,12 @@ export const createPoolSkill: GraphQLRequestFunc<
 > = async (ctx, { poolId, poolSkill, ...opts }) => {
   let skillId = opts?.skillId;
   if (!skillId) {
-    const technicalSkill = await getSkills(ctx).then((skills) => {
+    const technicalSkill = await getSkills(ctx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
     });
-    skillId = technicalSkill.id;
+    skillId = technicalSkill?.id;
   }
 
   return ctx

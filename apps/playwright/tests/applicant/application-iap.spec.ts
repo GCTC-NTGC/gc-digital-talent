@@ -54,7 +54,7 @@ test.describe("IAP Application", () => {
     });
 
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser.id,
+      userId: createdUser?.id ?? "",
       input: {
         publishingGroup: PublishingGroup.Iap,
         generalQuestions: {

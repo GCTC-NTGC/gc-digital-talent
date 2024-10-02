@@ -27,7 +27,7 @@ export const getCellStyles: GetCellStyles = ({
   isRowSelect,
   shouldShrink,
 }) => {
-  const shrinkCol = shouldShrink || isRowSelect;
+  const shrinkCol = shouldShrink ?? isRowSelect;
   return {
     td: {
       ...(!isRowTitle &&

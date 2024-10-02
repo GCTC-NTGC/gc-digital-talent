@@ -45,7 +45,7 @@ const LanguageSelector = () => {
     ],
   ]);
 
-  const currentLocale = localeMap.get(locale || "");
+  const currentLocale = localeMap.get(locale ?? "");
 
   const handleLocaleChange = (value: string) => {
     if (localeMap.get(value)) {
@@ -86,7 +86,7 @@ const LanguageSelector = () => {
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
             <Button color="primary" utilityIcon={ChevronDownIcon}>
-              {currentLocale ||
+              {currentLocale ??
                 intl.formatMessage({
                   defaultMessage:
                     "Select<hidden> an Indigenous language</hidden>",
@@ -98,7 +98,7 @@ const LanguageSelector = () => {
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
             <DropdownMenu.RadioGroup
-              value={locale || undefined}
+              value={locale ?? undefined}
               onValueChange={handleLocaleChange}
             >
               {Array.from(localeMap).map(([key, value]) => (

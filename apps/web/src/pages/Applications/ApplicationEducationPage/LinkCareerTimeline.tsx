@@ -281,7 +281,7 @@ const LinkCareerTimeline = ({
             ...checklistItems.allExperiences,
             {
               value: experience.id,
-              label: experience.title || "",
+              label: experience.title ?? "",
             },
           ],
         };

@@ -50,7 +50,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
   );
 
   const members: CommunityMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(community.roleAssignments || []),
+    () => groupRoleAssignmentsByUser(community.roleAssignments ?? []),
     [community.roleAssignments],
   );
 

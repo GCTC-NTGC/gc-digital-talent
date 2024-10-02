@@ -59,7 +59,7 @@ export function getNextStepToSubmit(
     });
 
     nextStep =
-      nonSubmittedStep ||
+      nonSubmittedStep ??
       stepsInThisApplication[stepsInThisApplication.length - 1];
   }
 
@@ -101,7 +101,7 @@ export function applicationStepsToStepperArgs(
     .map((step) => {
       return {
         href: step.mainPage.link.url,
-        label: step.mainPage.link.label || step.mainPage.title,
+        label: step.mainPage.link.label ?? step.mainPage.title,
         completed:
           step.applicationStep &&
           application.submittedSteps?.includes(step.applicationStep),
