@@ -82,8 +82,8 @@ const UpdatePublishedProcessDialog = ({
     });
   };
 
-  const handleSave = () => {
-    methods.handleSubmit(handleUpdate)();
+  const handleSave = async () => {
+    await methods.handleSubmit(handleUpdate)();
   };
 
   const label = intl.formatMessage({

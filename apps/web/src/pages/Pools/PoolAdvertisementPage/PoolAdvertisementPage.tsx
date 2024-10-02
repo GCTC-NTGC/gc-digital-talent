@@ -549,8 +549,8 @@ export const PoolPoster = ({
                 mode="inline"
                 color="secondary"
                 icon={linkCopied ? CheckIcon : undefined}
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
+                onClick={async () => {
+                  await navigator.clipboard.writeText(window.location.href);
                   setLinkCopied(true);
                   setTimeout(() => {
                     setLinkCopied(false);
