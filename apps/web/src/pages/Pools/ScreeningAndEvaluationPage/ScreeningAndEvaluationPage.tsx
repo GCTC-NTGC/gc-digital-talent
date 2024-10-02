@@ -153,8 +153,8 @@ const ScreeningAndEvaluationPage = () => {
         .then((res) => {
           setCandidates(res);
         })
-        .catch((err) => {
-          logger.error(err);
+        .catch((err: unknown) => {
+          logger.error(String(err));
         });
     }
 

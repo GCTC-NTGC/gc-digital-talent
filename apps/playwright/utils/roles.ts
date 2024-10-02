@@ -19,5 +19,5 @@ const Test_RolesQueryDocument = /* GraphQL */ `
 export async function getRoles(ctx: GraphQLContext): Promise<Role[]> {
   const res = await ctx.post<{ roles: Role[] }>(Test_RolesQueryDocument);
 
-  return res.roles;
+  return res?.roles ?? [];
 }
