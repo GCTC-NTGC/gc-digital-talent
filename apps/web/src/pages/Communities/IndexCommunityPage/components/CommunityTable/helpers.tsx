@@ -19,7 +19,7 @@ export function viewCell(
 ) {
   return (
     <Link href={url} color="black" state={{ from: currentUrl ?? null }}>
-      {label || intl.formatMessage(commonMessages.noNameProvided)}
+      {label ?? intl.formatMessage(commonMessages.noNameProvided)}
     </Link>
   );
 }

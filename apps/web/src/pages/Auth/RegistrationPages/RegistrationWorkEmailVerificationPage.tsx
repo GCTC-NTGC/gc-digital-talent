@@ -42,12 +42,12 @@ const RegistrationWorkEmailVerificationPage = () => {
   });
 
   const handleVerificationSuccess = (): void => {
-    const navigationTarget = from || paths.profileAndApplications();
+    const navigationTarget = from ?? paths.profileAndApplications();
     navigate(navigationTarget);
   };
 
   const handleSkip = (): void => {
-    const navigationTarget = from || paths.profileAndApplications();
+    const navigationTarget = from ?? paths.profileAndApplications();
     navigate(navigationTarget);
   };
 

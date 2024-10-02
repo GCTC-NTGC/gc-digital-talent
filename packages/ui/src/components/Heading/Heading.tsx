@@ -18,7 +18,7 @@ const Heading = forwardRef<HeadingRef, HeadingProps>(
     return (
       <El
         ref={forwardedRef}
-        {...headingStyles[size || level]}
+        {...headingStyles[size ?? level]}
         {...(Icon && {
           "data-h2-display": "base(flex)",
           "data-h2-align-items": "base(center)",

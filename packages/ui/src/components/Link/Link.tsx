@@ -78,14 +78,14 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       return (
         // NOTE: We do want to allow external links to be rendered as <a> tags
         // eslint-disable-next-line react/forbid-elements
-        <a ref={ref} href={url || "#"} {...commonProps}>
+        <a ref={ref} href={url ?? "#"} {...commonProps}>
           {content}
         </a>
       );
     }
 
     return (
-      <RouterLink ref={ref} to={url || "#"} {...commonProps}>
+      <RouterLink ref={ref} to={url ?? "#"} {...commonProps}>
         {content}
       </RouterLink>
     );

@@ -65,7 +65,7 @@ const SkillSelection = ({
 
   useEffect(() => {
     if (onSelectSkill) {
-      onSelectSkill(selectedSkill || null);
+      onSelectSkill(selectedSkill ?? null);
     }
   }, [onSelectSkill, selectedSkill]);
 

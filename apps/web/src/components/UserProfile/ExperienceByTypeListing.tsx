@@ -99,15 +99,15 @@ const ExperienceByTypeListing = ({
             endDate: award.awardedDate,
           }) as AwardExperience & { startDate: string; endDate: string },
       )
-      .sort(compareByDate) || [];
+      .sort(compareByDate) ?? [];
   const communityExperiences =
-    experiences?.filter(isCommunityExperience).sort(compareByDate) || [];
+    experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [];
   const educationExperiences =
-    experiences?.filter(isEducationExperience).sort(compareByDate) || [];
+    experiences?.filter(isEducationExperience).sort(compareByDate) ?? [];
   const personalExperiences =
-    experiences?.filter(isPersonalExperience).sort(compareByDate) || [];
+    experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [];
   const workExperiences =
-    experiences?.filter(isWorkExperience).sort(compareByDate) || [];
+    experiences?.filter(isWorkExperience).sort(compareByDate) ?? [];
 
   return (
     <>

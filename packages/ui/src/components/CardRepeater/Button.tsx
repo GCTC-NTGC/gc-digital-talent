@@ -67,7 +67,7 @@ export const Add = forwardRef<
       {reachedMax ? (
         <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>
       ) : (
-        children || intl.formatMessage(formMessages.repeaterAddItem)
+        (children ?? intl.formatMessage(formMessages.repeaterAddItem))
       )}{" "}
       {max && `(${total}/${max})`}
     </Button>

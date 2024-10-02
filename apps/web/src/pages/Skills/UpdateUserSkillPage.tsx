@@ -357,7 +357,7 @@ export const UpdateUserSkillForm = ({
 
   const handleSuccess = (msg?: ReactNode) => {
     toast.success(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Successfully updated skill!",
           id: "Vfa3Ek",
@@ -369,7 +369,7 @@ export const UpdateUserSkillForm = ({
 
   const handleError = (msg?: ReactNode) => {
     toast.error(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
           id: "kfjmTt",

@@ -3,7 +3,7 @@ import type { CombinedError } from "urql";
 import { ReactNode, Suspense } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { isUuidError } from "@gc-digital-talent/helpers";
+import { isUuidError, NotFoundError } from "@gc-digital-talent/helpers";
 
 import Loading, { LoadingProps } from "../Loading";
 import ErrorMessage from "./ErrorMessage";
@@ -34,10 +34,7 @@ const Pending = ({
 
   if (error) {
     if (isUuidError(error)) {
-      throw new Response("", {
-        status: 404,
-        statusText: intl.formatMessage(commonMessages.notFound),
-      });
+      throw new NotFoundError(intl.formatMessage(commonMessages.notFound));
     }
 
     return <ErrorMessage error={error} />;

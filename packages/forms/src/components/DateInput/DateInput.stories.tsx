@@ -202,6 +202,7 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
       .then((res: Pool) => {
         setPool(res);
       })
+      .catch((err) => action("error")(err))
       .finally(() => {
         setFetching(false);
       });

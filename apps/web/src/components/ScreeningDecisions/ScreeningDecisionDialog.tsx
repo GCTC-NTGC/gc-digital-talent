@@ -223,7 +223,7 @@ const ScreeningQuestions = ({
 }) => {
   const intl = useIntl();
   const screeningQuestionResponses =
-    poolCandidate?.screeningQuestionResponses?.filter(notEmpty) || [];
+    poolCandidate?.screeningQuestionResponses?.filter(notEmpty) ?? [];
   const screeningQuestions = screeningQuestionResponses
     .map((response) => response.screeningQuestion)
     .filter(notEmpty);
@@ -249,7 +249,7 @@ const ScreeningQuestions = ({
               {screeningQuestionResponses.find(
                 (response) =>
                   response.screeningQuestion?.id === screeningQuestion.id,
-              )?.answer || intl.formatMessage(commonMessages.notFound)}
+              )?.answer ?? intl.formatMessage(commonMessages.notFound)}
             </Accordion.Content>
           </Accordion.Item>
         ))}
@@ -496,7 +496,7 @@ export const ScreeningDecisionDialog = ({
             onSubmit={onSubmit}
             labels={labels}
             options={{
-              defaultValues: initialValues || defaultValues,
+              defaultValues: initialValues ?? defaultValues,
             }}
           >
             <ScreeningDecisionDialogForm dialogType={dialogType} />
@@ -595,7 +595,7 @@ const ScreeningDecisionDialogApi = ({
   let assessmentDecision: Maybe<AssessmentDecision> | "noDecision" | undefined;
   if (hasBeenAssessed) {
     assessmentDecision =
-      assessmentResult?.assessmentDecision?.value || "noDecision";
+      assessmentResult?.assessmentDecision?.value ?? "noDecision";
   } else {
     assessmentDecision = assessmentResult?.assessmentDecision?.value;
   }
@@ -707,7 +707,7 @@ const ScreeningDecisionDialogApi = ({
                 assessmentResultType,
                 assessmentStepId: assessmentStep.id,
                 poolCandidateId: poolCandidate.id,
-                poolSkillId: poolSkill?.id || "",
+                poolSkillId: poolSkill?.id ?? "",
               }),
             )
       }

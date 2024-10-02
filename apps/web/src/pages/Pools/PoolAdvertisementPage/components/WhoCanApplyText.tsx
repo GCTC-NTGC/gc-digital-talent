@@ -8,7 +8,7 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
@@ -107,7 +107,6 @@ interface WhoCanApplyTextProps {
 
 const WhoCanApplyText = ({ poolQuery }: WhoCanApplyTextProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const pool = getFragment(PoolWhoCanApplyText_Fragment, poolQuery);
 
   const areaOfSelection =
@@ -124,7 +123,7 @@ const WhoCanApplyText = ({ poolQuery }: WhoCanApplyTextProps) => {
         })
       : intl.formatMessage(commonMessages.notProvided);
 
-  const departmentName = pool.department?.name[locale] || "";
+  const departmentName = getLocalizedName(pool.department?.name, intl, true);
 
   const { body, finePrint } = deriveWhoCanApplyMessages(
     areaOfSelection,

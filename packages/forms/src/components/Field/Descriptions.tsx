@@ -1,4 +1,5 @@
-import { FieldError } from "react-hook-form";
+import { FieldErrors } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 import Context from "./Context";
 import Error from "./Error";
@@ -6,15 +7,22 @@ import { DescriptionIds } from "../../hooks/useInputDescribedBy";
 import { CommonInputProps } from "../../types";
 
 export interface DescriptionsProps {
+  name?: string;
   context?: CommonInputProps["context"];
-  error?: FieldError | undefined;
+  errors?: FieldErrors;
   ids?: DescriptionIds;
 }
 
-const Descriptions = ({ context, error, ids }: DescriptionsProps) => (
+const Descriptions = ({ context, errors, ids, name }: DescriptionsProps) => (
   <>
     {context && <Context id={ids?.context}>{context}</Context>}
-    {error && <Error id={ids?.error}>{error?.toString()}</Error>}
+    {name && (
+      <ErrorMessage
+        errors={errors}
+        name={name}
+        render={({ message }) => <Error id={ids?.error}>{message}</Error>}
+      />
+    )}
   </>
 );
 

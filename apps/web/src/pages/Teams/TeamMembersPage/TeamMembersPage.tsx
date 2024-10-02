@@ -43,7 +43,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   );
 
   const members: TeamMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(team.roleAssignments || []),
+    () => groupRoleAssignmentsByUser(team.roleAssignments ?? []),
     [team.roleAssignments],
   );
 

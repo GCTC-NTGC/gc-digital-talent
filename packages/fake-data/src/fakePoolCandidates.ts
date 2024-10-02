@@ -33,13 +33,13 @@ const generatePoolCandidate = (
       id: faker.string.uuid(),
       answer: faker.lorem.sentence(),
       generalQuestion,
-    })) || [];
+    })) ?? [];
   const screeningQuestionResponses =
     pool.screeningQuestions?.map((screeningQuestion) => ({
       id: faker.string.uuid(),
       answer: faker.lorem.sentence(),
       screeningQuestion,
-    })) || [];
+    })) ?? [];
 
   return {
     id: faker.string.uuid(),

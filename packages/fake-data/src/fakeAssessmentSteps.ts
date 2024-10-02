@@ -16,7 +16,7 @@ const generateAssessmentStep = (
   return {
     id: faker.string.uuid(),
     type: toLocalizedEnum(
-      type ||
+      type ??
         faker.helpers.arrayElement<AssessmentStepType>(
           Object.values(AssessmentStepType),
         ),
@@ -39,7 +39,7 @@ export default (
   type?: Maybe<AssessmentStepType>,
 ): AssessmentStep[] => {
   faker.seed(0); // repeatable results
-  const amountToGenerate = numToGenerate || 20;
+  const amountToGenerate = numToGenerate ?? 20;
   const otherScreeningTypes = Object.values(AssessmentStepType).filter(
     (stepType) =>
       stepType !== AssessmentStepType.ApplicationScreening &&

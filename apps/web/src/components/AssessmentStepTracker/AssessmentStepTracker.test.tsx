@@ -98,8 +98,8 @@ describe("AssessmentStepTracker", () => {
 
   it("should have no accessibility errors", async () => {
     const { container } = renderAssessmentStepTracker();
-    await waitFor(() => {
-      axeTest(container);
+    await waitFor(async () => {
+      await axeTest(container);
     });
   });
 

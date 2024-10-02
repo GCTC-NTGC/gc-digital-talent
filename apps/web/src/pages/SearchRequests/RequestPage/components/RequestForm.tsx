@@ -678,7 +678,7 @@ export const RequestForm = ({
                   "Total estimated candidates message in summary of filters",
               },
               {
-                candidateCountNumber: candidateCount || 0,
+                candidateCountNumber: candidateCount ?? 0,
               },
             )}
           </p>

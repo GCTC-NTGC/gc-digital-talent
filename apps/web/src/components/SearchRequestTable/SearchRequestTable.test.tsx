@@ -50,7 +50,7 @@ describe("SearchRequestsTable", () => {
     await axeTest(container);
   });
 
-  it("Should render the table", async () => {
+  it("Should render the table", () => {
     renderSearchRequestsTable();
 
     // Assert table filled with values and the result of requests[0] is present

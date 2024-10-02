@@ -120,11 +120,11 @@ const SupportForm = ({
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
-      user_id: currentUser?.id || "",
+      user_id: currentUser?.id ?? "",
       name: currentUser
         ? getFullNameLabel(currentUser.firstName, currentUser.lastName, intl)
         : "",
-      email: currentUser?.email || "",
+      email: currentUser?.email ?? "",
       previous_url: previousUrl || "",
     },
   });

@@ -4,6 +4,7 @@ import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 const createRoute = (locale: Locales) =>
   createBrowserRouter([
@@ -34,8 +35,8 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "dashboard",
-                  loader: async () => {
-                    throw new Response("Not Found", { status: 404 }); // unfinished page
+                  loader: () => {
+                    throw new NotFoundError(); // unfinished page
                   },
                   lazy: () =>
                     import(
@@ -124,7 +125,7 @@ const createRoute = (locale: Locales) =>
             },
             {
               path: "logged-out",
-              loader: async () => {
+              loader: () => {
                 const overridePath = sessionStorage.getItem(
                   POST_LOGOUT_OVERRIDE_PATH_KEY,
                 );
@@ -481,7 +482,7 @@ const createRoute = (locale: Locales) =>
             {
               path: "*",
               loader: () => {
-                throw new Response("Not Found", { status: 404 });
+                throw new NotFoundError();
               },
             },
           ],
@@ -489,7 +490,7 @@ const createRoute = (locale: Locales) =>
         {
           path: "*",
           loader: () => {
-            throw new Response("Not Found", { status: 404 });
+            throw new NotFoundError();
           },
         },
       ],
@@ -845,7 +846,7 @@ const createRoute = (locale: Locales) =>
             {
               path: "*",
               loader: () => {
-                throw new Response("Not Found", { status: 404 });
+                throw new NotFoundError();
               },
             },
           ],
@@ -868,7 +869,7 @@ const createRoute = (locale: Locales) =>
         {
           path: "*",
           loader: () => {
-            throw new Response("Not Found", { status: 404 });
+            throw new NotFoundError();
           },
         },
       ],

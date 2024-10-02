@@ -102,9 +102,9 @@ export type GraphQLResponse<K extends string, T> = {
 };
 
 /** Type constraint for factories that send contextual requests */
-export type GraphQLRequestFunc<R, I = undefined> = (
+export type GraphQLRequestFunc<R, I = object> = (
   ctx: GraphQLContext,
-  input?: I,
+  input: I,
 ) => Promise<R>;
 
 export default {

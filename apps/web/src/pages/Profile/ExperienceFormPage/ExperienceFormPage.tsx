@@ -322,7 +322,7 @@ export const ExperienceForm = ({
   } = useExperienceMutations(experience ? "update" : "create", type);
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    const args = getMutationArgs(experienceId || userId || "", values);
+    const args = getMutationArgs(experienceId ?? userId ?? "", values);
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
       return res
@@ -335,9 +335,9 @@ export const ExperienceForm = ({
     return undefined;
   };
 
-  const experienceIdExact = experienceId || "";
+  const experienceIdExact = experienceId ?? "";
   const executeDeletionMutation = useDeleteExperienceMutation(
-    type || undefined,
+    type ?? undefined,
   );
 
   const handleDeleteExperience = () => {
@@ -683,10 +683,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
         <ExperienceForm
           edit={edit}
           experienceQuery={experience}
-          experienceId={experienceId || ""}
+          experienceId={experienceId ?? ""}
           experienceType={experienceType ?? "personal"}
           skillsQuery={skills}
-          userId={userAuthInfo?.id || ""}
+          userId={userAuthInfo?.id ?? ""}
         />
       ) : (
         <ThrowNotFound

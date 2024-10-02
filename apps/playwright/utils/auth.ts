@@ -3,9 +3,9 @@ import { Cookie, Page, expect, request } from "@playwright/test";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 export interface AuthTokens {
-  idToken?: string;
-  accessToken?: string;
-  refreshToken?: string;
+  idToken?: string | null;
+  accessToken?: string | null;
+  refreshToken?: string | null;
 }
 
 interface AuthTokenResponse {
@@ -134,6 +134,7 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 //
 export function jumpPastExpiryDate(accessToken: string): Date {
   const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
-  const newDate = new Date((decodedAccessToken.exp + 1) * 1000);
+  const expiry = decodedAccessToken?.exp ?? new Date().getUTCSeconds();
+  const newDate = new Date(expiry + 1 * 1000);
   return newDate;
 }

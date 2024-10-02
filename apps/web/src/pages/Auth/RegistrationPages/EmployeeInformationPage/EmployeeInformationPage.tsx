@@ -633,7 +633,7 @@ const EmployeeInformation = () => {
           }),
         );
         if (skipVerification) {
-          const navigationTarget = from || paths.profileAndApplications();
+          const navigationTarget = from ?? paths.profileAndApplications();
           navigate(navigationTarget);
         } else {
           navigate({

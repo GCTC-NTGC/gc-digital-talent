@@ -253,7 +253,7 @@ export const ViewPool = ({
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage(processMessages.processNumber)}
               {intl.formatMessage(commonMessages.dividingColon)}
-              {pool.processNumber || (
+              {pool.processNumber ?? (
                 <span data-h2-color="base(error.darkest)">
                   {intl.formatMessage(commonMessages.notProvided)}
                 </span>
@@ -551,7 +551,7 @@ const ViewPoolPage = () => {
             onDuplicate={async ({ department }) => {
               return mutations.duplicate(
                 poolId,
-                data?.pool?.team?.id || "",
+                data?.pool?.team?.id ?? "",
                 department,
               );
             }}

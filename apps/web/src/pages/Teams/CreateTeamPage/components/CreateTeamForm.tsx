@@ -25,7 +25,7 @@ const formValuesToSubmitData = (data: FormValues): CreateTeamInput => {
   return {
     displayName,
     contactEmail,
-    name: kebabCase(displayName?.en || ""),
+    name: kebabCase(displayName?.en ?? ""),
     departments: { sync: departments },
     description,
   };

@@ -153,7 +153,7 @@ const Display = ({
               })}
               data-h2-margin="base(0 0 x.15 0)" // line up with chip
             >
-              {workEmail || notProvided}
+              {workEmail ?? notProvided}
             </FieldDisplay>
             {showEmailVerification && workEmail
               ? emailVerificationComponents
@@ -175,7 +175,7 @@ const Display = ({
             description: "Priority number label",
           })}
         >
-          {priorityNumber || notProvided}
+          {priorityNumber ?? notProvided}
         </FieldDisplay>
       )}
     </div>

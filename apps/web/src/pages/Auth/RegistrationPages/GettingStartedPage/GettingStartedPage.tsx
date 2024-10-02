@@ -271,8 +271,8 @@ export const GettingStartedForm = ({
     ],
   });
 
-  const onSubmit = (values: FormValues) => {
-    handleSubmit(
+  const onSubmit = async (values: FormValues) => {
+    await handleSubmit(
       {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -402,9 +402,9 @@ const GettingStarted = () => {
         id,
         email: emptyToNull(generalInput.email),
       },
-    }).then((generalResult) => {
+    }).then(async (generalResult) => {
       if (generalResult.data?.updateUserAsUser) {
-        executeNotificationMutation({
+        await executeNotificationMutation({
           enabledEmailNotifications: notificationInput,
         }).then((notificationResult) => {
           if (notificationResult.data?.updateEnabledNotifications) {

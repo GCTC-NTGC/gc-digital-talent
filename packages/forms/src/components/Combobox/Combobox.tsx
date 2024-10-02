@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Controller, FieldError, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 import omit from "lodash/omit";
 
@@ -74,16 +74,14 @@ const Combobox = ({
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
-  const error = errors[name]?.message
-    ? (String(errors[name].message) as unknown as FieldError)
-    : undefined;
+  const isInvalid = fieldState === "invalid";
   const isRequired = !!rules?.required;
   const defaultValue = defaultValues?.[name];
   const currentValue = watch(name);
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
-      error,
+      error: isInvalid,
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -103,9 +101,9 @@ const Combobox = ({
     inputProps,
     fetching,
     isExternalSearch,
-    total: total || options.length,
-    clearLabel: clearLabel || intl.formatMessage(formMessages.resetCombobox),
-    toggleLabel: toggleLabel || intl.formatMessage(formMessages.toggleCombobox),
+    total: total ?? options.length,
+    clearLabel: clearLabel ?? intl.formatMessage(formMessages.resetCombobox),
+    toggleLabel: toggleLabel ?? intl.formatMessage(formMessages.toggleCombobox),
   };
 
   const isMoreThanMin = (value: ComboboxValue) => {
@@ -184,11 +182,7 @@ const Combobox = ({
           )
         }
       />
-      <Field.Descriptions
-        ids={descriptionIds}
-        error={error}
-        context={context}
-      />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

@@ -637,9 +637,9 @@ const PoolCandidatesTable = ({
   const handleDocDownload = (anonymous: boolean) => {
     if (selectedRows.length === 1) {
       downloadDoc({ id: selectedRows[0], anonymous })
-        .then((res) => {
+        .then(async (res) => {
           if (res?.data?.downloadPoolCandidateDoc) {
-            executeAsyncDownload({
+            await executeAsyncDownload({
               url: apiRoutes.userGeneratedFile(
                 res.data.downloadPoolCandidateDoc,
               ),

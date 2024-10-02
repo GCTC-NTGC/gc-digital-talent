@@ -46,7 +46,7 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   );
 
   const members: PoolTeamMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(pool.roleAssignments || []),
+    () => groupRoleAssignmentsByUser(pool.roleAssignments ?? []),
     [pool.roleAssignments],
   );
 

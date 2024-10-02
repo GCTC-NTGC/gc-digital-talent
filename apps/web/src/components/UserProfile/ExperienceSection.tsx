@@ -53,27 +53,27 @@ const ExperienceSection = ({
               endDate: award.awardedDate,
             }) as AwardExperience & { startDate: string; endDate: string },
         )
-        .sort(compareByDate) || [],
+        .sort(compareByDate) ?? [],
     [experiences],
   );
 
   const communityExperiences = useMemo(
-    () => experiences?.filter(isCommunityExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
   const educationExperiences = useMemo(
-    () => experiences?.filter(isEducationExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isEducationExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
   const personalExperiences = useMemo(
-    () => experiences?.filter(isPersonalExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
   const workExperiences = useMemo(
-    () => experiences?.filter(isWorkExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isWorkExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
@@ -106,8 +106,8 @@ const ExperienceSection = ({
   const sortedBySkills = allSkills
     .filter(({ id }, index) => !skillIds.includes(id, index + 1)) //  Remove duplicate skills
     .sort((skill1, skill2) => {
-      const skill1Name: string = skill1.name[locale] || "";
-      const skill2Name: string = skill2.name[locale] || "";
+      const skill1Name: string = skill1.name[locale] ?? "";
+      const skill2Name: string = skill2.name[locale] ?? "";
       return skill1Name.localeCompare(skill2Name);
     }); //  Sort skills alphabetically
 

@@ -102,7 +102,7 @@ describe("ExperienceForm", () => {
     await axeTest(container);
   });
 
-  it("should render award fields", async () => {
+  it("should render award fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
@@ -131,7 +131,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render community fields", async () => {
+  it("should render community fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "community",
@@ -157,7 +157,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render education fields", async () => {
+  it("should render education fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "education",
@@ -193,7 +193,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render personal fields", async () => {
+  it("should render personal fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "personal",
@@ -225,7 +225,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render work fields", async () => {
+  it("should render work fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work",
@@ -255,7 +255,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render additional details", async () => {
+  it("should render additional details", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
@@ -267,7 +267,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render link featured skills", async () => {
+  it("should render link featured skills", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
@@ -343,7 +343,7 @@ describe("ExperienceForm", () => {
     await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
   });
 
-  it("should add skill", async () => {
+  it("should add skill", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
@@ -359,7 +359,7 @@ describe("ExperienceForm", () => {
     });
   });
 
-  it("delete should not render when edit is false", async () => {
+  it("delete should not render when edit is false", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",

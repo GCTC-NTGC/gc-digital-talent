@@ -22,9 +22,9 @@ const deriveDefaultValues = (
     (experienceSkill) => experienceSkill.id === skill?.id,
   )?.experienceSkillRecord?.details;
   return {
-    skill: skill?.id || undefined,
-    experience: experience?.id || undefined,
-    details: details || undefined,
+    skill: skill?.id ?? undefined,
+    experience: experience?.id ?? undefined,
+    details: details ?? undefined,
   };
 };
 
@@ -64,7 +64,7 @@ const ExperienceSkillFormDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        {trigger || (
+        {trigger ?? (
           <Button icon={PencilSquareIcon} color="tertiary" mode="inline">
             {intl.formatMessage(commonMessages.edit)}
           </Button>

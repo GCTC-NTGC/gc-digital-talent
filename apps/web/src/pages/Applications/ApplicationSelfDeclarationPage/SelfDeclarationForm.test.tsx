@@ -40,7 +40,7 @@ describe("SelfDeclarationForm", () => {
     await axeTest(container);
   });
 
-  it("should not display communities if not Indigenous", async () => {
+  it("should not display communities if not Indigenous", () => {
     renderSelfDeclarationForm();
 
     fireEvent.click(screen.getByRole("radio", { name: /i am not a member/i }));
