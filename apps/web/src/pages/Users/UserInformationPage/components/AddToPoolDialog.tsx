@@ -130,9 +130,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
     return Promise.reject(result.error);
   };
 
-  const submitForm: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {
+  const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
     const poolsToUpdate = formValues.pools
       .map((poolId) => poolMap.get(poolId))
       .filter(notEmpty);

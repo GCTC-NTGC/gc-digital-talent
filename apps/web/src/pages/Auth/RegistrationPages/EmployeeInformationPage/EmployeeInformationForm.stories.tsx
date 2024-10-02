@@ -31,6 +31,8 @@ const Template: StoryFn<typeof EmployeeInformationForm> = () => {
     <EmployeeInformationForm
       cacheKey=""
       query={mockFragmentData}
+      // Note: Needed for function colouring
+      // eslint-disable-next-line @typescript-eslint/require-await
       onSubmit={async (data) => {
         action("submit")(data);
       }}

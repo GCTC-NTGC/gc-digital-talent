@@ -30,7 +30,7 @@ const renderSideMenu = (props: SideMenuProps) => {
 };
 
 describe("SideMenu", () => {
-  it("Should be closed if isOpen false", async () => {
+  it("Should be closed if isOpen false", () => {
     renderSideMenu({
       ...defaultProps,
       open: false,
@@ -43,7 +43,7 @@ describe("SideMenu", () => {
     expect(nav).toHaveAttribute("data-state", "closed");
   });
 
-  it("Should be open if isOpen true", async () => {
+  it("Should be open if isOpen true", () => {
     renderSideMenu(defaultProps);
 
     const nav = screen.getByRole("navigation", {

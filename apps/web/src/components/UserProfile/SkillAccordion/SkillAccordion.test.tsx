@@ -36,7 +36,7 @@ describe("SkillAccordion", () => {
     cache,
   );
 
-  const openAccordion = async (name: Maybe<string> | undefined) => {
+  const openAccordion = (name: Maybe<string> | undefined) => {
     fireEvent.click(
       screen.getByRole("button", {
         name: new RegExp(name ?? "", "i"),
@@ -50,7 +50,7 @@ describe("SkillAccordion", () => {
     await axeTest(container);
   });
 
-  it("renders Skill Accordion without any issues", async () => {
+  it("renders Skill Accordion without any issues", () => {
     renderSkillAccordion(testSkill);
     expect(
       screen.getByRole("button", {
@@ -59,10 +59,10 @@ describe("SkillAccordion", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders proper context and detail when no experience provided", async () => {
+  it("renders proper context and detail when no experience provided", () => {
     renderSkillAccordion(testSkill);
 
-    await openAccordion(testSkill.name.en);
+    openAccordion(testSkill.name.en);
 
     expect(
       screen.getByRole("region", {
@@ -73,12 +73,12 @@ describe("SkillAccordion", () => {
     );
   });
 
-  it("renders proper context and detail when an award experience is provided", async () => {
+  it("renders proper context and detail when an award experience is provided", () => {
     const experience = experienceGenerators.awardExperiences()[0];
     testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
 
-    await openAccordion(testSkill.name.en);
+    openAccordion(testSkill.name.en);
 
     expect(screen.getByText("1 experience")).toBeInTheDocument();
     expect(
@@ -88,7 +88,7 @@ describe("SkillAccordion", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders proper context and detail when a work experience is provided", async () => {
+  it("renders proper context and detail when a work experience is provided", () => {
     const experience = experienceGenerators.workExperiences()[0];
     testSkill.experiences = [experience];
     const dateRange = getDateRange({
@@ -97,7 +97,7 @@ describe("SkillAccordion", () => {
       intl,
     });
     renderSkillAccordion(testSkill);
-    await openAccordion(testSkill.name.en);
+    openAccordion(testSkill.name.en);
 
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
@@ -119,12 +119,12 @@ describe("SkillAccordion", () => {
     expect(detail).toHaveTextContent(new RegExp(experience.role ?? "", "i"));
   });
 
-  it("renders proper context and detail when a community experience is provided", async () => {
+  it("renders proper context and detail when a community experience is provided", () => {
     const experience = experienceGenerators.communityExperiences()[0];
     testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
 
-    await openAccordion(testSkill.name.en);
+    openAccordion(testSkill.name.en);
 
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
@@ -140,7 +140,7 @@ describe("SkillAccordion", () => {
     expect(detail).toHaveTextContent(experience.title ?? "");
   });
 
-  it("renders proper context and detail when a education experience is provided", async () => {
+  it("renders proper context and detail when a education experience is provided", () => {
     const experience = experienceGenerators.educationExperiences()[0];
     testSkill.experiences = [experience];
     const dateRange = getDateRange({
@@ -150,7 +150,7 @@ describe("SkillAccordion", () => {
     });
     renderSkillAccordion(testSkill);
 
-    await openAccordion(testSkill.name.en);
+    openAccordion(testSkill.name.en);
 
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
@@ -166,7 +166,7 @@ describe("SkillAccordion", () => {
     expect(detail).toHaveTextContent(`${dateRange}`.replace(/ {3}/g, " "));
   });
 
-  it("renders proper context and detail when a personal experience is provided", async () => {
+  it("renders proper context and detail when a personal experience is provided", () => {
     const experience = experienceGenerators.personalExperiences()[0];
     testSkill.experiences = [experience];
     const dateRange = getDateRange({
@@ -176,7 +176,7 @@ describe("SkillAccordion", () => {
     });
     renderSkillAccordion(testSkill);
 
-    await openAccordion(testSkill.name.en);
+    openAccordion(testSkill.name.en);
 
     expect(screen.getByText("1 experience")).toBeInTheDocument();
 
@@ -191,14 +191,14 @@ describe("SkillAccordion", () => {
     expect(detail).toHaveTextContent(experience.title ?? "");
   });
 
-  it("renders proper context and detail when more than one experiences provided", async () => {
+  it("renders proper context and detail when more than one experiences provided", () => {
     const experience1 = experienceGenerators.workExperiences()[0];
     const experience2 = experienceGenerators.educationExperiences(2)[1];
 
     testSkill.experiences = [experience1, experience2];
     renderSkillAccordion(testSkill);
 
-    await openAccordion(testSkill.name.en);
+    openAccordion(testSkill.name.en);
 
     expect(screen.getByText("2 experiences")).toBeInTheDocument();
 

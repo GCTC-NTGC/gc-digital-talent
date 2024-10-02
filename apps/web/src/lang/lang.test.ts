@@ -13,7 +13,7 @@ describe("message files", () => {
     To update expected changes to the snapshot:
     `npx jest ./src/lang/lang.test.ts --testNamePattern="should have no changes to duplicate strings" --updateSnapshot`
     */
-  it("should have no changes to duplicate strings", async () => {
+  it("should have no changes to duplicate strings", () => {
     const enMessages: Record<string, { defaultMessage: string }> = {
       ...rawWebEnMessages,
       ...rawI18nEnMessages,
