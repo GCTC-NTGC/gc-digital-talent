@@ -28,6 +28,7 @@ import {
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 import { GraphqlType } from "./types/graphql";
+import { NotFoundError, UnauthorizedError } from "./errors";
 
 export {
   assertUnreachable,
@@ -55,5 +56,7 @@ export {
   pickMap,
   unpackMaybes,
   localizedEnumHasValue,
+  NotFoundError,
+  UnauthorizedError,
 };
 export type { GraphqlType };

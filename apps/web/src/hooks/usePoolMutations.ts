@@ -205,7 +205,7 @@ const usePoolMutations = (returnPath?: string) => {
             }),
           );
         } else {
-          handleUpdateError();
+          void handleUpdateError();
         }
       })
       .catch(handleUpdateError);

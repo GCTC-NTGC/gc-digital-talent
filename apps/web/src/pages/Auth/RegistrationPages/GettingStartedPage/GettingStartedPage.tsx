@@ -160,8 +160,8 @@ export const GettingStartedFormFields = ({
           boundingBoxLabel={labels.emailConsent}
           label={intl.formatMessage({
             defaultMessage:
-              '"I agree to receive email notifications from GC Digital Talent."',
-            id: "ydjlRN",
+              "I agree to receive email notifications from GC Digital Talent.",
+            id: "NwlRd5",
             description: "Text for the option consent to email notifications.",
           })}
         />
@@ -271,8 +271,8 @@ export const GettingStartedForm = ({
     ],
   });
 
-  const onSubmit = (values: FormValues) => {
-    handleSubmit(
+  const onSubmit = async (values: FormValues) => {
+    await handleSubmit(
       {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -402,9 +402,9 @@ const GettingStarted = () => {
         id,
         email: emptyToNull(generalInput.email),
       },
-    }).then((generalResult) => {
+    }).then(async (generalResult) => {
       if (generalResult.data?.updateUserAsUser) {
-        executeNotificationMutation({
+        await executeNotificationMutation({
           enabledEmailNotifications: notificationInput,
         }).then((notificationResult) => {
           if (notificationResult.data?.updateEnabledNotifications) {

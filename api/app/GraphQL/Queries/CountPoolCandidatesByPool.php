@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 final class CountPoolCandidatesByPool
 {
     /**
-     * @param  array{}  $args
+     * @param  array<string, mixed>  $args
      *
      * @disregard P1003 We are not using this var
      */

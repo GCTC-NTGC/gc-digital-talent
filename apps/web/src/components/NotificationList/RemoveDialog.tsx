@@ -31,8 +31,8 @@ const RemoveDialog = forwardRef<
     DeleteNotification_Mutation,
   );
 
-  const handleDelete = () => {
-    executeDeleteMutation({ id }).then((res) => {
+  const handleDelete = async () => {
+    await executeDeleteMutation({ id }).then((res) => {
       if (res.data?.deleteNotification) {
         setIsOpen(false);
       }
