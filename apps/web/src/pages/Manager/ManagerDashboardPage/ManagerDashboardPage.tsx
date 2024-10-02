@@ -13,7 +13,6 @@ import {
   Accordion,
   Well,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { useLocalStorage } from "@gc-digital-talent/storage";
@@ -79,10 +78,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
 
   return (
     <>
-      <SEO
-        title={intl.formatMessage(navigationMessages.profileAndApplications)}
-        description={formattedPageSubtitle}
-      />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={intl.formatMessage(
           {

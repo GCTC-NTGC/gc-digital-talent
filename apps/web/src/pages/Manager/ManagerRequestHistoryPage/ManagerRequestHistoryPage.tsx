@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import PlusCircleIconMini from "@heroicons/react/20/solid/PlusCircleIcon";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 import FolderIcon from "@heroicons/react/24/outline/FolderIcon";
@@ -10,15 +9,14 @@ import {
   ThrowNotFound,
   Pending,
   Link,
-  TaskCard,
   PreviewList,
   Well,
   TableOfContents,
   Separator,
   Heading,
   ScrollToLink,
+  CardBasic,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -92,10 +90,7 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
 
   return (
     <>
-      <SEO
-        title={intl.formatMessage(navigationMessages.profileAndApplications)}
-        description={formattedPageSubtitle}
-      />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={intl.formatMessage({
           defaultMessage: "Your talent requests",
@@ -189,79 +184,47 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                         },
                       )}
                     </div>
-                    <TaskCard.Root
-                      icon={WrenchScrewdriverIcon}
-                      title={intl.formatMessage({
-                        defaultMessage: "Your manager tools",
-                        id: "iChSXW",
-                        description: "Card title for the manager tools",
-                      })}
-                      headingColor="primary"
-                      headingAs="h2"
-                    >
-                      <TaskCard.Item>
-                        <div
-                          data-h2-display="base(flex)"
-                          data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x1)"
-                        >
-                          <div>
-                            {showUnfinishedPieces
-                              ? intl.formatMessage(
-                                  {
-                                    defaultMessage:
-                                      'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
-                                    id: "OWLaKF",
-                                    description:
-                                      "instructional text for the 'Your talent requests' tool",
-                                  },
-                                  {
-                                    findTalentLink: (chunks: ReactNode) =>
-                                      linkAccessor(paths.search(), chunks),
-                                    allRequestsLink: (chunks: ReactNode) =>
-                                      linkAccessor("#", chunks), // This link is missing an href since the "Your talent requests" page doesn't exist yet.
-                                  },
-                                )
-                              : null}
-                          </div>
 
-                          {user.poolCandidateSearchRequests?.length ? (
-                            <PreviewList.Root>
-                              {user.poolCandidateSearchRequests?.map(
-                                (request) => (
-                                  <PoolCandidateSearchRequestPreviewListItem
-                                    key={request.id}
-                                    poolCandidateSearchRequestQuery={request}
-                                    showUnfinishedPieces={showUnfinishedPieces}
-                                  />
-                                ),
-                              )}
-                            </PreviewList.Root>
-                          ) : (
-                            <Well data-h2-text-align="base(center)">
-                              <p data-h2-font-weight="base(bold)">
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    "You don't have any active requests at the moment.",
-                                  id: "3PwQT7",
-                                  description:
-                                    "Title for notice when there are no pool candidate search requests",
-                                })}
-                              </p>
-                              <p>
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    'You can start a new talent request using the "New request" button or navigating to the "Find talent" page from the main navigation.',
-                                  id: "6jBrNA",
-                                  description:
-                                    "Body for notice when there are no pool candidate search requests",
-                                })}
-                              </p>
-                            </Well>
-                          )}
-                        </div>
-                      </TaskCard.Item>
-                    </TaskCard.Root>
+                    <CardBasic>
+                      {user.poolCandidateSearchRequests?.length ? (
+                        <PreviewList.Root>
+                          {user.poolCandidateSearchRequests?.map((request) => (
+                            <PoolCandidateSearchRequestPreviewListItem
+                              key={request.id}
+                              poolCandidateSearchRequestQuery={request}
+                              showUnfinishedPieces={showUnfinishedPieces}
+                            />
+                          ))}
+                        </PreviewList.Root>
+                      ) : (
+                        <Well data-h2-text-align="base(center)">
+                          <p data-h2-font-weight="base(bold)">
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "You don't have any active requests at the moment.",
+                              id: "3PwQT7",
+                              description:
+                                "Title for notice when there are no pool candidate search requests",
+                            })}
+                          </p>
+                          <p>
+                            {intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  'You can start a new talent request using the "<link>New request</link>" button found in the page\'s table of contents.',
+                                id: "xuckIo",
+                                description:
+                                  "Body for notice when there are no pool candidate search requests",
+                              },
+                              {
+                                link: (chunks: ReactNode) =>
+                                  linkAccessor(paths.search(), chunks),
+                              },
+                            )}
+                          </p>
+                        </Well>
+                      )}
+                    </CardBasic>
                   </div>
                 </TableOfContents.Section>
                 <TableOfContents.Section id={sections.requestHistory.id}>
@@ -287,79 +250,41 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                           "description of the request history section on the manager request history page",
                       })}
                     </div>
-                    <TaskCard.Root
-                      icon={WrenchScrewdriverIcon}
-                      title={intl.formatMessage({
-                        defaultMessage: "Your manager tools",
-                        id: "iChSXW",
-                        description: "Card title for the manager tools",
-                      })}
-                      headingColor="primary"
-                      headingAs="h2"
-                    >
-                      <TaskCard.Item>
-                        <div
-                          data-h2-display="base(flex)"
-                          data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x1)"
-                        >
-                          <div>
-                            {showUnfinishedPieces
-                              ? intl.formatMessage(
-                                  {
-                                    defaultMessage:
-                                      'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
-                                    id: "OWLaKF",
-                                    description:
-                                      "instructional text for the 'Your talent requests' tool",
-                                  },
-                                  {
-                                    findTalentLink: (chunks: ReactNode) =>
-                                      linkAccessor(paths.search(), chunks),
-                                    allRequestsLink: (chunks: ReactNode) =>
-                                      linkAccessor("#", chunks), // This link is missing an href since the "Your talent requests" page doesn't exist yet.
-                                  },
-                                )
-                              : null}
-                          </div>
 
-                          {user.poolCandidateSearchRequests?.length ? (
-                            <PreviewList.Root>
-                              {user.poolCandidateSearchRequests?.map(
-                                (request) => (
-                                  <PoolCandidateSearchRequestPreviewListItem
-                                    key={request.id}
-                                    poolCandidateSearchRequestQuery={request}
-                                    showUnfinishedPieces={showUnfinishedPieces}
-                                  />
-                                ),
-                              )}
-                            </PreviewList.Root>
-                          ) : (
-                            <Well data-h2-text-align="base(center)">
-                              <p data-h2-font-weight="base(bold)">
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    "You don't have any active requests at the moment.",
-                                  id: "3PwQT7",
-                                  description:
-                                    "Title for notice when there are no pool candidate search requests",
-                                })}
-                              </p>
-                              <p>
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    'You can start a new talent request using the "New request" button or navigating to the "Find talent" page from the main navigation.',
-                                  id: "6jBrNA",
-                                  description:
-                                    "Body for notice when there are no pool candidate search requests",
-                                })}
-                              </p>
-                            </Well>
-                          )}
-                        </div>
-                      </TaskCard.Item>
-                    </TaskCard.Root>
+                    <CardBasic>
+                      {user.poolCandidateSearchRequests?.length ? (
+                        <PreviewList.Root>
+                          {user.poolCandidateSearchRequests?.map((request) => (
+                            <PoolCandidateSearchRequestPreviewListItem
+                              key={request.id}
+                              poolCandidateSearchRequestQuery={request}
+                              showUnfinishedPieces={showUnfinishedPieces}
+                            />
+                          ))}
+                        </PreviewList.Root>
+                      ) : (
+                        <Well data-h2-text-align="base(center)">
+                          <p data-h2-font-weight="base(bold)">
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "You don't have any completed requests yet.",
+                              id: "bTkPVZ",
+                              description:
+                                "Title for notice when there are no pool candidate search requests",
+                            })}
+                          </p>
+                          <p>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Requests will automatically move here when they are completed.",
+                              id: "WxuhIh",
+                              description:
+                                "Body for notice when there are no pool candidate search requests",
+                            })}
+                          </p>
+                        </Well>
+                      )}
+                    </CardBasic>
                   </div>
                 </TableOfContents.Section>
               </div>
