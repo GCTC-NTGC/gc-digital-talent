@@ -266,7 +266,7 @@ class PoolCandidate extends Model
 
     public function getCategoryAttribute()
     {
-        $category = null;
+        $category = PriorityWeight::OTHER;
 
         $this->loadMissing(['user' => [
             'citizenship',
@@ -280,8 +280,6 @@ class PoolCandidate extends Model
             $category = PriorityWeight::VETERAN;
         } elseif ($this->user->citizenship === CitizenshipStatus::CITIZEN->name || $this->user->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name) {
             $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
-        } else {
-            $category = PriorityWeight::OTHER;
         }
 
         return [
