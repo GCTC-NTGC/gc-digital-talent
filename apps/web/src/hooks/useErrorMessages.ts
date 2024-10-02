@@ -1,6 +1,10 @@
 import { ReactNode } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { useRouteError } from "react-router-dom";
+import {
+  ErrorResponse,
+  isRouteErrorResponse,
+  useRouteError,
+} from "react-router-dom";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -8,8 +12,9 @@ interface ErrorMessage {
   title: ReactNode;
   body: ReactNode;
 }
-interface ErrorResponse {
-  response: Response;
+
+interface ErrorWithMessages {
+  error: Error;
   messages: ErrorMessage;
 }
 
@@ -39,33 +44,43 @@ export const routeErrorMessages = defineMessages({
   },
 });
 
-const useErrorMessages = (): ErrorResponse => {
-  const error = useRouteError() as Response;
+const errorStatusMap: Record<string, number> = {
+  UnauthorizedError: 401,
+  NotFoundError: 404,
+};
+
+const useErrorMessages = (): ErrorWithMessages => {
+  const error = useRouteError() as Error | ErrorResponse;
   const intl = useIntl();
-  const messages: Record<number, Omit<ErrorMessage, "error">> = {
-    401: {
+  const knownErrorMessages: Record<number, Omit<ErrorMessage, "error">> = {
+    [401]: {
       title: intl.formatMessage(routeErrorMessages.unauthorizedTitle),
       body: intl.formatMessage(routeErrorMessages.unauthorizedBody),
     },
-    404: {
+    [404]: {
       title: intl.formatMessage(routeErrorMessages.notFoundTitle),
       body: intl.formatMessage(routeErrorMessages.notFoundBody),
     },
   };
 
-  if (error && "status" in error) {
-    if (error.status in messages) {
+  if (isRouteErrorResponse(error) && "status" in error) {
+    return {
+      error: new Error(error.data?.message),
+      messages: knownErrorMessages[error.status],
+    };
+  }
+
+  if (error && "name" in error) {
+    if (error.name in errorStatusMap) {
       return {
-        response: error,
-        messages: {
-          ...messages[error.status],
-        },
+        error,
+        messages: knownErrorMessages[errorStatusMap[error.name]],
       };
     }
   }
 
   return {
-    response: error,
+    error: new Error(),
     messages: {
       title: intl.formatMessage(errorMessages.unknownErrorRequestErrorTitle),
       body: intl.formatMessage(errorMessages.unknownErrorRequestErrorBody),
