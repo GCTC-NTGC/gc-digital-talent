@@ -284,7 +284,11 @@ class PoolCandidate extends Model
             $category = PriorityWeight::OTHER;
         }
 
-        return $category;
+        return [
+            'weight' => $category->weight($category->name),
+            'value' => $category->name,
+            'label' => PriorityWeight::localizedString($category->name),
+        ];
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
