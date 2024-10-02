@@ -1282,10 +1282,9 @@ const PoolNotFound = () => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
   query PoolAdvertisementPage($id: UUID!) {

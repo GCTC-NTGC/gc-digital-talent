@@ -25,10 +25,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["input"];
-};
+}
 
 const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
   query ScreeningAndEvaluation_Pools(
