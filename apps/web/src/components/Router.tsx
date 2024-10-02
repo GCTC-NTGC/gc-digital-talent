@@ -36,7 +36,7 @@ const createRoute = (locale: Locales) =>
                 {
                   path: "dashboard",
                   loader: async () => {
-                    throw new NotFoundError();
+                    throw new NotFoundError(); // unfinished page
                   },
                   lazy: () =>
                     import(
