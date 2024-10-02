@@ -561,13 +561,13 @@ export const queryResultToDefaultValues = (
   }
 
   return {
-    details: experience.details || "",
+    details: experience.details ?? "",
     ...unsharedValues,
     skills: experience.skills
       ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
           skillId: id,
           name,
-          details: experienceSkillRecord?.details || "",
+          details: experienceSkillRecord?.details ?? "",
         }))
       : undefined,
     experienceType,
@@ -713,8 +713,8 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
     title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
     titleHtml: getExperienceName(experience, intl, true),
     editPath: paths.editExperience(experience.id),
-    typeMessage: typeMessages.get(experienceType) || defaults.typeMessage,
-    icon: icons.get(experienceType) || defaults.icon,
+    typeMessage: typeMessages.get(experienceType) ?? defaults.typeMessage,
+    icon: icons.get(experienceType) ?? defaults.icon,
     date: getExperienceDate(experience, intl),
   };
 };

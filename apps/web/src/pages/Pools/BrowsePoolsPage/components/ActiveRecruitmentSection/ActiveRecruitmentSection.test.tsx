@@ -38,7 +38,7 @@ describe("BrowsePoolsPage", () => {
 
   // sort logic: by expiry date whichever one expires first should appear first on the list
   // sort logic: if they have the same expiry date, whichever one was published first should appear first
-  it("should properly sort jobs", async () => {
+  it("should properly sort jobs", () => {
     // should appear first: it expires first even though it was published later
     const closesFirst = {
       ...publishedPool,

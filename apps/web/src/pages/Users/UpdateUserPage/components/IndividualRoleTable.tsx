@@ -61,7 +61,7 @@ const IndividualRoleTable = ({
       .filter((assignment) => !assignment.role?.isTeamBased)
       .map((assignment) => assignment.role)
       .filter(notEmpty);
-    return roles || [];
+    return roles ?? [];
   }, [authInfo?.roleAssignments]);
 
   const handleAddRoles = async (values: UpdateUserRolesInput) => {

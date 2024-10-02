@@ -130,16 +130,16 @@ const compareLastNames = (
   resultA: CandidateAssessmentResult,
   resultB: CandidateAssessmentResult,
 ) => {
-  const user1Name: string = resultA.poolCandidate?.user.lastName || "";
-  const user2Name: string = resultB.poolCandidate?.user.lastName || "";
+  const user1Name: string = resultA.poolCandidate?.user.lastName ?? "";
+  const user2Name: string = resultB.poolCandidate?.user.lastName ?? "";
   return user1Name.localeCompare(user2Name);
 };
 const compareFirstNames = (
   resultA: CandidateAssessmentResult,
   resultB: CandidateAssessmentResult,
 ) => {
-  const user1Name: string = resultA.poolCandidate?.user.firstName || "";
-  const user2Name: string = resultB.poolCandidate?.user.firstName || "";
+  const user1Name: string = resultA.poolCandidate?.user.firstName ?? "";
+  const user2Name: string = resultB.poolCandidate?.user.firstName ?? "";
   return user1Name.localeCompare(user2Name);
 };
 

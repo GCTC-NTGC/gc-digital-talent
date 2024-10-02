@@ -29,7 +29,7 @@ test.describe("Pool candidates", () => {
   test.beforeAll(async () => {
     const adminCtx = await graphql.newContext();
 
-    const technicalSkill = await getSkills(adminCtx).then((skills) => {
+    const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
@@ -59,8 +59,8 @@ test.describe("Pool candidates", () => {
               skills: {
                 sync: [
                   {
-                    details: `Test Skill ${technicalSkill.name.en}`,
-                    id: technicalSkill.id,
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
                   },
                 ],
               },
@@ -73,18 +73,20 @@ test.describe("Pool candidates", () => {
     });
 
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser.id,
-      skillId: technicalSkill.id,
+      userId: createdUser?.id ?? "",
+      skillId: technicalSkill?.id ?? "",
       name: LOCALIZED_STRING,
     });
 
-    const applicantCtx = await graphql.newContext(createdUser.authInfo.sub);
-    const applicant = await me(applicantCtx);
+    const applicantCtx = await graphql.newContext(
+      createdUser?.authInfo?.sub ?? "applicant@test.com",
+    );
+    const applicant = await me(applicantCtx, {});
 
     const application = await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,
       poolId: createdPool.id,
-      experienceId: applicant.experiences[0].id,
+      experienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,
     });
 

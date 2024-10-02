@@ -200,8 +200,8 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
     }
 
     return (
-      (firstName && match(searchState.term, firstName)) ||
-      (lastName && match(searchState.term, lastName)) ||
+      (firstName && match(searchState.term, firstName)) ??
+      (lastName && match(searchState.term, lastName)) ??
       (email && match(searchState.term, email))
     );
   });

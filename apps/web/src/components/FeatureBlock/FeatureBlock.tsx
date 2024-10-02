@@ -46,7 +46,7 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         data-h2-height="base(x10) desktop(x12)"
         style={{
           backgroundImage: `url('${content.img.path}')`,
-          backgroundPosition: content.img.position || "center",
+          backgroundPosition: content.img.position ?? "center",
           backgroundSize: "cover",
         }}
       />

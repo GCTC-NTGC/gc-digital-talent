@@ -25,9 +25,9 @@ export const dataToFormValues = (
       );
 
       return {
-        id: foundResponse?.id || "new",
+        id: foundResponse?.id ?? "new",
         questionId: question.id,
-        answer: foundResponse?.answer || "",
+        answer: foundResponse?.answer ?? "",
       };
     }),
     generalAnswers: generalQuestions.map((question) => {
@@ -36,9 +36,9 @@ export const dataToFormValues = (
       );
 
       return {
-        id: foundResponse?.id || "new",
+        id: foundResponse?.id ?? "new",
         questionId: question.id,
-        answer: foundResponse?.answer || "",
+        answer: foundResponse?.answer ?? "",
       };
     }),
   };

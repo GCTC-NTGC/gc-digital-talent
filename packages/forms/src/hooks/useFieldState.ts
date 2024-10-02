@@ -1,5 +1,4 @@
-import { useFormState } from "react-hook-form";
-import get from "lodash/get";
+import { get, useFormState } from "react-hook-form";
 
 import { FieldState } from "../types";
 

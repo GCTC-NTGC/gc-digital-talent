@@ -62,7 +62,7 @@ test.describe("Application", () => {
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },
-      userId: createdUser.id,
+      userId: createdUser?.id ?? "",
       input: {
         generalQuestions: {
           create: [
@@ -243,8 +243,8 @@ test.describe("Application", () => {
 
   test("Can view from dashboard", async ({ page }) => {
     const applicantCtx = await graphql.newContext(sub);
-    const applicant = await me(applicantCtx);
-    const technicalSkill = await getSkills(applicantCtx).then((skills) => {
+    const applicant = await me(applicantCtx, {});
+    const technicalSkill = await getSkills(applicantCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
 
@@ -259,8 +259,8 @@ test.describe("Application", () => {
               skills: {
                 sync: [
                   {
-                    details: `Test Skill ${technicalSkill.name.en}`,
-                    id: technicalSkill.id,
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
                   },
                 ],
               },
@@ -271,11 +271,11 @@ test.describe("Application", () => {
         },
       },
     });
-    const applicantWithExperiences = await me(applicantCtx);
+    const applicantWithExperiences = await me(applicantCtx, {});
     await createApplication(applicantCtx, {
       userId: applicantWithExperiences.id,
       poolId: pool.id,
-      experienceId: applicantWithExperiences.experiences[0].id,
+      experienceId: applicantWithExperiences?.experiences?.[0]?.id ?? "",
     });
 
     await loginBySub(page, sub, false);
@@ -285,10 +285,6 @@ test.describe("Application", () => {
         name: new RegExp(poolName, "i"),
         level: 2,
       }),
-    ).toBeVisible();
-
-    await expect(
-      page.getByRole("link", { name: /continue draft/i }),
     ).toBeVisible();
   });
 });

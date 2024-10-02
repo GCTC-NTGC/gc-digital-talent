@@ -89,12 +89,12 @@ const SideMenuItem = ({ icon, children, href, ...rest }: SideMenuItemProps) => {
     if (isSmallScreen && ctx?.onOpenChange) {
       ctx?.onOpenChange(false);
     }
-    navigate(url || "");
+    navigate(url ?? "");
   };
 
   return (
     <NavLink
-      to={url || "#"}
+      to={url ?? "#"}
       className="side-menu__item"
       onClick={handleClick}
       {...commonStyles}

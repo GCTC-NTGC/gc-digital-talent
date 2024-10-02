@@ -31,7 +31,7 @@ const WomanDialog = ({
   });
   const { handleSubmit } = methods;
 
-  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
     onSave(data.isWoman);
   };
 

@@ -96,7 +96,7 @@ describe("DropdownMenu", () => {
     await axeTest(container);
   });
 
-  it("should not render when closed", async () => {
+  it("should not render when closed", () => {
     renderDropdownMenu({});
 
     expect(

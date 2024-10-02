@@ -41,18 +41,23 @@ test.describe("Process permissions", () => {
       ],
     });
 
-    const team = await getDCM(adminCtx);
+    const team = await getDCM(adminCtx, {});
 
     const associatedPoolManager = await createUserWithRoles(adminCtx, {
       user: {
         email: associatedPoolManagerEmail,
         sub: associatedSub,
       },
-      roles: ["guest", "base_user", "applicant", ["pool_operator", team.id]],
+      roles: [
+        "guest",
+        "base_user",
+        "applicant",
+        ["pool_operator", team?.id ?? ""],
+      ],
     });
 
     const createdPool = await createPool(adminCtx, {
-      userId: associatedPoolManager.id,
+      userId: associatedPoolManager?.id ?? "",
     });
 
     await updatePool(adminCtx, {

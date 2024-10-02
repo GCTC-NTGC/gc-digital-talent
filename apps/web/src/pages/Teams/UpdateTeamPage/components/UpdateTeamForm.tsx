@@ -72,7 +72,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
   return {
     ...rest,
     displayName,
-    name: kebabCase(displayName?.en || ""),
+    name: displayName?.en ? kebabCase(displayName.en) : undefined,
     departments: { sync: departments },
   };
 };

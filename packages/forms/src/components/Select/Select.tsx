@@ -1,6 +1,5 @@
 import { DetailedHTMLProps, SelectHTMLAttributes, useMemo } from "react";
-import { FieldError, useFormContext } from "react-hook-form";
-import get from "lodash/get";
+import { useFormContext } from "react-hook-form";
 
 import Field from "../Field";
 import type { CommonInputProps, OptGroupOrOption } from "../../types";
@@ -56,17 +55,16 @@ const Select = ({
     register,
     formState: { errors },
   } = useFormContext();
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
   const baseStyles = useInputStyles("select");
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
+  const isInvalid = fieldState === "invalid";
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
-      error,
+      error: isInvalid,
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -85,7 +83,7 @@ const Select = ({
         id={id}
         aria-describedby={ariaDescribedBy}
         aria-required={!!rules.required}
-        aria-invalid={!!error}
+        aria-invalid={isInvalid}
         defaultValue=""
         data-h2-width="base(100%)"
         {...baseStyles}
@@ -121,11 +119,7 @@ const Select = ({
           ),
         )}
       </select>
-      <Field.Descriptions
-        ids={descriptionIds}
-        error={error}
-        context={context}
-      />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

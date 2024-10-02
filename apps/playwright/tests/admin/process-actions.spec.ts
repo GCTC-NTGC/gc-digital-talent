@@ -130,7 +130,7 @@ test.describe("Process actions", () => {
   test("Update pool", async ({ adminPage }) => {
     const adminCtx = await graphql.newContext();
 
-    const user = await me(adminCtx);
+    const user = await me(adminCtx, {});
     const poolName = {
       en: "Update pool test (EN)",
       fr: "Update pool test (FR)",
@@ -259,7 +259,7 @@ test.describe("Process actions", () => {
   test("Delete pool", async ({ adminPage }) => {
     const adminCtx = await graphql.newContext();
 
-    const user = await me(adminCtx);
+    const user = await me(adminCtx, {});
 
     const createdPool = await createPool(adminCtx, {
       userId: user.id,
