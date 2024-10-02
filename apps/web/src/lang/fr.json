@@ -740,7 +740,7 @@
     "description": "Title for skill families in English"
   },
   "1xI8uo": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans l’équipe » pour commencer.",
     "description": "Instructions for adding a role to a user."
   },
   "2/fjEP": {
@@ -1912,7 +1912,7 @@
     "description": "Support form name field label"
   },
   "86qwfg": {
-    "defaultMessage": "Pour l’équipe suivante : <strong>{teamDisplayName}</strong>",
+    "defaultMessage": "De l'équipe suivante : <strong>{teamDisplayName}</strong>",
     "description": "Follow in text for the team being updated"
   },
   "86rJAg": {
@@ -2258,6 +2258,10 @@
   "9t56Ev": {
     "defaultMessage": "Nombre d’évaluations",
     "description": "Title for a column that displays the number of assessments planned for a skill."
+  },
+  "9ufudR": {
+    "defaultMessage": "Ajoutez un rôle individuel",
+    "description": "Label for the button to add a role to a user"
   },
   "9vQj8o": {
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
@@ -3724,7 +3728,7 @@
     "description": "Bookmark button label for pool table tracking."
   },
   "Hy2UdW": {
-    "defaultMessage": "Vous êtes sur le point de retirer un rôle de l’utilisateur suivant : <strong>{userName}</strong>",
+    "defaultMessage": "Vous êtes sur le point de retirer un rôle de cet utilisateur ou cette utilisatrice :<strong>{userName}</strong>",
     "description": "Lead in text for the remove role from user dialog"
   },
   "HyNRz8": {
@@ -4126,10 +4130,6 @@
   "K+roYh": {
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for publish pool dialog"
-  },
-  "K+vmQl": {
-    "defaultMessage": "Ajoutez un rôle dans l'équipe",
-    "description": "Label for the form to add a team membership to a user"
   },
   "K0Zkdw": {
     "defaultMessage": "Compétences constituant un atout",
@@ -4743,6 +4743,10 @@
     "defaultMessage": "Modifiez les compétences techniques de haut niveau",
     "description": "Link text for editing a users top technical skills"
   },
+  "N6Qn5a": {
+    "defaultMessage": "Retirez de l'équipe<hidden> dans {team}</hidden>",
+    "description": "Button label for the form to remove a team role from a user"
+  },
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
     "description": "Descriptive text explaining the language profile section of the application profile"
@@ -5307,6 +5311,10 @@
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
     "description": "Title for the find a skill dialog within the skill showcase"
   },
+  "QCesvO": {
+    "defaultMessage": "Ajouter un rôle individue",
+    "description": "Header for the form to add a role to a user"
+  },
   "QCuAwH": {
     "defaultMessage": "Situation financière – restriction relativement à l’utilisation des fonds",
     "description": "Financial situation contracting rationale"
@@ -5614,6 +5622,10 @@
   "RXOgrq": {
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message for closing date on a process advertisement."
+  },
+  "RYd/pl": {
+    "defaultMessage": "Ajouter un rôle dans l'équipe",
+    "description": "Header for the form to add a team membership to a user"
   },
   "RZIivj": {
     "defaultMessage": "Dupliquer et visualiser le nouveau processus",
@@ -6020,7 +6032,7 @@
     "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
   "TvUVa0": {
-    "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
+    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles à cet utilisateur ou cette utilisatrice : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
   },
   "Tvsi5A": {
@@ -6363,7 +6375,7 @@
     "description": "Subject line for contact email to start a recruitment process"
   },
   "VsV4Vu": {
-    "defaultMessage": "L’utilisateur perdra le rôle suivant :",
+    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra le rôle suivant :",
     "description": "Text notifying user which role will be removed from the user"
   },
   "Vw7bLe": {
@@ -9191,7 +9203,7 @@
     "description": "Link text to direct users to the profile page when signed in"
   },
   "jfED66": {
-    "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
+    "defaultMessage": "Vous êtes sur le point de modifier les rôles de ce ou cette membre : <strong>{userDisplayName}</strong>",
     "description": "Lead in text for the add role to user form."
   },
   "jiJ8qo": {
@@ -9990,10 +10002,6 @@
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
   },
-  "oDr+47": {
-    "defaultMessage": "Ajoutez un rôle individuel",
-    "description": "Label for the form to add a role to a user"
-  },
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
@@ -10039,7 +10047,7 @@
     "description": "Label displayed on Personal Experience form for disclaimer checkbox"
   },
   "oVgVhK": {
-    "defaultMessage": "Modifier l’adhésion pour {userName}",
+    "defaultMessage": "Modifier les rôles dans l'équipe {userName}",
     "description": "Label for the form to edit a users team membership"
   },
   "oX23Z+": {
@@ -10663,7 +10671,7 @@
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
   "s5hTYo": {
-    "defaultMessage": "Rôles des membres",
+    "defaultMessage": "Rôles dans l'équipe",
     "description": "Label for the input to select role of a team role"
   },
   "s7Uy7q": {
@@ -10725,10 +10733,6 @@
   "sSGgnI": {
     "defaultMessage": "Brève description de l'équipe (en anglais)",
     "description": "Label for team description in English language"
-  },
-  "sSnNWm": {
-    "defaultMessage": "Supprimer l’adhésion<hidden> dans {team}</hidden>",
-    "description": "Label for the form to remove a team role from a user"
   },
   "sWBbdX": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
@@ -10998,10 +11002,6 @@
     "defaultMessage": "Renseignements sur l'employé(e)",
     "description": "Main heading in employee information page."
   },
-  "uBmoxQ": {
-    "defaultMessage": "Rôle",
-    "description": "Title displayed for the role table display name column"
-  },
   "uD105N": {
     "defaultMessage": "Non lus",
     "description": "Link text to show all unread items in a list"
@@ -11230,6 +11230,10 @@
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
   },
+  "vkOyl3": {
+    "defaultMessage": "Retirer de l'équipe<hidden> dans {team}</hidden>",
+    "description": "Header for the form to remove a team role from a user"
+  },
   "vm9mFv": {
     "defaultMessage": "Veuillez passer en revue le code et essayer de le saisir à nouveau.",
     "description": "Error message when the code is not valid."
@@ -11329,6 +11333,10 @@
   "wJnIJx": {
     "defaultMessage": "Groupe",
     "description": "Label displayed on classification group input"
+  },
+  "wKXLmR": {
+    "defaultMessage": "Ajoutez un rôle dans l'équipe",
+    "description": "Label for the button to add a role to a user"
   },
   "wNJSJ7": {
     "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existe en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour des personnes autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",

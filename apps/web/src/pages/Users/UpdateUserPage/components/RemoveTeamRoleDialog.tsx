@@ -68,11 +68,23 @@ const RemoveTeamRoleDialog = ({
     getLocalizedName(role.displayName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
 
-  const label = intl.formatMessage(
+  const dialogLabel = intl.formatMessage(
     {
       defaultMessage: "Remove membership<hidden> in {team}</hidden>",
-      id: "sSnNWm",
-      description: "Label for the form to remove a team role from a user",
+      id: "vkOyl3",
+      description: "Header for the form to remove a team role from a user",
+    },
+    {
+      team: teamDisplayName,
+    },
+  );
+
+  const buttonLabel = intl.formatMessage(
+    {
+      defaultMessage: "Remove membership<hidden> in {team}</hidden>",
+      id: "N6Qn5a",
+      description:
+        "Button label for the form to remove a team role from a user",
     },
     {
       team: teamDisplayName,
@@ -83,11 +95,11 @@ const RemoveTeamRoleDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="error" icon={TrashIcon} mode="icon_only">
-          <span data-h2-visually-hidden="base(invisible)">{label}</span>
+          <span data-h2-visually-hidden="base(invisible)">{buttonLabel}</span>
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(
@@ -143,7 +155,9 @@ const RemoveTeamRoleDialog = ({
               onClick={handleRemove}
               disabled={isDeleting}
             >
-              {isDeleting ? intl.formatMessage(commonMessages.removing) : label}
+              {isDeleting
+                ? intl.formatMessage(commonMessages.removing)
+                : buttonLabel}
             </Button>
           </Dialog.Footer>
         </Dialog.Body>

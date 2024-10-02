@@ -76,10 +76,16 @@ const AddIndividualRoleDialog = ({
     });
   };
 
-  const label = intl.formatMessage({
+  const dialogLabel = intl.formatMessage({
     defaultMessage: "Add individual role",
-    id: "oDr+47",
-    description: "Label for the form to add a role to a user",
+    id: "QCesvO",
+    description: "Header for the form to add a role to a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Add individual role",
+    id: "9ufudR",
+    description: "Label for the button to add a role to a user",
   });
 
   const roleOptions = availableRoles
@@ -100,11 +106,11 @@ const AddIndividualRoleDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="secondary" mode="solid" icon={PlusIcon}>
-          {label}
+          {buttonLabel}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(
