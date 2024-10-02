@@ -243,7 +243,7 @@ const SkillPortfolioTable = ({
             context="library"
             skills={unclaimedSkills}
             onSave={async (value) => {
-              executeCreateMutation({
+              await executeCreateMutation({
                 userId: userAuthInfo?.id ?? "",
                 skillId: value?.skill ?? "",
                 userSkill: {

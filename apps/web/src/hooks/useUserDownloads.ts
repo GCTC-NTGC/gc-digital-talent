@@ -91,7 +91,7 @@ const useUserDownloads = () => {
           executeAsyncDownload({
             url: paths.userGeneratedFile(res.data.downloadUserDoc),
             fileName: res.data.downloadUserDoc,
-          });
+          }).catch(handleDownloadError);
         } else {
           handleDownloadError();
         }

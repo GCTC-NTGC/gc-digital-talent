@@ -6,7 +6,7 @@ import {
   defaultLogger,
   type Logger,
 } from "@gc-digital-talent/logger";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, NotFoundError } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import invariant from "~/utils/invariant";
@@ -83,10 +83,7 @@ const useRequiredParams = <
     } catch (_err) {
       const errorMessage =
         message ?? intl.formatMessage(commonMessages.notFound);
-      throw new Response(errorMessage, {
-        status: 404,
-        statusText: errorMessage,
-      });
+      throw new NotFoundError(errorMessage);
     }
 
     return newParams;

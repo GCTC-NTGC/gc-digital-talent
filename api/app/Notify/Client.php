@@ -208,7 +208,7 @@ class Client
      * Build Bulk Payload
      *
      * @param  string  $name  Used to identify this bulk of notifications later on.
-     * @param  array<string>  $rows  The recipient of the notification
+     * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
      * @param  Carbon\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
@@ -240,7 +240,7 @@ class Client
      * Build Bulk Email Payload
      *
      * @param  string  $name  Used to identify this bulk of notifications later on.
-     * @param  array<string>  $rows  The recipient of the notification
+     * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
      * @param  Carbon\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
@@ -282,7 +282,7 @@ class Client
      * Build Bulk SMS Payload
      *
      * @param  string  $name  Used to identify this bulk of notifications later on.
-     * @param  array<string>  $rows  The recipient of the notification
+     * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
      * @param  Carbon\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address

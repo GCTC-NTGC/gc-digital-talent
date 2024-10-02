@@ -133,7 +133,7 @@ const SkillBrowserDialog = ({
 
   useEffect(() => {
     if (watchSkill) {
-      formTrigger("skill");
+      void formTrigger("skill");
     }
   }, [watchSkill, formTrigger]);
 

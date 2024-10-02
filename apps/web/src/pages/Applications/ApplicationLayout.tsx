@@ -5,8 +5,13 @@ import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
 
 import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
-import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import {
+  empty,
+  isUuidError,
+  notEmpty,
+  NotFoundError,
+} from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -190,7 +195,6 @@ const Application_Query = graphql(/* GraphQL */ `
 
 const Layout = () => {
   const id = useApplicationId();
-  const intl = useIntl();
   const [{ data, fetching, error, stale }] = useQuery({
     query: Application_Query,
     context,
@@ -201,10 +205,7 @@ const Layout = () => {
 
   if (error) {
     if (isUuidError(error)) {
-      throw new Response("", {
-        status: 404,
-        statusText: intl.formatMessage(commonMessages.notFound),
-      });
+      throw new NotFoundError();
     }
   }
 

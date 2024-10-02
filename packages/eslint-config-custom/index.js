@@ -102,10 +102,8 @@ module.exports = {
 
     // Temporarily disabled to ease transition to typed linting
     "@typescript-eslint/require-await": "off", // Remove in #11377
-    "@typescript-eslint/only-throw-error": "off", // Remove in #11378
     "@typescript-eslint/no-misused-promises": "off", // Remove in #11379
     "@typescript-eslint/no-base-to-string": "off", // Remove in #11380
-    "@typescript-eslint/no-floating-promises": "off", // Remove in #11381
     "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
 
     // Remove in #11384
