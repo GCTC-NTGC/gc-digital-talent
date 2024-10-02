@@ -5,6 +5,8 @@ import {
   ColumnMeta,
 } from "@tanstack/react-table";
 
+import nodeToString from "~/utils/nodeToString";
+
 import { SearchState } from "./types";
 
 export const getColumnVisibility = (
@@ -47,7 +49,7 @@ export const getColumnHeader = <T>(
   if (metaKey) {
     const { meta } = column.columnDef;
     const metaHeader = (meta && metaKey in meta ? meta[metaKey] : header) ?? "";
-    return metaHeader.toString();
+    return nodeToString(metaHeader);
   }
 
   return header;
