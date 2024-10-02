@@ -158,7 +158,7 @@ class CheckIntl extends Command
 
         // Find exact matches of strings across locales
         $intersectLocales = array_filter(array_keys(array_intersect_assoc($existing['en'], $existing['fr'])), function ($item) {
-            return ! is_array($item) && ! in_array($item, $this->allowedMatch);
+            return ! in_array($item, $this->allowedMatch);
         });
         if (! empty($intersectLocales)) {
             $this->errors['matching_strings'][$fileName] = $intersectLocales;

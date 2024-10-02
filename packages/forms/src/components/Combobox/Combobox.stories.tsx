@@ -53,6 +53,7 @@ const Template: StoryFn<ComboboxType> = (args) => {
             .then((newOptions) => {
               setFilteredOptions(newOptions);
             })
+            .catch((err) => action("error")(err))
             .finally(() => {
               setIsSearching(false);
             });

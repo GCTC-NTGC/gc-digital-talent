@@ -75,9 +75,9 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   const methods = useForm<FormValues>();
   const actionProps = methods.register("action");
 
-  const handleSave = (action: FormValues["action"]) => {
+  const handleSave = async (action: FormValues["action"]) => {
     methods.setValue("action", action);
-    methods.handleSubmit(handleSubmit)();
+    await methods.handleSubmit(handleSubmit)();
   };
 
   const handleOpenChange = (newOpen: boolean) => {
@@ -102,7 +102,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   const handleKeyDown: KeyboardEventHandler = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      handleSave("add");
+      void handleSave("add");
     }
   };
 

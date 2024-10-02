@@ -206,15 +206,15 @@ export const Component = () => {
                   {loggedIn
                     ? intl.formatMessage({
                         defaultMessage:
-                          "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
-                        id: "9SZDCq",
+                          "We're posting new job opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
+                        id: "8hnMtx",
                         description:
                           "Text describing upcoming opportunities instructing users to update a profile when signed in",
                       })
                     : intl.formatMessage({
                         defaultMessage:
-                          "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
-                        id: "3sbLPV",
+                          "We're posting new job opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
+                        id: "PH5Lah",
                         description:
                           "Text describing upcoming opportunities instructing users to create a profile when anonymous",
                       })}
