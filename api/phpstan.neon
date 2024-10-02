@@ -13,11 +13,6 @@ parameters:
       path: app/Builders/PoolBuilder.php
 
     -
-      message: "#^Method App\\\\Builders\\\\PoolBuilder\\:\\:whereNotArchived\\(\\) invoked with 1 parameter, 0 required\\.$#"
-      count: 1
-      path: app/Builders/PoolBuilder.php
-
-    -
       message: "#^PHPDoc tag @var above a method has no effect\\.$#"
       count: 1
       path: app/Console/Commands/CheckIntl.php
