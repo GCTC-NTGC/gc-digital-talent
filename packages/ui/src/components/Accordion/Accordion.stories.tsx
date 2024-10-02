@@ -7,8 +7,9 @@ import { ComponentPropsWithoutRef, useState } from "react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import Accordion from "./Accordion";
+import Accordion, { AccordionMetaData } from "./Accordion";
 import Button from "../Button";
+import Link from "../Link";
 
 const { Item, Trigger, Content, Root } = Accordion;
 
@@ -16,6 +17,38 @@ const Text = () => {
   faker.seed(0);
   return <p>{faker.lorem.sentences(5)}</p>;
 };
+
+const metaData: AccordionMetaData[] = [
+  {
+    key: "button-id",
+    type: "button",
+    children: (
+      <Button mode="text" color="primary">
+        Button label
+      </Button>
+    ),
+  },
+  {
+    key: "link-id",
+    type: "link",
+    children: (
+      <Link mode="text" color="primary">
+        Link label
+      </Link>
+    ),
+  },
+  {
+    key: "chip-id",
+    type: "chip",
+    color: "secondary",
+    children: "Chip label",
+  },
+  {
+    key: "text-2-id",
+    type: "text",
+    children: "Text",
+  },
+];
 
 export default {
   component: Accordion.Root,
@@ -66,7 +99,15 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">
-        <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+        <Accordion.Trigger subtitle="Subtitle">
+          Accordion Three
+        </Accordion.Trigger>
+        <Accordion.MetaData metadata={metaData} />
+        <Accordion.Content>{children}</Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item value="four">
+        <Accordion.Trigger>Accordion Four</Accordion.Trigger>
+        <Accordion.MetaData metadata={metaData} />
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
