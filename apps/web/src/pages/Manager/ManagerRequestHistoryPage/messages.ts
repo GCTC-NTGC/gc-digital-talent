@@ -1,15 +1,10 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  longPageTitle: {
-    defaultMessage: "Your talent requests",
-    id: "Z96+gh",
-    description: "Long title for the 'manager request history' page",
-  },
-  shortPageTitle: {
+  pageTitle: {
     defaultMessage: "Talent requests",
-    id: "hZg6UM",
-    description: "Short title for the 'manager request history' page",
+    id: "MSFrmr",
+    description: "Title for the 'manager request history' page",
   },
   pageSubtitle: {
     defaultMessage:
