@@ -103,9 +103,9 @@ const TeamRoleTable = ({
     columnHelper.accessor(
       (teamAssignment) => teamRolesAccessor(teamAssignment, intl),
       {
-        id: "membershipRoles",
+        id: "role",
         enableHiding: false,
-        header: intl.formatMessage(commonMessages.name),
+        header: intl.formatMessage(commonMessages.role),
         cell: ({ row: { original: teamAssignment } }) =>
           teamRolesCell(
             teamAssignment.roles

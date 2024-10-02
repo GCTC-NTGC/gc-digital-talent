@@ -7019,7 +7019,7 @@
     "description": "No preference for language ability - will accept English or French"
   },
   "Z+JxTc": {
-    "defaultMessage": "Chercher les rôles fondés sur l’équipe",
+    "defaultMessage": "Chercher les rôles",
     "description": "Label for the team roles table search input"
   },
   "Z+gi2d": {
@@ -8051,7 +8051,7 @@
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
   "eZHoNJ": {
-    "defaultMessage": "Rôles fondés sur l’équipe",
+    "defaultMessage": "Rôles dans des équipes",
     "description": "Heading for updating a users team roles"
   },
   "eZYP/W": {

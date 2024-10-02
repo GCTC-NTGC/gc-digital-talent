@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { UpdateUserRolesInput, Role, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -48,11 +48,7 @@ const IndividualRoleTable = ({
       id: "role",
       enableHiding: false,
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Role",
-        id: "uBmoxQ",
-        description: "Title displayed for the role table display name column",
-      }),
+      header: intl.formatMessage(commonMessages.role),
       cell: ({ getValue }) => roleCell(getValue()),
     }),
   ] as ColumnDef<Role>[];

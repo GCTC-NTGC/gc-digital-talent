@@ -310,6 +310,11 @@ const commonMessages = defineMessages({
     id: "I1jrAG",
     description: "Indicates a user has not accepted some criteria",
   },
+  role: {
+    defaultMessage: "Role",
+    id: "uBmoxQ",
+    description: "Title displayed for the role table display name column",
+  },
 });
 
 export default commonMessages;
