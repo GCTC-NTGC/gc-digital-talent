@@ -33,6 +33,8 @@ const ExperienceSkills = ({
 
   const [accordionState, setAccordionState] = useState<AccordionStates>("");
 
+  // Note: Needed for function colouring
+  // eslint-disable-next-line @typescript-eslint/require-await
   const handleAddSkill = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
     const skill = skills.find(({ id }) => id === skillId);

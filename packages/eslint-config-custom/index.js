@@ -98,7 +98,6 @@ module.exports = {
 
     // Temporarily disabled to ease transition to typed linting
     "@typescript-eslint/prefer-nullish-coalescing": "off", // Remove in #11376
-    "@typescript-eslint/require-await": "off", // Remove in #11377
     "@typescript-eslint/no-misused-promises": "off", // Remove in #11379
     "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
 

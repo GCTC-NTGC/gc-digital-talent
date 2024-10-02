@@ -21,7 +21,7 @@ const labels = {
 export default {
   component: BasicForm,
   args: {
-    onSubmit: async (values) => action("onSubmit")(values),
+    onSubmit: (values) => action("onSubmit")(values),
     labels,
   },
 } as Meta<typeof BasicForm>;
