@@ -39,7 +39,7 @@ const createRoute = (locale: Locales) =>
                   },
                   lazy: () =>
                     import(
-                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                      "../pages/Manager/ManagerDashboardPage/ManagerDashboardPage"
                     ),
                 },
               ],
