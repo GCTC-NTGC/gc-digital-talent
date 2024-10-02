@@ -86,6 +86,7 @@ module.exports = {
     "no-shadow": "off",
     "no-console": "error",
     "no-alert": "error",
+    "prefer-promise-reject-errors": "off",
     "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-empty-function": "error",
@@ -102,7 +103,6 @@ module.exports = {
 
     // Temporarily disabled to ease transition to typed linting
     "@typescript-eslint/no-misused-promises": "off", // Remove in #11379
-    "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
 
     // Remove in #11384
     "@typescript-eslint/no-unsafe-argument": "off",
