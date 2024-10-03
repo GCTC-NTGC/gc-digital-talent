@@ -72,7 +72,7 @@ const ActionCell = (
         }}
         onSave={async (value) => {
           if (value.skill && value.skillLevel) {
-            onUpdate(poolSkillId, value.skillLevel);
+            await onUpdate(poolSkillId, value.skillLevel);
           }
         }}
       />
@@ -204,7 +204,7 @@ const SkillTable = ({
                   skills={availableSkills}
                   onSave={async (value) => {
                     if (value.skill && value.skillLevel) {
-                      onCreate(value.skill, value.skillLevel);
+                      await onCreate(value.skill, value.skillLevel);
                     }
                   }}
                 />

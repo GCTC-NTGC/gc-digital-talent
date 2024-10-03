@@ -63,7 +63,7 @@ const SkillTree = ({
   const disclaimer = showDisclaimer ? (
     <TreeView.Item>
       <Well color="warning">
-        {disclaimerMessage || (
+        {disclaimerMessage ?? (
           <p>
             {intl.formatMessage({
               defaultMessage:

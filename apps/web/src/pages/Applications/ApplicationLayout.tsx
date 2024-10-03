@@ -5,8 +5,13 @@ import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
 
 import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
-import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import {
+  empty,
+  isUuidError,
+  notEmpty,
+  NotFoundError,
+} from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -31,10 +36,9 @@ import { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
 import { getApplicationSteps } from "./utils";
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   experienceId: string;
-};
+}
 
 interface ApplicationPageWrapperProps {
   query: FragmentType<typeof Application_PoolCandidateFragment>;
@@ -68,7 +72,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   ]).filter(notEmpty);
 
   const currentPage = useCurrentPage(pages);
-  const currentCrumbs = currentPage?.crumbs || [];
+  const currentCrumbs = currentPage?.crumbs ?? [];
 
   const currentStepIndex = steps.findIndex(
     (step) =>
@@ -190,7 +194,6 @@ const Application_Query = graphql(/* GraphQL */ `
 
 const Layout = () => {
   const id = useApplicationId();
-  const intl = useIntl();
   const [{ data, fetching, error, stale }] = useQuery({
     query: Application_Query,
     context,
@@ -201,10 +204,7 @@ const Layout = () => {
 
   if (error) {
     if (isUuidError(error)) {
-      throw new Response("", {
-        status: 404,
-        statusText: intl.formatMessage(commonMessages.notFound),
-      });
+      throw new NotFoundError();
     }
   }
 

@@ -152,7 +152,7 @@ const UpdateSkillShowcase = ({
 
   const handleSuccess = (msg?: ReactNode) => {
     toast.success(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Successfully updated skill",
           id: "vMBiMV",

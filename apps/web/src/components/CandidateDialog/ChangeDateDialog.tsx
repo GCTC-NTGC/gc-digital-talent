@@ -103,7 +103,7 @@ const ChangeDateDialog = ({
     formValues: FormValues,
   ) => {
     await requestMutation(selectedCandidate.id, {
-      expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
+      expiryDate: formValues.expiryDate ?? emptyToNull(formValues.expiryDate),
     })
       .then(() => {
         toast.success(

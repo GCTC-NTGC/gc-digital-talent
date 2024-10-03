@@ -311,7 +311,7 @@ export const PoolPoster = ({
 
   const { classification } = pool;
   const genericJobTitles =
-    classification?.genericJobTitles?.filter(notEmpty) || [];
+    classification?.genericJobTitles?.filter(notEmpty) ?? [];
   let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
     classificationString = formatClassificationString({
@@ -549,8 +549,8 @@ export const PoolPoster = ({
                 mode="inline"
                 color="secondary"
                 icon={linkCopied ? CheckIcon : undefined}
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
+                onClick={async () => {
+                  await navigator.clipboard.writeText(window.location.href);
                   setLinkCopied(true);
                   setTimeout(() => {
                     setLinkCopied(false);
@@ -693,7 +693,7 @@ export const PoolPoster = ({
                       classification?.minSalary,
                       classification?.maxSalary,
                       locale,
-                    ) || notAvailable
+                    ) ?? notAvailable
                   }
                   suffix={
                     salaryRangeUrl && (
@@ -1282,10 +1282,9 @@ const PoolNotFound = () => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
   query PoolAdvertisementPage($id: UUID!) {
@@ -1319,7 +1318,7 @@ export const Component = () => {
   });
 
   const isVisible = isAdvertisementVisible(
-    auth?.roleAssignments?.filter(notEmpty) || [],
+    auth?.roleAssignments?.filter(notEmpty) ?? [],
     data?.pool?.status?.value ?? null,
   );
 

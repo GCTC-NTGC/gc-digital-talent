@@ -32,10 +32,9 @@ const subTitle = defineMessage({
   description: "Subtitle for the request confirmation page.",
 });
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RequestConfirmationParams = {
+interface RouteParams extends Record<string, string> {
   requestId: Scalars["ID"]["output"];
-};
+}
 
 const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
@@ -46,8 +45,7 @@ const mailLink = (chunks: ReactNode) => (
 export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { requestId } =
-    useRequiredParams<RequestConfirmationParams>("requestId");
+  const { requestId } = useRequiredParams<RouteParams>("requestId");
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedSubTitle = intl.formatMessage(subTitle);

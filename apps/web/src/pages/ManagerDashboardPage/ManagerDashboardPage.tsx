@@ -156,6 +156,8 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                       setAccordionItems(newValue);
                     }}
                     type="multiple"
+                    // we don't need that fat padding in the accordion inside the task card
+                    data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
                   >
                     <Accordion.Item value="your_talent_searches">
                       <Accordion.Trigger>
@@ -176,7 +178,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         <div
                           data-h2-display="base(flex)"
                           data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x0.5)"
+                          data-h2-gap="base(x1)"
                         >
                           <div>
                             {intl.formatMessage(

@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
 
-import { InputFieldError } from "../types";
-
 /** Keys for the different types of descriptions we are using */
 type InputDescription = "error" | "context" | "unsaved";
 
@@ -15,7 +13,7 @@ interface UseInputDescribedByArgs {
   describedBy?: string;
   /** Determines if each description type is visible or not */
   show: {
-    error?: InputFieldError;
+    error?: boolean;
     context?: ReactNode;
     unsaved?: boolean;
   };
@@ -37,14 +35,6 @@ type UseInputDescribedBy = (
  *
  * Calculates the `aria-describedby` attribute for
  * and input based on the visible descriptions
- *
- * @param {UseInputDescribedByArgs} args
- * @param {Object} args.show  The description elements and if they are visible
- * @param {InputFieldError} args.show.error If the error description is visible
- * @param {ReactNode} args.show.context If the context description is visible
- * @param {boolean} args.show.unsaved If the unsaved changes description is visible
- * @param {string}  args.id A unique identifier of the input
- * @returns {UseInputDescribedByReturn}
  */
 const useInputDescribedBy: UseInputDescribedBy = ({
   show: { error, context, unsaved },

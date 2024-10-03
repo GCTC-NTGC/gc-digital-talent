@@ -14,6 +14,7 @@ import {
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AssessmentStepTracker, {
@@ -24,10 +25,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["input"];
-};
+}
 
 const ScreeningAndEvaluation_PoolQuery = graphql(/* GraphQL */ `
   query ScreeningAndEvaluation_Pools(
@@ -77,6 +77,7 @@ const ScreeningAndEvaluationPage = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const client = useClient();
   const intl = useIntl();
+  const logger = useLogger();
   const [fetchingCandidates, setFetchingCandidates] = useState<boolean>(true);
   const [candidates, setCandidates] = useState<
     FragmentType<typeof AssessmentStepTracker_CandidateFragment>[]
@@ -132,11 +133,11 @@ const ScreeningAndEvaluationPage = () => {
     [client, intl, lastPage],
   );
 
-  const handleFilterSubmit: SubmitHandler<FormValues> = (formData) => {
+  const handleFilterSubmit: SubmitHandler<FormValues> = async (formData) => {
     const transformedData: PoolCandidateSearchInput =
       transformFormValuesToFilterState(formData, poolId);
 
-    batchLoader(transformedData).then((res) => {
+    await batchLoader(transformedData).then((res) => {
       setCandidates(res);
     });
   };
@@ -147,9 +148,13 @@ const ScreeningAndEvaluationPage = () => {
         applicantFilter: { pools: [{ id: poolId }] },
         suspendedStatus: CandidateSuspendedFilter.Active,
         expiryStatus: CandidateExpiryFilter.Active,
-      }).then((res) => {
-        setCandidates(res);
-      });
+      })
+        .then((res) => {
+          setCandidates(res);
+        })
+        .catch((err) => {
+          logger.error(err);
+        });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

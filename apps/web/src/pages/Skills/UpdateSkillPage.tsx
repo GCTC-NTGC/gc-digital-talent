@@ -21,6 +21,7 @@ import {
   getLocale,
   errorMessages,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import {
@@ -134,8 +135,8 @@ export const UpdateSkillForm = ({
     ...values,
     category: values.category.value ?? undefined,
     keywords: {
-      en: values.keywords?.en?.join(", ") || "",
-      fr: values.keywords?.fr?.join(", ") || "",
+      en: values.keywords?.en?.join(", ") ?? "",
+      fr: values.keywords?.fr?.join(", ") ?? "",
     },
     families: unpackIds(values?.families),
   });
@@ -203,7 +204,7 @@ export const UpdateSkillForm = ({
   const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
     ({ id, name }) => ({
       value: id,
-      label: name?.[locale] || "",
+      label: getLocalizedName(name, intl),
     }),
   );
 
@@ -337,10 +338,9 @@ export const UpdateSkillForm = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateSkillData_Query = graphql(/* GraphQL */ `
   query UpdateSkillData($id: UUID!) {

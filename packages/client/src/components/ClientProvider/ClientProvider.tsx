@@ -122,6 +122,8 @@ const ClientProvider = ({
               if (errorMessageNode) toast.error(errorMessageNode);
             },
           }),
+          // NOTE: Needed to colour the function
+          // eslint-disable-next-line @typescript-eslint/require-await
           authExchange(async (utils) => {
             return {
               addAuthToOperation: (operation) => {

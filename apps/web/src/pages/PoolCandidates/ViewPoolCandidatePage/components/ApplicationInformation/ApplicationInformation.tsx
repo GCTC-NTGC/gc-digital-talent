@@ -418,7 +418,7 @@ const ApplicationInformation = ({
               })}
             </Heading>
             <p>
-              {application?.signature ||
+              {application?.signature ??
                 intl.formatMessage(commonMessages.notProvided)}
             </p>
           </Accordion.Content>

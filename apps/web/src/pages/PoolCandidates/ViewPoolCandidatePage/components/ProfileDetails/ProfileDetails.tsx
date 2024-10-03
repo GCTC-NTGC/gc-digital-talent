@@ -63,7 +63,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
     >
       <p>
         <span data-h2-font-size="base(caption)">
-          {user.currentCity || intl.formatMessage(commonMessages.notFound)},{" "}
+          {user.currentCity ?? intl.formatMessage(commonMessages.notFound)},{" "}
           {getLocalizedName(user.currentProvince?.label, intl)}
         </span>
       </p>

@@ -13,16 +13,6 @@ parameters:
       path: app/Builders/PoolBuilder.php
 
     -
-      message: "#^Method App\\\\Builders\\\\PoolBuilder\\:\\:whereNotArchived\\(\\) invoked with 1 parameter, 0 required\\.$#"
-      count: 1
-      path: app/Builders/PoolBuilder.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 5
-      path: app/Builders/PoolBuilder.php
-
-    -
       message: "#^PHPDoc tag @var above a method has no effect\\.$#"
       count: 1
       path: app/Console/Commands/CheckIntl.php
@@ -1748,11 +1738,6 @@ parameters:
       path: app/Models/PoolCandidate.php
 
     -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
-      count: 3
-      path: app/Models/PoolCandidate.php
-
-    -
       message: "#^Variable \\$assessmentStatus in isset\\(\\) always exists and is not nullable\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
@@ -1784,16 +1769,6 @@ parameters:
 
     -
       message: "#^Property App\\\\Models\\\\PoolCandidateSearchRequest\\:\\:\\$request_status_changed_at \\(App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\CarbonImmutable\\.$#"
-      count: 1
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 2
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
       count: 1
       path: app/Models/PoolCandidateSearchRequest.php
 
@@ -1875,16 +1850,6 @@ parameters:
     -
       message: "#^Parameter \\$query of method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) has invalid type App\\\\Models\\\\Eloquent\\\\Builder\\.$#"
       count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
-      count: 3
       path: app/Models/User.php
 
     -
@@ -1998,16 +1963,6 @@ parameters:
       path: app/Policies/PoolCandidatePolicy.php
 
     -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\PoolCandidate\\. Use \\-\\> instead\\.$#"
-      count: 12
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
       count: 2
       path: app/Policies/PoolPolicy.php
@@ -2109,11 +2064,6 @@ parameters:
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\:\\:\\$pivot\\.$#"
-      count: 2
-      path: app/Rules/SkillLevelRequiredIfEssential.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\. Use \\-\\> instead\\.$#"
       count: 2
       path: app/Rules/SkillLevelRequiredIfEssential.php
 

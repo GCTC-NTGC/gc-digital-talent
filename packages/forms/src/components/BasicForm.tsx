@@ -82,7 +82,7 @@ function BasicForm<TFieldValues extends FieldValues>({
     formState: { isDirty },
   } = methods;
 
-  const handleSubmit = async (data: TFieldValues) => {
+  const handleSubmit = (data: TFieldValues) => {
     // Reset form to clear dirty values
     reset(data, {
       keepDirty: false,

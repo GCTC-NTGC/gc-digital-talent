@@ -357,7 +357,7 @@ const Root = ({
           color="secondary"
           onClick={onAdd}
         >
-          {addText || intl.formatMessage(formMessages.repeaterAddItem)}
+          {addText ?? intl.formatMessage(formMessages.repeaterAddItem)}
         </Button>
       )}
     </div>

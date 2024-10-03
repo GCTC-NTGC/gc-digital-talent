@@ -202,7 +202,7 @@ const JobPosterTemplatesPage = () => {
               jobPosterTemplate.name?.[locale]
                 ?.toLowerCase()
                 .trim()
-                .includes(sanitizedTerm) ||
+                .includes(sanitizedTerm) ??
               jobPosterTemplate.keywords?.[locale]?.some((keyword) => {
                 return keyword.toLowerCase().trim().includes(sanitizedTerm);
               })

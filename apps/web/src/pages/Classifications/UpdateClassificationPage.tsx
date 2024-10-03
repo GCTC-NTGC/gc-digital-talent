@@ -75,7 +75,7 @@ export const UpdateClassificationForm = ({
         en: data.name?.en,
         fr: data.name?.fr,
       },
-      group: upperCase(data.group || ""),
+      group: upperCase(data.group ?? ""),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
     };
@@ -204,9 +204,9 @@ export const UpdateClassificationForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
               min: {
-                value: watchMinSalary || 0,
+                value: watchMinSalary ?? 0,
                 message: intl.formatMessage(errorMessages.mustBeGreater, {
-                  value: watchMinSalary || 0,
+                  value: watchMinSalary ?? 0,
                 }),
               },
             }}
@@ -220,10 +220,9 @@ export const UpdateClassificationForm = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   classificationId: Scalars["ID"]["output"];
-};
+}
 
 const Classification_Query = graphql(/* GraphQL */ `
   query Classification($id: UUID!) {

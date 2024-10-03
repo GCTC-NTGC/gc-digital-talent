@@ -22,6 +22,6 @@ export function hasEmptyRequiredFields({
   Pool,
   "language" | "securityClearance" | "location" | "isRemote"
 >): boolean {
-  const hasLocation = isRemote || location?.en || location?.fr;
+  const hasLocation = isRemote || (location?.en && location?.fr);
   return !!(!language || !securityClearance || !hasLocation);
 }

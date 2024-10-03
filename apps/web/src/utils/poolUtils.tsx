@@ -35,6 +35,7 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
+import nodeToString from "./nodeToString";
 
 /**
  * Determine if the advertisement can be
@@ -123,17 +124,17 @@ export const formattedPoolPosterTitle = ({
             {intl.formatMessage(commonMessages.dividingColon)}
           </>
         ) : null}
-        {title || ""}
+        {title ?? ""}
       </>
     ) : (
       <>
-        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
+        {title ?? ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
     label: short
-      ? `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim()
-      : `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
+      ? `${hasGroupAndLevel ? genericTitle : ""}${title ?? ""}`.trim()
+      : `${title ?? ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 
@@ -165,7 +166,7 @@ export const poolTitle = (
   if (pool === null || pool === undefined)
     return {
       html: fallbackTitle,
-      label: fallbackTitle.toString(),
+      label: nodeToString(fallbackTitle),
     };
 
   const specificTitle = getLocalizedName(pool?.name, intl);

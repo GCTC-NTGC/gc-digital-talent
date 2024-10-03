@@ -253,7 +253,7 @@ export const ViewPool = ({
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage(processMessages.processNumber)}
               {intl.formatMessage(commonMessages.dividingColon)}
-              {pool.processNumber || (
+              {pool.processNumber ?? (
                 <span data-h2-color="base(error.darkest)">
                   {intl.formatMessage(commonMessages.notProvided)}
                 </span>
@@ -505,10 +505,9 @@ export const ViewPool = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {
@@ -551,7 +550,7 @@ const ViewPoolPage = () => {
             onDuplicate={async ({ department }) => {
               return mutations.duplicate(
                 poolId,
-                data?.pool?.team?.id || "",
+                data?.pool?.team?.id ?? "",
                 department,
               );
             }}

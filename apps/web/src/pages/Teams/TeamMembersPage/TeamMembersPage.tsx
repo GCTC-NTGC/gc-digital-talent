@@ -43,7 +43,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   );
 
   const members: TeamMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(team.roleAssignments || []),
+    () => groupRoleAssignmentsByUser(team.roleAssignments ?? []),
     [team.roleAssignments],
   );
 
@@ -143,10 +143,9 @@ const TeamMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   teamId: Scalars["ID"]["output"];
-};
+}
 
 const TeamMembersPage = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");

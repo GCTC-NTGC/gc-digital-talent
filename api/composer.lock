@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd7b45d7489da837b3582465b886abbd",
+    "content-hash": "1e682008a66ffff813068ad3859789c0",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1039,80 +1039,6 @@
             "time": "2024-04-12T12:12:48+00:00"
         },
         {
-            "name": "devnoiseconsulting/laravel-scout-postgres-tsvector",
-            "version": "v9.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector.git",
-                "reference": "8e5dd7e4e23f7e8f271be8d144ed120d9b527ce3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/devNoiseConsulting/laravel-scout-postgres-tsvector/zipball/8e5dd7e4e23f7e8f271be8d144ed120d9b527ce3",
-                "reference": "8e5dd7e4e23f7e8f271be8d144ed120d9b527ce3",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^9|^10",
-                "illuminate/database": "^9|^10",
-                "illuminate/support": "^9|^10",
-                "laravel/scout": "^9|^10",
-                "php": "^8.0|^8.1|^8.2"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.10",
-                "mockery/mockery": "^1.5",
-                "nunomaduro/larastan": "^2.6",
-                "orchestra/testbench": "^8.5",
-                "phpunit/phpunit": "^9.6",
-                "tightenco/duster": "^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ScoutEngines\\Postgres\\PostgresEngineServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ScoutEngines\\Postgres\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Flynn",
-                    "email": "flynnmj@devnoise.com",
-                    "homepage": "https://github.com/devNoiseConsulting"
-                },
-                {
-                    "name": "Peter Matseykanets",
-                    "email": "pmatseykanets@gmail.com",
-                    "homepage": "https://github.com/pmatseykanets"
-                }
-            ],
-            "description": "PostgreSQL Full Text Search Driver for Laravel Scout",
-            "homepage": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector",
-            "keywords": [
-                "fts",
-                "full text search",
-                "laravel",
-                "laravel scout",
-                "postgresql",
-                "search"
-            ],
-            "support": {
-                "issues": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector/issues",
-                "source": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector"
-            },
-            "time": "2023-04-28T15:22:17+00:00"
-        },
-        {
             "name": "dflydev/dot-access-data",
             "version": "v3.0.3",
             "source": {
@@ -1282,16 +1208,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.8.6",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "b7411825cf7efb7e51f9791dea19d86e43b399a1"
+                "reference": "d7dc08f98cba352b2bab5d32c5e58f7e745c11a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/b7411825cf7efb7e51f9791dea19d86e43b399a1",
-                "reference": "b7411825cf7efb7e51f9791dea19d86e43b399a1",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/d7dc08f98cba352b2bab5d32c5e58f7e745c11a7",
+                "reference": "d7dc08f98cba352b2bab5d32c5e58f7e745c11a7",
                 "shasum": ""
             },
             "require": {
@@ -1307,12 +1233,12 @@
                 "doctrine/coding-standard": "12.0.0",
                 "fig/log-test": "^1",
                 "jetbrains/phpstorm-stubs": "2023.1",
-                "phpstan/phpstan": "1.11.5",
+                "phpstan/phpstan": "1.12.0",
                 "phpstan/phpstan-strict-rules": "^1.6",
-                "phpunit/phpunit": "9.6.19",
+                "phpunit/phpunit": "9.6.20",
                 "psalm/plugin-phpunit": "0.18.4",
                 "slevomat/coding-standard": "8.13.1",
-                "squizlabs/php_codesniffer": "3.10.1",
+                "squizlabs/php_codesniffer": "3.10.2",
                 "symfony/cache": "^5.4|^6.0|^7.0",
                 "symfony/console": "^4.4|^5.4|^6.0|^7.0",
                 "vimeo/psalm": "4.30.0"
@@ -1375,7 +1301,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.8.6"
+                "source": "https://github.com/doctrine/dbal/tree/3.9.1"
             },
             "funding": [
                 {
@@ -1391,7 +1317,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-19T10:38:17+00:00"
+            "time": "2024-09-01T13:49:23+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -1897,6 +1823,80 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
+        },
+        {
+            "name": "gctc-ntgc/laravel-scout-postgres-tsvector",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GCTC-NTGC/laravel-scout-postgres-tsvector.git",
+                "reference": "78458d781c6b737a1ab8144bf59f03815b067e6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GCTC-NTGC/laravel-scout-postgres-tsvector/zipball/78458d781c6b737a1ab8144bf59f03815b067e6e",
+                "reference": "78458d781c6b737a1ab8144bf59f03815b067e6e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9|^10|^11",
+                "illuminate/database": "^9|^10|^11",
+                "illuminate/support": "^9|^10|^11",
+                "laravel/scout": "^9|^10",
+                "php": "^8.0|^8.1|^8.2"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.10",
+                "mockery/mockery": "^1.5",
+                "nunomaduro/larastan": "^2.6",
+                "orchestra/testbench": "^8.5",
+                "phpunit/phpunit": "^9.6",
+                "tightenco/duster": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ScoutEngines\\Postgres\\PostgresEngineServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ScoutEngines\\Postgres\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Flynn",
+                    "email": "flynnmj@devnoise.com",
+                    "homepage": "https://github.com/devNoiseConsulting"
+                },
+                {
+                    "name": "Peter Matseykanets",
+                    "email": "pmatseykanets@gmail.com",
+                    "homepage": "https://github.com/pmatseykanets"
+                }
+            ],
+            "description": "PostgreSQL Full Text Search Driver for Laravel Scout",
+            "homepage": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector",
+            "keywords": [
+                "fts",
+                "full text search",
+                "laravel",
+                "laravel scout",
+                "postgresql",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector/issues",
+                "source": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector"
+            },
+            "time": "2024-09-25T15:22:04+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2846,16 +2846,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v10.11.3",
+            "version": "v10.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "642b4750127b5242a089571c9314037a7453cc0a"
+                "reference": "f9cf4f79163e3c5f13f81369d4992d66e6700502"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/642b4750127b5242a089571c9314037a7453cc0a",
-                "reference": "642b4750127b5242a089571c9314037a7453cc0a",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/f9cf4f79163e3c5f13f81369d4992d66e6700502",
+                "reference": "f9cf4f79163e3c5f13f81369d4992d66e6700502",
                 "shasum": ""
             },
             "require": {
@@ -2920,7 +2920,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2024-09-11T21:32:42+00:00"
+            "time": "2024-10-01T14:39:33+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -3376,16 +3376,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.28.0",
+            "version": "3.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "e611adab2b1ae2e3072fa72d62c62f52c2bf1f0c"
+                "reference": "0adc0d9a51852e170e0028a60bd271726626d3f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e611adab2b1ae2e3072fa72d62c62f52c2bf1f0c",
-                "reference": "e611adab2b1ae2e3072fa72d62c62f52c2bf1f0c",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/0adc0d9a51852e170e0028a60bd271726626d3f0",
+                "reference": "0adc0d9a51852e170e0028a60bd271726626d3f0",
                 "shasum": ""
             },
             "require": {
@@ -3453,22 +3453,22 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.28.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.29.0"
             },
-            "time": "2024-05-22T10:09:12+00:00"
+            "time": "2024-09-29T11:59:11+00:00"
         },
         {
             "name": "league/flysystem-local",
-            "version": "3.28.0",
+            "version": "3.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-local.git",
-                "reference": "13f22ea8be526ea58c2ddff9e158ef7c296e4f40"
+                "reference": "e0e8d52ce4b2ed154148453d321e97c8e931bd27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-local/zipball/13f22ea8be526ea58c2ddff9e158ef7c296e4f40",
-                "reference": "13f22ea8be526ea58c2ddff9e158ef7c296e4f40",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-local/zipball/e0e8d52ce4b2ed154148453d321e97c8e931bd27",
+                "reference": "e0e8d52ce4b2ed154148453d321e97c8e931bd27",
                 "shasum": ""
             },
             "require": {
@@ -3502,9 +3502,9 @@
                 "local"
             ],
             "support": {
-                "source": "https://github.com/thephpleague/flysystem-local/tree/3.28.0"
+                "source": "https://github.com/thephpleague/flysystem-local/tree/3.29.0"
             },
-            "time": "2024-05-06T20:05:52+00:00"
+            "time": "2024-08-09T21:24:39+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -4408,16 +4408,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.2.0",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb"
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
                 "shasum": ""
             },
             "require": {
@@ -4460,9 +4460,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.2.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.0"
             },
-            "time": "2024-09-15T16:40:33+00:00"
+            "time": "2024-09-29T13:56:26+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -4734,16 +4734,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "2.2.2",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "ffbcee68069b073bff07a71eb321dcd9f2763513"
+                "reference": "87ddd21eb0b6b7ad20a11d314348ef307475f547"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/ffbcee68069b073bff07a71eb321dcd9f2763513",
-                "reference": "ffbcee68069b073bff07a71eb321dcd9f2763513",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/87ddd21eb0b6b7ad20a11d314348ef307475f547",
+                "reference": "87ddd21eb0b6b7ad20a11d314348ef307475f547",
                 "shasum": ""
             },
             "require": {
@@ -4832,9 +4832,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/2.2.2"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/3.3.0"
             },
-            "time": "2024-08-08T02:31:26+00:00"
+            "time": "2024-09-29T07:04:07+00:00"
         },
         {
             "name": "phpoffice/phpword",
@@ -9181,16 +9181,16 @@
     "packages-dev": [
         {
             "name": "brianium/paratest",
-            "version": "v7.4.5",
+            "version": "v7.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paratestphp/paratest.git",
-                "reference": "d4de825332842a7dee1ff350f0fd6caafa930d79"
+                "reference": "76815564c8d191f71d2cb4df12aed5e0bcd99945"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paratestphp/paratest/zipball/d4de825332842a7dee1ff350f0fd6caafa930d79",
-                "reference": "d4de825332842a7dee1ff350f0fd6caafa930d79",
+                "url": "https://api.github.com/repos/paratestphp/paratest/zipball/76815564c8d191f71d2cb4df12aed5e0bcd99945",
+                "reference": "76815564c8d191f71d2cb4df12aed5e0bcd99945",
                 "shasum": ""
             },
             "require": {
@@ -9198,31 +9198,30 @@
                 "ext-pcre": "*",
                 "ext-reflection": "*",
                 "ext-simplexml": "*",
-                "fidry/cpu-core-counter": "^1.1.0",
+                "fidry/cpu-core-counter": "^1.2.0",
                 "jean85/pretty-package-versions": "^2.0.6",
                 "php": "~8.2.0 || ~8.3.0",
-                "phpunit/php-code-coverage": "^10.1.14 || ^11.0.3",
-                "phpunit/php-file-iterator": "^4.1.0 || ^5.0.0",
-                "phpunit/php-timer": "^6.0.0 || ^7.0.0",
-                "phpunit/phpunit": "^10.5.20 || ^11.1.3",
-                "sebastian/environment": "^6.1.0 || ^7.1.0",
-                "symfony/console": "^6.4.7 || ^7.1.0",
-                "symfony/process": "^6.4.7 || ^7.1.0"
+                "phpunit/php-code-coverage": "^10.1.16",
+                "phpunit/php-file-iterator": "^4.1.0",
+                "phpunit/php-timer": "^6.0.0",
+                "phpunit/phpunit": "^10.5.33",
+                "sebastian/environment": "^6.1.0",
+                "symfony/console": "^6.4.7 || ^7.1.4",
+                "symfony/process": "^6.4.7 || ^7.1.3"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^12.0.0",
                 "ext-pcov": "*",
                 "ext-posix": "*",
-                "phpstan/phpstan": "^1.11.2",
+                "phpstan/phpstan": "^1.12.3",
                 "phpstan/phpstan-deprecation-rules": "^1.2.0",
                 "phpstan/phpstan-phpunit": "^1.4.0",
                 "phpstan/phpstan-strict-rules": "^1.6.0",
-                "squizlabs/php_codesniffer": "^3.10.1",
-                "symfony/filesystem": "^6.4.3 || ^7.1.0"
+                "squizlabs/php_codesniffer": "^3.10.2",
+                "symfony/filesystem": "^6.4.3 || ^7.1.2"
             },
             "bin": [
                 "bin/paratest",
-                "bin/paratest.bat",
                 "bin/paratest_for_phpstorm"
             ],
             "type": "library",
@@ -9259,7 +9258,7 @@
             ],
             "support": {
                 "issues": "https://github.com/paratestphp/paratest/issues",
-                "source": "https://github.com/paratestphp/paratest/tree/v7.4.5"
+                "source": "https://github.com/paratestphp/paratest/tree/v7.4.6"
             },
             "funding": [
                 {
@@ -9271,7 +9270,7 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2024-05-31T13:59:20+00:00"
+            "time": "2024-09-09T10:42:18+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -9399,26 +9398,26 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.15.4",
+            "version": "2.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "a139776fa3f5985a50b509f2a02ff0f709d2a546"
+                "reference": "befcdc0e5dce67252aa6322d82424be928214fa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/a139776fa3f5985a50b509f2a02ff0f709d2a546",
-                "reference": "a139776fa3f5985a50b509f2a02ff0f709d2a546",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/befcdc0e5dce67252aa6322d82424be928214fa2",
+                "reference": "befcdc0e5dce67252aa6322d82424be928214fa2",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9 || ^7.0 || ^8.0",
+                "php": "^7.1 || ^8.0",
                 "psr/log": "^1.0.1 || ^2.0 || ^3.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9 || ^1.0",
-                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.3",
-                "symfony/var-dumper": "^2.6 || ^3.0 || ^4.0 || ^5.0"
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.3.3",
+                "symfony/var-dumper": "^4.0 || ^5.0"
             },
             "suggest": {
                 "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
@@ -9458,7 +9457,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.15.4"
+                "source": "https://github.com/filp/whoops/tree/2.16.0"
             },
             "funding": [
                 {
@@ -9466,7 +9465,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-03T12:00:00+00:00"
+            "time": "2024-09-25T12:00:00+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -10250,32 +10249,32 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "10.1.15",
+            "version": "10.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "5da8b1728acd1e6ffdf2ff32ffbdfd04307f26ae"
+                "reference": "7e308268858ed6baedc8704a304727d20bc07c77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/5da8b1728acd1e6ffdf2ff32ffbdfd04307f26ae",
-                "reference": "5da8b1728acd1e6ffdf2ff32ffbdfd04307f26ae",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7e308268858ed6baedc8704a304727d20bc07c77",
+                "reference": "7e308268858ed6baedc8704a304727d20bc07c77",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "ext-xmlwriter": "*",
-                "nikic/php-parser": "^4.18 || ^5.0",
+                "nikic/php-parser": "^4.19.1 || ^5.1.0",
                 "php": ">=8.1",
-                "phpunit/php-file-iterator": "^4.0",
-                "phpunit/php-text-template": "^3.0",
-                "sebastian/code-unit-reverse-lookup": "^3.0",
-                "sebastian/complexity": "^3.0",
-                "sebastian/environment": "^6.0",
-                "sebastian/lines-of-code": "^2.0",
-                "sebastian/version": "^4.0",
-                "theseer/tokenizer": "^1.2.0"
+                "phpunit/php-file-iterator": "^4.1.0",
+                "phpunit/php-text-template": "^3.0.1",
+                "sebastian/code-unit-reverse-lookup": "^3.0.0",
+                "sebastian/complexity": "^3.2.0",
+                "sebastian/environment": "^6.1.0",
+                "sebastian/lines-of-code": "^2.0.2",
+                "sebastian/version": "^4.0.1",
+                "theseer/tokenizer": "^1.2.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^10.1"
@@ -10287,7 +10286,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "10.1-dev"
+                    "dev-main": "10.1.x-dev"
                 }
             },
             "autoload": {
@@ -10316,7 +10315,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.15"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.16"
             },
             "funding": [
                 {
@@ -10324,7 +10323,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-29T08:25:15+00:00"
+            "time": "2024-08-22T04:31:57+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -10571,16 +10570,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.27",
+            "version": "10.5.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2425f713b2a5350568ccb1a2d3984841a23e83c5"
+                "reference": "7ac8b4e63f456046dcb4c9787da9382831a1874b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2425f713b2a5350568ccb1a2d3984841a23e83c5",
-                "reference": "2425f713b2a5350568ccb1a2d3984841a23e83c5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7ac8b4e63f456046dcb4c9787da9382831a1874b",
+                "reference": "7ac8b4e63f456046dcb4c9787da9382831a1874b",
                 "shasum": ""
             },
             "require": {
@@ -10594,14 +10593,14 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.1",
-                "phpunit/php-code-coverage": "^10.1.15",
+                "phpunit/php-code-coverage": "^10.1.16",
                 "phpunit/php-file-iterator": "^4.1.0",
                 "phpunit/php-invoker": "^4.0.0",
                 "phpunit/php-text-template": "^3.0.1",
                 "phpunit/php-timer": "^6.0.0",
                 "sebastian/cli-parser": "^2.0.1",
                 "sebastian/code-unit": "^2.0.0",
-                "sebastian/comparator": "^5.0.1",
+                "sebastian/comparator": "^5.0.2",
                 "sebastian/diff": "^5.1.1",
                 "sebastian/environment": "^6.1.0",
                 "sebastian/exporter": "^5.1.2",
@@ -10652,7 +10651,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.27"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.35"
             },
             "funding": [
                 {
@@ -10668,7 +10667,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-10T11:48:06+00:00"
+            "time": "2024-09-19T10:52:21+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -10840,16 +10839,16 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "5.0.1",
+            "version": "5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "2db5010a484d53ebf536087a70b4a5423c102372"
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2db5010a484d53ebf536087a70b4a5423c102372",
-                "reference": "2db5010a484d53ebf536087a70b4a5423c102372",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
+                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
                 "shasum": ""
             },
             "require": {
@@ -10860,7 +10859,7 @@
                 "sebastian/exporter": "^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.3"
+                "phpunit/phpunit": "^10.4"
             },
             "type": "library",
             "extra": {
@@ -10905,7 +10904,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.1"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.2"
             },
             "funding": [
                 {
@@ -10913,7 +10912,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-14T13:18:12+00:00"
+            "time": "2024-08-12T06:03:08+00:00"
         },
         {
             "name": "sebastian/complexity",

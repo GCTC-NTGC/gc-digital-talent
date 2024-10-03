@@ -160,13 +160,13 @@ describe("Repeater", () => {
 
     await user.click(screen.getByRole("button", { name: /add item/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(
         screen.getByRole("group", { name: /test repeater/i }),
       ).toBeInTheDocument();
     });
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(addFn).toHaveBeenCalled();
     });
   });
@@ -188,7 +188,7 @@ describe("Repeater", () => {
       },
     });
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(
         screen.getAllByRole("group", { name: /test repeater/i }),
       ).toHaveLength(2);
@@ -196,13 +196,13 @@ describe("Repeater", () => {
 
     await user.click(screen.getByRole("button", { name: /remove item 1/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(
         screen.getAllByRole("group", { name: /test repeater/i }),
       ).toHaveLength(1);
     });
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(removeFn).toHaveBeenCalledWith(0);
     });
   });
