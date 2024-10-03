@@ -22,7 +22,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  PreviewListItemFragment,
+  ManagerRequestHistoryUserFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
@@ -80,57 +80,73 @@ const unselectedSortLink: Record<string, string> = {
   "data-h2-font-weight": "base(normal)",
 };
 
-interface SortableFields {
+type PartialPoolCandidateSearchRequest = NonNullable<
+  ManagerRequestHistoryUserFragment["poolCandidateSearchRequests"]
+>[number];
+
+// calculate easily sortable fields based on the original request
+const deriveSortableFields = (
+  request: PartialPoolCandidateSearchRequest,
+  locale: Locales,
+): {
   requestedDateValue: number;
   statusValue: number;
   classificationValue: string;
-}
-
-const deriveSortableFields = (
-  item: PreviewListItemFragment,
-  locale: Locales,
-): SortableFields => ({
-  requestedDateValue: item.requestedDate
-    ? parseDateTimeUtc(item.requestedDate).valueOf()
+} => ({
+  requestedDateValue: request.requestedDate
+    ? parseDateTimeUtc(request.requestedDate).valueOf()
     : 0,
-  statusValue: poolCandidateSearchStatusSortOrder(item.status?.value),
+  statusValue: poolCandidateSearchStatusSortOrder(request.status?.value),
   classificationValue: deriveSingleString(
-    unpackMaybes(item.applicantFilter?.qualifiedClassifications),
+    unpackMaybes(request.applicantFilter?.qualifiedClassifications),
     formatClassificationString,
     locale,
   ),
 });
 
-const sortRequests = (
-  items: {
-    originalFragment: PreviewListItemFragment;
-    sortableFields: SortableFields;
-  }[],
+// return a new array, sorted by given field
+const toSortedRequests = (
+  requests: PartialPoolCandidateSearchRequest[],
   sortField: "date" | "status" | "classification",
-): void => {
+  locale: Locales,
+): PartialPoolCandidateSearchRequest[] => {
+  // step 1: attach easily sorted metadata
+  const requestsWithSortableFields = requests.map((request) => ({
+    originalRequest: request,
+    sortableFields: deriveSortableFields(request, locale),
+  }));
+
+  // step 2: sort array by attached metadata
   switch (sortField) {
     case "date":
-      items.sort(
+      requestsWithSortableFields.sort(
         (a, b) =>
           a.sortableFields.requestedDateValue -
           b.sortableFields.requestedDateValue,
       );
-      return;
+      break;
     case "status":
-      items.sort(
+      requestsWithSortableFields.sort(
         (a, b) => a.sortableFields.statusValue - b.sortableFields.statusValue,
       );
-      return;
+      break;
     case "classification":
-      items.sort((a, b) =>
+      requestsWithSortableFields.sort((a, b) =>
         a.sortableFields.classificationValue.localeCompare(
           b.sortableFields.classificationValue,
         ),
       );
-      return;
+      break;
     default:
       assertUnreachable(sortField);
   }
+
+  // step 3: remove extra sorting metadata
+  const requestsWithoutSortableFields = requestsWithSortableFields.map(
+    (item) => item.originalRequest,
+  );
+
+  return requestsWithoutSortableFields;
 };
 
 const ManagerRequestHistoryUser_Fragment = graphql(/* GraphQL */ `
@@ -139,6 +155,17 @@ const ManagerRequestHistoryUser_Fragment = graphql(/* GraphQL */ `
     firstName
     poolCandidateSearchRequests {
       id
+      requestedDate
+      status {
+        value
+      }
+      requestedDate
+      applicantFilter {
+        qualifiedClassifications {
+          group
+          level
+        }
+      }
       ...PreviewListItem
     }
   }
@@ -162,22 +189,24 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
   >("date");
 
   const user = getFragment(ManagerRequestHistoryUser_Fragment, userQuery);
-  const sortableRequests = unpackMaybes(user.poolCandidateSearchRequests).map(
-    (request) => ({
-      originalFragment: request,
-      sortableFields: deriveSortableFields(request, locale),
-    }),
+  const allRequests = unpackMaybes(user.poolCandidateSearchRequests);
+  const unsortedActiveRequests = allRequests.filter(
+    (request) => deriveStatusActiveOrNot(request) === "active",
+  );
+  const activeRequests = toSortedRequests(
+    unsortedActiveRequests,
+    activeRequestsSortedBy,
+    locale,
   );
 
-  const activeRequests = sortableRequests.filter(
-    (item) => deriveStatusActiveOrNot(item.originalFragment) === "active",
+  const unsortedInactiveRequests = allRequests.filter(
+    (request) => deriveStatusActiveOrNot(request) === "inactive",
   );
-  sortRequests(activeRequests, activeRequestsSortedBy);
-
-  const inactiveRequests = sortableRequests.filter(
-    (item) => deriveStatusActiveOrNot(item.originalFragment) === "inactive",
+  const inactiveRequests = toSortedRequests(
+    unsortedInactiveRequests,
+    requestHistorySortedBy,
+    locale,
   );
-  sortRequests(inactiveRequests, requestHistorySortedBy);
 
   const formattedPageTitle = intl.formatMessage(pageMessages.pageTitle);
   const formattedPageSubtitle = intl.formatMessage(pageMessages.pageSubtitle);
@@ -339,12 +368,10 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                       <CardBasic>
                         {activeRequests.length ? (
                           <PreviewList.Root>
-                            {activeRequests.map((item) => (
+                            {activeRequests.map((request) => (
                               <PoolCandidateSearchRequestPreviewListItem
-                                key={item.originalFragment.id}
-                                poolCandidateSearchRequestQuery={
-                                  item.originalFragment
-                                }
+                                key={request.id}
+                                poolCandidateSearchRequestQuery={request}
                                 showUnfinishedPieces={showUnfinishedPieces}
                               />
                             ))}
@@ -441,12 +468,10 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                       <CardBasic>
                         {inactiveRequests.length ? (
                           <PreviewList.Root>
-                            {inactiveRequests.map((item) => (
+                            {inactiveRequests.map((request) => (
                               <PoolCandidateSearchRequestPreviewListItem
-                                key={item.originalFragment.id}
-                                poolCandidateSearchRequestQuery={
-                                  item.originalFragment
-                                }
+                                key={request.id}
+                                poolCandidateSearchRequestQuery={request}
                                 showUnfinishedPieces={showUnfinishedPieces}
                               />
                             ))}
