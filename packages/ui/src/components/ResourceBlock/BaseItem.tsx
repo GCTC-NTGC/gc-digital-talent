@@ -77,7 +77,7 @@ const BaseItem = ({
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x0.15)"
-      data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid gray.lighter)"
+      data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid gray.light)"
       data-h2-border-radius="base:all:selectors[:last-child](0 0 rounded rounded)"
       // make the containing block for state icon
       data-h2-position="base(relative)"
