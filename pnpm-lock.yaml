@@ -124,8 +124,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       framer-motion:
-        specifier: ^11.5.4
-        version: 11.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.9.0
+        version: 11.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -616,8 +616,8 @@ importers:
         specifier: ^9.0.8
         version: 9.0.8(react@18.3.1)
       framer-motion:
-        specifier: ^11.5.4
-        version: 11.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.9.0
+        version: 11.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -943,8 +943,8 @@ importers:
         specifier: ^11.10.4
         version: 11.10.4
       framer-motion:
-        specifier: ^11.5.4
-        version: 11.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.9.0
+        version: 11.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -1143,8 +1143,8 @@ importers:
         specifier: ^11.10.4
         version: 11.10.4
       framer-motion:
-        specifier: ^11.5.4
-        version: 11.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.9.0
+        version: 11.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -5184,8 +5184,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.5.4:
-    resolution: {integrity: sha512-E+tb3/G6SO69POkdJT+3EpdMuhmtCh9EWuK4I1DnIC23L7tFPrl8vxP+LSovwaw6uUr73rUbpb4FgK011wbRJQ==}
+  framer-motion@11.9.0:
+    resolution: {integrity: sha512-nCfGxvsQecVLjjYDu35G2F5ls+ArE3FBfhxV0RSiisMaUKqteq5DMBFNRKwMyVj+VqKTNhawt+BV480YCHKFlQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -12784,7 +12784,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.9.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.6.3
     optionalDependencies:
