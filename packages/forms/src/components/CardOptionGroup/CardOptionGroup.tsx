@@ -1,5 +1,4 @@
-import get from "lodash/get";
-import { FieldError, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Fragment, ReactNode } from "react";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
@@ -127,15 +126,13 @@ const CardOptionGroup = ({
     watch,
     formState: { errors },
   } = useFormContext();
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     describedBy,
     show: {
-      error,
+      error: fieldState === "invalid",
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -212,7 +209,7 @@ const CardOptionGroup = ({
           },
         )}
       </Field.Fieldset>
-      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

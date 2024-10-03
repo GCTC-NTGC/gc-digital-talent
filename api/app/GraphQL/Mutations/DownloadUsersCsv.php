@@ -4,8 +4,8 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\UserCsvGenerator;
 use App\Jobs\GenerateUserFile;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -25,14 +25,12 @@ final class DownloadUsersCsv
 
         $ids = $args['ids'] ?? null;
         $filters = $args['where'] ?? null;
-        $locale = $args['locale'] ?? 'en';
 
         try {
-
             $generator = new UserCsvGenerator(
-                fileName: sprintf('%s_%s.csv', Lang::get('filename.users', [], $locale), date('Y-m-d_His')),
+                fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
                 dir: $user->id,
-                lang: strtolower($locale),
+                lang: App::getLocale(),
             );
 
             $generator
@@ -48,7 +46,5 @@ final class DownloadUsersCsv
 
             return false;
         }
-
-        return false;
     }
 }

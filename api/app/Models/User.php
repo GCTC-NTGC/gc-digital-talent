@@ -15,7 +15,6 @@ use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
-use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -28,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -42,52 +42,52 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * Class User
  *
  * @property string $id
- * @property string $email
- * @property Illuminate\Support\Carbon email_verified_at
+ * @property ?string $email
+ * @property ?\Illuminate\Support\Carbon $email_verified_at
  * @property string $sub
- * @property string $first_name
- * @property string $last_name
- * @property string $telephone
- * @property string $preferred_lang
- * @property string $current_province
- * @property string $current_city
- * @property bool $looking_for_english
- * @property bool $looking_for_french
- * @property bool $looking_for_bilingual
- * @property string $first_official_language
- * @property bool $second_language_exam_completed
- * @property bool $second_language_exam_validity
- * @property string $comprehension_level
- * @property string $written_level
- * @property string $verbal_level
- * @property string $estimated_language_ability
- * @property string $is_gov_employee
- * @property string $work_email
- * @property Illuminate\Support\Carbon work_email_verified_at
- * @property bool $has_priority_entitlement
- * @property string $priority_number
- * @property string $department
- * @property string $current_classification
- * @property string $citizenship
- * @property string $armed_forces_status
- * @property bool $is_woman
- * @property bool $has_disability
- * @property bool $is_visible_minority
- * @property bool $has_diploma
- * @property array $location_preferences
- * @property string $location_exemptions
- * @property array $position_duration
+ * @property ?string $first_name
+ * @property ?string $last_name
+ * @property ?string $telephone
+ * @property ?string $preferred_lang
+ * @property ?string $current_province
+ * @property ?string $current_city
+ * @property ?bool $looking_for_english
+ * @property ?bool $looking_for_french
+ * @property ?bool $looking_for_bilingual
+ * @property ?string $first_official_language
+ * @property ?bool $second_language_exam_completed
+ * @property ?bool $second_language_exam_validity
+ * @property ?string $comprehension_level
+ * @property ?string $written_level
+ * @property ?string $verbal_level
+ * @property ?string $estimated_language_ability
+ * @property ?bool $is_gov_employee
+ * @property ?string $work_email
+ * @property ?\Illuminate\Support\Carbon $work_email_verified_at
+ * @property ?bool $has_priority_entitlement
+ * @property ?string $priority_number
+ * @property ?string $department
+ * @property ?string $current_classification
+ * @property ?string $citizenship
+ * @property ?string $armed_forces_status
+ * @property ?bool $is_woman
+ * @property ?bool $has_disability
+ * @property ?bool $is_visible_minority
+ * @property ?bool $has_diploma
+ * @property ?array $location_preferences
+ * @property ?string $location_exemptions
+ * @property ?array $position_duration
  * @property array $accepted_operational_requirements
- * @property string $gov_employee_type
- * @property int $priority_weight
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property string $indigenous_declaration_signature
- * @property array $indigenous_communities
- * @property string $preferred_language_for_interview
- * @property string $preferred_language_for_exam
- * @property array $enabled_email_notifications
- * @property array $enabled_in_app_notifications
+ * @property ?string $gov_employee_type
+ * @property ?int $priority_weight
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?string $indigenous_declaration_signature
+ * @property ?array $indigenous_communities
+ * @property ?string $preferred_language_for_interview
+ * @property ?string $preferred_language_for_exam
+ * @property ?array $enabled_email_notifications
+ * @property ?array $enabled_in_app_notifications
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -276,7 +276,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function skills()
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
     }
 
     // User 1-0..* PoolCandidateSearchRequest
@@ -294,7 +294,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
         $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
         foreach ($newSkillIds as $skillId) {
-            $userSkill = new UserSkill();
+            $userSkill = new UserSkill;
             $userSkill->skill_id = $skillId;
             $this->userSkills()->save($userSkill);
         }
@@ -1072,7 +1072,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -1128,7 +1128,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function scopeAuthorizedToViewBasicInfo(Builder $query): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added
@@ -1211,9 +1211,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasVerifiedEmail(EmailType::WORK);
     }
 
-    public static function hydrateSnapshot(mixed $snapshot): Model|array
+    public static function hydrateSnapshot(mixed $snapshot): User|array
     {
-        $user = new User();
+        $user = new User;
 
         $fields = [
             'first_name' => 'firstName',
@@ -1252,6 +1252,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'indigenous_communities' => 'indigenousCommunities',
         ];
 
+        /** @var User $user */
         $user = self::hydrateFields($snapshot, $fields, $user);
 
         if (isset($snapshot['department'])) {

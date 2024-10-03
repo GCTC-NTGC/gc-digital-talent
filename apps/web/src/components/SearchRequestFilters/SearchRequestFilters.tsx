@@ -49,7 +49,7 @@ const ApplicantFilters = ({
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
   );
 
-  const classifications = applicantFilter?.qualifiedClassifications || [];
+  const classifications = applicantFilter?.qualifiedClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
@@ -58,7 +58,7 @@ const ApplicantFilters = ({
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
     return (
-      skill?.name[locale] ||
+      skill?.name[locale] ??
       intl.formatMessage({
         defaultMessage: "Error: skill name not found",
         id: "0T3NB0",
@@ -161,7 +161,7 @@ const ApplicantFilters = ({
                 "Title for group and level on summary of filters section",
             })}
             content={uniqueItems(
-              classificationsFromBrowserHistory ||
+              classificationsFromBrowserHistory ??
                 classificationsFromApplicantFilter,
             )}
           />
@@ -177,7 +177,7 @@ const ApplicantFilters = ({
                 description:
                   "Title for skills section on summary of filters section",
               },
-              { numOfSkills: skills?.length || 0 },
+              { numOfSkills: skills?.length ?? 0 },
             )}
             content={
               skills && skills?.length > 0 ? (

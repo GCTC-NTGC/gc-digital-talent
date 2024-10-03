@@ -25,7 +25,7 @@ class CommunityFactory extends Factory
         $description = $this->faker->sentence();
 
         return [
-            'key' => $this->faker->slug(2),
+            'key' => $this->faker->unique()->slug(5),
             'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'description' => ['en' => $description.' EN', 'fr' => $description.' FR'],
         ];

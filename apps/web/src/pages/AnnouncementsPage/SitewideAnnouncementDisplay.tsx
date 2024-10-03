@@ -83,13 +83,13 @@ const SitewideAnnouncementDisplay = ({
         hasError={!titleEn}
         label={intl.formatMessage(labels.titleEn)}
       >
-        {titleEn || notProvided}
+        {titleEn ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!titleFr}
         label={intl.formatMessage(labels.titleFr)}
       >
-        {titleFr || notProvided}
+        {titleFr ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!messageEn}

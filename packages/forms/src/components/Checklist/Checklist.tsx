@@ -1,5 +1,4 @@
-import get from "lodash/get";
-import { FieldError, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Fragment, ReactNode } from "react";
 
 import Checkbox from "../Checkbox";
@@ -47,8 +46,6 @@ const Checklist = ({
   const {
     formState: { errors },
   } = useFormContext();
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
   const baseStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name, !trackUnsaved);
@@ -56,7 +53,7 @@ const Checklist = ({
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     show: {
-      error,
+      error: fieldState === "invalid",
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -107,7 +104,7 @@ const Checklist = ({
           })}
         </Field.BoundingBox>
       </Field.Fieldset>
-      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

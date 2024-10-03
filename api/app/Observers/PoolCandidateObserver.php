@@ -16,7 +16,7 @@ class PoolCandidateObserver
      */
     public function created(PoolCandidate $poolCandidate): void
     {
-        CandidateStatusChanged::dispatchIf($poolCandidate->pool_candidate_status, $poolCandidate);
+        CandidateStatusChanged::dispatchIf(isset($poolCandidate->pool_candidate_status), $poolCandidate);
     }
 
     /**

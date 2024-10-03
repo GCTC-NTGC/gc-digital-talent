@@ -10,5 +10,5 @@ enum GenericJobTitleKey
     case TECHNICAL_ADVISOR_IT03;
     case SENIOR_ADVISOR_IT04;
     case MANAGER_IT04;
-    case EXECUTIVE_EX03;
+    case DIGITAL_LEADER_EX_03;
 }

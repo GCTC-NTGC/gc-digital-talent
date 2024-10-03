@@ -41,7 +41,7 @@ const SkillShowcaseCard = ({
 
   // the mutation has be done at the card level.  If done in the parent the card is unmounted and dialog is lost if there is an error.
   const handleRemove = (): Promise<void> => {
-    const copyOfItems = [...(items || [])];
+    const copyOfItems = [...(items ?? [])];
     copyOfItems.splice(index, 1);
     return updateUserSkillRankingsMutation({
       userId: userAuthInfo?.id ?? "",

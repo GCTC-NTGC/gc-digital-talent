@@ -1,20 +1,16 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { graphql, Language, Scalars } from "@gc-digital-talent/graphql";
+import { graphql, Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  errorMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useAsyncFileDownload from "./useAsyncFileDownload";
 
-const DownloadApplicationsDoc_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadApplicationsDoc($ids: [UUID!]!, $locale: Language) {
-    downloadApplicationsDoc(ids: $ids, locale: $locale)
+const DownloadApplicationsZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadApplicationsZip($ids: [UUID!]!) {
+    downloadApplicationsZip(ids: $ids)
   }
 `);
 
@@ -26,15 +22,15 @@ const DownloadApplicationDoc_Mutation = graphql(/* GraphQL */ `
 
 const useApplicationDownloads = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useApiRoutes();
   const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
     useAsyncFileDownload();
-  const [{ fetching: downloadingDoc }, executeDocMutation] = useMutation(
-    DownloadApplicationsDoc_Mutation,
+  const [{ fetching: downloadingZip }, executeZipMutation] = useMutation(
+    DownloadApplicationsZip_Mutation,
   );
-  const [{ fetching: downloadingSingleDoc }, executeSingleDocMutation] =
-    useMutation(DownloadApplicationDoc_Mutation);
+  const [{ fetching: downloadingDoc }, executeDocMutation] = useMutation(
+    DownloadApplicationDoc_Mutation,
+  );
 
   const handleDownloadError = () => {
     toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
@@ -48,20 +44,17 @@ const useApplicationDownloads = () => {
     }
   };
 
-  const downloadDoc = ({ ids }: { ids: Scalars["UUID"]["input"][] }) => {
-    executeDocMutation({
-      ids,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
+  const downloadZip = ({ ids }: { ids: Scalars["UUID"]["input"][] }) => {
+    executeZipMutation({ ids })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
-  const downloadSingleDoc = ({ id }: { id: Scalars["UUID"]["input"] }) => {
-    executeSingleDocMutation({ id })
-      .then((res) => {
+  const downloadDoc = ({ id }: { id: Scalars["UUID"]["input"] }) => {
+    executeDocMutation({ id })
+      .then(async (res) => {
         if (res?.data?.downloadApplicationDoc) {
-          executeAsyncDownload({
+          await executeAsyncDownload({
             url: paths.userGeneratedFile(res.data.downloadApplicationDoc),
             fileName: res.data.downloadApplicationDoc,
           });
@@ -73,10 +66,10 @@ const useApplicationDownloads = () => {
   };
 
   return {
+    downloadZip,
+    downloadingZip,
     downloadDoc,
-    downloadingDoc,
-    downloadSingleDoc,
-    downloadingSingleDoc: downloadingSingleDoc || downloadingAsyncFile,
+    downloadingDoc: downloadingDoc || downloadingAsyncFile,
   };
 };
 

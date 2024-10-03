@@ -12,6 +12,8 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
 
     protected array $strong;
 
+    protected string $extension = 'docx';
+
     public function __construct(public string $fileName, protected ?string $dir)
     {
         parent::__construct($fileName, $dir);

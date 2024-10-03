@@ -149,9 +149,10 @@ interface CreateUserWithRolesInput {
 }
 
 export const createUserWithRoles: GraphQLRequestFunc<
-  User,
+  User | undefined,
   CreateUserWithRolesInput
 > = async (ctx, { user, ...roleInput }) => {
+  if (!user) return undefined;
   return createUser(ctx, user).then(async (u) => {
     await addRolesToUser(ctx, { userId: u.id, ...roleInput });
     return u;

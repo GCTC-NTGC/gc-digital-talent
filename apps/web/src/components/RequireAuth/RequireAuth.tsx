@@ -3,7 +3,7 @@ import { ReactNode, useEffect } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, UnauthorizedError } from "@gc-digital-talent/helpers";
 import {
   RoleName,
   useAuthentication,
@@ -81,10 +81,7 @@ const RequireAuth = ({
         pathname: location.pathname,
       }),
     );
-    throw new Response("", {
-      status: 401,
-      statusText: "Unauthorized",
-    });
+    throw new UnauthorizedError();
   }
 
   // Note: Need to return a ReactElement

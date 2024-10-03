@@ -66,13 +66,13 @@ const GeneralQuestionsSection = ({
   );
   const { isSubmitting } = useEditPoolContext();
 
-  const handleUpdate = (newQuestions: GeneralQuestion[]) => {
+  const handleUpdate = async (newQuestions: GeneralQuestion[]) => {
     setIsUpdating(true);
     const generalQuestions = repeaterQuestionsToSubmitData(
       newQuestions,
       questions,
     );
-    onSave({ generalQuestions }).then(() => {
+    await onSave({ generalQuestions }).then(() => {
       setIsUpdating(false);
     });
   };

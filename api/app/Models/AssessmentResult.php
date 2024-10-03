@@ -15,14 +15,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $id
  * @property string $assessment_step_id
  * @property string $pool_candidate_id
- * @property string $pool_skill_id
- * @property string $assessment_result_type
- * @property string $assessment_decision
+ * @property ?string $pool_skill_id
+ * @property ?string $assessment_result_type
+ * @property ?string $assessment_decision
  * @property array $justifications
- * @property string $assessment_decision_level
- * @property string $skill_decision_notes
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property ?string $assessment_decision_level
+ * @property ?string $skill_decision_notes
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class AssessmentResult extends Model
 {

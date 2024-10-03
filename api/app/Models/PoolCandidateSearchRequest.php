@@ -63,7 +63,7 @@ class PoolCandidateSearchRequest extends Model
      */
     protected static function boot()
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         parent::boot();
@@ -268,7 +268,7 @@ class PoolCandidateSearchRequest extends Model
      */
     public function scopeAuthorizedToView(Builder $query)
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-searchRequest')) {

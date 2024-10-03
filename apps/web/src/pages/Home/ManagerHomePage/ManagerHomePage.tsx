@@ -228,8 +228,8 @@ export const Component = () => {
         >
           {intl.formatMessage({
             defaultMessage:
-              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you’re hunting for a job now or just thinking about the future, a strong profile is your path to new opportunities.",
-            id: "TJ+5Xn",
+              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",
+            id: "JEKihk",
             description:
               "Description of how application profiles works for managers/executives.",
           })}

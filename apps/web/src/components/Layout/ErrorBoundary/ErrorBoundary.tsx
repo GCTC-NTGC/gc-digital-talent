@@ -66,13 +66,13 @@ export const ErrorBoundary = () => {
           <p data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)">
             {error.messages.body}
           </p>
-          {error.response?.statusText && (
+          {error?.error?.message && (
             <p
               data-h2-margin="base(x1, 0) p-tablet(0, 0, x3, 0)"
               data-h2-font-size="base(caption)"
               data-h2-font-style="base(italic)"
             >
-              {error.response.statusText}
+              {error.error.message}
             </p>
           )}
 

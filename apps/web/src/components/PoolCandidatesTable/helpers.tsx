@@ -191,7 +191,7 @@ export const currentLocationAccessor = (
   province: LocalizedProvinceOrTerritory | null | undefined,
   intl: IntlShape,
 ) =>
-  `${city || intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
+  `${city ?? intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
 export const finalDecisionCell = (
   finalDecision: Maybe<LocalizedFinalDecision> | undefined,

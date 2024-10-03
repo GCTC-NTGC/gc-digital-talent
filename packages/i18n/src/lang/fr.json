@@ -115,6 +115,14 @@
     "defaultMessage": "La question donnée à l'écran n'existe pas.",
     "description": "Error message that the screening question could not be found."
   },
+  "2fFKCI": {
+    "defaultMessage": "Je suis un(e) employé(e) nommé(e) pour une période indéterminée.",
+    "description": "Indeterminate selection for government employee type."
+  },
+  "2kqbbB": {
+    "defaultMessage": "Je suis étudiant(e).",
+    "description": "Student selection for government employee type."
+  },
   "2wKf2U": {
     "defaultMessage": "Modifiez",
     "description": "Text to trigger edit action"
@@ -531,6 +539,10 @@
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
   },
+  "Nf2jAz": {
+    "defaultMessage": "J'ai un poste doté pour une période déterminée.",
+    "description": "Term selection for government employee type."
+  },
   "OBQ8b9": {
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
@@ -695,6 +707,10 @@
     "defaultMessage": "J'accepte d'avoir un emploi qui nécessite des déplacements.",
     "description": "The operational requirement described as travel as required."
   },
+  "UZMVuy": {
+    "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
+    "description": "Casual selection for government employee type."
+  },
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
@@ -787,10 +803,6 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
-  "ZX5gv1": {
-    "defaultMessage": "\"Je suis un(e) employé(e) nommé(e) pour une période indéterminée.\"",
-    "description": "Indeterminate selection for government employee type."
-  },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
@@ -831,10 +843,6 @@
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
   },
-  "bE1GJ9": {
-    "defaultMessage": "\"J'ai un contrat d'employé(e) temporaire.\"",
-    "description": "Casual selection for government employee type."
-  },
   "bXECaV": {
     "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
     "description": "Error message that the user has attempted to set an invalid notification family as ignored."
@@ -858,6 +866,10 @@
   "ctpoN9": {
     "defaultMessage": "Ce nom d’équipe est déjà utilisé",
     "description": "Error message that the given team name is already in use."
+  },
+  "dBc/+T": {
+    "defaultMessage": "Bibliothèque de compétences",
+    "description": "Name of the skills library page"
   },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
@@ -915,9 +927,9 @@
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
   },
-  "faMBJc": {
-    "defaultMessage": "\"Je suis étudiant(e).\"",
-    "description": "Student selection for government employee type."
+  "fb/Smc": {
+    "defaultMessage": "Portfolio de compétences",
+    "description": "Name of the skills portfolio page"
   },
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
@@ -1006,10 +1018,6 @@
   "k8IB9g": {
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
     "description": "Error message that an expiry date must be in the future"
-  },
-  "k8NLSx": {
-    "defaultMessage": "\"J'ai un poste doté pour une période déterminée.\"",
-    "description": "Term selection for government employee type."
   },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
@@ -1174,10 +1182,6 @@
   "ra+8d1": {
     "defaultMessage": "Erreur",
     "description": "Generic error message"
-  },
-  "rbhjTC": {
-    "defaultMessage": "Bibliothèque des compétences",
-    "description": "Name of the skill library page"
   },
   "rjHrNp": {
     "defaultMessage": "Parcourir les possibilités d'emploi",

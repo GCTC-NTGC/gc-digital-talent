@@ -393,11 +393,10 @@ interface AdminUserProfileProps {
 
 export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
   const user = getFragment(AdminUserProfileUser_Fragment, userQuery);
-  const { downloadSingleUserDoc, downloadingSingleUserDoc } =
-    useUserDownloads();
+  const { downloadDoc, downloadingDoc } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
-    downloadSingleUserDoc({ id: user.id, anonymous });
+    downloadDoc({ id: user.id, anonymous });
   };
 
   return (
@@ -407,9 +406,9 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
         data-h2-text-align="base(right)"
       >
         <DownloadUsersDocButton
-          disabled={downloadingSingleUserDoc}
+          disabled={downloadingDoc}
           onClick={handleDocDownload}
-          isDownloading={downloadingSingleUserDoc}
+          isDownloading={downloadingDoc}
         />
       </div>
       <UserProfile user={user} headingLevel="h3" />
@@ -425,10 +424,9 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const AdminUserProfilePage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");

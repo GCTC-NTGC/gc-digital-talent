@@ -17,11 +17,11 @@ export interface MetaDataProps {
 const MetaData = ({ children, type, color }: MetaDataProps) => {
   switch (type) {
     case "text":
-      return <span data-h2-color="base(gray.darker)">{children}</span>;
+      return <span data-h2-color="base(black.light)">{children}</span>;
     case "chip":
       return (
         <span>
-          <Chip color={color || "primary"} data-h2-font-weight="base(400)">
+          <Chip color={color ?? "primary"} data-h2-font-weight="base(400)">
             {children}
           </Chip>
         </span>
@@ -40,6 +40,7 @@ const actionProps = {
   "data-h2-content": "base:selectors[::after](' ')",
   "data-h2-inset": "base:selectors[::after](0)",
   "data-h2-justify-self": "base(end)",
+  "data-h2-margin-right": "base(x1) p-tablet(x1.5)",
 } satisfies ButtonLinkProps;
 
 interface ButtonProps {
@@ -83,7 +84,7 @@ const Item = ({
       data-h2-align-items="base(flex-start) p-tablet(center)"
       data-h2-gap="base(x.5)"
       data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid)"
-      data-h2-border-bottom-color="base:all:selectors[:not(:last-child)](gray.lighter)"
+      data-h2-border-bottom-color="base:all:selectors[:not(:last-child)](gray.light)"
       data-h2-transition="base:children[.PreviewList__Heading](transform 200ms ease)"
       data-h2-color="base:selectors[:has(:is(button, a):hover) .PreviewList__Heading](secondary.darker) base:all:selectors[:has(:is(button, a):focus-visible) .PreviewList__Heading](black)"
       data-h2-background-color="base:selectors[:has(:is(button, a):focus-visible) .PreviewList__Heading](focus)"
@@ -112,7 +113,7 @@ const Item = ({
           data-h2-align-items="base(flex-start) p-tablet(center)"
           data-h2-gap="base(x.5 0)"
           data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
-          data-h2-color="p-tablet:children[::after](gray.darker)"
+          data-h2-color="p-tablet:children[::after](black.lighter)"
           data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
           data-h2-font-size="base(caption)"
         >

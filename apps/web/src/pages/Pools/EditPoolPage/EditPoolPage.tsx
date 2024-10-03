@@ -12,7 +12,11 @@ import {
   Heading,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  NotFoundError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   graphql,
   Scalars,
@@ -532,7 +536,7 @@ export const EditPoolForm = ({
                         asListItem={false}
                         title={meta.shortTitle ?? meta.title}
                         status={
-                          meta.hasError ? "error" : meta.status || "success"
+                          meta.hasError ? "error" : (meta.status ?? "success")
                         }
                         scrollTo={meta.id}
                       />
@@ -811,10 +815,9 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["PoolSkill"],
@@ -835,10 +838,7 @@ export const EditPoolPage = () => {
   );
 
   if (!poolId) {
-    throw new Response(notFoundMessage, {
-      status: 404,
-      statusText: "Not Found",
-    });
+    throw new NotFoundError(notFoundMessage);
   }
 
   const [{ data, fetching, error }] = useQuery({
