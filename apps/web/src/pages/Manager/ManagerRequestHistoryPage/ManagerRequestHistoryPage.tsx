@@ -18,9 +18,21 @@ import {
   CardBasic,
   Button,
 } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  PreviewListItemFragment,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  formMessages,
+  getLocale,
+  Locales,
+} from "@gc-digital-talent/i18n";
+import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
@@ -29,11 +41,17 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
+import { formatClassificationString } from "~/utils/poolUtils";
 
 import PoolCandidateSearchRequestPreviewListItem from "../components/PoolCandidateSearchRequestPreviewListItem";
 import pageMessages from "./messages";
 import managerDashboardMessages from "../ManagerDashboardPage/messages";
 import sections from "./sections";
+import {
+  deriveSingleString,
+  deriveStatusActiveOrNot,
+  poolCandidateSearchStatusSortOrder,
+} from "../utils";
 
 const linkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -62,6 +80,59 @@ const unselectedSortLink: Record<string, string> = {
   "data-h2-font-weight": "base(normal)",
 };
 
+interface SortableFields {
+  requestedDateValue: number;
+  statusValue: number;
+  classificationValue: string;
+}
+
+const deriveSortableFields = (
+  item: PreviewListItemFragment,
+  locale: Locales,
+): SortableFields => ({
+  requestedDateValue: item.requestedDate
+    ? parseDateTimeUtc(item.requestedDate).valueOf()
+    : 0,
+  statusValue: poolCandidateSearchStatusSortOrder(item.status?.value),
+  classificationValue: deriveSingleString(
+    unpackMaybes(item.applicantFilter?.qualifiedClassifications),
+    formatClassificationString,
+    locale,
+  ),
+});
+
+const sortRequests = (
+  items: {
+    originalFragment: PreviewListItemFragment;
+    sortableFields: SortableFields;
+  }[],
+  sortField: "date" | "status" | "classification",
+): void => {
+  switch (sortField) {
+    case "date":
+      items.sort(
+        (a, b) =>
+          a.sortableFields.requestedDateValue -
+          b.sortableFields.requestedDateValue,
+      );
+      return;
+    case "status":
+      items.sort(
+        (a, b) => a.sortableFields.statusValue - b.sortableFields.statusValue,
+      );
+      return;
+    case "classification":
+      items.sort((a, b) =>
+        a.sortableFields.classificationValue.localeCompare(
+          b.sortableFields.classificationValue,
+        ),
+      );
+      return;
+    default:
+      assertUnreachable(sortField);
+  }
+};
+
 const ManagerRequestHistoryUser_Fragment = graphql(/* GraphQL */ `
   fragment ManagerRequestHistoryUser on User {
     id
@@ -80,6 +151,7 @@ interface ManagerRequestHistoryProps {
 const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
   const paths = useRoutes();
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   const [activeRequestsSortedBy, setActiveRequestsSortedBy] = useState<
     "date" | "status" | "classification"
@@ -90,6 +162,22 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
   >("date");
 
   const user = getFragment(ManagerRequestHistoryUser_Fragment, userQuery);
+  const sortableRequests = unpackMaybes(user.poolCandidateSearchRequests).map(
+    (request) => ({
+      originalFragment: request,
+      sortableFields: deriveSortableFields(request, locale),
+    }),
+  );
+
+  const activeRequests = sortableRequests.filter(
+    (item) => deriveStatusActiveOrNot(item.originalFragment) === "active",
+  );
+  sortRequests(activeRequests, activeRequestsSortedBy);
+
+  const inactiveRequests = sortableRequests.filter(
+    (item) => deriveStatusActiveOrNot(item.originalFragment) === "inactive",
+  );
+  sortRequests(inactiveRequests, requestHistorySortedBy);
 
   const formattedPageTitle = intl.formatMessage(pageMessages.pageTitle);
   const formattedPageSubtitle = intl.formatMessage(pageMessages.pageSubtitle);
@@ -182,7 +270,7 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                       data-h2-margin="base(0)"
                     >
                       {intl.formatMessage(sections.activeRequests.title)}
-                      <span data-h2-color="base(black.light)">{`(x)`}</span>
+                      <span data-h2-color="base(black.light)">{`(${activeRequests.length})`}</span>
                     </Heading>
                     <div>
                       {intl.formatMessage(
@@ -249,17 +337,17 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                         </Button>
                       </div>
                       <CardBasic>
-                        {user.poolCandidateSearchRequests?.length ? (
+                        {activeRequests.length ? (
                           <PreviewList.Root>
-                            {user.poolCandidateSearchRequests?.map(
-                              (request) => (
-                                <PoolCandidateSearchRequestPreviewListItem
-                                  key={request.id}
-                                  poolCandidateSearchRequestQuery={request}
-                                  showUnfinishedPieces={showUnfinishedPieces}
-                                />
-                              ),
-                            )}
+                            {activeRequests.map((item) => (
+                              <PoolCandidateSearchRequestPreviewListItem
+                                key={item.originalFragment.id}
+                                poolCandidateSearchRequestQuery={
+                                  item.originalFragment
+                                }
+                                showUnfinishedPieces={showUnfinishedPieces}
+                              />
+                            ))}
                           </PreviewList.Root>
                         ) : (
                           <Well data-h2-text-align="base(center)">
@@ -351,17 +439,17 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                         </Button>
                       </div>
                       <CardBasic>
-                        {user.poolCandidateSearchRequests?.length ? (
+                        {inactiveRequests.length ? (
                           <PreviewList.Root>
-                            {user.poolCandidateSearchRequests?.map(
-                              (request) => (
-                                <PoolCandidateSearchRequestPreviewListItem
-                                  key={request.id}
-                                  poolCandidateSearchRequestQuery={request}
-                                  showUnfinishedPieces={showUnfinishedPieces}
-                                />
-                              ),
-                            )}
+                            {inactiveRequests.map((item) => (
+                              <PoolCandidateSearchRequestPreviewListItem
+                                key={item.originalFragment.id}
+                                poolCandidateSearchRequestQuery={
+                                  item.originalFragment
+                                }
+                                showUnfinishedPieces={showUnfinishedPieces}
+                              />
+                            ))}
                           </PreviewList.Root>
                         ) : (
                           <Well data-h2-text-align="base(center)">
