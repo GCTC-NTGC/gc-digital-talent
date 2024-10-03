@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { ThrowNotFound, Pending, Loading } from "@gc-digital-talent/ui";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -14,32 +14,26 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ProfileAndApplicationsHeading from "./components/ProfileAndApplicationsHeading";
 import TrackApplications from "./components/TrackApplications/TrackApplications";
 
-const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
-  query ProfileAndApplicationsApplicant {
-    me {
-      id
-      ...DashboardHeadingUser
+export const ProfileAndApplicationsUser_Fragment = graphql(/* GraphQL */ `
+  fragment ProfileAndApplicationsUser on User {
+    id
+    ...DashboardHeadingUser
 
-      poolCandidates {
-        ...TrackApplicationsCandidate
-      }
+    poolCandidates {
+      ...TrackApplicationsCandidate
     }
   }
 `);
 
-export const ProfileAndApplicationsPage = () => {
-  const intl = useIntl();
-  const [{ data, fetching, error }] = useQuery({
-    query: ProfileAndApplicationsApplicant_Query,
-  });
+interface ProfileAndApplicationsProps {
+  userQuery: FragmentType<typeof ProfileAndApplicationsUser_Fragment>;
+}
 
-  if (fetching || !data) return <Loading />;
-  if (error)
-    return (
-      <ThrowNotFound
-        message={intl.formatMessage(profileMessages.userNotFound)}
-      />
-    );
+export const ProfileAndApplications = ({
+  userQuery,
+}: ProfileAndApplicationsProps) => {
+  const intl = useIntl();
+  const user = getFragment(ProfileAndApplicationsUser_Fragment, userQuery);
 
   return (
     <>
@@ -52,25 +46,44 @@ export const ProfileAndApplicationsPage = () => {
           description: "SEO description for profile and applications hero",
         })}
       />
-      {data?.me ? (
-        <ProfileAndApplicationsHeading userQuery={data?.me} />
-      ) : (
-        <Loading />
-      )}
+      <ProfileAndApplicationsHeading userQuery={user} />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <div id="track-applications-section">
-            {data?.me?.poolCandidates ? (
-              <TrackApplications
-                applicationsQuery={unpackMaybes(data?.me?.poolCandidates)}
-              />
-            ) : (
-              <Loading />
-            )}
+            <TrackApplications
+              applicationsQuery={unpackMaybes(user.poolCandidates)}
+            />
           </div>
         </div>
       </section>
     </>
+  );
+};
+
+const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
+  query ProfileAndApplicationsApplicant {
+    me {
+      ...ProfileAndApplicationsUser
+    }
+  }
+`);
+
+const ProfileAndApplicationsPage = () => {
+  const intl = useIntl();
+  const [{ data, fetching, error }] = useQuery({
+    query: ProfileAndApplicationsApplicant_Query,
+  });
+
+  return (
+    <Pending fetching={fetching || !data} error={error}>
+      {data?.me ? (
+        <ProfileAndApplications userQuery={data.me} />
+      ) : (
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
+      )}
+    </Pending>
   );
 };
 
