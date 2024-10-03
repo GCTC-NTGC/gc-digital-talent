@@ -10,7 +10,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Accordion from "./Accordion";
-import { metaData } from "./Accordion.stories";
+import { testMetaData } from "./utils";
 
 type AccordionRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof Accordion.Root
@@ -31,7 +31,7 @@ const DefaultChildren = () => (
   <>
     <Accordion.Item value="one">
       <Accordion.Trigger>Accordion One</Accordion.Trigger>
-      <Accordion.MetaData metadata={metaData} />
+      <Accordion.MetaData metadata={testMetaData} />
       <Accordion.Content>
         <Text />
       </Accordion.Content>

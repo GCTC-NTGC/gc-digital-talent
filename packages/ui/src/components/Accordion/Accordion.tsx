@@ -281,7 +281,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
             return (
               <span>
                 <Chip
-                  color={color || "primary"}
+                  color={color ?? "primary"}
                   data-h2-font-weight="base(400)"
                 >
                   {children}
