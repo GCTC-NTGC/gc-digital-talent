@@ -172,12 +172,6 @@ parameters:
       count: 1
       path: app/GraphQL/Mutations/UnarchivePool.php
 
-
-    -
-      message: "#^Result of && is always false\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
-
     -
       message: "#^Access to offset 'improveBehaviouralS…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
       count: 3
