@@ -68,54 +68,9 @@ parameters:
       path: app/GraphQL/Mutations/ArchivePool.php
 
     -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ArchivePool.php
-
-    -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/ArchivePool.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
-
-    -
-      message: "#^Offset 'isSuspended' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
-
-    -
-      message: "#^Offset 'closingDate' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ChangePoolClosingDate.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ChangePoolClosingDate.php
-
-    -
-      message: "#^Offset 'closing_reason' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ClosePool.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ClosePool.php
-
-    -
-      message: "#^Offset 'poolId' does not exist on array\\{\\}\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/CreateApplication.php
-
-    -
-      message: "#^Offset 'userId' does not exist on array\\{\\}\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/CreateApplication.php
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
@@ -128,69 +83,19 @@ parameters:
       path: app/GraphQL/Mutations/CreateOrUpdateScreeningQuestionAssessmentStep.php
 
     -
-      message: "#^Offset 'poolId' does not exist on array\\{\\}\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/CreateOrUpdateScreeningQuestionAssessmentStep.php
-
-    -
-      message: "#^Offset 'screeningQuestions' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/CreateOrUpdateScreeningQuestionAssessmentStep.php
-
-    -
       message: "#^Access to an undefined property App\\\\Models\\\\UserSkill\\:\\:\\$deleted_at\\.$#"
       count: 1
       path: app/GraphQL/Mutations/CreateUserSkill.php
 
     -
-      message: "#^Offset 'skill_id' does not exist on array\\{\\}\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/CreateUserSkill.php
-
-    -
-      message: "#^Offset 'skill_level' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/CreateUserSkill.php
-
-    -
-      message: "#^Offset 'user_id' does not exist on array\\{\\}\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/CreateUserSkill.php
-
-    -
-      message: "#^Offset 'when_skill_used' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/CreateUserSkill.php
-
-    -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/CreateUserSkill.php
 
     -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/DeleteApplication.php
-
-    -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/DeleteApplication.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/DeleteNotification.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/DisqualifyCandidate.php
-
-    -
-      message: "#^Offset 'reason' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/DisqualifyCandidate.php
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$generalQuestions\\.$#"
@@ -228,16 +133,6 @@ parameters:
       path: app/GraphQL/Mutations/DuplicatePool.php
 
     -
-      message: "#^Offset 'departmentId' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/DuplicatePool.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/DuplicatePool.php
-
-    -
       message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$notifications\\.$#"
       count: 1
       path: app/GraphQL/Mutations/MarkAllNotificationsAsRead.php
@@ -248,64 +143,9 @@ parameters:
       path: app/GraphQL/Mutations/MarkAllNotificationsAsRead.php
 
     -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/MarkNotificationAsRead.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/MarkNotificationAsUnread.php
-
-    -
-      message: "#^Offset 'departmentId' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/PlaceCandidate.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/PlaceCandidate.php
-
-    -
-      message: "#^Offset 'placementType' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/PlaceCandidate.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/PublishPool.php
-
-    -
-      message: "#^Offset 'expiryDate' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/QualifyCandidate.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/QualifyCandidate.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ReinstateCandidate.php
-
-    -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/ReinstateCandidate.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/RemoveCandidate.php
-
-    -
-      message: "#^Offset 'removalReason' does not exist on array\\{\\}\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/RemoveCandidate.php
 
     -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
@@ -313,57 +153,12 @@ parameters:
       path: app/GraphQL/Mutations/RemoveCandidate.php
 
     -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/RevertFinalDecision.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/RevertPlaceCandidate.php
-
-    -
-      message: "#^Offset 'emailType' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/SendUserEmailVerification.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/SubmitApplication.php
-
-    -
-      message: "#^Offset 'signature' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/SubmitApplication.php
-
-    -
-      message: "#^Offset 'stepIdA' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/SwapAssessmentStepOrder.php
-
-    -
-      message: "#^Offset 'stepIdB' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/SwapAssessmentStepOrder.php
-
-    -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 2
       path: app/GraphQL/Mutations/SwapAssessmentStepOrder.php
 
     -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/TogglePoolCandidateBookmark.php
-
-    -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/TogglePoolUserBookmark.php
-
-    -
-      message: "#^Offset 'pool_id' does not exist on array\\{\\}\\.$#"
       count: 1
       path: app/GraphQL/Mutations/TogglePoolUserBookmark.php
 
@@ -373,69 +168,15 @@ parameters:
       path: app/GraphQL/Mutations/UnarchivePool.php
 
     -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UnarchivePool.php
-
-    -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/UnarchivePool.php
 
-    -
-      message: "#^Offset 'enabledEmailNotific…' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdateEnabledNotifications.php
-
-    -
-      message: "#^Offset 'enabledInAppNotific…' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdateEnabledNotifications.php
-
-    -
-      message: "#^Offset 'expiry_date' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
-
-    -
-      message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
-
-    -
-      message: "#^Offset 'pool_candidate…' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
 
     -
       message: "#^Result of && is always false\\.$#"
       count: 1
       path: app/GraphQL/Mutations/UpdatePoolCandidateStatus.php
-
-    -
-      message: "#^Offset 'expiryDate' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
-
-    -
-      message: "#^Offset 'isEnabled' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
-
-    -
-      message: "#^Offset 'message' does not exist on array\\{\\}\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
-
-    -
-      message: "#^Offset 'publishDate' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
-
-    -
-      message: "#^Offset 'title' does not exist on array\\{\\}\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/UpdateSitewideAnnouncement.php
 
     -
       message: "#^Access to offset 'improveBehaviouralS…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
@@ -473,24 +214,9 @@ parameters:
       path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
 
     -
-      message: "#^Offset 'code' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/VerifyUserEmail.php
-
-    -
-      message: "#^Offset 'emailType' on array\\{\\} in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/VerifyUserEmail.php
-
-    -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/VerifyUserEmail.php
-
-    -
-      message: "#^Offset 'enumName' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/LocalizedEnumStrings.php
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$closing_date\\.$#"
