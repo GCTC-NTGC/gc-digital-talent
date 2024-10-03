@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import PlusCircleIconMini from "@heroicons/react/20/solid/PlusCircleIcon";
@@ -16,9 +16,11 @@ import {
   Heading,
   ScrollToLink,
   CardBasic,
+  Button,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
@@ -26,6 +28,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 
 import PoolCandidateSearchRequestPreviewListItem from "../components/PoolCandidateSearchRequestPreviewListItem";
 import pageMessages from "./messages";
@@ -48,6 +51,17 @@ function scrollToLinkAccessor(to: string, chunks: ReactNode) {
   );
 }
 
+const selectedSortLink: Record<string, string> = {
+  mode: "inline",
+  color: "secondary",
+};
+
+const unselectedSortLink: Record<string, string> = {
+  mode: "inline",
+  color: "black",
+  "data-h2-font-weight": "base(normal)",
+};
+
 const ManagerRequestHistoryUser_Fragment = graphql(/* GraphQL */ `
   fragment ManagerRequestHistoryUser on User {
     id
@@ -66,6 +80,14 @@ interface ManagerRequestHistoryProps {
 const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
   const paths = useRoutes();
   const intl = useIntl();
+
+  const [activeRequestsSortedBy, setActiveRequestsSortedBy] = useState<
+    "date" | "status" | "classification"
+  >("date");
+
+  const [requestHistorySortedBy, setRequestHistorySortedBy] = useState<
+    "date" | "classification"
+  >("date");
 
   const user = getFragment(ManagerRequestHistoryUser_Fragment, userQuery);
 
@@ -184,47 +206,91 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                         },
                       )}
                     </div>
-
-                    <CardBasic>
-                      {user.poolCandidateSearchRequests?.length ? (
-                        <PreviewList.Root>
-                          {user.poolCandidateSearchRequests?.map((request) => (
-                            <PoolCandidateSearchRequestPreviewListItem
-                              key={request.id}
-                              poolCandidateSearchRequestQuery={request}
-                              showUnfinishedPieces={showUnfinishedPieces}
-                            />
-                          ))}
-                        </PreviewList.Root>
-                      ) : (
-                        <Well data-h2-text-align="base(center)">
-                          <p data-h2-font-weight="base(bold)">
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "You don't have any active requests at the moment.",
-                              id: "3PwQT7",
-                              description:
-                                "Title for notice when there are no pool candidate search requests",
-                            })}
-                          </p>
-                          <p>
-                            {intl.formatMessage(
-                              {
-                                defaultMessage:
-                                  'You can start a new talent request using the "<link>New request</link>" button found in the page\'s table of contents.',
-                                id: "xuckIo",
-                                description:
-                                  "Body for notice when there are no pool candidate search requests",
-                              },
-                              {
-                                link: (chunks: ReactNode) =>
-                                  linkAccessor(paths.search(), chunks),
-                              },
+                    <div
+                      data-h2-display="base(flex)"
+                      data-h2-flex-direction="base(column)"
+                      data-h2-gap="base(x0.25)"
+                    >
+                      {/* sorting controls */}
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-flex-direction="base(row)"
+                        data-h2-gap="base(x0.5)"
+                      >
+                        <span>
+                          {intl.formatMessage(formMessages.sortBy)}
+                          {intl.formatMessage(commonMessages.dividingColon)}
+                        </span>
+                        <Button
+                          onClick={() => setActiveRequestsSortedBy("date")}
+                          {...(activeRequestsSortedBy === "date"
+                            ? selectedSortLink
+                            : unselectedSortLink)}
+                        >
+                          {intl.formatMessage(commonMessages.date)}
+                        </Button>
+                        <Button
+                          onClick={() => setActiveRequestsSortedBy("status")}
+                          {...(activeRequestsSortedBy === "status"
+                            ? selectedSortLink
+                            : unselectedSortLink)}
+                        >
+                          {intl.formatMessage(commonMessages.status)}
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            setActiveRequestsSortedBy("classification")
+                          }
+                          {...(activeRequestsSortedBy === "classification"
+                            ? selectedSortLink
+                            : unselectedSortLink)}
+                        >
+                          {intl.formatMessage(processMessages.classification)}
+                        </Button>
+                      </div>
+                      <CardBasic>
+                        {user.poolCandidateSearchRequests?.length ? (
+                          <PreviewList.Root>
+                            {user.poolCandidateSearchRequests?.map(
+                              (request) => (
+                                <PoolCandidateSearchRequestPreviewListItem
+                                  key={request.id}
+                                  poolCandidateSearchRequestQuery={request}
+                                  showUnfinishedPieces={showUnfinishedPieces}
+                                />
+                              ),
                             )}
-                          </p>
-                        </Well>
-                      )}
-                    </CardBasic>
+                          </PreviewList.Root>
+                        ) : (
+                          <Well data-h2-text-align="base(center)">
+                            <p data-h2-font-weight="base(bold)">
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "You don't have any active requests at the moment.",
+                                id: "3PwQT7",
+                                description:
+                                  "Title for notice when there are no pool candidate search requests",
+                              })}
+                            </p>
+                            <p>
+                              {intl.formatMessage(
+                                {
+                                  defaultMessage:
+                                    'You can start a new talent request using the "<link>New request</link>" button found in the page\'s table of contents.',
+                                  id: "xuckIo",
+                                  description:
+                                    "Body for notice when there are no pool candidate search requests",
+                                },
+                                {
+                                  link: (chunks: ReactNode) =>
+                                    linkAccessor(paths.search(), chunks),
+                                },
+                              )}
+                            </p>
+                          </Well>
+                        )}
+                      </CardBasic>
+                    </div>
                   </div>
                 </TableOfContents.Section>
                 <TableOfContents.Section id={sections.requestHistory.id}>
@@ -250,41 +316,77 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                           "description of the request history section on the manager request history page",
                       })}
                     </div>
-
-                    <CardBasic>
-                      {user.poolCandidateSearchRequests?.length ? (
-                        <PreviewList.Root>
-                          {user.poolCandidateSearchRequests?.map((request) => (
-                            <PoolCandidateSearchRequestPreviewListItem
-                              key={request.id}
-                              poolCandidateSearchRequestQuery={request}
-                              showUnfinishedPieces={showUnfinishedPieces}
-                            />
-                          ))}
-                        </PreviewList.Root>
-                      ) : (
-                        <Well data-h2-text-align="base(center)">
-                          <p data-h2-font-weight="base(bold)">
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "You don't have any completed requests yet.",
-                              id: "bTkPVZ",
-                              description:
-                                "Title for notice when there are no pool candidate search requests",
-                            })}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Requests will automatically move here when they are completed.",
-                              id: "WxuhIh",
-                              description:
-                                "Body for notice when there are no pool candidate search requests",
-                            })}
-                          </p>
-                        </Well>
-                      )}
-                    </CardBasic>
+                    <div
+                      data-h2-display="base(flex)"
+                      data-h2-flex-direction="base(column)"
+                      data-h2-gap="base(x0.25)"
+                    >
+                      {/* sorting controls */}
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-flex-direction="base(row)"
+                        data-h2-gap="base(x0.5)"
+                      >
+                        <span>
+                          {intl.formatMessage(formMessages.sortBy)}
+                          {intl.formatMessage(commonMessages.dividingColon)}
+                        </span>
+                        <Button
+                          onClick={() => setRequestHistorySortedBy("date")}
+                          {...(requestHistorySortedBy === "date"
+                            ? selectedSortLink
+                            : unselectedSortLink)}
+                        >
+                          {intl.formatMessage(commonMessages.date)}
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            setRequestHistorySortedBy("classification")
+                          }
+                          {...(requestHistorySortedBy === "classification"
+                            ? selectedSortLink
+                            : unselectedSortLink)}
+                        >
+                          {intl.formatMessage(processMessages.classification)}
+                        </Button>
+                      </div>
+                      <CardBasic>
+                        {user.poolCandidateSearchRequests?.length ? (
+                          <PreviewList.Root>
+                            {user.poolCandidateSearchRequests?.map(
+                              (request) => (
+                                <PoolCandidateSearchRequestPreviewListItem
+                                  key={request.id}
+                                  poolCandidateSearchRequestQuery={request}
+                                  showUnfinishedPieces={showUnfinishedPieces}
+                                />
+                              ),
+                            )}
+                          </PreviewList.Root>
+                        ) : (
+                          <Well data-h2-text-align="base(center)">
+                            <p data-h2-font-weight="base(bold)">
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "You don't have any completed requests yet.",
+                                id: "bTkPVZ",
+                                description:
+                                  "Title for notice when there are no pool candidate search requests",
+                              })}
+                            </p>
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "Requests will automatically move here when they are completed.",
+                                id: "WxuhIh",
+                                description:
+                                  "Body for notice when there are no pool candidate search requests",
+                              })}
+                            </p>
+                          </Well>
+                        )}
+                      </CardBasic>
+                    </div>
                   </div>
                 </TableOfContents.Section>
               </div>
