@@ -11,7 +11,6 @@ use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 final readonly class UpdateSitewideAnnouncement
 {
-    /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
     {
         /** @var \App\Models\User | null */

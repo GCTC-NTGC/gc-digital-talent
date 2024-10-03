@@ -9,8 +9,6 @@ final class RevertPlaceCandidate
 {
     /**
      * Revert the placing operation for a candidate
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

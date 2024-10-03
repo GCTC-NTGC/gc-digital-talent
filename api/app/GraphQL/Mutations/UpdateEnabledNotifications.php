@@ -9,8 +9,6 @@ final class UpdateEnabledNotifications
 {
     /**
      * Updates the requesting users enabled notification families
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
