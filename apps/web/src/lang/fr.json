@@ -2895,10 +2895,6 @@
     "defaultMessage": "Adresse courriel non valide. Essayez de nouveau ou envoyez un courriel à <anchorTag>{emailAddress}</anchorTag>.",
     "description": "Support form toast message error"
   },
-  "DP8Q/M": {
-    "defaultMessage": "Retirer du processus",
-    "description": "Label for the form to remove a process role from a user"
-  },
   "DPfJ30": {
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
@@ -3682,6 +3678,10 @@
   "HYeViW": {
     "defaultMessage": "Comprendre les dates limites pour présenter une demande",
     "description": "Heading for the pool closing date dialog"
+  },
+  "Hah9mB": {
+    "defaultMessage": "Retirez du processus",
+    "description": "Button label for the form to remove a process role from a user"
   },
   "Hd0nHP": {
     "defaultMessage": "(À déterminer)",
@@ -4692,7 +4692,7 @@
     "description": "intro to request a new code"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton« Ajoutez un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans la collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mxu+IY": {
@@ -5026,10 +5026,6 @@
   "OlZeZO": {
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder message when there is no skill category selected"
-  },
-  "OlarTN": {
-    "defaultMessage": "Ajoutez un rôle dans la collectivité",
-    "description": "Label for the form to add a community membership to a user"
   },
   "OleLgS": {
     "defaultMessage": "Ajouter « {title} » à votre profil",
@@ -5959,6 +5955,10 @@
     "defaultMessage": "Veuillez indiquer la classification et le niveau de votre groupe de travail actuel.",
     "description": "Text blurb, asking about classification and level in the government info form"
   },
+  "TSYfZE": {
+    "defaultMessage": "Ajoutez des rôles dans des processus",
+    "description": "Button label for the form to add a process membership to a user"
+  },
   "TU9sk7": {
     "defaultMessage": "Soumettez votre demande filtrée pour obtenir un talent.",
     "description": "Subtitle displayed on hero for Search and Request pages."
@@ -6557,6 +6557,10 @@
   "Wo+T62": {
     "defaultMessage": "Souhaitez-vous annuler cette décision et régler le statut du candidat à « En cours d’évaluation »?",
     "description": "Confirmation text for reinstating a candidate"
+  },
+  "WovyCU": {
+    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "description": "Header for the form to add a community membership to a user"
   },
   "WpA63g": {
     "defaultMessage": "Je suis intéressé(e) à embaucher un diplômé/un talent avancé",
@@ -7413,6 +7417,10 @@
   "bMY93S": {
     "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
     "description": "Help text for providing a skill level"
+  },
+  "bMfecw": {
+    "defaultMessage": "Ajouter des rôles dans des processus",
+    "description": "Header for the form to add a process membership to a user"
   },
   "bOA3EH": {
     "defaultMessage": "Employé du gouvernement",
@@ -9402,6 +9410,10 @@
     "defaultMessage": "Collectivité des gestionnaires",
     "description": "Title for Managers community"
   },
+  "l7Xz4j": {
+    "defaultMessage": "Retirer du processus",
+    "description": "Header for the form to remove a process role from a user"
+  },
   "l9AK3C": {
     "defaultMessage": "ou",
     "description": "that appears between different experience requirements for a pool applicant"
@@ -10262,10 +10274,6 @@
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
     "description": "Subtitle for confirmation to delete a skill"
   },
-  "pZ8pDw": {
-    "defaultMessage": "Retirer de la collectivité",
-    "description": "Label for the form to remove a community role from a user"
-  },
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
@@ -10513,10 +10521,6 @@
   "r7lf0k": {
     "defaultMessage": "Aucun nom de famille fourni",
     "description": "Fallback for last name value"
-  },
-  "rBvWsd": {
-    "defaultMessage": "Ajouter des rôles dans des processus",
-    "description": "Label for the form to add a process membership to a user"
   },
   "rCpVpZ": {
     "defaultMessage": "Vous avez indiqué que vous répondiez aux <strong>exigences minimales en matière d’expérience ou d’études (2 années d’études post-secondaires)</strong> en mentionnant les expériences suivantes sur votre parcours professionnel :",
@@ -11017,6 +11021,10 @@
   "uEqA50": {
     "defaultMessage": "Ajouter une nouvelle question",
     "description": "Button text to add a new general question to a pool"
+  },
+  "uG1ZWN": {
+    "defaultMessage": "Retirez de la collectivité",
+    "description": "Button label for the form to remove a community role from a user"
   },
   "uIUSdN": {
     "defaultMessage": "Apprenez-en davantage sur les modalités du site Talents numériques du GC.",
@@ -11546,6 +11554,10 @@
     "defaultMessage": "J’ai lu le préambule.",
     "description": "Preamble confirmation statement of the _digital services contracting questionnaire_"
   },
+  "xjdD1/": {
+    "defaultMessage": "Retirer de la collectivité",
+    "description": "Header for the form to remove a community role from a user"
+  },
   "xkJAuq": {
     "defaultMessage": "Ajouter cette compétence",
     "description": "Button text to select a specific skill in the skill dialog"
@@ -11773,6 +11785,10 @@
   "yypk6/": {
     "defaultMessage": "Ajouter au nouveau bassin",
     "description": "Confirmation button for add to pool dialog"
+  },
+  "yzvT6g": {
+    "defaultMessage": "Ajoutez un rôle dans la collectivité",
+    "description": "Button label for the form to add a community membership to a user"
   },
   "z/J4uL": {
     "defaultMessage": "Statut de l’employé :",

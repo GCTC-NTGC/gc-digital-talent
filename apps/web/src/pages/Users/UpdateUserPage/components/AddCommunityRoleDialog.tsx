@@ -102,10 +102,17 @@ const AddCommunityRoleDialog = ({
     });
   };
 
-  const label = intl.formatMessage({
+  const dialogLabel = intl.formatMessage({
     defaultMessage: "Add community role",
-    id: "OlarTN",
-    description: "Label for the form to add a community membership to a user",
+    id: "WovyCU",
+    description: "Header for the form to add a community membership to a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Add community role",
+    id: "yzvT6g",
+    description:
+      "Button label for the form to add a community membership to a user",
   });
 
   // if a community is selected, eliminate existing roles from the dropdown
@@ -143,11 +150,11 @@ const AddCommunityRoleDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="secondary" mode="solid" icon={PlusIcon}>
-          {label}
+          {buttonLabel}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage({

@@ -126,10 +126,17 @@ const AddProcessRoleDialog = ({
     });
   };
 
-  const label = intl.formatMessage({
+  const dialogLabel = intl.formatMessage({
     defaultMessage: "Add process role",
-    id: "rBvWsd",
-    description: "Label for the form to add a process membership to a user",
+    id: "bMfecw",
+    description: "Header for the form to add a process membership to a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Add process role",
+    id: "TSYfZE",
+    description:
+      "Button label for the form to add a process membership to a user",
   });
 
   const roleOptions = processRoles.map((role) => ({
@@ -141,11 +148,11 @@ const AddProcessRoleDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="secondary" mode="solid" icon={PlusIcon}>
-          {label}
+          {buttonLabel}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage({

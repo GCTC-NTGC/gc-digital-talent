@@ -69,21 +69,28 @@ const RemoveCommunityRoleDialog = ({
     getLocalizedName(role.displayName, intl);
   const communityDisplayName = getLocalizedName(community.name, intl);
 
-  const label = intl.formatMessage({
+  const dialogLabel = intl.formatMessage({
     defaultMessage: "Remove from community",
-    id: "pZ8pDw",
-    description: "Label for the form to remove a community role from a user",
+    id: "xjdD1/",
+    description: "Header for the form to remove a community role from a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Remove from community",
+    id: "uG1ZWN",
+    description:
+      "Button label for the form to remove a community role from a user",
   });
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="error" icon={TrashIcon} mode="icon_only">
-          <span data-h2-visually-hidden="base(invisible)">{label}</span>
+          <span data-h2-visually-hidden="base(invisible)">{buttonLabel}</span>
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage({
@@ -140,7 +147,9 @@ const RemoveCommunityRoleDialog = ({
               onClick={handleRemove}
               disabled={isDeleting}
             >
-              {isDeleting ? intl.formatMessage(commonMessages.removing) : label}
+              {isDeleting
+                ? intl.formatMessage(commonMessages.removing)
+                : buttonLabel}
             </Button>
           </Dialog.Footer>
         </Dialog.Body>

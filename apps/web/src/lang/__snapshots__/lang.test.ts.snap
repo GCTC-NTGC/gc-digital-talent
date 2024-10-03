@@ -3,6 +3,13 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
+    "en": "Membership roles",
+    "fr": [
+      "Rôles des membres",
+      "Rôles dans l'équipe"
+    ]
+  },
+  {
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
@@ -17,10 +24,52 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add individual role",
+    "fr": [
+      "Ajoutez un rôle individuel",
+      "Ajouter un rôle individue"
+    ]
+  },
+  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
       "Études minimales"
+    ]
+  },
+  {
+    "en": "Remove from process",
+    "fr": [
+      "Retirez du processus",
+      "Retirer du processus"
+    ]
+  },
+  {
+    "en": "Remove membership<hidden> in {team}</hidden>",
+    "fr": [
+      "Retirez de l'équipe<hidden> dans {team}</hidden>",
+      "Retirer de l'équipe<hidden> dans {team}</hidden>"
+    ]
+  },
+  {
+    "en": "Add team role",
+    "fr": [
+      "Ajouter un rôle dans l'équipe",
+      "Ajoutez un rôle dans l'équipe"
+    ]
+  },
+  {
+    "en": "Add process role",
+    "fr": [
+      "Ajoutez des rôles dans des processus",
+      "Ajouter des rôles dans des processus"
+    ]
+  },
+  {
+    "en": "Add community role",
+    "fr": [
+      "Ajouter un rôle dans la collectivité",
+      "Ajoutez un rôle dans la collectivité"
     ]
   },
   {
@@ -42,6 +91,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Facultatives",
       "Facultatif"
+    ]
+  },
+  {
+    "en": "Remove from community",
+    "fr": [
+      "Retirez de la collectivité",
+      "Retirer de la collectivité"
     ]
   },
   {
