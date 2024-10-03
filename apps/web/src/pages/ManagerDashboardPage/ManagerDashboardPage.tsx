@@ -125,6 +125,8 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                       setAccordionItems(newValue);
                     }}
                     type="multiple"
+                    // we don't need that fat padding in the accordion inside the task card
+                    data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
                   >
                     <Accordion.Item value="your_talent_searches">
                       <Accordion.Trigger>
@@ -144,11 +146,18 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         // match accordion padding
                         data-h2-padding="base(0 x1 x0.75 x1.3)"
                         data-h2-display="base(flex)"
-                        data-h2-gap="base(x0.5)"
+                        data-h2-flex-direction="base(column) p-tablet(row)"
+                        data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
+                        data-h2-align-items="base(flex-start) p-tablet(center)"
+                        data-h2-gap="base(x0.5 0)"
+                        data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
+                        data-h2-color="p-tablet:children[::after](black.lighter)"
+                        data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
+                        data-h2-font-size="base(caption)"
                       >
                         {showUnfinishedPieces ? (
-                          // This link is missing an href since the page doesn't exist yet.  Probably #10982
-                          <>
+                          // This link is missing an href since the page doesn't exist yet. Probably #10982
+                          <div>
                             <Link color="primary" href="#">
                               {intl.formatMessage({
                                 defaultMessage: "All requests",
@@ -157,25 +166,24 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   "Link to a page to view all the requests",
                               })}
                             </Link>
-                            &bull;
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                        <Link color="primary" href={paths.search()}>
-                          {intl.formatMessage({
-                            defaultMessage: "New request",
-                            id: "BGQaDq",
-                            description:
-                              "Link to a page to start a new request",
-                          })}
-                        </Link>
+                          </div>
+                        ) : null}
+                        <div>
+                          <Link color="primary" href={paths.search()}>
+                            {intl.formatMessage({
+                              defaultMessage: "New request",
+                              id: "BGQaDq",
+                              description:
+                                "Link to a page to start a new request",
+                            })}
+                          </Link>
+                        </div>
                       </div>
                       <Accordion.Content>
                         <div
                           data-h2-display="base(flex)"
                           data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x0.5)"
+                          data-h2-gap="base(x1)"
                         >
                           <div>
                             {intl.formatMessage(

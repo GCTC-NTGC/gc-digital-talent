@@ -17,7 +17,7 @@ final class SendUserEmailVerification
     public function __invoke($_, array $args)
     {
         try {
-            /** @var \App\Models\User */
+            /** @var \App\Models\User | null */
             $user = Auth::user();
             $emailType = isset($args['emailType']) ? EmailType::fromName($args['emailType']) : EmailType::CONTACT;
             $user->sendEmailVerificationNotification($emailType);

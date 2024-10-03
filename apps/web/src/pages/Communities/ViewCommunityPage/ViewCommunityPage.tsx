@@ -20,10 +20,9 @@ import useReturnPath from "~/hooks/useReturnPath";
 
 import CommunitySection from "./components/CommunitySection";
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
-};
+}
 
 const ViewCommunity_Query = graphql(/* GraphQL */ `
   query ViewCommunity($id: UUID!) {

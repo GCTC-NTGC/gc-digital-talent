@@ -1066,7 +1066,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -1122,7 +1122,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function scopeAuthorizedToViewBasicInfo(Builder $query): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added

@@ -31,6 +31,7 @@ const LinkMenuItem = ({
           utilityIcon={ChevronDownIcon}
           mode="inline"
           color="black"
+          data-h2-height="base(x0.85)"
           data-h2-transform="base:children[svg](rotate(0deg)) base:selectors[[data-state='open']]:children[svg](rotate(180deg))"
         >
           {selectedLink?.title}
@@ -39,9 +40,9 @@ const LinkMenuItem = ({
       <DropdownMenu.Content align="end" collisionPadding={2}>
         {links.map((link) => (
           <DropdownMenu.Item
-            key={link.title + String(link.href)}
+            key={link.title + String(link.href}
             asChild
-            color="black"
+            color={link.isSelected ? "secondary" : "black"}
           >
             <Link href={link.href}>{link.title}</Link>
           </DropdownMenu.Item>
