@@ -5956,7 +5956,7 @@
     "description": "Text blurb, asking about classification and level in the government info form"
   },
   "TSYfZE": {
-    "defaultMessage": "Ajoutez des rôles dans des processus",
+    "defaultMessage": "Ajoutez un rôle dans le processus",
     "description": "Button label for the form to add a process membership to a user"
   },
   "TU9sk7": {
@@ -7075,7 +7075,7 @@
     "description": "Label for the terms and conditions link in the Footer."
   },
   "ZHDOB5": {
-    "defaultMessage": "Utilisez le bouton« Ajoutez un rôle dans l'équipe » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans l'équipe » pour commencer.",
     "description": "Instructions for adding team membership to a user."
   },
   "ZIDY0W": {
@@ -8027,7 +8027,7 @@
     "description": "Title for the skill filters on search page."
   },
   "eGqjYh": {
-    "defaultMessage": "Rôles dans des processus",
+    "defaultMessage": "Rôles dans le processus",
     "description": "Heading for updating a user's process roles"
   },
   "eIxShU": {
@@ -8707,7 +8707,7 @@
     "description": "Priority number label"
   },
   "hS96pl": {
-    "defaultMessage": "L'utilisatrice ou l'utilisateur perdra tous les rôles suivants dans le processus :",
+    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
     "description": "Text notifying user which process roles will be removed from the user"
   },
   "hSmKjD": {
@@ -10655,7 +10655,7 @@
     "description": "Sub title for the pool introduction"
   },
   "ryeKXV": {
-    "defaultMessage": "Cherchez des rôles dans des collectivités",
+    "defaultMessage": "Cherchez les rôles dans des collectivités",
     "description": "Label for the community roles table search input"
   },
   "rz21yp": {
@@ -11935,7 +11935,7 @@
     "description": "Third paragraph of first answer of the Frequently Asked Questions for logging in"
   },
   "zsOKOD": {
-    "defaultMessage": "L'utilisatrice ou l'utilisateur perdra tous les rôles suivants dans la collectivité :",
+    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans la collectivité :",
     "description": "Text notifying user which community roles will be removed from the user"
   },
   "zsU6/U": {
