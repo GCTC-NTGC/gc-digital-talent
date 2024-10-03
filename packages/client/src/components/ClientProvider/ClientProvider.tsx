@@ -70,7 +70,6 @@ const ClientProvider = ({
       client ??
       createClient({
         url: `${apiHost}${apiUri}`,
-        requestPolicy: "cache-and-network",
         fetchOptions: { headers: { "Accept-Language": locale } },
         exchanges: [
           cacheExchange({
@@ -102,7 +101,7 @@ const ClientProvider = ({
                 },
               },
             ),
-            logger(sev, msg) {
+            logger(sev: string, msg: string) {
               logger.info(`Severity: ${sev}: ${msg}`);
             },
           }),

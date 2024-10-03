@@ -16,6 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 const Registration_Query = graphql(/** GraphQL */ `
   query Registration_Query {
     me {
+      id
       email
       isGovEmployee
     }
