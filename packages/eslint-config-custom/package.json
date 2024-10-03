@@ -19,7 +19,7 @@
     "eslint-plugin-no-only-tests": "^3.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.1.0",
-    "eslint-plugin-react": "^7.36.1",
+    "eslint-plugin-react": "^7.37.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-testing-library": "^6.3.0",
     "eslint-plugin-turbo": "^2.1.3",
