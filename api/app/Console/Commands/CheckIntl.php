@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Discoverers\EnumDiscoverer;
-use App\Traits\HasLocalization;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
@@ -79,7 +78,6 @@ class CheckIntl extends Command
     {
         $this->localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
-        /** @var HasLocalization $enum */
         foreach ($this->localizedEnums as $enum) {
             $this->checkStrings($enum);
         }

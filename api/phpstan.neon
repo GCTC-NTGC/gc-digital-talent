@@ -1263,31 +1263,6 @@ parameters:
       path: app/Policies/AssessmentStepPolicy.php
 
     -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$classification$#"
-      count: 5
-      path: app/Policies/ClassificationPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param for parameter \\$community with type App\\\\Models\\\\Community\\|null is not subtype of native type App\\\\Models\\\\Community\\.$#"
-      count: 2
-      path: app/Policies/CommunityPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$department$#"
-      count: 5
-      path: app/Policies/DepartmentPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$classification$#"
-      count: 5
-      path: app/Policies/GenericJobTitlePolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$poolCandidate$#"
-      count: 1
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
       count: 2
       path: app/Policies/PoolPolicy.php
@@ -1301,31 +1276,6 @@ parameters:
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
       count: 1
       path: app/Policies/PoolPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param for parameter \\$user with type App\\\\Models\\\\User\\|null is not subtype of native type App\\\\Models\\\\User\\.$#"
-      count: 3
-      path: app/Policies/RolePolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$role$#"
-      count: 2
-      path: app/Policies/RolePolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$skillFamily$#"
-      count: 5
-      path: app/Policies/SkillFamilyPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$skill$#"
-      count: 5
-      path: app/Policies/SkillPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param has invalid value \\(\\\\App\\\\Models\\\\Team/null \\$team\\)\\: Unexpected token \"/null\", expected variable at offset 117$#"
-      count: 1
-      path: app/Policies/TeamPolicy.php
 
     -
       message: "#^Access to offset 'id' on an unknown class App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
@@ -1351,16 +1301,6 @@ parameters:
       message: "#^Parameter \\#2 \\$type of method Nuwave\\\\Lighthouse\\\\Schema\\\\TypeRegistry\\:\\:registerLazy\\(\\) expects callable\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\Type&GraphQL\\\\Type\\\\Definition\\\\NamedType, Closure\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\EnumType given\\.$#"
       count: 2
       path: app/Providers/GraphQLServiceProvider.php
-
-    -
-      message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-      count: 1
-      path: app/Providers/RouteServiceProvider.php
-
-    -
-      message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-      count: 1
-      path: app/Providers/RouteServiceProvider.php
 
     -
       message: "#^Variable \\$experiences in isset\\(\\) always exists and is not nullable\\.$#"
@@ -1406,18 +1346,3 @@ parameters:
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"
       count: 1
       path: app/ValueObjects/ProfileSnapshot.php
-
-    -
-      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
-      count: 1
-      path: app/Console/Commands/CheckIntl.php
-
-    -
-      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
-      count: 1
-      path: app/Providers/GraphQLServiceProvider.php
-
-    -
-      message: "#^PHPDoc tag @var has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
-      count: 1
-      path: app/Providers/GraphQLServiceProvider.php

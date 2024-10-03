@@ -144,7 +144,6 @@ class PoolCandidatePolicy
      * Note: Everyone needs to be able to count applicants
      * for now
      *
-     * @param  \App\Models\PoolCandidate  $poolCandidate
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function count()
