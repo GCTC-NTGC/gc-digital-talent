@@ -17,8 +17,9 @@ import {
   PoolCandidateSearchInput,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
+  AssessmentStepTracker_PoolFragment as AssessmentStepTrackerPoolType,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
@@ -37,16 +38,16 @@ import {
 
 import { FormValues } from "./types";
 
-export type CandidateAssessmentResult = {
+export interface CandidateAssessmentResult {
   poolCandidate: AssessmentStepTracker_CandidateFragment;
   decision: NullableDecision;
-};
+}
 
-type DecisionInfo = {
+interface DecisionInfo {
   colorStyle: Record<string, string>;
   icon: IconType;
   name: string;
-};
+}
 
 export const getDecisionInfo = (
   decision: Maybe<NullableDecision> | undefined,
@@ -129,16 +130,16 @@ const compareLastNames = (
   resultA: CandidateAssessmentResult,
   resultB: CandidateAssessmentResult,
 ) => {
-  const user1Name: string = resultA.poolCandidate?.user.lastName || "";
-  const user2Name: string = resultB.poolCandidate?.user.lastName || "";
+  const user1Name: string = resultA.poolCandidate?.user.lastName ?? "";
+  const user2Name: string = resultB.poolCandidate?.user.lastName ?? "";
   return user1Name.localeCompare(user2Name);
 };
 const compareFirstNames = (
   resultA: CandidateAssessmentResult,
   resultB: CandidateAssessmentResult,
 ) => {
-  const user1Name: string = resultA.poolCandidate?.user.firstName || "";
-  const user2Name: string = resultB.poolCandidate?.user.firstName || "";
+  const user1Name: string = resultA.poolCandidate?.user.firstName ?? "";
+  const user2Name: string = resultB.poolCandidate?.user.firstName ?? "";
   return user1Name.localeCompare(user2Name);
 };
 
@@ -187,17 +188,25 @@ const filterCandidatesByDecision = (
   return results.filter((result) => result.decision === assessmentDecision);
 };
 
-type StepWithGroupedCandidates = {
-  step: AssessmentStep;
+// define the type for an assessment step nested in the fragment
+const stepTrackerFragmentSteps: AssessmentStepTrackerPoolType["assessmentSteps"] =
+  [];
+// eslint-disable-next-line no-underscore-dangle
+const _unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
+type StepTrackerFragmentStepType = (typeof _unpackedSteps)[number];
+
+interface StepWithGroupedCandidates {
+  step: StepTrackerFragmentStepType;
   resultCounts?: ResultDecisionCounts;
   results: CandidateAssessmentResult[];
-};
+}
 
 export const groupPoolCandidatesByStep = (
-  steps: AssessmentStep[],
+  steps: AssessmentStepTrackerPoolType["assessmentSteps"],
   candidates: Omit<PoolCandidate, "pool">[],
 ): StepWithGroupedCandidates[] => {
-  const orderedSteps = sortBy(steps, (step) => step.sortOrder);
+  const stepsUnpacked = unpackMaybes(steps);
+  const orderedSteps = sortBy(stepsUnpacked, (step) => step.sortOrder);
 
   const stepsWithGroupedCandidates: StepWithGroupedCandidates[] =
     orderedSteps.map((step, index) => {
@@ -222,7 +231,12 @@ export const groupPoolCandidatesByStep = (
         });
 
       return {
-        step,
+        step: {
+          id: step.id,
+          type: step.type,
+          title: step.title,
+          sortOrder: step.sortOrder,
+        },
         results: stepCandidates,
         resultCounts: {
           [NO_DECISION]: filterCandidatesByDecision(stepCandidates, NO_DECISION)
@@ -246,13 +260,13 @@ export const groupPoolCandidatesByStep = (
   return stepsWithGroupedCandidates;
 };
 
-export type ResultFilters = {
+export interface ResultFilters {
   query: string;
   [NO_DECISION]: boolean;
   [AssessmentDecision.Successful]: boolean;
   [AssessmentDecision.Hold]: boolean;
   [AssessmentDecision.Unsuccessful]: boolean;
-};
+}
 
 export const defaultFilters: ResultFilters = {
   query: "",
@@ -307,7 +321,7 @@ export const filterAlreadyDisqualified = (
 };
 
 export const generateStepName = (
-  step: AssessmentStep,
+  step: Pick<AssessmentStep, "type" | "title">,
   intl: IntlShape,
 ): string => {
   // check if title exists in LocalizedString object, then return empty string if not for a truthy check
@@ -342,7 +356,7 @@ export function transformPoolCandidateSearchInputToFormValues(
       : [],
     govEmployee: input?.isGovEmployee ? "true" : "",
     languageAbility: input?.applicantFilter?.languageAbility ?? "",
-    operationalRequirement:
+    operationalRequirements:
       input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
     pools: [poolId],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
@@ -350,8 +364,6 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
-    expiryStatus: CandidateExpiryFilter.Active, // add default filters
-    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
 
@@ -383,8 +395,8 @@ export function transformFormValuesToFilterState(
             })
             .filter(notEmpty)
         : undefined,
-      operationalRequirements: !isEmpty(data.operationalRequirement)
-        ? data.operationalRequirement
+      operationalRequirements: !isEmpty(data.operationalRequirements)
+        ? data.operationalRequirements
             .map((requirement) => {
               return stringToEnumOperational(requirement);
             })
@@ -405,5 +417,7 @@ export function transformFormValuesToFilterState(
           })
           .filter(notEmpty)
       : undefined,
+    expiryStatus: CandidateExpiryFilter.Active, // add default filters
+    suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }

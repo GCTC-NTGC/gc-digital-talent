@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -40,6 +41,14 @@ class AwardExperience extends Experience
      */
     protected $attributes = [
         'experience_type' => AwardExperience::class,
+    ];
+
+    protected static $hydrationFields = [
+        'title' => 'title',
+        'issued_by' => 'issuedBy',
+        'awarded_date' => 'awardedDate',
+        'awarded_to' => 'awardedTo',
+        'awarded_scope' => 'awardedScope',
     ];
 
     public function getTitle(): string

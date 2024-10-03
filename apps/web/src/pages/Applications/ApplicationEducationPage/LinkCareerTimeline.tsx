@@ -72,10 +72,10 @@ const ExperienceChecklist = ({ items }: { items: CheckboxOption[] }) => {
   );
 };
 
-type ExperienceItems = {
+interface ExperienceItems {
   educationExperiences: CheckboxOption[];
   allExperiences: CheckboxOption[];
-};
+}
 
 interface CheckListSectionProps {
   group?: Classification["group"];
@@ -206,7 +206,7 @@ const CheckListSection = ({
 };
 
 interface LinkCareerTimelineProps {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   previousStepPath: string;
   classificationGroup?: string;
 }
@@ -220,7 +220,7 @@ const LinkCareerTimeline = ({
   const experienceItems = experiences.reduce(
     (
       checklistItems: ExperienceItems,
-      experience: Experience,
+      experience: Omit<Experience, "user">,
     ): ExperienceItems => {
       if (isEducationExperience(experience)) {
         const educationExperience = {
@@ -281,7 +281,7 @@ const LinkCareerTimeline = ({
             ...checklistItems.allExperiences,
             {
               value: experience.id,
-              label: experience.title || "",
+              label: experience.title ?? "",
             },
           ],
         };

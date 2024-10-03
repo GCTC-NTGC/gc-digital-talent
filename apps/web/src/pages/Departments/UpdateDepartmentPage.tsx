@@ -146,9 +146,9 @@ export const UpdateDepartmentForm = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   departmentId: Scalars["ID"]["output"];
-};
+}
 
 const Department_Query = graphql(/* GraphQL */ `
   query Department($id: UUID!) {

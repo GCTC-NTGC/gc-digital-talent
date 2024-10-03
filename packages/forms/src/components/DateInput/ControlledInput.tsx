@@ -23,7 +23,7 @@ interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
   formState: UseFormStateReturn<FieldValues>;
-  show: Array<DateSegment>;
+  show: DateSegment[];
   stateStyles: StyleRecord;
 }
 
@@ -107,7 +107,7 @@ const ControlledInput = ({
             id={ID.MONTH}
             name={ID.MONTH}
             onChange={handleMonthChange}
-            defaultValue={month || ""}
+            defaultValue={month ?? ""}
             data-h2-width="base(100%)"
             {...selectStyles}
             {...stateStyles}

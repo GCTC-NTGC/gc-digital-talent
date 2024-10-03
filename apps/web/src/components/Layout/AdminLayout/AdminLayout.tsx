@@ -15,7 +15,11 @@ import {
   SideMenuItem,
 } from "@gc-digital-talent/ui";
 import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import {
+  ROLE_NAME,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
 
 import Footer from "~/components/Footer/Footer";
@@ -27,6 +31,7 @@ import { checkRole } from "~/utils/teamUtils";
 import pageTitles from "~/messages/pageTitles";
 import pageIcons from "~/utils/pageIcons";
 import useErrorMessages from "~/hooks/useErrorMessages";
+import NotificationDialog from "~/components/NotificationDialog/NotificationDialog";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
@@ -68,6 +73,7 @@ export const Component = () => {
   useLayoutTheme("default");
   const isSmallScreen = useIsSmallScreen();
   const { roleAssignments } = useAuthorization();
+  const { loggedIn } = useAuthentication();
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
@@ -123,15 +129,21 @@ export const Component = () => {
               ROLE_NAME.RequestResponder,
               ROLE_NAME.CommunityManager,
               ROLE_NAME.PlatformAdmin,
+              ROLE_NAME.CommunityAdmin,
+              ROLE_NAME.CommunityRecruiter,
+              ROLE_NAME.ProcessOperator,
             ],
             roleAssignments,
           ) && (
-            <SideMenuItem
-              href={paths.adminDashboard()}
-              icon={pageIcons.dashboard.outline}
-            >
-              {intl.formatMessage(pageTitles.dashboard)}
-            </SideMenuItem>
+            <>
+              <SideMenuItem
+                href={paths.adminDashboard()}
+                icon={pageIcons.dashboard.outline}
+              >
+                {intl.formatMessage(pageTitles.dashboard)}
+              </SideMenuItem>
+              {loggedIn && <NotificationDialog sideMenu />}
+            </>
           )}
           <SideMenuCategory
             title={intl.formatMessage({
@@ -160,6 +172,9 @@ export const Component = () => {
                 ROLE_NAME.PoolOperator,
                 ROLE_NAME.CommunityManager,
                 ROLE_NAME.PlatformAdmin,
+                ROLE_NAME.CommunityAdmin,
+                ROLE_NAME.CommunityRecruiter,
+                ROLE_NAME.ProcessOperator,
               ],
               roleAssignments,
             ) && (
@@ -168,6 +183,21 @@ export const Component = () => {
                 icon={pageIcons.processes.outline}
               >
                 {intl.formatMessage(pageTitles.processes)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
+                ROLE_NAME.CommunityAdmin,
+                ROLE_NAME.CommunityRecruiter,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem
+                href={paths.communityTable()}
+                icon={pageIcons.communities.outline}
+              >
+                {intl.formatMessage(pageTitles.communities)}
               </SideMenuItem>
             )}
             {checkRole(
@@ -209,7 +239,14 @@ export const Component = () => {
               description: "The menu category for requests items",
             })}
           >
-            {checkRole([ROLE_NAME.RequestResponder], roleAssignments) && (
+            {checkRole(
+              [
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.CommunityRecruiter,
+                ROLE_NAME.CommunityAdmin,
+              ],
+              roleAssignments,
+            ) && (
               <SideMenuItem
                 href={paths.searchRequestTable()}
                 icon={pageIcons.talentRequests.outline}

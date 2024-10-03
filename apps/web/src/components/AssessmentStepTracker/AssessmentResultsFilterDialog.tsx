@@ -9,7 +9,6 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   commonMessages,
-  formMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
   navigationMessages,
@@ -85,10 +84,12 @@ const AssessmentResultsFilterDialog = ({
     value,
     label: intl.formatMessage(message),
   });
+
   return (
     <FilterDialog<FormValues>
       {...{ onSubmit, resetValues }}
       options={{ defaultValues: initialValues }}
+      modifyFilterCount={-3}
     >
       <div
         data-h2-display="base(grid)"
@@ -125,11 +126,10 @@ const AssessmentResultsFilterDialog = ({
           }))}
         />
         <div data-h2-grid-column="l-tablet(span 2)">
-          <Select
-            id="operationalRequirement"
-            name="operationalRequirement"
-            enableNull
-            nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
+          <Combobox
+            id="operationalRequirements"
+            name="operationalRequirements"
+            isMulti
             label={intl.formatMessage(navigationMessages.workPreferences)}
             options={localizedEnumToOptions(
               data?.operationalRequirements,
@@ -142,39 +142,33 @@ const AssessmentResultsFilterDialog = ({
           name="languageAbility"
           enableNull
           nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-          label={intl.formatMessage({
-            defaultMessage: "Languages",
-            id: "iUAe/2",
-            description: "Label for language ability field",
-          })}
+          label={intl.formatMessage(commonMessages.workingLanguageAbility)}
           options={localizedEnumToOptions(data?.languageAbilities, intl)}
         />
-        <Select
-          id="equity"
-          name="equity"
-          enableNull
-          nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
-          label={intl.formatMessage(commonMessages.employmentEquity)}
-          options={[
-            equityOption("isWoman", getEmploymentEquityGroup("woman")),
-            equityOption(
-              "hasDisability",
-              getEmploymentEquityGroup("disability"),
-            ),
-            equityOption(
-              "isIndigenous",
-              getEmploymentEquityGroup("indigenous"),
-            ),
-            equityOption(
-              "isVisibleMinority",
-              getEmploymentEquityGroup("minority"),
-            ),
-          ]}
-        />
-        <div
-          data-h2-grid-column="l-tablet(span 2)"
-          data-h2-align-self="base(center)"
-        >
+        <div data-h2-grid-column="l-tablet(span 2)">
+          <Combobox
+            id="equity"
+            name="equity"
+            label={intl.formatMessage(commonMessages.employmentEquity)}
+            isMulti
+            options={[
+              equityOption("isWoman", getEmploymentEquityGroup("woman")),
+              equityOption(
+                "hasDisability",
+                getEmploymentEquityGroup("disability"),
+              ),
+              equityOption(
+                "isIndigenous",
+                getEmploymentEquityGroup("indigenous"),
+              ),
+              equityOption(
+                "isVisibleMinority",
+                getEmploymentEquityGroup("minority"),
+              ),
+            ]}
+          />
+        </div>
+        <div data-h2-align-self="base(center)">
           <Checkbox
             id="govEmployee"
             name="govEmployee"

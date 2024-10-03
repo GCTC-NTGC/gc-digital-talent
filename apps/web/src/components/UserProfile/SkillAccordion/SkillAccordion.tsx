@@ -47,12 +47,9 @@ const grabSkillJustification = (
     (skillIterator) => skillIterator.id === accordionSkill.id,
   );
   // guarding against possible undefined
-  const justification =
-    specificSkill &&
-    specificSkill?.experienceSkillRecord &&
-    specificSkill.experienceSkillRecord?.details
-      ? specificSkill.experienceSkillRecord.details
-      : "";
+  const justification = specificSkill?.experienceSkillRecord?.details
+    ? specificSkill.experienceSkillRecord.details
+    : "";
   return justification;
 };
 
@@ -67,7 +64,9 @@ const SkillAccordion = ({
 
   const { name, experiences } = skill;
 
-  const getPersonalExperience = (experience: PersonalExperience) => {
+  const getPersonalExperience = (
+    experience: Omit<PersonalExperience, "user">,
+  ) => {
     const { title, description, startDate, endDate, details, skills } =
       experience;
 
@@ -90,7 +89,9 @@ const SkillAccordion = ({
     );
   };
 
-  const getEducationExperience = (experience: EducationExperience) => {
+  const getEducationExperience = (
+    experience: Omit<EducationExperience, "user">,
+  ) => {
     const {
       type,
       thesisTitle,
@@ -152,7 +153,7 @@ const SkillAccordion = ({
     );
   };
 
-  const getAwardExperience = (experience: AwardExperience) => {
+  const getAwardExperience = (experience: Omit<AwardExperience, "user">) => {
     const {
       awardedDate,
       awardedScope,
@@ -214,7 +215,9 @@ const SkillAccordion = ({
     );
   };
 
-  const getCommunityExperience = (experience: CommunityExperience) => {
+  const getCommunityExperience = (
+    experience: Omit<CommunityExperience, "user">,
+  ) => {
     const {
       startDate,
       endDate,
@@ -273,7 +276,7 @@ const SkillAccordion = ({
     );
   };
 
-  const getWorkExperience = (experience: WorkExperience) => {
+  const getWorkExperience = (experience: Omit<WorkExperience, "user">) => {
     const {
       startDate,
       endDate,
@@ -329,14 +332,14 @@ const SkillAccordion = ({
       return (
         <ul data-h2-padding="base(0, 0, 0, x1)" key={experience?.id}>
           <li data-h2-margin="base(x1, 0, 0, 0)">
-            {isPersonalExperience(experience!) &&
+            {isPersonalExperience(experience) &&
               getPersonalExperience(experience)}
-            {isEducationExperience(experience!) &&
+            {isEducationExperience(experience) &&
               getEducationExperience(experience)}
-            {isAwardExperience(experience!) && getAwardExperience(experience)}
-            {isCommunityExperience(experience!) &&
+            {isAwardExperience(experience) && getAwardExperience(experience)}
+            {isCommunityExperience(experience) &&
               getCommunityExperience(experience)}
-            {isWorkExperience(experience!) && getWorkExperience(experience)}
+            {isWorkExperience(experience) && getWorkExperience(experience)}
           </li>
         </ul>
       );

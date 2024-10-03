@@ -338,18 +338,22 @@ type SimpleAnyExperience = Omit<AnyExperience, "user">;
 
 export const isAwardExperience = (
   e: SimpleAnyExperience,
-): e is AwardExperience => e.__typename === "AwardExperience";
+): e is Omit<AwardExperience, "user"> => e.__typename === "AwardExperience";
 export const isCommunityExperience = (
   e: SimpleAnyExperience,
-): e is CommunityExperience => e.__typename === "CommunityExperience";
+): e is Omit<CommunityExperience, "user"> =>
+  e.__typename === "CommunityExperience";
 export const isEducationExperience = (
   e: SimpleAnyExperience,
-): e is EducationExperience => e.__typename === "EducationExperience";
+): e is Omit<EducationExperience, "user"> =>
+  e.__typename === "EducationExperience";
 export const isPersonalExperience = (
   e: SimpleAnyExperience,
-): e is PersonalExperience => e.__typename === "PersonalExperience";
-export const isWorkExperience = (e: SimpleAnyExperience): e is WorkExperience =>
-  e.__typename === "WorkExperience";
+): e is Omit<PersonalExperience, "user"> =>
+  e.__typename === "PersonalExperience";
+export const isWorkExperience = (
+  e: SimpleAnyExperience,
+): e is Omit<WorkExperience, "user"> => e.__typename === "WorkExperience";
 
 export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   // fit AwardExperience to startDate - endDate format
@@ -425,7 +429,9 @@ export const deriveExperienceType = (
  * @param experience
  * @returns
  */
-const getAwardExperienceDefaultValues = (experience: AwardExperience) => {
+const getAwardExperienceDefaultValues = (
+  experience: Omit<AwardExperience, "user">,
+) => {
   const { title, issuedBy, awardedDate, awardedTo, awardedScope } = experience;
   return {
     awardTitle: title,
@@ -443,7 +449,7 @@ const getAwardExperienceDefaultValues = (experience: AwardExperience) => {
  * @returns
  */
 const getCommunityExperienceDefaultValues = (
-  experience: CommunityExperience,
+  experience: Omit<CommunityExperience, "user">,
 ) => {
   const { title, organization, project, startDate, endDate } = experience;
   return {
@@ -463,7 +469,7 @@ const getCommunityExperienceDefaultValues = (
  * @returns
  */
 const getEducationExperienceDefaultValues = (
-  experience: EducationExperience,
+  experience: Omit<EducationExperience, "user">,
 ) => {
   const {
     type,
@@ -492,7 +498,9 @@ const getEducationExperienceDefaultValues = (
  * @param experience
  * @returns
  */
-const getPersonalExperienceDefaultValues = (experience: PersonalExperience) => {
+const getPersonalExperienceDefaultValues = (
+  experience: Omit<PersonalExperience, "user">,
+) => {
   const { title, description, startDate, endDate } = experience;
   return {
     experienceTitle: title,
@@ -510,7 +518,9 @@ const getPersonalExperienceDefaultValues = (experience: PersonalExperience) => {
  * @param experience
  * @returns
  */
-const getWorkExperienceDefaultValues = (experience: WorkExperience) => {
+const getWorkExperienceDefaultValues = (
+  experience: Omit<WorkExperience, "user">,
+) => {
   const { role, organization, division, startDate, endDate } = experience;
   return {
     role,
@@ -551,13 +561,13 @@ export const queryResultToDefaultValues = (
   }
 
   return {
-    details: experience.details || "",
+    details: experience.details ?? "",
     ...unsharedValues,
     skills: experience.skills
       ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
           skillId: id,
           name,
-          details: experienceSkillRecord?.details || "",
+          details: experienceSkillRecord?.details ?? "",
         }))
       : undefined,
     experienceType,
@@ -650,14 +660,14 @@ export const getExperienceDate = (
   return getDateRange({ startDate, endDate, intl });
 };
 
-type ExperienceInfo = {
+interface ExperienceInfo {
   title: string;
   titleHtml: ReactNode;
   editPath?: string;
   typeMessage: ReactNode;
   icon: IconType;
   date?: ReactNode;
-};
+}
 
 type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
 
@@ -703,8 +713,8 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
     title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
     titleHtml: getExperienceName(experience, intl, true),
     editPath: paths.editExperience(experience.id),
-    typeMessage: typeMessages.get(experienceType) || defaults.typeMessage,
-    icon: icons.get(experienceType) || defaults.icon,
+    typeMessage: typeMessages.get(experienceType) ?? defaults.typeMessage,
+    icon: icons.get(experienceType) ?? defaults.icon,
     date: getExperienceDate(experience, intl),
   };
 };

@@ -174,6 +174,11 @@ const commonMessages = defineMessages({
     id: "Ho94JY",
     description: "Title displayed preferred communication language",
   },
+  workingLanguageAbility: {
+    defaultMessage: "Working language ability",
+    id: "HEGXL7",
+    description: "Title displayed working language ability",
+  },
   unspecified: {
     defaultMessage: "Unspecified",
     id: "zhqK/P",
@@ -258,6 +263,52 @@ const commonMessages = defineMessages({
     defaultMessage: "You haven’t added any experiences of that type.",
     id: "nMX0n8",
     description: "Message to user when no experiences of that type exist.",
+  },
+  english: {
+    defaultMessage: "English",
+    id: "0NInjL",
+    description: "Name of English language",
+  },
+  french: {
+    defaultMessage: "French",
+    id: "JYpEeW",
+    description: "Name of French language",
+  },
+  bilingualEnglishFrench: {
+    defaultMessage: "Bilingual (English and French)",
+    id: "jStpFw",
+    description: "Name of Bilingual (English and French)",
+  },
+  preparingDownload: {
+    defaultMessage:
+      "Preparing your file for download. You will receive a notification when it is ready.",
+    id: "5RTQe6",
+    description: "Message to user when they request a file for download",
+  },
+  complete: {
+    defaultMessage: "Complete",
+    id: "S0w3o5",
+    description: "Simple status label for a complete item",
+  },
+  incomplete: {
+    defaultMessage: "Incomplete",
+    id: "vOCLQA",
+    description: "Simple status label for an incomplete item",
+  },
+  selectACommunity: {
+    defaultMessage: "Select a community",
+    id: "m0iNdp",
+    description: "Null selection for community select input.",
+  },
+  accepted: {
+    defaultMessage: "Accepted",
+    id: "Pj4lW9",
+    description: "Indicates a user has accepted some criteria",
+  },
+  notAccepted: {
+    defaultMessage: "Not accepted",
+    id: "I1jrAG",
+    description: "Indicates a user has not accepted some criteria",
   },
 });
 

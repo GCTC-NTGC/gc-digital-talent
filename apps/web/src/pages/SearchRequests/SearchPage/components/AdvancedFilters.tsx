@@ -29,7 +29,7 @@ interface FieldOption {
 
 const getFieldLabel = (
   value: string | string[],
-  options: Array<FieldOption>,
+  options: FieldOption[],
   intl: IntlShape,
 ) => {
   let label;
@@ -46,7 +46,7 @@ const getFieldLabel = (
   }
 
   return (
-    label ||
+    label ??
     intl.formatMessage({
       defaultMessage: "(None selected)",
       id: "+O6J4u",

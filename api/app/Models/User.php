@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
-use App\Enums\CitizenshipStatus;
-use App\Enums\IndigenousCommunity;
+use App\Enums\EmailType;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
@@ -15,7 +13,8 @@ use App\Enums\PriorityWeight;
 use App\Notifications\VerifyEmail;
 use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
-use Carbon\Carbon;
+use App\Traits\HasLocalizedEnums;
+use App\Traits\HydratesSnapshot;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -27,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -41,50 +42,52 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * Class User
  *
  * @property string $id
- * @property string $email
- * @property Illuminate\Support\Carbon email_verified_at
+ * @property ?string $email
+ * @property ?\Illuminate\Support\Carbon $email_verified_at
  * @property string $sub
- * @property string $first_name
- * @property string $last_name
- * @property string $telephone
- * @property string $preferred_lang
- * @property string $current_province
- * @property string $current_city
- * @property bool $looking_for_english
- * @property bool $looking_for_french
- * @property bool $looking_for_bilingual
- * @property string $first_official_language
- * @property bool $second_language_exam_completed
- * @property bool $second_language_exam_validity
- * @property string $comprehension_level
- * @property string $written_level
- * @property string $verbal_level
- * @property string $estimated_language_ability
- * @property string $is_gov_employee
- * @property bool $has_priority_entitlement
- * @property string $priority_number
- * @property string $department
- * @property string $current_classification
- * @property string $citizenship
- * @property string $armed_forces_status
- * @property bool $is_woman
- * @property bool $has_disability
- * @property bool $is_visible_minority
- * @property bool $has_diploma
- * @property array $location_preferences
- * @property string $location_exemptions
- * @property array $position_duration
+ * @property ?string $first_name
+ * @property ?string $last_name
+ * @property ?string $telephone
+ * @property ?string $preferred_lang
+ * @property ?string $current_province
+ * @property ?string $current_city
+ * @property ?bool $looking_for_english
+ * @property ?bool $looking_for_french
+ * @property ?bool $looking_for_bilingual
+ * @property ?string $first_official_language
+ * @property ?bool $second_language_exam_completed
+ * @property ?bool $second_language_exam_validity
+ * @property ?string $comprehension_level
+ * @property ?string $written_level
+ * @property ?string $verbal_level
+ * @property ?string $estimated_language_ability
+ * @property ?bool $is_gov_employee
+ * @property ?string $work_email
+ * @property ?\Illuminate\Support\Carbon $work_email_verified_at
+ * @property ?bool $has_priority_entitlement
+ * @property ?string $priority_number
+ * @property ?string $department
+ * @property ?string $current_classification
+ * @property ?string $citizenship
+ * @property ?string $armed_forces_status
+ * @property ?bool $is_woman
+ * @property ?bool $has_disability
+ * @property ?bool $is_visible_minority
+ * @property ?bool $has_diploma
+ * @property ?array $location_preferences
+ * @property ?string $location_exemptions
+ * @property ?array $position_duration
  * @property array $accepted_operational_requirements
- * @property string $gov_employee_type
- * @property int $priority_weight
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property string $indigenous_declaration_signature
- * @property array $indigenous_communities
- * @property string $preferred_language_for_interview
- * @property string $preferred_language_for_exam
- * @property array $enabled_email_notifications
- * @property array $enabled_in_app_notifications
+ * @property ?string $gov_employee_type
+ * @property ?int $priority_weight
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?string $indigenous_declaration_signature
+ * @property ?array $indigenous_communities
+ * @property ?string $preferred_language_for_interview
+ * @property ?string $preferred_language_for_exam
+ * @property ?array $enabled_email_notifications
+ * @property ?array $enabled_in_app_notifications
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -93,8 +96,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use CausesActivity;
     use EnrichedNotifiable;
     use HasFactory;
+    use HasLocalizedEnums;
     use HasRelationships;
     use HasRolesAndPermissions;
+    use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
     use SoftDeletes;
@@ -271,7 +276,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function skills()
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
     }
 
     // This method will add the specified skills to UserSkills if they don't exist yet.
@@ -283,7 +288,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
         $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
         foreach ($newSkillIds as $skillId) {
-            $userSkill = new UserSkill();
+            $userSkill = new UserSkill;
             $userSkill->skill_id = $skillId;
             $this->userSkills()->save($userSkill);
         }
@@ -310,88 +315,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return '';
     }
 
-    public function getLocation()
+    public function wouldAcceptTemporary(): bool
     {
-        if ($this->current_city && $this->current_province) {
-            return $this->current_city.', '.$this->current_province;
-        } elseif ($this->current_city) {
-            return $this->current_city;
-        } elseif ($this->current_province) {
-            return $this->current_province;
-        }
-
-        return '';
-    }
-
-    public function getLanguage(string $key)
-    {
-        $code = $this->$key;
-        if ($code !== 'en' && $code !== 'fr') {
-            return '';
-        }
-
-        return $code === 'en' ? 'English' : 'French';
-    }
-
-    public function getArmedForcesStatus()
-    {
-        switch ($this->armed_forces_status) {
-            case ArmedForcesStatus::MEMBER->name:
-                return 'Member';
-            case ArmedForcesStatus::VETERAN->name:
-                return 'Veteran';
-            default:
-                return 'Not in the CAF';
-        }
-    }
-
-    public function getCitizenship()
-    {
-        switch ($this->citizenship) {
-            case CitizenshipStatus::CITIZEN->name:
-                return 'Canadian citizen';
-            case CitizenshipStatus::PERMANENT_RESIDENT->name:
-                return 'Permanent resident';
-            default:
-                return 'Other';
-        }
-    }
-
-    public function getLookingForLanguage()
-    {
-        if ($this->looking_for_bilingual) {
-            return 'Bilingual positions (English and French)';
-        } elseif ($this->looking_for_english && $this->looking_for_french) {
-            return 'English or French positions';
-        } elseif ($this->looking_for_english) {
-            return 'English positions';
-        } elseif ($this->looking_for_french) {
-            return 'French positions';
-        }
-
-        return '';
-    }
-
-    public function getSecondLanguageEvaluation()
-    {
-        if ($this->comprehension_level || $this->written_level || $this->verbal_level) {
-            return sprintf('%s, %s, %s',
-                $this->comprehension_level ?? '',
-                $this->written_level ?? '',
-                $this->verbal_level ?? ''
-            );
-        }
-
-        return '';
-    }
-
-    public function getGovEmployeeType()
-    {
-        if (! $this->gov_employee_type) {
-            return '';
-        }
-
-        return ucwords(strtolower($this->gov_employee_type));
+        return in_array(PositionDuration::TEMPORARY->name, $this->position_duration);
     }
 
     public function getClassification()
@@ -412,50 +338,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $this->department()->get('name');
-    }
-
-    public function getIndigenousCommunities()
-    {
-        if (empty($this->indigenous_communities)) {
-            return null;
-        }
-
-        return array_map(function ($community) {
-            return match ($community) {
-                IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name => 'Non-status First Nations',
-                IndigenousCommunity::STATUS_FIRST_NATIONS->name => 'Status First Nations',
-                IndigenousCommunity::INUIT->name => 'Inuk (Inuit)',
-                IndigenousCommunity::METIS->name => 'Métis',
-                IndigenousCommunity::OTHER->name => 'Other',
-                IndigenousCommunity::LEGACY_IS_INDIGENOUS->name => 'Indigenous',
-                default => 'Unknown'
-            };
-        }, $this->indigenous_communities);
-    }
-
-    public function getPositionDuration()
-    {
-        if (in_array(PositionDuration::PERMANENT->name, $this->position_duration)) {
-            return 'Permanent duration';
-        }
-
-        return null;
-    }
-
-    public function getPriority()
-    {
-        $priority = [];
-        if ($this->has_priority_entitlement) {
-            $priority[] = 'Priority entitlement';
-        }
-        if ($this->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
-            $priority[] = 'Veteran';
-        }
-        if ($this->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name || $this->citizenship === CitizenshipStatus::CITIZEN->name) {
-            $priority[] = 'Permanent resident';
-        }
-
-        return implode(', ', $priority);
     }
 
     public function getPriorityAttribute()
@@ -577,9 +459,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     $candidate->delete();
                 }
 
-                // Modify the email to allow it to be used for another user
-                $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newEmail]);
+                // Modify the email(s) to allow use by another user
+                $newContactEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newContactEmail]);
+                if (! is_null($user->work_email)) {
+                    $newWorkEmail = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                    $user->update(['email' => $newWorkEmail]);
+                }
             }
             $user->searchable();
         });
@@ -590,8 +476,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $candidate->restore();
             }
 
-            $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
-            $user->update(['email' => $newEmail]);
+            $newContactEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
+            $user->update(['email' => $newContactEmail]);
+            if (! is_null($user->work_email)) {
+                $newWorkEmail = $user->work_email.'-restored-at-'.Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newWorkEmail]);
+            }
         });
     }
 
@@ -858,14 +748,45 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     /**
      * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public static function scopeTalentSearchablePublishingGroup(Builder $query): Builder
+    public static function scopeTalentSearchablePublishingGroup(Builder $query, $args): Builder
     {
-        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
+
+        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) use ($args) {
+            $filters = Arr::get($args ?? [], 'where', []);
+
+            $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
+                $query->wherePublished();
+
+                if (array_key_exists('qualifiedClassifications', $filters)) {
+                    $query->whereClassifications($filters['qualifiedClassifications']);
+                }
+
+                if (array_key_exists('qualifiedStreams', $filters)) {
+                    $query->streams($filters['qualifiedStreams']);
+                }
+            });
+
             PoolCandidate::scopeAvailable($innerQueryBuilder);
             PoolCandidate::scopeInTalentSearchablePublishingGroup($innerQueryBuilder);
 
             return $innerQueryBuilder;
         });
+    }
+
+    /**
+     * Return users who have a PoolCandidate in a given community
+     */
+    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    {
+        if (empty($communityId)) {
+            return $query;
+        }
+
+        $query = $query->whereHas('poolCandidates', function ($query) use ($communityId) {
+            return PoolCandidate::scopeCandidatesInCommunity($query, $communityId);
+        });
+
+        return $query;
     }
 
     public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
@@ -1143,66 +1064,74 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeAuthorizedToViewSpecific(Builder $query)
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
         }
 
+        // can see any user - return with no filters added
+        if ($user?->isAbleTo('view-any-user')) {
+            return;
+        }
+
+        // we might want to add some filters for some users
+        $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-team-applicantProfile')) {
+            if ($user?->isAbleTo('view-team-applicantProfile')) {
                 $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
-                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $allTeams = $user->rolesTeams()->get();
+                    $teamIds = $allTeams->filter(function ($team) use ($user) {
+                        return $user->isAbleTo('view-team-applicantProfile', $team);
+                    })->pluck('id');
+
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query
+                        $query
                             ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+                            ->where(function (Builder $query) use ($teamIds) {
+                                $query
+                                    ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })
+                                    ->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    })
+                                    ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('id', $teamIds);
+                                    });
                             });
                     });
                 });
             }
-            if ($user->isAbleTo('view-own-user')) {
+
+            if ($user?->isAbleTo('view-own-user')) {
                 $query->orWhere('id', $user->id);
             }
         });
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
+        }
 
-        return $query;
+        // fall through - return nothing
+        $query->where('id', null);
     }
 
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToViewBasicInfo(Builder $query): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        // special case: can see any basic info - return all users with no filters added
+        if ($user?->isAbleTo('view-any-userBasicInfo')) {
+            return;
         }
 
-        if (! $user->isAbleTo('view-any-user')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
-        }
-
-        return $query;
-    }
-
-    public function scopeAuthorizedToViewBasicInfo(Builder $query)
-    {
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        if (! $user) {
-            return $query->where('id', null);
-        }
-
-        if (! $user->isAbleTo('view-any-user') && ! $user->isAbleTo('view-any-userBasicInfo')) {
-            $query = self::scopeAuthorizedToViewSpecific($query);
-        }
-
-        return $query;
+        // otherwise: use the regular authorized to view scope
+        $query->authorizedToView();
     }
 
     /**
@@ -1211,10 +1140,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return bool
      */
-    public function hasVerifiedEmail()
+    public function hasVerifiedEmail(EmailType $emailType)
     {
         // might be refined later, eg, must be verified within the last X months
-        return ! is_null($this->email_verified_at);
+        if ($emailType == EmailType::CONTACT) {
+            return ! is_null($this->email_verified_at);
+        } else {
+            return ! is_null($this->work_email_verified_at);
+        }
+
     }
 
     /**
@@ -1223,9 +1157,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return bool
      */
-    public function markEmailAsVerified()
+    public function markEmailAsVerified(EmailType $emailType)
     {
-        $this->email_verified_at = Carbon::now();
+        if ($emailType == EmailType::CONTACT) {
+            $this->email_verified_at = Carbon::now();
+        } else {
+            $this->work_email_verified_at = Carbon::now();
+        }
     }
 
     /**
@@ -1234,9 +1172,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return void
      */
-    public function sendEmailVerificationNotification()
+    public function sendEmailVerificationNotification(EmailType $emailType)
     {
-        $message = new VerifyEmail();
+        $message = new VerifyEmail($emailType);
         $this->notify($message);
     }
 
@@ -1246,16 +1184,75 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      *
      * @return string
      */
-    public function getEmailForVerification()
+    public function getEmailForVerification(EmailType $emailType)
     {
-        return $this->email;
+        return $this->{$emailType->value};
     }
 
     /**
-     * Is the email address currently considered verified?
+     * Is the contact email address currently considered verified?
      */
     public function getIsEmailVerifiedAttribute()
     {
-        return $this->hasVerifiedEmail();
+        return $this->hasVerifiedEmail(EmailType::CONTACT);
+    }
+
+    /**
+     * Is the work email address currently considered verified?
+     */
+    public function getIsWorkEmailVerifiedAttribute()
+    {
+        return $this->hasVerifiedEmail(EmailType::WORK);
+    }
+
+    public static function hydrateSnapshot(mixed $snapshot): User|array
+    {
+        $user = new User;
+
+        $fields = [
+            'first_name' => 'firstName',
+            'last_name' => 'lastName',
+            'email' => 'email',
+            'telephone' => 'telephone',
+            'current_city' => 'currentCity',
+            'current_province' => 'currentProvince',
+            'preferred_lang' => 'preferredLang',
+            'preferred_language_for_interview' => 'preferredLanguageForInterview',
+            'preferred_language_for_exam' => 'preferredLanguageForExam',
+            'citizenship' => 'citizenship',
+            'armed_forces_status' => 'armedForcesStatus',
+            'looking_for_english' => 'lookingForEnglish',
+            'looking_for_french' => 'lookingForFrench',
+            'looking_for_bilingual' => 'lookingForBilingual',
+            'first_official_language' => 'firstOfficialLanguage',
+            'second_language_exam_completed' => 'secondLanguageExamCompleted',
+            'second_language_exam_validity' => 'secondLanguageExamValidity',
+            'comprehension_level' => 'comprehensionLevel',
+            'written_level' => 'comprehensionLevel',
+            'verbal_level' => 'verbalLevel',
+            'estimated_language_ability' => 'estimatedLanguageAbility',
+            'is_gov_employee' => 'isGovEmployee',
+            'work_email' => 'workEmail',
+            'gov_employee_type' => 'govEmployeeType',
+            'has_priority_entitlement' => 'hasPriorityEntitlement',
+            'priority_number' => 'priorityNumber',
+            'location_preferences' => 'locationPreferences',
+            'location_exemptions' => 'locationExemptions',
+            'accepted_operational_requirements' => 'acceptedOperationalRequirements',
+            'position_duration' => 'positionDuration',
+            'is_woman' => 'isWoman',
+            'has_disability' => 'hasDisability',
+            'is_visible_minority' => 'isVisibleMinority',
+            'indigenous_communities' => 'indigenousCommunities',
+        ];
+
+        /** @var User $user */
+        $user = self::hydrateFields($snapshot, $fields, $user);
+
+        if (isset($snapshot['department'])) {
+            $user->department = $snapshot['department']['id'];
+        }
+
+        return $user;
     }
 }

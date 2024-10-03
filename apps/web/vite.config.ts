@@ -6,7 +6,6 @@ import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
-
 import { hydrogen_watch } from "@hydrogen-css/hydrogen";
 
 dotenv.config({ path: "./.env" });
@@ -102,6 +101,9 @@ export default defineConfig(({ command }) => ({
   server: {
     port: 3000,
   },
+  html: {
+    cspNonce: "**CSP_NONCE**",
+  },
   resolve: {
     extensions: [".ts", ".tsx", ".json", ".js"],
     alias: {
@@ -124,7 +126,6 @@ export default defineConfig(({ command }) => ({
     OAUTH_POST_LOGOUT_REDIRECT_FR: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_FR"),
     OAUTH_LOGOUT_URI: getEnvVar("OAUTH_LOGOUT_URI"),
     FEATURE_DIRECTIVE_FORMS: getEnvVar("FEATURE_DIRECTIVE_FORMS"),
-    FEATURE_NOTIFICATIONS: getEnvVar("FEATURE_NOTIFICATIONS"),
     APPLICATIONINSIGHTS_CONNECTION_STRING: getEnvVar(
       "APPLICATIONINSIGHTS_CONNECTION_STRING",
     ),
@@ -225,6 +226,13 @@ export default defineConfig(({ command }) => ({
         ],
       },
     }),
-    compression(),
+    /**
+     * NOTE: We are not compressing the index.html
+     * so we can use the ngx_http_sub_module to
+     * replace values at runtime
+     *
+     * REF: https://nginx.org/en/docs/http/ngx_http_sub_module.html
+     */
+    compression({ exclude: /index\.html/i }),
   ],
 }));

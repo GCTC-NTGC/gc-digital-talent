@@ -9,14 +9,14 @@ import {
 
 import useCallbackRef from "./useCallbackRef";
 
-type UseControllableStateArgs<T> = {
+interface UseControllableStateArgs<T> {
   // The state prop being controlled
   controlledProp?: T | undefined;
   // A default value for the state
   defaultValue: T | undefined;
   // Callback for when state changes
   onChange?: (state: T) => void;
-};
+}
 
 type SetStateFunc<T> = (prevState?: T) => T;
 

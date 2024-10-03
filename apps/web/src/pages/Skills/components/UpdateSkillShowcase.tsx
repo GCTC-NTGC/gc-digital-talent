@@ -96,10 +96,12 @@ export const UpdateSkillShowcase_SkillFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
+export interface FormValues {
+  userSkills: SkillBrowserDialogFormValues[];
+}
 
 interface UpdateSkillShowcaseProps {
-  userId: Scalars["UUID"];
+  userId: Scalars["UUID"]["output"];
   allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
   allSkills: UpdateSkillShowcaseSkillFragmentType[];
   initialData: FormValues;
@@ -150,7 +152,7 @@ const UpdateSkillShowcase = ({
 
   const handleSuccess = (msg?: ReactNode) => {
     toast.success(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Successfully updated skill",
           id: "vMBiMV",
@@ -172,9 +174,10 @@ const UpdateSkillShowcase = ({
     const mutationPromise = userHasSkill
       ? // update existing userSkill
         executeUpdateMutation({
-          id: allUserSkills.find(
-            (userSkill) => userSkill.skill.id === values.skill,
-          )?.id,
+          id:
+            allUserSkills.find(
+              (userSkill) => userSkill.skill.id === values.skill,
+            )?.id ?? "",
           userSkill: {
             skillLevel: values.skillLevel,
             whenSkillUsed: values.whenSkillUsed,
@@ -193,7 +196,7 @@ const UpdateSkillShowcase = ({
       : // otherwise, create new userSkill
         executeCreateMutation({
           userId,
-          skillId,
+          skillId: skillId ?? "",
           userSkill: {
             skillLevel: values.skillLevel,
             whenSkillUsed: values.whenSkillUsed,

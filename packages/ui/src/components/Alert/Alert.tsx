@@ -24,11 +24,9 @@ import {
 } from "./utils";
 import { AlertHeadingLevel, AlertType } from "./types";
 
-import "./alert.css";
-
-type AlertContextValue = {
+interface AlertContextValue {
   type: AlertType;
-};
+}
 
 const AlertContext = createContext<AlertContextValue | undefined>(undefined);
 
@@ -91,12 +89,21 @@ const Alert = forwardRef<ElementRef<"div">, AlertProps>(
             {...rest}
           >
             <div
-              className="Alert__Icon"
               data-h2-display="base(flex)"
               data-h2-align-items="base(flex-start)"
               data-h2-justify-content="base(flex-start)"
-              data-h2-position="base(relative)"
+              data-h2-flex-shrink="base(0)"
+              data-h2-position="base(relative) p-tablet:selectors[::after](absolute)"
               data-h2-padding="base(x1) p-tablet(x.5, x1)"
+              data-h2-border-style="p-tablet:selectors[::after](solid)"
+              data-h2-border-width="p-tablet:selectors[::after](10px 0 10px 10px)"
+              data-h2-bottom="p-tablet:selectors[::after](auto)"
+              data-h2-height="p-tablet:selectors[::after](0)"
+              data-h2-left="p-tablet:selectors[::after](100%)"
+              data-h2-top="p-tablet:selectors[::after](calc((1 * var(--h2-base-whitespace)) * 1rem))"
+              data-h2-transform="p-tablet:selectors[::after](translate(0))"
+              data-h2-width="p-tablet:selectors[::after](0)"
+              data-h2-content="p-tablet:selectors[::after]('')"
               {...iconStyleMap[type]}
             >
               <Icon
@@ -166,7 +173,7 @@ interface AlertTitleProps
 const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
   const intl = useIntl();
   const ctx = useContext(AlertContext);
-  const alertLevelTitle = getAlertLevelTitle(ctx?.type || "info", intl);
+  const alertLevelTitle = getAlertLevelTitle(ctx?.type ?? "info", intl);
   const Heading = as;
 
   return (

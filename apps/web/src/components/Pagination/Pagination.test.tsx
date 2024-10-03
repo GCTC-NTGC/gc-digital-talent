@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { screen, renderHook } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
@@ -56,7 +56,7 @@ const assertDotCount = (count: number) => {
 describe("Pagination tests", () => {
   const user = userEvent.setup();
 
-  it("If the total page count is less then page chips show range from 1 to totalPageCount", async () => {
+  it("If the total page count is less then page chips show range from 1 to totalPageCount", () => {
     const props: PaginationProps = {
       ...defaultProps,
       totalCount: 50,

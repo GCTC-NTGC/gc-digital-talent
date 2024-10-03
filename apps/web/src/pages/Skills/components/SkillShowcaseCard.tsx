@@ -15,13 +15,13 @@ import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBr
 import RemoveDialog from "./RemoveDialog";
 import { UpdateUserSkillRankings_Mutation } from "../operations";
 
-type SkillShowcaseCardProps = {
+interface SkillShowcaseCardProps {
   index: number;
   item: SkillBrowserDialogFormValues;
   skills: Skill[];
   // which user-skill ranking are we updating with this card
   userSkillRanking: keyof UpdateUserSkillRankingsInput;
-};
+}
 
 const SkillShowcaseCard = ({
   index,
@@ -41,10 +41,10 @@ const SkillShowcaseCard = ({
 
   // the mutation has be done at the card level.  If done in the parent the card is unmounted and dialog is lost if there is an error.
   const handleRemove = (): Promise<void> => {
-    const copyOfItems = [...(items || [])];
+    const copyOfItems = [...(items ?? [])];
     copyOfItems.splice(index, 1);
     return updateUserSkillRankingsMutation({
-      userId: userAuthInfo?.id,
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         [userSkillRanking]: [
           ...copyOfItems.map((userSkill) => userSkill.skill),

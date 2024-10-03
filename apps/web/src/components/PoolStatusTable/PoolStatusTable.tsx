@@ -9,7 +9,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  PoolCandidate,
+  PoolStatusTable_PoolCandidateFragment as PoolStatusTablePoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -24,18 +24,23 @@ import accessors from "../Table/accessors";
 import { expiryCell, statusCell, viewTeamLinkCell } from "./cells";
 import sortStatus from "./sortStatus";
 
-const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
+const isSuspended = (
+  suspendedAt: PoolStatusTablePoolCandidateFragmentType["suspendedAt"],
+): boolean => {
   if (!suspendedAt) return false;
 
   const suspendedAtDate = parseDateTimeUtc(suspendedAt);
   return isPast(suspendedAtDate);
 };
 
-const columnHelper = createColumnHelper<PoolCandidate>();
+const columnHelper =
+  createColumnHelper<PoolStatusTablePoolCandidateFragmentType>();
 
 const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
   fragment PoolStatusTable on User {
     id
+    firstName
+    lastName
     poolCandidates {
       id
       status {
@@ -48,9 +53,6 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         processNumber
@@ -159,7 +161,12 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       {
         id: "status",
         enableHiding: false,
-        cell: ({ row: { original: candidate } }) => statusCell(candidate, user),
+        cell: ({ row: { original: candidate } }) =>
+          statusCell(candidate, {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            poolCandidates: user.poolCandidates,
+          }),
         header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },
@@ -219,7 +226,11 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       id: "expiryDate",
       enableHiding: false,
       sortingFn: "datetime",
-      cell: ({ row: { original: candidate } }) => expiryCell(candidate, user),
+      cell: ({ row: { original: candidate } }) =>
+        expiryCell(candidate, {
+          firstName: user.firstName,
+          lastName: user.lastName,
+        }),
       header: intl.formatMessage({
         defaultMessage: "Expiry date",
         id: "STDYoR",
@@ -227,12 +238,12 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
           "Title of the 'Expiry date' column for the table on view-user page",
       }),
     }),
-  ] as ColumnDef<PoolCandidate>[];
+  ] as ColumnDef<PoolStatusTablePoolCandidateFragmentType>[];
 
   const data = user.poolCandidates?.filter(notEmpty) ?? [];
 
   return (
-    <Table<PoolCandidate>
+    <Table<PoolStatusTablePoolCandidateFragmentType>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
         id: "ptOxLJ",

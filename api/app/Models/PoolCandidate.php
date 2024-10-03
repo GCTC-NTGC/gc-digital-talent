@@ -10,27 +10,17 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\EducationRequirementOption;
-use App\Enums\EstimatedLanguageAbility;
-use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\FinalDecision;
-use App\Enums\GovEmployeeType;
-use App\Enums\Language;
-use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
-use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
-use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
-use App\Enums\WorkRegion;
-use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
+use App\ValueObjects\ProfileSnapshot;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,7 +33,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use RecursiveArrayIterator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -51,33 +40,34 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class PoolCandidate
  *
  * @property string $id
- * @property Illuminate\Support\Carbon $expiry_date
- * @property Illuminate\Support\Carbon $archived_at
- * @property Illuminate\Support\Carbon $submitted_at
- * @property string $signature
- * @property string $pool_candidate_status
- * @property int $status_weight
+ * @property ?\Illuminate\Support\Carbon $expiry_date
+ * @property ?\Illuminate\Support\Carbon $archived_at
+ * @property ?\Illuminate\Support\Carbon $submitted_at
+ * @property ?string $signature
+ * @property ?string $pool_candidate_status
+ * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property Illuminate\Support\Carbon $suspended_at
+ * @property ?\Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
- * @property string $education_requirement_option
- * @property bool $is_bookmarked
- * @property Illuminate\Support\Carbon $placed_at
- * @property string $placed_department_id
- * @property Illuminate\Support\Carbon $final_decision_at
- * @property Illuminate\Support\Carbon $removed_at
- * @property string $removal_reason
- * @property string $removal_reason_other
- * @property string $veteran_verification
- * @property Illuminate\Support\Carbon $veteran_verification_expiry
- * @property string $priority_verification
- * @property Illuminate\Support\Carbon $priority_verification_expiry
+ * @property ?string $education_requirement_option
+ * @property ?bool $is_bookmarked
+ * @property ?\Illuminate\Support\Carbon $placed_at
+ * @property ?string $placed_department_id
+ * @property ?\Illuminate\Support\Carbon $final_decision_at
+ * @property ?\Illuminate\Support\Carbon $removed_at
+ * @property ?string $removal_reason
+ * @property ?string $removal_reason_other
+ * @property ?string $veteran_verification
+ * @property ?\Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property ?string $priority_verification
+ * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
- * @property int $computed_final_decision_weight
- * @property string $computed_final_decision
+ * @property ?int $computed_final_decision_weight
+ * @property ?string $computed_final_decision
+ * @property array<string, mixed> $profile_snapshot
  */
 class PoolCandidate extends Model
 {
@@ -97,7 +87,7 @@ class PoolCandidate extends Model
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
         'suspended_at' => 'datetime',
-        'profile_snapshot' => 'json',
+        'profile_snapshot' => ProfileSnapshot::class,
         'submitted_steps' => 'array',
         'is_bookmarked' => 'boolean',
         'placed_at' => 'datetime',
@@ -274,6 +264,29 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    public function getCategoryAttribute()
+    {
+        $category = null;
+
+        $this->loadMissing(['user' => [
+            'citizenship',
+            'priority_weight',
+            'armed_forces_status',
+        ]]);
+
+        if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::PRIORITY_ENTITLEMENT;
+        } elseif ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::VETERAN;
+        } elseif ($this->user->citizenship === CitizenshipStatus::CITIZEN->name || $this->user->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name) {
+            $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
+        } else {
+            $category = PriorityWeight::OTHER;
+        }
+
+        return $category;
+    }
+
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
     {
         if (empty($streams)) {
@@ -297,6 +310,22 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
+     */
+    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    {
+        if (empty($communityId)) {
+            return $query;
+        }
+
+        $query->whereHas('pool', function ($query) use ($communityId) {
+            $query->where('community_id', $communityId);
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -309,7 +338,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('pool', function ($query) use ($classifications) {
-            Pool::scopeClassifications($query, $classifications);
+            $query->whereClassifications($classifications);
         });
 
         return $query;
@@ -353,7 +382,7 @@ class PoolCandidate extends Model
         }
 
         $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
-            $query->whereIn('publishing_group', $publishingGroups);
+            $query->publishingGroups($publishingGroups);
         });
 
         return $query;
@@ -584,36 +613,6 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
-    // pool_candidate_status database value passed into accessor as an argument
-    public function getPoolCandidateStatusAttribute($candidateStatus)
-    {
-        // pull info
-        // $submittedAt = $this->submitted_at;
-        // $expiryDate = $this->expiry_date;
-        // $currentTime = date('Y-m-d H:i:s');
-        // $isExpired = $currentTime > $expiryDate ? true : false;
-
-        // // ensure null submitted_at returns either draft or expired draft
-        // if ($submittedAt == null){
-        //     if($isExpired) {
-        //         return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
-        //     }
-        //     return ApiEnums::CANDIDATE_STATUS_DRAFT;
-        // }
-
-        // // ensure expired returned if past expiry date with exception for PLACED
-        // if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
-        //     if ($isExpired) {
-        //         return ApiEnums::CANDIDATE_STATUS_EXPIRED;
-        //     }
-        //     return $candidateStatus;
-        // }
-
-        // no overriding
-        return $candidateStatus;
-    }
-
     public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
     {
         if (empty($priorityWeights)) {
@@ -745,56 +744,55 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
         }
 
-        $hasSomePermission = $user->isAbleTo([
-            'view-own-application',
-            'view-team-submittedApplication',
-            'view-any-submittedApplication',
-        ]);
-
-        // User does not have any of the required permissions
-        if (! $hasSomePermission) {
-            return $query->where('id', null);
-        }
-
+        // we might want to add some filters for some candidates
+        $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {
-            if ($user->isAbleTo('view-any-submittedApplication')) {
+            if ($user?->isAbleTo('view-any-submittedApplication')) {
                 $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
             }
 
-            if ($user->isAbleTo('view-team-submittedApplication')) {
+            if ($user?->isAbleTo('view-team-submittedApplication')) {
                 $allTeam = $user->rolesTeams()->get();
                 $teamIds = $allTeam->filter(function ($team) use ($user) {
                     return $user->isAbleTo('view-team-submittedApplication', $team);
                 })->pluck('id');
 
-                $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                    return $query
-                        ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                        ->where(function (Builder $query) use ($teamIds) {
-                            $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
-                            })->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+                $query->orWhere(function (Builder $query) use ($teamIds) {
+                    $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                        ->whereHas('pool', function (Builder $query) use ($teamIds) {
+                            return $query->where(function (Builder $query) use ($teamIds) {
+                                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
                             });
                         });
                 });
             }
 
-            if ($user->isAbleTo('view-own-application')) {
+            if ($user?->isAbleTo('view-own-application')) {
                 $query->orWhere('user_id', $user->id);
             }
         });
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
+        }
 
-        return $query;
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     /**
@@ -860,189 +858,61 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
+    public function scopeOrderByClaimVerification(Builder $query, ?array $args)
     {
-        $orderWithoutDirection = '
-                    CASE
-                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
-                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
-                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
-                    else 10
-                    END';
 
-        if ($sortOrder && $sortOrder == 'DESC') {
-            $order = $orderWithoutDirection.' DESC';
+        if (isset($args['order'])) {
+
+            $orderWithoutDirection = <<<'SQL'
+                CASE
+                    WHEN
+                        (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
+                    THEN
+                        40
+                    WHEN
+                        (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
+                        AND
+                        (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                    THEN
+                        30
+                    WHEN
+                        (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
+                        AND
+                        (
+                            (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                            OR
+                            (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                        )
+                    THEN
+                        20
+                    ELSE
+                        10
+                    END
+            SQL;
 
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*')
-                ->orderBy('is_bookmarked', 'DESC')
-                ->orderByRaw($order);
-        } elseif ($sortOrder && $sortOrder == 'ASC') {
-            $order = $orderWithoutDirection.' ASC';
+                ->select('users.citizenship', 'pool_candidates.*');
 
-            $query
-                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*')
-                ->orderBy('is_bookmarked', 'DESC')
-                ->orderByRaw($order);
+            if (isset($args['useBookmark']) && $args['useBookmark']) {
+                $query->orderBy('is_bookmarked', 'DESC');
+            }
+
+            $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
+
+            $query->orderByRaw($order)->orderBy('submitted_at', 'ASC');
         }
 
         return $query;
     }
 
-    public function setApplicationSnapshot()
+    public function setApplicationSnapshot(bool $save = true)
     {
-        if (! is_null($this->profile_snapshot)) {
-            return null;
+        $this->profile_snapshot = ['userId' => $this->user_id, 'poolId' => $this->pool_id];
+
+        if ($save) {
+            $this->save();
         }
-
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'userSkills.skill',
-            'awardExperiences',
-            'awardExperiences.skills',
-            'awardExperiences.user',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'communityExperiences.user',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'educationExperiences.user',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'personalExperiences.user',
-            'workExperiences',
-            'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.pool.classification.genericJobTitles',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementAwardExperiences.user',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.user',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.user',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.user',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.user',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-            'poolCandidates.user',
-        ])->findOrFail($this->user_id);
-
-        // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with(['poolSkills'])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
-
-        // filter out any non-applicable PoolCandidate models attached to User
-        $poolCandidateCollection = $user->poolCandidates;
-        $filteredPoolCandidateCollection = $poolCandidateCollection->filter(function ($individualPoolCandidate) {
-            return $individualPoolCandidate->id === $this->id;
-        });
-        $user->poolCandidates = $filteredPoolCandidateCollection;
-
-        $profile = new UserResource($user);
-        $profile = $profile->poolSkillIds($poolSkillIds);
-
-        $this->profile_snapshot = $profile;
-        $this->save();
-    }
-
-    /**
-     * Transform an enum value from the snapshot
-     * into a localized enum if it already isn't one.
-     */
-    private function parseSnapshotEnum(mixed $value, $enum): mixed
-    {
-
-        if (method_exists($enum, 'localizedString')) {
-            if (is_string($value)) {
-                return [
-                    'value' => $value,
-                    'label' => $enum::localizedString($value),
-                ];
-            }
-        }
-
-        return $value;
-    }
-
-    /**
-     * Iterate through the snapshot and transform
-     * non-localized enum values into their localized
-     * version.
-     *
-     * NOTE: This is to handle legacy snapshots.
-     * We can remove this once we are no longer using non-localized
-     * enums in the snapshots.
-     */
-    private function parseSnapshotRecursive(RecursiveArrayIterator $rai, array $accumulator, $enumMap)
-    {
-        foreach ($rai as $k => $v) {
-            if (array_key_exists($k, $enumMap)) {
-                $enum = $enumMap[$k];
-                if (is_array($v) && array_is_list($v)) {
-                    $accumulator[$k] = array_map(function ($item) use ($enum) {
-                        return $this->parseSnapshotEnum($item, $enum);
-                    }, $v);
-                } else {
-                    $accumulator[$k] = $this->parseSnapshotEnum($v, $enum);
-                }
-            } else {
-                if ($rai->hasChildren()) {
-                    $accumulator[$k] = $this->parseSnapshotRecursive($rai->getChildren(), [], $enumMap);
-                } else {
-                    $accumulator[$k] = $v;
-                }
-            }
-        }
-
-        return $accumulator;
-    }
-
-    protected function profileSnapshot(): Attribute
-    {
-        return Attribute::make(
-            get: function (?string $value) {
-                if (! $value) {
-                    return null;
-                }
-
-                $snapshot = json_decode($value, true);
-                $enumMap = [
-                    'acceptedOperationalRequirements' => OperationalRequirement::class,
-                    'armedForcesStatus' => ArmedForcesStatus::class,
-                    'citizenship' => CitizenshipStatus::class,
-                    'comprehensionLevel' => EvaluatedLanguageAbility::class,
-                    'currentProvince' => ProvinceOrTerritory::class,
-                    'educationRequirementOption' => EducationRequirementOption::class,
-                    'estimatedLanguageAbility' => EstimatedLanguageAbility::class,
-                    'firstOfficialLanguage' => Language::class,
-                    'govEmployeeType' => GovEmployeeType::class,
-                    'locationPreferences' => WorkRegion::class,
-                    'positionDuration' => PositionDuration::class,
-                    'preferredLang' => Language::class,
-                    'preferredLanguageForInterview' => Language::class,
-                    'preferredLanguageForExam' => Language::class,
-                    'verbalLevel' => EvaluatedLanguageAbility::class,
-                    'writtenLevel' => EvaluatedLanguageAbility::class,
-                ];
-
-                $iterator = new RecursiveArrayIterator($snapshot);
-
-                $parsedSnapshot = [];
-                $parsedSnapshot = $this->parseSnapshotRecursive($iterator, $parsedSnapshot, $enumMap);
-
-                return $parsedSnapshot;
-            }
-        );
     }
 
     /**
@@ -1116,9 +986,16 @@ class PoolCandidate extends Model
                         $snapshot = $this->profile_snapshot;
 
                         if ($snapshot) {
-                            $claimedSkills = collect($snapshot['userSkills']);
-                            $isClaimed = $claimedSkills->contains(function ($userSkill) use ($poolSkill) {
-                                return $userSkill['skill']['id'] === $poolSkill->skill_id;
+                            $experiences = collect($snapshot['experiences']);
+
+                            $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
+                                foreach ($experience['skills'] as $skill) {
+                                    if ($skill['id'] === $poolSkill->skill_id) {
+                                        return true;
+                                    }
+                                }
+
+                                return false;
                             });
                         }
 
@@ -1137,6 +1014,11 @@ class PoolCandidate extends Model
 
             if ($isApplicationScreening) {
                 $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
+
+                // automatically to assess if education results null or empty
+                if (! isset($educationResults) || count($educationResults) == 0) {
+                    $hasToAssess = true;
+                }
 
                 foreach ($educationResults as $result) {
                     if (! $result || is_null($result->assessment_decision)) {
@@ -1212,7 +1094,7 @@ class PoolCandidate extends Model
 
         if ($currentStep >= $totalSteps) {
             $lastStepDecision = end($decisions);
-            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
+            if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
@@ -1246,7 +1128,7 @@ class PoolCandidate extends Model
         }
 
         $query = $query->whereHas('pool', function ($query) use ($processNumber) {
-            $query->where('process_number', 'ilike', "%$processNumber%");
+            $query->processNumber($processNumber);
         });
 
         return $query;

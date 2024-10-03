@@ -18,6 +18,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -54,7 +55,7 @@ type TeamTableFragment = FragmentType<typeof TeamTable_TeamFragment>[];
 
 export interface TeamTableProps {
   teamsQuery: TeamTableFragment;
-  myRolesAndTeams: Array<MyRoleTeam>;
+  myRolesAndTeams: MyRoleTeam[];
   title: string;
 }
 
@@ -72,11 +73,7 @@ export const TeamTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: team } }) =>
         cells.actions({
           id: team.id,

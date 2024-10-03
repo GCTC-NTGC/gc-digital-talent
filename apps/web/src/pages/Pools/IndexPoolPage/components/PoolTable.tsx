@@ -92,6 +92,7 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    publishedAt
     createdDate
     updatedDate
     name {
@@ -299,7 +300,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         description:
           "Title displayed for the Pool table Group and Level column.",
       }),
-      // TO DO: Move to filter
       enableColumnFilter: false,
       cell: ({ row: { original: pool } }) =>
         classificationCell(pool.classification),
@@ -308,7 +308,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       ({ stream }) => getLocalizedName(stream?.label, intl),
       {
         id: "stream",
-        // TO DO: Move to filters
         enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Stream",
@@ -329,9 +328,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       ({ status }) => getLocalizedName(status?.label, intl),
       {
         id: "status",
-        // TO DO: Reenable when scope is added
         enableColumnFilter: false,
-        // TO DO: Reenable when relation order by added
         enableSorting: false,
         header: intl.formatMessage(commonMessages.status),
       },
@@ -392,6 +389,20 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
           intl,
         ),
     }),
+    columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
+      id: "publishedAt",
+      enableColumnFilter: false,
+      header: intl.formatMessage({
+        defaultMessage: "Published",
+        id: "FBSOkb",
+        description: "Title displayed on the Pool table published at column",
+      }),
+      cell: ({
+        row: {
+          original: { publishedAt },
+        },
+      }) => cells.date(publishedAt, intl),
+    }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
       enableColumnFilter: false,
@@ -428,7 +439,13 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       data={filteredData}
       columns={columns}
       isLoading={fetching}
-      hiddenColumnIds={["id", "createdDate", "ownerEmail", "ownerName"]}
+      hiddenColumnIds={[
+        "id",
+        "publishedAt",
+        "createdDate",
+        "ownerEmail",
+        "ownerName",
+      ]}
       search={{
         internal: false,
         label: intl.formatMessage({

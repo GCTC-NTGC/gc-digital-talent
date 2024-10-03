@@ -25,6 +25,7 @@ import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 import processMessages from "~/messages/processMessages";
+import messages from "~/messages/adminMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -43,7 +44,7 @@ const ApplicantFilters = ({
       wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
   );
 
-  const classifications = applicantFilter?.qualifiedClassifications || [];
+  const classifications = applicantFilter?.qualifiedClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
@@ -52,7 +53,7 @@ const ApplicantFilters = ({
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
     return (
-      skill?.name[locale] ||
+      skill?.name[locale] ??
       intl.formatMessage({
         defaultMessage: "Error: skill name not found",
         id: "0T3NB0",
@@ -63,7 +64,7 @@ const ApplicantFilters = ({
   });
 
   const employmentDuration: string | undefined =
-    applicantFilter && applicantFilter.positionDuration
+    applicantFilter?.positionDuration
       ? intl.formatMessage(
           getEmploymentDuration(
             positionDurationToEmploymentDuration(
@@ -157,14 +158,27 @@ const ApplicantFilters = ({
     applicantFilter?.qualifiedStreams?.flatMap((stream) => stream?.label),
   ).map((label) => getLocalizedName(label, intl));
 
+  const communityName: string =
+    applicantFilter && applicantFilter.community
+      ? getLocalizedName(applicantFilter.community.name, intl)
+      : intl.formatMessage({
+          defaultMessage: "(None selected)",
+          id: "+O6J4u",
+          description: "Text shown when the filter was not selected",
+        });
+
   return (
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
+            title={intl.formatMessage(messages.community)}
+            content={communityName}
+          />
+          <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Pool Requested",
-              id: "rz8uPO",
+              defaultMessage: "Pool requested",
+              id: "HXF9GA",
               description:
                 "Title for the pool block in the manager info section of the single search request view.",
             })}
@@ -189,7 +203,7 @@ const ApplicantFilters = ({
                 "Title for group and level on summary of filters section",
             })}
             content={uniqueItems(
-              classificationsFromBrowserHistory ||
+              classificationsFromBrowserHistory ??
                 classificationsFromApplicantFilter,
             )}
           />
@@ -205,7 +219,7 @@ const ApplicantFilters = ({
                 description:
                   "Title for skills section on summary of filters section",
               },
-              { numOfSkills: skills?.length || 0 },
+              { numOfSkills: skills?.length ?? 0 },
             )}
             content={
               skills && skills?.length > 0 ? (
@@ -221,8 +235,8 @@ const ApplicantFilters = ({
           />
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Education Level",
-              id: "YKqt+1",
+              defaultMessage: "Education level",
+              id: "ftAIM9",
               description:
                 "Title for education level on summary of filters section",
             })}
@@ -233,12 +247,7 @@ const ApplicantFilters = ({
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Work language ability",
-              id: "VX3Og5",
-              description:
-                "Title for work language on summary of filters section",
-            })}
+            title={intl.formatMessage(commonMessages.workingLanguageAbility)}
             content={languageAbility}
           />
           {employmentDuration && (
@@ -253,8 +262,8 @@ const ApplicantFilters = ({
           )}
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Work Location",
-              id: "MWZgsB",
+              defaultMessage: "Work location",
+              id: "3e965x",
               description:
                 "Title for work location section on summary of filters section",
             })}
@@ -401,8 +410,8 @@ const SearchRequestFilters = ({
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Pool Requested",
-                id: "rz8uPO",
+                defaultMessage: "Pool requested",
+                id: "HXF9GA",
                 description:
                   "Title for the pool block in the manager info section of the single search request view.",
               })}
@@ -434,8 +443,8 @@ const SearchRequestFilters = ({
             />
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Education Level",
-                id: "YKqt+1",
+                defaultMessage: "Education level",
+                id: "ftAIM9",
                 description:
                   "Title for education level on summary of filters section",
               })}
@@ -445,18 +454,15 @@ const SearchRequestFilters = ({
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             <div>
               <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Work language ability",
-                  id: "VX3Og5",
-                  description:
-                    "Title for work language on summary of filters section",
-                })}
+                title={intl.formatMessage(
+                  commonMessages.workingLanguageAbility,
+                )}
                 content={languageAbility}
               />
               <FilterBlock
                 title={intl.formatMessage({
-                  defaultMessage: "Work Location",
-                  id: "MWZgsB",
+                  defaultMessage: "Work location",
+                  id: "3e965x",
                   description:
                     "Title for work location section on summary of filters section",
                 })}

@@ -1,0 +1,43 @@
+import { chooseNavRole } from "./NavContextContainer";
+
+describe("NavContextContainer", () => {
+  // if no authorized roles are provided it falls back to guest
+  it("falls back to guest", () => {
+    expect(chooseNavRole("admin", [])).toBe("guest");
+  });
+
+  // if it has a choice, it will keep the existing nav role
+  it("keeps the existing nav role if possible", () => {
+    expect(
+      chooseNavRole("community", [
+        "guest",
+        "base_user",
+        "applicant",
+        "pool_operator",
+        "request_responder",
+        "community_manager",
+        "process_operator",
+        "community_recruiter",
+        "community_admin",
+        "platform_admin",
+        "manager",
+      ]),
+    ).toBe("community");
+  });
+
+  // if it does not have a choice, it choose the least privileged nav role possible
+  it("chooses the least privileged nav role if it has to change", () => {
+    expect(
+      chooseNavRole("admin", [
+        "applicant",
+        "pool_operator",
+        "request_responder",
+        "community_manager",
+        "process_operator",
+        "community_recruiter",
+        "community_admin",
+        "manager",
+      ]),
+    ).toBe("applicant");
+  });
+});

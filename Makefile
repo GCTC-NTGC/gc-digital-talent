@@ -1,4 +1,4 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan queue-work composer
+.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer
 
 DOCKER_RUN=docker-compose run --rm maintenance bash
 DOCKER_API=docker-compose run --rm -w /var/www/html/api maintenance sh -c
@@ -47,5 +47,11 @@ lint:
 lint-php:
 	$(DOCKER_API) "vendor/bin/pint --test"
 
+phpstan:
+	$(DOCKER_API) "vendor/bin/phpstan analyse -c phpstan.neon"
+
 queue-work:
 	docker-compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+
+test:
+	$(DOCKER_API) "php artisan test $(CMD)"

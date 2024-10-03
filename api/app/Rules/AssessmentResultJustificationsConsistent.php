@@ -32,7 +32,6 @@ class AssessmentResultJustificationsConsistent implements ValidationRule
             count(
                 array_intersect(
                     [
-                        AssessmentResultJustification::SKILL_ACCEPTED->name,
                         AssessmentResultJustification::SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED->name,
                     ],
                     $value

@@ -1,5 +1,12 @@
-import { Cookie, Page, expect } from "@playwright/test";
+/* eslint-disable camelcase */
+import { Cookie, Page, expect, request } from "@playwright/test";
 import { JwtPayload, jwtDecode } from "jwt-decode";
+
+export interface AuthTokens {
+  idToken?: string | null;
+  accessToken?: string | null;
+  refreshToken?: string | null;
+}
 
 /**
  * Login by sub
@@ -36,10 +43,38 @@ export async function loginBySub(
   ).toBeVisible();
 }
 
-export type AuthCookies = {
+/**
+ * Creates an access token for a specific sub
+ */
+export async function getTokenForSub(sub: string) {
+  const ctx = await request.newContext();
+  const query = new URLSearchParams({
+    code: "00000000-0000-0000-0123-456789abcdef",
+    grant_type: "authorization_code",
+    client_id: "e2e",
+    client_secret: "e2e",
+    sub,
+  });
+  const json = await ctx
+    .post(`/oxauth/token`, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      data: query.toString(),
+    })
+    .then((res) => res.json());
+
+  return {
+    idToken: json.id_token,
+    accessToken: json.access_token,
+    refreshToken: json.refresh_token,
+  };
+}
+
+export interface AuthCookies {
   apiSession?: Cookie;
   xsrf?: Cookie;
-};
+}
 
 /**
  * Get Auth Cookies
@@ -61,12 +96,6 @@ export async function getAuthCookies(page: Page): Promise<AuthCookies> {
     xsrf,
   };
 }
-
-export type AuthTokens = {
-  idToken?: string;
-  accessToken?: string;
-  refreshToken?: string;
-};
 
 /**
  * Get Auth Tokens
@@ -99,6 +128,7 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 //
 export function jumpPastExpiryDate(accessToken: string): Date {
   const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
-  const newDate = new Date((decodedAccessToken.exp + 1) * 1000);
+  const expiry = decodedAccessToken?.exp ?? new Date().getUTCSeconds();
+  const newDate = new Date(expiry + 1 * 1000);
   return newDate;
 }

@@ -5,13 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": ">=20.11.0",
-    "pnpm": ">=9.5.0"
+    "pnpm": ">=9.7.1"
   },
-  "packageManager": "pnpm@9.5.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@9.7.1",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "h2-build && turbo run build --filter @gc-digital-talent/web",
@@ -29,6 +25,9 @@
     "intl-extract": "turbo run intl-extract",
     "intl-compile": "turbo run intl-compile",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "prettier": "turbo run prettier",
+    "prettier:fix": "turbo run prettier:fix",
     "storybook": "pnpm --filter @gc-digital-talent/web run storybook",
     "storybook:design-system": "pnpm --filter @gc-digital-talent/web run storybook:design-system",
     "storybook:web": "pnpm --filter @gc-digital-talent/web run storybook:web",
@@ -44,6 +43,6 @@
   },
   "devDependencies": {
     "@hydrogen-css/hydrogen": "2.1.0",
-    "turbo": "^2.0.9"
+    "turbo": "^2.1.3"
   }
 }

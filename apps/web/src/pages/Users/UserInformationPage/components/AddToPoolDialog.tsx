@@ -25,6 +25,7 @@ import {
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
+  UserInfoFragment as UserInfoFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -83,24 +84,29 @@ const AvailablePoolsToAddTo_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
-  pools: Array<Pool["id"]>;
+interface FormValues {
+  pools: Pool["id"][];
   expiryDate: PoolCandidate["expiryDate"];
-};
-
-interface AddToPoolDialogProps {
-  user: User;
 }
 
-const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
+type UserInfoFragmentPoolCandidates =
+  NonNullable<UserInfoFragmentType>["poolCandidates"];
+
+interface AddToPoolDialogProps {
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  poolCandidates: UserInfoFragmentPoolCandidates;
+}
+
+const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
+  const { id, firstName, lastName } = user;
 
   const [{ fetching }, executeMutation] = useMutation(AddToPoolDialog_Mutation);
 
   const currentPools: string[] = [];
-  user.poolCandidates?.forEach((candidate) => {
+  poolCandidates?.forEach((candidate) => {
     if (candidate?.pool?.id) {
       currentPools.push(candidate?.pool?.id);
     }
@@ -124,9 +130,7 @@ const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
     return Promise.reject(result.error);
   };
 
-  const submitForm: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {
+  const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
     const poolsToUpdate = formValues.pools
       .map((poolId) => poolMap.get(poolId))
       .filter(notEmpty);
@@ -137,9 +141,9 @@ const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
           connect: pool?.id,
         },
         user: {
-          connect: user.id,
+          connect: id,
         },
-        expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
+        expiryDate: formValues.expiryDate ?? emptyToNull(formValues.expiryDate),
       }).catch((err) => {
         throw err;
       });
@@ -240,7 +244,7 @@ const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getFullNameHtml(user.firstName, user.lastName, intl)}
+            - {getFullNameHtml(firstName, lastName, intl)}
           </p>
           <p data-h2-margin="base(x1, 0, 0, 0)">
             {intl.formatMessage({

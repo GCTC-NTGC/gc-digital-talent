@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom";
 
-type CandidateLocation = {
+interface CandidateLocation {
   state?: {
     candidateIds?: string[];
     stepName?: string;
   };
-};
+}
 
 type UsePoolCandidateNavigationReturn = {
   candidateIds?: string[];

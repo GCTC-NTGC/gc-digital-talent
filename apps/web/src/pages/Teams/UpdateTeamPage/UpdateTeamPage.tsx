@@ -34,9 +34,9 @@ const UpdateTeamData_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   teamId: string;
-};
+}
 
 const EditTeamPage = () => {
   const intl = useIntl();

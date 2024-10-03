@@ -4,6 +4,7 @@ import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 const createRoute = (locale: Locales) =>
   createBrowserRouter([
@@ -26,8 +27,23 @@ const createRoute = (locale: Locales) =>
             },
             {
               path: "manager",
-              lazy: () =>
-                import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import("../pages/Home/ManagerHomePage/ManagerHomePage"),
+                },
+                {
+                  path: "dashboard",
+                  loader: () => {
+                    throw new NotFoundError(); // unfinished page
+                  },
+                  lazy: () =>
+                    import(
+                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                    ),
+                },
+              ],
             },
             {
               path: "support",
@@ -109,7 +125,7 @@ const createRoute = (locale: Locales) =>
             },
             {
               path: "logged-out",
-              loader: async () => {
+              loader: () => {
                 const overridePath = sessionStorage.getItem(
                   POST_LOGOUT_OVERRIDE_PATH_KEY,
                 );
@@ -132,14 +148,37 @@ const createRoute = (locale: Locales) =>
               lazy: () => import("../pages/Auth/SignInPage/SignInPage"),
             },
             {
-              path: "create-account",
+              path: "getting-started",
               lazy: () =>
-                import("../pages/Auth/CreateAccountPage/CreateAccountPage"),
+                import(
+                  "../pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedPage"
+                ),
+            },
+            {
+              path: "email-verification",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/RegistrationContactEmailVerificationPage"
+                ),
+            },
+            {
+              path: "employee-registration",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/EmployeeInformationPage/EmployeeInformationPage"
+                ),
+            },
+            {
+              path: "work-email-verification",
+              lazy: () =>
+                import(
+                  "../pages/Auth/RegistrationPages/RegistrationWorkEmailVerificationPage"
+                ),
             },
             {
               path: "applicant",
               lazy: () =>
-                import("../pages/Auth/CreateAccountPage/CreateAccountRedirect"),
+                import("../pages/Auth/RegistrationPages/RegistrationRedirect"),
               children: [
                 {
                   index: true,
@@ -203,7 +242,7 @@ const createRoute = (locale: Locales) =>
                   children: [
                     {
                       index: true,
-                      lazy: () => import("../pages/Skills/SkillLibraryPage"),
+                      lazy: () => import("../pages/Skills/SkillPortfolioPage"),
                     },
                     {
                       path: ":skillId",
@@ -249,7 +288,14 @@ const createRoute = (locale: Locales) =>
                   path: "verify-contact-email",
                   lazy: () =>
                     import(
-                      "../pages/EmailVerificationPage/ProfileContactEmailVerificationPage"
+                      "../pages/EmailVerificationPages/ProfileContactEmailVerificationPage"
+                    ),
+                },
+                {
+                  path: "verify-work-email",
+                  lazy: () =>
+                    import(
+                      "../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage"
                     ),
                 },
               ],
@@ -415,9 +461,28 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "job-templates",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/JobPosterTemplates/JobPosterTemplatesPage/JobPosterTemplatesPage"
+                    ),
+                },
+                {
+                  path: ":templateId",
+                  lazy: () =>
+                    import(
+                      "../pages/JobPosterTemplates/JobPosterTemplatePage/JobPosterTemplatePage"
+                    ),
+                },
+              ],
+            },
+            {
               path: "*",
               loader: () => {
-                throw new Response("Not Found", { status: 404 });
+                throw new NotFoundError();
               },
             },
           ],
@@ -425,7 +490,7 @@ const createRoute = (locale: Locales) =>
         {
           path: "*",
           loader: () => {
-            throw new Response("Not Found", { status: 404 });
+            throw new NotFoundError();
           },
         },
       ],
@@ -477,6 +542,45 @@ const createRoute = (locale: Locales) =>
                       path: "edit",
                       lazy: () =>
                         import("../pages/Users/UpdateUserPage/UpdateUserPage"),
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/Communities/IndexCommunityPage/IndexCommunityPage"
+                    ),
+                },
+                {
+                  path: "create",
+                  lazy: () =>
+                    import(
+                      "../pages/Communities/CreateCommunityPage/CreateCommunityPage"
+                    ),
+                },
+                {
+                  path: ":communityId",
+                  lazy: () => import("../pages/Communities/CommunityLayout"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/ViewCommunityPage/ViewCommunityPage"
+                        ),
+                    },
+                    {
+                      path: "manage-access",
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
+                        ),
                     },
                   ],
                 },
@@ -564,6 +668,13 @@ const createRoute = (locale: Locales) =>
                       lazy: () =>
                         import(
                           "../pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage"
+                        ),
+                    },
+                    {
+                      path: "manage-access",
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/ManageAccessPage/ManageAccessPage"
                         ),
                     },
                     {
@@ -735,7 +846,7 @@ const createRoute = (locale: Locales) =>
             {
               path: "*",
               loader: () => {
-                throw new Response("Not Found", { status: 404 });
+                throw new NotFoundError();
               },
             },
           ],
@@ -758,7 +869,7 @@ const createRoute = (locale: Locales) =>
         {
           path: "*",
           loader: () => {
-            throw new Response("Not Found", { status: 404 });
+            throw new NotFoundError();
           },
         },
       ],

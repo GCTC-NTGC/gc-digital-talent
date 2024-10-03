@@ -21,7 +21,7 @@ export default {
   },
 };
 
-const colors: Array<CardOption["selectedIconColor"]> = [
+const colors: CardOption["selectedIconColor"][] = [
   "primary",
   "secondary",
   "tertiary",

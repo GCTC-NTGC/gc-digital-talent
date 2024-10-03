@@ -1,12 +1,10 @@
-export type FormValues = {
+export interface FormValues {
   equity: string[];
-  expiryStatus: string;
   govEmployee: string;
   languageAbility: string;
-  operationalRequirement: string[];
+  operationalRequirements: string[];
   pools: string[];
   priorityWeight: string[];
   skills: string[];
-  suspendedStatus: string;
   workRegion: string[];
-};
+}

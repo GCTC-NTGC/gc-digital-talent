@@ -4,32 +4,26 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   Pool,
-  PoolLanguage,
-  PoolOpportunityLength,
-  PoolSkillType,
-  PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
-  PublishingGroup,
-  SecurityStatus,
   SkillCategory,
-  SkillLevel,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import { getSkills } from "~/utils/skills";
-import { getDCM } from "~/utils/teams";
-import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
-import PoolPage from "~/fixtures/PoolPage";
+import { createUserWithRoles, me, updateUser } from "~/utils/user";
+import graphql from "~/utils/graphql";
+import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
-import { getDepartments } from "~/utils/departments";
+import { createApplication } from "~/utils/applications";
+import { getSkills } from "~/utils/skills";
 
 test.describe("Application", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
+  const poolName = `application test pool ${uniqueTestId}`;
   let pool: Pool;
 
   async function expectOnStep(page: Page, step: number) {
@@ -42,81 +36,44 @@ test.describe("Application", () => {
     ).toBeHidden();
   }
 
-  test.beforeAll(async ({ adminPage }) => {
-    const poolPage = new PoolPage(adminPage.page);
-    const skills = await getSkills();
-    const createdUser = await adminPage.createUser({
-      email: `${sub}@example.org`,
-      sub,
-      currentProvince: ProvinceOrTerritory.Ontario,
-      currentCity: "Test City",
-      telephone: "+10123456789",
-      armedForcesStatus: ArmedForcesStatus.NonCaf,
-      citizenship: CitizenshipStatus.Citizen,
-      lookingForEnglish: true,
-      isGovEmployee: false,
-      hasPriorityEntitlement: false,
-      locationPreferences: [WorkRegion.Ontario],
-      positionDuration: [PositionDuration.Permanent],
-    });
-    await adminPage.addRolesToUser(createdUser.id, [
-      "guest",
-      "base_user",
-      "applicant",
-    ]);
-    const team = await getDCM();
-    const classifications = await getClassifications();
-    const departments = await getDepartments();
-    const createdPool = await poolPage.createPool(createdUser.id, team.id, {
-      classification: {
-        connect: classifications[0].id,
+  test.beforeAll(async () => {
+    const adminCtx = await graphql.newContext();
+
+    const createdUser = await createUserWithRoles(adminCtx, {
+      user: {
+        email: `${sub}@example.org`,
+        sub,
+        currentProvince: ProvinceOrTerritory.Ontario,
+        currentCity: "Test City",
+        telephone: "+10123456789",
+        armedForcesStatus: ArmedForcesStatus.NonCaf,
+        citizenship: CitizenshipStatus.Citizen,
+        lookingForEnglish: true,
+        isGovEmployee: false,
+        hasPriorityEntitlement: false,
+        locationPreferences: [WorkRegion.Ontario],
+        positionDuration: [PositionDuration.Permanent],
       },
-      department: {
-        connect: departments[0].id,
-      },
+      roles: ["guest", "base_user", "applicant"],
     });
-    await poolPage.updatePool(createdPool.id, {
+
+    const createdPool = await createAndPublishPool(adminCtx, {
       name: {
-        en: "Playwright Test Pool EN",
-        fr: "Playwright Test Pool FR",
+        en: `${poolName} (EN)`,
+        fr: `${poolName} (FR)`,
       },
-      stream: PoolStream.BusinessAdvisoryServices,
-      closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-      yourImpact: {
-        en: "test impact EN",
-        fr: "test impact FR",
-      },
-      keyTasks: { en: "key task EN", fr: "key task FR" },
-      language: PoolLanguage.Various,
-      securityClearance: SecurityStatus.Secret,
-      location: {
-        en: "test location EN",
-        fr: "test location FR",
-      },
-      isRemote: true,
-      publishingGroup: PublishingGroup.ItJobs,
-      opportunityLength: PoolOpportunityLength.Various,
-      generalQuestions: {
-        create: [
-          {
-            question: { en: "Question EN", fr: "Question FR" },
-            sortOrder: 1,
-          },
-        ],
+      userId: createdUser?.id ?? "",
+      input: {
+        generalQuestions: {
+          create: [
+            {
+              question: { en: "Question EN", fr: "Question FR" },
+              sortOrder: 1,
+            },
+          ],
+        },
       },
     });
-
-    await poolPage.createPoolSkill(
-      createdPool.id,
-      skills.find((skill) => skill.category.value === SkillCategory.Technical)
-        .id,
-      {
-        type: PoolSkillType.Essential,
-        requiredLevel: SkillLevel.Beginner,
-      },
-    );
-
-    await poolPage.publishPool(createdPool.id);
 
     pool = createdPool;
   });
@@ -280,6 +237,53 @@ test.describe("Application", () => {
     await expect(
       application.page.getByRole("link", {
         name: /return to your dashboard/i,
+      }),
+    ).toBeVisible();
+  });
+
+  test("Can view from dashboard", async ({ page }) => {
+    const applicantCtx = await graphql.newContext(sub);
+    const applicant = await me(applicantCtx, {});
+    const technicalSkill = await getSkills(applicantCtx, {}).then((skills) => {
+      return skills.find((s) => s.category.value === SkillCategory.Technical);
+    });
+
+    await updateUser(applicantCtx, {
+      id: applicant.id,
+      user: {
+        personalExperiences: {
+          create: [
+            {
+              description: "Test Experience Description",
+              details: "A Playwright test personal experience",
+              skills: {
+                sync: [
+                  {
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
+                  },
+                ],
+              },
+              startDate: FAR_PAST_DATE,
+              title: "Test Experience",
+            },
+          ],
+        },
+      },
+    });
+    const applicantWithExperiences = await me(applicantCtx, {});
+    await createApplication(applicantCtx, {
+      userId: applicantWithExperiences.id,
+      poolId: pool.id,
+      experienceId: applicantWithExperiences?.experiences?.[0]?.id ?? "",
+    });
+
+    await loginBySub(page, sub, false);
+
+    await expect(
+      page.getByRole("heading", {
+        name: new RegExp(poolName, "i"),
+        level: 2,
       }),
     ).toBeVisible();
   });

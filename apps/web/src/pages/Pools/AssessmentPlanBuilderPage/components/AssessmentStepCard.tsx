@@ -41,13 +41,13 @@ const AssessmentStepCardPool_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type AssessmentStepCardProps = {
+interface AssessmentStepCardProps {
   index: number;
-  assessmentStep: AssessmentStep;
+  assessmentStep: Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">;
   poolQuery: FragmentType<typeof AssessmentStepCardPool_Fragment>;
   onRemove: (index: number) => void;
   onMove: (fromIndex: number, toIndex: number) => void;
-};
+}
 
 const AssessmentStepCard = ({
   index,
@@ -118,7 +118,10 @@ const AssessmentStepCard = ({
       }
     >
       <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
-        {assessmentStepDisplayName(assessmentStep, intl)}
+        {assessmentStepDisplayName(
+          { type: assessmentStep.type, title: assessmentStep.title },
+          intl,
+        )}
       </Heading>
 
       {skillNames.length || isApplicationScreening ? (

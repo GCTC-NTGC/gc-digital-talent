@@ -38,9 +38,9 @@ import useLabels from "../useLabels";
 import CompoundQuestion from "../../CompoundQuestion";
 import SignPost from "../../SignPost";
 
-type RequirementsSectionProps = {
-  skills: Array<Skill>;
-};
+interface RequirementsSectionProps {
+  skills: Skill[];
+}
 
 const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
   const intl = useIntl();

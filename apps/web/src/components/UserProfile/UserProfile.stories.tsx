@@ -5,7 +5,10 @@ import {
   fakeApplicants,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
+import {
+  IndigenousCommunity,
+  AdminUserProfileUserFragment,
+} from "@gc-digital-talent/graphql";
 
 import UserProfile from "./UserProfile";
 
@@ -16,7 +19,7 @@ export default {
   args: {},
 } as Meta;
 
-const TemplateUserProfile: StoryFn<User> = (args) => {
+const TemplateUserProfile: StoryFn<AdminUserProfileUserFragment> = (args) => {
   return <UserProfile user={args} headingLevel="h3" />;
 };
 
@@ -57,7 +60,6 @@ Null.args = {
   hasDisability: null,
   indigenousCommunities: null,
   isVisibleMinority: null,
-  hasDiploma: null,
   locationPreferences: null,
   locationExemptions: null,
   acceptedOperationalRequirements: null,

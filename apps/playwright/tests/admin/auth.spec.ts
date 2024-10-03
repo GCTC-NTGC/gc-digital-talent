@@ -30,7 +30,7 @@ test.describe("Anonymous user", () => {
         const page = await context.newPage();
         await page.goto(restrictedPath);
         await page.waitForURL("**/login-info*");
-        await expect(page.url()).toContain("/en/login-info");
+        expect(page.url()).toContain("/en/login-info");
       }),
     );
   });
@@ -38,7 +38,7 @@ test.describe("Anonymous user", () => {
   test("Redirects app login page to auth login page", async ({ page }) => {
     await page.goto("/login");
     await page.waitForURL(`**${auth.SERVER_ROOT}/authorize*`);
-    await expect(page.url()).toContain(`${auth.SERVER_ROOT}/authorize`);
+    expect(page.url()).toContain(`${auth.SERVER_ROOT}/authorize`);
   });
 
   test("Does not have tokens", async ({ appPage }) => {
@@ -116,7 +116,7 @@ test.describe("Authenticated", () => {
     test("Can access restricted paths", async ({ adminPage }) => {
       await Promise.all(
         restrictedPaths.map(async (restrictedPath) => {
-          const context = await adminPage.page.context();
+          const context = adminPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -134,7 +134,7 @@ test.describe("Authenticated", () => {
     test("Cannot access restricted paths", async ({ applicantPage }) => {
       await Promise.all(
         restrictedPaths.map(async (restrictedPath) => {
-          const context = await applicantPage.page.context();
+          const context = applicantPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -143,6 +143,163 @@ test.describe("Authenticated", () => {
               name: "Sorry, you are not authorized to view this page.",
             }),
           ).toBeVisible();
+        }),
+      );
+    });
+  });
+
+  test.describe("Process operator", () => {
+    const processOperatorRestrictedPaths = [
+      "/en/admin/users",
+      "/en/admin/settings/announcements",
+      "/en/admin/settings/classifications",
+      "/en/admin/settings/departments",
+      "/en/admin/settings/skills",
+      "/en/admin/settings/skill-families",
+      "/en/admin/talent-requests",
+      "/en/admin/communities",
+      "/en/admin/teams",
+      "/en/admin/pool-candidates",
+    ];
+
+    const processOperatorAllowedPaths = ["/en/admin", "/en/admin/pools"];
+
+    test("user accesses allowed paths only", async ({
+      processOperatorPage,
+    }) => {
+      await Promise.all(
+        processOperatorRestrictedPaths.map(async (restrictedPath) => {
+          const context = processOperatorPage.page.context();
+          const page = await context.newPage();
+          await page.goto(restrictedPath);
+          await page.waitForURL(restrictedPath);
+          await expect(
+            page.getByRole("heading", {
+              name: "Sorry, you are not authorized to view this page.",
+            }),
+          ).toBeVisible();
+        }),
+      );
+      await Promise.all(
+        processOperatorAllowedPaths.map(async (allowedPath) => {
+          const context = processOperatorPage.page.context();
+          const page = await context.newPage();
+          await page.goto(allowedPath);
+          await page.waitForURL(allowedPath);
+          await expect(
+            page.getByRole("link", { name: "Dashboard" }),
+          ).toBeVisible();
+          await expect(
+            page.getByRole("heading", {
+              name: "Sorry, you are not authorized to view this page.",
+            }),
+          ).toBeHidden();
+        }),
+      );
+    });
+  });
+
+  test.describe("Community recruiter", () => {
+    const communityRecruiterRestrictedPaths = [
+      "/en/admin/users",
+      "/en/admin/settings/announcements",
+      "/en/admin/settings/classifications",
+      "/en/admin/settings/departments",
+      "/en/admin/settings/skills",
+      "/en/admin/settings/skill-families",
+      "/en/admin/teams",
+      "/en/admin/pool-candidates",
+    ];
+
+    const communityRecruiterAllowedPaths = [
+      "/en/admin",
+      "/en/admin/pools",
+      "/en/admin/talent-requests",
+      "/en/admin/communities",
+    ];
+
+    test("user accesses allowed paths only", async ({
+      communityRecruiterPage,
+    }) => {
+      await Promise.all(
+        communityRecruiterRestrictedPaths.map(async (restrictedPath) => {
+          const context = communityRecruiterPage.page.context();
+          const page = await context.newPage();
+          await page.goto(restrictedPath);
+          await page.waitForURL(restrictedPath);
+          await expect(
+            page.getByRole("heading", {
+              name: "Sorry, you are not authorized to view this page.",
+            }),
+          ).toBeVisible();
+        }),
+      );
+      await Promise.all(
+        communityRecruiterAllowedPaths.map(async (allowedPath) => {
+          const context = communityRecruiterPage.page.context();
+          const page = await context.newPage();
+          await page.goto(allowedPath);
+          await page.waitForURL(allowedPath);
+          await expect(
+            page.getByRole("link", { name: "Dashboard" }),
+          ).toBeVisible();
+          await expect(
+            page.getByRole("heading", {
+              name: "Sorry, you are not authorized to view this page.",
+            }),
+          ).toBeHidden();
+        }),
+      );
+    });
+  });
+
+  test.describe("Community admin", () => {
+    const communityAdminRestrictedPaths = [
+      "/en/admin/users",
+      "/en/admin/settings/announcements",
+      "/en/admin/settings/classifications",
+      "/en/admin/settings/departments",
+      "/en/admin/settings/skills",
+      "/en/admin/settings/skill-families",
+      "/en/admin/pool-candidates",
+      "/en/admin/teams",
+    ];
+
+    const communityAdminAllowedPaths = [
+      "/en/admin",
+      "/en/admin/pools",
+      "/en/admin/talent-requests",
+      "/en/admin/communities",
+    ];
+
+    test("user accesses allowed paths only", async ({ communityAdminPage }) => {
+      await Promise.all(
+        communityAdminRestrictedPaths.map(async (restrictedPath) => {
+          const context = communityAdminPage.page.context();
+          const page = await context.newPage();
+          await page.goto(restrictedPath);
+          await page.waitForURL(restrictedPath);
+          await expect(
+            page.getByRole("heading", {
+              name: "Sorry, you are not authorized to view this page.",
+            }),
+          ).toBeVisible();
+        }),
+      );
+      await Promise.all(
+        communityAdminAllowedPaths.map(async (allowedPath) => {
+          const context = communityAdminPage.page.context();
+          const page = await context.newPage();
+          await page.goto(allowedPath);
+          await page.waitForURL(allowedPath);
+          await expect(
+            page.getByRole("link", { name: "Dashboard" }),
+          ).toBeVisible();
+          await expect(
+            page.getByRole("heading", {
+              name: "Sorry, you are not authorized to view this page.",
+            }),
+          ).toBeHidden();
         }),
       );
     });

@@ -13,7 +13,10 @@ import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
 import Counter from "./components/Button/Counter";
-import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
+import Breadcrumbs, {
+  Crumb,
+  type BreadcrumbsProps,
+} from "./components/Breadcrumbs";
 import Board from "./components/Board/Board";
 import {
   CardBasic,
@@ -54,6 +57,10 @@ import Pending, {
   type PendingProps,
   LoadingErrorMessage,
 } from "./components/Pending";
+import PreviewList, {
+  type MetaDataProps as PreviewMetaData,
+} from "./components/PreviewList/PreviewList";
+import ResourceBlock from "./components/ResourceBlock";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -62,6 +69,8 @@ import SideMenu, {
   SideMenuItem,
   SideMenuContentWrapper,
   SideMenuCategory,
+  SideMenuItemChildren,
+  commonStyles,
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
@@ -85,6 +94,7 @@ import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
+import TaskCard from "./components/TaskCard";
 
 export type {
   Color,
@@ -107,6 +117,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
+  PreviewMetaData,
   ChipProps,
   SidebarProps,
   SideMenuProps,
@@ -132,6 +143,7 @@ export {
   useAnnouncer,
   Board,
   Breadcrumbs,
+  Crumb,
   Button,
   CardBasic,
   CardFlat,
@@ -155,6 +167,8 @@ export {
   Loading,
   LoadingErrorMessage,
   Pending,
+  PreviewList,
+  ResourceBlock,
   NotFound,
   ThrowNotFound,
   ScrollArea,
@@ -166,11 +180,14 @@ export {
   SideMenuItem,
   SideMenuCategory,
   SideMenuContentWrapper,
+  SideMenuItemChildren,
+  commonStyles,
   Spoiler,
   Stepper,
   Switch,
   TableOfContents,
   Tabs,
+  TaskCard,
   ToggleGroup,
   ToggleSection,
   TreeView,

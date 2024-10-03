@@ -1,7 +1,7 @@
 import { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
-import Link from "@tiptap/extension-link";
-import StarterKit from "@tiptap/starter-kit";
+import { Link } from "@tiptap/extension-link";
+import { StarterKit } from "@tiptap/starter-kit";
 import { FieldErrors, FieldValues } from "react-hook-form";
 
 import {
@@ -28,10 +28,13 @@ import { OptGroupOrOption } from "./types";
  * @returns string[]
  */
 export const unpackIds = (
-  data?: Maybe<Array<Maybe<{ id: string }> | undefined>>,
+  data?: Maybe<(Maybe<{ id: string }> | undefined)[]>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
-type Option = { value: string; label: string };
+interface Option {
+  value: string;
+  label: string;
+}
 
 /**
  * Converts a string enum to a list of options for select input.
@@ -82,8 +85,27 @@ export function enumToOptions(
 export function localizedEnumToOptions(
   list: Maybe<LocalizedEnumString>[] | undefined | null,
   intl: IntlShape,
+  sortOrder?: LocalizedEnumString["value"][],
 ): Option[] {
-  return unpackMaybes(list).map(({ value, label }) => ({
+  const localizedEnums = unpackMaybes(list);
+  if (sortOrder) {
+    localizedEnums.sort((a, b) => {
+      const aPosition = sortOrder.indexOf(a.value);
+      const bPosition = sortOrder.indexOf(b.value);
+      if (aPosition >= 0 && bPosition >= 0)
+        // both are in sort list => sort by by that order
+        return sortOrder.indexOf(a.value) - sortOrder.indexOf(b.value);
+      if (aPosition >= 0 && bPosition < 0)
+        // only a is in sort list => sort a before b
+        return -1;
+      if (aPosition < 0 && bPosition >= 0)
+        // only b is in sort list => sort b before a
+        return 1;
+      // neither is in sort list => keep original order
+      return 0;
+    });
+  }
+  return localizedEnums.map(({ value, label }) => ({
     value,
     label: getLocalizedName(label, intl),
   }));
@@ -106,7 +128,7 @@ export function getValues<T>(list: { value: T; label: string }[]): T[] {
 export function escapeAString(unescapedString: string) {
   const inputStringArray = unescapedString.split("");
   const outputStringArray = inputStringArray.map((character) => {
-    if (character.match(/[+*()?[\]\\]/)) {
+    if (/[+*()?[\]\\]/.exec(character)) {
       // looks a little funny due to needing to escape "\" and "]" characters themselves for matching
       return `\\${character}`;
     }
@@ -164,7 +186,7 @@ export function matchStringsCaseDiacriticInsensitive(
  * @returns number
  */
 export const countNumberOfWords = (text: string): number => {
-  if (text && text.trim()) {
+  if (text?.trim()) {
     return text.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;

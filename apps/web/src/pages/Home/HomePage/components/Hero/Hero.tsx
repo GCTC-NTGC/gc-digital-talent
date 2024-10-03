@@ -22,7 +22,7 @@ import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
 import hero4Portrait from "~/assets/img/hero-4-portrait.webp";
 import hero4Tablet from "~/assets/img/hero-4-tablet-portrait.webp";
 
-const landscapeRandomize = (index?: number | undefined) => {
+const landscapeRandomize = (index?: number) => {
   const imageSets = {
     "1": {
       mobile: hero1Portrait,

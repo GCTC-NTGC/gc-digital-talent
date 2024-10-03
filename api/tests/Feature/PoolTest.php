@@ -7,6 +7,7 @@ use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolSkill;
@@ -682,9 +683,7 @@ class PoolTest extends TestCase
         $allPools = Pool::all();
         assertSame(count($allPools), 7);
 
-        $activePools = Pool::where((function ($query) {
-            Pool::scopeCurrentlyActive($query);
-        }))->get();
+        $activePools = Pool::query()->whereCurrentlyActive()->get();
         assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
     }
 
@@ -1720,6 +1719,65 @@ class PoolTest extends TestCase
             );
 
         $response->assertJsonFragment([
+            'department' => ['id' => $department->id],
+        ]);
+    }
+
+    // test mutation createPool(...)
+    public function testCreatePool()
+    {
+        $community = Community::factory()->create();
+        $classification = Classification::factory()->create();
+        $department = Department::factory()->create();
+
+        $response = $this->actingAs($this->poolOperator, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $teamId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, teamId: $teamId, communityId: $communityId, pool: $pool) {
+                    id
+                    owner {
+                        id
+                    }
+                    team {
+                        id
+                    }
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'userId' => $this->poolOperator->id,
+                    'teamId' => $this->team->id,
+                    'communityId' => $community->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $department->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertJsonFragment([
+            'owner' => ['id' => $this->poolOperator->id],
+        ])->assertJsonFragment([
+            'team' => ['id' => $this->team->id],
+        ])->assertJsonFragment([
+            'community' => ['id' => $community->id],
+        ])->assertJsonFragment([
+            'classification' => ['id' => $classification->id],
+        ])->assertJsonFragment([
             'department' => ['id' => $department->id],
         ]);
     }

@@ -136,9 +136,8 @@ const SeeAdvertisementAction = ({
     </Link>
   );
 };
-interface SupportActionProps extends ActionProps {}
 
-const SupportAction = ({ show, title }: SupportActionProps) => {
+const SupportAction = ({ show, title }: ActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   if (!show) {
@@ -193,8 +192,8 @@ const CopyApplicationIdAction = ({
       fontSize="caption"
       data-h2-vertical-align="base(top)"
       icon={linkCopied ? CheckIcon : undefined}
-      onClick={() => {
-        navigator.clipboard.writeText(id);
+      onClick={async () => {
+        await navigator.clipboard.writeText(id);
         setLinkCopied(true);
       }}
       aria-label={

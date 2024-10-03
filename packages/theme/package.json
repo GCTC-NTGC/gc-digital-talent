@@ -8,6 +8,8 @@
     ".": "./src/index.tsx"
   },
   "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
@@ -22,11 +24,11 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@types/react": "^18.3.3",
+    "@types/react": "^18.3.11",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   }
 }

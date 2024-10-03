@@ -29,20 +29,20 @@ export const splitSegments = (value?: string): SegmentObject => {
  * Different values used to compute a
  * final segment value
  */
-type ComputedSegmentValues = {
+interface ComputedSegmentValues {
   // The new value (if we are updating this segment)
   new: string | null;
   // The current value if it exists
   current?: string;
   // A default value to set if the others do not exist
   default: string;
-};
+}
 
-type GetComputedSegmentValueArgs = {
+interface GetComputedSegmentValueArgs {
   values: ComputedSegmentValues;
   // If this specific segment is being shown
   show: boolean;
-};
+}
 
 type GetComputedSegmentValue = (args: GetComputedSegmentValueArgs) => string;
 
@@ -61,19 +61,19 @@ const getComputedSegmentValue: GetComputedSegmentValue = ({ values, show }) => {
   }
 
   if (!show || values.current) {
-    return values.current || values.default;
+    return values.current ?? values.default;
   }
 
   return "";
 };
 
-type SetComputedValueArgs = {
+interface SetComputedValueArgs {
   // The full initial value
   initialValue?: string;
-  show: Array<DateSegment>;
+  show: DateSegment[];
   segment: DateSegment;
   value: string | null;
-};
+}
 
 type SetComputedValueFunc = (args: SetComputedValueArgs) => string | undefined;
 
@@ -133,7 +133,7 @@ export const setComputedValue: SetComputedValueFunc = ({
  * @param show  Array<DateSegment>
  * @returns Record<string, string>
  */
-export const getMonthSpan = (show: Array<DateSegment>) => {
+export const getMonthSpan = (show: DateSegment[]) => {
   let monthSpan = {
     "data-h2-grid-column": "p-tablet(2 / span 1)",
   };

@@ -56,13 +56,13 @@ export const formatDate = ({
 };
 
 // parameters for the relativeClosingDate function
-export type relativeClosingDateOptions = {
+export interface relativeClosingDateOptions {
   closingDate: Date;
   now?: Date;
   intl: IntlShape;
   timeZone?: string;
   customFormat?: string;
-};
+}
 
 /**
  * Calculate a friendly date/time string, optionally in a different time zone
@@ -87,7 +87,7 @@ export const relativeClosingDate = ({
   const time = myFormatFunc(closingDate, `p`, {
     locale,
   });
-  const dateTime = myFormatFunc(closingDate, customFormat || `PPP p`, {
+  const dateTime = myFormatFunc(closingDate, customFormat ?? `PPP p`, {
     locale,
   });
 
@@ -121,11 +121,11 @@ export const strToFormDate = (value: string) => {
 };
 
 export const formDateStringToDate = (value: string, fallback?: Date) => {
-  return parse(value, DATE_FORMAT_STRING, fallback || new Date());
+  return parse(value, DATE_FORMAT_STRING, fallback ?? new Date());
 };
 
 export const formDateTimeStringToDate = (value: string, fallback?: Date) => {
-  return parse(value, DATETIME_FORMAT_STRING, fallback || new Date());
+  return parse(value, DATETIME_FORMAT_STRING, fallback ?? new Date());
 };
 
 // Convert a DateTime from one zone to another

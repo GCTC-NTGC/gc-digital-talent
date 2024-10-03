@@ -17,61 +17,14 @@ import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
-    me {
-      id
-      poolCandidates {
-        id
-        pool {
-          id
-        }
-        submittedAt
-      }
-    }
     pool(id: $id) {
       id
-      poolSkills {
-        id
-        type {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        skill {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-      }
-      generalQuestions {
-        id
-        question {
-          en
-          fr
-        }
-        sortOrder
-      }
     }
   }
 `);
@@ -122,8 +75,6 @@ export const IndexPoolCandidatePage = () => {
             currentPool
               ? {
                   id: currentPool.id,
-                  generalQuestions: currentPool.generalQuestions,
-                  poolSkills: currentPool.poolSkills,
                 }
               : null
           }
@@ -135,7 +86,15 @@ export const IndexPoolCandidatePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.RequestResponder]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
+    ]}
+  >
     <IndexPoolCandidatePage />
   </RequireAuth>
 );

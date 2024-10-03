@@ -17,7 +17,10 @@ import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 
-const filterExperienceSkills = (experience: Experience, skill: Skill) => {
+const filterExperienceSkills = (
+  experience: Omit<Experience, "user">,
+  skill: Skill,
+) => {
   return {
     ...experience,
     skills: experience.skills?.filter(
@@ -28,7 +31,7 @@ const filterExperienceSkills = (experience: Experience, skill: Skill) => {
 
 interface SkillTreeProps {
   skill: Skill;
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   headingAs?: HeadingLevel;
   hideConnectButton?: boolean;
   hideEdit?: boolean;
@@ -60,7 +63,7 @@ const SkillTree = ({
   const disclaimer = showDisclaimer ? (
     <TreeView.Item>
       <Well color="warning">
-        {disclaimerMessage || (
+        {disclaimerMessage ?? (
           <p>
             {intl.formatMessage({
               defaultMessage:

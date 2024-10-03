@@ -121,9 +121,9 @@ const TeamLayoutTeamName_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   teamId: string;
-};
+}
 
 const TeamLayout = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");

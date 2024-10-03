@@ -47,6 +47,10 @@
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"
   },
+  "0NInjL": {
+    "defaultMessage": "Anglais",
+    "description": "Name of English language"
+  },
   "0OPWbJ": {
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
@@ -58,10 +62,6 @@
   "0bcof1": {
     "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
     "description": "Prefix when a step is the currently active one."
-  },
-  "0gInkY": {
-    "defaultMessage": "possède <strong>des équipes de garde 24/7.</strong>",
-    "description": "The operational requirement described as 24/7 on-call."
   },
   "0p1W7Q": {
     "defaultMessage": "Fils d’Ariane",
@@ -103,6 +103,10 @@
     "defaultMessage": "Vous devez ajouter au moins une exigence personnelle.",
     "description": "Message displayed when user attempts to submit a form without at least one personnel requirement"
   },
+  "2Tm9BE": {
+    "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
+    "description": "The operational requirement described as occasional overtime."
+  },
   "2W9CMn": {
     "defaultMessage": "Activer ou désactiver le contexte",
     "description": "Label to toggle the context description of a field set."
@@ -111,8 +115,16 @@
     "defaultMessage": "La question donnée à l'écran n'existe pas.",
     "description": "Error message that the screening question could not be found."
   },
+  "2fFKCI": {
+    "defaultMessage": "Je suis un(e) employé(e) nommé(e) pour une période indéterminée.",
+    "description": "Indeterminate selection for government employee type."
+  },
+  "2kqbbB": {
+    "defaultMessage": "Je suis étudiant(e).",
+    "description": "Student selection for government employee type."
+  },
   "2wKf2U": {
-    "defaultMessage": "Modifier",
+    "defaultMessage": "Modifiez",
     "description": "Text to trigger edit action"
   },
   "3I2Qke": {
@@ -143,10 +155,6 @@
     "defaultMessage": "Agrandir tout",
     "description": "Generic link text to expand all accordions in a section"
   },
-  "4dD2mf": {
-    "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
-    "description": "The operational requirement described as regular overtime."
-  },
   "4l+gBD": {
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is being done."
@@ -154,10 +162,6 @@
   "4lV1Od": {
     "defaultMessage": "Éliminé à la présélection",
     "description": "Screened out"
-  },
-  "4mMU7Q": {
-    "defaultMessage": "cela m'oblige à faire des heures supplémentaires occasionnelles.",
-    "description": "The operational requirement described as occasional overtime."
   },
   "4pZrst": {
     "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
@@ -170,6 +174,10 @@
   "556RGm": {
     "defaultMessage": "Une erreur s’est produite au moment d’annuler la décision finale. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that reverting the final decision for a candidate failed"
+  },
+  "5RTQe6": {
+    "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
+    "description": "Message to user when they request a file for download"
   },
   "5gS1sZ": {
     "defaultMessage": "La valeur doit être supérieure à {value}",
@@ -231,25 +239,17 @@
     "defaultMessage": "réussite",
     "description": "Message for the success status"
   },
-  "9ZyJZq": {
-    "defaultMessage": "cela m'oblige à me déplacer.",
-    "description": "The operational requirement described as travel as required."
+  "9QsHXO": {
+    "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message for when an error occurs during role assignment"
   },
   "9aW0M6": {
     "defaultMessage": "Ministère",
     "description": "Title for department"
   },
-  "9ays+c": {
-    "defaultMessage": "J'ai un <strong>contrat</strong> d'employé occasionnel.",
-    "description": "Casual selection for government employee type."
-  },
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
-  },
-  "9rn/MG": {
-    "defaultMessage": "exige <strong>des quarts de travail</strong>.",
-    "description": "The operational requirement described as shift work."
   },
   "9u6ULg": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
@@ -291,6 +291,10 @@
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
   },
+  "C/2HT9": {
+    "defaultMessage": "Cette clé de collectivité est déjà utilisé",
+    "description": "Error message that the given community key is already in use"
+  },
   "C/mdCs": {
     "defaultMessage": "Sans objet",
     "description": "Not applicable, context or state does apply."
@@ -319,6 +323,10 @@
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
   },
+  "DIK7Z1": {
+    "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
+    "description": "Message for when the download request failed"
+  },
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
@@ -326,6 +334,10 @@
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
+  },
+  "EW8RHQ": {
+    "defaultMessage": "Une erreur s’est produite de notre côté. Le téléchargement de {fileName} a échoué. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
+    "description": "Error message when a file download fails"
   },
   "EZgD5d": {
     "defaultMessage": "Non disponible",
@@ -383,9 +395,9 @@
     "defaultMessage": "Modifier l’article {index}",
     "description": "Button text to edit an item from repeatable fields"
   },
-  "HGM0YR": {
-    "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
-    "description": "Indeterminate selection for government employee type."
+  "HEGXL7": {
+    "defaultMessage": "Compétence linguistique au travail",
+    "description": "Title displayed working language ability"
   },
   "HMXnoR": {
     "defaultMessage": "Retourner à ma demande",
@@ -402,6 +414,10 @@
   "Hu321P": {
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
     "description": "Error message that a given pool skill is not valid."
+  },
+  "I1jrAG": {
+    "defaultMessage": "Non accepté",
+    "description": "Indicates a user has not accepted some criteria"
   },
   "IKGhHj": {
     "defaultMessage": "Important",
@@ -438,6 +454,10 @@
   "JHgARn": {
     "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
     "description": "Text read out to assistive technology when over the word limit."
+  },
+  "JYpEeW": {
+    "defaultMessage": "Français",
+    "description": "Name of French language"
   },
   "Jpq6MK": {
     "defaultMessage": "Région de Québec (excluant Gatineau)",
@@ -483,6 +503,10 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
+  "MAeNit": {
+    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
   "MBnBcY": {
     "defaultMessage": "Démonstration de compétences",
     "description": "Name of the skill showcase page"
@@ -515,6 +539,10 @@
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
   },
+  "Nf2jAz": {
+    "defaultMessage": "J'ai un poste doté pour une période déterminée.",
+    "description": "Term selection for government employee type."
+  },
   "OBQ8b9": {
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
@@ -543,6 +571,10 @@
     "defaultMessage": "Menu des options de bascule",
     "description": "Button text to toggle the combobox menu"
   },
+  "P+e8z7": {
+    "defaultMessage": "J'accepte de travailler par quarts.",
+    "description": "The operational requirement described as shift work."
+  },
   "P9roJ7": {
     "defaultMessage": "Région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut)",
     "description": "The work region of Canada described as North."
@@ -551,9 +583,21 @@
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
   },
+  "PKkPSW": {
+    "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
+    "description": "The operational requirement described as occasional overtime."
+  },
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "Pj4lW9": {
+    "defaultMessage": "Accepté",
+    "description": "Indicates a user has accepted some criteria"
+  },
+  "QP+Skh": {
+    "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
+    "description": "The operational requirement described as regular overtime."
   },
   "QRXLf/": {
     "defaultMessage": "Chargement des résultats...",
@@ -594,6 +638,10 @@
   "Ro+gP0": {
     "defaultMessage": "Accueil",
     "description": "Name of Home page"
+  },
+  "S0w3o5": {
+    "defaultMessage": "Complet",
+    "description": "Simple status label for a complete item"
   },
   "S2BTqm": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
@@ -647,10 +695,6 @@
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
   },
-  "TmCCgR": {
-    "defaultMessage": "cela m'oblige à d'avoir un permis de conduire valide ou un degré de mobilité personnelle habituellement associée à la possession d'un permis de conduire valide.",
-    "description": "The operational requirement described as driver's license."
-  },
   "Tw90Pi": {
     "defaultMessage": "Sauvegarde en cours...",
     "description": "Submitting text for save button."
@@ -659,6 +703,14 @@
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
   },
+  "U3QEUu": {
+    "defaultMessage": "J'accepte d'avoir un emploi qui nécessite des déplacements.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "UZMVuy": {
+    "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
+    "description": "Casual selection for government employee type."
+  },
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
@@ -666,10 +718,6 @@
   "VV8TA5": {
     "defaultMessage": "Retour",
     "description": "An action to go back to a previous location"
-  },
-  "VYbDJk": {
-    "defaultMessage": "cela me demande de transporter, soulever et déposer des équipements pesant jusqu'à 20 kg.",
-    "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
@@ -680,7 +728,7 @@
     "description": "Full name of abbreviation for EC"
   },
   "WGoaKQ": {
-    "defaultMessage": "Sauvegarder les modifications",
+    "defaultMessage": "Sauvegardez les modifications",
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {
@@ -703,10 +751,6 @@
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
   },
-  "WwAqER": {
-    "defaultMessage": "Télécharger (texte clair)",
-    "description": "Download (plain text) action"
-  },
   "XCKYVJ": {
     "defaultMessage": "Lien",
     "description": "Label for adding a link in the rich text editor"
@@ -728,11 +772,15 @@
     "description": "Error message that the assessment steps must belong to the same pool."
   },
   "XZl6Ks": {
-    "defaultMessage": "Modifier cette section",
+    "defaultMessage": "Modifiez cette section",
     "description": "Text to trigger edit of section action"
   },
   "XpK4rL": {
     "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "Y2w/me": {
+    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, <strong>soulever et déposer de l'équipement pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "Y3FL2a": {
@@ -742,10 +790,6 @@
   "YHqVoj": {
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
-  },
-  "YOji06": {
-    "defaultMessage": "Télécharger (PDF)",
-    "description": "Download (PDF) action"
   },
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
@@ -775,10 +819,6 @@
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
   },
-  "aAMp6e": {
-    "defaultMessage": "possède des équipes de garde 24/7.",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
   "aMkZ80": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
@@ -792,7 +832,7 @@
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
   },
   "atqjXB": {
-    "defaultMessage": "Annuler",
+    "defaultMessage": "Annulez",
     "description": "Stop the current action"
   },
   "ayG2k7": {
@@ -827,9 +867,9 @@
     "defaultMessage": "Ce nom d’équipe est déjà utilisé",
     "description": "Error message that the given team name is already in use."
   },
-  "dIZ4oj": {
-    "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
-    "description": "The operational requirement described as transport equipment up to 20kg."
+  "dBc/+T": {
+    "defaultMessage": "Bibliothèque de compétences",
+    "description": "Name of the skills library page"
   },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
@@ -838,10 +878,6 @@
   "dh6K/x": {
     "defaultMessage": "Veuillez entrer une adresse URL valide",
     "description": "Error message for an invalid link in the rich text editor"
-  },
-  "duwt+A": {
-    "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
-    "description": "The operational requirement described as driver's license."
   },
   "dwYJOo": {
     "defaultMessage": "Exigences en matière de travail pratique",
@@ -852,7 +888,7 @@
     "description": "The work region of Canada described as National Capital."
   },
   "eBNZxB": {
-    "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
+    "defaultMessage": "{count, plural, =0 {0 options sélectionnées} =1 {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
   "edeLyW": {
@@ -880,7 +916,7 @@
     "description": "Name of the fourth month"
   },
   "fMcKtJ": {
-    "defaultMessage": "Annuler et revenir en arrière",
+    "defaultMessage": "Annulez et revenez en arrière",
     "description": "Text to cancel changes to a form"
   },
   "fO0cRR": {
@@ -890,6 +926,10 @@
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
+  },
+  "fb/Smc": {
+    "defaultMessage": "Portfolio de compétences",
+    "description": "Name of the skills portfolio page"
   },
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
@@ -915,10 +955,6 @@
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
-  "hWMUFx": {
-    "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
-    "description": "The operational requirement described as regular overtime."
-  },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
     "description": "Error message when attempting to un-archive a pool with an invalid status."
@@ -926,6 +962,10 @@
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
+  },
+  "iC7Wsq": {
+    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
   },
   "iSfiWx": {
     "defaultMessage": "Année",
@@ -947,13 +987,17 @@
     "defaultMessage": "Erreur inconnue",
     "description": "Fallback text when an error message is not supplied"
   },
+  "j47/Ct": {
+    "defaultMessage": "J'accepte d'avoir un emploi qui <strong>nécessite des déplacements</strong>.",
+    "description": "The operational requirement described as travel as required."
+  },
   "j6WJBY": {
     "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
     "description": "Message for when user goes over word limit."
   },
-  "jHYaw8": {
-    "defaultMessage": "possède un travail par quarts.",
-    "description": "The operational requirement described as shift work."
+  "jStpFw": {
+    "defaultMessage": "Bilingue (français et anglais)",
+    "description": "Name of Bilingual (English and French)"
   },
   "jqyjFm": {
     "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
@@ -995,6 +1039,10 @@
     "defaultMessage": "Intégré",
     "description": "Title for in app notifications"
   },
+  "l2XtbB": {
+    "defaultMessage": "J'accepte de travailler par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",
     "description": "declaring one to be a Canadian citizen"
@@ -1014,6 +1062,10 @@
   "lsFH+y": {
     "defaultMessage": "Aucune option",
     "description": "Message shown in options dropdown when Select field has no options."
+  },
+  "m0iNdp": {
+    "defaultMessage": "Choisir une collectivité",
+    "description": "Null selection for community select input."
   },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
@@ -1042,6 +1094,10 @@
   "nPKPFa": {
     "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
     "description": "Error message that the pool advertisement must have publishing group filled."
+  },
+  "nVodgK": {
+    "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires régulièrement</strong>.",
+    "description": "The operational requirement described as regular overtime."
   },
   "nnMYWr": {
     "defaultMessage": "Préférences de travail",
@@ -1095,21 +1151,17 @@
     "defaultMessage": "réussite partielle",
     "description": "Message for the partial success status"
   },
-  "qfioSi": {
-    "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
-    "description": "Term selection for government employee type."
-  },
   "qmEyxS": {
     "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
     "description": "Error message that the pool closing date isn't in the future."
   },
-  "qnYbyw": {
-    "defaultMessage": "m'exige de <strong>voyager</strong>.",
-    "description": "The operational requirement described as travel as required."
-  },
   "qtJrUr": {
     "defaultMessage": "Région de la Colombie-Britannique",
     "description": "The work region of Canada described as British Columbia."
+  },
+  "quCf/v": {
+    "defaultMessage": "J'accepte de travailler <strong>par quarts</strong>.",
+    "description": "The operational requirement described as shift work."
   },
   "quLfED": {
     "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
@@ -1130,10 +1182,6 @@
   "ra+8d1": {
     "defaultMessage": "Erreur",
     "description": "Generic error message"
-  },
-  "rbhjTC": {
-    "defaultMessage": "Bibliothèque des compétences",
-    "description": "Name of the skill library page"
   },
   "rjHrNp": {
     "defaultMessage": "Parcourir les possibilités d'emploi",
@@ -1166,10 +1214,6 @@
   "sfQN9S": {
     "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
     "description": "Prefix when a step has an error."
-  },
-  "sfhO+5": {
-    "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires occasionnelles</strong>.",
-    "description": "The operational requirement described as occasional overtime."
   },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
@@ -1231,6 +1275,10 @@
     "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut.)",
     "description": "The work region of Canada described as North."
   },
+  "uu2OuP": {
+    "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
   "v6T4Y0": {
     "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
     "description": "Error message that the date cannot be in the future."
@@ -1247,9 +1295,17 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vOCLQA": {
+    "defaultMessage": "Incomplet",
+    "description": "Simple status label for an incomplete item"
+  },
   "vPDtGU": {
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
+  },
+  "vpTBA0": {
+    "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
+    "description": "The operational requirement described as 24/7 on-call."
   },
   "vvtqRv": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
@@ -1280,7 +1336,7 @@
     "description": "The work region of Canada described as Telework."
   },
   "xAxxmc": {
-    "defaultMessage": "Oupse! Vous avez des erreurs!",
+    "defaultMessage": "Oups! Vous avez des erreurs!",
     "description": "Title for error summary on profile forms"
   },
   "xEkbvy": {
@@ -1330,9 +1386,5 @@
   "zhqK/P": {
     "defaultMessage": "Non précisé",
     "description": "Unspecified, has not been set or defined"
-  },
-  "zhzuZu": {
-    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>.",
-    "description": "Student selection for government employee type."
   }
 }

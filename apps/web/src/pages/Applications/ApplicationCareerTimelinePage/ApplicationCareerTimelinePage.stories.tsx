@@ -4,12 +4,15 @@ import {
   fakeExperiences,
   fakePoolCandidates,
 } from "@gc-digital-talent/fake-data";
+import { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
 import { ExperienceForDate } from "~/types/experience";
 
 import { ApplicationCareerTimeline } from "./ApplicationCareerTimelinePage";
 
-const fakePoolCandidate = fakePoolCandidates(1)[0];
+const fakePoolCandidate = fakePoolCandidates(
+  1,
+)[0] as ApplicationPoolCandidateFragmentType;
 const fakeUser = fakePoolCandidate.user;
 
 type ApplicationCareerTimelineStory = StoryFn<typeof ApplicationCareerTimeline>;
@@ -33,7 +36,7 @@ const hasExperiencesProps: ApplicationCareerTimelineStory["args"] = {
       experiences: fakeExperiences(5),
     },
   },
-  experiences: fakeExperiences(5) as Array<ExperienceForDate>,
+  experiences: fakeExperiences(5) as ExperienceForDate[],
 };
 
 export default {

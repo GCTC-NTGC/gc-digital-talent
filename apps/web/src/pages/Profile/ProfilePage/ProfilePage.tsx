@@ -68,6 +68,8 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       }
 
       isGovEmployee
+      workEmail
+      isWorkEmailVerified
       hasPriorityEntitlement
       priorityNumber
       department {
@@ -214,6 +216,8 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
     }
     isGovEmployee
+    workEmail
+    isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
     govEmployeeType {
@@ -270,10 +274,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     positionDuration
     userSkills {
       id
-      user {
-        id
-        email
-      }
       skill {
         id
         key
@@ -294,10 +294,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       # profileExperience fragment
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -387,186 +383,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
     }
     isProfileComplete
-    poolCandidates {
-      id
-      user {
-        id
-        email
-      }
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      expiryDate
-      signature
-      archivedAt
-      submittedAt
-      suspendedAt
-      pool {
-        id
-        closingDate
-        name {
-          en
-          fr
-        }
-        stream {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        classification {
-          id
-          group
-          level
-          name {
-            en
-            fr
-          }
-          genericJobTitles {
-            id
-            key
-            name {
-              en
-              fr
-            }
-          }
-          minSalary
-          maxSalary
-        }
-      }
-      educationRequirementOption {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      educationRequirementExperiences {
-        # profileExperience fragment
-        id
-        __typename
-        details
-        user {
-          id
-          email
-        }
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          awardedScope {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          status {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      screeningQuestionResponses {
-        id
-        answer
-        screeningQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
-        }
-      }
-      generalQuestionResponses {
-        id
-        answer
-        generalQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
-        }
-      }
-    }
   }
 `;
 

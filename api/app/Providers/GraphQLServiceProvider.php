@@ -51,11 +51,13 @@ class GraphQLServiceProvider extends ServiceProvider
             );
         }
 
-        // Discover all enums in the App\Enum namespace that implement the HasLocalization trait
-        // and register them as a LocalizedEnum type in GraphQL
+        /** Discover all enums in the App\Enum namespace that implement the HasLocalization trait
+         * and register them as a LocalizedEnum type in GraphQL
+         *
+         * @var array<HasLocalization>
+         */
         $localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
-        /** @var HasLocalization $enum */
         foreach ($localizedEnums as $enum) {
             $name = class_basename($enum);
 

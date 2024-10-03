@@ -12,7 +12,7 @@ import {
   Chips,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
@@ -58,14 +58,10 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...MoreActions
       ...ClaimVerification
       ...AssessmentResultsTable
+      ...ChangeStatusDialog_PoolCandidate
+      ...ApplicationInformation_PoolCandidate
       id
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
+      profileSnapshot
       finalDecision {
         value
         label {
@@ -73,53 +69,21 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
       }
+      assessmentStatus {
+        currentStep
+        assessmentStepStatuses {
+          decision
+          step
+        }
+      }
       user {
         ...ApplicationProfileDetails
-        ...ProfileDocument
         ...PoolStatusTable
         ...ChangeStatusDialog_User
-        id
         firstName
         lastName
-        currentCity
-        currentProvince {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        telephone
-        email
-        citizenship {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        preferredLang {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        preferredLanguageForInterview {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        preferredLanguageForExam {
-          value
-          label {
-            en
-            fr
-          }
-        }
         hasPriorityEntitlement
+        priorityWeight
         armedForcesStatus {
           value
           label {
@@ -127,246 +91,19 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             fr
           }
         }
-        priorityWeight
-        poolCandidates {
-          id
-          status {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          expiryDate
-          notes
-          suspendedAt
-          user {
-            id
-          }
-          pool {
-            id
-            processNumber
-            name {
-              en
-              fr
-            }
-            classification {
-              id
-              group
-              level
-            }
-            stream {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            publishingGroup {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            team {
-              id
-              name
-              displayName {
-                en
-                fr
-              }
-            }
-          }
-        }
-        experiences {
-          id
-          __typename
-          details
-          user {
-            id
-            email
-          }
-          skills {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            experienceSkillRecord {
-              details
-            }
-          }
-          ... on AwardExperience {
-            title
-            issuedBy
-            awardedDate
-            awardedTo {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            awardedScope {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            details
-          }
-          ... on CommunityExperience {
-            title
-            organization
-            project
-            startDate
-            endDate
-            details
-          }
-          ... on EducationExperience {
-            institution
-            areaOfStudy
-            thesisTitle
-            startDate
-            endDate
-            type {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            status {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            details
-          }
-          ... on PersonalExperience {
-            title
-            description
-            startDate
-            endDate
-            details
-          }
-          ... on WorkExperience {
-            role
-            organization
-            division
-            startDate
-            endDate
-            details
-          }
-        }
       }
-      educationRequirementExperiences {
-        id
-        __typename
-        details
-        user {
-          id
-          email
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          awardedScope {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          details
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-          details
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          status {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          details
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-          details
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-          details
-        }
-      }
-      educationRequirementOption {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      profileSnapshot
-      notes
-      signature
-      submittedAt
-      expiryDate
       pool {
+        ...ApplicationInformation_PoolFragment
         id
+        processNumber
         name {
           en
           fr
+        }
+        classification {
+          id
+          group
+          level
         }
         stream {
           value
@@ -381,211 +118,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             en
             fr
           }
-        }
-        classification {
-          id
-          group
-          level
-        }
-        poolSkills {
-          skill {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            families {
-              id
-              key
-              name {
-                en
-                fr
-              }
-            }
-          }
-        }
-        generalQuestions {
-          id
-          question {
-            en
-            fr
-          }
-        }
-        assessmentSteps {
-          id
-          title {
-            en
-            fr
-          }
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          sortOrder
-          poolSkills {
-            id
-            type {
-              value
-              label {
-                en
-                fr
-              }
-            }
-          }
-        }
-        poolSkills {
-          id
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          requiredLevel
-          skill {
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            id
-            category {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            key
-          }
-        }
-        screeningQuestions {
-          id
-          question {
-            en
-            fr
-          }
-        }
-        ...ApplicationInformation_PoolFragment
-      }
-      assessmentResults {
-        id
-        poolCandidate {
-          id
-          pool {
-            id
-          }
-          user {
-            id
-          }
-        }
-        assessmentDecision {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        assessmentDecisionLevel {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        assessmentResultType
-        assessmentStep {
-          id
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          title {
-            en
-            fr
-          }
-        }
-        justifications {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        assessmentDecisionLevel {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        skillDecisionNotes
-        poolSkill {
-          id
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          requiredLevel
-          skill {
-            id
-            key
-            category {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-          }
-        }
-      }
-      screeningQuestionResponses {
-        id
-        answer
-        screeningQuestion {
-          id
-        }
-      }
-      assessmentStatus {
-        currentStep
-        overallAssessmentStatus
-        assessmentStepStatuses {
-          step
-          decision
         }
       }
     }
@@ -613,9 +145,6 @@ export const ViewPoolCandidate = ({
   const paths = useRoutes();
 
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
-  const snapshotCandidate = parsedSnapshot?.poolCandidates
-    ?.filter(notEmpty)
-    .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
@@ -750,7 +279,7 @@ export const ViewPoolCandidate = ({
                 {intl.formatMessage(commonMessages.status)}
                 {intl.formatMessage(commonMessages.dividingColon)}
                 <ChangeStatusDialog
-                  selectedCandidate={poolCandidate}
+                  selectedCandidateQuery={poolCandidate}
                   user={poolCandidate.user}
                 />
               </p>
@@ -765,7 +294,10 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
+              <AssessmentResultsTable
+                poolCandidateQuery={poolCandidate}
+                experiences={nonEmptyExperiences}
+              />
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
@@ -773,9 +305,8 @@ export const ViewPoolCandidate = ({
                 <ErrorBoundary>
                   <ApplicationInformation
                     poolQuery={poolCandidate.pool}
-                    user={poolCandidate.user}
                     snapshot={parsedSnapshot}
-                    application={snapshotCandidate}
+                    applicationQuery={poolCandidate}
                   />
                 </ErrorBoundary>
                 <div data-h2-margin="base(x2 0)">
@@ -826,10 +357,10 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["AssessmentResult"],
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
-};
+}
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
@@ -871,6 +402,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <ViewPoolCandidatePage />

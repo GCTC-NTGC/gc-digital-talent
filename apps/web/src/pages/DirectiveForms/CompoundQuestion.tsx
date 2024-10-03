@@ -2,11 +2,11 @@ import { ReactElement, ReactNode, useId, cloneElement } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
 
-type CompoundQuestionProps = {
+interface CompoundQuestionProps {
   title?: string;
   introduction?: ReactElement | ReactNode | string;
   inputElement: ReactElement;
-};
+}
 
 // This component is for adding extra information before a form input and ensuring that the aria labels are properly attached.
 const CompoundQuestion = ({

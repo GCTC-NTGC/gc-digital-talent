@@ -76,6 +76,7 @@ return [
         'applicationPlacement' => 'applicationPlacement',
         'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision, but can't be fully removed until after #8671.
         'applicantCount' => 'applicantCount',
+        'jobPosterTemplate' => 'jobPosterTemplate',
         'searchRequest' => 'searchRequest',
         'role' => 'role',
         'announcement' => 'announcement',
@@ -87,6 +88,7 @@ return [
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
+        'managerMembership' => 'managerMembership',
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
@@ -428,6 +430,23 @@ return [
             'fr' => 'Visualiser le résultat du comptage de n\'importe quelle requête filtre-demandeur',
         ],
 
+        'view-any-jobPosterTemplate' => [
+            'en' => 'View any job poster template',
+            'fr' => 'Voir n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'create-any-jobPosterTemplate' => [
+            'en' => 'Create any job poster template',
+            'fr' => 'Créer n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'update-any-jobPosterTemplate' => [
+            'en' => 'Update any job poster template',
+            'fr' => 'Mise à jour de tout modèle d\'affiche d\'emploi',
+        ],
+        'delete-any-jobPosterTemplate' => [
+            'en' => 'Delete any job poster template',
+            'fr' => 'Supprimer un modèle d\'offre d\'emploi',
+        ],
+
         'create-any-searchRequest' => [
             'en' => 'Create Any SearchRequest',
             'fr' => 'Créer toute demande de recherche',
@@ -586,6 +605,10 @@ return [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
             'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
         ],
+        'update-any-managerMembership' => [
+            'en' => 'Add or remove the Manager role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de gestionnaire à n\'importe quel utilisateur',
+        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -741,6 +764,18 @@ return [
             ],
             'is_team_based' => false,
         ],
+
+        'manager' => [
+            'display_name' => [
+                'en' => 'Manager',
+                'fr' => 'Gestionnaire',
+            ],
+            'description' => [
+                'en' => 'Can search for talent and submit talent requests.',
+                'fr' => 'Possibilité de rechercher des talents et de soumettre des demandes de talents.',
+            ],
+            'is_team_based' => false,
+        ],
     ],
 
     /*
@@ -786,6 +821,9 @@ return [
             'applicantCount' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view'],
+            ],
             'searchRequest' => [
                 'any' => ['create'],
             ],
@@ -826,6 +864,9 @@ return [
                 'any' => ['view'],
             ],
             'applicantCount' => [
+                'any' => ['view'],
+            ],
+            'jobPosterTemplate' => [
                 'any' => ['view'],
             ],
             'searchRequest' => [
@@ -1012,7 +1053,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'searchRequest' => [
-                'any' => ['view', 'update', 'delete'],
+                'team' => ['view', 'update', 'delete'],
             ],
             'community' => [
                 'team' => ['view'],
@@ -1060,7 +1101,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'searchRequest' => [
-                'any' => ['view', 'update', 'delete'],
+                'team' => ['view', 'update', 'delete'],
             ],
             'community' => [
                 'team' => ['view', 'update'],
@@ -1134,6 +1175,9 @@ return [
             'applicationPlacement' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view', 'create', 'update', 'delete'],
+            ],
             'searchRequest' => [
                 'any' => ['view'],
             ],
@@ -1164,12 +1208,18 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
+            'managerMembership' => [
+                'any' => ['update'],
+            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
             'poolTeamMembers' => [
                 'any' => ['view'],
             ],
+        ],
+        'manager' => [
+            // granted permissions will be defined later
         ],
     ],
 ];

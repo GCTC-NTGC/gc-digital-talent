@@ -124,23 +124,23 @@ export function emailLinkAccessor(
 }
 
 export function ownerNameAccessor(pool: Pool) {
-  const firstName =
-    pool.owner && pool.owner.firstName
-      ? pool.owner.firstName.toLowerCase()
-      : "";
-  const lastName =
-    pool.owner && pool.owner.lastName ? pool.owner.lastName.toLowerCase() : "";
+  const firstName = pool.owner?.firstName
+    ? pool.owner.firstName.toLowerCase()
+    : "";
+  const lastName = pool.owner?.lastName
+    ? pool.owner.lastName.toLowerCase()
+    : "";
   return `${firstName} ${lastName}`;
 }
 
 export function ownerEmailAccessor(pool: Pool) {
-  return pool.owner && pool.owner.email ? pool.owner.email.toLowerCase() : "";
+  return pool.owner?.email ? pool.owner.email.toLowerCase() : "";
 }
 
-type TransformPoolInputArgs = {
+interface TransformPoolInputArgs {
   search: SearchState;
   filters?: PoolFilterInput;
-};
+}
 
 export function transformPoolInput({
   search,
@@ -154,7 +154,7 @@ export function transformPoolInput({
     return undefined;
   }
 
-  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // activate scopeAuthorizedToViewAsAdmin
+  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // only show pools that the use is able to admin
 
   return {
     ...filtersWithCanAdmin,
@@ -175,6 +175,7 @@ export function getOrderByClause(
     ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
+    ["publishedAt", "published_at"],
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
     ["classification", "classification"],

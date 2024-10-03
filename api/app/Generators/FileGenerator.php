@@ -2,19 +2,91 @@
 
 namespace App\Generators;
 
-abstract class FileGenerator
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
+class FileGenerator
 {
-    abstract public function generate();
+    protected ?string $lang;
 
-    abstract public function write(string $fileName);
+    protected ?string $userId;
 
-    protected function sanitizeEnum(string $enum): string
+    protected string $extension = '';
+
+    public function __construct(protected string $fileName, protected ?string $dir) {}
+
+    public function getFileName(): string
     {
-        return ucwords(strtolower(str_replace('_', ' ', $enum)));
+        return $this->fileName;
     }
 
-    public function yesOrNo(bool $value): string
+    public function getFileNameWithExtension(): string
     {
-        return $value ? 'Yes' : 'No';
+        return $this->fileName.'.'.$this->extension;
+    }
+
+    public function getExtension(): string
+    {
+        return $this->extension;
+    }
+
+    public function setFileName(string $fileName): void
+    {
+        $this->fileName = $fileName;
+    }
+
+    /**
+     * Get  the path to eventually write the file to
+     *
+     * @param  ?string  $disk  Name of the disk we want to save file to
+     */
+    public function getPath(?string $disk = 'userGenerated'): string
+    {
+        /**
+         * We don't actually put the file with
+         * the storage (maybe we can look into that)
+         * but for now, the writer does it directly
+         * so we need to manually create the directory if
+         * it doesn't exist
+         *
+         * @var \Illuminate\Filesystem\FilesystemManager */
+        $disk = Storage::disk($disk);
+        if ($this->dir && ! $disk->exists($this->dir)) {
+            File::makeDirectory($disk->path($this->dir));
+        }
+
+        return $disk->path(sprintf('%s/%s', $this->dir ? DIRECTORY_SEPARATOR.$this->dir : '', $this->getFileNameWithExtension()));
+    }
+
+    /**
+     * Sanitize string for file name
+     *
+     * @param  ?string  $value  String to be sanitized
+     * @return string Sanitized string
+     */
+    public function sanitizeFileNameString(?string $value)
+    {
+        if (! $value) {
+            return '';
+        }
+
+        $retval = $value;
+        $retval = iconv('UTF-8', 'ASCII//TRANSLIT', $retval); // handle accented characters
+        $retval = preg_replace('/[^a-zA-Z]+/', '', $retval); // remove anything that isn't an alphabet character
+        $retval = trim($retval);
+
+        return $retval;
+    }
+
+    /**
+     * Set the user ID for the generator scopes
+     *
+     * @param  string  $userId  The user to scope the generator to
+     */
+    public function setUserId(string $userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
     }
 }

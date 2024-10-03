@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { screen, waitFor, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -99,8 +99,8 @@ describe("AssessmentStepTracker", () => {
 
   it("should have no accessibility errors", async () => {
     const { container } = renderAssessmentStepTracker();
-    await waitFor(() => {
-      axeTest(container);
+    await waitFor(async () => {
+      await axeTest(container);
     });
   });
 
@@ -242,7 +242,7 @@ describe("AssessmentStepTracker", () => {
     // They are in the correct order
     const orderArray = Array.from(
       { length: stepArray.length },
-      (x, i) => i + 1,
+      (_x, i) => i + 1,
     );
     const stepOrder = stepArray
       .map((step) => step.step.sortOrder)

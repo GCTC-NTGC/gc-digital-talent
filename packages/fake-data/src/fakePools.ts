@@ -25,6 +25,8 @@ import {
   SkillLevel,
   Department,
   PoolOpportunityLength,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -46,7 +48,10 @@ const generatePool = (
   englishName = "",
   frenchName = "",
   essentialSkillCount = -1,
+  index: number,
 ): Pool => {
+  faker.seed(index); // repeatable results
+
   const ownerUser: User = faker.helpers.arrayElement<User>(users);
   const essentialSkills = faker.helpers.arrayElements(
     skills,
@@ -84,6 +89,9 @@ const generatePool = (
       };
     }),
   ];
+  const areaOfSelection = toLocalizedEnum(
+    faker.helpers.arrayElement(Object.values(PoolAreaOfSelection)),
+  );
   return {
     id: faker.string.uuid(),
     owner: pick(ownerUser, [
@@ -143,6 +151,15 @@ const generatePool = (
       )[0],
       fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup)[0],
     ],
+    areaOfSelection: areaOfSelection,
+    selectionLimitations:
+      areaOfSelection.value == PoolAreaOfSelection.Employees
+        ? faker.helpers.arrayElements(
+            Object.values(PoolSelectionLimitation).map((l) =>
+              toLocalizedEnum(l),
+            ),
+          )
+        : [],
   };
 };
 
@@ -154,7 +171,6 @@ export default (
   essentialSkillCount = -1,
 ): Pool[] => {
   const users = fakeUsers();
-  faker.seed(0); // repeatable results
 
   return [...Array(numToGenerate)].map((_, index) => {
     switch (index) {
@@ -167,6 +183,7 @@ export default (
           "CMO",
           "CMO",
           essentialSkillCount,
+          0,
         );
       case 1:
         return generatePool(
@@ -177,6 +194,7 @@ export default (
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
           essentialSkillCount,
+          0,
         );
       default:
         return generatePool(
@@ -187,6 +205,7 @@ export default (
           "",
           "",
           essentialSkillCount,
+          index,
         );
     }
   });

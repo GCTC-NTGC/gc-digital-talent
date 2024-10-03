@@ -22,6 +22,7 @@ import {
   UpdateUserAsAdminMutation,
   User,
   graphql,
+  UpdateUserDataQuery as UpdateUserDataQueryType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -56,6 +57,21 @@ const UpdateUserOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
+export type UpdateUserDataAuthInfoType = NonNullable<
+  UpdateUserDataQueryType["user"]
+>["authInfo"];
+
+type PartialUser = Pick<
+  User,
+  | "id"
+  | "email"
+  | "firstName"
+  | "lastName"
+  | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
+  | "telephone"
+>;
 type FormValues = Pick<
   UpdateUserAsAdminInput,
   | "email"
@@ -67,7 +83,7 @@ type FormValues = Pick<
   | "telephone"
 >;
 interface UpdateUserFormProps {
-  initialUser: User;
+  initialUser: PartialUser;
   handleUpdateUser: (
     id: string,
     data: UpdateUserAsAdminInput,
@@ -102,7 +118,7 @@ export const UpdateUserForm = ({
     preferredLang,
     preferredLanguageForExam,
     preferredLanguageForInterview,
-  }: User): FormValues => ({
+  }: PartialUser): FormValues => ({
     email,
     firstName,
     lastName,
@@ -263,9 +279,9 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserPage = () => {
   const intl = useIntl();
@@ -363,7 +379,7 @@ const UpdateUserPage = () => {
               handleUpdateUser={handleUpdateUser}
             />
             <UpdateUserSubForm
-              user={data.user}
+              authInfo={data.user?.authInfo}
               onUpdateSub={handleUpdateUserSub}
             />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
@@ -371,11 +387,13 @@ const UpdateUserPage = () => {
             </Heading>
             <UserRoleTable
               user={data.user}
+              authInfo={data.user?.authInfo}
               availableRoles={availableRoles}
               onUpdateUserRoles={handleUpdateUserRoles}
             />
             <TeamRoleTable
               user={data.user}
+              authInfo={data.user?.authInfo}
               availableRoles={availableRoles}
               onUpdateUserRoles={handleUpdateUserRoles}
             />

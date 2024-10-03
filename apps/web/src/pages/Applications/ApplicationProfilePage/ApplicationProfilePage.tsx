@@ -2,7 +2,10 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql, User } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -63,7 +66,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationProfileProps extends ApplicationPageProps {
-  user: User;
+  user: ApplicationPoolCandidateFragmentType["user"];
 }
 
 export const ApplicationProfile = ({
@@ -109,8 +112,8 @@ export const ApplicationProfile = ({
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "This step includes all of your profile information required for this application. Each section has a series of required fields that must be completed to move on to the next step. Completing this profile information will only happen once, and the information you provide here will auto-populate on applications you submit moving forward.",
-          id: "D9Elm9",
+            "This step includes all of your profile information required for this application. Each section has a series of required fields that must be completed to move on to the next step. The information you provide here will auto-populate future applications you submit.",
+          id: "8IvjbH",
           description: "Application step to complete your profile, description",
         })}
       </p>
@@ -127,7 +130,10 @@ export const ApplicationProfile = ({
         <GovernmentInformation {...sectionProps} />
       </div>
       <div data-h2-margin="base(x2, 0, 0, 0)">
-        <LanguageProfile {...sectionProps} application={application} />
+        <LanguageProfile
+          {...sectionProps}
+          application={{ id: application.id, pool: application.pool }}
+        />
       </div>
       <Separator />
       <StepNavigation

@@ -1,4 +1,4 @@
-import { IntlShape, useIntl } from "react-intl";
+import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { ReactNode } from "react";
 
 import {
@@ -7,22 +7,31 @@ import {
   NewJobPostedNotification,
   Notification,
   SystemNotification,
+  UserFileGeneratedNotification,
+  UserFileGenerationErrorNotification,
 } from "@gc-digital-talent/graphql";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import {
   formDateStringToDate,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
 import { useLogger } from "@gc-digital-talent/logger";
 import { GraphqlType } from "@gc-digital-talent/helpers";
+import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "./useRoutes";
 
-type NotificationInfo = {
+interface NotificationInfo {
   message: ReactNode;
   label: string;
-  href: string;
-};
+  href?: string;
+  download?: string;
+  external?: boolean;
+}
 
 function isApplicationDeadlineApproachingNotification(
   notification: GraphqlType,
@@ -167,11 +176,58 @@ const systemNotificationToInfo = (
   };
 };
 
+function isUserFileGenerationErrorNotification(
+  notification: GraphqlType,
+): notification is UserFileGenerationErrorNotification {
+  return notification.__typename === "UserFileGenerationErrorNotification";
+}
+
+const userFileGenerationErrorNotificationToInfo = (
+  notification: UserFileGenerationErrorNotification,
+  intl: IntlShape,
+): NotificationInfo => {
+  return {
+    message: intl.formatMessage(errorMessages.downloadingFileFailed, {
+      fileName: notification.fileName,
+    }),
+    label: intl.formatMessage(errorMessages.downloadingFileFailed, {
+      fileName: notification.fileName,
+    }),
+  };
+};
+
+function isUserFileGeneratedNotification(
+  notification: GraphqlType,
+): notification is UserFileGeneratedNotification {
+  return notification.__typename === "UserFileGeneratedNotification";
+}
+
+const fileDownloadMessage = defineMessage({
+  defaultMessage: "Your file is ready for download",
+  id: "+6syC7",
+  description: "Notification for when q requested download is ready",
+});
+
+const userFileGeneratedNotificationToInfo = (
+  notification: UserFileGeneratedNotification,
+  paths: ReturnType<typeof useApiRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  return {
+    message: `${intl.formatMessage(fileDownloadMessage)}${intl.formatMessage(commonMessages.dividingColon)}${notification.fileName}`,
+    href: paths.userGeneratedFile(notification.fileName ?? ""),
+    label: `${intl.formatMessage(fileDownloadMessage)}${intl.formatMessage(commonMessages.dividingColon)}${notification.fileName}`,
+    download: notification.fileName ?? "",
+    external: true,
+  };
+};
+
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
   const intl = useIntl();
   const paths = useRoutes();
+  const apiPaths = useApiRoutes();
   const logger = useLogger();
 
   if (isApplicationDeadlineApproachingNotification(notification)) {
@@ -192,6 +248,14 @@ const useNotificationInfo = (
 
   if (isNewJobPostedNotification(notification)) {
     return newJobPostedNotificationToInfo(notification, paths, intl);
+  }
+
+  if (isUserFileGeneratedNotification(notification)) {
+    return userFileGeneratedNotificationToInfo(notification, apiPaths, intl);
+  }
+
+  if (isUserFileGenerationErrorNotification(notification)) {
+    return userFileGenerationErrorNotificationToInfo(notification, intl);
   }
 
   if (isSystemNotification(notification)) {

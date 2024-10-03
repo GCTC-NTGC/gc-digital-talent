@@ -25,10 +25,10 @@ import UserCircleSolidIcon from "@heroicons/react/24/solid/UserCircleIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
 
-type PageIcon = {
+interface PageIcon {
   solid: IconType;
   outline: IconType;
-};
+}
 
 const pageIcons: Record<string, PageIcon> = {
   announcements: {
@@ -38,6 +38,10 @@ const pageIcons: Record<string, PageIcon> = {
   classifications: {
     solid: TagSolidIcon,
     outline: TagOutlineIcon,
+  },
+  communities: {
+    solid: UsersSolidIcon,
+    outline: UsersOutlineIcon,
   },
   dashboard: {
     solid: HomeSolidIcon,

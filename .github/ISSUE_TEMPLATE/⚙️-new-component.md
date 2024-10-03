@@ -8,15 +8,15 @@ assignees: ""
 
 ## ⚙️ Summary
 
-Purpose and description.
+<!-- Purpose and description. -->
 
-## 🎨 Design File
+## 🎨 Design
 
-Include a link to the design file (if it exists).
-
-### 🧑‍🎨 Designer
-
+<!--
 Include the author of the linked design file's name (or even better, their `@githubUsername`) for future reference.
+ -->
+
+<!-- Include a link to the design file (if it exists). -->
 
 > [!NOTE]  
 > For all layout and spacing guidance, including how this component should respond on smaller devices, please see the Figma file.
@@ -50,38 +50,38 @@ Include the author of the linked design file's name (or even better, their `@git
 
 #### Description
 
-Property description.
+<!-- Property description. -->
 
 #### Screenshot
 
-Property screenshot(s).
+<!-- Property screenshot(s). -->
 
 ## 💡 Interaction states
 
-Summary of interaction states.
+<!-- Summary of interaction states. -->
 
 ### Hover
 
 #### Description
 
-Hover state description.
+<!-- Hover state description. -->
 
 #### Screenshot
 
-Hover state screenshot.
+<!-- Hover state screenshot. -->
 
 ### Focus
 
 #### Description
 
-Focus state description.
+<!-- Focus state description. -->
 
 ### Screenshot
 
-Focus state screenshot.
+<!-- Focus state screenshot. -->
 
 ## 🥰 Accessibility
 
 ### Accessibility feature name
 
-Feature description.
+<!-- Feature description. -->

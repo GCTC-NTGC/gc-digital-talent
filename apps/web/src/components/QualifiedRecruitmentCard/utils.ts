@@ -23,11 +23,11 @@ import {
   isSuspendedStatus,
 } from "~/utils/poolCandidate";
 
-type StatusChipInfo = {
+interface StatusChipInfo {
   color: Color;
   text: ReactNode;
   icon?: IconType;
-};
+}
 
 export const getStatusChipInfo = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -67,12 +67,12 @@ export const getStatusChipInfo = (
     text,
   };
 };
-type AvailabilityInfo = {
+interface AvailabilityInfo {
   icon: IconType | null;
   color: Record<string, string>;
   text: ReactNode;
   showDialog: boolean;
-};
+}
 
 const getAvailabilityInfo = (
   { status, suspendedAt }: Application,
@@ -126,14 +126,14 @@ const getAvailabilityInfo = (
   };
 };
 
-type QualifiedRecruitmentInfo = {
+interface QualifiedRecruitmentInfo {
   statusChip: StatusChipInfo;
   availability: AvailabilityInfo;
   title: {
     html: ReactNode;
     label: string;
   };
-};
+}
 
 export const getQualifiedRecruitmentInfo = (
   candidate: Application,

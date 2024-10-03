@@ -14,9 +14,12 @@ import {
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
-  User,
   PoolCandidate,
   UpdatePoolCandidateStatusInput,
+  graphql,
+  FragmentType,
+  getFragment,
+  User,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -24,22 +27,62 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
 
-type FormValues = {
+interface FormValues {
   expiryDate: PoolCandidate["expiryDate"];
-};
+}
+
+export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment ChangeDateDialog_PoolCandidate on PoolCandidate {
+    id
+    expiryDate
+    pool {
+      id
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      name {
+        en
+        fr
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
 
 interface ChangeDateDialogProps {
-  selectedCandidate: PoolCandidate;
-  user: User;
+  selectedCandidateQuery: FragmentType<
+    typeof ChangeDateDialog_PoolCandidateFragment
+  >;
+  user: Pick<User, "firstName" | "lastName">;
 }
 
 const ChangeDateDialog = ({
-  selectedCandidate,
+  selectedCandidateQuery,
   user,
 }: ChangeDateDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
+  const selectedCandidate = getFragment(
+    ChangeDateDialog_PoolCandidateFragment,
+    selectedCandidateQuery,
+  );
+  const { firstName, lastName } = user;
 
   const [{ fetching }, executeMutation] = useMutation(
     UpdatePoolCandidateStatus_Mutation,
@@ -60,7 +103,7 @@ const ChangeDateDialog = ({
     formValues: FormValues,
   ) => {
     await requestMutation(selectedCandidate.id, {
-      expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
+      expiryDate: formValues.expiryDate ?? emptyToNull(formValues.expiryDate),
     })
       .then(() => {
         toast.success(
@@ -121,7 +164,7 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getFullNameHtml(user.firstName, user.lastName, intl)}
+            - {getFullNameHtml(firstName, lastName, intl)}
           </p>
           <p data-h2-margin="base(x1, 0, 0, 0)">
             {intl.formatMessage({

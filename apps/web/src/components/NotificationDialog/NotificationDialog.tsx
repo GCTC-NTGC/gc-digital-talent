@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import { AnimatePresence, m, usePresence } from "framer-motion";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
@@ -14,6 +14,8 @@ import {
   Heading,
   Dialog,
   Link,
+  commonStyles as sideMenuStyles,
+  SideMenuItemChildren,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -46,6 +48,7 @@ const DialogPortalWithPresence = ({
   const paths = useRoutes();
   const [isPresent] = usePresence();
   const [render, setRender] = useState<boolean>(isPresent);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
@@ -60,6 +63,12 @@ const DialogPortalWithPresence = ({
     }
     return () => clearTimeout(timerId);
   }, [isPresent]);
+
+  const handleCloseFocus = () => {
+    if (containerRef?.current) {
+      containerRef.current.scrollTop = 0;
+    }
+  };
 
   return render ? (
     <Dialog.Portal forceMount>
@@ -76,6 +85,7 @@ const DialogPortalWithPresence = ({
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
+          ref={containerRef}
           initial={{ x: "100%", scale: 0.95 }}
           animate={{ x: 0, scale: 1 }}
           exit={{ x: "100%", scale: 0.95 }}
@@ -121,6 +131,7 @@ const DialogPortalWithPresence = ({
                     mode="icon_only"
                     color="black"
                     icon={XMarkIcon}
+                    onFocus={handleCloseFocus}
                     aria-label={intl.formatMessage({
                       defaultMessage: "Close notifications",
                       id: "J1n6QO",
@@ -160,7 +171,7 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
-const NotificationDialog = () => {
+const NotificationDialog = ({ sideMenu }: { sideMenu?: boolean }) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -173,17 +184,34 @@ const NotificationDialog = () => {
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
       <DialogPrimitive.Trigger asChild>
-        <Button
-          mode="icon_only"
-          color="black"
-          icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-          data-h2-position="base(relative)"
-          aria-label={intl.formatMessage({
-            defaultMessage: "View notifications",
-            id: "ztx8xL",
-            description: "Button text to open the notifications dialog",
-          })}
-        />
+        {sideMenu ? (
+          <Button
+            mode="text"
+            data-h2-position="base(relative)"
+            data-h2-margin-top="base(-x1)"
+            {...sideMenuStyles}
+          >
+            <SideMenuItemChildren
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+            >
+              {intl.formatMessage(notificationMessages.title)}
+            </SideMenuItemChildren>
+          </Button>
+        ) : (
+          <Button
+            mode="icon_only"
+            color="black"
+            icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
+            data-h2-position="base(relative)"
+            aria-label={intl.formatMessage({
+              defaultMessage: "View notifications",
+              id: "ztx8xL",
+              description: "Button text to open the notifications dialog",
+            })}
+          />
+        )}
       </DialogPrimitive.Trigger>
       <AnimatePresence initial={false}>
         {isOpen && <DialogPortalWithPresence executeQuery={executeQuery} />}

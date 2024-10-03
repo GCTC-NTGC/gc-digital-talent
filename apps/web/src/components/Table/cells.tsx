@@ -46,7 +46,7 @@ function viewCell(
 }
 
 function jsxCell(element: JSX.Element | null): JSX.Element | null {
-  return element || null;
+  return element ?? null;
 }
 
 function emailCell(email?: Maybe<string>) {

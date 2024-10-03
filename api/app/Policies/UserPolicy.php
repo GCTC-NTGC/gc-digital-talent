@@ -162,7 +162,15 @@ class UserPolicy
         return PoolCandidate::where('user_id', $applicant->id)
             ->notDraft()
             ->whereHas('pool', function ($query) use ($teamIds) {
-                return $query->whereIn('team_id', $teamIds);
+                return $query->where(function ($query) use ($teamIds) {
+                    $query->orWhereHas('legacyTeam', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('team', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('community.team', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    });
+                });
             })
             ->exists();
     }
@@ -181,19 +189,19 @@ class UserPolicy
         }
 
         $role = Role::findOrFail($roleId);
-        $team = Team::findOrFail($teamId);
+        $team = Team::with(['teamable.team'])->findOrFail($teamId);
 
         switch ($role->name) {
             case 'pool_operator':
                 return $actor->isAbleTo('assign-any-teamRole');
             case 'process_operator':
                 // Community roles have the update-team-processOperatorMembership permission, and it should give them the ability to assign processOperator roles to pools in their community.
-                // TODO: uncomment this in issue #10364
-                // $pool = $team->teamable; // If we're adding a processOperator to a team, that team should represent a pool. Need validation?
-                // $community = $pool->community;
+                // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
+                $poolTeam = $team->loadMissing(['teamable.community.team']);
+
                 return $actor->isAbleTo('update-any-processOperatorMembership')
-                    || $actor->isAbleTo('update-team-processOperatorMembership', $team);
-                // || $actor->isAbleTo('update-team-processOperatorMembership', $community->team)
+                    || $actor->isAbleTo('update-team-processOperatorMembership', $team)
+                || (isset($poolTeam->teamable->community->team) && $actor->isAbleTo('update-team-processOperatorMembership', $poolTeam->teamable->community->team));
             case 'community_recruiter':
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
@@ -225,6 +233,9 @@ class UserPolicy
                 return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
                 return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');
+            case 'manager':
+                return $actor->isAbleTo('update-any-managerMembership ') || $actor->isAbleTo('assign-any-role');
+
         }
 
         return false; // reject unknown roles

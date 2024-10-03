@@ -14,11 +14,11 @@ const mockOptions = Array.from({ length: 10 }).map(() => ({
   label: faker.animal.snake(),
 }));
 
-type FormValues = {
+interface FormValues {
   multi?: string[];
   single?: string;
   boolean?: boolean;
-};
+}
 
 export default {
   component: FilterDialog,

@@ -13,6 +13,7 @@ import {
   Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { NO_DECISION } from "~/utils/assessmentResults";
@@ -105,7 +106,7 @@ export const columnHeader = (
 };
 
 export const columnStatus = (
-  assessmentStep: AssessmentStep,
+  assessmentStep: Pick<AssessmentStep, "id">,
   assessmentStatus?: Maybe<AssessmentResultStatus>,
 ): ColumnStatus => {
   const assessmentDecisionResult =
@@ -147,13 +148,14 @@ const columnHelper = createColumnHelper<AssessmentTableRow>();
 export const buildColumn = ({
   id,
   poolCandidate,
+  experiences,
   assessmentStep,
   intl,
   header,
 }: AssessmentTableRowColumnProps): AssessmentTableRowColumn => {
   return columnHelper.accessor(
     ({ assessmentResults }) => {
-      const assessmentResult = assessmentResults.find(
+      const assessmentResult = unpackMaybes(assessmentResults).find(
         (ar) => ar.assessmentStep?.id === assessmentStep.id,
       );
       return getLocalizedName(
@@ -177,15 +179,45 @@ export const buildColumn = ({
 
         // Check if an assessmentResult already exists on the assessment step, if show update dialog
         // Additionally, checks if it's the  education requirement cell
-        const assessmentResult = assessmentResults.find(
+        const assessmentResult = unpackMaybes(assessmentResults).find(
           (ar) => ar.assessmentStep?.id === assessmentStep.id,
         );
         if (assessmentResult || isEducationRequirement) {
           return cells.jsx(
             <Dialog
-              assessmentStep={assessmentStep}
-              assessmentResult={assessmentResult}
-              poolCandidate={poolCandidate}
+              assessmentStep={{
+                id: assessmentStep.id,
+                type: assessmentStep.type,
+                title: assessmentStep.title,
+              }}
+              assessmentResult={
+                assessmentResult
+                  ? {
+                      id: assessmentResult.id,
+                      poolSkill: assessmentResult.poolSkill,
+                      justifications: assessmentResult.justifications,
+                      assessmentDecision: assessmentResult.assessmentDecision,
+                      assessmentDecisionLevel:
+                        assessmentResult.assessmentDecisionLevel,
+                      skillDecisionNotes: assessmentResult.skillDecisionNotes,
+                    }
+                  : null
+              }
+              experiences={experiences}
+              poolCandidate={{
+                id: poolCandidate.id,
+                profileSnapshot: poolCandidate.profileSnapshot,
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
+                educationRequirementOption:
+                  poolCandidate.educationRequirementOption,
+                educationRequirementExperiences:
+                  poolCandidate.educationRequirementExperiences,
+                pool: {
+                  classification: poolCandidate.pool.classification,
+                  publishingGroup: poolCandidate.pool.publishingGroup,
+                },
+              }}
               educationRequirement={isEducationRequirement}
             />,
           );
@@ -199,9 +231,23 @@ export const buildColumn = ({
         if (hasPoolSkill) {
           return cells.jsx(
             <Dialog
-              assessmentStep={assessmentStep}
-              assessmentResult={assessmentResult}
-              poolCandidate={poolCandidate}
+              assessmentStep={{
+                id: assessmentStep.id,
+                type: assessmentStep.type,
+                title: assessmentStep.title,
+              }}
+              assessmentResult={assessmentResult} // always undefined
+              experiences={experiences}
+              poolCandidate={{
+                id: poolCandidate.id,
+                profileSnapshot: poolCandidate.profileSnapshot,
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
+                pool: {
+                  classification: poolCandidate.pool.classification,
+                  publishingGroup: poolCandidate.pool.publishingGroup,
+                },
+              }}
               poolSkillToAssess={poolSkill}
             />,
           );

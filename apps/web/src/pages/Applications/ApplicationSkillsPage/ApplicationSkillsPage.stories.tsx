@@ -6,6 +6,7 @@ import {
   fakeExperiences,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
 import {
   ApplicationSkills,
@@ -14,7 +15,9 @@ import {
 
 faker.seed(0);
 
-const fakePoolCandidate = fakePoolCandidates(1)[0];
+const fakePoolCandidate = fakePoolCandidates(
+  1,
+)[0] as ApplicationPoolCandidateFragmentType;
 const fakeUser = fakePoolCandidate.user;
 const mockExperiences = fakeExperiences(5);
 const experienceSkills = mockExperiences

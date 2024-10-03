@@ -31,7 +31,7 @@ export interface RepeaterFieldsetProps {
   /** Callback when the item is removed from the array */
   onRemove?: (index: number) => void;
   /** All indexes that should be prevented from moving */
-  moveDisabledIndexes?: Array<number>;
+  moveDisabledIndexes?: number[];
   /** Whether or not field is last item */
   isLast?: boolean;
 }
@@ -357,7 +357,7 @@ const Root = ({
           color="secondary"
           onClick={onAdd}
         >
-          {addText || intl.formatMessage(formMessages.repeaterAddItem)}
+          {addText ?? intl.formatMessage(formMessages.repeaterAddItem)}
         </Button>
       )}
     </div>

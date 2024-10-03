@@ -9,10 +9,10 @@ export const VIEWPORT = {
 // eslint-disable-next-line import/no-unused-modules
 export type Viewport = (typeof VIEWPORT)[keyof typeof VIEWPORT];
 
-type Dimension = {
+interface Dimension {
   width: number;
   height: number;
-};
+}
 
 type DimensionTuple = [number, number]; // [width, height];
 

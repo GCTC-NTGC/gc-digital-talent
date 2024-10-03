@@ -1,8 +1,8 @@
 import { Department } from "@gc-digital-talent/graphql";
 
-import { graphqlRequest } from "./graphql";
+import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
-export const Test_DepartmentsQueryDocument = /* GraphQL */ `
+const Test_DepartmentsQueryDocument = /* GraphQL */ `
   query Test_Departments {
     departments {
       id
@@ -18,11 +18,12 @@ export const Test_DepartmentsQueryDocument = /* GraphQL */ `
 /**
  * Get Classifications
  *
- * Get all the classifications directly from
- * the API.
+ * Get all the classifications directly from the API.
  */
-export async function getDepartments(): Promise<Department[]> {
-  const res = await graphqlRequest(Test_DepartmentsQueryDocument);
-
-  return res.departments;
-}
+export const getDepartments: GraphQLRequestFunc<Department[]> = async (ctx) => {
+  return await ctx
+    .post(Test_DepartmentsQueryDocument)
+    .then(
+      (res: GraphQLResponse<"departments", Department[]>) => res.departments,
+    );
+};

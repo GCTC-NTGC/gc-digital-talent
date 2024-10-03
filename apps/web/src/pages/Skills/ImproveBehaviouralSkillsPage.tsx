@@ -3,7 +3,7 @@ import { OperationContext, useMutation, useQuery } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
@@ -115,10 +115,12 @@ const ImproveBehaviouralSkills = ({
     formValues: FormValues,
   ): Promise<void> =>
     executeUpdateUserSkillRankingsMutation({
-      userId: userAuthInfo?.id,
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         improveBehaviouralSkillsRanked: [
-          ...formValues.userSkills.map((userSkill) => userSkill.skill),
+          ...unpackMaybes(
+            formValues.userSkills.map((userSkill) => userSkill.skill),
+          ),
         ],
       },
     }).then((res) => {
@@ -134,7 +136,7 @@ const ImproveBehaviouralSkills = ({
   ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
     return executeUpdateUserSkillRankingsMutation({
-      userId: userAuthInfo?.id,
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         improveBehaviouralSkillsRanked: mergedSkillIds,
       },
@@ -148,7 +150,7 @@ const ImproveBehaviouralSkills = ({
 
   return (
     <UpdateSkillShowcase
-      userId={userAuthInfo?.id}
+      userId={userAuthInfo?.id ?? ""}
       crumbs={crumbs}
       pageInfo={pageInfo}
       allUserSkills={userSkills}

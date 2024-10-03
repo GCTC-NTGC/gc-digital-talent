@@ -22,13 +22,16 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-type FormValues = {
-  roles: Array<string>;
-};
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+
+interface FormValues {
+  roles: string[];
+}
 
 interface AddIndividualRoleDialogProps {
-  user: User;
-  availableRoles: Array<Role>;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
+  availableRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -36,12 +39,14 @@ interface AddIndividualRoleDialogProps {
 
 const AddIndividualRoleDialog = ({
   user,
+  authInfo,
   availableRoles,
   onAddRoles,
 }: AddIndividualRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const { id, firstName, lastName } = user;
+  const userName = getFullNameHtml(firstName, lastName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -60,7 +65,7 @@ const AddIndividualRoleDialog = ({
     });
 
     return onAddRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
         attach: roleInputArray,
       },
@@ -87,7 +92,7 @@ const AddIndividualRoleDialog = ({
     .filter((role) => {
       return (
         !role.isTeamBased &&
-        !user?.authInfo?.roleAssignments?.some(
+        !authInfo?.roleAssignments?.some(
           (assignment) => assignment?.role?.id === role.id,
         )
       );

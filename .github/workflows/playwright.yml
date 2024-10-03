@@ -30,11 +30,11 @@ jobs:
     name: Playwright
     runs-on: ubuntu-22.04
     env:
-      # Use native docker command within docker-compose
+      # Use native docker command within docker compose
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
-      PNPM_VERSION: "9.5.0"
+      PNPM_VERSION: "9.7.1"
     steps:
       # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
       - name: reclaim space on runner
@@ -46,12 +46,12 @@ jobs:
       # We no longer user docker layer caching as it made runs take longer.
       # See: https://github.com/satackey/action-docker-layer-caching/issues/305
 
-      - name: Serve app via docker-compose
+      - name: Serve app via docker compose
         # Need to include --build as we're caching layers.
-        run: docker-compose up --detach --build
+        run: docker compose up --detach --build
 
       - name: "Run: setup.sh"
-        run: docker-compose run --rm maintenance bash setup.sh -c
+        run: docker compose run --rm maintenance bash setup.sh -c
 
       - uses: pnpm/action-setup@v4
         with:
@@ -89,8 +89,8 @@ jobs:
 
       - name: Check status of containers
         if: failure()
-        run: docker-compose ps
+        run: docker compose ps
 
       - name: "Check logs: web server container"
         if: failure()
-        run: docker-compose logs webserver
+        run: docker compose logs webserver

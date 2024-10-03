@@ -23,14 +23,14 @@ import {
   TALENTSEARCH_SUPPORT_EMAIL,
 } from "~/constants/talentSearchConstants";
 
-type FormValues = {
+interface FormValues {
   user_id: string;
   name: string;
   email: string;
   description: string;
   subject: string;
   previous_url: string;
-};
+}
 
 interface SupportFormProps {
   showSupportForm: boolean;
@@ -116,11 +116,11 @@ const SupportForm = ({
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
-      user_id: currentUser?.id || "",
+      user_id: currentUser?.id ?? "",
       name: currentUser
         ? getFullNameLabel(currentUser.firstName, currentUser.lastName, intl)
         : "",
-      email: currentUser?.email || "",
+      email: currentUser?.email ?? "",
       previous_url: previousUrl || "",
     },
   });

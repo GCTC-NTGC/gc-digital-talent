@@ -57,6 +57,21 @@
       "reloadOnChange": {
         "watch": ["${workspaceFolder}/apps/web/dist"]
       }
+    },
+    {
+      "name": "Firefox Storybook",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:6006/",
+      "profile": "debug-profile",
+      "keepProfileChanges": true,
+      "pathMappings": [
+        {
+          "url": "http://localhost:6006/src",
+          "path": "${workspaceFolder}/apps/web/src"
+        }
+      ]
     }
   ]
 }

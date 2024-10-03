@@ -115,9 +115,9 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: string;
-};
+}
 
 const UserName_Query = graphql(/* GraphQL */ `
   query UserName($userId: UUID!) {
@@ -155,6 +155,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <UserLayout />

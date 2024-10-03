@@ -50,16 +50,16 @@ import {
   UpdateUserSkill_Mutation,
 } from "./operations";
 
-type PageSection = {
+interface PageSection {
   id: string;
   title: ReactNode;
-};
+}
 type PageSections = Record<string, PageSection>;
 
-type FormValues = {
+interface FormValues {
   skillLevel: SkillLevel;
   whenSkillUsed: WhenSkillUsed;
-};
+}
 
 interface NullExperienceMessageProps {
   hasExperiences: boolean;
@@ -222,9 +222,6 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
       id
       __typename
       details
-      user {
-        id
-      }
       ... on AwardExperience {
         title
         issuedBy
@@ -338,7 +335,7 @@ export const UpdateUserSkillForm = ({
   const fromShowcase = from && from === "showcase";
   const returnPath = fromShowcase
     ? paths.skillShowcase()
-    : paths.skillLibrary();
+    : paths.skillPortfolio();
 
   const availableExperiences = experiences.filter(
     (exp) =>
@@ -360,7 +357,7 @@ export const UpdateUserSkillForm = ({
 
   const handleSuccess = (msg?: ReactNode) => {
     toast.success(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Successfully updated skill!",
           id: "Vfa3Ek",
@@ -372,7 +369,7 @@ export const UpdateUserSkillForm = ({
 
   const handleError = (msg?: ReactNode) => {
     toast.error(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
           id: "kfjmTt",
@@ -403,7 +400,7 @@ export const UpdateUserSkillForm = ({
 
   const handleDelete = () => {
     executeDeleteMutation({
-      id: userSkill?.id,
+      id: userSkill?.id ?? "",
     })
       .then(() =>
         handleSuccess(
@@ -435,8 +432,8 @@ export const UpdateUserSkillForm = ({
       },
 
       {
-        label: intl.formatMessage(navigationMessages.skillLibrary),
-        url: paths.skillLibrary(),
+        label: intl.formatMessage(navigationMessages.skillPortfolio),
+        url: paths.skillPortfolio(),
       },
       ...(fromShowcase
         ? [
@@ -772,9 +769,9 @@ export const UpdateUserSkillForm = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserSkill_Query = graphql(/* GraphQL */ `
   query UserSkill($skillId: UUID!) {

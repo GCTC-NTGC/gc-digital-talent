@@ -7,6 +7,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
+use App\Models\Community;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -14,6 +15,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -796,7 +798,7 @@ class PoolCandidateTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query PoolCandidates($orderByClaimVerification: SortOrder) {
+            query PoolCandidates($orderByClaimVerification: ClaimVerificationSort) {
                 poolCandidatesPaginated(orderByClaimVerification: $orderByClaimVerification) {
                     data {
                         id
@@ -806,6 +808,19 @@ class PoolCandidateTest extends TestCase
         ';
 
         $poolOne = Pool::factory()->published()->create();
+        $pastDate = Carbon::parse(config('constants.past_datetime'));
+        $bookmarkedNoClaims = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => null]),
+            ],
+        );
+        $bookmarkedNoClaims->update([
+            'is_bookmarked' => true,
+            'priority_verification' => null,
+            'veteran_verification' => null,
+            'submitted_at' => $pastDate,
+        ]);
         $bookmarkedAcceptedPriority = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
@@ -816,19 +831,22 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => true,
             'priority_verification' => ClaimVerificationResult::ACCEPTED->name,
             'veteran_verification' => null,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate->addHour(1), // Add an hour to break tie
         ]);
         $unverifiedPriorityAndAcceptedVeteran = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
-                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
+                'user_id' => User::factory()->create([
+                    'has_priority_entitlement' => true,
+                    'citizenship' => CitizenshipStatus::CITIZEN->name,
+                ]),
             ],
         );
         $unverifiedPriorityAndAcceptedVeteran->update([
             'is_bookmarked' => false,
             'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
             'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
         $acceptedVeteran = PoolCandidate::factory()->create(
             [
@@ -840,7 +858,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => false,
             'priority_verification' => null,
             'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
         $rejectedVeteranCitizenOther = PoolCandidate::factory()->create(
             [
@@ -852,7 +870,7 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => false,
             'priority_verification' => null,
             'veteran_verification' => ClaimVerificationResult::REJECTED->name,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
         $citizenOnly = PoolCandidate::factory()->create(
             [
@@ -864,16 +882,16 @@ class PoolCandidateTest extends TestCase
             'is_bookmarked' => false,
             'priority_verification' => null,
             'veteran_verification' => null,
-            'submitted_at' => config('constants.past_date'),
+            'submitted_at' => $pastDate,
         ]);
 
         // assert in both cases that veteran + priority treated as priority
-        // priority > veteran > citizen/permanent resident > rest
+        // priority > bookmarked > veteran > citizen/permanent resident > rest
 
         // assert sorting by bookmarked then DESCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
-                'orderByClaimVerification' => 'DESC',
+                'orderByClaimVerification' => ['order' => 'DESC', 'useBookmark' => true],
             ])
             ->assertJson([
                 'data' => [
@@ -881,6 +899,9 @@ class PoolCandidateTest extends TestCase
                         'data' => [
                             [
                                 'id' => $bookmarkedAcceptedPriority->id,
+                            ],
+                            [
+                                'id' => $bookmarkedNoClaims->id,
                             ],
                             [
                                 'id' => $unverifiedPriorityAndAcceptedVeteran->id,
@@ -902,15 +923,19 @@ class PoolCandidateTest extends TestCase
         // assert sorting by bookmarked first but then ASCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
-                'orderByClaimVerification' => 'ASC',
+                'orderByClaimVerification' => ['order' => 'ASC', 'useBookmark' => true],
             ])
             ->assertJson([
                 'data' => [
                     'poolCandidatesPaginated' => [
                         'data' => [
                             [
+                                'id' => $bookmarkedNoClaims->id,
+                            ],
+                            [
                                 'id' => $bookmarkedAcceptedPriority->id,
                             ],
+
                             [
                                 'id' => $rejectedVeteranCitizenOther->id,
                             ],
@@ -927,5 +952,97 @@ class PoolCandidateTest extends TestCase
                     ],
                 ],
             ]);
+
+        // assert sorting without bookmarked first but then DESCENDING category
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderByClaimVerification' => ['order' => 'DESC'],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $bookmarkedAcceptedPriority->id,
+                            ],
+                            [
+                                'id' => $unverifiedPriorityAndAcceptedVeteran->id,
+                            ],
+                            [
+                                'id' => $acceptedVeteran->id,
+                            ],
+                            [
+                                'id' => $citizenOnly->id,
+                            ],
+                            [
+                                'id' => $bookmarkedNoClaims->id,
+                            ],
+                            [
+                                'id' => $rejectedVeteranCitizenOther->id,
+                            ],
+
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testScopeCandidatesInCommunity(): void
+    {
+        $query =
+        /** @lang GraphQL */
+        '
+            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!) {
+                poolCandidatesPaginated(where: $where, orderBy: [$orderBy]) {
+                    data {
+                        id
+                    }
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ';
+
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityPool = Pool::factory()->published()->create(['community_id' => $community->id]);
+        $otherPool = Pool::factory()->published()->create(['community_id' => $otherCommunity->id]);
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
+        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $otherPool]);
+
+        // acting user belongs to both communities to avoid interaction with authorizedToViewScope
+        $communityAdmin = User::factory()
+            ->asCommunityAdmin([$community->id, $otherCommunity->id])
+            ->create();
+
+        // assert no community selection displays both candidates
+        $this->actingAs($communityAdmin, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'column' => 'id',
+                    'order' => 'ASC',
+                ],
+                'where' => [
+                    'applicantFilter' => [],
+                ],
+            ])->assertJsonFragment(['total' => 2])
+            ->assertJsonFragment(['id' => $communityCandidate->id])
+            ->assertJsonFragment(['id' => $otherCandidate->id]);
+
+        // assert selecting $community returns one candidate associated with that community
+        $this->actingAs($communityAdmin, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'column' => 'id',
+                    'order' => 'ASC',
+                ],
+                'where' => [
+                    'applicantFilter' => [
+                        'community' => ['id' => $community->id],
+                    ],
+                ],
+            ])->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityCandidate->id]);
     }
 }

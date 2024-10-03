@@ -8,6 +8,8 @@
     ".": "./src/index.tsx"
   },
   "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
@@ -24,17 +26,15 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "jwt-decode": "^4.0.0",
-    "path-browserify": "^1.0.1",
-    "react-router-dom": "^6.25.1",
+    "react-router-dom": "^6.26.2",
     "urql": "^4.1.0"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/path-browserify": "^1.0.2",
-    "@types/react": "^18.3.3",
+    "@types/react": "^18.3.11",
     "eslint": "^8.57.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   }
 }

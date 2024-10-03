@@ -60,7 +60,7 @@ const directiveLink = (chunks: ReactNode, href: string) => (
   </Link>
 );
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
-type FormValues = {
+interface FormValues {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
   email?: CreatePoolCandidateSearchRequestInput["email"];
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
@@ -71,24 +71,24 @@ type FormValues = {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
-      sync?: Array<Maybe<Classification["id"]>>;
+      sync?: Maybe<Classification["id"]>[];
     };
     qualifiedStreams?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
-      sync?: Array<Maybe<Skill["id"]>>;
+      sync?: Maybe<Skill["id"]>[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: Array<Maybe<OperationalRequirement>>;
+    operationalRequirements?: Maybe<OperationalRequirement>[];
     pools?: {
-      sync?: Array<Maybe<Pool["id"]>>;
+      sync?: Maybe<Pool["id"]>[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
   };
   department?: DepartmentBelongsTo["connect"];
-};
+}
 
 export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormClassification on Classification {
@@ -276,10 +276,9 @@ export const RequestForm = ({
       },
       applicantFilter: {
         create: {
-          positionDuration:
-            applicantFilter && applicantFilter.positionDuration
-              ? applicantFilter.positionDuration
-              : null,
+          positionDuration: applicantFilter?.positionDuration
+            ? applicantFilter.positionDuration
+            : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,
@@ -338,7 +337,11 @@ export const RequestForm = ({
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
+    const submitData: CreatePoolCandidateSearchRequestInput = {
+      ...formValuesToSubmitData(data),
+      initialResultCount: candidateCount,
+    };
+    return handleCreatePoolCandidateSearchRequest(submitData)
       .then((res) => {
         if (res) {
           removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
@@ -458,8 +461,8 @@ export const RequestForm = ({
                 id="department"
                 name="department"
                 label={intl.formatMessage({
-                  defaultMessage: "Department / Hiring Organization",
-                  id: "UUIb3j",
+                  defaultMessage: "Department / Hiring organization",
+                  id: "P7ItrT",
                   description:
                     "Label for department select input in the request form",
                 })}
@@ -640,10 +643,10 @@ export const RequestForm = ({
               id="additionalComments"
               name="additionalComments"
               label={intl.formatMessage({
-                defaultMessage: "Additional Comments",
-                id: "FC5tje",
+                defaultMessage: "Additional comments",
+                id: "GF8FPy",
                 description:
-                  "Label for additional comments textarea in the request form.",
+                  "Title for the additional comments block for a search request",
               })}
               rows={8}
             />
@@ -675,7 +678,7 @@ export const RequestForm = ({
                   "Total estimated candidates message in summary of filters",
               },
               {
-                candidateCountNumber: candidateCount || 0,
+                candidateCountNumber: candidateCount ?? 0,
               },
             )}
           </p>
@@ -688,8 +691,8 @@ export const RequestForm = ({
           >
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Submit Request",
-                id: "eTTlR0",
+                defaultMessage: "Submit request",
+                id: "4CLNTw",
                 description: "Submit button text on request form.",
               })}
             />

@@ -5,7 +5,9 @@ namespace App\Models;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class WorkExperience
@@ -42,9 +44,17 @@ class WorkExperience extends Experience
         'experience_type' => WorkExperience::class,
     ];
 
-    public function getTitle(): string
+    protected static $hydrationFields = [
+        'organization' => 'organization',
+        'role' => 'role',
+        'division' => 'division',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
+    ];
+
+    public function getTitle(?string $lang = 'en'): string
     {
-        return sprintf('%s at %s', $this->role, $this->organization);
+        return sprintf('%s %s %s', $this->role, Lang::get('common.at', [], $lang), $this->organization);
     }
 
     /**

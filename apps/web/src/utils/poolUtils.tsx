@@ -35,24 +35,7 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
-
-/**
- * Check if a pool matches a
- * classification
- *
- * @param pool
- * @param classification
- * @returns boolean
- */
-export const poolMatchesClassification = (
-  pool: { classification?: Maybe<Pick<Classification, "group" | "level">> },
-  classification: Pick<Classification, "group" | "level">,
-): boolean => {
-  return (
-    pool.classification?.group === classification?.group &&
-    pool.classification?.level === classification?.level
-  );
-};
+import nodeToString from "./nodeToString";
 
 /**
  * Determine if the advertisement can be
@@ -123,7 +106,7 @@ export const formattedPoolPosterTitle = ({
   const streamString = stream ? getLocalizedName(stream.label, intl) : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
-    : (null ?? "");
+    : "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -141,17 +124,17 @@ export const formattedPoolPosterTitle = ({
             {intl.formatMessage(commonMessages.dividingColon)}
           </>
         ) : null}
-        {title || ""}
+        {title ?? ""}
       </>
     ) : (
       <>
-        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
+        {title ?? ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
     label: short
-      ? `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim()
-      : `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
+      ? `${hasGroupAndLevel ? genericTitle : ""}${title ?? ""}`.trim()
+      : `${title ?? ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 
@@ -183,7 +166,7 @@ export const poolTitle = (
   if (pool === null || pool === undefined)
     return {
       html: fallbackTitle,
-      label: fallbackTitle.toString(),
+      label: nodeToString(fallbackTitle),
     };
 
   const specificTitle = getLocalizedName(pool?.name, intl);
@@ -378,6 +361,19 @@ export const useAdminPoolPages = (
         },
       },
     ],
+    [
+      "manage-access",
+      {
+        title: intl.formatMessage({
+          defaultMessage: "Manage access",
+          id: "J0i4xY",
+          description: "Title for members page",
+        }),
+        link: {
+          url: paths.poolManageAccess(pool.id),
+        },
+      },
+    ],
   ]);
 };
 
@@ -396,11 +392,11 @@ export const getAdvertisementStatus = (
   return pool.isComplete ? "complete" : "incomplete";
 };
 
-type StatusBadge = {
+interface StatusBadge {
   color: Color;
   label?: MessageDescriptor | string;
   icon?: IconType;
-};
+}
 
 const defaultCompleteness: StatusBadge = {
   color: "error",
@@ -461,7 +457,7 @@ export const getProcessStatusBadge = (
 };
 
 export function getClassificationName(
-  { group, level, name }: Classification,
+  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) {
   const groupLevelStr = `${group}-0${level}`;

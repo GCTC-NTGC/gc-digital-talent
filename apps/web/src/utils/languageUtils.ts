@@ -7,7 +7,7 @@ export type PartialUser = Pick<User, "lookingForBilingual">;
 // Is the user missing the "looking for bilingual" profile option for this bilingual pool?
 const isMissingLookingForBilingual = (
   user?: PartialUser,
-  pool?: Pool | null,
+  pool?: Pick<Pool, "language"> | null,
 ): boolean => {
   const userLookingForBilingual = !!user?.lookingForBilingual;
   const poolNeedsBilingual =
@@ -22,9 +22,9 @@ const isMissingLookingForBilingual = (
 // Get a list of missing language requirement error message descriptors
 export const getMissingLanguageRequirements = (
   user?: PartialUser,
-  pool?: Pool | null,
-): Array<MessageDescriptor> => {
-  const errorMessages: Array<MessageDescriptor> = [];
+  pool?: Pick<Pool, "language"> | null,
+): MessageDescriptor[] => {
+  const errorMessages: MessageDescriptor[] = [];
 
   if (isMissingLookingForBilingual(user, pool))
     errorMessages.push({

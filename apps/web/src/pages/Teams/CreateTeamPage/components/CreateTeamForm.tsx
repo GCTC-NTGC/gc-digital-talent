@@ -21,19 +21,19 @@ import useRoutes from "~/hooks/useRoutes";
 import CreateTeamFormFields from "./CreateTeamFormFields";
 import { TeamDepartmentOption_Fragment } from "../../operations";
 
-type FormValues = {
+interface FormValues {
   displayName?: Maybe<LocalizedStringInput>;
   contactEmail?: Maybe<Scalars["Email"]["output"]>;
-  departments?: Array<Scalars["UUID"]["output"]>;
+  departments?: Scalars["UUID"]["output"][];
   description?: Maybe<LocalizedStringInput>;
-};
+}
 
 const formValuesToSubmitData = (data: FormValues): CreateTeamInput => {
   const { displayName, contactEmail, departments, description } = data;
   return {
     displayName,
     contactEmail,
-    name: kebabCase(displayName?.en || ""),
+    name: kebabCase(displayName?.en ?? ""),
     departments: { sync: departments },
     description,
   };

@@ -19,12 +19,14 @@ final class RoleInputValidator extends Validator
         return [
             'attach.*.roleId' => [
                 'distinct',
+                'required',
             ],
             'attach.*' => [
                 new RoleTeamConsistent(),
             ],
             'detach.*.roleId' => [
                 'distinct',
+                'required',
             ],
             'detach.*' => [
                 new RoleTeamConsistent(),

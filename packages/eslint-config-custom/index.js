@@ -1,24 +1,26 @@
+const { resolve } = require("node:path");
+const project = resolve(process.cwd(), "tsconfig.json");
+
 module.exports = {
   parser: "@typescript-eslint/parser",
   extends: [
-    "airbnb",
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:prettier/recommended",
     "prettier",
   ],
   ignorePatterns: [
     "index.js",
     ".eslintrc",
     ".eslintrc.cjs",
-    "vite.*.ts",
     "tsconfig.json",
-    "CssStub.js",
+    "styleMock.ts",
+    "fileMock.ts",
     ".turbo",
+    "gql/graphql.ts",
     "dist/**",
   ],
   overrides: [
@@ -33,7 +35,7 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: "module",
-    project: true,
+    project,
   },
   plugins: [
     "import",
@@ -44,14 +46,14 @@ module.exports = {
   ],
   rules: {
     camelcase: [
-      "warn",
+      "error",
       {
         allow: ["w*Query$", "w*Fragment$", "w*Mutation$", "w*Document$"],
       },
     ],
-    "consistent-return": "warn",
+    "consistent-return": "error",
     "import/no-extraneous-dependencies": "off",
-    "import/extensions": ["warn", "never", { json: "always" }],
+    "import/extensions": ["error", "never", { json: "always" }],
     "import/order": [
       "error",
       {
@@ -79,23 +81,47 @@ module.exports = {
       },
     ],
     "no-only-tests/no-only-tests": "error",
-    "no-param-reassign": "warn",
+    "no-param-reassign": "error",
     "no-use-before-define": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-use-before-define": "warn",
+    "no-console": "error",
+    "no-alert": "error",
+    "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
-    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "error",
+      { ignorePrimitives: { boolean: true } },
+    ],
     "no-underscore-dangle": ["error", { allow: ["__typename"] }],
-    "deprecation/deprecation": "warn",
+
+    // CI Only rules to keep local snappy, deprecation kept as a warn
+    "import/no-named-as-default": process.env.CI ? "error" : "off",
+    "import/namespace": process.env.CI ? "error" : "off",
+    "deprecation/deprecation": process.env.CI ? "warn" : "off",
+
+    // Temporarily disabled to ease transition to typed linting
+    "@typescript-eslint/no-misused-promises": "off", // Remove in #11379
+    "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
+
+    // Remove in #11384
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
   },
   settings: {
+    react: {
+      version: "18.0",
+    },
     "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
       typescript: {
-        project: [__dirname],
+        project,
       },
     },
   },

@@ -13,7 +13,11 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { keyStringRegex, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
@@ -37,7 +41,10 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { SkillFormOptions_Query } from "./operations";
 
-type Option<V> = { value: V; label: string };
+interface Option<V> {
+  value: V;
+  label: string;
+}
 
 type FormValues = Pick<Skill, "description"> & {
   key: string;
@@ -120,7 +127,7 @@ export const CreateSkillForm = ({
   const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
     ({ id, name }) => ({
       value: id,
-      label: name?.[locale] || "",
+      label: getLocalizedName(name, intl),
     }),
   );
 
@@ -136,11 +143,7 @@ export const CreateSkillForm = ({
           <Input
             id="key"
             name="key"
-            label={intl.formatMessage({
-              defaultMessage: "Key",
-              id: "CvV2l6",
-              description: "Label for an entity 'key' field",
-            })}
+            label={intl.formatMessage(adminMessages.key)}
             context={intl.formatMessage({
               defaultMessage:
                 "The 'key' is a string that uniquely identifies a skill. It should be based on the skills English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill, so it cannot be changed later.",

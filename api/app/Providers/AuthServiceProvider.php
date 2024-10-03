@@ -95,6 +95,7 @@ class AuthServiceProvider extends ServiceProvider
 
             // By this point we have verified that the token is legitimate
             $userMatch = User::where('sub', $sub)->withTrashed()->first();
+
             if ($userMatch) {
                 if ($userMatch->deleted_at != null) {
                     throw new AuthenticationException('Login as deleted user: '.$userMatch->sub, 'user_deleted');

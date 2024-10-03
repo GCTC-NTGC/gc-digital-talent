@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 /**
  * @jest-environment jsdom
  */
@@ -22,7 +23,7 @@ describe("ThemeSwitcher", () => {
   jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
   Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
 
-  it("should change theme to light mode", async () => {
+  it("should change theme to light mode", () => {
     renderThemeSwitcher();
     fireEvent.click(
       screen.getByRole("radio", { name: /activate light mode/i }),
@@ -41,7 +42,7 @@ describe("ThemeSwitcher", () => {
     ).toHaveAttribute("data-state", "on");
   });
 
-  it("should change theme to dark mode", async () => {
+  it("should change theme to dark mode", () => {
     renderThemeSwitcher();
     fireEvent.click(screen.getByRole("radio", { name: /activate dark mode/i }));
 
@@ -58,7 +59,7 @@ describe("ThemeSwitcher", () => {
     ).toHaveAttribute("data-state", "on");
   });
 
-  it("should change theme to pref mode", async () => {
+  it("should change theme to pref mode", () => {
     renderThemeSwitcher();
     fireEvent.click(
       screen.getByRole("radio", {

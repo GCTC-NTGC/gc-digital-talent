@@ -12,7 +12,7 @@ type Size = "sm" | "lg";
 
 interface FlourishContainerProps {
   children: ReactNode;
-  show?: Array<Side>;
+  show?: Side[];
   size?: Size;
   skew?: boolean;
 }

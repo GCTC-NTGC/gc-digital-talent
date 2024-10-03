@@ -8,44 +8,43 @@ assignees: ""
 
 ## ✨ Feature
 
-Describe the feature that is being requested
+<!-- Describe the feature that is being requested -->
 
 ## 🕵️ Details
 
-Add any additional details that could assist with the development of the new feature.
+<!-- Add any additional details that could assist with the development of the new feature. -->
 
-## 🎨 Design File
+## 🎨 Design
 
-Include a link to the design file (if it exists).
+<!-- Include the author of the linked design file's name (or even better, their `@githubUsername`) for future reference. -->
 
-### 🧑‍🎨 Designer
-
-Include the author of the linked design file's name (or even better, their `@githubUsername`) for future reference.
+<!-- Include a link to the design file (if it exists). -->
 
 ## 📸 Screenshot
 
-Add a screenshot of the new feature (if possible).
+<!-- Add a screenshot of the new feature (if possible). -->
 
 ## 🙋‍♀️ Proposed Implementation
 
-(optional) Do you have a proposed implementation?
+<!-- (optional) Do you have a proposed implementation? -->
 
 ## 🌎 Localization
 
-(optional) Provide any new copy along with translations available.
+<!-- (optional) Provide any new copy along with translations available. -->
 
 ## ✅ Acceptance Criteria
 
-A set of assumptions which, when tested, verify that the feature was properly implemented.
+<!-- A set of assumptions which, when tested, verify that the feature was properly implemented. -->
 
+<!--
 - [ ] Criteria 1
 - [ ] Criteria 2
+ -->
 
 ## 🛑 Blockers
 
-Issues which must be completed before this one.
+<!-- Issues which must be completed before this one. -->
 
 ```[tasklist]
 ### Blocked By
-- [ ] ticket number
 ```

@@ -3,11 +3,16 @@ import { action } from "@storybook/addon-actions";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { IndigenousCommunity } from "@gc-digital-talent/graphql";
+import {
+  IndigenousCommunity,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 
-const mockApplication = fakePoolCandidates(1)[0];
+const mockApplication = fakePoolCandidates(
+  1,
+)[0] as ApplicationPoolCandidateFragmentType;
 
 export default {
   component: ApplicationSelfDeclaration,

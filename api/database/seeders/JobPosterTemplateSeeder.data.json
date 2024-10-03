@@ -1,0 +1,1698 @@
+{
+  "data": {
+    "jobPosterTemplates": [
+      {
+        "referenceId": "IT-03-03-SU-012",
+        "name": {
+          "en": "Team Leader - IT Planning and Reporting",
+          "fr": "Chef d'équipe - Planification et établissement de rapports en matière de TI"
+        },
+        "description": {
+          "en": "As an IT-03 Team Leader in IT Planning and Reporting, you will supervise and lead a team responsible for providing support and advice in support of service delivery to internal or external clients and stakeholders. You will provide leadership, mentorship, and direction to ensure the team meets deadlines and delivers accurate and insightful reports. Your role involves leading IT planning, reporting, and performance measures related to organizational and central reporting requirements and fostering collaboration across IT and business units.",
+          "fr": "En tant que chef d’équipe IT-03 en planification et établissement de rapports en TI, vous assurerez la supervision et la gestion d’une équipe chargée de fournir de l’assistance et des conseils pour permettre la prestation de services aux clients internes ou externes et aux parties prenantes. Vous ferez preuve de leadership, de mentorat et de direction afin de garantir que l’équipe respecte les délais et fournisse des rapports précis et pertinents. Votre rôle consiste à diriger la planification, l’établissement de rapports et la mise en œuvre des mesures de rendement en TI en lien avec les exigences organisationnelles et centrales en matière de rapports et à favoriser la collaboration entre l’informatique et les unités opérationnelles. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Leads projects, provides advisory services, manages project funds.</p></li><li><p>Collaborates with clients to streamline strategic IT operations. </p></li><li><p>Researches emerging technologies and transformation initiatives and recommends and implements improvements to work processes, standards, procedures and services. </p></li><li><p>Leads the development of IT governance frameworks, IT strategic plans and standards. </p></li><li><p>Provides specialized technical advice on IT strategies, policies, and risk management.</p></li><li><p>Conducts feasibility studies and cost-benefit and impact analysis of IT planning and reporting requirements and recommends solutions to senior management and stakeholders.</p></li><li><p>Supervises and provides leadership to junior employees for their professional development.</p></li><li><p>Represents the team in meetings to resolve IT issues.</p></li></ul>",
+          "fr": "<ul><li><p>Diriger des projets, fournir des services de conseil, gérer les fonds des projets.</p></li><li><p>Collaborer avec les clients pour rationaliser les opérations stratégiques en matière de TI. </p></li><li><p>Rechercher les technologies émergentes et les initiatives de transformation et recommander et mettre en œuvre des améliorations des processus de travail, des normes, des procédures et des services. </p></li><li><p>Diriger l’élaboration de cadres de gouvernance, de plans stratégiques et de normes en matière de TI. </p></li><li><p>Fournir des conseils techniques spécialisés sur les stratégies, les politiques et la gestion des risques dans le domaine de TI.</p></li><li><p>Réaliser des études de faisabilité et des analyses coût-avantage et d’incidence des exigences en matière de planification et d’établissement de rapports en TI et recommander des solutions aux cadres supérieurs et aux parties prenantes.</p></li><li><p>Superviser et diriger les employés subalternes dans le cadre de leur perfectionnement professionnel.</p></li><li><p>Représenter l’équipe lors des réunions visant à résoudre les problèmes informatiques.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/f/f1/ITP-PER_TL-ChE_GCIT030019_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/9/96/ITP-PER_TL-ChE_GCIT030019_FR.docx"
+        },
+        "stream": {
+          "value": "PLANNING_AND_REPORTING"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Team Leader",
+            "IT Planning and Reporting",
+            "Independent Information Technology Project Review Team Leader",
+            "Independent Information Technology Project Reviewer"
+          ],
+          "fr": [
+            "Chef de l’équipe",
+            "Planification et établissement de rapports en TI",
+            "Chef de l’équipe indépendante d’examen de projets de technologies de l’information",
+            "Examinateur indépendant de projets de technologies de l’information"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-06-SU-029",
+        "name": {
+          "en": "Team Leader - Application Development",
+          "fr": "Chef d'équipe - Développement d'applications"
+        },
+        "description": {
+          "en": "As an IT-03 Team Lead in Application Development, you will lead a team of developers and analysts in executing web development projects from inception to completion. Your role involves project planning, resource planning, and risk assessment to ensure successful project delivery. You will foster a collaborative environment, encourage innovation, and drive continuous improvement in web development processes. As a key liaison between technical teams and stakeholders, you will oversee project timelines, budget allocation, and client communications, ensuring alignment with business goals and objectives.",
+          "fr": "En tant que chef d’équipe en développement d'applications IT-03, vous dirigerez une équipe de développeuses et développeurs et d’analystes dans l’exécution de projets de développement d'applications du début à la fin. Votre rôle consiste à planifier les projets, à planifier les ressources et à évaluer les risques pour assurer la réussite de la réalisation du projet. Vous favoriserez un environnement de collaboration, encouragerez l’innovation et favoriserez l’amélioration continue des processus de développement. En tant que principale agente ou principal agent de liaison entre les équipes techniques et les parties prenantes, vous superviserez les échéanciers du projet, l’affectation du budget et les communications avec les clients, en veillant à ce qu’ils correspondent aux buts et aux objectifs opérationnels."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Supervises and leads project teams in the development, integration, release, and maintenance of software solutions.</p></li><li><p>Identifies and delegates system issues to developers to debug, resolve, and produce technical documentation.</p></li><li><p>Conducts business analysis and feasibility studies, producing technical reports and recommending solutions for service enhancements.</p></li><li><p>Reviews team members' code submissions and provides feedback to ensure best practices and high performance.</p></li><li><p>Provides technical advice and guidance on application development processes and standards.</p></li><li><p>Represents the team in meetings with stakeholders to define service requirements.</p></li><li><p>Delegates tasks and supports the professional development of junior staff. </p></li></ul>",
+          "fr": "<ul><li><p>Superviser et diriger des équipes de projet dans le cadre du développement, de l’intégration, de la diffusion et de la maintenance de solutions logicielles.</p></li><li><p>Identifier et déléguer les problèmes du système aux développeurs pour déboguer, résoudre et produire la documentation technique.</p></li><li><p>Effectuer des analyses opérationnelles et des études de faisabilité, produire des rapports techniques et recommander des solutions pour l’amélioration des services.</p></li><li><p>Passer en revue le code élaboré par d’autres members de l'équipe et fournir une rétroaction pour assurer des pratiques exemplaires et un rendement élevé.</p></li><li><p>Fournir des conseils techniques et des directives sur les normes et les processus de développement des applications.</p></li><li><p>Représenter l'équipe lors des réunions avec les parties prenantes pour définir les exigences de service.</p></li><li><p>Déléguer des tâches et soutenir le développement professionnel du personnel subalterne. </p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Application Development Langauges and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement d'applications* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Full stack development was listed as optional, however this may be replaced by Front-end development or Back-end Development based on the operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement de la pile complète a été mentionné comme optionnel, mais il peut être remplacé par le développement frontal  ou dorsal fonction des exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/6/66/SS-SL_TL-ChE_GCIT030010_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/c/ce/SS-SL_TL-ChE_GCIT030010_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Software development lead",
+            "Supervisor",
+            "Team Lead",
+            "Software Development"
+          ],
+          "fr": [
+            "Responsable du développement logiciel",
+            "Superviseur",
+            "Chef d'équipe",
+            "Développement logiciel"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-02-SU-009",
+        "name": {
+          "en": "Manager - IT Project Portfolio Management",
+          "fr": "Gestionnaire - Gestion de portefeuilles de projets des TI "
+        },
+        "description": {
+          "en": "As an IT-04 manager in IT Project Portfolio Management, you will provide expert advisory services on multidisciplinary IT projects to clients and stakeholders. You will develop IT project frameworks, develop and manage project budgets, change requests and agreements and lead the planning, execution, and oversight of the organization's IT project portfolio. Your role involves managing a team of professionals, defining portfolio governance frameworks, and ensuring alignment with business objectives.",
+          "fr": "En tant que gestionnaire IT-04 en gestion de portefeuille de projets en matière de TI, vous fournirez aux clients et aux parties prenantes des services consultatifs spécialisés sur des projets pluridisciplinaires en TI. Vous définirez des cadres de projets informatiques, établirez et gérerez les budgets des projets, les demandes de modifications et les accords, et dirigerez la planification, l’exécution et la supervision du portefeuille de projets informatiques de l’organisation. Votre rôle consiste à gérer une équipe de professionelles et professionnels, à définir des cadres de gouvernance de portefeuille et à assurer l’harmonisation avec les objectifs opérationnels. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Offers technical advice to clients to achieve project management objectives, enhances service delivery to clients, and promotes departmental awareness of changing conditions.</p></li><li><p>Manages and oversees the section through subordinate leaders, technical advisors, and project teams to facilitate service delivery.</p></li><li><p>Coordinates multidisciplinary project teams, develops subject matter experts, and negotiates agreements with client and supplier departments and agencies.</p></li><li><p>Develops IT project frameworks, charters, and requests for proposal, finalizes project scope, plans, schedules, and budgets, and manages project activities.</p></li><li><p>Provides expert technical advisory services to senior management, departmental organizations, and stakeholders to plan, develop, and implement IT projects.</p></li><li><p>Manages financial and human resources, allocates work, and assesses employee performance.</p></li><li><p>Chairs project meetings with stakeholders and participates in departmental and agency meetings and committees.</p></li></ul>",
+          "fr": "<ul><li><p>Offrir des conseils techniques aux clients afin d’atteindre les objectifs de gestion de projet, d’améliorer la prestation de services aux clients et de promouvoir la sensibilisation du ministère au changement des conditions.</p></li><li><p>Gérer et superviser la section par l’intermédiaire de subalternes, de conseillers techniques et d’équipes de projet afin de faciliter la prestation de services.</p></li><li><p>Coordonner des équipes de projet pluridisciplinaires, former des experts en la matière et négocier des accords avec les ministères et organismes client et fournisseur.</p></li><li><p>Élaborer des cadres, des chartes et des appels d’offres pour les projets informatiques, mettre au point la portée, les plans, les calendriers et les budgets des projets, et gérer les activités des projets.</p></li><li><p>Fournir des services consultatifs techniques spécialisés à la haute direction, aux organisations ministérielles et aux parties prenantes pour planifier, développer et mettre en œuvre des projets informatiques.</p></li><li><p>Gérer les ressources financières et humaines, attribuer le travail et évaluer le rendement des employés.</p></li><li><p>Présider les réunions de projet avec les parties prenantes et participer aux réunions et comités du ministère ou de l’organisme.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les  Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/7/71/PPM-GPP_Mgr-Ges_GCIT040015_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/a/a8/PPM-GPP_SA-CP_GCIT040019_FR.docx"
+        },
+        "stream": {
+          "value": "PROJECT_PORTFOLIO_MANAGEMENT"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Project executive",
+            "Project administrator",
+            "Project coordinator",
+            "Project leader",
+            "Project manager",
+            "Project scheduler"
+          ],
+          "fr": [
+            "Directeur de projet",
+            "Administrateur de projet",
+            "Coordinateur de projet",
+            "Chef de projet",
+            "Gestionnaire de projet",
+            "Planificateur de projet"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-06-IC-024",
+        "name": {
+          "en": "Senior Technical Advisor - Web Development",
+          "fr": "Conseiller(-ère)  technique principal(e) - Développement Web"
+        },
+        "description": {
+          "en": "As an IT-04 Senior Advisor in Web Development, you will assume a strategic role in shaping the direction of web development initiatives within the organization. You will provide executive-level consultation on technology trends, business strategy alignment, and innovation leadership in web development practices. Your role involves driving business growth through strategic partnerships, managing departmental budgets, and establishing performance metrics for measuring team and project success. As a thought leader in the industry, you will represent the organization at conferences and forums, advocating for advancements in web development technologies and methodologies",
+          "fr": "En tant que conseillère principale ou conseiller principal en développement Web IT-04, vous jouerez un rôle stratégique dans l’orientation des initiatives de développement Web au sein de l’organisation. Vous donnerez des conseils de haut niveau sur les tendances technologiques, l’harmonisation de la stratégie opérationnelle et le leadership en matière d’innovation dans les pratiques de développement Web. Votre rôle consiste à stimuler la croissance économique au moyen de partenariats stratégiques, à gérer les budgets ministériels et à établir des mesures de rendement pour mesurer la réussite de l’équipe et des projets. En tant que leader éclairé de l’industrie, vous représenterez l’organisation lors des conférences et des forums en défendant les progrès des technologies et des méthodologies de développement Web."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Writes new or modifies existing code to design specifications and produces programming specifications and technical documentation.</p></li><li><p>Maintains workflows with stakeholders and advises them on web deliverables and the resolution of technical issues.</p></li><li><p>Stays updated on current industry trends and technologies and applies best practices to develop frameworks and initiatives to improve product quality.</p></li><li><p>Reviews team members' code submissions and ensures web applications are scalable, secure, and accessible while adhering to industry standards and best practices.</p></li><li><p>Offers expert technical advice and strategic direction in web development processes and procedures and product evolution.</p></li><li><p>Translates complex business requirements into detailed technical specifications to develop project plans.</p></li><li><p>Interprets and develops IT policies, standards, and initiatives.</p></li><li><p>Manages project-related meetings and leads in training and mentorship of junior developers.</p></li></ul>",
+          "fr": "<ul><li><p>Rédiger de nouveaux codes ou modifier des codes existants en fonction des spécifications de conception et produire des spécifications de programmation et de la documentation technique.</p></li><li><p>Maintenir les flux de travail avec les parties prenantes et les conseiller sur les produits livrables  et la résolution des problèmes techniques.</p></li><li><p>Rester au courant des tendances et des technologies actuelles de l’industrie et appliquer les pratiques exemplaires pour élaborer des cadres et des initiatives visant à améliorer la qualité des produits.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe et s’assurer que les applications sont évolutives, sécurisées et accessibles tout en respectant les normes et les pratiques exemplaires de l’industrie.</p></li><li><p>Offrir des conseils techniques d’expert et une orientation stratégique sur les processus et les procédures de développement Web et l’évolution des produits.</p></li><li><p>Traduire des exigences opérationnelles complexes en spécifications techniques détaillées pour élaborer des plans de projet.</p></li><li><p>Interpréter et élaborer des politiques, des normes et des initiatives en matière de TI.</p></li><li><p>Gérer les réunions liées au projet et diriger la formation et le mentorat des développeurs débutants.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Web Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement web* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Front-end development, Back-end Development and Full stack development are optional; selection should be based on operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement frontal, le développement dorsal et le développement pile complète sont facultatifs ; la sélection doit être basée sur les exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/4/4f/SS-SL_SA-CP_GCIT040011_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/1/14/SS-SL_SA-CP_GCIT040011_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Technical Specialist",
+            "Development lead",
+            "Supervisor",
+            "Team Lead",
+            "Software Development"
+          ],
+          "fr": [
+            "Spécialiste technique",
+            "responsable du développement",
+            "superviseur",
+            "chef d'équipe",
+            "développement de logiciels"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-06-SU-025",
+        "name": {
+          "en": "Manager - Web Development",
+          "fr": "Gestionnaire - Développement Web"
+        },
+        "description": {
+          "en": "As an IT-04 Manager in Web Development, you will lead and manage a team focused on delivering cutting-edge web solutions. Your role involves overseeing departmental operations, including project management, resource allocation, and budget oversight for multiple web development projects. You will collaborate with senior management to define strategic goals, develop policies, and ensure alignment with organizational objectives. Your leadership will drive innovation, foster a culture of excellence, and maintain high standards of quality in software solutions. You will also play a key role in business development, maintaining client relationships, and expanding the organization's footprint in the web development market.",
+          "fr": "En tant que gestionnaire du développement Web IT-04, vous dirigerez et gérerez une équipe qui se concentre sur la prestation de solutions Web de pointe. Votre rôle consiste à superviser les opérations ministérielles, y compris la gestion de projet, l’affectation des ressources et la surveillance budgétaire pour de multiples projets de développement Web. Vous collaborerez avec la haute direction pour définir des buts stratégiques, élaborer des politiques et assurer l’harmonisation avec les objectifs organisationnels. Votre leadership stimulera l’innovation, favorisera une culture d’excellence et maintiendra des normes élevées de qualité dans les solutions logicielles. Vous jouerez également un rôle clé dans le développement des affaires, le maintien des relations avec les clients et l’expansion de l’empreinte de l’organisation sur le marché du développement Web."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Assigns and manages multidisciplinary project teams and leads teams in setting goals and objectives.</p></li><li><p>Manages financial and human resources of the section and develops subject matter experts.</p></li><li><p>Promotes the development and delivery of IT initiatives.</p></li><li><p>Leads design reviews with peers and stakeholders to present deliverables, resolutions of technical issues, and provides insights on web applications.</p></li><li><p>Provides management and expert advisory services throughout the software development lifecycle, and on IT policy and program objectives.</p></li><li><p>Manages the development, implementation, maintenance and the release of software solutions.</p></li><li><p>Negotiates agreements with departments and agencies on services and service levels.</p></li><li><p>Chairs project, departmental, and interdepartmental meetings and committees.</p></li></ul>",
+          "fr": "<ul><li><p>Affecter et gérer des équipes de projet pluridisciplinaires et diriger les équipes dans la définition des buts et des objectifs.</p></li><li><p>Gérer les ressources financières et humaines de la section et former des experts en la matière.</p></li><li><p>Promouvoir l’élaboration et la mise en œuvre d’initiatives de TI.</p></li><li><p>Diriger les examens de conception avec les pairs et les parties prenantes pour présenter les livrables, résoudre les problèmes techniques et fournir des renseignements sur les applications web.</p></li><li><p>Fournir des services de gestion et des conseils d’experts tout au long du cycle de vie du développement de logiciels, ainsi que sur les objectifs des politiques et des programmes de TI.</p></li><li><p>Gérer le développement, la mise en œuvre, la maintenance et la diffusion de solutions logicielles.</p></li><li><p>Négocier des accords avec les ministères et organismes sur les niveaux de service.</p></li><li><p>Présider des réunions et des comités de projet ministériels et interministériels.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Web Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement web* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Front-end development, Back-end Development and Full stack development are optional; selection should be based on operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement frontal, le développement dorsal et le développement pile complète sont facultatifs ; la sélection doit être basée sur les exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d3/SS-SL_Mgr-Ges_GCIT040010_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/1/1b/SS-SL_Mgr-Ges_GCIT040010_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": ["Programmer", "Manager", "Supervisor"],
+          "fr": ["Programmeur", "gestionnaire", "superviseur"]
+        }
+      },
+      {
+        "referenceId": "IT-04-06-IC-018",
+        "name": {
+          "en": "Senior Technical Advisor - Quality Assurance",
+          "fr": "Conseiller(-ère)  technique principal(e) - assurance de la qualité"
+        },
+        "description": {
+          "en": "As an IT-04 Senior Advisor in Quality Assurance (QA) for Software Solutions, you will provide strategic guidance and thought leadership in QA methodologies and practices. You will drive innovation, solve complex QA challenges, and advocate for quality excellence across all software development initiatives. Your role involves collaborating with senior management to define QA strategies aligned with business objectives and industry best practices.",
+          "fr": "En tant que conseillère principale ou conseiller principal en assurance de la qualité (AQ) pour les solutions logicielles IT-04, vous fournirez une orientation stratégique et un leadership éclairé en matière de méthodes et de pratiques d’AQ. Vous encouragerez l’innovation, résoudrez des problèmes complexes d’AQ et préconiserez l’excellence en matière de qualité dans toutes les initiatives de développement de logiciels. Votre rôle consiste à collaborer avec la haute direction pour définir des stratégies d’AQ conformes aux objectifs opérationnels et aux pratiques exemplaires de l’industrie.  "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Offers expert technical advice and strategic direction in quality assurance processes and standards. </p></li><li><p>Acts as a technical authority on quality assurance acquisition, development, and integration.  </p></li><li><p>Provides expert advice to senior management and stakeholders. </p></li><li><p>Designs quality assurance frameworks and recommend strategic improvement initiatives. </p></li><li><p>Researches best practices and current trends in quality assurance. </p></li><li><p>Represents the organization in committees and liaises with industry representatives. </p></li><li><p>Chairs project and departmental and agency meetings and committees. </p></li></ul>",
+          "fr": "<ul><li><p>Offrir des conseils techniques d’expert et une orientation stratégique en matière de normes et de processus d’assurance de la qualité. </p></li><li><p>Agir en tant qu’autorité technique en matière d’acquisition, de développement et d’intégration de l’assurance de la qualité.  </p></li><li><p>Fournir des conseils d’expert à la haute direction et aux parties prenantes. </p></li><li><p>Concevoir des cadres d’assurance de la qualité et recommander des initiatives d’amélioration stratégique. </p></li><li><p>Étudier les pratiques exemplaires et les tendances actuelles en matière d’assurance de la qualité. </p></li><li><p>Représenter l’organisation dans les comités et assurer la liaison avec les représentants de l’industrie. </p></li><li><p>Présider les réunions et les comités de projet et des ministères et organismes. </p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/4/4f/SS-SL_SA-CP_GCIT040011_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/1/14/SS-SL_SA-CP_GCIT040011_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Quality Assurance Technician",
+            "Technical Advisor",
+            "Team Lead",
+            "Senior Advisor",
+            "Manager",
+            "Engineer",
+            "Tester",
+            "Specialist",
+            "Supervisor"
+          ],
+          "fr": [
+            "Technicien en assurance de la qualité",
+            "conseiller technique",
+            "chef d’équipe",
+            "conseiller principal",
+            "gestionnaire",
+            "ingénieur",
+            "testeur",
+            "spécialiste",
+            "superviseur"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-06-SU-019",
+        "name": {
+          "en": "Manager - Quality Assurance",
+          "fr": "Gestionnaire - assurance de la qualité"
+        },
+        "description": {
+          "en": "As an IT-04 Manager in Quality Assurance (QA) for Software Solutions, you will lead the QA function, overseeing the testing and quality assurance activities for all software solutions within the organization. You will define QA policies, manage budgets and resources, and ensure the successful delivery of high-quality software products. Your role involves strategic planning, stakeholder management, and continuous improvement of QA processes and capabilities.",
+          "fr": "En tant que gestionnaire de l’assurance de la qualité (AQ) pour les solutions logicielles IT-04, vous dirigerez la fonction d’AQ en supervisant les activités de test et d’assurance de la qualité pour toutes les solutions logicielles au sein de l’organisation. Vous définirez les politiques d’AQ, gérerez les budgets et les ressources et assurerez la livraison réussie de produits logiciels de haute qualité. Votre rôle comprend la planification stratégique, la gestion des parties prenantes et l’amélioration continue des processus et des capacités d’AQ.  "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Provides expert advisory services in quality assurance planning, development, testing, and release management. </p></li><li><p>Manages multidisciplinary project teams and oversees section through subordinate team leaders and project teams. </p></li><li><p>Manages the development, implementation, maintenance, and release of quality assurance software solutions. </p></li><li><p>Provides technical advice and guidance to senior management and stakeholders on IT policy and program objectives. </p></li><li><p>Develops subject matter experts in quality assurance. </p></li><li><p>Negotiates agreements on services and service levels with stakeholders. </p></li><li><p>Manages financial and human resources of section and project teams. </p></li><li><p>Chairs project and departmental and agency meetings and committees. </p></li></ul>",
+          "fr": "<ul><li><p>Fournir des services consultatifs d’expert en planification, élaboration, mise à l’essai et gestion des versions d’assurance de la qualité. </p></li><li><p>Gérer des équipes de projet pluridisciplinaires et superviser la section par l’intermédiaire des chefs d’équipe subalternes et des équipes de projet. </p></li><li><p>Gérer le développement, la mise en œuvre, la maintenance et la diffusion de solutions logicielles d’assurance de la qualité. </p></li><li><p>Fournir des conseils et une orientation techniques à la haute direction et aux parties prenantes sur les objectifs des politiques et des programmes de TI. </p></li><li><p>Former des spécialistes en assurance de la qualité. </p></li><li><p>Négocier des ententes sur les services et les niveaux de service avec les parties prenantes. </p></li><li><p>Gérer les ressources financières et humaines de la section et des équipes de projet. </p></li><li><p>Présider les réunions et les comités de projet et des ministères et organismes. </p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d3/SS-SL_Mgr-Ges_GCIT040010_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/1/1b/SS-SL_Mgr-Ges_GCIT040010_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Quality Assurance Technician",
+            "Technical Advisor",
+            "Team Lead",
+            "Senior Advisor",
+            "Manager",
+            "Engineer",
+            "Tester",
+            "Specialist",
+            "Supervisor"
+          ],
+          "fr": [
+            "Technicien en assurance de la qualité",
+            "conseiller technique",
+            "chef d’équipe",
+            "conseiller principal",
+            "gestionnaire",
+            "ingénieur",
+            "testeur",
+            "spécialiste",
+            "superviseur"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-03-SU-013",
+        "name": {
+          "en": "Manager - IT Planning and Reporting",
+          "fr": "Gestionnaire -  Planification et établissement de rapports en matière de TI"
+        },
+        "description": {
+          "en": "As an IT-04 Manager in IT Planning and Reporting, you will lead the strategic direction and execution of IT planning and reporting, operational and strategic plans, strategies, policies, standards, work processes, and transform initiatives to align with the departmental/agency strategic vision. You will oversee the development of IT strategies, operational and strategic IT plans, and enhanced management frameworks to streamline IT operations and support IT planning and reporting solutions. Your role includes managing senior stakeholders, ensuring regulatory compliance, and fostering a culture of continuous improvement in IT planning and reporting practices.",
+          "fr": "En tant que gestionnaire IT-04 en planification et établissement de rapports en TI, vous dirigerez l’orientation stratégique et l’exécution de la planification et de l’établissement de rapports, des plans opérationnels et stratégiques, des stratégies, des politiques, des normes, des processus de travail et des initiatives de transformation dans le domaine de TI afin de les harmoniser avec la vision stratégique du ministère ou de l’organisme. Vous superviserez l’élaboration de stratégies informatiques, de plans opérationnels et stratégiques en TI et de cadres de gestion améliorés afin de rationaliser les opérations et de soutenir les solutions de planification et d’établissement de rapports en TI. Votre rôle consiste notamment à gérer les principales parties prenantes, à garantir la conformité réglementaire et à favoriser une culture d’amélioration continue des pratiques de planification et d’établissement de rapports en matière de technologies de l’information"
+        },
+        "tasks": {
+          "en": "<ul><li><p>Assigns and manages multi-disciplinary project teams.</p></li><li><p>Collaborates with stakeholders to identify opportunities for streamlining IT operations and support IT planning and reporting solutions.</p></li><li><p>Researches emerging technologies and prepares reports in IT and their impact on IT strategic and operational planning</p></li><li><p>Develops IT strategic plans and framework and promotes improvements and innovative solutions to achieve objectives.</p></li><li><p>Provides expert advisory services to senior management and stakeholders on IT policy objectives and initiatives.</p></li><li><p>Negotiates service level agreements with stakeholders and promotes government wide initiatives.</p></li><li><p>Allocates and prioritizes work of team, develops subject matter experts, and assesses employee performance in meeting goals and objectives. </p></li><li><p>Chairs and facilitates project-related meetings with stakeholders.</p></li></ul>",
+          "fr": "<ul><li><p>Assigner et gérer des équipes de projet pluridisciplinaires.</p></li><li><p>Collaborer avec les parties prenantes pour repérer les possibilités de rationalisation des opérations informatiques et soutenir les solutions de planification et d’établissement de rapports en TI.</p></li><li><p>Rechercher des technologies émergentes et préparer des rapports sur les technologies de l’information et leur incidence sur la planification stratégique et opérationnelle en TI.</p></li><li><p>Élaborer des plans et des cadres stratégiques en matière de TI et promouvoir des améliorations et des solutions innovantes pour atteindre les objectifs.</p></li><li><p>Fournir des services consultatifs spécialisés aux cadres supérieurs et aux parties prenantes concernant les objectifs et les initiatives en matière de politique de TI.</p></li><li><p>Négocier des accords de niveau de service avec les parties prenantes et promouvoir des initiatives à l’échelle du gouvernement.</p></li><li><p>Attribuer et hiérarchiser le travail de l’équipe, former des experts en la matière et évaluer le rendement des employés par rapport aux objectifs fixés. </p></li><li><p>Présider et animer des réunions avec les parties prenantes en rapport avec le projet.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les  Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/7/74/ITP-PER_Mgr-Ges_GCIT040002_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/6/68/ITP-PER_Mgr-Ges_GCIT040002_FR.docx"
+        },
+        "stream": {
+          "value": "PLANNING_AND_REPORTING"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Manager",
+            "IT Planning and Reporting",
+            "Independent Information Technology Project Review Team Leader",
+            "Independent Information Technology Project Reviewer"
+          ],
+          "fr": [
+            "Gestionnaire",
+            "Plannifcation et établissement de rapports en TI",
+            "Chef de l’équipe indépendante d’examen de projets de technologies de l’information",
+            "Examinateur indépendant de projets de technologies de l’information"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-01-06-IC-020",
+        "name": {
+          "en": "Junior Web Developer",
+          "fr": "Développeur (-euse) Web subalterne"
+        },
+        "description": {
+          "en": "As an IT-01 Technician in Web Development, you will play a foundational role in the development of a web application. Your role includes troubleshooting issues, assisting with basic coding tasks, and providing technical support to ensure smooth operations throughout the development lifecycle. You'll work closely with developers and senior technicians to execute tasks such as writing, debugging, and reviewing code contributing to the deployment of various web applications.",
+          "fr": "En tant que technicienne ou technicien en développement Web IT-01, vous jouerez un rôle fondamental dans le développement d’une application Web. Votre rôle consiste à résoudre les problèmes, à participer aux tâches de codage de base et à fournir une assistance technique afin de garantir le bon déroulement des opérations tout au long du cycle de développement. Vous travaillerez en étroite collaboration avec les développeuses et développeurs et les techniciennes et techniciens supérieurs pour exécuter des tâches comme la rédaction, le débogage et l’examen de codes qui contribuent au déploiement de diverses applications Web."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Writes new or modifies existing code to design specifications.</p></li><li><p>Investigates, troubleshoots, and documents technical problems or bugs.</p></li><li><p>Collaborates with team members to produce system documentation.</p></li><li><p>Reviews team members' code submissions to identify potential bugs, suggests improvements, and verifies completion.</p></li></ul>",
+          "fr": "<ul><li><p>Rédiger de nouveaux codes ou modifier les codes existants en fonction des spécifications de conception.</p></li><li><p>Étudier, dépanner et documenter les problèmes techniques ou les bogues.</p></li><li><p>Collaborer avec les membres de l’équipe pour produire la documentation du système.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe afin d'identifier les bogues potentiels, suggérer des améliorations et vérifier leur achèvement.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Web Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement web* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Front-end development, Back-end Development and Full stack development are optional; selection should be based on operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement frontal, le développement dorsal et le développement pile complète sont facultatifs ; la sélection doit être basée sur les exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/f/fc/SS-SL_Tech_GCIT010002_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/6/65/SS-SL_Tech_GCIT010002_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 1
+        },
+        "keywords": {
+          "en": ["Programmer"],
+          "fr": ["Programmeur"]
+        }
+      },
+      {
+        "referenceId": "IT-03-06-IC-028",
+        "name": {
+          "en": "Senior Application Developer",
+          "fr": "Développeur(-euse) d'applications principal(e)"
+        },
+        "description": {
+          "en": "As an IT-03 Technical Advisor in Application Development, you will provide strategic technical leadership and guidance to development teams and stakeholders. Your role involves designing scalable and secure architectures, evaluating and recommending new technologies, and overseeing the implementation of complex application development projects. You will be responsible for resolving technical challenges, optimizing performance, and ensuring adherence to best practices in application development. Your expertise will extend to mentoring junior staff, conducting training sessions, and advising on technical strategies that align with organizational objectives.",
+          "fr": "En tant que conseillère ou conseiller technique en développement d'applications  IT-03, vous fournirez un leadership technique et stratégique et des conseils aux équipes de développement et aux parties prenantes. Votre rôle consiste à concevoir des architectures évolutives et sécurisées, à évaluer et à recommander de nouvelles technologies et à superviser la mise en œuvre de projets de développement d'applications complexes. Vous serez responsable de résoudre les problèmes techniques, d’optimiser le rendement et d’assurer le respect des pratiques exemplaires en matière de développement d'applications. Votre expertise s’étendra au mentorat du personnel subalterne, à la tenue de séances de formation et à la formulation de conseils sur des stratégies techniques qui cadrent avec les objectifs organisationnels."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Writes new or modifies existing code to design specifications and produces programming specifications and technical documentation.</p></li><li><p>Identifies issues and writes detailed instructions, explanations, and troubleshooting steps that are easy for others to follow and action.</p></li><li><p>Researches, shares and applies best practices, key concepts, and emerging practices and software.</p></li><li><p>Reviews team members' code submissions to identify potential bugs, suggests improvements, and verifies completion.</p></li><li><p>Consults with management and stakeholders throughout the software development life cycle and provides advice as needed.</p></li><li><p>Participates in the selection, installation, configuration, and testing of application development tools.</p></li><li><p>Develops and supports application development processes and standards.</p></li><li><p>Mentors junior developers and acts as lead in project teams.</p></li></ul>",
+          "fr": "<ul><li><p>Rédiger de nouveaux codes ou modifier des codes existants en fonction des spécifications de conception et produire des spécifications de programmation et de la documentation technique.</p></li><li><p>Cerner les problèmes et rédiger des instructions détaillées, des explications et des étapes de dépannage qui sont faciles à suivre pour les autres.</p></li><li><p>Faire des recherches, partager et appliquer des pratiques exemplaires, des concepts clés et des pratiques émergentes ou des logiciels.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe afin d'identifier les bogues potentiels, suggérer des améliorations et vérifier leur achèvement.</p></li><li><p>Consulter la direction et les parties prenantes tout au long du cycle de développement des logiciels et fournir des conseils au besoin.</p></li><li><p>Participer à la sélection, à l’installation, à la configuration et à l’essai des outils de développement d'applications.</p></li><li><p>Élaborer et soutenir les processus et les normes de développement des applications. </p></li><li><p>Encadrer les développeurs débutants et diriger les équipes de projet.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Application Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement d'applications* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Full stack development was listed as optional, however this may be replaced by Front-end development or Back-end Development based on the operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement de la pile complète a été mentionné comme optionnel, mais il peut être remplacé par le développement frontal  ou dorsal fonction des exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/b/be/SS-SL_TA-CT_GCIT030011_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/4/43/SS-SL_TA-CT_GCIT030011_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Application Development Technical Specialist",
+            "Software development technical advisor"
+          ],
+          "fr": [
+            "Spécialiste technique en développement d'applications",
+            "Conseiller technique en développement logiciel"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-02-IC-006",
+        "name": {
+          "en": "Technical Advisor - IT Project Portfolio Management",
+          "fr": "Conseiller(-ère) technique - Gestion de portefeuilles de projets des TI "
+        },
+        "description": {
+          "en": "As an IT-03 technical advisor in Project Portfolio Management, you will lead project teams, support multi-disciplinary IT projects, and leverage your technical expertise to guide and advise clients and stakeholders on IT project strategies. Your role involves evaluating technological feasibility, assessing implementation approaches, and recommending solutions that align with organizational objectives.  You will provide technical insights that enhance project outcomes, mitigate risks, and ensure alignment with industry best practices.",
+          "fr": "En tant que conseillère ou conseiller technique IT-03 en gestion de portefeuille de projets, vous dirigerez des équipes de projet, soutiendrez des projets pluridisciplinaires en TI et mettrez à profit votre expertise technique pour guider et conseiller les clients et les parties prenantes sur les stratégies de projets informatiques. Votre rôle consiste à évaluer la faisabilité technologique, les approches de mise en œuvre et à recommander des solutions conformes aux objectifs de l’organisation. Vous fournirez des avis techniques permettant d’améliorer les résultats des projets, d’atténuer les risques et de garantir l’harmonisation avec les meilleures pratiques du secteur."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Offers specialized technical advice and project leadership for multidisciplinary IT projects.</p></li><li><p>Leads in project teams overseeing research, planning, development, and implementation.</p></li><li><p>Manages project activities, including establishing project management environments, tools, risk analysis, and change management processes.</p></li><li><p>Provides technical guidance on project management solutions, methodologies, tools, and services to management and stakeholders.</p></li><li><p>Leads multidisciplinary reviews, studies, proposal development, cost-benefit analysis, and technical project analysis, presents results to stakeholders.</p></li><li><p>Provides guidance on policies, procedures, and standards, ensuring compliance with government guidelines.</p></li><li><p>Conducts research and feasibility studies to support the development and use of complex project management solutions.</p></li><li><p>Leads project team meetings, assigns tasks, tracks progress, and takes corrective action as needed.</p></li><li><p>Participates in committees or working groups.</p></li></ul>",
+          "fr": "<ul><li><p>Offrir des conseils techniques spécialisés et diriger des projets pluridisciplinaires en TI.</p></li><li><p>Diriger des équipes de projet supervisant la recherche, la planification, l’élaborer et la mise en œuvre.</p></li><li><p>Gérer les activités du projet, y compris la mise en place d’environnements et d’outils de gestion de projet, l’analyse des risques et les processus de gestion du changement.</p></li><li><p>Fournir des conseils techniques sur les solutions, les méthodologies, les outils et les services de gestion de projet à la direction et aux parties prenantes.</p></li><li><p>Diriger des examens pluridisciplinaires, des études, l’élaboration de propositions, des analyses coût-avantage et des analyses techniques de projets, et présenter les résultats aux parties prenantes.</p></li><li><p>Fournir des conseils sur les politiques, les procédures et les normes, en veillant au respect des lignes directrices gouvernementales.</p></li><li><p>Mener des recherches et des études de faisabilité pour soutenir l’élaboration et l’utilisation de solutions complexes de gestion de projets.</p></li><li><p>Diriger les réunions de l’équipe de projet, attribuer les tâches, suivre les progrès et prendre des mesures correctives si nécessaire.</p></li><li><p>Participer à des comités ou à des groupes de travail.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/3/35/PPM-GPP_TA-CT_GCIT030013_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/e/e2/PPM-GPP_TA-CT_GCIT030013_FR.docx"
+        },
+        "stream": {
+          "value": "PROJECT_PORTFOLIO_MANAGEMENT"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Project executive",
+            "Project administrator",
+            "Project coordinator",
+            "Project leader",
+            "Project manager",
+            "Project scheduler"
+          ],
+          "fr": [
+            "Directeur de projet",
+            "Administrateur de projet",
+            "Coordinateur de projet",
+            "Chef de projet",
+            "Gestionnaire de projet",
+            "Planificateur de projet"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-02-06-IC-021",
+        "name": {
+          "en": "Web Developer",
+          "fr": "Développeur(-euse) Web"
+        },
+        "description": {
+          "en": "As an IT-02 Analyst in Web Development, you will take on a more analytical role, focusing on gathering and analyzing business requirements, testing applications for functionality and performance, and providing critical insights to optimize web development projects. You will collaborate closely with developers, quality assurance teams, and stakeholders to ensure that project goals are met on time and within budget. Your expertise in data analysis and programming will contribute to the delivery of high-quality web applications that meet user expectations and business requirements.",
+          "fr": "En tant qu'analyste en développement Web IT-02, vous assumerez un rôle plus analytique, en vous concentrant sur la collecte et l’analyse des exigences opérationnelles, la mise à l’essai d’applications pour les fonctionnalités et le rendement, et en fournissant des renseignements essentiels pour optimiser les projets de développement Web. Vous collaborerez étroitement avec les développeuses et développeurs, les équipes d’assurance de la qualité et les parties prenantes pour vous assurer que les objectifs du projet sont atteints dans le respect des délais et du budget. Votre expertise en matière d’analyse et de programmation des données contribuera à la prestation d’applications Web de grande qualité qui répondent aux attentes des utilisateurs et aux exigences opérationnelles."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Writes new or modifies existing code to design specifications.</p></li><li><p>Investigates, troubleshoots, and documents technical problems or bugs.</p></li><li><p>Researches and collaborates with various team members to identify programming requirements, produces programming specifications and technical documentation.</p></li><li><p>Reviews team members' code submissions to identify potential bugs, suggests improvements, and verifies completion.</p></li><li><p>Provides technical advice on programming languages, frameworks, and tools related to web development.</p></li></ul>",
+          "fr": "<ul><li><p>Rédiger de nouveaux codes ou modifier les codes existants en fonction des spécifications de conception.</p></li><li><p>Étudier, dépanner et documenter les problèmes techniques ou les bogues.</p></li><li><p>Faire des recherches et collaborer avec divers membres de l’équipe pour déterminer les exigences de programmation, produire des spécifications de programmation et de la documentation technique.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe afin d'identifier les bogues potentiels, suggérer des améliorations et vérifier leur achèvement.</p></li><li><p>Fournir des conseils techniques sur les langages de programmation, les cadres et les outils liés au développement Web.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Web Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement web* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Front-end development, Back-end Development and Full stack development are optional; selection should be based on operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement frontal, le développement dorsal et le développement pile complète sont facultatifs ; la sélection doit être basée sur les exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d6/SS-SL_Analyst%28e%29_GCIT020004_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/2/2e/SS-SL_Analyst%28e%29_GCIT020004_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 2
+        },
+        "keywords": {
+          "en": ["Programmer", "Technical Specialist"],
+          "fr": ["Programmeur", "spécialiste technique"]
+        }
+      },
+      {
+        "referenceId": "IT-03-06-IC-22",
+        "name": {
+          "en": "Senior Web Developer",
+          "fr": "Développeur(-euse) Web principal(e)"
+        },
+        "description": {
+          "en": "As an IT-03 Technical Advisor in Web Development, you will provide strategic technical leadership and guidance to development teams and stakeholders. Your role involves designing scalable and secure architectures, evaluating and recommending new technologies, and overseeing the implementation of complex web development projects. You will be responsible for resolving technical challenges, optimizing performance, and ensuring adherence to best practices in web development. Your expertise will extend to mentoring junior staff, conducting training sessions, and advising on technical strategies that align with organizational objectives.",
+          "fr": "En tant que conseillère ou conseiller technique en développement Web IT-03, vous fournirez un leadership technique et stratégique et des conseils aux équipes de développement et aux parties prenantes. Votre rôle consiste à concevoir des architectures évolutives et sécurisées, à évaluer et à recommander de nouvelles technologies et à superviser la mise en œuvre de projets de développement Web complexes. Vous serez responsable de résoudre les problèmes techniques, d’optimiser le rendement et d’assurer le respect des pratiques exemplaires en matière de développement Web. Votre expertise s’étendra au mentorat du personnel subalterne, à la tenue de séances de formation et à la formulation de conseils sur des stratégies techniques qui cadrent avec les objectifs organisationnels."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Writes new or modifies existing code to design specifications and produces programming specifications and technical documentation.</p></li><li><p>Identifies issues and writes detailed instructions, explanations, and troubleshooting steps that are easy for others to follow and action.</p></li><li><p>Researches, shares and applies best practices, key concepts, and emerging practices and/or software’s.</p></li><li><p>Reviews team members' code submissions to identify potential bugs, suggests improvements, and verifies completion.</p></li><li><p>Consults with management and stakeholders throughout the software development lifecycle and provides advice as needed.</p></li><li><p>Participates in the selection, installation, configuration, and testing of web development tools.</p></li><li><p>Develops and supports web development processes and standards.</p></li><li><p>Mentors’ junior developers and acts as lead in project teams.</p></li></ul>",
+          "fr": "<ul><li><p>Rédiger de nouveaux codes ou modifier des codes existants en fonction des spécifications de conception et produire des spécifications de programmation et de la documentation technique.</p></li><li><p>Cerner les problèmes et rédiger des instructions détaillées, des explications et des étapes de dépannage qui sont faciles à suivre pour les autres.</p></li><li><p>Faire des recherches, partager et appliquer des pratiques exemplaires, des concepts clés et des pratiques émergentes ou des logiciels.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe afin d'identifier les bogues potentiels, suggérer des améliorations et vérifier leur achèvement.</p></li><li><p>Consulter la direction et les parties prenantes tout au long du cycle de développement des logiciels et fournir des conseils au besoin.</p></li><li><p>Participer à la sélection, à l’installation, à la configuration et à l’essai des outils de développement Web.</p></li><li><p>Élaborer et soutenir les processus et les normes de développement Web.</p></li><li><p>Encadrer les développeurs débutants et diriger les équipes de projet.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Web Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement web* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Front-end development, Back-end Development and Full stack development are optional; selection should be based on operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement frontal, le développement dorsal et le développement pile complète sont facultatifs ; la sélection doit être basée sur les exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/b/be/SS-SL_TA-CT_GCIT030011_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/4/43/SS-SL_TA-CT_GCIT030011_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Technical Specialist",
+            "Development lead",
+            "Supervisor",
+            "Team Lead",
+            "Software Development"
+          ],
+          "fr": [
+            "Spécialiste technique",
+            "responsable du développement",
+            "superviseur",
+            "chef d'équipe",
+            "développement de logiciels"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-06-SU-023",
+        "name": {
+          "en": "Team Leader - Web Development",
+          "fr": "Chef d'équipe - Développement Web"
+        },
+        "description": {
+          "en": "As an IT-03 Team Lead in Web Development, you will lead a team of developers and analysts in executing web development projects from inception to completion. Your role involves project planning, resource planning, and risk assessment to ensure successful project delivery. You will foster a collaborative environment, encourage innovation, and drive continuous improvement in web development processes. As a key liaison between technical teams and stakeholders, you will oversee project timelines, budget allocation, and client communications, ensuring alignment with business goals and objectives.",
+          "fr": "En tant que chef d’équipe en développement Web IT-03, vous dirigerez une équipe de développeuses et développeurs et d’analystes dans l’exécution de projets de développement Web, du début à la fin. Votre rôle consiste à planifier les projets, à planifier les ressources et à évaluer les risques pour assurer la réussite de la réalisation du projet. Vous favoriserez un environnement de collaboration, encouragerez l’innovation et favoriserez l’amélioration continue des processus de développement Web. En tant que principale agente ou principal agent de liaison entre les équipes techniques et les parties prenantes, vous superviserez les échéanciers du projet, l’affectation du budget et les communications avec les clients, en veillant à ce qu’ils correspondent aux buts et aux objectifs opérationnels."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Supervises and leads project teams in the development, integration, release, and maintenance of software solutions.</p></li><li><p>Identifies and delegates system issues to developers to debug, resolve, and produce technical documentation.</p></li><li><p>Conducts business analysis and feasibility studies, producing technical reports and recommending solutions for service enhancements.</p></li><li><p>Reviews team members' code submissions and provides feedback to ensure best practices and high performance.</p></li><li><p>Provides technical advice and guidance on web development processes and standards.</p></li><li><p>Represents the team in meetings with stakeholders to define service requirements.</p></li><li><p>Delegates tasks and supports the professional development of junior staff. </p></li></ul>",
+          "fr": "<ul><li><p>Superviser et diriger des équipes de projet dans le cadre du développement, de l’intégration, de la diffusion et de la maintenance de solutions logicielles.</p></li><li><p>Identifier et déléguer les problèmes du système aux développeurs pour déboguer, résoudre et produire la documentation technique.</p></li><li><p>Effectuer des analyses opérationnelles et des études de faisabilité, produire des rapports techniques et recommander des solutions pour l’amélioration des services.</p></li><li><p>Passer en revue le code élaboré par d’autres members de l'équipe et fournir une rétroaction pour assurer des pratiques exemplaires et un rendement élevé.</p></li><li><p>Fournir des conseils techniques et des directives sur les normes et les processus de développement Web.</p></li><li><p>Représenter équipe lors des réunions avec les parties prenantes pour définir les exigences de service.</p></li><li><p>Déléguer des tâches et soutenir le développement professionnel du personnel subalterne. </p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Web Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement web* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Front-end development, Back-end Development and Full stack development are optional; selection should be based on operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement frontal, le développement dorsal et le développement pile complète sont facultatifs ; la sélection doit être basée sur les exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/6/66/SS-SL_TL-ChE_GCIT030010_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/c/ce/SS-SL_TL-ChE_GCIT030010_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": ["Programmer", "Manager", "Supervisor"],
+          "fr": ["Programmeur", "gestionnaire", "superviseur"]
+        }
+      },
+      {
+        "referenceId": "IT-01-06-IC-026",
+        "name": {
+          "en": "Junior Application Developer",
+          "fr": "Développeur(-euse) d'applications subalterne"
+        },
+        "description": {
+          "en": "As an IT-01 Technician in Application Development, you will play a foundational role in the development of an application. Your role includes troubleshooting issues, assisting with basic coding tasks, and providing technical support to ensure smooth operations throughout the development lifecycle. You'll work closely with developers and senior technicians to execute tasks such as writing, debugging, and reviewing code contributing to the deployment of various applications.",
+          "fr": "En tant que technicienne ou technicien en développement d'applications IT-01, vous jouerez un rôle fondamental dans le développement d’une application Web. Votre rôle consiste à résoudre les problèmes, à participer aux tâches de codage de base et à fournir une assistance technique afin de garantir le bon déroulement des opérations tout au long du cycle de développement. Vous travaillerez en étroite collaboration avec les dévelopeuses et développeurs et les techniciennes et techniciens supérieurs pour exécuter des tâches comme la rédaction, le débogage et l’examen de codes qui contribuent au déploiement de diverses applications."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Writes new or modifies existing code to design specifications.</p></li><li><p>Investigates, troubleshoots, and documents technical problems or bugs.</p></li><li><p>Collaborates with team members to produce system documentation.</p></li><li><p>Reviews team members' code submissions to identify potential bugs, suggests improvements, and verifies completion.</p></li></ul>",
+          "fr": "<ul><li><p>Rédiger de nouveaux codes ou modifier les codes existants en fonction des spécifications de conception.</p></li><li><p>Étudier, dépanner et documenter les problèmes techniques ou les bogues.</p></li><li><p>Collaborer avec les membres de l’équipe pour produire la documentation du système.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe afin d'identifier les bogues potentiels, suggérer des améliorations et vérifier leur achèvement.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Application Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement d'applications* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Full stack development was listed as optional, however, this may be replaced by Front-end development or Back-end development based on the operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement de la pile complète a été mentionné comme optionnel, mais il peut être remplacé par le développement frontal  ou dorsal fonction des exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/f/fc/SS-SL_Tech_GCIT010002_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/6/65/SS-SL_Tech_GCIT010002_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 1
+        },
+        "keywords": {
+          "en": [
+            "Application Developer",
+            "programmer",
+            "Junior Application developer",
+            "Application Support Technician",
+            "Entry-level software developer"
+          ],
+          "fr": [
+            "Développeur d'applications",
+            "Programmeur",
+            "Développeur d'applications junior",
+            "Technicien de support applicatif",
+            "Développeur logiciel junior"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-02-06-IC-027",
+        "name": {
+          "en": "Application Developer",
+          "fr": "Développeur(-euse) d'applications"
+        },
+        "description": {
+          "en": "As an IT-02 Analyst in Application Development, you will take on a more analytical role, focusing on gathering and analyzing business requirements, testing applications for functionality and performance, and providing critical insights to optimize application development projects. You will collaborate closely with developers, quality assurance teams, and staekholders to ensure that project goals are met on time and within budget. Your expertise in data analysis and programming will contribute to the delivery of high-quality applications that meet user expectations and business requirements.",
+          "fr": "En tant qu'analyste en développement d'applications IT-02, vous assumerez un rôle plus analytique, en vous concentrant sur la collecte et l'analyse des besoins métier,  en testant des applications pour vérifier leur fonctionnalité et leur performance et en fournissant d'analyses critiques pour optimiser les projets de développement d'applications. Vous collaborerez étroitement avec les développeuses et développeurs, les équipes d'assurance qualité et les parties prenantes pour garantir que les objectifs du projet sont atteints dans les délais et dans le budget prévus. Votre expertise en analyse de données et en programmation contribuera à la livraison d'applications de haute qualité répondant aux attentes des utilisateurs et aux exigences opérationnels."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Provides technical advice on programming languages, frameworks, and tools for application development development.</p></li><li><p>Writes new or modifies existing code to design specifications.</p></li><li><p>Investigates, troubleshoots, and documents technical problems or bugs.</p></li><li><p>Researches and collaborates with various team members to identify programming requirements, produces programming specifications and technical documentation.</p></li><li><p>Reviews team members' code submissions to identify potential bugs, suggests improvements, and verifies completion.</p></li></ul>",
+          "fr": "<ul><li><p>Fournir des conseils techniques sur les langages de programmation, les cadres et les outils pour le développement d'applications.</p></li><li><p>Rédiger de nouveaux codes ou modifier les codes existants en fonction des spécifications de conception.</p></li><li><p>Étudier, dépanner et documenter les problèmes techniques ou les bogues.</p></li><li><p>Faire des recherches et collaborer avec divers membres de l’équipe pour déterminer les exigences de programmation, produire des spécifications de programmation et de la documentation technique.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe afin d'identifier les bogues potentiels, suggérer des améliorations et vérifier leur achèvement.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Application Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement d'applications* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Full stack development was listed as optional, however this may be replaced by Front-end development or Back-end Development based on the operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement de la pile complète a été mentionné comme optionnel, mais il peut être remplacé par le développement frontal  ou dorsal fonction des exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d6/SS-SL_Analyst%28e%29_GCIT020004_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/2/2e/SS-SL_Analyst%28e%29_GCIT020004_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 2
+        },
+        "keywords": {
+          "en": [
+            "Junior Application Analyst",
+            "Software analyst",
+            "application development analyst"
+          ],
+          "fr": ["Analyste d'applications", "Analyste logiciel"]
+        }
+      },
+      {
+        "referenceId": "IT-02-02-IC-005",
+        "name": {
+          "en": "Analyst - IT Project Portfolio Management",
+          "fr": "Analyste - Gestion de portefeuilles de projets desTI "
+        },
+        "description": {
+          "en": "As an IT-02 analyst in Project Portfolio Management, you will assist in gathering and analyzing data related to IT projects, ensuring alignment with strategic goals. Your role involves collaborating with stakeholders, evaluating project proposals, assessing risks, and providing insights to optimize resource allocation and project prioritization. You will contribute to maintaining accurate project plans that support organizational objectives and decision-making processes.",
+          "fr": "En tant qu’analyste IT-02 en gestion des portefeuilles de projets, vous contribuerez à la collecte et à l’analyse des données relatives aux projets informatiques, en veillant à leur harmonisation avec les objectifs stratégiques. Votre rôle consiste à collaborer avec les parties prenantes, à évaluer les propositions de projets et les risques et à fournir des avis qui permettront d’optimiser l’affectation des ressources et la hiérarchisation des projets. Vous contribuerez à maintenir des plans de projet précis qui soutiennent les objectifs et les processus décisionnels de l’organisation. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Provides technical IT services and advice for developing, implementing, and supporting project management solutions.</p></li><li><p>Conducts research, analysis, and implementation of changes to enhance project management solutions.</p></li><li><p>Develops, implements, and supports project management tools, reports, and documentation.</p></li><li><p>Supports project activities including integration, scope, time, cost, quality, human resources, communications, risk, and procurement management.</p></li><li><p>Offers technical advice and assistance to stakeholders and clients.</p></li><li><p>Assists in developing departmental and agency work processes, standards, and guidelines.</p></li><li><p>Participates as a member on projects, may lead short-term projects. </p></li></ul>",
+          "fr": "<ul><li><p>Fournir des services et des conseils techniques en matière de TI pour élaborer, mettre en œuvre et soutenir des solutions de gestion de projet.</p></li><li><p>Effectuer des recherches, des analyses et mettre en œuvre des changements afin d’améliorer les solutions de gestion de projet.</p></li><li><p>Développer, mettre en œuvre et soutenir les outils de gestion de projet, les rapports et la documentation.</p></li><li><p>Soutenir les activités du projet, notamment l’intégration, la portée, le temps, le coût, la qualité, les ressources humaines, les communications, les risques et la gestion de l'approvisionnement. </p></li><li><p>Offrir des conseils et de l’assistance techniques aux parties prenantes et aux clients.</p></li><li><p>Contribuer à l’élaboration des processus de travail, des normes et des lignes directrices pour le ministère ou l’organisme.</p></li><li><p>Participer en tant que membre à des projets, éventuellement diriger des projets à court terme.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les  Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/f/f6/PPM-GPP_Analyst%28e%29_GCIT020008_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/c/cc/PPM-GPP_Analyst%28e%29_GCIT020008_FR.docx"
+        },
+        "stream": {
+          "value": "PROJECT_PORTFOLIO_MANAGEMENT"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 2
+        },
+        "keywords": {
+          "en": [
+            "Project executive",
+            "Project administrator",
+            "Project coordinator",
+            "Project leader",
+            "Project manager",
+            "Project scheduler"
+          ],
+          "fr": [
+            "Directeur de projet",
+            "Administrateur de projet",
+            "Coordinateur de projet",
+            "Chef de projet",
+            "Gestionnaire de projet",
+            "Planificateur de projet"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-02-SU-007",
+        "name": {
+          "en": "Team Leader - IT Project Portfolio Management",
+          "fr": "Chef d'équipe - Gestion de portefeuilles de projets des TI "
+        },
+        "description": {
+          "en": "As an IT-03 team lead in Project Portfolio Management, you will oversee a team of analysts and advisors to optimize project portfolio processes. Your role involves coordinating project evaluations, guiding portfolio strategy development, and ensuring effective communication across teams and stakeholders. You will foster a collaborative environment that supports innovation, continuous improvement, development of junior employees, and the achievement of project goals.",
+          "fr": "En tant que chef d’équipe IT-03 en gestion de portefeuille de projets, vous superviserez une équipe d’analystes et de conseillères et conseillers afin d’optimiser les processus de portefeuille de projets. Votre rôle consiste à coordonner l’évaluation des projets, à guider l’élaboration de la stratégie du portefeuille et à assurer une communication efficace entre les équipes et les parties prenantes. Vous favoriserez un environnement de collaboration qui soutient l’innovation, l’amélioration continue, le développement des employés débutants et la réalisation des objectifs du projet. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Supervises and leads project teams, ensuring employee professional development.</p></li><li><p>Oversees planning, development, and implementation of projects including resource planning, scope definition, scheduling, and budget management.</p></li><li><p>Conducts or coordinates project activities such as technical advice, feasibility assessments, risk analysis, research, change management, procurement, and stakeholder consultations.</p></li><li><p>Conducts cost-benefit analysis and recommends improvements on services to management and stakeholders. </p></li><li><p>Plans and leads project activities covering integration, scope, time, cost, quality, human resources, communications, risk, and procurement management.</p></li><li><p>Conducts meetings, assigns tasks, tracks progress, and takes corrective action as needed.</p></li><li><p>Participates in departmental committees or working groups.</p></li></ul>",
+          "fr": "<ul><li><p>Superviser et diriger des équipes de projet, en veillant au perfectionnement professionnel des employés.</p></li><li><p>Superviser la planification, le développement et la mise en œuvre des projets, y compris la planification des ressources, la définition du champ d’application, la programmation et la gestion du budget.</p></li><li><p>Conduire ou coordonner des activités de projet telles que la formulation des conseils techniques, des évaluations de faisabilité, des analyses de risque, des recherches, la gestion du changement, l’approvisionnement et la consultation des parties prenantes.</p></li><li><p>Effectuer des analyses coût-avantage et recommander des améliorations des services aux cadres de direction et aux parties prenantes. </p></li><li><p>Planifier et diriger les activités du projet en ce qui concerne l’intégration, la portée, les délais, les coûts, la qualité, les ressources humaines, les communications, les risques et la gestion des marchés publics.</p></li><li><p>Organiser des réunions, attribuer des tâches, suivre les progrès et prendre des mesures correctives si nécessaire.</p></li><li><p>Participer à des comités ministériels ou à des groupes de travail.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les  Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/da/PPM-GPP_TL-ChE_GCIT030021_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/a/a8/PPM-GPP_SA-CP_GCIT040019_FR.docx"
+        },
+        "stream": {
+          "value": "PROJECT_PORTFOLIO_MANAGEMENT"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Project executive",
+            "Project administrator",
+            "Project coordinator",
+            "Project leader",
+            "Project manager",
+            "Project scheduler"
+          ],
+          "fr": [
+            "Directeur de projet",
+            "Administrateur de projet",
+            "Coordinateur de projet",
+            "Chef de projet",
+            "Gestionnaire de projet",
+            "Planificateur de projet"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-02-IC-008",
+        "name": {
+          "en": "Senior Advisor -  IT Project Portfolio Management",
+          "fr": "Conseiller(-ère) principal(e) - Gestion de portefeuilles de projets des TI "
+        },
+        "description": {
+          "en": "As an IT-04 senior advisor in Project Portfolio Management, you will provide strategic direction and expert guidance on multi-disciplinary IT projects to align with organizational objectives and business needs. Your role involves analyzing portfolio performance, identifying opportunities for optimization, and advising senior management on resource allocation and investment decisions. You will contribute to developing organizational IT strategies, developing junior employees, and promoting modifications to policies and procedures to drive efficiency within the organization.",
+          "fr": "En tant que conseillère principale ou conseiller principal IT-04 en gestion de portefeuille de projets, vous fournirez une orientation stratégique et des conseils d’expert sur des projets pluridisciplinaires en TI afin de les harmoniser avec les objectifs de l’organisation et les besoins opérationnels. Votre rôle consiste à analyser le rendement du portefeuille, à repérer les possibilités d’optimisation et à conseiller la direction générale sur l’allocation des ressources et les décisions en matière d’investissement. Vous contribuerez à l’élaboration des stratégies informatiques de l’organisation, à la formation des employées et employés débutants et à la promotion des modifications des politiques et des procédures afin d’améliorer l’efficacité au sein de l’organisation. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Offers expert technical advice and strategic direction for multidisciplinary IT projects aligning with departmental goals.</p></li><li><p>Recommends improvements or technical changes to project management solutions, tools, cloud technologies, and service rollouts to achieve corporate objectives.</p></li><li><p>Advises senior management and stakeholders on designing, developing, integrating, and supporting project management solutions.</p></li><li><p>Designs departmental project management frameworks and recommends strategic improvement initiatives.</p></li><li><p>Promotes IT policies, interprets government standards, and develops departmental standards and policies.</p></li><li><p>Researches best practices and trends, resolves technical issues, and facilitates technical solutions.</p></li><li><p>Represents the organization in committees and liaises with industry representatives.</p></li><li><p>Chairs meetings, develops strategies and plans, negotiates contracts, and prepares requests for proposal specifications.</p></li></ul>",
+          "fr": "<ul><li><p>Fournir des conseils techniques spécialisés et une orientation stratégique pour des projets pluridisciplinaires en TI conformes aux objectifs du ministère.</p></li><li><p>Recommander des améliorations ou des changements techniques aux solutions de gestion de projet, aux outils, aux technologies en nuage et aux déploiements de services afin d’atteindre les objectifs opérationnels.</p></li><li><p>Fournir des conseils aux cadres supérieurs et aux parties prenantes sur la conception, l’élaboration, l’intégration et le soutien des solutions de gestion de projet.</p></li><li><p>Concevoir des cadres de gestion de projets ministériels et recommander des initiatives d’amélioration stratégique.</p></li><li><p>Promouvoir les politiques en matière de TI, interpréter les normes gouvernementales et élaborer des normes et des politiques ministérielles.</p></li><li><p>Rechercher les meilleures pratiques et les tendances, résoudre les problèmes techniques et faciliter la mise en œuvre des solutions techniques.</p></li><li><p>Représenter l’organisation dans les comités, et assurer la liaison avec les représentants de l’industrie.</p></li><li><p>Présider des réunions, élaborer des stratégies et des plans, négocier des contrats et préparer des demandes de spécifications en matière de proposition des projets.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/0/01/PPM-GPP_SA-CP_GCIT040019_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/a/a8/PPM-GPP_SA-CP_GCIT040019_FR.docx"
+        },
+        "stream": {
+          "value": "PROJECT_PORTFOLIO_MANAGEMENT"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Project executive",
+            "Project administrator",
+            "Project coordinator",
+            "Project leader",
+            "Project manager",
+            "Project scheduler"
+          ],
+          "fr": [
+            "Directeur de projet",
+            "Administrateur de projet",
+            "Coordinateur de projet",
+            "Chef de projet",
+            "Gestionnaire de projet",
+            "Planificateur de projet"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-01-SU-004",
+        "name": {
+          "en": "Manager - IT Business Line Advisory Services",
+          "fr": "Gestionnaire -  Services consultatifs auprès des secteurs de la TI"
+        },
+        "description": {
+          "en": "As an IT-04 Manager in Business Line Advisory Services, you will lead the strategic direction and execution of IT project plans including technical components, project management methodologies, business requirements, proposals, analysis, standards, plans, and designs to ensure they align with business objectives. You will oversee multiple projects, manage client relationships, and drive business growth through innovative solutions while ensuring government-wide direction and standards are being met and consistently improved. Your role includes managing budgets, resources, and timelines to deliver high-value outcomes for clients or stakeholders.",
+          "fr": "En tant que gestionnaire des services consultatifs auprès des secteurs d’activité IT-04, vous dirigerez l’orientation stratégique et l’exécution des plans de projet de TI, y compris les composantes techniques, les méthodologies de gestion de projet, les exigences opérationnelles, les propositions, l’analyse, les normes, les plans et les conceptions, afin de s’assurer qu’ils correspondent aux objectifs commerciaux. Vous superviserez de multiples projets, gérerez les relations avec les clients et stimulerez la croissance de l’entreprise grâce à des solutions novatrices, tout en veillant à ce que l’orientation et les normes à l’échelle du gouvernement soient respectées et constamment améliorées. Votre rôle comprend la gestion des budgets, des ressources et des échéanciers afin d’obtenir des résultats de grande valeur pour les clients ou les parties prenantes. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Manages strategic IT Business Line Advisory Services (BLA) to support departmental and agency objectives, covering business analysis,client and project portfolio management,  and supplier relationship management.</p></li><li><p>Oversees an IT section and multidisciplinary project groups, assessing business requirements, IT system effectiveness, and collaboration opportunities.</p></li><li><p>Serves as a senior IT authority, delivering expert technical advisory services to achieve operational and strategic goals.</p></li><li><p>Represents the department or agency, engaging with senior managers and officials to address current and future needs.</p></li><li><p>Chairs project meetings to negotiate agreements on delivering BLA services, and establishes and manages project teams, budgets, and agreements.</p></li><li><p>Provides expert IT advice to senior management and stakeholders on project plans, methodologies, requirements, and standards to enhance system effectiveness.</p></li><li><p>Stays updated on trends and best practices in relevant BLA disciplines and contributes to developing BLA policies and guidelines.</p></li><li><p>Develops IT Business Line Advisory Services policies, directives, procedures, guidelines and processes</p></li></ul>",
+          "fr": "<ul><li><p>Gérer les services consultatifs stratégiques auprès des secteurs d’activité de la TI pour appuyer les objectifs des ministères et des organismes, ce qui comprend l’analyse opérationnelle, le portefeuille de clients, les projets ou la gestion des relations avec les fournisseurs.</p></li><li><p>Superviser une section de la TI et des groupes de projets pluridisciplinaires, évaluer les exigences opérationnelles, l’efficacité des systèmes de TI et les possibilités de collaboration.</p></li><li><p>Agir à titre d’autorité principale de la TI et fournir des services consultatifs techniques spécialisés pour atteindre les objectifs opérationnels et stratégiques.</p></li><li><p>Représenter le ministère ou l’organisme en collaborant avec les cadres supérieurs et les fonctionnaires pour répondre aux besoins actuels et futurs.</p></li><li><p>Présider des réunions de projet pour négocier des ententes sur la prestation des services consultatifs auprès des secteurs d’activité, et établir et gérer des équipes de projet, des budgets et des ententes.</p></li><li><p>Fournir des conseils d’expert en TI à la haute direction et aux parties prenantes sur les plans de projet, les méthodologies, les exigences et les normes afin d’améliorer l’efficacité du système.</p></li><li><p>Se tenir au courant des tendances et des pratiques exemplaires dans les disciplines pertinentes des services consultatifs auprès des secteurs d’activité et contribuer à l’élaboration des politiques et des lignes directrices des services consultatifs auprès des secteurs d’activité.</p></li><li><p>Élaborer les politiques, les directives, les procédures, les lignes directrices et les processus des services consultatifs auprès des secteurs d’activité de la TI.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d3/BLA-SCT_Mgr-Ges_GCIT040017_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/b/bd/BLA-SCT_Mgr-Ges_GCIT040017_FR.docx"
+        },
+        "stream": {
+          "value": "BUSINESS_ADVISORY_SERVICES"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Supplier relationship management",
+            "business analysis",
+            "project portfolio management",
+            "client portfolio management",
+            "project executive",
+            "project leader",
+            "project manager",
+            "Change management consultant"
+          ],
+          "fr": [
+            "Gestion des relations avec les fournisseurs",
+            "analyse opérationnelle",
+            "gestion du portefeuille de projets",
+            "gestion du portefeuille de clients",
+            "gestionnaire de projet",
+            "chef de projet",
+            "ordonnanceur de projet",
+            "expert-conseil en gestion du changement."
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-02-06-IC-015",
+        "name": {
+          "en": "Developer - Quality Assurance",
+          "fr": "Développeur(-euse) - assurance de la qualité"
+        },
+        "description": {
+          "en": "As an IT-02 Analyst in Quality Assurance for Software Solutions, you will analyze requirements and user stories to develop comprehensive test plans and strategies. You will design and execute test cases, conduct automated testing where applicable, and provide detailed reports on test results. Your role involves identifying areas for process improvement and ensuring adherence to quality standards throughout the software development lifecycle.",
+          "fr": "En tant que technicienne ou technicien en assurance de la qualité pour les solutions logicielles IT-02, vous analyserez les exigences et les récits des utilisateurs afin d’élaborer des plans et des stratégies d’essai complets. Vous concevrez et exécuterez des scénarios d’essai, effectuerez des essais automatisés, s’il y a lieu, et fournirez des rapports détaillés sur les résultats des essais. Votre rôle consiste à déterminer les points à améliorer et à assurer le respect des normes de qualité tout au long du cycle de développement des logiciels.  "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Provides technical IT services and advice for quality assurance. </p></li><li><p>Conducts research, analysis, and implementation of quality assurance process changes. </p></li><li><p>Designs, develops, tests, and maintains quality assurance processes and procedures. </p></li><li><p>Produces automated and manual test specifications and technical documentation. </p></li><li><p>Identifies issues and writes detailed instructions, explanations, and troubleshooting steps that are easy for others to follow and action. </p></li><li><p>Offers technical advice, assistance, and training. </p></li><li><p>Participates in and may lead short-term projects. </p></li></ul>",
+          "fr": "<ul><li><p>Fournir des services et des conseils techniques en matière de TI pour l’assurance de la qualité. </p></li><li><p>Effectuer des recherches, des analyses et la mise en œuvre de changements au processus d’assurance de la qualité. </p></li><li><p>Concevoir, développer, tester et maintenir des processus et des procédures d’assurance de la qualité. </p></li><li><p>Élaborer des spécifications d’essais automatisés et manuels ainsi que de la documentation technique. </p></li><li><p>Cerner les problèmes et rédiger des instructions détaillées, des explications et des étapes de dépannage qui sont faciles à suivre pour les autres. </p></li><li><p>Offrir des conseils techniques, de l’aide et de la formation. </p></li><li><p>Participer à des projets à court terme et les diriger éventuellement. </p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d6/SS-SL_Analyst%28e%29_GCIT020004_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/2/2e/SS-SL_Analyst%28e%29_GCIT020004_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 2
+        },
+        "keywords": {
+          "en": [
+            "Quality Assurance Technician",
+            "Analyst",
+            "Engineer",
+            "Tester"
+          ],
+          "fr": [
+            "Technicien en assurance de la qualité",
+            "analyste",
+            "ingénieur",
+            "testeur",
+            "spécialiste"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-02-01-IC-001",
+        "name": {
+          "en": "Analyst - IT Business Line Advisory Services",
+          "fr": "Analyste - Services consultatifs auprès des secteurs de la TI"
+        },
+        "description": {
+          "en": "As an IT-02 Analyst in Business Line Advisory Services, you will analyze business processes, market trends, and client needs to provide insights and recommendations. You will conduct research, gather data, and perform financial or operational analysis to support strategic decision-making. Your role involves translating analysis into actionable insights and collaborating with stakeholders to drive business outcomes.",
+          "fr": "En tant qu’analyste des services consultatifs auprès des secteurs d’activité IT-02, vous analyserez les processus opérationnels, les tendances du marché et les besoins des clients afin de fournir des renseignements et des recommandations. Vous effectuerez des recherches, recueillerez des données et effectuerez des analyses financières ou opérationnelles pour appuyer la prise de décisions stratégiques. Votre rôle consiste à traduire l’analyse en renseignements exploitables et à collaborer avec les intervenants pour obtenir des résultats opérationnels. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Conducts research and analysis to support strategic IT Business Line Advisory Services (BLA), covering business analysis, client and project portfolio management,  and supplier relationship management. </p></li><li><p>Develops, documents, plans, and conducts analysis within IT project plans to identify issues and risks and contribute to work and communication plans.</p></li><li><p>Collaborates with stakeholders to define and document IT requirements.</p></li><li><p>Conducts impact analysis studies, analyzes IT solutions, and identifies solutions or improvements.  </p></li><li><p>Acts as a liaison with clients, testing teams and stakeholders to ensure clear understanding of business and IT requirements.</p></li><li><p>Participates in project teams, may lead short-term projects or components of larger project.</p></li><li><p>Supports continuous improvement of IT business solutions through research, learning, collaboration, and soliciting and responding to stakeholder feedback.</p></li><li><p>Stays updated on trends and developments.</p></li></ul>",
+          "fr": "<ul><li><p>Effectuer des recherches et des analyses pour appuyer les services consultatifs auprès des secteurs d’activité de la TI, notamment l’analyse des activités opérationnelles, la gestion des portefeuilles de clients et de projects et la gestion des relations avec les fournisseurs. </p></li><li><p>Élaborer, documenter, planifier et effectuer des analyses dans les plans de projet de TI afin de cerner les problèmes et les risques et de contribuer aux plans de travail et de communication.</p></li><li><p>Collaborer avec les parties prenantes pour définir et documenter les exigences en matière de TI.</p></li><li><p>Effectuer des études d’impact, analyser des solutions de TI et identifier des solutions ou des améliorations.  </p></li><li><p>Assurer la liaison avec les clients, les équipes de mise à l’essai et les  parties prenantes pour assurer une compréhension claire des exigences opérationnelles et en matière de TI.</p></li><li><p>Participer à des équipes de projet, éventuellement diriger des projets à court terme ou des composantes de projets de plus grande envergure.</p></li><li><p>Appuyer l’amélioration continue des solutions opérationnelles de TI en effectuant des recherches, en apprenant, en collaborant et en sollicitant et en répondant aux commentaires des intervenants.</p></li><li><p>Rester au courant des tendances et des développements.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/7/70/BLA-SCT_Analyst%28e%29_GCIT020005_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/3/37/BLA-SCT_Analyst%28e%29_GCIT020005_FR.docx"
+        },
+        "stream": {
+          "value": "BUSINESS_ADVISORY_SERVICES"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 2
+        },
+        "keywords": {
+          "en": [
+            "Supplier relationship management",
+            "business analysis",
+            "project portfolio management",
+            "client portfolio management",
+            "project executive",
+            "project administrator",
+            "project coordinator",
+            "project scheduler",
+            "Change management consultant"
+          ],
+          "fr": [
+            "Gestion des relations avec les fournisseurs",
+            "analyse opérationnelle",
+            "gestion du portefeuille de projets",
+            "gestion du portefeuille de clients",
+            "gestionnaire de projet",
+            "administrateur de projet",
+            "coordonnateur de projet",
+            "ordonnanceur de projet",
+            "expert-conseil en gestion du changement."
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-01-IC-002",
+        "name": {
+          "en": "Technical Advisor - IT Business Line Advisory Services",
+          "fr": "Conseiller(-ère) technique - Services consultatifs auprès des secteurs de la TI"
+        },
+        "description": {
+          "en": "As an IT-03 Technical Advisor in Business Line Advisory Services, you will provide technical expertise and strategic guidance on business initiatives and technology solutions. You will assess business requirements, evaluate technical feasibility, and recommend scalable solutions to optimize business processes. Your role includes leading implementation projects, managing stakeholders, and ensuring alignment between business goals and IT strategies.",
+          "fr": "En tant qu’analyste des services consultatifs auprès des secteurs d’activité IT-03, vous fournirez une expertise technique et des conseils stratégiques sur les initiatives d’affaires et  les solutions technologiques. Vous évaluerez les exigences opérationnelles, évaluerez la faisabilité technique et recommanderez des solutions évolutives pour optimiser les processus opérationnels. Votre rôle consiste à diriger des projets de mise en œuvre, à gérer les parties prenantes et à assurer l’harmonisation entre les objectifs opérationnels et les stratégies de TI. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Leads strategic IT Business Line Advisory Services (BLA) across disciplines like business analysis, client and project portfolio management,  and supplier relationship management to meet departmental goals.</p></li><li><p>Provides technical guidance to client departments, aids in understanding IT capabilities and requirements to drive innovation.</p></li><li><p>Develops work plans, IT requirements, and communication strategies, advocating for the benefits of BLA.</p></li><li><p>Researches and assesses IT solutions for strategic initiatives, fostering collaboration with other departments and suppliers.</p></li><li><p>Reviews client operations to recommend optimal IT solutions.</p></li><li><p>Ensures IT solutions meet business objectives throughout the project lifecycle.</p></li><li><p>Oversees project activities and mentor BLA personnel as needed.</p></li><li><p>Acts as a liaison between IT, managers, and stakeholders to resolve technical issues and ensures service agreement.</p></li><li><p>Identifies and prioritizes client requirements, facilitating their understanding and endorsement.</p></li><li><p>Develops IT solutions and evaluates innovative approaches.</p></li><li><p>Stays updated on trends and best practices.</p></li></ul>",
+          "fr": "<ul><li><p>Diriger les services consultatifs stratégiques auprès des secteurs d’activité de la TI dans l’ensemble des disciplines, comme l’analyse opérationnelle, le portefeuille client, la gestion des relations avec les projets et les fournisseurs afin d’atteindre les objectifs du service.</p></li><li><p>Fournir des conseils techniques aux ministères clients pour les aider à comprendre les capacités et les exigences en matière de TI afin de stimuler l’innovation.</p></li><li><p>Élaborer des plans de travail, des exigences en matière de TI et des stratégies de communication pour promouvoir les avantages des services consultatifs auprès des secteurs d’activité.</p></li><li><p>Rechercher et évaluer des solutions de TI pour des initiatives stratégiques, en favorisant la collaboration avec d’autres ministères et fournisseurs.</p></li><li><p>Passer en revue les opérations des clients pour recommander des solutions de TI optimales.</p></li><li><p>S’assurer que les solutions de TI répondent aux besoins des entreprises tout au long du cycle de vie du projet.</p></li><li><p>Superviser les activités du projet et encadrer le personnel des services consultatifs auprès des secteurs d’activité, au besoin.</p></li><li><p>Assurer la liaison entre l’équipe de TI, les gestionnaires et les intervenants afin de résoudre les problèmes techniques et d’assurer une entente de service.</p></li><li><p>Déterminer et hiérarchiser les exigences des clients en facilitant leur compréhension et leur approbation.</p></li><li><p>Élaborer des solutions de TI et évaluer des approches novatrices.</p></li><li><p>Rester au courant des tendances et des pratiques exemplaires.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/e/eb/BLA-SCT_TA-CT_GCIT030018_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/4/42/BLA-SCT_TA-CT_GCIT030018_FR.docx"
+        },
+        "stream": {
+          "value": "BUSINESS_ADVISORY_SERVICES"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Supplier relationship management",
+            "business analysis",
+            "project portfolio management",
+            "client portfolio management",
+            "project executive",
+            "project administrator",
+            "project coordinator",
+            "project leader",
+            "project scheduler",
+            "Change management consultant"
+          ],
+          "fr": [
+            "Gestion des relations avec les fournisseurs",
+            "analyse opérationnelle",
+            "gestion du portefeuille de projets",
+            "gestion du portefeuille de clients",
+            "gestionnaire de projet",
+            "administrateur de projet",
+            "coordonnateur de projet",
+            "gestionnaire de projet",
+            "ordonnanceur de projet",
+            "expert-conseil en gestion du changement."
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-01-SU-003",
+        "name": {
+          "en": "Team Leader - IT Business Line Advisory Services",
+          "fr": "Chef d'équipe - Services consultatifs auprès des secteurs de la TI"
+        },
+        "description": {
+          "en": "As an IT-03 Team Leader in Business Line Advisory Services, you will oversee a team of analysts and advisors to deliver strategic insights and advisory services to clients or internal stakeholders. You will provide leadership, mentorship, and direction to ensure the team meets project objectives and client expectations. Your role involves managing resources, defining project scopes, and fostering a collaborative environment for innovation and growth.",
+          "fr": "En tant que chef d’équipe des services consultatifs auprès des secteurs d’activité IT-03, vous superviserez une équipe d’analystes et de conseillères et conseillers pour fournir des renseignements stratégiques et des services consultatifs aux clients ou aux parties prenantes internes. Vous assurerez le leadership, le mentorat et l’orientation pour veiller à ce que l’équipe atteigne les objectifs du projet et réponde aux attentes des clients. Votre rôle consiste à gérer les ressources, à définir la portée des projets et à favoriser un environnement de collaboration pour l’innovation et la croissance"
+        },
+        "tasks": {
+          "en": "<ul><li><p>Leads multidisciplinary teams providing strategic IT Business Line Advisory Services (BLA), covering business analysis,client and project portfolio management,  and supplier relationship management.</p></li><li><p>Supervises a team of analysts, sets goals, manages project funds, and ensures service delivery.</p></li><li><p>Provides technical advice to client departments, aids in understanding IT capabilities and requirements for achieving organizational objectives.</p></li><li><p>Develops work plans, requirements, and communication strategies, advocating for the benefits of BLA.</p></li><li><p>Assesses IT products and services for strategic initiatives</p></li><li><p>Monitors and reviews stakeholders IT environments to inform proposed changes or opportunities.</p></li><li><p>Translates business requirements into clear IT solutions for stakeholders.</p></li><li><p>Represents the unit in discussions with senior managers and stakeholders to resolve issues and finalize requirements.</p></li><li><p>Collaborates with stakeholders to assess impacts of IT changes and recommend innovative solutions.</p></li><li><p>Develops business solutions and evaluates IT projects, products, and services.</p></li><li><p>Stays updated on trends and best practices.</p></li></ul>",
+          "fr": "<ul><li><p>Diriger des équipes pluridisciplinaires en fournissant des services consultatifs auprès des secteurs d’activité de la TI, notamment l’analyse des activités, le portefeuille de clients de la TI, les projets ou la gestion des relations avec les fournisseurs.</p></li><li><p>Superviser une équipe d’analystes, établir des objectifs, gérer les fonds des projets et assurer la prestation des services.</p></li><li><p>Fournir des conseils techniques aux ministères clients pour les aider à comprendre les capacités et les exigences en matière de TI afin d’atteindre les objectifs de l’organisation.</p></li><li><p>Élaborer des plans de travail, des exigences et des stratégies de communication pour promouvoir les avantages des services consultatifs auprès des secteurs d’activité.</p></li><li><p>Évaluer les produits et services de TI pour les initiatives stratégiques.</p></li><li><p>Surveiller et examiner les environnements de TI des parties prenantes pour éclairer les changements proposés ou les possibilités.</p></li><li><p>Traduire les exigences opérationnelles en solutions de TI claires pour les parties prenantes.</p></li><li><p>Représenter l’unité dans les discussions avec les cadres supérieurs et les  parties prenantes pour résoudre les problèmes et finaliser les exigences.</p></li><li><p>Collaborer avec les parties prenantes pour évaluer les répercussions des changements de la TI et recommander des solutions novatrices.</p></li><li><p>Développer des solutions opérationnelles et évaluer les projets, produits et services de TI.</p></li><li><p>Rester au courant des tendances et des pratiques exemplaires.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/2/21/BLA-SCT_TL-ChE_GCIT030017_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/7/7e/BLA-SCT_TL-ChE_GCIT030017_FR.docx"
+        },
+        "stream": {
+          "value": "BUSINESS_ADVISORY_SERVICES"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Supplier relationship management",
+            "business analysis",
+            "project portfolio management",
+            "client portfolio management",
+            "project executive",
+            "project administrator",
+            "project coordinator",
+            "project leader",
+            "project manager",
+            "project scheduler",
+            "Change management consultant"
+          ],
+          "fr": [
+            "Gestion des relations avec les fournisseurs",
+            "analyse opérationnelle",
+            "gestion du portefeuille de projets",
+            "gestion du portefeuille de clients",
+            "gestionnaire de projet",
+            "administrateur de projet",
+            "coordonnateur de projet",
+            "chef de projet",
+            "gestionnaire de projet",
+            "ordonnanceur de projet",
+            "expert-conseil en gestion du changement."
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-01-06-IC-014",
+        "name": {
+          "en": "Junior Developer - Quality Assurance",
+          "fr": "Développeur(-euse) subalterne - assurance de la qualité"
+        },
+        "description": {
+          "en": "As an IT-01 Technician in Quality Assurance (QA) for Software Solutions, you will support the QA team in testing software applications to ensure functionality and usability. You will execute test cases, report bugs, and assist in troubleshooting issues to ensure the delivery of high-quality software products.",
+          "fr": "En tant que technicienne ou technicien en assurance de la qualité (AQ) pour les solutions logicielles IT-01, vous aiderez l’équipe d’AQ à mettre à l’essai des applications logicielles pour en assurer la fonctionnalité et la convivialité. Vous exécuterez des scénarios d’essai, signalerez les bogues et aiderez à résoudre les problèmes afin d’assurer la livraison de produits logiciels de haute qualité.  "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Supports testing and quality assurance activities for software solutions. </p></li><li><p>Investigates, troubleshoots, and documents technical problems related to software quality. </p></li><li><p>Develops and executes automated and manual test cases under direction. </p></li><li><p>Assists in the provision of application support services related to quality assurance. </p></li><li><p>Analyzes, defines, and documents client requirements related to software quality. </p></li></ul>",
+          "fr": "<ul><li><p>Soutenir les activités d’essai et d’assurance de la qualité pour les solutions logicielles. </p></li><li><p>Étudier, dépanner et documenter les problèmes techniques liés à la qualité des logiciels. </p></li><li><p>Élaborer et exécuter des cas d’essai automatisés et manuels sous direction. </p></li><li><p>Aider à fournir des services de soutien aux applications liés à l’assurance de la qualité. </p></li><li><p>Analyser, définir et documenter les exigences des clients relatives à la qualité des logiciels. </p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/f/fc/SS-SL_Tech_GCIT010002_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/6/65/SS-SL_Tech_GCIT010002_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 1
+        },
+        "keywords": {
+          "en": [
+            "Quality Assurance Technician",
+            "Analyst",
+            "Engineer",
+            "Tester"
+          ],
+          "fr": [
+            "Technicien en assurance de la qualité",
+            "analyste",
+            "ingénieur",
+            "testeur",
+            "spécialiste"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-06-IC-016",
+        "name": {
+          "en": "Senior Developer - Quality Assurance",
+          "fr": "Développeur(-euse) principal(e) - assurance de la qualité"
+        },
+        "description": {
+          "en": "As an IT-03 Technical Advisor in Quality Assurance (QA) for Software Solutions, you will provide technical expertise and leadership in implementing QA best practices and methodologies. You will guide the selection and implementation of QA tools and frameworks, ensuring efficient testing processes and continuous improvement in software quality. Your role includes mentoring QA engineers, troubleshooting complex issues, and advocating for QA standards across the organization.",
+          "fr": "En tant que conseillère ou conseiller technique en assurance de la qualité (AQ) pour les solutions logicielles IT-03, vous apporterez votre expertise technique et votre leadership dans la mise en œuvre des pratiques exemplaires et des méthodes d’assurance de la qualité. Vous orienterez la sélection et la mise en œuvre des outils et des cadres d’AQ, en veillant à l’efficacité des processus d’essai et à l’amélioration continue de la qualité des logiciels. Votre rôle consiste à encadrer les ingénieures et ingénieurs en AQ, à résoudre des problèmes complexes et à défendre les normes d’AQ dans l’ensemble de l’organisation. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Provides specialized technical advice and support throughout the software development lifecycle. </p></li><li><p>Develops and supports quality assurance processes and standards. </p></li><li><p>Conducts research and feasibility studies for software testing and maintenance. </p></li><li><p>Consults with stakeholders to define testing requirements and resolve technical issues. </p></li><li><p>Acts as lead in project teams. </p></li><li><p>Participates in the selection, installation, and configuration of quality assurance tools. </p></li><li><p>Researches best practices and current trends in quality assurance. </p></li></ul>",
+          "fr": "<ul><li><p>Fournir des conseils techniques spécialisés et du soutien tout au long du cycle de développement des logiciels. </p></li><li><p>Élaborer et appuyer les processus et les normes d’assurance de la qualité. </p></li><li><p>Effectuer des recherches et des études de faisabilité pour la mise à l’essai et l’entretien de logiciels. </p></li><li><p>Consulter les parties prenantes pour définir les exigences relatives aux essais et résoudre les problèmes techniques. </p></li><li><p>Agir à titre de responsable au sein des équipes de projet. </p></li><li><p>Participer à la sélection, à l’installation et à la configuration des outils d’assurance de la qualité. </p></li><li><p>Étudier les pratiques exemplaires et les tendances actuelles en matière d’assurance de la qualité. </p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/b/be/SS-SL_TA-CT_GCIT030011_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/4/43/SS-SL_TA-CT_GCIT030011_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Quality Assurance Technician",
+            "Analyst",
+            "Technical Advisor",
+            "Team Lead",
+            "Senior Advisor",
+            "Manager",
+            "Engineer",
+            "Tester",
+            "Specialist",
+            "Supervisor"
+          ],
+          "fr": [
+            "Technicien en assurance de la qualité",
+            "analyste",
+            "conseiller technique",
+            "chef d’équipe",
+            "conseiller principal",
+            "gestionnaire",
+            "ingénieur",
+            "testeur",
+            "spécialiste",
+            "superviseur"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-06-SU-017",
+        "name": {
+          "en": "Team Leader - Quality Assurance",
+          "fr": "Chef d'équipe - assurance de la qualité"
+        },
+        "description": {
+          "en": "As an IT-03 Team Leader in Quality Assurance (QA) for Software Solutions, you will oversee a team of QA engineers to ensure the delivery of high-quality software products. You will provide strategic direction, mentorship, and coaching to foster a culture of excellence and continuous improvement within the QA team. Your leadership includes managing resources, defining QA processes, and driving efficiency in testing activities.",
+          "fr": "En tant que chef d’équipe en assurance qualité (AQ) pour les solutions logicielles IT-03, vous superviserez une équipe d’ingénieures et ingénieurs de l’AQ pour assurer la livraison de produits logiciels de haute qualité. Vous fournirez une orientation stratégique, du mentorat et de l’encadrement pour favoriser une culture d’excellence et d’amélioration continue au sein de l’équipe d’AQ. Votre leadership comprend la gestion des ressources, la définition des processus d’AQ et la promotion de l’efficacité des activités de mise à l’essai.  \n\n "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Supervises quality assurance teams and lead project teams in the planning, testing, release, and maintenance of software solutions. </p></li><li><p>Conducts business analysis and feasibility studies, producing technical reports and recommending solutions for service enhancements. </p></li><li><p>Provides specialized technical advice to management and clients on quality assurance processes and standards. </p></li><li><p>Represents the team in meetings with stakeholders to resolve technical issues and define service requirements. </p></li><li><p>Develops analysts and technicians in their professional growth. </p></li></ul>",
+          "fr": "<ul><li><p>Superviser les équipes chargées de l’assurance de la qualité et diriger les équipes de projet dans la planification, la mise à l’essai, la diffusion et la maintenance des solutions logicielles. </p></li><li><p>Effectuer des analyses opérationnelles et des études de faisabilité, produire des rapports techniques et recommander des solutions pour l’amélioration des services. </p></li><li><p>Fournir des conseils techniques spécialisés à la direction et aux clients sur les processus et les normes d’assurance de la qualité. </p></li><li><p>Représenter l’équipe lors des réunions avec les parties prenantes pour résoudre les problèmes techniques et définir les exigences de service. </p></li><li><p>Perfectionner les analystes et les techniciens dans leur croissance professionnelle. </p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/6/66/SS-SL_TL-ChE_GCIT030010_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/c/ce/SS-SL_TL-ChE_GCIT030010_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Quality Assurance Technician",
+            "Technical Advisor",
+            "Team Lead",
+            "Senior Advisor",
+            "Manager",
+            "Engineer",
+            "Tester",
+            "Specialist",
+            "Supervisor"
+          ],
+          "fr": [
+            "Technicien en assurance de la qualité",
+            "conseiller technique",
+            "chef d’équipe",
+            "conseiller principal",
+            "gestionnaire",
+            "ingénieur",
+            "testeur",
+            "spécialiste",
+            "superviseur"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-02-03-IC-010",
+        "name": {
+          "en": "Analyst - IT Planning and Reporting",
+          "fr": "Analyste - Planification et établissement de rapports en matière de TI"
+        },
+        "description": {
+          "en": "As an IT-02 Analyst in IT Planning and Reporting, you will analyze IT infrastructure, resources, and operational data to support strategic planning and decision-making. You will gather and analyze data on IT expenditures, performance metrics, and resource utilization to provide insights and recommendations. Your role involves preparing reports, dashboards, and presentations to communicate findings and support IT planning initiatives.",
+          "fr": "En tant qu’analyste IT-02 en planification et établissement de rapports en TI, vous analyserez l’infrastructure, les ressources et les données opérationnelles en matière de TI afin de soutenir la planification stratégique et la prise de décision. Vous recueillerez et analyserez des données sur les dépenses, les mesures de rendement et l’utilisation des ressources dans le domaine de TI afin de fournir des avis et des recommandations. Votre rôle consiste à préparer des rapports, des tableaux de bord et des présentations pour communiquer les résultats et soutenir les initiatives de planification en TI. "
+        },
+        "tasks": {
+          "en": "<ul><li><p>Collects, documents, interprets, and analyzes business and IT requirements for investment planning purposes.</p></li><li><p>Researches, compiles, and validates information within IT planning.</p></li><li><p>Manages repository tools supporting the analysis and delivery of risk management and IT plans. </p></li><li><p>Compiles and validates data for IT reporting and performance measurement.</p></li><li><p>Supports IT planning and reporting with research, feasibility studies, and cost-benefit analyses.</p></li><li><p>Provides technical advice and assistance to stakeholders.</p></li><li><p>Participates in projects and leads short-term projects.</p></li><li><p>Supports development and maintenance of IT governance, policies, and standards for planning and reporting. </p></li></ul>",
+          "fr": "<ul><li><p>Recueillir, documenter, interpréter et analyser les besoins opérationnels et les exigences en matière de TI aux fins de planification des investissements.</p></li><li><p>Rechercher, compiler et valider des renseignements dans le cadre de la planification en TI</p></li><li><p>Gestion des outils de référence qui soutiennent l’analyse et la mise en œuvre de la gestion des risques et de la planification en TI. </p></li><li><p>Compiler et valider les données pour permettre l’établissement de rapports et la mesure de rendement en TI.</p></li><li><p>Soutenir la planification et l’établissement de rapports en TI en effectuant des recherches, des études de faisabilité et des analyses coût-avantage.</p></li><li><p>Fournir des conseils et de l’assistance techniques aux parties prenantes.</p></li><li><p>Participer à des projets et diriger des projets à court terme.</p></li><li><p>Soutenir l’élaboration et la mise à jour de la gouvernance, des politiques et des normes en TI pour la planification et l’établissement de rapports.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/6/64/ITP-PER_Analyst%28e%29_GCIT020006_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/1/14/ITP-PER_Analyst%28e%29_GCIT020006_FR.docx"
+        },
+        "stream": {
+          "value": "PLANNING_AND_REPORTING"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 2
+        },
+        "keywords": {
+          "en": [
+            "analyst",
+            "Independent information technology project reviewer"
+          ],
+          "fr": [
+            "Analyste",
+            "Examinateur indépendant de projets de technologies de l’information"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-03-03-IC-011",
+        "name": {
+          "en": "Technical Advisor - IT Planning and Reporting",
+          "fr": "Conseiller(ère) technique - Planification et établissement de rapports en matière de TI"
+        },
+        "description": {
+          "en": "As an IT-03 Technical Advisor in IT Planning and Reporting, you will provide technical expertise and strategic guidance on IT planning, budgeting, and reporting processes in support of service delivery to internal or external clients and stakeholders. You will assess IT requirements, evaluate technological trends, and recommend solutions to align IT strategies with business goals. Your role includes overseeing the implementation of IT projects, managing stakeholders, and ensuring compliance with reporting standards.",
+          "fr": "En tant que conseillère ou conseiller technique IT-03 en planification et établissement de rapports en TI, vous fournirez une expertise technique et une orientation stratégique sur les processus de planification, de budgétisation et d’établissement de rapport en TI pour soutenir la prestation de services aux clients et parties prenantes internes ou externes. Vous évaluerez les besoins en TI, les tendances technologiques et formulerez des recommandations des solutions pour permettre l’harmonisation des stratégies de TI avec les objectifs opérationnels. Votre rôle consiste à superviser la mise en œuvre des projets informatiques, à gérer les parties prenantes et à garantir le respect des normes en matière d’établissement de rapports."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Provides specialized advice on strategic IT planning, operational reporting, management frameworks, and policies.</p></li><li><p>Conducts feasibility studies, cost-benefit analyses, and solves complex IT planning issues.</p></li><li><p>Develops and supports IT planning processes, prepares technical reports for strategies and policies.</p></li><li><p>Consults with suppliers on emerging technologies, leads research, studies and applies best practices.</p></li><li><p>Advises stakeholders and senior management on IT policies and promotes compliance with government standards.</p></li><li><p>Establishes departmental IT plans, governance, policies, and transformation initiatives.</p></li><li><p>Negotiates with stakeholders to obtain agreement on requirements for services and to resolve complex IT planning issues.</p></li><li><p>Collaborates with clients to streamline strategic IT operations.</p></li></ul>",
+          "fr": "<ul><li><p>Fournir des conseils spécialisés sur la planification stratégique, l’établissement de rapports opérationnels, l’élaboration des cadres de gestion et des politiques en matière de TI.</p></li><li><p>Mener des études de faisabilité, des analyses coût-avantage et résoudre des problèmes complexes de planification en TI.</p></li><li><p>Élaborer et soutenir les processus de planification en TI, préparer des rapports techniques pour les stratégies et les politiques.</p></li><li><p>Consulter les fournisseurs sur les technologies émergentes, mener des recherches, étudier et appliquer les meilleures pratiques.</p></li><li><p>Conseiller les parties prenantes et la direction générale sur les politiques en TI et promouvoir le respect des normes gouvernementales.</p></li><li><p>Établir les plans, la gouvernance, les politiques et les initiatives de transformation du ministère en matière de technologies de l’information.</p></li><li><p>Négocier avec les parties prenantes afin d’obtenir un accord sur les exigences en matière de services et de résoudre des problèmes complexes de planification en TI.</p></li><li><p>Collaborer avec les clients pour rationaliser les opérations stratégiques en matière de TI.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": null,
+          "fr": null
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that IT Project Portfolio Management Tools may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les Outils de gestion de portefeuille de projets informatiques peuvent être remplacés par les langues spécifiques et/ou les outils nécessaires pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/f/fa/ITP-PER_TA-CT_GCIT030002_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/d/df/ITP-PER_TA-CT_GCIT030002_FR.docx"
+        },
+        "stream": {
+          "value": "PLANNING_AND_REPORTING"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 3
+        },
+        "keywords": {
+          "en": [
+            "Planning and Reporting Technical Advisor",
+            "technical advisor",
+            "Independent information technology project reviewer"
+          ],
+          "fr": [
+            "Conseiller(ère) technique",
+            "Examinateur indépendant de projets de technologies de l’information"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-06-IC-030",
+        "name": {
+          "en": "Senior Technical Advisor - Application Development",
+          "fr": "Conseiller(-ère)  technique principal(e) - Développement d'applications"
+        },
+        "description": {
+          "en": "As an IT-04 Senior Advisor in Application Development, you will assume a strategic role in shaping the direction of web development initiatives within the organization. You will provide executive-level consultation on technology trends, business strategy alignment, and innovation leadership in web development practices. Your role involves driving business growth through strategic partnerships, managing departmental budgets, and establishing performance metrics for measuring team and project success. As a thought leader in the industry, you will represent the organization at conferences and forums, advocating for advancements in web development technologies and methodologies.",
+          "fr": "En tant que conseillère principale ou conseiller principal en développement d'application IT-04, vous jouerez un rôle stratégique dans l’orientation des initiatives de développement Web au sein de l’organisation. Vous donnerez des conseils de haut niveau sur les tendances technologiques, l’harmonisation de la stratégie opérationnelle et le leadership en matière d’innovation dans les pratiques de développement d'applications. Votre rôle consiste à stimuler la croissance économique au moyen de partenariats stratégiques, à gérer les budgets ministériels et à établir des mesures de rendement pour mesurer la réussite de l’équipe et des projets. En tant que leader éclairé de l’industrie, vous représenterez l’organisation lors de conférences et forums en défendant les progrès des technologies et des méthodologies de développement d'applications."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Writes new or modifies existing code to design specifications and produces programming specifications and technical documentation.</p></li><li><p>Maintains workflows with stakeholders and advises them on application deliverables and the resolution of technical issues.</p></li><li><p>Stay updated on current industry trends and technologies and applies best practices to develop frameworks and initiatives to improve product quality.</p></li><li><p>Reviews team members' code submissions and ensures applications are scalable, secure, and accessible while adhering to industry standards and best practices.</p></li><li><p>Offers expert technical advice and strategic direction in application development processes and procedures and product evolution.</p></li><li><p>Translates complex business requirements into detailed technical specifications to develop project plans.</p></li><li><p>Interprets and develops IT policies, standards, and initiatives.</p></li><li><p>Manages project-related meetings and leads in training and mentorship of junior developers.</p></li></ul>",
+          "fr": "<ul><li><p>Rédiger de nouveaux codes ou modifier des codes existants en fonction des spécifications de conception et produire des spécifications de programmation et de la documentation technique.</p></li><li><p>Maintenir les flux de travail avec les parties prenantes et les conseiller sur les produits livrables  et la résolution des problèmes techniques.</p></li><li><p>Rester au courant des tendances et des technologies actuelles de l’industrie et appliquer les pratiques exemplaires pour élaborer des cadres et des initiatives visant à améliorer la qualité des produits.</p></li><li><p>Passer en revue le code élaboré par d’autres membres de l'équipe et s’assurer que les applications sont évolutives, sécurisées et accessibles tout en respectant les normes et les pratiques exemplaires de l’industrie.</p></li><li><p>Offrir des conseils techniques d’expert et une orientation stratégique sur les processus et les procédures de développement d'applications et l’évolution des produits.</p></li><li><p>Traduire des exigences opérationnelles complexes en spécifications techniques détaillées pour élaborer des plans de projet.</p></li><li><p>Interpréter et élaborer des politiques, des normes et des initiatives en matière de TI.</p></li><li><p>Gérer les réunions liées au projet et diriger la formation et le mentorat des jeunes développeurs.</p></li></ul>"
+        },
+        "supervisoryStatus": "INDIVIDUAL_CONTRIBUTOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Application Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement d'applications* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Full stack development was listed as optional, however this may be replaced by Front-end development or Back-end Development based on the operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement de la pile complète a été mentionné comme optionnel, mais il peut être remplacé par le développement frontal  ou dorsal fonction des exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/4/4f/SS-SL_SA-CP_GCIT040011_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/1/14/SS-SL_SA-CP_GCIT040011_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Senior Application Development Advisor",
+            "Lead Software Development Consultant",
+            "Lead Application Developer"
+          ],
+          "fr": [
+            "Conseiller principal en développement d'applications",
+            "Consultant principal en développement logiciel",
+            "Développeur d'applications principal"
+          ]
+        }
+      },
+      {
+        "referenceId": "IT-04-06-SU-31",
+        "name": {
+          "en": "Manager - Application Development",
+          "fr": "Gestionnaire - Développement d'applications"
+        },
+        "description": {
+          "en": "As an IT-04 Manager in Application Development, you will lead and manage a team focused on delivering cutting-edge web solutions. Your role involves overseeing departmental operations, including project management, resource allocation, and budget oversight for multiple application development projects. You will collaborate with senior management to define strategic goals, develop policies, and ensure alignment with organizational objectives. Your leadership will drive innovation, foster a culture of excellence, and maintain high standards of quality in software solutions. You will also play a key role in business development, maintaining client relationships, and expanding the organization's footprint in the application development market.",
+          "fr": "En tant que gestionnaire du développement d'applications IT-04, vous dirigerez et gérerez une équipe qui se concentre sur la prestation de solutions d'applications de pointe. Votre rôle consiste à superviser les opérations ministérielles, y compris la gestion de projet, l’affectation des ressources et la surveillance budgétaire pour de multiples projets de développement d'applications. Vous collaborerez avec la haute direction pour définir des buts stratégiques, élaborer des politiques et assurer l’harmonisation avec les objectifs organisationnels. Votre leadership stimulera l’innovation, favorisera une culture d’excellence et maintiendra des normes élevées de qualité dans les solutions logicielles. Vous jouerez également un rôle clé dans le développement des affaires, le maintien des relations avec les clients et l’expansion de l’empreinte de l’organisation sur le marché du développement d'applications."
+        },
+        "tasks": {
+          "en": "<ul><li><p>Provides management and expert advisory services throughout the software development life cycle and on IT policy and program objectives.</p></li><li><p>Manages financial and human resources of the section and develops subject matter experts.</p></li><li><p>Assigns and manages multidisciplinary project teams and leads teams in setting goals and objectives.</p></li><li><p>Leads design reviews with peers and stakeholders to present deliverables, resolutions of technical issues, and provides insights on application.</p></li><li><p>Promotes the development and delivery of IT initiatives.</p></li><li><p>Manages the development, implementation, maintenance, and the release of software solutions.</p></li><li><p>Negotiates agreements with departments and agencies on services and service levels.</p></li><li><p>Chairs project, departmental, and interdepartmental meetings and committees.</p></li></ul>",
+          "fr": "<ul><li><p>Fournir des services de gestion et des conseils d’experts tout au long du cycle de vie du développement de logiciels, ainsi que sur les objectifs des politiques et des programmes de TI.</p></li><li><p>Gérer les ressources financières et humaines de la section et former des experts en la matière.</p></li><li><p>Affecter et gérer des équipes de projet pluridisciplinaires et diriger les équipes dans la définition des buts et des objectifs.</p></li><li><p>Diriger les examens de conception avec les pairs et les parties prenantes pour présenter les livrables, résoudre les problèmes techniques et fournir des renseignements sur l’application.</p></li><li><p>Promouvoir l’élaboration et la mise en œuvre d’initiatives de TI.</p></li><li><p>Gérer le développement, la mise en œuvre, la maintenance et la diffusion de solutions logicielles.</p></li><li><p>Négocier des accords avec les ministères et organismes sur les niveaux de service.</p></li><li><p>Présider des réunions et des comités de projet ministériels et interministériels.</p></li></ul>"
+        },
+        "supervisoryStatus": "SUPERVISOR",
+        "essentialBehaviouralSkillsNotes": {
+          "fr": null,
+          "en": null
+        },
+        "essentialTechnicalSkillsNotes": {
+          "en": "Please note that Application Development Languages and Tools* may be replaced with the specific languages and/or tools needed for the position.",
+          "fr": "Veuillez noter que les langages et outils de développement d'applications* peuvent être remplacés par les langages et/ou outils spécifiques nécessaires pour le poste."
+        },
+        "nonessentialTechnicalSkillsNotes": {
+          "en": "Please note that Full stack development was listed as optional, however this may be replaced by Front-end development or Back-end Development based on the operational requirements needed for the position.",
+          "fr": "Veuillez noter que le développement de la pile complète a été mentionné comme optionnel, mais il peut être remplacé par le développement frontal  ou dorsal fonction des exigences opérationnelles requises pour le poste."
+        },
+        "workDescription": {
+          "en": "https://www.gcpedia.gc.ca/gcwiki/images/d/d3/SS-SL_Mgr-Ges_GCIT040010_EN.docx",
+          "fr": "https://www.gcpedia.gc.ca/gcwiki/images/1/1b/SS-SL_Mgr-Ges_GCIT040010_FR.docx"
+        },
+        "stream": {
+          "value": "SOFTWARE_SOLUTIONS"
+        },
+        "classification": {
+          "group": "IT",
+          "level": 4
+        },
+        "keywords": {
+          "en": [
+            "Application Development Manager",
+            "Manager of Software Development",
+            "IT Application Development Manager"
+          ],
+          "fr": ["Responsable du développement d'applications"]
+        }
+      }
+    ]
+  }
+}

@@ -169,9 +169,9 @@ export const CreateClassificationForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
               min: {
-                value: watchMinSalary || 0,
+                value: watchMinSalary ?? 0,
                 message: intl.formatMessage(errorMessages.mustBeGreater, {
-                  value: watchMinSalary || 0,
+                  value: watchMinSalary ?? 0,
                 }),
               },
             }}

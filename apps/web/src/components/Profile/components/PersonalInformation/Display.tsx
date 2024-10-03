@@ -1,9 +1,7 @@
-import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 
-import { graphql, User } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
+import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 import { Button, Chip, Link } from "@gc-digital-talent/ui";
 import {
@@ -12,24 +10,28 @@ import {
   getCitizenshipStatusesProfile,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 
 import FieldDisplay from "../FieldDisplay";
 
-const SendVerificationEmail_Mutation = graphql(/* GraphQL */ `
-  mutation SendVerificationEmail($id: ID!) {
-    sendUserEmailVerification(id: $id) {
-      id
-      email
-    }
-  }
-`);
+type PartialUser = Pick<
+  User,
+  | "firstName"
+  | "lastName"
+  | "email"
+  | "isEmailVerified"
+  | "telephone"
+  | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
+  | "citizenship"
+  | "armedForcesStatus"
+>;
 
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
   showEmailVerification?: boolean;
 }
 
@@ -43,8 +45,6 @@ const Display = ({
     preferredLang,
     preferredLanguageForInterview,
     preferredLanguageForExam,
-    currentCity,
-    currentProvince,
     citizenship,
     armedForcesStatus,
   },
@@ -52,31 +52,15 @@ const Display = ({
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
-  const { userAuthInfo } = useAuthorization();
   const navigate = useNavigate();
   const routes = useRoutes();
 
-  const [{ fetching: mutationSubmitting }, executeSendEmailMutation] =
-    useMutation(SendVerificationEmail_Mutation);
-
   const handleVerifyNowClick = () => {
-    executeSendEmailMutation({
-      id: userAuthInfo?.id,
-    })
-      .then((result) => {
-        if (result.data?.sendUserEmailVerification) {
-          navigate(
-            routes.verifyContactEmail({
-              emailAddress: result.data.sendUserEmailVerification.email,
-            }),
-          );
-        } else {
-          throw new Error("Failed to submit");
-        }
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(commonMessages.error));
-      });
+    navigate(
+      routes.verifyContactEmail({
+        emailAddress: email,
+      }),
+    );
   };
 
   const emailVerificationComponents = isEmailVerified ? (
@@ -103,7 +87,6 @@ const Display = ({
         color="error"
         data-h2-margin="base(0 0 x.15 0)" // line up with chip
         onClick={handleVerifyNowClick}
-        disabled={mutationSubmitting}
       >
         {intl.formatMessage({
           defaultMessage: "Verify now",
@@ -128,7 +111,7 @@ const Display = ({
           description: "Label for given name field",
         })}
       >
-        {firstName || notProvided}
+        {firstName ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!lastName}
@@ -138,7 +121,7 @@ const Display = ({
           description: "Label for surname field",
         })}
       >
-        {lastName || notProvided}
+        {lastName ?? notProvided}
       </FieldDisplay>
       <div
         data-h2-grid-column-start="p-tablet(1)"
@@ -153,7 +136,7 @@ const Display = ({
           label={intl.formatMessage(commonMessages.email)}
           data-h2-margin="base(0 0 x.15 0)" // line up with chip
         >
-          {email || notProvided}
+          {email ?? notProvided}
         </FieldDisplay>
         {showEmailVerification ? emailVerificationComponents : null}
       </div>
@@ -173,28 +156,6 @@ const Display = ({
         ) : (
           notProvided
         )}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!currentCity}
-        label={intl.formatMessage({
-          defaultMessage: "Current city",
-          id: "de/Vcy",
-          description: "Label for current city field in About Me form",
-        })}
-      >
-        {currentCity || notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!currentProvince}
-        label={intl.formatMessage({
-          defaultMessage: "Province or territory",
-          id: "yzgwjd",
-          description: "Label for current province or territory field",
-        })}
-      >
-        {currentProvince?.label
-          ? getLocalizedName(currentProvince.label, intl)
-          : notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLang}

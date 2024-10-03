@@ -4,6 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
+import { useEffect } from "react";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -20,6 +21,7 @@ import {
   getLocale,
   errorMessages,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import {
@@ -46,7 +48,10 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { SkillFormOptions_Query } from "./operations";
 
-type Option<V> = { value: V; label: string };
+interface Option<V> {
+  value: V;
+  label: string;
+}
 
 type FormValues = Pick<Skill, "name" | "description"> & {
   category?: SkillCategory;
@@ -130,8 +135,8 @@ export const UpdateSkillForm = ({
     ...values,
     category: values.category.value ?? undefined,
     keywords: {
-      en: values.keywords?.en?.join(", ") || "",
-      fr: values.keywords?.fr?.join(", ") || "",
+      en: values.keywords?.en?.join(", ") ?? "",
+      fr: values.keywords?.fr?.join(", ") ?? "",
     },
     families: unpackIds(values?.families),
   });
@@ -159,6 +164,13 @@ export const UpdateSkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialSkill),
   });
+
+  // category is populated by fetched enums, this can possibly not finish until after form has already rendered
+  // so reset to default value (initialSkill) once enums loaded
+  useEffect(() => {
+    methods.resetField("category");
+  }, [data?.categories, methods]);
+
   const { handleSubmit } = methods;
 
   const { state } = useLocation();
@@ -192,7 +204,7 @@ export const UpdateSkillForm = ({
   const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
     ({ id, name }) => ({
       value: id,
-      label: name?.[locale] || "",
+      label: getLocalizedName(name, intl),
     }),
   );
 
@@ -326,9 +338,9 @@ export const UpdateSkillForm = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateSkillData_Query = graphql(/* GraphQL */ `
   query UpdateSkillData($id: UUID!) {

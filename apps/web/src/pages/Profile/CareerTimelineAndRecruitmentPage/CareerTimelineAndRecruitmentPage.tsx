@@ -31,7 +31,7 @@ const CareerTimelineAndRecruitmentPage = () => {
   const { userAuthInfo } = useAuthorization();
   const [{ data, fetching, error }] = useQuery({
     query: CareerTimelineExperiences_Query,
-    variables: { id: userAuthInfo?.id || "" },
+    variables: { id: userAuthInfo?.id ?? "" },
   });
 
   return (

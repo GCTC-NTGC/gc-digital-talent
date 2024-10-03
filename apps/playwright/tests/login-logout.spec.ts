@@ -28,9 +28,11 @@ test.describe("Login and logout", () => {
 
     // complete login process
     const request = await requestPromise;
-    const location = await request
-      .response()
-      .then((res) => res.headerValue("location"));
+    const location = String(
+      await request
+        .response()
+        .then((res) => res?.headerValue("location") ?? ""),
+    );
     const url = new URL(location);
     const searchParamAccessToken = url.searchParams.get("access_token");
 
@@ -50,7 +52,7 @@ test.describe("Login and logout", () => {
           /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
         );
         // make sure it uses the access token
-        const req = await interception.request();
+        const req = interception.request();
         expect(req.headers().authorization).toEqual(
           `Bearer ${searchParamAccessToken}`,
         );
@@ -104,11 +106,11 @@ test.describe("Login and logout", () => {
 
     // time travel to when the tokens expire before trying to navigate
     const tokenSet1 = await getAuthTokens(page);
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1?.accessToken ?? ""));
 
     const request = await requestPromise;
     await page.goto("/en/applicant");
-    const refreshToken = await new URL(request.url()).searchParams.get(
+    const refreshToken = new URL(request.url()).searchParams.get(
       "refresh_token",
     );
 
@@ -140,7 +142,7 @@ test.describe("Login and logout", () => {
     const tokenSet1 = await getAuthTokens(pageTwo);
 
     // not important, just need an API request to occur
-    await page.goto("/en/applicant/profile");
+    await page.goto("/en/applicant/personal-information");
 
     // get ready to catch the next graphql request
     await page
@@ -151,7 +153,7 @@ test.describe("Login and logout", () => {
         }
         return false;
       })
-      .then(async (request) => {
+      .then((request) => {
         // make sure it uses the access token
         expect(request.headers().authorization).toEqual(
           `Bearer ${tokenSet1.accessToken}`,
@@ -171,13 +173,13 @@ test.describe("Login and logout", () => {
     // get auth tokens set 1
     const tokenSet1 = await getAuthTokens(page);
     // time travel to when the tokens from token set 1 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1?.accessToken ?? ""));
 
     const request = await requestPromise;
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 1 from request 1 URL
-    const refreshToken1 = await new URL(request.url()).searchParams.get(
+    const refreshToken1 = new URL(request.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
@@ -195,7 +197,7 @@ test.describe("Login and logout", () => {
         }
         return false;
       })
-      .then(async (req) => {
+      .then((req) => {
         // make sure it uses the second access token
         expect(req.headers().authorization).toEqual(
           `Bearer ${tokenSet2.accessToken}`,
@@ -205,13 +207,13 @@ test.describe("Login and logout", () => {
     // reset clock
     await clockHelper.restore();
     // time travel to when the tokens from token set 2 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2?.accessToken ?? ""));
 
     const request2 = await requestPromise;
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 2 from request URL
-    const refreshToken2 = await new URL(request2.url()).searchParams.get(
+    const refreshToken2 = new URL(request2.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 2 to match refresh token 2 from request 2 URL
@@ -229,7 +231,7 @@ test.describe("Login and logout", () => {
         }
         return false;
       })
-      .then(async (req) => {
+      .then((req) => {
         // make sure it uses the third access token
         expect(req.headers().authorization).toEqual(
           `Bearer ${tokenSet3.accessToken}`,
@@ -239,13 +241,13 @@ test.describe("Login and logout", () => {
     // reset clock
     await clockHelper.restore();
     // time travel to when the tokens from token set 3 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3?.accessToken ?? ""));
 
     const request3 = await requestPromise;
     // navigate to a page
     await page.goto("/en/applicant");
     // get refresh token 3 from request URL
-    const refreshToken3 = await new URL(request3.url()).searchParams.get(
+    const refreshToken3 = new URL(request3.url()).searchParams.get(
       "refresh_token",
     );
     // expect refresh token from token set 3 to match refresh token 3 from request 3 URL
@@ -266,7 +268,7 @@ test.describe("Login and logout", () => {
     await page.goto("/en/logged-out");
     await page.getByRole("button", { name: "Sign out" }).click();
 
-    await requestPromise.then(async (req) => {
+    await requestPromise.then((req) => {
       const url = new URL(req.url());
       const searchParamPostLogoutRedirectUri = url.searchParams.get(
         "post_logout_redirect_uri",
@@ -317,15 +319,19 @@ test.describe("Login and logout", () => {
     const pageTwo = await context.newPage();
     await loginBySub(pageOne, "applicant@test.com", false);
 
-    // visit somewhere in second page context
-    await pageTwo.goto("/en/");
-
     // confirm login in first page context
     await expect(
       pageOne.getByRole("heading", {
         name: "Welcome back, Gul",
         level: 1,
       }),
+    ).toBeVisible();
+
+    // visit somewhere in second page context
+    // and make sure we are logged in
+    await pageTwo.goto("/en/");
+    await expect(
+      pageTwo.getByRole("button", { name: /sign out/i }),
     ).toBeVisible();
 
     // simulate logged out in first page context

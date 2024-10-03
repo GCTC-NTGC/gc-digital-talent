@@ -50,12 +50,12 @@ export const UpdateTeamPage_TeamFragment = graphql(/* GraphQL */ `
 
 type UpdateTeamPageFragment = FragmentType<typeof UpdateTeamPage_TeamFragment>;
 
-type FormValues = {
+interface FormValues {
   displayName?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   contactEmail?: Maybe<Scalars["Email"]["output"]>;
-  departments?: Array<Scalars["UUID"]["output"]>;
-};
+  departments?: Scalars["UUID"]["output"][];
+}
 
 const dataToFormValues = (data: UpdateTeamPageFragmentType): FormValues => {
   const { departments, displayName, description, ...rest } = data;
@@ -72,7 +72,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
   return {
     ...rest,
     displayName,
-    name: kebabCase(displayName?.en || ""),
+    name: displayName?.en ? kebabCase(displayName.en) : undefined,
     departments: { sync: departments },
   };
 };

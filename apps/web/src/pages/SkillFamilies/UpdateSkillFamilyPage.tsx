@@ -18,6 +18,7 @@ import {
   getLocale,
   errorMessages,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import {
@@ -40,7 +41,10 @@ import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-type Option<V> = { value: V; label: string };
+interface Option<V> {
+  value: V;
+  label: string;
+}
 
 type FormValues = Pick<SkillFamily, "name" | "description"> & {
   skills: string[];
@@ -181,7 +185,7 @@ export const UpdateSkillFamilyForm = ({
 
   const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
     value: id,
-    label: name?.[locale] || "",
+    label: getLocalizedName(name, intl),
   }));
 
   return (
@@ -270,9 +274,9 @@ export const UpdateSkillFamilyForm = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillFamilyId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `
   query SkillFamilySkillsData($id: UUID!) {

@@ -5,7 +5,7 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
-  assessmentStep: AssessmentStep,
+  assessmentStep: Pick<AssessmentStep, "type" | "title">,
   intl: IntlShape,
 ): string => {
   const localizedTitle = getLocalizedName(assessmentStep?.title, intl, true);

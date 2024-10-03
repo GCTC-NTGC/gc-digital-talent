@@ -1,10 +1,11 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
   Maybe,
+  Pool,
   PoolCandidate,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
-  User,
+  UserProfileFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 
 export type SectionKey =
@@ -16,9 +17,9 @@ export type SectionKey =
   | "account";
 
 export interface SectionProps<P = void> {
-  user: User;
+  user: UserProfileFragmentType;
   isUpdating?: boolean;
-  application?: PoolCandidate;
+  application?: Pick<PoolCandidate, "id"> & { pool: Pick<Pool, "language"> };
   pool?: Maybe<P>;
   onUpdate: (
     id: string,

@@ -16,6 +16,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
+import tableMessages from "~/components/Table/tableMessages";
 
 const columnHelper = createColumnHelper<
   Skill & {
@@ -71,7 +72,7 @@ const ActionCell = (
         }}
         onSave={async (value) => {
           if (value.skill && value.skillLevel) {
-            onUpdate(poolSkillId, value.skillLevel);
+            await onUpdate(poolSkillId, value.skillLevel);
           }
         }}
       />
@@ -175,11 +176,7 @@ const SkillTable = ({
     columns = [
       columnHelper.display({
         id: "actions",
-        header: intl.formatMessage({
-          defaultMessage: "Actions",
-          id: "OxeGLu",
-          description: "Title displayed for the team table actions column",
-        }),
+        header: intl.formatMessage(tableMessages.actions),
         cell: ({ row: { original: skill } }) =>
           ActionCell(skill, onUpdate, onRemove),
       }),
@@ -207,7 +204,7 @@ const SkillTable = ({
                   skills={availableSkills}
                   onSave={async (value) => {
                     if (value.skill && value.skillLevel) {
-                      onCreate(value.skill, value.skillLevel);
+                      await onCreate(value.skill, value.skillLevel);
                     }
                   }}
                 />

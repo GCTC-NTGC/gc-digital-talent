@@ -49,7 +49,7 @@ const EditExperienceForm = ({
   const returnPath = paths.applicationCareerTimeline(applicationId);
   const experienceType = deriveExperienceType(experience);
   const defaultValues = queryResultToDefaultValues(
-    experienceType || "award",
+    experienceType ?? "award",
     experience,
   );
   const methods = useForm<ExperienceExperienceFormValues>({
@@ -65,7 +65,7 @@ const EditExperienceForm = ({
     experienceType,
   );
 
-  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
+  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = (
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], experienceType);

@@ -3,7 +3,12 @@ import { useForm, FormProvider } from "react-hook-form";
 
 import { Dialog, Button, Heading, Well } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  formMessages,
+  getLocale,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { Experience, Scalars } from "@gc-digital-talent/graphql";
 
@@ -12,12 +17,13 @@ import {
   getExperienceName,
 } from "~/utils/experienceUtils";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-const TEXT_AREA_MAX_WORDS = 160;
+const TEXT_AREA_MAX_WORDS_EN = 160;
 
 const getSkillArgs = (
   skillId: Scalars["ID"]["output"],
-  experience?: Experience,
+  experience?: Omit<Experience, "user">,
   details?: string,
   remove?: boolean,
 ) => {
@@ -38,16 +44,16 @@ const getSkillArgs = (
 
 type FormAction = "connect" | "remove";
 
-type FormValues = {
+interface FormValues {
   experience?: Scalars["ID"]["output"];
   skill?: Scalars["ID"]["output"];
   details?: string;
   action?: FormAction;
-};
+}
 
 interface ExperienceSkillFormProps {
   defaultValues: FormValues;
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   onSuccess: () => void;
 }
 
@@ -57,6 +63,7 @@ const ExperienceSkillForm = ({
   experiences,
 }: ExperienceSkillFormProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const methods = useForm<FormValues>({
     defaultValues,
   });
@@ -72,13 +79,13 @@ const ExperienceSkillForm = ({
   );
   const experienceType = selectedExperience
     ? deriveExperienceType(selectedExperience)
-    : "";
+    : "personal";
   const { executeMutation, getMutationArgs, executing } =
     useExperienceMutations("update", experienceType);
 
   const handleSubmit = async (formValues: FormValues) => {
     const args = getMutationArgs(
-      formValues.experience || "",
+      formValues.experience ?? "",
       formValues.skill
         ? {
             skills: getSkillArgs(
@@ -124,6 +131,11 @@ const ExperienceSkillForm = ({
         });
     }
   };
+
+  const wordCountLimits: Record<Locales, number> = {
+    en: TEXT_AREA_MAX_WORDS_EN,
+    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
+  } as const;
 
   return (
     <FormProvider {...methods}>
@@ -233,7 +245,7 @@ const ExperienceSkillForm = ({
           <TextArea
             id="details"
             name="details"
-            wordLimit={TEXT_AREA_MAX_WORDS}
+            wordLimit={wordCountLimits[locale]}
             label={intl.formatMessage({
               defaultMessage: "Describe how you used this skill",
               id: "L7PqXn",

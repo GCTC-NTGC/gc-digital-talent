@@ -14,10 +14,12 @@ import {
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateAssessmentResult = (
-  amount: number,
+  index: number,
   assessmentStep?: Maybe<AssessmentStep>,
   poolSkill?: Maybe<PoolSkill>,
 ): AssessmentResult => {
+  faker.seed(index); // repeatable results
+
   return {
     id: faker.string.uuid(),
     assessmentStep,
@@ -49,9 +51,8 @@ export default (
   assessmentStep?: Maybe<AssessmentStep>,
   poolSkill?: Maybe<PoolSkill>,
 ): AssessmentResult[] => {
-  faker.seed(0); // repeatable results
-  const amountToGenerate = numToGenerate || 20;
-  return [...Array(amountToGenerate)].map(() =>
-    generateAssessmentResult(amountToGenerate, assessmentStep, poolSkill),
+  const amountToGenerate = numToGenerate ?? 20;
+  return [...Array(amountToGenerate)].map((_x, index) =>
+    generateAssessmentResult(index, assessmentStep, poolSkill),
   );
 };

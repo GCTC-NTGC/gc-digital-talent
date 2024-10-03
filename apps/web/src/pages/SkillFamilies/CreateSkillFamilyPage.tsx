@@ -6,7 +6,11 @@ import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, TextArea, Submit, Combobox } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
 import {
@@ -26,7 +30,10 @@ import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-type Option<V> = { value: V; label: string };
+interface Option<V> {
+  value: V;
+  label: string;
+}
 
 type FormValues = Pick<SkillFamily, "description"> & {
   key: string;
@@ -100,7 +107,7 @@ export const CreateSkillFamilyForm = ({
 
   const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
     value: id,
-    label: name?.[locale] || "",
+    label: getLocalizedName(name, intl),
   }));
 
   return (
@@ -123,11 +130,7 @@ export const CreateSkillFamilyForm = ({
             <Input
               id="key"
               name="key"
-              label={intl.formatMessage({
-                defaultMessage: "Key",
-                id: "CvV2l6",
-                description: "Label for an entity 'key' field",
-              })}
+              label={intl.formatMessage(adminMessages.key)}
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'key' is a string that uniquely identifies a skill family. It should be based on the skill families English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill family, so it cannot be changed later.",

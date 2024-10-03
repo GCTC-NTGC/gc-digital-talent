@@ -113,6 +113,11 @@ type LocalizedPlacementType {
   label: LocalizedString!
 }
 
+type LocalizedPoolAreaOfSelection {
+  value: PoolAreaOfSelection!
+  label: LocalizedString!
+}
+
 type LocalizedPoolCandidateSearchPositionType {
   value: PoolCandidateSearchPositionType!
   label: LocalizedString!
@@ -143,6 +148,11 @@ type LocalizedPoolOpportunityLength {
   label: LocalizedString!
 }
 
+type LocalizedPoolSelectionLimitation {
+  value: PoolSelectionLimitation!
+  label: LocalizedString!
+}
+
 type LocalizedPoolSkillType {
   value: PoolSkillType!
   label: LocalizedString!
@@ -155,6 +165,11 @@ type LocalizedPoolStatus {
 
 type LocalizedPoolStream {
   value: PoolStream!
+  label: LocalizedString!
+}
+
+type LocalizedPositionDuration {
+  value: PositionDuration!
   label: LocalizedString!
 }
 
@@ -188,6 +203,11 @@ type LocalizedSkillLevel {
   label: LocalizedString!
 }
 
+type LocalizedSupervisoryStatus {
+  value: SupervisoryStatus!
+  label: LocalizedString!
+}
+
 type LocalizedWorkRegion {
   value: WorkRegion!
   label: LocalizedString!
@@ -202,18 +222,18 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): User
-  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   pools: [Pool]! @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolCandidate(id: UUID!): PoolCandidate
-  poolCandidates(includeIds: [ID]!): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
-  classifications: [Classification]!
+  classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
+  jobPosterTemplate(id: UUID!): JobPosterTemplate
+  jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
@@ -221,6 +241,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  community(id: UUID!): Community
   communities: [Community]!
   team(id: UUID!): Team
   teams: [Team]!
@@ -269,7 +290,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
-    orderByClaimVerification: SortOrder
+    orderByClaimVerification: ClaimVerificationSort
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -308,8 +329,8 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
-  sendUserEmailVerification(id: ID!): User
-  verifyUserEmail(id: ID!, code: String!): User
+  sendUserEmailVerification(emailType: EmailType): User
+  verifyUserEmail(emailType: EmailType, code: String!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
@@ -352,7 +373,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
+  createPool(userId: ID!, teamId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, teamId: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
@@ -371,10 +392,14 @@ type Mutation {
   deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
+  createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
+  updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
+  deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
-  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team @deprecated(reason: "use updateUserRoles")
+  createCommunity(community: CreateCommunityInput!): Community
+  updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -393,6 +418,14 @@ type Mutation {
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
+  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
+  downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadApplicationsZip(ids: [UUID!]!): Boolean!
+  downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
+  downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
+  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
+  downloadApplicationDoc(id: UUID!): String
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -468,6 +501,8 @@ type User {
   verbalLevel: LocalizedEvaluatedLanguageAbility
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
+  isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
   currentClassification: Classification
   department: Department
@@ -555,6 +590,22 @@ type SystemNotification implements Notification {
   href: LocalizedString
 }
 
+type UserFileGeneratedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  fileName: String
+}
+
+type UserFileGenerationErrorNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  fileName: String
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email
@@ -577,6 +628,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
+  id: ID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
 }
@@ -585,6 +637,7 @@ type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
   team: Team
+  community: Community
   name: LocalizedString
   classification: Classification
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -620,6 +673,8 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   department: Department
+  areaOfSelection: LocalizedPoolAreaOfSelection
+  selectionLimitations: [LocalizedPoolSelectionLimitation!]
 }
 
 type GeneralQuestionResponse {
@@ -677,11 +732,18 @@ type PoolSkill {
   assessmentSteps: [AssessmentStep]
 }
 
+type PoolCandidateCategory {
+  weight: Int!
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
   expiryDate: Date
+  category: PoolCandidateCategory
   status: LocalizedPoolCandidateStatus
   statusWeight: Int
   notes: String
@@ -750,6 +812,7 @@ type Community implements HasRoleAssignments {
   description: LocalizedString
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
+  pools: [Pool]
 }
 
 type Team implements HasRoleAssignments {
@@ -841,6 +904,7 @@ type PoolCandidateSearchRequest {
   positionType: LocalizedPoolCandidateSearchPositionType
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community
+  initialResultCount: Int
 }
 
 type SkillFamily {
@@ -962,6 +1026,39 @@ type ExperienceSkillRecord {
   details: String
 }
 
+type JobPosterTemplate {
+  id: UUID!
+  referenceId: String
+  name: LocalizedString
+  description: LocalizedString
+  supervisoryStatus: LocalizedSupervisoryStatus
+  stream: LocalizedPoolStream
+  workDescription: LocalizedString
+  tasks: LocalizedString
+  keywords: LocalizedKeywords
+  essentialTechnicalSkillsNotes: LocalizedString
+  essentialBehaviouralSkillsNotes: LocalizedString
+  nonessentialTechnicalSkillsNotes: LocalizedString
+  classification: Classification
+  skills: [JobPosterTemplateSkill!]
+}
+
+type LocalizedKeywords {
+  en: [String!]
+  fr: [String!]
+}
+
+type JobPosterTemplateSkillPivot {
+  type: LocalizedPoolSkillType!
+  requiredLevel: SkillLevel
+}
+
+type JobPosterTemplateSkill {
+  id: UUID!
+  skill: Skill!
+  pivot: JobPosterTemplateSkillPivot
+}
+
 input ClassificationFilterInput {
   group: String!
   level: Int!
@@ -1023,7 +1120,7 @@ input PoolBookmarksOrderByInput {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
@@ -1093,6 +1190,11 @@ input SitewideAnnouncementInput {
   message: LocalizedStringInput!
 }
 
+input ClaimVerificationSort {
+  order: SortOrder!
+  useBookmark: Boolean
+}
+
 input ClassificationBelongsTo {
   connect: ID
   disconnect: Boolean
@@ -1127,6 +1229,7 @@ input CreateUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1137,7 +1240,7 @@ input CreateUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1174,6 +1277,7 @@ input UpdateUserAsAdminInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1184,7 +1288,7 @@ input UpdateUserAsAdminInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1230,6 +1334,7 @@ input UpdateUserAsUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  workEmail: Email
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1240,7 +1345,7 @@ input UpdateUserAsUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1357,8 +1462,20 @@ input UpdateTeamInput {
   contactEmail: Email
 }
 
+input CreateCommunityInput {
+  key: String!
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
+input UpdateCommunityInput {
+  key: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -1390,6 +1507,7 @@ input CreatePoolCandidateSearchRequestInput {
   managerJobTitle: String!
   positionType: PoolCandidateSearchPositionType!
   reason: PoolCandidateSearchRequestReason!
+  initialResultCount: Int
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1601,6 +1719,8 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+  areaOfSelection: PoolAreaOfSelection
+  selectionLimitations: [PoolSelectionLimitation!]
 }
 
 input UpdatePublishedPoolInput {
@@ -1677,12 +1797,6 @@ input RolesForTeamHasMany {
   sync: RolesForTeamInput
 }
 
-input UpdateUserTeamRolesInput {
-  teamId: ID!
-  userId: UUID!
-  roleAssignments: RolesForTeamHasMany!
-}
-
 input GeneralResponseBelongsTo {
   connect: ID!
 }
@@ -1741,10 +1855,66 @@ input DateRange {
   to: DateTime!
 }
 
+input LocalizedKeywordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 input NotificationFilterInput {
   onlyUnread: Boolean
   readAt: DateRange
   createdAt: DateRange
+}
+
+input ConnectJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType!
+  requiredLevel: SkillLevel
+}
+
+input SyncJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType
+  requiredLevel: SkillLevel
+}
+
+input UpdateJobPosterTemplateSkillsInput {
+  connect: [ConnectJobPosterTemplateSkillInput!]
+  sync: [SyncJobPosterTemplateSkillInput!]
+  detach: [UUID!]
+}
+
+input CreateJobPosterTemplateInput {
+  referenceId: String!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput!
+  supervisoryStatus: SupervisoryStatus!
+  stream: PoolStream!
+  workDescription: LocalizedStringInput
+  tasks: LocalizedStringInput!
+  keywords: LocalizedKeywordsInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+  classification: ClassificationBelongsTo!
+  skills: UpdateJobPosterTemplateSkillsInput
+}
+
+input UpdateJobPosterTemplateInput {
+  id: UUID!
+  referenceId: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  supervisoryStatus: SupervisoryStatus
+  stream: PoolStream
+  workDescription: LocalizedStringInput
+  tasks: LocalizedStringInput
+  keywords: LocalizedStringInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+  classification: ClassificationBelongsTo
+  skills: UpdateJobPosterTemplateSkillsInput
 }
 
 type DigitalContractingPersonnelSkill {
@@ -2369,7 +2539,6 @@ enum AssessmentResultJustification {
   EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE
   EDUCATION_FAILED_NOT_RELEVANT
   EDUCATION_FAILED_REQUIREMENT_NOT_MET
-  SKILL_ACCEPTED
   SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED
   FAILED_NOT_ENOUGH_INFORMATION
   FAILED_OTHER
@@ -2635,6 +2804,11 @@ enum EducationType {
   OTHER
 }
 
+enum EmailType {
+  CONTACT
+  WORK
+}
+
 enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
@@ -2672,7 +2846,7 @@ enum GenericJobTitleKey {
   TECHNICAL_ADVISOR_IT03
   SENIOR_ADVISOR_IT04
   MANAGER_IT04
-  EXECUTIVE_EX03
+  DIGITAL_LEADER_EX_03
 }
 
 enum GovEmployeeType {
@@ -2724,6 +2898,11 @@ enum PlacementType {
   PLACED_CASUAL
   PLACED_TERM
   PLACED_INDETERMINATE
+}
+
+enum PoolAreaOfSelection {
+  PUBLIC
+  EMPLOYEES
 }
 
 enum PoolCandidateSearchPositionType {
@@ -2783,6 +2962,11 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolSelectionLimitation {
+  AT_LEVEL_ONLY
+  DEPARTMENTAL_PREFERENCE
 }
 
 enum PoolSkillType {
@@ -2863,6 +3047,11 @@ enum SkillLevel {
   INTERMEDIATE
   ADVANCED
   LEAD
+}
+
+enum SupervisoryStatus {
+  INDIVIDUAL_CONTRIBUTOR
+  SUPERVISOR
 }
 
 enum WhenSkillUsed {

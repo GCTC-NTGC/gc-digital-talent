@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HydratesSnapshot;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Lang;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -23,9 +25,12 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 class Experience extends Model
 {
     use HasRelationships;
+    use HydratesSnapshot;
     use SoftDeletes;
 
     protected $keyType = 'string';
+
+    protected static $hydrationFields;
 
     /**
      * Create a new concrete model instance that is existing, based on the type field.
@@ -203,14 +208,15 @@ class Experience extends Model
         });
     }
 
-    public function getDateRange(): string
+    public function getDateRange($lang = 'en'): string
     {
+        $format = 'MMM Y';
         if ($this->attributes['experience_type'] === AwardExperience::class) {
-            return $this->awarded_date->format('M Y');
+            return $this->awarded_date->locale($lang)->isoFormat($format);
         }
 
-        $start = $this->start_date->format('M Y');
-        $end = $this->end_date ? $this->end_date->format('M Y') : 'Present';
+        $start = $this->start_date->locale($lang)->isoFormat($format);
+        $end = $this->end_date ? $this->end_date->locale($lang)->isoFormat($format) : Lang::get('common.present', [], $lang);
 
         return "$start - $end";
     }
@@ -247,6 +253,7 @@ class Experience extends Model
 
     protected static function getJsonPropertyString(array $attributes, string $propertyName)
     {
+
         $properties = json_decode($attributes['properties'] ?? '{}');
         if (isset($properties->$propertyName)) {
             return strval($properties->$propertyName);
@@ -269,5 +276,33 @@ class Experience extends Model
             get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, $propertyName),
             set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, $propertyName)
         );
+    }
+
+    public static function hydrateSnapshot(mixed $snapshot): Model|array
+    {
+        $experiences = [];
+        foreach ($snapshot as $experience) {
+            $hydrationModel = match ($experience['__typename']) {
+                'AwardExperience' => AwardExperience::class,
+                'CommunityExperience' => CommunityExperience::class,
+                'EducationExperience' => EducationExperience::class,
+                'PersonalExperience' => PersonalExperience::class,
+                'WorkExperience' => WorkExperience::class,
+                default => null,
+            };
+
+            if ($hydrationModel) {
+                $fields = [
+                    ...$hydrationModel::$hydrationFields,
+                    'id' => 'id',
+                    'details' => 'details',
+                ];
+
+                $model = $hydrationModel::make([]);
+                $experiences[] = self::hydrateFields($experience, $fields, $model);
+            }
+        }
+
+        return $experiences;
     }
 }

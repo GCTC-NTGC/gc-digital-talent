@@ -15,11 +15,11 @@ import UserProfile from "~/components/UserProfile";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import SingleUserProfilePrintButton from "~/components/PrintButton/SingleUserProfilePrintButton";
+import useUserDownloads from "~/hooks/useUserDownloads";
+import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
-    ...ProfileDocument
     id
     email
     firstName
@@ -157,9 +157,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         name {
@@ -215,10 +212,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -309,9 +302,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     topTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -333,9 +323,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     topBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -357,9 +344,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     improveTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -381,9 +365,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     improveBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -412,16 +393,22 @@ interface AdminUserProfileProps {
 
 export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
   const user = getFragment(AdminUserProfileUser_Fragment, userQuery);
+  const { downloadDoc, downloadingDoc } = useUserDownloads();
+
+  const handleDocDownload = (anonymous: boolean) => {
+    downloadDoc({ id: user.id, anonymous });
+  };
+
   return (
     <>
       <div
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
-        <SingleUserProfilePrintButton
-          users={[user]}
-          color="primary"
-          mode="solid"
+        <DownloadUsersDocButton
+          disabled={downloadingDoc}
+          onClick={handleDocDownload}
+          isDownloading={downloadingDoc}
         />
       </div>
       <UserProfile user={user} headingLevel="h3" />
@@ -437,9 +424,9 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const AdminUserProfilePage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
@@ -475,6 +462,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <AdminUserProfilePage />

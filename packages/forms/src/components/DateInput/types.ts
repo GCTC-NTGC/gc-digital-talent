@@ -9,17 +9,17 @@ export const DATE_SEGMENT = {
 type ObjectValues<T> = T[keyof T];
 export type DateSegment = ObjectValues<typeof DATE_SEGMENT>;
 
-export type SegmentObject = {
+export interface SegmentObject {
   year?: string;
   month?: string;
   day?: string;
-};
+}
 
 // We only want to allow passing a value + message
-type DateMinMax = {
+interface DateMinMax {
   min: ValidationValueMessage<string>;
   max: ValidationValueMessage<string>;
-};
+}
 
 export type DateRegisterOptions = Omit<RegisterOptions, "min" | "max"> &
   Partial<DateMinMax>;

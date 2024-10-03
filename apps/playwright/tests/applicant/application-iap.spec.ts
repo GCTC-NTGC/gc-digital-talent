@@ -4,28 +4,18 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   Pool,
-  PoolLanguage,
-  PoolOpportunityLength,
-  PoolSkillType,
-  PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
   PublishingGroup,
-  SecurityStatus,
-  SkillCategory,
-  SkillLevel,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import { getSkills } from "~/utils/skills";
-import { getDCM } from "~/utils/teams";
-import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
-import PoolPage from "~/fixtures/PoolPage";
 import ApplicationPage from "~/fixtures/ApplicationPage";
-import { getDepartments } from "~/utils/departments";
+import { createUserWithRoles } from "~/utils/user";
+import { createAndPublishPool } from "~/utils/pools";
+import graphql from "~/utils/graphql";
 
 test.describe("IAP Application", () => {
   const uniqueTestId = Date.now().valueOf();
@@ -42,81 +32,41 @@ test.describe("IAP Application", () => {
     ).toBeHidden();
   }
 
-  test.beforeAll(async ({ adminPage }) => {
-    const poolPage = new PoolPage(adminPage.page);
-    const skills = await getSkills();
-    const createdUser = await adminPage.createUser({
-      email: `${sub}@example.org`,
-      sub,
-      currentProvince: ProvinceOrTerritory.Ontario,
-      currentCity: "Test City",
-      telephone: "+10123456789",
-      armedForcesStatus: ArmedForcesStatus.NonCaf,
-      citizenship: CitizenshipStatus.Citizen,
-      lookingForEnglish: true,
-      isGovEmployee: false,
-      hasPriorityEntitlement: false,
-      locationPreferences: [WorkRegion.Ontario],
-      positionDuration: [PositionDuration.Permanent],
-    });
-    await adminPage.addRolesToUser(createdUser.id, [
-      "guest",
-      "base_user",
-      "applicant",
-    ]);
-    const team = await getDCM();
-    const classifications = await getClassifications();
-    const departments = await getDepartments();
-    const createdPool = await poolPage.createPool(createdUser.id, team.id, {
-      classification: {
-        connect: classifications[0].id,
+  test.beforeAll(async () => {
+    const adminCtx = await graphql.newContext();
+
+    const createdUser = await createUserWithRoles(adminCtx, {
+      user: {
+        email: `${sub}@example.org`,
+        sub,
+        currentProvince: ProvinceOrTerritory.Ontario,
+        currentCity: "Test City",
+        telephone: "+10123456789",
+        armedForcesStatus: ArmedForcesStatus.NonCaf,
+        citizenship: CitizenshipStatus.Citizen,
+        lookingForEnglish: true,
+        isGovEmployee: false,
+        hasPriorityEntitlement: false,
+        locationPreferences: [WorkRegion.Ontario],
+        positionDuration: [PositionDuration.Permanent],
       },
-      department: {
-        connect: departments[0].id,
-      },
-    });
-    await poolPage.updatePool(createdPool.id, {
-      name: {
-        en: "Playwright Test Pool EN",
-        fr: "Playwright Test Pool FR",
-      },
-      publishingGroup: PublishingGroup.Iap,
-      stream: PoolStream.BusinessAdvisoryServices,
-      closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-      yourImpact: {
-        en: "test impact EN",
-        fr: "test impact FR",
-      },
-      keyTasks: { en: "key task EN", fr: "key task FR" },
-      language: PoolLanguage.Various,
-      securityClearance: SecurityStatus.Secret,
-      location: {
-        en: "test location EN",
-        fr: "test location FR",
-      },
-      isRemote: true,
-      opportunityLength: PoolOpportunityLength.Various,
-      generalQuestions: {
-        create: [
-          {
-            question: { en: "Question EN", fr: "Question FR" },
-            sortOrder: 1,
-          },
-        ],
-      },
+      roles: ["guest", "base_user", "applicant"],
     });
 
-    await poolPage.createPoolSkill(
-      createdPool.id,
-      skills.find((skill) => skill.category.value === SkillCategory.Technical)
-        .id,
-      {
-        type: PoolSkillType.Essential,
-        requiredLevel: SkillLevel.Beginner,
+    const createdPool = await createAndPublishPool(adminCtx, {
+      userId: createdUser?.id ?? "",
+      input: {
+        publishingGroup: PublishingGroup.Iap,
+        generalQuestions: {
+          create: [
+            {
+              question: { en: "Question EN", fr: "Question FR" },
+              sortOrder: 1,
+            },
+          ],
+        },
       },
-    );
-
-    await poolPage.publishPool(createdPool.id);
+    });
 
     pool = createdPool;
   });

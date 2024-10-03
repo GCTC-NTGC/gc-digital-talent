@@ -21,6 +21,11 @@ const messages = defineMessages({
     id: "kvpRgN",
     description: "Title for classifications",
   },
+  department: {
+    defaultMessage: "Department",
+    id: "9aW0M6",
+    description: "Title for department",
+  },
   departments: {
     defaultMessage: "Departments",
     id: "+d/NdU",
@@ -45,6 +50,11 @@ const messages = defineMessages({
     defaultMessage: "Team",
     id: "kKSGje",
     description: "Title for team",
+  },
+  community: {
+    defaultMessage: "Community",
+    id: "LOjdrP",
+    description: "Title for community",
   },
   pools: {
     defaultMessage: "Pools",
@@ -164,6 +174,16 @@ const messages = defineMessages({
     defaultMessage: "Assessment plan",
     id: "fkYYe3",
     description: "Title for the assessment plan builder",
+  },
+  groupAndLevel: {
+    defaultMessage: "Group and level",
+    id: "Rn5e/i",
+    description: "Title for group and level on summary of filters section",
+  },
+  key: {
+    defaultMessage: "Key",
+    id: "ae3u1t",
+    description: "Title for key field",
   },
 });
 

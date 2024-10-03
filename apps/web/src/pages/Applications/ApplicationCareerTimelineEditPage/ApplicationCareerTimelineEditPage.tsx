@@ -62,10 +62,10 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   experienceId: string;
   applicationId: string;
-};
+}
 
 interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
   experience: AnyExperience;
@@ -119,7 +119,9 @@ export const Component = () => {
     true,
   );
 
-  const experiences: Experience[] = unpackMaybes(application.user?.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user?.experiences,
+  );
   const experience = experiences?.find((exp) => exp?.id === experienceId);
 
   return application && experience ? (
