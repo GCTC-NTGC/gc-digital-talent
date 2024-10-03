@@ -111,24 +111,26 @@ const EstimatedCandidates = ({
             ) : (
               <CandidateMessage candidateCount={candidateCount} />
             )}
-            <p>
-              <ScrollToLink to="results" color="black" mode="inline">
-                {candidateCount
-                  ? intl.formatMessage({
-                      defaultMessage: "View results",
-                      id: "3wbcnZ",
-                      description:
-                        "A link to view the pools that contain matching talent.",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage:
-                        "Submit an empty request and we will try to help.",
-                      id: "9qzCX/",
-                      description:
-                        "Link text to scroll to the submit button when no candidates were found",
-                    })}
-              </ScrollToLink>
-            </p>
+            {!updatePending && (
+              <p>
+                <ScrollToLink to="results" color="black" mode="inline">
+                  {candidateCount
+                    ? intl.formatMessage({
+                        defaultMessage: "View results",
+                        id: "3wbcnZ",
+                        description:
+                          "A link to view the pools that contain matching talent.",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage:
+                          "Submit an empty request and we will try to help.",
+                        id: "9qzCX/",
+                        description:
+                          "Link text to scroll to the submit button when no candidates were found",
+                      })}
+                </ScrollToLink>
+              </p>
+            )}
           </div>
         </div>
       </div>
