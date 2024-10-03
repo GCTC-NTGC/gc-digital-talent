@@ -28,8 +28,6 @@ class GeneralQuestion extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'question' => 'array',
@@ -37,8 +35,6 @@ class GeneralQuestion extends Model
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'question',

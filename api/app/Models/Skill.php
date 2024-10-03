@@ -34,8 +34,6 @@ class Skill extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'name' => 'array',
@@ -45,8 +43,6 @@ class Skill extends Model
 
     /**
      * The accessors to append to the model's array form.
-     *
-     * @var array
      */
     protected $appends = ['details'];
 

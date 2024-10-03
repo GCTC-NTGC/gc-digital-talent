@@ -33,8 +33,6 @@ class AssessmentResult extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'justifications' => 'array',
@@ -42,8 +40,6 @@ class AssessmentResult extends Model
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [];
 

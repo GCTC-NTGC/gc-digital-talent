@@ -33,8 +33,6 @@ GRAPHQL;
      *
      * This must call $fieldValue->setResolver() before returning
      * the FieldValue.
-     *
-     * @return \Nuwave\Lighthouse\Schema\Values\FieldValue
      */
     public function resolveField(FieldValue $fieldValue): callable
     {
