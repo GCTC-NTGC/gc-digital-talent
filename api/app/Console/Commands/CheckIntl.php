@@ -101,8 +101,6 @@ class CheckIntl extends Command
     /**
      * Check that strings exist and no
      * exact matches exist across locales
-     *
-     * @var HasLocalization
      */
     private function checkStrings($enum)
     {

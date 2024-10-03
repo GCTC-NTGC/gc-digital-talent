@@ -726,12 +726,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      * Scope Publishing Groups
      *
      * Restrict a query by specific publishing groups
-     *
-     * @param  Eloquent\Builder  $query  The existing query being built
-     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
-     * @return Eloquent\Builder The resulting query
      */
-    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups): Builder
     {
         // Early return if no publishing groups were supplied
         if (empty($publishingGroups)) {

@@ -73,7 +73,6 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
     /**
      * Get the verification code for the given notifiable.
      *
-     * @param  App\Models\User  $notifiable
      * @return string
      */
     protected function createVerificationCode(User $user)

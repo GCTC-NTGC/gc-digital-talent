@@ -35,8 +35,6 @@ class PoolCandidateFilter extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'requested_date' => 'date',
