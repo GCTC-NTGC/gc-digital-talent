@@ -35,14 +35,16 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
     let paddingStyles: Record<string, string> =
       mode === "card"
         ? {
-            "data-h2-margin": `
+            "data-h2-padding": `
               base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.5)
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
+          `,
+            "data-h2-margin": `
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.3)
           `,
           }
         : {
-            "data-h2-margin": `
+            "data-h2-padding": `
               base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.3)
           `,
@@ -63,14 +65,16 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
       paddingStyles =
         mode === "card"
           ? {
+              "data-h2-padding": `
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
+          `,
               "data-h2-margin": `
-        base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-        base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.5)
-        base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.25)
           `,
             }
           : {
-              "data-h2-margin": `
+              "data-h2-padding": `
               base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.25)
           `,
@@ -92,14 +96,16 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
       paddingStyles =
         mode === "card"
           ? {
+              "data-h2-padding": `
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
+            `,
               "data-h2-margin": `
-        base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-        base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.7)
-        base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
-      `,
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.45)
+            `,
             }
           : {
-              "data-h2-margin": `
+              "data-h2-padding": `
           base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
           base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.45)
       `,
