@@ -310,6 +310,11 @@ const commonMessages = defineMessages({
     id: "I1jrAG",
     description: "Indicates a user has not accepted some criteria",
   },
+  date: {
+    defaultMessage: "Date",
+    id: "09LIbL",
+    description: "Label to identify a date element",
+  },
 });
 
 export default commonMessages;
