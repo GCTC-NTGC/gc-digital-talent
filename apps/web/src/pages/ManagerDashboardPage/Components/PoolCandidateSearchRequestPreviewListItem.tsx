@@ -83,7 +83,7 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   type MetaDataPropItem = MetaDataProps[number];
   const metaDataProps: MetaDataPropItem[] = [];
   if (request.status?.value) {
-    const chipSettings = deriveChipSettings(request.status?.value, intl);
+    const chipSettings = deriveChipSettings(request.status.value, intl);
     metaDataProps.push({
       key: "status-chip",
       type: "chip",
