@@ -105,8 +105,13 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
     if (mode === "card") {
       baseStyles = {
         ...baseStyles,
-        "data-h2-background-color":
-          "base:selectors[>.Accordion__Item](foreground)",
+        // custom out-of-system colour used for even dark items: Colors/Background/Manual/Dark-30:Foreground-Light-50
+        "data-h2-background-color": `
+          base:selectors[>.Accordion__Item:nth-child(odd)](foreground)
+
+          base:selectors[>.Accordion__Item:nth-child(even)](background.dark.3)
+          base:dark:selectors[>.Accordion__Item:nth-child(even)](rgba(53, 57, 75, .5))
+        `,
         "data-h2-border-top":
           "base:selectors[>.Accordion__Item + .Accordion__Item](thin solid gray)",
         "data-h2-overflow": "base(hidden)",
