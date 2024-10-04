@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class DepartmentSpecificRecruitmentProcessPosition
  *
- * @property string id
- * @property string classification_group
- * @property string classification_level
- * @property string job_title
- * @property array employment_types
- * @property string employment_types_other
+ * @property string $id
+ * @property string $classification_group
+ * @property string $classification_level
+ * @property string $job_title
+ * @property array $employment_types
+ * @property string $employment_types_other
  */
 class DepartmentSpecificRecruitmentProcessPosition extends Model
 {

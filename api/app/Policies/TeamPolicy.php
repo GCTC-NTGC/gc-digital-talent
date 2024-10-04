@@ -67,10 +67,9 @@ class TeamPolicy
     /**
      * Determine whether the user can view a specific teams, team members.
      *
-     * @param  \App\Models\Team/null $team
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewTeamMembers(User $user, Team $team)
+    public function viewTeamMembers(User $user, ?Team $team)
     {
         return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $team);
     }
