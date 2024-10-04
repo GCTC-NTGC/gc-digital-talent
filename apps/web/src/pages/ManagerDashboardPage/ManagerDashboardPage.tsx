@@ -219,7 +219,6 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   <PoolCandidateSearchRequestPreviewListItem
                                     key={request.id}
                                     poolCandidateSearchRequestQuery={request}
-                                    showUnfinishedPieces={showUnfinishedPieces}
                                   />
                                 ),
                               )}

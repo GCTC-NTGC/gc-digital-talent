@@ -6,7 +6,6 @@ import {
   Button,
   Chip,
   Dialog,
-  Link,
   Pending,
   Separator,
   ThrowNotFound,
@@ -386,14 +385,12 @@ interface ReviewTalentRequestDialogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
-  showUnfinishedPieces: boolean;
 }
 
 const ReviewTalentRequestDialog = ({
   open,
   setOpen,
   id,
-  showUnfinishedPieces,
 }: ReviewTalentRequestDialogProps) => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
@@ -434,16 +431,6 @@ const ReviewTalentRequestDialog = ({
             )}
           </Pending>
           <Dialog.Footer>
-            {showUnfinishedPieces && (
-              // unfinished - need a url to a pge that doesn't exist yet, but we do have the ID already
-              <Link color="secondary" mode="solid" href="#">
-                {intl.formatMessage({
-                  defaultMessage: "View request",
-                  id: "yycjgL",
-                  description: "Button text to go to view the request",
-                })}
-              </Link>
-            )}
             <Button
               color="warning"
               mode="inline"
