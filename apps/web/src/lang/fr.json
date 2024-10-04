@@ -11718,10 +11718,6 @@
     "defaultMessage": "Détails",
     "description": "Support form details field label"
   },
-  "yycjgL": {
-    "defaultMessage": "Voir la demande",
-    "description": "Button text to go to view the request"
-  },
   "yypk6/": {
     "defaultMessage": "Ajouter au nouveau bassin",
     "description": "Confirmation button for add to pool dialog"
