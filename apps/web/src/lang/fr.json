@@ -1059,10 +1059,6 @@
     "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
     "description": "Employee Status in Government Info Form"
   },
-  "3hLuu4": {
-    "defaultMessage": "Veuillez <a>{name}communiquer avec l’équipe</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
-    "description": "Opening sentence asking if accommodations are needed"
-  },
   "3hYwWo": {
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
     "description": "Heading for the skill experience details section"
@@ -6825,6 +6821,10 @@
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
+  },
+  "YK/RNP": {
+    "defaultMessage": "Veuillez <a>communiquer avec l’équipe</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
+    "description": "Opening sentence asking if accommodations are needed"
   },
   "YMAXhb": {
     "defaultMessage": "Statut d'employé(e) du gouvernement",
