@@ -1059,6 +1059,10 @@
     "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
     "description": "Employee Status in Government Info Form"
   },
+  "3hLuu4": {
+    "defaultMessage": "Veuillez <a>{name}communiquer avec l’équipe</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
+    "description": "Opening sentence asking if accommodations are needed"
+  },
   "3hYwWo": {
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
     "description": "Heading for the skill experience details section"
@@ -10445,10 +10449,6 @@
   "rJqCuH": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill form description (English) field."
-  },
-  "rKUVdL": {
-    "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name}</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
-    "description": "Opening sentence asking if accommodations are needed"
   },
   "rLd5cC": {
     "defaultMessage": "Aller à la page {pageNumber}",
