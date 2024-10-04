@@ -28,8 +28,6 @@ import {
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
 } from "~/utils/searchRequestUtils";
-import processMessages from "~/messages/processMessages";
-import adminMessages from "~/messages/adminMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import FilterBlock from "./FilterBlock";
@@ -130,7 +128,7 @@ const ApplicantFilters = ({
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
-            title={intl.formatMessage(adminMessages.community)}
+            title={intl.formatMessage(talentRequestMessages.community)}
             content={communityName}
           />
           <FilterBlock
@@ -166,7 +164,7 @@ const ApplicantFilters = ({
             )}
           />
           <FilterBlock
-            title={intl.formatMessage(processMessages.stream)}
+            title={intl.formatMessage(talentRequestMessages.stream)}
             content={streams}
           />
           <FilterBlock
@@ -394,7 +392,7 @@ const SearchRequestFilters = ({
               content={classifications}
             />
             <FilterBlock
-              title={intl.formatMessage(processMessages.stream)}
+              title={intl.formatMessage(talentRequestMessages.stream)}
               content={streams}
             />
             <FilterBlock
