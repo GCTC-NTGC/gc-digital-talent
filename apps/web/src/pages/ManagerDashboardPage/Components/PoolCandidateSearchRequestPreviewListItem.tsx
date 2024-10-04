@@ -41,18 +41,18 @@ function buildTitle(request: PreviewListItemFragment, intl: IntlShape): string {
   const classifications = unpackMaybes(
     request.applicantFilter?.qualifiedClassifications,
   );
-  const firstPart =
+  const classificationString =
     classifications.length == 1
       ? formatClassificationString(classifications[0])
       : null;
 
-  const secondPart =
+  const jobTitleString =
     request.jobTitle ?? intl.formatMessage(commonMessages.notProvided);
 
   const completedTitle =
-    typeof firstPart === "string"
-      ? `${firstPart}${intl.formatMessage(commonMessages.dividingColon)}${secondPart}`
-      : secondPart;
+    typeof classificationString === "string"
+      ? `${classificationString}${intl.formatMessage(commonMessages.dividingColon)}${jobTitleString}`
+      : jobTitleString;
 
   return completedTitle;
 }
