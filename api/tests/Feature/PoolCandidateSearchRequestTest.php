@@ -354,6 +354,7 @@ class PoolCandidateSearchRequestTest extends TestCase
         $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
         $user2 = User::factory()->create();
         $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
+        $request3 = PoolCandidateSearchRequest::factory()->create(['user_id' => null]);
 
         $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
             query MyRequests {
@@ -368,7 +369,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             'data' => [
                 'me' => [
                     'poolCandidateSearchRequests' => [
-                        // Can only see request 1.  Request 2 belongs to another user.
+                        // Can only see request 1.  Request 2 belongs to another user and 3 is for no user.
                         ['id' => $request1->id],
                     ],
                 ],
