@@ -1143,8 +1143,8 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "Please contact the <a>{name} team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
-                          id: "rKUVdL",
+                            "Please <a>{name}contact the team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
+                          id: "3hLuu4",
                           description:
                             "Opening sentence asking if accommodations are needed",
                         },
