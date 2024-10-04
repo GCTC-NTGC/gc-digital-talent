@@ -6806,6 +6806,10 @@
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
   },
+  "YK/RNP": {
+    "defaultMessage": "Veuillez <a>communiquer avec l’équipe</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
+    "description": "Opening sentence asking if accommodations are needed"
+  },
   "YMAXhb": {
     "defaultMessage": "Statut d'employé(e) du gouvernement",
     "description": "Employee status label"
@@ -10437,10 +10441,6 @@
   "rJqCuH": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill form description (English) field."
-  },
-  "rKUVdL": {
-    "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name}</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
-    "description": "Opening sentence asking if accommodations are needed"
   },
   "rLd5cC": {
     "defaultMessage": "Aller à la page {pageNumber}",

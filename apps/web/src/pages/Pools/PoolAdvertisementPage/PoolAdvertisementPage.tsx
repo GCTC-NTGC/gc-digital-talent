@@ -1144,18 +1144,14 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "Please contact the <a>{name} team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
-                          id: "rKUVdL",
+                            "Please <a>contact the team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
+                          id: "YK/RNP",
                           description:
                             "Opening sentence asking if accommodations are needed",
                         },
                         {
-                          a: (chunks) => anchorTag(chunks, contactEmail),
-                          name: () => (
-                            <>
-                              {getLocalizedName(pool.team?.displayName, intl)}
-                            </>
-                          ),
+                          a: (chunks: ReactNode) =>
+                            anchorTag(chunks, contactEmail),
                         },
                       )}
                     </Text>
