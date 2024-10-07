@@ -40,7 +40,7 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
           `,
             "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.3)
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.3)
           `,
           }
         : {
@@ -70,7 +70,7 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
           `,
               "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.25)
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.25)
           `,
             }
           : {
@@ -101,7 +101,7 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
             `,
               "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x.5 x2.45)
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.45)
             `,
             }
           : {
@@ -276,7 +276,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
       data-h2-text-decoration="p-tablet:children[::after](none)"
       data-h2-color="p-tablet:children[::after](gray.darker)"
-      data-h2-margin="base(-x.25 0 x.5 x1.5) p-tablet:children[:not(:last-child)::after](0 x.5)"
+      data-h2-margin="base(-x.25 0 x.5 x1.35) p-tablet:children[:not(:last-child)::after](0 x.5)"
       data-h2-font-size="base(caption)"
     >
       {metadata.map(({ type, color, children }) => {
