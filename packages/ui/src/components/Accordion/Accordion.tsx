@@ -121,14 +121,17 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
     }
 
     return (
-      <AccordionPrimitive.Root
-        ref={forwardedRef}
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        {...baseStyles}
-        {...paddingStyles}
-        {...rest}
-      />
+      <>
+        {mode === "card" ? "I'm a card!" : null}
+        <AccordionPrimitive.Root
+          ref={forwardedRef}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          {...baseStyles}
+          {...paddingStyles}
+          {...rest}
+        />
+      </>
     );
   },
 );
