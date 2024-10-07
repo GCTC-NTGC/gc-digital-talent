@@ -80,19 +80,10 @@ const ApplicationCareerTimelineIntroduction = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "More specifically, not only do we want to know your <strong>work history</strong>, but we highly value knowing about your <strong>community experience</strong>, <strong>awards</strong>, <strong>personal initiatives</strong>, and <strong>education</strong> too!",
-          id: "fKaw5B",
+            "Tell us about your <strong>work experience</strong>, <strong>community participation</strong>, <strong>awards</strong>, <strong>personal initiatives</strong>, and <strong>education</strong>. You'll use this information later in your application to help us understand how you meet this opportunity's education and skill requirements.",
+          id: "4XVcc2",
           description:
             "Application step to begin working on career timeline, paragraph two",
-        })}
-      </p>
-      <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "Once you’ve completed your career timeline and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",
-          id: "1dZLbs",
-          description:
-            "Application step to begin working on career timeline, paragraph three",
         })}
       </p>
       <Separator />

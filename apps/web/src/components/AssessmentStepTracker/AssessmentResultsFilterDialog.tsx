@@ -9,7 +9,6 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   commonMessages,
-  formMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
   navigationMessages,
@@ -146,32 +145,30 @@ const AssessmentResultsFilterDialog = ({
           label={intl.formatMessage(commonMessages.workingLanguageAbility)}
           options={localizedEnumToOptions(data?.languageAbilities, intl)}
         />
-        <Select
-          id="equity"
-          name="equity"
-          enableNull
-          nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
-          label={intl.formatMessage(commonMessages.employmentEquity)}
-          options={[
-            equityOption("isWoman", getEmploymentEquityGroup("woman")),
-            equityOption(
-              "hasDisability",
-              getEmploymentEquityGroup("disability"),
-            ),
-            equityOption(
-              "isIndigenous",
-              getEmploymentEquityGroup("indigenous"),
-            ),
-            equityOption(
-              "isVisibleMinority",
-              getEmploymentEquityGroup("minority"),
-            ),
-          ]}
-        />
-        <div
-          data-h2-grid-column="l-tablet(span 2)"
-          data-h2-align-self="base(center)"
-        >
+        <div data-h2-grid-column="l-tablet(span 2)">
+          <Combobox
+            id="equity"
+            name="equity"
+            label={intl.formatMessage(commonMessages.employmentEquity)}
+            isMulti
+            options={[
+              equityOption("isWoman", getEmploymentEquityGroup("woman")),
+              equityOption(
+                "hasDisability",
+                getEmploymentEquityGroup("disability"),
+              ),
+              equityOption(
+                "isIndigenous",
+                getEmploymentEquityGroup("indigenous"),
+              ),
+              equityOption(
+                "isVisibleMinority",
+                getEmploymentEquityGroup("minority"),
+              ),
+            ]}
+          />
+        </div>
+        <div data-h2-align-self="base(center)">
           <Checkbox
             id="govEmployee"
             name="govEmployee"

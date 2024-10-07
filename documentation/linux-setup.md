@@ -31,7 +31,17 @@ You should see the same list of files visible in [the github repository online](
 
 ## Docker compose
 
-[Docker](https://www.docker.com/) compose is used to run the services for this app. It should have been installed with your operating system automatically.
+[Docker Compose](https://docs.docker.com/compose/) is used to run the services for this app. You may have to install Compose version 2 manually.
+
+```
+sudo apt-get install docker-compose-v2
+```
+
+Double-check:
+
+```
+docker compose version
+```
 
 If you haven't before, add your user to the `docker` group and activate the group:
 

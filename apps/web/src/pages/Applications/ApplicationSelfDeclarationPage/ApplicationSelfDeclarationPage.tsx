@@ -222,8 +222,8 @@ export const ApplicationSelfDeclaration = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
-                    id: "7i+qEB",
+                      "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these job opportunities.",
+                    id: "9LR5wC",
                     description:
                       "Disclaimer before signing Indigenous self-declaration form",
                   })}
@@ -371,7 +371,7 @@ export const Component = () => {
 
   const resolvedIndigenousCommunities =
     application.user?.indigenousCommunities?.filter(notEmpty);
-  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
       navigate(paths.browsePools());

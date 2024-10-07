@@ -42,52 +42,52 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * Class User
  *
  * @property string $id
- * @property string $email
- * @property Illuminate\Support\Carbon email_verified_at
+ * @property ?string $email
+ * @property ?\Illuminate\Support\Carbon $email_verified_at
  * @property string $sub
- * @property string $first_name
- * @property string $last_name
- * @property string $telephone
- * @property string $preferred_lang
- * @property string $current_province
- * @property string $current_city
- * @property bool $looking_for_english
- * @property bool $looking_for_french
- * @property bool $looking_for_bilingual
- * @property string $first_official_language
- * @property bool $second_language_exam_completed
- * @property bool $second_language_exam_validity
- * @property string $comprehension_level
- * @property string $written_level
- * @property string $verbal_level
- * @property string $estimated_language_ability
- * @property bool $is_gov_employee
- * @property string $work_email
+ * @property ?string $first_name
+ * @property ?string $last_name
+ * @property ?string $telephone
+ * @property ?string $preferred_lang
+ * @property ?string $current_province
+ * @property ?string $current_city
+ * @property ?bool $looking_for_english
+ * @property ?bool $looking_for_french
+ * @property ?bool $looking_for_bilingual
+ * @property ?string $first_official_language
+ * @property ?bool $second_language_exam_completed
+ * @property ?bool $second_language_exam_validity
+ * @property ?string $comprehension_level
+ * @property ?string $written_level
+ * @property ?string $verbal_level
+ * @property ?string $estimated_language_ability
+ * @property ?bool $is_gov_employee
+ * @property ?string $work_email
  * @property ?\Illuminate\Support\Carbon $work_email_verified_at
- * @property bool $has_priority_entitlement
- * @property string $priority_number
- * @property string $department
- * @property string $current_classification
- * @property string $citizenship
- * @property string $armed_forces_status
- * @property bool $is_woman
- * @property bool $has_disability
- * @property bool $is_visible_minority
- * @property bool $has_diploma
- * @property array $location_preferences
- * @property string $location_exemptions
+ * @property ?bool $has_priority_entitlement
+ * @property ?string $priority_number
+ * @property ?string $department
+ * @property ?string $current_classification
+ * @property ?string $citizenship
+ * @property ?string $armed_forces_status
+ * @property ?bool $is_woman
+ * @property ?bool $has_disability
+ * @property ?bool $is_visible_minority
+ * @property ?bool $has_diploma
+ * @property ?array $location_preferences
+ * @property ?string $location_exemptions
  * @property ?array $position_duration
  * @property array $accepted_operational_requirements
- * @property string $gov_employee_type
- * @property int $priority_weight
+ * @property ?string $gov_employee_type
+ * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
- * @property string $indigenous_declaration_signature
- * @property array $indigenous_communities
- * @property string $preferred_language_for_interview
- * @property string $preferred_language_for_exam
- * @property array $enabled_email_notifications
- * @property array $enabled_in_app_notifications
+ * @property ?string $indigenous_declaration_signature
+ * @property ?array $indigenous_communities
+ * @property ?string $preferred_language_for_interview
+ * @property ?string $preferred_language_for_exam
+ * @property ?array $enabled_email_notifications
+ * @property ?array $enabled_in_app_notifications
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -726,12 +726,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      * Scope Publishing Groups
      *
      * Restrict a query by specific publishing groups
-     *
-     * @param  Eloquent\Builder  $query  The existing query being built
-     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
-     * @return Eloquent\Builder The resulting query
      */
-    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups): Builder
     {
         // Early return if no publishing groups were supplied
         if (empty($publishingGroups)) {
@@ -1066,7 +1062,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -1122,7 +1118,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function scopeAuthorizedToViewBasicInfo(Builder $query): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added

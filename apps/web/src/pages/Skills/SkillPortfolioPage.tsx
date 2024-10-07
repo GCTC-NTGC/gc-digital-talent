@@ -15,21 +15,21 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import SkillLibraryTable, {
-  SkillLibraryTable_SkillFragment,
-  SkillLibraryTable_UserSkillFragment,
-} from "./components/SkillLibraryTable";
+import SkillPortfolioTable, {
+  SkillPortfolioTable_SkillFragment,
+  SkillPortfolioTable_UserSkillFragment,
+} from "./components/SkillPortfolioTable";
 
-const SkillLibraryPage_Query = graphql(/* GraphQL */ `
-  query SkillLibraryPageQuery {
+const SkillPortfolioPage_Query = graphql(/* GraphQL */ `
+  query SkillPortfolioPageQuery {
     me {
       id
       userSkills {
-        ...SkillLibraryTable_UserSkill
+        ...SkillPortfolioTable_UserSkill
       }
     }
     skills {
-      ...SkillLibraryTable_Skill
+      ...SkillPortfolioTable_Skill
     }
   }
 `);
@@ -40,12 +40,12 @@ interface PageSection {
 }
 type PageSections = Record<string, PageSection>;
 
-interface SkillLibraryProps {
-  userSkills: FragmentType<typeof SkillLibraryTable_UserSkillFragment>[];
-  skills: FragmentType<typeof SkillLibraryTable_SkillFragment>[];
+interface SkillPortfolioProps {
+  userSkills: FragmentType<typeof SkillPortfolioTable_UserSkillFragment>[];
+  skills: FragmentType<typeof SkillPortfolioTable_SkillFragment>[];
 }
 
-const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
+const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -71,13 +71,13 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
         url: paths.profileAndApplications(),
       },
       {
-        label: intl.formatMessage(navigationMessages.skillLibrary),
-        url: paths.skillLibrary(),
+        label: intl.formatMessage(navigationMessages.skillPortfolio),
+        url: paths.skillPortfolio(),
       },
     ],
   });
 
-  const pageTitle = intl.formatMessage(navigationMessages.skillLibrary);
+  const pageTitle = intl.formatMessage(navigationMessages.skillPortfolio);
 
   const pageDescription = intl.formatMessage({
     defaultMessage: "Add, edit, and manage the skills on your profile.",
@@ -122,7 +122,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
                   description: "Description on how to use behavioural skills",
                 })}
               </p>
-              <SkillLibraryTable
+              <SkillPortfolioTable
                 caption={sections.manage.title}
                 userSkillsQuery={userSkills}
                 allSkillsQuery={skills}
@@ -163,9 +163,9 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
 };
 
-const SkillLibraryPage = () => {
+const SkillPortfolioPage = () => {
   const [{ data, fetching, error }] = useQuery({
-    query: SkillLibraryPage_Query,
+    query: SkillPortfolioPage_Query,
     context,
   });
 
@@ -174,17 +174,17 @@ const SkillLibraryPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillLibrary userSkills={userSkills} skills={skills} />
+      <SkillPortfolio userSkills={userSkills} skills={skills} />
     </Pending>
   );
 };
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <SkillLibraryPage />
+    <SkillPortfolioPage />
   </RequireAuth>
 );
 
-Component.displayName = "SkillLibraryPage";
+Component.displayName = "SkillPortfolioPage";
 
-export default SkillLibraryPage;
+export default SkillPortfolioPage;

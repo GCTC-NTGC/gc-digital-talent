@@ -48,8 +48,6 @@ class PoolCandidateSearchRequest extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'request_status_changed_at' => 'datetime',
@@ -62,7 +60,7 @@ class PoolCandidateSearchRequest extends Model
      */
     protected static function boot()
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         parent::boot();
@@ -266,7 +264,7 @@ class PoolCandidateSearchRequest extends Model
      */
     public function scopeAuthorizedToView(Builder $query)
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-searchRequest')) {

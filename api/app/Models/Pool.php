@@ -37,24 +37,24 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array $about_us
  * @property array $advertisement_location
  * @property array $special_note
- * @property string $security_clearance
- * @property string $advertisement_language
- * @property string $stream
- * @property string $process_number
- * @property string $publishing_group
- * @property string $opportunity_length
- * @property string $closing_reason
- * @property string $change_justification
+ * @property ?string $security_clearance
+ * @property ?string $advertisement_language
+ * @property ?string $stream
+ * @property ?string $process_number
+ * @property ?string $publishing_group
+ * @property ?string $opportunity_length
+ * @property ?string $closing_reason
+ * @property ?string $change_justification
  * @property string $team_id
  * @property string $department_id
  * @property string $community_id
- * @property string $area_of_selection
+ * @property ?string $area_of_selection
  * @property array $selection_limitations
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $closing_date
- * @property Illuminate\Support\Carbon $published_at
- * @property Illuminate\Support\Carbon $archived_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $closing_date
+ * @property ?\Illuminate\Support\Carbon $published_at
+ * @property ?\Illuminate\Support\Carbon $archived_at
  */
 class Pool extends Model
 {
@@ -66,8 +66,6 @@ class Pool extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'name' => 'array',
@@ -88,8 +86,6 @@ class Pool extends Model
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'is_remote',

@@ -151,9 +151,10 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
                         value: watchStartDate,
-                        message: intl.formatMessage(
-                          errorMessages.dateMustFollow,
-                          { value: watchStartDate },
+                        message: String(
+                          intl.formatMessage(errorMessages.dateMustFollow, {
+                            value: watchStartDate,
+                          }),
                         ),
                       },
                     }

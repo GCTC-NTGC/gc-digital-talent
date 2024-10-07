@@ -14,7 +14,7 @@ final readonly class UpdateSitewideAnnouncement
     /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
         throw_unless($user->isAbleTo('update-any-announcement'), AuthorizationException::class);
 

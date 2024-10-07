@@ -136,8 +136,8 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
             })
           : intl.formatMessage({
               defaultMessage:
-                "The GC Digital Talent platform is a skills-based hiring system. This means that your application will put a heavier focus on your skills and how you've used them in past experiences to help us get a stronger understanding of your fit.",
-              id: "u/DBSl",
+                "GC Digital Talent is a skills-based hiring system. This means that your application will emphasize your skills and how you’ve applied them in the past, helping us to better understand your fit.",
+              id: "f6UvQ4",
               description:
                 "Description of how the skills-based hiring platform assess candidates.",
             })}
@@ -145,8 +145,8 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "<strong>To get started, we'll ask you to review your basic profile information</strong>. If you haven't created your profile yet, no problem! You can add all the relevant information in the next step.",
-          id: "F7RkOA",
+            "<strong>To get started, review your profile.</strong> If you haven’t created your profile yet, no problem! You can add all the necessary information in the next step.",
+          id: "QMY4DF",
           description:
             "Description of the application process and the next step",
         })}

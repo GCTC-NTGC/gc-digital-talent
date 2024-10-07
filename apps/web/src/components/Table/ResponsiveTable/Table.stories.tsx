@@ -167,23 +167,25 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
   });
   const [, setRowSelection] = useState<User[]>([]);
 
-  const handleSearchChange = async (newSearchState: SearchState) => {
+  const handleSearchChange = (newSearchState: SearchState) => {
     setLoading(true);
-    await mockApi(newSearchState)
+    mockApi(newSearchState)
       .then((res) => {
         setSearchState(res);
       })
+      .catch((err) => action("search error")(err))
       .finally(() => setLoading(false));
   };
 
-  const handleRowSelection = async (rows: string[]) => {
+  const handleRowSelection = (rows: string[]) => {
     action("onRowSelection")(rows);
     setLoading(true);
-    await mockApi(rows)
+    mockApi(rows)
       .then(() => {
         const newSelection = mockUsers.filter(({ id }) => rows.includes(id));
         setRowSelection(newSelection);
       })
+      .catch((err) => action("selection error")(err))
       .finally(() => setLoading(false));
   };
 
@@ -200,8 +202,8 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
     }
 
     return (
-      (firstName && match(searchState.term, firstName)) ||
-      (lastName && match(searchState.term, lastName)) ||
+      (firstName && match(searchState.term, firstName)) ??
+      (lastName && match(searchState.term, lastName)) ??
       (email && match(searchState.term, email))
     );
   });

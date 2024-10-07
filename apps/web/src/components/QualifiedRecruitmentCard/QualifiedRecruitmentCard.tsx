@@ -367,8 +367,8 @@ const QualifiedRecruitmentCard = ({
             color="black"
             fontSize="caption"
             icon={linkCopied ? CheckIcon : undefined}
-            onClick={() => {
-              navigator.clipboard.writeText(candidate.id);
+            onClick={async () => {
+              await navigator.clipboard.writeText(candidate.id);
               setLinkCopied(true);
             }}
             aria-label={intl.formatMessage(

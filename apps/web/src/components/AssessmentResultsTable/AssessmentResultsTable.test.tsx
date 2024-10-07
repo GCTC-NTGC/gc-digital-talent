@@ -18,7 +18,7 @@ import {
 import { columnStatus } from "./utils";
 
 describe("AssessmentResults", () => {
-  it("should compute the column status correctly", async () => {
+  it("should compute the column status correctly", () => {
     const notSureStep = applicationScreeningStep;
 
     expect(

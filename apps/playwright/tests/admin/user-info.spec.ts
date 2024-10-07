@@ -17,7 +17,7 @@ test.describe("User information", () => {
   let uniqueTestId: string;
   let user: User;
   let sub: string;
-  let skill: Skill;
+  let skill: Skill | undefined;
 
   const loginAndVisitUser = async (
     appPage: AppPage,
@@ -36,7 +36,7 @@ test.describe("User information", () => {
       }),
     ).toBeVisible();
     await expect(
-      page.getByText(new RegExp(user.firstName, "i")).first(),
+      page.getByText(new RegExp(user?.firstName ?? "", "i")).first(),
     ).toBeVisible();
   };
 
@@ -53,7 +53,7 @@ test.describe("User information", () => {
 
     adminCtx = await graphql.newContext();
 
-    const technicalSkill = await getSkills(adminCtx).then((skills) => {
+    const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
 
@@ -70,8 +70,8 @@ test.describe("User information", () => {
               skills: {
                 sync: [
                   {
-                    details: `Test Skill ${technicalSkill.name.en}`,
-                    id: technicalSkill.id,
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
                   },
                 ],
               },
@@ -85,12 +85,12 @@ test.describe("User information", () => {
     });
 
     skill = technicalSkill;
-    user = createdUser;
+    user = createdUser ?? { id: "" };
   });
 
   test("Applicant cannot access", async ({ appPage }) => {
     await loginBySub(appPage.page, "applicant@test.com", false);
-    await appPage.page.goto(`/en/admin/users/${user.id}`);
+    await appPage.page.goto(`/en/admin/users/${user?.id}`);
     await appPage.waitForGraphqlResponse("authorizationQuery");
     await expect(
       appPage.page.getByRole("heading", {
@@ -104,7 +104,7 @@ test.describe("User information", () => {
     await loginAndVisitUser(appPage, "pool@test.com", user);
     await assertError(appPage.page);
 
-    const adminUser = await me(adminCtx);
+    const adminUser = await me(adminCtx, {});
 
     const dcmPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
@@ -112,16 +112,16 @@ test.describe("User information", () => {
         en: `Playwright DCM Pool ${uniqueTestId} (EN)`,
         fr: `Playwright DCM Pool ${uniqueTestId} (FR)`,
       },
-      skillId: skill.id,
+      skillId: skill?.id ?? "",
     });
 
     const applicantCtx = await graphql.newContext(sub);
-    const applicant = await me(applicantCtx);
+    const applicant = await me(applicantCtx, {});
     await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,
       poolId: dcmPool.id,
-      experienceId: applicant.experiences[0].id,
-      signature: `${user.firstName} signature`,
+      experienceId: applicant?.experiences?.[0]?.id ?? "",
+      signature: `${user?.firstName} signature`,
     });
 
     // Pool operator can view now that user has application in their pool

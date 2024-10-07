@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Discoverers\EnumDiscoverer;
-use App\Traits\HasLocalization;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
@@ -79,7 +78,6 @@ class CheckIntl extends Command
     {
         $this->localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
-        /** @var HasLocalization $enum */
         foreach ($this->localizedEnums as $enum) {
             $this->checkStrings($enum);
         }
@@ -101,8 +99,6 @@ class CheckIntl extends Command
     /**
      * Check that strings exist and no
      * exact matches exist across locales
-     *
-     * @var HasLocalization
      */
     private function checkStrings($enum)
     {
@@ -158,7 +154,7 @@ class CheckIntl extends Command
 
         // Find exact matches of strings across locales
         $intersectLocales = array_filter(array_keys(array_intersect_assoc($existing['en'], $existing['fr'])), function ($item) {
-            return ! is_array($item) && ! in_array($item, $this->allowedMatch);
+            return ! in_array($item, $this->allowedMatch);
         });
         if (! empty($intersectLocales)) {
             $this->errors['matching_strings'][$fileName] = $intersectLocales;

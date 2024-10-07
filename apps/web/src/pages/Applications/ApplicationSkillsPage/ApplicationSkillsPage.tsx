@@ -128,7 +128,7 @@ export const ApplicationSkills = ({
       "Descriptive text about how optional skills are used in the application process",
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     executeMutation({
       id: application.id,
       application: {
@@ -199,8 +199,8 @@ export const ApplicationSkills = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a career timeline experience, you can do so by returning to the <careerTimelineLink>career timeline step</careerTimelineLink> in the application.",
-            id: "MUwxzr",
+              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. To add or change an experience in your career timeline, go back to <careerTimelineLink>Review your career timeline</careerTimelineLink>.",
+            id: "6EzUZV",
             description:
               "Lead in paragraph for adding experiences to a users skills",
           },

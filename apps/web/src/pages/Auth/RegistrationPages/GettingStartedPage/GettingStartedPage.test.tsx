@@ -71,7 +71,7 @@ describe("Getting Started Form tests", () => {
     await axeTest(container);
   });
 
-  it("should render fields", async () => {
+  it("should render fields", () => {
     renderGettingStartedForm({
       query: mockFragmentData,
       handleSubmit: mockSave,

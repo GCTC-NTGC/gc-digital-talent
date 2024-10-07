@@ -135,7 +135,7 @@ const AssessmentStepTracker = ({
             onSubmit={onSubmitDialog}
             resetValues={transformPoolCandidateSearchInputToFormValues(
               undefined,
-              pool?.id || "",
+              pool?.id ?? "",
             )}
           />
         </div>

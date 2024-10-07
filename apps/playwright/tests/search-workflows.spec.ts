@@ -27,7 +27,7 @@ test.describe("Talent search", () => {
   const sub = `playwright.sub.${uniqueTestId}`;
   const poolName = `Search pool ${uniqueTestId}`;
   let classification: Classification;
-  let skill: Skill;
+  let skill: Skill | undefined;
 
   const expectNoCandidate = async (page: Page) => {
     await expect(
@@ -38,7 +38,7 @@ test.describe("Talent search", () => {
   test.beforeAll(async () => {
     const adminCtx = await graphql.newContext();
 
-    const technicalSkill = await getSkills(adminCtx).then((skills) => {
+    const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
     skill = technicalSkill;
@@ -62,8 +62,8 @@ test.describe("Talent search", () => {
               skills: {
                 sync: [
                   {
-                    details: `Test Skill ${technicalSkill.name.en}`,
-                    id: technicalSkill.id,
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
                   },
                 ],
               },
@@ -76,14 +76,14 @@ test.describe("Talent search", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    const classifications = await getClassifications(adminCtx);
+    const classifications = await getClassifications(adminCtx, {});
     classification = classifications[0];
 
-    const adminUser = await me(adminCtx);
+    const adminUser = await me(adminCtx, {});
     // Accepted pool
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
-      skillId: technicalSkill.id,
+      skillId: technicalSkill?.id,
       classificationId: classification.id,
       name: {
         en: poolName,
@@ -92,12 +92,12 @@ test.describe("Talent search", () => {
     });
 
     const applicantCtx = await graphql.newContext(sub);
-    const applicant = await me(applicantCtx);
+    const applicant = await me(applicantCtx, {});
 
     const application = await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,
       poolId: createdPool.id,
-      experienceId: applicant.experiences[0].id,
+      experienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName}`,
     });
 
@@ -157,7 +157,7 @@ test.describe("Talent search", () => {
       name: /^skill$/i,
     });
 
-    await skillFilter.fill(`${skill.name.en}`);
+    await skillFilter.fill(`${skill?.name.en}`);
     await skillFilter.press("ArrowDown");
     await skillFilter.press("Enter");
 
@@ -181,9 +181,9 @@ test.describe("Talent search", () => {
       .getByRole("checkbox", { name: /overtime \(occasionally\)/i })
       .click();
 
+    await appPage.waitForGraphqlResponse("CandidateCount");
     await expect(poolCard).toBeVisible();
 
-    await appPage.waitForGraphqlResponse("CandidateCount");
     await poolCard.getByRole("button", { name: /request candidates/i }).click();
     await appPage.waitForGraphqlResponse("RequestForm_SearchRequestData");
 
@@ -225,7 +225,7 @@ test.describe("Talent search", () => {
     ).toBeVisible();
 
     await expect(
-      appPage.page.getByText(new RegExp(skill.name.en)),
+      appPage.page.getByText(new RegExp(skill?.name.en ?? "")),
     ).toBeVisible();
 
     await expect(appPage.page.getByText(/required diploma/i)).toBeVisible();

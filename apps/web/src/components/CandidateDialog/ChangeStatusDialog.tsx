@@ -233,9 +233,7 @@ const ChangeStatusDialog = ({
     return Promise.reject(result.error);
   };
 
-  const submitForm: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {
+  const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
     // we need to update the original pool candidate, and possibly additional ones from other pools
     const poolCandidatesToUpdate = [
       selectedCandidate,

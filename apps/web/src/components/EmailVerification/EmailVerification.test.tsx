@@ -47,8 +47,8 @@ const renderComponent = (
 describe("EmailVerification", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderComponent(getDefaultProps(), getMockClient());
-    await waitFor(() => {
-      axeTest(container);
+    await waitFor(async () => {
+      await axeTest(container);
     });
   });
 

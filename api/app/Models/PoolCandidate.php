@@ -40,33 +40,33 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class PoolCandidate
  *
  * @property string $id
- * @property Illuminate\Support\Carbon $expiry_date
- * @property Illuminate\Support\Carbon $archived_at
- * @property Illuminate\Support\Carbon $submitted_at
- * @property string $signature
- * @property string $pool_candidate_status
- * @property int $status_weight
+ * @property ?\Illuminate\Support\Carbon $expiry_date
+ * @property ?\Illuminate\Support\Carbon $archived_at
+ * @property ?\Illuminate\Support\Carbon $submitted_at
+ * @property ?string $signature
+ * @property ?string $pool_candidate_status
+ * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property Illuminate\Support\Carbon $suspended_at
+ * @property ?\Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
- * @property string $education_requirement_option
- * @property bool $is_bookmarked
- * @property Illuminate\Support\Carbon $placed_at
- * @property string $placed_department_id
- * @property Illuminate\Support\Carbon $final_decision_at
- * @property Illuminate\Support\Carbon $removed_at
- * @property string $removal_reason
- * @property string $removal_reason_other
- * @property string $veteran_verification
- * @property \Illuminate\Support\Carbon $veteran_verification_expiry
- * @property string $priority_verification
- * @property \Illuminate\Support\Carbon $priority_verification_expiry
+ * @property ?string $education_requirement_option
+ * @property ?bool $is_bookmarked
+ * @property ?\Illuminate\Support\Carbon $placed_at
+ * @property ?string $placed_department_id
+ * @property ?\Illuminate\Support\Carbon $final_decision_at
+ * @property ?\Illuminate\Support\Carbon $removed_at
+ * @property ?string $removal_reason
+ * @property ?string $removal_reason_other
+ * @property ?string $veteran_verification
+ * @property ?\Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property ?string $priority_verification
+ * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
- * @property int $computed_final_decision_weight
- * @property string $computed_final_decision
+ * @property ?int $computed_final_decision_weight
+ * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
  */
 class PoolCandidate extends Model
@@ -79,8 +79,6 @@ class PoolCandidate extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'expiry_date' => 'date',
@@ -100,8 +98,6 @@ class PoolCandidate extends Model
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'archived_at',
@@ -266,7 +262,7 @@ class PoolCandidate extends Model
 
     public function getCategoryAttribute()
     {
-        $category = null;
+        $category = PriorityWeight::OTHER;
 
         $this->loadMissing(['user' => [
             'citizenship',
@@ -280,15 +276,13 @@ class PoolCandidate extends Model
             $category = PriorityWeight::VETERAN;
         } elseif ($this->user->citizenship === CitizenshipStatus::CITIZEN->name || $this->user->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name) {
             $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
-        } else {
-            $category = PriorityWeight::OTHER;
         }
 
-        return ! is_null($category) ? [
+        return [
             'weight' => $category->weight($category->name),
             'value' => $category->name,
             'label' => PriorityWeight::localizedString($category->name),
-        ] : $category;
+        ];
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
@@ -750,7 +744,7 @@ class PoolCandidate extends Model
      */
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {

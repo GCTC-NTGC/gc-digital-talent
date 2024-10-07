@@ -31,8 +31,6 @@ class AssessmentStep extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'title' => 'array',
@@ -40,8 +38,6 @@ class AssessmentStep extends Model
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'pool_id',

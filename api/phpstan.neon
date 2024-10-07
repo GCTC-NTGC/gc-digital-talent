@@ -13,36 +13,6 @@ parameters:
       path: app/Builders/PoolBuilder.php
 
     -
-      message: "#^Method App\\\\Builders\\\\PoolBuilder\\:\\:whereNotArchived\\(\\) invoked with 1 parameter, 0 required\\.$#"
-      count: 1
-      path: app/Builders/PoolBuilder.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 5
-      path: app/Builders/PoolBuilder.php
-
-    -
-      message: "#^Call to function is_array\\(\\) with \\(int\\|string\\) will always evaluate to false\\.$#"
-      count: 1
-      path: app/Console/Commands/CheckIntl.php
-
-    -
-      message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-      count: 1
-      path: app/Console/Commands/CheckIntl.php
-
-    -
-      message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-      count: 1
-      path: app/Console/Commands/CheckIntl.php
-
-    -
-      message: "#^PHPDoc tag @var has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
-      count: 2
-      path: app/Console/Commands/CheckIntl.php
-
-    -
       message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$deleted_at\\.$#"
       count: 1
       path: app/Console/Commands/HardDeleteOldUsers.php
@@ -93,11 +63,6 @@ parameters:
       path: app/GraphQL/Directives/ResolveWithDirective.php
 
     -
-      message: "#^PHPDoc tag @return with type Nuwave\\\\Lighthouse\\\\Schema\\\\Values\\\\FieldValue is not subtype of native type callable\\.$#"
-      count: 1
-      path: app/GraphQL/Directives/SelfDirective.php
-
-    -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getStatusAttribute\\(\\)\\.$#"
       count: 1
       path: app/GraphQL/Mutations/ArchivePool.php
@@ -111,11 +76,6 @@ parameters:
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/ArchivePool.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ChangeApplicationSuspendedAt.php
 
     -
       message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
@@ -338,11 +298,6 @@ parameters:
       path: app/GraphQL/Mutations/ReinstateCandidate.php
 
     -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ReinstateCandidate.php
-
-    -
       message: "#^Offset 'id' does not exist on array\\{\\}\\.$#"
       count: 1
       path: app/GraphQL/Mutations/RemoveCandidate.php
@@ -354,11 +309,6 @@ parameters:
 
     -
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/RemoveCandidate.php
-
-    -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
       count: 3
       path: app/GraphQL/Mutations/RemoveCandidate.php
 
@@ -536,61 +486,6 @@ parameters:
       message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
       count: 1
       path: app/GraphQL/Mutations/VerifyUserEmail.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'equity' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'hasDiploma' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'languageAbility' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'locationPreferences' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'operationalRequirem…' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'positionDuration' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedClassifica…' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'qualifiedStreams' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Call to function array_key_exists\\(\\) with 'skills' and array\\{\\} will always evaluate to false\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Offset 'where' does not exist on array\\{\\}\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
-
-    -
-      message: "#^Offset 'where' on array\\{\\} in empty\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/GraphQL/Queries/CountPoolCandidatesByPool.php
 
     -
       message: "#^Offset 'enumName' does not exist on array\\{\\}\\.$#"
@@ -1208,501 +1103,6 @@ parameters:
       path: app/Http/Resources/WorkExperienceResource.php
 
     -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\ApplicantFilter\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/ApplicantFilter.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentResult\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/AssessmentResult.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentResult\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/AssessmentResult.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentStep\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/AssessmentStep.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\AssessmentStep\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/AssessmentStep.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\Classification\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/Classification.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\Department\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/Department.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array advertising_platforms\\)\\: Unexpected token \"advertising_platforms\", expected variable at offset 397$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string advertisement_type\\)\\: Unexpected token \"advertisement_type\", expected variable at offset 359$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string advertising_platforms_other\\)\\: Unexpected token \"advertising_platforms_other\", expected variable at offset 439$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string branch_other\\)\\: Unexpected token \"branch_other\", expected variable at offset 137$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string department_other\\)\\: Unexpected token \"department_other\", expected variable at offset 100$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 77$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string job_advertisement_link\\)\\: Unexpected token \"job_advertisement_link\", expected variable at offset 487$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string posting_date\\)\\: Unexpected token \"posting_date\", expected variable at offset 326$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string recruitment_process_lead_email\\)\\: Unexpected token \"recruitment_process_lead_email\", expected variable at offset 275$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string recruitment_process_lead_job_title\\)\\: Unexpected token \"recruitment_process_lead_job_title\", expected variable at offset 220$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string recruitment_process_lead_name\\)\\: Unexpected token \"recruitment_process_lead_name\", expected variable at offset 170$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessForm.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array employment_types\\)\\: Unexpected token \"employment_types\", expected variable at offset 215$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string classification_group\\)\\: Unexpected token \"classification_group\", expected variable at offset 104$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string classification_level\\)\\: Unexpected token \"classification_level\", expected variable at offset 145$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string employment_types_other\\)\\: Unexpected token \"employment_types_other\", expected variable at offset 252$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 81$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string job_title\\)\\: Unexpected token \"job_title\", expected variable at offset 186$#"
-      count: 1
-      path: app/Models/DepartmentSpecificRecruitmentProcessPosition.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(int quantity\\)\\: Unexpected token \"quantity\", expected variable at offset 286$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 75$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string language\\)\\: Unexpected token \"language\", expected variable at offset 132$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string language_other\\)\\: Unexpected token \"language_other\", expected variable at offset 161$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string resource_type\\)\\: Unexpected token \"resource_type\", expected variable at offset 98$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string security\\)\\: Unexpected token \"security\", expected variable at offset 196$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string security_other\\)\\: Unexpected token \"security_other\", expected variable at offset 225$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string telework\\)\\: Unexpected token \"telework\", expected variable at offset 260$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelRequirement.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 69$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelSkill.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string level\\)\\: Unexpected token \"level\", expected variable at offset 92$#"
-      count: 1
-      path: app/Models/DigitalContractingPersonnelSkill.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array authorities_involved\\)\\: Unexpected token \"authorities_involved\", expected variable at offset 427$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array contracting_rationales_secondary\\)\\: Unexpected token \"contracting_rationales_secondary\", expected variable at offset 2635$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array operations_considerations\\)\\: Unexpected token \"operations_considerations\", expected variable at offset 2432$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array personnel_requirements\\)\\: Unexpected token \"personnel_requirements\", expected variable at offset 1631$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array requirement_others\\)\\: Unexpected token \"requirement_others\", expected variable at offset 2135$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array requirement_screening_levels\\)\\: Unexpected token \"requirement_screening_levels\", expected variable at offset 1768$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array requirement_work_languages\\)\\: Unexpected token \"requirement_work_languages\", expected variable at offset 1870$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(array requirement_work_locations\\)\\: Unexpected token \"requirement_work_locations\", expected variable at offset 1968$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string authority_involved_other\\)\\: Unexpected token \"authority_involved_other\", expected variable at offset 468$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string branch_other\\)\\: Unexpected token \"branch_other\", expected variable at offset 128$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string business_owner_email\\)\\: Unexpected token \"business_owner_email\", expected variable at offset 246$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string business_owner_job_title\\)\\: Unexpected token \"business_owner_job_title\", expected variable at offset 201$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string business_owner_name\\)\\: Unexpected token \"business_owner_name\", expected variable at offset 161$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string commodity_type\\)\\: Unexpected token \"commodity_type\", expected variable at offset 1212$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string commodity_type_other\\)\\: Unexpected token \"commodity_type_other\", expected variable at offset 1247$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_amendable\\)\\: Unexpected token \"contract_amendable\", expected variable at offset 1010$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_behalf_of_gc\\)\\: Unexpected token \"contract_behalf_of_gc\", expected variable at offset 513$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_end_date\\)\\: Unexpected token \"contract_end_date\", expected variable at offset 932$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_extendable\\)\\: Unexpected token \"contract_extendable\", expected variable at offset 970$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_for_digital_initiative\\)\\: Unexpected token \"contract_for_digital_initiative\", expected variable at offset 598$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_ftes\\)\\: Unexpected token \"contract_ftes\", expected variable at offset 1123$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_multiyear\\)\\: Unexpected token \"contract_multiyear\", expected variable at offset 1049$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_resources_start_timeframe\\)\\: Unexpected token \"contract_resources_start_timeframe\", expected variable at offset 1157$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_service_of_gc\\)\\: Unexpected token \"contract_service_of_gc\", expected variable at offset 555$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_start_date\\)\\: Unexpected token \"contract_start_date\", expected variable at offset 892$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_title\\)\\: Unexpected token \"contract_title\", expected variable at offset 857$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contract_value\\)\\: Unexpected token \"contract_value\", expected variable at offset 1088$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contracting_rationale_primary\\)\\: Unexpected token \"contracting_rationale_primary\", expected variable at offset 2530$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contracting_rationale_primary_other\\)\\: Unexpected token \"contracting_rationale_primary_other\", expected variable at offset 2580$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string contracting_rationales_secondary_other\\)\\: Unexpected token \"contracting_rationales_secondary_other\", expected variable at offset 2688$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string department_other\\)\\: Unexpected token \"department_other\", expected variable at offset 91$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_name\\)\\: Unexpected token \"digital_initiative_name\", expected variable at offset 650$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_plan_complemented\\)\\: Unexpected token \"digital_initiative_plan_complemented\", expected variable at offset 800$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_plan_submitted\\)\\: Unexpected token \"digital_initiative_plan_submitted\", expected variable at offset 694$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string digital_initiative_plan_updated\\)\\: Unexpected token \"digital_initiative_plan_updated\", expected variable at offset 748$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string employees_have_access_to_knowledge\\)\\: Unexpected token \"employees_have_access_to_knowledge\", expected variable at offset 2946$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string financial_authority_email\\)\\: Unexpected token \"financial_authority_email\", expected variable at offset 382$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string financial_authority_job_title\\)\\: Unexpected token \"financial_authority_job_title\", expected variable at offset 332$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string financial_authority_name\\)\\: Unexpected token \"financial_authority_name\", expected variable at offset 287$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string has_future_impact_on_other_departments\\)\\: Unexpected token \"has_future_impact_on_other_departments\", expected variable at offset 2374$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string has_immediate_impact_on_other_departments\\)\\: Unexpected token \"has_immediate_impact_on_other_departments\", expected variable at offset 2312$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string has_impact_on_your_department\\)\\: Unexpected token \"has_impact_on_your_department\", expected variable at offset 2262$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string has_personnel_requirements\\)\\: Unexpected token \"has_personnel_requirements\", expected variable at offset 1585$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string id\\)\\: Unexpected token \"id\", expected variable at offset 68$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string instrument_type\\)\\: Unexpected token \"instrument_type\", expected variable at offset 1288$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string instrument_type_other\\)\\: Unexpected token \"instrument_type_other\", expected variable at offset 1324$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string is_technological_change\\)\\: Unexpected token \"is_technological_change\", expected variable at offset 2218$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string knowledge_transfer_in_contract\\)\\: Unexpected token \"knowledge_transfer_in_contract\", expected variable at offset 2895$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string method_of_supply\\)\\: Unexpected token \"method_of_supply\", expected variable at offset 1366$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string method_of_supply_other\\)\\: Unexpected token \"method_of_supply_other\", expected variable at offset 1403$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string ocio_confirmed_talent_shortage\\)\\: Unexpected token \"ocio_confirmed_talent_shortage\", expected variable at offset 2747$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string ocio_engaged_for_training\\)\\: Unexpected token \"ocio_engaged_for_training\", expected variable at offset 3001$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string ongoing_need_for_knowledge\\)\\: Unexpected token \"ongoing_need_for_knowledge\", expected variable at offset 2848$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string operations_considerations_other\\)\\: Unexpected token \"operations_considerations_other\", expected variable at offset 2478$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string qualification_requirement\\)\\: Unexpected token \"qualification_requirement\", expected variable at offset 1674$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string requirement_access_to_secure\\)\\: Unexpected token \"requirement_access_to_secure\", expected variable at offset 1720$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string requirement_other_other\\)\\: Unexpected token \"requirement_other_other\", expected variable at offset 2174$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string requirement_screening_level_other\\)\\: Unexpected token \"requirement_screening_level_other\", expected variable at offset 1817$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string requirement_work_language_other\\)\\: Unexpected token \"requirement_work_language_other\", expected variable at offset 1917$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string requirement_work_location_gc_specific\\)\\: Unexpected token \"requirement_work_location_gc_specific\", expected variable at offset 2015$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string requirement_work_location_offsite_specific\\)\\: Unexpected token \"requirement_work_location_offsite_specific\", expected variable at offset 2073$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string solicitation_procedure\\)\\: Unexpected token \"solicitation_procedure\", expected variable at offset 1446$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string subject_to_trade_agreement\\)\\: Unexpected token \"subject_to_trade_agreement\", expected variable at offset 1489$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string talent_search_tracking_number\\)\\: Unexpected token \"talent_search_tracking_number\", expected variable at offset 2798$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(string work_requirement_description\\)\\: Unexpected token \"work_requirement_description\", expected variable at offset 1536$#"
-      count: 1
-      path: app/Models/DigitalContractingQuestionnaire.php
-
-    -
       message: "#^Access to an undefined property App\\\\Models\\\\Experience\\:\\:\\$awarded_date\\.$#"
       count: 1
       path: app/Models/Experience.php
@@ -1728,21 +1128,6 @@ parameters:
       path: app/Models/Experience.php
 
     -
-      message: "#^PHPDoc tag @param has invalid value \\(\\[id \\=\\> uuid, details \\=\\> undefined\\|string\\] \\$skills \\- Skills must be an array of items, each of which must have an id, and optionally have a details string\\.\\)\\: Unexpected token \"\\|\", expected '\\]' at offset 176$#"
-      count: 1
-      path: app/Models/Experience.php
-
-    -
-      message: "#^PHPDoc tag @param has invalid value \\(\\[id \\=\\> uuid, details \\=\\> undefined\\|string\\] \\$skills \\- Skills must be an array of items, each of which must have an id, and optionally have a details string\\.\\)\\: Unexpected token \"\\|\", expected '\\]' at offset 180$#"
-      count: 1
-      path: app/Models/Experience.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$isLocalizedEnum$#"
-      count: 1
-      path: app/Models/Experience.php
-
-    -
       message: "#^Parameter \\#1 \\$attributes \\(object\\) of method App\\\\Models\\\\Experience\\:\\:newFromBuilder\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:newFromBuilder\\(\\)$#"
       count: 1
       path: app/Models/Experience.php
@@ -1753,92 +1138,7 @@ parameters:
       path: app/Models/Experience.php
 
     -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestion\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/GeneralQuestion.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestion\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/GeneralQuestion.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestionResponse\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/GeneralQuestionResponse.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\GeneralQuestionResponse\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/GeneralQuestionResponse.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\GenericJobTitle\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/GenericJobTitle.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\JobPosterTemplate\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/JobPosterTemplate.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\JobPosterTemplate\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/JobPosterTemplate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Models/Notification.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/Pool.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\Pool\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/Pool.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\Pool\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/Pool.php
-
-    -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, App\\\\Models\\\\PoolCandidate\\>\\:\\:withTrashed\\(\\)\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Enums\\\\PriorityWeight\\:\\:CITIZEN_OR_PERMANENT_RESIDENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:OTHER\\|App\\\\Enums\\\\PriorityWeight\\:\\:PRIORITY_ENTITLEMENT\\|App\\\\Enums\\\\PriorityWeight\\:\\:VETERAN will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 3
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Call to method isFuture\\(\\) on an unknown class App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
 
@@ -1850,26 +1150,6 @@ parameters:
     -
       message: "#^Negated boolean expression is always false\\.$#"
       count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidate\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidate\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Result of \\|\\| is always false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
-      count: 3
       path: app/Models/PoolCandidate.php
 
     -
@@ -1893,69 +1173,9 @@ parameters:
       path: app/Models/PoolCandidate.php
 
     -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidateFilter\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/PoolCandidateFilter.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\PoolCandidateSearchRequest\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
       message: "#^Property App\\\\Models\\\\PoolCandidateSearchRequest\\:\\:\\$request_status_changed_at \\(App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\CarbonImmutable\\.$#"
       count: 1
       path: app/Models/PoolCandidateSearchRequest.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 2
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestion\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/ScreeningQuestion.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestion\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/ScreeningQuestion.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestionResponse\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/ScreeningQuestionResponse.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\ScreeningQuestionResponse\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-      count: 1
-      path: app/Models/ScreeningQuestionResponse.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\Skill\\:\\:\\$appends is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$appends\\.$#"
-      count: 1
-      path: app/Models/Skill.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\Skill\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/Skill.php
-
-    -
-      message: "#^PHPDoc type array of property App\\\\Models\\\\SkillFamily\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-      count: 1
-      path: app/Models/SkillFamily.php
-
-    -
-      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
-      count: 2
-      path: app/Models/User.php
 
     -
       message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate\\> supplied for foreach, only iterables are supported\\.$#"
@@ -1968,47 +1188,7 @@ parameters:
       path: app/Models/User.php
 
     -
-      message: "#^Call to function is_null\\(\\) with int will always evaluate to false\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
-      count: 2
-      path: app/Models/User.php
-
-    -
-      message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
       message: "#^Method App\\\\Models\\\\User\\:\\:markEmailAsVerified\\(\\) should return bool but return statement is missing\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) has invalid return type App\\\\Models\\\\Eloquent\\\\Builder\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) should return App\\\\Models\\\\Eloquent\\\\Builder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\.$#"
-      count: 2
-      path: app/Models/User.php
-
-    -
-      message: "#^PHPDoc tag @param for parameter \\$query with type App\\\\Models\\\\Eloquent\\\\Builder is not subtype of native type Illuminate\\\\Database\\\\Eloquent\\\\Builder\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$isLocalizedEnum$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^PHPDoc tag @property has invalid value \\(Illuminate\\\\Support\\\\Carbon email_verified_at\\)\\: Unexpected token \"email_verified_at\", expected variable at offset 111$#"
       count: 1
       path: app/Models/User.php
 
@@ -2016,26 +1196,6 @@ parameters:
       message: "#^Parameter \\#1 \\$columns of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<App\\\\Models\\\\Department\\>\\:\\:get\\(\\) expects array\\<int, string\\>, string given\\.$#"
       count: 1
       path: app/Models/User.php
-
-    -
-      message: "#^Parameter \\$query of method App\\\\Models\\\\User\\:\\:scopePublishingGroups\\(\\) has invalid type App\\\\Models\\\\Eloquent\\\\Builder\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\. Use \\-\\> instead\\.$#"
-      count: 3
-      path: app/Models/User.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$notifiable$#"
-      count: 1
-      path: app/Notifications/VerifyEmail.php
 
     -
       message: "#^Call to method isFuture\\(\\) on an unknown class App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
@@ -2048,48 +1208,8 @@ parameters:
       path: app/Notify/Client.php
 
     -
-      message: "#^Method App\\\\Notify\\\\Client\\:\\:buildBulkPersonalisationRowData\\(\\) is unused\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
       message: "#^Method App\\\\Notify\\\\Client\\:\\:get\\(\\) is unused\\.$#"
       count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'email' on string in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'personalisation' on string in isset\\(\\) does not exist\\.$#"
-      count: 2
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Offset 'phone_number' on string in isset\\(\\) does not exist\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$rows$#"
-      count: 2
-      path: app/Notify/Client.php
-
-    -
-      message: "#^PHPDoc tag @throws has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 347$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^PHPDoc tag @throws has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 349$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\#2 \\$rows of method App\\\\Notify\\\\Client\\:\\:buildBulkPayload\\(\\) expects array\\<string\\>, array\\<int, array\\<int, string\\>\\> given\\.$#"
-      count: 2
       path: app/Notify/Client.php
 
     -
@@ -2118,29 +1238,9 @@ parameters:
       path: app/Notify/Client.php
 
     -
-      message: "#^Unreachable statement \\- code above always terminates\\.$#"
-      count: 2
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\#1 \\$boolean of static method App\\\\Events\\\\CandidateStatusChanged\\:\\:dispatchIf\\(\\) expects bool, string given\\.$#"
-      count: 1
-      path: app/Observers/PoolCandidateObserver.php
-
-    -
       message: "#^Parameter \\#1 \\$trackingNumber of class App\\\\Notifications\\\\TalentRequestSubmissionConfirmation constructor expects string, int given\\.$#"
       count: 1
       path: app/Observers/PoolCandidateSearchRequestObserver.php
-
-    -
-      message: "#^Call to function is_null\\(\\) with App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon will always evaluate to false\\.$#"
-      count: 1
-      path: app/Observers/PoolObserver.php
-
-    -
-      message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$email_verified_at\\.$#"
-      count: 1
-      path: app/Observers/UserObserver.php
 
     -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
@@ -2163,41 +1263,6 @@ parameters:
       path: app/Policies/AssessmentStepPolicy.php
 
     -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$classification$#"
-      count: 5
-      path: app/Policies/ClassificationPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param for parameter \\$community with type App\\\\Models\\\\Community\\|null is not subtype of native type App\\\\Models\\\\Community\\.$#"
-      count: 2
-      path: app/Policies/CommunityPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$department$#"
-      count: 5
-      path: app/Policies/DepartmentPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$classification$#"
-      count: 5
-      path: app/Policies/GenericJobTitlePolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$poolCandidate$#"
-      count: 1
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
-      message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\User\\. Use \\-\\> instead\\.$#"
-      count: 1
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
-      message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\PoolCandidate\\. Use \\-\\> instead\\.$#"
-      count: 12
-      path: app/Policies/PoolCandidatePolicy.php
-
-    -
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
       count: 2
       path: app/Policies/PoolPolicy.php
@@ -2211,36 +1276,6 @@ parameters:
       message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
       count: 1
       path: app/Policies/PoolPolicy.php
-
-    -
-      message: "#^Strict comparison using \\=\\=\\= between bool and 'DRAFT' will always evaluate to false\\.$#"
-      count: 1
-      path: app/Policies/PoolPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param for parameter \\$user with type App\\\\Models\\\\User\\|null is not subtype of native type App\\\\Models\\\\User\\.$#"
-      count: 3
-      path: app/Policies/RolePolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$role$#"
-      count: 2
-      path: app/Policies/RolePolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$skillFamily$#"
-      count: 5
-      path: app/Policies/SkillFamilyPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param references unknown parameter\\: \\$skill$#"
-      count: 5
-      path: app/Policies/SkillPolicy.php
-
-    -
-      message: "#^PHPDoc tag @param has invalid value \\(\\\\App\\\\Models\\\\Team/null \\$team\\)\\: Unexpected token \"/null\", expected variable at offset 117$#"
-      count: 1
-      path: app/Policies/TeamPolicy.php
 
     -
       message: "#^Access to offset 'id' on an unknown class App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
@@ -2266,16 +1301,6 @@ parameters:
       message: "#^Parameter \\#2 \\$type of method Nuwave\\\\Lighthouse\\\\Schema\\\\TypeRegistry\\:\\:registerLazy\\(\\) expects callable\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\Type&GraphQL\\\\Type\\\\Definition\\\\NamedType, Closure\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\EnumType given\\.$#"
       count: 2
       path: app/Providers/GraphQLServiceProvider.php
-
-    -
-      message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-      count: 1
-      path: app/Providers/RouteServiceProvider.php
-
-    -
-      message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-      count: 1
-      path: app/Providers/RouteServiceProvider.php
 
     -
       message: "#^Variable \\$experiences in isset\\(\\) always exists and is not nullable\\.$#"
@@ -2308,11 +1333,6 @@ parameters:
       path: app/Rules/SkillLevelRequiredIfEssential.php
 
     -
-      message: "#^Using nullsafe property access on non\\-nullable type Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\. Use \\-\\> instead\\.$#"
-      count: 2
-      path: app/Rules/SkillLevelRequiredIfEssential.php
-
-    -
       message: "#^Variable \\$activePoolsUsingSkill in isset\\(\\) always exists and is not nullable\\.$#"
       count: 1
       path: app/Rules/SkillNotUsedByActivePool.php
@@ -2326,18 +1346,3 @@ parameters:
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"
       count: 1
       path: app/ValueObjects/ProfileSnapshot.php
-
-    -
-      message: "#^PHPDoc tag @var for variable \\$enum has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
-      count: 1
-      path: app/Console/Commands/CheckIntl.php
-
-    -
-      message: "#^Call to static method localizedString\\(\\) on an unknown class App\\\\Traits\\\\HasLocalization\\.$#"
-      count: 1
-      path: app/Providers/GraphQLServiceProvider.php
-
-    -
-      message: "#^PHPDoc tag @var has invalid type App\\\\Traits\\\\HasLocalization\\.$#"
-      count: 1
-      path: app/Providers/GraphQLServiceProvider.php

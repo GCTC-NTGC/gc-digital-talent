@@ -19,7 +19,7 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "jest": "^29.7.0",
     "react-helmet-async": "^2.0.5",
-    "react-intl": "^6.6.8",
+    "react-intl": "^6.7.0",
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest-axe": "^3.5.9",
-    "@types/react": "^18.3.9",
+    "@types/react": "^18.3.11",
     "eslint": "^8.57.0",
     "jest-axe": "^9.0.0",
     "react": "^18.3.1",

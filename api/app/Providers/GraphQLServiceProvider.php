@@ -53,8 +53,6 @@ class GraphQLServiceProvider extends ServiceProvider
 
         /** Discover all enums in the App\Enum namespace that implement the HasLocalization trait
          * and register them as a LocalizedEnum type in GraphQL
-         *
-         * @var array<HasLocalization>
          */
         $localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
@@ -65,6 +63,7 @@ class GraphQLServiceProvider extends ServiceProvider
             $resolver = function ($value, $args, $context, ResolveInfo $info) use ($enum) {
                 switch ($info->fieldName) {
                     case 'value': return $value;
+                        /** @disregard P1013 Can't type hint traits */
                     case 'label': return $enum::localizedString($value);
                     default: return null;
                 }

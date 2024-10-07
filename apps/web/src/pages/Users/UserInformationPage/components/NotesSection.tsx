@@ -35,13 +35,10 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
     return Promise.reject(res.error);
   };
 
-  const handleSubmit = async (formValues: Record<string, string>) => {
-    user?.poolCandidates?.forEach(async (candidate) => {
+  const handleSubmit = (formValues: Record<string, string>) => {
+    user?.poolCandidates?.forEach((candidate) => {
       if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
-        await handleUpdateCandidate(
-          candidate.id,
-          formValues[candidate.id] ?? "",
-        )
+        handleUpdateCandidate(candidate.id, formValues[candidate.id] ?? "")
           .then(() => {
             toast.success(
               intl.formatMessage(

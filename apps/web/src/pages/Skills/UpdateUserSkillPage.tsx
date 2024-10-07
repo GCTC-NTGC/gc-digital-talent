@@ -335,7 +335,7 @@ export const UpdateUserSkillForm = ({
   const fromShowcase = from && from === "showcase";
   const returnPath = fromShowcase
     ? paths.skillShowcase()
-    : paths.skillLibrary();
+    : paths.skillPortfolio();
 
   const availableExperiences = experiences.filter(
     (exp) =>
@@ -357,7 +357,7 @@ export const UpdateUserSkillForm = ({
 
   const handleSuccess = (msg?: ReactNode) => {
     toast.success(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Successfully updated skill!",
           id: "Vfa3Ek",
@@ -369,7 +369,7 @@ export const UpdateUserSkillForm = ({
 
   const handleError = (msg?: ReactNode) => {
     toast.error(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
           id: "kfjmTt",
@@ -432,8 +432,8 @@ export const UpdateUserSkillForm = ({
       },
 
       {
-        label: intl.formatMessage(navigationMessages.skillLibrary),
-        url: paths.skillLibrary(),
+        label: intl.formatMessage(navigationMessages.skillPortfolio),
+        url: paths.skillPortfolio(),
       },
       ...(fromShowcase
         ? [
@@ -769,10 +769,9 @@ export const UpdateUserSkillForm = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserSkill_Query = graphql(/* GraphQL */ `
   query UserSkill($skillId: UUID!) {

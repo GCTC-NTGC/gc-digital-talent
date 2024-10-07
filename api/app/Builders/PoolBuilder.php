@@ -88,7 +88,7 @@ class PoolBuilder extends Builder
                 if (in_array(PoolStatus::CLOSED->name, $statuses)) {
                     $query->orWhere(function ($query) {
                         $query->whereClosed()
-                            ->whereNotArchived($query);
+                            ->whereNotArchived();
                     });
                 }
 
@@ -217,7 +217,7 @@ class PoolBuilder extends Builder
 
     public function authorizedToAdmin(): self
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         // if they can view any, then nothing filtered out
@@ -255,7 +255,7 @@ class PoolBuilder extends Builder
 
     public function authorizedToView(): self
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
         // can view any pool - return query with no filters added
