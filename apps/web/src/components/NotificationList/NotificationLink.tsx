@@ -2,6 +2,7 @@ import { ElementRef, forwardRef, MouseEventHandler, ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Scalars } from "@gc-digital-talent/graphql";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import styles from "./styles";
 import { useMarkAsRead } from "./mutations";
@@ -20,14 +21,17 @@ const NotificationLink = forwardRef<
 >(({ id, href, isUnread, onRead, children }, forwardedRef) => {
   const [{ fetching }, markAsRead] = useMarkAsRead(id);
   const navigate = useNavigate();
+  const logger = useLogger();
 
-  const handleClick: MouseEventHandler<HTMLAnchorElement> = async (event) => {
+  const handleClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.stopPropagation();
 
-    await markAsRead().then(() => {
-      onRead?.();
-      navigate(href);
-    });
+    markAsRead()
+      .then(() => {
+        onRead?.();
+        navigate(href);
+      })
+      .catch((err) => logger.error(err));
   };
 
   return (
