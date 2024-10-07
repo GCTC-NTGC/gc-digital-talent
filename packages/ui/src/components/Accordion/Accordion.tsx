@@ -29,6 +29,12 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
         "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1.5)",
       "data-h2-font-size":
         "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](h6, 1)",
+      "data-h2-background-color": `
+        base:selectors[>.Accordion__Item:nth-child(odd)](foreground)
+
+        base:selectors[>.Accordion__Item:nth-child(even)](background.dark.3)
+        base:dark:selectors[>.Accordion__Item:nth-child(even)](rgba(53, 57, 75, .5))
+      `,
     };
 
     let paddingStyles: Record<string, string> =
