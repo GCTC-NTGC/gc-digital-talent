@@ -249,126 +249,113 @@ const ReviewTalentRequestDialogContent = ({
           </FieldDisplay>
         </div>
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x0.5)" // accordions have x0.5 margin built-in already
-        >
-          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
-            <Accordion.Item value="skills">
-              <Accordion.Trigger>
-                <span>
-                  {intl.formatMessage(talentRequestMessages.skillRequirements)}
-                </span>
-                <span
-                  data-h2-font-weight="base(normal)"
-                  data-h2-color="base(black.light)"
-                >{` (${request.applicantFilter?.skills?.length ?? 0})`}</span>
-              </Accordion.Trigger>
-              <Accordion.Content>
-                {request.applicantFilter?.skills?.length ? (
-                  <ul>
-                    {request.applicantFilter.skills.map((skill) => (
-                      <li key={skill?.id}>
-                        {getLocalizedName(skill?.name, intl)}
+
+        <Accordion.Root type="multiple" data-h2-margin="base(0)">
+          <Accordion.Item value="skills">
+            <Accordion.Trigger>
+              <span>
+                {intl.formatMessage(talentRequestMessages.skillRequirements)}
+              </span>
+              <span
+                data-h2-font-weight="base(normal)"
+                data-h2-color="base(black.light)"
+              >{` (${request.applicantFilter?.skills?.length ?? 0})`}</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              {request.applicantFilter?.skills?.length ? (
+                <ul>
+                  {request.applicantFilter.skills.map((skill) => (
+                    <li key={skill?.id}>
+                      {getLocalizedName(skill?.name, intl)}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                nullMessage
+              )}
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item value="equity-groups">
+            <Accordion.Trigger>
+              <span>
+                {intl.formatMessage(talentRequestMessages.equityGroups)}
+              </span>
+              <span
+                data-h2-font-weight="base(normal)"
+                data-h2-color="base(black.light)"
+              >{` (${equityDescriptions.length})`}</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              {equityDescriptions.length ? (
+                <ul>
+                  {equityDescriptions.map((equityDescription) => (
+                    <li key={equityDescription}>{equityDescription}</li>
+                  ))}
+                </ul>
+              ) : (
+                nullMessage
+              )}
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item value="work-location">
+            <Accordion.Trigger>
+              <span>
+                {intl.formatMessage(talentRequestMessages.workLocation)}
+              </span>
+              <span
+                data-h2-font-weight="base(normal)"
+                data-h2-color="base(black.light)"
+              >{` (${request.applicantFilter?.locationPreferences?.length ?? 0})`}</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              {request.applicantFilter?.locationPreferences?.length ? (
+                <ul>
+                  {request.applicantFilter.locationPreferences.map(
+                    (locationPreference) => (
+                      <li key={locationPreference?.value}>
+                        {getLocalizedName(locationPreference?.label, intl)}
                       </li>
-                    ))}
-                  </ul>
-                ) : (
-                  nullMessage
-                )}
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion.Root>
-
-          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
-            <Accordion.Item value="equity-groups">
-              <Accordion.Trigger>
-                <span>
-                  {intl.formatMessage(talentRequestMessages.equityGroups)}
-                </span>
-                <span
-                  data-h2-font-weight="base(normal)"
-                  data-h2-color="base(black.light)"
-                >{` (${equityDescriptions.length})`}</span>
-              </Accordion.Trigger>
-              <Accordion.Content>
-                {equityDescriptions.length ? (
-                  <ul>
-                    {equityDescriptions.map((equityDescription) => (
-                      <li key={equityDescription}>{equityDescription}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  nullMessage
-                )}
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion.Root>
-
-          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
-            <Accordion.Item value="work-location">
-              <Accordion.Trigger>
-                <span>
-                  {intl.formatMessage(talentRequestMessages.workLocation)}
-                </span>
-                <span
-                  data-h2-font-weight="base(normal)"
-                  data-h2-color="base(black.light)"
-                >{` (${request.applicantFilter?.locationPreferences?.length ?? 0})`}</span>
-              </Accordion.Trigger>
-              <Accordion.Content>
-                {request.applicantFilter?.locationPreferences?.length ? (
-                  <ul>
-                    {request.applicantFilter.locationPreferences.map(
-                      (locationPreference) => (
-                        <li key={locationPreference?.value}>
-                          {getLocalizedName(locationPreference?.label, intl)}
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                ) : (
-                  nullMessage
-                )}
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion.Root>
-
-          <Accordion.Root type="single" collapsible data-h2-margin="base(0)">
-            <Accordion.Item value="conditions-of-employment">
-              <Accordion.Trigger>
-                <span>
-                  {intl.formatMessage(
-                    talentRequestMessages.conditionsOfEmployment,
+                    ),
                   )}
-                </span>
-                <span
-                  data-h2-font-weight="base(normal)"
-                  data-h2-color="base(black.light)"
-                >{` (${request.applicantFilter?.operationalRequirements?.length ?? 0})`}</span>
-              </Accordion.Trigger>
-              <Accordion.Content>
-                {request.applicantFilter?.operationalRequirements?.length ? (
-                  <ul>
-                    {request.applicantFilter.operationalRequirements.map(
-                      (operationalRequirement) => (
-                        <li key={operationalRequirement?.value}>
-                          {getLocalizedName(
-                            operationalRequirement?.label,
-                            intl,
-                          )}
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                ) : (
-                  nullMessage
+                </ul>
+              ) : (
+                nullMessage
+              )}
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item value="conditions-of-employment">
+            <Accordion.Trigger>
+              <span>
+                {intl.formatMessage(
+                  talentRequestMessages.conditionsOfEmployment,
                 )}
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion.Root>
-        </div>
+              </span>
+              <span
+                data-h2-font-weight="base(normal)"
+                data-h2-color="base(black.light)"
+              >{` (${request.applicantFilter?.operationalRequirements?.length ?? 0})`}</span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              {request.applicantFilter?.operationalRequirements?.length ? (
+                <ul>
+                  {request.applicantFilter.operationalRequirements.map(
+                    (operationalRequirement) => (
+                      <li key={operationalRequirement?.value}>
+                        {getLocalizedName(operationalRequirement?.label, intl)}
+                      </li>
+                    ),
+                  )}
+                </ul>
+              ) : (
+                nullMessage
+              )}
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>
+
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
         <FieldDisplay
           label={intl.formatMessage(talentRequestMessages.additionalComments)}
