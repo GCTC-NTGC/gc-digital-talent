@@ -7,6 +7,7 @@ import {
   type BreadcrumbsProps,
   Crumb,
   Flourish,
+  NavTabs,
 } from "@gc-digital-talent/ui";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -36,12 +37,18 @@ const paddingMap = new Map([
   ],
 ]);
 
+interface NavTab {
+  url: string;
+  label: string;
+}
+
 interface HeroUpdatedProps {
   imgPath?: string;
   title: ReactNode;
   subtitle?: ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
   buttonLinks?: ButtonLinksArrayProps;
+  navTabs?: NavTab[];
   children?: ReactNode;
   centered?: boolean;
   linkSlot?: ReactNode;
@@ -53,6 +60,7 @@ const HeroUpdated = ({
   subtitle,
   crumbs,
   buttonLinks,
+  navTabs,
   children,
   linkSlot,
   centered = false,
@@ -207,6 +215,21 @@ const HeroUpdated = ({
             )}
           </div>
         </div>
+        {navTabs ? (
+          <div data-h2-position="base(absolute)" data-h2-bottom="base(0)">
+            <NavTabs.Root>
+              <NavTabs.List data-h2-wrapper="base(center, full, x1) base(center, full, x2)">
+                {navTabs.map((navTab) => (
+                  <NavTabs.Item key={navTab.url}>
+                    <NavTabs.Link href={navTab.url}>
+                      {navTab.label}
+                    </NavTabs.Link>
+                  </NavTabs.Item>
+                ))}
+              </NavTabs.List>
+            </NavTabs.Root>
+          </div>
+        ) : null}
         {showImg ? (
           <div
             data-h2-position="base(absolute)"
