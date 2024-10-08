@@ -6,7 +6,7 @@ import {
   Classification,
 } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero/HeroDeprecated";
 import { FormValues as SearchFormValues } from "~/types/searchRequest";
 
 import CreateRequest from "./components/RequestForm";

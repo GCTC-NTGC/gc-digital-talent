@@ -39,7 +39,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";

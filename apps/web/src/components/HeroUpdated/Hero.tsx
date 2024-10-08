@@ -42,7 +42,7 @@ interface NavTab {
   label: string;
 }
 
-interface HeroUpdatedProps {
+interface HeroProps {
   imgPath?: string;
   title: ReactNode;
   subtitle?: ReactNode;
@@ -54,7 +54,7 @@ interface HeroUpdatedProps {
   overlap?: boolean; // only takes effect if navTabs is also undefined
 }
 
-const HeroUpdated = ({
+const Hero = ({
   imgPath,
   title,
   subtitle,
@@ -64,7 +64,7 @@ const HeroUpdated = ({
   children,
   centered = false,
   overlap = false,
-}: HeroUpdatedProps) => {
+}: HeroProps) => {
   const intl = useIntl();
 
   const headingRef = useRef<HeadingRef>(null);
@@ -264,4 +264,4 @@ const HeroUpdated = ({
   );
 };
 
-export default HeroUpdated;
+export default Hero;

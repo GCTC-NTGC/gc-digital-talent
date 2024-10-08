@@ -46,7 +46,7 @@ interface HeroProps {
   linkSlot?: ReactNode;
 }
 
-const Hero = ({
+const HeroDeprecated = ({
   imgPath,
   title,
   subtitle,
@@ -244,4 +244,4 @@ const Hero = ({
   );
 };
 
-export default Hero;
+export default HeroDeprecated;

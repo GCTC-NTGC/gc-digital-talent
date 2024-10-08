@@ -21,7 +21,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero/HeroDeprecated";
 import useRoutes, {
   FromIapDraftQueryKey,
   FromIapSuccessQueryKey,

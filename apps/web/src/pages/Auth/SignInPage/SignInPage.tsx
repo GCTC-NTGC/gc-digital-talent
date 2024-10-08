@@ -10,7 +10,7 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";

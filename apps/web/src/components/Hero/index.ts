@@ -1,3 +1,3 @@
-import Hero from "./Hero";
+import Hero from "./HeroDeprecated";
 
 export default Hero;

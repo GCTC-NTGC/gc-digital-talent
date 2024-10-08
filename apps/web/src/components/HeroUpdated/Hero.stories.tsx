@@ -5,10 +5,10 @@ import ChatBubbleBottomCenterIcon from "@heroicons/react/20/solid/ChatBubbleBott
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import HeroUpdated from "./HeroUpdated";
+import Hero from "./Hero";
 
 export default {
-  component: HeroUpdated,
+  component: Hero,
   args: {
     title: "Hero",
     subtitle: "Subtitle",
@@ -38,11 +38,9 @@ export default {
       },
     },
   },
-} as Meta<typeof HeroUpdated>;
+} as Meta<typeof Hero>;
 
-const Template: StoryFn<typeof HeroUpdated> = (args) => (
-  <HeroUpdated {...args} />
-);
+const Template: StoryFn<typeof Hero> = (args) => <Hero {...args} />;
 
 export const ButtonsAndTabs = Template.bind({});
 ButtonsAndTabs.args = {

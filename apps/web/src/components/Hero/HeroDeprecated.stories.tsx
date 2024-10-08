@@ -2,7 +2,7 @@ import { StoryFn, Meta } from "@storybook/react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import Hero from "./Hero";
+import Hero from "./HeroDeprecated";
 
 export default {
   component: Hero,
