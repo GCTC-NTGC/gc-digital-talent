@@ -6510,6 +6510,10 @@
     "defaultMessage": "Cette possibilité s'adresse aux employés internes",
     "description": "Title of a note describing that a pool is only open to employees"
   },
+  "Wd/+eR": {
+    "defaultMessage": "Droit de priorité",
+    "description": "Label for applicant's priority entitlement status"
+  },
   "Wd9+xg": {
     "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle compétence\" pour commencer.",
     "description": "Null message description for asset skills table."
@@ -10813,10 +10817,6 @@
   "swESO/": {
     "defaultMessage": "À distance, hybride ou sur site",
     "description": "Location requirement when a pool advertisement is remote"
-  },
-  "swugkW": {
-    "defaultMessage": "Droit de priorité :",
-    "description": "Label for applicant's priority entitlement status"
   },
   "sycoGU": {
     "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",

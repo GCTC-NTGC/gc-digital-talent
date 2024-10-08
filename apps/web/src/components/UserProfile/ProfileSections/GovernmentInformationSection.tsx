@@ -153,8 +153,8 @@ const GovernmentInformationSection = ({
             <p>
               <span data-h2-display="base(block)">
                 {intl.formatMessage({
-                  defaultMessage: "Priority entitlement:",
-                  id: "swugkW",
+                  defaultMessage: "Priority entitlement",
+                  id: "Wd/+eR",
                   description:
                     "Label for applicant's priority entitlement status",
                 })}
