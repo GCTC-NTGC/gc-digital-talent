@@ -25,7 +25,7 @@ interface LayoutProps {
   iapPersonality?: boolean;
 }
 
-export const Layout = ({
+const Layout = ({
   project,
   title,
   description,
