@@ -12,7 +12,7 @@ import {
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import BackgroundGraphic from "../Hero/BackgroundPattern";
-import ButtonLinksArray, { ButtonLinksArrayProps } from "./ButtonLinksArray";
+import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
 import NavigationMenu from "./NavigationMenu";
 
 const paddingMap = new Map([
@@ -47,7 +47,7 @@ interface HeroUpdatedProps {
   title: ReactNode;
   subtitle?: ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
-  buttonLinks?: ButtonLinksArrayProps;
+  buttonLinks?: ButtonLinkType[];
   navTabs?: NavTab[];
   children?: ReactNode;
   centered?: boolean;
@@ -186,7 +186,7 @@ const HeroUpdated = ({
             )}
             {buttonLinks ? (
               <ButtonLinksArray
-                buttonLinkArray={buttonLinks.buttonLinkArray}
+                buttonLinkArray={buttonLinks}
               ></ButtonLinksArray>
             ) : null}
             {crumbs && (

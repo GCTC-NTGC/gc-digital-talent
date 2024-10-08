@@ -46,13 +46,11 @@ const Template: StoryFn<typeof HeroUpdated> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  buttonLinks: {
-    buttonLinkArray: [
-      { icon: UserPlusIcon, text: "Hello", url: "#one" },
-      { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
-      { icon: ChatBubbleBottomCenterIcon, text: "And goodbye", url: "#two" },
-    ],
-  },
+  buttonLinks: [
+    { icon: UserPlusIcon, text: "Hello", url: "#one" },
+    { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
+    { icon: ChatBubbleBottomCenterIcon, text: "And goodbye", url: "#two" },
+  ],
   navTabs: [
     { url: "#one", label: "One" },
     { url: "#two", label: "Two" },

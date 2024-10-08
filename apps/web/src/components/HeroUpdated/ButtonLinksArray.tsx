@@ -1,6 +1,6 @@
 import { IconType, Link } from "@gc-digital-talent/ui";
 
-interface ButtonLinkType {
+export interface ButtonLinkType {
   icon: IconType;
   text: string;
   url: string;
