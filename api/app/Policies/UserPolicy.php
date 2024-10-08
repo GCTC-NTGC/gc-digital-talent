@@ -100,16 +100,11 @@ class UserPolicy
         if (! empty($attachRoles)) {
 
             foreach ($attachRoles as $roleInput) {
-
                 // loop through each element and check
                 if (isset($roleInput['teamId'])) {
-                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
-                        return false;
-                    }
+                    return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
                 } else {
-                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
-                        return false;
-                    }
+                    return $this->individualAbleToCheck($user, $roleInput['roleId']);
                 }
             }
         }
@@ -117,22 +112,17 @@ class UserPolicy
         if (! empty($detachRoles)) {
 
             foreach ($detachRoles as $roleInput) {
-
                 // loop through each element and check
                 if (isset($roleInput['teamId'])) {
-                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
-                        return false;
-                    }
+                    return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
                 } else {
-                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
-                        return false;
-                    }
+                    return $this->individualAbleToCheck($user, $roleInput['roleId']);
                 }
             }
         }
 
-        // nothing failed
-        return true;
+        // user cannot update any roles
+        return false;
     }
 
     /**
