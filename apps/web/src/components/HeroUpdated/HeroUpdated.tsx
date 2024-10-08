@@ -51,6 +51,7 @@ interface HeroUpdatedProps {
   navTabs?: NavTab[];
   children?: ReactNode;
   centered?: boolean;
+  overlap?: boolean; // only takes effect if navTabs is also undefined
 }
 
 const HeroUpdated = ({
@@ -62,11 +63,13 @@ const HeroUpdated = ({
   navTabs,
   children,
   centered = false,
+  overlap = false,
 }: HeroUpdatedProps) => {
   const intl = useIntl();
 
   const headingRef = useRef<HeadingRef>(null);
   const showImg = imgPath && !centered && !children;
+  const applyOverlap = overlap && !navTabs;
   const textAlignment = centered
     ? {
         "data-h2-text-align": "base(center)",
@@ -77,7 +80,7 @@ const HeroUpdated = ({
   let padding = paddingMap.get("default");
   if (showImg) {
     padding = paddingMap.get("image");
-  } else if (children) {
+  } else if (applyOverlap) {
     padding = paddingMap.get("overlap");
   }
 
@@ -173,6 +176,7 @@ const HeroUpdated = ({
             {buttonLinks ? (
               <ButtonLinksArray
                 buttonLinkArray={buttonLinks}
+                centered={centered}
               ></ButtonLinksArray>
             ) : null}
             {crumbs && (
@@ -186,6 +190,11 @@ const HeroUpdated = ({
                   data-h2-flex-wrap="base(wrap)"
                   data-h2-gap="base(x.5)"
                   data-h2-padding="base(0)"
+                  {...(centered
+                    ? {
+                        "data-h2-justify-content": "base(center)",
+                      }
+                    : {})}
                 >
                   {crumbs.map((crumb, index) => (
                     <Crumb
@@ -202,7 +211,17 @@ const HeroUpdated = ({
           </div>
         </div>
         {navTabs ? (
-          <div data-h2-position="base(absolute)" data-h2-bottom="base(0)">
+          <div
+            data-h2-position="base(absolute)"
+            data-h2-bottom="base(0)"
+            data-h2-width="base(100%)"
+            data-h2-display="base(flex)"
+            {...(centered
+              ? {
+                  "data-h2-justify-content": "base(center)",
+                }
+              : {})}
+          >
             <NavTabs.Root>
               <NavTabs.List data-h2-wrapper="base(center, full, x1) base(center, full, x2)">
                 {navTabs.map((navTab) => (

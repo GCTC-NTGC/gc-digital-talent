@@ -44,8 +44,8 @@ const Template: StoryFn<typeof HeroUpdated> = (args) => (
   <HeroUpdated {...args} />
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const ButtonsAndTabs = Template.bind({});
+ButtonsAndTabs.args = {
   buttonLinks: [
     { icon: UserPlusIcon, text: "Hello", url: "#one" },
     { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
@@ -56,4 +56,45 @@ Default.args = {
     { url: "#two", label: "Two" },
     { url: "#three", label: "Three" },
   ],
+};
+
+export const Buttons = Template.bind({});
+Buttons.args = {
+  buttonLinks: [
+    { icon: UserPlusIcon, text: "Hello", url: "#one" },
+    { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
+    { icon: ChatBubbleBottomCenterIcon, text: "And goodbye", url: "#two" },
+  ],
+};
+
+export const Tabs = Template.bind({});
+Tabs.args = {
+  navTabs: [
+    { url: "#one", label: "One" },
+    { url: "#two", label: "Two" },
+    { url: "#three", label: "Three" },
+  ],
+};
+
+export const NeitherButtonsOrTabs = Template.bind({});
+NeitherButtonsOrTabs.args = {};
+
+export const Overlap = Template.bind({});
+Overlap.args = {
+  overlap: true,
+};
+
+export const ButtonsAndTabsWithCentering = Template.bind({});
+ButtonsAndTabsWithCentering.args = {
+  buttonLinks: [
+    { icon: UserPlusIcon, text: "Hello", url: "#one" },
+    { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
+    { icon: ChatBubbleBottomCenterIcon, text: "And goodbye", url: "#two" },
+  ],
+  navTabs: [
+    { url: "#one", label: "One" },
+    { url: "#two", label: "Two" },
+    { url: "#three", label: "Three" },
+  ],
+  centered: true,
 };
