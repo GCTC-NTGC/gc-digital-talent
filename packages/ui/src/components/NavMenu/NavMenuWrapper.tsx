@@ -113,16 +113,6 @@ const NavMenuWrapper = ({
                 }, 0);
               }}
             >
-              {/* <RemoveScroll
-                  enabled={isSmallScreen && open}
-                  // data-h2-background-color="base:all(gray.darkest)"
-                  // data-h2-border-right="l-tablet(1px solid black.2)"
-                  // data-h2-overflow-y="base(auto)"
-                  // data-h2-overflow-x="base(hidden)"
-                  // data-h2-display="base(flex)"
-                  // data-h2-flex-direction="base(column)"
-                  // data-h2-height="base(100%)"
-                > */}
               <NavMenu.Root
                 /**
                  * Ignore `no-noninteractive-element-interactions` since
@@ -144,7 +134,6 @@ const NavMenuWrapper = ({
                   {children}
                 </div>
               </NavMenu.Root>
-              {/* </RemoveScroll> */}
             </FocusLock>
           </m.div>
         ) : null}
