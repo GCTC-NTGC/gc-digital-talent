@@ -51,7 +51,6 @@ interface HeroUpdatedProps {
   navTabs?: NavTab[];
   children?: ReactNode;
   centered?: boolean;
-  linkSlot?: ReactNode;
 }
 
 const HeroUpdated = ({
@@ -62,7 +61,6 @@ const HeroUpdated = ({
   buttonLinks,
   navTabs,
   children,
-  linkSlot,
   centered = false,
 }: HeroUpdatedProps) => {
   const intl = useIntl();
@@ -171,18 +169,6 @@ const HeroUpdated = ({
               >
                 {subtitle}
               </p>
-            )}
-            {linkSlot && (
-              <div
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(flex-start)"
-                data-h2-margin="base(x1.5, 0, 0, 0)"
-                data-h2-gap="base(x1)"
-                data-h2-justify-content="base(center) p-tablet(flex-start)"
-                data-h2-flex-wrap="base(wrap) p-tablet(initial)"
-              >
-                {linkSlot}
-              </div>
             )}
             {buttonLinks ? (
               <ButtonLinksArray
