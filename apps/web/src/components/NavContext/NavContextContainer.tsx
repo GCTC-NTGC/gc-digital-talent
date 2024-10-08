@@ -1,8 +1,8 @@
-import { createContext, ReactNode, useMemo, useState } from "react";
+import { createContext, ReactNode, useMemo } from "react";
 
 import { RoleName } from "@gc-digital-talent/auth";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
-import { useLogger } from "@gc-digital-talent/logger";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 // this array is ordered by privilege to allow proper sorting
 const NAV_ROLES_BY_PRIVILEGE = [
@@ -78,19 +78,17 @@ interface NavContextContainerProps {
 }
 
 const NavContextContainer = ({ children }: NavContextContainerProps) => {
-  const [navRole, setNavRole] = useState<NavRole>("guest");
-  const logger = useLogger();
+  const [navRole, setNavRole] = useLocalStorage<NavRole>("navRole", "guest");
 
   const state = useMemo<NavContextState>(() => {
     return {
       navRole,
       onAuthorizedRolesChanged: (authorizedRoles: RoleName[]) => {
         const newNavRole = chooseNavRole(navRole, authorizedRoles);
-        logger.debug(`new nav role: ${newNavRole}`); // feel free to remove this in  #10793 when the container is used
         setNavRole(newNavRole);
       },
     };
-  }, [logger, navRole]);
+  }, [navRole, setNavRole]);
 
   return <NavContext.Provider value={state}>{children}</NavContext.Provider>;
 };
