@@ -11,7 +11,7 @@ import {
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import BackgroundGraphic from "../Hero/BackgroundPattern";
-import { ButtonLinksArrayProps } from "./ButtonLinksArray";
+import ButtonLinksArray, { ButtonLinksArrayProps } from "./ButtonLinksArray";
 import NavigationMenu from "./NavigationMenu";
 
 const paddingMap = new Map([
@@ -52,6 +52,7 @@ const HeroUpdated = ({
   title,
   subtitle,
   crumbs,
+  buttonLinks,
   children,
   linkSlot,
   centered = false,
@@ -158,7 +159,7 @@ const HeroUpdated = ({
             {subtitle && (
               <p
                 data-h2-font-size="base(h5, 1.4)"
-                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-margin="base(x1, 0, x1, 0)"
               >
                 {subtitle}
               </p>
@@ -175,6 +176,11 @@ const HeroUpdated = ({
                 {linkSlot}
               </div>
             )}
+            {buttonLinks ? (
+              <ButtonLinksArray
+                buttonLinkArray={buttonLinks.buttonLinkArray}
+              ></ButtonLinksArray>
+            ) : null}
             {crumbs && (
               <nav
                 aria-label={intl.formatMessage(uiMessages.breadcrumbs)}
