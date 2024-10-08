@@ -56,11 +56,6 @@ const createRoute = (locale: Locales) =>
                 {
                   index: true,
                   lazy: () =>
-                    import("../pages/Home/CommunityHomepage/CommunityHomePage"),
-                },
-                {
-                  path: "dashboard",
-                  lazy: () =>
                     import(
                       "../pages/CommunityDashboardPage/CommunityDashboardPage"
                     ),

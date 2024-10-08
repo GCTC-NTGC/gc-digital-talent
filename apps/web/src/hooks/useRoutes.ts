@@ -63,11 +63,8 @@ const getRoutes = (lang: Locales) => {
     // Manager
     managerDashboard: () => [managerUrl, "dashboard"].join("/"),
 
-    // Community
-    communityDashboard: () => [communityUrl, "dashboard"].join("/"),
-
     // Admin - Communities
-    community: () => communityUrl,
+    communityDashboard: () => communityUrl,
     communityTable: () => [adminUrl, "communities"].join("/"),
     communityCreate: () => [adminUrl, "communities", "create"].join("/"),
     communityView: (communityId: string) =>

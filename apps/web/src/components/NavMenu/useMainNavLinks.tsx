@@ -97,14 +97,6 @@ const useMainNavLinks = (
     />
   );
 
-  const CommunityHomePage = (
-    <NavItem
-      key="communityHomePage"
-      href={paths.community()}
-      title={intl.formatMessage(navigationMessages.home)}
-    />
-  );
-
   const CommunityDashboard = (
     <NavItem
       key="communityDashboard"
@@ -239,12 +231,12 @@ const useMainNavLinks = (
     ["guest"]: paths.home(),
     ["applicant"]: paths.applicantDashboard(),
     ["manager"]: paths.manager(),
-    ["pool_operator"]: paths.community(),
-    ["request_responder"]: paths.community(),
-    ["community_manager"]: paths.community(),
-    ["process_operator"]: paths.community(),
-    ["community_recruiter"]: paths.community(),
-    ["community_admin"]: paths.community(),
+    ["pool_operator"]: paths.communityDashboard(),
+    ["request_responder"]: paths.communityDashboard(),
+    ["community_manager"]: paths.communityDashboard(),
+    ["process_operator"]: paths.communityDashboard(),
+    ["community_recruiter"]: paths.communityDashboard(),
+    ["community_admin"]: paths.communityDashboard(),
     ["platform_admin"]: paths.adminDashboard(),
     [""]: paths.notFound(),
   };
@@ -316,12 +308,7 @@ const useMainNavLinks = (
     case "community":
       return {
         ...defaultLinks,
-        mainLinks: [
-          CommunityHomePage,
-          CommunityDashboard,
-          Processes,
-          Candidates,
-        ],
+        mainLinks: [Home, CommunityDashboard, Processes, Candidates],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
       };
     case "admin":
