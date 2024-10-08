@@ -43,7 +43,7 @@ export const NavItem = ({
  * @param loggedIn If the user is logged in
  * @returns
  */
-export const useMainLinks = (
+const useMainNavLinks = (
   navRole: NavRole,
   loggedIn: boolean,
   roleAssignments: RoleAssignment[],
@@ -177,8 +177,8 @@ export const useMainLinks = (
   const SkillLibrary = (
     <NavItem
       key="skillLibrary"
-      href={paths.skillLibrary()}
-      title={intl.formatMessage(navigationMessages.skillLibrary)}
+      href={paths.skillPortfolio()}
+      title={intl.formatMessage(navigationMessages.skillPortfolio)}
       subMenu
     />
   );
@@ -324,3 +324,5 @@ export const useMainLinks = (
       };
   }
 };
+
+export default useMainNavLinks;

@@ -26,7 +26,7 @@ import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
-import { useMainLinks } from "./navlinks";
+import useMainNavLinks from "./useMainNavLinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import { NavRole } from "../NavContext/NavContextContainer";
 
@@ -57,10 +57,10 @@ const MainNavMenu = () => {
     }
   }, [navRole, loggedIn, setPrevNavRole, userAuthInfo?.roleAssignments]);
 
-  const { roleLinks, mainLinks, accountLinks, authLinks } = useMainLinks(
-    prevNavRole || navRole,
+  const { roleLinks, mainLinks, accountLinks, authLinks } = useMainNavLinks(
+    prevNavRole ?? navRole,
     loggedIn,
-    userAuthInfo?.roleAssignments?.filter(notEmpty) || [],
+    userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [],
   );
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -133,7 +133,7 @@ const MainNavMenu = () => {
                   mode="text"
                   block={false}
                 >
-                  {getRoleName[prevNavRole || navRole]}
+                  {getRoleName[prevNavRole ?? navRole]}
                 </NavMenu.Trigger>
                 <NavMenu.Content>
                   <NavMenu.List>
