@@ -55,13 +55,8 @@ const createRoute = (locale: Locales) =>
               children: [
                 {
                   index: true,
-                  // loader: async () => {
-                  //   throw new Response("Not Found", { status: 404 }); // unfinished page
-                  // },
                   lazy: () =>
-                    import(
-                      "../pages/CommunityDashboardPage/CommunityDashboardPage"
-                    ),
+                    import("../pages/Home/CommunityHomepage/CommunityHomePage"),
                 },
                 {
                   path: "dashboard",

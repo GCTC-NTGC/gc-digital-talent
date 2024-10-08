@@ -99,6 +99,14 @@ const useMainNavLinks = (
     />
   );
 
+  const CommunityHomePage = (
+    <NavItem
+      key="communityHomePage"
+      href={paths.community()}
+      title={intl.formatMessage(navigationMessages.home)}
+    />
+  );
+
   const CommunityDashboard = (
     <NavItem
       key="communityDashboard"
@@ -306,7 +314,12 @@ const useMainNavLinks = (
     case "community":
       return {
         ...defaultLinks,
-        mainLinks: [Home, CommunityDashboard, Processes, Candidates],
+        mainLinks: [
+          CommunityHomePage,
+          CommunityDashboard,
+          Processes,
+          Candidates,
+        ],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
       };
     case "admin":
