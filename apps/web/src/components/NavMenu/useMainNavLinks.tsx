@@ -123,7 +123,7 @@ const useMainNavLinks = (
     />
   );
 
-  const AdminProcesses = (
+  const Processes = (
     <NavItem
       key="adminProcesses"
       href={paths.poolTable()}
@@ -139,17 +139,10 @@ const useMainNavLinks = (
     />
   );
 
-  const Processes = (
-    <NavItem
-      key="communityProcesses"
-      href="#" // Replace with community processes
-      title={intl.formatMessage(navigationMessages.processes)}
-    />
-  );
   const Candidates = (
     <NavItem
-      key="communityCandidates"
-      href="#" // Replace with community specific table
+      key="candidates"
+      href={paths.poolCandidates()}
       title={intl.formatMessage(navigationMessages.candidates)}
     />
   );
@@ -325,7 +318,7 @@ const useMainNavLinks = (
     case "admin":
       return {
         ...defaultLinks,
-        mainLinks: [Home, AdminDashboard, ViewUsers, AdminProcesses, Requests],
+        mainLinks: [Home, AdminDashboard, ViewUsers, Processes, Requests],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
       };
     default:
