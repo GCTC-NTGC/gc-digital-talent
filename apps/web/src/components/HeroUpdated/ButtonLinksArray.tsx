@@ -6,7 +6,7 @@ export interface ButtonLinkType {
   url: string;
 }
 
-export interface ButtonLinksArrayProps {
+interface ButtonLinksArrayProps {
   buttonLinkArray: ButtonLinkType[];
   centered: boolean;
 }
