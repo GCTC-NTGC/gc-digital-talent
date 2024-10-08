@@ -15,53 +15,53 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
-import adminMessages from "~/messages/adminMessages";
 import tableMessages from "~/components/Table/tableMessages";
 
-import { TeamAssignment, TeamTeamable, UpdateUserRolesFunc } from "../types";
-import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import {
-  isTeamTeamable,
-  teamActionCell,
-  teamCell,
-  teamRolesAccessor,
+  CommunityAssignment,
+  CommunityTeamable,
+  UpdateUserRolesFunc,
+} from "../types";
+import {
+  communityActionCell,
+  communityCell,
+  communityRolesAccessor,
+  isCommunityTeamable,
   teamRolesCell,
 } from "./helpers";
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+import AddCommunityRoleDialog from "./AddCommunityRoleDialog";
 
 interface RoleTeamPair {
   role: Role;
-  team: TeamTeamable;
+  community: CommunityTeamable;
 }
 
-const columnHelper = createColumnHelper<TeamAssignment>();
+const columnHelper = createColumnHelper<CommunityAssignment>();
 
 type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"]["output"];
 
-interface TeamRoleTableProps {
+interface CommunityRoleTableProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
   availableRoles: Role[];
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
-const TeamRoleTable = ({
+const CommunityRoleTable = ({
   user,
   authInfo,
   availableRoles,
   onUpdateUserRoles,
-}: TeamRoleTableProps) => {
+}: CommunityRoleTableProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   const { firstName, lastName, id } = user;
 
-  const teamRoles = availableRoles.filter(
+  const communityRoles = availableRoles.filter(
     (role) =>
       role.isTeamBased &&
-      !["community_admin", "community_recruiter", "process_operator"].includes(
-        // These roles are meant to be connected to different kinds of Teams.
-        role.name,
-      ),
+      ["community_admin", "community_recruiter"].includes(role.name),
   );
 
   const handleEditRoles = useCallback(
@@ -76,83 +76,93 @@ const TeamRoleTable = ({
       id: "actions",
       enableHiding: false,
       header: intl.formatMessage(tableMessages.actions),
-      cell: ({ row: { original: teamAssignment } }) =>
-        teamActionCell(
-          teamAssignment,
+      cell: ({ row: { original: communityAssignment } }) =>
+        communityActionCell(
+          communityAssignment,
           { id: id, firstName: firstName, lastName: lastName },
           handleEditRoles,
-          teamRoles,
+          communityRoles,
         ),
     }),
     columnHelper.accessor(
-      (teamAssignment) =>
-        getLocalizedName(teamAssignment.team.displayName, intl),
+      (communityAssignment) =>
+        getLocalizedName(communityAssignment.community.name, intl),
       {
-        id: "team",
+        id: "name",
         enableHiding: false,
         sortingFn: normalizedText,
-        header: intl.formatMessage(adminMessages.team),
+        header: intl.formatMessage(commonMessages.name),
         cell: ({
           row: {
-            original: { team },
+            original: { community },
           },
           getValue,
-        }) => teamCell(getValue(), team ? routes.teamView(team.id) : ""),
+        }) =>
+          communityCell(
+            getValue(),
+            community ? routes.communityView(community.id) : "",
+          ),
       },
     ),
     columnHelper.accessor(
-      (teamAssignment) => teamRolesAccessor(teamAssignment, intl),
+      (communityAssignment) =>
+        communityRolesAccessor(communityAssignment, intl),
       {
-        id: "role",
+        id: "communityRoles",
         enableHiding: false,
-        header: intl.formatMessage(commonMessages.role),
-        cell: ({ row: { original: teamAssignment } }) =>
+        header: intl.formatMessage({
+          defaultMessage: "Community roles",
+          id: "B6cKp+",
+          description: "Heading for updating a user's community roles",
+        }),
+        cell: ({ row: { original: communityAssignment } }) =>
           teamRolesCell(
-            teamAssignment.roles
+            communityAssignment.roles
               .map((role) => getLocalizedName(role.displayName, intl))
               .sort((a, b) => a.localeCompare(b)),
           ),
       },
     ),
-  ] as ColumnDef<TeamAssignment>[];
+  ] as ColumnDef<CommunityAssignment>[];
 
   const data = useMemo(() => {
     const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
-      .filter((roleAssignment) => isTeamTeamable(roleAssignment?.teamable)) // filter for team teamable
       .map((assignment) => {
         if (
           assignment?.teamable &&
-          isTeamTeamable(assignment.teamable) && // type coercion
+          isCommunityTeamable(assignment.teamable) &&
           assignment.role?.isTeamBased
         )
           return {
             role: assignment.role,
-            team: assignment.teamable,
+            community: assignment.teamable,
           };
         return null;
       })
       .filter(notEmpty);
 
-    const pairsGroupedByTeam = groupBy<
+    const pairsGroupedByCommunity = groupBy<
       Scalars["ID"]["output"],
       RoleTeamPair,
       GetRoleTeamIdFunc
     >(roleTeamPairs, (pair) => {
-      return pair.team.id;
+      return pair.community.id;
     });
 
-    return Object.values(pairsGroupedByTeam).map((teamGroupOfPairs) => {
-      return {
-        team: teamGroupOfPairs[0].team, // team will be the same for every entry in group
-        roles: teamGroupOfPairs.map((pair) => pair.role),
-      };
-    });
+    return Object.values(pairsGroupedByCommunity).map(
+      (communityGroupOfPairs) => {
+        return {
+          community: communityGroupOfPairs[0].community,
+          roles: communityGroupOfPairs.map((pair) => pair.role),
+        };
+      },
+    );
   }, [authInfo?.roleAssignments]);
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Team based roles",
-    id: "eZHoNJ",
-    description: "Heading for updating a users team roles",
+    defaultMessage: "Community roles",
+    id: "B6cKp+",
+    description: "Heading for updating a user's community roles",
   });
 
   return (
@@ -160,7 +170,7 @@ const TeamRoleTable = ({
       <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
-      <Table<TeamAssignment>
+      <Table<CommunityAssignment>
         caption={pageTitle}
         data={data}
         columns={columns}
@@ -168,9 +178,9 @@ const TeamRoleTable = ({
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search team based roles",
-            id: "Z+JxTc",
-            description: "Label for the team roles table search input",
+            defaultMessage: "Search community based roles",
+            id: "ryeKXV",
+            description: "Label for the community roles table search input",
           }),
         }}
         sort={{
@@ -178,19 +188,21 @@ const TeamRoleTable = ({
         }}
         add={{
           component: (
-            <AddTeamRoleDialog
+            <AddCommunityRoleDialog
               user={user}
               authInfo={authInfo}
-              availableRoles={teamRoles}
+              communityRoles={communityRoles}
               onAddRoles={handleEditRoles}
             />
           ),
         }}
         nullMessage={{
           description: intl.formatMessage({
-            defaultMessage: 'Use the "Add team role" button to get started.',
-            id: "ZHDOB5",
-            description: "Instructions for adding team membership to a user.",
+            defaultMessage:
+              'Use the "Add community role" button to get started.',
+            id: "MxmB1v",
+            description:
+              "Instructions for adding community membership to a user.",
           }),
         }}
       />
@@ -198,4 +210,4 @@ const TeamRoleTable = ({
   );
 };
 
-export default TeamRoleTable;
+export default CommunityRoleTable;

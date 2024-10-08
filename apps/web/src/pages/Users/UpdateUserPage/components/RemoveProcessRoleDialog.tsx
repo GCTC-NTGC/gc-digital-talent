@@ -14,7 +14,6 @@ import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
   Role,
-  Team,
   User,
   RoleInput,
 } from "@gc-digital-talent/graphql";
@@ -22,21 +21,23 @@ import {
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
-interface RemoveTeamRoleDialogProps {
+import { PoolTeamable } from "../types";
+
+interface RemoveProcessRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   roles: Role[];
-  team: Pick<Team, "id" | "displayName">;
+  pool: PoolTeamable;
   onRemoveRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
 }
 
-const RemoveTeamRoleDialog = ({
+const RemoveProcessRoleDialog = ({
   user,
   roles,
-  team,
+  pool,
   onRemoveRoles,
-}: RemoveTeamRoleDialogProps) => {
+}: RemoveProcessRoleDialogProps) => {
   const intl = useIntl();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const RemoveTeamRoleDialog = ({
 
   const handleRemove = async () => {
     const roleInputArray: RoleInput[] = roles.map((r) => {
-      return { roleId: r.id, teamId: team.id };
+      return { roleId: r.id, teamId: pool.teamIdForRoleAssignment };
     });
     setIsDeleting(true);
     return onRemoveRoles({
@@ -66,30 +67,20 @@ const RemoveTeamRoleDialog = ({
   const userName = getFullNameHtml(firstName, lastName, intl);
   const roleDisplayName = (role: Role) =>
     getLocalizedName(role.displayName, intl);
-  const teamDisplayName = getLocalizedName(team.displayName, intl);
+  const poolDisplayName = getLocalizedName(pool.name, intl);
 
-  const dialogLabel = intl.formatMessage(
-    {
-      defaultMessage: "Remove membership<hidden> in {team}</hidden>",
-      id: "vkOyl3",
-      description: "Header for the form to remove a team role from a user",
-    },
-    {
-      team: teamDisplayName,
-    },
-  );
+  const dialogLabel = intl.formatMessage({
+    defaultMessage: "Remove from process",
+    id: "l7Xz4j",
+    description: "Header for the form to remove a process role from a user",
+  });
 
-  const buttonLabel = intl.formatMessage(
-    {
-      defaultMessage: "Remove membership<hidden> in {team}</hidden>",
-      id: "N6Qn5a",
-      description:
-        "Button label for the form to remove a team role from a user",
-    },
-    {
-      team: teamDisplayName,
-    },
-  );
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Remove from process",
+    id: "Hah9mB",
+    description:
+      "Button label for the form to remove a process role from a user",
+  });
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -102,35 +93,36 @@ const RemoveTeamRoleDialog = ({
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "You are about to remove this member: <strong>{userName}</strong>",
-                id: "JgwpTg",
-                description:
-                  "Lead in text for the remove role from user dialog",
-              },
-              { userName },
-            )}
+            {intl.formatMessage({
+              defaultMessage: "You are about to remove this member:",
+              id: "95aNQ1",
+              description: "Lead in text for removing roles on user form.",
+            })}
           </p>
-          <p data-h2-margin="base(0, 0 ,x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "From the following team: <strong>{teamDisplayName}</strong>",
-                id: "86qwfg",
-                description: "Follow in text for the team being updated",
-              },
-              { teamDisplayName },
-            )}
+          <ul>
+            <li data-h2-font-weight="base(bold)">
+              <span>{userName}</span>
+            </li>
+          </ul>
+          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "From the following process:",
+              id: "7+HKOE",
+              description: "Follow in text for the process being updated",
+            })}
           </p>
+          <ul>
+            <li data-h2-font-weight="base(bold)">
+              <span>{poolDisplayName}</span>
+            </li>
+          </ul>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "The user will lose all the following team roles:",
-              id: "RTf/0v",
+                "The user will lose all the following process roles:",
+              id: "hS96pl",
               description:
-                "Text notifying user which role will be removed from the user",
+                "Text notifying user which process roles will be removed from the user",
             })}
           </p>
           <Chips>
@@ -166,4 +158,4 @@ const RemoveTeamRoleDialog = ({
   );
 };
 
-export default RemoveTeamRoleDialog;
+export default RemoveProcessRoleDialog;

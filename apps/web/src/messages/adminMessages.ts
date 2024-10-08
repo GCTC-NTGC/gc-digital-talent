@@ -185,6 +185,30 @@ const messages = defineMessages({
     id: "ae3u1t",
     description: "Title for key field",
   },
+  rolesAdded: {
+    defaultMessage: "Role(s) added successfully",
+    id: "/17wgm",
+    description:
+      "Message displayed to user when one or more roles have been added to a user",
+  },
+  rolesUpdated: {
+    defaultMessage: "Member roles updated successfully",
+    id: "ALIgEC",
+    description:
+      "Alert displayed to user when a team member's roles have been updated",
+  },
+  rolesUpdateFailed: {
+    defaultMessage: "Member role update failed",
+    id: "Ly2bBb",
+    description:
+      "Alert displayed to user when an error occurs while editing a team member's roles",
+  },
+  roleRemoved: {
+    defaultMessage: "Role removed successfully",
+    id: "XcS2q2",
+    description:
+      "Message displayed to user when a role has been removed from a user",
+  },
 });
 
 export default messages;
