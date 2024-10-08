@@ -22,13 +22,11 @@ import {
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
-import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
 import useMainNavLinks from "./useMainNavLinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
-import { NavRole } from "../NavContext/NavContextContainer";
 
 const MainNavMenu = () => {
   const intl = useIntl();
@@ -42,23 +40,8 @@ const MainNavMenu = () => {
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
 
-  const [prevNavRole, setPrevNavRole] = useLocalStorage<NavRole | null>(
-    "prevNavRole",
-    null,
-  );
-
-  useEffect(() => {
-    if (navRole === "guest" && userAuthInfo?.roleAssignments === undefined) {
-      setPrevNavRole(null);
-    }
-
-    if (navRole !== "guest" && userAuthInfo?.roleAssignments !== undefined) {
-      setPrevNavRole(navRole);
-    }
-  }, [navRole, loggedIn, setPrevNavRole, userAuthInfo?.roleAssignments]);
-
   const { roleLinks, mainLinks, accountLinks, authLinks } = useMainNavLinks(
-    prevNavRole ?? navRole,
+    navRole,
     loggedIn,
     userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [],
   );
@@ -133,7 +116,7 @@ const MainNavMenu = () => {
                   mode="text"
                   block={false}
                 >
-                  {getRoleName[prevNavRole ?? navRole]}
+                  {getRoleName[navRole]}
                 </NavMenu.Trigger>
                 <NavMenu.Content>
                   <NavMenu.List>
