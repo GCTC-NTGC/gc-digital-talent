@@ -391,7 +391,7 @@ export const ManagerHomePage = () => {
   );
 };
 
-const Component = () => (
+export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.PlatformAdmin, ROLE_NAME.Manager]}>
     <ManagerHomePage />
   </RequireAuth>
@@ -399,4 +399,4 @@ const Component = () => (
 
 Component.displayName = "ManagerHomePage";
 
-export default Component;
+export default ManagerHomePage;
