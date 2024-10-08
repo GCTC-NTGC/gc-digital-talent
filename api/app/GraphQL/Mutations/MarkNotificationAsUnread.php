@@ -9,8 +9,6 @@ final class MarkNotificationAsUnread
 {
     /**
      * Mark a specific notification as unread
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

@@ -15,53 +15,47 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
-import adminMessages from "~/messages/adminMessages";
 import tableMessages from "~/components/Table/tableMessages";
 
-import { TeamAssignment, TeamTeamable, UpdateUserRolesFunc } from "../types";
-import AddTeamRoleDialog from "./AddTeamRoleDialog";
+import { PoolAssignment, PoolTeamable, UpdateUserRolesFunc } from "../types";
 import {
-  isTeamTeamable,
-  teamActionCell,
-  teamCell,
-  teamRolesAccessor,
+  isPoolTeamable,
+  processActionCell,
+  processCell,
+  processRolesAccessor,
   teamRolesCell,
 } from "./helpers";
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+import AddProcessRoleDialog from "./AddProcessRoleDialog";
 
 interface RoleTeamPair {
   role: Role;
-  team: TeamTeamable;
+  pool: PoolTeamable;
 }
 
-const columnHelper = createColumnHelper<TeamAssignment>();
+const columnHelper = createColumnHelper<PoolAssignment>();
 
 type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"]["output"];
 
-interface TeamRoleTableProps {
+interface ProcessRoleTableProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
   availableRoles: Role[];
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
-const TeamRoleTable = ({
+const ProcessRoleTable = ({
   user,
   authInfo,
   availableRoles,
   onUpdateUserRoles,
-}: TeamRoleTableProps) => {
+}: ProcessRoleTableProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   const { firstName, lastName, id } = user;
 
-  const teamRoles = availableRoles.filter(
-    (role) =>
-      role.isTeamBased &&
-      !["community_admin", "community_recruiter", "process_operator"].includes(
-        // These roles are meant to be connected to different kinds of Teams.
-        role.name,
-      ),
+  const processRoles = availableRoles.filter(
+    (role) => role.isTeamBased && ["process_operator"].includes(role.name),
   );
 
   const handleEditRoles = useCallback(
@@ -76,83 +70,85 @@ const TeamRoleTable = ({
       id: "actions",
       enableHiding: false,
       header: intl.formatMessage(tableMessages.actions),
-      cell: ({ row: { original: teamAssignment } }) =>
-        teamActionCell(
-          teamAssignment,
+      cell: ({ row: { original: poolAssignment } }) =>
+        processActionCell(
+          poolAssignment,
           { id: id, firstName: firstName, lastName: lastName },
           handleEditRoles,
-          teamRoles,
+          processRoles,
         ),
     }),
     columnHelper.accessor(
-      (teamAssignment) =>
-        getLocalizedName(teamAssignment.team.displayName, intl),
+      (poolAssignment) => getLocalizedName(poolAssignment.pool.name, intl),
       {
-        id: "team",
+        id: "name",
         enableHiding: false,
         sortingFn: normalizedText,
-        header: intl.formatMessage(adminMessages.team),
+        header: intl.formatMessage(commonMessages.name),
         cell: ({
           row: {
-            original: { team },
+            original: { pool },
           },
           getValue,
-        }) => teamCell(getValue(), team ? routes.teamView(team.id) : ""),
+        }) => processCell(getValue(), pool ? routes.poolView(pool.id) : ""),
       },
     ),
     columnHelper.accessor(
-      (teamAssignment) => teamRolesAccessor(teamAssignment, intl),
+      (poolAssignment) => processRolesAccessor(poolAssignment, intl),
       {
-        id: "role",
+        id: "processRoles",
         enableHiding: false,
-        header: intl.formatMessage(commonMessages.role),
-        cell: ({ row: { original: teamAssignment } }) =>
+        header: intl.formatMessage({
+          defaultMessage: "Process roles",
+          id: "eGqjYh",
+          description: "Heading for updating a user's process roles",
+        }),
+        cell: ({ row: { original: poolAssignment } }) =>
           teamRolesCell(
-            teamAssignment.roles
+            poolAssignment.roles
               .map((role) => getLocalizedName(role.displayName, intl))
               .sort((a, b) => a.localeCompare(b)),
           ),
       },
     ),
-  ] as ColumnDef<TeamAssignment>[];
+  ] as ColumnDef<PoolAssignment>[];
 
   const data = useMemo(() => {
     const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
-      .filter((roleAssignment) => isTeamTeamable(roleAssignment?.teamable)) // filter for team teamable
       .map((assignment) => {
         if (
           assignment?.teamable &&
-          isTeamTeamable(assignment.teamable) && // type coercion
+          isPoolTeamable(assignment.teamable) &&
           assignment.role?.isTeamBased
         )
           return {
             role: assignment.role,
-            team: assignment.teamable,
+            pool: assignment.teamable,
           };
         return null;
       })
       .filter(notEmpty);
 
-    const pairsGroupedByTeam = groupBy<
+    const pairsGroupedByPool = groupBy<
       Scalars["ID"]["output"],
       RoleTeamPair,
       GetRoleTeamIdFunc
     >(roleTeamPairs, (pair) => {
-      return pair.team.id;
+      return pair.pool.id;
     });
 
-    return Object.values(pairsGroupedByTeam).map((teamGroupOfPairs) => {
+    return Object.values(pairsGroupedByPool).map((poolGroupOfPairs) => {
       return {
-        team: teamGroupOfPairs[0].team, // team will be the same for every entry in group
-        roles: teamGroupOfPairs.map((pair) => pair.role),
+        pool: poolGroupOfPairs[0].pool,
+        roles: poolGroupOfPairs.map((pair) => pair.role),
       };
     });
   }, [authInfo?.roleAssignments]);
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Team based roles",
-    id: "eZHoNJ",
-    description: "Heading for updating a users team roles",
+    defaultMessage: "Process roles",
+    id: "eGqjYh",
+    description: "Heading for updating a user's process roles",
   });
 
   return (
@@ -160,7 +156,7 @@ const TeamRoleTable = ({
       <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
-      <Table<TeamAssignment>
+      <Table<PoolAssignment>
         caption={pageTitle}
         data={data}
         columns={columns}
@@ -168,9 +164,9 @@ const TeamRoleTable = ({
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search team based roles",
-            id: "Z+JxTc",
-            description: "Label for the team roles table search input",
+            defaultMessage: "Search process based roles",
+            id: "DbWxZl",
+            description: "Label for the process roles table search input",
           }),
         }}
         sort={{
@@ -178,19 +174,21 @@ const TeamRoleTable = ({
         }}
         add={{
           component: (
-            <AddTeamRoleDialog
+            <AddProcessRoleDialog
               user={user}
               authInfo={authInfo}
-              availableRoles={teamRoles}
+              processRoles={processRoles}
               onAddRoles={handleEditRoles}
             />
           ),
         }}
         nullMessage={{
           description: intl.formatMessage({
-            defaultMessage: 'Use the "Add team role" button to get started.',
-            id: "ZHDOB5",
-            description: "Instructions for adding team membership to a user.",
+            defaultMessage:
+              'Use the "Add process roles" button to get started.',
+            id: "hryX4G",
+            description:
+              "Instructions for adding process membership to a user.",
           }),
         }}
       />
@@ -198,4 +196,4 @@ const TeamRoleTable = ({
   );
 };
 
-export default TeamRoleTable;
+export default ProcessRoleTable;

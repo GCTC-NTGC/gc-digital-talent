@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import { useQuery } from "urql";
+import debounce from "lodash/debounce";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox, Select } from "@gc-digital-talent/forms";
+import { Combobox } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -19,64 +19,88 @@ import {
   UpdateUserRolesMutation,
   Role,
   User,
-  graphql,
   RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import messages from "~/messages/processMessages";
 import adminMessages from "~/messages/adminMessages";
 
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
-import { isTeamTeamable } from "./helpers";
-
-const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
-  query AddTeamRoleTeams {
-    teams {
-      id
-      displayName {
-        en
-        fr
-      }
-    }
-  }
-`);
+import { isPoolTeamable } from "./helpers";
+import useAvailablePools from "./useAvailablePools";
 
 interface FormValues {
   roles: string[];
-  team: string | null;
+  pool: string | null;
 }
 
-interface AddTeamRoleDialogProps {
+interface AddProcessRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   authInfo: UpdateUserDataAuthInfoType;
-  availableRoles: Role[];
+  processRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
 }
 
-const AddTeamRoleDialog = ({
+const AddProcessRoleDialog = ({
   user,
   authInfo,
-  availableRoles,
+  processRoles,
   onAddRoles,
-}: AddTeamRoleDialogProps) => {
+}: AddProcessRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { id, firstName, lastName } = user;
   const userName = getFullNameHtml(firstName, lastName, intl);
 
+  const roleAssignments = authInfo?.roleAssignments ?? [];
+  const activePoolIds = roleAssignments
+    .filter((ra) => isPoolTeamable(ra?.teamable))
+    .map((ra) => {
+      if (
+        ra?.teamable &&
+        isPoolTeamable(ra.teamable) && // type coercion
+        ra.role?.isTeamBased
+      ) {
+        return ra.teamable.id;
+      } else {
+        return null;
+      }
+    })
+    .filter(notEmpty);
+
+  const [query, setQuery] = useState<string>("");
+  const {
+    pools,
+    total,
+    fetching: poolsFetching,
+  } = useAvailablePools(
+    activePoolIds, // Exclude the pools the user is already assigned to
+    {
+      name: query || undefined,
+    },
+  );
+  const handleDebouncedSearch = debounce((newQuery: string) => {
+    setQuery(newQuery);
+  }, 300);
+  const poolOptions = pools
+    ?.filter((pool) => !!pool.teamIdForRoleAssignment)
+    .map((pool) => ({
+      value: pool.teamIdForRoleAssignment ?? "", // should never be an empty string, just satisfies type
+      label: getLocalizedName(pool.name, intl),
+    }));
+
   const methods = useForm<FormValues>({
     defaultValues: {
       roles: [],
-      team: null,
+      pool: null,
     },
   });
 
   const {
     handleSubmit,
-    watch,
-    setValue,
     formState: { isSubmitting },
   } = methods;
 
@@ -88,7 +112,7 @@ const AddTeamRoleDialog = ({
     }
 
     const roleInputArray: RoleInput[] = roles.map((role) => {
-      return { roleId: role, teamId: formValues.team };
+      return { roleId: role, teamId: formValues.pool };
     });
 
     return onAddRoles({
@@ -103,41 +127,21 @@ const AddTeamRoleDialog = ({
   };
 
   const dialogLabel = intl.formatMessage({
-    defaultMessage: "Add team role",
-    id: "RYd/pl",
-    description: "Header for the form to add a team membership to a user",
+    defaultMessage: "Add process role",
+    id: "bMfecw",
+    description: "Header for the form to add a process membership to a user",
   });
 
   const buttonLabel = intl.formatMessage({
-    defaultMessage: "Add team role",
-    id: "wKXLmR",
-    description: "Label for the button to add a role to a user",
+    defaultMessage: "Add process role",
+    id: "TSYfZE",
+    description:
+      "Button label for the form to add a process membership to a user",
   });
 
-  const roleOptions = availableRoles
-    .filter((role) => role.isTeamBased)
-    .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
-      value: role.id,
-    }));
-
-  const teamId = watch("team");
-  useEffect(() => {
-    const roleAssignments = authInfo?.roleAssignments ?? [];
-    const activeRoleIds = roleAssignments
-      .filter((ra) => isTeamTeamable(ra?.teamable) && ra.teamable.id === teamId)
-      .map((r) => r?.role?.id)
-      .filter(notEmpty);
-    setValue("roles", activeRoleIds);
-  }, [authInfo?.roleAssignments, teamId, setValue]);
-
-  const [{ data: teamsData }] = useQuery({
-    query: AddTeamRoleTeams_Query,
-  });
-
-  const teamOptions = teamsData?.teams.filter(notEmpty).map((team) => ({
-    label: getLocalizedName(team.displayName, intl),
-    value: team.id,
+  const roleOptions = processRoles.map((role) => ({
+    label: getLocalizedName(role.displayName, intl),
+    value: role.id,
   }));
 
   return (
@@ -151,15 +155,25 @@ const AddTeamRoleDialog = ({
         <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "You are about to add roles for the following user: <strong>{userName}</strong>",
-                id: "w2BYFi",
-                description: "Lead in text for the add role to user form.",
-              },
-              { userName },
-            )}
+            {intl.formatMessage({
+              defaultMessage:
+                "You are about to add roles for the following member:",
+              id: "0cevfA",
+              description: "Lead in text for the add role to user form.",
+            })}
+          </p>
+          <ul>
+            <li data-h2-font-weight="base(bold)">
+              <span>{userName}</span>
+            </li>
+          </ul>
+          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "Select the process and roles you want to add",
+              id: "CcLolQ",
+              description:
+                "Lead in text for the pick process and roles inputs.",
+            })}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddRoles)}>
@@ -168,28 +182,27 @@ const AddTeamRoleDialog = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >
-                <Select
-                  id="team"
-                  name="team"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select team",
-                    id: "5C8xs4",
-                    description: "Placeholder text for team selection input",
-                  })}
-                  label={intl.formatMessage(adminMessages.team)}
+                <Combobox
+                  id="pool"
+                  name="pool"
+                  fetching={poolsFetching}
+                  isExternalSearch
+                  onSearch={handleDebouncedSearch}
+                  total={total}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  options={teamOptions ?? []}
+                  label={intl.formatMessage(messages.process)}
+                  options={poolOptions ?? []}
                 />
                 <Combobox
                   id="roles"
                   name="roles"
+                  isMulti
                   label={intl.formatMessage({
-                    defaultMessage: "Membership roles",
-                    id: "s5hTYo",
-                    description:
-                      "Label for the input to select role of a team role",
+                    defaultMessage: "Process roles",
+                    id: "eGqjYh",
+                    description: "Heading for updating a user's process roles",
                   })}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -227,4 +240,4 @@ const AddTeamRoleDialog = ({
   );
 };
 
-export default AddTeamRoleDialog;
+export default AddProcessRoleDialog;

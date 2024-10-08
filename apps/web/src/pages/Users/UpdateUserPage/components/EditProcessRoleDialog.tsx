@@ -17,7 +17,6 @@ import {
   UpdateUserRolesMutation,
   Role,
   User,
-  Team,
   Scalars,
   RoleInput,
 } from "@gc-digital-talent/graphql";
@@ -25,33 +24,35 @@ import {
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
+import { PoolTeamable } from "../types";
+
 interface FormValues {
   roles: Scalars["UUID"]["output"][];
 }
 
-interface EditTeamRoleDialogProps {
+interface EditProcessRoleDialogProps {
   user: Pick<User, "id" | "firstName" | "lastName">;
   initialRoles: Role[];
-  allRoles: Role[];
-  team: Pick<Team, "id" | "displayName">;
+  processRoles: Role[];
+  pool: PoolTeamable;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
 }
 
-const EditTeamRoleDialog = ({
+const EditProcessRoleDialog = ({
   user,
   initialRoles,
-  allRoles,
-  team,
+  processRoles,
+  pool,
   onEditRoles,
-}: EditTeamRoleDialogProps) => {
+}: EditProcessRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { id, firstName, lastName } = user;
 
-  const userDisplayName = getFullNameHtml(firstName, lastName, intl);
-  const teamDisplayName = getLocalizedName(team.displayName, intl);
+  const userName = getFullNameHtml(firstName, lastName, intl);
+  const poolDisplayName = getLocalizedName(pool.name, intl);
   const initialRolesIds = initialRoles.map((role) => role.id);
 
   const methods = useForm<FormValues>({
@@ -70,13 +71,13 @@ const EditTeamRoleDialog = ({
       (role) => !initialRolesIds.includes(role),
     );
     const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
-      return { roleId: role, teamId: team.id };
+      return { roleId: role, teamId: pool.teamIdForRoleAssignment };
     });
     const rolesToDetach = initialRolesIds.filter(
       (role) => !formValues.roles.includes(role),
     );
     const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
-      return { roleId: role, teamId: team.id };
+      return { roleId: role, teamId: pool.teamIdForRoleAssignment };
     });
 
     return onEditRoles({
@@ -95,31 +96,16 @@ const EditTeamRoleDialog = ({
       });
   };
 
-  const label = intl.formatMessage(
-    {
-      defaultMessage: "Edit membership for {userName}",
-      id: "oVgVhK",
-      description: "Label for the form to edit a users team membership",
-    },
-    {
-      userName: userDisplayName,
-    },
-  );
+  const label = intl.formatMessage({
+    defaultMessage: "Edit process roles",
+    id: "IReTZe",
+    description: "Label for the form to edit a users process membership",
+  });
 
-  const roleOptions = allRoles
-    .filter((role) => role.isTeamBased)
-    .filter(
-      (role) =>
-        ![
-          "community_admin",
-          "community_recruiter",
-          "process_operator",
-        ].includes(role.name),
-    ) // These roles are meant to be connected to different kinds of Teams.
-    .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
-      value: role.id,
-    }));
+  const roleOptions = processRoles.map((role) => ({
+    label: getLocalizedName(role.displayName, intl),
+    value: role.id,
+  }));
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -132,26 +118,36 @@ const EditTeamRoleDialog = ({
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "You are about to update roles for the following user: <strong>{userDisplayName}</strong>",
-                id: "jfED66",
-                description: "Lead in text for the add role to user form.",
-              },
-              { userDisplayName },
-            )}
+            {intl.formatMessage({
+              defaultMessage:
+                "You are about to edit roles for the following member:",
+              id: "nBaT85",
+              description: "Lead in text for the edit roles on user form.",
+            })}
           </p>
-          <p data-h2-margin="base(0, 0 ,x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "From the following team: <strong>{teamDisplayName}</strong>",
-                id: "86qwfg",
-                description: "Follow in text for the team being updated",
-              },
-              { teamDisplayName },
-            )}
+          <ul>
+            <li data-h2-font-weight="base(bold)">
+              <span>{userName}</span>
+            </li>
+          </ul>
+          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "From the following process:",
+              id: "7+HKOE",
+              description: "Follow in text for the process being updated",
+            })}
+          </p>
+          <ul>
+            <li data-h2-font-weight="base(bold)">
+              <span>{poolDisplayName}</span>
+            </li>
+          </ul>
+          <p data-h2-margin="base(x1, 0 ,x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "Select the roles you want to keep",
+              id: "47YSK0",
+              description: "Role editing details",
+            })}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleEditRoles)}>
@@ -160,10 +156,9 @@ const EditTeamRoleDialog = ({
                 name="roles"
                 isMulti
                 label={intl.formatMessage({
-                  defaultMessage: "Membership roles",
-                  id: "s5hTYo",
-                  description:
-                    "Label for the input to select role of a team role",
+                  defaultMessage: "Process roles",
+                  id: "eGqjYh",
+                  description: "Heading for updating a user's process roles",
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({
@@ -198,4 +193,4 @@ const EditTeamRoleDialog = ({
   );
 };
 
-export default EditTeamRoleDialog;
+export default EditProcessRoleDialog;

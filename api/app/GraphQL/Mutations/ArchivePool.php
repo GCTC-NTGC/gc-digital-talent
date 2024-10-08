@@ -11,8 +11,6 @@ final class ArchivePool
 {
     /**
      * Closes the pool by setting the archived_at to now().
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

@@ -16,8 +16,6 @@ final class SubmitApplication
 {
     /**
      * Submit an application
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
