@@ -1,8 +1,4 @@
 /**
- * This is different from tabs in that
- * it contains a `nav` element with `a` tags
- * and applies the appropriate `aria` attributes
- *
  * Documentation: https://www.radix-ui.com/docs/primitives/components/navigation-menu
  */
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
@@ -46,6 +42,8 @@ const Trigger = forwardRef<
   <div>
     <NavigationMenuPrimitive.Trigger
       ref={forwardedRef}
+      onPointerMove={(event) => event.preventDefault()}
+      onPointerLeave={(event) => event.preventDefault()}
       {...getButtonStyle({ mode, color, block })}
       data-h2-text-decoration="base(underline)"
       data-h2-padding="base(0)"
@@ -72,6 +70,8 @@ const Content = forwardRef<
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Content
     ref={forwardedRef}
+    onPointerMove={(event) => event.preventDefault()}
+    onPointerLeave={(event) => event.preventDefault()}
     data-h2-margin-top="base(x1) l-tablet(0)"
     data-h2-position="l-tablet(absolute)"
     data-h2-top="l-tablet(x1.25)"
