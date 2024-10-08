@@ -811,6 +811,10 @@
     "defaultMessage": "Je souhaite acquérir de l'expérience en matière d'embauche",
     "description": "Subject for email to gain hiring experience"
   },
+  "2Oubfe": {
+    "defaultMessage": "Type d’emploi",
+    "description": "Label for applicant's employment type"
+  },
   "2QDT5C": {
     "defaultMessage": "Y a-t-il d’autres autorités qui participent à ce contrat?",
     "description": "Label for _ is authorities involved_ fieldset in the _digital services contracting questionnaire_"
@@ -1190,6 +1194,10 @@
   "4QXiPk": {
     "defaultMessage": "Veuillez préciser la méthode",
     "description": "Label for _other method of supply_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "4QyHfC": {
+    "defaultMessage": "Nom",
+    "description": "Name label and colon"
   },
   "4RE3DP": {
     "defaultMessage": "Compétences constituant un atout",
@@ -2851,10 +2859,6 @@
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
   },
-  "DAmLhV": {
-    "defaultMessage": "Nom :",
-    "description": "Name label and colon"
-  },
   "DB9pFd": {
     "defaultMessage": "Langue préférée pour l'entrevue orale",
     "description": "Title for preferred spoken interview language"
@@ -3563,10 +3567,6 @@
     "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
   },
-  "GiODgs": {
-    "defaultMessage": "Citoyenneté :",
-    "description": "Citizenship label"
-  },
   "Gki8Ex": {
     "defaultMessage": "{candidateCount, plural, one {<testId>{candidateCount}</testId> concordance approximative} other {<testId>{candidateCount}</testId> concordances approximatives} }",
     "description": "Message for total estimated matching candidates in pool"
@@ -4010,6 +4010,10 @@
   "JKEDRo": {
     "defaultMessage": "Cette possibilité s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
+  },
+  "JO2yLA": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Work Location label, followed by colon"
   },
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
@@ -4563,6 +4567,10 @@
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
   },
+  "M7bb1V": {
+    "defaultMessage": "Ministère",
+    "description": "Label for applicant's Government of Canada department"
+  },
   "MCBdYy": {
     "defaultMessage": "Analyste T I 2",
     "description": "IT-02 classification aria label including titles"
@@ -4627,10 +4635,6 @@
     "defaultMessage": "Agrandir toutes les compétences",
     "description": "Accessible link text to expand all accordions for skills"
   },
-  "Md/cQS": {
-    "defaultMessage": "Membre des FAC :",
-    "description": "Veteran/member label"
-  },
   "MdVah3": {
     "defaultMessage": "Modifier votre parcours professionnel",
     "description": "Edit link text for career timeline section of the application review page."
@@ -4682,10 +4686,6 @@
   "Muh/+P": {
     "defaultMessage": "Durée de l'emploi",
     "description": "Title for Employment duration section"
-  },
-  "MuyuAu": {
-    "defaultMessage": "Groupe et classification actuels :",
-    "description": "Field label before government employment group and level, followed by colon"
   },
   "MvD/iS": {
     "defaultMessage": "Vous n'avez pas reçu de code ?",
@@ -5878,10 +5878,6 @@
   "T3aDLD": {
     "defaultMessage": "Les renseignements suivants sont facultatifs, mais ils visent à aider les candidats à mieux comprendre le processus d'embauche. Vos réponses à ces questions apparaîtront avec d'autres renseignements importants, comme l'équité, les mesures d'adaptation et les coordonnées.",
     "description": "Sub title for common questions"
-  },
-  "T49QiO": {
-    "defaultMessage": "Type d’emploi :",
-    "description": "Label for applicant's employment type"
   },
   "T4xKEw": {
     "defaultMessage": "– Darcy Pierlot, dirigeant principal de l’information et sous-ministre adjoint, Immigration, Réfugiés et Citoyenneté Canada",
@@ -7118,10 +7114,6 @@
     "defaultMessage": "Message (Français)",
     "description": "The message, in French"
   },
-  "ZUO1OX": {
-    "defaultMessage": "Numéro de priorité :",
-    "description": "Label for applicant's priority number value"
-  },
   "ZVfbLF": {
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
@@ -7365,10 +7357,6 @@
   "b3VnhM": {
     "defaultMessage": "Classification {classificationId} introuvable.",
     "description": "Message displayed for classification not found."
-  },
-  "b5bUa0": {
-    "defaultMessage": "Lieu de travail :",
-    "description": "Work Location label, followed by colon"
   },
   "b8XLn5": {
     "defaultMessage": "Confirmation du préambule",
@@ -8966,6 +8954,10 @@
     "defaultMessage": "Fournir des renseignements sur chaque type de personnel requis dans le cadre du contrat. En ajouter s’il y a lieu.",
     "description": "Context for the personnel requirements section"
   },
+  "ia3ceX": {
+    "defaultMessage": "Statut de l’employé",
+    "description": "Label for applicant's employee status"
+  },
   "iasn5H": {
     "defaultMessage": "En recueillant des renseignements sur l’octroi de contrats sur les services numériques, le BDPI peut déterminer les lacunes potentielles dans les approches de recherche de talents et les nouveaux besoins en matière de compétences.",
     "description": "Paragraph one of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_"
@@ -9622,6 +9614,10 @@
     "defaultMessage": "Utiliser la présente section pour finaliser la décision ayant trait à la demande du/de la candidat(e) une fois que vous aurez effectué toutes les vérifications nécessaires.",
     "description": "Text describing a dialog's purpose"
   },
+  "mGGj/i": {
+    "defaultMessage": "Numéro de priorité",
+    "description": "Label for applicant's priority number value"
+  },
   "mGQUWc": {
     "defaultMessage": "Décision relative à l’exigence",
     "description": "Label for requirement decision radio group in the screening decision dialog."
@@ -9965,10 +9961,6 @@
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
-  },
-  "ny/ddo": {
-    "defaultMessage": "Ministère :",
-    "description": "Label for applicant's Government of Canada department"
   },
   "nzF0AE": {
     "defaultMessage": "P",
@@ -10797,6 +10789,10 @@
   "slQ7q5": {
     "defaultMessage": "Candidat retiré avec succès",
     "description": "Success message for removing a candidate"
+  },
+  "sr20Tb": {
+    "defaultMessage": "Citoyenneté",
+    "description": "Citizenship label"
   },
   "srZlRP": {
     "defaultMessage": "Exigences en matière de personnel",
@@ -11694,6 +11690,10 @@
     "defaultMessage": "Information relative à l'annonce",
     "description": "Title for advertisement information of a process"
   },
+  "yMs04A": {
+    "defaultMessage": "Groupe et classification actuels",
+    "description": "Field label before government employment group and level, followed by colon"
+  },
   "yNPkM8": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
@@ -11737,6 +11737,10 @@
   "yat9wx": {
     "defaultMessage": "Utilisez le bouton \"Créer un ministère\" pour commencer.",
     "description": "Instructions for adding a department item."
+  },
+  "ybzxmU": {
+    "defaultMessage": "Membre des FAC",
+    "description": "Veteran/member label"
   },
   "yfzR+U": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
@@ -11789,10 +11793,6 @@
   "yzvT6g": {
     "defaultMessage": "Ajoutez un rôle dans la collectivité",
     "description": "Button label for the form to add a community membership to a user"
-  },
-  "z/J4uL": {
-    "defaultMessage": "Statut de l’employé :",
-    "description": "Label for applicant's employee status"
   },
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton \"Ajouter une nouvelle question \" ayant été fourni à cet effet.",
