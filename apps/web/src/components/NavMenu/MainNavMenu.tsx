@@ -55,14 +55,6 @@ const MainNavMenu = () => {
 
   const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
 
-  const [navRoleState, setNavRoleState] = useState(navRole);
-
-  useEffect(() => {
-    if (navRole !== navRoleState) {
-      setNavRoleState(navRole);
-    }
-  }, [navRole, navRoleState]);
-
   const roleAssignments = userAuthInfo?.roleAssignments
     ?.filter(notEmpty)
     .filter(
