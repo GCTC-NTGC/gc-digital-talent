@@ -27,6 +27,7 @@ import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
 import useMainNavLinks from "./useMainNavLinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
+import navMenuMessages from "./messages";
 
 const MainNavMenu = () => {
   const intl = useIntl();
@@ -61,12 +62,11 @@ const MainNavMenu = () => {
       (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
     );
 
-  const getRoleName: Record<string, string> = {
-    ["guest"]: "Guest",
-    ["applicant"]: "Applicant",
-    ["manager"]: "Manager",
-    ["community"]: "Community",
-    ["admin"]: "Admin",
+  const roleNames: Record<string, string> = {
+    ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
+    ["manager"]: intl.formatMessage(navMenuMessages.manager),
+    ["community"]: intl.formatMessage(navMenuMessages.community),
+    ["admin"]: intl.formatMessage(navMenuMessages.admin),
   };
 
   return (
@@ -108,7 +108,7 @@ const MainNavMenu = () => {
                   mode="text"
                   block={false}
                 >
-                  {getRoleName[navRole]}
+                  {roleNames[navRole]}
                 </NavMenu.Trigger>
                 <NavMenu.Content>
                   <NavMenu.List>

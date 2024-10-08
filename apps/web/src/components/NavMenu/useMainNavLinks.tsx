@@ -2,19 +2,17 @@ import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
 
 import { NavMenu } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 
-import {
-  convertRoleToNavRole,
-  NavRole,
-} from "../NavContext/NavContextContainer";
+import { NavRole } from "../NavContext/NavContextContainer";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
+import navMenuMessages from "./messages";
 
 export const NavItem = ({
   key,
@@ -224,20 +222,31 @@ const useMainNavLinks = (
     </SignOutConfirmation>
   );
 
-  const getRoleName = {
-    ["guest"]: "Guest",
-    ["applicant"]: "Applicant",
-    ["manager"]: "Manager",
-    ["community"]: "Community",
-    ["admin"]: "Admin",
+  const getRoleName: Record<string, string> = {
+    ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
+    ["manager"]: intl.formatMessage(navMenuMessages.manager),
+    ["pool_operator"]: intl.formatMessage(navMenuMessages.community),
+    ["request_responder"]: intl.formatMessage(navMenuMessages.community),
+    ["community_manager"]: intl.formatMessage(navMenuMessages.community),
+    ["process_operator"]: intl.formatMessage(navMenuMessages.community),
+    ["community_recruiter"]: intl.formatMessage(navMenuMessages.community),
+    ["community_admin"]: intl.formatMessage(navMenuMessages.community),
+    ["platform_admin"]: intl.formatMessage(navMenuMessages.admin),
+    [""]: intl.formatMessage(commonMessages.notFound),
   };
 
   const roles: Record<string, string> = {
     ["guest"]: paths.home(),
     ["applicant"]: paths.applicantDashboard(),
     ["manager"]: paths.manager(),
-    ["community"]: paths.community(),
-    ["admin"]: paths.adminDashboard(),
+    ["pool_operator"]: paths.community(),
+    ["request_responder"]: paths.community(),
+    ["community_manager"]: paths.community(),
+    ["process_operator"]: paths.community(),
+    ["community_recruiter"]: paths.community(),
+    ["community_admin"]: paths.community(),
+    ["platform_admin"]: paths.adminDashboard(),
+    [""]: paths.notFound(),
   };
 
   const roleLinks = roleAssignments
@@ -245,7 +254,7 @@ const useMainNavLinks = (
       (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
     )
     .map((roleAssignment) => {
-      const role = convertRoleToNavRole(roleAssignment.role?.name as RoleName);
+      const role = roleAssignment.role?.name ?? "";
 
       return {
         name: getRoleName[role],
