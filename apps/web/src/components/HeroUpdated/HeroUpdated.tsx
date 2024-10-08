@@ -222,7 +222,7 @@ const HeroUpdated = ({
             data-h2-height="base(auto)"
             data-h2-min-width="base(x20)"
             data-h2-width="base(75%)"
-            data-h2-z-index="base(1)"
+            data-h2-z-index="base(0)"
           />
         )}
       </div>

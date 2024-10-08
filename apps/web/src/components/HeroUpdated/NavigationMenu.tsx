@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import { ReactElement, ReactNode } from "react";
 
-import { MenuLink } from "@gc-digital-talent/ui";
 import {
   hasRole,
   ROLE_NAME,
@@ -17,6 +16,7 @@ import authMessages from "~/messages/authMessages";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
+import MenuLink from "./MenuLink";
 
 interface NavMenuProps {
   mainItems: ReactElement[];
@@ -42,14 +42,18 @@ const NavMenuComponent = ({ mainItems, utilityItems }: NavMenuProps) => {
       data-h2-background-color="base:all(black)"
       data-h2-border-bottom="base(1px solid black.20)"
       data-h2-padding="base(x1, 0)"
-      data-h2-z-index="base(3)"
+      data-h2-z-index="base(5)"
+      data-h2-width="base(100%)"
+      data-h2-position="base(absolute)"
+      data-h2-top="base(0)"
+      data-h2-opacity="base(0.9)"
     >
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) p-tablet(row)"
         >
-          <div data-h2-flex-grow="base(1)">
+          <div data-h2-flex-grow="base(1)" data-h2-z-index="base(5)">
             <nav
               aria-label={intl.formatMessage({
                 defaultMessage: "Main menu",
@@ -72,7 +76,7 @@ const NavMenuComponent = ({ mainItems, utilityItems }: NavMenuProps) => {
           {utilityItems && utilityItems.length > 0 ? (
             <>
               <div data-h2-flex-grow="base(2)" data-h2-min-width="base(x3)" />
-              <div data-h2-flex-grow="base(1)">
+              <div data-h2-flex-grow="base(1)" data-h2-z-index="base(5)">
                 <nav
                   aria-label={intl.formatMessage({
                     defaultMessage: "Account menu",
@@ -177,7 +181,7 @@ const NavigationMenu = () => {
 
   return (
     <NavMenuComponent
-      data-h2-z-index="base(3)"
+      data-h2-z-index="base(5)"
       mainItems={menuItems}
       utilityItems={authLinks}
     />
