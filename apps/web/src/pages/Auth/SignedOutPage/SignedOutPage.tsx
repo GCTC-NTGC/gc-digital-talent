@@ -15,7 +15,7 @@ import {
 } from "@gc-digital-talent/auth";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/Hero/HeroDeprecated";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";

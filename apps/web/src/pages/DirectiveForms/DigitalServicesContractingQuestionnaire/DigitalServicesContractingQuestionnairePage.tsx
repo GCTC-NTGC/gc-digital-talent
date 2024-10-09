@@ -17,7 +17,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";

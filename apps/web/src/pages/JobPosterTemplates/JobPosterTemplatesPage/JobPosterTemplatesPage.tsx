@@ -39,7 +39,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";

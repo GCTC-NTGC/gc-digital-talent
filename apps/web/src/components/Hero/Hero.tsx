@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import BackgroundGraphic from "../Hero/BackgroundPattern";
+import BackgroundGraphic from "./BackgroundPattern";
 import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
 import NavigationMenu from "./NavigationMenu";
 

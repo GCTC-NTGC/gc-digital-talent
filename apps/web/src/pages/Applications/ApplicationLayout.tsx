@@ -16,7 +16,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/HeroDeprecated";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import IapContactDialog from "~/components/Dialog/IapContactDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";

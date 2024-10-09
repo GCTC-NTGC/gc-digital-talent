@@ -35,7 +35,7 @@ import {
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/HeroDeprecated";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";

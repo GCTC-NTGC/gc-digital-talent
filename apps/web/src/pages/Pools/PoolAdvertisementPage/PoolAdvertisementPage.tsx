@@ -54,7 +54,7 @@ import {
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/HeroDeprecated";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
