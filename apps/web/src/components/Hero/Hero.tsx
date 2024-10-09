@@ -26,7 +26,7 @@ const paddingMap = new Map([
     "image",
     {
       "data-h2-padding":
-        "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) l-tablet(x4, 0)",
+        "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) p-tablet(x4, 0)",
     },
   ],
   [
@@ -75,7 +75,7 @@ const Hero = ({
         "data-h2-text-align": "base(center)",
       }
     : {
-        "data-h2-text-align": "base(center) l-tablet(left)",
+        "data-h2-text-align": "base(center) p-tablet(left)",
       };
   let padding = paddingMap.get("default");
   if (showImg) {
@@ -152,7 +152,7 @@ const Hero = ({
             data-h2-color="base:all(white)"
             {...textAlignment}
             {...(showImg && {
-              "data-h2-margin-right": "l-tablet(x18)",
+              "data-h2-margin-right": "p-tablet(x18)",
             })}
           >
             <Heading
@@ -194,7 +194,10 @@ const Hero = ({
                     ? {
                         "data-h2-justify-content": "base(center)",
                       }
-                    : {})}
+                    : {
+                        "data-h2-justify-content":
+                          "base(center) p-tablet(flex-start)",
+                      })}
                 >
                   {crumbs.map((crumb, index) => (
                     <Crumb
@@ -212,18 +215,22 @@ const Hero = ({
         </div>
         {navTabs ? (
           <div
-            data-h2-position="base(absolute)"
-            data-h2-bottom="base(0)"
+            data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
             data-h2-width="base(100%)"
             data-h2-display="base(flex)"
+            data-h2-position="base(absolute)"
+            data-h2-bottom="base(0)"
             {...(centered
               ? {
                   "data-h2-justify-content": "base(center)",
                 }
-              : {})}
+              : {
+                  "data-h2-justify-content":
+                    "base(center) p-tablet(flex-start)",
+                })}
           >
             <NavTabs.Root>
-              <NavTabs.List data-h2-wrapper="base(center, full, x1) base(center, full, x2)">
+              <NavTabs.List data-h2-wrapper="base(center, full, 0)">
                 {navTabs.map((navTab) => (
                   <NavTabs.Item key={navTab.url}>
                     <NavTabs.Link href={navTab.url}>
@@ -242,8 +249,8 @@ const Hero = ({
             data-h2-height="base(auto)"
             data-h2-width="base(100%)"
             data-h2-z-index="base(2)"
-            data-h2-background-position="base(50% 110%) l-tablet(calc(50% + 25rem) 50%)"
-            data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) l-tablet(auto 110%)"
+            data-h2-background-position="base(50% 110%) p-tablet(calc(50% + 25rem) 50%)"
+            data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) p-tablet(auto 110%)"
             data-h2-background-repeat="base(no-repeat)"
             style={{ backgroundImage: `url('${imgPath}')` }}
           />

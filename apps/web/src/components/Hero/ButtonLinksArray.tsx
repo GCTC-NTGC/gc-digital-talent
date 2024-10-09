@@ -26,7 +26,9 @@ const ButtonLinksArray = ({
       ? {
           "data-h2-justify-content": "base(center)",
         }
-      : {})}
+      : {
+          "data-h2-justify-content": "base(center) p-tablet(flex-start)",
+        })}
   >
     {buttonLinkArray.map((element) => (
       <li key={element.url}>

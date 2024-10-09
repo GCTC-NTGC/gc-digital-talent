@@ -62,9 +62,11 @@ ButtonsAndTabs.args = {
     },
   ],
   navTabs: [
-    { url: "#one", label: "One" },
-    { url: "#two", label: "Two" },
-    { url: "#three", label: "Three" },
+    { url: "#one", label: "Tab One" },
+    { url: "#two", label: "Tab Two" },
+    { url: "#three", label: "Tab Three" },
+    { url: "#four", label: "Tab Four" },
+    { url: "#five", label: "Tab Five" },
   ],
 };
 
@@ -95,9 +97,11 @@ Buttons.args = {
 export const Tabs = Template.bind({});
 Tabs.args = {
   navTabs: [
-    { url: "#one", label: "One" },
-    { url: "#two", label: "Two" },
-    { url: "#three", label: "Three" },
+    { url: "#one", label: "Tab One" },
+    { url: "#two", label: "Tab Two" },
+    { url: "#three", label: "Tab Three" },
+    { url: "#four", label: "Tab Four" },
+    { url: "#five", label: "Tab Five" },
   ],
 };
 
@@ -122,9 +126,11 @@ ButtonsAndTabsWithCentering.args = {
     },
   ],
   navTabs: [
-    { url: "#one", label: "One" },
-    { url: "#two", label: "Two" },
-    { url: "#three", label: "Three" },
+    { url: "#one", label: "Tab One" },
+    { url: "#two", label: "Tab Two" },
+    { url: "#three", label: "Tab Three" },
+    { url: "#four", label: "Tab Four" },
+    { url: "#five", label: "Tab Five" },
   ],
   centered: true,
 };
@@ -148,9 +154,9 @@ const FormComponent = () => {
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          <Input id="one" name="one" label="One" type="number" />
-          <Input id="two" name="two" label="Two" type="text" />
-          <Input id="three" name="three" label="Three" type="text" />
+          <Input id="one" name="one" label="Input one" type="text" />
+          <Input id="two" name="two" label="Input two" type="text" />
+          <Input id="three" name="three" label="Input three" type="text" />
           <div data-h2-align-self="base(flex-start)">
             <Submit />
           </div>
