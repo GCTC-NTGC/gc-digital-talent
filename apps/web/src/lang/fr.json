@@ -1463,10 +1463,6 @@
     "defaultMessage": "Ajouter un besoin en personnel",
     "description": "Button text to add a new personnel requirement"
   },
-  "5WOqlf": {
-    "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
-    "description": "Label preceding what groups the user identifies as part of, followed by a colon"
-  },
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
@@ -9401,6 +9397,10 @@
   "l1f8zy": {
     "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
     "description": "Lead-in text to list of pools managers can request candidates from"
+  },
+  "l1hUeU": {
+    "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi",
+    "description": "Label preceding what groups the user identifies as part of, followed by a colon"
   },
   "l5R6Nc": {
     "defaultMessage": "Veuillez remplir une demande d’habilitation",
