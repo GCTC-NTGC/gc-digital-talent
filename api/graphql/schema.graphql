@@ -143,8 +143,8 @@ type User {
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
-  # My talent requests
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+    @canResolved(ability: "view") # Search requests submitted by a user
 }
 
 interface Notification {
