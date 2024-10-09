@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
@@ -24,40 +25,45 @@ const NotificationDownload = forwardRef<
   NotificationLinkProps
 >(({ id, href, isUnread, fileName, onRead, children }, forwardedRef) => {
   const intl = useIntl();
+  const logger = useLogger();
   const [{ fetching }, markAsRead] = useMarkAsRead(id);
   const [{ fetching: downloadingFile }, executeFileDownload] =
     useAsyncFileDownload();
 
-  const handleClick: MouseEventHandler<HTMLAnchorElement> = async (event) => {
+  const handleClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
     event.stopPropagation();
     event.preventDefault();
 
-    await markAsRead().then(() => {
-      onRead?.();
-    });
+    markAsRead()
+      .then(() => {
+        onRead?.();
 
-    await executeFileDownload({
-      url: href,
-      fileName,
-    }).catch((err) => {
-      if (err instanceof Error && err.message === "not found") {
-        toast.error(
-          intl.formatMessage(
-            {
-              defaultMessage:
-                "This file is older than 24 hours and is no longer available. Please request a new file. If the problem persists contact support for assistance.",
-              id: "JFlQjb",
-              description: "Error message when a file no longer exists",
-            },
-            { fileName },
-          ),
-        );
-      } else {
-        toast.error(
-          intl.formatMessage(errorMessages.downloadingFileFailed, { fileName }),
-        );
-      }
-    });
+        executeFileDownload({
+          url: href,
+          fileName,
+        }).catch((err) => {
+          if (err instanceof Error && err.message === "not found") {
+            toast.error(
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "This file is older than 24 hours and is no longer available. Please request a new file. If the problem persists contact support for assistance.",
+                  id: "JFlQjb",
+                  description: "Error message when a file no longer exists",
+                },
+                { fileName },
+              ),
+            );
+          } else {
+            toast.error(
+              intl.formatMessage(errorMessages.downloadingFileFailed, {
+                fileName,
+              }),
+            );
+          }
+        });
+      })
+      .catch((err) => logger.error(err));
   };
 
   return (

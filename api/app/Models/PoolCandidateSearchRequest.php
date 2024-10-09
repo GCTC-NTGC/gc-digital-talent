@@ -48,8 +48,6 @@ class PoolCandidateSearchRequest extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'request_status_changed_at' => 'datetime',

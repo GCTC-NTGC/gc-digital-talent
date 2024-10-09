@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class DigitalContractingPersonnelSkill
  *
- * @property string id
- * @property string level
+ * @property string $id
+ * @property string $level
  */
 class DigitalContractingPersonnelSkill extends Model
 {

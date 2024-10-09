@@ -10,8 +10,6 @@ final class QualifyCandidate
 {
     /**
      * Qualify operation for a candidate
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

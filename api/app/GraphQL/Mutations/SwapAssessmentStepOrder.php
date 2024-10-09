@@ -8,10 +8,6 @@ use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class SwapAssessmentStepOrder
 {
-    /**
-     * @param  null  $_
-     * @param  array{}  $args
-     */
     public function __invoke($_, array $args)
     {
         $stepA = AssessmentStep::find($args['stepIdA']);

@@ -45,6 +45,8 @@ import {
   UpdateUserRoles_Mutation,
   UpdateUserSub_Mutation,
 } from "./operations";
+import CommunityRoleTable from "./components/CommunityRoleTable";
+import ProcessRoleTable from "./components/ProcessRoleTable";
 
 const UpdateUserOptions_Query = graphql(/* GraphQL */ `
   query UpdateUserOptions {
@@ -391,6 +393,18 @@ const UpdateUserPage = () => {
               onUpdateUserRoles={handleUpdateUserRoles}
             />
             <TeamRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <CommunityRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <ProcessRoleTable
               user={data.user}
               authInfo={data.user?.authInfo}
               availableRoles={availableRoles}

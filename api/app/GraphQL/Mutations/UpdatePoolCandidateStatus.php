@@ -9,7 +9,6 @@ use App\Models\PoolCandidate;
 
 final readonly class UpdatePoolCandidateStatus
 {
-    /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
     {
         $candidate = PoolCandidate::findOrFail($args['id']);

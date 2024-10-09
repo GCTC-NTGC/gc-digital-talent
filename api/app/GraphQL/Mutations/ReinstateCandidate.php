@@ -10,8 +10,6 @@ final class ReinstateCandidate
 {
     /**
      * Marks a candidate as removed from the pool
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
