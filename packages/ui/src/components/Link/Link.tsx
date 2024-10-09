@@ -49,7 +49,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       throw new Error("Icon is required when mode is set to 'cta'");
     }
 
-    const url = sanitizeUrl(String(href));
+    const url = href ? sanitizeUrl(String(href)) : undefined;
 
     const commonProps = {
       ...(newTab
