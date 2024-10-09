@@ -4007,10 +4007,6 @@
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
   },
-  "JKEDRo": {
-    "defaultMessage": "Cette possibilité s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
-    "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
-  },
   "JO2yLA": {
     "defaultMessage": "Lieu de travail",
     "description": "Work Location label, followed by colon"
@@ -6517,10 +6513,6 @@
   "WYJnLs": {
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
-  },
-  "WcU42I": {
-    "defaultMessage": "Cette possibilité s'adresse aux employés internes",
-    "description": "Title of a note describing that a pool is only open to employees"
   },
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
