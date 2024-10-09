@@ -1,9 +1,10 @@
-import { IconType, Link } from "@gc-digital-talent/ui";
+import { Color, IconType, Link } from "@gc-digital-talent/ui";
 
 export interface ButtonLinkType {
   icon: IconType;
   text: string;
   url: string;
+  color: Color;
 }
 
 interface ButtonLinksArrayProps {
@@ -29,7 +30,12 @@ const ButtonLinksArray = ({
   >
     {buttonLinkArray.map((element) => (
       <li key={element.url}>
-        <Link color="quinary" mode="cta" href={element.url} icon={element.icon}>
+        <Link
+          color={element.color}
+          mode="cta"
+          href={element.url}
+          icon={element.icon}
+        >
           {element.text}
         </Link>
       </li>

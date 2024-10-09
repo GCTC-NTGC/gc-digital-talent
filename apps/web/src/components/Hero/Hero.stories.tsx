@@ -45,9 +45,19 @@ const Template: StoryFn<typeof Hero> = (args) => <Hero {...args} />;
 export const ButtonsAndTabs = Template.bind({});
 ButtonsAndTabs.args = {
   buttonLinks: [
-    { icon: UserPlusIcon, text: "Hello", url: "#one" },
-    { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
-    { icon: ChatBubbleBottomCenterIcon, text: "And goodbye", url: "#two" },
+    { icon: UserPlusIcon, text: "Hello", url: "#one", color: "quinary" },
+    {
+      icon: AcademicCapIcon,
+      text: "Hello hello",
+      url: "#two",
+      color: "primary",
+    },
+    {
+      icon: ChatBubbleBottomCenterIcon,
+      text: "And goodbye",
+      url: "#two",
+      color: "tertiary",
+    },
   ],
   navTabs: [
     { url: "#one", label: "One" },
@@ -59,9 +69,24 @@ ButtonsAndTabs.args = {
 export const Buttons = Template.bind({});
 Buttons.args = {
   buttonLinks: [
-    { icon: UserPlusIcon, text: "Hello", url: "#one" },
-    { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
-    { icon: ChatBubbleBottomCenterIcon, text: "And goodbye", url: "#two" },
+    {
+      icon: UserPlusIcon,
+      text: "Hello",
+      url: "#one",
+      color: "secondaryDarkFixed",
+    },
+    {
+      icon: AcademicCapIcon,
+      text: "Hello hello",
+      url: "#two",
+      color: "warning",
+    },
+    {
+      icon: ChatBubbleBottomCenterIcon,
+      text: "And goodbye",
+      url: "#two",
+      color: "error",
+    },
   ],
 };
 
@@ -85,9 +110,19 @@ Overlap.args = {
 export const ButtonsAndTabsWithCentering = Template.bind({});
 ButtonsAndTabsWithCentering.args = {
   buttonLinks: [
-    { icon: UserPlusIcon, text: "Hello", url: "#one" },
-    { icon: AcademicCapIcon, text: "Hello hello", url: "#two" },
-    { icon: ChatBubbleBottomCenterIcon, text: "And goodbye", url: "#two" },
+    { icon: UserPlusIcon, text: "Hello", url: "#one", color: "primary" },
+    {
+      icon: AcademicCapIcon,
+      text: "Hello hello",
+      url: "#two",
+      color: "secondary",
+    },
+    {
+      icon: ChatBubbleBottomCenterIcon,
+      text: "And goodbye",
+      url: "#two",
+      color: "tertiary",
+    },
   ],
   navTabs: [
     { url: "#one", label: "One" },
