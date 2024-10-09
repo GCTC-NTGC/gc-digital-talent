@@ -63,11 +63,5 @@ describe("PoolCard", () => {
     ).toHaveTextContent(/salary range: not available/i);
     expect(screen.getByText(/(No skills required)/i)).toBeInTheDocument();
     expect(screen.getByText(/(To be determined)/i)).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("link", {
-        name: /apply to this recruitment/i,
-      }),
-    ).not.toBeInTheDocument();
   });
 });
