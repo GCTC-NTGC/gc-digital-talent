@@ -108,11 +108,6 @@ module.exports = {
 
     // Temporarily disabled to ease transition to typed linting
     "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
-
-    // Remove in #11384
-    "@typescript-eslint/no-unsafe-call": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-unsafe-return": "off",
   },
   settings: {
     react: {

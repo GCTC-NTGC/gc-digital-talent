@@ -6,16 +6,15 @@ import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { makeFragmentData, Pool } from "@gc-digital-talent/graphql";
 
 import PoolCard, { PoolCardProps, PoolCard_Fragment } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nullPool: any = {};
-Object.keys(fakedPool).forEach((key) => {
-  nullPool[key] = null;
-});
+const nullPool: Pool = {
+  __typename: "Pool",
+  id: "uuid",
+};
 
 const renderPoolCard = (props: PoolCardProps) =>
   renderWithProviders(<PoolCard {...props} />);
