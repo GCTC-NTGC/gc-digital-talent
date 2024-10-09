@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
 import { JSX } from "react";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
@@ -19,13 +18,13 @@ const DocNode: NodeRenderer = ({ children }) => (
 );
 
 const TextNode: NodeRenderer = ({ node }) => {
-  const content: string = node.text;
+  const content = String(node.text);
 
   let linkProps: LinkProps = {};
   const isLink = node?.marks?.find((mark) => {
     if (mark.type === "link") {
       linkProps = {
-        href: mark.attrs?.href ?? "",
+        href: mark.attrs?.href ? String(mark.attrs?.href) : undefined,
         newTab: mark.attrs?.target === "_blank",
       };
       return true;

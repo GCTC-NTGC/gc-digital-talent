@@ -31,7 +31,7 @@ const NotificationLink = forwardRef<
         onRead?.();
         navigate(href);
       })
-      .catch((err) => logger.error(err));
+      .catch((err) => logger.error(String(err)));
   };
 
   return (

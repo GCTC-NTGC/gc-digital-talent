@@ -42,7 +42,7 @@ export default {
   },
 } as Meta;
 
-const TemplateSideMenu: StoryFn = (args) => {
+const TemplateSideMenu: StoryFn<{ isOpen: boolean }> = (args) => {
   const intl = useIntl();
   const { isOpen: defaultOpen } = args;
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);

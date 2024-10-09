@@ -14,9 +14,7 @@ import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const mockApplication = fakePoolCandidates(
   1,

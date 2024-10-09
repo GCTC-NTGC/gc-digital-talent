@@ -16,7 +16,10 @@ const useCallbackRef = <T extends GenericFunc>(callback: T | undefined): T => {
     callbackRef.current = callback;
   });
 
-  return useMemo(() => ((...args) => callbackRef.current?.(...args)) as T, []);
+  return useMemo(
+    () => ((...args: unknown[]) => callbackRef.current?.(...args)) as T,
+    [],
+  );
 };
 
 export default useCallbackRef;

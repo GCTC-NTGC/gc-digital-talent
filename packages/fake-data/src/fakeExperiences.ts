@@ -190,7 +190,7 @@ export default (numberOfExperiences: number) => {
   ];
 
   // fill an array with random experiences
-  const experiences = [...Array(numberOfExperiences)].map(() => {
+  const experiences = Array.from({ length: numberOfExperiences }, () => {
     const generator = faker.helpers.arrayElement(generators);
     return generator();
   });
@@ -202,31 +202,31 @@ export default (numberOfExperiences: number) => {
 export const experienceGenerators = {
   awardExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateAward();
     });
   },
   communityExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateCommunity();
     });
   },
   educationExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateEducation();
     });
   },
   personalExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generatePersonal();
     });
   },
   workExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateWork();
     });
   },

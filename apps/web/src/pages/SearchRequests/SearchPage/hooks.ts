@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { Location, useLocation } from "react-router-dom";
 import { useQuery } from "urql";
 
 import { useAnnouncer } from "@gc-digital-talent/ui";
@@ -22,7 +22,7 @@ interface UseInitialState {
 
 export const useInitialFilters = (): UseInitialState => {
   const location = useLocation();
-  const { state }: { state: LocationState } = location;
+  const { state } = location as Location<LocationState>;
 
   const initialFilters = state?.applicantFilter ?? {};
 

@@ -2,6 +2,8 @@ import { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { HTMLInputProps } from "../../types";
 
+export type ComboboxValue = string | (string | undefined)[] | undefined;
+
 export interface Option {
   /** The data used on form submission  */
   value: string | number;

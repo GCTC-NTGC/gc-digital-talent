@@ -3,7 +3,6 @@ import {
   phoneNumberRegex,
   workEmailDomainRegex,
 } from "./constants/regularExpressions";
-import lazyRetry from "./utils/lazyRetry";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
@@ -47,7 +46,6 @@ export {
   emptyToNull,
   emptyToUndefined,
   uniqueItems,
-  lazyRetry,
   normalizeString,
   sanitizeUrl,
   isUuidError,
