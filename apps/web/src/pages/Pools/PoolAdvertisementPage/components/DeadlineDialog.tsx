@@ -7,11 +7,17 @@ import { formatDate } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
+interface LocationState {
+  referrer?: string;
+}
+
 const generateLink = (
   href: LinkProps["href"],
-  state: LinkProps["state"],
+  state: LocationState,
   chunks: ReactNode,
 ) => (
+  // Could be any
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   <Link newTab external href={href} state={state}>
     {chunks}
   </Link>

@@ -59,7 +59,7 @@ const PersonnelRequirementFieldset = ({
       `${fieldsetName}.skillRequirements`,
       `${fieldsetName}.language`,
       `${fieldsetName}.security`,
-    ]);
+    ]) as [unknown, unknown, unknown];
 
   const selectedSkillRequirements: SkillRequirementFormValues[] =
     Array.isArray(selectedSkillRequirementsUntyped) &&

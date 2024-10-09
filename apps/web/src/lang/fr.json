@@ -639,6 +639,10 @@
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
   },
+  "1MJGsD": {
+    "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
+    "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
+  },
   "1MtuHa": {
     "defaultMessage": "Veuillez préciser le facteur",
     "description": "Label for _other operations considerations_ fieldset in the _digital services contracting questionnaire_"
@@ -995,6 +999,10 @@
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
   },
+  "3FAEil": {
+    "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
+    "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
+  },
   "3GLqD1": {
     "defaultMessage": "Fermer le processus immédiatement",
     "description": "Submit button text to close a process"
@@ -1283,10 +1291,6 @@
     "defaultMessage": "Pour toute question ou préoccupation concernant le questionnaire, veuillez contacter <link>Talents numériques du GC</link> pour obtenir de plus amples renseignements.",
     "description": "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_"
   },
-  "4l0wGu": {
-    "defaultMessage": "Cette possibilité s'adresse aux employés internes de classification {classification} ou équivalente",
-    "description": "Title of a note describing that a pool is only open to employees at-level"
-  },
   "4lRUZt": {
     "defaultMessage": "Vous êtes sur le point de modifier l’information publiée dans l’annonce suivante",
     "description": "Warning message when attempting to update a published process advertisement"
@@ -1554,10 +1558,6 @@
   "66qMwD": {
     "defaultMessage": "« ... réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
     "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
-  },
-  "66xc/o": {
-    "defaultMessage": "Cette possibilité s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
-    "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
   },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
@@ -3379,6 +3379,10 @@
     "defaultMessage": "Lien avec l’expérience supprimé!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
+  "FrQmN+": {
+    "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
+    "description": "Body of a note describing that a pool is only open to employees"
+  },
   "Fs444j": {
     "defaultMessage": "Définir les évaluations utilisées pour évaluer chaque compétence dans l'annonce.",
     "description": "Information about what an assessment plan represents"
@@ -4007,10 +4011,6 @@
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
   },
-  "JKEDRo": {
-    "defaultMessage": "Cette possibilité s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
-    "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
-  },
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
     "description": "Title for the Digital Community Management"
@@ -4398,6 +4398,10 @@
   "LCVNJq": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
     "description": "Message displayed when a user successfully updates their diversity, equity, and inclusion information."
+  },
+  "LDVGvh": {
+    "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente",
+    "description": "Title of a note describing that a pool is only open to employees at-level"
   },
   "LDrXbc": {
     "defaultMessage": "contiennent des renseignements protégés ou classifiés du gouvernement du Canada",
@@ -5383,6 +5387,10 @@
     "defaultMessage": "Suivre le placement de ce candidat à l'aide des options suivantes.",
     "description": "Subtitle for job placement dialog"
   },
+  "QXB3EX": {
+    "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
+    "description": "Body of a note describing that a pool is only open to employees at-level"
+  },
   "QXiUo/": {
     "defaultMessage": "Pour commencer",
     "description": "Main heading in getting started page."
@@ -5562,6 +5570,10 @@
   "RDHbAx": {
     "defaultMessage": "Qu'est-ce que je fais si j'ai effacé l'appli ou changé de téléphone et que je n'ai pas les codes de récupération?",
     "description": "GCKey question for when user does not have recovery codes"
+  },
+  "RGl+Dr": {
+    "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes",
+    "description": "Title of a note describing that a pool is only open to employees"
   },
   "RHTrvR": {
     "defaultMessage": "IT-03 : Conseiller technique ou Chef d'équipe",
@@ -6509,10 +6521,6 @@
   "WYJnLs": {
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
-  },
-  "WcU42I": {
-    "defaultMessage": "Cette possibilité s'adresse aux employés internes",
-    "description": "Title of a note describing that a pool is only open to employees"
   },
   "Wd9+xg": {
     "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle compétence\" pour commencer.",
@@ -9298,10 +9306,6 @@
     "defaultMessage": "Niveaux de compétence technique",
     "description": "Heading for the skills level definitions of technical skills"
   },
-  "k9moOJ": {
-    "defaultMessage": "Cette possibilité est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
-    "description": "Body of a note describing that a pool is only open to employees"
-  },
   "kHypfJ": {
     "defaultMessage": "Du concept au code",
     "description": "Title for how the platform was created"
@@ -10261,10 +10265,6 @@
   "pVCsBB": {
     "defaultMessage": "Catégorie de travail",
     "description": "Label for pool advertisement stream"
-  },
-  "pVx/jP": {
-    "defaultMessage": "Cette possibilité est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
-    "description": "Body of a note describing that a pool is only open to employees at-level"
   },
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",

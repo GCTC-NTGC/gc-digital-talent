@@ -1,6 +1,7 @@
 import { type Page, expect } from "@playwright/test";
 
 import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
+import { GraphQLOperation } from "~/utils/graphql";
 /**
  * App Page
  *
@@ -28,7 +29,9 @@ class AppPage {
   async waitForGraphqlResponse(operationName: string) {
     await this.page.waitForResponse(async (resp) => {
       if (resp.url()?.includes("/graphql")) {
-        const reqJson = await resp.request()?.postDataJSON();
+        const reqJson = (await resp
+          .request()
+          ?.postDataJSON()) as GraphQLOperation | null;
         return reqJson?.operationName === operationName;
       }
 

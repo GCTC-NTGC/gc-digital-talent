@@ -25,7 +25,7 @@ const NotificationButton = forwardRef<HTMLButtonElement, NotificationLinkProps>(
         .then(() => {
           onRead?.();
         })
-        .catch((err) => logger.error(err));
+        .catch((err) => logger.error(String(err)));
     };
 
     return (

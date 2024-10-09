@@ -1,4 +1,4 @@
-import { useLocation, Link, LinkProps } from "react-router-dom";
+import { useLocation, Link, LinkProps, Location } from "react-router-dom";
 import { useState, useEffect, MouseEvent, KeyboardEvent } from "react";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
@@ -48,7 +48,7 @@ const ScrollToLink = ({
   newTab = false,
   ...rest
 }: ScrollToLinkProps) => {
-  const { pathname, hash, search, state } = useLocation();
+  const { pathname, hash, search, state } = useLocation() as Location<unknown>;
   const [targetSection, setTargetSection] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
