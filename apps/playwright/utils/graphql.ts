@@ -7,6 +7,14 @@ interface GraphQLRequestOptions {
   isPrivileged?: boolean;
 }
 
+interface PostResponse<R> {
+  data?: R;
+}
+
+export interface GraphQLOperation {
+  operationName: string;
+}
+
 /**
  * Context for sending graphql requests
  *
@@ -58,9 +66,9 @@ export class GraphQLContext {
    * @param boolean opts?.isPrivileged If the request is privileged
    * @return unknown
    */
-  async post(query: string, opts?: GraphQLRequestOptions) {
+  async post<R>(query: string, opts?: GraphQLRequestOptions) {
     const headers = this.getHeaders();
-    const json = await this.ctx
+    const json: PostResponse<R> = await this.ctx
       .post(this.getEndpoint(opts?.isPrivileged), {
         headers,
         data: {
@@ -68,7 +76,7 @@ export class GraphQLContext {
           variables: opts?.variables,
         },
       })
-      .then((res) => res.json());
+      .then((res) => res.json() as PostResponse<R>);
 
     return json.data;
   }

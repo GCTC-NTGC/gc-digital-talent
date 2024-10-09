@@ -1,6 +1,7 @@
 import { test, expect } from "~/fixtures";
 import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
 import ClockHelper from "~/utils/clock";
+import { GraphQLOperation } from "~/utils/graphql";
 
 test.describe("Login and logout", () => {
   let clockHelper: ClockHelper;
@@ -40,15 +41,21 @@ test.describe("Login and logout", () => {
     await page
       .waitForResponse(async (resp) => {
         if (resp.url()?.includes("/graphql")) {
-          const reqJson = await resp.request()?.postDataJSON();
+          const reqJson = (await resp
+            .request()
+            ?.postDataJSON()) as GraphQLOperation | null;
           return reqJson?.operationName === "authorizationQuery";
         }
         return false;
       })
       .then(async (interception) => {
         // make sure we get a user ID back
-        const response = await interception.json();
-        expect(response.data.myAuth.id).toMatch(
+        const response = (await interception.json()) as {
+          data?: {
+            myAuth?: { id: string };
+          };
+        };
+        expect(response?.data?.myAuth?.id).toMatch(
           /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
         );
         // make sure it uses the access token
@@ -63,8 +70,10 @@ test.describe("Login and logout", () => {
     // stub the "user deleted" API response.
     // the auth response will indicate the user was deleted.
     await page.route("**/graphql", async (route) => {
-      const reqJson = await route.request()?.postDataJSON();
-      if (reqJson.operationName === "authorizationQuery") {
+      const reqJson = (await route
+        .request()
+        ?.postDataJSON()) as GraphQLOperation | null;
+      if (reqJson?.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },
           errors: [
@@ -122,8 +131,9 @@ test.describe("Login and logout", () => {
     const authorization = await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -148,8 +158,9 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -192,8 +203,9 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -226,8 +238,9 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = await req.postDataJSON();
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -285,8 +298,10 @@ test.describe("Login and logout", () => {
 
     // simulate the API indicating the token is inactive
     await page.route("**/graphql", async (route) => {
-      const reqJson = await route.request()?.postDataJSON();
-      if (reqJson.operationName === "authorizationQuery") {
+      const reqJson = (await route
+        .request()
+        ?.postDataJSON()) as GraphQLOperation | null;
+      if (reqJson?.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },
           errors: [

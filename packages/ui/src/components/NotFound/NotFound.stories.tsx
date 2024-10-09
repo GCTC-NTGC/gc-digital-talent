@@ -1,4 +1,5 @@
 import { StoryFn, Meta } from "@storybook/react";
+import { ReactNode } from "react";
 
 import NotFound from "./NotFound";
 
@@ -6,7 +7,12 @@ export default {
   component: NotFound,
 } as Meta;
 
-const Template: StoryFn = (args) => {
+interface StoryArgs {
+  headingMessage: string;
+  children: ReactNode;
+}
+
+const Template: StoryFn<StoryArgs> = (args) => {
   const { headingMessage, children } = args;
   return <NotFound headingMessage={headingMessage}>{children}</NotFound>;
 };

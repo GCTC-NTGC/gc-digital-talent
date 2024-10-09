@@ -19,6 +19,7 @@ import { Link } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
+import { FormValues } from "./types";
 
 const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
   return (
@@ -81,7 +82,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const [{ data }] = useQuery({ query: LanguageProfileOptions_Query });
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
 
   // hooks to watch, needed for conditional rendering
   const [consideredLanguages, secondLanguageExamCompleted] = watch([
@@ -106,7 +107,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
    * Reset un-rendered fields
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false });
     };
 

@@ -61,7 +61,7 @@ interface AwardFormValues {
   awardedDate: Scalars["Date"]["input"];
 }
 
-type CommunityFormValues = FormValueDateRange & {
+export type CommunityFormValues = FormValueDateRange & {
   title: string;
   organization: string;
   project: string;
@@ -70,21 +70,23 @@ type CommunityFormValues = FormValueDateRange & {
   endDate?: Scalars["Date"]["input"];
 };
 
-type EducationFormValues = FormValueDateRange & {
+export type EducationFormValues = FormValueDateRange & {
   institution: string;
   areaOfStudy: string;
   thesisTitle?: string;
   educationType: EducationType;
   educationStatus: EducationStatus;
+  currentRole: boolean;
 };
 
-type PersonalFormValues = FormValueDateRange & {
+export type PersonalFormValues = FormValueDateRange & {
   experienceTitle: string;
   experienceDescription: string;
   disclaimer: boolean;
+  currentRole: boolean;
 };
 
-type WorkFormValues = FormValueDateRange & {
+export type WorkFormValues = FormValueDateRange & {
   role: string;
   organization: string;
   team?: string;
@@ -94,7 +96,9 @@ export type AllExperienceFormValues = AwardFormValues &
   CommunityFormValues &
   EducationFormValues &
   PersonalFormValues &
-  WorkFormValues;
+  WorkFormValues & {
+    experienceType?: ExperienceType;
+  };
 
 export interface FormSkill {
   id?: Maybe<string>;

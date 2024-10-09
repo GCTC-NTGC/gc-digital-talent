@@ -84,9 +84,9 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
         // There should be way to get the types to work without using "any", but I'm having trouble.
         // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
 
-        // eslint-disable-next-line no-param-reassign
+        // eslint-disable-next-line no-param-reassign, @typescript-eslint/no-unsafe-assignment
         applicantFilterInput[typedKey] = transform(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
           applicantFilter[typedKey] as any,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ) as any;
