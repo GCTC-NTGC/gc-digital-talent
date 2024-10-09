@@ -273,41 +273,6 @@ parameters:
       path: app/Observers/PoolCandidateSearchRequestObserver.php
 
     -
-      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
-      count: 2
-      path: app/Policies/AssessmentStepPolicy.php
-
-    -
-      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$legacyTeam\\.$#"
-      count: 1
-      path: app/Policies/AssessmentStepPolicy.php
-
-    -
-      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
-      count: 1
-      path: app/Policies/AssessmentStepPolicy.php
-
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getStatusAttribute\\(\\)\\.$#"
-      count: 1
-      path: app/Policies/AssessmentStepPolicy.php
-
-    -
-      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$community\\.$#"
-      count: 2
-      path: app/Policies/PoolPolicy.php
-
-    -
-      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$legacyTeam\\.$#"
-      count: 1
-      path: app/Policies/PoolPolicy.php
-
-    -
-      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$team\\.$#"
-      count: 1
-      path: app/Policies/PoolPolicy.php
-
-    -
       message: "#^Access to offset 'id' on an unknown class App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
       count: 2
       path: app/Policies/UserPolicy.php
