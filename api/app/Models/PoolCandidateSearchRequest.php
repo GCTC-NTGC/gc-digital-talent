@@ -67,6 +67,7 @@ class PoolCandidateSearchRequest extends Model
         parent::boot();
         static::creating(function ($searchRequest) use ($user) {
             // unless the user_id was already specified use the currently authenticated user
+            // needed to be able to set the value in a factory
             $searchRequest->user_id = $searchRequest->user_id ?? $user?->id;
         });
     }
