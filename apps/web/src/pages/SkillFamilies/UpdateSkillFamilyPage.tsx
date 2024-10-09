@@ -274,10 +274,9 @@ export const UpdateSkillFamilyForm = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillFamilyId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `
   query SkillFamilySkillsData($id: UUID!) {

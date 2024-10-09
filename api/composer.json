@@ -21,7 +21,7 @@
     "mll-lab/graphql-php-scalars": "^6.2",
     "mll-lab/laravel-graphiql": "^3.0",
     "nuwave/lighthouse": "^6.15",
-    "phpoffice/phpspreadsheet": "^2.0",
+    "phpoffice/phpspreadsheet": "^3.3",
     "phpoffice/phpword": "^1.2",
     "santigarcor/laratrust": "^8.3.0",
     "spatie/laravel-activitylog": "^4.7",

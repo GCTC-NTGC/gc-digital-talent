@@ -6,8 +6,8 @@ This project contains a collection of scripts to use a maintenance container to 
 
 To set up a local development environment, run these commands from anywhere in repo:
 
-1. Build and run the containers: `docker-compose up --detach --build`
-2. To setup the apps: `docker-compose run --rm maintenance bash setup.sh`
+1. Build and run the containers: `docker compose up --detach --build`
+2. To setup the apps: `docker compose run --rm maintenance bash setup.sh`
 3. Next you can log in:
    - For testing admin accounts:
      1. Navigate to http://localhost:8000/login
@@ -23,12 +23,12 @@ To set up a local development environment, run these commands from anywhere in r
 
 To refresh each sub-project after they have been setup run one of the refresh scripts:
 
-- `docker-compose run --rm maintenance bash refresh_api.sh`
-- `docker-compose run --rm maintenance bash refresh_frontend.sh`
+- `docker compose run --rm maintenance bash refresh_api.sh`
+- `docker compose run --rm maintenance bash refresh_frontend.sh`
 
 Or refresh all of them in order:
 
-- `docker-compose run --rm maintenance bash refresh_all.sh`
+- `docker compose run --rm maintenance bash refresh_all.sh`
 
 ## Working on UI
 

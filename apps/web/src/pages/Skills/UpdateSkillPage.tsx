@@ -338,10 +338,9 @@ export const UpdateSkillForm = ({
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateSkillData_Query = graphql(/* GraphQL */ `
   query UpdateSkillData($id: UUID!) {

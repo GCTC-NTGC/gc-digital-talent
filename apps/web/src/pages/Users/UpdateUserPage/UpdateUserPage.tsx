@@ -44,6 +44,8 @@ import {
   UpdateUserRoles_Mutation,
   UpdateUserSub_Mutation,
 } from "./operations";
+import CommunityRoleTable from "./components/CommunityRoleTable";
+import ProcessRoleTable from "./components/ProcessRoleTable";
 
 const UpdateUserOptions_Query = graphql(/* GraphQL */ `
   query UpdateUserOptions {
@@ -279,10 +281,9 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserPage = () => {
   const intl = useIntl();
@@ -393,6 +394,18 @@ const UpdateUserPage = () => {
               onUpdateUserRoles={handleUpdateUserRoles}
             />
             <TeamRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <CommunityRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <ProcessRoleTable
               user={data.user}
               authInfo={data.user?.authInfo}
               availableRoles={availableRoles}
