@@ -31,7 +31,7 @@ class AppPage {
       if (resp.url()?.includes("/graphql")) {
         const reqJson = (await resp
           .request()
-          ?.postDataJSON()) as GraphQLOperation;
+          ?.postDataJSON()) as GraphQLOperation | null;
         return reqJson?.operationName === operationName;
       }
 

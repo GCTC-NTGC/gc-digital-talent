@@ -43,7 +43,7 @@ test.describe("Login and logout", () => {
         if (resp.url()?.includes("/graphql")) {
           const reqJson = (await resp
             .request()
-            ?.postDataJSON()) as GraphQLOperation;
+            ?.postDataJSON()) as GraphQLOperation | null;
           return reqJson?.operationName === "authorizationQuery";
         }
         return false;
@@ -72,8 +72,8 @@ test.describe("Login and logout", () => {
     await page.route("**/graphql", async (route) => {
       const reqJson = (await route
         .request()
-        ?.postDataJSON()) as GraphQLOperation;
-      if (reqJson.operationName === "authorizationQuery") {
+        ?.postDataJSON()) as GraphQLOperation | null;
+      if (reqJson?.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },
           errors: [
@@ -131,8 +131,9 @@ test.describe("Login and logout", () => {
     const authorization = await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = (await req.postDataJSON()) as GraphQLOperation;
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -157,8 +158,9 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = (await req.postDataJSON()) as GraphQLOperation;
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -201,8 +203,9 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = (await req.postDataJSON()) as GraphQLOperation;
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -235,8 +238,9 @@ test.describe("Login and logout", () => {
     await page
       .waitForRequest(async (req) => {
         if (req.url()?.includes("/graphql")) {
-          const reqJson = (await req.postDataJSON()) as GraphQLOperation;
-          return typeof reqJson.operationName !== "undefined";
+          const reqJson =
+            (await req?.postDataJSON()) as GraphQLOperation | null;
+          return typeof reqJson?.operationName !== "undefined";
         }
         return false;
       })
@@ -296,8 +300,8 @@ test.describe("Login and logout", () => {
     await page.route("**/graphql", async (route) => {
       const reqJson = (await route
         .request()
-        ?.postDataJSON()) as GraphQLOperation;
-      if (reqJson.operationName === "authorizationQuery") {
+        ?.postDataJSON()) as GraphQLOperation | null;
+      if (reqJson?.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },
           errors: [
