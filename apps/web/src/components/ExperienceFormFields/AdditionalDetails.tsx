@@ -5,7 +5,7 @@ import { errorMessages, getLocale, Locales } from "@gc-digital-talent/i18n";
 import { TextArea } from "@gc-digital-talent/forms";
 import { Heading } from "@gc-digital-talent/ui";
 
-import { ExperienceType } from "~/types/experience";
+import { AllExperienceFormValues, ExperienceType } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
@@ -23,7 +23,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const experienceLabels = getExperienceFormLabels(intl);
-  const type = useWatch({ name: "experienceType" });
+  const type = useWatch<AllExperienceFormValues>({ name: "experienceType" });
   const derivedType = type ?? experienceType;
 
   const wordCountLimits: Record<Locales, number> = {

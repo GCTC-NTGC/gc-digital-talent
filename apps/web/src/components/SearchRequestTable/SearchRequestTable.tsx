@@ -190,8 +190,11 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const paths = useRoutes();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchRequestInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchRequestInput)
+        : {},
     [filtersEncoded],
   );
   const filterRef = useRef<PoolCandidateSearchRequestInput | undefined>(

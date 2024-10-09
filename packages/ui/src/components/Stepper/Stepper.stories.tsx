@@ -22,7 +22,11 @@ const longLabelSteps = defaultSteps.map((step, index) => {
     : step;
 });
 
-const ReactRouterDecorator: Decorator<Args> = (Story, options) => {
+interface StoryArgs {
+  steps: StepType[];
+}
+
+const ReactRouterDecorator: Decorator<StoryArgs & Args> = (Story, options) => {
   const { args } = options;
   const location = useLocation();
   useEffect(() => {

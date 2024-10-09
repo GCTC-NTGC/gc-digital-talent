@@ -237,7 +237,7 @@ export const getGroupOptions = (
  */
 export const getLevelOptions = (
   classifications: Pick<Classification, "group" | "level">[],
-  groupSelection: Classification["group"],
+  groupSelection?: Classification["group"],
 ) =>
   classifications
     .filter((x) => x.group === groupSelection)

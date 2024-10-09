@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 final class CreateOrUpdateScreeningQuestionAssessmentStep
 {
-    /**
-     * @param  null  $_
-     * @param  array{}  $args
-     */
     public function __invoke($_, array $args)
     {
         // Run everything in a transaction

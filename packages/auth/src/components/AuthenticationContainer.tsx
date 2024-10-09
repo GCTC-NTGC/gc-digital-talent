@@ -127,6 +127,13 @@ function clearQueryParams() {
   window.history.pushState({}, "", `${window.location.pathname}`);
 }
 
+interface TokenRefreshResponseBody {
+  access_token: string;
+  refresh_token: string;
+  expires_in: string | null;
+  id_token: string | null;
+}
+
 interface AuthenticationContainerProps {
   tokenRefreshPath: string;
   logoutUri: string;
@@ -211,12 +218,8 @@ const AuthenticationContainer = ({
           `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
         );
         if (response.ok) {
-          const responseBody: {
-            access_token: string;
-            refresh_token: string;
-            expires_in: string | null;
-            id_token: string | null;
-          } = await response.json();
+          const responseBody: TokenRefreshResponseBody =
+            (await response.json()) as TokenRefreshResponseBody;
           logger.debug(`Got refresh response: ${JSON.stringify(responseBody)}`);
 
           const refreshedTokens: TokenSet = {

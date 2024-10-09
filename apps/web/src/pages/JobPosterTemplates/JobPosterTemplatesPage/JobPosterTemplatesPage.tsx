@@ -353,6 +353,7 @@ const JobPosterTemplatesPage = () => {
                         .filter(
                           (classification) => classification.group === "IT",
                         )
+                        .sort((a, b) => a.level - b.level)
                         .map((classification) => ({
                           value: classification.id,
                           label: `${classification.group}-0${classification.level}`,
