@@ -19,7 +19,6 @@ use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
-use App\Models\Experience;
 use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\WorkExperience;
