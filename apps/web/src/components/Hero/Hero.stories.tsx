@@ -79,7 +79,7 @@ Buttons.args = {
       icon: UserPlusIcon,
       text: "Hello",
       url: "#one",
-      color: "secondaryDarkFixed",
+      color: "secondary",
     },
     {
       icon: AcademicCapIcon,
