@@ -104,11 +104,6 @@ Tabs.args = {
 export const NeitherButtonsOrTabs = Template.bind({});
 NeitherButtonsOrTabs.args = {};
 
-export const Overlap = Template.bind({});
-Overlap.args = {
-  overlap: true,
-};
-
 export const ButtonsAndTabsWithCentering = Template.bind({});
 ButtonsAndTabsWithCentering.args = {
   buttonLinks: [
@@ -143,7 +138,10 @@ interface FormValues {
 const FormComponent = () => {
   const methods = useForm<FormValues>({});
   return (
-    <section data-h2-wrapper="base(center, s)">
+    <section
+      data-h2-wrapper="base(center, s)"
+      data-h2-background-color="base(white)"
+    >
       <FormProvider {...methods}>
         <form
           data-h2-display="base(flex)"
@@ -164,10 +162,10 @@ const FormComponent = () => {
 const TemplateWithContent: StoryFn<typeof Hero> = (args) => (
   <>
     <Hero {...args} />
-    <FormComponent data-h2-max-width="base(50%)"></FormComponent>
   </>
 );
 export const OverlapWithContent = TemplateWithContent.bind({});
 OverlapWithContent.args = {
   overlap: true,
+  children: <FormComponent></FormComponent>,
 };
