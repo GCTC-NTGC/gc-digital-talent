@@ -8959,7 +8959,7 @@
     "description": "Context for the personnel requirements section"
   },
   "ia3ceX": {
-    "defaultMessage": "Statut de l’employé",
+    "defaultMessage": "Statut de l'employé(e)",
     "description": "Label for applicant's employee status"
   },
   "iasn5H": {
@@ -10035,7 +10035,7 @@
     "description": "Contract start timeframe of six to twelve months"
   },
   "oPXTG/": {
-    "defaultMessage": "Situation professionnelle",
+    "defaultMessage": "Statut de l'employé(e)",
     "description": "Employee Status in Employee Info Form"
   },
   "oQnVSn": {
