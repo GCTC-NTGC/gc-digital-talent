@@ -22,6 +22,7 @@ import {
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { getGroupOptions, getLevelOptions } from "./utils";
+import { FormValues } from "./types";
 
 const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
@@ -102,7 +103,7 @@ const FormFields = ({
     employeeTypesQuery,
   );
   useDirtyFields("government");
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
     watch([
@@ -127,7 +128,7 @@ const FormFields = ({
    * to avoid confusing users about unsaved changes
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, {
         keepDirty: false,
       });

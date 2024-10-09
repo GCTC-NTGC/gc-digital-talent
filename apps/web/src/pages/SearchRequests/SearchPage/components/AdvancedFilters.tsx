@@ -18,8 +18,8 @@ import {
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { NullSelection } from "~/types/searchRequest";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import { NullSelection, FormValues } from "~/types/searchRequest";
 
 import FilterBlock from "./FilterBlock";
 
@@ -81,7 +81,7 @@ const AdvancedFilters = () => {
   const [{ data, fetching }] = useQuery({
     query: AdvancedFilterOptions_Query,
   });
-  const { watch } = useFormContext();
+  const { watch } = useFormContext<FormValues>();
   const [openFilters, setOpenFilters] = useState<string[]>([]);
   const [educationRequirement, employmentDuration, operationalRequirements] =
     watch([
@@ -278,7 +278,7 @@ const AdvancedFilters = () => {
             <Accordion.Trigger
               as="h4"
               subtitle={getFieldLabel(
-                operationalRequirements,
+                unpackMaybes(operationalRequirements),
                 operationalRequirementOptionsShort,
                 intl,
               )}

@@ -23,8 +23,8 @@ setup_api:
 	php api/artisan migrate:fresh --seed
 	php api/artisan lighthouse:print-schema --write
 	touch api/storage/logs/laravel.log
-	docker-compose exec webserver sh -c "chown -R www-data:www-data /home/site/wwwroot/api/storage"
-	docker-compose exec webserver sh -c "chmod -R a+r,a+w /home/site/wwwroot/api/storage /home/site/wwwroot/api/bootstrap/cache"
+	docker compose exec webserver sh -c "chown -R www-data:www-data /home/site/wwwroot/api/storage"
+	docker compose exec webserver sh -c "chmod -R a+r,a+w /home/site/wwwroot/api/storage /home/site/wwwroot/api/bootstrap/cache"
 	php api/artisan optimize:clear
 
 refresh_api:
@@ -46,10 +46,10 @@ git_clean:
 	sudo git clean -xdf
 
 compose_up:
-	docker-compose up --detach
+	docker compose up --detach
 
 compose_down:
-	docker-compose down
+	docker compose down
 
 queue_work:
-	docker-compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"

@@ -1,6 +1,7 @@
 import { forwardRef, MouseEventHandler, ReactNode } from "react";
 
 import { Scalars } from "@gc-digital-talent/graphql";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import styles from "./styles";
 import { useMarkAsRead } from "./mutations";
@@ -14,14 +15,17 @@ interface NotificationLinkProps {
 
 const NotificationButton = forwardRef<HTMLButtonElement, NotificationLinkProps>(
   ({ id, isUnread, onRead, children }, forwardedRef) => {
+    const logger = useLogger();
     const [{ fetching }, markAsRead] = useMarkAsRead(id);
 
-    const handleClick: MouseEventHandler<HTMLButtonElement> = async (event) => {
+    const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
       event.stopPropagation();
 
-      await markAsRead().then(() => {
-        onRead?.();
-      });
+      markAsRead()
+        .then(() => {
+          onRead?.();
+        })
+        .catch((err) => logger.error(String(err)));
     };
 
     return (

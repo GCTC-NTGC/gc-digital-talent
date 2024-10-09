@@ -181,9 +181,9 @@ test.describe("Talent search", () => {
       .getByRole("checkbox", { name: /overtime \(occasionally\)/i })
       .click();
 
+    await appPage.waitForGraphqlResponse("CandidateCount");
     await expect(poolCard).toBeVisible();
 
-    await appPage.waitForGraphqlResponse("CandidateCount");
     await poolCard.getByRole("button", { name: /request candidates/i }).click();
     await appPage.waitForGraphqlResponse("RequestForm_SearchRequestData");
 

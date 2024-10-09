@@ -244,7 +244,7 @@ export const getFilteredFamilies: GetFilteredFamilies = ({ skills }) => {
 
 interface GetFilteredSkillsArgs {
   skills: Skill[];
-  family: SkillFamily | "all" | "library" | "";
+  family?: string;
   category?: SkillCategory | "all" | "";
   inLibrary?: Skill[];
 }

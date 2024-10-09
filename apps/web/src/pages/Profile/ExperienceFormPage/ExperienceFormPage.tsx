@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Location,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";
@@ -82,7 +87,7 @@ const addSubTitle = defineMessage({
 
 type FormAction = "return" | "add-another";
 type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
-  experienceType: ExperienceType | "";
+  experienceType?: ExperienceType;
   action: FormAction;
 };
 
@@ -332,7 +337,7 @@ export const ExperienceForm = ({
 
   const experienceIdExact = experienceId ?? "";
   const executeDeletionMutation = useDeleteExperienceMutation(
-    type || undefined,
+    type ?? undefined,
   );
 
   const handleDeleteExperience = () => {
@@ -366,7 +371,7 @@ export const ExperienceForm = ({
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");
       reset();
-      setValue("experienceType", "");
+      setValue("experienceType", undefined);
     }
   }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
@@ -644,6 +649,10 @@ interface RouteParams extends Record<string, string> {
   experienceId: Scalars["ID"]["output"];
 }
 
+interface LocationState {
+  experienceType?: ExperienceType;
+}
+
 interface ExperienceFormContainerProps {
   edit?: boolean;
 }
@@ -652,7 +661,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
   const { experienceId } = useParams<RouteParams>();
-  const { state } = useLocation();
+  const { state } = useLocation() as Location<LocationState>;
 
   const [{ data, fetching, error }] = useQuery({
     query: ExperienceFormData_Query,
@@ -665,7 +674,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
 
   const experienceType = experience
     ? deriveExperienceType(experience)
-    : state?.experienceType || "";
+    : state?.experienceType;
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -674,7 +683,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           edit={edit}
           experienceQuery={experience}
           experienceId={experienceId ?? ""}
-          experienceType={experienceType}
+          experienceType={experienceType ?? "personal"}
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
         />

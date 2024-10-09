@@ -6,7 +6,6 @@ namespace App\GraphQL\Queries;
 
 final readonly class LocalizedEnumStrings
 {
-    /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
     {
 

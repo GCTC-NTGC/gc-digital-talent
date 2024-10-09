@@ -479,8 +479,11 @@ const PoolCandidatesTable = ({
   });
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchInput)
+        : initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
 

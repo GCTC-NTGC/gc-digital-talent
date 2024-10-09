@@ -82,7 +82,7 @@ class Experience extends Model
 
     public function skills(): HasManyThrough
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at')
             ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
@@ -96,7 +96,7 @@ class Experience extends Model
     /**
      * Sync means we will add missing skills, remove skills not in this array, and update the details of existing skills.
      *
-     * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
+     * @param  array<string, array<string, string>>|null  $skills  - Skills must be an array of items, each of which must have an id, and optionally have a details string.
      * @return void
      */
     public function syncSkills($skills)
@@ -123,7 +123,7 @@ class Experience extends Model
     /**
      * Connect means we will add missing skills and update the details of existing skills, but not remove any skills.
      *
-     * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
+     * @param  array<string, array<string, string>>|null  $skills  - Skills must be an array of items, each of which must have an id, and optionally have a details string.
      * @return void
      */
     public function connectSkills($skills)

@@ -18,7 +18,7 @@ type UsePoolCandidateNavigationReturn = {
 const usePoolCandidateNavigation = (
   candidateId: string,
 ): UsePoolCandidateNavigationReturn => {
-  const { state }: CandidateLocation = useLocation();
+  const { state } = useLocation() as CandidateLocation;
   if (!state?.candidateIds || !candidateId) return null;
   const { candidateIds, stepName } = state;
 

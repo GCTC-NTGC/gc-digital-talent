@@ -76,7 +76,7 @@ trait HydratesSnapshot
      *
      * @param  mixed  $snapshot  The snapshot being hydrated
      * @param  string  $key  The key of the field from the snapshot to hydrate
-     * @param  bool  $isLocalizedEnum  If true, this field is a localizedEnum
+     * @param  bool  $localizedEnum  If true, this field is a localizedEnum
      * @return mixed|null
      */
     public static function hydrateField(mixed $snapshot, string $key, bool $localizedEnum = false)

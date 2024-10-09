@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class DigitalContractingPersonnelRequirement
  *
- * @property string id
- * @property string resource_type
- * @property string language
- * @property string language_other
- * @property string security
- * @property string security_other
- * @property string telework
- * @property int quantity
+ * @property string $id
+ * @property string $resource_type
+ * @property string $language
+ * @property string $language_other
+ * @property string $security
+ * @property string $security_other
+ * @property string $telework
+ * @property int $quantity
  */
 class DigitalContractingPersonnelRequirement extends Model
 {

@@ -93,6 +93,12 @@ module.exports = {
       "error",
       { ignorePrimitives: { boolean: true } },
     ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      // NOTE: Needed for react-hook-form
+      // REF: https://github.com/orgs/react-hook-form/discussions/8622#discussioncomment-4060570
+      { checksVoidReturn: { attributes: false } },
+    ],
     "no-underscore-dangle": ["error", { allow: ["__typename"] }],
 
     // CI Only rules to keep local snappy, deprecation kept as a warn
@@ -101,12 +107,9 @@ module.exports = {
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
 
     // Temporarily disabled to ease transition to typed linting
-    "@typescript-eslint/no-misused-promises": "off", // Remove in #11379
     "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
 
     // Remove in #11384
-    "@typescript-eslint/no-unsafe-argument": "off",
-    "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-return": "off",

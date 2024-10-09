@@ -13,11 +13,11 @@
 
 ### Running with Docker containers
 
-See `../infrastructure/README.md` for instructions for running this service, along with client services and a database, with a single docker-compose command.
+See `../infrastructure/README.md` for instructions for running this service, along with client services and a database, with a single docker compose command.
 
 Note that you will still need to copy .env.example to .env and add an APP_KEY.
 
-To initialize the database from inside the container, run `docker-compose exec -w /home/site/wwwroot/api webserver sh -c "php artisan migrate:fresh --seed"`.
+To initialize the database from inside the container, run `docker compose exec -w /home/site/wwwroot/api webserver sh -c "php artisan migrate:fresh --seed"`.
 
 ## Local Development
 
