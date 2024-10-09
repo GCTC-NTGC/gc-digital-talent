@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $when_skill_used
  * @property int $top_skills_rank
  * @property int $improve_skills_rank
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class UserSkill extends Model
 {

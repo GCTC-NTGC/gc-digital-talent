@@ -24,6 +24,7 @@ class PoolNotClosed implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        /** @var Pool $pool */
         $pool = Pool::find($value);
         $passes = is_null($pool->closing_date) || $pool->closing_date->isFuture();
 
