@@ -7,6 +7,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { Input, Submit } from "@gc-digital-talent/forms";
 
+import browseHeroImg from "~/assets/img/browse_header.webp";
+
 import Hero from "./Hero";
 
 export default {
@@ -133,6 +135,11 @@ ButtonsAndTabsWithCentering.args = {
     { url: "#five", label: "Tab Five" },
   ],
   centered: true,
+};
+
+export const ImageProvided = Template.bind({});
+ImageProvided.args = {
+  imgPath: browseHeroImg,
 };
 
 // overlap story
