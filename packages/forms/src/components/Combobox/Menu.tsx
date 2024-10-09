@@ -77,7 +77,7 @@ const Available = ({ count, total, ...rest }: AvailableProps) => {
   );
 };
 
-const AnimatedFetchingIcon = motion(ArrowPathIcon);
+const AnimatedFetchingIcon = motion.create(ArrowPathIcon);
 
 const Fetching = forwardRef<HTMLSpanElement, HTMLSpanProps>(
   (props, forwardedRef) => {
