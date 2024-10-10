@@ -125,7 +125,7 @@ const CardOptionGroup = ({
     register,
     watch,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<Record<string, string | undefined>>();
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({

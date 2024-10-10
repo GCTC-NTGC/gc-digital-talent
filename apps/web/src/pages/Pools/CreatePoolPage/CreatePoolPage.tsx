@@ -373,7 +373,7 @@ const CreatePoolPage = () => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);

@@ -43,7 +43,7 @@ const CreateCommunityPage = () => {
       if (result.data?.createCommunity) {
         return Promise.resolve(result.data?.createCommunity);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
   };
 

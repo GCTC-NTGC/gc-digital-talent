@@ -22,7 +22,7 @@ const LinkWell = ({ title, links }: LinkWellProps) => (
       data-h2-gap="base(x.5)"
     >
       {links.map(({ label, ...rest }) => (
-        <Link key={rest.href} color="secondary" mode="solid" {...rest}>
+        <Link key={String(rest.href)} color="secondary" mode="solid" {...rest}>
           {label}
         </Link>
       ))}

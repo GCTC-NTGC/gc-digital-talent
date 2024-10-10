@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -29,6 +29,7 @@ import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 interface Option<V> {
   value: V;
@@ -77,8 +78,7 @@ export const CreateSkillFamilyForm = ({
     },
   });
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.skillFamilyTable();
+  const navigateTo = useReturnPath(paths.skillFamilyTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateSkillFamily(formValuesToSubmitData(data))
@@ -265,7 +265,7 @@ const CreateSkillFamilyPage = () => {
       if (result.data?.createSkillFamily) {
         return result.data?.createSkillFamily;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({

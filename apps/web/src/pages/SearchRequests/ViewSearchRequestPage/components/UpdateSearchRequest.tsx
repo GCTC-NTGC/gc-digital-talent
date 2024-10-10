@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
 import { useMutation, useQuery } from "urql";
 
 import { Heading, Link, Loading } from "@gc-digital-talent/ui";
@@ -26,6 +25,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
+import useReturnPath from "~/hooks/useReturnPath";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 
@@ -132,8 +132,7 @@ const UpdateSearchRequestForm = ({
       });
   };
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.searchRequestTable();
+  const navigateTo = useReturnPath(paths.searchRequestTable());
 
   return (
     <div>
@@ -312,7 +311,7 @@ const UpdateSearchRequest = ({
           status: result.data.updatePoolCandidateSearchRequest.status?.value,
         };
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   if (fetching) return <Loading inline />;

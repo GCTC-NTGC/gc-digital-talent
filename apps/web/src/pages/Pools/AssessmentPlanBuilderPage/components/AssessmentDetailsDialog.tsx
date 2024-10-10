@@ -327,7 +327,7 @@ const AssessmentDetailsDialog = ({
         if (result?.data?.createAssessmentStep?.id) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return Promise.reject(new Error(result.error?.toString()));
       },
     );
   };
@@ -353,7 +353,7 @@ const AssessmentDetailsDialog = ({
         if (res?.data?.updateAssessmentStep?.id) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return Promise.reject(new Error(res.error?.toString()));
       },
     );
   };
@@ -391,7 +391,7 @@ const AssessmentDetailsDialog = ({
       if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
         return Promise.resolve();
       }
-      return Promise.reject();
+      return Promise.reject(new Error(res.error?.toString()));
     });
   };
 

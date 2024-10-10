@@ -65,7 +65,7 @@ const useErrorMessages = (): ErrorWithMessages => {
 
   if (isRouteErrorResponse(error) && "status" in error) {
     return {
-      error: new Error(error.data?.message),
+      error: new Error(String(error.data?.message)),
       messages: knownErrorMessages[error.status],
     };
   }

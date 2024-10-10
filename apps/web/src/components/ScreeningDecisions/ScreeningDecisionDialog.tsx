@@ -354,7 +354,9 @@ export const ScreeningDecisionDialog = ({
     skill: poolSkill?.skill,
   });
 
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
+  const parsedSnapshot = JSON.parse(
+    String(poolCandidate.profileSnapshot),
+  ) as Maybe<User>;
 
   const headers = useHeaders({
     type: dialogType,

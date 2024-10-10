@@ -21,8 +21,8 @@ const WordCounter = ({
   ...rest
 }: WordCounterProps) => {
   const intl = useIntl();
-  const currentValue = useWatch({ name });
-  const wordCount = currentCount ?? countNumberOfWords(currentValue);
+  const currentValue = useWatch<Record<string, string | undefined>>({ name });
+  const wordCount = currentCount ?? countNumberOfWords(currentValue ?? "");
   const wordsLeft = wordLimit - wordCount;
   return (
     <span

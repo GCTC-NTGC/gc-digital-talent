@@ -155,6 +155,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const {
     sorting: sortingState,
     columnFilters: columnFilterState,
+    // This comes from react-table and unsure how to adjust
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     globalFilter: globalFilterState,
     columnVisibility: columnVisibilityState,
     pagination: paginationState,
@@ -237,7 +239,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       } else {
         newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
         if (globalFilterState) {
-          newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, globalFilterState);
+          newParams.set(
+            SEARCH_PARAM_KEY.SEARCH_TERM,
+            String(globalFilterState),
+          );
         } else {
           newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
         }

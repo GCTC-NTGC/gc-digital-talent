@@ -49,12 +49,12 @@ function useAsyncFileDownload(): UseAsyncFileDownloadReturn {
         Authorization: `Bearer ${accessToken}`,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.status !== 200) {
           if (res.status === 404) {
             return Promise.reject(new Error("not found"));
           }
-          return Promise.reject();
+          return Promise.reject(new Error(await res.json()));
         }
 
         return res.blob();
