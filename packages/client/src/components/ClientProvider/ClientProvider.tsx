@@ -69,7 +69,7 @@ const ClientProvider = ({
       client ??
       createClient({
         url: `${apiHost}${apiUri}`,
-        requestPolicy: "cache-and-network",
+        requestPolicy: "cache-first",
         fetchOptions: { headers: { "Accept-Language": locale } },
         exchanges: [
           cacheExchange,
