@@ -173,6 +173,7 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     }
     experiences {
       id
+      __typename
     }
     poolCandidates {
       id

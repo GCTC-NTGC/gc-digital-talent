@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { Client, useQuery } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -68,14 +68,29 @@ const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
   }
 `);
 
+export const loader = (client: Client) => async () => {
+  return await client
+    .query(ProfileAndApplicationsApplicant_Query, {})
+    .toPromise()
+    .then((res) => res.data)
+    .then((res) => {
+      if (!res?.me) {
+        return Promise.reject(new NotFoundError());
+      }
+
+      return Promise.resolve(res);
+    });
+};
+
 const ProfileAndApplicationsPage = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ProfileAndApplicationsApplicant_Query,
+    requestPolicy: "cache-only",
   });
 
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={fetching || !data} error={error}>
       {data?.me ? (
         <ProfileAndApplications userQuery={data.me} />
       ) : (
