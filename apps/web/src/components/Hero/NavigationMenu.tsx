@@ -41,7 +41,7 @@ const NavMenuComponent = ({ mainItems, utilityItems }: NavMenuProps) => {
     <div
       data-h2-background-color="base:all(black)"
       data-h2-border-bottom="base(1px solid black.20)"
-      data-h2-padding="base(x1, 0)"
+      data-h2-padding="base(x.5, 0) p-tablet(x1, 0)"
       data-h2-z-index="base(5)"
       data-h2-width="base(100%)"
       data-h2-position="base(absolute)"
