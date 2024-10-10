@@ -44,15 +44,15 @@ final class RemoveCandidate
             case PoolCandidateStatus::PLACED_CASUAL->name:
             case PoolCandidateStatus::PLACED_TERM->name:
             case PoolCandidateStatus::PLACED_INDETERMINATE->name:
-                throw ValidationException::withMessages(['RemoveCandidateAlreadyPlaced']);
+                throw ValidationException::withMessages(['id' => 'RemoveCandidateAlreadyPlaced']);
             case PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name:
             case PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name:
             case PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name:
             case PoolCandidateStatus::QUALIFIED_WITHDREW->name:
             case PoolCandidateStatus::REMOVED->name:
-                throw ValidationException::withMessages(['RemoveCandidateAlreadyRemoved']);
+                throw ValidationException::withMessages(['id' => 'RemoveCandidateAlreadyRemoved']);
             default:
-                throw ValidationException::withMessages(['CandidateUnexpectedStatus']);
+                throw ValidationException::withMessages(['id' => 'CandidateUnexpectedStatus']);
         }
 
         $candidate->save();

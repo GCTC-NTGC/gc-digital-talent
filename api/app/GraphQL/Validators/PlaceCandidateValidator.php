@@ -27,7 +27,7 @@ final class PlaceCandidateValidator extends Validator
         $statusesArray = [...$placedStatuses, PoolCandidateStatus::QUALIFIED_AVAILABLE->name];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_PLACING]);
+            throw ValidationException::withMessages(['id' => ApiErrorEnums::INVALID_STATUS_PLACING]);
         }
 
         return [

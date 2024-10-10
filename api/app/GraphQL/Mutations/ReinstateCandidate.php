@@ -30,7 +30,7 @@ final class ReinstateCandidate
                 $candidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
                 break;
             default:
-                throw ValidationException::withMessages(['CandidateUnexpectedStatus']);
+                throw ValidationException::withMessages(['id' => 'CandidateUnexpectedStatus']);
         }
 
         $candidate->removed_at = null;

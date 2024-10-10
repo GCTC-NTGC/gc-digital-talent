@@ -16,7 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * Class PoolCandidateSearchRequest
  *
- * @property int $id
+ * @property string $id
  * @property string $full_name
  * @property string $email
  * @property string $department_id

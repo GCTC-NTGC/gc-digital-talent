@@ -29,7 +29,7 @@ final class DisqualifyCandidateValidator extends Validator
         ];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_DISQUALIFICATION]);
+            throw ValidationException::withMessages(['status' => ApiErrorEnums::INVALID_STATUS_DISQUALIFICATION]);
         }
 
         return [];

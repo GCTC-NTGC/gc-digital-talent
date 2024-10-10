@@ -30,7 +30,7 @@ final class RevertFinalDecisionValidator extends Validator
         ];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_REVERT_FINAL_DECISION]);
+            throw ValidationException::withMessages(['id' => ApiErrorEnums::INVALID_STATUS_REVERT_FINAL_DECISION]);
         }
 
         return [];
