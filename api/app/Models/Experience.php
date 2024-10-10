@@ -35,13 +35,13 @@ class Experience extends Model
     /**
      * Create a new concrete model instance that is existing, based on the type field.
      *
-     * @param  object  $attributes
+     * @param  array  $attributes
      * @param  string|null  $connection
      * @return static
      */
     public function newFromBuilder($attributes = [], $connection = null)
     {
-        $model = $this->newInstanceFromType($attributes->experience_type);
+        $model = $this->newInstanceFromType($attributes['experience_type']);
 
         $model->exists = true;
 
@@ -231,7 +231,7 @@ class Experience extends Model
         return null;
     }
 
-    protected static function setJsonPropertyDate(mixed $value, array $attributes, string $propertyName)
+    protected static function setJsonPropertyDate(mixed $value, ?array $attributes, string $propertyName)
     {
         $properties = json_decode($attributes['properties'] ?? '{}');
         if (! empty($value)) {
@@ -246,8 +246,8 @@ class Experience extends Model
     protected function makeJsonPropertyDateAttribute(string $propertyName): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, $propertyName),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, $propertyName)
+            get: fn (mixed $value, mixed $attributes) => $this::getJsonPropertyDate($attributes, $propertyName),
+            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyDate($value, $attributes, $propertyName)
         );
     }
 
@@ -274,7 +274,7 @@ class Experience extends Model
     {
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, $propertyName),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, $propertyName)
+            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyString($value, $attributes, $propertyName)
         );
     }
 

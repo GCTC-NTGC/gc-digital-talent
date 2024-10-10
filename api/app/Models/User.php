@@ -337,7 +337,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             return '';
         }
 
-        return $this->department()->get('name');
+        return $this->department()->get(['name']);
     }
 
     public function getPriorityAttribute()
