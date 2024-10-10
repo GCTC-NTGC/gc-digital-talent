@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
@@ -23,6 +23,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 interface FormValues {
   roles: Scalars["UUID"]["output"][];
@@ -87,24 +88,10 @@ const EditTeamRoleDialog = ({
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Member roles updated successfully",
-            id: "ALIgEC",
-            description:
-              "Alert displayed to user when a team member's roles have been updated",
-          }),
-        );
+        toast.success(intl.formatMessage(adminMessages.rolesUpdated));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "Ly2bBb",
-            description:
-              "Alert displayed to user when an error occurs while editing a team member's roles",
-          }),
-        );
+        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
       });
   };
 
@@ -137,8 +124,7 @@ const EditTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black">
-          <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
+        <Button color="secondary" icon={PencilSquareIcon} mode="icon_only">
           <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>

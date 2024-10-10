@@ -63,7 +63,7 @@ const NotificationDownload = forwardRef<
           }
         });
       })
-      .catch((err) => logger.error(err));
+      .catch((err) => logger.error(String(err)));
   };
 
   return (

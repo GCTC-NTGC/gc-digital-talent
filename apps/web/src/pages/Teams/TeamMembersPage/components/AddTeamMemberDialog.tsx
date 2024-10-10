@@ -94,14 +94,7 @@ AddTeamMemberDialogProps) => {
         }
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "Ly2bBb",
-            description:
-              "Alert displayed to user when an error occurs while editing a team member's roles",
-          }),
-        );
+        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
       });
   };
 

@@ -187,12 +187,13 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { watch, setValue, resetField, setError, clearErrors, formState } =
-    useFormContext();
+    useFormContext<{
+      communities: string[];
+      isStatus: FirstNationsStatus | undefined;
+      firstNationsCustom: string;
+    }>();
 
-  const [communitiesValue, isStatus]: [
-    string[],
-    FirstNationsStatus | undefined,
-  ] = watch(["communities", "isStatus"]);
+  const [communitiesValue, isStatus] = watch(["communities", "isStatus"]);
 
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 
@@ -300,7 +301,7 @@ interface CommunitySelectionProps {
 }
 
 const CommunitySelection = ({ labels }: CommunitySelectionProps) => {
-  const { watch } = useFormContext();
+  const { watch } = useFormContext<{ isIndigenous?: "yes" | "no" }>();
 
   const [isIndigenousValue] = watch(["isIndigenous"]);
   const isIndigenous = isIndigenousValue === "yes";

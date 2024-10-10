@@ -168,8 +168,9 @@ const SkillTable = ({
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: SkillFilterInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded ? (JSON.parse(filtersEncoded) as SkillFilterInput) : {},
     [filtersEncoded],
   );
 

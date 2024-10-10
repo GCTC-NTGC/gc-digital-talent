@@ -99,7 +99,8 @@ export const EmployeeInformationFormFields = ({
   const result = getFragment(EmployeeInformation_QueryFragment, query);
   const departments = unpackMaybes(result?.departments);
   const classifications = unpackMaybes(result?.classifications);
-  const { watch, resetField, setValue, register } = useFormContext();
+  const { watch, resetField, setValue, register } =
+    useFormContext<FormValues>();
   const skipVerificationProps = register("skipVerification");
   // hooks to watch, needed for conditional rendering
   const [govEmployee, groupSelection] = watch([
@@ -150,7 +151,7 @@ export const EmployeeInformationFormFields = ({
    * to avoid confusing users about unsaved changes
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, {
         keepDirty: false,
       });
@@ -604,7 +605,7 @@ const EmployeeInformation = () => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const onSubmit = async (

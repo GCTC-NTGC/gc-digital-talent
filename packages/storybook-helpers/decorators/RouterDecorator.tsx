@@ -27,7 +27,7 @@ const createRouter = (story: JSX.Element, defaultPath?: DefaultPath) =>
   );
 
 const RouterDecorator = (Story: StoryFn, { parameters }: StoryContext) => {
-  const { defaultPath } = parameters;
+  const { defaultPath }: { defaultPath?: DefaultPath } = parameters;
   const router = createRouter(<Story />, defaultPath);
   return <RouterProvider router={router} />;
 };

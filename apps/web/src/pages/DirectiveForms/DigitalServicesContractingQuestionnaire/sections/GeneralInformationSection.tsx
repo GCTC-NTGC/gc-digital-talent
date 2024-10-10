@@ -40,6 +40,7 @@ import {
 } from "../../localizedConstants";
 import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
+import { FormValues } from "../formValues";
 
 interface GeneralInformationSectionProps {
   departments: Omit<Department, "departmentNumber">[];
@@ -49,7 +50,7 @@ const GeneralInformationSection = ({
   departments,
 }: GeneralInformationSectionProps) => {
   const intl = useIntl();
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
@@ -81,7 +82,7 @@ const GeneralInformationSection = ({
    * Reset un-rendered fields
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
 

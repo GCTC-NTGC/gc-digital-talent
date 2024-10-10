@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
-  Classification,
   ApplicantFilter,
   OperationalRequirement,
   Pool,
@@ -13,12 +12,10 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import fakeSkills from "./fakeSkills";
-import fakeClassifications from "./fakeClassifications";
 import fakePools from "./fakePools";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateApplicantFilters = (
-  classifications: Classification[],
   operationalRequirements: OperationalRequirement[],
   pools: Pool[],
   skills: Skill[],
@@ -57,7 +54,6 @@ const generateApplicantFilters = (
 };
 
 export default (): ApplicantFilter[] => {
-  const classifications = fakeClassifications();
   const operationalRequirements =
     faker.helpers.arrayElements<OperationalRequirement>(
       Object.values(OperationalRequirement),
@@ -66,12 +62,7 @@ export default (): ApplicantFilter[] => {
   const skills = fakeSkills(5);
 
   faker.seed(0); // repeatable results
-  return [...Array(20)].map(() =>
-    generateApplicantFilters(
-      classifications,
-      operationalRequirements,
-      pools,
-      skills,
-    ),
+  return Array.from({ length: 20 }, () =>
+    generateApplicantFilters(operationalRequirements, pools, skills),
   );
 };

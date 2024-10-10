@@ -2,7 +2,7 @@
 // Note: Disable camelcase since variables are being used by API
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation, Location } from "react-router-dom";
 import { useQuery } from "urql";
 import { ReactNode, useState } from "react";
 
@@ -105,6 +105,10 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   );
 };
 
+interface LocationState {
+  referrer?: string;
+}
+
 const SupportForm = ({
   showSupportForm,
   onFormToggle,
@@ -112,7 +116,7 @@ const SupportForm = ({
   currentUser,
 }: SupportFormProps) => {
   const intl = useIntl();
-  const location = useLocation();
+  const location = useLocation() as Location<LocationState>;
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -299,7 +303,7 @@ const SupportFormApi = () => {
     }
 
     // we didn't get an OK so let's take a closer look at the response
-    const responseBody = await response.json();
+    const responseBody = (await response.json()) as Record<string, unknown>;
     const errorCode = `${response.status} - ${response.statusText}`;
     logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
 

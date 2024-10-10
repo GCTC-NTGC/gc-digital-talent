@@ -143,7 +143,7 @@ const usePoolMutations = (returnPath?: string) => {
       }),
     );
 
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const update = async (id: string, pool: UpdatePoolInput) => {

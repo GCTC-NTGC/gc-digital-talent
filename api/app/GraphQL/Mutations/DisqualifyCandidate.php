@@ -9,8 +9,6 @@ final class DisqualifyCandidate
 {
     /**
      * Disqualify operation for a candidate
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

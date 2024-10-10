@@ -9,8 +9,6 @@ final class RevertFinalDecision
 {
     /**
      * Reverting the qualify or disqualify candidate operations
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

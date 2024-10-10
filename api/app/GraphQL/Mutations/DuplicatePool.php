@@ -9,8 +9,6 @@ final class DuplicatePool
 {
     /**
      * Duplicates a pool
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

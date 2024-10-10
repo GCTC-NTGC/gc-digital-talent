@@ -127,8 +127,8 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           <p>
             <span data-h2-display="base(block)">
               {intl.formatMessage({
-                defaultMessage: "Work location:",
-                id: "b5bUa0",
+                defaultMessage: "Work location",
+                id: "JO2yLA",
                 description: "Work Location label, followed by colon",
               })}
             </span>
@@ -144,7 +144,6 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
                   id: "OpKC2i",
                   description: "Work location exceptions label",
                 })}
-                {intl.formatMessage(commonMessages.dividingColon)}
               </span>
               <span data-h2-font-weight="base(700)">{locationExemptions}</span>
             </p>

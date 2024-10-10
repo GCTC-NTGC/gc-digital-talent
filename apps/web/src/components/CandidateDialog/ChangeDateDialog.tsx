@@ -96,7 +96,7 @@ const ChangeDateDialog = ({
     if (result.data?.updatePoolCandidateStatus) {
       return result.data.updatePoolCandidateStatus;
     }
-    return Promise.reject(result.error);
+    return Promise.reject(new Error(result.error?.toString()));
   };
 
   const submitForm: SubmitHandler<FormValues> = async (

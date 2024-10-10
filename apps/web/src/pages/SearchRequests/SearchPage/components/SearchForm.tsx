@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "urql";
 import { ReactNode, useState, useEffect } from "react";
 
-import { Button, Heading, Pending, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Loading,
+  Pending,
+  Separator,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 import {
   graphql,
@@ -149,10 +155,14 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
             </div>
           </div>
           <Separator />
-          <Heading level="h3" size="h4" id="results">
-            {intl.formatMessage(
-              {
-                defaultMessage: `Results:
+          {fetching ? (
+            <Loading inline />
+          ) : (
+            <>
+              <Heading level="h3" size="h4" id="results">
+                {intl.formatMessage(
+                  {
+                    defaultMessage: `Results:
                     { totalCandidateCount, plural,
                       =0 {<testId><b>{totalCandidateCount}</b></testId> matching candidates}
                       =1 {<testId><b>{totalCandidateCount}</b></testId> matching candidate}
@@ -162,65 +172,66 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
                       =0 {<b>{numPools}</b> pools}
                       =1 {<b>{numPools}</b> pool}
                       other {<b>{numPools}</b> pools} }`,
-                id: "j2qiFb",
-                description:
-                  "Heading for total matching candidates across a certain number of pools in results section of search page.",
-              },
-              {
-                testId,
-                b: styledCount,
-                totalCandidateCount: candidateCount,
-                numPools: results?.length ?? 0,
-              },
-            )}
-          </Heading>
-          <SearchFilterAdvice filters={applicantFilter} />
-
-          {results?.length && candidateCount > 0 ? (
-            <>
-              <p data-h2-margin="base(x1, 0)">
-                <Button
-                  color="primary"
-                  type="submit"
-                  {...poolSubmitProps}
-                  value=""
-                  onClick={handleSubmitAllPools}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Request candidates from all pools",
-                    id: "DxNuJ9",
+                    id: "j2qiFb",
                     description:
-                      "Button text to submit search request for candidates across all pools",
-                  })}
-                </Button>
-              </p>
-              <p
-                data-h2-font-size="base(h4)"
-                data-h2-margin="base(x1.5, 0, x.25, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Or request candidates by pool",
-                  id: "l1f8zy",
-                  description:
-                    "Lead-in text to list of pools managers can request candidates from",
-                })}
-                {intl.formatMessage(commonMessages.dividingColon)}
-              </p>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-              >
-                {results.map(({ pool, candidateCount: resultsCount }) => (
-                  <SearchResultCard
-                    key={pool.id}
-                    candidateCount={resultsCount}
-                    pool={pool}
-                  />
-                ))}
-              </div>
+                      "Heading for total matching candidates across a certain number of pools in results section of search page.",
+                  },
+                  {
+                    testId,
+                    b: styledCount,
+                    totalCandidateCount: candidateCount,
+                    numPools: results?.length ?? 0,
+                  },
+                )}
+              </Heading>
+              <SearchFilterAdvice filters={applicantFilter} />
+              {results?.length && candidateCount > 0 ? (
+                <>
+                  <p data-h2-margin="base(x1, 0)">
+                    <Button
+                      color="primary"
+                      type="submit"
+                      {...poolSubmitProps}
+                      value=""
+                      onClick={handleSubmitAllPools}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Request candidates from all pools",
+                        id: "DxNuJ9",
+                        description:
+                          "Button text to submit search request for candidates across all pools",
+                      })}
+                    </Button>
+                  </p>
+                  <p
+                    data-h2-font-size="base(h4)"
+                    data-h2-margin="base(x1.5, 0, x.25, 0)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Or request candidates by pool",
+                      id: "l1f8zy",
+                      description:
+                        "Lead-in text to list of pools managers can request candidates from",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                  </p>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(column)"
+                  >
+                    {results.map(({ pool, candidateCount: resultsCount }) => (
+                      <SearchResultCard
+                        key={pool.id}
+                        candidateCount={resultsCount}
+                        pool={pool}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <NoResults />
+              )}
             </>
-          ) : (
-            <NoResults />
           )}
         </form>
       </FormProvider>

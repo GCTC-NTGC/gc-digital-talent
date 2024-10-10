@@ -68,7 +68,7 @@ const EditTeamPage = () => {
       if (result.data?.updateTeam) {
         return Promise.resolve(result.data?.updateTeam);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
   };
 

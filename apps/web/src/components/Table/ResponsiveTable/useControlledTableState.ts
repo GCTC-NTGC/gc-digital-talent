@@ -73,7 +73,7 @@ export const getTableStateFromSearchParams = (
   if (sortRuleParam) {
     state = {
       ...state,
-      sortState: JSON.parse(sortRuleParam),
+      sortState: JSON.parse(sortRuleParam) as SortingState,
     };
   }
 

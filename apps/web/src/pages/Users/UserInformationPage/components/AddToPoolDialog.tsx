@@ -127,7 +127,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
     if (result.data?.createPoolCandidateAsAdmin) {
       return result.data.createPoolCandidateAsAdmin;
     }
-    return Promise.reject(result.error);
+    return Promise.reject(new Error(result.error?.toString()));
   };
 
   const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {

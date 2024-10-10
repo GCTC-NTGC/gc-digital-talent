@@ -87,6 +87,20 @@ class PoolCandidateFactory extends Factory
                 return $attributes['removal_reason'] === CandidateRemovalReason::OTHER->name ?
                 $this->faker->sentence() : null;
             },
+            // we don't know yet if the user is a veteran so we'll force consistency later in the afterCreating callback
+            'veteran_verification' => $this->faker->optional()->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
+            'veteran_verification_expiry' => function (array $attributes) {
+                if ($attributes['veteran_verification'] == ClaimVerificationResult::ACCEPTED) {
+                    return $this->faker->dateTimeBetween('6 months', '24 months');
+                }
+            },
+            // we don't know yet if the user has priority so we'll force consistency later in the afterCreating callback
+            'priority_verification' => $this->faker->optional()->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
+            'priority_verification_expiry' => function (array $attributes) {
+                if ($attributes['priority_verification'] == ClaimVerificationResult::ACCEPTED) {
+                    return $this->faker->dateTimeBetween('6 months', '24 months');
+                }
+            },
         ];
     }
 
@@ -164,23 +178,20 @@ class PoolCandidateFactory extends Factory
                 $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
             }
 
-            // claim verification
-            if ($poolCandidate->user->armed_forces_status == ArmedForcesStatus::VETERAN->name) {
-                $vetVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
-                $vetExpiryBoolean = $vetVerification == ClaimVerificationResult::ACCEPTED->name && $this->faker->boolean();
-
+            // ensure claim verification is consistent
+            if ($poolCandidate->user->armed_forces_status != ArmedForcesStatus::VETERAN->name
+            && ! is_null($poolCandidate->veteran_verification)) {
                 $poolCandidate->update([
-                    'veteran_verification' => $vetVerification,
-                    'veteran_verification_expiry' => $vetExpiryBoolean ? $this->faker->dateTimeBetween('6 months', '24 months') : null,
+                    'veteran_verification' => null,
+                    'veteran_verification_expiry' => null,
                 ]);
             }
-            if ($poolCandidate->user->has_priority_entitlement) {
-                $priorityVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
-                $priorityExpiryBoolean = $priorityVerification == ClaimVerificationResult::ACCEPTED->name;
-
+            // ensure claim verification is consistent
+            if (! $poolCandidate->user->has_priority_entitlement
+            && ! is_null($poolCandidate->priority_verification)) {
                 $poolCandidate->update([
-                    'priority_verification' => $priorityVerification,
-                    'priority_verification_expiry' => $priorityExpiryBoolean ? $this->faker->dateTimeBetween('6 months', '24 months') : null,
+                    'priority_verification' => null,
+                    'priority_verification_expiry' => null,
                 ]);
             }
         });
