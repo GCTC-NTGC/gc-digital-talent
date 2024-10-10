@@ -172,8 +172,14 @@ Nested.args = {
     <>
       <Text />
       <Accordion.Root type="single" collapsible>
-        <Accordion.Item value="two">
-          <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+        <Accordion.Item value="sub-one">
+          <Accordion.Trigger>Accordion Sub One</Accordion.Trigger>
+          <Accordion.Content>
+            <Text />
+          </Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="sub-two">
+          <Accordion.Trigger>Accordion Sub Two</Accordion.Trigger>
           <Accordion.Content>
             <Text />
           </Accordion.Content>
