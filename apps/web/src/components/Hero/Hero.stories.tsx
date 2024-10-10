@@ -2,10 +2,8 @@ import { StoryFn, Meta } from "@storybook/react";
 import UserPlusIcon from "@heroicons/react/24/solid/UserPlusIcon";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/20/solid/ChatBubbleBottomCenterIcon";
-import { FormProvider, useForm } from "react-hook-form";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
-import { Input, Submit } from "@gc-digital-talent/forms";
 
 import browseHeroImg from "~/assets/img/browse_header.webp";
 
@@ -41,6 +39,10 @@ export default {
         "dark iap": allModes["dark iap desktop"],
       },
     },
+    defaultPath: {
+      path: "/:index",
+      initialEntries: [`/one`],
+    },
   },
 } as Meta<typeof Hero>;
 
@@ -64,11 +66,11 @@ ButtonsAndTabs.args = {
     },
   ],
   navTabs: [
-    { url: "#one", label: "Tab One" },
-    { url: "#two", label: "Tab Two" },
-    { url: "#three", label: "Tab Three" },
-    { url: "#four", label: "Tab Four" },
-    { url: "#five", label: "Tab Five" },
+    { url: "/one", label: "Tab One" },
+    { url: "/two", label: "Tab Two" },
+    { url: "/three", label: "Tab Three" },
+    { url: "/four", label: "Tab Four" },
+    { url: "/five", label: "Tab Five" },
   ],
 };
 
@@ -99,11 +101,11 @@ Buttons.args = {
 export const Tabs = Template.bind({});
 Tabs.args = {
   navTabs: [
-    { url: "#one", label: "Tab One" },
-    { url: "#two", label: "Tab Two" },
-    { url: "#three", label: "Tab Three" },
-    { url: "#four", label: "Tab Four" },
-    { url: "#five", label: "Tab Five" },
+    { url: "/one", label: "Tab One" },
+    { url: "/two", label: "Tab Two" },
+    { url: "/three", label: "Tab Three" },
+    { url: "/four", label: "Tab Four" },
+    { url: "/five", label: "Tab Five" },
   ],
 };
 
@@ -128,11 +130,11 @@ ButtonsAndTabsWithCentering.args = {
     },
   ],
   navTabs: [
-    { url: "#one", label: "Tab One" },
-    { url: "#two", label: "Tab Two" },
-    { url: "#three", label: "Tab Three" },
-    { url: "#four", label: "Tab Four" },
-    { url: "#five", label: "Tab Five" },
+    { url: "/one", label: "Tab One" },
+    { url: "/two", label: "Tab Two" },
+    { url: "/three", label: "Tab Three" },
+    { url: "/four", label: "Tab Four" },
+    { url: "/five", label: "Tab Five" },
   ],
   centered: true,
 };
@@ -143,35 +145,6 @@ ImageProvided.args = {
 };
 
 // overlap story
-interface FormValues {
-  one: string;
-  two: string;
-  three: string;
-}
-const FormComponent = () => {
-  const methods = useForm<FormValues>({});
-  return (
-    <section
-      data-h2-wrapper="base(center, s)"
-      data-h2-background-color="base(white)"
-    >
-      <FormProvider {...methods}>
-        <form
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
-          <Input id="one" name="one" label="Input one" type="text" />
-          <Input id="two" name="two" label="Input two" type="text" />
-          <Input id="three" name="three" label="Input three" type="text" />
-          <div data-h2-align-self="base(flex-start)">
-            <Submit />
-          </div>
-        </form>
-      </FormProvider>
-    </section>
-  );
-};
 const TemplateWithContent: StoryFn<typeof Hero> = (args) => (
   <>
     <Hero {...args} />
@@ -180,5 +153,18 @@ const TemplateWithContent: StoryFn<typeof Hero> = (args) => (
 export const OverlapWithContent = TemplateWithContent.bind({});
 OverlapWithContent.args = {
   overlap: true,
-  children: <FormComponent></FormComponent>,
+  children: (
+    <div
+      data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
+      data-h2-background-color="base(foreground)"
+      data-h2-radius="base(rounded)"
+      data-h2-padding="base(x2, x1)"
+      data-h2-shadow="base(s)"
+      data-h2-height="base(30vh)"
+    >
+      <p data-h2-font-size="base(h4)" data-h2-text-align="base(center)">
+        Replace Me
+      </p>
+    </div>
+  ),
 };
