@@ -203,11 +203,6 @@ parameters:
       path: app/Models/PoolCandidate.php
 
     -
-      message: "#^Property App\\\\Models\\\\PoolCandidateSearchRequest\\:\\:\\$request_status_changed_at \\(App\\\\Models\\\\Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\CarbonImmutable\\.$#"
-      count: 1
-      path: app/Models/PoolCandidateSearchRequest.php
-
-    -
       message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate\\> supplied for foreach, only iterables are supported\\.$#"
       count: 1
       path: app/Models/User.php
