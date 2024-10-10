@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $min_salary
  * @property int $max_salary
  * @property string $displayName
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class Classification extends Model
 {

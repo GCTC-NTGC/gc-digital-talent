@@ -23,8 +23,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array $essential_behavioural_skills_notes
  * @property array $nonessential_technical_skills_notes
  * @property ?\Illuminate\Database\Eloquent\Relations\Pivot $skills
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class JobPosterTemplate extends Model
 {
