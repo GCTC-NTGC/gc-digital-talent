@@ -42,29 +42,41 @@ interface NavTab {
   label: string;
 }
 
-interface HeroProps {
+interface HeroSharedProps {
   imgPath?: string;
   title: ReactNode;
   subtitle?: ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
   buttonLinks?: ButtonLinkType[];
-  navTabs?: NavTab[];
   children?: ReactNode;
   centered?: boolean;
-  overlap?: boolean; // only takes effect if navTabs is also undefined
 }
 
-const Hero = ({
-  imgPath,
-  title,
-  subtitle,
-  crumbs,
-  buttonLinks,
-  navTabs,
-  children,
-  centered = false,
-  overlap = false,
-}: HeroProps) => {
+type HeroWithNavTabsProps = HeroSharedProps & {
+  navTabs?: NavTab[];
+  overlap?: never;
+};
+
+type HeroWithOverlapProps = HeroSharedProps & {
+  navTabs?: never;
+  overlap: boolean;
+};
+
+const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
+  // shared props
+  const {
+    imgPath,
+    title,
+    subtitle,
+    crumbs,
+    buttonLinks,
+    children,
+    centered = false,
+  } = props;
+  // conditional props
+  const navTabs = "navTabs" in props ? props.navTabs : null;
+  const overlap = "overlap" in props ? props.overlap : false;
+
   const intl = useIntl();
 
   const headingRef = useRef<HeadingRef>(null);
