@@ -120,7 +120,7 @@ module.exports = {
               "Please import the individual function, not the entire library.",
           },
           {
-            group: ["date-fns", "date-fns-tz", "!date-fns/", "!date-fns-tz/"],
+            group: ["date-fns", "!date-fns/"],
             message:
               "Please import the individual function, not the entire library.",
           },

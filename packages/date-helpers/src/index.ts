@@ -1,12 +1,12 @@
 import type { IntlShape } from "react-intl";
 import { add } from "date-fns/add";
-import { format } from "date-fns/format";
+import { format, FormatOptions } from "date-fns/format";
 import { parse } from "date-fns/parse";
 import { parseISO } from "date-fns/parseISO";
 import { enCA as en } from "date-fns/locale/en-CA";
 import { fr } from "date-fns/locale/fr";
-import { formatInTimeZone, toDate } from "date-fns-tz";
 import { Locale } from "date-fns/locale";
+import { tz } from "@date-fns/tz";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
@@ -48,9 +48,10 @@ export const formatDate = ({
   const locale: Locale = strLocale === "fr" ? fr : en;
 
   // A date formatting function that can use time zones optionally
-  const result = timeZone
-    ? formatInTimeZone(date, timeZone, formatString, { locale })
-    : format(date, formatString, { locale });
+  const result = format(date, formatString, {
+    locale,
+    in: timeZone ? tz(timeZone) : undefined,
+  });
 
   return result;
 };
@@ -75,12 +76,17 @@ export const relativeClosingDate = ({
   timeZone,
   customFormat,
 }: relativeClosingDateOptions): string => {
+  const inTz = timeZone ? tz(timeZone) : undefined;
   // A date formatting function that can use time zones optionally
-  const myFormatFunc = timeZone
-    ? (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
-        formatInTimeZone(date, timeZone, formatPattern, options)
-    : (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
-        format(date, formatPattern, options);
+  const myFormatFunc = (
+    date: Date,
+    formatPattern: string,
+    options?: FormatOptions,
+  ) =>
+    format(date, formatPattern, {
+      ...options,
+      in: inTz,
+    });
 
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
@@ -135,11 +141,13 @@ export const convertDateTimeZone = (
   targetTimeZone: string,
   targetFormatString?: string,
 ): Scalars["DateTime"]["output"] => {
-  const dateObject = toDate(sourceDateTime, { timeZone: sourceTimeZone });
-  const scalarDateTime = formatInTimeZone(
+  const dateObject = parseISO(sourceDateTime, {
+    in: tz(sourceTimeZone),
+  });
+  const scalarDateTime = format(
     dateObject,
-    targetTimeZone,
     targetFormatString ?? DATETIME_FORMAT_STRING,
+    { in: tz(targetTimeZone) },
   );
   return scalarDateTime;
 };
@@ -153,7 +161,7 @@ export const convertDateTimeToDate = (
 
 // Parse an API scalar DateTime as UTC to a native Date object
 export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date =>
-  toDate(d, { timeZone: "UTC" });
+  parseISO(d, { in: tz("UTC") });
 
 /**
  * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING
