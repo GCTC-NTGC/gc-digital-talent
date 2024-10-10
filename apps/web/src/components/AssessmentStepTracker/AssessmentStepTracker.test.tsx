@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /**
  * @jest-environment jsdom
  */
@@ -70,9 +71,7 @@ const defaultProps: AssessmentStepTrackerProps = {
 };
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const renderAssessmentStepTracker = (
   overrideProps?: AssessmentStepTrackerProps,

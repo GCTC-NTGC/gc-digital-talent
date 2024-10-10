@@ -9,8 +9,6 @@ final class TogglePoolUserBookmark
 {
     /**
      * Toggles a user's bookmarked pool
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

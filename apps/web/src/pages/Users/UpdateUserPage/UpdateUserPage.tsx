@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useMutation, useQuery } from "urql";
@@ -32,6 +32,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import UserRoleTable from "./components/IndividualRoleTable";
 import TeamRoleTable from "./components/TeamRoleTable";
@@ -44,6 +45,8 @@ import {
   UpdateUserRoles_Mutation,
   UpdateUserSub_Mutation,
 } from "./operations";
+import CommunityRoleTable from "./components/CommunityRoleTable";
+import ProcessRoleTable from "./components/ProcessRoleTable";
 
 const UpdateUserOptions_Query = graphql(/* GraphQL */ `
   query UpdateUserOptions {
@@ -132,9 +135,7 @@ export const UpdateUserForm = ({
     defaultValues: dataToFormValues(initialUser),
   });
   const { handleSubmit } = methods;
-
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.userTable();
+  const navigateTo = useReturnPath(paths.userTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     await handleUpdateUser(initialUser.id, formValuesToSubmitData(values))
@@ -322,7 +323,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserAsAdmin) {
         return result.data.updateUserAsAdmin;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const handleUpdateUserRoles = (input: UpdateUserRolesInput) =>
@@ -334,7 +335,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserRoles) {
         return result.data.updateUserRoles;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const handleUpdateUserSub = (input: UpdateUserSubInput) =>
@@ -346,7 +347,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserSub) {
         return result.data.updateUserSub;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const [, executeDeleteMutation] = useMutation(DeleteUser_Mutation);
@@ -357,7 +358,7 @@ const UpdateUserPage = () => {
       if (result.data?.deleteUser) {
         return result.data.deleteUser;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const availableRoles = unpackMaybes(data?.roles);
@@ -392,6 +393,18 @@ const UpdateUserPage = () => {
               onUpdateUserRoles={handleUpdateUserRoles}
             />
             <TeamRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <CommunityRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <ProcessRoleTable
               user={data.user}
               authInfo={data.user?.authInfo}
               availableRoles={availableRoles}

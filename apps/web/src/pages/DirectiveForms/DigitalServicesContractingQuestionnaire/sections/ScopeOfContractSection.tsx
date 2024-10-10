@@ -41,10 +41,11 @@ import {
 } from "../../localizedConstants";
 import useLabels from "../useLabels";
 import CompoundQuestion from "../../CompoundQuestion";
+import { FormValues } from "../formValues";
 
 const ScopeOfContractSection = () => {
   const intl = useIntl();
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
@@ -67,7 +68,7 @@ const ScopeOfContractSection = () => {
     selectedInstrumentType === ContractInstrument.Other;
 
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
 
@@ -129,7 +130,7 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
             min: {
-              value: selectedContractStartDate,
+              value: selectedContractStartDate ?? "",
               message: String(
                 intl.formatMessage(errorMessages.mustBeGreater, {
                   value: selectedContractStartDate,

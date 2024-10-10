@@ -76,7 +76,7 @@ services:
   #
   #   3. Rebuild docker container:
   #
-  #       $ docker-compose up --detach --build mock-auth
+  #       $ docker compose up --detach --build mock-auth
   #
   #   4. Confirm working by visiting:
   #

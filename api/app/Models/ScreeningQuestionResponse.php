@@ -25,15 +25,11 @@ class ScreeningQuestionResponse extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [];
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'pool_candidate_id',

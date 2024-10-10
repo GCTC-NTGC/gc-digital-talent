@@ -59,7 +59,7 @@ const PersonnelRequirementFieldset = ({
       `${fieldsetName}.skillRequirements`,
       `${fieldsetName}.language`,
       `${fieldsetName}.security`,
-    ]);
+    ]) as [unknown, unknown, unknown];
 
   const selectedSkillRequirements: SkillRequirementFormValues[] =
     Array.isArray(selectedSkillRequirementsUntyped) &&
@@ -102,7 +102,7 @@ const PersonnelRequirementFieldset = ({
       ]);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const handleSkillDialogEdit = (
@@ -117,7 +117,7 @@ const PersonnelRequirementFieldset = ({
       setValue(`${fieldsetName}.skillRequirements.${index}`, newEntry);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const removeSkill = (skillId: string) => {

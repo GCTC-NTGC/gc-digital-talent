@@ -38,7 +38,7 @@ export default (numToGenerate = 15, skills: Skill[] = []): SkillFamily[] => {
   faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
-  return [...Array(numToGenerate)].map(() =>
+  return Array.from({ length: numToGenerate }, () =>
     generateSkillFamily(skills, uniqueEnforcerId),
   );
 };

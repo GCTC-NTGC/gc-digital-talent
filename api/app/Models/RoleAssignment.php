@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * Class User
@@ -51,8 +52,12 @@ class RoleAssignment extends Model
         }
 
         if (is_null($this->team->teamable)) {
+            Gate::authorize('view', $this->team);
+
             return $this->team;
         }
+
+        Gate::authorize('view', $this->team->teamable);
 
         return $this->team->teamable;
     }

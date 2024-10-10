@@ -21,6 +21,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
@@ -71,21 +72,20 @@ const AddIndividualRoleDialog = ({
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Role(s) added successfully",
-          id: "/17wgm",
-          description:
-            "Message displayed to user when one or more roles have been added to a user",
-        }),
-      );
+      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
 
-  const label = intl.formatMessage({
-    defaultMessage: "Add new role",
-    id: "2lNHxh",
-    description: "Label for the form to add a role to a user",
+  const dialogLabel = intl.formatMessage({
+    defaultMessage: "Add individual role",
+    id: "QCesvO",
+    description: "Header for the form to add a role to a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Add individual role",
+    id: "9ufudR",
+    description: "Label for the button to add a role to a user",
   });
 
   const roleOptions = availableRoles
@@ -105,12 +105,12 @@ const AddIndividualRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="solid" icon={PlusIcon}>
-          {label}
+        <Button color="secondary" mode="solid" icon={PlusIcon}>
+          {buttonLabel}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(

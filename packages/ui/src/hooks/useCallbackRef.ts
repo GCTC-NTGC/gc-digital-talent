@@ -10,13 +10,18 @@ type GenericFunc = (...args: any[]) => any;
  * Ref: https://github.com/radix-ui/primitives/tree/main/packages/react/use-callback-ref
  */
 const useCallbackRef = <T extends GenericFunc>(callback: T | undefined): T => {
-  const callbackRef = useRef(callback);
+  const callbackRef = useRef<T | undefined>(callback);
 
   useEffect(() => {
     callbackRef.current = callback;
   });
 
-  return useMemo(() => ((...args) => callbackRef.current?.(...args)) as T, []);
+  return useMemo(
+    // Note: This is generic so we don't know what will be returned yet
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    () => ((...args: unknown[]) => callbackRef.current?.(...args)) as T,
+    [],
+  );
 };
 
 export default useCallbackRef;

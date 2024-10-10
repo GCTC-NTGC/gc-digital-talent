@@ -44,8 +44,8 @@ const GovernmentInformationSection = ({
             <p>
               <span data-h2-display="base(block)">
                 {intl.formatMessage({
-                  defaultMessage: "Employee status:",
-                  id: "z/J4uL",
+                  defaultMessage: "Employee status",
+                  id: "ia3ceX",
                   description: "Label for applicant's employee status",
                 })}
               </span>
@@ -65,8 +65,8 @@ const GovernmentInformationSection = ({
               <p>
                 <span data-h2-display="base(block)">
                   {intl.formatMessage({
-                    defaultMessage: "Department:",
-                    id: "ny/ddo",
+                    defaultMessage: "Department",
+                    id: "M7bb1V",
                     description:
                       "Label for applicant's Government of Canada department",
                   })}
@@ -82,8 +82,8 @@ const GovernmentInformationSection = ({
               <p>
                 <span data-h2-display="base(block)">
                   {intl.formatMessage({
-                    defaultMessage: "Employment type:",
-                    id: "T49QiO",
+                    defaultMessage: "Employment type",
+                    id: "2Oubfe",
                     description: "Label for applicant's employment type",
                   })}
                 </span>
@@ -98,8 +98,8 @@ const GovernmentInformationSection = ({
               <p>
                 <span data-h2-display="base(block)">
                   {intl.formatMessage({
-                    defaultMessage: "Current group and classification:",
-                    id: "MuyuAu",
+                    defaultMessage: "Current group and classification",
+                    id: "yMs04A",
                     description:
                       "Field label before government employment group and level, followed by colon",
                   })}
@@ -153,8 +153,8 @@ const GovernmentInformationSection = ({
             <p>
               <span data-h2-display="base(block)">
                 {intl.formatMessage({
-                  defaultMessage: "Priority entitlement:",
-                  id: "swugkW",
+                  defaultMessage: "Priority entitlement",
+                  id: "Wd/+eR",
                   description:
                     "Label for applicant's priority entitlement status",
                 })}
@@ -179,8 +179,8 @@ const GovernmentInformationSection = ({
               <p>
                 <span data-h2-display="base(block)">
                   {intl.formatMessage({
-                    defaultMessage: "Priority number:",
-                    id: "ZUO1OX",
+                    defaultMessage: "Priority number",
+                    id: "mGGj/i",
                     description: "Label for applicant's priority number value",
                   })}
                 </span>

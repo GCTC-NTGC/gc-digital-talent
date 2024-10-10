@@ -32,16 +32,13 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
     if (res.data?.updatePoolCandidateNotes) {
       return res.data.updatePoolCandidateNotes;
     }
-    return Promise.reject(res.error);
+    return Promise.reject(new Error(res.error?.toString()));
   };
 
   const handleSubmit = (formValues: Record<string, string>) => {
-    user?.poolCandidates?.forEach(async (candidate) => {
+    user?.poolCandidates?.forEach((candidate) => {
       if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
-        await handleUpdateCandidate(
-          candidate.id,
-          formValues[candidate.id] ?? "",
-        )
+        handleUpdateCandidate(candidate.id, formValues[candidate.id] ?? "")
           .then(() => {
             toast.success(
               intl.formatMessage(

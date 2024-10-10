@@ -28,8 +28,6 @@ class Department extends Model
 
     /**
      * The attributes that should be case.
-     *
-     * @var array
      */
     protected $casts = [
         'name' => 'array',

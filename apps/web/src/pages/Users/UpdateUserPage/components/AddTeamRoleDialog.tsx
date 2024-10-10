@@ -27,6 +27,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+import { isTeamTeamable } from "./helpers";
 
 const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
   query AddTeamRoleTeams {
@@ -97,21 +98,20 @@ const AddTeamRoleDialog = ({
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Role(s) added successfully",
-          id: "/17wgm",
-          description:
-            "Message displayed to user when one or more roles have been added to a user",
-        }),
-      );
+      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
 
-  const label = intl.formatMessage({
-    defaultMessage: "Add new membership",
-    id: "Ibt1fL",
-    description: "Label for the form to add a team membership to a user",
+  const dialogLabel = intl.formatMessage({
+    defaultMessage: "Add team role",
+    id: "RYd/pl",
+    description: "Header for the form to add a team membership to a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Add team role",
+    id: "wKXLmR",
+    description: "Label for the button to add a role to a user",
   });
 
   const roleOptions = availableRoles
@@ -125,7 +125,7 @@ const AddTeamRoleDialog = ({
   useEffect(() => {
     const roleAssignments = authInfo?.roleAssignments ?? [];
     const activeRoleIds = roleAssignments
-      .filter((ra) => ra?.team?.id === teamId)
+      .filter((ra) => isTeamTeamable(ra?.teamable) && ra.teamable.id === teamId)
       .map((r) => r?.role?.id)
       .filter(notEmpty);
     setValue("roles", activeRoleIds);
@@ -143,12 +143,12 @@ const AddTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="solid" icon={PlusIcon}>
-          {label}
+        <Button color="secondary" mode="solid" icon={PlusIcon}>
+          {buttonLabel}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(

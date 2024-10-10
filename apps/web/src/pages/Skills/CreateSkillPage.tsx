@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -38,6 +38,7 @@ import { parseKeywords } from "~/utils/skillUtils";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import { SkillFormOptions_Query } from "./operations";
 
@@ -96,8 +97,7 @@ export const CreateSkillForm = ({
     },
   });
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.skillTable();
+  const navigateTo = useReturnPath(paths.skillTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleCreateSkill(formValuesToSubmitData(values))
@@ -352,7 +352,7 @@ const CreateSkillPage = () => {
       if (result.data?.createSkill) {
         return result.data?.createSkill;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({

@@ -39,13 +39,13 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/jest": "^29.5.13",
-    "@types/lodash": "^4.17.9",
-    "@types/node": "^22.7.4",
+    "@types/lodash": "^4.17.10",
+    "@types/node": "^22.7.5",
     "@types/react": "^18.3.11",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   }
 }

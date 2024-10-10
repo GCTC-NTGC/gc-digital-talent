@@ -32,8 +32,6 @@ class ApplicantFilter extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'location_preferences' => 'array',

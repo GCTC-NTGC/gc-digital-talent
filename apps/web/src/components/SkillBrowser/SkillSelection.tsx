@@ -15,6 +15,7 @@ import {
   getFilteredFamilies,
   getFilteredSkills,
 } from "./utils";
+import { FormValues } from "./types";
 
 interface SkillSelectionProps {
   skills: Skill[];
@@ -28,7 +29,7 @@ const SkillSelection = ({
   inLibrary,
 }: SkillSelectionProps) => {
   const intl = useIntl();
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
 
   const [family, skill] = watch(["family", "skill"]);
 
