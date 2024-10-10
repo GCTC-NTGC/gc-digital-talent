@@ -24,6 +24,7 @@ class AssessmentStepPolicy
     {
         if (array_key_exists('pool_id', $request)) {
             $poolId = $request['pool_id'];
+            /** @var ?Pool $pool */
             $pool = Pool::with(['team', 'legacyTeam', 'community.team'])->find($poolId);
 
             if (! is_null($pool)) {

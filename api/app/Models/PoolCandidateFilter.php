@@ -22,9 +22,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $language_ability
  * @property array $work_regions
  * @property array $operational_requirements
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class PoolCandidateFilter extends Model
 {

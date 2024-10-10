@@ -7,6 +7,7 @@ use App\Enums\EducationType;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\EducationExperience */
 class EducationExperienceResource extends JsonResource
 {
     use HasLocalizedEnums;

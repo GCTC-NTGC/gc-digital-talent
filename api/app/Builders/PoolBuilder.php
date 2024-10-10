@@ -228,7 +228,9 @@ class PoolBuilder extends Builder
         // if they can view team plans, then filter by teams
         if ($user?->isAbleTo('view-team-assessmentPlan')) {
             return $this->where(function (Builder $query) use ($user) {
-                // Only add teams the user can view pools in to the query for `whereHas`
+                /** Only add teams the user can view pools in to the query for `whereHas`
+                 * @var array<\App\Models\Team> $teams
+                 */
                 $teams = $user->rolesTeams()->get();
                 $teamIds = [];
                 foreach ($teams as $team) {
@@ -267,7 +269,9 @@ class PoolBuilder extends Builder
         $filterCountBefore = count($this->getQuery()->wheres);
         $this->where(function (Builder $query) use ($user) {
             if ($user?->isAbleTo('view-team-draftPool')) {
-                // Only add teams the user can view pools in to the query for `whereHas`
+                /** Only add teams the user can view pools in to the query for `whereHas`
+                 * @var array<\App\Models\Team> $teams
+                 */
                 $teams = $user->rolesTeams()->get();
                 $teamIds = [];
                 foreach ($teams as $team) {

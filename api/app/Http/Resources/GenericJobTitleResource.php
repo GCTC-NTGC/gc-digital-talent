@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\GenericJobTitle */
 class GenericJobTitleResource extends JsonResource
 {
     /**

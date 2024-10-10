@@ -7,6 +7,7 @@ use App\Enums\AwardedTo;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\AwardExperience */
 class AwardExperienceResource extends JsonResource
 {
     use HasLocalizedEnums;

@@ -19,8 +19,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $type
  * @property int $sort_order
  * @property array $title
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class AssessmentStep extends Model
 {

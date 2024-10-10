@@ -24,6 +24,7 @@ final class ChangePoolClosingDateValidator extends Validator
 
         $id = $this->arg('id');
         $now = Carbon::now();
+        /** @var Pool|null $pool */
         $pool = Pool::with(['poolSkills.skill'])->find($id);
         $hasClosingDate = ! is_null($pool) && $pool->closing_date;
         $essentialSkills = [];
