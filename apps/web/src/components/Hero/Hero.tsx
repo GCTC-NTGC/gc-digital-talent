@@ -174,6 +174,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
               level="h1"
               size="h2"
               data-h2-margin="base(0)"
+              data-h2-margin-top="base(x2) p-tablet(0)"
             >
               {title}
             </Heading>
