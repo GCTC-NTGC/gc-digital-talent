@@ -56,7 +56,7 @@ function useAsyncFileDownload(): UseAsyncFileDownloadReturn {
           }
           const body = (await res.json()) as string | null;
           return Promise.reject(
-            new Error(body ? String(body) : "Uknown error"),
+            new Error(body ? String(body) : "Unknown error"),
           );
         }
 
