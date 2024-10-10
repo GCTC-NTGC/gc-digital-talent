@@ -323,8 +323,8 @@
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
   },
-  "/eSALf": {
-    "defaultMessage": "Veuillez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+  "vweW8X": {
+    "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "/esEW+": {
@@ -6198,8 +6198,8 @@
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
   },
-  "UwHuX6": {
-    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre bureau d'aide.",
+  "BLOt/e": {
+    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre équipe de soutien.",
     "description": "Description for rule pattern on work email field"
   },
   "Uwtkv6": {
@@ -8622,8 +8622,8 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
-  "h8AdRp": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+  "jMx7Kb": {
+    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user does not have recovery codes"
   },
   "h8BHov": {
@@ -8846,8 +8846,8 @@
     "defaultMessage": "Recherche de candidat",
     "description": "Title for the all pool candidates page"
   },
-  "i20Mlb": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+  "fQ7zxR": {
+    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "i2LB7R": {
