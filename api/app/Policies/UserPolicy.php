@@ -104,7 +104,7 @@ class UserPolicy
         $canAttachRoles = false;
         $canDetachRoles = false;
 
-        $canAttachRoles = collect($attachRoles)->every(function($roleInput) use ($user) {
+        $canAttachRoles = collect($attachRoles)->every(function ($roleInput) use ($user) {
             // loop through each element and check
             if (isset($roleInput['teamId'])) {
                 return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
@@ -115,7 +115,7 @@ class UserPolicy
             return true;
         });
 
-        $canDetachRoles = collect($detachRoles)->every(function($roleInput) use ($user) {
+        $canDetachRoles = collect($detachRoles)->every(function ($roleInput) use ($user) {
             // loop through each element and check
             if (isset($roleInput['teamId'])) {
                 return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
@@ -130,7 +130,7 @@ class UserPolicy
             return true;
         }
 
-        // nothing failed
+        // user cannot update any roles
         return false;
     }
 
