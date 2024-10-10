@@ -9,8 +9,8 @@ const messages = defineMessages({
   },
   answerRecoveryCodes: {
     defaultMessage:
-      "Although your login cannot be recovered, you can contact our <helpLink>Help Desk</helpLink> for help with recovering your account.",
-    id: "h8AdRp",
+      "Although your login cannot be recovered, you can contact our <helpLink>support team</helpLink> for help with recovering your account.",
+    id: "jMx7Kb",
     description: "GCKey answer for when user does not have recovery codes",
   },
   questionRemove2FA: {
@@ -22,8 +22,8 @@ const messages = defineMessages({
   },
   answerRemove2FA: {
     defaultMessage:
-      "We cannot remove two-factor authentication, but you can contact our <helpLink>Help Desk</helpLink> for help with recovering your account.",
-    id: "i20Mlb",
+      "We cannot remove two-factor authentication, but you can contact our <helpLink>support team</helpLink> for help with recovering your account.",
+    id: "fQ7zxR",
     description: "GCKey answer for ability to remove two-factor authentication",
   },
   questionAuthCodes: {
@@ -35,8 +35,8 @@ const messages = defineMessages({
   },
   answerAuthCodes: {
     defaultMessage:
-      "Please contact our <helpLink>Help Desk</helpLink> for help with recovering your account.",
-    id: "/eSALf",
+      "Please contact our <helpLink>support team</helpLink> for help with recovering your account.",
+    id: "vweW8X",
     description: "GCKey answer for when user authenticator codes not accepted",
   },
   questionExistingAccount: {
