@@ -180,7 +180,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
             {subtitle && (
               <p
                 data-h2-font-size="base(h5, 1.4)"
-                data-h2-margin="base(x1, 0, x1, 0)"
+                data-h2-margin="base(x0.25, 0, x1.5, 0)"
               >
                 {subtitle}
               </p>
@@ -194,7 +194,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
             {crumbs && (
               <nav
                 aria-label={intl.formatMessage(uiMessages.breadcrumbs)}
-                data-h2-padding-top="base(x2)"
+                data-h2-padding-top="base(x1.5)"
               >
                 <ol
                   data-h2-list-style="base(none)"
