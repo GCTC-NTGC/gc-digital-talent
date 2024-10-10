@@ -7,13 +7,11 @@ import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
 const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
-const fakedPoolNull = fakedPools[0];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nullPool: any = {};
-Object.keys(fakedPoolNull).forEach((key) => {
-  nullPool[key] = null;
-});
+const nullPool: Pool = {
+  __typename: "Pool",
+  id: "uuid",
+};
 
 const poolWithoutWhoCanApply: Pool = {
   ...fakedPool,
