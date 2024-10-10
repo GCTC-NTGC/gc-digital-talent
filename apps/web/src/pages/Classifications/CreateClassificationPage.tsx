@@ -209,7 +209,7 @@ const CreateClassification = () => {
       if (result.data?.createClassification) {
         return result.data?.createClassification;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({

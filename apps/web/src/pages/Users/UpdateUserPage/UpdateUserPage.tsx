@@ -323,7 +323,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserAsAdmin) {
         return result.data.updateUserAsAdmin;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const handleUpdateUserRoles = (input: UpdateUserRolesInput) =>
@@ -335,7 +335,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserRoles) {
         return result.data.updateUserRoles;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const handleUpdateUserSub = (input: UpdateUserSubInput) =>
@@ -347,7 +347,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserSub) {
         return result.data.updateUserSub;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const [, executeDeleteMutation] = useMutation(DeleteUser_Mutation);
@@ -358,7 +358,7 @@ const UpdateUserPage = () => {
       if (result.data?.deleteUser) {
         return result.data.deleteUser;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const availableRoles = unpackMaybes(data?.roles);
