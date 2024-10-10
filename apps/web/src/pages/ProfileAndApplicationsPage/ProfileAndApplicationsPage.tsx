@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { Client, useQuery } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -72,7 +72,14 @@ export const loader = (client: Client) => async () => {
   return await client
     .query(ProfileAndApplicationsApplicant_Query, {})
     .toPromise()
-    .then((res) => res.data);
+    .then((res) => res.data)
+    .then((res) => {
+      if (!res?.me) {
+        return Promise.reject(new NotFoundError());
+      }
+
+      return Promise.resolve(res);
+    });
 };
 
 const ProfileAndApplicationsPage = () => {
