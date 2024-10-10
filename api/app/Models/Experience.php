@@ -17,8 +17,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 /**
  * Class Experience
  *
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -35,13 +35,14 @@ class Experience extends Model
     /**
      * Create a new concrete model instance that is existing, based on the type field.
      *
-     * @param  array  $attributes
+     * @param  mixed  $attributes
      * @param  string|null  $connection
      * @return static
      */
     public function newFromBuilder($attributes = [], $connection = null)
     {
-        $model = $this->newInstanceFromType($attributes['experience_type']);
+        /** @disregard Even though it is typed as an array, it is actually a class */
+        $model = $this->newInstanceFromType(((object) $attributes)->experience_type);
 
         $model->exists = true;
 
