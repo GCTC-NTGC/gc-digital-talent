@@ -17,7 +17,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 

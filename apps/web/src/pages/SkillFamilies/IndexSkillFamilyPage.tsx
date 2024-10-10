@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";

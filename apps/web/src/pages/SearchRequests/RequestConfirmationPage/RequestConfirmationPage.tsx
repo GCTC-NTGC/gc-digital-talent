@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { Scalars } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";

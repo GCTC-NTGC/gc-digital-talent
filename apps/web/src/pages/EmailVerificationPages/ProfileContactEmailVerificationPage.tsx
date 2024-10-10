@@ -8,7 +8,7 @@ import { EmailType } from "@gc-digital-talent/graphql";
 // importing from a shared file, not the page itself
 // eslint-disable-next-line no-restricted-imports
 import profilePageMessages from "~/pages/Profile/ProfilePage/messages";
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";

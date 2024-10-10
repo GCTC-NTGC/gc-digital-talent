@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
-import HomeHero from "~/components/Hero/HomeHero";
+import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import hero1Landscape from "~/assets/img/hero-1-landscape.webp";
