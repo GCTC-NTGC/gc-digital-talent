@@ -410,7 +410,9 @@ const GettingStarted = () => {
           if (notificationResult.data?.updateEnabledNotifications) {
             return generalResult.data?.updateUserAsUser;
           }
-          return Promise.reject(notificationResult.error);
+          return Promise.reject(
+            new Error(notificationResult.error?.toString()),
+          );
         });
       }
     });

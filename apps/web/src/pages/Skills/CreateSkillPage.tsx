@@ -352,7 +352,7 @@ const CreateSkillPage = () => {
       if (result.data?.createSkill) {
         return result.data?.createSkill;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({
