@@ -8,16 +8,18 @@ const MenuLink = ({ children, ...rest }: MenuLinkProps) => {
   return (
     <NavLink
       {...rest}
-      data-h2-background-color="
-        base(transparent)
-        base:focus-visible(focus)"
       data-h2-color="
         base(white)
+        base:dark(gray.lightest)
+        base:dark:hover(secondary.lightest)
+        base:iap(white)
+        base:iap:hover(primary.lightest)
+        base:iap:selectors[.active](primary.lighter)
+        base:iap:dark(gray.lightest)
+        base:iap:dark:hover(primary.lightest)
+        base:iap:dark:selectors[.active](primary.lighter)
         base:hover(secondary.lighter)
-        base:all:focus-visible(black)
         base:selectors[.active](secondary)
-        base:dark:hover:iap(secondary.lightest)
-        base:all:iap:focus-visible(black)
       "
       data-h2-border="base(none)"
       data-h2-font-size="base(body)"
