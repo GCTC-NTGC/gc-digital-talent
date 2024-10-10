@@ -167,8 +167,8 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
-        $searchRequest1 = PoolCandidateSearchRequest::factory()->create(['community_id' => $community->id]);
-        $searchRequest2 = PoolCandidateSearchRequest::factory()->create(['community_id' => $otherCommunity->id]);
+        $searchRequest1 = PoolCandidateSearchRequest::factory()->create(['community_id' => $community->id, 'user_id' => null]);
+        $searchRequest2 = PoolCandidateSearchRequest::factory()->create(['community_id' => $otherCommunity->id, 'user_id' => null]);
 
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter([$community->id])
@@ -343,5 +343,82 @@ class PoolCandidateSearchRequestTest extends TestCase
         )->assertSuccessful();
 
         $this->assertTrue(PoolCandidateSearchRequest::where('user_id', $this->adminUser->id)->exists());
+    }
+
+    public function testUserCanSeeTheirOwnRequests()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->create();
+        $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
+        $user2 = User::factory()->create();
+        $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
+        $request3 = PoolCandidateSearchRequest::factory()->create(['user_id' => null]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequests {
+                me {
+                    poolCandidateSearchRequests {
+                        id
+                    }
+                }
+            }
+            GRAPHQL
+        )->assertExactJson([
+            'data' => [
+                'me' => [
+                    'poolCandidateSearchRequests' => [
+                        // Can only see request 1.  Request 2 belongs to another user and 3 is for no user.
+                        ['id' => $request1->id],
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    public function testUserCanSeeTheirOwnRequest()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->create();
+        $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequest($requestId: ID!) {
+                    poolCandidateSearchRequest(id: $requestId) {
+                        id
+                }
+            }
+            GRAPHQL,
+            ['requestId' => $request1->id]
+        )->assertExactJson([
+            'data' => [
+                'poolCandidateSearchRequest' => [
+                    'id' => $request1->id,
+                ],
+            ],
+        ]);
+    }
+
+    public function testUserCanNotSeeOtherRequest()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequest($requestId: ID!) {
+                    poolCandidateSearchRequest(id: $requestId) {
+                        id
+                }
+            }
+            GRAPHQL,
+            ['requestId' => $request2->id]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }

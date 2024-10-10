@@ -4,6 +4,8 @@ import { LinkProps, ScrollToLink } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 
+import talentRequestMessages from "~/messages/talentRequestMessages";
+
 interface SearchFilterAdviceProps {
   filters: ApplicantFilterInput;
 }
@@ -94,11 +96,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
       key: "employmentDurationFilter",
       link: (
         <ScrollToLink to="employmentDurationFilter" {...linkProps}>
-          {intl.formatMessage({
-            defaultMessage: "Employment duration",
-            description: "Title for Employment duration section",
-            id: "Muh/+P",
-          })}
+          {intl.formatMessage(talentRequestMessages.employmentDuration)}
         </ScrollToLink>
       ),
     });

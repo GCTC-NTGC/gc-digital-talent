@@ -31,6 +31,10 @@ class PoolCandidateSearchRequestPolicy
             return true;
         }
 
+        if ($user->isAbleTo('view-own-searchRequest') && $poolCandidateSearchRequest->user_id == $user->id) {
+            return true;
+        }
+
         $poolCandidateSearchRequest->loadMissing('community.team');
 
         if (isset($poolCandidateSearchRequest->community->team)) {

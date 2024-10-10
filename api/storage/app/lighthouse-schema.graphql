@@ -537,6 +537,7 @@ type User {
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
   poolBookmarks: [Pool]
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
 }
 
 interface Notification {
