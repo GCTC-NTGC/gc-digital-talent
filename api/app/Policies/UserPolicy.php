@@ -97,13 +97,6 @@ class UserPolicy
             return false;
         }
 
-        if (empty($attachRoles) && empty($detachRoles)) {
-            return true;
-        }
-
-        $canAttachRoles = false;
-        $canDetachRoles = false;
-
         $canAttachRoles = collect($attachRoles)->every(function ($roleInput) use ($user) {
             // loop through each element and check
             if (isset($roleInput['teamId'])) {
@@ -111,8 +104,6 @@ class UserPolicy
             } else {
                 return $this->individualAbleToCheck($user, $roleInput['roleId']);
             }
-
-            return true;
         });
 
         $canDetachRoles = collect($detachRoles)->every(function ($roleInput) use ($user) {
@@ -122,8 +113,6 @@ class UserPolicy
             } else {
                 return $this->individualAbleToCheck($user, $roleInput['roleId']);
             }
-
-            return true;
         });
 
         if ($canAttachRoles && $canDetachRoles) {
