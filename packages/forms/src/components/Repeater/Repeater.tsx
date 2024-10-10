@@ -36,7 +36,7 @@ export interface RepeaterFieldsetProps {
   isLast?: boolean;
 }
 
-const MotionFieldset = motion(Field.Fieldset);
+const MotionFieldset = motion.create(Field.Fieldset);
 
 const Fieldset = ({
   index,

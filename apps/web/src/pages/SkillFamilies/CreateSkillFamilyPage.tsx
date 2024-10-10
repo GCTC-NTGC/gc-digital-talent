@@ -265,7 +265,7 @@ const CreateSkillFamilyPage = () => {
       if (result.data?.createSkillFamily) {
         return result.data?.createSkillFamily;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({

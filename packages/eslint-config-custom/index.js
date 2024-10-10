@@ -86,6 +86,7 @@ module.exports = {
     "no-shadow": "off",
     "no-console": "error",
     "no-alert": "error",
+    "prefer-promise-reject-errors": "off",
     "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-empty-function": "error",
@@ -105,14 +106,6 @@ module.exports = {
     "import/no-named-as-default": process.env.CI ? "error" : "off",
     "import/namespace": process.env.CI ? "error" : "off",
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
-
-    // Temporarily disabled to ease transition to typed linting
-    "@typescript-eslint/prefer-promise-reject-errors": "off", // Remove in #11382
-
-    // Remove in #11384
-    "@typescript-eslint/no-unsafe-call": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-unsafe-return": "off",
   },
   settings: {
     react: {

@@ -270,7 +270,7 @@ const UpdateClassification = () => {
       if (result.data?.updateClassification) {
         return Promise.resolve(result.data?.updateClassification);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({
