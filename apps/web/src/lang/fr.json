@@ -323,10 +323,6 @@
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
   },
-  "vweW8X": {
-    "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user authenticator codes not accepted"
-  },
   "/esEW+": {
     "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de l’équipe <strong>{teamName}</strong>.",
     "description": "Help text for the remove team membership dialog"
@@ -2522,6 +2518,10 @@
   "BJ38Kf": {
     "defaultMessage": "Veuillez préciser votre ministère ou organisme",
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
+  },
+  "BLOt/e": {
+    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre équipe de soutien.",
+    "description": "Description for rule pattern on work email field"
   },
   "BMWvU8": {
     "defaultMessage": "Compte et confidentialité",
@@ -6198,10 +6198,6 @@
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
   },
-  "BLOt/e": {
-    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre équipe de soutien.",
-    "description": "Description for rule pattern on work email field"
-  },
   "Uwtkv6": {
     "defaultMessage": "Ce à quoi s’attendre après l’admission",
     "description": "Title for the what to expect post admission section"
@@ -8250,6 +8246,10 @@
     "defaultMessage": "Le français - Votre impact",
     "description": "Label for the French - Your Impact textarea in the edit pool page."
   },
+  "fQ7zxR": {
+    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for ability to remove two-factor authentication"
+  },
   "fQkgnT": {
     "defaultMessage": "Placement professionnel",
     "description": "Title displayed on the Pool Candidates table job placement column"
@@ -8622,10 +8622,6 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
-  "jMx7Kb": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user does not have recovery codes"
-  },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
@@ -8845,10 +8841,6 @@
   "i16C7G": {
     "defaultMessage": "Recherche de candidat",
     "description": "Title for the all pool candidates page"
-  },
-  "fQ7zxR": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
@@ -9149,6 +9141,10 @@
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
+  },
+  "jMx7Kb": {
+    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for when user does not have recovery codes"
   },
   "jNqZ46": {
     "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
@@ -11245,6 +11241,10 @@
   "vmj/E4": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
     "description": "English Positions message"
+  },
+  "vweW8X": {
+    "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "vyyfX6": {
     "defaultMessage": "Créer une nouvelle équipe",
