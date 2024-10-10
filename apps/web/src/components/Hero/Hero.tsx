@@ -80,7 +80,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
   const intl = useIntl();
 
   const headingRef = useRef<HeadingRef>(null);
-  const showImg = imgPath && !centered && !children;
+  const showImg = imgPath && !children;
   const applyOverlap = overlap && !navTabs;
   const textAlignment = centered
     ? {
