@@ -54,7 +54,10 @@ function useAsyncFileDownload(): UseAsyncFileDownloadReturn {
           if (res.status === 404) {
             return Promise.reject(new Error("not found"));
           }
-          return Promise.reject(new Error(await res.json()));
+          const body = (await res.json()) as string | null;
+          return Promise.reject(
+            new Error(body ? String(body) : "Uknown error"),
+          );
         }
 
         return res.blob();
