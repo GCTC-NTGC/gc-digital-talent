@@ -13,6 +13,8 @@ import {
 import type { Color, HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
 import Chip from "../Chip/Chip";
+import Link from "../Link";
+import Button from "../Button";
 
 type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
   mode?: AccordionMode;
@@ -40,7 +42,10 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
           `,
             "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.3)
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.5 0 x1 x2.3)
+              p-tablet:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x1 x2.3)
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](x.5 0 0 x1.3)
+              p-tablet:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](0 0 0 0)
           `,
           }
         : {
@@ -70,7 +75,10 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
           `,
               "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.25)
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.5 0 x1 x2.25)
+              p-tablet:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x1 x2.25)
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](x.5 0 0 x1.25)
+              p-tablet:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](0 0 0 0)
           `,
             }
           : {
@@ -101,7 +109,10 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
             `,
               "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.45)
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.5 0 x1 x2.45)
+              p-tablet:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x1 x2.45)
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](x.5 0 0 x1.45)
+              p-tablet:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](0 0 0 0)
             `,
             }
           : {
@@ -176,7 +187,7 @@ const Trigger = forwardRef<
           <AccordionPrimitive.Trigger
             ref={forwardedRef}
             className="Accordion__Trigger"
-            data-h2-align-items="base(center)"
+            data-h2-align-items="base(flex-start)"
             data-h2-background-color="base(transparent) base:focus-visible(focus)"
             data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
             data-h2-cursor="base(pointer)"
@@ -215,7 +226,7 @@ const Trigger = forwardRef<
                 data-h2-flex-grow="base(1)"
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x.25 0)"
+                data-h2-gap="base(x.15 0)"
               >
                 <Heading
                   className="Accordion__Heading"
@@ -227,7 +238,7 @@ const Trigger = forwardRef<
                 {subtitle && (
                   <span
                     className="Accordion__Subtitle"
-                    data-h2-font-size="base(body)"
+                    data-h2-font-size="base(caption)"
                   >
                     {subtitle}
                   </span>
@@ -237,9 +248,11 @@ const Trigger = forwardRef<
 
             {(Icon ?? context) && (
               <span
+                className="Accordion__Context"
                 data-h2-align-items="base(center)"
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x.25)"
+                data-h2-margin="base(x.5 0 0 x1.30) p-tablet(0 0 0 0)"
               >
                 {context && (
                   <span data-h2-font-size="base(body)">{context}</span>
@@ -257,8 +270,10 @@ const Trigger = forwardRef<
 export interface AccordionMetaData {
   children: ReactNode;
   color?: Color;
+  href?: string;
   key: string;
   type: "button" | "link" | "text" | "chip";
+  onClick?: () => void;
 }
 interface AccordionMetaDataProps {
   metadata: AccordionMetaData[];
@@ -275,28 +290,51 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       data-h2-gap="base(x.5 0)"
       data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
       data-h2-text-decoration="p-tablet:children[::after](none)"
-      data-h2-color="p-tablet:children[::after](gray.darker)"
-      data-h2-margin="base(-x.25 0 x.5 x1.35) p-tablet:children[:not(:last-child)::after](0 x.5)"
+      data-h2-color="p-tablet:children[::after](black.lighter)"
+      data-h2-margin="base(-x.05 0 x.5 x1.30) p-tablet(-x.55 0 x.5 x1.30) p-tablet:children[:not(:last-child)::after](0 x.5)"
       data-h2-font-size="base(caption)"
+      data-h2-font-weight="base(bold)"
     >
-      {metadata.map(({ type, color, children }) => {
+      {metadata.map(({ type, color, href, children, onClick }) => {
         switch (type) {
           case "text":
-            return <span data-h2-color="base(gray.darker)">{children}</span>;
+            return (
+              <span
+                data-h2-color="base(black.light)"
+                data-h2-font-weight="base(400)"
+              >
+                {children}
+              </span>
+            );
           case "chip":
             return (
               <span>
-                <Chip
-                  color={color ?? "primary"}
-                  data-h2-font-weight="base(400)"
-                >
-                  {children}
-                </Chip>
+                <Chip color={color ?? "primary"}>{children}</Chip>
               </span>
             );
           case "button":
+            return (
+              <Button
+                mode="text"
+                color={color ?? "primary"}
+                fontSize="caption"
+                data-h2-font-weight="base(bold)"
+                onClick={onClick}
+              >
+                {children}
+              </Button>
+            );
           case "link":
-            return <>{children}</>;
+            return (
+              <Link
+                color={color ?? "primary"}
+                href={href}
+                fontSize="caption"
+                data-h2-font-weight="base(bold)"
+              >
+                {children}
+              </Link>
+            );
           default:
             return null;
         }

@@ -1,25 +1,16 @@
-import Button from "../Button";
-import Link from "../Link";
 import { AccordionMetaData } from "./Accordion";
 
 export const testMetaData: AccordionMetaData[] = [
   {
     key: "button-id",
     type: "button",
-    children: (
-      <Button mode="text" color="primary">
-        Button label
-      </Button>
-    ),
+    children: "Button label",
   },
   {
     key: "link-id",
     type: "link",
-    children: (
-      <Link mode="text" color="primary">
-        Link label
-      </Link>
-    ),
+    href: "#",
+    children: "Link label",
   },
   {
     key: "chip-id",

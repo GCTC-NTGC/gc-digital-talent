@@ -78,26 +78,26 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
       type: "link",
       // This link is missing an href since the page doesn't exist yet.  Probably #10982
       children: (
-        <Link color="primary" href="#">
+        <>
           {intl.formatMessage({
             defaultMessage: "All requests",
             id: "mJKi1Y",
             description: "Link to a page to view all the requests",
           })}
-        </Link>
+        </>
       ),
     },
     {
       key: "new-request-key",
       type: "link",
       children: (
-        <Link color="primary" href={paths.search()}>
+        <>
           {intl.formatMessage({
             defaultMessage: "New request",
             id: "BGQaDq",
             description: "Link to a page to start a new request",
           })}
-        </Link>
+        </>
       ),
     },
   ];
