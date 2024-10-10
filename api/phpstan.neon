@@ -258,16 +258,6 @@ parameters:
       path: app/GraphQL/Validators/RevertPlaceCandidateValidator.php
 
     -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 2
-      path: app/Http/Controllers/AuthController.php
-
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 1
-      path: app/Http/Controllers/SupportController.php
-
-    -
       message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\AwardExperienceResource\\:\\:\\$awarded_date\\.$#"
       count: 1
       path: app/Http/Resources/AwardExperienceResource.php
@@ -1048,7 +1038,7 @@ parameters:
       path: app/Rules/PoolPublished.php
 
     -
-      message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Skill\\>\\:\\:\\$pivot\\.$#"
+      message: "#^Access to an undefined property App\\\\Models\\\\Skill\\:\\:\\$pivot\\.$#"
       count: 2
       path: app/Rules/SkillLevelRequiredIfEssential.php
 
@@ -1056,11 +1046,6 @@ parameters:
       message: "#^Variable \\$activePoolsUsingSkill in isset\\(\\) always exists and is not nullable\\.$#"
       count: 1
       path: app/Rules/SkillNotUsedByActivePool.php
-
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 3
-      path: app/Services/OpenIdBearerTokenService.php
 
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"

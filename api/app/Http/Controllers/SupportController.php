@@ -81,7 +81,7 @@ class SupportController extends Controller
         }
 
         // we don't recognize an error so send a generic 500
-        Log::error('Error when trying to create a ticket: '.$response->getBody(true));
+        Log::error('Error when trying to create a ticket: '.$response->getBody());
 
         return response([
             'serviceResponse' => 'error',
