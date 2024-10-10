@@ -57,8 +57,8 @@ const deriveAreaOfSelectionMessages = (
         title: intl.formatMessage(
           {
             defaultMessage:
-              "This opportunity is for internal employees with a classification of {classification} or equivalent with preference given to those at the departments listed*",
-            id: "66xc/o",
+              "This job opportunity is for internal employees with a classification of {classification} or equivalent with preference given to those at the departments listed*",
+            id: "1MJGsD",
             description:
               "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print.",
           },
@@ -70,8 +70,8 @@ const deriveAreaOfSelectionMessages = (
         body: intl.formatMessage(
           {
             defaultMessage:
-              "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-            id: "pVx/jP",
+              "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+            id: "QXB3EX",
             description:
               "Body of a note describing that a pool is only open to employees at-level",
           },
@@ -98,8 +98,8 @@ const deriveAreaOfSelectionMessages = (
         title: intl.formatMessage(
           {
             defaultMessage:
-              "This opportunity is for internal employees with a classification of {classification} or equivalent",
-            id: "4l0wGu",
+              "This job opportunity is for internal employees with a classification of {classification} or equivalent",
+            id: "LDVGvh",
             description:
               "Title of a note describing that a pool is only open to employees at-level",
           },
@@ -110,8 +110,8 @@ const deriveAreaOfSelectionMessages = (
         body: intl.formatMessage(
           {
             defaultMessage:
-              "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-            id: "pVx/jP",
+              "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as {classification} or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+            id: "QXB3EX",
             description:
               "Body of a note describing that a pool is only open to employees at-level",
           },
@@ -129,16 +129,16 @@ const deriveAreaOfSelectionMessages = (
       return {
         title: intl.formatMessage({
           defaultMessage:
-            "This opportunity is for internal employees with preference given to those at the departments listed*",
-          id: "JKEDRo",
+            "This job opportunity is for internal employees with preference given to those at the departments listed*",
+          id: "3FAEil",
           description:
             "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print.",
         }),
         // The same message is used for employees only. There is no mention of the departmental preference.
         body: intl.formatMessage({
           defaultMessage:
-            "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-          id: "k9moOJ",
+            "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+          id: "FrQmN+",
           description:
             "Body of a note describing that a pool is only open to employees",
         }),
@@ -160,15 +160,15 @@ const deriveAreaOfSelectionMessages = (
     // fall-through for employees only
     return {
       title: intl.formatMessage({
-        defaultMessage: "This opportunity is for internal employees",
-        id: "WcU42I",
+        defaultMessage: "This job opportunity is for internal employees",
+        id: "RGl+Dr",
         description:
           "Title of a note describing that a pool is only open to employees",
       }),
       body: intl.formatMessage({
         defaultMessage:
-          "This opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
-        id: "k9moOJ",
+          "This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.",
+        id: "FrQmN+",
         description:
           "Body of a note describing that a pool is only open to employees",
       }),

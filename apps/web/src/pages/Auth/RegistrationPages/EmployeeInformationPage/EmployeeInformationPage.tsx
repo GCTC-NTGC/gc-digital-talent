@@ -605,7 +605,7 @@ const EmployeeInformation = () => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const onSubmit = async (
