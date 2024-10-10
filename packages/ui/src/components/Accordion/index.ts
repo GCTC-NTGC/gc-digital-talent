@@ -1,3 +1,4 @@
-import Accordion from "./Accordion";
+import Accordion, { AccordionMetaData } from "./Accordion";
 
 export default Accordion;
+export type { AccordionMetaData };

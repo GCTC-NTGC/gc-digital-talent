@@ -10,8 +10,9 @@ import {
   ReactNode,
 } from "react";
 
-import type { HeadingRank, IconType } from "../../types";
+import type { Color, HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
+import Chip from "../Chip/Chip";
 
 type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
   mode?: AccordionMode;
@@ -38,6 +39,9 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
               base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
           `,
+            "data-h2-margin": `
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.3)
+          `,
           }
         : {
             "data-h2-padding": `
@@ -62,8 +66,11 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
         mode === "card"
           ? {
               "data-h2-padding": `
-        base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-        base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
+          `,
+              "data-h2-margin": `
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.25)
           `,
             }
           : {
@@ -90,9 +97,12 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
         mode === "card"
           ? {
               "data-h2-padding": `
-        base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-        base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
-      `,
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
+            `,
+              "data-h2-margin": `
+              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.75 0 x1 x2.45)
+            `,
             }
           : {
               "data-h2-padding": `
@@ -244,6 +254,57 @@ const Trigger = forwardRef<
   },
 );
 
+export interface AccordionMetaData {
+  children: ReactNode;
+  color?: Color;
+  key: string;
+  type: "button" | "link" | "text" | "chip";
+}
+interface AccordionMetaDataProps {
+  metadata: AccordionMetaData[];
+}
+
+const MetaData = ({ metadata }: AccordionMetaDataProps) => {
+  return (
+    <div
+      className="Accordion__MetaData"
+      data-h2-display="base(flex) p-tablet:children[::after](inline-block)"
+      data-h2-flex-direction="base(column) p-tablet(row)"
+      data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
+      data-h2-align-items="base(flex-start) p-tablet(center)"
+      data-h2-gap="base(x.5 0)"
+      data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
+      data-h2-text-decoration="p-tablet:children[::after](none)"
+      data-h2-color="p-tablet:children[::after](gray.darker)"
+      data-h2-margin="base(-x.25 0 x.5 x1.35) p-tablet:children[:not(:last-child)::after](0 x.5)"
+      data-h2-font-size="base(caption)"
+    >
+      {metadata.map(({ type, color, children }) => {
+        switch (type) {
+          case "text":
+            return <span data-h2-color="base(gray.darker)">{children}</span>;
+          case "chip":
+            return (
+              <span>
+                <Chip
+                  color={color ?? "primary"}
+                  data-h2-font-weight="base(400)"
+                >
+                  {children}
+                </Chip>
+              </span>
+            );
+          case "button":
+          case "link":
+            return <>{children}</>;
+          default:
+            return null;
+        }
+      })}
+    </div>
+  );
+};
+
 const Content = forwardRef<
   ElementRef<typeof AccordionPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
@@ -282,6 +343,11 @@ const Accordion = {
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#trigger)
    */
   Trigger,
+  /**
+   * @name MetaData
+   * @desc Adds metadata below trigger.
+   */
+  MetaData,
   /**
    * @name Content
    * @desc Contains the collapsible content for an item.
