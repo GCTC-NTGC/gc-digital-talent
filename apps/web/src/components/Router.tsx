@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Client, useClient } from "urql";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
@@ -6,7 +7,7 @@ import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
-const createRoute = (locale: Locales) =>
+const createRoute = (locale: Locales, client: Client) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -182,10 +183,15 @@ const createRoute = (locale: Locales) =>
               children: [
                 {
                   index: true,
-                  lazy: () =>
-                    import(
+                  async lazy() {
+                    const { loader, Component } = await import(
                       "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
-                    ),
+                    );
+                    return {
+                      loader: loader(client),
+                      Component,
+                    };
+                  },
                 },
                 {
                   path: "settings",
@@ -879,7 +885,8 @@ const createRoute = (locale: Locales) =>
 const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
-  const router = createRoute(locale);
+  const client = useClient();
+  const router = createRoute(locale, client);
   return (
     <RouterProvider
       router={router}
