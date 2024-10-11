@@ -349,13 +349,13 @@ class Pool extends Model
             return PoolStatus::DRAFT->name;
         }
 
-        if (Carbon::now()->gte($this->archived_at)) {
+        if ($this?->archived_at && Carbon::now()->gte($this->archived_at)) {
             return PoolStatus::ARCHIVED->name;
         }
-        if (Carbon::now()->gte($this->closing_date)) {
+        if ($this?->closing_date && Carbon::now()->gte($this->closing_date)) {
             return PoolStatus::CLOSED->name;
         }
-        if (Carbon::now()->gte($this->published_at)) {
+        if ($this?->published_at && Carbon::now()->gte($this->published_at)) {
             return PoolStatus::PUBLISHED->name;
         }
 
