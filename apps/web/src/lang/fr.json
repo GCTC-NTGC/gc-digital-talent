@@ -2028,7 +2028,7 @@
     "description": "Title for skills editor"
   },
   "8kMPLB": {
-    "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
+    "defaultMessage": "Décrivez la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
   },
   "8n9opI": {
@@ -5038,6 +5038,10 @@
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
+  },
+  "Opn8nz": {
+    "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
+    "description": "More descriptive label for the textarea in the skills in detail section"
   },
   "OqglGZ": {
     "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
