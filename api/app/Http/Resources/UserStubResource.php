@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 // Sometimes we have to query for relationship non-nullable fields when they're not needed because of codegen
+/** @mixin \App\Models\User */
 class UserStubResource extends JsonResource
 {
     /**

@@ -28,6 +28,7 @@ class PoolPublished implements Rule
      */
     public function passes($attribute, $value)
     {
+        /** @var Pool $pool */
         $pool = Pool::find($value);
 
         return ! in_array($pool->status, [

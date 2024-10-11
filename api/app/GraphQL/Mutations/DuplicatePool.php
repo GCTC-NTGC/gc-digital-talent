@@ -9,9 +9,12 @@ final class DuplicatePool
 {
     /**
      * Duplicates a pool
+     *
+     * @disregard P1030 $_ Never going to be used
      */
     public function __invoke($_, array $args)
     {
+        /** @var Pool $pool */
         $pool = Pool::with('poolSkills.skill')->find($args['id']);
 
         $newPool = $pool->replicate()->fill([

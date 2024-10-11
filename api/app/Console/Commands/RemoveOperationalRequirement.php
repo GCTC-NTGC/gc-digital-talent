@@ -36,6 +36,8 @@ class RemoveOperationalRequirement extends Command
             $user->accepted_operational_requirements = $collectionUser->forget($keyUser)->flatten()->toArray();
             $user->save();
         }
+
+        /** @var array<Pool> $pools */
         $pools = Pool::whereJsonContains('operational_requirements', $value)->get();
         foreach ($pools as $pool) {
             $collectionPool = collect($pool->operational_requirements);
