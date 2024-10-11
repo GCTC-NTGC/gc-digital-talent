@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class UserSkill
+ *
+ * @mixin \App\Models\Skill
  *
  * @property string $id
  * @property string $user_id
@@ -17,6 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $when_skill_used
  * @property int $top_skills_rank
  * @property int $improve_skills_rank
+ * @property-read \App\Models\ExperienceSkill $experience_skill
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class UserSkill extends Model
 {
@@ -127,7 +132,7 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
-    public function experiences()
+    public function experiences(): BelongsToMany
     {
         return $this->belongsToMany(
             Experience::class,

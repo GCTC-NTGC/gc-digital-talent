@@ -17,8 +17,8 @@ use Laratrust\Models\Team as LaratrustTeam;
  * @property string $contact_email
  * @property array $display_name
  * @property array $description
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class Team extends LaratrustTeam
 {

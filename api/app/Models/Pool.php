@@ -55,6 +55,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $closing_date
  * @property ?\Illuminate\Support\Carbon $published_at
  * @property ?\Illuminate\Support\Carbon $archived_at
+ * @property Classification $classification
  */
 class Pool extends Model
 {

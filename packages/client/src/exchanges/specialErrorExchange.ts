@@ -16,11 +16,15 @@ const specialErrorExchange = ({ intl }: { intl: IntlShape }) => {
         // tap((op) => console.log("[Exchange debug]: Incoming operation: ", op)),
         forward,
         tap((result) => {
-          if (
-            result?.error?.response?.status === 403 &&
-            result?.error?.networkError?.message?.includes("Request Rejected")
-          ) {
-            toast.error(intl.formatMessage(errorMessages.requestRejected));
+          const err = result.error;
+          if (err) {
+            const res = err.response as Response;
+            if (
+              res?.status === 403 &&
+              err?.networkError?.message?.includes("Request Rejected")
+            ) {
+              toast.error(intl.formatMessage(errorMessages.requestRejected));
+            }
           }
         }),
       );
