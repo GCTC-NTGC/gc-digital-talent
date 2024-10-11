@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $pool_candidate_id
  * @property string $screening_question_id
  * @property string $answer
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class ScreeningQuestionResponse extends Model
 {

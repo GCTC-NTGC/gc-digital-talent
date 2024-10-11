@@ -30,10 +30,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $request_status_weight
  * @property string $manager_job_title
  * @property string $position_type
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
- * @property Illuminate\Support\Carbon $request_status_changed_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property ?\Carbon\CarbonImmutable $request_status_changed_at
  * @property string $reason
  * @property string $community_id
  * @property int $initial_result_count

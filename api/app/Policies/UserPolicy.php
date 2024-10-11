@@ -89,50 +89,38 @@ class UserPolicy
     {
         $targetUserId = isset($args['id']) ? $args['id'] : null;
         $attachRoles = isset($args['roleAssignmentsInput']) && isset($args['roleAssignmentsInput']['attach']) ?
-            $args['roleAssignmentsInput']['attach'] : null;
+            $args['roleAssignmentsInput']['attach'] : [];
         $detachRoles = isset($args['roleAssignmentsInput']) && isset($args['roleAssignmentsInput']['detach']) ?
-            $args['roleAssignmentsInput']['detach'] : null;
+            $args['roleAssignmentsInput']['detach'] : [];
 
         if (is_null($targetUserId)) {
             return false;
         }
 
-        if (! empty($attachRoles)) {
-
-            foreach ($attachRoles as $roleInput) {
-
-                // loop through each element and check
-                if (isset($roleInput['teamId'])) {
-                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
-                        return false;
-                    }
-                } else {
-                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
-                        return false;
-                    }
-                }
+        $canAttachRoles = collect($attachRoles)->every(function ($roleInput) use ($user) {
+            // loop through each element and check
+            if (isset($roleInput['teamId'])) {
+                return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
+            } else {
+                return $this->individualAbleToCheck($user, $roleInput['roleId']);
             }
+        });
+
+        $canDetachRoles = collect($detachRoles)->every(function ($roleInput) use ($user) {
+            // loop through each element and check
+            if (isset($roleInput['teamId'])) {
+                return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
+            } else {
+                return $this->individualAbleToCheck($user, $roleInput['roleId']);
+            }
+        });
+
+        if ($canAttachRoles && $canDetachRoles) {
+            return true;
         }
 
-        if (! empty($detachRoles)) {
-
-            foreach ($detachRoles as $roleInput) {
-
-                // loop through each element and check
-                if (isset($roleInput['teamId'])) {
-                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
-                        return false;
-                    }
-                } else {
-                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        // nothing failed
-        return true;
+        // user cannot update any roles
+        return false;
     }
 
     /**

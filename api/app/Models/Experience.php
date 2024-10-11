@@ -19,8 +19,10 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $user_id
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $start_date
+ * @property ?\Illuminate\Support\Carbon $end_date
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
  */
 class Experience extends Model
 {
@@ -213,6 +215,7 @@ class Experience extends Model
     {
         $format = 'MMM Y';
         if ($this->attributes['experience_type'] === AwardExperience::class) {
+            /** @var AwardExperience $this */
             return $this->awarded_date->locale($lang)->isoFormat($format);
         }
 

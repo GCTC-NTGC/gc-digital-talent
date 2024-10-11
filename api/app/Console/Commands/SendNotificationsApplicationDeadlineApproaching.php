@@ -52,6 +52,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
 
         $this->info('Found '.$poolsClosingOnClosingDay->count().' pools.');
 
+        /** @var \App\Models\Pool $pool */
         foreach ($poolsClosingOnClosingDay as $pool) {
             $this->info('Searching pool '.$pool->id.' ('.$pool->name['en'].')');
 
@@ -62,6 +63,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
 
             $this->info('Found '.$draftApplications->count().' applications.');
 
+            /** @var \App\Models\PoolCandidate $poolCandidate */
             foreach ($draftApplications as $poolCandidate) {
                 $notification = new ApplicationDeadlineApproaching(
                     $closingDayInPacific,
