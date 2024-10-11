@@ -1,7 +1,8 @@
 import { Locator, type Page } from "@playwright/test";
 
-import AppPage from "./AppPage";
 import { InputMaybe, WorkExperienceInput } from "@gc-digital-talent/graphql";
+
+import AppPage from "./AppPage";
 
 export type ExperienceType =
   | "award"
