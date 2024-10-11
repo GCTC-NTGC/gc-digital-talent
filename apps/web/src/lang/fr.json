@@ -1,4 +1,12 @@
 {
+  "8kMPLB": {
+    "defaultMessage": "Décrivez la façon dont cette compétence a été mise en valeur dans ce rôle",
+    "description": "Label for the textarea in the skills in detail section."
+  },
+  "Opn8nz": {
+    "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
+    "description": "More descriptive label for the textarea in the skills in detail section"
+  },
   "++a1ZY": {
     "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
     "description": "Description for bilingual positions in language requirements dialog"
@@ -2026,10 +2034,6 @@
   "8ioBIZ": {
     "defaultMessage": "Éditeur de compétence",
     "description": "Title for skills editor"
-  },
-  "8kMPLB": {
-    "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
-    "description": "Label for the textarea in the skills in detail section."
   },
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
