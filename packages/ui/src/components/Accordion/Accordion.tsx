@@ -112,8 +112,10 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
           base:selectors[>.Accordion__Item:nth-child(even)](background.dark.3)
           base:dark:selectors[>.Accordion__Item:nth-child(even)](rgba(53, 57, 75, .5))
         `,
-        "data-h2-border-top":
-          "base:selectors[>.Accordion__Item + .Accordion__Item](thin solid gray)",
+        "data-h2-border-top": `
+          base:selectors[>.Accordion__Item + .Accordion__Item](thin solid black.darkest.2)
+          base:dark:selectors[>.Accordion__Item + .Accordion__Item](thin solid white.lightest.5)
+        `,
         "data-h2-overflow": "base(hidden)",
         "data-h2-radius": "base(s)",
         "data-h2-shadow": "base(l)",
