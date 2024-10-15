@@ -304,6 +304,12 @@ const createRoute = (locale: Locales) =>
               path: "browse",
               children: [
                 {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+                {
                   path: "pools",
                   children: [
                     {
