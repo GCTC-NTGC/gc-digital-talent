@@ -21,7 +21,7 @@ const Display = ({
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { language, securityClearance, location, isRemote } = pool;
 
-  const hasLocation = !!(isRemote ?? location?.[locale]);
+  const hasLocation = isRemote || (!!location?.en && !!location?.fr);
 
   return (
     <>
