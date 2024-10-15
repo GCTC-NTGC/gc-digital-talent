@@ -225,7 +225,7 @@ const Trigger = forwardRef<
               </span>
             </span>
 
-            {(Icon || context) && (
+            {(!!Icon || !!context) && (
               <span
                 data-h2-align-items="base(center)"
                 data-h2-display="base(flex)"
