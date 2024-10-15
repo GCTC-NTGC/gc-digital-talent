@@ -114,7 +114,7 @@ const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
         `,
         "data-h2-border-top": `
           base:selectors[>.Accordion__Item + .Accordion__Item](thin solid black.darkest.2)
-          base:dark:selectors[>.Accordion__Item + .Accordion__Item](thin solid white.lightest.5)
+          base:dark:selectors[>.Accordion__Item + .Accordion__Item](thin solid black.darkest.5)
         `,
         "data-h2-overflow": "base(hidden)",
         "data-h2-radius": "base(s)",
