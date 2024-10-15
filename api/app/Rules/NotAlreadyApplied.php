@@ -8,6 +8,8 @@ use Illuminate\Contracts\Validation\Rule;
 
 class NotAlreadyApplied implements Rule
 {
+    public string $poolId;
+
     /**
      * Create a new rule instance.
      *

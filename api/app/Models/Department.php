@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $department_number
  * @property array $name
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class Department extends Model
 {
