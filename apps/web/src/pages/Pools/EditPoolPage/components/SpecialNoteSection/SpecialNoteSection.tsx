@@ -82,9 +82,8 @@ const SpecialNoteSection = ({
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
-    hasSpecialNote: !!(
-      initialData.specialNote?.en || initialData.specialNote?.fr
-    ),
+    hasSpecialNote:
+      !!initialData.specialNote?.en || !!initialData.specialNote?.fr,
     specialNoteEn: initialData.specialNote?.en ?? "",
     specialNoteFr: initialData.specialNote?.fr ?? "",
   });
