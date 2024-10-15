@@ -16,8 +16,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $pool_id
  * @property array $question
  * @property int $sort_order
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class GeneralQuestion extends Model
 {

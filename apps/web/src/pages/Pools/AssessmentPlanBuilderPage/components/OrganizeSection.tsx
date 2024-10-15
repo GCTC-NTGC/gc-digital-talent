@@ -142,7 +142,7 @@ const OrganizeSection = ({
         if (res.data?.deleteAssessmentStep?.id) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return Promise.reject(new Error(res.error?.toString()));
       })
       .then(() => {
         toast.success(
@@ -181,7 +181,7 @@ const OrganizeSection = ({
         ) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return Promise.reject(new Error(res.error?.toString()));
       })
       .then(() => {
         toast.success(

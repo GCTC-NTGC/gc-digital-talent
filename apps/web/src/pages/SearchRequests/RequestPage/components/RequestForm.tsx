@@ -791,7 +791,7 @@ const RequestFormApi = ({
       if (result.data?.createPoolCandidateSearchRequest) {
         return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   return (

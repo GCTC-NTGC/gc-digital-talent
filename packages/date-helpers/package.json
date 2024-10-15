@@ -18,10 +18,10 @@
     "preset": "@gc-digital-talent/jest-presets/jest/node"
   },
   "dependencies": {
+    "@date-fns/tz": "^1.1.1",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
-    "date-fns": "^3.6.0",
-    "date-fns-tz": "3.0.0",
+    "date-fns": "^4.1.0",
     "react-intl": "^6.7.0"
   },
   "devDependencies": {
@@ -31,6 +31,6 @@
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   }
 }

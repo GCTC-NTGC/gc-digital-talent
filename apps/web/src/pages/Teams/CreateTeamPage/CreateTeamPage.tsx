@@ -63,7 +63,7 @@ const CreateTeamPage = () => {
       if (result.data?.createTeam) {
         return Promise.resolve(result.data?.createTeam);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
   };
 
