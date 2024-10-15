@@ -76,24 +76,18 @@ export const relativeClosingDate = ({
   timeZone,
   customFormat,
 }: relativeClosingDateOptions): string => {
-  const inTz = timeZone ? tz(timeZone) : undefined;
-  // A date formatting function that can use time zones optionally
-  const myFormatFunc = (
-    date: Date,
-    formatPattern: string,
-    options?: FormatOptions,
-  ) =>
-    format(date, formatPattern, {
-      ...options,
-      in: inTz,
-    });
+  const formatOpts: FormatOptions = {
+    in: timeZone ? tz(timeZone) : undefined,
+  };
 
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
-  const time = myFormatFunc(closingDate, `p`, {
+  const time = format(closingDate, `p`, {
+    ...formatOpts,
     locale,
   });
-  const dateTime = myFormatFunc(closingDate, customFormat ?? `PPP p`, {
+  const dateTime = format(closingDate, customFormat ?? `PPP p`, {
+    ...formatOpts,
     locale,
   });
 
@@ -102,8 +96,8 @@ export const relativeClosingDate = ({
   }
 
   if (
-    myFormatFunc(now, DATE_FORMAT_STRING) ===
-    myFormatFunc(closingDate, DATE_FORMAT_STRING)
+    format(now, DATE_FORMAT_STRING, formatOpts) ===
+    format(closingDate, DATE_FORMAT_STRING, formatOpts)
   ) {
     return intl.formatMessage(dateMessages.deadlineToday, {
       time,
@@ -111,8 +105,8 @@ export const relativeClosingDate = ({
   }
 
   if (
-    myFormatFunc(add(now, { days: 1 }), DATE_FORMAT_STRING) ===
-    myFormatFunc(closingDate, DATE_FORMAT_STRING)
+    format(add(now, { days: 1 }), DATE_FORMAT_STRING, formatOpts) ===
+    format(closingDate, DATE_FORMAT_STRING, formatOpts)
   ) {
     return intl.formatMessage(dateMessages.deadlineTomorrow, { time });
   }
