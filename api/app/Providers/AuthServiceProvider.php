@@ -103,7 +103,7 @@ class AuthServiceProvider extends ServiceProvider
                 return $userMatch;
             } else {
                 // No user found for given subscriber
-                throw new AuthenticationException('Login as un-retrievable user: '.$userMatch->sub, 'user_not_found');
+                throw new AuthenticationException('Login as un-retrievable user: '.$sub, 'user_not_found');
             }
         }
 
