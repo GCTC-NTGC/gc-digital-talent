@@ -139,16 +139,6 @@ parameters:
       path: app/GraphQL/Validators/RevertPlaceCandidateValidator.php
 
     -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 2
-      path: app/Http/Controllers/AuthController.php
-
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 1
-      path: app/Http/Controllers/SupportController.php
-
-    -
       message: "#^Called 'Model\\:\\:make\\(\\)' which performs unnecessary work, use 'new Model\\(\\)'\\.$#"
       count: 1
       path: app/Models/Experience.php
@@ -279,10 +269,6 @@ parameters:
       path: app/Rules/HasLanguageRequirements.php
 
 
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 3
-      path: app/Services/OpenIdBearerTokenService.php
 
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"
