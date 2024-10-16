@@ -282,6 +282,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
     }
 
+    // User 1-0..* PoolCandidateSearchRequest
+    public function poolCandidateSearchRequests(): HasMany
+    {
+        return $this->hasMany(PoolCandidateSearchRequest::class);
+    }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
