@@ -19,20 +19,25 @@ const paddingMap = new Map([
   [
     "default",
     {
-      "data-h2-padding": "base(x4, 0)",
+      "data-h2-padding": "base(x5.5 0 x4 0)",
     },
   ],
   [
     "image",
     {
-      "data-h2-padding":
-        "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) p-tablet(x4, 0)",
+      "data-h2-padding": "base(x5.5 0 0 0) p-tablet(x5.5 0 x4 0)",
     },
   ],
   [
     "overlap",
     {
-      "data-h2-padding": "base(x4, 0, x8, 0)",
+      "data-h2-padding": "base(x5.5, 0, x8, 0)",
+    },
+  ],
+  [
+    "navTabs",
+    {
+      "data-h2-padding": "base(x5.5 0 0 0)",
     },
   ],
 ]);
@@ -94,6 +99,8 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
     padding = paddingMap.get("image");
   } else if (applyOverlap) {
     padding = paddingMap.get("overlap");
+  } else if (navTabs) {
+    padding = paddingMap.get("navTabs");
   }
 
   useEffect(() => {
@@ -112,60 +119,12 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
         {...padding}
       >
         <NavigationMenu></NavigationMenu>
-        <div
-          data-h2-display="base(none) base:iap(block)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(auto, 0, 0, auto)"
-          data-h2-transform="base(translate(65%, 75%))"
-        >
-          <div
-            data-h2-height="base(x30)"
-            data-h2-width="base(x30)"
-            data-h2-background-color="base:all(secondary.darker)"
-            data-h2-radius="base(circle)"
-          >
-            &nbsp;
-          </div>
-        </div>
-        <div
-          data-h2-display="base(none) base:iap(block)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(0, auto, auto, 0)"
-          data-h2-transform="base(translate(-75%, -65%))"
-        >
-          <div
-            data-h2-height="base(x30)"
-            data-h2-width="base(x30)"
-            data-h2-border="base:all(x.25 solid secondary.darker)"
-            data-h2-radius="base(circle)"
-          />
-          <div
-            data-h2-height="base(x25)"
-            data-h2-width="base(x25)"
-            data-h2-border="base:all(x.25 solid secondary.darker)"
-            data-h2-radius="base(circle)"
-            data-h2-position="base(center)"
-          />
-          <div
-            data-h2-height="base(x20)"
-            data-h2-width="base(x20)"
-            data-h2-border="base:all(x.25 solid secondary.darker)"
-            data-h2-radius="base(circle)"
-            data-h2-position="base(center)"
-          >
-            &nbsp;
-          </div>
-        </div>
-        <div
-          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-          data-h2-layer="base(3, relative)"
-        >
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <div
             data-h2-color="base:all(white)"
+            data-h2-position="base(relative)"
+            data-h2-z-index="base(3)"
             {...textAlignment}
-            {...(showImg && {
-              "data-h2-margin-right": "p-tablet(x18)",
-            })}
           >
             <Heading
               ref={headingRef}
@@ -225,60 +184,54 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
               </nav>
             )}
           </div>
+          {showImg ? (
+            <div
+              data-h2-position="p-tablet(absolute)"
+              data-h2-top="p-tablet(x1)"
+              data-h2-right="base(0)"
+              data-h2-height="base(50vh) p-tablet(35vh) l-tablet(55vh) laptop(40vh)"
+              data-h2-width="base(100%)"
+              data-h2-background-position="base(50% 110%) p-tablet(calc(50% + 25rem) 50%)"
+              data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) p-tablet(auto 110%)"
+              data-h2-background-repeat="base(no-repeat)"
+              style={{ backgroundImage: `url('${imgPath}')` }}
+            />
+          ) : (
+            <BackgroundGraphic
+              aria-hidden="true"
+              data-h2-display="base(block) base:iap(none)"
+              data-h2-position="base(absolute)"
+              data-h2-location="base(0, 0, auto, auto)"
+              data-h2-height="base(auto)"
+              data-h2-min-width="base(x20)"
+              data-h2-width="base(75%)"
+              data-h2-z-index="base(0)"
+            />
+          )}
+          {navTabs ? (
+            <div
+              data-h2-margin-top="base(x2)"
+              data-h2-display="base(flex)"
+              {...(centered
+                ? {
+                    "data-h2-justify-content": "base(center)",
+                  }
+                : {})}
+            >
+              <NavTabs.Root>
+                <NavTabs.List data-h2-wrapper="base(center, full, 0)">
+                  {navTabs.map((navTab) => (
+                    <NavTabs.Item key={navTab.url}>
+                      <NavTabs.Link href={navTab.url}>
+                        {navTab.label}
+                      </NavTabs.Link>
+                    </NavTabs.Item>
+                  ))}
+                </NavTabs.List>
+              </NavTabs.Root>
+            </div>
+          ) : null}
         </div>
-        {navTabs ? (
-          <div
-            data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-            data-h2-width="base(100%)"
-            data-h2-display="base(flex)"
-            data-h2-position="base(absolute)"
-            data-h2-bottom="base(0)"
-            {...(centered
-              ? {
-                  "data-h2-justify-content": "base(center)",
-                }
-              : {
-                  "data-h2-justify-content":
-                    "base(center) p-tablet(flex-start)",
-                })}
-          >
-            <NavTabs.Root>
-              <NavTabs.List data-h2-wrapper="base(center, full, 0)">
-                {navTabs.map((navTab) => (
-                  <NavTabs.Item key={navTab.url}>
-                    <NavTabs.Link href={navTab.url}>
-                      {navTab.label}
-                    </NavTabs.Link>
-                  </NavTabs.Item>
-                ))}
-              </NavTabs.List>
-            </NavTabs.Root>
-          </div>
-        ) : null}
-        {showImg ? (
-          <div
-            data-h2-position="base(absolute)"
-            data-h2-location="base(0)"
-            data-h2-height="base(auto)"
-            data-h2-width="base(100%)"
-            data-h2-z-index="base(2)"
-            data-h2-background-position="base(50% 110%) p-tablet(calc(50% + 25rem) 50%)"
-            data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) p-tablet(auto 110%)"
-            data-h2-background-repeat="base(no-repeat)"
-            style={{ backgroundImage: `url('${imgPath}')` }}
-          />
-        ) : (
-          <BackgroundGraphic
-            aria-hidden="true"
-            data-h2-display="base(block) base:iap(none)"
-            data-h2-position="base(absolute)"
-            data-h2-location="base(0, 0, auto, auto)"
-            data-h2-height="base(auto)"
-            data-h2-min-width="base(x20)"
-            data-h2-width="base(75%)"
-            data-h2-z-index="base(0)"
-          />
-        )}
       </div>
       {children ? (
         <>
