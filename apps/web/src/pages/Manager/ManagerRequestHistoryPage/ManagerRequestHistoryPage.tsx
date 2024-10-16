@@ -224,9 +224,6 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
     ],
   });
 
-  // Easily identify parts of the page that are unfinished still.
-  const showUnfinishedPieces = true;
-
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
@@ -372,7 +369,6 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                               <PoolCandidateSearchRequestPreviewListItem
                                 key={request.id}
                                 poolCandidateSearchRequestQuery={request}
-                                showUnfinishedPieces={showUnfinishedPieces}
                               />
                             ))}
                           </PreviewList.Root>
@@ -472,7 +468,6 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                               <PoolCandidateSearchRequestPreviewListItem
                                 key={request.id}
                                 poolCandidateSearchRequestQuery={request}
-                                showUnfinishedPieces={showUnfinishedPieces}
                               />
                             ))}
                           </PreviewList.Root>

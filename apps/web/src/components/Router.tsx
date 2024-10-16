@@ -45,8 +45,8 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "talent-requests",
-                  loader: async () => {
-                    throw new Response("Not Found", { status: 404 }); // unfinished page
+                  loader: () => {
+                    throw new NotFoundError(); // unfinished page
                   },
                   lazy: () =>
                     import(

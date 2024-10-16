@@ -158,19 +158,19 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
                         data-h2-font-size="base(caption)"
                       >
-                        {showUnfinishedPieces ? (
-                          // This link is missing an href since the "Your talent requests" page doesn't exist yet.
-                          <div>
-                            <Link color="primary" href="#">
-                              {intl.formatMessage({
-                                defaultMessage: "All requests",
-                                id: "mJKi1Y",
-                                description:
-                                  "Link to a page to view all the requests",
-                              })}
-                            </Link>
-                          </div>
-                        ) : null}
+                        <div>
+                          <Link
+                            color="primary"
+                            href={paths.managerRequestHistory()}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage: "All requests",
+                              id: "mJKi1Y",
+                              description:
+                                "Link to a page to view all the requests",
+                            })}
+                          </Link>
+                        </div>
                         <div>
                           <Link color="primary" href={paths.search()}>
                             {intl.formatMessage({
@@ -189,23 +189,24 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           data-h2-gap="base(x1)"
                         >
                           <div>
-                            {showUnfinishedPieces
-                              ? intl.formatMessage(
-                                  {
-                                    defaultMessage:
-                                      'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
-                                    id: "OWLaKF",
-                                    description:
-                                      "instructional text for the 'Your talent requests' tool",
-                                  },
-                                  {
-                                    findTalentLink: (chunks: ReactNode) =>
-                                      linkAccessor(paths.search(), chunks),
-                                    allRequestsLink: (chunks: ReactNode) =>
-                                      linkAccessor("#", chunks), // This link is missing an href since the "Your talent requests" page doesn't exist yet.
-                                  },
-                                )
-                              : null}
+                            {intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
+                                id: "OWLaKF",
+                                description:
+                                  "instructional text for the 'Your talent requests' tool",
+                              },
+                              {
+                                findTalentLink: (chunks: ReactNode) =>
+                                  linkAccessor(paths.search(), chunks),
+                                allRequestsLink: (chunks: ReactNode) =>
+                                  linkAccessor(
+                                    paths.managerRequestHistory(),
+                                    chunks,
+                                  ),
+                              },
+                            )}
                           </div>
 
                           {user.poolCandidateSearchRequests?.length ? (
@@ -255,7 +256,6 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
               data-h2-gap="base(x1)"
               data-h2-max-width="p-tablet(x14)"
             >
-              {/* Switch to new component in #11031 */}
               <ResourceBlock.Root
                 headingColor="quinary"
                 headingAs="h2"
@@ -360,26 +360,21 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                     description: "the 'Learn about skills' tool description",
                   })}
                 />
-                {showUnfinishedPieces ? (
-                  // This block is missing an href since the page doesn't exist yet.
-                  <ResourceBlock.SingleLinkItem
-                    title={intl.formatMessage({
-                      defaultMessage: "Browse job templates",
-                      id: "bLxoQL",
-                      description: "Link for the 'browse job templates' card",
-                    })}
-                    href="#"
-                    description={intl.formatMessage({
-                      defaultMessage:
-                        "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
-                      id: "ZCDsMF",
-                      description:
-                        "Helper instructions for the 'browse job templates' card",
-                    })}
-                  />
-                ) : (
-                  <></>
-                )}
+                <ResourceBlock.SingleLinkItem
+                  title={intl.formatMessage({
+                    defaultMessage: "Browse job templates",
+                    id: "bLxoQL",
+                    description: "Link for the 'browse job templates' card",
+                  })}
+                  href={paths.jobPosterTemplates()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
+                    id: "ZCDsMF",
+                    description:
+                      "Helper instructions for the 'browse job templates' card",
+                  })}
+                />
                 <ResourceBlock.SingleLinkItem
                   title={intl.formatMessage({
                     defaultMessage: "Directive on Digital Talent",
