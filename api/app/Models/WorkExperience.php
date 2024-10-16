@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 
@@ -17,11 +16,11 @@ use Illuminate\Support\Facades\Lang;
  * @property string $role
  * @property string $organization
  * @property string $division
- * @property Illuminate\Support\Carbon $start_date
- * @property Illuminate\Support\Carbon $end_date
+ * @property ?\Illuminate\Support\Carbon $start_date
+ * @property ?\Illuminate\Support\Carbon $end_date
  * @property string $details
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
  */
 class WorkExperience extends Experience
 {

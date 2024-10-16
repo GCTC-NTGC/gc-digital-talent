@@ -32,8 +32,8 @@ export const getApplicationSteps = ({
   experienceId,
 }: GetApplicationPagesArgs): ApplicationStepInfo[] => {
   const showQuestionStep =
-    application.pool.generalQuestions?.length ??
-    application.pool.screeningQuestions?.length;
+    !!application.pool.generalQuestions?.length ||
+    !!application.pool.screeningQuestions?.length;
 
   // build the order of step functions to call
   const stepInfoFunctions = [
