@@ -111,6 +111,7 @@ class PoolPolicy
      */
     public function duplicate(User $user, $request)
     {
+        /** @var Pool $existing */
         $existing = Pool::with(['team', 'community.team'])->findOrFail($request['id']);
 
         // Confirm the user can create pools for the team

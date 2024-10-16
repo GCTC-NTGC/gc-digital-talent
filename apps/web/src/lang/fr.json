@@ -323,10 +323,6 @@
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
   },
-  "/eSALf": {
-    "defaultMessage": "Veuillez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user authenticator codes not accepted"
-  },
   "/esEW+": {
     "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de l’équipe <strong>{teamName}</strong>.",
     "description": "Help text for the remove team membership dialog"
@@ -1031,6 +1027,10 @@
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
   },
+  "3PwQT7": {
+    "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
+    "description": "Title for notice when there are no pool candidate search requests"
+  },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
@@ -1659,6 +1659,10 @@
     "defaultMessage": "Voir et gérer l'historique de vos notifications",
     "description": "Subtitle for the notifications page"
   },
+  "6jBrNA": {
+    "defaultMessage": "Vous pouvez lancer une nouvelle demande de talent en cliquant sur le bouton « Nouvelle demande » ou en accédant à la page « Trouver un talent » à partir du menu principal.",
+    "description": "Body for notice when there are no pool candidate search requests"
+  },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
     "description": "Heading for the applicant requirements dialog"
@@ -2032,7 +2036,7 @@
     "description": "Title for skills editor"
   },
   "8kMPLB": {
-    "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
+    "defaultMessage": "Décrivez la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
   },
   "8n9opI": {
@@ -2522,6 +2526,10 @@
   "BJ38Kf": {
     "defaultMessage": "Veuillez préciser votre ministère ou organisme",
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
+  },
+  "BLOt/e": {
+    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre équipe de soutien.",
+    "description": "Description for rule pattern on work email field"
   },
   "BMWvU8": {
     "defaultMessage": "Compte et confidentialité",
@@ -4599,6 +4607,10 @@
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
   },
+  "MOKBPl": {
+    "defaultMessage": "En attente de réponse",
+    "description": "Label for pool candidate search requests that are awaiting a response"
+  },
   "MOpG7g": {
     "defaultMessage": "Votre impact",
     "description": "Title for impact section on a pool advertisement."
@@ -5038,6 +5050,10 @@
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
+  },
+  "Opn8nz": {
+    "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
+    "description": "More descriptive label for the textarea in the skills in detail section"
   },
   "OqglGZ": {
     "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
@@ -6178,6 +6194,10 @@
     "defaultMessage": "Identifiant de référence",
     "description": "Label displayed on the job poster template 'reference id' field."
   },
+  "UoUzWJ": {
+    "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
+    "description": "Subtitle for the 'review talent request' dialog"
+  },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
@@ -6197,10 +6217,6 @@
   "UvKDXK": {
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
-  },
-  "UwHuX6": {
-    "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre bureau d'aide.",
-    "description": "Description for rule pattern on work email field"
   },
   "Uwtkv6": {
     "defaultMessage": "Ce à quoi s’attendre après l’admission",
@@ -6938,6 +6954,10 @@
     "defaultMessage": "10 000 $ à 25 000 $",
     "description": "Contract value range between ten-thousand and twenty-five-thousand"
   },
+  "YYmuJo": {
+    "defaultMessage": "En cours d'examen",
+    "description": "Label for pool candidate search requests that are under review"
+  },
   "YZMi8D": {
     "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une <link>bassin de talents coordonnée par le BDPI</link> qui pourrait répondre au besoin dans le délai imparti.",
     "description": "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_"
@@ -7289,6 +7309,10 @@
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph one."
+  },
+  "aYt7kT": {
+    "defaultMessage": "Ouvert le: {formattedDate}",
+    "description": "A formatted display of the date the pool candidate search request was opened"
   },
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
@@ -8070,6 +8094,10 @@
     "defaultMessage": "Masquer les évaluations des compétences de {title}",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
+  "eWVgyx": {
+    "defaultMessage": "Objet de la demande",
+    "description": "Talent request - request purpose title"
+  },
   "eZHoNJ": {
     "defaultMessage": "Rôles dans des équipes",
     "description": "Heading for updating a users team roles"
@@ -8249,6 +8277,10 @@
   "fPy7Mg": {
     "defaultMessage": "Le français - Votre impact",
     "description": "Label for the French - Your Impact textarea in the edit pool page."
+  },
+  "fQ7zxR": {
+    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "fQkgnT": {
     "defaultMessage": "Placement professionnel",
@@ -8622,10 +8654,6 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
-  "h8AdRp": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user does not have recovery codes"
-  },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
@@ -8845,10 +8873,6 @@
   "i16C7G": {
     "defaultMessage": "Recherche de candidat",
     "description": "Title for the all pool candidates page"
-  },
-  "i20Mlb": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
@@ -9149,6 +9173,10 @@
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
+  },
+  "jMx7Kb": {
+    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for when user does not have recovery codes"
   },
   "jNqZ46": {
     "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
@@ -9906,6 +9934,10 @@
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
   },
+  "nYEPMG": {
+    "defaultMessage": "Non, il ne s'agit pas d'un poste de supervision",
+    "description": "Checkbox selection that confirms a job opportunity will not have supervising duties. "
+  },
   "nYriNg": {
     "defaultMessage": "Statut mis à jour avec succès",
     "description": "Toast for successful status update on view-user page"
@@ -10510,6 +10542,10 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
   },
+  "r4IQ0h": {
+    "defaultMessage": "Examiner une demande de talent",
+    "description": "Title for the 'review talent request' dialog"
+  },
   "r6L5aI": {
     "defaultMessage": "Auto-déclaration",
     "description": "label for the Indigenous self-declaration input"
@@ -10569,6 +10605,10 @@
   "rRREuF": {
     "defaultMessage": "Créer un processus",
     "description": "Label/title for creating a recruitment process."
+  },
+  "rRoL/0": {
+    "defaultMessage": "{resultCount, plural, one {{resultCount} correspondance estimée} other {{resultCount} correspondances estimées}}",
+    "description": "Display of estimated matches to a pool candidate search request"
   },
   "rSlYQA": {
     "defaultMessage": "p. ex., développeur de logiciels",
@@ -11066,6 +11106,10 @@
     "defaultMessage": "« ... réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
     "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
+  "uR9G1H": {
+    "defaultMessage": "Statut de supervision",
+    "description": "Talent request - supervisory status title"
+  },
   "uSdcX4": {
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
@@ -11245,6 +11289,10 @@
   "vmj/E4": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
     "description": "English Positions message"
+  },
+  "vweW8X": {
+    "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "vyyfX6": {
     "defaultMessage": "Créer une nouvelle équipe",

@@ -475,6 +475,10 @@ return [
             'en' => 'Delete SearchRequests submitted to this Team',
             'fr' => 'Supprimer n\'import quelle demande de recherche',
         ],
+        'view-own-searchRequest' => [
+            'en' => 'View own SearchRequests',
+            'fr' => 'Voir ses propres demandes de recherche',
+        ],
 
         'view-any-team' => [
             'en' => 'View Any Team',
@@ -871,6 +875,7 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
+                'own' => ['view'],
             ],
             'team' => [
                 'any' => ['view'],

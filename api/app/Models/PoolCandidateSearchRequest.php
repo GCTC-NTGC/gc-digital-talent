@@ -16,7 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * Class PoolCandidateSearchRequest
  *
- * @property int $id
+ * @property string $id
  * @property string $full_name
  * @property string $email
  * @property string $department_id
@@ -30,13 +30,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $request_status_weight
  * @property string $manager_job_title
  * @property string $position_type
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
- * @property Illuminate\Support\Carbon $request_status_changed_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property ?\Carbon\CarbonImmutable $request_status_changed_at
  * @property string $reason
  * @property string $community_id
  * @property int $initial_result_count
+ * @property string $user_id
  */
 class PoolCandidateSearchRequest extends Model
 {
@@ -65,7 +66,9 @@ class PoolCandidateSearchRequest extends Model
 
         parent::boot();
         static::creating(function ($searchRequest) use ($user) {
-            $searchRequest->user_id = $user?->id;
+            // unless the user_id was already specified use the currently authenticated user
+            // needed to be able to set the value in a factory
+            $searchRequest->user_id = $searchRequest->user_id ?? $user?->id;
         });
     }
 

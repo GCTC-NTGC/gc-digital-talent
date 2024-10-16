@@ -23,9 +23,12 @@ import {
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
-import processMessages from "~/messages/processMessages";
-import messages from "~/messages/adminMessages";
+import {
+  equitySelectionsToDescriptions,
+  hasDiplomaToEducationLevel,
+  positionDurationToEmploymentDuration,
+} from "~/utils/searchRequestUtils";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -79,62 +82,15 @@ const ApplicantFilters = ({
         });
 
   // eslint-disable-next-line deprecation/deprecation
-  const educationLevel: string | undefined = applicantFilter?.hasDiploma
-    ? intl.formatMessage({
-        defaultMessage: "Required diploma from post-secondary institution",
-        id: "/mFrpj",
-        description:
-          "Education level message when candidate has a diploma found on the request page.",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Can accept a combination of work experience and education",
-        id: "9DCx2n",
-        description:
-          "Education level message when candidate does not have a diploma found on the request page.",
-      });
+  const educationLevel: string | undefined = hasDiplomaToEducationLevel(
+    applicantFilter?.hasDiploma,
+    intl,
+  );
 
-  const employmentEquity: string[] | undefined = [
-    ...(applicantFilter?.equity?.isWoman
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Woman",
-            id: "/fglL0",
-            description:
-              "Message for woman option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(applicantFilter?.equity?.isVisibleMinority
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Visible Minority",
-            id: "4RK/oW",
-            description:
-              "Message for visible minority option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(applicantFilter?.equity?.isIndigenous
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Indigenous",
-            id: "YoIRbn",
-            description: "Title for Indigenous",
-          }),
-        ]
-      : []),
-    ...(applicantFilter?.equity?.hasDisability
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Disability",
-            id: "GHlK/f",
-            description:
-              "Message for disability option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-  ];
+  const employmentEquity = equitySelectionsToDescriptions(
+    applicantFilter?.equity,
+    intl,
+  );
 
   const operationalRequirementIds = unpackMaybes(
     applicantFilter?.operationalRequirements?.flatMap((req) => req?.value),
@@ -172,7 +128,7 @@ const ApplicantFilters = ({
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
         <div>
           <FilterBlock
-            title={intl.formatMessage(messages.community)}
+            title={intl.formatMessage(talentRequestMessages.community)}
             content={communityName}
           />
           <FilterBlock
@@ -208,7 +164,7 @@ const ApplicantFilters = ({
             )}
           />
           <FilterBlock
-            title={intl.formatMessage(processMessages.stream)}
+            title={intl.formatMessage(talentRequestMessages.stream)}
             content={streams}
           />
           <FilterBlock
@@ -252,11 +208,9 @@ const ApplicantFilters = ({
           />
           {employmentDuration && (
             <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Employment duration",
-                description: "Title for Employment duration section",
-                id: "Muh/+P",
-              })}
+              title={intl.formatMessage(
+                talentRequestMessages.employmentDuration,
+              )}
               content={employmentDuration}
             />
           )}
@@ -438,7 +392,7 @@ const SearchRequestFilters = ({
               content={classifications}
             />
             <FilterBlock
-              title={intl.formatMessage(processMessages.stream)}
+              title={intl.formatMessage(talentRequestMessages.stream)}
               content={streams}
             />
             <FilterBlock

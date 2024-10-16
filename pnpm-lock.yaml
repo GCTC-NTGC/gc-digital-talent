@@ -418,6 +418,9 @@ importers:
 
   packages/date-helpers:
     dependencies:
+      '@date-fns/tz':
+        specifier: ^1.1.1
+        version: 1.1.2
       '@gc-digital-talent/graphql':
         specifier: workspace:*
         version: link:../graphql
@@ -425,11 +428,8 @@ importers:
         specifier: workspace:*
         version: link:../i18n
       date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
-      date-fns-tz:
-        specifier: 3.0.0
-        version: 3.0.0(date-fns@3.6.0)
+        specifier: ^4.1.0
+        version: 4.1.0
       react-intl:
         specifier: ^6.7.0
         version: 6.7.0(react@18.3.1)(typescript@5.6.3)
@@ -1695,6 +1695,9 @@ packages:
     engines: {node: ^14 || ^16 || >=18}
     peerDependencies:
       postcss-selector-parser: ^6.0.13
+
+  '@date-fns/tz@1.1.2':
+    resolution: {integrity: sha512-Xmg2cPmOPQieCLAdf62KtFPU9y7wbQDq1OAzrs/bEQFvhtCPXDiks1CHDE/sTXReRfh/MICVkw/vY6OANHUGiA==}
 
   '@dual-bundle/import-meta-resolve@4.1.0':
     resolution: {integrity: sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==}
@@ -4569,13 +4572,11 @@ packages:
   dataloader@2.2.2:
     resolution: {integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==}
 
-  date-fns-tz@3.0.0:
-    resolution: {integrity: sha512-YgRowJwvCAAjN1A5F2l1ZjnYKThX7YDq399qo+ThXFpeOqinN1u8SUqfM5IdRQSpai18Iy3EBMb6/CXTSnDstg==}
-    peerDependencies:
-      date-fns: ^3.0.0
-
   date-fns@3.6.0:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debounce@1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
@@ -8659,6 +8660,8 @@ snapshots:
     dependencies:
       postcss-selector-parser: 6.1.0
 
+  '@date-fns/tz@1.1.2': {}
+
   '@dual-bundle/import-meta-resolve@4.1.0': {}
 
   '@esbuild/aix-ppc64@0.21.5':
@@ -12048,12 +12051,9 @@ snapshots:
 
   dataloader@2.2.2: {}
 
-  date-fns-tz@3.0.0(date-fns@3.6.0):
-    dependencies:
-      date-fns: 3.6.0
-      lodash.clonedeep: 4.5.0
-
   date-fns@3.6.0: {}
+
+  date-fns@4.1.0: {}
 
   debounce@1.2.1: {}
 
