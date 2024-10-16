@@ -4,11 +4,11 @@ import { JwtPayload, jwtDecode } from "jwt-decode";
 import {
   Client,
   createClient,
-  cacheExchange,
   fetchExchange,
   Provider,
   mapExchange,
 } from "urql";
+import { cacheExchange } from "@urql/exchange-graphcache";
 import { useIntl } from "react-intl";
 
 import {
@@ -21,6 +21,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { LogoutReason } from "@gc-digital-talent/auth";
+import introspectedSchema from "@gc-digital-talent/graphql/introspection.json";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import {
@@ -69,10 +70,41 @@ const ClientProvider = ({
       client ??
       createClient({
         url: `${apiHost}${apiUri}`,
-        requestPolicy: "cache-and-network",
         fetchOptions: { headers: { "Accept-Language": locale } },
         exchanges: [
-          cacheExchange,
+          cacheExchange({
+            schema: introspectedSchema,
+            keys: new Proxy(
+              {
+                /**
+                 * `null` represents types with no guaranteed unique value
+                 * so they cannot be cached. This suppresses the warnings from `urql`.
+                 */
+                ExperienceSkillRecord: () => null,
+                LocalizedString: () => null,
+                LocalizedEnumString: () => null,
+                CandidateSearchPoolResult: () => null,
+                SkillKeywords: () => null,
+                NotificationPaginator: () => null,
+                PaginatorInfo: () => null,
+              },
+              {
+                get(target: Record<string, () => null | string>, prop: string) {
+                  if (
+                    prop.startsWith("Localized") ||
+                    prop.endsWith("Paginator")
+                  ) {
+                    return () => null;
+                  }
+                  const fallback = (data: { id?: string }) => data.id;
+                  return target[prop] || fallback;
+                },
+              },
+            ),
+            logger(sev: string, msg: string) {
+              logger.info(`Severity: ${sev}: ${msg}`);
+            },
+          }),
           protectedEndpointExchange,
           mapExchange({
             onError(error, operation) {
