@@ -148,7 +148,7 @@ const DiversityEquityInclusionSection = ({
                 </div>
               </div>
             )}
-            {(isWoman ?? isVisibleMinority ?? hasDisability) && (
+            {(isWoman || isVisibleMinority || hasDisability) && (
               <ul
                 data-h2-font-weight="base(700)"
                 data-h2-padding="base(x1, 0, 0, x1)"

@@ -301,7 +301,7 @@ const Actions = ({
                   })}
                 </Button>
               </span>
-              {(download?.csv?.enable ?? download?.doc?.enable) && (
+              {(download?.csv?.enable || download?.doc?.enable) && (
                 <span
                   data-h2-align-items="base(center)"
                   data-h2-display="base(flex)"
