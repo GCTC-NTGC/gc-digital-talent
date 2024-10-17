@@ -8,7 +8,7 @@ import { NAV_ROLE } from "../../../../../packages/auth/src/const";
 
 // this array is ordered by privilege to allow proper sorting
 const NAV_ROLES_BY_PRIVILEGE = [
-  "guest",
+  null,
   "applicant",
   "manager",
   "community",
@@ -23,7 +23,7 @@ export interface NavContextState {
 }
 
 export const NavContext = createContext<NavContextState>({
-  navRole: "guest",
+  navRole: null,
   onAuthorizedRolesChanged: () => {
     // no-op
   },
@@ -33,7 +33,7 @@ export function convertRoleToNavRole(role: RoleName): NavRole {
   switch (role) {
     case "guest":
     case "base_user":
-      return "guest";
+      return null;
     case "applicant":
       return "applicant";
     case "manager":
@@ -80,7 +80,7 @@ interface NavContextContainerProps {
 }
 
 const NavContextContainer = ({ children }: NavContextContainerProps) => {
-  const [navRole, setNavRole] = useLocalStorage<NavRole>(NAV_ROLE, "guest");
+  const [navRole, setNavRole] = useLocalStorage<NavRole>(NAV_ROLE, null);
 
   const state = useMemo<NavContextState>(() => {
     return {
