@@ -21,12 +21,12 @@
     "graphql": "^16.9.0",
     "lodash": "^4.17.21",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^6.26.2",
+    "react-router-dom": "^6.27.0",
     "urql": "^4.1.0",
     "wonka": "^6.3.4"
   },
   "devDependencies": {
-    "@formatjs/ts-transformer": "^3.13.15",
+    "@formatjs/ts-transformer": "^3.13.16",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@storybook/addon-a11y": "^8.3.5",
     "@storybook/addon-essentials": "^8.3.5",
