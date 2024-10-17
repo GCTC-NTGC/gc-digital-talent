@@ -62,12 +62,12 @@ const MainNavMenu = () => {
       (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
     );
 
-  const roleNames: Record<string, string> = {
-    ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
-    ["manager"]: intl.formatMessage(navMenuMessages.manager),
-    ["community"]: intl.formatMessage(navMenuMessages.community),
-    ["admin"]: intl.formatMessage(navMenuMessages.admin),
-  };
+  const roleNames = {
+    applicant: intl.formatMessage(navMenuMessages.applicant),
+    manager: intl.formatMessage(navMenuMessages.manager),
+    community: intl.formatMessage(navMenuMessages.community),
+    admin: intl.formatMessage(navMenuMessages.admin),
+  } as const;
 
   return (
     <>
@@ -99,8 +99,9 @@ const MainNavMenu = () => {
           data-h2-margin="base(x1 0) l-tablet(0)"
         />
         <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
-          {navRole !== "guest" ||
-          (roleAssignments !== undefined && roleAssignments.length > 1) ? (
+          {navRole !== null &&
+          roleAssignments !== undefined &&
+          roleAssignments.length > 1 ? (
             <>
               <NavMenu.Item>
                 <NavMenu.Trigger
