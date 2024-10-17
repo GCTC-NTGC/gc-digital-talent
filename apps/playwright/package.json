@@ -24,7 +24,7 @@
     "@playwright/test": "^1.48.0",
     "@types/node": "^22.7.6",
     "@types/sinon": "^17.0.3",
-    "axe-core": "^4.10.0",
+    "axe-core": "^4.10.1",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-playwright": "^1.6.2",
