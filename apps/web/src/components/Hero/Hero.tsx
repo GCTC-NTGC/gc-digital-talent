@@ -15,32 +15,20 @@ import BackgroundGraphic from "./BackgroundPattern";
 import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
 import NavigationMenu from "./NavigationMenu";
 
-const paddingMap = new Map([
-  [
-    "default",
-    {
-      "data-h2-padding": "base(x5.5 0 x4 0)",
-    },
-  ],
-  [
-    "image",
-    {
-      "data-h2-padding": "base(x5.5 0 0 0) p-tablet(x5.5 0 x4 0)",
-    },
-  ],
-  [
-    "overlap",
-    {
-      "data-h2-padding": "base(x5.5, 0, x8, 0)",
-    },
-  ],
-  [
-    "navTabs",
-    {
-      "data-h2-padding": "base(x5.5 0 0 0)",
-    },
-  ],
-]);
+const paddingMap = {
+  default: {
+    "data-h2-padding": "base(x5.5 0 x4 0)",
+  },
+  image: {
+    "data-h2-padding": "base(x5.5 0 0 0) p-tablet(x5.5 0 x4 0)",
+  },
+  overlap: {
+    "data-h2-padding": "base(x5.5, 0, x8, 0)",
+  },
+  navTabs: {
+    "data-h2-padding": "base(x5.5 0 0 0)",
+  },
+} as const;
 
 interface NavTab {
   url: string;
@@ -94,13 +82,14 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
     : {
         "data-h2-text-align": "base(center) p-tablet(left)",
       };
-  let padding = paddingMap.get("default");
+  let padding: (typeof paddingMap)[keyof typeof paddingMap] =
+    paddingMap.default;
   if (showImg) {
-    padding = paddingMap.get("image");
+    padding = paddingMap.image;
   } else if (applyOverlap) {
-    padding = paddingMap.get("overlap");
+    padding = paddingMap.overlap;
   } else if (navTabs) {
-    padding = paddingMap.get("navTabs");
+    padding = paddingMap.navTabs;
   }
 
   useEffect(() => {
