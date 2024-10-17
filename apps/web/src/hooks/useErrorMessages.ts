@@ -8,6 +8,10 @@ import {
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
+interface DataError {
+  message?: string;
+}
+
 interface ErrorMessage {
   title: ReactNode;
   body: ReactNode;
@@ -64,8 +68,9 @@ const useErrorMessages = (): ErrorWithMessages => {
   };
 
   if (isRouteErrorResponse(error) && "status" in error) {
+    const data = error.data as DataError;
     return {
-      error: new Error(error.data?.message),
+      error: new Error(data?.message ? String(data.message) : "Unknown error"),
       messages: knownErrorMessages[error.status],
     };
   }

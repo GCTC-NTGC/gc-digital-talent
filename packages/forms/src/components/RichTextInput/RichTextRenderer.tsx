@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-import { JSX } from "react";
+import { AnchorHTMLAttributes, JSX } from "react";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
@@ -24,9 +23,10 @@ const TextNode: NodeRenderer = ({ node }) => {
   let linkProps: LinkProps = {};
   const isLink = node?.marks?.find((mark) => {
     if (mark.type === "link") {
+      const attrs = mark.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
       linkProps = {
-        href: mark.attrs?.href ?? "",
-        newTab: mark.attrs?.target === "_blank",
+        href: attrs?.href ? String(attrs.href) : undefined,
+        newTab: attrs?.target === "_blank",
       };
       return true;
     }

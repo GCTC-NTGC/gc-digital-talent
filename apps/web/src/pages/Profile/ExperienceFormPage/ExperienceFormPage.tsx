@@ -673,8 +673,8 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
         <ExperienceForm
           edit={edit}
           experienceQuery={experience}
-          experienceId={experienceId ?? ""}
-          experienceType={experienceType}
+          experienceId={experienceId}
+          experienceType={experienceType ?? "personal"}
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
         />
