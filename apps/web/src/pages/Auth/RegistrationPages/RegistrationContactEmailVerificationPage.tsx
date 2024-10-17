@@ -8,7 +8,7 @@ import {
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
