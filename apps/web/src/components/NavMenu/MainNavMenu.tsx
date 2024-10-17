@@ -127,7 +127,11 @@ const MainNavMenu = () => {
                   </NavMenu.List>
                 </NavMenu.Content>
               </NavMenu.Item>
-              <Separator space="none" data-h2-display="l-tablet(none)" />
+              <Separator
+                orientation={isSmallScreen ? "horizontal" : "vertical"}
+                space="none"
+                data-h2-height="base(1px) l-tablet(x1)"
+              />
             </>
           ) : null}
           {mainLinks}
@@ -159,6 +163,12 @@ const MainNavMenu = () => {
               </NavMenu.Content>
             </NavMenu.Item>
           )}
+          <Separator
+            orientation={isSmallScreen ? "horizontal" : "vertical"}
+            space="none"
+            data-h2-height="base(1px) l-tablet(x1)"
+            data-h2-display="base(none) l-tablet(initial)"
+          />
           {loggedIn && (
             <NavMenu.Item data-h2-display="base(none) l-tablet(inline-flex)">
               <NotificationDialog
