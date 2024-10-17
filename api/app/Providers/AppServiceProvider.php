@@ -46,5 +46,12 @@ class AppServiceProvider extends ServiceProvider
         //         ]);
         //     }
         // });
+
+        $onDemandLog = Log::build([
+            'driver' => 'single',
+            'path' => '/home/LogFiles/app_service_provider.log',
+        ]);
+        $onDemandLog->error('App service booting - error');
+        $onDemandLog->warning('App service booting - warning');
     }
 }
