@@ -2063,6 +2063,10 @@
     "defaultMessage": "Compétences requises",
     "description": "Label for _qualification requirement_ textbox in the _digital services contracting questionnaire_"
   },
+  "8w4tXm": {
+    "defaultMessage": "Vos demandes de talents",
+    "description": "Title displayed in the hero section of the 'manager request history' page"
+  },
   "8yB2Bm": {
     "defaultMessage": "Conditions favorables",
     "description": "Heading for the directives digital enabling conditions component"
@@ -4019,6 +4023,10 @@
     "defaultMessage": "Lieu de travail",
     "description": "Work Location label, followed by colon"
   },
+  "JR9d2J": {
+    "defaultMessage": "Les demandes de talents complétées apparaîtront automatiquement dans cette section. À partir de là, vous pouvez consulter l'ensemble de l'historique de vos demandes, y compris les filtres, les compétences et les commentaires additionnels de chaque demande.",
+    "description": "description of the request history section on the manager request history page"
+  },
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
     "description": "Title for the Digital Community Management"
@@ -4618,6 +4626,10 @@
   "MQB4IA": {
     "defaultMessage": "Sauvegardez et continuez",
     "description": "Button text to save a form step and continue to the next one"
+  },
+  "MSFrmr": {
+    "defaultMessage": "Demandes de talents",
+    "description": "Title for the 'manager request history' page"
   },
   "MTPlbB": {
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
@@ -6446,10 +6458,6 @@
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
   },
-  "W9SXxj": {
-    "defaultMessage": "Trier par",
-    "description": "Label for the links to change how the list is sorted"
-  },
   "WAO4vD": {
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the change candidate expiry date dialog"
@@ -6617,6 +6625,10 @@
   "WwuIcM": {
     "defaultMessage": "En savoir plus sur CléGC, gérer les notifications et mettre à jour vos disponibilités.",
     "description": "Subtitle for the account settings page."
+  },
+  "WxuhIh": {
+    "defaultMessage": "Les demandes seront automatiquement déplacées ici lorsqu'elles seront terminées.",
+    "description": "Body for notice when there are no pool candidate search requests"
   },
   "Wy6aeg": {
     "defaultMessage": "À propos de nous",
@@ -7462,6 +7474,10 @@
     "defaultMessage": "Processus fermé avec succès!",
     "description": "Message displayed to user after pool is closed"
   },
+  "bTkPVZ": {
+    "defaultMessage": "Vous n'avez pas encore de demandes terminées.",
+    "description": "Title for notice when there are no pool candidate search requests"
+  },
   "bUyxJi": {
     "defaultMessage": "Chercher les ministères",
     "description": "Label for the departments table search input"
@@ -7913,6 +7929,10 @@
   "diSBjl": {
     "defaultMessage": "Langues officielles",
     "description": "Heading for comments and interaction section"
+  },
+  "diuFiP": {
+    "defaultMessage": "Consultez l'historique de vos demandes de talents, y compris leur statut et leurs détails.",
+    "description": "Subtitle for the 'manager request history' page"
   },
   "dj8GiH": {
     "defaultMessage": "Détails sur le candidat",
@@ -8921,6 +8941,10 @@
   "iChSXW": {
     "defaultMessage": "Vos outils de gestionnaire",
     "description": "Card title for the manager tools"
+  },
+  "iD2JB6": {
+    "defaultMessage": "Historique des demandes",
+    "description": "Title of the 'request history' section of the manager request history page"
   },
   "iEIzSc": {
     "defaultMessage": "Mes rôles",
@@ -10198,6 +10222,10 @@
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
     "description": "Message on education requirements card on the application review page."
   },
+  "p6YJ1q": {
+    "defaultMessage": "Lorsque vous utilisez la fonction « <findTalentLink>Trouver des talents</findTalentLink> » pour demander des références pour des embauches potentielles, vos critères et vos notes seront enregistrés comme une demande et suivis dans cette section. Les demandes en cours apparaîtront également sur votre « <managerDashboardLink> Tableau de bord du gestionnaire </managerDashboardLink> ». Lorsqu'une demande est terminée, elle passe automatiquement de cette section à votre <requestHistoryLink>Historique des demandes</requestHistoryLink>.",
+    "description": "description of the active requests section on the manager request history page"
+  },
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",
     "description": "Title of screening questions"
@@ -10285,6 +10313,10 @@
   "pR/Xr2": {
     "defaultMessage": "Processus désarchivé avec succès!",
     "description": "Message displayed to user after pool is un-archived"
+  },
+  "pUTg70": {
+    "defaultMessage": "Demandes actives",
+    "description": "Title of the 'active requests' section of the manager request history page"
   },
   "pV96Xv": {
     "defaultMessage": "Expériences scolaires",
@@ -11637,6 +11669,10 @@
   "xtNiNu": {
     "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
     "description": "Introduction to the organize section in the assessment plan builder, paragraph 1"
+  },
+  "xuckIo": {
+    "defaultMessage": "Vous pouvez lancer une nouvelle demande de talent en utilisant le bouton « <link>Nouvelle demande</link> » qui se trouve dans la table des matières de la page.",
+    "description": "Body for notice when there are no pool candidate search requests"
   },
   "xvULuR": {
     "defaultMessage": "En savoir plus sur les lieux de travail et la terminologie.",
