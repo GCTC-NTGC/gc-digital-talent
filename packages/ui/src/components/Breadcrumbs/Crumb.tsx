@@ -39,8 +39,8 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
       >
         <ChevronRightIcon
           data-h2-vertical-align="base(middle)"
-          data-h2-height="base(x.6)"
-          data-h2-width="base(x.6)"
+          data-h2-height="base(x.5)"
+          data-h2-width="base(x.5)"
         />
       </span>
     )}
