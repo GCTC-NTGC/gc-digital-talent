@@ -119,7 +119,7 @@ const iconVariants = {
   },
 };
 
-const AnimatedToggleIcon = motion(ChevronDownIcon);
+const AnimatedToggleIcon = motion.create(ChevronDownIcon);
 
 const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
   ({ isOpen, ...rest }, forwardedRef) => (

@@ -42,8 +42,8 @@ class AcceptLanguageMiddlewareTest extends TestCase
             'fallback to English when not set' => ['unset', 'en'],
             // Can get an expected locale out of a list of unexpected values
             'sets English from list' => ['mt-MT;q=0.9,en-US;q=0.8,eu-ES;q=0.7', 'en'],
-            'sets French from list' => ['mt-MT;q=0.9,fr-LU;q=0.8,eu-ES;q=0.7', 'fr'],
-            'weights by quality' => ['en;q=0.8,eu-ES;q=0.7,fr-LU;q=0.9;', 'fr'],
+            'sets French from list' => ['mt-MT;q=0.9,fr;q=0.8,eu-ES;q=0.7', 'fr'],
+            'weights by quality' => ['en;q=0.8,eu-ES;q=0.7,fr;q=0.9;', 'fr'],
             // If a valid value is sent, make sure locale is updated
             'sets English' => ['en', 'en'],
             'sets French' => ['fr', 'fr'],

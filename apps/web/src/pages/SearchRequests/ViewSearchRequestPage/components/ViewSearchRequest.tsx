@@ -30,6 +30,7 @@ import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -552,12 +553,9 @@ export const ViewSearchRequest = ({
                 </div>
               </div>
               <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Additional comments",
-                  id: "GF8FPy",
-                  description:
-                    "Title for the additional comments block for a search request",
-                })}
+                title={intl.formatMessage(
+                  talentRequestMessages.additionalComments,
+                )}
                 content={additionalComments}
               />
             </div>

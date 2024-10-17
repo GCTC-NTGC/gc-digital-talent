@@ -284,8 +284,8 @@ export const EmployeeInformationFormFields = ({
                       value: workEmailDomainRegex,
                       message: intl.formatMessage({
                         defaultMessage:
-                          "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our help desk.",
-                        id: "UwHuX6",
+                          "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
+                        id: "BLOt/e",
                         description:
                           "Description for rule pattern on work email field",
                       }),
@@ -605,7 +605,7 @@ const EmployeeInformation = () => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const onSubmit = async (

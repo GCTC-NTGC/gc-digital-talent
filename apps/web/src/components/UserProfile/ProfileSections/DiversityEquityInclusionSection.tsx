@@ -54,8 +54,8 @@ const DiversityEquityInclusionSection = ({
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
-                defaultMessage: "My employment equity information:",
-                id: "5WOqlf",
+                defaultMessage: "My employment equity information",
+                id: "l1hUeU",
                 description:
                   "Label preceding what groups the user identifies as part of, followed by a colon",
               })}{" "}
@@ -148,7 +148,7 @@ const DiversityEquityInclusionSection = ({
                 </div>
               </div>
             )}
-            {(isWoman ?? isVisibleMinority ?? hasDisability) && (
+            {(isWoman || isVisibleMinority || hasDisability) && (
               <ul
                 data-h2-font-weight="base(700)"
                 data-h2-padding="base(x1, 0, 0, x1)"

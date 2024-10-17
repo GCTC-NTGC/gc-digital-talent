@@ -188,7 +188,7 @@ const UpdateDepartmentPage = () => {
       if (result.data?.updateDepartment) {
         return result.data?.updateDepartment;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const navigationCrumbs = useBreadcrumbs({

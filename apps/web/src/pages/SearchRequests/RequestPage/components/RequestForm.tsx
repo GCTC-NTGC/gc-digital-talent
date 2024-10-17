@@ -53,6 +53,7 @@ import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -593,12 +594,9 @@ export const RequestForm = ({
                     description:
                       "Label for input asking whether a job opportunity will have supervising duties.",
                   })}
-                  label={intl.formatMessage({
-                    defaultMessage: "Yes, this is a supervisory position",
-                    id: "mrMxsI",
-                    description:
-                      "Checkbox selection that confirms a job opportunity will have supervising duties. ",
-                  })}
+                  label={intl.formatMessage(
+                    talentRequestMessages.supervisoryPositionYes,
+                  )}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -642,12 +640,9 @@ export const RequestForm = ({
             <TextArea
               id="additionalComments"
               name="additionalComments"
-              label={intl.formatMessage({
-                defaultMessage: "Additional comments",
-                id: "GF8FPy",
-                description:
-                  "Title for the additional comments block for a search request",
-              })}
+              label={intl.formatMessage(
+                talentRequestMessages.additionalComments,
+              )}
               rows={8}
             />
           </div>
@@ -796,7 +791,7 @@ const RequestFormApi = ({
       if (result.data?.createPoolCandidateSearchRequest) {
         return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   return (
