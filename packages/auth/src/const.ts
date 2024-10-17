@@ -24,4 +24,4 @@ export const ROLE_NAME = {
 type ObjectValues<T> = T[keyof T];
 export type RoleName = ObjectValues<typeof ROLE_NAME>;
 
-export const NAV_ROLE = "nav_role";
+export const NAV_ROLE_KEY = "nav_role";

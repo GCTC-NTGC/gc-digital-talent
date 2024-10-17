@@ -12,7 +12,7 @@ import {
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   LogoutReason,
   LOGOUT_REASON_KEY,
-  NAV_ROLE,
+  NAV_ROLE_KEY,
 } from "../const";
 import useLogoutChannel from "../hooks/useLogoutChannel";
 
@@ -68,7 +68,7 @@ const logoutAndRefreshPage = ({
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
-  localStorage.removeItem(NAV_ROLE);
+  localStorage.removeItem(NAV_ROLE_KEY);
 
   if (postLogoutOverridePath) {
     if (!postLogoutOverridePath.startsWith("/")) {

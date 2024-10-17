@@ -1,10 +1,8 @@
 import { createContext, ReactNode, useMemo } from "react";
 
-import { RoleName } from "@gc-digital-talent/auth";
+import { RoleName, NAV_ROLE_KEY } from "@gc-digital-talent/auth";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
-
-import { NAV_ROLE } from "../../../../../packages/auth/src/const";
 
 // this array is ordered by privilege to allow proper sorting
 const NAV_ROLES_BY_PRIVILEGE = [
@@ -80,7 +78,7 @@ interface NavContextContainerProps {
 }
 
 const NavContextContainer = ({ children }: NavContextContainerProps) => {
-  const [navRole, setNavRole] = useLocalStorage<NavRole>(NAV_ROLE, null);
+  const [navRole, setNavRole] = useLocalStorage<NavRole>(NAV_ROLE_KEY, null);
 
   const state = useMemo<NavContextState>(() => {
     return {
