@@ -302,8 +302,8 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "When you use the “<findTalentLink>Find talent</findTalentLink>” tool to request referrals for potential hires, your criteria and notes will be saved as a request and tracked in this section. Requests that are currently in progress will also appear on your “<managerDashboardLink>Manager dashboard</managerDashboardLink>”. When a request is completed, it will automatically move from this section to your <requestHistoryLink>request history</requestHistoryLink>.",
-                          id: "p6YJ1q",
+                            "When you use the “<findTalentLink>Find talent</findTalentLink>” tool to request referrals for potential hires, your criteria and notes will be saved as a request and tracked in this section. Requests that are currently in progress will also appear on your “<managerDashboardLink>Manager dashboard</managerDashboardLink>”. When a request is completed, it will automatically move from this section to your <requestHistoryLink>Request history</requestHistoryLink>.",
+                          id: "655Jy3",
                           description:
                             "description of the active requests section on the manager request history page",
                         },
@@ -421,8 +421,8 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                     <div>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Completed talent requests will appear in this section automatically. From here, you can browse your entire request history, including each request’s filters, skills, and additional comments.",
-                        id: "JR9d2J",
+                          "Completed talent requests will automatically appear in this section. From here, you can browse your entire request history, including each request’s filters, skills, and additional comments.",
+                        id: "FVc2AH",
                         description:
                           "description of the request history section on the manager request history page",
                       })}
