@@ -13,7 +13,7 @@ const Sidebar = ({ children, ...rest }: SidebarProps) => (
     >
       <div
         data-h2-position="base(sticky)"
-        data-h2-location="base(x3, auto, auto, auto)"
+        data-h2-location="base(x5, auto, auto, auto)"
       >
         {children}
       </div>

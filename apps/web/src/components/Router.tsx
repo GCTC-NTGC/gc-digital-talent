@@ -10,11 +10,16 @@ const createRoute = (locale: Locales) =>
   createBrowserRouter([
     {
       path: `/`,
-      lazy: () => import("./Layout/Layout"),
+      lazy: () => import("./Layout/MainLayout"),
       children: [
         {
           path: locale,
-          lazy: () => import("./Layout/ErrorBoundary/ErrorBoundary"),
+          async lazy() {
+            const { ErrorBoundary } = await import(
+              "./Layout/ErrorBoundary/ErrorBoundary"
+            );
+            return { ErrorBoundary };
+          },
           children: [
             {
               index: true,
@@ -41,6 +46,18 @@ const createRoute = (locale: Locales) =>
                   lazy: () =>
                     import(
                       "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                    ),
+                },
+              ],
+            },
+            {
+              path: "community",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityDashboardPage/CommunityDashboardPage"
                     ),
                 },
               ],

@@ -1,19 +1,19 @@
-import { createContext, ReactNode, useMemo, useState } from "react";
+import { createContext, ReactNode, useMemo } from "react";
 
-import { RoleName } from "@gc-digital-talent/auth";
+import { RoleName, NAV_ROLE_KEY } from "@gc-digital-talent/auth";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
-import { useLogger } from "@gc-digital-talent/logger";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 // this array is ordered by privilege to allow proper sorting
 const NAV_ROLES_BY_PRIVILEGE = [
-  "guest",
+  null,
   "applicant",
   "manager",
   "community",
   "admin",
 ] as const;
 
-type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
+export type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
 
 export interface NavContextState {
   navRole: NavRole;
@@ -21,17 +21,17 @@ export interface NavContextState {
 }
 
 export const NavContext = createContext<NavContextState>({
-  navRole: "guest",
+  navRole: null,
   onAuthorizedRolesChanged: () => {
     // no-op
   },
 });
 
-function convertRoleToNavRole(role: RoleName): NavRole {
+export function convertRoleToNavRole(role: RoleName): NavRole {
   switch (role) {
     case "guest":
     case "base_user":
-      return "guest";
+      return null;
     case "applicant":
       return "applicant";
     case "manager":
@@ -78,19 +78,17 @@ interface NavContextContainerProps {
 }
 
 const NavContextContainer = ({ children }: NavContextContainerProps) => {
-  const [navRole, setNavRole] = useState<NavRole>("guest");
-  const logger = useLogger();
+  const [navRole, setNavRole] = useLocalStorage<NavRole>(NAV_ROLE_KEY, null);
 
   const state = useMemo<NavContextState>(() => {
     return {
       navRole,
       onAuthorizedRolesChanged: (authorizedRoles: RoleName[]) => {
         const newNavRole = chooseNavRole(navRole, authorizedRoles);
-        logger.debug(`new nav role: ${newNavRole}`); // feel free to remove this in  #10793 when the container is used
         setNavRole(newNavRole);
       },
     };
-  }, [logger, navRole]);
+  }, [navRole, setNavRole]);
 
   return <NavContext.Provider value={state}>{children}</NavContext.Provider>;
 };
