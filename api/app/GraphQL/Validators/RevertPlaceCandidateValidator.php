@@ -24,7 +24,7 @@ final class RevertPlaceCandidateValidator extends Validator
         $placedStatuses = array_column(PlacementType::cases(), 'name');
 
         if (! (in_array($candidate->pool_candidate_status, $placedStatuses))) {
-            throw ValidationException::withMessages([ApiErrorEnums::CANDIDATE_NOT_PLACED]);
+            throw ValidationException::withMessages(['id' => ApiErrorEnums::CANDIDATE_NOT_PLACED]);
         }
 
         return [];
