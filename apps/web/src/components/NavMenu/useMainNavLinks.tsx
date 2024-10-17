@@ -224,11 +224,9 @@ const useMainNavLinks = (
     ["community_recruiter"]: intl.formatMessage(navMenuMessages.community),
     ["community_admin"]: intl.formatMessage(navMenuMessages.community),
     ["platform_admin"]: intl.formatMessage(navMenuMessages.admin),
-    [""]: intl.formatMessage(commonMessages.notFound),
   };
 
-  const roles: Record<string, string> = {
-    ["guest"]: paths.home(),
+  const getRoleLink: Record<string, string> = {
     ["applicant"]: paths.applicantDashboard(),
     ["manager"]: paths.manager(),
     ["pool_operator"]: paths.communityDashboard(),
@@ -238,7 +236,6 @@ const useMainNavLinks = (
     ["community_recruiter"]: paths.communityDashboard(),
     ["community_admin"]: paths.communityDashboard(),
     ["platform_admin"]: paths.adminDashboard(),
-    [""]: paths.notFound(),
   };
 
   const roleLinks = roleAssignments
@@ -246,11 +243,18 @@ const useMainNavLinks = (
       (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
     )
     .map((roleAssignment) => {
-      const role = roleAssignment.role?.name ?? "";
+      const role = roleAssignment.role?.name;
+
+      if (role === undefined) {
+        return {
+          name: intl.formatMessage(commonMessages.notFound),
+          href: paths.notFound(),
+        };
+      }
 
       return {
         name: getRoleName[role],
-        href: roles[role],
+        href: getRoleLink[role],
       };
     });
 
@@ -259,30 +263,11 @@ const useMainNavLinks = (
   const defaultLinks = {
     roleLinks: roleLinksNoDuplicates,
     currentRoleName: navRole,
+    accountLinks: null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
   };
 
   switch (navRole) {
-    case "guest":
-      return {
-        ...defaultLinks,
-        mainLinks: [
-          Home,
-          BrowseJobs,
-          // // uncomment to test scrolling on mobile view
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-          // BrowseJobs,
-        ],
-      };
     case "applicant":
       return {
         ...defaultLinks,
@@ -319,10 +304,8 @@ const useMainNavLinks = (
       };
     default:
       return {
-        roleLinks: defaultLinks.roleLinks,
+        ...defaultLinks,
         mainLinks: [Home, BrowseJobs],
-        accountLinks: [],
-        authLinks: defaultLinks.authLinks,
       };
   }
 };
