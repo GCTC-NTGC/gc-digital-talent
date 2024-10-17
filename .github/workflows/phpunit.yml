@@ -59,12 +59,8 @@ jobs:
           DB_HOST: localhost
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            php artisan key:generate
-            php artisan config:cache
             php artisan test --parallel --processes=2 --coverage-clover=coverage.xml
           else
-            php artisan key:generate
-            php artisan config:cache
             php artisan test
           fi
       - name: Upload coverage report to Codecov
