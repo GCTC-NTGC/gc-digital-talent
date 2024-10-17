@@ -212,6 +212,11 @@ const formMessages = defineMessages({
     description:
       "Caption notifying the user about who can know about the results of form changes",
   },
+  sortBy: {
+    defaultMessage: "Sort by",
+    id: "W9SXxj",
+    description: "Label for the links to change how the list is sorted",
+  },
 });
 
 export default formMessages;
