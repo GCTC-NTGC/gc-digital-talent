@@ -11,6 +11,8 @@ import {
   PreviewList,
   ResourceBlock,
   Accordion,
+  AccordionMetaData,
+  Well,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -25,6 +27,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 import pageMessages from "./messages";
+import PoolCandidateSearchRequestPreviewListItem from "./Components/PoolCandidateSearchRequestPreviewListItem";
 
 const linkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -38,6 +41,10 @@ const ManagerDashboardUser_Fragment = graphql(/* GraphQL */ `
   fragment ManagerDashboardUser on User {
     id
     firstName
+    poolCandidateSearchRequests {
+      id
+      ...PreviewListItem
+    }
   }
 `);
 
@@ -57,7 +64,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   const user = getFragment(ManagerDashboardUser_Fragment, userQuery);
 
   const formattedPageTitle = intl.formatMessage(pageMessages.pageTitle);
-  const formattedSubTitle = intl.formatMessage(pageMessages.subTitle);
+  const formattedPageSubtitle = intl.formatMessage(pageMessages.pageSubtitle);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -71,11 +78,41 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   // Easily identify parts of the page that are unfinished still.
   const showUnfinishedPieces = true;
 
+  const talentRequestMetaData: AccordionMetaData[] = [
+    {
+      key: "request-history-key",
+      type: "link",
+      // This link is missing an href since the page doesn't exist yet.  Probably #10982
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "All requests",
+            id: "mJKi1Y",
+            description: "Link to a page to view all the requests",
+          })}
+        </>
+      ),
+    },
+    {
+      key: "new-request-key",
+      type: "link",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "New request",
+            id: "BGQaDq",
+            description: "Link to a page to start a new request",
+          })}
+        </>
+      ),
+    },
+  ];
+
   return (
     <>
       <SEO
         title={intl.formatMessage(navigationMessages.profileAndApplications)}
-        description={formattedSubTitle}
+        description={formattedPageSubtitle}
       />
       <Hero
         title={intl.formatMessage(
@@ -89,7 +126,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
             firstName: user.firstName,
           },
         )}
-        subtitle={formattedSubTitle}
+        subtitle={formattedPageSubtitle}
         crumbs={crumbs}
       />
 
@@ -138,47 +175,12 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                               "Title for a list of your talent requests with a count",
                           },
                           {
-                            count: "0",
+                            count:
+                              user.poolCandidateSearchRequests?.length ?? 0,
                           },
                         )}
                       </Accordion.Trigger>
-                      <div
-                        // match accordion padding
-                        data-h2-padding="base(0 x1 x0.75 x1.3)"
-                        data-h2-display="base(flex)"
-                        data-h2-flex-direction="base(column) p-tablet(row)"
-                        data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
-                        data-h2-align-items="base(flex-start) p-tablet(center)"
-                        data-h2-gap="base(x0.5 0)"
-                        data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
-                        data-h2-color="p-tablet:children[::after](black.lighter)"
-                        data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
-                        data-h2-font-size="base(caption)"
-                      >
-                        {showUnfinishedPieces ? (
-                          // This link is missing an href since the page doesn't exist yet. Probably #10982
-                          <div>
-                            <Link color="primary" href="#">
-                              {intl.formatMessage({
-                                defaultMessage: "All requests",
-                                id: "mJKi1Y",
-                                description:
-                                  "Link to a page to view all the requests",
-                              })}
-                            </Link>
-                          </div>
-                        ) : null}
-                        <div>
-                          <Link color="primary" href={paths.search()}>
-                            {intl.formatMessage({
-                              defaultMessage: "New request",
-                              id: "BGQaDq",
-                              description:
-                                "Link to a page to start a new request",
-                            })}
-                          </Link>
-                        </div>
-                      </div>
+                      <Accordion.MetaData metadata={talentRequestMetaData} />
                       <Accordion.Content>
                         <div
                           data-h2-display="base(flex)"
@@ -186,97 +188,58 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           data-h2-gap="base(x1)"
                         >
                           <div>
-                            {intl.formatMessage(
-                              {
-                                defaultMessage:
-                                  'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
-                                id: "OWLaKF",
-                                description:
-                                  "instructional text for the 'Your talent requests' tool",
-                              },
-                              {
-                                findTalentLink: (chunks: ReactNode) =>
-                                  linkAccessor(paths.search(), chunks),
-                                allRequestsLink: (chunks: ReactNode) =>
-                                  linkAccessor("#", chunks),
-                              },
-                            )}
+                            {showUnfinishedPieces
+                              ? intl.formatMessage(
+                                  {
+                                    defaultMessage:
+                                      'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
+                                    id: "OWLaKF",
+                                    description:
+                                      "instructional text for the 'Your talent requests' tool",
+                                  },
+                                  {
+                                    findTalentLink: (chunks: ReactNode) =>
+                                      linkAccessor(paths.search(), chunks),
+                                    allRequestsLink: (chunks: ReactNode) =>
+                                      linkAccessor("#", chunks), // This link is missing an href since the "Your talent requests" page doesn't exist yet.
+                                  },
+                                )
+                              : null}
                           </div>
 
-                          <PreviewList.Root>
-                            <PreviewList.Item
-                              title="IT01: Junior application developer"
-                              metaData={[
-                                {
-                                  key: "status-chip",
-                                  type: "chip",
-                                  color: "secondary",
-                                  children: "Submitted",
-                                },
-                                {
-                                  key: "match-count",
-                                  type: "text",
-                                  children: "40 potential matches",
-                                },
-                                {
-                                  key: "open-date",
-                                  type: "text",
-                                  children: "Opened on: April 30th, 2024",
-                                },
-                              ]}
-                              action={
-                                <PreviewList.Button label="IT01: Junior application developer" />
-                              }
-                            />
-                            <PreviewList.Item
-                              title="IT-02: Application developer"
-                              metaData={[
-                                {
-                                  key: "status-chip",
-                                  type: "chip",
-                                  color: "secondary",
-                                  children: "Submitted",
-                                },
-                                {
-                                  key: "match-count",
-                                  type: "text",
-                                  children: "56 potential matches",
-                                },
-                                {
-                                  key: "open-date",
-                                  type: "text",
-                                  children: "Opened on: April 30th, 2024",
-                                },
-                              ]}
-                              action={
-                                <PreviewList.Button label="IT-02: Application developer" />
-                              }
-                            />
-                            <PreviewList.Item
-                              title="IT-02: Database architect"
-                              metaData={[
-                                {
-                                  key: "status-chip",
-                                  type: "chip",
-                                  color: "warning",
-                                  children: "Awaiting response",
-                                },
-                                {
-                                  key: "match-count",
-                                  type: "text",
-                                  children: "12 potential matches",
-                                },
-                                {
-                                  key: "open-date",
-                                  type: "text",
-                                  children: "Opened on: April 30th, 2024",
-                                },
-                              ]}
-                              action={
-                                <PreviewList.Button label="IT-02: Database architect" />
-                              }
-                            />
-                          </PreviewList.Root>
+                          {user.poolCandidateSearchRequests?.length ? (
+                            <PreviewList.Root>
+                              {user.poolCandidateSearchRequests?.map(
+                                (request) => (
+                                  <PoolCandidateSearchRequestPreviewListItem
+                                    key={request.id}
+                                    poolCandidateSearchRequestQuery={request}
+                                  />
+                                ),
+                              )}
+                            </PreviewList.Root>
+                          ) : (
+                            <Well data-h2-text-align="base(center)">
+                              <p data-h2-font-weight="base(bold)">
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "You don't have any active requests at the moment.",
+                                  id: "3PwQT7",
+                                  description:
+                                    "Title for notice when there are no pool candidate search requests",
+                                })}
+                              </p>
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    'You can start a new talent request using the "New request" button or navigating to the "Find talent" page from the main navigation.',
+                                  id: "6jBrNA",
+                                  description:
+                                    "Body for notice when there are no pool candidate search requests",
+                                })}
+                              </p>
+                            </Well>
+                          )}
                         </div>
                       </Accordion.Content>
                     </Accordion.Item>

@@ -54,8 +54,8 @@ class SkillLevelRequiredIfEssential implements DataAwareRule, ValidationRule
         if (! is_null($templateId)) {
             $template = JobPosterTemplate::findOrFail($templateId);
             $model = $template->skills()->firstWhere('skill_id', $skillId);
-            $currentType = $model->pivot->type;
-            $currentLevel = $model->pivot->required_skill_level;
+            $currentType = $model->getAttributeValue('type');
+            $currentLevel = $model->getAttributeValue('required_skill_level');
         }
         $newType = isset($incomingType) ? $incomingType : $currentType;
         $newLevel = isset($incomingLevel) ? $incomingLevel : $currentLevel;

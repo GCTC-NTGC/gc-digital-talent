@@ -27,6 +27,13 @@ fi
 # First block is the header
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
+# Configure PHP CLI
+if echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini ; then
+    add_section_block ":white_check_mark: Configure PHP CLI *successful*."
+else
+    add_section_block ":X: Configure PHP CLI *failed*. $MENTION"
+fi
+
 # Install packages from repository
 if apt-get update && apt-get install --yes --no-install-recommends supervisor cron postgresql-client; then
     add_section_block ":white_check_mark: Install packages from repository *successful*."

@@ -14,6 +14,7 @@ final class TogglePoolUserBookmark
     {
         /** @var \App\Models\User | null */
         $user = Auth::user();
+        /** @var \App\Models\Pool */
         $pool = Pool::find($args['pool_id']);
         $user->poolBookmarks()->toggle($pool->id);
 

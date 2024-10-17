@@ -143,6 +143,8 @@ type User {
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+    @canResolved(ability: "view") # Search requests submitted by a user
 }
 
 interface Notification {
