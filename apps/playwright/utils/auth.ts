@@ -27,7 +27,7 @@ interface AuthTokenResponse {
 export async function loginBySub(
   page: Page,
   sub: string,
-  notAuthorized: boolean,
+  notAuthorized?: boolean,
 ) {
   await page.goto("/en/login-info");
   await expect(
