@@ -216,6 +216,9 @@ const Trigger = forwardRef<
               data-h2-display="base(flex)"
               data-h2-gap="base(0, x.5)"
               data-h2-flex-grow="base(1)"
+              {...(context
+                ? { "data-h2-margin-bottom": "base(x.5) p-tablet(0)" }
+                : {})}
             >
               <span
                 className="Accordion__Chevron"
@@ -259,7 +262,7 @@ const Trigger = forwardRef<
                 data-h2-align-items="base(center)"
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x.25)"
-                data-h2-margin="base(x.5 0 0 x1.30) p-tablet(0 0 0 0)"
+                data-h2-margin-left="base(x1.30) p-tablet(0)"
               >
                 {context && (
                   <span data-h2-font-size="base(body)">{context}</span>
