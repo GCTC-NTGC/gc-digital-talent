@@ -314,6 +314,12 @@ const createRoute = (locale: Locales) =>
               path: "browse",
               children: [
                 {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+                {
                   path: "pools",
                   children: [
                     {
@@ -349,6 +355,12 @@ const createRoute = (locale: Locales) =>
             {
               path: "applications",
               children: [
+                {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
                 {
                   path: ":applicationId",
                   lazy: () => import("../pages/Applications/ApplicationLayout"),
@@ -741,6 +753,12 @@ const createRoute = (locale: Locales) =>
             {
               path: "settings",
               children: [
+                {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
                 {
                   path: "classifications",
                   children: [

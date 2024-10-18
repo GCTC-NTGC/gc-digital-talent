@@ -2,6 +2,7 @@ includes:
   - vendor/larastan/larastan/extension.neon
 
 parameters:
+  treatPhpDocTypesAsCertain: false
   level: 5
   paths:
     - app
@@ -138,16 +139,6 @@ parameters:
       path: app/GraphQL/Validators/RevertPlaceCandidateValidator.php
 
     -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 2
-      path: app/Http/Controllers/AuthController.php
-
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 1
-      path: app/Http/Controllers/SupportController.php
-
-    -
       message: "#^Called 'Model\\:\\:make\\(\\)' which performs unnecessary work, use 'new Model\\(\\)'\\.$#"
       count: 1
       path: app/Models/Experience.php
@@ -174,21 +165,6 @@ parameters:
 
     -
       message: "#^Dead catch \\- UnhandledMatchError is never thrown in the try block\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Negated boolean expression is always false\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Variable \\$assessmentStatus in isset\\(\\) always exists and is not nullable\\.$#"
-      count: 1
-      path: app/Models/PoolCandidate.php
-
-    -
-      message: "#^Variable \\$educationResults in isset\\(\\) always exists and is not nullable\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
 
@@ -283,24 +259,11 @@ parameters:
       path: app/Providers/GraphQLServiceProvider.php
 
     -
-      message: "#^Variable \\$experiences in isset\\(\\) always exists and is not nullable\\.$#"
-      count: 1
-      path: app/Rules/HasEducationRequirement.php
-
-    -
       message: "#^Left side of && is always true\\.$#"
       count: 1
       path: app/Rules/HasLanguageRequirements.php
 
-    -
-      message: "#^Variable \\$activePoolsUsingSkill in isset\\(\\) always exists and is not nullable\\.$#"
-      count: 1
-      path: app/Rules/SkillNotUsedByActivePool.php
 
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Http\\\\Client\\\\Response\\:\\:getBody\\(\\)\\.$#"
-      count: 3
-      path: app/Services/OpenIdBearerTokenService.php
 
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"
