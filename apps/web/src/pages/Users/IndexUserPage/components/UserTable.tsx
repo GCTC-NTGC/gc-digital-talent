@@ -78,6 +78,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         email
+        workEmail
         firstName
         lastName
         telephone
@@ -267,6 +268,11 @@ const UserTable = ({ title }: UserTableProps) => {
       header: intl.formatMessage(commonMessages.email),
       cell: ({ getValue }) => cells.email(getValue()),
     }),
+    columnHelper.accessor("workEmail", {
+      id: "workEmail",
+      header: intl.formatMessage(commonMessages.workEmail),
+      cell: ({ getValue }) => cells.email(getValue()),
+    }),
     columnHelper.accessor(
       (user) =>
         rolesAccessor(unpackMaybes(user?.authInfo?.roleAssignments), intl),
@@ -391,6 +397,7 @@ const UserTable = ({ title }: UserTableProps) => {
       columns={columns}
       isLoading={fetching}
       hiddenColumnIds={[
+        "workEmail",
         "telephone",
         "preferredLang",
         "createdDate",

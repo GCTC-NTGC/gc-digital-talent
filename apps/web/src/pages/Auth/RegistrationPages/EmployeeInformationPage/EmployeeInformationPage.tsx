@@ -32,6 +32,7 @@ import {
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 import {
+  commonMessages,
   errorMessages,
   getGovEmployeeType,
   getLocalizedName,
@@ -445,11 +446,7 @@ export const EmployeeInformationForm = ({
       id: "xzSXz9",
       description: "Employment type label",
     }),
-    workEmail: intl.formatMessage({
-      defaultMessage: "Work email address",
-      id: "jWx0oF",
-      description: "Label displayed on work email input",
-    }),
+    workEmail: intl.formatMessage(commonMessages.workEmail),
     currentClassificationGroup: intl.formatMessage({
       defaultMessage: "Group",
       id: "wJnIJx",

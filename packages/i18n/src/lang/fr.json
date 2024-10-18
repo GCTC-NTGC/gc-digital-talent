@@ -1398,5 +1398,9 @@
   "zhqK/P": {
     "defaultMessage": "Non précisé",
     "description": "Unspecified, has not been set or defined"
+  },
+  "pOL68A": {
+    "defaultMessage": "Adresse courriel professionnelle",
+    "description": "Title for work email address"
   }
 }

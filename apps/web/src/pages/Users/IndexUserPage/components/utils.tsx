@@ -76,6 +76,7 @@ export function transformSortStateToOrderByClause(
     ["id", "id"],
     ["candidateName", "first_name"],
     ["email", "email"],
+    ["workEmail", "work_email"],
     ["telephone", "telephone"],
     ["preferredLang", "preferred_lang"],
     ["createdDate", "created_at"],
