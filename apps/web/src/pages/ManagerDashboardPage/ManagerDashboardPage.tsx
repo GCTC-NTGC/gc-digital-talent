@@ -11,6 +11,7 @@ import {
   PreviewList,
   ResourceBlock,
   Accordion,
+  AccordionMetaData,
   Well,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -76,6 +77,36 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
 
   // Easily identify parts of the page that are unfinished still.
   const showUnfinishedPieces = true;
+
+  const talentRequestMetaData: AccordionMetaData[] = [
+    {
+      key: "request-history-key",
+      type: "link",
+      // This link is missing an href since the page doesn't exist yet.  Probably #10982
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "All requests",
+            id: "mJKi1Y",
+            description: "Link to a page to view all the requests",
+          })}
+        </>
+      ),
+    },
+    {
+      key: "new-request-key",
+      type: "link",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "New request",
+            id: "BGQaDq",
+            description: "Link to a page to start a new request",
+          })}
+        </>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -149,43 +180,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           },
                         )}
                       </Accordion.Trigger>
-                      <div
-                        // match accordion padding
-                        data-h2-padding="base(0 x1 x0.75 x1.3)"
-                        data-h2-display="base(flex)"
-                        data-h2-flex-direction="base(column) p-tablet(row)"
-                        data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
-                        data-h2-align-items="base(flex-start) p-tablet(center)"
-                        data-h2-gap="base(x0.5 0)"
-                        data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
-                        data-h2-color="p-tablet:children[::after](black.lighter)"
-                        data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
-                        data-h2-font-size="base(caption)"
-                      >
-                        {showUnfinishedPieces ? (
-                          // This link is missing an href since the "Your talent requests" page doesn't exist yet.
-                          <div>
-                            <Link color="primary" href="#">
-                              {intl.formatMessage({
-                                defaultMessage: "All requests",
-                                id: "mJKi1Y",
-                                description:
-                                  "Link to a page to view all the requests",
-                              })}
-                            </Link>
-                          </div>
-                        ) : null}
-                        <div>
-                          <Link color="primary" href={paths.search()}>
-                            {intl.formatMessage({
-                              defaultMessage: "New request",
-                              id: "BGQaDq",
-                              description:
-                                "Link to a page to start a new request",
-                            })}
-                          </Link>
-                        </div>
-                      </div>
+                      <Accordion.MetaData metadata={talentRequestMetaData} />
                       <Accordion.Content>
                         <div
                           data-h2-display="base(flex)"
