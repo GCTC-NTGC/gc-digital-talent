@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { Client, useQuery } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -68,10 +68,18 @@ const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
   }
 `);
 
+export const loader = (client: Client) => async () => {
+  return await client
+    .query(ProfileAndApplicationsApplicant_Query, {})
+    .toPromise()
+    .then((res) => res.data);
+};
+
 const ProfileAndApplicationsPage = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ProfileAndApplicationsApplicant_Query,
+    requestPolicy: "cache-only",
   });
 
   return (
