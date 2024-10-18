@@ -180,7 +180,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
               data-h2-right="base(0)"
               data-h2-height="base(50vh) p-tablet(100%)"
               data-h2-width="base(100%)"
-              data-h2-background-position="base(50% 110%) p-tablet(200% 100%) l-tablet(115% 100%) laptop(110% 100%) desktop(105% 100%)"
+              data-h2-background-position="base(50% 110%) p-tablet(140% 100%) l-tablet(115% 100%) laptop(110% 100%) desktop(105% 100%)"
               data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) p-tablet(auto 110%)"
               data-h2-background-repeat="base(no-repeat)"
               style={{ backgroundImage: `url('${imgPath}')` }}
