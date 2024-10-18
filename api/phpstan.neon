@@ -44,7 +44,7 @@ parameters:
       path: app/Models/Experience.php
 
     -
-      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, App\\\\Models\\\\PoolCandidate\\>\\:\\:withTrashed\\(\\)\\.$#"
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, \\$this\\(App\\\\Models\\\\PoolCandidate\\)\\>\\:\\:withTrashed\\(\\)\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
 
