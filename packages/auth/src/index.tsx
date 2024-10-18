@@ -16,6 +16,7 @@ import {
   ROLE_NAME,
   RoleName,
   LOGOUT_REASON_KEY,
+  NAV_ROLE_KEY,
 } from "./const";
 import type { LogoutReason } from "./const";
 
@@ -39,6 +40,7 @@ export {
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   LOGOUT_REASON_KEY,
   ROLE_NAME,
+  NAV_ROLE_KEY,
 };
 
 export type { RoleName, LogoutReason };

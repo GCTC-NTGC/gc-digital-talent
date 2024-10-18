@@ -25,6 +25,8 @@ const getRoutes = (lang: Locales) => {
   const baseUrl = `/${lang}`;
   const adminUrl = [baseUrl, "admin"].join("/");
   const applicantUrl = [baseUrl, "applicant"].join("/");
+  const communityUrl = [baseUrl, "community"].join("/");
+  const managerUrl = [baseUrl, "manager"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
 
   return {
@@ -52,10 +54,17 @@ const getRoutes = (lang: Locales) => {
     skills: () => [baseUrl, "skills"].join("/"),
     inclusivityEquity: () => [baseUrl, "inclusivity-equity"].join("/"),
 
+    // Applicant
+    applicantDashboard: () => applicantUrl,
+
     // Admin
     adminDashboard: () => adminUrl,
 
+    // Manager
+    managerDashboard: () => [managerUrl, "dashboard"].join("/"),
+
     // Admin - Communities
+    communityDashboard: () => communityUrl,
     communityTable: () => [adminUrl, "communities"].join("/"),
     communityCreate: () => [adminUrl, "communities", "create"].join("/"),
     communityView: (communityId: string) =>

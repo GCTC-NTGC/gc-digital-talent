@@ -16,12 +16,12 @@ export interface AdminSubNavProps {
 
 const AdminSubNav = ({ mode, items }: AdminSubNavProps) => {
   if (mode === "crumbs") {
-    return <Breadcrumbs crumbs={items} fullWidth />;
+    return <Breadcrumbs crumbs={items} />;
   }
 
   return (
     <NavTabs.Root>
-      <NavTabs.List data-h2-wrapper="base(center, full, x1) base(center, full, x2)">
+      <NavTabs.List data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         {items.map((item) => (
           <NavTabs.Item key={item.url}>
             <NavTabs.Link href={item.url}>{item.label}</NavTabs.Link>

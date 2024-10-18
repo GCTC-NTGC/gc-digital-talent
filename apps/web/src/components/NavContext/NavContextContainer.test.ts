@@ -2,8 +2,8 @@ import { chooseNavRole } from "./NavContextContainer";
 
 describe("NavContextContainer", () => {
   // if no authorized roles are provided it falls back to guest
-  it("falls back to guest", () => {
-    expect(chooseNavRole("admin", [])).toBe("guest");
+  it("falls back to null", () => {
+    expect(chooseNavRole("admin", [])).toBe(null);
   });
 
   // if it has a choice, it will keep the existing nav role
