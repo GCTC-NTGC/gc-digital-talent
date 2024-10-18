@@ -81,7 +81,6 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
     {
       key: "request-history-key",
       type: "link",
-      // This link is missing an href since the page doesn't exist yet.  Probably #10982
       children: (
         <Link color="primary" href={paths.managerRequestHistory()}>
           {intl.formatMessage({
