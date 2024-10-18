@@ -30,7 +30,7 @@ final class CreateUserSkill
 
                 return $existingModel;
             }
-            throw ValidationException::withMessages(['DuplicateUserSkill']);
+            throw ValidationException::withMessages(['skill_id' => 'DuplicateUserSkill']);
         }
 
         $createdModel = UserSkill::create([

@@ -10,7 +10,7 @@ final class UpdateUserSkillRankings
     /**
      * Update a user's UserSkill rankings
      *
-     * @param  array{userId: UUID, userSkillRanking: UpdateUserSkillRankingsInput}  $args
+     * @param  array{userId: string, userSkillRanking: array}  $args
      * @return User
      */
     public function __invoke($_, array $args)
