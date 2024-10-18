@@ -29,7 +29,7 @@ import {
 } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import { PageNavInfo } from "~/types/pages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";

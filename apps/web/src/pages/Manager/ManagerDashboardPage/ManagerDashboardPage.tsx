@@ -21,7 +21,7 @@ import { useLocalStorage } from "@gc-digital-talent/storage";
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
