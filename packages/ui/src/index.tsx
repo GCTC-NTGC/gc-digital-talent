@@ -7,7 +7,7 @@ import {
   IconProps,
   ButtonLinkMode,
 } from "./types";
-import Accordion from "./components/Accordion";
+import Accordion, { type AccordionMetaData } from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
@@ -101,6 +101,7 @@ import NavMenuWrapper from "./components/NavMenu/NavMenuWrapper";
 export type {
   Color,
   HeadingRank,
+  AccordionMetaData,
   AlertProps,
   BreadcrumbsProps,
   ButtonProps,
