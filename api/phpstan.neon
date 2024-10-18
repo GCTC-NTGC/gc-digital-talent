@@ -159,7 +159,7 @@ parameters:
       path: app/Models/Experience.php
 
     -
-      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, App\\\\Models\\\\PoolCandidate\\>\\:\\:withTrashed\\(\\)\\.$#"
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, \\$this\\(App\\\\Models\\\\PoolCandidate\\)\\>\\:\\:withTrashed\\(\\)\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
 
@@ -179,7 +179,7 @@ parameters:
       path: app/Models/PoolCandidate.php
 
     -
-      message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate\\> supplied for foreach, only iterables are supported\\.$#"
+      message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate, App\\\\Models\\\\User\\> supplied for foreach, only iterables are supported\\.$#"
       count: 1
       path: app/Models/User.php
 
@@ -194,7 +194,7 @@ parameters:
       path: app/Models/User.php
 
     -
-      message: "#^Parameter \\#1 \\$columns of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<App\\\\Models\\\\Department\\>\\:\\:get\\(\\) expects array\\<int, string\\>, string given\\.$#"
+      message: "#^Parameter \\#1 \\$columns of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<App\\\\Models\\\\Department,\\$this\\(App\\\\Models\\\\User\\),App\\\\Models\\\\Department\\|null\\>\\:\\:get\\(\\) expects array\\<int, string\\>, string given\\.$#"
       count: 1
       path: app/Models/User.php
 
