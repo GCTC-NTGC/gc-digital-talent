@@ -43,6 +43,10 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
+  "09LIbL": {
+    "defaultMessage": "Date",
+    "description": "Label to identify a date element"
+  },
   "0ClMl1": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"
@@ -726,6 +730,10 @@
   "W5Dkd1": {
     "defaultMessage": "Économique et services de sciences sociales",
     "description": "Full name of abbreviation for EC"
+  },
+  "W9SXxj": {
+    "defaultMessage": "Trier par",
+    "description": "Label for the links to change how the list is sorted"
   },
   "WGoaKQ": {
     "defaultMessage": "Sauvegardez les modifications",

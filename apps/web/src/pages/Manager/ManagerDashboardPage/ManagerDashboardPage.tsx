@@ -11,9 +11,9 @@ import {
   PreviewList,
   ResourceBlock,
   Accordion,
+  AccordionMetaData,
   Well,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { useLocalStorage } from "@gc-digital-talent/storage";
@@ -26,7 +26,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
 import pageMessages from "./messages";
-import PoolCandidateSearchRequestPreviewListItem from "./Components/PoolCandidateSearchRequestPreviewListItem";
+import PoolCandidateSearchRequestPreviewListItem from "../components/PoolCandidateSearchRequestPreviewListItem";
 
 const linkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -69,7 +69,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
     crumbs: [
       {
         label: formattedPageTitle,
-        url: paths.profile(),
+        url: paths.managerDashboard(),
       },
     ],
   });
@@ -77,12 +77,38 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   // Easily identify parts of the page that are unfinished still.
   const showUnfinishedPieces = true;
 
+  const talentRequestMetaData: AccordionMetaData[] = [
+    {
+      key: "request-history-key",
+      type: "link",
+      children: (
+        <Link color="primary" href={paths.managerRequestHistory()}>
+          {intl.formatMessage({
+            defaultMessage: "All requests",
+            id: "mJKi1Y",
+            description: "Link to a page to view all the requests",
+          })}
+        </Link>
+      ),
+    },
+    {
+      key: "new-request-key",
+      type: "link",
+      children: (
+        <Link color="primary" href={paths.search()}>
+          {intl.formatMessage({
+            defaultMessage: "New request",
+            id: "BGQaDq",
+            description: "Link to a page to start a new request",
+          })}
+        </Link>
+      ),
+    },
+  ];
+
   return (
     <>
-      <SEO
-        title={intl.formatMessage(navigationMessages.profileAndApplications)}
-        description={formattedPageSubtitle}
-      />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={intl.formatMessage(
           {
@@ -149,43 +175,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           },
                         )}
                       </Accordion.Trigger>
-                      <div
-                        // match accordion padding
-                        data-h2-padding="base(0 x1 x0.75 x1.3)"
-                        data-h2-display="base(flex)"
-                        data-h2-flex-direction="base(column) p-tablet(row)"
-                        data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
-                        data-h2-align-items="base(flex-start) p-tablet(center)"
-                        data-h2-gap="base(x0.5 0)"
-                        data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
-                        data-h2-color="p-tablet:children[::after](black.lighter)"
-                        data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
-                        data-h2-font-size="base(caption)"
-                      >
-                        {showUnfinishedPieces ? (
-                          // This link is missing an href since the "Your talent requests" page doesn't exist yet.
-                          <div>
-                            <Link color="primary" href="#">
-                              {intl.formatMessage({
-                                defaultMessage: "All requests",
-                                id: "mJKi1Y",
-                                description:
-                                  "Link to a page to view all the requests",
-                              })}
-                            </Link>
-                          </div>
-                        ) : null}
-                        <div>
-                          <Link color="primary" href={paths.search()}>
-                            {intl.formatMessage({
-                              defaultMessage: "New request",
-                              id: "BGQaDq",
-                              description:
-                                "Link to a page to start a new request",
-                            })}
-                          </Link>
-                        </div>
-                      </div>
+                      <Accordion.MetaData metadata={talentRequestMetaData} />
                       <Accordion.Content>
                         <div
                           data-h2-display="base(flex)"
@@ -193,23 +183,24 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                           data-h2-gap="base(x1)"
                         >
                           <div>
-                            {showUnfinishedPieces
-                              ? intl.formatMessage(
-                                  {
-                                    defaultMessage:
-                                      'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
-                                    id: "OWLaKF",
-                                    description:
-                                      "instructional text for the 'Your talent requests' tool",
-                                  },
-                                  {
-                                    findTalentLink: (chunks: ReactNode) =>
-                                      linkAccessor(paths.search(), chunks),
-                                    allRequestsLink: (chunks: ReactNode) =>
-                                      linkAccessor("#", chunks), // This link is missing an href since the "Your talent requests" page doesn't exist yet.
-                                  },
-                                )
-                              : null}
+                            {intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  'When you submit a request for talent using the "<findTalentLink>Find talent</findTalentLink>" feature, it will appear in this list while it remains active. Requests that have been closed can be found by visiting the "<allRequestsLink>All requests</allRequestsLink>" page.',
+                                id: "OWLaKF",
+                                description:
+                                  "instructional text for the 'Your talent requests' tool",
+                              },
+                              {
+                                findTalentLink: (chunks: ReactNode) =>
+                                  linkAccessor(paths.search(), chunks),
+                                allRequestsLink: (chunks: ReactNode) =>
+                                  linkAccessor(
+                                    paths.managerRequestHistory(),
+                                    chunks,
+                                  ),
+                              },
+                            )}
                           </div>
 
                           {user.poolCandidateSearchRequests?.length ? (
@@ -259,7 +250,6 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
               data-h2-gap="base(x1)"
               data-h2-max-width="p-tablet(x14)"
             >
-              {/* Switch to new component in #11031 */}
               <ResourceBlock.Root
                 headingColor="quinary"
                 headingAs="h2"
@@ -364,26 +354,21 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                     description: "the 'Learn about skills' tool description",
                   })}
                 />
-                {showUnfinishedPieces ? (
-                  // This block is missing an href since the page doesn't exist yet.
-                  <ResourceBlock.SingleLinkItem
-                    title={intl.formatMessage({
-                      defaultMessage: "Browse job templates",
-                      id: "bLxoQL",
-                      description: "Link for the 'browse job templates' card",
-                    })}
-                    href="#"
-                    description={intl.formatMessage({
-                      defaultMessage:
-                        "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
-                      id: "ZCDsMF",
-                      description:
-                        "Helper instructions for the 'browse job templates' card",
-                    })}
-                  />
-                ) : (
-                  <></>
-                )}
+                <ResourceBlock.SingleLinkItem
+                  title={intl.formatMessage({
+                    defaultMessage: "Browse job templates",
+                    id: "bLxoQL",
+                    description: "Link for the 'browse job templates' card",
+                  })}
+                  href={paths.jobPosterTemplates()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
+                    id: "ZCDsMF",
+                    description:
+                      "Helper instructions for the 'browse job templates' card",
+                  })}
+                />
                 <ResourceBlock.SingleLinkItem
                   title={intl.formatMessage({
                     defaultMessage: "Directive on Digital Talent",
