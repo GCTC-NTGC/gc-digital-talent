@@ -315,6 +315,11 @@ const commonMessages = defineMessages({
     id: "uBmoxQ",
     description: "Title displayed for the role table display name column",
   },
+  date: {
+    defaultMessage: "Date",
+    id: "09LIbL",
+    description: "Label to identify a date element",
+  },
 });
 
 export default commonMessages;
