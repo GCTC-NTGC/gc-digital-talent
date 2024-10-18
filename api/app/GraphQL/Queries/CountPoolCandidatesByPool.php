@@ -6,6 +6,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 
 final class CountPoolCandidatesByPool
 {
@@ -83,6 +84,13 @@ final class CountPoolCandidatesByPool
             ->selectRaw('count(*) as candidate_count, pool_id')
             ->groupBy('pool_id')
             ->get();
+
+        $onDemandLog = Log::build([
+            'driver' => 'single',
+            'path' => '/home/LogFiles/count.log',
+        ]);
+        $onDemandLog->error('Ran a count - error');
+        $onDemandLog->warning('Ran a count - warning');
 
         return $databaseRows;
     }
