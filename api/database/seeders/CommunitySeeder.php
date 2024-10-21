@@ -41,5 +41,14 @@ class CommunitySeeder extends Seeder
                 ]
             );
         }
+
+        Community::all()->each(function (Community $community) {
+            if ($community->team()->exists()) {
+                return;
+            }
+            $community->team()->firstOrCreate([], [
+                'name' => 'community-' . $community->id,
+            ]);
+        });
     }
 }
