@@ -16,6 +16,7 @@ use App\Models\Department;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\User */
 class UserResource extends JsonResource
 {
     use HasLocalizedEnums;

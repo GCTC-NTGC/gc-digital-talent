@@ -15,7 +15,7 @@ final class UnarchivePool
     {
         $pool = Pool::find($args['id']);
         if ($pool->getStatusAttribute() !== PoolStatus::ARCHIVED->name) {
-            throw ValidationException::withMessages(['UnarchivePoolInvalidStatus']);
+            throw ValidationException::withMessages(['status' => 'UnarchivePoolInvalidStatus']);
         }
         $pool->update(['archived_at' => null]);
 

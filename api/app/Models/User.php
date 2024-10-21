@@ -82,12 +82,15 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  * @property ?string $indigenous_declaration_signature
  * @property ?array $indigenous_communities
  * @property ?string $preferred_language_for_interview
  * @property ?string $preferred_language_for_exam
  * @property ?array $enabled_email_notifications
  * @property ?array $enabled_in_app_notifications
+ * @property \App\Models\Notification $unreadNotifications
+ * @property Collection<\App\Models\Notification> $notifications
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -279,6 +282,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
     }
 
+    // User 1-0..* PoolCandidateSearchRequest
+    public function poolCandidateSearchRequests(): HasMany
+    {
+        return $this->hasMany(PoolCandidateSearchRequest::class);
+    }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
@@ -337,7 +346,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             return '';
         }
 
-        return $this->department()->get('name');
+        return $this->department()->get(['name']);
     }
 
     public function getPriorityAttribute()

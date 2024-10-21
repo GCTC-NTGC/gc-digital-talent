@@ -47,7 +47,7 @@ import type {
   ExperienceMutationResponse,
 } from "~/types/experience";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import AdditionalDetails from "~/components/ExperienceFormFields/AdditionalDetails";

@@ -9,6 +9,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Accordion from "./Accordion";
 import Button from "../Button";
+import { testMetaData } from "./utils";
 
 const { Item, Trigger, Content, Root } = Accordion;
 
@@ -66,7 +67,15 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">
-        <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+        <Accordion.Trigger subtitle="Subtitle">
+          Accordion Three
+        </Accordion.Trigger>
+        <Accordion.MetaData metadata={testMetaData} />
+        <Accordion.Content>{children}</Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item value="four">
+        <Accordion.Trigger>Accordion Four</Accordion.Trigger>
+        <Accordion.MetaData metadata={testMetaData} />
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
@@ -172,8 +181,14 @@ Nested.args = {
     <>
       <Text />
       <Accordion.Root type="single" collapsible>
-        <Accordion.Item value="two">
-          <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+        <Accordion.Item value="sub-one">
+          <Accordion.Trigger>Accordion Sub One</Accordion.Trigger>
+          <Accordion.Content>
+            <Text />
+          </Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="sub-two">
+          <Accordion.Trigger>Accordion Sub Two</Accordion.Trigger>
           <Accordion.Content>
             <Text />
           </Accordion.Content>

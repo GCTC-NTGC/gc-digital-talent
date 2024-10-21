@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * Class Community
  *
  * @property string $id
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  * @property string $key
  * @property array $name
  * @property array $description

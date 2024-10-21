@@ -21,8 +21,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $description
  * @property array $keywords
  * @property string $category
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class Skill extends Model
 {

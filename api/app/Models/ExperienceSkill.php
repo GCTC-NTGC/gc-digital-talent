@@ -14,9 +14,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $experience_id
  * @property string $user_skill_id
  * @property string $details
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class ExperienceSkill extends Model
 {
@@ -39,6 +39,6 @@ class ExperienceSkill extends Model
 
     public function skill()
     {
-        return $this->hasOneDeepFromRelations($this->userSkill(), (new UserSkill())->skill());
+        return $this->hasOneDeepFromRelations($this->userSkill(), (new UserSkill)->skill());
     }
 }
