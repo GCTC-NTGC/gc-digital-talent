@@ -1,10 +1,10 @@
 import groupBy from "lodash/groupBy"; // provides sorted output
 import stringify from "json-stable-stringify";
 
-import * as rawI18nEnMessages from "@gc-digital-talent/i18n/en.json";
-import * as rawI18nFrMessages from "@gc-digital-talent/i18n/fr.json";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import * as rawI18nEnMessages from "../../../../packages/i18n/src/lang/en.json";
+import * as rawI18nFrMessages from "../../../../packages/i18n/src/lang/fr.json";
 import * as rawWebEnMessages from "./en.json";
 import * as rawWebFrMessages from "./fr.json";
 
