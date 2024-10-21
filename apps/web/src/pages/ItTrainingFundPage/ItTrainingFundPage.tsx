@@ -3,7 +3,7 @@ import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { CardFlat, Heading } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -74,12 +74,16 @@ export const Component = () => {
                 })}
               </p>
             </div>
-            <div>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x1.5)"
+            >
               <Heading
                 Icon={BookmarkSquareIcon}
                 size="h2"
                 color="tertiary"
-                data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-margin="base(0)"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -97,6 +101,89 @@ export const Component = () => {
                   description: "First paragraph describing the training fund",
                 })}
               </p>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x2) p-tablet(x3)"
+              >
+                <CardFlat
+                  color="quaternary"
+                  title={intl.formatMessage({
+                    defaultMessage: "Objectives of the Fund",
+                    id: "R9jFeX",
+                    description: "Heading for the fund objectives card",
+                  })}
+                >
+                  <p data-h2-margin-bottom="base(x0.5)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The goal is to deliver additional comprehensive, consistent, and high-quality training opportunities to:",
+                      id: "VmXu0a",
+                      description: "title for a list of fund objectives",
+                    })}
+                  </p>
+                  <ul data-h2-margin-bottom="base:children[:not(:last-child)](x0.5)">
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage: "close critical skills gaps",
+                        id: "DeFQGH",
+                        description: "an item in a list of fund objectives",
+                      })}
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "reduce reliance on external contractors",
+                        id: "fCgDxi",
+                        description: "an item in a list of fund objectives",
+                      })}
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "equip IT employees to drive digital transformation",
+                        id: "3I8R7b",
+                        description: "an item in a list of fund objectives",
+                      })}
+                    </li>
+                  </ul>
+                </CardFlat>
+                <CardFlat
+                  color="secondary"
+                  title={intl.formatMessage({
+                    defaultMessage: "Employee eligibility",
+                    id: "3deIgM",
+                    description: "Heading for the employee eligibility card",
+                  })}
+                >
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Training opportunities supported by the Fund are only available to employees represented by PIPSC in the IT group. This includes IT05 individual contributors but not IT05 directors who aren’t represented. The training is not available to employees whose substantive position is not classified as IT.",
+                      id: "vF2OFC",
+                      description:
+                        "Description for the employee eligibility card",
+                    })}
+                  </p>
+                </CardFlat>
+                <CardFlat
+                  color="tertiary"
+                  title={intl.formatMessage({
+                    defaultMessage: "Fund management",
+                    id: "/ANsjm",
+                    description: "Heading for the fund management card",
+                  })}
+                >
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The management of the Fund is the responsibility of the Interdepartmental Joint Consultation Committee (IJCC), co-chaired by the Office of the Chief Information Officer (OCIO) and PIPSC’s IT Group.",
+                      id: "x/bqCj",
+                      description: "Description for the fund management card",
+                    })}
+                  </p>
+                </CardFlat>
+              </div>
             </div>
             <div>
               <Heading
