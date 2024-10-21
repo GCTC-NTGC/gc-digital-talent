@@ -298,7 +298,10 @@ export const getEducationRequirementOptions = (
               }),
           contentBelow: (
             <>
-              <p data-h2-margin="base(0, 0, x.5, 0)">
+              <p
+                data-h2-margin-right="base(x.5)"
+                data-h2-margin-bottom="base(x.5)"
+              >
                 {intl.formatMessage(applicationMessages.appliedWorkExperience)}
               </p>
               <ul>
@@ -329,7 +332,7 @@ export const getEducationRequirementOptions = (
                   "Radio group option for education requirement filter in application education form.",
               }),
           contentBelow: (
-            <p>
+            <p data-h2-margin-right="base(x.5)">
               {isIAP
                 ? intl.formatMessage({
                     defaultMessage:
