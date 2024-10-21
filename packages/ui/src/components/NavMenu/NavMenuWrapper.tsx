@@ -127,7 +127,7 @@ const NavMenuWrapper = ({
                 data-h2-padding="l-tablet(x1 0)"
               >
                 <div
-                  data-h2-wrapper="p-tablet(center, large, x2)"
+                  data-h2-wrapper="l-tablet(center, large, x2)"
                   data-h2-display="l-tablet(flex)"
                   data-h2-justify-content="l-tablet(space-between)"
                 >

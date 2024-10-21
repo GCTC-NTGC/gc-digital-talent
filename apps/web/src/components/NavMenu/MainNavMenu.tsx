@@ -98,55 +98,62 @@ const MainNavMenu = () => {
           data-h2-display="l-tablet(none)"
           data-h2-margin="base(x1 0) l-tablet(0)"
         />
-        <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) l-tablet(row)"
+        >
           {navRole !== null &&
           roleAssignments !== undefined &&
           roleAssignments.length > 1 ? (
             <>
-              <NavMenu.Item>
-                <NavMenu.Trigger
-                  color={isSmallScreen ? "black" : "whiteFixed"}
-                  mode="text"
-                  block={false}
-                >
-                  {roleNames[navRole]}
-                </NavMenu.Trigger>
-                <NavMenu.Content>
-                  <NavMenu.List>
-                    {roleLinks.map((roleLink) => (
-                      <NavMenu.Item key={roleLink.name}>
-                        <NavMenu.Link
-                          title={roleLink.name}
-                          href={roleLink.href}
-                          color="black"
-                        >
-                          {roleLink.name}
-                        </NavMenu.Link>
-                      </NavMenu.Item>
-                    ))}
-                  </NavMenu.List>
-                </NavMenu.Content>
-              </NavMenu.Item>
+              <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
+                <NavMenu.Item>
+                  <NavMenu.Trigger
+                    color={isSmallScreen ? "black" : "whiteFixed"}
+                    mode="text"
+                    block={false}
+                  >
+                    {roleNames[navRole]}
+                  </NavMenu.Trigger>
+                  <NavMenu.Content>
+                    <NavMenu.List>
+                      {roleLinks.map((roleLink) => (
+                        <NavMenu.Item key={roleLink.name}>
+                          <NavMenu.Link
+                            title={roleLink.name}
+                            href={roleLink.href}
+                            color="black"
+                          >
+                            {roleLink.name}
+                          </NavMenu.Link>
+                        </NavMenu.Item>
+                      ))}
+                    </NavMenu.List>
+                  </NavMenu.Content>
+                </NavMenu.Item>
+              </NavMenu.List>
               <Separator
                 orientation={isSmallScreen ? "horizontal" : "vertical"}
-                space="none"
+                space="sm"
                 data-h2-height="base(1px) l-tablet(x1)"
+                data-h2-margin-bottom="base(x1) l-tablet(0)"
               />
             </>
           ) : null}
-          {mainLinks}
-          <Separator
-            space="none"
-            data-h2-display="l-tablet(none)"
-            data-h2-margin-bottom="base(x1) l-tablet(0)"
-          />
-        </NavMenu.List>
+          <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
+            {mainLinks}
+          </NavMenu.List>
+        </div>
+        <Separator space="sm" data-h2-display="l-tablet(none)" />
         <NavMenu.List
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-margin-bottom="base(x1) l-tablet(0)"
         >
           {accountLinks && (
-            <NavMenu.Item>
+            <NavMenu.Item
+              data-h2-border-right="l-tablet(1px solid gray)"
+              data-h2-padding-right="l-tablet(x1)"
+            >
               <NavMenu.Trigger
                 color={isSmallScreen ? "black" : "whiteFixed"}
                 mode="text"
@@ -165,12 +172,6 @@ const MainNavMenu = () => {
           )}
           {loggedIn && (
             <>
-              <Separator
-                orientation={isSmallScreen ? "horizontal" : "vertical"}
-                space="none"
-                data-h2-height="base(1px) l-tablet(x1)"
-                data-h2-display="base(none) l-tablet(initial)"
-              />
               <NavMenu.Item data-h2-display="base(none) l-tablet(inline-flex)">
                 <NotificationDialog
                   open={isNotificationDialogOpen}
