@@ -45,7 +45,17 @@ const createRoute = (locale: Locales) =>
                   },
                   lazy: () =>
                     import(
-                      "../pages/ManagerDashboardPage/ManagerDashboardPage"
+                      "../pages/Manager/ManagerDashboardPage/ManagerDashboardPage"
+                    ),
+                },
+                {
+                  path: "talent-requests",
+                  loader: () => {
+                    throw new NotFoundError(); // unfinished page
+                  },
+                  lazy: () =>
+                    import(
+                      "../pages/Manager/ManagerRequestHistoryPage/ManagerRequestHistoryPage"
                     ),
                 },
               ],

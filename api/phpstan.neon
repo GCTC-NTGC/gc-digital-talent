@@ -34,109 +34,9 @@ parameters:
       path: app/GraphQL/Mutations/ArchivePool.php
 
     -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ArchivePool.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/CreateUserSkill.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/DeleteApplication.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/ReinstateCandidate.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/RemoveCandidate.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 2
-      path: app/GraphQL/Mutations/SwapAssessmentStepOrder.php
-
-    -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getStatusAttribute\\(\\)\\.$#"
       count: 1
       path: app/GraphQL/Mutations/UnarchivePool.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UnarchivePool.php
-
-    -
-      message: "#^Access to offset 'improveBehaviouralS…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
-
-    -
-      message: "#^Access to offset 'improveTechnicalSki…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
-
-    -
-      message: "#^Access to offset 'topBehaviouralSkill…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
-
-    -
-      message: "#^Access to offset 'topTechnicalSkillsR…' on an unknown class App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
-      count: 3
-      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
-
-    -
-      message: "#^Parameter \\#1 \\$userId of method App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankings\\:\\:syncRankings\\(\\) expects string, App\\\\GraphQL\\\\Mutations\\\\UUID given\\.$#"
-      count: 4
-      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
-
-    -
-      message: "#^Parameter \\$args of method App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankings\\:\\:__invoke\\(\\) has invalid type App\\\\GraphQL\\\\Mutations\\\\UUID\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
-
-    -
-      message: "#^Parameter \\$args of method App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankings\\:\\:__invoke\\(\\) has invalid type App\\\\GraphQL\\\\Mutations\\\\UpdateUserSkillRankingsInput\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/UpdateUserSkillRankings.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Mutations/VerifyUserEmail.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Validators/DisqualifyCandidateValidator.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Validators/PlaceCandidateValidator.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Validators/QualifyCandidateValidator.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Validators/RevertFinalDecisionValidator.php
-
-    -
-      message: "#^Parameter \\#1 \\$messages of static method Nuwave\\\\Lighthouse\\\\Exceptions\\\\ValidationException\\:\\:withMessages\\(\\) expects array\\<string, array\\<string\\>\\|string\\>, array\\<int, string\\> given\\.$#"
-      count: 1
-      path: app/GraphQL/Validators/RevertPlaceCandidateValidator.php
 
     -
       message: "#^Called 'Model\\:\\:make\\(\\)' which performs unnecessary work, use 'new Model\\(\\)'\\.$#"
@@ -144,22 +44,7 @@ parameters:
       path: app/Models/Experience.php
 
     -
-      message: "#^Default value of the parameter \\#1 \\$attributes \\(array\\) of method App\\\\Models\\\\Experience\\:\\:newFromBuilder\\(\\) is incompatible with type object\\.$#"
-      count: 1
-      path: app/Models/Experience.php
-
-    -
-      message: "#^Parameter \\#1 \\$attributes \\(object\\) of method App\\\\Models\\\\Experience\\:\\:newFromBuilder\\(\\) should be compatible with parameter \\$attributes \\(array\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:newFromBuilder\\(\\)$#"
-      count: 1
-      path: app/Models/Experience.php
-
-    -
-      message: "#^Parameter \\$set of static method Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\Attribute\\<mixed,mixed\\>\\:\\:make\\(\\) expects \\(callable\\(mixed, mixed\\=\\)\\: mixed\\)\\|null, Closure\\(mixed, array\\)\\: mixed given\\.$#"
-      count: 2
-      path: app/Models/Experience.php
-
-    -
-      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, App\\\\Models\\\\PoolCandidate\\>\\:\\:withTrashed\\(\\)\\.$#"
+      message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\Pool, \\$this\\(App\\\\Models\\\\PoolCandidate\\)\\>\\:\\:withTrashed\\(\\)\\.$#"
       count: 1
       path: app/Models/PoolCandidate.php
 
@@ -179,7 +64,7 @@ parameters:
       path: app/Models/PoolCandidate.php
 
     -
-      message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate\\> supplied for foreach, only iterables are supported\\.$#"
+      message: "#^Argument of an invalid type Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\PoolCandidate, App\\\\Models\\\\User\\> supplied for foreach, only iterables are supported\\.$#"
       count: 1
       path: app/Models/User.php
 
@@ -194,76 +79,14 @@ parameters:
       path: app/Models/User.php
 
     -
-      message: "#^Parameter \\#1 \\$columns of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<App\\\\Models\\\\Department\\>\\:\\:get\\(\\) expects array\\<int, string\\>, string given\\.$#"
-      count: 1
-      path: app/Models/User.php
-
-    -
-      message: "#^Call to method isFuture\\(\\) on an unknown class App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Call to method toIso8601String\\(\\) on an unknown class App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
       message: "#^Method App\\\\Notify\\\\Client\\:\\:get\\(\\) is unused\\.$#"
       count: 1
       path: app/Notify/Client.php
 
     -
-      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:buildBulkEmailPayload\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:buildBulkPayload\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:buildBulkSmsPayload\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:sendBulkEmail\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Parameter \\$scheduleFor of method App\\\\Notify\\\\Client\\:\\:sendBulkSms\\(\\) has invalid type App\\\\Notify\\\\Carbon\\\\Carbon\\.$#"
-      count: 1
-      path: app/Notify/Client.php
-
-    -
-      message: "#^Access to offset 'id' on an unknown class App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
-      count: 2
-      path: app/Policies/UserPolicy.php
-
-    -
-      message: "#^Access to offset 'roleAssignmentsInput' on an unknown class App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
-      count: 6
-      path: app/Policies/UserPolicy.php
-
-    -
-      message: "#^Parameter \\$args of method App\\\\Policies\\\\UserPolicy\\:\\:updateRoles\\(\\) has invalid type App\\\\Policies\\\\UpdateUserRolesInput\\.$#"
-      count: 1
-      path: app/Policies/UserPolicy.php
-
-    -
-      message: "#^Parameter \\#2 \\$type of method Nuwave\\\\Lighthouse\\\\Schema\\\\TypeRegistry\\:\\:registerLazy\\(\\) expects callable\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\Type&GraphQL\\\\Type\\\\Definition\\\\NamedType, Closure\\(\\)\\: GraphQL\\\\Type\\\\Definition\\\\EnumType given\\.$#"
-      count: 2
-      path: app/Providers/GraphQLServiceProvider.php
-
-    -
       message: "#^Left side of && is always true\\.$#"
       count: 1
       path: app/Rules/HasLanguageRequirements.php
-
-
 
     -
       message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:poolSkills\\(\\)\\.$#"

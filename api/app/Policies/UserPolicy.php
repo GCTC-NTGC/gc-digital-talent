@@ -82,7 +82,7 @@ class UserPolicy
     /**
      * Determine whether the user can update roles.
      *
-     * @param  UpdateUserRolesInput  $args
+     * @param  array{id: ?string, roleAssignmentsInput: ?array{attach: ?array, detach: ?array}}  $args
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function updateRoles(User $user, $args)
