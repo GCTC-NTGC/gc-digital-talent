@@ -305,6 +305,9 @@ const getRoutes = (lang: Locales) => {
     managerRequestHistory: () =>
       [baseUrl, "manager", "talent-requests"].join("/"),
 
+    // IT Training Fund
+    itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
+
     /**
      * Deprecated
      *
