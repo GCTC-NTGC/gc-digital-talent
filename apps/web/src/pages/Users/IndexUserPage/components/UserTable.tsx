@@ -78,6 +78,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         email
+        isGovEmployee
         workEmail
         firstName
         lastName
@@ -268,6 +269,22 @@ const UserTable = ({ title }: UserTableProps) => {
       header: intl.formatMessage(commonMessages.email),
       cell: ({ getValue }) => cells.email(getValue()),
     }),
+    columnHelper.accessor(
+      (user) =>
+        user.isGovEmployee
+          ? intl.formatMessage(commonMessages.yes)
+          : intl.formatMessage(commonMessages.no),
+      {
+        id: "isGovEmployee",
+        header: intl.formatMessage({
+          defaultMessage: "Government employee",
+          id: "bOA3EH",
+          description: "Label for the government employee field",
+        }),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
     columnHelper.accessor("workEmail", {
       id: "workEmail",
       header: intl.formatMessage(commonMessages.workEmail),
@@ -397,6 +414,7 @@ const UserTable = ({ title }: UserTableProps) => {
       columns={columns}
       isLoading={fetching}
       hiddenColumnIds={[
+        "isGovEmployee",
         "workEmail",
         "telephone",
         "preferredLang",
