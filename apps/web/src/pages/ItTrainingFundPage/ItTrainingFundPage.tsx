@@ -3,11 +3,12 @@ import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 
-import { CardFlat, Heading } from "@gc-digital-talent/ui";
+import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import managers from "~/assets/img/Managers_image.webp";
 
 const pageTitle = defineMessage({
   defaultMessage: "IT Community Training and Development Fund",
@@ -50,6 +51,7 @@ export const Component = () => {
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x3)"
           >
+            {/* Investing in the future of IT talent */}
             <div>
               <Heading
                 Icon={MapIcon}
@@ -74,6 +76,7 @@ export const Component = () => {
                 })}
               </p>
             </div>
+            {/* What is the IT Community Training and Development Fund? */}
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
@@ -185,12 +188,17 @@ export const Component = () => {
                 </CardFlat>
               </div>
             </div>
-            <div>
+            {/* Three types of learning opportunities */}
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x1.5)"
+            >
               <Heading
                 Icon={LightBulbIcon}
                 size="h2"
                 color="quaternary"
-                data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-margin="base(0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Three types of learning opportunities",
@@ -208,6 +216,310 @@ export const Component = () => {
                     "First paragraph describing learning opportunities",
                 })}
               </p>
+              <div
+                data-h2-display="base(grid)"
+                data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
+                data-h2-gap="base(x1)"
+                data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
+              >
+                <CardBasic
+                  data-h2-overflow="base(hidden)"
+                  data-h2-padding="base(0)"
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                >
+                  <div
+                    data-h2-display="base(block) base:children[>span](block)"
+                    data-h2-padding="base(x1)"
+                    data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
+                    data-h2-color="base:all(white)"
+                  >
+                    <span data-h2-font-size="base(h6, 1)">
+                      {intl.formatMessage({
+                        defaultMessage: "1. Online self-paced learning",
+                        id: "mdIHDc",
+                        description: "Title for an online learning card",
+                      })}
+                    </span>
+                  </div>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(column)"
+                    data-h2-justify-content="base(space-between)"
+                    data-h2-flex-grow="base(1)"
+                  >
+                    <div>
+                      <img
+                        src={managers}
+                        alt=""
+                        data-h2-display="base(none) p-tablet(block)"
+                      />
+
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-flex-direction="base(column)"
+                        data-h2-gap="base(x1)"
+                        data-h2-margin="base(x1)"
+                      >
+                        <p>
+                          {intl.formatMessage({
+                            defaultMessage: "Available now",
+                            id: "L6MPML",
+                            description:
+                              "Statement that something is available now",
+                          })}
+                        </p>
+                        <ul
+                          data-h2-list-style-position="base(inside)"
+                          data-h2-padding="base(0)"
+                          data-h2-margin="base(0)"
+                          data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
+                        >
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "What it is: On-demand courses that allow you to learn whenever it suits you, covering both technical and behavioural skills.",
+                              id: "uhprwP",
+                              description:
+                                "An item in a list of points about online learning",
+                            })}
+                          </li>
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Who it is for: Open to all eligible IT classified employees looking to improve their skills, regardless of role or experience.",
+                              id: "bpSqYq",
+                              description:
+                                "An item in a list of points about online learning",
+                            })}
+                          </li>
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "How to access it: Through Navigar, a smart online skills development tool. All eligible IT employees are expected to receive their Navigar login information by email.",
+                              id: "EcdxMd",
+                              description:
+                                "An item in a list of points about online learning",
+                            })}
+                          </li>
+                        </ul>
+                        <Link
+                          mode="text"
+                          data-h2-font-weight="base(bold)"
+                          color="secondary"
+                          external
+                          href="https://navigar.ca/"
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Go to Navigar",
+                            id: "umrfZq",
+                            description: "A link to a tool named Navigar",
+                          })}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardBasic>
+
+                <CardBasic
+                  data-h2-overflow="base(hidden)"
+                  data-h2-padding="base(0)"
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                >
+                  <div
+                    data-h2-display="base(block) base:children[>span](block)"
+                    data-h2-padding="base(x1)"
+                    data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
+                    data-h2-color="base:all(white)"
+                  >
+                    <span data-h2-font-size="base(h6, 1)">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "2. Instructor-led classes and bootcamps",
+                        id: "tj5pn8",
+                        description: "Title for instructor-led classes card",
+                      })}
+                    </span>
+                  </div>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(column)"
+                    data-h2-justify-content="base(space-between)"
+                    data-h2-flex-grow="base(1)"
+                  >
+                    <div>
+                      <img
+                        src={managers}
+                        alt=""
+                        data-h2-display="base(none) p-tablet(block)"
+                      />
+
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-flex-direction="base(column)"
+                        data-h2-gap="base(x1)"
+                        data-h2-margin="base(x1)"
+                      >
+                        <p>
+                          {intl.formatMessage({
+                            defaultMessage: "Coming Winter 2024/2025",
+                            id: "RYv6yd",
+                            description:
+                              "Statement that something will be available in the future",
+                          })}
+                        </p>
+                        <ul
+                          data-h2-list-style-position="base(inside)"
+                          data-h2-padding="base(0)"
+                          data-h2-margin="base(0)"
+                          data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
+                        >
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "What it is: Scheduled, interactive training led by experts, designed to offer you a deep dive into key IT topics, such as cybersecurity, cloud computing, and more.",
+                              id: "PkVfuz",
+                              description:
+                                "An item in a list of points about instructor-led classes",
+                            })}
+                          </li>
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Who it is for: All eligible IT classified employees who prefer structured learning and want to gain or deepen expertise in specific high-demand areas.",
+                              id: "/1sUow",
+                              description:
+                                "An item in a list of points about instructor-led classes",
+                            })}
+                          </li>
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "How to apply: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
+                              id: "j3bqPc",
+                              description:
+                                "An item in a list of points about instructor-led classes",
+                            })}
+                          </li>
+                        </ul>
+                        <Link
+                          mode="text"
+                          data-h2-font-weight="base(bold)"
+                          color="secondary"
+                          external
+                          href="#"
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Sign up for updates",
+                            id: "339yzW",
+                            description: "A link to sign up for updates",
+                          })}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardBasic>
+
+                <CardBasic
+                  data-h2-overflow="base(hidden)"
+                  data-h2-padding="base(0)"
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                >
+                  <div
+                    data-h2-display="base(block) base:children[>span](block)"
+                    data-h2-padding="base(x1)"
+                    data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
+                    data-h2-color="base:all(white)"
+                  >
+                    <span data-h2-font-size="base(h6, 1)">
+                      {intl.formatMessage({
+                        defaultMessage: "3. Certification exam vouchers",
+                        id: "vfXTEA",
+                        description: "Title for cert exam card",
+                      })}
+                    </span>
+                  </div>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(column)"
+                    data-h2-justify-content="base(space-between)"
+                    data-h2-flex-grow="base(1)"
+                  >
+                    <div>
+                      <img
+                        src={managers}
+                        alt=""
+                        data-h2-display="base(none) p-tablet(block)"
+                      />
+
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-flex-direction="base(column)"
+                        data-h2-gap="base(x1)"
+                        data-h2-margin="base(x1)"
+                      >
+                        <p>
+                          {intl.formatMessage({
+                            defaultMessage: "Coming Winter 2024/2025",
+                            id: "RYv6yd",
+                            description:
+                              "Statement that something will be available in the future",
+                          })}
+                        </p>
+                        <ul
+                          data-h2-list-style-position="base(inside)"
+                          data-h2-padding="base(0)"
+                          data-h2-margin="base(0)"
+                          data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
+                        >
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "What it is: Vouchers for online industry-recognized certification exams that validate your skills with recognized credentials.",
+                              id: "mrfSFy",
+                              description:
+                                "An item in a list of points about cert exams",
+                            })}
+                          </li>
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Who it is for: IT classified employees  seeking to enhance their qualifications and career growth.",
+                              id: "OV/xyG",
+                              description:
+                                "An item in a list of points about cert exams",
+                            })}
+                          </li>
+                          <li>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "How to apply: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
+                              id: "oT+u03",
+                              description:
+                                "An item in a list of points about cert exams",
+                            })}
+                          </li>
+                        </ul>
+                        <Link
+                          mode="text"
+                          data-h2-font-weight="base(bold)"
+                          color="secondary"
+                          external
+                          href="#"
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Sign up for updates",
+                            id: "339yzW",
+                            description: "A link to sign up for updates",
+                          })}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </CardBasic>
+              </div>
             </div>
           </div>
         </div>
