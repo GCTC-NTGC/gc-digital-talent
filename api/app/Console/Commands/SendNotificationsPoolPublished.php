@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Enums\NotificationFamily;
+use App\Enums\PublishingGroup;
 use App\Models\Pool;
 use App\Models\User;
 use App\Notifications\NewJobPosted;
@@ -57,7 +58,7 @@ class SendNotificationsPoolPublished extends Command
             ->wherePublished()
             ->where('published_at', '>=', $startOfSpan)
             ->where('published_at', '<', $endOfSpan)
-            ->with('classification')
+            ->where('publishing_group', '<>', PublishingGroup::OTHER->name)
             ->get();
 
         $this->info('Found '.$poolsPublishedRecently->count().' pools.');
