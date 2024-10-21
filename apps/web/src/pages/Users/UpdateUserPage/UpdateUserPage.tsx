@@ -10,9 +10,14 @@ import {
   Submit,
   Input,
   localizedEnumToOptions,
+  Checkbox,
 } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  emptyToNull,
+  unpackMaybes,
+  workEmailDomainRegex,
+} from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 import {
   UpdateUserRolesInput,
@@ -74,6 +79,8 @@ type PartialUser = Pick<
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
   | "telephone"
+  | "isGovEmployee"
+  | "workEmail"
 >;
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -84,7 +91,8 @@ type FormValues = Pick<
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
   | "telephone"
->;
+  | "workEmail"
+> & { isGovEmployee: string };
 interface UpdateUserFormProps {
   initialUser: PartialUser;
   handleUpdateUser: (
@@ -111,6 +119,10 @@ export const UpdateUserForm = ({
     telephone: emptyToNull(values.telephone),
     // empty string will violate uniqueness constraints
     email: emptyToNull(values.email),
+    // massage from FormValue type to UpdateUserAsAdminInput
+    isGovEmployee: values.isGovEmployee ? true : false,
+    // ensure no work email if not government employee
+    workEmail: values.isGovEmployee ? values.workEmail : null,
   });
 
   const dataToFormValues = ({
@@ -121,6 +133,8 @@ export const UpdateUserForm = ({
     preferredLang,
     preferredLanguageForExam,
     preferredLanguageForInterview,
+    isGovEmployee,
+    workEmail,
   }: PartialUser): FormValues => ({
     email,
     firstName,
@@ -129,12 +143,16 @@ export const UpdateUserForm = ({
     preferredLang: preferredLang?.value,
     preferredLanguageForExam: preferredLanguageForExam?.value,
     preferredLanguageForInterview: preferredLanguageForInterview?.value,
+    isGovEmployee: isGovEmployee ? "true" : "",
+    workEmail,
   });
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialUser),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+  // hooks to watch, needed for conditional rendering
+  const [govEmployee] = watch(["isGovEmployee"]);
   const navigateTo = useReturnPath(paths.userTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
@@ -266,6 +284,37 @@ export const UpdateUserForm = ({
             }}
             options={languageOptions}
           />
+          <Checkbox
+            id="isGovEmployee"
+            name="isGovEmployee"
+            value="true"
+            label={intl.formatMessage({
+              defaultMessage: "Government employee",
+              id: "bOA3EH",
+              description: "Label for the government employee field",
+            })}
+          />
+          {govEmployee && (
+            <Input
+              id="workEmail"
+              label={intl.formatMessage(commonMessages.workEmail)}
+              type="email"
+              name="workEmail"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                pattern: {
+                  value: workEmailDomainRegex,
+                  message: intl.formatMessage({
+                    defaultMessage:
+                      "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
+                    id: "BLOt/e",
+                    description:
+                      "Description for rule pattern on work email field",
+                  }),
+                },
+              }}
+            />
+          )}
           <div data-h2-align-self="base(flex-start)">
             <Submit />
           </div>
@@ -317,6 +366,8 @@ const UpdateUserPage = () => {
           "preferredLanguageForExam",
           "sub",
           "roleAssignmentsInput",
+          "isGovEmployee",
+          "workEmail",
         ]),
       },
     }).then((result) => {
