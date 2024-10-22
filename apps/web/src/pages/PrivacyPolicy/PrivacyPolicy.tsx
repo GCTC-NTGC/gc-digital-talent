@@ -128,8 +128,8 @@ export const Component = () => {
           {intl.formatMessage(
             {
               defaultMessage:
-                "Personal information collected through GC Digital Talent is used for staffing, external recruitment, and internal talent mobility within federal institutions pursuant to <justiceLaws7Link>section 7(1)</justiceLaws7Link> of the Financial Administration Act, <justiceLaws15Link>section 15(1)</justiceLaws15Link>, <justiceLaws29Link>section 29</justiceLaws29Link> and <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> of the Public Service Employment Act and section 5 of the Employment Equity Act.",
-              id: "e1JW62",
+                "Personal information collected through GC Digital Talent is used for staffing, external recruitment, training opportunities, and internal talent mobility within federal institutions pursuant to <justiceLaws7Link>section 7(1)</justiceLaws7Link> of the Financial Administration Act, <justiceLaws15Link>section 15(1)</justiceLaws15Link>, <justiceLaws29Link>section 29</justiceLaws29Link> and <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> of the Public Service Employment Act and section 5 of the Employment Equity Act.",
+              id: "EoGTKC",
               description: "Paragraph for privacy policy page",
             },
             {

@@ -161,6 +161,7 @@ const RadioGroup = ({
                   {contentBelow && (
                     <div
                       id={`${id}-content-below`}
+                      data-h2-margin-right="base(x.5)"
                       data-h2-padding-left="base(x1.7)"
                       data-h2-color="base(black.light)"
                       data-h2-font-size="base(caption)"

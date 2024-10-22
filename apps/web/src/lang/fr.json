@@ -3195,6 +3195,10 @@
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
   },
+  "EoGTKC": {
+    "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement, de possibilités de formation et de mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
+    "description": "Paragraph for privacy policy page"
+  },
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
@@ -6423,7 +6427,7 @@
     "description": "Title for the list of team members page"
   },
   "Vz719J": {
-    "defaultMessage": "Apprenez-en advantage sur la façon don’t le site Talents numériques du GC traite de la vie privée des utilisateurs.",
+    "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",
     "description": "Sub title for the websites privacy policy"
   },
   "W+Lub4": {
@@ -8017,10 +8021,6 @@
   "e12pvi": {
     "defaultMessage": "Profil",
     "description": "Link label for view profile on view pool candidate page"
-  },
-  "e1JW62": {
-    "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement et la mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
-    "description": "Paragraph for privacy policy page"
   },
   "e1mxkv": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant \"{skillName}\" au \"{skillLevel}\" niveau.",

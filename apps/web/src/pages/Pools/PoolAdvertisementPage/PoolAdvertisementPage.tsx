@@ -166,6 +166,12 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    department {
+      name {
+        en
+        fr
+      }
+    }
     opportunityLength {
       value
       label {
@@ -308,6 +314,8 @@ export const PoolPoster = ({
   const [skillsValue, setSkillsValue] = useState<string[]>([]);
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
+
+  const departmentName = getLocalizedName(pool.department?.name, intl, true);
 
   const { classification } = pool;
   const genericJobTitles =
@@ -679,6 +687,13 @@ export const PoolPoster = ({
                       />
                     ) : undefined
                   }
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage(commonMessages.department) +
+                    intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={departmentName}
                 />
                 <DataRow
                   label={
