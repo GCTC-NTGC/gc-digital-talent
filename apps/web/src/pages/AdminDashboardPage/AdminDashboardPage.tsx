@@ -115,6 +115,16 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   href: adminRoutes.skills(),
                   icon: pageIcons.skillsList.solid,
                 },
+                {
+                  // deviates from page title
+                  label: intl.formatMessage({
+                    defaultMessage: "Job templates",
+                    id: "Ilg37j",
+                    description: "Title for job templates",
+                  }),
+                  href: adminRoutes.jobPosterTemplates(),
+                  icon: pageIcons.jobTemplates.solid,
+                },
               ]}
             />
           )}
