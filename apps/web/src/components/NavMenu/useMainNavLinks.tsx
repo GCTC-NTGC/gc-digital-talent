@@ -28,7 +28,7 @@ export const NavItem = ({
 }) => {
   return (
     <NavMenu.Item key={key} {...rest}>
-      <NavMenu.Link href={href} color={subMenu ? "black" : undefined}>
+      <NavMenu.Link href={href} type={subMenu ? "subMenuLink" : "link"}>
         {title}
       </NavMenu.Link>
     </NavMenu.Item>

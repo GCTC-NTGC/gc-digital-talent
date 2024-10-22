@@ -97,6 +97,7 @@ const MainNavMenu = () => {
           space="none"
           data-h2-display="l-tablet(none)"
           data-h2-margin="base(x1 0) l-tablet(0)"
+          data-h2-color="base(white.5)"
         />
         <div
           data-h2-display="base(flex)"
@@ -122,7 +123,7 @@ const MainNavMenu = () => {
                           <NavMenu.Link
                             title={roleLink.name}
                             href={roleLink.href}
-                            color="black"
+                            type="subMenuLink"
                           >
                             {roleLink.name}
                           </NavMenu.Link>
@@ -137,6 +138,7 @@ const MainNavMenu = () => {
                 space="sm"
                 data-h2-height="base(1px) l-tablet(x1)"
                 data-h2-margin-bottom="base(x1) l-tablet(0)"
+                data-h2-color="base(white.5)"
               />
             </>
           ) : null}
@@ -144,14 +146,18 @@ const MainNavMenu = () => {
             {mainLinks}
           </NavMenu.List>
         </div>
-        <Separator space="sm" data-h2-display="l-tablet(none)" />
+        <Separator
+          space="sm"
+          data-h2-display="l-tablet(none)"
+          data-h2-color="base(white.5)"
+        />
         <NavMenu.List
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-margin-bottom="base(x1) l-tablet(0)"
         >
           {accountLinks && (
             <NavMenu.Item
-              data-h2-border-right="l-tablet(1px solid gray)"
+              data-h2-border-right="l-tablet(1px solid white.5)"
               data-h2-padding-right="l-tablet(x1)"
             >
               <NavMenu.Trigger

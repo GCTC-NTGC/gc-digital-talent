@@ -20,6 +20,7 @@ import getButtonStyle, {
 } from "../../utils/button/getButtonStyles";
 import { Color } from "../../types";
 import { useNavMenuContext } from "./NavMenuProvider";
+import { linkStyleMapDesktop, linkStyleMapMobile, NavMenuType } from "./utils";
 
 const Root = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -44,12 +45,12 @@ const Trigger = forwardRef<
       ref={forwardedRef}
       onPointerMove={(event) => event.preventDefault()}
       onPointerLeave={(event) => event.preventDefault()}
-      {...getButtonStyle({ mode, color, block })}
       data-h2-text-decoration="base(underline)"
       data-h2-padding="base(0)"
       data-h2-transform="
       base:children[.Accordion__Icon--chevron](rotate(0deg))
       base:selectors[[data-state='open']]:children[.Accordion__Icon--chevron](rotate(180deg))"
+      {...getButtonStyle({ mode, color, block })}
       {...rest}
     >
       <span data-h2-margin-right="base(x.25)">{children}</span>
@@ -128,13 +129,14 @@ type LinkProps = ComponentPropsWithoutRef<
   typeof NavigationMenuPrimitive.Link
 > & {
   href: string;
+  type: NavMenuType;
   color?: Color;
 };
 
 const Link = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Link>,
   LinkProps
->(({ children, href, color, ...rest }, forwardedRef) => {
+>(({ children, href, type, color, ...rest }, forwardedRef) => {
   const { pathname } = useLocation();
   const linkRef = useRef<HTMLAnchorElement>(null);
   const isSmallScreen = useIsSmallScreen(1080);
@@ -150,6 +152,10 @@ const Link = forwardRef<
       );
     }
   }, [isActive]);
+
+  const linkColor = isSmallScreen
+    ? linkStyleMapMobile.get(type)
+    : linkStyleMapDesktop.get(type);
 
   return (
     <NavigationMenuPrimitive.Link
@@ -167,13 +173,9 @@ const Link = forwardRef<
       <OurLink
         ref={linkRef}
         href={href}
-        color={color || isSmallScreen ? "black" : "whiteFixed"}
-        data-h2-text-decoration="base(none)"
-        {...(isActive && {
-          "data-state": "active", // Needed for active styles
-          "data-h2-color":
-            "base(secondary.darker) base:dark(secondary.lightest) l-tablet:all(secondary.lighter)",
-        })}
+        data-h2-text-decoration="base:selectors[[data-active]](none) base:selectors[[data-active] > span](none)"
+        data-h2-font-weight="base:selectors[[data-active]](700)"
+        {...linkColor}
       >
         {children}
       </OurLink>
