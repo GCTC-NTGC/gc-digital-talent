@@ -28,6 +28,15 @@ class GenerateUserFile implements ShouldQueue
      */
     public function handle(): void
     {
+        $onDemandLog = Log::build([
+            'driver' => 'single',
+            'path' => App::isProduction() // workaround for storage_path misconfigured in prod #11471
+                ? '/tmp/api/storage/logs/jobs.log'
+                : storage_path('logs/jobs.log'),
+        ]);
+
+        $onDemandLog->debug(memory_get_usage());
+
         try {
             $this->generator->generate()->write();
 
@@ -37,13 +46,6 @@ class GenerateUserFile implements ShouldQueue
             $this->user->notify(new UserFileGenerationError($this->generator->getFileNameWithExtension()));
             Log::error($e);
 
-            // workaround until we get better logging in prod #11289
-            $onDemandLog = Log::build([
-                'driver' => 'single',
-                'path' => App::isProduction() // workaround for storage_path misconfigured in prod #11471
-                    ? '/tmp/api/storage/logs/jobs.log'
-                    : storage_path('logs/jobs.log'),
-            ]);
             $onDemandLog->error($e);
         }
 

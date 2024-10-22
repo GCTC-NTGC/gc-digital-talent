@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Generators\UserDocGenerator;
+use App\Jobs\GenerateUserFile;
+use App\Models\User;
+use Illuminate\Console\Command;
+
+class MakeDocxFiles extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'app:make-docx-files';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generate a bunch of reports';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        $user = User::where('sub', 'admin@test.com')->sole();
+
+        for ($i = 0; $i < 1000; $i++) {
+
+            $generator = new UserDocGenerator(
+                user: $user,
+                anonymous: false,
+                dir: 'temp',
+                lang: 'en',
+            );
+
+            $generator->setUserId($user->id);
+
+            GenerateUserFile::dispatch($generator, $user);
+        }
+    }
+}
