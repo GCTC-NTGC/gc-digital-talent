@@ -8,7 +8,9 @@ import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import managers from "~/assets/img/Managers_image.webp";
+import image1 from "~/assets/img/it-training-fund-1.webp";
+import image2 from "~/assets/img/it-training-fund-2.webp";
+import image3 from "~/assets/img/it-training-fund-3.webp";
 
 const pageTitle = defineMessage({
   defaultMessage: "IT Community Training and Development Fund",
@@ -105,8 +107,8 @@ export const Component = () => {
                 })}
               </p>
               <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
+                data-h2-display="base(grid)"
+                data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
                 data-h2-gap="base(x2) p-tablet(x3)"
               >
                 <CardFlat
@@ -125,7 +127,10 @@ export const Component = () => {
                       description: "title for a list of fund objectives",
                     })}
                   </p>
-                  <ul data-h2-margin-bottom="base:children[:not(:last-child)](x0.5)">
+                  <ul
+                    data-h2-padding="base(0 0 0 x0.75)"
+                    data-h2-margin-bottom="base:children[:not(:last-child)](x0.5)"
+                  >
                     <li>
                       {intl.formatMessage({
                         defaultMessage: "close critical skills gaps",
@@ -220,7 +225,6 @@ export const Component = () => {
                 data-h2-display="base(grid)"
                 data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
                 data-h2-gap="base(x1)"
-                data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
               >
                 <CardBasic
                   data-h2-overflow="base(hidden)"
@@ -248,75 +252,75 @@ export const Component = () => {
                     data-h2-justify-content="base(space-between)"
                     data-h2-flex-grow="base(1)"
                   >
-                    <div>
-                      <img
-                        src={managers}
-                        alt=""
-                        data-h2-display="base(none) p-tablet(block)"
-                      />
-
-                      <div
-                        data-h2-display="base(flex)"
-                        data-h2-flex-direction="base(column)"
-                        data-h2-gap="base(x1)"
-                        data-h2-margin="base(x1)"
+                    <img
+                      src={image1}
+                      alt=""
+                      data-h2-display="base(none) p-tablet(block)"
+                    />
+                    <div
+                      data-h2-padding="base(x1)"
+                      data-h2-flex-grow="base(1)"
+                      data-h2-display="base(flex)"
+                      data-h2-flex-direction="base(column)"
+                      data-h2-gap="base(x1)"
+                    >
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Available now",
+                          id: "L6MPML",
+                          description:
+                            "Statement that something is available now",
+                        })}
+                      </p>
+                      <ul
+                        data-h2-padding="base(0 0 0 x0.75)"
+                        data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
                       >
-                        <p>
+                        <li>
                           {intl.formatMessage({
-                            defaultMessage: "Available now",
-                            id: "L6MPML",
+                            defaultMessage:
+                              "What it is: On-demand courses that allow you to learn whenever it suits you, covering both technical and behavioural skills.",
+                            id: "uhprwP",
                             description:
-                              "Statement that something is available now",
+                              "An item in a list of points about online learning",
                           })}
-                        </p>
-                        <ul
-                          data-h2-list-style-position="base(inside)"
-                          data-h2-padding="base(0)"
-                          data-h2-margin="base(0)"
-                          data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
-                        >
-                          <li>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "What it is: On-demand courses that allow you to learn whenever it suits you, covering both technical and behavioural skills.",
-                              id: "uhprwP",
-                              description:
-                                "An item in a list of points about online learning",
-                            })}
-                          </li>
-                          <li>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Who it is for: Open to all eligible IT classified employees looking to improve their skills, regardless of role or experience.",
-                              id: "bpSqYq",
-                              description:
-                                "An item in a list of points about online learning",
-                            })}
-                          </li>
-                          <li>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "How to access it: Through Navigar, a smart online skills development tool. All eligible IT employees are expected to receive their Navigar login information by email.",
-                              id: "EcdxMd",
-                              description:
-                                "An item in a list of points about online learning",
-                            })}
-                          </li>
-                        </ul>
-                        <Link
-                          mode="text"
-                          data-h2-font-weight="base(bold)"
-                          color="secondary"
-                          external
-                          href="https://navigar.ca/"
-                        >
+                        </li>
+                        <li>
                           {intl.formatMessage({
-                            defaultMessage: "Go to Navigar",
-                            id: "umrfZq",
-                            description: "A link to a tool named Navigar",
+                            defaultMessage:
+                              "Who it is for: Open to all eligible IT classified employees looking to improve their skills, regardless of role or experience.",
+                            id: "bpSqYq",
+                            description:
+                              "An item in a list of points about online learning",
                           })}
-                        </Link>
-                      </div>
+                        </li>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "How to access it: Through Navigar, a smart online skills development tool. All eligible IT employees are expected to receive their Navigar login information by email.",
+                            id: "EcdxMd",
+                            description:
+                              "An item in a list of points about online learning",
+                          })}
+                        </li>
+                      </ul>
+                    </div>
+                    <div data-h2-padding="base(x1)">
+                      <Link
+                        mode="text"
+                        data-h2-font-weight="base(bold)"
+                        color="secondary"
+                        external
+                        href="https://navigar.ca/"
+                        data-h2-flex-grow="base(2)"
+                        data-h2-justify-content="base(end)"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Go to Navigar",
+                          id: "umrfZq",
+                          description: "A link to a tool named Navigar",
+                        })}
+                      </Link>
                     </div>
                   </div>
                 </CardBasic>
@@ -350,16 +354,17 @@ export const Component = () => {
                   >
                     <div>
                       <img
-                        src={managers}
+                        src={image2}
                         alt=""
                         data-h2-display="base(none) p-tablet(block)"
                       />
 
                       <div
+                        data-h2-padding="base(x1)"
+                        data-h2-flex-grow="base(1)"
                         data-h2-display="base(flex)"
                         data-h2-flex-direction="base(column)"
                         data-h2-gap="base(x1)"
-                        data-h2-margin="base(x1)"
                       >
                         <p>
                           {intl.formatMessage({
@@ -370,9 +375,7 @@ export const Component = () => {
                           })}
                         </p>
                         <ul
-                          data-h2-list-style-position="base(inside)"
-                          data-h2-padding="base(0)"
-                          data-h2-margin="base(0)"
+                          data-h2-padding="base(0 0 0 x0.75)"
                           data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
                         >
                           <li>
@@ -403,6 +406,8 @@ export const Component = () => {
                             })}
                           </li>
                         </ul>
+                      </div>
+                      <div data-h2-padding="base(x1)">
                         <Link
                           mode="text"
                           data-h2-font-weight="base(bold)"
@@ -447,75 +452,74 @@ export const Component = () => {
                     data-h2-justify-content="base(space-between)"
                     data-h2-flex-grow="base(1)"
                   >
-                    <div>
-                      <img
-                        src={managers}
-                        alt=""
-                        data-h2-display="base(none) p-tablet(block)"
-                      />
+                    <img
+                      src={image3}
+                      alt=""
+                      data-h2-display="base(none) p-tablet(block)"
+                    />
 
-                      <div
-                        data-h2-display="base(flex)"
-                        data-h2-flex-direction="base(column)"
-                        data-h2-gap="base(x1)"
-                        data-h2-margin="base(x1)"
+                    <div
+                      data-h2-padding="base(x1)"
+                      data-h2-flex-grow="base(1)"
+                      data-h2-display="base(flex)"
+                      data-h2-flex-direction="base(column)"
+                      data-h2-gap="base(x1)"
+                    >
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Coming Winter 2024/2025",
+                          id: "RYv6yd",
+                          description:
+                            "Statement that something will be available in the future",
+                        })}
+                      </p>
+                      <ul
+                        data-h2-padding="base(0 0 0 x0.75)"
+                        data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
                       >
-                        <p>
+                        <li>
                           {intl.formatMessage({
-                            defaultMessage: "Coming Winter 2024/2025",
-                            id: "RYv6yd",
+                            defaultMessage:
+                              "What it is: Vouchers for online industry-recognized certification exams that validate your skills with recognized credentials.",
+                            id: "mrfSFy",
                             description:
-                              "Statement that something will be available in the future",
+                              "An item in a list of points about cert exams",
                           })}
-                        </p>
-                        <ul
-                          data-h2-list-style-position="base(inside)"
-                          data-h2-padding="base(0)"
-                          data-h2-margin="base(0)"
-                          data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
-                        >
-                          <li>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "What it is: Vouchers for online industry-recognized certification exams that validate your skills with recognized credentials.",
-                              id: "mrfSFy",
-                              description:
-                                "An item in a list of points about cert exams",
-                            })}
-                          </li>
-                          <li>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Who it is for: IT classified employees  seeking to enhance their qualifications and career growth.",
-                              id: "OV/xyG",
-                              description:
-                                "An item in a list of points about cert exams",
-                            })}
-                          </li>
-                          <li>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "How to apply: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
-                              id: "oT+u03",
-                              description:
-                                "An item in a list of points about cert exams",
-                            })}
-                          </li>
-                        </ul>
-                        <Link
-                          mode="text"
-                          data-h2-font-weight="base(bold)"
-                          color="secondary"
-                          external
-                          href="#"
-                        >
+                        </li>
+                        <li>
                           {intl.formatMessage({
-                            defaultMessage: "Sign up for updates",
-                            id: "339yzW",
-                            description: "A link to sign up for updates",
+                            defaultMessage:
+                              "Who it is for: IT classified employees  seeking to enhance their qualifications and career growth.",
+                            id: "OV/xyG",
+                            description:
+                              "An item in a list of points about cert exams",
                           })}
-                        </Link>
-                      </div>
+                        </li>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "How to apply: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
+                            id: "oT+u03",
+                            description:
+                              "An item in a list of points about cert exams",
+                          })}
+                        </li>
+                      </ul>
+                    </div>
+                    <div data-h2-padding="base(x1)">
+                      <Link
+                        mode="text"
+                        data-h2-font-weight="base(bold)"
+                        color="secondary"
+                        external
+                        href="#"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Sign up for updates",
+                          id: "339yzW",
+                          description: "A link to sign up for updates",
+                        })}
+                      </Link>
                     </div>
                   </div>
                 </CardBasic>
