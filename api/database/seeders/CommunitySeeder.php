@@ -47,7 +47,7 @@ class CommunitySeeder extends Seeder
                 return;
             }
             $community->team()->firstOrCreate([], [
-                'name' => 'community-' . $community->id,
+                'name' => 'community-'.$community->id,
             ]);
         });
     }
