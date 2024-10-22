@@ -121,8 +121,8 @@ export const UpdateUserForm = ({
     email: emptyToNull(values.email),
     // massage from FormValue type to UpdateUserAsAdminInput
     isGovEmployee: values.isGovEmployee ? true : false,
-    // ensure no work email if not government employee
-    workEmail: values.isGovEmployee ? values.workEmail : null,
+    // empty string will violate uniqueness constraints
+    workEmail: emptyToNull(values.workEmail),
   });
 
   const dataToFormValues = ({
@@ -150,9 +150,7 @@ export const UpdateUserForm = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialUser),
   });
-  const { handleSubmit, watch } = methods;
-  // hooks to watch, needed for conditional rendering
-  const [govEmployee] = watch(["isGovEmployee"]);
+  const { handleSubmit } = methods;
   const navigateTo = useReturnPath(paths.userTable());
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
@@ -294,27 +292,24 @@ export const UpdateUserForm = ({
               description: "Label for the government employee field",
             })}
           />
-          {govEmployee && (
-            <Input
-              id="workEmail"
-              label={intl.formatMessage(commonMessages.workEmail)}
-              type="email"
-              name="workEmail"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: workEmailDomainRegex,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
-                    id: "BLOt/e",
-                    description:
-                      "Description for rule pattern on work email field",
-                  }),
-                },
-              }}
-            />
-          )}
+          <Input
+            id="workEmail"
+            label={intl.formatMessage(commonMessages.workEmail)}
+            type="email"
+            name="workEmail"
+            rules={{
+              pattern: {
+                value: workEmailDomainRegex,
+                message: intl.formatMessage({
+                  defaultMessage:
+                    "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
+                  id: "BLOt/e",
+                  description:
+                    "Description for rule pattern on work email field",
+                }),
+              },
+            }}
+          />
           <div data-h2-align-self="base(flex-start)">
             <Submit />
           </div>
