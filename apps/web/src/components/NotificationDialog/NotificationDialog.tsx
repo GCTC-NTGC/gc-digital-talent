@@ -73,7 +73,7 @@ const DialogPortalWithPresence = ({
     <Dialog.Portal forceMount>
       <Overlay
         forceMount
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0.3 }}
         animate={{ opacity: 0.8 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
