@@ -72,6 +72,7 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
+    "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
