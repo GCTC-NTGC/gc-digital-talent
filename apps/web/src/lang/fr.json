@@ -9238,10 +9238,6 @@
     "defaultMessage": "Pourquoi faut-il recueillir ces données?",
     "description": "Heading for the Why collect section on the digital services contracting questionnaire"
   },
-  "jWx0oF": {
-    "defaultMessage": "Adresse courriel professionnelle",
-    "description": "Label displayed on work email input"
-  },
   "jXUnrt": {
     "defaultMessage": "Vous n’avez toujours pas ajouté de questions.",
     "description": "Message that appears when there are no general messages for a pool"

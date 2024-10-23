@@ -56,6 +56,7 @@ export function transformUserInput(
     // search bar
     generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
+    workEmail: searchType === "workEmail" ? searchBarTerm : undefined,
     name: searchType === "name" ? searchBarTerm : undefined,
     telephone: searchType === "phone" ? searchBarTerm : undefined,
 
@@ -76,6 +77,7 @@ export function transformSortStateToOrderByClause(
     ["id", "id"],
     ["candidateName", "first_name"],
     ["email", "email"],
+    ["workEmail", "work_email"],
     ["telephone", "telephone"],
     ["preferredLang", "preferred_lang"],
     ["createdDate", "created_at"],

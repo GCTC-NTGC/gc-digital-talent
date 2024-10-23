@@ -1087,6 +1087,7 @@ input UserFilterInput {
   isGovEmployee: Boolean
   telephone: String
   email: String
+  workEmail: String
   name: String
   generalSearch: String
   roles: [ID]

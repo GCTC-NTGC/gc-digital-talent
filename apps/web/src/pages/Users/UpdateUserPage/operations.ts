@@ -60,6 +60,8 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
+      isGovEmployee
+      workEmail
       preferredLang {
         value
         label {

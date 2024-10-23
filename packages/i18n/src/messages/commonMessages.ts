@@ -320,6 +320,11 @@ const commonMessages = defineMessages({
     id: "09LIbL",
     description: "Label to identify a date element",
   },
+  workEmail: {
+    defaultMessage: "Work email address",
+    id: "pOL68A",
+    description: "Title for work email address",
+  },
 });
 
 export default commonMessages;
