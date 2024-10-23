@@ -66,4 +66,9 @@ export default defineMessages({
     id: "bVQ/rm",
     description: "Title for the index user page",
   },
+  adminDashboard: {
+    defaultMessage: "Admin dashboard",
+    id: "S0RMA8",
+    description: "Title for the admin dashboard page",
+  },
 });

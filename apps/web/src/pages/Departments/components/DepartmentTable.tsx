@@ -47,6 +47,21 @@ export const DepartmentTable = ({
     departmentsQuery,
   );
   const columns = [
+    columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
+      id: "name",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(commonMessages.name),
+      cell: ({ row: { original: department } }) =>
+        cells.edit(
+          department.id,
+          paths.departmentTable(),
+          getLocalizedName(department.name, intl, true),
+          getLocalizedName(department.name, intl, true),
+        ),
+      meta: {
+        isRowTitle: true,
+      },
+    }),
     columnHelper.accessor("departmentNumber", {
       id: "departmentNumber",
       filterFn: "weakEquals",
@@ -56,21 +71,6 @@ export const DepartmentTable = ({
         description:
           "Title displayed for the Department table Department # column.",
       }),
-    }),
-    columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
-      id: "name",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(commonMessages.name),
-    }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: department } }) =>
-        cells.edit(
-          department.id,
-          paths.departmentTable(),
-          getLocalizedName(department.name, intl, true),
-        ),
     }),
   ] as ColumnDef<DepartmentTableRowFragment>[];
 
