@@ -95,17 +95,17 @@ export const DepartmentTable = ({
       search={{
         internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Search departments",
-          id: "bUyxJi",
-          description: "Label for the departments table search input",
+          defaultMessage: "Search by keyword",
+          id: "PYMFoh",
+          description: "Label for the keyword search input",
         }),
       }}
       add={{
         linkProps: {
           href: paths.departmentCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Department",
-            id: "ZbpbD6",
+            defaultMessage: "Create new department",
+            id: "c7d3np",
             description: "Heading displayed above the Create Department form.",
           }),
           from: currentUrl,
@@ -113,8 +113,9 @@ export const DepartmentTable = ({
       }}
       nullMessage={{
         description: intl.formatMessage({
-          defaultMessage: 'Use the "Create Department" button to get started.',
-          id: "yat9wx",
+          defaultMessage:
+            'Use the "Create new department" button to get started.',
+          id: "VpqH38",
           description: "Instructions for adding a department item.",
         }),
       }}
