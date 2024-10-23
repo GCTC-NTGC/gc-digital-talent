@@ -14,6 +14,8 @@ import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 import PaperAirplaneOutlineIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
 import PaperAirplaneSolidIcon from "@heroicons/react/24/solid/PaperAirplaneIcon";
+import RectangleStackIcon from "@heroicons/react/24/solid/RectangleStackIcon";
+import RectangleStackOutlineIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import SquaresPlusOutlineIcon from "@heroicons/react/24/outline/SquaresPlusIcon";
 import SquaresPlusSolidIcon from "@heroicons/react/24/solid/SquaresPlusIcon";
 import TagOutlineIcon from "@heroicons/react/24/outline/TagIcon";
@@ -50,6 +52,10 @@ const pageIcons: Record<string, PageIcon> = {
   departments: {
     solid: BuildingOffice2SolidIcon,
     outline: BuildingOffice2OutlineIcon,
+  },
+  jobTemplates: {
+    solid: RectangleStackIcon,
+    outline: RectangleStackOutlineIcon,
   },
   poolCandidates: {
     solid: IdentificationSolidIcon,
