@@ -6,11 +6,7 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import { graphql, CreateDepartmentInput } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
@@ -144,9 +140,19 @@ export const CreateDepartmentForm = ({
             data-h2-gap="base(x1)"
             data-h2-align-items="base(center)"
           >
-            <Submit text={intl.formatMessage(formMessages.saveChanges)} />
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Create department",
+                id: "j/qPu0",
+                description: "Button label to create a new department",
+              })}
+            />
             <Link color="warning" mode="inline" href={paths.departmentTable()}>
-              {intl.formatMessage(commonMessages.cancel)}
+              {intl.formatMessage({
+                defaultMessage: "Cancel and go back to departments",
+                id: "uqI3Vf",
+                description: "Button label to return to the departments table",
+              })}
             </Link>
           </div>
         </form>
