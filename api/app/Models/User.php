@@ -974,6 +974,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
+    public static function scopeWorkEmail(Builder $query, ?string $email): Builder
+    {
+        if ($email) {
+            $query->where('work_email', 'ilike', "%{$email}%");
+        }
+
+        return $query;
+    }
+
     public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {

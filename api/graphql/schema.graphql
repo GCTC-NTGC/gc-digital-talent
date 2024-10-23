@@ -808,6 +808,7 @@ input UserFilterInput {
   isGovEmployee: Boolean @scope
   telephone: String @scope
   email: String @scope
+  workEmail: String @scope
   name: String @scope
   generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")

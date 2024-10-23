@@ -3887,6 +3887,10 @@
     "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Tous les candidats qualifiés dans des bassins ont été évalués et ont réussi l’évaluation.",
     "description": "Content displayed in the find talent page explaining the page and what it offers to users."
   },
+  "Ilg37j": {
+    "defaultMessage": "Modèles d'emplois",
+    "description": "Title for job templates"
+  },
   "Ilot3b": {
     "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
     "description": "Learn more dialog question three heading"
@@ -9233,10 +9237,6 @@
   "jVfVFG": {
     "defaultMessage": "Pourquoi faut-il recueillir ces données?",
     "description": "Heading for the Why collect section on the digital services contracting questionnaire"
-  },
-  "jWx0oF": {
-    "defaultMessage": "Adresse courriel professionnelle",
-    "description": "Label displayed on work email input"
   },
   "jXUnrt": {
     "defaultMessage": "Vous n’avez toujours pas ajouté de questions.",

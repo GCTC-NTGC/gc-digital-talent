@@ -1147,6 +1147,10 @@
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that qualifying a candidate failed"
   },
+  "pOL68A": {
+    "defaultMessage": "Adresse courriel professionnelle",
+    "description": "Title for work email address"
+  },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."

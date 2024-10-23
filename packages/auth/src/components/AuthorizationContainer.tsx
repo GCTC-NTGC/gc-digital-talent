@@ -6,8 +6,10 @@ import {
   UserAuthInfo,
 } from "@gc-digital-talent/graphql";
 
+type SimpleRoleAssignment = Exclude<RoleAssignment, "teamable">;
+
 export interface AuthorizationState {
-  roleAssignments: Maybe<RoleAssignment[]>;
+  roleAssignments: Maybe<SimpleRoleAssignment[]>;
   userAuthInfo?: Maybe<UserAuthInfo>;
   isLoaded: boolean;
 }
@@ -19,7 +21,7 @@ export const AuthorizationContext = createContext<AuthorizationState>({
 });
 
 interface AuthorizationContainerProps {
-  roleAssignments: Maybe<RoleAssignment[]>;
+  roleAssignments: Maybe<SimpleRoleAssignment[]>;
   userAuthInfo?: Maybe<UserAuthInfo>;
   isLoaded: boolean;
   children?: ReactNode;
