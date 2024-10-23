@@ -2,8 +2,10 @@ import { defineMessage, useIntl } from "react-intl";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import { ReactNode } from "react";
 
 import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -11,6 +13,14 @@ import useRoutes from "~/hooks/useRoutes";
 import image1 from "~/assets/img/it-training-fund-1.webp";
 import image2 from "~/assets/img/it-training-fund-2.webp";
 import image3 from "~/assets/img/it-training-fund-3.webp";
+
+const externalLinkAccessor = (href: string, chunks: ReactNode) => {
+  return (
+    <Link href={href} color="secondary" external>
+      <strong>{chunks}</strong>
+    </Link>
+  );
+};
 
 const pageTitle = defineMessage({
   defaultMessage: "IT Community Training and Development Fund",
@@ -27,6 +37,7 @@ const pageSubtitle = defineMessage({
 
 export const Component = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const crumbs = useBreadcrumbs({
@@ -71,8 +82,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "The Government of Canada is committed to supporting the development of its IT professionals. With the IT Community Training and Development Fund, employees represented by Professional Institute of the Public Service of Canada (PIPSC) in the IT group now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
-                  id: "+2iWm1",
+                    "The Government of Canada is committed to supporting the development of its IT professionals. With the <strong>IT Community Training and Development Fund</strong>, employees represented by Professional Institute of the Public Service of Canada (PIPSC) in the IT group now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
+                  id: "uNM0+t",
                   description:
                     "First paragraph describing investing in future talent",
                 })}
@@ -99,12 +110,23 @@ export const Component = () => {
                 })}
               </Heading>
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The IT Training and Development Fund is a financial commitment to support the professional growth of the Government of Canada's IT staff. It was established under the IT collective agreement signed between PIPSC’s IT Group and the Treasury Board of Canada Secretariat in December 2023. The Fund allocates $4.725 million each year for training and development for the duration of the agreement.",
-                  id: "w3vTtS",
-                  description: "First paragraph describing the training fund",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "The IT Training and Development Fund is a financial commitment to support the professional growth of the Government of Canada's IT staff. It was established under the <link>IT collective agreement</link> signed between PIPSC’s IT Group and the Treasury Board of Canada Secretariat in December 2023. The Fund allocates $4.725 million each year for training and development for the duration of the agreement.",
+                    id: "dFzEKi",
+                    description: "First paragraph describing the training fund",
+                  },
+                  {
+                    link: (chunks: ReactNode) =>
+                      externalLinkAccessor(
+                        locale == "en"
+                          ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
+                          : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
+                        chunks,
+                      ),
+                  },
+                )}
               </p>
               <div
                 data-h2-display="base(grid)"
@@ -265,12 +287,14 @@ export const Component = () => {
                       data-h2-gap="base(x1)"
                     >
                       <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Available now",
-                          id: "L6MPML",
-                          description:
-                            "Statement that something is available now",
-                        })}
+                        <strong>
+                          {intl.formatMessage({
+                            defaultMessage: "Available now",
+                            id: "L6MPML",
+                            description:
+                              "Statement that something is available now",
+                          })}
+                        </strong>
                       </p>
                       <ul
                         data-h2-padding="base(0 0 0 x0.75)"
@@ -279,8 +303,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "What it is: On-demand courses that allow you to learn whenever it suits you, covering both technical and behavioural skills.",
-                            id: "uhprwP",
+                              "<strong>What it is</strong>: On-demand courses that allow you to learn whenever it suits you, covering both technical and behavioural skills.",
+                            id: "5fnoWK",
                             description:
                               "An item in a list of points about online learning",
                           })}
@@ -288,8 +312,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "Who it is for: Open to all eligible IT classified employees looking to improve their skills, regardless of role or experience.",
-                            id: "bpSqYq",
+                              "<strong>Who it is for</strong>: Open to all eligible IT classified employees looking to improve their skills, regardless of role or experience.",
+                            id: "hPGsCr",
                             description:
                               "An item in a list of points about online learning",
                           })}
@@ -297,8 +321,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "How to access it: Through Navigar, a smart online skills development tool. All eligible IT employees are expected to receive their Navigar login information by email.",
-                            id: "EcdxMd",
+                              "<strong>How to access it</strong>: Through Navigar, a smart online skills development tool. All eligible IT employees are expected to receive their Navigar login information by email.",
+                            id: "Kx5aMY",
                             description:
                               "An item in a list of points about online learning",
                           })}
@@ -367,12 +391,14 @@ export const Component = () => {
                         data-h2-gap="base(x1)"
                       >
                         <p>
-                          {intl.formatMessage({
-                            defaultMessage: "Coming Winter 2024/2025",
-                            id: "RYv6yd",
-                            description:
-                              "Statement that something will be available in the future",
-                          })}
+                          <strong>
+                            {intl.formatMessage({
+                              defaultMessage: "Coming Winter 2024/2025",
+                              id: "RYv6yd",
+                              description:
+                                "Statement that something will be available in the future",
+                            })}
+                          </strong>
                         </p>
                         <ul
                           data-h2-padding="base(0 0 0 x0.75)"
@@ -381,8 +407,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "What it is: Scheduled, interactive training led by experts, designed to offer you a deep dive into key IT topics, such as cybersecurity, cloud computing, and more.",
-                              id: "PkVfuz",
+                                "<strong>What it is</strong>: Scheduled, interactive training led by experts, designed to offer you a deep dive into key IT topics, such as cybersecurity, cloud computing, and more.",
+                              id: "be2aA/",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -390,8 +416,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "Who it is for: All eligible IT classified employees who prefer structured learning and want to gain or deepen expertise in specific high-demand areas.",
-                              id: "/1sUow",
+                                "<strong>Who it is for</strong>: All eligible IT classified employees who prefer structured learning and want to gain or deepen expertise in specific high-demand areas.",
+                              id: "H8Aw1b",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -399,8 +425,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "How to apply: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
-                              id: "j3bqPc",
+                                "<strong>How to apply</strong>: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
+                              id: "enA2zV",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -466,12 +492,14 @@ export const Component = () => {
                       data-h2-gap="base(x1)"
                     >
                       <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Coming Winter 2024/2025",
-                          id: "RYv6yd",
-                          description:
-                            "Statement that something will be available in the future",
-                        })}
+                        <strong>
+                          {intl.formatMessage({
+                            defaultMessage: "Coming Winter 2024/2025",
+                            id: "RYv6yd",
+                            description:
+                              "Statement that something will be available in the future",
+                          })}
+                        </strong>
                       </p>
                       <ul
                         data-h2-padding="base(0 0 0 x0.75)"
@@ -480,8 +508,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "What it is: Vouchers for online industry-recognized certification exams that validate your skills with recognized credentials.",
-                            id: "mrfSFy",
+                              "<strong>What it is</strong>: Vouchers for online industry-recognized certification exams that validate your skills with recognized credentials.",
+                            id: "i0spVx",
                             description:
                               "An item in a list of points about cert exams",
                           })}
@@ -489,8 +517,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "Who it is for: IT classified employees  seeking to enhance their qualifications and career growth.",
-                            id: "OV/xyG",
+                              "<strong>Who it is for</strong>: IT classified employees  seeking to enhance their qualifications and career growth.",
+                            id: "YZs3Ph",
                             description:
                               "An item in a list of points about cert exams",
                           })}
@@ -498,8 +526,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "How to apply: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
-                            id: "oT+u03",
+                              "<strong>How to apply</strong>: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
+                            id: "G5Yai+",
                             description:
                               "An item in a list of points about cert exams",
                           })}
