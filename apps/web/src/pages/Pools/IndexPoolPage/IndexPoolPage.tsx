@@ -25,7 +25,6 @@ export const PoolPage = () => {
         url: routes.poolTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

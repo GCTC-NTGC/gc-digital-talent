@@ -211,7 +211,6 @@ const UpdateDepartmentPage = () => {
           ]
         : []),
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({

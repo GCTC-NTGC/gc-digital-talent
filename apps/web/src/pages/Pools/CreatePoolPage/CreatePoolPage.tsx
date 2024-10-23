@@ -390,7 +390,6 @@ const CreatePoolPage = () => {
         url: routes.poolCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
