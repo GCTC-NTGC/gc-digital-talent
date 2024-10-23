@@ -19,10 +19,6 @@ export const DepartmentPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(pageTitles.adminDashboard),
-        url: routes.adminDashboard(),
-      },
-      {
         label: formattedPageTitle,
         url: routes.departmentTable(),
       },

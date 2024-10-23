@@ -189,10 +189,6 @@ const CreateDepartmentPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(pageTitles.adminDashboard),
-        url: routes.adminDashboard(),
-      },
-      {
         label: intl.formatMessage(pageTitles.departments),
         url: routes.departmentTable(),
       },
