@@ -1,4 +1,6 @@
-import * as fr from "./lang/frCompiled.json";
+import * as en from "./lang/en.json";
+import * as fr from "./lang/fr.json";
+import * as frCompiled from "./lang/frCompiled.json";
 import richTextElements from "./components/richTextElements";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
@@ -145,4 +147,4 @@ export type {
   MaybeLocalizedEnums,
   GenericLocalizedEnum,
 };
-export { fr };
+export { en, fr, frCompiled };
