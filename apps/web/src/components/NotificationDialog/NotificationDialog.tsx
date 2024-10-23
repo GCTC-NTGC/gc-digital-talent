@@ -74,7 +74,7 @@ const DialogPortalWithPresence = ({
       <Overlay
         forceMount
         initial={{ opacity: 0.3 }}
-        animate={{ opacity: 0.8 }}
+        animate={{ opacity: 0.3 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         data-h2-background-color="base:all(black)"
