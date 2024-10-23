@@ -3,7 +3,7 @@ import uniqBy from "lodash/unionBy";
 
 import { NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -65,13 +65,22 @@ const useMainNavLinks = (
     />
   );
 
-  const ViewUsers = (
+  const ViewUsers = hasRole(
+    [
+      "pool_operator",
+      "request_responder",
+      "community_recruiter",
+      "community_admin",
+      "platform_admin",
+    ],
+    roleAssignments,
+  ) ? (
     <NavItem
       key="viewUsers"
       href={paths.userTable()}
       title={intl.formatMessage(navigationMessages.users)}
     />
-  );
+  ) : null;
 
   const ApplicantDashboard = (
     <NavItem
@@ -113,29 +122,43 @@ const useMainNavLinks = (
     />
   );
 
-  const Processes = (
+  const Processes = hasRole(
+    ["pool_operator", "community_manager"],
+    roleAssignments,
+  ) ? (
     <NavItem
       key="adminProcesses"
       href={paths.poolTable()}
       title={intl.formatMessage(navigationMessages.processes)}
     />
-  );
+  ) : null;
 
-  const Requests = (
+  const Requests = hasRole(
+    ["request_responder", "community_recruiter", "community_admin"],
+    roleAssignments,
+  ) ? (
     <NavItem
       key="requests"
       href={paths.searchRequestTable()}
       title={intl.formatMessage(navigationMessages.requests)}
     />
-  );
+  ) : null;
 
-  const Candidates = (
+  const Candidates = hasRole(
+    [
+      "request_responder",
+      "community_recruiter",
+      "community_admin",
+      "pool_operator",
+    ],
+    roleAssignments,
+  ) ? (
     <NavItem
       key="candidates"
       href={paths.poolCandidates()}
       title={intl.formatMessage(navigationMessages.candidates)}
     />
-  );
+  ) : null;
 
   const FindTalent = (
     <NavItem
