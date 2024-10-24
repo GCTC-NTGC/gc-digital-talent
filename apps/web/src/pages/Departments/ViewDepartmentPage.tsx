@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -58,7 +58,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
         <Heading
           level="h2"
           color="primary"
-          Icon={CloudIcon}
+          Icon={IdentificationIcon}
           data-h2-margin="base(0, 0, x1.5, 0)"
         >
           {intl.formatMessage({
@@ -101,16 +101,21 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
           data-h2-margin="base(0)"
           data-h2-color="base(gray.light)"
         />
-        <Link
-          href={paths.departmentUpdate(department.id)}
-          data-h2-font-weight="base(bold)"
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Edit department information",
-            id: "os2TYf",
-            description: "Link to edit the currently viewed department",
-          })}
-        </Link>
+          <Link
+            href={paths.departmentUpdate(department.id)}
+            data-h2-font-weight="base(bold)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Edit department information",
+              id: "os2TYf",
+              description: "Link to edit the currently viewed department",
+            })}
+          </Link>
+        </div>
       </CardBasic>
     </>
   );
