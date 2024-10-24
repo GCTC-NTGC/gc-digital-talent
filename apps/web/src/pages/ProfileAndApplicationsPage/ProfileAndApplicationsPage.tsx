@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { Client, useQuery } from "urql";
+import { defer, useLoaderData } from "react-router-dom";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -67,6 +68,16 @@ const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const loader = (client: Client) => () => {
+  const queryPromise = client
+    .query(ProfileAndApplicationsApplicant_Query, {})
+    .toPromise()
+    .then((res) => res.data);
+  return defer({
+    data: queryPromise,
+  });
+};
 
 const ProfileAndApplicationsPage = () => {
   const intl = useIntl();
