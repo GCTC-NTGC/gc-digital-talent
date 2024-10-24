@@ -30,7 +30,7 @@ export const DepartmentPage = () => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, full, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x3, 0)">
           <DepartmentTableApi title={formattedPageTitle} />
         </div>
