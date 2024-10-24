@@ -52,12 +52,7 @@ export const DepartmentTable = ({
       sortingFn: normalizedText,
       header: intl.formatMessage(commonMessages.name),
       cell: ({ row: { original: department } }) =>
-        cells.edit(
-          department.id,
-          paths.departmentTable(),
-          getLocalizedName(department.name, intl, true),
-          getLocalizedName(department.name, intl, true),
-        ),
+        cells.view(department.id, getLocalizedName(department.name, intl)),
       meta: {
         isRowTitle: true,
       },

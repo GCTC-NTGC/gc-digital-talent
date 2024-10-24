@@ -18,8 +18,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import useReturnPath from "~/hooks/useReturnPath";
 import Hero from "~/components/Hero";
-
-import { labels } from "./messages";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateDepartmentInput;
 
@@ -101,7 +100,7 @@ export const CreateDepartmentForm = ({
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage(labels.nameEn)}
+              label={intl.formatMessage(adminMessages.nameEn)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -110,7 +109,7 @@ export const CreateDepartmentForm = ({
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage(labels.nameFr)}
+              label={intl.formatMessage(adminMessages.nameFr)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -120,7 +119,11 @@ export const CreateDepartmentForm = ({
               <Input
                 id="departmentNumber"
                 name="departmentNumber"
-                label={intl.formatMessage(labels.departmentNumber)}
+                label={intl.formatMessage({
+                  defaultMessage: "Department number",
+                  id: "66kU6k",
+                  description: "Label for department number",
+                })}
                 type="number"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
