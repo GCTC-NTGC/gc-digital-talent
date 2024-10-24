@@ -94,6 +94,9 @@ test.describe("Authenticated", () => {
 
   test("Can logout", async ({ applicantPage }) => {
     await applicantPage.gotoHome();
+    await applicantPage.page
+      .getByRole("button", { name: "your account" })
+      .click();
     await applicantPage.page.getByRole("button", { name: /sign out/i }).click();
     const logoutDialog = applicantPage.page.getByRole("alertdialog", {
       name: /sign out/i,
@@ -150,6 +153,7 @@ test.describe("Authenticated", () => {
 
   test.describe("Process operator", () => {
     const processOperatorRestrictedPaths = [
+      "/en/admin",
       "/en/admin/users",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
@@ -162,7 +166,7 @@ test.describe("Authenticated", () => {
       "/en/admin/pool-candidates",
     ];
 
-    const processOperatorAllowedPaths = ["/en/admin", "/en/admin/pools"];
+    const processOperatorAllowedPaths = ["/en/community", "/en/admin/pools"];
 
     test("user accesses allowed paths only", async ({
       processOperatorPage,
@@ -201,6 +205,7 @@ test.describe("Authenticated", () => {
 
   test.describe("Community recruiter", () => {
     const communityRecruiterRestrictedPaths = [
+      "/en/admin",
       "/en/admin/users",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
@@ -212,7 +217,7 @@ test.describe("Authenticated", () => {
     ];
 
     const communityRecruiterAllowedPaths = [
-      "/en/admin",
+      "/en/community",
       "/en/admin/pools",
       "/en/admin/talent-requests",
       "/en/admin/communities",
@@ -255,6 +260,7 @@ test.describe("Authenticated", () => {
 
   test.describe("Community admin", () => {
     const communityAdminRestrictedPaths = [
+      "/en/admin",
       "/en/admin/users",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
@@ -266,7 +272,7 @@ test.describe("Authenticated", () => {
     ];
 
     const communityAdminAllowedPaths = [
-      "/en/admin",
+      "/en/community",
       "/en/admin/pools",
       "/en/admin/talent-requests",
       "/en/admin/communities",

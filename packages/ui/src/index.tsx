@@ -95,6 +95,8 @@ import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard";
+import NavMenu from "./components/NavMenu/NavMenu";
+import NavMenuWrapper from "./components/NavMenu/NavMenuWrapper";
 
 export type {
   Color,
@@ -164,6 +166,8 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  NavMenu,
+  NavMenuWrapper,
   NavTabs,
   Loading,
   LoadingErrorMessage,

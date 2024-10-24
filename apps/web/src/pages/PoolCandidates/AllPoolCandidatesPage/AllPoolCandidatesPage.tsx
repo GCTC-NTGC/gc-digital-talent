@@ -32,7 +32,6 @@ export const AllPoolCandidatesPage = () => {
         url: routes.poolCandidates(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

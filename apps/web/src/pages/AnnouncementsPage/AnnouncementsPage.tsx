@@ -95,7 +95,6 @@ const AnnouncementsPage = () => {
         url: routes.announcements(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

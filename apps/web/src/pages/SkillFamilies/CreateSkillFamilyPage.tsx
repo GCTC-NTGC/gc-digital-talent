@@ -284,7 +284,6 @@ const CreateSkillFamilyPage = () => {
         url: routes.skillFamilyCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({

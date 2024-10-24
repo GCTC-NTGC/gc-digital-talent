@@ -82,7 +82,6 @@ const CreateTeamPage = () => {
         url: routes.teamCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

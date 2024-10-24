@@ -33,7 +33,6 @@ const IndexTeamPage = () => {
         url: routes.teamTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

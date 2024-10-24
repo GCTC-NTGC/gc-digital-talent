@@ -33,7 +33,6 @@ export const IndexUserPage = () => {
         url: routes.userTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

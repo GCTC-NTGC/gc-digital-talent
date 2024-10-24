@@ -24,7 +24,6 @@ const IndexCommunityPage = () => {
         url: routes.communityTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

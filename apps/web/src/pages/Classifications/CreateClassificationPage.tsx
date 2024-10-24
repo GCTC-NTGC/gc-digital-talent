@@ -228,7 +228,6 @@ const CreateClassification = () => {
         url: routes.classificationCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({

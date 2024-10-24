@@ -260,7 +260,7 @@ const AdminDashboard_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DashboardPageApi = () => {
+export const DashboardPageApi = () => {
   const [{ data, fetching, error }] = useQuery({
     query: AdminDashboard_Query,
   });
@@ -273,17 +273,7 @@ const DashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
     <DashboardPageApi />
   </RequireAuth>
 );
