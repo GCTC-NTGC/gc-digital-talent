@@ -292,6 +292,7 @@ const UpdateDepartmentPage = () => {
           data-h2-background-color="base(foreground)"
           data-h2-padding="base(x2, x1)"
           data-h2-shadow="base(s)"
+          data-h2-margin-bottom="base(x3)"
         >
           <Pending fetching={fetching} error={error}>
             {departmentData?.department ? (

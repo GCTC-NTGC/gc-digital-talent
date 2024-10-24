@@ -226,6 +226,7 @@ const CreateDepartmentPage = () => {
           data-h2-background-color="base(foreground)"
           data-h2-padding="base(x2, x1)"
           data-h2-shadow="base(s)"
+          data-h2-margin-bottom="base(x3)"
         >
           <CreateDepartmentForm
             handleCreateDepartment={handleCreateDepartment}
