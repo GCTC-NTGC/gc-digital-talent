@@ -141,12 +141,15 @@ const ViewDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data: departmentData, fetching, error }] = useQuery({
     query: Department_Query,
     variables: { id: departmentId },
   });
 
-  const departmentName = getLocalizedName(data?.department?.name, intl);
+  const departmentName = getLocalizedName(
+    departmentData?.department?.name,
+    intl,
+  );
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -184,8 +187,8 @@ const ViewDepartmentPage = () => {
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x3, 0)">
           <Pending fetching={fetching} error={error}>
-            {data?.department ? (
-              <ViewDepartmentForm query={data?.department} />
+            {departmentData?.department ? (
+              <ViewDepartmentForm query={departmentData?.department} />
             ) : (
               <NotFound
                 headingMessage={intl.formatMessage(commonMessages.notFound)}
