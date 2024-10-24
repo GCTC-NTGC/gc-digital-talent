@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Pending } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
   DepartmentTableRowFragment,
@@ -15,7 +15,6 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
@@ -51,8 +50,11 @@ export const DepartmentTable = ({
       id: "name",
       sortingFn: normalizedText,
       header: intl.formatMessage(commonMessages.name),
-      cell: ({ row: { original: department } }) =>
-        cells.view(department.id, getLocalizedName(department.name, intl)),
+      cell: ({ row: { original: department } }) => (
+        <Link href={paths.departmentView(department.id)}>
+          {getLocalizedName(department.name, intl)}
+        </Link>
+      ),
       meta: {
         isRowTitle: true,
       },
