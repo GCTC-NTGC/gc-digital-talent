@@ -161,8 +161,8 @@ importers:
         specifier: ^9.0.3
         version: 9.0.3
       '@formatjs/cli':
-        specifier: ^6.2.15
-        version: 6.2.15
+        specifier: ^6.3.1
+        version: 6.3.1
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -763,8 +763,8 @@ importers:
         version: link:../graphql
     devDependencies:
       '@formatjs/cli':
-        specifier: ^6.2.15
-        version: 6.2.15
+        specifier: ^6.3.1
+        version: 6.3.1
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -2021,8 +2021,8 @@ packages:
   '@floating-ui/utils@0.2.4':
     resolution: {integrity: sha512-dWO2pw8hhi+WrXq1YJy2yCuWoL20PddgGaqTgVe4cOS9Q6qklXCiA1tJEqX6BEwRNSCP84/afac9hd4MS+zEUA==}
 
-  '@formatjs/cli@6.2.15':
-    resolution: {integrity: sha512-s31YblAseSVqgFvY2EoIZaaEycifR/CadvMj1WcNvFvHK+2Xn02OuSX1jiKM/Nx29hX2x8k0raFJ6PtnXZgjtQ==}
+  '@formatjs/cli@6.3.1':
+    resolution: {integrity: sha512-UC39GOLL2f+BwHp/GoFuKwaiXKV2hgcgI4kpwX1jlXzm1jlXkOCcUH4w2dWfG5B96VJPmSMB9zFvka90ypfBfA==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
@@ -8853,7 +8853,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.4': {}
 
-  '@formatjs/cli@6.2.15': {}
+  '@formatjs/cli@6.3.1': {}
 
   '@formatjs/ecma402-abstract@2.0.0':
     dependencies:
