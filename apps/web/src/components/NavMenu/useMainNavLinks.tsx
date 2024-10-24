@@ -8,6 +8,7 @@ import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
+import usePermissionConstants from "~/hooks/usePermissionConstants";
 
 import { NavRole } from "../NavContext/NavContextContainer";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
@@ -48,6 +49,7 @@ const useMainNavLinks = (
 ) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const permissions = usePermissionConstants();
 
   const Home = (
     <NavItem
@@ -65,16 +67,7 @@ const useMainNavLinks = (
     />
   );
 
-  const ViewUsers = hasRole(
-    [
-      "pool_operator",
-      "request_responder",
-      "community_recruiter",
-      "community_admin",
-      "platform_admin",
-    ],
-    roleAssignments,
-  ) ? (
+  const ViewUsers = hasRole(permissions.viewUsers, roleAssignments) ? (
     <NavItem
       key="viewUsers"
       href={paths.userTable()}
@@ -122,10 +115,7 @@ const useMainNavLinks = (
     />
   );
 
-  const Processes = hasRole(
-    ["pool_operator", "community_manager"],
-    roleAssignments,
-  ) ? (
+  const Processes = hasRole(permissions.viewProcesses, roleAssignments) ? (
     <NavItem
       key="adminProcesses"
       href={paths.poolTable()}
@@ -133,10 +123,7 @@ const useMainNavLinks = (
     />
   ) : null;
 
-  const Requests = hasRole(
-    ["request_responder", "community_recruiter", "community_admin"],
-    roleAssignments,
-  ) ? (
+  const Requests = hasRole(permissions.viewRequests, roleAssignments) ? (
     <NavItem
       key="requests"
       href={paths.searchRequestTable()}
@@ -144,15 +131,7 @@ const useMainNavLinks = (
     />
   ) : null;
 
-  const Candidates = hasRole(
-    [
-      "request_responder",
-      "community_recruiter",
-      "community_admin",
-      "pool_operator",
-    ],
-    roleAssignments,
-  ) ? (
+  const Candidates = hasRole(permissions.viewCandidates, roleAssignments) ? (
     <NavItem
       key="candidates"
       href={paths.poolCandidates()}
