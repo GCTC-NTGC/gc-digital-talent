@@ -36,7 +36,6 @@ import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
-import useReturnPath from "~/hooks/useReturnPath";
 import Hero from "~/components/Hero";
 
 export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
@@ -76,15 +75,13 @@ export const UpdateDepartmentForm = ({
   });
   const { handleSubmit } = methods;
 
-  const navigateTo = useReturnPath(paths.departmentView(initialDepartment.id));
-
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateDepartment(initialDepartment.id, {
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
       .then(() => {
-        navigate(navigateTo);
+        navigate(paths.departmentView(initialDepartment.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",
@@ -184,7 +181,11 @@ export const UpdateDepartmentForm = ({
             data-h2-align-items="base(center)"
           >
             <Submit text={intl.formatMessage(formMessages.saveChanges)} />
-            <Link color="warning" mode="inline" href={navigateTo}>
+            <Link
+              color="warning"
+              mode="inline"
+              href={paths.departmentView(initialDepartment.id)}
+            >
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
           </div>

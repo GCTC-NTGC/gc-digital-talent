@@ -7,7 +7,11 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { graphql, CreateDepartmentInput } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  CreateDepartmentInput,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
@@ -16,14 +20,15 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
-import useReturnPath from "~/hooks/useReturnPath";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateDepartmentInput;
 
 interface CreateDepartmentProps {
-  handleCreateDepartment: (data: FormValues) => Promise<CreateDepartmentInput>;
+  handleCreateDepartment: (
+    data: FormValues,
+  ) => Promise<Scalars["UUID"]["output"]>;
 }
 
 export const CreateDepartmentForm = ({
@@ -35,15 +40,13 @@ export const CreateDepartmentForm = ({
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
-  const navigateTo = useReturnPath(paths.departmentTable());
-
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateDepartment({
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
-      .then(() => {
-        navigate(navigateTo);
+      .then((id) => {
+        navigate(paths.departmentView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department created successfully!",
@@ -183,8 +186,8 @@ const CreateDepartmentPage = () => {
   const [, executeMutation] = useMutation(CreateDepartment_Mutation);
   const handleCreateDepartment = (data: CreateDepartmentInput) =>
     executeMutation({ department: data }).then((result) => {
-      if (result.data?.createDepartment) {
-        return result.data?.createDepartment;
+      if (result.data?.createDepartment?.id) {
+        return result.data.createDepartment.id;
       }
       return Promise.reject(new Error(result.error?.toString()));
     });
