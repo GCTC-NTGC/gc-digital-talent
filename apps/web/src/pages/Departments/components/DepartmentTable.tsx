@@ -63,8 +63,8 @@ export const DepartmentTable = ({
       id: "departmentNumber",
       filterFn: "weakEquals",
       header: intl.formatMessage({
-        defaultMessage: "Department #",
-        id: "QOvS1b",
+        defaultMessage: "Number",
+        id: "af1unJ",
         description:
           "Title displayed for the Department table Department # column.",
       }),
