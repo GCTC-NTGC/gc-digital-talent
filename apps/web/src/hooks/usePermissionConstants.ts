@@ -7,6 +7,7 @@ const usePermissionConstants = () => {
     "community_recruiter",
     "community_admin",
   ];
+  const viewJobTemplates: RoleName[] = ["pool_operator"];
   const viewProcesses: RoleName[] = ["pool_operator", "community_manager"];
   const viewRequests: RoleName[] = [
     "request_responder",
@@ -23,6 +24,7 @@ const usePermissionConstants = () => {
 
   return {
     viewCandidates,
+    viewJobTemplates,
     viewProcesses,
     viewRequests,
     viewUsers,

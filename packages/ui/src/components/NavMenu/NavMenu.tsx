@@ -18,7 +18,7 @@ import OurLink from "../Link/Link";
 import getButtonStyle, {
   ButtonStyleInterface,
 } from "../../utils/button/getButtonStyles";
-import { Color } from "../../types";
+import { ButtonLinkMode, Color, IconType } from "../../types";
 import { useNavMenuContext } from "./NavMenuProvider";
 import { linkStyleMapDesktop, linkStyleMapMobile, NavMenuType } from "./utils";
 
@@ -40,7 +40,7 @@ const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,
   TriggerProps
 >(({ children, mode, color, block = false, ...rest }, forwardedRef) => (
-  <div>
+  <div data-h2-text-align="base(center) l-tablet(initial)">
     <NavigationMenuPrimitive.Trigger
       ref={forwardedRef}
       onPointerMove={(event) => event.preventDefault()}
@@ -129,59 +129,70 @@ type LinkProps = ComponentPropsWithoutRef<
   typeof NavigationMenuPrimitive.Link
 > & {
   href: string;
-  type: NavMenuType;
+  type?: NavMenuType;
   color?: Color;
+  icon?: IconType;
+  mode?: ButtonLinkMode;
+  ariaLabel?: string;
 };
 
 const Link = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Link>,
   LinkProps
->(({ children, href, type, color, ...rest }, forwardedRef) => {
-  const { pathname } = useLocation();
-  const linkRef = useRef<HTMLAnchorElement>(null);
-  const isSmallScreen = useIsSmallScreen(1080);
-  const navContext = useNavMenuContext();
+>(
+  (
+    { children, href, type = "link", color, icon, mode, ariaLabel, ...rest },
+    forwardedRef,
+  ) => {
+    const { pathname } = useLocation();
+    const linkRef = useRef<HTMLAnchorElement>(null);
+    const isSmallScreen = useIsSmallScreen(1080);
+    const navContext = useNavMenuContext();
 
-  const isActive = pathname === href;
+    const isActive = pathname === href;
 
-  useEffect(() => {
-    if (linkRef.current) {
-      linkRef.current.parentElement?.setAttribute(
-        "data-state",
-        isActive ? "active" : "inactive",
-      );
-    }
-  }, [isActive]);
+    useEffect(() => {
+      if (linkRef.current) {
+        linkRef.current.parentElement?.setAttribute(
+          "data-state",
+          isActive ? "active" : "inactive",
+        );
+      }
+    }, [isActive]);
 
-  const linkColor = isSmallScreen
-    ? linkStyleMapMobile.get(type)
-    : linkStyleMapDesktop.get(type);
+    const linkColor = isSmallScreen
+      ? linkStyleMapMobile.get(type)
+      : linkStyleMapDesktop.get(type);
 
-  return (
-    <NavigationMenuPrimitive.Link
-      ref={forwardedRef}
-      active={isActive}
-      onSelect={(e: Event) => {
-        e.preventDefault();
-        if (navContext?.onOpenChange) {
-          navContext.onOpenChange(false);
-        }
-      }}
-      asChild
-      {...rest}
-    >
-      <OurLink
-        ref={linkRef}
-        href={href}
-        data-h2-text-decoration="base:selectors[[data-active]](none) base:selectors[[data-active] > span](none)"
-        data-h2-font-weight="base:selectors[[data-active]](700)"
-        {...linkColor}
+    return (
+      <NavigationMenuPrimitive.Link
+        ref={forwardedRef}
+        active={isActive}
+        onSelect={(e: Event) => {
+          e.preventDefault();
+          if (navContext?.onOpenChange) {
+            navContext.onOpenChange(false);
+          }
+        }}
+        asChild
+        {...rest}
       >
-        {children}
-      </OurLink>
-    </NavigationMenuPrimitive.Link>
-  );
-});
+        <OurLink
+          ref={linkRef}
+          href={href}
+          icon={icon}
+          mode={mode}
+          data-h2-text-decoration="base:selectors[[data-active]](none) base:selectors[[data-active] > span](none)"
+          data-h2-font-weight="base:selectors[[data-active]](700)"
+          {...linkColor}
+          aria-label={ariaLabel}
+        >
+          {children}
+        </OurLink>
+      </NavigationMenuPrimitive.Link>
+    );
+  },
+);
 
 const Sub = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Sub>,

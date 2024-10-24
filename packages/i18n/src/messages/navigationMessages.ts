@@ -126,6 +126,46 @@ const navigationMessages = defineMessages({
     id: "jDYG3j",
     description: "Name of Dashboard page",
   },
+  contactUs: {
+    defaultMessage: "Contact us",
+    id: "sQt/7l",
+    description: "Name of contact us page",
+  },
+  skillLibrary: {
+    defaultMessage: "Browse the skill library",
+    id: "/zFaLD",
+    description: "Name of skill library page",
+  },
+  jobTemplates: {
+    defaultMessage: "Find a job template",
+    id: "dK8pdO",
+    description: "Name of job template page",
+  },
+  announcements: {
+    defaultMessage: "Announcements",
+    id: "Md1J9+",
+    description: "Name of announcements page",
+  },
+  classifications: {
+    defaultMessage: "Classifications",
+    id: "yz4qnT",
+    description: "Name of classifications page",
+  },
+  departments: {
+    defaultMessage: "Departments",
+    id: "/BvR5P",
+    description: "Name of departments page",
+  },
+  skills: {
+    defaultMessage: "Skills",
+    id: "qtqJ6q",
+    description: "Name of skills page",
+  },
+  skillFamilies: {
+    defaultMessage: "Skill families",
+    id: "9RXifp",
+    description: "Name of skill families page",
+  },
 });
 
 export default navigationMessages;

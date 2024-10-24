@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
+import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 
 import { NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -52,10 +53,11 @@ const useMainNavLinks = (
   const permissions = usePermissionConstants();
 
   const Home = (
-    <NavItem
-      key="home"
+    <NavMenu.Link
       href={paths.home()}
-      title={intl.formatMessage(navigationMessages.home)}
+      icon={HomeIcon}
+      mode="icon_only"
+      ariaLabel={intl.formatMessage(navigationMessages.home)}
     />
   );
 
@@ -84,10 +86,11 @@ const useMainNavLinks = (
   );
 
   const ManagerHomePage = (
-    <NavItem
-      key="managerHomePage"
+    <NavMenu.Link
       href={paths.manager()}
-      title={intl.formatMessage(navigationMessages.home)}
+      icon={HomeIcon}
+      mode="icon_only"
+      ariaLabel={intl.formatMessage(navigationMessages.home)}
     />
   );
 
@@ -167,9 +170,9 @@ const useMainNavLinks = (
     />
   );
 
-  const SkillLibrary = (
+  const SkillPortfolio = (
     <NavItem
-      key="skillLibrary"
+      key="skillPortfolio"
       href={paths.skillPortfolio()}
       title={intl.formatMessage(navigationMessages.skillPortfolio)}
       subMenu
@@ -190,6 +193,78 @@ const useMainNavLinks = (
       key="accountSettings"
       href={paths.accountSettings()}
       title={intl.formatMessage(navigationMessages.accountSettings)}
+      subMenu
+    />
+  );
+
+  const ContactSupport = (
+    <NavItem
+      key="contactSupport"
+      href={paths.support()}
+      title={intl.formatMessage(navigationMessages.contactUs)}
+      subMenu
+    />
+  );
+
+  const SkillLibrary = (
+    <NavItem
+      key="skillLibrary"
+      href={paths.skills()}
+      title={intl.formatMessage(navigationMessages.skillLibrary)}
+      subMenu
+    />
+  );
+
+  const JobTemplates = hasRole(
+    permissions.viewJobTemplates,
+    roleAssignments,
+  ) ? (
+    <NavItem
+      key="jobTemplate"
+      href={paths.jobPosterTemplates()}
+      title={intl.formatMessage(navigationMessages.jobTemplates)}
+      subMenu
+    />
+  ) : null;
+
+  const Announcements = (
+    <NavItem
+      key="announcements"
+      href={paths.announcements()}
+      title={intl.formatMessage(navigationMessages.announcements)}
+      subMenu
+    />
+  );
+
+  const Classifications = (
+    <NavItem
+      key="classifications"
+      href={paths.classificationTable()}
+      title={intl.formatMessage(navigationMessages.classifications)}
+      subMenu
+    />
+  );
+  const Departments = (
+    <NavItem
+      key="departments"
+      href={paths.departmentTable()}
+      title={intl.formatMessage(navigationMessages.departments)}
+      subMenu
+    />
+  );
+  const Skills = (
+    <NavItem
+      key="skills"
+      href={paths.skillTable()}
+      title={intl.formatMessage(navigationMessages.skills)}
+      subMenu
+    />
+  );
+  const SkillFamilies = (
+    <NavItem
+      key="skillFamilies"
+      href={paths.skillFamilyTable()}
+      title={intl.formatMessage(navigationMessages.skillFamilies)}
       subMenu
     />
   );
@@ -263,51 +338,65 @@ const useMainNavLinks = (
   const roleLinksNoDuplicates = uniqBy(roleLinks, "name");
 
   const defaultLinks = {
+    homeLink: Home,
     roleLinks: roleLinksNoDuplicates,
-    currentRoleName: navRole,
+    mainLinks: [BrowseJobs],
     accountLinks: null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
+    resourceLinks: [ContactSupport],
+    systemSettings: null,
   };
 
   switch (navRole) {
     case "applicant":
       return {
         ...defaultLinks,
-        mainLinks: [Home, ApplicantDashboard, BrowseJobs],
+        mainLinks: [ApplicantDashboard, BrowseJobs],
         accountLinks: loggedIn
           ? [
               ApplicantProfile,
               CareerTimeline,
-              SkillLibrary,
+              SkillPortfolio,
               AccountSettings,
               SignOut,
             ]
           : null,
+        resourceLinks: [ContactSupport, SkillLibrary],
       };
     case "manager":
       return {
         ...defaultLinks,
-        mainLinks: [ManagerHomePage, ManagerDashboard, FindTalent],
+        homeLink: ManagerHomePage,
+        mainLinks: [ManagerDashboard, FindTalent],
         accountLinks: loggedIn
           ? [ManagerProfile, AccountSettings, SignOut]
           : null,
+        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
       };
     case "community":
       return {
         ...defaultLinks,
-        mainLinks: [Home, CommunityDashboard, Processes, Candidates],
+        mainLinks: [CommunityDashboard, Processes, Candidates, Requests],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
+        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
       };
     case "admin":
       return {
         ...defaultLinks,
-        mainLinks: [Home, AdminDashboard, ViewUsers, Processes, Requests],
+        mainLinks: [AdminDashboard, ViewUsers, Processes, Requests],
         accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
+        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
+        systemSettings: [
+          Announcements,
+          Classifications,
+          Departments,
+          Skills,
+          SkillFamilies,
+        ],
       };
     default:
       return {
         ...defaultLinks,
-        mainLinks: [Home, BrowseJobs],
       };
   }
 };

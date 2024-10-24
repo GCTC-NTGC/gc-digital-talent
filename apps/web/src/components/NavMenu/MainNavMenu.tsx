@@ -41,7 +41,15 @@ const MainNavMenu = () => {
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
 
-  const { roleLinks, mainLinks, accountLinks, authLinks } = useMainNavLinks(
+  const {
+    homeLink,
+    roleLinks,
+    mainLinks,
+    resourceLinks,
+    accountLinks,
+    authLinks,
+    systemSettings,
+  } = useMainNavLinks(
     navRole,
     loggedIn,
     userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [],
@@ -78,6 +86,7 @@ const MainNavMenu = () => {
           data-h2-align-items="base(center)"
           data-h2-margin="base(x1 x1 0 x1) l-tablet(0)"
         >
+          {homeLink}
           <ThemeSwitcher />
           <a
             data-h2-background-color="base:focus-visible(focus)"
@@ -103,6 +112,15 @@ const MainNavMenu = () => {
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) l-tablet(row)"
         >
+          <span data-h2-display="base(none) l-tablet(initial)">{homeLink}</span>
+          <Separator
+            space="sm"
+            orientation="vertical"
+            data-h2-display="base(none) l-tablet(initial)"
+            data-h2-height="l-tablet(x1)"
+            data-h2-margin-bottom="l-tablet(0)"
+            data-h2-color="base(white.5)"
+          />
           {navRole !== null &&
           roleAssignments !== undefined &&
           roleAssignments.length > 1 ? (
@@ -144,6 +162,41 @@ const MainNavMenu = () => {
           ) : null}
           <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
             {mainLinks}
+            {systemSettings && (
+              <NavMenu.Item>
+                <NavMenu.Trigger
+                  color={isSmallScreen ? "black" : "whiteFixed"}
+                  mode="text"
+                  block={false}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "System settings",
+                    id: "COIe6t",
+                    description:
+                      "Nav menu trigger for system settings links sub menu",
+                  })}
+                </NavMenu.Trigger>
+                <NavMenu.Content>
+                  <NavMenu.List>{systemSettings}</NavMenu.List>
+                </NavMenu.Content>
+              </NavMenu.Item>
+            )}
+            <NavMenu.Item>
+              <NavMenu.Trigger
+                color={isSmallScreen ? "black" : "whiteFixed"}
+                mode="text"
+                block={false}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Resources",
+                  id: "T74kMc",
+                  description: "Nav menu trigger for resource links sub menu",
+                })}
+              </NavMenu.Trigger>
+              <NavMenu.Content>
+                <NavMenu.List>{resourceLinks}</NavMenu.List>
+              </NavMenu.Content>
+            </NavMenu.Item>
           </NavMenu.List>
         </div>
         <Separator
