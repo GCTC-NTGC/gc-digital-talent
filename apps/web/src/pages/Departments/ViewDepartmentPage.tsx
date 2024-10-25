@@ -7,9 +7,8 @@ import {
   Pending,
   NotFound,
   Heading,
-  CardBasic,
-  Separator,
   Link,
+  CardSectioned,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -68,12 +67,8 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
           })}
         </Heading>
       </div>
-      <CardBasic
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1.25)"
-      >
-        <div
+      <CardSectioned.Root>
+        <CardSectioned.Item
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
           data-h2-gap="base(x1)"
@@ -95,13 +90,9 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
               {department.departmentNumber}
             </FieldDisplay>
           </div>
-        </div>
-        <Separator
-          decorative
-          data-h2-margin="base(0)"
-          data-h2-color="base(gray.light)"
-        />
-        <div
+        </CardSectioned.Item>
+
+        <CardSectioned.Item
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
@@ -115,8 +106,8 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
               description: "Link to edit the currently viewed department",
             })}
           </Link>
-        </div>
-      </CardBasic>
+        </CardSectioned.Item>
+      </CardSectioned.Root>
     </>
   );
 };

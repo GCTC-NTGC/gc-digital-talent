@@ -13,7 +13,7 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { Heading, Link, CardSectioned } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -69,78 +69,69 @@ export const CreateDepartmentForm = ({
   };
 
   return (
-    <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
-      >
-        <Heading
-          level="h2"
-          color="primary"
-          Icon={IdentificationIcon}
-          data-h2-margin="base(0, 0, x1.5, 0)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Department information",
-            id: "eNTKLK",
-            description: "Heading for the 'create a department' form",
-          })}
-        </Heading>
-      </div>
-
-      <FormProvider {...methods}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1.5)"
-        >
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-          >
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage(adminMessages.nameEn)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage(adminMessages.nameFr)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <div data-h2-grid-column="p-tablet(span 2)">
-              <Input
-                id="departmentNumber"
-                name="departmentNumber"
-                label={intl.formatMessage({
-                  defaultMessage: "Department number",
-                  id: "66kU6k",
-                  description: "Label for department number",
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardSectioned.Root>
+          <CardSectioned.Item>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-justify-content="base(center) p-tablet(flex-start)"
+            >
+              <Heading
+                level="h2"
+                color="primary"
+                Icon={IdentificationIcon}
+                data-h2-margin="base(0, 0, x1.5, 0)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Department information",
+                  id: "eNTKLK",
+                  description: "Heading for the 'create a department' form",
                 })}
-                type="number"
+              </Heading>
+            </div>
+            <div
+              data-h2-display="base(grid)"
+              data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+              data-h2-gap="base(x1)"
+            >
+              <Input
+                id="name_en"
+                name="name.en"
+                label={intl.formatMessage(adminMessages.nameEn)}
+                type="text"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
-                min="0"
               />
+              <Input
+                id="name_fr"
+                name="name.fr"
+                label={intl.formatMessage(adminMessages.nameFr)}
+                type="text"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <div data-h2-grid-column="p-tablet(span 2)">
+                <Input
+                  id="departmentNumber"
+                  name="departmentNumber"
+                  label={intl.formatMessage({
+                    defaultMessage: "Department number",
+                    id: "66kU6k",
+                    description: "Label for department number",
+                  })}
+                  type="number"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  min="0"
+                />
+              </div>
             </div>
-          </div>
-          <Separator
-            decorative
-            data-h2-margin="base(0)"
-            data-h2-color="base(gray.light)"
-          />
-          <div
+          </CardSectioned.Item>
+          <CardSectioned.Item
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x1)"
@@ -160,10 +151,10 @@ export const CreateDepartmentForm = ({
                 description: "Button label to return to the departments table",
               })}
             </Link>
-          </div>
-        </form>
-      </FormProvider>
-    </>
+          </CardSectioned.Item>
+        </CardSectioned.Root>
+      </form>
+    </FormProvider>
   );
 };
 
@@ -222,10 +213,6 @@ const CreateDepartmentPage = () => {
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div
           data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-          data-h2-radius="base(rounded)"
-          data-h2-background-color="base(foreground)"
-          data-h2-padding="base(x2, x1)"
-          data-h2-shadow="base(s)"
           data-h2-margin-bottom="base(x3)"
         >
           <CreateDepartmentForm
