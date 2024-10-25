@@ -63,7 +63,7 @@
     "react-hook-form": "^7.53.1",
     "react-intl": "^6.7.0",
     "react-router-dom": "^6.27.0",
-    "react-to-print": "^2.15.1",
+    "react-to-print": "^3.0.2",
     "urql": "^4.2.0"
   },
   "devDependencies": {
