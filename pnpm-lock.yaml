@@ -212,8 +212,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       '@vitejs/plugin-react':
-        specifier: ^4.3.2
-        version: 4.3.2(vite@5.4.10(@types/node@22.7.6)(lightningcss@1.25.1)(terser@5.31.1))
+        specifier: ^4.3.3
+        version: 4.3.3(vite@5.4.10(@types/node@22.7.6)(lightningcss@1.25.1)(terser@5.31.1))
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -3883,8 +3883,8 @@ packages:
     peerDependencies:
       '@urql/core': ^5.0.0
 
-  '@vitejs/plugin-react@4.3.2':
-    resolution: {integrity: sha512-hieu+o05v4glEBucTcKMK3dlES0OeJlD9YVOAPraVMOInBCwzumaIFiUjr4bHK7NPgnAHgiskUoceKercrN8vg==}
+  '@vitejs/plugin-react@4.3.3':
+    resolution: {integrity: sha512-NooDe9GpHGqNns1i8XDERg0Vsg5SSYRhRxxyTGogUdkdNt47jal+fbuYi+Yfq6pzRCKXyoPcWisfxE6RIM3GKA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0
@@ -11203,7 +11203,7 @@ snapshots:
       '@urql/core': 5.0.6(graphql@16.9.0)
       wonka: 6.3.4
 
-  '@vitejs/plugin-react@4.3.2(vite@5.4.10(@types/node@22.7.6)(lightningcss@1.25.1)(terser@5.31.1))':
+  '@vitejs/plugin-react@4.3.3(vite@5.4.10(@types/node@22.7.6)(lightningcss@1.25.1)(terser@5.31.1))':
     dependencies:
       '@babel/core': 7.25.7
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.25.7)
@@ -13724,7 +13724,7 @@ snapshots:
   jest-snapshot@29.7.0:
     dependencies:
       '@babel/core': 7.25.7
-      '@babel/generator': 7.24.7
+      '@babel/generator': 7.25.7
       '@babel/plugin-syntax-jsx': 7.24.7(@babel/core@7.25.7)
       '@babel/plugin-syntax-typescript': 7.24.7(@babel/core@7.25.7)
       '@babel/types': 7.25.7
