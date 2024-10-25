@@ -45,6 +45,11 @@ export const Component = () => {
     fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm2oraxj700k8d1ec6dumq39e",
   } as const;
 
+  const navigarUrl = {
+    en: "https://navigar.ca/",
+    fr: "https://navigar.ca/fr/",
+  } as const;
+
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -346,7 +351,7 @@ export const Component = () => {
                         data-h2-font-weight="base(bold)"
                         color="secondary"
                         external
-                        href="https://navigar.ca/"
+                        href={navigarUrl[locale]}
                         data-h2-flex-grow="base(2)"
                         data-h2-justify-content="base(end)"
                       >
