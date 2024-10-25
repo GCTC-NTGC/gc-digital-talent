@@ -16,8 +16,13 @@ import image3 from "~/assets/img/it-training-fund-3.webp";
 
 const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   return (
-    <Link href={href} color="secondary" external>
-      <strong>{chunks}</strong>
+    <Link
+      href={href}
+      color="secondary"
+      external
+      data-h2-font-weight="base(bold)"
+    >
+      {chunks}
     </Link>
   );
 };
@@ -302,15 +307,13 @@ export const Component = () => {
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x1)"
                     >
-                      <p>
-                        <strong>
-                          {intl.formatMessage({
-                            defaultMessage: "Available now",
-                            id: "L6MPML",
-                            description:
-                              "Statement that something is available now",
-                          })}
-                        </strong>
+                      <p data-h2-font-weight="base(bold)">
+                        {intl.formatMessage({
+                          defaultMessage: "Available now",
+                          id: "L6MPML",
+                          description:
+                            "Statement that something is available now",
+                        })}
                       </p>
                       <ul
                         data-h2-padding="base(0 0 0 x0.75)"
@@ -406,15 +409,13 @@ export const Component = () => {
                         data-h2-flex-direction="base(column)"
                         data-h2-gap="base(x1)"
                       >
-                        <p>
-                          <strong>
-                            {intl.formatMessage({
-                              defaultMessage: "Coming in winter 2024-25",
-                              id: "h7f4Om",
-                              description:
-                                "Statement that something will be available in the future",
-                            })}
-                          </strong>
+                        <p data-h2-font-weight="base(bold)">
+                          {intl.formatMessage({
+                            defaultMessage: "Coming in winter 2024-25",
+                            id: "h7f4Om",
+                            description:
+                              "Statement that something will be available in the future",
+                          })}
                         </p>
                         <ul
                           data-h2-padding="base(0 0 0 x0.75)"
@@ -508,15 +509,13 @@ export const Component = () => {
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x1)"
                     >
-                      <p>
-                        <strong>
-                          {intl.formatMessage({
-                            defaultMessage: "Coming in winter 2024-25",
-                            id: "h7f4Om",
-                            description:
-                              "Statement that something will be available in the future",
-                          })}
-                        </strong>
+                      <p data-h2-font-weight="base(bold)">
+                        {intl.formatMessage({
+                          defaultMessage: "Coming in winter 2024-25",
+                          id: "h7f4Om",
+                          description:
+                            "Statement that something will be available in the future",
+                        })}
                       </p>
                       <ul
                         data-h2-padding="base(0 0 0 x0.75)"
