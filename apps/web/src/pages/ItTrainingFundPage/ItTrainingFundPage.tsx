@@ -281,13 +281,18 @@ export const Component = () => {
                     data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
                     data-h2-color="base:all(white)"
                   >
-                    <span data-h2-font-size="base(h6, 1)">
+                    <Heading
+                      level="h3"
+                      size="h2"
+                      data-h2-font-size="base(h6)"
+                      data-h2-margin="base(0, 0, x0.25, 0)"
+                    >
                       {intl.formatMessage({
                         defaultMessage: "1. Online self-paced learning",
                         id: "mdIHDc",
                         description: "Title for an online learning card",
                       })}
-                    </span>
+                    </Heading>
                   </div>
                   <div
                     data-h2-display="base(flex)"
@@ -380,14 +385,19 @@ export const Component = () => {
                     data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
                     data-h2-color="base:all(white)"
                   >
-                    <span data-h2-font-size="base(h6, 1)">
+                    <Heading
+                      level="h3"
+                      size="h2"
+                      data-h2-font-size="base(h6)"
+                      data-h2-margin="base(0, 0, x0.25, 0)"
+                    >
                       {intl.formatMessage({
                         defaultMessage:
                           "2. Instructor-led classes and bootcamps",
                         id: "tj5pn8",
                         description: "Title for instructor-led classes card",
                       })}
-                    </span>
+                    </Heading>
                   </div>
                   <div
                     data-h2-display="base(flex)"
@@ -482,13 +492,18 @@ export const Component = () => {
                     data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
                     data-h2-color="base:all(white)"
                   >
-                    <span data-h2-font-size="base(h6, 1)">
+                    <Heading
+                      level="h3"
+                      size="h2"
+                      data-h2-font-size="base(h6)"
+                      data-h2-margin="base(0, 0, x0.25, 0)"
+                    >
                       {intl.formatMessage({
                         defaultMessage: "3. Certification exam vouchers",
                         id: "vfXTEA",
                         description: "Title for cert exam card",
                       })}
-                    </span>
+                    </Heading>
                   </div>
                   <div
                     data-h2-display="base(flex)"
