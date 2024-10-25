@@ -142,8 +142,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
       react-hook-form:
-        specifier: ^7.53.0
-        version: 7.53.0(react@18.3.1)
+        specifier: ^7.53.1
+        version: 7.53.1(react@18.3.1)
       react-intl:
         specifier: ^6.7.0
         version: 6.7.0(react@18.3.1)(typescript@5.6.3)
@@ -596,7 +596,7 @@ importers:
         version: 2.1.5(react@18.3.1)
       '@hookform/error-message':
         specifier: ^2.0.1
-        version: 2.0.1(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.53.0(react@18.3.1))(react@18.3.1)
+        version: 2.0.1(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.53.1(react@18.3.1))(react@18.3.1)
       '@tiptap/extension-character-count':
         specifier: ^2.9.1
         version: 2.9.1(@tiptap/core@2.9.1(@tiptap/pm@2.9.1))(@tiptap/pm@2.9.1)
@@ -683,8 +683,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-hook-form:
-        specifier: ^7.53.0
-        version: 7.53.0(react@18.3.1)
+        specifier: ^7.53.1
+        version: 7.53.1(react@18.3.1)
       react-intl:
         specifier: ^6.7.0
         version: 6.7.0(react@18.3.1)(typescript@5.6.3)
@@ -7011,8 +7011,8 @@ packages:
     peerDependencies:
       react: ^16.6.0 || ^17.0.0 || ^18.0.0
 
-  react-hook-form@7.53.0:
-    resolution: {integrity: sha512-M1n3HhqCww6S2hxLxciEXy2oISPnAzxY7gvwVPrtlczTM/1dDadXgUxDpHMrMTblDOcm/AXtXxHwZ3jpg1mqKQ==}
+  react-hook-form@7.53.1:
+    resolution: {integrity: sha512-6aiQeBda4zjcuaugWvim9WsGqisoUk+etmFEsSUMm451/Ic8L/UAb7sRtMj3V+Hdzm6mMjU1VhiSzYUZeBm0Vg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -9379,11 +9379,11 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@hookform/error-message@2.0.1(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.53.0(react@18.3.1))(react@18.3.1)':
+  '@hookform/error-message@2.0.1(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.53.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-hook-form: 7.53.0(react@18.3.1)
+      react-hook-form: 7.53.1(react@18.3.1)
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -14853,7 +14853,7 @@ snapshots:
       react-fast-compare: 3.2.2
       shallowequal: 1.1.0
 
-  react-hook-form@7.53.0(react@18.3.1):
+  react-hook-form@7.53.1(react@18.3.1):
     dependencies:
       react: 18.3.1
 
