@@ -64,7 +64,7 @@
     "react-intl": "^6.7.0",
     "react-router-dom": "^6.27.0",
     "react-to-print": "^2.15.1",
-    "urql": "^4.1.0"
+    "urql": "^4.2.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
@@ -76,8 +76,8 @@
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@hydrogen-css/hydrogen": "2.1.0",
-    "@storybook/addon-actions": "^8.3.5",
-    "@storybook/react": "^8.3.5",
+    "@storybook/addon-actions": "^8.3.6",
+    "@storybook/react": "^8.3.6",
     "@testing-library/jest-dom": "^6.6.1",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
