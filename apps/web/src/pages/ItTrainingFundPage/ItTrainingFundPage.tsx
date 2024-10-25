@@ -118,8 +118,8 @@ export const Component = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "The fund is a financial commitment to support the professional growth of the Government of Canada's IT staff. It was established under the <link>IT collective agreement</link> signed between the PIPSC IT Group and the Treasury Board of Canada Secretariat in December 2023. The fund allocates $4.725 million each year for training and development for the duration of the agreement.",
-                    id: "3t/ooK",
+                      "The fund is a financial commitment to support the professional growth of the Government of Canada's IT staff. It was established under the <link>IT collective agreement</link> signed between the PIPSC IT group and the Treasury Board of Canada Secretariat in December 2023. The fund allocates $4.725 million each year for training and development for the duration of the agreement.",
+                    id: "A44nkj",
                     description: "First paragraph describing the training fund",
                   },
                   {
@@ -160,8 +160,8 @@ export const Component = () => {
                   >
                     <li>
                       {intl.formatMessage({
-                        defaultMessage: "close critical skills gaps",
-                        id: "DeFQGH",
+                        defaultMessage: "close critical skill gaps",
+                        id: "O8yYPv",
                         description: "an item in a list of fund objectives",
                       })}
                     </li>
@@ -317,8 +317,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>Who it is for</strong>: Open to all eligible IT classified employees looking to improve their skills, regardless of their role or experience.",
-                            id: "+2XfUU",
+                              "<strong>Who it is for</strong>: Open to all eligible IT-classified employees looking to improve their skills, regardless of their role or experience.",
+                            id: "5eTpEJ",
                             description:
                               "An item in a list of points about online learning",
                           })}
@@ -398,8 +398,8 @@ export const Component = () => {
                         <p>
                           <strong>
                             {intl.formatMessage({
-                              defaultMessage: "Coming in winter 2024/25",
-                              id: "eQBprv",
+                              defaultMessage: "Coming in winter 2024-25",
+                              id: "h7f4Om",
                               description:
                                 "Statement that something will be available in the future",
                             })}
@@ -421,8 +421,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "<strong>Who it is for</strong>: All eligible IT classified employees who prefer structured learning and want to gain or deepen expertise in specific high-demand areas.",
-                              id: "H8Aw1b",
+                                "<strong>Who it is for</strong>: All eligible IT-classified employees who prefer structured learning and want to gain or deepen expertise in specific high-demand areas.",
+                              id: "CDO5vW",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -430,8 +430,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "<strong>How to apply</strong>: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in winter 2024/25.",
-                              id: "ufF0+A",
+                                "<strong>How to apply</strong>: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in winter 2024-25.",
+                              id: "nhfKqB",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -500,8 +500,8 @@ export const Component = () => {
                       <p>
                         <strong>
                           {intl.formatMessage({
-                            defaultMessage: "Coming in winter 2024/25",
-                            id: "eQBprv",
+                            defaultMessage: "Coming in winter 2024-25",
+                            id: "h7f4Om",
                             description:
                               "Statement that something will be available in the future",
                           })}
@@ -514,8 +514,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>What it is</strong>: Vouchers for online industry-recognized certification exams that validate your skills with recognized credentials.",
-                            id: "i0spVx",
+                              "<strong>What it is</strong>: Vouchers for online industry-recognized certification exams that validate your skills in key IT areas with recognized credentials.",
+                            id: "Vck6JW",
                             description:
                               "An item in a list of points about cert exams",
                           })}
@@ -523,8 +523,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>Who it is for</strong>: IT classified employees  seeking to enhance their qualifications and career growth.",
-                            id: "YZs3Ph",
+                              "<strong>Who it is for</strong>: IT-classified employees seeking to enhance their qualifications and career growth.",
+                            id: "ixxGIm",
                             description:
                               "An item in a list of points about cert exams",
                           })}
@@ -532,8 +532,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>How to apply</strong>: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in winter 2024/25.",
-                            id: "vp7WMv",
+                              "<strong>How to apply</strong>: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in winter 2024-25.",
+                            id: "zdGy4D",
                             description:
                               "An item in a list of points about cert exams",
                           })}
