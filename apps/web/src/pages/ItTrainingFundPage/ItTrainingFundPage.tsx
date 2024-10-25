@@ -41,8 +41,8 @@ export const Component = () => {
   const paths = useRoutes();
 
   const signUpUrl = {
-    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm2f6uhix006gd1ecypq52aoj",
-    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm2f6uhix006gd1ecypq52aoj",
+    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm2oraxj700k8d1ec6dumq39e",
+    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm2oraxj700k8d1ec6dumq39e",
   } as const;
 
   const crumbs = useBreadcrumbs({
