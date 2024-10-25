@@ -17,7 +17,6 @@ import {
   Pending,
   NotFound,
   Heading,
-  Separator,
   Link,
   CardSectioned,
 } from "@gc-digital-talent/ui";
