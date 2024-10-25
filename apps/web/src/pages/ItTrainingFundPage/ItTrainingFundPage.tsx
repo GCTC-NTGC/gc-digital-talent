@@ -13,6 +13,7 @@ import useRoutes from "~/hooks/useRoutes";
 import image1 from "~/assets/img/it-training-fund-1.webp";
 import image2 from "~/assets/img/it-training-fund-2.webp";
 import image3 from "~/assets/img/it-training-fund-3.webp";
+import SEO from "~/components/SEO/SEO";
 
 const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -66,6 +67,10 @@ export const Component = () => {
 
   return (
     <>
+      <SEO
+        title={intl.formatMessage(pageTitle)}
+        description={intl.formatMessage(pageSubtitle)}
+      />
       <Hero
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage(pageSubtitle)}
