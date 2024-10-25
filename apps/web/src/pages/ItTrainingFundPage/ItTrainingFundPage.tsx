@@ -138,86 +138,92 @@ export const Component = () => {
                 data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
                 data-h2-gap="base(x2) p-tablet(x3)"
               >
-                <CardFlat
-                  color="quaternary"
-                  title={intl.formatMessage({
-                    defaultMessage: "Objectives of the fund",
-                    id: "y3+Iw5",
-                    description: "Heading for the fund objectives card",
-                  })}
-                >
-                  <p data-h2-margin-bottom="base(x0.5)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The goal is to provide additional comprehensive, consistent, and high-quality training opportunities to:",
-                      id: "Ta28fI",
-                      description: "title for a list of fund objectives",
+                <div>
+                  <CardFlat
+                    color="quaternary"
+                    title={intl.formatMessage({
+                      defaultMessage: "Objectives of the fund",
+                      id: "y3+Iw5",
+                      description: "Heading for the fund objectives card",
                     })}
-                  </p>
-                  <ul
-                    data-h2-padding="base(0 0 0 x0.75)"
-                    data-h2-margin-bottom="base:children[:not(:last-child)](x0.5)"
                   >
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage: "close critical skill gaps",
-                        id: "O8yYPv",
-                        description: "an item in a list of fund objectives",
-                      })}
-                    </li>
-                    <li>
+                    <p data-h2-margin-bottom="base(x0.5)">
                       {intl.formatMessage({
                         defaultMessage:
-                          "reduce reliance on external contractors",
-                        id: "fCgDxi",
-                        description: "an item in a list of fund objectives",
+                          "The goal is to provide additional comprehensive, consistent, and high-quality training opportunities to:",
+                        id: "Ta28fI",
+                        description: "title for a list of fund objectives",
                       })}
-                    </li>
-                    <li>
+                    </p>
+                    <ul
+                      data-h2-padding="base(0 0 0 x0.75)"
+                      data-h2-margin-bottom="base:children[:not(:last-child)](x0.5)"
+                    >
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage: "close critical skill gaps",
+                          id: "O8yYPv",
+                          description: "an item in a list of fund objectives",
+                        })}
+                      </li>
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "reduce reliance on external contractors",
+                          id: "fCgDxi",
+                          description: "an item in a list of fund objectives",
+                        })}
+                      </li>
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "equip IT employees to drive digital transformation",
+                          id: "3I8R7b",
+                          description: "an item in a list of fund objectives",
+                        })}
+                      </li>
+                    </ul>
+                  </CardFlat>
+                </div>
+                <div>
+                  <CardFlat
+                    color="secondary"
+                    title={intl.formatMessage({
+                      defaultMessage: "Employee eligibility",
+                      id: "3deIgM",
+                      description: "Heading for the employee eligibility card",
+                    })}
+                  >
+                    <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "equip IT employees to drive digital transformation",
-                        id: "3I8R7b",
-                        description: "an item in a list of fund objectives",
+                          "Training opportunities supported by the fund are available only to employees represented by PIPSC in the IT group.",
+                        id: "aO/jZ3",
+                        description:
+                          "Description for the employee eligibility card",
                       })}
-                    </li>
-                  </ul>
-                </CardFlat>
-                <CardFlat
-                  color="secondary"
-                  title={intl.formatMessage({
-                    defaultMessage: "Employee eligibility",
-                    id: "3deIgM",
-                    description: "Heading for the employee eligibility card",
-                  })}
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Training opportunities supported by the fund are available only to employees represented by PIPSC in the IT group.",
-                      id: "aO/jZ3",
-                      description:
-                        "Description for the employee eligibility card",
+                    </p>
+                  </CardFlat>
+                </div>
+                <div>
+                  <CardFlat
+                    color="tertiary"
+                    title={intl.formatMessage({
+                      defaultMessage: "Fund management",
+                      id: "/ANsjm",
+                      description: "Heading for the fund management card",
                     })}
-                  </p>
-                </CardFlat>
-                <CardFlat
-                  color="tertiary"
-                  title={intl.formatMessage({
-                    defaultMessage: "Fund management",
-                    id: "/ANsjm",
-                    description: "Heading for the fund management card",
-                  })}
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The management of the fund is the responsibility of the Interdepartmental Joint Consultation Committee, co-chaired by the Office of the Chief Information Officer and the PIPSC IT group.",
-                      id: "fKQsbL",
-                      description: "Description for the fund management card",
-                    })}
-                  </p>
-                </CardFlat>
+                  >
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "The management of the fund is the responsibility of the Interdepartmental Joint Consultation Committee, co-chaired by the Office of the Chief Information Officer and the PIPSC IT group.",
+                        id: "fKQsbL",
+                        description: "Description for the fund management card",
+                      })}
+                    </p>
+                  </CardFlat>
+                </div>
               </div>
             </div>
             {/* Three types of learning opportunities */}
