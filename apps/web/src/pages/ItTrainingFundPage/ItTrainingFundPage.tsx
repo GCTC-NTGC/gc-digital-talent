@@ -82,8 +82,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "The Government of Canada is committed to supporting the development of its IT professionals. With the <strong>IT Community Training and Development Fund</strong>, employees represented by Professional Institute of the Public Service of Canada (PIPSC) in the IT group now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
-                  id: "uNM0+t",
+                    "The Government of Canada is committed to supporting the development of its IT professionals. With the <strong>IT Community Training and Development Fund</strong>, employees represented by the Professional Institute of the Public Service of Canada (PIPSC) in the IT group now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
+                  id: "Sew1Zp",
                   description:
                     "First paragraph describing investing in future talent",
                 })}
@@ -113,8 +113,8 @@ export const Component = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "The IT Training and Development Fund is a financial commitment to support the professional growth of the Government of Canada's IT staff. It was established under the <link>IT collective agreement</link> signed between PIPSC’s IT Group and the Treasury Board of Canada Secretariat in December 2023. The Fund allocates $4.725 million each year for training and development for the duration of the agreement.",
-                    id: "dFzEKi",
+                      "The fund is a financial commitment to support the professional growth of the Government of Canada's IT staff. It was established under the <link>IT collective agreement</link> signed between the PIPSC IT Group and the Treasury Board of Canada Secretariat in December 2023. The fund allocates $4.725 million each year for training and development for the duration of the agreement.",
+                    id: "3t/ooK",
                     description: "First paragraph describing the training fund",
                   },
                   {
@@ -136,16 +136,16 @@ export const Component = () => {
                 <CardFlat
                   color="quaternary"
                   title={intl.formatMessage({
-                    defaultMessage: "Objectives of the Fund",
-                    id: "R9jFeX",
+                    defaultMessage: "Objectives of the fund",
+                    id: "y3+Iw5",
                     description: "Heading for the fund objectives card",
                   })}
                 >
                   <p data-h2-margin-bottom="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "The goal is to deliver additional comprehensive, consistent, and high-quality training opportunities to:",
-                      id: "VmXu0a",
+                        "The goal is to provide additional comprehensive, consistent, and high-quality training opportunities to:",
+                      id: "Ta28fI",
                       description: "title for a list of fund objectives",
                     })}
                   </p>
@@ -189,8 +189,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "Training opportunities supported by the Fund are only available to employees represented by PIPSC in the IT group. This includes IT05 individual contributors but not IT05 directors who aren’t represented. The training is not available to employees whose substantive position is not classified as IT.",
-                      id: "vF2OFC",
+                        "Training opportunities supported by the fund are available only to employees represented by PIPSC in the IT group.",
+                      id: "aO/jZ3",
                       description:
                         "Description for the employee eligibility card",
                     })}
@@ -207,8 +207,8 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The management of the Fund is the responsibility of the Interdepartmental Joint Consultation Committee (IJCC), co-chaired by the Office of the Chief Information Officer (OCIO) and PIPSC’s IT Group.",
-                      id: "x/bqCj",
+                        "The management of the fund is the responsibility of the Interdepartmental Joint Consultation Committee, co-chaired by the Office of the Chief Information Officer and the PIPSC IT group.",
+                      id: "fKQsbL",
                       description: "Description for the fund management card",
                     })}
                   </p>
@@ -237,8 +237,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "The Fund offers 3 types of training programs to IT employees.",
-                  id: "nxTNzG",
+                    "The fund offers 3 types of training programs to IT employees.",
+                  id: "4CpKXN",
                   description:
                     "First paragraph describing learning opportunities",
                 })}
@@ -312,8 +312,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>Who it is for</strong>: Open to all eligible IT classified employees looking to improve their skills, regardless of role or experience.",
-                            id: "hPGsCr",
+                              "<strong>Who it is for</strong>: Open to all eligible IT classified employees looking to improve their skills, regardless of their role or experience.",
+                            id: "+2XfUU",
                             description:
                               "An item in a list of points about online learning",
                           })}
@@ -321,8 +321,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>How to access it</strong>: Through Navigar, a smart online skills development tool. All eligible IT employees are expected to receive their Navigar login information by email.",
-                            id: "Kx5aMY",
+                              "<strong>How to access it</strong>: Available through Navigar, a smart online skills development tool. All eligible IT-classified employees are expected to receive their Navigar login information by email.",
+                            id: "3hLJY5",
                             description:
                               "An item in a list of points about online learning",
                           })}
@@ -393,8 +393,8 @@ export const Component = () => {
                         <p>
                           <strong>
                             {intl.formatMessage({
-                              defaultMessage: "Coming Winter 2024/2025",
-                              id: "RYv6yd",
+                              defaultMessage: "Coming in winter 2024/25",
+                              id: "eQBprv",
                               description:
                                 "Statement that something will be available in the future",
                             })}
@@ -425,8 +425,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "<strong>How to apply</strong>: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
-                              id: "enA2zV",
+                                "<strong>How to apply</strong>: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in winter 2024/25.",
+                              id: "ufF0+A",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -442,8 +442,9 @@ export const Component = () => {
                           href="#"
                         >
                           {intl.formatMessage({
-                            defaultMessage: "Sign up for updates",
-                            id: "339yzW",
+                            defaultMessage:
+                              "Sign up for updates<hidden>about instructor-led classes and bootcamps</hidden>",
+                            id: "uuE/zT",
                             description: "A link to sign up for updates",
                           })}
                         </Link>
@@ -494,8 +495,8 @@ export const Component = () => {
                       <p>
                         <strong>
                           {intl.formatMessage({
-                            defaultMessage: "Coming Winter 2024/2025",
-                            id: "RYv6yd",
+                            defaultMessage: "Coming in winter 2024/25",
+                            id: "eQBprv",
                             description:
                               "Statement that something will be available in the future",
                           })}
@@ -526,8 +527,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>How to apply</strong>: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in Winter 2024/2025.",
-                            id: "G5Yai+",
+                              "<strong>How to apply</strong>: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in winter 2024/25.",
+                            id: "vp7WMv",
                             description:
                               "An item in a list of points about cert exams",
                           })}
@@ -543,8 +544,9 @@ export const Component = () => {
                         href="#"
                       >
                         {intl.formatMessage({
-                          defaultMessage: "Sign up for updates",
-                          id: "339yzW",
+                          defaultMessage:
+                            "Sign up for updates<hidden> about certification exam vouchers</hidden>",
+                          id: "bjcr+t",
                           description: "A link to sign up for updates",
                         })}
                       </Link>
