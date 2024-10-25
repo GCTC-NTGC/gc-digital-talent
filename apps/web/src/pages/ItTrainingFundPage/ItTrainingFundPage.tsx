@@ -40,6 +40,11 @@ export const Component = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
+  const signUpUrl = {
+    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm2f6uhix006gd1ecypq52aoj",
+    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm2f6uhix006gd1ecypq52aoj",
+  } as const;
+
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -439,7 +444,7 @@ export const Component = () => {
                           data-h2-font-weight="base(bold)"
                           color="secondary"
                           external
-                          href="#"
+                          href={signUpUrl[locale]}
                         >
                           {intl.formatMessage({
                             defaultMessage:
@@ -541,7 +546,7 @@ export const Component = () => {
                         data-h2-font-weight="base(bold)"
                         color="secondary"
                         external
-                        href="#"
+                        href={signUpUrl[locale]}
                       >
                         {intl.formatMessage({
                           defaultMessage:
