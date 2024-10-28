@@ -235,6 +235,10 @@
     "defaultMessage": "Si vous avez un profil sur Talents numériques du GC, l'information qu'il contient sera automatiquement ajoutée à la demande d'emploi. Vous pourrez revoir et modifier cette information et ajouter toute information manquante. Toute modification apportée à votre profil aux fins de la demande d'emploi sera sauvegardée dans votre profil afin que vous puissiez utiliser l'information ultérieurement.",
     "description": "Description of how user profiles assist in application completion"
   },
+  "/ANsjm": {
+    "defaultMessage": "Gestion du Fonds",
+    "description": "Heading for the fund management card"
+  },
   "/BWol9": {
     "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
     "description": "The directives digital enabling conditions component"
@@ -398,6 +402,10 @@
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
+  },
+  "030Tsr": {
+    "defaultMessage": "Fonds de formation et de perfectionnement de la collectivité de la TI",
+    "description": "Title for the it training fund page"
   },
   "04smVa": {
     "defaultMessage": "Recrutement ciblé",
@@ -1019,6 +1027,10 @@
     "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
     "description": "Description of the mentorship program"
   },
+  "3I8R7b": {
+    "defaultMessage": "donner des outils aux membres du personnel des TI pour diriger la transformation numérique.",
+    "description": "an item in a list of fund objectives"
+  },
   "3MboNR": {
     "defaultMessage": "Veuillez sélectionner une date d’expiration",
     "description": "Label for date selection input for expiry date"
@@ -1051,6 +1063,10 @@
     "defaultMessage": "Gérez votre nom, vos coordonnées, vos paramètres de confidentialité et vos notifications, ou supprimez votre compte.",
     "description": "Helper instructions for an 'account and privacy' card"
   },
+  "3deIgM": {
+    "defaultMessage": "Admissibilité du personnel",
+    "description": "Heading for the employee eligibility card"
+  },
   "3dwnFt": {
     "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences suivants : {departmentName}.",
     "description": "Fine print for departmental preference for pool advertisement"
@@ -1070,6 +1086,10 @@
   "3f9P13": {
     "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
     "description": "Employee Status in Government Info Form"
+  },
+  "3hLJY5": {
+    "defaultMessage": "<strong>Inscription</strong> : Navigar, outil Web intelligent de planification du développement des compétences. La clientèle visée recevra par courriel les identifiants d’accès.",
+    "description": "An item in a list of points about online learning"
   },
   "3hYwWo": {
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
@@ -1162,6 +1182,10 @@
   "4CLNTw": {
     "defaultMessage": "Soumettre la demande",
     "description": "Submit button text on request form."
+  },
+  "4CpKXN": {
+    "defaultMessage": "Le Fonds offre trois types de formations aux membres du personnel des TI.",
+    "description": "First paragraph describing learning opportunities"
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -1490,6 +1514,14 @@
   "5dhDA+": {
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
+  },
+  "5eTpEJ": {
+    "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI, toutes fonctions ou expériences confondues, qui cherchent à améliorer leurs compétences.",
+    "description": "An item in a list of points about online learning"
+  },
+  "5fnoWK": {
+    "defaultMessage": "<strong>Description</strong> : cours à la demande à rythme libre traitant des compétences techniques et comportementales.",
+    "description": "An item in a list of points about online learning"
   },
   "5i2G4O": {
     "defaultMessage": "Notre équipe s’engage à s’informer en permanence sur la manière dont la plateforme et ses processus de recrutement façonnent l’équité et la diversité dans l’embauche. Nous utilisons ce que nous apprenons pour concevoir des améliorations aux caractéristiques et de nouvelles fonctionnalités, et pour peaufiner les efforts de recrutement afin de mieux soutenir une expérience inclusive pour tous.",
@@ -2059,6 +2091,10 @@
     "defaultMessage": "Veuillez préciser la raison",
     "description": "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_"
   },
+  "8p4ty0": {
+    "defaultMessage": "Qu’est-ce que le Fonds de formation et de perfectionnement de la collectivité de la TI?",
+    "description": "Heading for section describing the training fund"
+  },
   "8t1KYs": {
     "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
     "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
@@ -2302,6 +2338,14 @@
   "A2ycww": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
+  },
+  "A44nkj": {
+    "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des TI au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe TI</link>, signée en décembre 2023, par le groupe TI de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe TI, et ce jusqu’à la date d’expiration de la convention.",
+    "description": "First paragraph describing the training fund"
+  },
+  "A94Zgi": {
+    "defaultMessage": "Découvrez les possibilités d’apprentissage offertes aux membres du personnel des TI pour acquérir des compétences et les perfectionner.",
+    "description": "Page subtitle for the IT training fund page"
   },
   "A9Urm+": {
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
@@ -2682,6 +2726,10 @@
   "CCyraT": {
     "defaultMessage": "Sélectionnez la méthode qui décrit le mieux la façon dont votre organisation prévoit évaluer ces compétences. Vous pouvez renommer cette évaluation au besoin.",
     "description": "description of 'basic details' section of the 'assessment details' dialog"
+  },
+  "CDO5vW": {
+    "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI qui préfèrent un mode d’apprentissage structuré et veulent acquérir des connaissances spécialisées ou les approfondir dans des domaines en forte demande.",
+    "description": "An item in a list of points about instructor-led classes"
   },
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
@@ -4387,6 +4435,10 @@
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
     "description": "The directives digital talent and sourcing component"
   },
+  "L6MPML": {
+    "defaultMessage": "Accessible dès maintenant",
+    "description": "Statement that something is available now"
+  },
   "L6MgeM": {
     "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
     "description": "First paragraph for the pool deadlines dialog"
@@ -4946,6 +4998,10 @@
   "O8nHiQ": {
     "defaultMessage": "Retourner aux demandes",
     "description": "Button label displayed on the search request form which returns the user back to requests."
+  },
+  "O8yYPv": {
+    "defaultMessage": "combler les lacunes importantes en matière de compétences;",
+    "description": "an item in a list of fund objectives"
   },
   "O98p6J": {
     "defaultMessage": "Supprimé avec succès du profil.",
@@ -5855,6 +5911,10 @@
     "defaultMessage": "Vous recevrez des candidats qui ont :",
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "Sew1Zp": {
+    "defaultMessage": "Le gouvernement du Canada s’est engagé à financer le perfectionnement de ses spécialistes des TI. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la TI</strong>, les membres du personnel du groupe TI, représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC), ont désormais accès à une plus vaste gamme de possibilités d’apprentissage afin d’acquérir des compétences et les approfondir.",
+    "description": "First paragraph describing investing in future talent"
+  },
   "SfbDLA": {
     "defaultMessage": "Utilisez le bouton \"Ajouter un nouveau membre\" pour commencer.",
     "description": "Instructions for adding a member to a team."
@@ -6022,6 +6082,10 @@
   "TYOzfT": {
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
+  },
+  "Ta28fI": {
+    "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
+    "description": "title for a list of fund objectives"
   },
   "Td2+oC": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
@@ -6377,6 +6441,10 @@
   "VcOlXA": {
     "defaultMessage": "Énoncé de confidentialité",
     "description": "Label for the privacy link in the Footer."
+  },
+  "Vck6JW": {
+    "defaultMessage": "<strong>Description</strong> : bons pour examens de certification en ligne attestant les compétences reconnues liées à des domaines clés des TI.",
+    "description": "An item in a list of points about cert exams"
   },
   "Vf+lsG": {
     "defaultMessage": "Nom de l’équipe (Français)",
@@ -7202,6 +7270,10 @@
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
     "description": "Subtitle for the application welcome page"
   },
+  "Zewopw": {
+    "defaultMessage": "Trois types de possibilités d’apprentissage",
+    "description": "Heading for section describing learning opportunities"
+  },
   "ZfCeq/": {
     "defaultMessage": "Voir les membres de l’équipe",
     "description": "Link text the list of team members page"
@@ -7309,6 +7381,10 @@
   "aMhznA": {
     "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
     "description": "Second paragraph for profile and applications notification welcoming an IAP user"
+  },
+  "aO/jZ3": {
+    "defaultMessage": "Les possibilités de formation offertes au moyen du Fonds sont réservées uniquement aux membres du personnel du groupe TI, représentés par l’IPFPC.",
+    "description": "Description for the employee eligibility card"
   },
   "aO23nW": {
     "defaultMessage": "<strong>Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.</strong>",
@@ -7514,9 +7590,17 @@
     "defaultMessage": "D'autres activités qui vous ont aidé à vous épanouir et à perfectionner vos compétences, y compris les passe-temps, les activités familiales et les activités extrascolaires.",
     "description": "Description for personal experience section"
   },
+  "be2aA/": {
+    "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",
+    "description": "An item in a list of points about instructor-led classes"
+  },
   "bf2scl": {
     "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
     "description": "Study at institution, HTML"
+  },
+  "bjcr+t": {
+    "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les bons pour examens de certification</hidden>",
+    "description": "A link to sign up for updates"
   },
   "bkAzZm": {
     "defaultMessage": "Titre du poste (FR)",
@@ -8250,6 +8334,10 @@
     "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}. Continuer votre soumission.",
     "description": "Message for application deadline approaching notification"
   },
+  "fCgDxi": {
+    "defaultMessage": "réduire la dépendance à l’égard de la sous-traitance;",
+    "description": "an item in a list of fund objectives"
+  },
   "fEcEv3": {
     "defaultMessage": "Signée",
     "description": "Heading for the application snapshot users signature"
@@ -8265,6 +8353,10 @@
   "fK+EvE": {
     "defaultMessage": "Supprimer cette compétence",
     "description": "Button text to remove a skill from a users profile"
+  },
+  "fKQsbL": {
+    "defaultMessage": "La gestion du Fonds incombe au comité mixte interministériel de consultation, coprésidé par le Bureau du dirigeant principal de l’information et le groupe TI de l’IPFPC.",
+    "description": "Description for the fund management card"
   },
   "fLTOAm": {
     "defaultMessage": "2,5 millions de dollars à 5 millions de dollars",
@@ -8445,6 +8537,10 @@
   "g+tCWe": {
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
+  },
+  "g1YoPl": {
+    "defaultMessage": "En savoir plus<hidden> sur le Fonds de formation et de perfectionnement de la collectivité de la TI</hidden>",
+    "description": "Link text to the IT training fund"
   },
   "g2We9g": {
     "defaultMessage": "Une partie du contenu de ce site pourrait faire l’objet du droit d’auteur d’une tierce partie. Lorsque des informations sont produites et que le gouvernement du Canada n’est pas le détenteur des droits d’auteur, le contenu est protégé par la <copyrightLink>Loi sur le droit d’auteur</copyrightLink> et des ententes internationales. Les détails relatifs au droit d’auteur figurent sur les pages pertinentes.",
@@ -8681,6 +8777,10 @@
   "h7URQB": {
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
+  },
+  "h7f4Om": {
+    "defaultMessage": "Hiver 2024‑2025",
+    "description": "Statement that something will be available in the future"
   },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
@@ -9101,6 +9201,10 @@
   "iuve97": {
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
+  },
+  "ixxGIm": {
+    "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
+    "description": "An item in a list of points about cert exams"
   },
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
@@ -9798,6 +9902,10 @@
     "defaultMessage": "Choisissez parmi une variété de compétences et déterminez le niveau requis des candidats",
     "description": "Subtitle for the find a skill dialog within a pool"
   },
+  "mdIHDc": {
+    "defaultMessage": "1. Apprentissage autonome en ligne",
+    "description": "Title for an online learning card"
+  },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
     "description": "Availability label"
@@ -10005,6 +10113,10 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
+  },
+  "nhfKqB": {
+    "defaultMessage": "<strong>Inscription</strong> : les places seront limitées. Vous devrez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
+    "description": "An item in a list of points about instructor-led classes"
   },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
@@ -10998,6 +11110,10 @@
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
   },
+  "tj5pn8": {
+    "defaultMessage": "2. Cours et camps d’entrainement dirigés par un instructeur ou une instructrice",
+    "description": "Title for instructor-led classes card"
+  },
   "tj9Dz3": {
     "defaultMessage": "Adresse courriel professionnelle",
     "description": "Work email label"
@@ -11162,6 +11278,10 @@
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
   },
+  "umrfZq": {
+    "defaultMessage": "Accédez à Navigar",
+    "description": "A link to a tool named Navigar"
+  },
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
@@ -11190,6 +11310,10 @@
     "defaultMessage": "À quoi devrais-je m’attendre si je réussis ce processus?",
     "description": "Button text to toggle the accordion for what to expect after admission"
   },
+  "uuE/zT": {
+    "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d’entrainement dirigés par un instructeur ou une instructrice</hidden>",
+    "description": "A link to sign up for updates"
+  },
   "uup5F2": {
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the user form preferred communication language field."
@@ -11217,6 +11341,10 @@
   "v21LPW": {
     "defaultMessage": "Mises à jour de l'application",
     "description": "Title for application updates checklist"
+  },
+  "v6/BRI": {
+    "defaultMessage": "Investir dans l’avenir des talents des TI",
+    "description": "Heading for section describing investing in future talent"
   },
   "v9A5Cb": {
     "defaultMessage": "Emplacement actuel",
@@ -11293,6 +11421,10 @@
   "vbiWgW": {
     "defaultMessage": "Politiques connexes",
     "description": "Heading for the related policies card"
+  },
+  "vfXTEA": {
+    "defaultMessage": "3. Bons pour examens de certification",
+    "description": "Title for cert exam card"
   },
   "vgrRuU": {
     "defaultMessage": "Exigence en matière de sécurité",
@@ -11429,6 +11561,10 @@
   "wO1c70": {
     "defaultMessage": "Cette section demande des renseignements sur le recrutement standard, tels que la classification, le titre du poste et la date de clôture",
     "description": "Sub title for basic information"
+  },
+  "wOITol": {
+    "defaultMessage": "Fonds de formation et de perfectionnement de la collectivité de la TI",
+    "description": "page title for the IT training fund page"
   },
   "wORNl0": {
     "defaultMessage": "Sélectionnez une famille ou plus",
@@ -11622,6 +11758,10 @@
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
   },
+  "xfdk0g": {
+    "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont désormais accès à plusieurs autres possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
+    "description": "Summary of the it training fund featured item"
+  },
   "xggOcb": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",
     "description": "Description du fonctionnement des profils de candidature"
@@ -11705,6 +11845,10 @@
   "y2Rl/m": {
     "defaultMessage": "Étapes relatives à l’application",
     "description": "Label for the application stepper navigation"
+  },
+  "y3+Iw5": {
+    "defaultMessage": "Objectifs du Fonds",
+    "description": "Heading for the fund objectives card"
   },
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
@@ -11977,6 +12121,10 @@
   "zcr51k": {
     "defaultMessage": "La reproduction des symboles officiels du gouvernement du Canada, y compris le mot-symbole « Canada », les armoiries du Canada et le symbole du drapeau, à des fins commerciales ou non commerciales, est interdite sans <trademarkLink>autorisation écrite</trademarkLink> au préalable.",
     "description": "Paragraph describing trademark notice section"
+  },
+  "zdGy4D": {
+    "defaultMessage": "<strong>Inscription</strong> : les places seront limitées. Vous devrez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
+    "description": "An item in a list of points about cert exams"
   },
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
