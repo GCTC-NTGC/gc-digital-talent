@@ -9,7 +9,7 @@ import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
-import usePermissionConstants from "~/hooks/usePermissionConstants";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { NavRole } from "../NavContext/NavContextContainer";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
@@ -50,7 +50,7 @@ const useMainNavLinks = (
 ) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const permissions = usePermissionConstants();
+  const permissions = permissionConstants();
 
   const Home = (
     <NavMenu.Link

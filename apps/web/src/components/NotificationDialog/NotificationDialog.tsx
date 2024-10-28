@@ -77,7 +77,7 @@ const DialogPortalWithPresence = ({
         animate={{ opacity: 0.3 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        data-h2-background-color="base:all(black)"
+        data-h2-background-color="base:all(black.light.85)"
         data-h2-position="base(fixed)"
         data-h2-location="base(0)"
         data-h2-z-index="base(8)"
@@ -168,6 +168,22 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
+const linkColorStyling = {
+  "data-h2-color": `
+  base:all(white)
+  base:hover(secondary.lighter)
+  base:hover:dark(secondary.lighter)
+  base:all:focus-visible(black)
+
+  base:children(white)
+  base:focus-visible:children(focus)
+
+  base:selectors[[data-active]](secondary.lighter)
+  base:dark:selectors[[data-active]](secondary.lightest)
+  base:dark:hover:selectors[[data-icon="true"]](secondary.darkest)
+`,
+};
+
 interface NotificationDialog {
   /** Controllable open state */
   open?: boolean;
@@ -205,7 +221,7 @@ const NotificationDialog = ({
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
 
   return (
-    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
       {open ? (
         <Dialog.Close asChild>
           <Button
@@ -217,23 +233,23 @@ const NotificationDialog = ({
               id: "J1n6QO",
               description: "Button text to close the notifications dialog",
             })}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25)"
-            data-h2-padding="base(calc(x.5 - 3px) calc(x.5 - 3px)) l-tablet(0)"
+            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
           />
         </Dialog.Close>
       ) : (
         <DialogPrimitive.Trigger asChild>
           <Button
             mode={isSmallScreen ? "solid" : "icon_only"}
-            color={color || isSmallScreen ? "blackFixed" : "whiteFixed"}
+            color={isSmallScreen ? "black" : "secondary"}
             icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
             aria-label={intl.formatMessage({
               defaultMessage: "View notifications",
               id: "ztx8xL",
               description: "Button text to open the notifications dialog",
             })}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25)"
-            data-h2-padding="base(calc(x.5 - 3px) calc(x.5 - 3px)) l-tablet(0)"
+            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
+            data-icon="true"
+            {...(!isSmallScreen && linkColorStyling)}
           />
         </DialogPrimitive.Trigger>
       )}
@@ -241,7 +257,7 @@ const NotificationDialog = ({
       <AnimatePresence initial={false}>
         {open && <DialogPortalWithPresence executeQuery={executeQuery} />}
       </AnimatePresence>
-    </DialogPrimitive.Root>
+    </Dialog.Root>
   );
 };
 

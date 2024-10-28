@@ -56,11 +56,11 @@ const MainNavMenu = () => {
   );
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useState(false);
-  useEffect(() => {
-    if (isSmallScreen) {
-      setMenuOpen(false); // collapse menu if window resized to small
-    }
-  }, [isSmallScreen, setMenuOpen]);
+  // useEffect(() => {
+  //   if (isSmallScreen) {
+  //     setMenuOpen(false); // collapse menu if window resized to small
+  //   }
+  // }, [isSmallScreen, setMenuOpen]);
 
   const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
 
@@ -86,14 +86,22 @@ const MainNavMenu = () => {
           data-h2-align-items="base(center)"
           data-h2-margin="base(x1 x1 0 x1) l-tablet(0)"
         >
-          {homeLink}
-          <ThemeSwitcher />
+          <div data-h2-flex="base(1) l-tablet(auto)">{homeLink}</div>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex="base(2) l-tablet(auto)"
+            data-h2-justify-content="base(center) l-tablet(initial)"
+          >
+            <ThemeSwitcher />
+          </div>
           <a
             data-h2-background-color="base:focus-visible(focus)"
             data-h2-outline="base(none)"
             data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
             href={languageTogglePath}
             lang={changeToLang === "en" ? "en" : "fr"}
+            data-h2-flex="base(1) l-tablet(auto)"
+            data-h2-text-align="base(right) l-tablet(auto)"
           >
             {intl.formatMessage({
               defaultMessage: "<hidden>Changer la langue en </hidden>Français",
@@ -106,27 +114,35 @@ const MainNavMenu = () => {
           space="none"
           data-h2-display="l-tablet(none)"
           data-h2-margin="base(x1 0) l-tablet(0)"
-          data-h2-color="base(white.5)"
+          data-h2-color="base(black.darkest.2) base:dark(black.darkest.5)"
         />
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) l-tablet(row)"
+          data-h2-align-items="base(center)"
         >
-          <span data-h2-display="base(none) l-tablet(initial)">{homeLink}</span>
-          <Separator
-            space="sm"
-            orientation="vertical"
-            data-h2-display="base(none) l-tablet(initial)"
-            data-h2-height="l-tablet(x1)"
-            data-h2-margin-bottom="l-tablet(0)"
-            data-h2-color="base(white.5)"
-          />
-          {navRole !== null &&
-          roleAssignments !== undefined &&
-          roleAssignments.length > 1 ? (
-            <>
-              <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
-                <NavMenu.Item>
+          <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
+            <NavMenu.Item
+              data-h2-display="base(none) l-tablet(flex)"
+              {...(!loggedIn && {
+                "data-h2-border-right":
+                  "base(none) l-tablet(1px solid black.light)",
+                "data-h2-padding": "base(0) l-tablet(0 x1)",
+                "data-h2-margin-right": "base(0) l-tablet(x1)",
+              })}
+            >
+              {homeLink}
+            </NavMenu.Item>
+            {navRole !== null &&
+            roleAssignments !== undefined &&
+            roleAssignments.length > 1 ? (
+              <>
+                <NavMenu.Item
+                  data-h2-border-right="base(none) l-tablet(1px solid black.light)"
+                  data-h2-border-left="base(0) l-tablet(1px solid black.light)"
+                  data-h2-padding="base(0) l-tablet(0 x1)"
+                  data-h2-margin-right="base(0) l-tablet(x1)"
+                >
                   <NavMenu.Trigger
                     color={isSmallScreen ? "black" : "whiteFixed"}
                     mode="text"
@@ -134,7 +150,10 @@ const MainNavMenu = () => {
                   >
                     {roleNames[navRole]}
                   </NavMenu.Trigger>
-                  <NavMenu.Content>
+                  <NavMenu.Content
+                    data-h2-left="base(auto) l-tablet(-25%)"
+                    data-h2-width="base(auto) l-tablet(150%)"
+                  >
                     <NavMenu.List>
                       {roleLinks.map((roleLink) => (
                         <NavMenu.Item key={roleLink.name}>
@@ -150,16 +169,17 @@ const MainNavMenu = () => {
                     </NavMenu.List>
                   </NavMenu.Content>
                 </NavMenu.Item>
-              </NavMenu.List>
-              <Separator
-                orientation={isSmallScreen ? "horizontal" : "vertical"}
-                space="sm"
-                data-h2-height="base(1px) l-tablet(x1)"
-                data-h2-margin-bottom="base(x1) l-tablet(0)"
-                data-h2-color="base(white.5)"
-              />
-            </>
-          ) : null}
+              </>
+            ) : null}
+          </NavMenu.List>
+          {loggedIn && (
+            <Separator
+              space="none"
+              data-h2-display="l-tablet(none)"
+              data-h2-margin="base(x1 0) l-tablet(0)"
+              data-h2-color="base(black.darkest.2) base:dark(black.darkest.5)"
+            />
+          )}
           <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
             {mainLinks}
             {systemSettings && (
@@ -176,7 +196,10 @@ const MainNavMenu = () => {
                       "Nav menu trigger for system settings links sub menu",
                   })}
                 </NavMenu.Trigger>
-                <NavMenu.Content>
+                <NavMenu.Content
+                  data-h2-width="base(150%)"
+                  data-h2-left="base(-25%)"
+                >
                   <NavMenu.List>{systemSettings}</NavMenu.List>
                 </NavMenu.Content>
               </NavMenu.Item>
@@ -193,7 +216,10 @@ const MainNavMenu = () => {
                   description: "Nav menu trigger for resource links sub menu",
                 })}
               </NavMenu.Trigger>
-              <NavMenu.Content>
+              <NavMenu.Content
+                data-h2-left="base(auto) l-tablet(-50%)"
+                data-h2-width="base(auto) l-tablet(200%)"
+              >
                 <NavMenu.List>{resourceLinks}</NavMenu.List>
               </NavMenu.Content>
             </NavMenu.Item>
@@ -202,7 +228,7 @@ const MainNavMenu = () => {
         <Separator
           space="sm"
           data-h2-display="l-tablet(none)"
-          data-h2-color="base(white.5)"
+          data-h2-color="base(black.darkest.2) base:dark(black.darkest.5)"
         />
         <NavMenu.List
           data-h2-flex-direction="base(column) l-tablet(row)"
@@ -210,7 +236,7 @@ const MainNavMenu = () => {
         >
           {accountLinks && (
             <NavMenu.Item
-              data-h2-border-right="l-tablet(1px solid white.5)"
+              data-h2-border-right="l-tablet(1px solid black.light)"
               data-h2-padding-right="l-tablet(x1)"
             >
               <NavMenu.Trigger
@@ -224,7 +250,10 @@ const MainNavMenu = () => {
                   description: "Nav menu trigger for account links sub menu",
                 })}
               </NavMenu.Trigger>
-              <NavMenu.Content>
+              <NavMenu.Content
+                data-h2-width="base(150%)"
+                data-h2-left="base(-25%)"
+              >
                 <NavMenu.List>{accountLinks}</NavMenu.List>
               </NavMenu.Content>
             </NavMenu.Item>
@@ -252,10 +281,17 @@ const MainNavMenu = () => {
           data-h2-gap="base(x.5)"
         >
           <Button
-            color="blackFixed"
+            color="black"
             mode="solid"
             icon={isMenuOpen ? XMarkIcon : Bars3Icon}
-            onClick={() => setMenuOpen(!isMenuOpen)}
+            onClick={() => {
+              if (isNotificationDialogOpen) {
+                setNotificationDialogOpen(false);
+                setMenuOpen(true);
+              } else {
+                setMenuOpen(!isMenuOpen);
+              }
+            }}
           >
             {isMenuOpen
               ? intl.formatMessage(uiMessages.closeMenu)
@@ -263,8 +299,17 @@ const MainNavMenu = () => {
           </Button>
           {loggedIn && (
             <NotificationDialog
+              data-h2-display="l-tablet(none)"
+              color="black"
               open={isNotificationDialogOpen}
-              onOpenChange={setNotificationDialogOpen}
+              onOpenChange={() => {
+                if (isMenuOpen) {
+                  setMenuOpen(false);
+                  setNotificationDialogOpen(true);
+                } else {
+                  setNotificationDialogOpen(!isNotificationDialogOpen);
+                }
+              }}
             />
           )}
         </div>

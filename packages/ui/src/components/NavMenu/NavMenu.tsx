@@ -76,12 +76,12 @@ const Content = forwardRef<
     data-h2-margin-top="base(x1) l-tablet(0)"
     data-h2-position="l-tablet(absolute)"
     data-h2-top="l-tablet(x1.25)"
-    data-h2-left="l-tablet(-25%)"
+    data-h2-left="base(auto) l-tablet(-25%)"
+    data-h2-width="base(auto) l-tablet(150%)"
     data-h2-background-color="l-tablet(foreground)"
     data-h2-padding="l-tablet(x.25 x.5)"
     data-h2-radius="l-tablet(s)"
     data-h2-shadow="l-tablet(s)"
-    data-h2-width="l-tablet(150%)"
     {...props}
   />
 ));
@@ -157,8 +157,9 @@ const Link = forwardRef<
           "data-state",
           isActive ? "active" : "inactive",
         );
+        linkRef.current?.setAttribute("data-icon", icon ? "true" : "false");
       }
-    }, [isActive]);
+    }, [isActive, icon]);
 
     const linkColor = isSmallScreen
       ? linkStyleMapMobile.get(type)

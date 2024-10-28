@@ -122,14 +122,14 @@ const NavMenuWrapper = ({
                 aria-label={label}
                 data-state={open ? "open" : "closed"}
                 data-h2-background-color="base(foreground) l-tablet:all(black.9)"
-                data-h2-border="base:all(1px solid background.darker) l-tablet(none)"
                 data-h2-radius="base(rounded) l-tablet(initial)"
-                data-h2-padding="l-tablet(x1 0)"
+                data-h2-padding="base(1px 0) l-tablet(x1 0)"
               >
                 <div
                   data-h2-wrapper="l-tablet(center, large, x2)"
                   data-h2-display="l-tablet(flex)"
                   data-h2-justify-content="l-tablet(space-between)"
+                  data-h2-align-items="base(center)"
                 >
                   {children}
                 </div>
@@ -147,9 +147,10 @@ const NavMenuWrapper = ({
             data-h2-background-color="base:all(black.light.85)"
             data-h2-z-index="base(9997)"
             data-h2-overflow="base(auto)"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 }}
+            initial={{ opacity: 0.3 }}
+            animate={{ opacity: 0.3 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           />
         )}
       </AnimatePresence>
