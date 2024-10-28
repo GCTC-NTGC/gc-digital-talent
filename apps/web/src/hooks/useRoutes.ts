@@ -310,6 +310,9 @@ const getRoutes = (lang: Locales) => {
     managerDashboard: () => [managerUrl, "dashboard"].join("/"),
     managerRequestHistory: () => [managerUrl, "talent-requests"].join("/"),
 
+    // IT Training Fund
+    itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
+
     /**
      * Deprecated
      *
