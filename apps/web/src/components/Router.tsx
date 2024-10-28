@@ -502,6 +502,11 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "it-training-fund",
+              lazy: () =>
+                import("../pages/ItTrainingFundPage/ItTrainingFundPage"),
+            },
+            {
               path: "*",
               loader: () => {
                 throw new NotFoundError();

@@ -8,42 +8,43 @@ import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
 import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
-// import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.webp";
 import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.webp";
+import itTrainingFundImg from "~/assets/img/check_it_out_it_training_fund.webp";
 
 const Featured = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  // TEMP: Removed in https://github.com/GCTC-NTGC/gc-digital-talent/pull/6143
-  // const digitalAmbition = {
-  //   key: "digital-ambition",
-  //   title: intl.formatMessage({
-  //     defaultMessage: "The Digital Ambition",
-  //     id: "tTuBmE",
-  //     description: "Title for the digital ambition featured item",
-  //   }),
-  //   summary: intl.formatMessage({
-  //     defaultMessage:
-  //       'The Digital Ambition outlines the Government of Canada\'s commitment to create modern, accessible digital services. Achieving these priorities will result in a government that provides improved "digital-first," user-centred, and barrier-free services and programs.',
-  //     id: "CbzWqJ",
-  //     description: "Summary of the digital ambition featured item",
-  //   }),
-  //   img: { path: digitalAmbitionImg },
-  //   link: {
-  //     path:
-  //       locale === "en"
-  //         ? "https://www.canada.ca/en/government/system/digital-government/government-canada-digital-operations-strategic-plans/canada-digital-ambition.html"
-  //         : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/plans-strategiques-operations-numeriques-gouvernement-canada/ambition-numerique-canada.html",
-  //     label: intl.formatMessage({
-  //       defaultMessage: "Read the Digital Ambition",
-  //       id: "Gil1Zj",
-  //       description: "Link text to read the Digital Ambition",
-  //     }),
-  //   },
-  // };
-
   const featured = [
+    {
+      key: "it-training-fund",
+      title: intl.formatMessage({
+        defaultMessage: "IT Community Training and Development Fund",
+        id: "030Tsr",
+        description: "Title for the it training fund page",
+      }),
+      summary: (
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Through this fund, IT employees can now access a variety of additional training opportunities, including self-paced learning, instructor-led courses, and certification exam vouchers.",
+            id: "xfdk0g",
+            description: "Summary of the it training fund featured item",
+          })}
+        </p>
+      ),
+
+      img: { path: itTrainingFundImg, position: "center" },
+      link: {
+        path: paths.itTrainingFund(),
+        label: intl.formatMessage({
+          defaultMessage:
+            "Learn more<hidden> about the IT Community Training and Development Fund</hidden>",
+          id: "g1YoPl",
+          description: "Link text to the IT training fund",
+        }),
+      },
+    },
     {
       key: "directive-on-digital-talent",
       title: intl.formatMessage({
@@ -119,7 +120,7 @@ const Featured = () => {
       </Heading>
       <div
         data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
+        data-h2-grid-template-columns="base(1fr) p-tablet(repeat(3, minmax(0, 1fr)))"
         data-h2-gap="base(x1)"
         data-h2-padding="base(x2, 0, 0, 0)"
       >
