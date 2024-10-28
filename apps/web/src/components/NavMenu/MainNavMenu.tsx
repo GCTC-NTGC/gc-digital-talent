@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-elements */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
