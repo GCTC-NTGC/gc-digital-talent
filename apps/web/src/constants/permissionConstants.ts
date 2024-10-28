@@ -1,6 +1,6 @@
 import { RoleName } from "@gc-digital-talent/auth";
 
-const usePermissionConstants = () => {
+const permissionConstants = () => {
   const viewCandidates: RoleName[] = [
     "pool_operator",
     "request_responder",
@@ -31,4 +31,4 @@ const usePermissionConstants = () => {
   };
 };
 
-export default usePermissionConstants;
+export default permissionConstants;
