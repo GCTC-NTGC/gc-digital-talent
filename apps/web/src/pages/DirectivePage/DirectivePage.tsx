@@ -25,6 +25,7 @@ import {
 import Hero from "~/components/HeroDeprecated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import SEO from "~/components/SEO/SEO";
 
 import Resources from "./Resources";
 
@@ -76,6 +77,13 @@ export const pageTitle = defineMessage({
   description: "Title for the digital talent directive page",
 });
 
+export const pageSubtitle = defineMessage({
+  defaultMessage:
+    "Learn more about how the Government of Canada is strengthening the talent base of the GC digital community.",
+  id: "c/u1K+",
+  description: "Subtitle for the digital talent directive page",
+});
+
 export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -103,14 +111,13 @@ export const Component = () => {
 
   return (
     <>
+      <SEO
+        title={intl.formatMessage(pageTitle)}
+        description={intl.formatMessage(pageSubtitle)}
+      />
       <Hero
         title={intl.formatMessage(pageTitle)}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Learn more about how the Government of Canada is strengthening the talent base of the GC digital community.",
-          id: "c/u1K+",
-          description: "Subtitle for the digital talent directive page",
-        })}
+        subtitle={intl.formatMessage(pageSubtitle)}
         crumbs={crumbs}
         linkSlot={
           <>
