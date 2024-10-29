@@ -300,6 +300,14 @@ const getRoutes = (lang: Locales) => {
     jobPosterTemplate: (templateId: string) =>
       [baseUrl, "job-templates", templateId].join("/"),
 
+    // Manager pages
+    managerDashboard: () => [baseUrl, "manager", "dashboard"].join("/"),
+    managerRequestHistory: () =>
+      [baseUrl, "manager", "talent-requests"].join("/"),
+
+    // IT Training Fund
+    itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
+
     /**
      * Deprecated
      *

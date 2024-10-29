@@ -2,7 +2,7 @@ import { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
 import { empty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Classification,
   GovEmployeeType,
@@ -175,11 +175,7 @@ export const getLabels = (intl: IntlShape) => ({
     id: "gnGAe8",
     description: "Label displayed on classification level input",
   }),
-  workEmail: intl.formatMessage({
-    defaultMessage: "Work email address",
-    id: "jWx0oF",
-    description: "Label displayed on work email input",
-  }),
+  workEmail: intl.formatMessage(commonMessages.workEmail),
   priorityEntitlementYesNo: intl.formatMessage({
     defaultMessage: "Do you have a priority entitlement?",
     id: "/h9mNu",

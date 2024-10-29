@@ -43,6 +43,10 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
+  "09LIbL": {
+    "defaultMessage": "Date",
+    "description": "Label to identify a date element"
+  },
   "0ClMl1": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"
@@ -727,6 +731,10 @@
     "defaultMessage": "Économique et services de sciences sociales",
     "description": "Full name of abbreviation for EC"
   },
+  "W9SXxj": {
+    "defaultMessage": "Trier par",
+    "description": "Label for the links to change how the list is sorted"
+  },
   "WGoaKQ": {
     "defaultMessage": "Sauvegardez les modifications",
     "description": "Text for submit button on edit forms"
@@ -1138,6 +1146,10 @@
   "or2gwQ": {
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that qualifying a candidate failed"
+  },
+  "pOL68A": {
+    "defaultMessage": "Adresse courriel professionnelle",
+    "description": "Title for work email address"
   },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",

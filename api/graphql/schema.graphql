@@ -143,6 +143,8 @@ type User {
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+    @canResolved(ability: "view") # Search requests submitted by a user
 }
 
 interface Notification {
@@ -806,6 +808,7 @@ input UserFilterInput {
   isGovEmployee: Boolean @scope
   telephone: String @scope
   email: String @scope
+  workEmail: String @scope
   name: String @scope
   generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")

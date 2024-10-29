@@ -537,6 +537,7 @@ type User {
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
   poolBookmarks: [Pool]
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
 }
 
 interface Notification {
@@ -1086,6 +1087,7 @@ input UserFilterInput {
   isGovEmployee: Boolean
   telephone: String
   email: String
+  workEmail: String
   name: String
   generalSearch: String
   roles: [ID]

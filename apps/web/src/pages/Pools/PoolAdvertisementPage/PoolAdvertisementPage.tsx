@@ -54,7 +54,7 @@ import {
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
@@ -162,6 +162,12 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
     securityClearance {
       value
       label {
+        en
+        fr
+      }
+    }
+    department {
+      name {
         en
         fr
       }
@@ -308,6 +314,8 @@ export const PoolPoster = ({
   const [skillsValue, setSkillsValue] = useState<string[]>([]);
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
+
+  const departmentName = getLocalizedName(pool.department?.name, intl, true);
 
   const { classification } = pool;
   const genericJobTitles =
@@ -679,6 +687,13 @@ export const PoolPoster = ({
                       />
                     ) : undefined
                   }
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage(commonMessages.department) +
+                    intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={departmentName}
                 />
                 <DataRow
                   label={

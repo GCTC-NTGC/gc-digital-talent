@@ -231,6 +231,26 @@ export const Component = () => {
                 {intl.formatMessage(pageTitles.skillsList)}
               </SideMenuItem>
             )}
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.CommunityManager,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem
+                href={paths.jobPosterTemplates()}
+                icon={pageIcons.jobTemplates.outline}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Job templates",
+                  id: "Ilg37j",
+                  description: "Title for job templates",
+                })}
+              </SideMenuItem>
+            )}
           </SideMenuCategory>
           <SideMenuCategory
             title={intl.formatMessage({

@@ -63,7 +63,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         bool $requireAll = false
     ): bool {
         if (! $this->isSafeToUseRole($name)) {
-            Log::warning('Tried to unsafely use role '.json_encode($name));
+            Log::debug('Tried to unsafely use role '.json_encode($name));
 
             return false; // user effectively doesn't have role if it is unsafe to use it
         }
@@ -77,7 +77,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         bool $requireAll = false
     ): bool {
         if (! $this->isSafeToUsePermission($permission)) {
-            Log::warning('Tried to unsafely use permission '.json_encode($permission));
+            Log::debug('Tried to unsafely use permission '.json_encode($permission));
 
             return false; // user effectively doesn't have permission if it is unsafe to use it
         }

@@ -32,6 +32,7 @@ import {
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 import {
+  commonMessages,
   errorMessages,
   getGovEmployeeType,
   getLocalizedName,
@@ -39,7 +40,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
@@ -445,11 +446,7 @@ export const EmployeeInformationForm = ({
       id: "xzSXz9",
       description: "Employment type label",
     }),
-    workEmail: intl.formatMessage({
-      defaultMessage: "Work email address",
-      id: "jWx0oF",
-      description: "Label displayed on work email input",
-    }),
+    workEmail: intl.formatMessage(commonMessages.workEmail),
     currentClassificationGroup: intl.formatMessage({
       defaultMessage: "Group",
       id: "wJnIJx",

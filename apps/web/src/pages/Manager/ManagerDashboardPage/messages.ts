@@ -6,7 +6,7 @@ const messages = defineMessages({
     id: "Q914Cl",
     description: "Title for the 'Manager dashboard' page",
   },
-  subTitle: {
+  pageSubtitle: {
     defaultMessage:
       "Manage your talent requests and curate your manager profile.",
     id: "Gw0uTQ",

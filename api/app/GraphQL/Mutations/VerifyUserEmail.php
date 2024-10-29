@@ -35,7 +35,7 @@ final class VerifyUserEmail
         }
 
         if (! $isValid) {
-            throw ValidationException::withMessages(['VERIFICATION_FAILED']);
+            throw ValidationException::withMessages(['code' => 'VERIFICATION_FAILED']);
         }
 
         // by now, token seems good
