@@ -19,6 +19,10 @@
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de complexité faible à modérée sous une supervision minimale et des tâches de complexité plus élevée sous une supervision et un mentorat modérés. Généralement associée à des postes intermédiaires.",
     "description": "The technical skill level definition for intermediate"
   },
+  "/BvR5P": {
+    "defaultMessage": "Ministères",
+    "description": "Name of departments page"
+  },
   "/EWDdn": {
     "defaultMessage": "Octobre",
     "description": "Name of the tenth month"
@@ -246,6 +250,10 @@
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message for when an error occurs during role assignment"
+  },
+  "9RXifp": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Name of skill families page"
   },
   "9aW0M6": {
     "defaultMessage": "Ministère",
@@ -518,6 +526,10 @@
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
     "description": "Error message that at least one Essential Skill is required"
+  },
+  "Md1J9+": {
+    "defaultMessage": "Annonces",
+    "description": "Name of announcements page"
   },
   "Me66rb": {
     "defaultMessage": "L’opération a échoué. Cette compétence a déjà été supprimée.",
@@ -799,6 +811,10 @@
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
   },
+  "YSNrLG": {
+    "defaultMessage": "Paramètres du compte",
+    "description": "Name of Account settings page"
+  },
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
@@ -879,6 +895,10 @@
     "defaultMessage": "Bibliothèque de compétences",
     "description": "Name of the skills library page"
   },
+  "dK8pdO": {
+    "defaultMessage": "Find a job template",
+    "description": "Name of job template page"
+  },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
@@ -951,6 +971,10 @@
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
   },
+  "g6az2A": {
+    "defaultMessage": "Candidats",
+    "description": "Name of Candidates page"
+  },
   "gBoG9M": {
     "defaultMessage": "Profil et candidatures",
     "description": "Name of Profile and applications page"
@@ -962,6 +986,10 @@
   "ghhKNZ": {
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
+  },
+  "gt0xAi": {
+    "defaultMessage": "Processus",
+    "description": "Name of Processes page"
   },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
@@ -1002,6 +1030,10 @@
   "j6WJBY": {
     "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
     "description": "Message for when user goes over word limit."
+  },
+  "jDYG3j": {
+    "defaultMessage": "Tableau de bord",
+    "description": "Name of Dashboard page"
   },
   "jStpFw": {
     "defaultMessage": "Bilingue (français et anglais)",
@@ -1127,6 +1159,10 @@
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
   },
+  "oIfw3w": {
+    "defaultMessage": "Profil de gestionnaire",
+    "description": "Name of Manager profile page"
+  },
   "oPhurq": {
     "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta.)",
     "description": "The work region of Canada described as Prairie."
@@ -1159,6 +1195,10 @@
     "defaultMessage": "<strong> Virtuel</strong>  (travail à domicile, partout au Canada.)",
     "description": "The work region of Canada described as Telework."
   },
+  "qIOz/5": {
+    "defaultMessage": "Requests",
+    "description": "Name of Requests page"
+  },
   "qVI4xG": {
     "defaultMessage": "réussite partielle",
     "description": "Message for the partial success status"
@@ -1170,6 +1210,10 @@
   "qtJrUr": {
     "defaultMessage": "Région de la Colombie-Britannique",
     "description": "The work region of Canada described as British Columbia."
+  },
+  "qtqJ6q": {
+    "defaultMessage": "Compétences",
+    "description": "Name of skills page"
   },
   "quCf/v": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts</strong>.",
@@ -1214,6 +1258,10 @@
   "sMi0QI": {
     "defaultMessage": "Gouvernement du Canada",
     "description": "Full name of abbreviation for GC"
+  },
+  "sQt/7l": {
+    "defaultMessage": "Pour nous joindre",
+    "description": "Name of contact us page"
   },
   "sVsZmT": {
     "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",
@@ -1386,6 +1434,10 @@
   "yuWHKJ": {
     "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
     "description": "Select the option to sort by date, descending"
+  },
+  "yz4qnT": {
+    "defaultMessage": "Classifications",
+    "description": "Name of classifications page"
   },
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",

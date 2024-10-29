@@ -435,10 +435,6 @@
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "0D3ZhO": {
-    "defaultMessage": "Demandes",
-    "description": "The menu category for requests items"
-  },
   "0D8Efk": {
     "defaultMessage": "Deux plumes attachées l’une à l’autre.",
     "description": "Indigenous Apprenticeship feathers image text alternative"
@@ -3503,10 +3499,6 @@
     "defaultMessage": "Cherchez-vous votre candidature au Programme d’apprentissage en TI pour les Autochtones?",
     "description": "First paragraph for profile and applications notification welcoming an IAP user"
   },
-  "G65IrS": {
-    "defaultMessage": "Recrutement",
-    "description": "The menu category for recruitment items"
-  },
   "G6PxDn": {
     "defaultMessage": "Cette section met l'accent sur la gestion générale du compte et sur les informations relatives à la manière dont nous établissons un lien avec votre CléGC.",
     "description": "Subtitle for account management section on account settings page."
@@ -5519,10 +5511,6 @@
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Sub title for  skill requirements"
   },
-  "QjF2CL": {
-    "defaultMessage": "Menu Principal",
-    "description": "Label for the main menu on the pool manager admin portal."
-  },
   "QjOom4": {
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
@@ -5995,6 +5983,10 @@
     "defaultMessage": "la gestion des données pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "T74kMc": {
+    "defaultMessage": "Ressources",
+    "description": "Nav menu trigger for resource links sub menu"
+  },
   "T7irec": {
     "defaultMessage": "Vérifiez votre adresse courriel professionnelle",
     "description": "Verify your work email text"
@@ -6230,6 +6222,10 @@
   "UQlyXu": {
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
+  },
+  "URqhIA": {
+    "defaultMessage": "Gestionnaire",
+    "description": "Manager role name for nav menu"
   },
   "UTFKyy": {
     "defaultMessage": "La compétence a été mise à jour avec succès!",
@@ -7530,10 +7526,6 @@
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
-  "bLcy4q": {
-    "defaultMessage": "Plateforme de données",
-    "description": "The menu category for platform data items"
-  },
   "bLxoQL": {
     "defaultMessage": "Parcourir les modèles d'emploi",
     "description": "Link for the 'browse job advertisement templates' card"
@@ -7866,10 +7858,6 @@
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de la démonstration de vos compétences.",
     "description": "First paragraph for remove skill dialog"
   },
-  "crzWxb": {
-    "defaultMessage": "Ouvrir le menu",
-    "description": "Text label for header button that opens side menu."
-  },
   "cweZUH": {
     "defaultMessage": "Cette section <strong>facultative</strong> vous permet de fournir un context additionnel pour le ministère, la direction ou l’équipe qui embauchera grâce à ce processus.",
     "description": "Describes the 'about us' section of a process' advertisement."
@@ -8097,6 +8085,10 @@
   "e+xir3": {
     "defaultMessage": "Autres exigences",
     "description": "Signpost title for _work requirement description_ textbox in the _digital services contracting questionnaire_"
+  },
+  "e/Z582": {
+    "defaultMessage": "Collectivité",
+    "description": "Community role name for nav menu"
   },
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
@@ -8861,6 +8853,10 @@
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
+  },
+  "hS+J7B": {
+    "defaultMessage": "Admin",
+    "description": "Admin role name for nav menu"
   },
   "hS96pl": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
