@@ -34,7 +34,7 @@ jobs:
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
-      PNPM_VERSION: "9.7.1"
+      PNPM_VERSION: "9.12.3"
     steps:
       # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
       - name: reclaim space on runner
