@@ -15,12 +15,11 @@ import {
   useIntlLanguages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { LoadingErrorMessage } from "@gc-digital-talent/ui";
+import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
 import { Skill, SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 import {
@@ -31,7 +30,6 @@ import messages from "~/lang/frCompiled.json";
 
 import {
   categoryAccessor,
-  descriptionCell,
   familiesAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
@@ -199,11 +197,35 @@ const SkillTable = ({
       },
       cell: ({ row: { original: skill } }) => {
         const skillName = getLocalizedName(skill.name, intl);
-        return isPublic
-          ? skillName
-          : cells.edit(skill.id, paths.skillTable(), skillName, skillName);
+        return isPublic ? (
+          skillName
+        ) : (
+          <Link href={paths.skillView(skill.id)}>{skillName}</Link>
+        );
       },
     }),
+    columnHelper.accessor(
+      (skill) => getLocalizedName(skill.description, intl, true),
+      {
+        id: "description",
+        sortingFn: normalizedText,
+        cell: ({ row: { original: skill } }) => {
+          const characterCount = 32;
+          const description = getLocalizedName(skill.description, intl);
+          return description.length < characterCount ? (
+            description
+          ) : (
+            <>{description.slice(0, characterCount)}&hellip;</>
+          );
+        },
+        header: intl.formatMessage({
+          defaultMessage: "Description",
+          id: "9yGJ6k",
+          description:
+            "Title displayed for the skill table Description column.",
+        }),
+      },
+    ),
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
       id: "skillFamilies",
       sortingFn: normalizedText,
@@ -216,25 +238,6 @@ const SkillTable = ({
       sortingFn: normalizedText,
       header: intl.formatMessage(adminMessages.category),
     }),
-    columnHelper.accessor(
-      (skill) => getLocalizedName(skill.description, intl, true),
-      {
-        id: "description",
-        sortingFn: normalizedText,
-        cell: ({ row: { original: skill } }) =>
-          descriptionCell(
-            intl,
-            getLocalizedName(skill.name, intl),
-            getLocalizedName(skill.description, intl),
-          ),
-        header: intl.formatMessage({
-          defaultMessage: "Description",
-          id: "9yGJ6k",
-          description:
-            "Title displayed for the skill table Description column.",
-        }),
-      },
-    ),
   ] as ColumnDef<Skill>[];
 
   useEffect(() => {
@@ -287,9 +290,9 @@ const SkillTable = ({
       search={{
         internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Search skills",
-          id: "cWqtEU",
-          description: "Label for the skills table search input",
+          defaultMessage: "Search by keyword",
+          id: "PYMFoh",
+          description: "Label for the keyword search input",
         }),
       }}
       add={
@@ -298,8 +301,8 @@ const SkillTable = ({
               linkProps: {
                 href: paths.skillCreate(),
                 label: intl.formatMessage({
-                  defaultMessage: "Create skill",
-                  id: "71mPNh",
+                  defaultMessage: "Create new skill",
+                  id: "q5j7GV",
                   description: "Title for Create skill",
                 }),
                 from: currentUrl,
