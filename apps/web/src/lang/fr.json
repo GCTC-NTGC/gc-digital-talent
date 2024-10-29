@@ -9526,6 +9526,10 @@
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
     "description": "First paragraph for the pool work location dialog"
   },
+  "klyOZZ": {
+    "defaultMessage": "Ce fichier n'est pas disponible. S'il s'est écoulé plus de 24 heures depuis que vous en avez fait la demande, veuillez tenter de demander le téléchargement une nouvelle fois. S'il s'est écoulé moins de 24 heures ou si le problème persiste, communiquez avec l'équipe de soutien pour obtenir de l'aide.",
+    "description": "Error message when a file no longer exists"
+  },
   "kqOTFT": {
     "defaultMessage": "Niveau de compréhension",
     "description": "Label displayed on the language information form reading comprehension field."
