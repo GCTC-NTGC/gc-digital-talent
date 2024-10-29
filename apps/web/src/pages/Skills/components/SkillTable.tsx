@@ -210,12 +210,12 @@ const SkillTable = ({
         id: "description",
         sortingFn: normalizedText,
         cell: ({ row: { original: skill } }) => {
-          const characterCount = 32;
+          const maxCharacterCount = 32;
           const description = getLocalizedName(skill.description, intl);
-          return description.length < characterCount ? (
+          return description.length < maxCharacterCount ? (
             description
           ) : (
-            <>{description.slice(0, characterCount)}&hellip;</>
+            <>{description.slice(0, maxCharacterCount)}&hellip;</>
           );
         },
         header: intl.formatMessage({
