@@ -4,12 +4,7 @@ import {
   FieldsetHTMLAttributes,
   ReactNode,
 } from "react";
-import {
-  RegisterOptions,
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-} from "react-hook-form";
+import { RegisterOptions } from "react-hook-form";
 
 export type FieldLabels = Record<string, ReactNode>;
 
@@ -44,14 +39,6 @@ export interface CommonInputProps {
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
 }
-
-export type InputFieldError =
-  | string
-  | FieldError
-  // This is from `react-hook-form` so ignore the any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  | Merge<FieldError, FieldErrorsImpl<any>>
-  | undefined;
 
 export interface Option {
   label: ReactNode;
