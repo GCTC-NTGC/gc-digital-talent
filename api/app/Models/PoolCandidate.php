@@ -751,11 +751,13 @@ class PoolCandidate extends Model
             $user = User::findOrFail($args['userId']);
         }
 
+        $now = Carbon::now()->toDateTimeString();
+
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);
-        $query->where(function (Builder $query) use ($user) {
+        $query->where(function (Builder $query) use ($user, $now) {
             if ($user?->isAbleTo('view-any-submittedApplication')) {
-                $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
+                $query->orWhere('submitted_at', '<=', $now);
             }
 
             if ($user?->isAbleTo('view-team-submittedApplication')) {
@@ -764,8 +766,8 @@ class PoolCandidate extends Model
                     return $user->isAbleTo('view-team-submittedApplication', $team);
                 })->pluck('id');
 
-                $query->orWhere(function (Builder $query) use ($teamIds) {
-                    $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                $query->orWhere(function (Builder $query) use ($teamIds, $now) {
+                    $query->where('submitted_at', '<=', $now)
                         ->whereHas('pool', function (Builder $query) use ($teamIds) {
                             return $query->where(function (Builder $query) use ($teamIds) {
                                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {

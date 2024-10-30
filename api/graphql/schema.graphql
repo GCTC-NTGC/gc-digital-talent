@@ -1008,6 +1008,14 @@ type Query {
           { relation: "pool", columns: ["process_number"] }
         ]
       )
+      @with(
+        relations: [
+          "user:id,first_name,last_name,email,preferred_lang",
+          "pool:id,process_number",
+          "skills:id,name"
+        ]
+      )
+       # Limit fields for eager loading
   ): [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
