@@ -1,7 +1,13 @@
-import { createContext, ReactNode, useMemo } from "react";
+import { createContext, ReactNode, useEffect, useMemo } from "react";
 
-import { RoleName, NAV_ROLE_KEY } from "@gc-digital-talent/auth";
-import { assertUnreachable } from "@gc-digital-talent/helpers";
+import {
+  RoleName,
+  NAV_ROLE_KEY,
+  useAuthentication,
+  useAuthorization,
+  ROLE_NAME,
+} from "@gc-digital-talent/auth";
+import { assertUnreachable, notEmpty } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 // this array is ordered by privilege to allow proper sorting
@@ -79,6 +85,24 @@ interface NavContextContainerProps {
 
 const NavContextContainer = ({ children }: NavContextContainerProps) => {
   const [navRole, setNavRole] = useLocalStorage<NavRole>(NAV_ROLE_KEY, null);
+  const { roleAssignments } = useAuthorization();
+  const { loggedIn } = useAuthentication();
+
+  const userRoleNames = roleAssignments
+    ?.map((a) => a.role?.name)
+    .filter((a) => a !== ROLE_NAME.BaseUser)
+    .filter(notEmpty) as RoleName[];
+
+  useEffect(() => {
+    if (!loggedIn || userRoleNames.length === 0) {
+      setNavRole(null);
+    }
+    // If user is logged in and nav role doesn't exist, then set nav role to least privileged role.
+    if (loggedIn && userRoleNames.length !== 0 && navRole === null) {
+      const newNavRole = chooseNavRole(null, userRoleNames);
+      setNavRole(newNavRole);
+    }
+  }, [loggedIn, roleAssignments, userRoleNames, setNavRole, navRole]);
 
   const state = useMemo<NavContextState>(() => {
     return {
