@@ -348,12 +348,7 @@ export const UpdateSkillForm = ({
                   id="families"
                   name="families"
                   isMulti
-                  label={intl.formatMessage({
-                    defaultMessage: "Families",
-                    id: "JxVREd",
-                    description:
-                      "Label displayed on the skill form families field.",
-                  })}
+                  label={intl.formatMessage(adminMessages.skillFamilies)}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select one or more families",
                     id: "wORNl0",
