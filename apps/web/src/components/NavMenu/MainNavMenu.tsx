@@ -126,7 +126,7 @@ const MainNavMenu = () => {
               data-h2-display="base(none) l-tablet(flex)"
               {...(!loggedIn && {
                 "data-h2-border-right":
-                  "base(none) l-tablet(1px solid black.light)",
+                  "base(none) l-tablet:all(1px solid black.light)",
                 "data-h2-padding": "base(0) l-tablet(0 x.75)",
                 "data-h2-margin-right": "base(0) l-tablet(x.75)",
               })}
@@ -138,8 +138,8 @@ const MainNavMenu = () => {
             roleAssignments.length > 1 ? (
               <>
                 <NavMenu.Item
-                  data-h2-border-right="base(none) l-tablet(1px solid black.light)"
-                  data-h2-border-left="base(0) l-tablet(1px solid black.light)"
+                  data-h2-border-right="base(none) l-tablet:all(1px solid black.light)"
+                  data-h2-border-left="base(0) l-tablet:all(1px solid black.light)"
                   data-h2-padding="base(0) l-tablet(0 x.75)"
                   data-h2-margin-right="base(0) l-tablet(x.75)"
                 >
@@ -236,7 +236,7 @@ const MainNavMenu = () => {
         >
           {accountLinks && (
             <NavMenu.Item
-              data-h2-border-right="l-tablet(1px solid black.light)"
+              data-h2-border-right="l-tablet:all(1px solid black.light)"
               data-h2-padding-right="l-tablet(x.75)"
             >
               <NavMenu.Trigger
