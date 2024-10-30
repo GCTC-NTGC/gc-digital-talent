@@ -231,7 +231,13 @@ const ViewSkillPage = () => {
   return (
     <>
       <SEO title={skillName} />
-      <Hero title={skillName} crumbs={navigationCrumbs} navTabs={navTabs} />
+      <Hero
+        title={
+          fetching ? intl.formatMessage(commonMessages.loading) : skillName
+        }
+        crumbs={navigationCrumbs}
+        navTabs={navTabs}
+      />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x3, 0)">
           <Pending fetching={fetching} error={error}>
