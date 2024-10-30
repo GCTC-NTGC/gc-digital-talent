@@ -303,10 +303,6 @@
     "defaultMessage": "Vos principales compétences",
     "description": "Title for the top skills section of a users skill showcase"
   },
-  "/YiBdv": {
-    "defaultMessage": "Numéro de ministère",
-    "description": "Label displayed on the create a department form department number field."
-  },
   "/ZPTlP": {
     "defaultMessage": "Les Procédures obligatoires sur les talents numériques ont été mises à jour pour plus de clarté et afin de réduire les exigences en matière de rapports et mieux les aligner sur d’autres instruments politiques. La directive reste inchangée.",
     "description": "Description for the mandatory procedures card"
@@ -1590,6 +1586,10 @@
   "655Jy3": {
     "defaultMessage": "Lorsque vous utilisez la fonction « <findTalentLink>Trouver des talents</findTalentLink> » pour demander des références pour des embauches potentielles, vos critères et vos notes seront enregistrés comme une demande et suivis dans cette section. Les demandes en cours apparaîtront également sur votre « <managerDashboardLink> Tableau de bord du gestionnaire </managerDashboardLink> ». Lorsqu'une demande est terminée, elle passe automatiquement de cette section à votre <requestHistoryLink>Historique des demandes</requestHistoryLink>.",
     "description": "description of the active requests section on the manager request history page"
+  },
+  "66kU6k": {
+    "defaultMessage": "Numéro de ministère",
+    "description": "Label for department number"
   },
   "66qMwD": {
     "defaultMessage": "« ... réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
@@ -3547,10 +3547,6 @@
     "defaultMessage": "Niveau",
     "description": "Label displayed on classification level input"
   },
-  "GKo3Df": {
-    "defaultMessage": "Mettre à jour un ministère",
-    "description": "Page title for the department edit page"
-  },
   "GMglI5": {
     "defaultMessage": "Adresse courriel validée",
     "description": "The email address has been verified to be owned by user"
@@ -4066,10 +4062,6 @@
   "JESKii": {
     "defaultMessage": "Vous êtes sur le point d'archiver ce processus : {poolName}",
     "description": "Text to confirm the process to be archived"
-  },
-  "JFlQjb": {
-    "defaultMessage": "Ce fichier, qui date de plus de 24 heures, n’est plus disponible. Veuillez en demander un nouveau. En cas d’échec de la procédure, communiquez avec les services de soutien.",
-    "description": "Error message when a file no longer exists"
   },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
@@ -5259,10 +5251,6 @@
     "defaultMessage": "Créer<hidden> un regroupement de compétences</hidden>",
     "description": "Breadcrumb title for the create skill family page link."
   },
-  "PRrRRN": {
-    "defaultMessage": "Créer un ministère",
-    "description": "Page title for the department creation page"
-  },
   "PS/LFb": {
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is not a government employee option"
@@ -5446,10 +5434,6 @@
   "QNmxIN": {
     "defaultMessage": "Identifiant de processus copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
-  },
-  "QOvS1b": {
-    "defaultMessage": "Numéro de ministère",
-    "description": "Title displayed for the Department table Department # column."
   },
   "QQXvOh": {
     "defaultMessage": "Notre engagement à l’égard de l’accessibilité",
@@ -6474,6 +6458,10 @@
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
   },
+  "VpqH38": {
+    "defaultMessage": "Utilisez le bouton « Créez un nouveau ministère » pour commencer.",
+    "description": "Instructions for adding a department item."
+  },
   "VrLfLw": {
     "defaultMessage": "Courriel du conseiller/ère en RH",
     "description": "Input label asking for the HR advisor's email address."
@@ -7258,10 +7246,6 @@
     "defaultMessage": "Choisir un statut :",
     "description": "Third section of text on the change candidate status dialog"
   },
-  "ZbpbD6": {
-    "defaultMessage": "Créer un ministère",
-    "description": "Heading displayed above the Create Department form."
-  },
   "Zd02bf": {
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
     "description": "Subtitle for the application welcome page"
@@ -7277,6 +7261,10 @@
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
+  },
+  "ZpYj8o": {
+    "defaultMessage": "Créer un ministère",
+    "description": "Page title for the department creation page"
   },
   "ZqZc8Z": {
     "defaultMessage": "La création de votre parcours professionnel est un peu différente sur cette plateforme. Tout d’abord, le travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser ultérieurement pour d’autres candidatures.",
@@ -7434,6 +7422,10 @@
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
     "description": "Label displayed on Personal Experience form for current experience input"
   },
+  "af1unJ": {
+    "defaultMessage": "Numéro",
+    "description": "Title displayed for the Department table Department # column."
+  },
   "agcOO1": {
     "defaultMessage": "Rendre nos produits accessibles et utilisables par tous",
     "description": "Heading for the items we consider for accessibility."
@@ -7557,10 +7549,6 @@
   "bTkPVZ": {
     "defaultMessage": "Vous n'avez pas encore de demandes terminées.",
     "description": "Title for notice when there are no pool candidate search requests"
-  },
-  "bUyxJi": {
-    "defaultMessage": "Chercher les ministères",
-    "description": "Label for the departments table search input"
   },
   "bVQ/rm": {
     "defaultMessage": "Tous les utilisateurs",
@@ -7697,6 +7685,10 @@
   "c70xDW": {
     "defaultMessage": "Requises",
     "description": "Label for a required skill"
+  },
+  "c7d3np": {
+    "defaultMessage": "Créez un nouveau ministère",
+    "description": "Heading displayed above the Create Department form."
   },
   "cA0iH+": {
     "defaultMessage": "Renseignements personnels",
@@ -8173,6 +8165,10 @@
   "eMrYDr": {
     "defaultMessage": "Compte d'utilisateur supprimé",
     "description": "Title for the alert displayed after a user signs into a deleted account"
+  },
+  "eNTKLK": {
+    "defaultMessage": "Informations sur le ministère",
+    "description": "Heading for the 'create a department' form"
   },
   "eO9buR": {
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
@@ -9206,6 +9202,10 @@
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
   },
+  "j/qPu0": {
+    "defaultMessage": "Créez le ministère",
+    "description": "Button label to create a new department"
+  },
   "j12uou": {
     "defaultMessage": "un nouveau système technologique, logiciel ou matériel d’une nature fondamentalement différente de ceux utilisés précédemment;",
     "description": "technological change factor - new technological system"
@@ -9525,6 +9525,10 @@
   "kkZZfT": {
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
     "description": "First paragraph for the pool work location dialog"
+  },
+  "klyOZZ": {
+    "defaultMessage": "Ce fichier n'est pas disponible. S'il s'est écoulé plus de 24 heures depuis que vous en avez fait la demande, veuillez tenter de demander le téléchargement une nouvelle fois. S'il s'est écoulé moins de 24 heures ou si le problème persiste, communiquez avec l'équipe de soutien pour obtenir de l'aide.",
+    "description": "Error message when a file no longer exists"
   },
   "kqOTFT": {
     "defaultMessage": "Niveau de compréhension",
@@ -10282,6 +10286,10 @@
     "defaultMessage": "Sauvegarder cette question",
     "description": "Button text to save a general question"
   },
+  "os2TYf": {
+    "defaultMessage": "Modifiez les informations sur le ministère",
+    "description": "Link to edit the currently viewed department"
+  },
   "osGGIt": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
@@ -10974,6 +10982,10 @@
     "defaultMessage": "Candidat retiré avec succès",
     "description": "Success message for removing a candidate"
   },
+  "sp9OKU": {
+    "defaultMessage": "Informations sur le ministère",
+    "description": "Nav tab label for department information"
+  },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
     "description": "Citizenship label"
@@ -11285,6 +11297,10 @@
   "uooR1r": {
     "defaultMessage": "« Je comprends que je fais partie d'une collectivité qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
+  },
+  "uqI3Vf": {
+    "defaultMessage": "Annulez et revenez aux ministères",
+    "description": "Button label to return to the departments table"
   },
   "uqiPvH": {
     "defaultMessage": "Suivi de vos candidatures",
@@ -11830,6 +11846,10 @@
     "defaultMessage": "Vous êtes maintenant arrivé(e) à votre page de profil de Talents numériques.",
     "description": "First paragraph for profile and applications notification welcoming an IAP user"
   },
+  "y+R3x+": {
+    "defaultMessage": "Modifier un ministère",
+    "description": "Page title for the department edit page"
+  },
   "y+r+ej": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed on the search request table group and level column."
@@ -11957,10 +11977,6 @@
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
     "description": "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
-  },
-  "yat9wx": {
-    "defaultMessage": "Utilisez le bouton \"Créer un ministère\" pour commencer.",
-    "description": "Instructions for adding a department item."
   },
   "ybzxmU": {
     "defaultMessage": "Membre des FAC",
