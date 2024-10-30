@@ -153,7 +153,6 @@ const ViewDepartmentPage = () => {
         url: routes.departmentView(departmentId),
       },
     ],
-    isAdmin: true,
   });
 
   const navTabs = [
