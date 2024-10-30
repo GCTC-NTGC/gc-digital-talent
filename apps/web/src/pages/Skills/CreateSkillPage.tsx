@@ -311,7 +311,7 @@ export const CreateSkillForm = ({
                 description: "Button label to create a new skill",
               })}
             />
-            <Link color="warning" mode="inline" href={paths.departmentTable()}>
+            <Link color="warning" mode="inline" href={paths.skillTable()}>
               {intl.formatMessage({
                 defaultMessage: "Cancel and go back to the skill editor",
                 id: "oCL/sl",
