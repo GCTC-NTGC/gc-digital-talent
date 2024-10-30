@@ -72,3 +72,6 @@ export const linkStyleMapMobile = new Map<NavMenuType, Record<string, string>>([
     },
   ],
 ]);
+
+export const getNavLinkStyling = (type: NavMenuType, isSmallScreen: boolean) =>
+  isSmallScreen ? linkStyleMapMobile.get(type) : linkStyleMapDesktop.get(type);

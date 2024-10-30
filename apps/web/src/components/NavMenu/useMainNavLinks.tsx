@@ -2,10 +2,11 @@ import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
 import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 
-import { NavMenu } from "@gc-digital-talent/ui";
+import { getNavLinkStyling, NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
@@ -51,6 +52,7 @@ const useMainNavLinks = (
   const intl = useIntl();
   const paths = useRoutes();
   const permissions = permissionConstants();
+  const isSmallScreen = useIsSmallScreen(1080);
 
   const Home = (
     <NavMenu.Link
@@ -285,9 +287,13 @@ const useMainNavLinks = (
     />
   );
 
+  const logoutBtnStyling = getNavLinkStyling("subMenuLink", isSmallScreen);
+
   const SignOut = (
     <SignOutConfirmation key="sign-out">
-      <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>
+      <LogoutButton {...logoutBtnStyling}>
+        {intl.formatMessage(authMessages.signOut)}
+      </LogoutButton>
     </SignOutConfirmation>
   );
 

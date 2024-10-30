@@ -106,7 +106,7 @@ const List = forwardRef<
     data-h2-align-items="base(center) l-tablet(flex-start)"
     data-h2-margin="base(0)"
     data-h2-list-style="base(none)"
-    data-h2-gap="base(x1)"
+    data-h2-gap="base(x.75)"
     data-h2-padding="base(0)"
     {...rest}
   >

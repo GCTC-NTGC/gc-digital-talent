@@ -51,6 +51,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import { getNavLinkStyling } from "./components/NavMenu";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, {
@@ -205,4 +206,5 @@ export {
   headingStyles,
   useCardRepeaterContext,
   useControllableState,
+  getNavLinkStyling,
 };

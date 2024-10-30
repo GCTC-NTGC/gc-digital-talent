@@ -114,7 +114,7 @@ const MainNavMenu = () => {
           space="none"
           data-h2-display="l-tablet(none)"
           data-h2-margin="base(x1 0) l-tablet(0)"
-          data-h2-color="base(black.darkest.2) base:dark(black.darkest.5)"
+          data-h2-background-color="base(black.darkest.2) base:dark(black.darkest.5)"
         />
         <div
           data-h2-display="base(flex)"
@@ -127,8 +127,8 @@ const MainNavMenu = () => {
               {...(!loggedIn && {
                 "data-h2-border-right":
                   "base(none) l-tablet(1px solid black.light)",
-                "data-h2-padding": "base(0) l-tablet(0 x1)",
-                "data-h2-margin-right": "base(0) l-tablet(x1)",
+                "data-h2-padding": "base(0) l-tablet(0 x.75)",
+                "data-h2-margin-right": "base(0) l-tablet(x.75)",
               })}
             >
               {homeLink}
@@ -140,8 +140,8 @@ const MainNavMenu = () => {
                 <NavMenu.Item
                   data-h2-border-right="base(none) l-tablet(1px solid black.light)"
                   data-h2-border-left="base(0) l-tablet(1px solid black.light)"
-                  data-h2-padding="base(0) l-tablet(0 x1)"
-                  data-h2-margin-right="base(0) l-tablet(x1)"
+                  data-h2-padding="base(0) l-tablet(0 x.75)"
+                  data-h2-margin-right="base(0) l-tablet(x.75)"
                 >
                   <NavMenu.Trigger
                     color={isSmallScreen ? "black" : "whiteFixed"}
@@ -177,7 +177,7 @@ const MainNavMenu = () => {
               space="none"
               data-h2-display="l-tablet(none)"
               data-h2-margin="base(x1 0) l-tablet(0)"
-              data-h2-color="base(black.darkest.2) base:dark(black.darkest.5)"
+              data-h2-background-color="base(black.darkest.2) base:dark(black.darkest.5)"
             />
           )}
           <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
@@ -228,7 +228,7 @@ const MainNavMenu = () => {
         <Separator
           space="sm"
           data-h2-display="l-tablet(none)"
-          data-h2-color="base(black.darkest.2) base:dark(black.darkest.5)"
+          data-h2-background-color="base(black.darkest.2) base:dark(black.darkest.5)"
         />
         <NavMenu.List
           data-h2-flex-direction="base(column) l-tablet(row)"
@@ -237,7 +237,7 @@ const MainNavMenu = () => {
           {accountLinks && (
             <NavMenu.Item
               data-h2-border-right="l-tablet(1px solid black.light)"
-              data-h2-padding-right="l-tablet(x1)"
+              data-h2-padding-right="l-tablet(x.75)"
             >
               <NavMenu.Trigger
                 color={isSmallScreen ? "black" : "whiteFixed"}
@@ -251,8 +251,8 @@ const MainNavMenu = () => {
                 })}
               </NavMenu.Trigger>
               <NavMenu.Content
-                data-h2-width="base(150%)"
-                data-h2-left="base(-25%)"
+                data-h2-left="base(auto) l-tablet(-25%)"
+                data-h2-width="base(auto) l-tablet(150%)"
               >
                 <NavMenu.List>{accountLinks}</NavMenu.List>
               </NavMenu.Content>
