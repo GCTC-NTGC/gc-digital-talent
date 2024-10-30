@@ -8091,7 +8091,7 @@
     "description": "Title for the alert displayed after a user signs into a deleted account"
   },
   "eNTKLK": {
-    "defaultMessage": "Information sur le ministère",
+    "defaultMessage": "Informations sur le ministère",
     "description": "Heading for the 'create a department' form"
   },
   "eO9buR": {
@@ -10179,7 +10179,7 @@
     "description": "Button text to save a general question"
   },
   "os2TYf": {
-    "defaultMessage": "Modifiez l'information sur le ministère",
+    "defaultMessage": "Modifiez les informations sur le ministère",
     "description": "Link to edit the currently viewed department"
   },
   "osGGIt": {
@@ -10875,7 +10875,7 @@
     "description": "Success message for removing a candidate"
   },
   "sp9OKU": {
-    "defaultMessage": "Information sur le ministère",
+    "defaultMessage": "Informations sur le ministère",
     "description": "Nav tab label for department information"
   },
   "sr20Tb": {
