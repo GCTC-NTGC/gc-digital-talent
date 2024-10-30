@@ -171,7 +171,9 @@ const ViewDepartmentPage = () => {
     <>
       <SEO title={departmentName} />
       <Hero
-        title={departmentName}
+        title={
+          fetching ? intl.formatMessage(commonMessages.loading) : departmentName
+        }
         crumbs={navigationCrumbs}
         navTabs={navTabs}
       />
