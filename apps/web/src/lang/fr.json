@@ -363,6 +363,10 @@
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
   },
+  "/qXiOK": {
+    "defaultMessage": "Informations sur la compétence",
+    "description": "Nav tab label for skill information"
+  },
   "/rmunL": {
     "defaultMessage": "En fonction des besoins",
     "description": "As and when needed personnel other requirement"
@@ -403,6 +407,10 @@
     "defaultMessage": "Fonds de formation et de perfectionnement de la collectivité de la TI",
     "description": "Title for the it training fund page"
   },
+  "04iYYO": {
+    "defaultMessage": "Créer une compétence",
+    "description": "Title for Create skill"
+  },
   "04smVa": {
     "defaultMessage": "Recrutement ciblé",
     "description": "Label for an targeting (active) qualified recruitment"
@@ -418,6 +426,10 @@
   "07sCDh": {
     "defaultMessage": "Utilisez le bouton \"Créer un processus\" pour commencer.",
     "description": "Instructions for adding a process item."
+  },
+  "08IbRz": {
+    "defaultMessage": "Informations sur la compétence",
+    "description": "Heading for the 'view a skill' form"
   },
   "08rkLr": {
     "defaultMessage": "Durée de la possibilité",
@@ -510,10 +522,6 @@
   "0Uvziq": {
     "defaultMessage": "Candidats du bassin",
     "description": "Title for pool candidates"
-  },
-  "0VlOQq": {
-    "defaultMessage": "Modifier - compétence",
-    "description": "Page title for the edit skill page."
   },
   "0YZeO0": {
     "defaultMessage": "Embauché (Temporaire)",
@@ -1758,10 +1766,6 @@
   "71+GZq": {
     "defaultMessage": "Un groupe d’Autochtones qui se tiennent debout avec un tambour à main peint.",
     "description": "Indigenous Apprenticeship hero image text alternative"
-  },
-  "71mPNh": {
-    "defaultMessage": "Créer une compétence",
-    "description": "Title for Create skill"
   },
   "72pd2Z": {
     "defaultMessage": "<strong>gestion de l’information</strong>, ou",
@@ -4171,10 +4175,6 @@
     "defaultMessage": "Révisez votre candidature",
     "description": "Page title for the application review page."
   },
-  "JxVREd": {
-    "defaultMessage": "Familles",
-    "description": "Label displayed on the skill form families field."
-  },
   "Jz0oC2": {
     "defaultMessage": "À propos de nous (anglais)",
     "description": "Label for a process' English about us"
@@ -5170,6 +5170,10 @@
   "P40FEe": {
     "defaultMessage": "Oiseau-mouche en plein vol, qui représente le messager de la joie au sein de plusieurs communautés autochtones",
     "description": "Description of a decorative image of a hummingbird"
+  },
+  "P478xU": {
+    "defaultMessage": "Créez la compétence",
+    "description": "Button label to create a new skill"
   },
   "P6jGb4": {
     "defaultMessage": "Veuillez préciser les exigences linguistiques",
@@ -7282,6 +7286,10 @@
     "defaultMessage": "Renseignements sur les employés du gouvernement",
     "description": "Title of the Government Information link section"
   },
+  "ZspYm7": {
+    "defaultMessage": "Annulez et revenez à l'éditeur de compétence",
+    "description": "Button label to return to the skills table"
+  },
   "ZuFBx5": {
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the beginner language ability option"
@@ -7357,6 +7365,10 @@
   "aH4Suk": {
     "defaultMessage": "Un plan en lien avec talents pour l’initiative numérique a-t-il été soumis précédemment pour cette initiative?",
     "description": "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "aIEKtJ": {
+    "defaultMessage": "Informations sur la compétence",
+    "description": "Heading for the 'edit a skill' form"
   },
   "aIMh6f": {
     "defaultMessage": "Cinq compétences techniques que vous aimeriez perfectionner",
@@ -7774,10 +7786,6 @@
     "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
   },
-  "cWqtEU": {
-    "defaultMessage": "Chercher les compétences",
-    "description": "Label for the skills table search input"
-  },
   "cXszfI": {
     "defaultMessage": "Sélectionnez l’option qui représente le mieux votre raison pour soumettre la présente demande de talent",
     "description": "Legend for the options related to the reason for submitting a request."
@@ -8161,6 +8169,10 @@
   "eIxShU": {
     "defaultMessage": "IT-04 : Conseiller principal ou Gestionnaire",
     "description": "IT-04 classification label including titles"
+  },
+  "eJPU4G": {
+    "defaultMessage": "Modifiez les informations sur la compétence",
+    "description": "Link to edit the currently viewed skill"
   },
   "eKPE3F": {
     "defaultMessage": "Vous ne recevez pas de possibilités découlant de ce recrutement.",
@@ -10194,6 +10206,10 @@
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
   },
+  "oCFoWU": {
+    "defaultMessage": "Informations sur la compétence",
+    "description": "Heading for the 'create a skill' form"
+  },
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
@@ -10553,6 +10569,10 @@
   "q5V/+5": {
     "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
     "description": "Button text to hide all advanced filters"
+  },
+  "q5j7GV": {
+    "defaultMessage": "Créer une nouvelle compétence",
+    "description": "Title for Create skill"
   },
   "q5rd9x": {
     "defaultMessage": " Description de l’expérience",
@@ -10989,6 +11009,10 @@
   "sp9OKU": {
     "defaultMessage": "Informations sur le ministère",
     "description": "Nav tab label for department information"
+  },
+  "spzerx": {
+    "defaultMessage": "Modifier une compétence",
+    "description": "Page title for the edit skill page."
   },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
@@ -11837,10 +11861,6 @@
   "xwBt36": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
-  },
-  "xx8yaE": {
-    "defaultMessage": "Familles",
-    "description": "Label displayed on the skill form skill families field."
   },
   "xzSXz9": {
     "defaultMessage": "Type d’emploi",
