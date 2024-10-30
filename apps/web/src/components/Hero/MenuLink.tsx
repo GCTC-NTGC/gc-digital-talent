@@ -2,7 +2,7 @@ import { NavLink, NavLinkProps } from "react-router-dom";
 
 import { LinkProps } from "@gc-digital-talent/ui";
 
-export type MenuLinkProps = Omit<LinkProps, "href"> & NavLinkProps;
+type MenuLinkProps = Omit<LinkProps, "href"> & NavLinkProps;
 
 const MenuLink = ({ children, ...rest }: MenuLinkProps) => {
   return (
