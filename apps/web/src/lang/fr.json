@@ -2719,6 +2719,10 @@
     "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour un candidat qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'il peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
     "description": "Second paragraph for pool closing date dialog"
   },
+  "CBedVL": {
+    "defaultMessage": "Votre compte",
+    "description": "Nav menu trigger for account links sub menu"
+  },
   "CCyraT": {
     "defaultMessage": "Sélectionnez la méthode qui décrit le mieux la façon dont votre organisation prévoit évaluer ces compétences. Vous pouvez renommer cette évaluation au besoin.",
     "description": "description of 'basic details' section of the 'assessment details' dialog"
@@ -2746,6 +2750,10 @@
   "CMtxbk": {
     "defaultMessage": "Niveau de communication orale",
     "description": "Label displayed on the language information form oral communication field."
+  },
+  "COIe6t": {
+    "defaultMessage": "Paramètres du système",
+    "description": "Nav menu trigger for system settings links sub menu"
   },
   "COJ3St": {
     "defaultMessage": "Sélectionnez une équipe",
@@ -7569,6 +7577,10 @@
   "baSmVn": {
     "defaultMessage": "D'autres activités qui vous ont aidé à vous épanouir et à perfectionner vos compétences, y compris les passe-temps, les activités familiales et les activités extrascolaires.",
     "description": "Description for personal experience section"
+  },
+  "bdzq6l": {
+    "defaultMessage": "Candidat(e)",
+    "description": "Applicant role name for nav menu"
   },
   "be2aA/": {
     "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",

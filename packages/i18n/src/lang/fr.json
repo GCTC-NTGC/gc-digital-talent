@@ -39,6 +39,10 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
+  "/pzsYm": {
+    "defaultMessage": "Profil du (de la) candidat(e)",
+    "description": "Name of Applicant profile page"
+  },
   "/qdFyj": {
     "defaultMessage": "Cette compétence ne peut pas être supprimée. Elle est utilisée par un processus qui accepte actuellement les demandes.",
     "description": "Error message for when skill is used by an active process"
@@ -46,6 +50,10 @@
   "/sSeis": {
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
+  },
+  "/zFaLD": {
+    "defaultMessage": "Parcourir la bibliothèque de compétences",
+    "description": "Name of skill library page"
   },
   "09LIbL": {
     "defaultMessage": "Date",
@@ -511,6 +519,10 @@
     "defaultMessage": "Autre",
     "description": "Different or distinct from one already mentioned"
   },
+  "LySK4b": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Name of Users page"
+  },
   "M3c9Yo": {
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
@@ -896,7 +908,7 @@
     "description": "Name of the skills library page"
   },
   "dK8pdO": {
-    "defaultMessage": "Find a job template",
+    "defaultMessage": "Trouver un modèle d'emploi",
     "description": "Name of job template page"
   },
   "dXiRk8": {
@@ -1196,7 +1208,7 @@
     "description": "The work region of Canada described as Telework."
   },
   "qIOz/5": {
-    "defaultMessage": "Requests",
+    "defaultMessage": "Demandes",
     "description": "Name of Requests page"
   },
   "qVI4xG": {
