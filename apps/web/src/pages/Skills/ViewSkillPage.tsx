@@ -117,7 +117,8 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
                 "Label displayed on the skill form keywords field in English.",
             })}
           >
-            {skill.keywords?.en}
+            {skill.keywords?.en ??
+              intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -127,7 +128,8 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
                 "Label displayed on the skill form keywords field in French.",
             })}
           >
-            {skill.keywords?.fr}
+            {skill.keywords?.fr ??
+              intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <div data-h2-grid-column="p-tablet(span 2)">
             <FieldDisplay label={intl.formatMessage(adminMessages.category)}>
