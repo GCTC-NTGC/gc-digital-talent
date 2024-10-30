@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -19,26 +20,25 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { keyStringRegex, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { CardSectioned, Heading, Link, Pending } from "@gc-digital-talent/ui";
 import {
   Skill,
   SkillFamily,
   CreateSkillInput,
-  CreateSkillMutation,
   SkillCategory,
   graphql,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useReturnPath from "~/hooks/useReturnPath";
+import Hero from "~/components/Hero";
+import pageTitles from "~/messages/pageTitles";
 
 import { SkillFormOptions_Query } from "./operations";
 
@@ -68,7 +68,7 @@ interface CreateSkillFormProps {
   families: SkillFamily[];
   handleCreateSkill: (
     data: CreateSkillInput,
-  ) => Promise<CreateSkillMutation["createSkill"]>;
+  ) => Promise<Scalars["UUID"]["output"]>;
 }
 
 export const CreateSkillForm = ({
@@ -97,12 +97,10 @@ export const CreateSkillForm = ({
     },
   });
 
-  const navigateTo = useReturnPath(paths.skillTable());
-
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleCreateSkill(formValuesToSubmitData(values))
-      .then(() => {
-        navigate(navigateTo);
+      .then((id) => {
+        navigate(paths.skillView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill created successfully!",
@@ -132,158 +130,198 @@ export const CreateSkillForm = ({
   );
 
   return (
-    <section data-h2-wrapper="base(left, s)">
-      <FormProvider {...methods}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
-          <Input
-            id="key"
-            name="key"
-            label={intl.formatMessage(adminMessages.key)}
-            context={intl.formatMessage({
-              defaultMessage:
-                "The 'key' is a string that uniquely identifies a skill. It should be based on the skills English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill, so it cannot be changed later.",
-              id: "jthonT",
-              description:
-                "Additional context describing the purpose of the skills 'key' field.",
-            })}
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              pattern: {
-                value: keyStringRegex,
-                message: intl.formatMessage({
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardSectioned.Root>
+          <CardSectioned.Item>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-justify-content="base(center) p-tablet(flex-start)"
+            >
+              <Heading
+                level="h2"
+                color="primary"
+                Icon={IdentificationIcon}
+                data-h2-margin="base(0, 0, x1.5, 0)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Skill information",
+                  id: "oCFoWU",
+                  description: "Heading for the 'create a skill' form",
+                })}
+              </Heading>
+            </div>
+            <div
+              data-h2-display="base(grid)"
+              data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+              data-h2-gap="base(x1)"
+            >
+              <Input
+                id="name_en"
+                name="name.en"
+                label={intl.formatMessage(adminMessages.nameEn)}
+                type="text"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Input
+                id="name_fr"
+                name="name.fr"
+                label={intl.formatMessage(adminMessages.nameFr)}
+                type="text"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <TextArea
+                id="description_en"
+                name="description.en"
+                label={intl.formatMessage({
+                  defaultMessage: "Description (English)",
+                  id: "rJqCuH",
+                  description:
+                    "Label displayed on the create a skill form description (English) field.",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <TextArea
+                id="description_fr"
+                name="description.fr"
+                label={intl.formatMessage({
+                  defaultMessage: "Description (French)",
+                  id: "a+bWz1",
+                  description:
+                    "Label displayed on the create a skill form description (French) field.",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Input
+                id="keywords_en"
+                name="keywords.en"
+                label={intl.formatMessage({
+                  defaultMessage: "Keywords (English)",
+                  id: "FiylOa",
+                  description:
+                    "Label displayed on the skill form keywords field in English.",
+                })}
+                context={intl.formatMessage({
                   defaultMessage:
-                    "Please use only lowercase letters and underscores.",
-                  id: "3owqTQ",
-                  description: "Description for rule pattern on key field",
-                }),
-              },
-            }}
-          />
-          <Input
-            id="name_en"
-            name="name.en"
-            label={intl.formatMessage(adminMessages.nameEn)}
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="name_fr"
-            name="name.fr"
-            label={intl.formatMessage(adminMessages.nameFr)}
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <TextArea
-            id="description_en"
-            name="description.en"
-            label={intl.formatMessage({
-              defaultMessage: "Description (English)",
-              id: "rJqCuH",
-              description:
-                "Label displayed on the create a skill form description (English) field.",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <TextArea
-            id="description_fr"
-            name="description.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Description (French)",
-              id: "a+bWz1",
-              description:
-                "Label displayed on the create a skill form description (French) field.",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="keywords_en"
-            name="keywords.en"
-            label={intl.formatMessage({
-              defaultMessage: "Keywords (English)",
-              id: "FiylOa",
-              description:
-                "Label displayed on the skill form keywords field in English.",
-            })}
-            context={intl.formatMessage({
-              defaultMessage:
-                "This field accepts a list of comma separated keywords associated with the skill.",
-              id: "NT3jrI",
-              description:
-                "Additional context describing the purpose of the skills 'keyword' field.",
-            })}
-            type="text"
-          />
-          <Input
-            id="keywords_fr"
-            name="keywords.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Keywords (French)",
-              id: "fOl4Ez",
-              description:
-                "Label displayed on the skill form keywords field in French.",
-            })}
-            context={intl.formatMessage({
-              defaultMessage:
-                "This field accepts a list of comma separated keywords associated with the skill.",
-              id: "NT3jrI",
-              description:
-                "Additional context describing the purpose of the skills 'keyword' field.",
-            })}
-            type="text"
-          />
-          <Select
-            id="category"
-            name="category"
-            label={intl.formatMessage(adminMessages.category)}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select a category",
-              id: "+hRCVl",
-              description:
-                "Placeholder displayed on the skill family form category field.",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={localizedEnumToOptions(data?.categories, intl)}
-          />
-          <Combobox
-            id="families"
-            name="families"
-            isMulti
-            label={intl.formatMessage({
-              defaultMessage: "Families",
-              id: "xx8yaE",
-              description:
-                "Label displayed on the skill form skill families field.",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Select one or more skill families",
-              id: "GNhFh2",
-              description:
-                "Placeholder displayed on the skill form skill families field.",
-            })}
-            options={skillFamilyOptions}
-          />
-          <div data-h2-align-self="base(flex-start)">
-            <Submit />
-          </div>
-        </form>
-      </FormProvider>
-    </section>
+                    "This field accepts a list of comma separated keywords associated with the skill.",
+                  id: "NT3jrI",
+                  description:
+                    "Additional context describing the purpose of the skills 'keyword' field.",
+                })}
+                type="text"
+              />
+              <Input
+                id="keywords_fr"
+                name="keywords.fr"
+                label={intl.formatMessage({
+                  defaultMessage: "Keywords (French)",
+                  id: "fOl4Ez",
+                  description:
+                    "Label displayed on the skill form keywords field in French.",
+                })}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "This field accepts a list of comma separated keywords associated with the skill.",
+                  id: "NT3jrI",
+                  description:
+                    "Additional context describing the purpose of the skills 'keyword' field.",
+                })}
+                type="text"
+              />
+              <div data-h2-grid-column="p-tablet(span 2)">
+                <Select
+                  id="category"
+                  name="category"
+                  label={intl.formatMessage(adminMessages.category)}
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Select a category",
+                    id: "+hRCVl",
+                    description:
+                      "Placeholder displayed on the skill family form category field.",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  options={localizedEnumToOptions(data?.categories, intl)}
+                />
+              </div>
+              <div data-h2-grid-column="p-tablet(span 2)">
+                <Combobox
+                  id="families"
+                  name="families"
+                  isMulti
+                  label={intl.formatMessage(adminMessages.skillFamilies)}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select one or more skill families",
+                    id: "GNhFh2",
+                    description:
+                      "Placeholder displayed on the skill form skill families field.",
+                  })}
+                  options={skillFamilyOptions}
+                />
+              </div>
+              <div data-h2-grid-column="p-tablet(span 2)">
+                <Input
+                  id="key"
+                  name="key"
+                  label={intl.formatMessage(adminMessages.key)}
+                  context={intl.formatMessage({
+                    defaultMessage:
+                      "The 'key' is a string that uniquely identifies a skill. It should be based on the skills English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill, so it cannot be changed later.",
+                    id: "jthonT",
+                    description:
+                      "Additional context describing the purpose of the skills 'key' field.",
+                  })}
+                  type="text"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                    pattern: {
+                      value: keyStringRegex,
+                      message: intl.formatMessage({
+                        defaultMessage:
+                          "Please use only lowercase letters and underscores.",
+                        id: "3owqTQ",
+                        description:
+                          "Description for rule pattern on key field",
+                      }),
+                    },
+                  }}
+                />
+              </div>
+            </div>
+          </CardSectioned.Item>
+          <CardSectioned.Item
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+            data-h2-gap="base(x1)"
+            data-h2-align-items="base(center)"
+          >
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Create skills",
+                id: "P478xU",
+                description: "Button label to create a new skill",
+              })}
+            />
+            <Link color="warning" mode="inline" href={paths.departmentTable()}>
+              {intl.formatMessage({
+                defaultMessage: "Cancel and go back to skill editor",
+                id: "ZspYm7",
+                description: "Button label to return to the skills table",
+              })}
+            </Link>
+          </CardSectioned.Item>
+        </CardSectioned.Root>
+      </form>
+    </FormProvider>
   );
 };
 
@@ -322,6 +360,7 @@ const CreateSkillSkillFamilies_Query = graphql(/* GraphQL */ `
 const CreateSkill_Mutation = graphql(/* GraphQL */ `
   mutation CreateSkill($skill: CreateSkillInput!) {
     createSkill(skill: $skill) {
+      id
       key
       name {
         en
@@ -349,8 +388,8 @@ const CreateSkillPage = () => {
   const [, executeMutation] = useMutation(CreateSkill_Mutation);
   const handleCreateSkill = (data: CreateSkillInput) =>
     executeMutation({ skill: data }).then((result) => {
-      if (result.data?.createSkill) {
-        return result.data?.createSkill;
+      if (result.data?.createSkill?.id) {
+        return result.data.createSkill.id;
       }
       return Promise.reject(new Error(result.error?.toString()));
     });
@@ -358,7 +397,7 @@ const CreateSkillPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(adminMessages.skills),
+        label: intl.formatMessage(pageTitles.skillsEditor),
         url: routes.skillTable(),
       },
       {
@@ -374,26 +413,27 @@ const CreateSkillPage = () => {
   });
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Create skill",
-    id: "71mPNh",
+    defaultMessage: "Create a skill",
+    id: "04iYYO",
     description: "Title for Create skill",
   });
 
   return (
     <>
       <SEO title={pageTitle} />
-      <AdminHero
-        title={pageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-      <AdminContentWrapper>
-        <Pending fetching={fetching} error={error}>
-          <CreateSkillForm
-            handleCreateSkill={handleCreateSkill}
-            families={unpackMaybes(lookupData?.skillFamilies)}
-          />
-        </Pending>
-      </AdminContentWrapper>
+      <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
+        <div
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-margin-bottom="base(x3)"
+        >
+          <Pending fetching={fetching} error={error}>
+            <CreateSkillForm
+              handleCreateSkill={handleCreateSkill}
+              families={unpackMaybes(lookupData?.skillFamilies)}
+            />
+          </Pending>
+        </div>
+      </Hero>
     </>
   );
 };
