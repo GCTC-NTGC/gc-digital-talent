@@ -306,15 +306,15 @@ export const CreateSkillForm = ({
           >
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Create skills",
-                id: "P478xU",
+                defaultMessage: "Create skill",
+                id: "fcH4nb",
                 description: "Button label to create a new skill",
               })}
             />
             <Link color="warning" mode="inline" href={paths.departmentTable()}>
               {intl.formatMessage({
-                defaultMessage: "Cancel and go back to skill editor",
-                id: "ZspYm7",
+                defaultMessage: "Cancel and go back to the skill editor",
+                id: "oCL/sl",
                 description: "Button label to return to the skills table",
               })}
             </Link>
