@@ -54,13 +54,8 @@ const MainNavMenu = () => {
     loggedIn,
     userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [],
   );
-  // retain menu preference in storage
+
   const [isMenuOpen, setMenuOpen] = useState(false);
-  // useEffect(() => {
-  //   if (isSmallScreen) {
-  //     setMenuOpen(false); // collapse menu if window resized to small
-  //   }
-  // }, [isSmallScreen, setMenuOpen]);
 
   const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
 

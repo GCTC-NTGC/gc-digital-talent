@@ -73,14 +73,14 @@ const DialogPortalWithPresence = ({
     <Dialog.Portal forceMount>
       <Overlay
         forceMount
-        initial={{ opacity: 0.3 }}
-        animate={{ opacity: 0.3 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0.85 }}
+        animate={{ opacity: 0.85 }}
+        exit={{ opacity: 0.85 }}
         transition={{ duration: 0.2 }}
-        data-h2-background-color="base:all(black.light.85)"
+        data-h2-background-color="base:all(black.light)"
         data-h2-position="base(fixed)"
         data-h2-location="base(0)"
-        data-h2-z-index="base(8)"
+        data-h2-z-index="base(9997)"
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div

@@ -90,6 +90,7 @@ const NavMenuWrapper = ({
       <AnimatePresence>
         {showMenu ? (
           <m.div
+            transition={{ duration: 0.2, ease: "easeInOut" }}
             data-h2-flex-item="base(content)"
             data-h2-position="base(fixed) l-tablet(sticky)"
             data-h2-top="l-tablet(0)"
@@ -97,7 +98,7 @@ const NavMenuWrapper = ({
             data-h2-right="base(x.75) l-tablet(auto)"
             data-h2-left="base(x.75) l-tablet(auto)"
             data-h2-width="l-tablet(100%)"
-            data-h2-z-index="base(9998)"
+            data-h2-z-index="base(9997)"
             data-h2-overflow-y="base(auto) l-tablet(initial)"
             data-h2-max-height="base(85vh) l-tablet(none)"
             {...animConfig}
@@ -144,12 +145,12 @@ const NavMenuWrapper = ({
             onClick={() => setOpen(false)}
             data-h2-position="base(fixed)"
             data-h2-location="base(0, 0, 0, 0)"
-            data-h2-background-color="base:all(black.light.85)"
-            data-h2-z-index="base(9997)"
+            data-h2-background-color="base:all(black.light)"
+            data-h2-z-index="base(9996)"
             data-h2-overflow="base(auto)"
-            initial={{ opacity: 0.3 }}
-            animate={{ opacity: 0.3 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0.85 }}
+            animate={{ opacity: 0.85 }}
+            exit={{ opacity: 0.85 }}
             transition={{ duration: 0.2 }}
           />
         )}
