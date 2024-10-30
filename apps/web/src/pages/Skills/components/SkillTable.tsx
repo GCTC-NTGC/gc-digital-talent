@@ -30,6 +30,7 @@ import messages from "~/lang/frCompiled.json";
 
 import {
   categoryAccessor,
+  descriptionCell,
   familiesAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
@@ -209,15 +210,12 @@ const SkillTable = ({
       {
         id: "description",
         sortingFn: normalizedText,
-        cell: ({ row: { original: skill } }) => {
-          const maxCharacterCount = 32;
-          const description = getLocalizedName(skill.description, intl);
-          return description.length < maxCharacterCount ? (
-            description
-          ) : (
-            <>{description.slice(0, maxCharacterCount)}&hellip;</>
-          );
-        },
+        cell: ({ row: { original: skill } }) =>
+          descriptionCell(
+            intl,
+            getLocalizedName(skill.name, intl),
+            getLocalizedName(skill.description, intl),
+          ),
         header: intl.formatMessage({
           defaultMessage: "Description",
           id: "9yGJ6k",
