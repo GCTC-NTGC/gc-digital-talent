@@ -812,6 +812,11 @@ const createRoute = (locale: Locales) =>
                       path: ":departmentId",
                       children: [
                         {
+                          index: true,
+                          lazy: () =>
+                            import("../pages/Departments/ViewDepartmentPage"),
+                        },
+                        {
                           path: "edit",
                           lazy: () =>
                             import("../pages/Departments/UpdateDepartmentPage"),

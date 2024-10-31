@@ -13,20 +13,19 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 
 import BackgroundGraphic from "./BackgroundPattern";
 import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
-import NavigationMenu from "./NavigationMenu";
 
 const paddingMap = {
   default: {
-    "data-h2-padding": "base(x5.5 0 x4 0)",
+    "data-h2-padding": "base(x2.5 0 x2 0)",
   },
   image: {
-    "data-h2-padding": "base(x5.5 0 0 0) p-tablet(x5.5 0 x4 0)",
+    "data-h2-padding": "base(x2.5 0 0 0) p-tablet(x2.5 0 x2 0)",
   },
   overlap: {
-    "data-h2-padding": "base(x5.5, 0, x8, 0)",
+    "data-h2-padding": "base(x2.5, 0, x6, 0)",
   },
   navTabs: {
-    "data-h2-padding": "base(x5.5 0 0 0)",
+    "data-h2-padding": "base(x2.5 0 0 0)",
   },
 } as const;
 
@@ -107,7 +106,6 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
         data-h2-position="base(relative)"
         {...padding}
       >
-        <NavigationMenu></NavigationMenu>
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <div
             data-h2-color="base:all(white)"

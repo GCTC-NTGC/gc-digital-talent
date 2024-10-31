@@ -146,6 +146,8 @@ const getRoutes = (lang: Locales) => {
     departmentTable: () => [adminUrl, "settings", "departments"].join("/"),
     departmentCreate: () =>
       [adminUrl, "settings", "departments", "create"].join("/"),
+    departmentView: (departmentId: string) =>
+      [adminUrl, "settings", "departments", departmentId].join("/"),
     departmentUpdate: (departmentId: string) =>
       [adminUrl, "settings", "departments", departmentId, "edit"].join("/"),
 

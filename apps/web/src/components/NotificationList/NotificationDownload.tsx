@@ -47,8 +47,8 @@ const NotificationDownload = forwardRef<
               intl.formatMessage(
                 {
                   defaultMessage:
-                    "This file is older than 24 hours and is no longer available. Please request a new file. If the problem persists contact support for assistance.",
-                  id: "JFlQjb",
+                    "This file is not available. If it's been more than 24 hours since you requested it, please try requesting the download again. If it's been less than 24 hours or the problem persists, contact support for assistance.",
+                  id: "klyOZZ",
                   description: "Error message when a file no longer exists",
                 },
                 { fileName },
