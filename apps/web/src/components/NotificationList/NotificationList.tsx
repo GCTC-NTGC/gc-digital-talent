@@ -54,16 +54,16 @@ const NotificationList = ({
   const [searchParams] = useSearchParams();
   const onlyUnread =
     searchParams.has("unread") && searchParams.get("unread") !== null;
-  const [{ data: maxPagesData, fetching }] = useQuery({
+  const [{ data: maxPagesData, fetching: fetchingMaxPages }] = useQuery({
     query: MaxNotificationPages_Query,
     variables: {
       where: { onlyUnread },
     },
   });
-  const [{ data }] = usePollingQuery(
+  const [{ data, fetching: fetchingLiveNotifications }] = usePollingQuery(
     {
       query: NotificationPolling_Query,
-      pause: !live || fetching,
+      pause: !live || fetchingMaxPages,
       variables: {
         where: {
           createdAt: {
@@ -119,7 +119,7 @@ const NotificationList = ({
             <NotificationListPage
               key={`notification-page-${currentPage}`}
               page={currentPage}
-              exclude={liveIds}
+              excludeIds={liveIds}
               isLastPage={currentPage === pagesToLoad}
               onlyUnread={onlyUnread}
               inDialog={inDialog}
@@ -127,6 +127,9 @@ const NotificationList = ({
               {...((!paginate || limit) && {
                 first: limit ?? 100,
               })}
+              fetchingLiveNotifications={
+                fetchingLiveNotifications || fetchingMaxPages
+              }
             />
           );
         })}
