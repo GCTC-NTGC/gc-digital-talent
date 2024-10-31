@@ -55,10 +55,10 @@ class SendNotificationsPoolPublished extends Command
         $this->info("Finding pools published between $startOfSpan and $endOfSpan.");
 
         $poolsPublishedRecently = Pool::query()
-            ->wherePublished()
             ->where('published_at', '>=', $startOfSpan)
             ->where('published_at', '<', $endOfSpan)
-            ->where('publishing_group', '<>', PublishingGroup::OTHER->name)
+            ->whereNotClosed() // don't notify of pools that have already been closed
+            ->where('publishing_group', '<>', PublishingGroup::OTHER->name) // don't notify of testing pools
             ->get();
 
         $this->info('Found '.$poolsPublishedRecently->count().' pools.');
