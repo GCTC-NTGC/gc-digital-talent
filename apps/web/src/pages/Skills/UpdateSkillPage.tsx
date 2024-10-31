@@ -422,7 +422,6 @@ export const UpdateSkill = () => {
           ]
         : []),
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({

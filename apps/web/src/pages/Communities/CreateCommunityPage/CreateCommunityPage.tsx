@@ -62,7 +62,6 @@ const CreateCommunityPage = () => {
         url: routes.communityCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

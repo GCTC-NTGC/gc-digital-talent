@@ -14,6 +14,7 @@ import { useIntl } from "react-intl";
 import {
   ACCESS_TOKEN,
   LOGOUT_REASON_KEY,
+  NAV_ROLE_KEY,
   REFRESH_TOKEN,
   useAuthentication,
 } from "@gc-digital-talent/auth";
@@ -93,6 +94,7 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "user-deleted";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                localStorage.removeItem(NAV_ROLE_KEY);
                 authRef.current.logout();
                 return;
               }
@@ -104,6 +106,7 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "session-expired";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                localStorage.removeItem(NAV_ROLE_KEY);
                 authRef.current.logout();
                 return;
               }

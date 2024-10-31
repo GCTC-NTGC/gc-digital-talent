@@ -184,7 +184,6 @@ export const ViewPoolCandidate = ({
         url: paths.poolCandidateApplication(poolCandidate.id),
       },
     ],
-    isAdmin: true,
   });
 
   return (

@@ -19,7 +19,7 @@ importers:
     dependencies:
       '@axe-core/playwright':
         specifier: ^4.10.0
-        version: 4.10.0(playwright-core@1.48.1)
+        version: 4.10.0(playwright-core@1.48.2)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -34,8 +34,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/graphql
       '@playwright/test':
-        specifier: ^1.48.1
-        version: 1.48.1
+        specifier: ^1.48.2
+        version: 1.48.2
       '@types/node':
         specifier: ^22.7.6
         version: 22.7.6
@@ -112,8 +112,8 @@ importers:
         specifier: ^2.1.5
         version: 2.1.5(react@18.3.1)
       '@microsoft/applicationinsights-web':
-        specifier: ^3.3.3
-        version: 3.3.3(tslib@2.8.0)
+        specifier: ^3.3.4
+        version: 3.3.4(tslib@2.8.0)
       '@tanstack/react-table':
         specifier: ^8.20.5
         version: 8.20.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -266,8 +266,8 @@ importers:
         specifier: ^17.3.3
         version: 17.3.3(history@5.3.0)(react@18.3.1)(tslib@2.8.0)
       '@microsoft/applicationinsights-web':
-        specifier: ^3.3.3
-        version: 3.3.3(tslib@2.8.0)
+        specifier: ^3.3.4
+        version: 3.3.4(tslib@2.8.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -504,8 +504,8 @@ importers:
         specifier: ^2.31.0
         version: 2.31.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3)
       eslint-plugin-jsx-a11y:
-        specifier: ^6.10.1
-        version: 6.10.1
+        specifier: ^6.10.2
+        version: 6.10.2
       eslint-plugin-no-only-tests:
         specifier: ^3.3.0
         version: 3.3.0
@@ -808,8 +808,8 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       tsx:
-        specifier: ^4.19.1
-        version: 4.19.1
+        specifier: ^4.19.2
+        version: 4.19.2
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
@@ -2446,18 +2446,18 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microsoft/applicationinsights-analytics-js@3.3.3':
-    resolution: {integrity: sha512-Lh6/KRPCyiAyL8SjBB02HMUyL1YUhbBAeehbCqTElkhIwXjzHtKCCuefkbtDQda4V/ikYRNMoRzb/2cgaKQcBg==}
+  '@microsoft/applicationinsights-analytics-js@3.3.4':
+    resolution: {integrity: sha512-RxxyiIgt3TJ/tvLhg1wth1862wrPmru6dBS7vyThFEUkCZ/AYqEAzdH1JiixgTL/e72NesqmgKcvUUPv9kl9rg==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-cfgsync-js@3.3.3':
-    resolution: {integrity: sha512-NDSObvyTF+3thARGYcTw2MRiw181aOT8jGimavKEvm4jm6IAVodqkO1Yp482Dy9x/Ug4OMajV82OtGaazy9IIQ==}
+  '@microsoft/applicationinsights-cfgsync-js@3.3.4':
+    resolution: {integrity: sha512-Q5aLy6e6dFf4zr+FJdO46dOfHIvRgt/6QG1lJNC9tiuyjWYOKBkOSTop/5+2vvFK5IY4p3g0mxJOSeoHsr8RQQ==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-channel-js@3.3.3':
-    resolution: {integrity: sha512-a6a1pig2V6L3cB9R7fAk9IsVB9FDJ89WBUZIUEJIpdTbhJ4AsIYUvhIuHkWYjVIzKhmaeXI1szf54mJWyb5rPQ==}
+  '@microsoft/applicationinsights-channel-js@3.3.4':
+    resolution: {integrity: sha512-Z4nrxYwGKP9iyrYtm7iPQXVOFy4FsEsX0nDKkAi96Qpgw+vEh6NH4ORxMMuES0EollBQ3faJyvYCwckuCVIj0g==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
@@ -2466,18 +2466,28 @@ packages:
     peerDependencies:
       tslib: '>= 1.0.0'
 
+  '@microsoft/applicationinsights-common@3.3.4':
+    resolution: {integrity: sha512-4ms16MlIvcP4WiUPqopifNxcWCcrXQJ2ADAK/75uok2mNQe6ZNRsqb/P+pvhUxc8A5HRlvoXPP1ptDSN5Girgw==}
+    peerDependencies:
+      tslib: '>= 1.0.0'
+
   '@microsoft/applicationinsights-core-js@3.3.3':
     resolution: {integrity: sha512-U+IaAx/RS60jl8TAgtKzAeojbJgI+eCnYQGSvVE7IxdHgsmQ3hV3IYrBEf98q5nZD4U1zGoKtI8VEpkepoaYhQ==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-dependencies-js@3.3.3':
-    resolution: {integrity: sha512-zBuDx9+go15R32haBq+m8LWRfUmtJh9SH6MrxDEOy7O+KACGNumqIkOqc7zyX38HqCOzjSD2RKfPP7+6HisRPg==}
+  '@microsoft/applicationinsights-core-js@3.3.4':
+    resolution: {integrity: sha512-MummANF0mgKIkdvVvfmHQTBliK114IZLRhTL0X0Ep+zjDwWMHqYZgew0nlFKAl6ggu42abPZFK5afpE7qjtYJA==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-properties-js@3.3.3':
-    resolution: {integrity: sha512-Ir08rSSEG3Z1XXa66Vgkv88LTdJolTbbU7CPHti/6j4avaA3WbfIUAfxlNJZ2v3oIVccIg52Wh5bkDEvX2dT8g==}
+  '@microsoft/applicationinsights-dependencies-js@3.3.4':
+    resolution: {integrity: sha512-RBEFs78v1Zl+9I85nUyw2KdXUKnjxDvdMC0Ul86v7i9ApFrrPJTJ0AVS8h+ydxtJcO2f2nHUEbtVWCf1ixRHiQ==}
+    peerDependencies:
+      tslib: '>= 1.0.0'
+
+  '@microsoft/applicationinsights-properties-js@3.3.4':
+    resolution: {integrity: sha512-iI26hM34ysqxVmdOxVetBeoinPoBnNxSb0/c3A+zbY9iCelvf7HF4tn1Qf+sS9Jqn1Z1XjzzKvan8k82+cK+XA==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
@@ -2491,8 +2501,8 @@ packages:
   '@microsoft/applicationinsights-shims@3.0.1':
     resolution: {integrity: sha512-DKwboF47H1nb33rSUfjqI6ryX29v+2QWcTrRvcQDA32AZr5Ilkr7whOOSsD1aBzwqX0RJEIP1Z81jfE3NBm/Lg==}
 
-  '@microsoft/applicationinsights-web@3.3.3':
-    resolution: {integrity: sha512-EQUGGYTMEQRLWIBXXuYfv6WYcm7O9wFHq0EIJ5qN+Fh3SyGOL34RzU+3TQ9eCrz6GCtRZwlbcwWPi83l4q952w==}
+  '@microsoft/applicationinsights-web@3.3.4':
+    resolution: {integrity: sha512-aZdGnI0fby/OoRNIKkYC9xqNjqFJyb7fKiYtIejCGbE/i2sClnHq7tnwiTk1UKBy9oflwryoFFNs0MM6PDBuMA==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
@@ -2601,8 +2611,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@playwright/test@1.48.1':
-    resolution: {integrity: sha512-s9RtWoxkOLmRJdw3oFvhFbs9OJS0BzrLUc8Hf6l2UdCNd1rqeEyD4BhCJkvzeEoD1FsK4mirsWwGerhVmYKtZg==}
+  '@playwright/test@1.48.2':
+    resolution: {integrity: sha512-54w1xCWfXuax7dz4W2M9uw0gDyh+ti/0K/MxcCUxChFh37kkdxPdfZDw5QBbuPUJHr1CiHJ1hXgSs+GgeQc5Zw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4917,8 +4927,8 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-jsx-a11y@6.10.1:
-    resolution: {integrity: sha512-zHByM9WTUMnfsDTafGXRiqxp6lFtNoSOWBY6FonVRn3A+BUwN1L/tdBXT40BcBJi0cZjOGTXZ0eD/rTG9fEJ0g==}
+  eslint-plugin-jsx-a11y@6.10.2:
+    resolution: {integrity: sha512-scB3nz4WmG75pV8+3eRUQOHZlNSUhFNq37xnpgRkCCELU3XMvXAxLk1eqWWyE22Ki4Q01Fnsw9BA3cJHDPgn2Q==}
     engines: {node: '>=4.0'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9
@@ -6522,13 +6532,13 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.48.1:
-    resolution: {integrity: sha512-Yw/t4VAFX/bBr1OzwCuOMZkY1Cnb4z/doAFSwf4huqAGWmf9eMNjmK7NiOljCdLmxeRYcGPPmcDgU0zOlzP0YA==}
+  playwright-core@1.48.2:
+    resolution: {integrity: sha512-sjjw+qrLFlriJo64du+EK0kJgZzoQPsabGF4lBvsid+3CNIZIYLgnMj9V6JY5VhM2Peh20DJWIVpVljLLnlawA==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.48.1:
-    resolution: {integrity: sha512-j8CiHW/V6HxmbntOfyB4+T/uk08tBy6ph0MpBXwuoofkSnLmlfdYNNkFTYD6ofzzlSqLA1fwH4vwvVFvJgLN0w==}
+  playwright@1.48.2:
+    resolution: {integrity: sha512-NjYvYgp4BPmiwfe31j4gHLa3J7bD2WiBz8Lk2RoSsmX38SVIARZ18VYjxLjAcDsAhA+F4iSEXTSGgjua0rrlgQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7576,8 +7586,8 @@ packages:
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
 
-  tsx@4.19.1:
-    resolution: {integrity: sha512-0flMz1lh74BR4wOvBjuh9olbnwqCPc35OOlfyzHba0Dc+QNUeWX/Gq2YTbnwcWPO3BMd8fkzRVrHcsR+a7z7rA==}
+  tsx@4.19.2:
+    resolution: {integrity: sha512-pOUl6Vo2LUq/bSa8S5q7b91cgNSjctn9ugq/+Mvow99qW6x/UZYwzxy/3NmqoT66eHYfCVvFvACC58UBPFf28g==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -8048,10 +8058,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@axe-core/playwright@4.10.0(playwright-core@1.48.1)':
+  '@axe-core/playwright@4.10.0(playwright-core@1.48.2)':
     dependencies:
       axe-core: 4.10.2
-      playwright-core: 1.48.1
+      playwright-core: 1.48.2
 
   '@babel/code-frame@7.25.7':
     dependencies:
@@ -9493,29 +9503,29 @@ snapshots:
       '@types/react': 18.3.11
       react: 18.3.1
 
-  '@microsoft/applicationinsights-analytics-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-analytics-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-cfgsync-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-cfgsync-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-channel-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-channel-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
@@ -9530,6 +9540,14 @@ snapshots:
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
+  '@microsoft/applicationinsights-common@3.3.4(tslib@2.8.0)':
+    dependencies:
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.3
+      '@nevware21/ts-utils': 0.11.3
+      tslib: 2.8.0
+
   '@microsoft/applicationinsights-core-js@3.3.3(tslib@2.8.0)':
     dependencies:
       '@microsoft/applicationinsights-shims': 3.0.1
@@ -9538,20 +9556,28 @@ snapshots:
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-dependencies-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-core-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-properties-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-dependencies-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.3
+      '@nevware21/ts-async': 0.5.2
+      '@nevware21/ts-utils': 0.11.3
+      tslib: 2.8.0
+
+  '@microsoft/applicationinsights-properties-js@3.3.4(tslib@2.8.0)':
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-utils': 0.11.3
@@ -9572,15 +9598,15 @@ snapshots:
     dependencies:
       '@nevware21/ts-utils': 0.11.3
 
-  '@microsoft/applicationinsights-web@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-web@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-analytics-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-cfgsync-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-channel-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-dependencies-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-properties-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-analytics-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-cfgsync-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-channel-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-dependencies-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-properties-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
@@ -9670,9 +9696,9 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@playwright/test@1.48.1':
+  '@playwright/test@1.48.2':
     dependencies:
-      playwright: 1.48.1
+      playwright: 1.48.2
 
   '@popperjs/core@2.11.8': {}
 
@@ -12297,7 +12323,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-jsx-a11y@6.10.1:
+  eslint-plugin-jsx-a11y@6.10.2:
     dependencies:
       aria-query: 5.3.2
       array-includes: 3.1.8
@@ -12307,7 +12333,6 @@ snapshots:
       axobject-query: 4.1.0
       damerau-levenshtein: 1.0.8
       emoji-regex: 9.2.2
-      es-iterator-helpers: 1.1.0
       hasown: 2.0.2
       jsx-ast-utils: 3.3.5
       language-tags: 1.0.9
@@ -14172,11 +14197,11 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.48.1: {}
+  playwright-core@1.48.2: {}
 
-  playwright@1.48.1:
+  playwright@1.48.2:
     dependencies:
-      playwright-core: 1.48.1
+      playwright-core: 1.48.2
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -15391,7 +15416,7 @@ snapshots:
       tslib: 1.14.1
       typescript: 5.6.3
 
-  tsx@4.19.1:
+  tsx@4.19.2:
     dependencies:
       esbuild: 0.23.0
       get-tsconfig: 4.7.5

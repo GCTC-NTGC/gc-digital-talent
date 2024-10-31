@@ -52,6 +52,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import { getNavLinkStyling } from "./components/NavMenu";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, {
@@ -96,6 +97,8 @@ import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard";
+import NavMenu from "./components/NavMenu/NavMenu";
+import NavMenuWrapper from "./components/NavMenu/NavMenuWrapper";
 
 export type {
   Color,
@@ -166,6 +169,8 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  NavMenu,
+  NavMenuWrapper,
   NavTabs,
   Loading,
   LoadingErrorMessage,
@@ -203,4 +208,5 @@ export {
   headingStyles,
   useCardRepeaterContext,
   useControllableState,
+  getNavLinkStyling,
 };
