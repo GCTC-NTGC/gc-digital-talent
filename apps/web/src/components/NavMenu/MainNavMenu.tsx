@@ -116,7 +116,10 @@ const MainNavMenu = () => {
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(center)"
         >
-          <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
+          <NavMenu.List
+            data-h2-flex-direction="base(column) l-tablet(row)"
+            data-h2-align-items="base(center)"
+          >
             <NavMenu.Item
               data-h2-display="base(none) l-tablet(flex)"
               {...(!loggedIn && {
