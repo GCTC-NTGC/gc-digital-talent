@@ -422,10 +422,7 @@ const CreateSkillPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <div
-          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-          data-h2-margin-bottom="base(x3)"
-        >
+        <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
             <CreateSkillForm
               handleCreateSkill={handleCreateSkill}
