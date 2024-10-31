@@ -1087,10 +1087,6 @@
     "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
     "description": "Employee Status in Government Info Form"
   },
-  "3hLJY5": {
-    "defaultMessage": "<strong>Inscription</strong> : Navigar, outil Web intelligent de planification du développement des compétences. La clientèle visée recevra par courriel les identifiants d’accès.",
-    "description": "An item in a list of points about online learning"
-  },
   "3hYwWo": {
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
     "description": "Heading for the skill experience details section"
@@ -4598,6 +4594,10 @@
   "LqCaFZ": {
     "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
     "description": "Call to action to begin editing personal and contact information"
+  },
+  "LqDVSD": {
+    "defaultMessage": "Pour plus d'informations, consulter navigar.ca",
+    "description": "A link to a tool named Navigar"
   },
   "Lt7tcM": {
     "defaultMessage": "Les comptes de médias sociaux du gouvernement du Canada sont une autre façon d’échanger avec les Canadiens et les Canadiennes, et de diffuser le contenu publié sur son site Web. Ces comptes facilitent l’accès à l’information et aux services du gouvernement du Canada, et donnent l’occasion aux intervenants d’interagir dans un environnement informatif et respectueux.",
@@ -9330,6 +9330,10 @@
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
   },
+  "jT46zb": {
+    "defaultMessage": "<strong>Comment y accéder</strong> : Disponible via Navigar, un outil Web intelligent de développement des compétences. Tous les membres du personnel admissibles du groupe TI recevront un courriel d'activation de leur compte Navigar.",
+    "description": "An item in a list of points about online learning"
+  },
   "jTN0bg": {
     "defaultMessage": "Embauchez des talents pour votre équipe",
     "description": "Title for to go to the search page on Browse IT jobs page"
@@ -11277,10 +11281,6 @@
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
-  },
-  "umrfZq": {
-    "defaultMessage": "Accédez à Navigar",
-    "description": "A link to a tool named Navigar"
   },
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",
