@@ -11,6 +11,7 @@ use App\Notifications\NewJobPosted;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -65,6 +66,8 @@ class TriggerNewJobPostedTest extends TestCase
         ];
         $pool->save();
 
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
         Notification::assertNothingSent();
     }
 
@@ -82,7 +85,28 @@ class TriggerNewJobPostedTest extends TestCase
         $pool->published_at = Carbon::now();
         $pool->save();
 
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
         Notification::assertSentTimes(NewJobPosted::class, 2);
+    }
+
+    // triggers a notification when the pool is published
+    public function testNothingSentForOtherGroup(): void
+    {
+        $pool = Pool::factory()
+            ->for($this->adminUser)
+            ->draft()
+            ->create([
+                'publishing_group' => PublishingGroup::OTHER->name,
+                'published_at' => null,
+            ]);
+
+        $pool->published_at = Carbon::now();
+        $pool->save();
+
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
+        Notification::assertNothingSent();
     }
 
     // no notification when pool is closed or archived
@@ -99,6 +123,8 @@ class TriggerNewJobPostedTest extends TestCase
         $pool->archived_at = Carbon::now();
         $pool->save();
 
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
         Notification::assertNothingSent();
     }
 }
