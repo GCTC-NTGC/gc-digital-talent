@@ -350,7 +350,6 @@ const UpdateSkillFamilyPage = () => {
           ]
         : []),
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({

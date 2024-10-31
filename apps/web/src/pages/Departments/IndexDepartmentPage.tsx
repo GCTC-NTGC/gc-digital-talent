@@ -23,7 +23,6 @@ export const DepartmentPage = () => {
         url: routes.departmentTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

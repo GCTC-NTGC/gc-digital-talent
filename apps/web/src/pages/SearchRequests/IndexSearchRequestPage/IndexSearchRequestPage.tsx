@@ -24,7 +24,6 @@ export const IndexSearchRequestPage = () => {
         url: routes.searchRequestTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

@@ -7,7 +7,7 @@ import getFontColor from "./getButtonFontColor";
 import getFontWeight from "./getButtonFontWeight";
 import getShadow from "./getButtonShadow";
 
-interface ButtonStyleInterface {
+export interface ButtonStyleInterface {
   mode: ButtonLinkMode;
   color: Color;
   block: boolean;

@@ -293,7 +293,6 @@ const UpdateClassification = () => {
           ]
         : []),
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage(pageTitles.classifications);

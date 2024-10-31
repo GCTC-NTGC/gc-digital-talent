@@ -24,7 +24,6 @@ export const IndexSkillPage = () => {
         url: routes.skillTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

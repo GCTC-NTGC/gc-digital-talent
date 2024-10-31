@@ -198,7 +198,6 @@ const CreateDepartmentPage = () => {
         url: routes.departmentCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({

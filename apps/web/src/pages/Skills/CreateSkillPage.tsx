@@ -409,7 +409,6 @@ const CreateSkillPage = () => {
         url: routes.skillCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({

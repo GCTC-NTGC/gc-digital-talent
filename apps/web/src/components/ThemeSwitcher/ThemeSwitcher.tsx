@@ -6,7 +6,7 @@ import MoonIcon from "@heroicons/react/24/solid/MoonIcon";
 import { ToggleGroup } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 
-const ThemeSwitcher = () => {
+const ThemeSwitcher = ({ ...rest }) => {
   const intl = useIntl();
   const { setMode, fullMode } = useTheme();
 
@@ -24,6 +24,7 @@ const ThemeSwitcher = () => {
       value={fullMode}
       onValueChange={setMode}
       aria-label={groupLabel}
+      {...rest}
     >
       <ToggleGroup.Item
         value="pref"

@@ -6,8 +6,8 @@ import { useQuery } from "urql";
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import AdminHero from "~/components/HeroDeprecated/AdminHero";
@@ -108,6 +108,23 @@ const CommunityLayoutCommunityName_Query = graphql(/* GraphQL */ `
       ...CommunityLayout_Community
       teamIdForRoleAssignment
     }
+    myAuth {
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+        }
+        team {
+          id
+          name
+        }
+        teamable {
+          id
+        }
+      }
+    }
   }
 `);
 
@@ -124,11 +141,11 @@ const CommunityLayout = () => {
     },
   });
 
-  const { userAuthInfo } = useAuthorization();
-  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const roleAssignmentsFiltered =
+    data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
   const canAdmin = checkRole(
     [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
-    roleAssignments,
+    roleAssignmentsFiltered,
     communityId,
   );
 

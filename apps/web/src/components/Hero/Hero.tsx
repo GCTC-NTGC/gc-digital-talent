@@ -6,7 +6,6 @@ import {
   type HeadingRef,
   type BreadcrumbsProps,
   Crumb,
-  Flourish,
   NavTabs,
 } from "@gc-digital-talent/ui";
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -99,7 +98,6 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
 
   return (
     <>
-      <Flourish />
       <div
         data-h2-background="base(rgba(0, 0, 0, 1)) base:iap(linear-gradient(90deg, primary, rgb(104, 23, 53)))"
         data-h2-overflow="base(hidden)"

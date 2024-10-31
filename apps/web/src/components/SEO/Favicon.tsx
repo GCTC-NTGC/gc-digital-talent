@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 
 type Locale = "en" | "fr";
-type Project = "digital-talent" | "iap" | "admin";
+export type Project = "digital-talent" | "iap" | "admin";
 
 interface FaviconProps {
   locale: Locale;

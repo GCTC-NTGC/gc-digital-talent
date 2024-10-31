@@ -443,10 +443,6 @@
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "0D3ZhO": {
-    "defaultMessage": "Demandes",
-    "description": "The menu category for requests items"
-  },
   "0D8Efk": {
     "defaultMessage": "Deux plumes attachées l’une à l’autre.",
     "description": "Indigenous Apprenticeship feathers image text alternative"
@@ -1090,10 +1086,6 @@
   "3f9P13": {
     "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
     "description": "Employee Status in Government Info Form"
-  },
-  "3hLJY5": {
-    "defaultMessage": "<strong>Inscription</strong> : Navigar, outil Web intelligent de planification du développement des compétences. La clientèle visée recevra par courriel les identifiants d’accès.",
-    "description": "An item in a list of points about online learning"
   },
   "3hYwWo": {
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
@@ -2727,6 +2719,10 @@
     "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour un candidat qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'il peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
     "description": "Second paragraph for pool closing date dialog"
   },
+  "CBedVL": {
+    "defaultMessage": "Votre compte",
+    "description": "Nav menu trigger for account links sub menu"
+  },
   "CCyraT": {
     "defaultMessage": "Sélectionnez la méthode qui décrit le mieux la façon dont votre organisation prévoit évaluer ces compétences. Vous pouvez renommer cette évaluation au besoin.",
     "description": "description of 'basic details' section of the 'assessment details' dialog"
@@ -2754,6 +2750,10 @@
   "CMtxbk": {
     "defaultMessage": "Niveau de communication orale",
     "description": "Label displayed on the language information form oral communication field."
+  },
+  "COIe6t": {
+    "defaultMessage": "Paramètres du système",
+    "description": "Nav menu trigger for system settings links sub menu"
   },
   "COJ3St": {
     "defaultMessage": "Sélectionnez une équipe",
@@ -3506,10 +3506,6 @@
   "G5Joq7": {
     "defaultMessage": "Cherchez-vous votre candidature au Programme d’apprentissage en TI pour les Autochtones?",
     "description": "First paragraph for profile and applications notification welcoming an IAP user"
-  },
-  "G65IrS": {
-    "defaultMessage": "Recrutement",
-    "description": "The menu category for recruitment items"
   },
   "G6PxDn": {
     "defaultMessage": "Cette section met l'accent sur la gestion générale du compte et sur les informations relatives à la manière dont nous établissons un lien avec votre CléGC.",
@@ -4591,6 +4587,10 @@
     "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
     "description": "Call to action to begin editing personal and contact information"
   },
+  "LqDVSD": {
+    "defaultMessage": "Pour plus d'informations, consulter navigar.ca",
+    "description": "A link to a tool named Navigar"
+  },
   "Lt7tcM": {
     "defaultMessage": "Les comptes de médias sociaux du gouvernement du Canada sont une autre façon d’échanger avec les Canadiens et les Canadiennes, et de diffuser le contenu publié sur son site Web. Ces comptes facilitent l’accès à l’information et aux services du gouvernement du Canada, et donnent l’occasion aux intervenants d’interagir dans un environnement informatif et respectueux.",
     "description": "Paragraph for content and frequency section"
@@ -5503,10 +5503,6 @@
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Sub title for  skill requirements"
   },
-  "QjF2CL": {
-    "defaultMessage": "Menu Principal",
-    "description": "Label for the main menu on the pool manager admin portal."
-  },
   "QjOom4": {
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
@@ -5979,6 +5975,10 @@
     "defaultMessage": "la gestion des données pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "T74kMc": {
+    "defaultMessage": "Ressources",
+    "description": "Nav menu trigger for resource links sub menu"
+  },
   "T7irec": {
     "defaultMessage": "Vérifiez votre adresse courriel professionnelle",
     "description": "Verify your work email text"
@@ -6214,6 +6214,10 @@
   "UQlyXu": {
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
+  },
+  "URqhIA": {
+    "defaultMessage": "Gestionnaire",
+    "description": "Manager role name for nav menu"
   },
   "UTFKyy": {
     "defaultMessage": "La compétence a été mise à jour avec succès!",
@@ -7526,10 +7530,6 @@
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
-  "bLcy4q": {
-    "defaultMessage": "Plateforme de données",
-    "description": "The menu category for platform data items"
-  },
   "bLxoQL": {
     "defaultMessage": "Parcourir les modèles d'emploi",
     "description": "Link for the 'browse job advertisement templates' card"
@@ -7581,6 +7581,10 @@
   "baSmVn": {
     "defaultMessage": "D'autres activités qui vous ont aidé à vous épanouir et à perfectionner vos compétences, y compris les passe-temps, les activités familiales et les activités extrascolaires.",
     "description": "Description for personal experience section"
+  },
+  "bdzq6l": {
+    "defaultMessage": "Candidat(e)",
+    "description": "Applicant role name for nav menu"
   },
   "be2aA/": {
     "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",
@@ -7858,10 +7862,6 @@
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de la démonstration de vos compétences.",
     "description": "First paragraph for remove skill dialog"
   },
-  "crzWxb": {
-    "defaultMessage": "Ouvrir le menu",
-    "description": "Text label for header button that opens side menu."
-  },
   "cweZUH": {
     "defaultMessage": "Cette section <strong>facultative</strong> vous permet de fournir un context additionnel pour le ministère, la direction ou l’équipe qui embauchera grâce à ce processus.",
     "description": "Describes the 'about us' section of a process' advertisement."
@@ -8089,6 +8089,10 @@
   "e+xir3": {
     "defaultMessage": "Autres exigences",
     "description": "Signpost title for _work requirement description_ textbox in the _digital services contracting questionnaire_"
+  },
+  "e/Z582": {
+    "defaultMessage": "Collectivité",
+    "description": "Community role name for nav menu"
   },
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
@@ -8866,6 +8870,10 @@
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
   },
+  "hS+J7B": {
+    "defaultMessage": "Admin",
+    "description": "Admin role name for nav menu"
+  },
   "hS96pl": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
     "description": "Text notifying user which process roles will be removed from the user"
@@ -9337,6 +9345,10 @@
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
+  },
+  "jT46zb": {
+    "defaultMessage": "<strong>Comment y accéder</strong> : Disponible via Navigar, un outil Web intelligent de développement des compétences. Tous les membres du personnel admissibles du groupe TI recevront un courriel d'activation de leur compte Navigar.",
+    "description": "An item in a list of points about online learning"
   },
   "jTN0bg": {
     "defaultMessage": "Embauchez des talents pour votre équipe",
@@ -11313,10 +11325,6 @@
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
-  },
-  "umrfZq": {
-    "defaultMessage": "Accédez à Navigar",
-    "description": "A link to a tool named Navigar"
   },
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",
