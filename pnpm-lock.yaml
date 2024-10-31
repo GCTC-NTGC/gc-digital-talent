@@ -112,8 +112,8 @@ importers:
         specifier: ^2.1.5
         version: 2.1.5(react@18.3.1)
       '@microsoft/applicationinsights-web':
-        specifier: ^3.3.3
-        version: 3.3.3(tslib@2.8.0)
+        specifier: ^3.3.4
+        version: 3.3.4(tslib@2.8.0)
       '@tanstack/react-table':
         specifier: ^8.20.5
         version: 8.20.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -266,8 +266,8 @@ importers:
         specifier: ^17.3.3
         version: 17.3.3(history@5.3.0)(react@18.3.1)(tslib@2.8.0)
       '@microsoft/applicationinsights-web':
-        specifier: ^3.3.3
-        version: 3.3.3(tslib@2.8.0)
+        specifier: ^3.3.4
+        version: 3.3.4(tslib@2.8.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -490,7 +490,7 @@ importers:
         version: 9.1.0
       eslint-import-resolver-alias:
         specifier: ^1.1.2
-        version: 1.1.2(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3))
+        version: 1.1.2(eslint-plugin-import@2.31.0)
       eslint-import-resolver-typescript:
         specifier: ^3.6.3
         version: 3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0)
@@ -2475,18 +2475,18 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microsoft/applicationinsights-analytics-js@3.3.3':
-    resolution: {integrity: sha512-Lh6/KRPCyiAyL8SjBB02HMUyL1YUhbBAeehbCqTElkhIwXjzHtKCCuefkbtDQda4V/ikYRNMoRzb/2cgaKQcBg==}
+  '@microsoft/applicationinsights-analytics-js@3.3.4':
+    resolution: {integrity: sha512-RxxyiIgt3TJ/tvLhg1wth1862wrPmru6dBS7vyThFEUkCZ/AYqEAzdH1JiixgTL/e72NesqmgKcvUUPv9kl9rg==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-cfgsync-js@3.3.3':
-    resolution: {integrity: sha512-NDSObvyTF+3thARGYcTw2MRiw181aOT8jGimavKEvm4jm6IAVodqkO1Yp482Dy9x/Ug4OMajV82OtGaazy9IIQ==}
+  '@microsoft/applicationinsights-cfgsync-js@3.3.4':
+    resolution: {integrity: sha512-Q5aLy6e6dFf4zr+FJdO46dOfHIvRgt/6QG1lJNC9tiuyjWYOKBkOSTop/5+2vvFK5IY4p3g0mxJOSeoHsr8RQQ==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-channel-js@3.3.3':
-    resolution: {integrity: sha512-a6a1pig2V6L3cB9R7fAk9IsVB9FDJ89WBUZIUEJIpdTbhJ4AsIYUvhIuHkWYjVIzKhmaeXI1szf54mJWyb5rPQ==}
+  '@microsoft/applicationinsights-channel-js@3.3.4':
+    resolution: {integrity: sha512-Z4nrxYwGKP9iyrYtm7iPQXVOFy4FsEsX0nDKkAi96Qpgw+vEh6NH4ORxMMuES0EollBQ3faJyvYCwckuCVIj0g==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
@@ -2495,18 +2495,28 @@ packages:
     peerDependencies:
       tslib: '>= 1.0.0'
 
+  '@microsoft/applicationinsights-common@3.3.4':
+    resolution: {integrity: sha512-4ms16MlIvcP4WiUPqopifNxcWCcrXQJ2ADAK/75uok2mNQe6ZNRsqb/P+pvhUxc8A5HRlvoXPP1ptDSN5Girgw==}
+    peerDependencies:
+      tslib: '>= 1.0.0'
+
   '@microsoft/applicationinsights-core-js@3.3.3':
     resolution: {integrity: sha512-U+IaAx/RS60jl8TAgtKzAeojbJgI+eCnYQGSvVE7IxdHgsmQ3hV3IYrBEf98q5nZD4U1zGoKtI8VEpkepoaYhQ==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-dependencies-js@3.3.3':
-    resolution: {integrity: sha512-zBuDx9+go15R32haBq+m8LWRfUmtJh9SH6MrxDEOy7O+KACGNumqIkOqc7zyX38HqCOzjSD2RKfPP7+6HisRPg==}
+  '@microsoft/applicationinsights-core-js@3.3.4':
+    resolution: {integrity: sha512-MummANF0mgKIkdvVvfmHQTBliK114IZLRhTL0X0Ep+zjDwWMHqYZgew0nlFKAl6ggu42abPZFK5afpE7qjtYJA==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-properties-js@3.3.3':
-    resolution: {integrity: sha512-Ir08rSSEG3Z1XXa66Vgkv88LTdJolTbbU7CPHti/6j4avaA3WbfIUAfxlNJZ2v3oIVccIg52Wh5bkDEvX2dT8g==}
+  '@microsoft/applicationinsights-dependencies-js@3.3.4':
+    resolution: {integrity: sha512-RBEFs78v1Zl+9I85nUyw2KdXUKnjxDvdMC0Ul86v7i9ApFrrPJTJ0AVS8h+ydxtJcO2f2nHUEbtVWCf1ixRHiQ==}
+    peerDependencies:
+      tslib: '>= 1.0.0'
+
+  '@microsoft/applicationinsights-properties-js@3.3.4':
+    resolution: {integrity: sha512-iI26hM34ysqxVmdOxVetBeoinPoBnNxSb0/c3A+zbY9iCelvf7HF4tn1Qf+sS9Jqn1Z1XjzzKvan8k82+cK+XA==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
@@ -2520,8 +2530,8 @@ packages:
   '@microsoft/applicationinsights-shims@3.0.1':
     resolution: {integrity: sha512-DKwboF47H1nb33rSUfjqI6ryX29v+2QWcTrRvcQDA32AZr5Ilkr7whOOSsD1aBzwqX0RJEIP1Z81jfE3NBm/Lg==}
 
-  '@microsoft/applicationinsights-web@3.3.3':
-    resolution: {integrity: sha512-EQUGGYTMEQRLWIBXXuYfv6WYcm7O9wFHq0EIJ5qN+Fh3SyGOL34RzU+3TQ9eCrz6GCtRZwlbcwWPi83l4q952w==}
+  '@microsoft/applicationinsights-web@3.3.4':
+    resolution: {integrity: sha512-aZdGnI0fby/OoRNIKkYC9xqNjqFJyb7fKiYtIejCGbE/i2sClnHq7tnwiTk1UKBy9oflwryoFFNs0MM6PDBuMA==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
@@ -9619,29 +9629,29 @@ snapshots:
       '@types/react': 18.3.11
       react: 18.3.1
 
-  '@microsoft/applicationinsights-analytics-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-analytics-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-cfgsync-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-cfgsync-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-channel-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-channel-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
@@ -9656,6 +9666,14 @@ snapshots:
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
+  '@microsoft/applicationinsights-common@3.3.4(tslib@2.8.0)':
+    dependencies:
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.3
+      '@nevware21/ts-utils': 0.11.3
+      tslib: 2.8.0
+
   '@microsoft/applicationinsights-core-js@3.3.3(tslib@2.8.0)':
     dependencies:
       '@microsoft/applicationinsights-shims': 3.0.1
@@ -9664,20 +9682,28 @@ snapshots:
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-dependencies-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-core-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
       '@nevware21/ts-utils': 0.11.3
       tslib: 2.8.0
 
-  '@microsoft/applicationinsights-properties-js@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-dependencies-js@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-shims': 3.0.1
+      '@microsoft/dynamicproto-js': 2.0.3
+      '@nevware21/ts-async': 0.5.2
+      '@nevware21/ts-utils': 0.11.3
+      tslib: 2.8.0
+
+  '@microsoft/applicationinsights-properties-js@3.3.4(tslib@2.8.0)':
+    dependencies:
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-utils': 0.11.3
@@ -9698,15 +9724,15 @@ snapshots:
     dependencies:
       '@nevware21/ts-utils': 0.11.3
 
-  '@microsoft/applicationinsights-web@3.3.3(tslib@2.8.0)':
+  '@microsoft/applicationinsights-web@3.3.4(tslib@2.8.0)':
     dependencies:
-      '@microsoft/applicationinsights-analytics-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-cfgsync-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-channel-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-common': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-core-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-dependencies-js': 3.3.3(tslib@2.8.0)
-      '@microsoft/applicationinsights-properties-js': 3.3.3(tslib@2.8.0)
+      '@microsoft/applicationinsights-analytics-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-cfgsync-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-channel-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-common': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-core-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-dependencies-js': 3.3.4(tslib@2.8.0)
+      '@microsoft/applicationinsights-properties-js': 3.3.4(tslib@2.8.0)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
       '@nevware21/ts-async': 0.5.2
@@ -12360,7 +12386,7 @@ snapshots:
 
   eslint-config-prettier@9.1.0: {}
 
-  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3)):
+  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.31.0):
     dependencies:
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3)
 
@@ -12377,7 +12403,7 @@ snapshots:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.3.5
       enhanced-resolve: 5.17.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0))
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.5
       is-bun-module: 1.1.0
@@ -12390,7 +12416,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -12400,7 +12426,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0)):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -12450,7 +12476,7 @@ snapshots:
       debug: 3.2.7
       doctrine: 2.1.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
