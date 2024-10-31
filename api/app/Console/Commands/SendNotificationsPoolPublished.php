@@ -63,11 +63,16 @@ class SendNotificationsPoolPublished extends Command
 
         $this->info('Found '.$poolsPublishedRecently->count().' pools.');
 
-        $notifications = $poolsPublishedRecently->map(fn ($pool) => new NewJobPosted(
-            $pool->name['en'],
-            $pool->name['fr'],
-            $pool->id
-        ));
+        $notifications = $poolsPublishedRecently
+            ->map(fn ($model) => get_class($model) == Pool::class
+                ? new NewJobPosted(
+                    $model->name['en'],
+                    $model->name['fr'],
+                    $model->id
+                )
+                : null
+            )
+            ->whereNotNull();
 
         $successCount = 0;
         $failureCount = 0;
@@ -83,7 +88,7 @@ class SendNotificationsPoolPublished extends Command
                                 $successCount++;
                             } catch (Throwable $e) {
                                 // best-effort: log and continue
-                                $onDemandLog->error('Failed to send "new job posted" notification for "'.$notification->poolNameEn.'" ('.$notification->poolId.') to user " '.$user->firstName.' '.$user->lastName.' ('.$user->id.'). '.$e->getMessage());
+                                $onDemandLog->error('Failed to send "new job posted" notification for "'.$notification->poolNameEn.'" ('.$notification->poolId.') to user " '.$user->first_name.' '.$user->last_name.' ('.$user->id.'). '.$e->getMessage());
                                 $failureCount++;
                             }
                         }
