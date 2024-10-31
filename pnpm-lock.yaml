@@ -158,8 +158,8 @@ importers:
         version: 4.2.0(@urql/core@5.0.8(graphql@16.9.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.0.3
-        version: 9.0.3
+        specifier: ^9.1.0
+        version: 9.1.0
       '@formatjs/cli':
         specifier: ^6.3.5
         version: 6.3.5
@@ -490,7 +490,7 @@ importers:
         version: 9.1.0
       eslint-import-resolver-alias:
         specifier: ^1.1.2
-        version: 1.1.2(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3))
+        version: 1.1.2(eslint-plugin-import@2.31.0)
       eslint-import-resolver-typescript:
         specifier: ^3.6.3
         version: 3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0)
@@ -534,8 +534,8 @@ importers:
   packages/fake-data:
     dependencies:
       '@faker-js/faker':
-        specifier: ^9.0.3
-        version: 9.0.3
+        specifier: ^9.1.0
+        version: 9.1.0
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
         version: link:../date-helpers
@@ -626,8 +626,8 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.0.3
-        version: 9.0.3
+        specifier: ^9.1.0
+        version: 9.1.0
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1054,8 +1054,8 @@ importers:
         version: 10.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.0.3
-        version: 9.0.3
+        specifier: ^9.1.0
+        version: 9.1.0
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1168,8 +1168,8 @@ importers:
         version: 4.2.0(@urql/core@5.0.8(graphql@16.9.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.0.3
-        version: 9.0.3
+        specifier: ^9.1.0
+        version: 9.1.0
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -2014,8 +2014,8 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@faker-js/faker@9.0.3':
-    resolution: {integrity: sha512-lWrrK4QNlFSU+13PL9jMbMKLJYXDFu3tQfayBsMXX7KL/GiQeqfB1CzHkqD5UHBUtPAuPo6XwGbMFNdVMZObRA==}
+  '@faker-js/faker@9.1.0':
+    resolution: {integrity: sha512-GJvX9iM9PBtKScJVlXQ0tWpihK3i0pha/XAhzQa1hPK/ILLa1Wq3I63Ij7lRtqTwmdTxRCyrUhLC5Sly9SLbug==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
 
   '@floating-ui/core@1.6.4':
@@ -8814,7 +8814,7 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@faker-js/faker@9.0.3': {}
+  '@faker-js/faker@9.1.0': {}
 
   '@floating-ui/core@1.6.4':
     dependencies:
@@ -12360,7 +12360,7 @@ snapshots:
 
   eslint-config-prettier@9.1.0: {}
 
-  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3)):
+  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.31.0):
     dependencies:
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3)
 
@@ -12377,7 +12377,7 @@ snapshots:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.3.5
       enhanced-resolve: 5.17.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0))
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.5
       is-bun-module: 1.1.0
@@ -12390,7 +12390,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -12400,7 +12400,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0)):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-typescript@3.6.3):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -12450,7 +12450,7 @@ snapshots:
       debug: 3.2.7
       doctrine: 2.1.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-plugin-import@2.31.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.11.0(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3

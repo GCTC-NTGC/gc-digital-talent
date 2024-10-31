@@ -19,7 +19,7 @@
     "react-toastify": "^10.0.6"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.0.3",
+    "@faker-js/faker": "^9.1.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@storybook/react": "^8.3.6",
