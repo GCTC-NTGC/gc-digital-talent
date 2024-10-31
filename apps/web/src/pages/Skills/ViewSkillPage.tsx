@@ -142,13 +142,17 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
             <FieldDisplay
               label={intl.formatMessage(adminMessages.skillFamilies)}
             >
-              <Chips>
-                {skillFamilies.map((family) => (
-                  <Chip key={family.id} color="primary">
-                    {getLocalizedName(family.name, intl)}
-                  </Chip>
-                ))}
-              </Chips>
+              {skillFamilies.length > 0 ? (
+                <Chips>
+                  {skillFamilies.map((family) => (
+                    <Chip key={family.id} color="primary">
+                      {getLocalizedName(family.name, intl)}
+                    </Chip>
+                  ))}
+                </Chips>
+              ) : (
+                intl.formatMessage(commonMessages.notProvided)
+              )}
             </FieldDisplay>
           </div>
           <div data-h2-grid-column="p-tablet(span 2)">
@@ -216,7 +220,6 @@ const ViewSkillPage = () => {
         url: routes.skillView(skillId),
       },
     ],
-    isAdmin: true,
   });
 
   const navTabs = [
