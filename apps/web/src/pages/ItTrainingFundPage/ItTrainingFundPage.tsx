@@ -350,8 +350,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>How to access it</strong>: Available through Navigar, a smart online skills development tool. All eligible IT-classified employees are expected to receive their Navigar login information by email.",
-                            id: "3hLJY5",
+                              "<strong>How to access it</strong>: Available through Navigar, a smart online skills development tool. All eligible IT-classified employees will receive their Navigar account activation email.",
+                            id: "jT46zb",
                             description:
                               "An item in a list of points about online learning",
                           })}
@@ -369,8 +369,9 @@ export const Component = () => {
                         data-h2-justify-content="base(end)"
                       >
                         {intl.formatMessage({
-                          defaultMessage: "Go to Navigar",
-                          id: "umrfZq",
+                          defaultMessage:
+                            "For more information, go to navigar.ca",
+                          id: "LqDVSD",
                           description: "A link to a tool named Navigar",
                         })}
                       </Link>
