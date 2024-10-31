@@ -90,7 +90,7 @@ class TriggerNewJobPostedTest extends TestCase
         Notification::assertSentTimes(NewJobPosted::class, 2);
     }
 
-    // triggers a notification when the pool is published
+    // no notification when the pool is published with the "other" group
     public function testNothingSentForOtherGroup(): void
     {
         $pool = Pool::factory()
