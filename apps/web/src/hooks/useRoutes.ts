@@ -25,6 +25,8 @@ const getRoutes = (lang: Locales) => {
   const baseUrl = `/${lang}`;
   const adminUrl = [baseUrl, "admin"].join("/");
   const applicantUrl = [baseUrl, "applicant"].join("/");
+  const managerUrl = [baseUrl, "manager"].join("/");
+  const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
 
   return {
@@ -47,15 +49,18 @@ const getRoutes = (lang: Locales) => {
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
     accessibility: () => [baseUrl, "accessibility-statement"].join("/"),
-    manager: () => [baseUrl, "manager"].join("/"),
     executive: () => [baseUrl, "executive"].join("/"),
     skills: () => [baseUrl, "skills"].join("/"),
     inclusivityEquity: () => [baseUrl, "inclusivity-equity"].join("/"),
+
+    // Applicant
+    applicantDashboard: () => applicantUrl,
 
     // Admin
     adminDashboard: () => adminUrl,
 
     // Admin - Communities
+    communityDashboard: () => communityUrl,
     communityTable: () => [adminUrl, "communities"].join("/"),
     communityCreate: () => [adminUrl, "communities", "create"].join("/"),
     communityView: (communityId: string) =>
@@ -303,9 +308,9 @@ const getRoutes = (lang: Locales) => {
       [baseUrl, "job-templates", templateId].join("/"),
 
     // Manager pages
-    managerDashboard: () => [baseUrl, "manager", "dashboard"].join("/"),
-    managerRequestHistory: () =>
-      [baseUrl, "manager", "talent-requests"].join("/"),
+    manager: () => managerUrl,
+    managerDashboard: () => [managerUrl, "dashboard"].join("/"),
+    managerRequestHistory: () => [managerUrl, "talent-requests"].join("/"),
 
     // IT Training Fund
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),

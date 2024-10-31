@@ -25,7 +25,6 @@ export const IndexClassificationPage = () => {
         url: routes.classificationTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (

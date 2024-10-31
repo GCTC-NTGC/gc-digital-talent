@@ -454,7 +454,6 @@ export const ViewSearchRequest = ({
         url: routes.searchRequestView(id),
       },
     ],
-    isAdmin: true,
   });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);

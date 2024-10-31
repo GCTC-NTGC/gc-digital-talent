@@ -25,7 +25,6 @@ const IndexSkillFamilyPage = () => {
         url: routes.skillFamilyTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
