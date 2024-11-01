@@ -21,6 +21,19 @@ const NAV_ROLES_BY_PRIVILEGE = [
 
 export type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
 
+export const isNavRole = (x: unknown): x is NavRole => {
+  switch (x) {
+    case "applicant":
+    case "manager":
+    case "community":
+    case "admin":
+      return true;
+    default:
+      return false;
+  }
+};
+// x && typeof x === 'string' ? NAV_ROLES_BY_PRIVILEGE.includes(x) :
+
 export interface NavContextState {
   navRole: NavRole;
   onAuthorizedRolesChanged: (roles: RoleName[]) => void;
