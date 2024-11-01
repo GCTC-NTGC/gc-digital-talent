@@ -19,7 +19,7 @@ const Item = ({ children, ...rest }: ItemProps) => {
 
 type ItemElement = ReactElement<ItemProps>;
 
-export interface RootProps {
+interface RootProps {
   children: ItemElement | ItemElement[];
 }
 

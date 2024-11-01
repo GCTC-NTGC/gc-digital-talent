@@ -9,7 +9,6 @@ use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
-use App\Observers\PoolObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -129,14 +128,6 @@ class Pool extends Model
         'department_id',
         'community_id',
     ];
-
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
-    {
-        Pool::observe(PoolObserver::class);
-    }
 
     /**
      * Boot function for using with User Events

@@ -137,6 +137,8 @@ const getRoutes = (lang: Locales) => {
     // Admin - Skills
     skillTable: () => [adminUrl, "settings", "skills"].join("/"),
     skillCreate: () => [adminUrl, "settings", "skills", "create"].join("/"),
+    skillView: (skillId: string) =>
+      [adminUrl, "settings", "skills", skillId].join("/"),
     skillUpdate: (skillId: string) =>
       [adminUrl, "settings", "skills", skillId, "edit"].join("/"),
 

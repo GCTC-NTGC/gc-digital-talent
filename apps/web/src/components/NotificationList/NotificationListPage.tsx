@@ -43,10 +43,11 @@ interface NotificationPageProps {
   page: number;
   onlyUnread?: boolean;
   isLastPage?: boolean;
-  exclude?: Scalars["UUID"]["input"][];
+  excludeIds?: Scalars["UUID"]["input"][];
   first?: number;
   inDialog?: boolean;
   onRead?: () => void;
+  fetchingLiveNotifications?: boolean;
 }
 
 const NotificationListPage = ({
@@ -56,15 +57,17 @@ const NotificationListPage = ({
   isLastPage,
   inDialog,
   onRead,
-  exclude = [],
+  excludeIds = [],
+  fetchingLiveNotifications,
 }: NotificationPageProps) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   searchParams.set("page", `${page + 1}`);
   const [{ data, fetching }] = useQuery({
     query: Notifications_Query,
+    pause: fetchingLiveNotifications,
     variables: {
-      excludeIds: exclude,
+      excludeIds,
       first: first ?? PER_PAGE,
       page,
       where: {
@@ -75,11 +78,15 @@ const NotificationListPage = ({
 
   const notifications = unpackMaybes(data?.notifications?.data);
 
+  const isLoading =
+    (fetching || fetchingLiveNotifications) && excludeIds.length === 0;
+
   const showNullMessage =
     notifications.length === 0 &&
     page === 1 &&
     !fetching &&
-    exclude.length === 0;
+    !fetchingLiveNotifications &&
+    excludeIds.length === 0;
 
   const firstNewNotification = useRef<HTMLAnchorElement & HTMLButtonElement>(
     null,
@@ -87,22 +94,27 @@ const NotificationListPage = ({
 
   return (
     <>
-      {notifications.length > 0 ? (
+      {isLoading ? (
+        <Loading inline />
+      ) : (
         <>
-          {notifications.map((notification, index) => (
-            <NotificationItem
-              key={notification.id}
-              focusRef={
-                index === 0 && page !== 1 ? firstNewNotification : undefined
-              }
-              notification={notification}
-              inDialog={inDialog}
-              onRead={onRead}
-            />
-          ))}
+          {notifications.length > 0 ? (
+            <>
+              {notifications.map((notification, index) => (
+                <NotificationItem
+                  key={notification.id}
+                  focusRef={
+                    index === 0 && page !== 1 ? firstNewNotification : undefined
+                  }
+                  notification={notification}
+                  inDialog={inDialog}
+                  onRead={onRead}
+                />
+              ))}
+            </>
+          ) : null}
         </>
-      ) : null}
-      {fetching && exclude.length === 0 && <Loading inline />}
+      )}
       {showNullMessage && (
         <NotificationPortal.Portal
           containerId={NULL_MESSAGE_ROOT_ID}

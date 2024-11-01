@@ -21,14 +21,25 @@ export function skillFamiliesCell(
   skillFamilies: Maybe<Maybe<SkillFamily>[]> | undefined,
   intl: IntlShape,
 ) {
-  const families = skillFamilies
+  const maxCharacterCount = 50;
+  const familyNames = skillFamilies
     ?.filter(notEmpty)
     .sort()
-    .map((family) => (
-      <li key={family?.key}>{getLocalizedName(family.name, intl)}</li>
-    ));
+    .map((family) => getLocalizedName(family.name, intl));
 
-  return families ? <ul>{families}</ul> : null;
+  familyNames?.sort((a, b) => a.localeCompare(b));
+
+  const familyItems = familyNames?.map((familyName) => (
+    <li key={familyName}>
+      {familyName.length < maxCharacterCount ? (
+        familyName
+      ) : (
+        <>{familyName.slice(0, maxCharacterCount)}&hellip;</>
+      )}
+    </li>
+  ));
+
+  return familyItems ? <ul>{familyItems}</ul> : null;
 }
 
 export function familiesAccessor(skill: Skill, intl: IntlShape) {

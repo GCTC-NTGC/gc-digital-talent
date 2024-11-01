@@ -50,15 +50,26 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting()
     {
+        // Limit by authenticated user, then App Insights user, then IP.
+        // In Azure, the request API is masked by the Azure gateway so it is the least useful discriminator.
+
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(config('app.rate_limit'))->by(optional($request->user())->id ?: $request->ip())->response(function () {
+            return Limit::perMinute(config('app.rate_limit'))->by(
+                $request->user()?->id
+                ?? $request->cookie('ai_user')
+                ?? $request->ip()
+            )->response(function () {
                 return response([
                     'message' => 'Rate Limit Reached for API',
                 ], 429);
             });
         });
         RateLimiter::for('web', function (Request $request) {
-            return Limit::perMinute(config('app.rate_limit'))->by(optional($request->user())->id ?: $request->ip())->response(function () {
+            return Limit::perMinute(config('app.rate_limit'))->by(
+                $request->user()?->id
+                ?? $request->cookie('ai_user')
+                ?? $request->ip()
+            )->response(function () {
                 return response([
                     'message' => 'Rate Limit Reached for Web',
                 ], 429);
@@ -66,7 +77,11 @@ class RouteServiceProvider extends ServiceProvider
         });
         // This limiter is for the throttle directive which can be set independently of the route-based limiters and can raise graphql-style error messages.
         RateLimiter::for('graphql', function (Request $request) {
-            return Limit::perMinute(config('app.rate_limit'))->by(optional($request->user())->id ?: $request->ip());
+            return Limit::perMinute(config('app.rate_limit'))->by(
+                $request->user()?->id
+                ?? $request->cookie('ai_user')
+                ?? $request->ip()
+            );
         });
     }
 }
