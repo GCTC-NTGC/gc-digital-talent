@@ -40,9 +40,6 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "dashboard",
-                  loader: () => {
-                    throw new NotFoundError(); // unfinished page
-                  },
                   lazy: () =>
                     import(
                       "../pages/Manager/ManagerDashboardPage/ManagerDashboardPage"
@@ -50,9 +47,6 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "talent-requests",
-                  loader: () => {
-                    throw new NotFoundError(); // unfinished page
-                  },
                   lazy: () =>
                     import(
                       "../pages/Manager/ManagerRequestHistoryPage/ManagerRequestHistoryPage"
