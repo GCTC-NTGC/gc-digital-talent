@@ -15,8 +15,9 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, RoleName, useAuthorization } from "@gc-digital-talent/auth";
 import { useLocalStorage } from "@gc-digital-talent/storage";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
@@ -24,6 +25,12 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/HeroDeprecated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import useMainNavLinks from "~/components/NavMenu/useMainNavLinks";
+import useNavContext from "~/components/NavContext/useNavContext";
+import {
+  chooseNavRole,
+  isNavRole,
+} from "~/components/NavContext/NavContextContainer";
 
 import pageMessages from "./messages";
 import PoolCandidateSearchRequestPreviewListItem from "../components/PoolCandidateSearchRequestPreviewListItem";
@@ -105,6 +112,24 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
       ),
     },
   ];
+
+  const { navRole } = useNavContext();
+  const { roleAssignments } = useAuthorization();
+  const { roleLinks } = useMainNavLinks();
+
+  const userRoles = roleAssignments
+    ?.map((a) => a.role?.name)
+    .filter((a) => a !== ROLE_NAME.BaseUser)
+    .filter(notEmpty) as RoleName[];
+
+  const roleDropdownLinks = roleLinks.map((role) => {
+    return {
+      title: role.name,
+      href: role.href,
+      isSelected:
+        isNavRole(role.id) && navRole === chooseNavRole(role.id, userRoles),
+    };
+  });
 
   return (
     <>
@@ -260,18 +285,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                 })}
               >
                 <ResourceBlock.LinkMenuItem
-                  links={[
-                    {
-                      title: "Applicant",
-                      href: "#",
-                      isSelected: false,
-                    },
-                    {
-                      title: "Manager",
-                      href: "#",
-                      isSelected: true,
-                    },
-                  ]}
+                  links={roleDropdownLinks}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Easily switch between roles your account has access to.",
