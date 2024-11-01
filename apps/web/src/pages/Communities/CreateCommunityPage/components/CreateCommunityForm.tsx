@@ -2,8 +2,9 @@ import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import { Link } from "@gc-digital-talent/ui";
+import { CardSectioned, Heading, Link } from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Input,
@@ -13,15 +14,14 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import {
   CreateCommunityInput,
-  CreateCommunityMutation,
   LocalizedStringInput,
   Maybe,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
-import useReturnPath from "~/hooks/useReturnPath";
 
 interface FormValues {
   key: string;
@@ -46,21 +46,18 @@ const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
 };
 
 interface CreateCommunityFormProps {
-  onSubmit: (
-    data: CreateCommunityInput,
-  ) => Promise<CreateCommunityMutation["createCommunity"]>;
+  onSubmit: (data: CreateCommunityInput) => Promise<Scalars["UUID"]["output"]>;
 }
 
 const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const navigateTo = useReturnPath(paths.communityTable());
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
+      .then((id) => {
+        navigate(paths.communityView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Community created successfully!",
@@ -82,19 +79,29 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <div data-h2-wrapper="base(center, medium, x1) p-tablet(center, medium, x2)">
-        <div
-          data-h2-background="base(foreground)"
-          data-h2-color="base(black)"
-          data-h2-padding="base(x1)"
-          data-h2-radius="base(rounded)"
-          data-h2-shadow="base(m)"
-        >
+      <CardSectioned.Root>
+        <CardSectioned.Item>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(center) p-tablet(flex-start)"
+          >
+            <Heading
+              level="h2"
+              color="primary"
+              Icon={IdentificationIcon}
+              data-h2-margin="base(0, 0, x1.5, 0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Community information",
+                id: "ocTGYr",
+                description: "Heading for the 'create a community' form",
+              })}
+            </Heading>
+          </div>
           <div
             data-h2-display="base(grid)"
             data-h2-gap="base(x1)"
             data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-            data-h2-margin-bottom="base(x2)"
           >
             <Input
               id="name.en"
@@ -132,38 +139,41 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
               }}
               wordLimit={TEXT_AREA_MAX_WORDS}
             />
-            <Input
-              id="key"
-              label={intl.formatMessage(adminMessages.key)}
-              name="key"
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
+            <div data-h2-grid-column="p-tablet(span 2)">
+              <Input
+                id="key"
+                label={intl.formatMessage(adminMessages.key)}
+                name="key"
+                type="text"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </div>
           </div>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x1)"
-            data-h2-align-items="base(center)"
-          >
-            <Submit
-              text={intl.formatMessage({
-                defaultMessage: "Create community",
-                id: "lhLfd7",
-                description: "Text to create a community",
-              })}
-            />
-            <Link mode="inline" color="warning" href={navigateTo}>
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back to communities",
-                id: "OFGtZr",
-                description: "Link text to cancel updating a community",
-              })}
-            </Link>
-          </div>
-        </div>
-      </div>
+        </CardSectioned.Item>
+        <CardSectioned.Item
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-gap="base(x1)"
+          data-h2-align-items="base(center)"
+        >
+          <Submit
+            text={intl.formatMessage({
+              defaultMessage: "Create community",
+              id: "lhLfd7",
+              description: "Text to create a community",
+            })}
+          />
+          <Link mode="inline" color="warning" href={paths.communityTable()}>
+            {intl.formatMessage({
+              defaultMessage: "Cancel and go back to communities",
+              id: "OFGtZr",
+              description: "Link text to cancel updating a community",
+            })}
+          </Link>
+        </CardSectioned.Item>
+      </CardSectioned.Root>
     </BasicForm>
   );
 };

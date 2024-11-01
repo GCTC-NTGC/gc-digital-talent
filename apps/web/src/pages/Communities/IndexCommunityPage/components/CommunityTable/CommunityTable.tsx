@@ -122,9 +122,9 @@ export const CommunityTable = ({
       search={{
         internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Search communities",
-          id: "3hqdVV",
-          description: "Label for the communities table search input",
+          defaultMessage: "Search by keyword",
+          id: "lNU7FS",
+          description: "Label for the pool candidates table search input",
         }),
       }}
       {...(canCreateMembers
@@ -133,8 +133,8 @@ export const CommunityTable = ({
               linkProps: {
                 href: paths.communityCreate(),
                 label: intl.formatMessage({
-                  defaultMessage: "Create community",
-                  id: "lhLfd7",
+                  defaultMessage: "Create a community",
+                  id: "BRd2Xw",
                   description: "Text to create a community",
                 }),
                 from: currentUrl,
