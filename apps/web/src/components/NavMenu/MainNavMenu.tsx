@@ -49,11 +49,7 @@ const MainNavMenu = () => {
     accountLinks,
     authLinks,
     systemSettings,
-  } = useMainNavLinks(
-    navRole,
-    loggedIn,
-    userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [],
-  );
+  } = useMainNavLinks();
 
   const [isMenuOpen, setMenuOpen] = useState(false);
 

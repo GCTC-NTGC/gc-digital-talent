@@ -4,18 +4,22 @@ import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 
 import { getNavLinkStyling, NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
-import { useIsSmallScreen } from "@gc-digital-talent/helpers";
+import {
+  hasRole,
+  ROLE_NAME,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
+import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { NavRole } from "../NavContext/NavContextContainer";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
 import navMenuMessages from "./messages";
+import useNavContext from "../NavContext/useNavContext";
 
 export const NavItem = ({
   key,
@@ -40,19 +44,17 @@ export const NavItem = ({
 
 /**
  * Builds the navigation structure depending on the current role and if the user is logged in
- * @param navRole The current navigation role of the user
- * @param loggedIn If the user is logged in
- * @returns
  */
-const useMainNavLinks = (
-  navRole: NavRole,
-  loggedIn: boolean,
-  roleAssignments: RoleAssignment[],
-) => {
+const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const permissions = permissionConstants();
   const isSmallScreen = useIsSmallScreen(1080);
+
+  const { navRole } = useNavContext();
+  const { userAuthInfo } = useAuthorization();
+  const { loggedIn } = useAuthentication();
+  const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
 
   const Home = (
     <NavMenu.Link
@@ -336,6 +338,7 @@ const useMainNavLinks = (
       }
 
       return {
+        id: role,
         name: getRoleName[role],
         href: getRoleLink[role],
       };
