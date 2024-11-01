@@ -313,7 +313,7 @@ const useMainNavLinks = () => {
 
   const getRoleLink: Record<string, string> = {
     ["applicant"]: paths.applicantDashboard(),
-    ["manager"]: paths.manager(),
+    ["manager"]: paths.managerDashboard(),
     ["pool_operator"]: paths.communityDashboard(),
     ["request_responder"]: paths.communityDashboard(),
     ["community_manager"]: paths.communityDashboard(),

@@ -294,17 +294,17 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   })}
                 />
               </ResourceBlock.Root>
-              <ResourceBlock.Root
-                headingColor="quaternary"
-                headingAs="h2"
-                title={intl.formatMessage({
-                  defaultMessage: "Your information",
-                  id: "jALTj0",
-                  description: "Card title for an information card",
-                })}
-              >
-                {showUnfinishedPieces ? (
-                  // This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state.
+              {!showUnfinishedPieces && (
+                <ResourceBlock.Root
+                  headingColor="quaternary"
+                  headingAs="h2"
+                  title={intl.formatMessage({
+                    defaultMessage: "Your information",
+                    id: "jALTj0",
+                    description: "Card title for an information card",
+                  })}
+                >
+                  {/* This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state. */}
                   <ResourceBlock.SingleLinkItem
                     state="complete"
                     title={intl.formatMessage({
@@ -320,11 +320,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                       description: "the 'Manager profile' tool's description",
                     })}
                   />
-                ) : (
-                  <></>
-                )}
-                {showUnfinishedPieces ? (
-                  // This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state.
+                  {/* // This block is missing an href since the page doesn't exist yet.  It also needs logic to dynamically set the state. */}
                   <ResourceBlock.SingleLinkItem
                     state="complete"
                     title={intl.formatMessage({
@@ -341,10 +337,8 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                         "Helper instructions for an 'account and privacy' card",
                     })}
                   />
-                ) : (
-                  <></>
-                )}
-              </ResourceBlock.Root>
+                </ResourceBlock.Root>
+              )}
               <ResourceBlock.Root
                 headingColor="tertiary"
                 headingAs="h2"
