@@ -10,13 +10,15 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { checkRole } from "~/utils/communityUtils";
+import Hero from "~/components/Hero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import pageTitles from "~/messages/pageTitles";
 
 const CommunityLayout_CommunityFragment = graphql(/* GraphQL */ `
   fragment CommunityLayout_Community on Community {
@@ -32,7 +34,7 @@ type CommunityLayoutFragment = FragmentType<
   typeof CommunityLayout_CommunityFragment
 >;
 
-type PageNavKeys = "manage-access" | "view" | "edit";
+type PageNavKeys = "manage-access" | "view";
 
 interface CommunityHeaderProps {
   communityQuery: CommunityLayoutFragment;
@@ -84,19 +86,29 @@ const CommunityHeader = ({
   const communityName = getLocalizedName(community.name, intl);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(pageTitles.communities),
+        url: paths.communityTable(),
+      },
+      {
+        label: communityName,
+        url: currentPage?.link.url ?? "#",
+      },
+    ],
+  });
+
   return (
     <>
       <SEO title={currentPage?.title} description={communityName} />
-      <AdminHero
-        title={currentPage?.title}
-        subtitle={communityName}
-        nav={{
-          mode: "subNav",
-          items: Array.from(pages.values()).map((page) => ({
-            label: page.link.label ?? page.title,
-            url: page.link.url,
-          })),
-        }}
+      <Hero
+        title={communityName}
+        crumbs={navigationCrumbs}
+        navTabs={Array.from(pages.values()).map((page) => ({
+          label: page.title,
+          url: page.link.url,
+        }))}
       />
     </>
   );
