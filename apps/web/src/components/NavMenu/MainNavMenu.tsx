@@ -68,6 +68,23 @@ const MainNavMenu = () => {
     admin: intl.formatMessage(navMenuMessages.admin),
   } as const;
 
+  const hasMoreThanOneRole =
+    navRole !== null &&
+    roleAssignments !== undefined &&
+    roleAssignments.length >= 1;
+
+  const onlyHasOneRoleNotApplicant =
+    navRole !== null &&
+    roleAssignments !== undefined &&
+    roleAssignments.length === 1 &&
+    roleAssignments[0].role?.name !== ROLE_NAME.Applicant;
+
+  const onlyHasApplicantRole =
+    navRole !== null &&
+    roleAssignments !== undefined &&
+    roleAssignments.length === 1 &&
+    roleAssignments[0].role?.name === ROLE_NAME.Applicant;
+
   return (
     <>
       <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
@@ -118,7 +135,9 @@ const MainNavMenu = () => {
           >
             <NavMenu.Item
               data-h2-display="base(none) l-tablet(flex)"
-              {...(!loggedIn && {
+              {...((!loggedIn ||
+                onlyHasApplicantRole ||
+                roleAssignments?.length === 0) && {
                 "data-h2-border-right":
                   "base(none) l-tablet:all(1px solid black.light)",
                 "data-h2-padding": "base(0) l-tablet(0 x.75)",
@@ -127,9 +146,7 @@ const MainNavMenu = () => {
             >
               {homeLink}
             </NavMenu.Item>
-            {navRole !== null &&
-            roleAssignments !== undefined &&
-            roleAssignments.length > 1 ? (
+            {onlyHasOneRoleNotApplicant || hasMoreThanOneRole ? (
               <>
                 <NavMenu.Item
                   data-h2-border-right="base(none) l-tablet:all(1px solid black.light)"

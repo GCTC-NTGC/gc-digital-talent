@@ -7,6 +7,7 @@ import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   hasRole,
   ROLE_NAME,
+  RoleName,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
@@ -20,21 +21,24 @@ import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
 import navMenuMessages from "./messages";
 import useNavContext from "../NavContext/useNavContext";
+import {
+  convertRoleToNavRole,
+  isNavRole,
+  NAV_ROLES_BY_PRIVILEGE,
+} from "../NavContext/NavContextContainer";
 
 export const NavItem = ({
-  key,
   href,
   title,
   subMenu,
   ...rest
 }: {
-  key: string;
   href: string;
   title: string;
   subMenu?: boolean;
 }) => {
   return (
-    <NavMenu.Item key={key} {...rest}>
+    <NavMenu.Item {...rest}>
       <NavMenu.Link href={href} type={subMenu ? "subMenuLink" : "link"}>
         {title}
       </NavMenu.Link>
@@ -338,19 +342,28 @@ const useMainNavLinks = () => {
       }
 
       return {
-        id: role,
+        id: convertRoleToNavRole(role as RoleName),
         name: getRoleName[role],
         href: getRoleLink[role],
       };
     });
 
-  const roleLinksNoDuplicates = uniqBy(roleLinks, "name");
+  const roleLinksNoDuplicatesAndSorted = uniqBy(roleLinks, "name").sort(
+    (a, b) => {
+      if (isNavRole(a.id) && isNavRole(b.id))
+        return (
+          NAV_ROLES_BY_PRIVILEGE.indexOf(a.id) -
+          NAV_ROLES_BY_PRIVILEGE.indexOf(b.id)
+        );
+      return 0;
+    },
+  );
 
   const defaultLinks = {
     homeLink: Home,
-    roleLinks: roleLinksNoDuplicates,
+    roleLinks: roleLinksNoDuplicatesAndSorted,
     mainLinks: [BrowseJobs],
-    accountLinks: null,
+    accountLinks: loggedIn ? [SignOut] : null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
     resourceLinks: [ContactSupport],
     systemSettings: null,
