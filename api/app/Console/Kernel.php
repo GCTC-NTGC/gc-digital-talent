@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
+use App\Console\Commands\SendNotificationsPoolPublished;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -33,6 +34,12 @@ class Kernel extends ConsoleKernel
             // 10 PM Eastern is the same day across the country, close to the end of the day in NL
             ->dailyAt('22:00')
             ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
+
+        // send out 'new pool' emails overnight
+        $schedule->command(SendNotificationsPoolPublished::class)
+            ->timezone('America/Toronto')
+            ->dailyAt('3:00')
+            ->appendOutputTo('/tmp/send-notifications-pool-published.log');
     }
 
     /**
