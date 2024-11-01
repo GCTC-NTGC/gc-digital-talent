@@ -82,6 +82,7 @@ export const CreateDepartmentForm = ({
                 color="primary"
                 Icon={IdentificationIcon}
                 data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Department information",
