@@ -107,7 +107,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
           <Link
-            href={paths.skillUpdate(community.id)}
+            href={paths.communityUpdate(community.id)}
             data-h2-font-weight="base(bold)"
           >
             {intl.formatMessage({

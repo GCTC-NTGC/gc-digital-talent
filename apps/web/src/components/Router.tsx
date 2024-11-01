@@ -626,6 +626,13 @@ const createRoute = (locale: Locales) =>
                           "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
                         ),
                     },
+                    {
+                      path: "edit",
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/UpdateCommunityPage/UpdateCommunityPage"
+                        ),
+                    },
                   ],
                 },
               ],
