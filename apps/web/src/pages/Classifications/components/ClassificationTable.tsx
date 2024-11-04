@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 import { useLocation } from "react-router-dom";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Pending } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
   FragmentType,
@@ -15,9 +15,9 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
+import { getClassificationName } from "~/utils/poolUtils";
 
 export const ClassificationTableRow_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationTableRow on Classification {
@@ -56,13 +56,19 @@ export const ClassificationTable = ({
       enableColumnFilter: false,
       header: intl.formatMessage(adminMessages.id),
     }),
-    columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
+    columnHelper.accessor((row) => getClassificationName(row, intl), {
       id: "name",
       meta: {
         isRowTitle: true,
       },
       sortingFn: normalizedText,
       header: intl.formatMessage(commonMessages.name),
+      cell: ({
+        getValue,
+        row: {
+          original: { id },
+        },
+      }) => <Link href={paths.classificationView(id)}>{getValue()}</Link>,
     }),
     columnHelper.accessor("group", {
       id: "group",
@@ -104,34 +110,19 @@ export const ClassificationTable = ({
           "Title displayed for the Classification table Maximum Salary column.",
       }),
     }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: classification } }) =>
-        cells.edit(
-          classification.id,
-          paths.classificationTable(),
-          `${getLocalizedName(classification.name, intl, true)} ${
-            classification.group
-          }-0${classification.level}`,
-        ),
-    }),
   ] as ColumnDef<ClassificationTableRowFragment>[];
 
-  const data = classifications.filter(notEmpty);
-
   const { pathname, search, hash } = useLocation();
-  const currentUrl = `${pathname}${search}${hash}`;
 
   return (
     <Table<ClassificationTableRowFragment>
       caption={title}
-      data={data}
+      data={classifications}
       columns={columns}
       hiddenColumnIds={["id", "minSalary", "maxSalary"]}
       pagination={{
         internal: true,
-        total: data.length,
+        total: classifications.length,
         pageSizes: [10, 20, 50],
       }}
       sort={{
@@ -154,7 +145,7 @@ export const ClassificationTable = ({
             description:
               "Heading displayed above the Create Classification form.",
           }),
-          from: currentUrl,
+          from: `${pathname}${search}${hash}`,
         },
       }}
       nullMessage={{

@@ -129,6 +129,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "settings", "classifications"].join("/"),
     classificationCreate: () =>
       [adminUrl, "settings", "classifications", "create"].join("/"),
+    classificationView: (id: string) =>
+      `${adminUrl}/settings/classifications/${id}`,
     classificationUpdate: (classificationId: string) =>
       [adminUrl, "settings", "classifications", classificationId, "edit"].join(
         "/",
