@@ -152,8 +152,8 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage({
         defaultMessage: "Job templates library",
-        id: "S9N76A",
-        description: "aaa",
+        id: "MySfL/",
+        description: "Label for link to job templates library",
       }),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
@@ -261,7 +261,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         <div
           data-h2-display="base(flex)"
           data-h2-flex-wrap="base(wrap)"
-          data-h2-gap="base(x2 x2)"
+          data-h2-gap="base(x2 x1.1)"
         >
           {recruitmentCollectionSorted.length > 0 && (
             <div>
@@ -273,11 +273,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Recruitment",
-                  id: "+Aytdn",
-                  description: "aaa",
+                  id: "UNEVD9",
+                  description: "Header for section called recruitment",
                 })}
               </Heading>
-              <CardBasic data-h2-min-width="base(x13)">
+              <CardBasic data-h2-min-width="base(x14.5)">
                 <ul>
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label} data-h2-margin-bottom="base(x.5)">
@@ -299,11 +299,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             >
               {intl.formatMessage({
                 defaultMessage: "Resources",
-                id: "1M0pmT",
-                description: "aaa",
+                id: "nGSUzp",
+                description: "Card title for a 'resources' card",
               })}
             </Heading>
-            <CardBasic data-h2-min-width="base(x13)">
+            <CardBasic data-h2-min-width="base(x14.5)">
               <ul>
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label} data-h2-margin-bottom="base(x.5)">
@@ -325,11 +325,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Administration",
-                  id: "oHyv/S",
-                  description: "aaa",
+                  id: "CdJQ7z",
+                  description: "Header for section called administration",
                 })}
               </Heading>
-              <CardBasic data-h2-min-width="base(x13)">
+              <CardBasic data-h2-min-width="base(x14.5)">
                 <ul>
                   {administrationCollectionSorted.map((item) => (
                     <li key={item.label} data-h2-margin-bottom="base(x.5)">
@@ -343,7 +343,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             </div>
           )}
         </div>
-        <div data-h2-margin-top="base(x3)" data-h2-margin-bottom="base(x4)">
+        <div data-h2-margin-top="base(x3)" data-h2-margin-bottom="base(x2)">
           <Heading
             size="h4"
             data-h2-margin="base(0, 0, x1, 0)"
@@ -352,8 +352,9 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           >
             {intl.formatMessage({
               defaultMessage: "Your roles",
-              id: "8MlIqk",
-              description: "aaa",
+              id: "IJlJF1",
+              description:
+                "Header for section displaying logged in user's roles",
             })}
           </Heading>
           <RoleChips roles={ownRoles} intl={intl}></RoleChips>
