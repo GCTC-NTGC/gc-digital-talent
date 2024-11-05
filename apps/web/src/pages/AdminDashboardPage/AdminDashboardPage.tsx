@@ -1,9 +1,10 @@
 import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
-import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
-import ComputerDesktopIcon from "@heroicons/react/24/solid/ComputerDesktopIcon";
-import Cog8ToothIcon from "@heroicons/react/20/solid/Cog8ToothIcon";
+import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
+import ComputerDesktopIcon from "@heroicons/react/24/outline/ComputerDesktopIcon";
+import CogIcon from "@heroicons/react/24/outline/CogIcon";
+import uniqBy from "lodash/uniqBy";
 
 import {
   CardBasic,
@@ -19,13 +20,19 @@ import {
   ROLE_NAME,
   RoleName,
 } from "@gc-digital-talent/auth";
-import { Maybe, Role, User, graphql } from "@gc-digital-talent/graphql";
+import {
+  Maybe,
+  Role,
+  RoleAssignment,
+  User,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import pageTitles from "~/messages/pageTitles";
 import pageIcons from "~/utils/pageIcons";
@@ -48,15 +55,26 @@ const subTitle = defineMessage({
 });
 
 interface RoleChipsProps {
-  roles: Maybe<Maybe<Role>[]>;
+  roles: Role[];
   intl: IntlShape;
 }
 
+// short-circuit hasRole if no roles were required so an empty array
+const hasRolesHandleNoRolesRequired = (
+  checkRole: RoleName | RoleName[],
+  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+): boolean => {
+  if (Array.isArray(checkRole) && checkRole.length === 0) {
+    return true;
+  }
+  return hasRole(checkRole, userRoles);
+};
+
 const RoleChips = ({ roles, intl }: RoleChipsProps) => {
-  const nonEmptyRoles = roles?.filter(notEmpty);
-  const roleChips = nonEmptyRoles
-    ? orderRoles(nonEmptyRoles, intl).map((role) => (
-        <Chip color="secondary" key={role.id} data-h2-margin-right="base(x.5)">
+  const uniqueRoles = uniqBy(roles, "name");
+  const roleChips = uniqueRoles
+    ? orderRoles(uniqueRoles, intl).map((role) => (
+        <Chip color="warning" key={role.id} data-h2-margin-right="base(x.25)">
           {getLocalizedName(role.displayName, intl)}
         </Chip>
       ))
@@ -99,7 +117,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
-    hasRole(item.roles, roleAssignments),
+    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
   );
   const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
     (a, b) => {
@@ -127,7 +145,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
-    hasRole(item.roles, roleAssignments),
+    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
   );
   const resourcesCollectionSorted = resourcesCollectionFiltered.sort((a, b) => {
     const aName = a.label;
@@ -174,7 +192,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
-    (item) => hasRole(item.roles, roleAssignments),
+    (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
   );
   const administrationCollectionSorted = administrationCollectionFiltered.sort(
     (a, b) => {
@@ -220,13 +238,15 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         <div
           data-h2-display="base(flex)"
           data-h2-flex-wrap="base(wrap)"
-          data-h2-gap="base(x2 x5)"
+          data-h2-justify-content="base(space-between)"
+          data-h2-gap="base(x2 0)"
         >
           <div>
             <Heading
               size="h4"
               data-h2-margin="base(0, 0, x1, 0)"
               Icon={RocketLaunchIcon}
+              color="primary"
             >
               {intl.formatMessage({
                 defaultMessage: "Recruitment",
@@ -234,11 +254,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 description: "aaa",
               })}
             </Heading>
-            <CardBasic>
+            <CardBasic data-h2-min-width="base(x13)">
               <ul>
                 {recruitmentCollectionSorted.map((item) => (
-                  <li key={item.label}>
-                    <Link color="black" mode="inline" href={item.href}>
+                  <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                    <Link color="primary" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
                   </li>
@@ -251,6 +271,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               size="h4"
               data-h2-margin="base(0, 0, x1, 0)"
               Icon={BookOpenIcon}
+              color="secondary"
             >
               {intl.formatMessage({
                 defaultMessage: "Resources",
@@ -258,11 +279,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 description: "aaa",
               })}
             </Heading>
-            <CardBasic>
+            <CardBasic data-h2-min-width="base(x13)">
               <ul>
                 {resourcesCollectionSorted.map((item) => (
-                  <li key={item.label}>
-                    <Link color="black" mode="inline" href={item.href}>
+                  <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                    <Link color="secondary" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
                   </li>
@@ -275,6 +296,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               size="h4"
               data-h2-margin="base(0, 0, x1, 0)"
               Icon={ComputerDesktopIcon}
+              color="error"
             >
               {intl.formatMessage({
                 defaultMessage: "Administration",
@@ -282,11 +304,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 description: "aaa",
               })}
             </Heading>
-            <CardBasic>
+            <CardBasic data-h2-min-width="base(x13)">
               <ul>
                 {administrationCollectionSorted.map((item) => (
-                  <li key={item.label}>
-                    <Link color="black" mode="inline" href={item.href}>
+                  <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                    <Link color="error" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
                   </li>
@@ -295,11 +317,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             </CardBasic>
           </div>
         </div>
-        <div data-h2-margin-top="base(x2)">
+        <div data-h2-margin-top="base(x2)" data-h2-margin-bottom="base(x3)">
           <Heading
             size="h4"
             data-h2-margin="base(0, 0, x1, 0)"
-            Icon={Cog8ToothIcon}
+            Icon={CogIcon}
+            color="warning"
           >
             {intl.formatMessage({
               defaultMessage: "Your roles",
