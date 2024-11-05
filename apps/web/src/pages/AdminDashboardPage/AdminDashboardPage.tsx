@@ -1,10 +1,31 @@
-import { defineMessage, useIntl } from "react-intl";
+import { defineMessage, IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
+import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
+import ComputerDesktopIcon from "@heroicons/react/24/solid/ComputerDesktopIcon";
+import Cog8ToothIcon from "@heroicons/react/20/solid/Cog8ToothIcon";
 
-import { Heading, Pending } from "@gc-digital-talent/ui";
-import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
-import { User, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  CardBasic,
+  Chip,
+  Chips,
+  Heading,
+  Link,
+  Pending,
+} from "@gc-digital-talent/ui";
+import {
+  useAuthorization,
+  hasRole,
+  ROLE_NAME,
+  RoleName,
+} from "@gc-digital-talent/auth";
+import { Maybe, Role, User, graphql } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import pageTitles from "~/messages/pageTitles";
 import pageIcons from "~/utils/pageIcons";
@@ -14,8 +35,10 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import adminMessages from "~/messages/adminMessages";
 
 import LinkWell from "./components/LinkWell";
+import { orderRoles } from "../Communities/CommunityMembersPage/helpers";
 
 const subTitle = defineMessage({
   defaultMessage:
@@ -23,6 +46,24 @@ const subTitle = defineMessage({
   id: "7nxtBm",
   description: "Subtitle for the admin dashboard page",
 });
+
+interface RoleChipsProps {
+  roles: Maybe<Maybe<Role>[]>;
+  intl: IntlShape;
+}
+
+const RoleChips = ({ roles, intl }: RoleChipsProps) => {
+  const nonEmptyRoles = roles?.filter(notEmpty);
+  const roleChips = nonEmptyRoles
+    ? orderRoles(nonEmptyRoles, intl).map((role) => (
+        <Chip color="secondary" key={role.id} data-h2-margin-right="base(x.5)">
+          {getLocalizedName(role.displayName, intl)}
+        </Chip>
+      ))
+    : null;
+
+  return roleChips ? <Chips>{roleChips}</Chips> : null;
+};
 
 interface DashboardPageProps {
   currentUser?: User | null;
@@ -32,6 +73,122 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const { roleAssignments } = useAuthorization();
+
+  interface CardLinkInfo {
+    label: string;
+    href: string;
+    roles: RoleName[];
+  }
+
+  // recruitment section
+  const recruitmentCollection: CardLinkInfo[] = [
+    {
+      label: intl.formatMessage(navigationMessages.candidates),
+      href: adminRoutes.poolCandidates(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(navigationMessages.processes),
+      href: adminRoutes.poolTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(pageTitles.talentRequests),
+      href: adminRoutes.searchRequestTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+  ];
+  const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
+    hasRole(item.roles, roleAssignments),
+  );
+  const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
+    (a, b) => {
+      const aName = a.label;
+      const bName = b.label;
+      return aName.localeCompare(bName);
+    },
+  );
+
+  // resources section
+  const resourcesCollection: CardLinkInfo[] = [
+    {
+      label: intl.formatMessage(navigationMessages.skillsLibrary),
+      href: adminRoutes.skills(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Job templates library",
+        id: "S9N76A",
+        description: "aaa",
+      }),
+      href: adminRoutes.jobPosterTemplates(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+  ];
+  const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
+    hasRole(item.roles, roleAssignments),
+  );
+  const resourcesCollectionSorted = resourcesCollectionFiltered.sort((a, b) => {
+    const aName = a.label;
+    const bName = b.label;
+    return aName.localeCompare(bName);
+  });
+
+  // administration section
+  const administrationCollection: CardLinkInfo[] = [
+    {
+      label: intl.formatMessage(pageTitles.announcements),
+      href: adminRoutes.announcements(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(adminMessages.classifications),
+      href: adminRoutes.classificationTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(adminMessages.departments),
+      href: adminRoutes.departmentTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(navigationMessages.skills),
+      href: adminRoutes.skillTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(adminMessages.skillFamilies),
+      href: adminRoutes.skillFamilyTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(pageTitles.teams),
+      href: adminRoutes.teamTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(navigationMessages.users),
+      href: adminRoutes.userTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+  ];
+  const administrationCollectionFiltered = administrationCollection.filter(
+    (item) => hasRole(item.roles, roleAssignments),
+  );
+  const administrationCollectionSorted = administrationCollectionFiltered.sort(
+    (a, b) => {
+      const aName = a.label;
+      const bName = b.label;
+      return aName.localeCompare(bName);
+    },
+  );
+
+  // own roles
+  const ownRoles = unpackMaybes(roleAssignments)
+    .map((roleAssign) => roleAssign.role)
+    .filter((role) => !!role)
+    .filter((role) => !["guest", "base_user", "applicant"].includes(role.name));
 
   return (
     <>
@@ -60,6 +217,98 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         subtitle={intl.formatMessage(subTitle)}
       />
       <AdminContentWrapper>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-wrap="base(wrap)"
+          data-h2-gap="base(x2 x5)"
+        >
+          <div>
+            <Heading
+              size="h4"
+              data-h2-margin="base(0, 0, x1, 0)"
+              Icon={RocketLaunchIcon}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Recruitment",
+                id: "+Aytdn",
+                description: "aaa",
+              })}
+            </Heading>
+            <CardBasic>
+              <ul>
+                {recruitmentCollectionSorted.map((item) => (
+                  <li key={item.label}>
+                    <Link color="black" mode="inline" href={item.href}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </CardBasic>
+          </div>
+          <div>
+            <Heading
+              size="h4"
+              data-h2-margin="base(0, 0, x1, 0)"
+              Icon={BookOpenIcon}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Resources",
+                id: "1M0pmT",
+                description: "aaa",
+              })}
+            </Heading>
+            <CardBasic>
+              <ul>
+                {resourcesCollectionSorted.map((item) => (
+                  <li key={item.label}>
+                    <Link color="black" mode="inline" href={item.href}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </CardBasic>
+          </div>
+          <div>
+            <Heading
+              size="h4"
+              data-h2-margin="base(0, 0, x1, 0)"
+              Icon={ComputerDesktopIcon}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Administration",
+                id: "oHyv/S",
+                description: "aaa",
+              })}
+            </Heading>
+            <CardBasic>
+              <ul>
+                {administrationCollectionSorted.map((item) => (
+                  <li key={item.label}>
+                    <Link color="black" mode="inline" href={item.href}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </CardBasic>
+          </div>
+        </div>
+        <div data-h2-margin-top="base(x2)">
+          <Heading
+            size="h4"
+            data-h2-margin="base(0, 0, x1, 0)"
+            Icon={Cog8ToothIcon}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Your roles",
+              id: "8MlIqk",
+              description: "aaa",
+            })}
+          </Heading>
+          <RoleChips roles={ownRoles} intl={intl}></RoleChips>
+        </div>
         <Heading
           size="h4"
           data-h2-font-weight="base(bold)"
