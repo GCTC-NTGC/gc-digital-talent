@@ -30,6 +30,8 @@ import { getClassificationName } from "~/utils/poolUtils";
 import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 
+import messages from "./messages";
+
 const ViewClassification_Fragment = graphql(/* GraphQL */ `
   fragment ViewClassification on Classification {
     id
@@ -54,11 +56,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
   const classification = getFragment(ViewClassification_Fragment, query);
 
   const pageTitle = getClassificationName(classification, intl);
-  const subTitle = intl.formatMessage({
-    defaultMessage: "Classification information",
-    id: "Lv8q5A",
-    description: "Subtitle for viewing a specific classification",
-  });
+  const subTitle = intl.formatMessage(messages.classificationInfo);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
