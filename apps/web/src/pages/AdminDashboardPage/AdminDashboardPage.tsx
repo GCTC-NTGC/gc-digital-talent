@@ -81,11 +81,11 @@ const RoleChips = ({ roles, intl }: RoleChipsProps) => {
   return roleChips ? <Chips>{roleChips}</Chips> : null;
 };
 
-interface DashboardPageProps {
+export interface DashboardPageProps {
   currentUser?: User | null;
 }
 
-const DashboardPage = ({ currentUser }: DashboardPageProps) => {
+export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const { roleAssignments } = useAuthorization();
