@@ -885,6 +885,13 @@ const createRoute = (locale: Locales) =>
                       path: ":skillFamilyId",
                       children: [
                         {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/SkillFamilies/ViewSkillFamilyPage"
+                            ),
+                        },
+                        {
                           path: "edit",
                           lazy: () =>
                             import(
