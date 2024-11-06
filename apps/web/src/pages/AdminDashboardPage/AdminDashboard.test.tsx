@@ -45,10 +45,10 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Candidates",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
     expect(
       screen.queryByRole("link", {
         name: "Talent requests",
@@ -121,14 +121,14 @@ describe("Render dashboard page", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: "Candidates",
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", {
         name: "Talent requests",
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
+        name: "Candidates",
+      }),
+    ).not.toBeInTheDocument();
 
     // resources links
     expect(
@@ -195,10 +195,10 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", {
+      screen.queryByRole("link", {
         name: "Candidates",
       }),
-    ).toBeInTheDocument();
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("link", {
         name: "Talent requests",
@@ -271,14 +271,14 @@ describe("Render dashboard page", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: "Candidates",
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", {
         name: "Talent requests",
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
+        name: "Candidates",
+      }),
+    ).not.toBeInTheDocument();
 
     // resources links
     expect(
