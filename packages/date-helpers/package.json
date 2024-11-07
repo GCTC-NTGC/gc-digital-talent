@@ -18,7 +18,7 @@
     "preset": "@gc-digital-talent/jest-presets/jest/node"
   },
   "dependencies": {
-    "@date-fns/tz": "^1.1.1",
+    "@date-fns/tz": "^1.2.0",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "date-fns": "^4.1.0",
