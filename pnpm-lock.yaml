@@ -965,8 +965,8 @@ importers:
         version: 6.3.4
     devDependencies:
       '@formatjs/ts-transformer':
-        specifier: ^3.13.20
-        version: 3.13.20(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(esbuild@0.23.0)(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))
+        specifier: ^3.13.22
+        version: 3.13.22(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(esbuild@0.23.0)(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -2023,17 +2023,11 @@ packages:
   '@formatjs/ecma402-abstract@2.0.0':
     resolution: {integrity: sha512-rRqXOqdFmk7RYvj4khklyqzcfQl9vEL/usogncBHRZfZBDOwMGuSRNFl02fu5KGHXdbinju+YXyuR+Nk8xlr/g==}
 
-  '@formatjs/ecma402-abstract@2.2.1':
-    resolution: {integrity: sha512-O4ywpkdJybrjFc9zyL8qK5aklleIAi5O4nYhBVJaOFtCkNrnU+lKFeJOFC48zpsZQmR8Aok2V79hGpHnzbmFpg==}
-
   '@formatjs/ecma402-abstract@2.2.3':
     resolution: {integrity: sha512-aElGmleuReGnk2wtYOzYFmNWYoiWWmf1pPPCYg0oiIQSJj0mjc4eUfzUXaSOJ4S8WzI/cLqnCTWjqz904FT2OQ==}
 
   '@formatjs/fast-memoize@2.2.0':
     resolution: {integrity: sha512-hnk/nY8FyrL5YxwP9e4r9dqeM6cAbo8PeU9UjyXojZMNvVad2Z06FAVHyR3Ecw6fza+0GH7vdJgiKIVXTMbSBA==}
-
-  '@formatjs/fast-memoize@2.2.2':
-    resolution: {integrity: sha512-mzxZcS0g1pOzwZTslJOBTmLzDXseMLLvnh25ymRilCm8QLMObsQ7x/rj9GNrH0iUhZMlFisVOD6J1n6WQqpKPQ==}
 
   '@formatjs/fast-memoize@2.2.3':
     resolution: {integrity: sha512-3jeJ+HyOfu8osl3GNSL4vVHUuWFXR03Iz9jjgI7RwjG6ysu/Ymdr0JRCPHfF5yGbTE6JCrd63EpvX1/WybYRbA==}
@@ -2041,17 +2035,11 @@ packages:
   '@formatjs/icu-messageformat-parser@2.7.8':
     resolution: {integrity: sha512-nBZJYmhpcSX0WeJ5SDYUkZ42AgR3xiyhNCsQweFx3cz/ULJjym8bHAzWKvG5e2+1XO98dBYC0fWeeAECAVSwLA==}
 
-  '@formatjs/icu-messageformat-parser@2.9.1':
-    resolution: {integrity: sha512-7AYk4tjnLi5wBkxst2w7qFj38JLMJoqzj7BhdEl7oTlsWMlqwgx4p9oMmmvpXWTSDGNwOKBRc1SfwMh5MOHeNg==}
-
   '@formatjs/icu-messageformat-parser@2.9.3':
     resolution: {integrity: sha512-9L99QsH14XjOCIp4TmbT8wxuffJxGK8uLNO1zNhLtcZaVXvv626N0s4A2qgRCKG3dfYWx9psvGlFmvyVBa6u/w==}
 
   '@formatjs/icu-skeleton-parser@1.8.2':
     resolution: {integrity: sha512-k4ERKgw7aKGWJZgTarIcNEmvyTVD9FYh0mTrrBMHZ1b8hUu6iOJ4SzsZlo3UNAvHYa+PnvntIwRPt1/vy4nA9Q==}
-
-  '@formatjs/icu-skeleton-parser@1.8.5':
-    resolution: {integrity: sha512-zRZ/e3B5qY2+JCLs7puTzWS1Jb+t/K+8Jur/gEZpA2EjWeLDE17nsx8thyo9P48Mno7UmafnPupV2NCJXX17Dg==}
 
   '@formatjs/icu-skeleton-parser@1.8.7':
     resolution: {integrity: sha512-fI+6SmS2g7h3srfAKSWa5dwreU5zNEfon2uFo99OToiLF6yxGE+WikvFSbsvMAYkscucvVmTYNlWlaDPp0n5HA==}
@@ -2065,9 +2053,6 @@ packages:
   '@formatjs/intl-localematcher@0.5.4':
     resolution: {integrity: sha512-zTwEpWOzZ2CiKcB93BLngUX59hQkuZjT2+SAQEscSm52peDW/getsawMcWF1rGRpMCX6D7nSJA3CzJ8gn13N/g==}
 
-  '@formatjs/intl-localematcher@0.5.6':
-    resolution: {integrity: sha512-roz1+Ba5e23AHX6KUAWmLEyTRZegM5YDuxuvkHCyK3RJddf/UXB2f+s7pOMm9ktfPGla0g+mQXOn5vsuYirnaA==}
-
   '@formatjs/intl-localematcher@0.5.7':
     resolution: {integrity: sha512-GGFtfHGQVFe/niOZp24Kal5b2i36eE2bNL0xi9Sg/yd0TR8aLjcteApZdHmismP5QQax1cMnZM9yWySUUjJteA==}
 
@@ -2077,14 +2062,6 @@ packages:
       typescript: ^4.7 || 5
     peerDependenciesMeta:
       typescript:
-        optional: true
-
-  '@formatjs/ts-transformer@3.13.20':
-    resolution: {integrity: sha512-63zGIsaLpxfu0w3jclfrgh8EBxbwO43IbCNIAWj31ZowFtgqIOBo7j/DspQCEhvpwDM2ErYfZv8DjV3cabphVQ==}
-    peerDependencies:
-      ts-jest: '>=27'
-    peerDependenciesMeta:
-      ts-jest:
         optional: true
 
   '@formatjs/ts-transformer@3.13.22':
@@ -3623,9 +3600,6 @@ packages:
 
   '@types/minimatch@5.1.2':
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
-
-  '@types/node@17.0.45':
-    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
   '@types/node@22.9.0':
     resolution: {integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==}
@@ -8458,12 +8432,6 @@ snapshots:
       '@formatjs/intl-localematcher': 0.5.4
       tslib: 2.8.0
 
-  '@formatjs/ecma402-abstract@2.2.1':
-    dependencies:
-      '@formatjs/fast-memoize': 2.2.2
-      '@formatjs/intl-localematcher': 0.5.6
-      tslib: 2.8.0
-
   '@formatjs/ecma402-abstract@2.2.3':
     dependencies:
       '@formatjs/fast-memoize': 2.2.3
@@ -8471,10 +8439,6 @@ snapshots:
       tslib: 2.8.0
 
   '@formatjs/fast-memoize@2.2.0':
-    dependencies:
-      tslib: 2.8.0
-
-  '@formatjs/fast-memoize@2.2.2':
     dependencies:
       tslib: 2.8.0
 
@@ -8488,12 +8452,6 @@ snapshots:
       '@formatjs/icu-skeleton-parser': 1.8.2
       tslib: 2.8.0
 
-  '@formatjs/icu-messageformat-parser@2.9.1':
-    dependencies:
-      '@formatjs/ecma402-abstract': 2.2.1
-      '@formatjs/icu-skeleton-parser': 1.8.5
-      tslib: 2.8.0
-
   '@formatjs/icu-messageformat-parser@2.9.3':
     dependencies:
       '@formatjs/ecma402-abstract': 2.2.3
@@ -8503,11 +8461,6 @@ snapshots:
   '@formatjs/icu-skeleton-parser@1.8.2':
     dependencies:
       '@formatjs/ecma402-abstract': 2.0.0
-      tslib: 2.8.0
-
-  '@formatjs/icu-skeleton-parser@1.8.5':
-    dependencies:
-      '@formatjs/ecma402-abstract': 2.2.1
       tslib: 2.8.0
 
   '@formatjs/icu-skeleton-parser@1.8.7':
@@ -8531,10 +8484,6 @@ snapshots:
     dependencies:
       tslib: 2.8.0
 
-  '@formatjs/intl-localematcher@0.5.6':
-    dependencies:
-      tslib: 2.8.0
-
   '@formatjs/intl-localematcher@0.5.7':
     dependencies:
       tslib: 2.8.0
@@ -8551,19 +8500,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
 
-  '@formatjs/ts-transformer@3.13.20(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(esbuild@0.23.0)(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))':
-    dependencies:
-      '@formatjs/icu-messageformat-parser': 2.9.1
-      '@types/json-stable-stringify': 1.0.36
-      '@types/node': 17.0.45
-      chalk: 4.1.2
-      json-stable-stringify: 1.1.1
-      tslib: 2.8.0
-      typescript: 5.6.3
-    optionalDependencies:
-      ts-jest: 29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(esbuild@0.23.0)(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3)
-
-  '@formatjs/ts-transformer@3.13.22(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))':
+  '@formatjs/ts-transformer@3.13.22(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(esbuild@0.23.0)(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))':
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.9.3
       '@types/json-stable-stringify': 1.0.36
@@ -10491,8 +10428,6 @@ snapshots:
 
   '@types/minimatch@5.1.2': {}
 
-  '@types/node@17.0.45': {}
-
   '@types/node@22.9.0':
     dependencies:
       undici-types: 6.19.8
@@ -11922,7 +11857,7 @@ snapshots:
   eslint-plugin-formatjs@5.2.2(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))(typescript@5.6.3):
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.9.3
-      '@formatjs/ts-transformer': 3.13.22(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))
+      '@formatjs/ts-transformer': 3.13.22(ts-jest@29.2.3(@babel/core@7.25.7)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.25.7))(esbuild@0.23.0)(jest@29.7.0(@types/node@22.9.0))(typescript@5.6.3))
       '@types/eslint': 9.6.1
       '@types/picomatch': 3.0.1
       '@typescript-eslint/utils': 8.13.0(typescript@5.6.3)
