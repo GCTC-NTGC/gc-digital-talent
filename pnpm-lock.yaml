@@ -419,8 +419,8 @@ importers:
   packages/date-helpers:
     dependencies:
       '@date-fns/tz':
-        specifier: ^1.1.1
-        version: 1.1.2
+        specifier: ^1.2.0
+        version: 1.2.0
       '@gc-digital-talent/graphql':
         specifier: workspace:*
         version: link:../graphql
@@ -1671,8 +1671,8 @@ packages:
     peerDependencies:
       postcss-selector-parser: ^6.0.13
 
-  '@date-fns/tz@1.1.2':
-    resolution: {integrity: sha512-Xmg2cPmOPQieCLAdf62KtFPU9y7wbQDq1OAzrs/bEQFvhtCPXDiks1CHDE/sTXReRfh/MICVkw/vY6OANHUGiA==}
+  '@date-fns/tz@1.2.0':
+    resolution: {integrity: sha512-LBrd7MiJZ9McsOgxqWX7AaxrDjcFVjWH/tIKJd7pnR7McaslGYOP1QmmiBXdJH/H/yLCT+rcQ7FaPBUxRGUtrg==}
 
   '@dual-bundle/import-meta-resolve@4.1.0':
     resolution: {integrity: sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg==}
@@ -8530,7 +8530,7 @@ snapshots:
     dependencies:
       postcss-selector-parser: 6.1.0
 
-  '@date-fns/tz@1.1.2': {}
+  '@date-fns/tz@1.2.0': {}
 
   '@dual-bundle/import-meta-resolve@4.1.0': {}
 
