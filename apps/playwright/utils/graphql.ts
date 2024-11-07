@@ -97,9 +97,7 @@ async function newContext(sub?: string): Promise<GraphQLContext> {
 }
 
 /** Type constraint for GraphQL responses */
-export type GraphQLResponse<K extends string, T> = {
-  [k in K]: T;
-};
+export type GraphQLResponse<K extends string, T> = Record<K, T>;
 
 /** Type constraint for factories that send contextual requests */
 export type GraphQLRequestFunc<R, I = object> = (

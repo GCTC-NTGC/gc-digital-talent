@@ -15,7 +15,7 @@ const CompoundQuestion = ({
   inputElement,
 }: CompoundQuestionProps) => {
   const logger = useLogger();
-  if (!(title || introduction)) {
+  if (!(!!title || !!introduction)) {
     logger.warning(
       "Expecting either a title or introduction to use the CompoundQuestion component",
     );
