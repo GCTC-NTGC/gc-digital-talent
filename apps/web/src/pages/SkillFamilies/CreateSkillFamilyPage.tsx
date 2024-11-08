@@ -264,21 +264,20 @@ export const CreateSkillFamily = ({
                 >
                   <Submit
                     text={intl.formatMessage({
-                      defaultMessage: "Create classification",
-                      id: "ztzRUG",
-                      description: "Button text to create a classification",
+                      defaultMessage: "Create skill family",
+                      id: "qkuRs8",
+                      description: "Button text to create a skill family",
                     })}
                   />
                   <Link
                     color="warning"
                     mode="inline"
-                    href={paths.classificationTable()}
+                    href={paths.skillFamilyTable()}
                   >
                     {intl.formatMessage({
-                      defaultMessage: "Cancel and go back to classifications",
-                      id: "om9QYn",
-                      description:
-                        "Link text to return to classification table",
+                      defaultMessage: "Cancel and go back to skill families",
+                      id: "YjDiUu",
+                      description: "Link text to return to skill family table",
                     })}
                   </Link>
                 </div>
