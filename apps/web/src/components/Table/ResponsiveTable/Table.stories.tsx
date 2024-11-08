@@ -198,6 +198,7 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
     const { firstName, lastName, email } = user;
 
     if (searchState.type && user[key]) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       return match(searchState.term, String(user[key]));
     }
 
