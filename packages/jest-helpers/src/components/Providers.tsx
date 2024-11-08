@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { HelmetProvider } from "react-helmet-async";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router-dom";
@@ -15,7 +16,14 @@ const Providers = ({ children }: ProvidersProps) => {
   return (
     <HelmetProvider>
       <IntlProvider locale="en" defaultRichTextElements={richTextElements}>
-        <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter
+          future={{
+            v7_relativeSplatPath: true,
+            v7_startTransition: true,
+          }}
+        >
+          {children}
+        </BrowserRouter>
       </IntlProvider>
     </HelmetProvider>
   );

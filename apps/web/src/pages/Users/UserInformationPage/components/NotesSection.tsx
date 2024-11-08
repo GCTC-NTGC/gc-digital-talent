@@ -37,7 +37,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
 
   const handleSubmit = (formValues: Record<string, string>) => {
     user?.poolCandidates?.forEach((candidate) => {
-      if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
+      if (candidate && (candidate.notes ?? "") !== formValues[candidate.id]) {
         handleUpdateCandidate(candidate.id, formValues[candidate.id] ?? "")
           .then(() => {
             toast.success(
