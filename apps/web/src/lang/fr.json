@@ -1423,10 +1423,6 @@
     "defaultMessage": "Modifiez la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
   },
-  "5Al53V": {
-    "defaultMessage": "Créer une famille de compétences",
-    "description": "Title displayed on the create a skill family form."
-  },
   "5C8xs4": {
     "defaultMessage": "Sélectionnez une équipe",
     "description": "Placeholder text for team selection input"
@@ -3327,10 +3323,6 @@
     "defaultMessage": "Publié",
     "description": "Title displayed on the Pool table published at column"
   },
-  "FCQnWB": {
-    "defaultMessage": "Créer - famille",
-    "description": "Page title for the skill family creation page"
-  },
   "FDGVHB": {
     "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
     "description": "third 2024 key change rationale to the directive"
@@ -3570,10 +3562,6 @@
   "GQsJAi": {
     "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures</a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
-  },
-  "GQskY1": {
-    "defaultMessage": "Mettre à jour une famille de compétences",
-    "description": "Title displayed on the update a skillFamily form."
   },
   "GSHQHG": {
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
@@ -7469,10 +7457,6 @@
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
-  },
-  "azdo5+": {
-    "defaultMessage": "Modifier - famille",
-    "description": "Page title for the skill family edit page"
   },
   "b+KdqW": {
     "defaultMessage": "Renseignements sur l'équipe",
