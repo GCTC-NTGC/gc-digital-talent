@@ -2819,6 +2819,10 @@
     "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
     "description": "Lead in text for the pick process and roles inputs."
   },
+  "CdJQ7z": {
+    "defaultMessage": "Administration",
+    "description": "Header for section called administration"
+  },
   "CdS26V": {
     "defaultMessage": "Au Canada et aux États-Unis",
     "description": "GCKey answer for who to contact about GCKey, Canada and United States area for phone number"
@@ -3851,6 +3855,10 @@
     "defaultMessage": "L’ulu, un outil inuit utilisé par les femmes inuites.",
     "description": "Indigenous Apprenticeship ulu image text alternative"
   },
+  "IJlJF1": {
+    "defaultMessage": "Vos rôles",
+    "description": "Header for section displaying logged in user's roles"
+  },
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
@@ -4766,6 +4774,10 @@
   "Mxu+IY": {
     "defaultMessage": "Inconnu",
     "description": "Contract start timeframe is unknown"
+  },
+  "MySfL/": {
+    "defaultMessage": "Bibliothèque de modèles d'emplois",
+    "description": "Label for link to job templates library"
   },
   "Myfw+L": {
     "defaultMessage": "Bassins",
@@ -6182,6 +6194,10 @@
   "UKw7sB": {
     "defaultMessage": "Flux de travail",
     "description": "Label displayed on the pool form stream/job title field."
+  },
+  "UNEVD9": {
+    "defaultMessage": "Recrutement",
+    "description": "Header for section called recruitment"
   },
   "UNLuiP": {
     "defaultMessage": "3 à 6 mois",
