@@ -49,6 +49,18 @@ class WorkExperience extends Experience
         'division' => 'division',
         'start_date' => 'startDate',
         'end_date' => 'endDate',
+        'employment_category' => 'employmentCategory',
+        'ext_size_of_organization' => 'extSizeOfOrganization',
+        'ext_role_seniority' => 'extRoleSeniority',
+        'gov_employment_type' => 'govEmploymentType',
+        'gov_position_type' => 'govPositionType',
+        'gov_contract_start_date' => 'govContractStartDate',
+        'gov_contract_end_date' => 'govContractEndDate',
+        'gov_contractor_role_seniority' => 'govContractorRoleSeniority',
+        'gov_contractor_type' => 'govContractorType',
+        'caf_employment_type' => 'cafEmploymentType',
+        'caf_force' => 'cafForce',
+        'caf_rank' => 'cafRank',
     ];
 
     public function getTitle(?string $lang = 'en'): string
@@ -102,5 +114,101 @@ class WorkExperience extends Experience
     protected function endDate(): Attribute
     {
         return $this->makeJsonPropertyDateAttribute('end_date');
+    }
+
+    /**
+     * Interact with the employment category
+     */
+    protected function employmentCategory(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('employment_category');
+    }
+
+    /**
+     * Interact with the organization size
+     */
+    protected function extSizeOfOrganization(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('ext_size_of_organization');
+    }
+
+    /**
+     * Interact with the role seniority
+     */
+    protected function extRoleSeniority(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('ext_role_seniority');
+    }
+
+    /**
+     * Interact with the government employee type
+     */
+    protected function govEmploymentType(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('gov_employment_type');
+    }
+
+    /**
+     * Interact with the government position type
+     */
+    protected function govPositionType(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('gov_position_type');
+    }
+
+    /**
+     * Interact with the government contract start date
+     */
+    protected function govContractStartDate(): Attribute
+    {
+        return $this->makeJsonPropertyDateAttribute('gov_contract_start_date');
+    }
+
+    /**
+     * Interact with the government contract end date
+     */
+    protected function govContractEndDate(): Attribute
+    {
+        return $this->makeJsonPropertyDateAttribute('gov_contract_end_date');
+    }
+
+    /**
+     * Interact with the government contractor role seniority
+     */
+    protected function govContractorRoleSeniority(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('gov_contractor_role_seniority');
+    }
+
+    /**
+     * Interact with the government contractor type
+     */
+    protected function govContractorType(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('gov_contractor_type');
+    }
+
+    /**
+     * Interact with the canadian armed forces type
+     */
+    protected function cafEmploymentType(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('caf_employment_type');
+    }
+
+    /**
+     * Interact with the canadian armed forces selection
+     */
+    protected function cafForce(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('caf_force');
+    }
+
+    /**
+     * Interact with the canadian armed forces rank
+     */
+    protected function cafRank(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('caf_rank');
     }
 }
