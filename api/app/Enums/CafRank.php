@@ -9,7 +9,7 @@ enum CafRank
     use HasLocalization;
 
     case GENERAL_FLAG_OFFICER;
-    case SENIOR_OFFICE;
+    case SENIOR_OFFICER;
     case JUNIOR_OFFICER;
     case SUBORDINATE_OFFICER;
     case WARRANT_PETTY_SENIOR_NCO;
