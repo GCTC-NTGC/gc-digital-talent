@@ -88,27 +88,31 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
     {
       key: "request-history-key",
       type: "link",
+      href: paths.managerRequestHistory(),
+      color: "primary",
       children: (
-        <Link color="primary" href={paths.managerRequestHistory()}>
+        <>
           {intl.formatMessage({
             defaultMessage: "All requests",
             id: "mJKi1Y",
             description: "Link to a page to view all the requests",
           })}
-        </Link>
+        </>
       ),
     },
     {
       key: "new-request-key",
       type: "link",
+      href: paths.search(),
+      color: "primary",
       children: (
-        <Link color="primary" href={paths.search()}>
+        <>
           {intl.formatMessage({
             defaultMessage: "New request",
             id: "BGQaDq",
             description: "Link to a page to start a new request",
           })}
-        </Link>
+        </>
       ),
     },
   ];
