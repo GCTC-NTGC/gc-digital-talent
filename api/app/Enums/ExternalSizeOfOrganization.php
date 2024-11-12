@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum SizeOfOrganization
+enum ExternalSizeOfOrganization
 {
     use HasLocalization;
 

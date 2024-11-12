@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum RoleSeniority
+enum ExternalRoleSeniority
 {
     use HasLocalization;
 
