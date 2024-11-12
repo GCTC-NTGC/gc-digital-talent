@@ -82,6 +82,8 @@ const MainNavMenu = () => {
     usefulRoleAssignments.length === 1 &&
     usefulRoleAssignments[0].role?.name === ROLE_NAME.Applicant;
 
+  const showRoleSwitcher = onlyHasOneRoleNotApplicant || hasMoreThanOneRole;
+
   return (
     <>
       <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
@@ -143,7 +145,7 @@ const MainNavMenu = () => {
             >
               {homeLink}
             </NavMenu.Item>
-            {onlyHasOneRoleNotApplicant || hasMoreThanOneRole ? (
+            {showRoleSwitcher ? (
               <>
                 <NavMenu.Item
                   data-h2-border-right="base(none) l-tablet:all(1px solid black.light)"
@@ -180,7 +182,7 @@ const MainNavMenu = () => {
               </>
             ) : null}
           </NavMenu.List>
-          {loggedIn && (
+          {showRoleSwitcher && (
             <Separator
               space="none"
               data-h2-display="l-tablet(none)"
