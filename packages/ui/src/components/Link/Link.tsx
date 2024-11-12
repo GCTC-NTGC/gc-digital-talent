@@ -49,6 +49,8 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       throw new Error("Icon is required when mode is set to 'cta'");
     }
 
+    // NOTE: Only expect strings so far
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     const url = href ? sanitizeUrl(String(href)) : undefined;
 
     const commonProps = {
