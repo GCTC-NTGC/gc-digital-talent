@@ -25,6 +25,18 @@ class WorkExperienceResource extends JsonResource
             'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
+            'employmentCategory' => $this->employment_category,
+            'extSizeOfOrganization' => $this->ext_size_of_organization,
+            'extRoleSeniority' => $this->ext_role_seniority,
+            'govEmploymentType' => $this->gov_employment_type,
+            'govPositionType' => $this->gov_position_type,
+            'govContractStartDate' => $this->gov_contract_start_date?->format('Y-m-d'),
+            'govContractEndDate' => $this->gov_contract_end_date?->format('Y-m-d'),
+            'govContractorRoleSeniority' => $this->gov_contractor_role_seniority,
+            'govContractorType' => $this->gov_contractor_type,
+            'cafEmploymentType' => $this->caf_employment_type,
+            'cafForce' => $this->caf_force,
+            'cafRank' => $this->caf_rank,
         ];
     }
 }
