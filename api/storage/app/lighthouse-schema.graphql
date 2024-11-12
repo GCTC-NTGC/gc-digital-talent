@@ -1015,8 +1015,8 @@ type WorkExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
   employmentCategory: LocalizedEmploymentCategory
-  externalSizeOfOrganization: LocalizedExternalSizeOfOrganization
-  externalRoleSeniority: LocalizedExternalRoleSeniority
+  extSizeOfOrganization: LocalizedExternalSizeOfOrganization
+  extRoleSeniority: LocalizedExternalRoleSeniority
   govEmploymentType: LocalizedGovEmploymentType
   govPositionType: LocalizedGovPositionType
   govContractStartDate: Date
@@ -1635,8 +1635,8 @@ input WorkExperienceInput {
   details: String
   skills: UpdateExperienceSkills
   employmentCategory: EmploymentCategory
-  externalSizeOfOrganization: ExternalSizeOfOrganization
-  externalRoleSeniority: ExternalRoleSeniority
+  extSizeOfOrganization: ExternalSizeOfOrganization
+  extRoleSeniority: ExternalRoleSeniority
   govEmploymentType: GovEmploymentType
   govPositionType: GovPositionType
   govContractStartDate: Date

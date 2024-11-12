@@ -62,8 +62,8 @@ class WorkExperience extends Experience
         'start_date' => 'startDate',
         'end_date' => 'endDate',
         'employment_category' => 'employmentCategory',
-        'ext_size_of_organization' => 'externalSizeOfOrganization',
-        'ext_role_seniority' => 'externalRoleSeniority',
+        'ext_size_of_organization' => 'extSizeOfOrganization',
+        'ext_role_seniority' => 'extRoleSeniority',
         'gov_employment_type' => 'govEmploymentType',
         'gov_position_type' => 'govPositionType',
         'gov_contract_start_date' => 'govContractStartDate',
@@ -139,7 +139,7 @@ class WorkExperience extends Experience
     /**
      * Interact with the external organization size
      */
-    protected function externalSizeOfOrganization(): Attribute
+    protected function extSizeOfOrganization(): Attribute
     {
         return $this->makeJsonPropertyStringAttribute('ext_size_of_organization');
     }
@@ -147,7 +147,7 @@ class WorkExperience extends Experience
     /**
      * Interact with the external role seniority
      */
-    protected function externalRoleSeniority(): Attribute
+    protected function extRoleSeniority(): Attribute
     {
         return $this->makeJsonPropertyStringAttribute('ext_role_seniority');
     }

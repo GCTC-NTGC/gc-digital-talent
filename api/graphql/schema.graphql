@@ -678,9 +678,9 @@ type WorkExperience implements Experience {
   deletedDate: DateTime @rename(attribute: "deleted_at")
   employmentCategory: LocalizedEmploymentCategory
     @rename(attribute: "employment_category")
-  externalSizeOfOrganization: LocalizedExternalSizeOfOrganization
+  extSizeOfOrganization: LocalizedExternalSizeOfOrganization
     @rename(attribute: "ext_size_of_organization")
-  externalRoleSeniority: LocalizedExternalRoleSeniority
+  extRoleSeniority: LocalizedExternalRoleSeniority
     @rename(attribute: "ext_role_seniority")
   govEmploymentType: LocalizedGovEmploymentType
     @rename(attribute: "gov_employment_type")
@@ -1593,9 +1593,9 @@ input WorkExperienceInput {
   skills: UpdateExperienceSkills @spread
   employmentCategory: EmploymentCategory
     @rename(attribute: "employment_category")
-  externalSizeOfOrganization: ExternalSizeOfOrganization
+  extSizeOfOrganization: ExternalSizeOfOrganization
     @rename(attribute: "ext_size_of_organization")
-  externalRoleSeniority: ExternalRoleSeniority
+  extRoleSeniority: ExternalRoleSeniority
     @rename(attribute: "ext_role_seniority")
   govEmploymentType: GovEmploymentType @rename(attribute: "gov_employment_type")
   govPositionType: GovPositionType @rename(attribute: "gov_position_type")
