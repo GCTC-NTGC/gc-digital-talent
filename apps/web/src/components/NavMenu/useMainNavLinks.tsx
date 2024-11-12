@@ -27,7 +27,7 @@ import {
   NAV_ROLES_BY_PRIVILEGE,
 } from "../NavContext/NavContextContainer";
 
-export const NavItem = ({
+const NavItem = ({
   href,
   title,
   subMenu,
