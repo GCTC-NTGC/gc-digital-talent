@@ -676,6 +676,26 @@ type WorkExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  employmentCategory: LocalizedEmploymentCategory
+    @rename(attribute: "employment_category")
+  externalSizeOfOrganization: LocalizedExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  externalRoleSeniority: LocalizedExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: LocalizedGovEmploymentType
+    @rename(attribute: "gov_employment_type")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "gov_position_type")
+  govContractStartDate: Date @rename(attribute: "gov_contract_start_date")
+  govContractEndDate: Date @rename(attribute: "gov_contract_end_date")
+  govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: LocalizedGovContractorType
+    @rename(attribute: "gov_contractor_type")
+  cafEmploymentType: LocalizedCafEmploymentType
+    @rename(attribute: "caf_employment_type")
+  cafForce: LocalizedCafForce @rename(attribute: "caf_force")
+  cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -1571,6 +1591,22 @@ input WorkExperienceInput {
   endDate: Date @rename(attribute: "end_date")
   details: String
   skills: UpdateExperienceSkills @spread
+  employmentCategory: EmploymentCategory
+    @rename(attribute: "employment_category")
+  externalSizeOfOrganization: ExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  externalRoleSeniority: ExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: GovEmploymentType @rename(attribute: "gov_employment_type")
+  govPositionType: GovPositionType @rename(attribute: "gov_position_type")
+  govContractStartDate: Date @rename(attribute: "gov_contract_start_date")
+  govContractEndDate: Date @rename(attribute: "gov_contract_end_date")
+  govContractorRoleSeniority: GovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: GovContractorType @rename(attribute: "gov_contractor_type")
+  cafEmploymentType: CafEmploymentType @rename(attribute: "caf_employment_type")
+  cafForce: CafForce @rename(attribute: "caf_force")
+  cafRank: CafRank @rename(attribute: "caf_rank")
 }
 input PersonalExperienceInput {
   title: String
