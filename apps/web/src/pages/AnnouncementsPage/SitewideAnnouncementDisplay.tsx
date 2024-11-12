@@ -33,11 +33,11 @@ const SitewideAnnouncementDisplay = ({
     <div
       data-h2-display="base(grid)"
       data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="base(repeat(2, 1fr))"
+      data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, 1fr))"
     >
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(labels.isEnabled)}
-        data-h2-grid-column="base(span 2)"
+        data-h2-grid-column="base(span 1) p-tablet(span 2)"
       >
         {isEnabled
           ? intl.formatMessage(commonMessages.yes)
