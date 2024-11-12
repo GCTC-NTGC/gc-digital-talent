@@ -82,7 +82,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
   });
 
   // Easily identify parts of the page that are unfinished still.
-  const showUnfinishedPieces = true;
+  const showUnfinishedPieces = false;
 
   const talentRequestMetaData: AccordionMetaData[] = [
     {
@@ -298,7 +298,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                   })}
                 />
               </ResourceBlock.Root>
-              {!showUnfinishedPieces && (
+              {showUnfinishedPieces && (
                 <ResourceBlock.Root
                   headingColor="quaternary"
                   headingAs="h2"
