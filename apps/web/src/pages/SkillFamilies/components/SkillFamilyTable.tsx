@@ -93,11 +93,7 @@ export const SkillFamilyTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search skill families",
-          id: "yXwlJw",
-          description: "Label for the skill families table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {
