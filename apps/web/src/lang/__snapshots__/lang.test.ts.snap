@@ -80,13 +80,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Optional",
-    "fr": [
-      "Facultatives",
-      "Facultatif"
-    ]
-  },
-  {
     "en": "Remove from community",
     "fr": [
       "Retirez de la collectivité",
