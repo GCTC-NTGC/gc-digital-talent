@@ -24,7 +24,6 @@ import {
   Skill,
   CreateSkillFamilyInput,
   graphql,
-  CreateSkillFamilyMutation,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -33,10 +32,22 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useReturnPath from "~/hooks/useReturnPath";
 import Hero from "~/components/Hero";
 
 import messages from "./messages";
+
+const CreateSkillFamily_Mutation = graphql(/* GraphQL */ `
+  mutation CreateSkillFamily($skillFamily: CreateSkillFamilyInput!) {
+    createSkillFamily(skillFamily: $skillFamily) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 interface Option<V> {
   value: V;
@@ -58,15 +69,9 @@ interface FormValues {
 
 interface CreateSkillFamilyProps {
   skills: Skill[];
-  handleCreateSkillFamily: (
-    data: CreateSkillFamilyInput,
-  ) => Promise<CreateSkillFamilyMutation["createSkillFamily"]>;
 }
 
-export const CreateSkillFamily = ({
-  skills,
-  handleCreateSkillFamily,
-}: CreateSkillFamilyProps) => {
+export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
@@ -76,6 +81,7 @@ export const CreateSkillFamily = ({
   const sortedSkills = sortBy(skills, (skill) => {
     return skill.name?.[locale]?.toLocaleUpperCase();
   });
+  const [, executeMutation] = useMutation(CreateSkillFamily_Mutation);
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -86,7 +92,6 @@ export const CreateSkillFamily = ({
     },
   });
 
-  const navigateTo = useReturnPath(paths.skillFamilyTable());
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -111,29 +116,35 @@ export const CreateSkillFamily = ({
     description: "Page title for the skill family creation page",
   });
 
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: creating skill family failed",
+        id: "rQ3Gbb",
+        description:
+          "Message displayed to user after skill family fails to get created.",
+      }),
+    );
+  };
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleCreateSkillFamily(formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Skill family created successfully!",
-            id: "d8CQJr",
-            description:
-              "Message displayed to user after skill family is created successfully.",
-          }),
-        );
+    return executeMutation({ skillFamily: formValuesToSubmitData(data) })
+      .then((result) => {
+        if (result.data?.createSkillFamily) {
+          navigate(paths.skillFamilyView(result.data.createSkillFamily.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Skill family created successfully!",
+              id: "d8CQJr",
+              description:
+                "Message displayed to user after skill family is created successfully.",
+            }),
+          );
+        } else {
+          handleError();
+        }
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: creating skill family failed",
-            id: "rQ3Gbb",
-            description:
-              "Message displayed to user after skill family fails to get created.",
-          }),
-        );
-      });
+      .catch(handleError);
   };
 
   const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
@@ -152,6 +163,7 @@ export const CreateSkillFamily = ({
               size="h2"
               data-h2-margin-top="base(0)"
               Icon={IdentificationIcon}
+              data-h2-text-align="base(center) p-tablet(left)"
             >
               {intl.formatMessage(messages.skillFamilyInfo)}
             </Heading>
@@ -217,7 +229,7 @@ export const CreateSkillFamily = ({
                     id="skills"
                     name="skills"
                     isMulti
-                    label={intl.formatMessage(adminMessages.skills)}
+                    label={intl.formatMessage(messages.skillsInFamily)}
                     placeholder={intl.formatMessage({
                       defaultMessage: "Select one or more skills",
                       id: "GhszAa",
@@ -260,7 +272,9 @@ export const CreateSkillFamily = ({
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x1)"
+                  data-h2-flex-direction="base(column) p-tablet(row)"
                   data-h2-align-items="base(center)"
+                  data-h2-text-align="base(center) p-tablet(inherit)"
                 >
                   <Submit
                     text={intl.formatMessage({
@@ -310,40 +324,15 @@ const SkillFamilySkills_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const CreateSkillFamily_Mutation = graphql(/* GraphQL */ `
-  mutation CreateSkillFamily($skillFamily: CreateSkillFamilyInput!) {
-    createSkillFamily(skillFamily: $skillFamily) {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 const CreateSkillFamilyPage = () => {
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: SkillFamilySkills_Query,
   });
 
-  const [, executeMutation] = useMutation(CreateSkillFamily_Mutation);
-  const handleCreateSkillFamily = (data: CreateSkillFamilyInput) =>
-    executeMutation({ skillFamily: data }).then((result) => {
-      if (result.data?.createSkillFamily) {
-        return result.data?.createSkillFamily;
-      }
-      return Promise.reject(new Error(result.error?.toString()));
-    });
-
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        <CreateSkillFamily
-          handleCreateSkillFamily={handleCreateSkillFamily}
-          skills={unpackMaybes(lookupData?.skills)}
-        />
+        <CreateSkillFamily skills={unpackMaybes(lookupData?.skills)} />
       </Pending>
     </>
   );
