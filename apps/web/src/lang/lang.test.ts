@@ -5,8 +5,8 @@ import * as rawI18nEnMessages from "@gc-digital-talent/i18n/en.json";
 import * as rawI18nFrMessages from "@gc-digital-talent/i18n/fr.json";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import * as rawWebEnMessages from "./en.json";
-import * as rawWebFrMessages from "./fr.json";
+import rawWebEnMessages from "./en.json";
+import rawWebFrMessages from "./fr.json";
 
 describe("message files", () => {
   /*
