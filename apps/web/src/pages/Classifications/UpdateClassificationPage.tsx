@@ -37,7 +37,6 @@ import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
-import useReturnPath from "~/hooks/useReturnPath";
 import { getClassificationName } from "~/utils/poolUtils";
 import Hero from "~/components/Hero";
 
@@ -57,15 +56,26 @@ export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const UpdateClassification_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateClassification(
+    $id: ID!
+    $classification: UpdateClassificationInput!
+  ) {
+    updateClassification(id: $id, classification: $classification) {
+      id
+      level
+      group
+    }
+  }
+`);
+
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
   query: FragmentType<typeof ClassificationForm_Fragment>;
-  onUpdateClassification: (id: string, data: FormValues) => Promise<FormValues>;
 }
 
 export const UpdateClassificationForm = ({
   query,
-  onUpdateClassification,
 }: UpdateClassificationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -78,7 +88,6 @@ export const UpdateClassificationForm = ({
   const watchMinSalary = watch("minSalary");
 
   const pageTitle = intl.formatMessage(pageTitles.classifications);
-  const navigateTo = useReturnPath(paths.classificationTable());
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -102,6 +111,18 @@ export const UpdateClassificationForm = ({
     ],
   });
 
+  const [, executeMutation] = useMutation(UpdateClassification_Mutation);
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: updating classification failed",
+        id: "LEVK8x",
+        description:
+          "Message displayed to user after classification fails to get updated.",
+      }),
+    );
+  };
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const input: FormValues = {
       name: {
@@ -112,28 +133,26 @@ export const UpdateClassificationForm = ({
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
     };
-    return onUpdateClassification(classification.id, input)
-      .then(() => {
-        navigate(navigateTo);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Classification updated successfully!",
-            id: "jJCDGc",
-            description:
-              "Message displayed to user after classification is updated successfully.",
-          }),
-        );
+    return executeMutation({
+      id: classification.id,
+      classification: input,
+    })
+      .then((result) => {
+        if (result.data?.updateClassification) {
+          navigate(paths.classificationView(classification.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Classification updated successfully!",
+              id: "jJCDGc",
+              description:
+                "Message displayed to user after classification is updated successfully.",
+            }),
+          );
+        } else {
+          handleError();
+        }
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating classification failed",
-            id: "LEVK8x",
-            description:
-              "Message displayed to user after classification fails to get updated.",
-          }),
-        );
-      });
+      .catch(handleError);
   };
 
   return (
@@ -155,6 +174,7 @@ export const UpdateClassificationForm = ({
             color="primary"
             Icon={CloudIcon}
             data-h2-margin-top="base(0)"
+            data-h2-text-align="base(center) p-tablet(left)"
           >
             {intl.formatMessage(messages.classificationInfo)}
           </Heading>
@@ -272,7 +292,9 @@ export const UpdateClassificationForm = ({
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(x1)"
+                data-h2-flex-direction="base(column) p-tablet(row)"
                 data-h2-align-items="base(center)"
+                data-h2-text-align="base(center) p-tablet(inherit)"
               >
                 <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Link
@@ -303,19 +325,6 @@ const Classification_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const UpdateClassification_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateClassification(
-    $id: ID!
-    $classification: UpdateClassificationInput!
-  ) {
-    updateClassification(id: $id, classification: $classification) {
-      id
-      level
-      group
-    }
-  }
-`);
-
 const UpdateClassification = () => {
   const intl = useIntl();
   const { classificationId } =
@@ -325,31 +334,10 @@ const UpdateClassification = () => {
     variables: { id: classificationId },
   });
 
-  const [, executeMutation] = useMutation(UpdateClassification_Mutation);
-  const handleUpdateClassification = (
-    id: string,
-    { name, group, minSalary, maxSalary }: UpdateClassificationInput,
-  ) =>
-    /* We must pick only the fields belonging to UpdateClassificationInput, because its possible
-       the data object contains other props at runtime, and this will cause the
-       graphql operation to fail. */
-    executeMutation({
-      id,
-      classification: { name, group, minSalary, maxSalary },
-    }).then((result) => {
-      if (result.data?.updateClassification) {
-        return Promise.resolve(result.data?.updateClassification);
-      }
-      return Promise.reject(new Error(result.error?.toString()));
-    });
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.classification ? (
-        <UpdateClassificationForm
-          query={data?.classification}
-          onUpdateClassification={handleUpdateClassification}
-        />
+        <UpdateClassificationForm query={data?.classification} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
