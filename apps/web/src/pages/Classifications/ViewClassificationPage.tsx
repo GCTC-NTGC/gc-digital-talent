@@ -88,7 +88,12 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
         data-h2-margin="base(x3 0)"
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <Heading Icon={IdentificationIcon} level="h2" color="primary">
+        <Heading
+          Icon={IdentificationIcon}
+          level="h2"
+          color="primary"
+          data-h2-text-align="base(center) p-tablet(left)"
+        >
           {subTitle}
         </Heading>
         <CardBasic>
@@ -147,17 +152,23 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
           <div data-h2-margin="base(0 -x1)">
             <Separator decorative orientation="horizontal" space="sm" />
           </div>
-          <Link
-            color="secondary"
-            mode="inline"
-            href={paths.classificationUpdate(classification.id)}
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(center) p-tablet(flex-start)"
+            data-h2-text-align="base(center) p-tablet(left)"
           >
-            {intl.formatMessage({
-              defaultMessage: "Edit classification information",
-              id: "VvOx9a",
-              description: "Link text to edit a classification",
-            })}
-          </Link>
+            <Link
+              color="secondary"
+              mode="inline"
+              href={paths.classificationUpdate(classification.id)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit classification information",
+                id: "VvOx9a",
+                description: "Link text to edit a classification",
+              })}
+            </Link>
+          </div>
         </CardBasic>
       </div>
     </>
