@@ -98,7 +98,12 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
         data-h2-margin="base(x3 0)"
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <Heading Icon={IdentificationIcon} level="h2" color="primary">
+        <Heading
+          Icon={IdentificationIcon}
+          level="h2"
+          color="primary"
+          data-h2-text-align="base(center) p-tablet(left)"
+        >
           {subTitle}
         </Heading>
         <CardBasic>
@@ -127,7 +132,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
               {skillFamily.description?.fr ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
-            <div data-h2-grid-column="base(1 / 3)">
+            <div data-h2-grid-column="p-tablet(1 / 3)">
               <FieldDisplay
                 label={intl.formatMessage({
                   defaultMessage: "Skills in this family",
@@ -157,17 +162,23 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
           <div data-h2-margin="base(0 -x1)">
             <Separator decorative orientation="horizontal" space="sm" />
           </div>
-          <Link
-            color="secondary"
-            mode="inline"
-            href={paths.skillFamilyUpdate(skillFamily.id)}
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(center) p-tablet(flex-start)"
+            data-h2-text-align="base(center) p-tablet(left)"
           >
-            {intl.formatMessage({
-              defaultMessage: "Edit skill family information",
-              id: "ifVyI/",
-              description: "Link text to edit a skill family",
-            })}
-          </Link>
+            <Link
+              color="secondary"
+              mode="inline"
+              href={paths.skillFamilyUpdate(skillFamily.id)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit skill family information",
+                id: "ifVyI/",
+                description: "Link text to edit a skill family",
+              })}
+            </Link>
+          </div>
         </CardBasic>
       </div>
     </>
