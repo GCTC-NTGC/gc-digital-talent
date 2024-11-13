@@ -13,8 +13,9 @@ final class UnarchivePool
      */
     public function __invoke($_, array $args)
     {
+        /** @var Pool $pool */
         $pool = Pool::find($args['id']);
-        if ($pool->getStatusAttribute() !== PoolStatus::ARCHIVED->name) {
+        if ($pool->status !== PoolStatus::ARCHIVED->name) {
             throw ValidationException::withMessages(['status' => 'UnarchivePoolInvalidStatus']);
         }
         $pool->update(['archived_at' => null]);

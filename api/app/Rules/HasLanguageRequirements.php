@@ -35,7 +35,7 @@ class HasLanguageRequirements implements Rule
         $userLookingForBilingual = $thisUser->looking_for_bilingual;
         $poolNeedsBilingual = $this->pool->advertisement_language == PoolLanguage::BILINGUAL_INTERMEDIATE->name || $this->pool->advertisement_language == PoolLanguage::BILINGUAL_ADVANCED->name;
 
-        $passes = ! $poolNeedsBilingual || ($poolNeedsBilingual && $userLookingForBilingual);
+        $passes = ! $poolNeedsBilingual || $userLookingForBilingual;
 
         return $passes;
     }
