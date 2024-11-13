@@ -246,14 +246,19 @@ export const UpdateSkillFamily = ({
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} centered overlap>
         <CardBasic data-h2-margin-bottom="base(x3)">
-          <Heading
-            color="primary"
-            size="h2"
-            data-h2-margin-top="base(0)"
-            Icon={IdentificationIcon}
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(center) p-tablet(flex-start)"
           >
-            {intl.formatMessage(messages.skillFamilyInfo)}
-          </Heading>
+            <Heading
+              color="primary"
+              size="h2"
+              data-h2-margin-top="base(0)"
+              Icon={IdentificationIcon}
+            >
+              {intl.formatMessage(messages.skillFamilyInfo)}
+            </Heading>
+          </div>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div
