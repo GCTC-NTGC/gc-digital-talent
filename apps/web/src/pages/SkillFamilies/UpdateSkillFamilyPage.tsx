@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -33,7 +32,6 @@ import {
 import {
   SkillFamily,
   UpdateSkillFamilyInput,
-  UpdateSkillFamilyMutation,
   Scalars,
   graphql,
   FragmentType,
@@ -46,9 +44,9 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import useReturnPath from "~/hooks/useReturnPath";
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
+import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 
 import messages from "./messages";
 
@@ -109,19 +107,27 @@ export const UpdateSkillFamily_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const UpdateSkillFamily_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateSkillFamily($id: ID!, $skillFamily: UpdateSkillFamilyInput!) {
+    updateSkillFamily(id: $id, skillFamily: $skillFamily) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface UpdateSkillFamilyProps {
   skillFamilyQuery: FragmentType<typeof UpdateSkillFamily_Fragment>;
   skillsQuery: FragmentType<typeof UpdateSkillFamilySkill_Fragment>[];
-  handleUpdateSkillFamily: (
-    id: string,
-    data: UpdateSkillFamilyInput,
-  ) => Promise<UpdateSkillFamilyMutation["updateSkillFamily"]>;
 }
 
 export const UpdateSkillFamily = ({
   skillFamilyQuery,
   skillsQuery,
-  handleUpdateSkillFamily,
 }: UpdateSkillFamilyProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -160,7 +166,6 @@ export const UpdateSkillFamily = ({
   });
   const { handleSubmit } = methods;
 
-  const navigateTo = useReturnPath(paths.skillFamilyTable());
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit a skill family",
     id: "wSlABO",
@@ -188,29 +193,47 @@ export const UpdateSkillFamily = ({
     ],
   });
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateSkillFamily(skillFamily.id, formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Skill family updated successfully!",
-            id: "2ekC5r",
-            description:
-              "Message displayed to user after skillFamily is updated successfully.",
-          }),
-        );
+  const [, executeMutation] = useMutation(UpdateSkillFamily_Mutation);
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: updating skill family failed",
+        id: "zpwZSQ",
+        description:
+          "Message displayed to user after skillFamily fails to get updated.",
+      }),
+    );
+  };
+
+  const onSubmit: SubmitHandler<FormValues> = async ({
+    description,
+    name,
+    skills: skillsInput,
+  }: FormValues) => {
+    return executeMutation({
+      id: skillFamily.id,
+      skillFamily: formValuesToSubmitData({
+        description,
+        name,
+        skills: skillsInput,
+      }),
+    })
+      .then((result) => {
+        if (result.data?.updateSkillFamily) {
+          navigate(paths.skillFamilyView(skillFamily.id));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Skill family updated successfully!",
+              id: "2ekC5r",
+              description:
+                "Message displayed to user after skillFamily is updated successfully.",
+            }),
+          );
+        } else {
+          handleError();
+        }
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating skill family failed",
-            id: "zpwZSQ",
-            description:
-              "Message displayed to user after skillFamily fails to get updated.",
-          }),
-        );
-      });
+      .catch(handleError);
   };
 
   const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
@@ -283,7 +306,12 @@ export const UpdateSkillFamily = ({
                   }}
                 />
               </div>
-              <div data-h2-margin="base(x1, 0)">
+              <div
+                data-h2-margin="base(x1, 0)"
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x1)"
+              >
                 <Combobox
                   id="skills"
                   name="skills"
@@ -297,6 +325,11 @@ export const UpdateSkillFamily = ({
                   })}
                   options={skillOptions}
                 />
+
+                <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+                  {skillFamily.key ??
+                    intl.formatMessage(commonMessages.notProvided)}
+                </FieldDisplay>
               </div>
               <div data-h2-margin="base(0 -x1)">
                 <Separator decorative orientation="horizontal" space="sm" />
@@ -304,7 +337,9 @@ export const UpdateSkillFamily = ({
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(x1)"
+                data-h2-flex-direction="base(column) p-tablet(row)"
                 data-h2-align-items="base(center)"
+                data-h2-text-align="base(center) p-tablet(inherit)"
               >
                 <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Link
@@ -339,19 +374,6 @@ const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const UpdateSkillFamily_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateSkillFamily($id: ID!, $skillFamily: UpdateSkillFamilyInput!) {
-    updateSkillFamily(id: $id, skillFamily: $skillFamily) {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 const UpdateSkillFamilyPage = () => {
   const intl = useIntl();
   const { skillFamilyId } = useRequiredParams<RouteParams>("skillFamilyId");
@@ -360,31 +382,12 @@ const UpdateSkillFamilyPage = () => {
     variables: { id: skillFamilyId || "" },
   });
 
-  const [, executeMutation] = useMutation(UpdateSkillFamily_Mutation);
-  const handleUpdateSkillFamily = (
-    id: string,
-    formData: UpdateSkillFamilyInput,
-  ) =>
-    /* We must pick only the fields belonging to UpdateSkillFamilyInput, because its possible
-       the data object contains other props at runtime, and this will cause the
-       graphql operation to fail. */
-    executeMutation({
-      id,
-      skillFamily: pick(formData, ["description", "name", "skills"]),
-    }).then((result) => {
-      if (result.data?.updateSkillFamily) {
-        return result.data?.updateSkillFamily;
-      }
-      return Promise.reject(new Error(result.error?.toString()));
-    });
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.skillFamily ? (
         <UpdateSkillFamily
           skillFamilyQuery={data.skillFamily}
           skillsQuery={unpackMaybes(data.skills)}
-          handleUpdateSkillFamily={handleUpdateSkillFamily}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
