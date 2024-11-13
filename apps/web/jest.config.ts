@@ -1,6 +1,10 @@
 import type { Config } from "jest";
+import { createDefaultPreset } from "ts-jest";
+
+const defaultPreset = createDefaultPreset();
 
 const config: Config = {
+  ...defaultPreset,
   roots: ["src"],
   preset: "@gc-digital-talent/jest-presets/jest/browser",
   // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
