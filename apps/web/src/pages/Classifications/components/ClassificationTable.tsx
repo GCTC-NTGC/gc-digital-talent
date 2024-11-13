@@ -130,11 +130,7 @@ export const ClassificationTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search classifications",
-          id: "5tmTP/",
-          description: "Label for the classifications table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {
