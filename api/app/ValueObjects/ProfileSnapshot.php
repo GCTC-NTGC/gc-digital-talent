@@ -3,11 +3,21 @@
 namespace App\ValueObjects;
 
 use App\Enums\ArmedForcesStatus;
+use App\Enums\CafEmploymentType;
+use App\Enums\CafForce;
+use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EducationRequirementOption;
+use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\ExternalRoleSeniority;
+use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\GovContractorRoleSeniority;
+use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
+use App\Enums\GovEmploymentType;
+use App\Enums\GovPositionType;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
@@ -49,6 +59,17 @@ class ProfileSnapshot implements Castable
                 'preferredLanguageForExam' => Language::class,
                 'verbalLevel' => EvaluatedLanguageAbility::class,
                 'writtenLevel' => EvaluatedLanguageAbility::class,
+                'cafRank' => CafRank::class,
+                'employmentCategory' => EmploymentCategory::class,
+                'extSizeOfOrganization' => ExternalSizeOfOrganization::class,
+                'extRoleSeniority' => ExternalRoleSeniority::class,
+                'govEmploymentType' => GovEmploymentType::class,
+                'govPositionType' => GovPositionType::class,
+                'govContractorRoleSeniority' => GovContractorRoleSeniority::class,
+                'govContractorType' => GovContractorType::class,
+                'cafEmploymentType' => CafEmploymentType::class,
+                'cafForce' => CafForce::class,
+                'cafRank' => CafRank::class,
             ];
 
             $iterator = new RecursiveArrayIterator($snapshot);
@@ -131,6 +152,16 @@ class ProfileSnapshot implements Castable
     }
 
     /**
+     * Handle changing the format of the nested classification or department id
+     */
+    private function parseSnapshotModelId($id): mixed
+    {
+        return [
+            'id' => $id,
+        ];
+    }
+
+    /**
      * Iterate through the snapshot and transform
      * non-localized enum values into their localized
      * version.
@@ -142,7 +173,9 @@ class ProfileSnapshot implements Castable
     private function parseSnapshotRecursive(RecursiveArrayIterator $rai, array $accumulator, $enumMap)
     {
         foreach ($rai as $k => $v) {
-            if (array_key_exists($k, $enumMap)) {
+            if (($k === 'classification' || $k === 'department') && isset($v)) {
+                $accumulator[$k] = $this->parseSnapshotModelId($v);
+            } elseif (array_key_exists($k, $enumMap)) {
                 $enum = $enumMap[$k];
                 if (is_array($v) && array_is_list($v)) {
                     $accumulator[$k] = array_map(function ($item) use ($enum) {
