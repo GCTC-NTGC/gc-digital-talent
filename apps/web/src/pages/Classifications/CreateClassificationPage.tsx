@@ -106,15 +106,19 @@ export const CreateClassification = () => {
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
           <CardBasic data-h2-margin-bottom="base(x3)">
-            <Heading
-              level="h2"
-              color="primary"
-              Icon={CloudIcon}
-              data-h2-margin-top="base(0)"
-              data-h2-text-align="base(center) p-tablet(left)"
+            <div
+              data-h2-display="base(flex)"
+              data-h2-justify-content="base(center) p-tablet(flex-start)"
             >
-              {intl.formatMessage(messages.classificationInfo)}
-            </Heading>
+              <Heading
+                level="h2"
+                color="primary"
+                Icon={CloudIcon}
+                data-h2-margin-top="base(0)"
+              >
+                {intl.formatMessage(messages.classificationInfo)}
+              </Heading>
+            </div>
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div

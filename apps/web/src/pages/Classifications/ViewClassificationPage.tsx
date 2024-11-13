@@ -88,14 +88,19 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
         data-h2-margin="base(x3 0)"
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <Heading
-          Icon={IdentificationIcon}
-          level="h2"
-          color="primary"
-          data-h2-text-align="base(center) p-tablet(left)"
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
-          {subTitle}
-        </Heading>
+          <Heading
+            Icon={IdentificationIcon}
+            level="h2"
+            color="primary"
+            data-h2-margin-top="base(0)"
+          >
+            {subTitle}
+          </Heading>
+        </div>
         <CardBasic>
           <div
             data-h2-display="base(grid)"
