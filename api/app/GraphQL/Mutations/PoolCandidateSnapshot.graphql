@@ -332,6 +332,12 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        classification {
+          id
+        }
+        department {
+          id
+        }
       }
     }
     isProfileComplete

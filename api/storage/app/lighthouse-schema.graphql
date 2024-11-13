@@ -1026,6 +1026,8 @@ type WorkExperience implements Experience {
   cafEmploymentType: LocalizedCafEmploymentType
   cafForce: LocalizedCafForce
   cafRank: LocalizedCafRank
+  classification: Classification
+  department: Department
 }
 
 type PersonalExperience implements Experience {
@@ -1646,6 +1648,8 @@ input WorkExperienceInput {
   cafEmploymentType: CafEmploymentType
   cafForce: CafForce
   cafRank: CafRank
+  classification: ID
+  department: ID
 }
 
 input PersonalExperienceInput {

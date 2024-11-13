@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
  * Class WorkExperience
@@ -33,10 +34,13 @@ use Illuminate\Support\Facades\Lang;
  * @property string $caf_employment_type
  * @property string $caf_force
  * @property string $caf_rank
+ * @property string $classification_attached
+ * @property string $department_attached
  */
 class WorkExperience extends Experience
 {
     use HasFactory;
+    use HasJsonRelationships;
     use SoftDeletes;
 
     /**
@@ -45,6 +49,10 @@ class WorkExperience extends Experience
      * @var string
      */
     protected $table = 'experiences';
+
+    protected $casts = [
+        'properties' => 'json',
+    ];
 
     /**
      * Default values for attributes
@@ -73,6 +81,8 @@ class WorkExperience extends Experience
         'caf_employment_type' => 'cafEmploymentType',
         'caf_force' => 'cafForce',
         'caf_rank' => 'cafRank',
+        'classification_attached' => 'classificationAttached',
+        'department_attached' => 'departmentAttached',
     ];
 
     public function getTitle(?string $lang = 'en'): string
@@ -222,5 +232,37 @@ class WorkExperience extends Experience
     protected function cafRank(): Attribute
     {
         return $this->makeJsonPropertyStringAttribute('caf_rank');
+    }
+
+    /**
+     * Interact with the saved classification id
+     */
+    protected function classificationAttached(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('classification_attached');
+    }
+
+    /**
+     * Interact with the saved department id
+     */
+    protected function departmentAttached(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('department_attached');
+    }
+
+    /**
+     * Return the classification model from JSON
+     */
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class, 'properties->classification_attached');
+    }
+
+    /**
+     * Return the department model from JSON
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'properties->department_attached');
     }
 }
