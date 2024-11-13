@@ -271,10 +271,6 @@
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
   },
-  "9u6ULg": {
-    "defaultMessage": "Vous avez des modifications non sauvegardées",
-    "description": "Displayed next to form inputs when they have been changed but not saved."
-  },
   "9zyjjw": {
     "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
     "description": "Prefix when a step has been completed."
@@ -286,10 +282,6 @@
   "AAFkmX": {
     "defaultMessage": "Date d'expiration",
     "description": "Label for expiry Date"
-  },
-  "ACO2Uz": {
-    "defaultMessage": "erreur",
-    "description": "Message for the error status"
   },
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
@@ -306,10 +298,6 @@
   "BXxvCZ": {
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
-  },
-  "Bvr4b6": {
-    "defaultMessage": "Champ obligatoire",
-    "description": "Displayed next to required form inputs."
   },
   "C/2HT9": {
     "defaultMessage": "Cette clé de collectivité est déjà utilisé",
@@ -771,10 +759,6 @@
     "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
     "description": "Message for when user goes over word limit."
   },
-  "WUC9pX": {
-    "defaultMessage": "Facultatif",
-    "description": "Displayed next to optional form inputs."
-  },
   "WhLeuS": {
     "defaultMessage": "Nom",
     "description": "Title for name"
@@ -946,10 +930,6 @@
   "exPBiQ": {
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
     "description": "Error message title for repeater component."
-  },
-  "f5z4R/": {
-    "defaultMessage": "Imprimer",
-    "description": "Label for print button"
   },
   "fAj9+G": {
     "defaultMessage": "Avril",
@@ -1210,10 +1190,6 @@
   "qIOz/5": {
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
-  },
-  "qVI4xG": {
-    "defaultMessage": "réussite partielle",
-    "description": "Message for the partial success status"
   },
   "qmEyxS": {
     "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
