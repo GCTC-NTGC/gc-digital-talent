@@ -9,11 +9,10 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 
@@ -100,20 +99,18 @@ const AnnouncementsPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <AdminHero
-        title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-
-      <AdminContentWrapper>
-        <Pending fetching={queryFetching} error={queryError}>
-          <SitewideAnnouncementSection
-            initialData={initialData?.sitewideAnnouncement}
-            onUpdate={handleSave}
-            isSubmitting={isSubmitting}
-          />
-        </Pending>
-      </AdminContentWrapper>
+      <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-padding="base(x3, 0, x3, 0)">
+          <Pending fetching={queryFetching} error={queryError}>
+            <SitewideAnnouncementSection
+              initialData={initialData?.sitewideAnnouncement}
+              onUpdate={handleSave}
+              isSubmitting={isSubmitting}
+            />
+          </Pending>
+        </div>
+      </div>
     </>
   );
 };
