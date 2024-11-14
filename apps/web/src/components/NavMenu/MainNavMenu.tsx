@@ -49,21 +49,18 @@ const MainNavMenu = () => {
     accountLinks,
     authLinks,
     systemSettings,
-  } = useMainNavLinks(
-    navRole,
-    loggedIn,
-    userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [],
-  );
+  } = useMainNavLinks();
 
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
 
-  const roleAssignments = userAuthInfo?.roleAssignments
-    ?.filter(notEmpty)
-    .filter(
-      (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
-    );
+  const usefulRoleAssignments =
+    userAuthInfo?.roleAssignments
+      ?.filter(notEmpty)
+      ?.filter(
+        (roleAssignment) => roleAssignment.role?.name !== ROLE_NAME.BaseUser,
+      ) ?? [];
 
   const roleNames = {
     applicant: intl.formatMessage(navMenuMessages.applicant),
@@ -71,6 +68,21 @@ const MainNavMenu = () => {
     community: intl.formatMessage(navMenuMessages.community),
     admin: intl.formatMessage(navMenuMessages.admin),
   } as const;
+
+  const hasMoreThanOneRole =
+    navRole !== null && usefulRoleAssignments.length > 1;
+
+  const onlyHasOneRoleNotApplicant =
+    navRole !== null &&
+    usefulRoleAssignments.length === 1 &&
+    usefulRoleAssignments[0].role?.name !== ROLE_NAME.Applicant;
+
+  const onlyHasApplicantRole =
+    navRole !== null &&
+    usefulRoleAssignments.length === 1 &&
+    usefulRoleAssignments[0].role?.name === ROLE_NAME.Applicant;
+
+  const showRoleSwitcher = onlyHasOneRoleNotApplicant || hasMoreThanOneRole;
 
   return (
     <>
@@ -122,7 +134,9 @@ const MainNavMenu = () => {
           >
             <NavMenu.Item
               data-h2-display="base(none) l-tablet(flex)"
-              {...(!loggedIn && {
+              {...((!loggedIn ||
+                onlyHasApplicantRole ||
+                usefulRoleAssignments.length === 0) && {
                 "data-h2-border-right":
                   "base(none) l-tablet:all(1px solid black.light)",
                 "data-h2-padding": "base(0) l-tablet(0 x.75)",
@@ -131,9 +145,7 @@ const MainNavMenu = () => {
             >
               {homeLink}
             </NavMenu.Item>
-            {navRole !== null &&
-            roleAssignments !== undefined &&
-            roleAssignments.length > 1 ? (
+            {showRoleSwitcher ? (
               <>
                 <NavMenu.Item
                   data-h2-border-right="base(none) l-tablet:all(1px solid black.light)"
@@ -170,7 +182,7 @@ const MainNavMenu = () => {
               </>
             ) : null}
           </NavMenu.List>
-          {loggedIn && (
+          {showRoleSwitcher && (
             <Separator
               space="none"
               data-h2-display="l-tablet(none)"
