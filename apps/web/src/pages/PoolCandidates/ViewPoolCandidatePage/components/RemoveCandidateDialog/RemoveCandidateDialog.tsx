@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 
