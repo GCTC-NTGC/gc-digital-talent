@@ -59,7 +59,6 @@ class ProfileSnapshot implements Castable
                 'preferredLanguageForExam' => Language::class,
                 'verbalLevel' => EvaluatedLanguageAbility::class,
                 'writtenLevel' => EvaluatedLanguageAbility::class,
-                'cafRank' => CafRank::class,
                 'employmentCategory' => EmploymentCategory::class,
                 'extSizeOfOrganization' => ExternalSizeOfOrganization::class,
                 'extRoleSeniority' => ExternalRoleSeniority::class,
