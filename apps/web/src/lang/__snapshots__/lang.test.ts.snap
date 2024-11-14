@@ -92,6 +92,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
       "À propos de ce rôle",
       "Au sujet de ce rôle"
     ]
+  },
+  {
+    "en": "Remove candidate",
+    "fr": [
+      "Supprimer le (la) candidat(e)",
+      "Supprimez le (la) candidat(e)"
+    ]
   }
 ]"
 `;
