@@ -1609,8 +1609,8 @@ input WorkExperienceInput {
   cafEmploymentType: CafEmploymentType @rename(attribute: "caf_employment_type")
   cafForce: CafForce @rename(attribute: "caf_force")
   cafRank: CafRank @rename(attribute: "caf_rank")
-  classification: UUID @rename(attribute: "classification_attached")
-  department: UUID @rename(attribute: "department_attached")
+  classification: UUID @rename(attribute: "classification_id")
+  department: UUID @rename(attribute: "department_id")
 }
 input PersonalExperienceInput {
   title: String

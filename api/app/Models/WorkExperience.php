@@ -34,8 +34,8 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property string $caf_employment_type
  * @property string $caf_force
  * @property string $caf_rank
- * @property string $classification_attached
- * @property string $department_attached
+ * @property string $classification_id
+ * @property string $department_id
  */
 class WorkExperience extends Experience
 {
@@ -81,8 +81,8 @@ class WorkExperience extends Experience
         'caf_employment_type' => 'cafEmploymentType',
         'caf_force' => 'cafForce',
         'caf_rank' => 'cafRank',
-        'classification_attached' => 'classificationAttached',
-        'department_attached' => 'departmentAttached',
+        'classification_id' => 'classificationId',
+        'department_id' => 'departmentId',
     ];
 
     public function getTitle(?string $lang = 'en'): string
@@ -237,17 +237,17 @@ class WorkExperience extends Experience
     /**
      * Interact with the saved classification id
      */
-    protected function classificationAttached(): Attribute
+    protected function classificationId(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('classification_attached');
+        return $this->makeJsonPropertyStringAttribute('classification_id');
     }
 
     /**
      * Interact with the saved department id
      */
-    protected function departmentAttached(): Attribute
+    protected function departmentId(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('department_attached');
+        return $this->makeJsonPropertyStringAttribute('department_id');
     }
 
     /**
@@ -255,7 +255,7 @@ class WorkExperience extends Experience
      */
     public function classification()
     {
-        return $this->belongsTo(Classification::class, 'properties->classification_attached');
+        return $this->belongsTo(Classification::class, 'properties->classification_id');
     }
 
     /**
@@ -263,6 +263,6 @@ class WorkExperience extends Experience
      */
     public function department()
     {
-        return $this->belongsTo(Department::class, 'properties->department_attached');
+        return $this->belongsTo(Department::class, 'properties->department_id');
     }
 }

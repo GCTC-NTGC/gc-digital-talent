@@ -32,8 +32,8 @@ final class UpdateWorkExperienceValidator extends Validator
         $cafEmploymentType = $this->arg('workExperience.cafEmploymentType') ?? $workExperienceModel->caf_employment_type;
         $cafForce = $this->arg('workExperience.cafForce') ?? $workExperienceModel->caf_force;
         $cafRank = $this->arg('workExperience.cafRank') ?? $workExperienceModel->caf_rank;
-        $classification = $this->arg('workExperience.classification') ?? $workExperienceModel->classification_attached;
-        $department = $this->arg('workExperience.department') ?? $workExperienceModel->department_attached;
+        $classification = $this->arg('workExperience.classification') ?? $workExperienceModel->classification_id;
+        $department = $this->arg('workExperience.department') ?? $workExperienceModel->department_id;
 
         return [
             // 'workExperience.employmentCategory' => [

@@ -37,8 +37,8 @@ class WorkExperienceResource extends JsonResource
             'cafEmploymentType' => $this->caf_employment_type,
             'cafForce' => $this->caf_force,
             'cafRank' => $this->caf_rank,
-            'classification' => $this->classification_attached,
-            'department' => $this->department_attached,
+            'classification' => $this->classification_id,
+            'department' => $this->department_id,
         ];
     }
 }

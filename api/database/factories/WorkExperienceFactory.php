@@ -50,8 +50,8 @@ class WorkExperienceFactory extends Factory
         $cafEmploymentType = null;
         $cafForce = null;
         $cafRank = null;
-        $classificationAttached = null;
-        $departmentAttached = null;
+        $classificationId = null;
+        $departmentId = null;
 
         // generate the appropriate values depending off the cases of EmploymentCategory
         if ($employmentCategory === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
@@ -67,12 +67,12 @@ class WorkExperienceFactory extends Factory
                 if (! $classification) {
                     $classification = Classification::factory()->create();
                 }
-                $classificationAttached = $classification->id;
+                $classificationId = $classification->id;
                 $department = Department::inRandomOrder()->first();
                 if (! $department) {
                     $department = Department::factory()->create();
                 }
-                $departmentAttached = $department->id;
+                $departmentId = $department->id;
             }
 
             if ($govEmploymentType === GovEmploymentType::INDETERMINATE->name) {
@@ -113,8 +113,8 @@ class WorkExperienceFactory extends Factory
             'caf_employment_type' => $cafEmploymentType,
             'caf_force' => $cafForce,
             'caf_rank' => $cafRank,
-            'classification_attached' => $classificationAttached,
-            'department_attached' => $departmentAttached,
+            'classification_id' => $classificationId,
+            'department_id' => $departmentId,
         ];
     }
 }
