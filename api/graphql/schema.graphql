@@ -1609,8 +1609,8 @@ input WorkExperienceInput {
   cafEmploymentType: CafEmploymentType @rename(attribute: "caf_employment_type")
   cafForce: CafForce @rename(attribute: "caf_force")
   cafRank: CafRank @rename(attribute: "caf_rank")
-  classification: ID @rename(attribute: "classification_attached")
-  department: ID @rename(attribute: "department_attached")
+  classification: UUID @rename(attribute: "classification_attached")
+  department: UUID @rename(attribute: "department_attached")
 }
 input PersonalExperienceInput {
   title: String
@@ -2181,7 +2181,10 @@ type Mutation {
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @create @canModel(ability: "create", injectArgs: true)
+  ): WorkExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator
   createPersonalExperience(
     userId: ID! @rename(attribute: "user_id")
     personalExperience: PersonalExperienceInput! @spread
@@ -2201,7 +2204,11 @@ type Mutation {
   updateWorkExperience(
     id: ID!
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @update @guard @canFind(ability: "update", find: "id")
+  ): WorkExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator
   updatePersonalExperience(
     id: ID!
     personalExperience: PersonalExperienceInput! @spread
