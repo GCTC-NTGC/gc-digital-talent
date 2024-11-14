@@ -346,7 +346,7 @@ const useMainNavLinks = (
   const defaultLinks = {
     homeLink: Home,
     roleLinks: roleLinksNoDuplicates,
-    mainLinks: [BrowseJobs],
+    mainLinks: [FindTalent, BrowseJobs],
     accountLinks: null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
     resourceLinks: [ContactSupport],
@@ -357,7 +357,7 @@ const useMainNavLinks = (
     case "applicant":
       return {
         ...defaultLinks,
-        mainLinks: [ApplicantDashboard, BrowseJobs],
+        mainLinks: [ApplicantDashboard, FindTalent, BrowseJobs],
         accountLinks: loggedIn
           ? [
               ApplicantProfile,
