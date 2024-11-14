@@ -9126,6 +9126,10 @@
     "defaultMessage": "Expériences communautaires",
     "description": "Heading for community experiences in experience by type listing"
   },
+  "iXgAIb": {
+    "defaultMessage": "Le candidat ou la candidate a reçu la cote <strong>{decision}</strong> le <strong>{date}</strong>.",
+    "description": "Qualified candidate details on revert final decision dialog on view pool candidate page"
+  },
   "iYD0eJ": {
     "defaultMessage": "Le candidat/la candidate a confirmé ce qui suit :",
     "description": "Lead-in for list of application confirmation list"
@@ -9437,10 +9441,6 @@
   "jx7Sf1": {
     "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
     "description": "Bilingual Positions message"
-  },
-  "jxH8bt": {
-    "defaultMessage": "Le candidat ou la candidate a reçu la cote <strong>{decision}</strong> le <strong>{date}</strong>",
-    "description": "Qualified candidate details on revert final decision dialog on view pool candidate page"
   },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
