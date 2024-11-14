@@ -224,12 +224,7 @@ export const UpdateClassificationForm = ({
                 <Select
                   id="level"
                   name="level"
-                  label={intl.formatMessage({
-                    defaultMessage: "Level",
-                    id: "bVRixs",
-                    description:
-                      "Label displayed on the classification form level field.",
-                  })}
+                  label={intl.formatMessage(messages.levelNumber)}
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOptionLevel,
                   )}

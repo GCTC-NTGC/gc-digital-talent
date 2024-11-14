@@ -124,13 +124,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
             >
               {classification.group}
             </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage: "Level number",
-                id: "OpAsB/",
-                description: "Label for classification level display",
-              })}
-            >
+            <FieldDisplay label={intl.formatMessage(messages.levelNumber)}>
               {classification.level}
             </FieldDisplay>
             <FieldDisplay
