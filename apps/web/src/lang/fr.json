@@ -1556,7 +1556,7 @@
     "description": "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_"
   },
   "5r2C2L": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat à « en cours d’évaluation »?",
+    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat ou de la candidate à « En cours d'évaluation »?",
     "description": "Final question on revert final decision dialog on view pool candidate page"
   },
   "5r5XSh": {
