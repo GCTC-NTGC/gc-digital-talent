@@ -110,12 +110,6 @@ const RemovalInput = () => {
   );
 };
 
-const title = defineMessage({
-  defaultMessage: "Remove candidate",
-  id: "4Z3/xp",
-  description: "Title for action to remove a candidate",
-});
-
 interface RemoveCandidateDialogProps {
   removalQuery: FragmentType<typeof RemoveCandidateDialog_Fragment>;
   defaultOpen?: boolean;
@@ -172,11 +166,21 @@ const RemoveCandidateDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button mode="inline" color="error" block>
-          {intl.formatMessage(title)}
+          {intl.formatMessage({
+            defaultMessage: "Remove candidate",
+            id: "NWDow2",
+            description: "Title for action to remove a candidate imperative",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{intl.formatMessage(title)}</Dialog.Header>
+        <Dialog.Header>
+          {intl.formatMessage({
+            defaultMessage: "Remove candidate",
+            id: "HY0vjz",
+            description: "Title for action to remove a candidate infinitive",
+          })}
+        </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(submitHandler)}>

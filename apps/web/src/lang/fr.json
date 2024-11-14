@@ -1275,10 +1275,6 @@
     "defaultMessage": "Parlez-nous de <strong>votre expérience professionnelle, de votre participation à la vie de la collectivité, des prix que vous avez reçus, de vos initiatives personnelles et de vos études</strong>. Vous utiliserez ces renseignements ultérieurement dans votre candidature pour nous aider à comprendre comment vous répondez aux exigences en matière d’éducation et de compétences de ce poste.",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
-  "4Z3/xp": {
-    "defaultMessage": "Supprimer le candidat",
-    "description": "Title for action to remove a candidate"
-  },
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
@@ -3743,6 +3739,10 @@
     "defaultMessage": "Bassin demandé",
     "description": "Title for the pool block in the manager info section of the single search request view."
   },
+  "HY0vjz": {
+    "defaultMessage": "Supprimer le (la) candidat(e)",
+    "description": "Title for action to remove a candidate infinitive"
+  },
   "HYeViW": {
     "defaultMessage": "Comprendre les dates limites pour présenter une demande",
     "description": "Heading for the pool closing date dialog"
@@ -4886,6 +4886,10 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
+  },
+  "NWDow2": {
+    "defaultMessage": "Supprimez le (la) candidat(e)",
+    "description": "Title for action to remove a candidate imperative"
   },
   "NZ3laJ": {
     "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
