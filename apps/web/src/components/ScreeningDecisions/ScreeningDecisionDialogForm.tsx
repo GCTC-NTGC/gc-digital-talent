@@ -157,25 +157,36 @@ const ScreeningDecisionDialogForm = ({
       {watchAssessmentDecision === AssessmentDecision.Successful && (
         <div>
           {dialogType === "EDUCATION" ? (
-            <div data-h2-margin-bottom="base(x1)">
-              <CardOptionGroup
-                idPrefix="justifications"
-                name="justifications"
-                legend={labels.justification}
-                items={successfulOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                context={
-                  educationContext ? (
-                    <ContextBlock
-                      messages={educationContext.messages}
-                      key={educationContext.key}
-                    />
-                  ) : null
-                }
-              />
-            </div>
+            <>
+              <div data-h2-margin-bottom="base(x1)">
+                <CardOptionGroup
+                  idPrefix="justifications"
+                  name="justifications"
+                  legend={labels.justification}
+                  items={successfulOptions}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  context={
+                    educationContext ? (
+                      <ContextBlock
+                        messages={educationContext.messages}
+                        key={educationContext.key}
+                      />
+                    ) : null
+                  }
+                />
+              </div>
+              <div data-h2-margin-bottom="base(x1)">
+                <TextArea
+                  id="skillDecisionNotes"
+                  name="skillDecisionNotes"
+                  rows={TEXT_AREA_ROWS}
+                  wordLimit={TEXT_AREA_MAX_WORDS}
+                  label={labels.decisionNotes}
+                />
+              </div>
+            </>
           ) : (
             <>
               <div data-h2-margin-bottom="base(x1)">

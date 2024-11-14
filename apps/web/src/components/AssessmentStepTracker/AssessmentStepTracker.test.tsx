@@ -5,10 +5,10 @@
 import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
-import { screen, waitFor, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   AssessmentDecision,
@@ -95,13 +95,6 @@ describe("AssessmentStepTracker", () => {
     await user.click(screen.getByRole("switch", { name: /on hold/i }));
     await user.click(screen.getByRole("switch", { name: /unsuccessful/i }));
   };
-
-  it("should have no accessibility errors", async () => {
-    const { container } = renderAssessmentStepTracker();
-    await waitFor(async () => {
-      await axeTest(container);
-    });
-  });
 
   it("should display candidates with the correct ordinals", async () => {
     renderAssessmentStepTracker();

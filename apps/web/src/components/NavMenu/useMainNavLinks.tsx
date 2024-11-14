@@ -4,33 +4,41 @@ import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 
 import { getNavLinkStyling, NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
-import { useIsSmallScreen } from "@gc-digital-talent/helpers";
+import {
+  hasRole,
+  ROLE_NAME,
+  RoleName,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
+import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { NavRole } from "../NavContext/NavContextContainer";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
 import navMenuMessages from "./messages";
+import useNavContext from "../NavContext/useNavContext";
+import {
+  convertRoleToNavRole,
+  isNavRole,
+  NAV_ROLES_BY_PRIVILEGE,
+} from "../NavContext/NavContextContainer";
 
-export const NavItem = ({
-  key,
+const NavItem = ({
   href,
   title,
   subMenu,
   ...rest
 }: {
-  key: string;
   href: string;
   title: string;
   subMenu?: boolean;
 }) => {
   return (
-    <NavMenu.Item key={key} {...rest}>
+    <NavMenu.Item {...rest}>
       <NavMenu.Link href={href} type={subMenu ? "subMenuLink" : "link"}>
         {title}
       </NavMenu.Link>
@@ -40,19 +48,17 @@ export const NavItem = ({
 
 /**
  * Builds the navigation structure depending on the current role and if the user is logged in
- * @param navRole The current navigation role of the user
- * @param loggedIn If the user is logged in
- * @returns
  */
-const useMainNavLinks = (
-  navRole: NavRole,
-  loggedIn: boolean,
-  roleAssignments: RoleAssignment[],
-) => {
+const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const permissions = permissionConstants();
   const isSmallScreen = useIsSmallScreen(1080);
+
+  const { navRole } = useNavContext();
+  const { userAuthInfo } = useAuthorization();
+  const { loggedIn } = useAuthentication();
+  const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
 
   const Home = (
     <NavMenu.Link
@@ -311,7 +317,7 @@ const useMainNavLinks = (
 
   const getRoleLink: Record<string, string> = {
     ["applicant"]: paths.applicantDashboard(),
-    ["manager"]: paths.manager(),
+    ["manager"]: paths.managerDashboard(),
     ["pool_operator"]: paths.communityDashboard(),
     ["request_responder"]: paths.communityDashboard(),
     ["community_manager"]: paths.communityDashboard(),
@@ -336,18 +342,28 @@ const useMainNavLinks = (
       }
 
       return {
+        id: convertRoleToNavRole(role as RoleName),
         name: getRoleName[role],
         href: getRoleLink[role],
       };
     });
 
-  const roleLinksNoDuplicates = uniqBy(roleLinks, "name");
+  const roleLinksNoDuplicatesAndSorted = uniqBy(roleLinks, "name").sort(
+    (a, b) => {
+      if (isNavRole(a.id) && isNavRole(b.id))
+        return (
+          NAV_ROLES_BY_PRIVILEGE.indexOf(a.id) -
+          NAV_ROLES_BY_PRIVILEGE.indexOf(b.id)
+        );
+      return 0;
+    },
+  );
 
   const defaultLinks = {
     homeLink: Home,
-    roleLinks: roleLinksNoDuplicates,
-    mainLinks: [BrowseJobs],
-    accountLinks: null,
+    roleLinks: roleLinksNoDuplicatesAndSorted,
+    mainLinks: [FindTalent, BrowseJobs],
+    accountLinks: loggedIn ? [SignOut] : null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
     resourceLinks: [ContactSupport],
     systemSettings: null,
@@ -357,7 +373,7 @@ const useMainNavLinks = (
     case "applicant":
       return {
         ...defaultLinks,
-        mainLinks: [ApplicantDashboard, BrowseJobs],
+        mainLinks: [ApplicantDashboard, FindTalent, BrowseJobs],
         accountLinks: loggedIn
           ? [
               ApplicantProfile,

@@ -305,20 +305,21 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       data-h2-font-size="base(caption)"
       data-h2-font-weight="base(bold)"
     >
-      {metadata.map(({ type, color, href, children, onClick }) => {
+      {metadata.map(({ type, color, href, children, onClick, key }) => {
         switch (type) {
           case "text":
             return (
               <span
                 data-h2-color="base(black.light)"
                 data-h2-font-weight="base(400)"
+                key={key}
               >
                 {children}
               </span>
             );
           case "chip":
             return (
-              <span>
+              <span key={key}>
                 <Chip color={color ?? "primary"}>{children}</Chip>
               </span>
             );
@@ -330,6 +331,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 fontSize="caption"
                 data-h2-font-weight="base(bold)"
                 onClick={onClick}
+                key={key}
               >
                 {children}
               </Button>
@@ -341,6 +343,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 href={href}
                 fontSize="caption"
                 data-h2-font-weight="base(bold)"
+                key={key}
               >
                 {children}
               </Link>
