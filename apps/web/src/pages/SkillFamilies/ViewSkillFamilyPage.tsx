@@ -102,7 +102,12 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
-          <Heading Icon={IdentificationIcon} level="h2" color="primary">
+          <Heading
+            Icon={IdentificationIcon}
+            level="h2"
+            color="primary"
+            data-h2-margin-top="base(0)"
+          >
             {subTitle}
           </Heading>
         </div>
