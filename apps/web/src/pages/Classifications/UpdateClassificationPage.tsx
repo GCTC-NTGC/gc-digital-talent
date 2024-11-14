@@ -3,7 +3,7 @@ import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import {
   Pending,
@@ -176,7 +176,7 @@ export const UpdateClassificationForm = ({
             <Heading
               level="h2"
               color="primary"
-              Icon={CloudIcon}
+              Icon={IdentificationIcon}
               data-h2-margin-top="base(0)"
             >
               {intl.formatMessage(messages.classificationInfo)}
