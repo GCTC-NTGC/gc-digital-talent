@@ -11683,7 +11683,7 @@
     "description": "Label displayed on an Experience form for role input"
   },
   "wrqRvV": {
-    "defaultMessage": "N’a pas réussi(e) au cours de l’évaluation",
+    "defaultMessage": "N’a pas réussi au cours de l'évaluation",
     "description": "Unsuccessful during assessment option"
   },
   "wsKhRd": {
