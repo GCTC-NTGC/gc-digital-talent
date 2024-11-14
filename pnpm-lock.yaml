@@ -213,7 +213,7 @@ importers:
         version: 18.3.1
       '@vitejs/plugin-react':
         specifier: ^4.3.3
-        version: 4.3.3(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
+        version: 4.3.3(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -248,14 +248,14 @@ importers:
         specifier: ^5.6.3
         version: 5.6.3
       vite:
-        specifier: ^5.4.10
-        version: 5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
       vite-plugin-compression2:
         specifier: ^1.3.0
         version: 1.3.0(rollup@4.21.0)
       vite-plugin-html:
         specifier: ^3.2.2
-        version: 3.2.2(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
+        version: 3.2.2(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
 
   packages/app-insights:
     dependencies:
@@ -981,13 +981,13 @@ importers:
         version: 8.4.3(storybook@8.4.3(prettier@3.3.3))
       '@storybook/builder-vite':
         specifier: ^8.4.3
-        version: 8.4.3(storybook@8.4.3(prettier@3.3.3))(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
+        version: 8.4.3(storybook@8.4.3(prettier@3.3.3))(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
       '@storybook/preview-api':
         specifier: ^8.4.3
         version: 8.4.3(storybook@8.4.3(prettier@3.3.3))
       '@storybook/react-vite':
         specifier: ^8.4.3
-        version: 8.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.4.3(prettier@3.3.3))(typescript@5.6.3)(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
+        version: 8.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.4.3(prettier@3.3.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
       '@storybook/types':
         specifier: ^8.4.3
         version: 8.4.3(storybook@8.4.3(prettier@3.3.3))
@@ -6310,9 +6310,6 @@ packages:
   picocolors@1.0.1:
     resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
 
-  picocolors@1.1.0:
-    resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
-
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -7534,8 +7531,8 @@ packages:
     peerDependencies:
       vite: '>=2.0.0'
 
-  vite@5.4.10:
-    resolution: {integrity: sha512-1hvaPshuPUtxeQ0hsVH3Mud0ZanOLwVTneA1EgbAM5LhaZEqyPWGRQ7BtaMvUrTDeEaC8pxtj6a6jku3x4z6SQ==}
+  vite@5.4.11:
+    resolution: {integrity: sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -7780,7 +7777,7 @@ snapshots:
   '@babel/code-frame@7.25.7':
     dependencies:
       '@babel/highlight': 7.25.7
-      picocolors: 1.1.0
+      picocolors: 1.1.1
 
   '@babel/code-frame@7.26.2':
     dependencies:
@@ -9166,13 +9163,13 @@ snapshots:
       '@types/yargs': 17.0.32
       chalk: 4.1.2
 
-  '@joshwooding/vite-plugin-react-docgen-typescript@0.3.0(typescript@5.6.3)(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
+  '@joshwooding/vite-plugin-react-docgen-typescript@0.3.0(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
     dependencies:
       glob: 7.2.3
       glob-promise: 4.2.2(glob@7.2.3)
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.6.3)
-      vite: 5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
+      vite: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
     optionalDependencies:
       typescript: 5.6.3
 
@@ -10017,13 +10014,13 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.4.3(storybook@8.4.3(prettier@3.3.3))(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
+  '@storybook/builder-vite@8.4.3(storybook@8.4.3(prettier@3.3.3))(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
     dependencies:
       '@storybook/csf-plugin': 8.4.3(storybook@8.4.3(prettier@3.3.3))
       browser-assert: 1.2.1
       storybook: 8.4.3(prettier@3.3.3)
       ts-dedent: 2.2.0
-      vite: 5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
+      vite: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
 
   '@storybook/components@8.4.3(storybook@8.4.3(prettier@3.3.3))':
     dependencies:
@@ -10079,11 +10076,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.4.3(prettier@3.3.3)
 
-  '@storybook/react-vite@8.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.4.3(prettier@3.3.3))(typescript@5.6.3)(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
+  '@storybook/react-vite@8.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.4.3(prettier@3.3.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
     dependencies:
-      '@joshwooding/vite-plugin-react-docgen-typescript': 0.3.0(typescript@5.6.3)(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
+      '@joshwooding/vite-plugin-react-docgen-typescript': 0.3.0(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
       '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
-      '@storybook/builder-vite': 8.4.3(storybook@8.4.3(prettier@3.3.3))(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
+      '@storybook/builder-vite': 8.4.3(storybook@8.4.3(prettier@3.3.3))(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
       '@storybook/react': 8.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.3(prettier@3.3.3))(typescript@5.6.3)
       find-up: 5.0.0
       magic-string: 0.30.10
@@ -10093,7 +10090,7 @@ snapshots:
       resolve: 1.22.8
       storybook: 8.4.3(prettier@3.3.3)
       tsconfig-paths: 4.2.0
-      vite: 5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
+      vite: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
     transitivePeerDependencies:
       - '@storybook/test'
       - rollup
@@ -10686,14 +10683,14 @@ snapshots:
       '@urql/core': 5.0.8(graphql@16.9.0)
       wonka: 6.3.4
 
-  '@vitejs/plugin-react@4.3.3(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
+  '@vitejs/plugin-react@4.3.3(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))':
     dependencies:
       '@babel/core': 7.25.7
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.25.7)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.25.7)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
+      vite: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -13641,8 +13638,6 @@ snapshots:
 
   picocolors@1.0.1: {}
 
-  picocolors@1.1.0: {}
-
   picocolors@1.1.1: {}
 
   picomatch@2.3.1: {}
@@ -13838,7 +13833,7 @@ snapshots:
   postcss@8.4.45:
     dependencies:
       nanoid: 3.3.7
-      picocolors: 1.1.0
+      picocolors: 1.1.1
       source-map-js: 1.2.0
 
   prelude-ls@1.2.1: {}
@@ -14997,7 +14992,7 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  vite-plugin-html@3.2.2(vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)):
+  vite-plugin-html@3.2.2(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       colorette: 2.0.20
@@ -15011,9 +15006,9 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
+      vite: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
 
-  vite@5.4.10(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1):
+  vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.45
