@@ -121,7 +121,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                 ];
 
                 // 1 is added to the key to account for the header row
-                $sheet->fromArray($values, null, 'A'.$currentUser);
+                $sheet->fromArray($values, null, 'A'.$currentUser + 1);
                 $currentUser++;
             }
         });

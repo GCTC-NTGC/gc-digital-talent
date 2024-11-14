@@ -212,7 +212,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 }
 
                 // 1 is added to the key to account for the header row
-                $sheet->fromArray($values, null, 'A'.$currentCandidate);
+                $sheet->fromArray($values, null, 'A'.$currentCandidate + 1);
                 $currentCandidate++;
             }
         });
