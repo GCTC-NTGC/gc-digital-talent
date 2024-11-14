@@ -3200,7 +3200,7 @@
     "description": "Application step skipped page details"
   },
   "ETrCOq": {
-    "defaultMessage": "Statut du candidat",
+    "defaultMessage": "Statut du (de la) candidat(e)",
     "description": "Title for admin editing a pool candidates status"
   },
   "EUDRhe": {
@@ -3292,7 +3292,7 @@
     "description": "Message displayed to users when saving self-declaration is successful."
   },
   "F00OD4": {
-    "defaultMessage": "Statut du candidat",
+    "defaultMessage": "Statut du (de la) candidat(e)",
     "description": "Title of the 'Candidate status' section of the view-user page"
   },
   "F1OHq7": {
