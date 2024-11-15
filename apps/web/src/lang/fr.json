@@ -795,10 +795,6 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
-  "293bsq": {
-    "defaultMessage": "Gestion d’un processus de recrutement",
-    "description": "Heading for pool operator dashboard links"
-  },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
@@ -2527,10 +2523,6 @@
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
   },
-  "B29+yd": {
-    "defaultMessage": "Publication des bassins et gestion d'équipes",
-    "description": "Heading for Community Manager dashboard links"
-  },
   "B6SqfX": {
     "defaultMessage": "Sauvegarder le changement d’état",
     "description": "Button label displayed that saves the users status selection."
@@ -2834,6 +2826,10 @@
   "CcLolQ": {
     "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
     "description": "Lead in text for the pick process and roles inputs."
+  },
+  "CdJQ7z": {
+    "defaultMessage": "Administration",
+    "description": "Header for section called administration"
   },
   "CdS26V": {
     "defaultMessage": "Au Canada et aux États-Unis",
@@ -3851,6 +3847,10 @@
     "defaultMessage": "L’ulu, un outil inuit utilisé par les femmes inuites.",
     "description": "Indigenous Apprenticeship ulu image text alternative"
   },
+  "IJlJF1": {
+    "defaultMessage": "Vos rôles",
+    "description": "Header for section displaying logged in user's roles"
+  },
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
@@ -3922,10 +3922,6 @@
   "Il8ztR": {
     "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Tous les candidats qualifiés dans des bassins ont été évalués et ont réussi l’évaluation.",
     "description": "Content displayed in the find talent page explaining the page and what it offers to users."
-  },
-  "Ilg37j": {
-    "defaultMessage": "Modèles d'emplois",
-    "description": "Title for job templates"
   },
   "Ilot3b": {
     "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
@@ -4775,6 +4771,10 @@
     "defaultMessage": "Inconnu",
     "description": "Contract start timeframe is unknown"
   },
+  "MySfL/": {
+    "defaultMessage": "Bibliothèque de modèles d'emplois",
+    "description": "Label for link to job templates library"
+  },
   "Myfw+L": {
     "defaultMessage": "Bassins",
     "description": "Title for pools"
@@ -4798,10 +4798,6 @@
   "N2/Y9w": {
     "defaultMessage": "Non réclamé",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
-  },
-  "N3uD4m": {
-    "defaultMessage": "Mes équipes",
-    "description": "Link text for current users teams page"
   },
   "N44sQc": {
     "defaultMessage": "Définition de la compétence",
@@ -6198,6 +6194,10 @@
   "UKw7sB": {
     "defaultMessage": "Flux de travail",
     "description": "Label displayed on the pool form stream/job title field."
+  },
+  "UNEVD9": {
+    "defaultMessage": "Recrutement",
+    "description": "Header for section called recruitment"
   },
   "UNLuiP": {
     "defaultMessage": "3 à 6 mois",
@@ -8998,10 +8998,6 @@
     "defaultMessage": "Envoyer un autre code.",
     "description": "button to request a new code"
   },
-  "hxaIWa": {
-    "defaultMessage": "Ministères et organismes",
-    "description": "Link text for all departments page"
-  },
   "hyBNpJ": {
     "defaultMessage": "Les comptes de médias sociaux peuvent comporter des liens ou des annonces liés à des sites Web échappant au contrôle du gouvernement du Canada. Ces liens sont fournis aux utilisateurs uniquement par souci de commodité. Le gouvernement du Canada n’assume aucune responsabilité à l’égard de l’information obtenue au moyen de ces liens ou de ces annonces, pas plus qu’il ne cautionne ces sites et leur contenu..",
     "description": "Paragraph for link to others section"
@@ -9190,10 +9186,6 @@
     "defaultMessage": "Nous avons bien reçu votre message.",
     "description": "Support form success title"
   },
-  "ijUT7N": {
-    "defaultMessage": "Réponse aux demandes en matière de talents",
-    "description": "Heading for request responder dashboard links"
-  },
   "ijg+sm": {
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Title for the EX graduation with degree requirement."
@@ -9221,10 +9213,6 @@
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
-  },
-  "ipSk4R": {
-    "defaultMessage": "Maintenance de la plateforme",
-    "description": "Heading for platform dashboard links"
   },
   "ir/K0H": {
     "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
@@ -9789,10 +9777,6 @@
   "m3qn9l": {
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
     "description": "Legend for the employment equity checklist"
-  },
-  "m4hoPL": {
-    "defaultMessage": "Groupes et classifications",
-    "description": "Link text for all classifications page"
   },
   "m4rXNt": {
     "defaultMessage": "Objet",
@@ -11621,10 +11605,6 @@
   "wHX/8C": {
     "defaultMessage": "Admin",
     "description": "Title tag for Admin site"
-  },
-  "wHnGAK": {
-    "defaultMessage": "Sur quoi travaillez-vous aujourd’hui?",
-    "description": "Heading for the sections of links available to the current user"
   },
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",
