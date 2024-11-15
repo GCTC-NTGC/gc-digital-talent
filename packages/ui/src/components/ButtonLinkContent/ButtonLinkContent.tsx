@@ -108,8 +108,10 @@ const ButtonLinkContent = ({
       "data-h2-margin-top": "base(-x.2)",
     };
   }
-  let contentDisplay = {
-    "data-h2-display": "base(block) base:children[>*](inline-block)",
+  let contentDisplay: Record<string, string> = {
+    "data-h2-display": "base(flex) base:children[>*](inline-block)",
+    "data-h2-flex-wrap": "base(nowrap)",
+    "data-h2-align-items": "base(flex-start)",
     "data-h2-vertical-align": "base:children[>*](middle)",
   };
   if (mode === "text") {
@@ -178,6 +180,7 @@ const ButtonLinkContent = ({
       </span>
     );
   }
+
   return (
     <span {...contentDisplay} {...rest}>
       {Icon && (
