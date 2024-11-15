@@ -15,7 +15,7 @@ import useControllableState from "../../hooks/useControllableState";
 import { NavMenuProvider } from "./NavMenuProvider";
 import NavMenu from "./NavMenu";
 
-export interface NavMenuProps {
+interface NavMenuProps {
   /** Sets the section to be 'open' by default */
   defaultOpen?: boolean;
   /** Controllable open state */
