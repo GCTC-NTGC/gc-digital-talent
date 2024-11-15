@@ -18,6 +18,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -61,6 +62,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
   const paths = useRoutes();
   const community = getFragment(ViewCommunityPage_CommunityFragment, query);
 
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
   return (
     <>
       <div
@@ -87,25 +89,45 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
           data-h2-gap="base(x1)"
         >
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+          <FieldDisplay
+            hasError={!community.name?.en}
+            label={intl.formatMessage(adminMessages.nameEn)}
+          >
             {community.name?.en
               ? community.name.en
               : intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+          <FieldDisplay
+            hasError={!community.name?.fr}
+            label={intl.formatMessage(adminMessages.nameFr)}
+          >
             {community.name?.fr
               ? community.name.fr
               : intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.descriptionEn)}>
-            {community.description?.en
-              ? community.description.en
-              : intl.formatMessage(commonMessages.notProvided)}
+          <FieldDisplay
+            hasError={!community.description?.en}
+            label={intl.formatMessage(adminMessages.descriptionEn)}
+          >
+            {community.description?.en ? (
+              <RichTextRenderer
+                node={htmlToRichTextJSON(community.description.en)}
+              />
+            ) : (
+              notProvided
+            )}
           </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.descriptionFr)}>
-            {community.description?.fr
-              ? community.description.fr
-              : intl.formatMessage(commonMessages.notProvided)}
+          <FieldDisplay
+            hasError={!community.description?.fr}
+            label={intl.formatMessage(adminMessages.descriptionFr)}
+          >
+            {community.description?.fr ? (
+              <RichTextRenderer
+                node={htmlToRichTextJSON(community.description.fr)}
+              />
+            ) : (
+              notProvided
+            )}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

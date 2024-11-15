@@ -2,9 +2,10 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useNavigate } from "react-router";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Submit, Input, TextArea } from "@gc-digital-talent/forms";
+import { Submit, Input, RichTextInput } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
@@ -36,19 +37,26 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import pageTitles from "~/messages/pageTitles";
+// import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+//TODO: switch back to constants File
+const FRENCH_WORDS_PER_ENGLISH_WORD = 7 / 5;
 
+const TEXT_AREA_MAX_WORDS_EN = 200;
+const TEXT_AREA_MAX_WORDS_FR = Math.round(
+  TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD,
+);
 interface FormValues {
   key: string;
   nameEn: string;
   nameFr: string;
   descriptionEn: string;
   descriptionFr: string;
+  mandateAuthorityEn: string;
+  mandateAuthorityFr: string;
 }
 
-const TEXT_AREA_MAX_WORDS = 200;
-
-const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
-  fragment ViewCommunityPage_Community on Community {
+const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
+  fragment UpdateCommunityPage_Community on Community {
     id
     key
     name {
@@ -56,6 +64,10 @@ const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       fr
     }
     description {
+      en
+      fr
+    }
+    mandateAuthority {
       en
       fr
     }
@@ -70,6 +82,8 @@ const apiDataToFormValues = (
   nameFr: apiData?.name?.fr ?? "",
   descriptionEn: apiData?.description?.en ?? "",
   descriptionFr: apiData?.description?.fr ?? "",
+  mandateAuthorityEn: apiData?.mandateAuthority?.en ?? "",
+  mandateAuthorityFr: apiData?.mandateAuthority?.fr ?? "",
 });
 
 const formValuesToApiData = (formValues: FormValues): UpdateCommunityInput => ({
@@ -82,10 +96,14 @@ const formValuesToApiData = (formValues: FormValues): UpdateCommunityInput => ({
     en: formValues.descriptionEn,
     fr: formValues.descriptionFr,
   },
+  mandateAuthority: {
+    en: formValues.mandateAuthorityEn,
+    fr: formValues.mandateAuthorityFr,
+  },
 });
 
 interface CommunityFormProps {
-  query: FragmentType<typeof ViewCommunityPage_CommunityFragment>;
+  query: FragmentType<typeof UpdateCommunityPage_CommunityFragment>;
   onUpdate: (data: UpdateCommunityInput) => Promise<void>;
   isSubmitting: boolean;
 }
@@ -96,7 +114,7 @@ const CommunityForm = ({
 }: CommunityFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const community = getFragment(ViewCommunityPage_CommunityFragment, query);
+  const community = getFragment(UpdateCommunityPage_CommunityFragment, query);
   const methods = useForm<FormValues>({
     defaultValues: apiDataToFormValues(community),
   });
@@ -133,9 +151,9 @@ const CommunityForm = ({
                 data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Skill information",
-                  id: "aIEKtJ",
-                  description: "Heading for the 'edit a skill' form",
+                  defaultMessage: "Community information",
+                  id: "IqZ6W0",
+                  description: "Heading for the 'edit a community' form",
                 })}
               </Heading>
             </div>
@@ -145,8 +163,8 @@ const CommunityForm = ({
               data-h2-gap="base(x1)"
             >
               <Input
-                id="name_en"
-                name="name.en"
+                id="nameEn"
+                name="nameEn"
                 label={intl.formatMessage(adminMessages.nameEn)}
                 type="text"
                 rules={{
@@ -154,73 +172,52 @@ const CommunityForm = ({
                 }}
               />
               <Input
-                id="name_fr"
-                name="name.fr"
+                id="nameFr"
+                name="nameFr"
                 label={intl.formatMessage(adminMessages.nameFr)}
                 type="text"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
-              <TextArea
-                id="description_en"
-                name="description.en"
-                label={intl.formatMessage({
-                  defaultMessage: "Description (English)",
-                  id: "fdKtYm",
-                  description:
-                    "Label displayed on the update a skill form description (English) field.",
-                })}
+              <RichTextInput
+                id="descriptionEn"
+                label={intl.formatMessage(adminMessages.descriptionEn)}
+                name="descriptionEn"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+                wordLimit={TEXT_AREA_MAX_WORDS_EN}
               />
-              <TextArea
-                id="description_fr"
-                name="description.fr"
-                label={intl.formatMessage({
-                  defaultMessage: "Description (French)",
-                  id: "4EkI/1",
-                  description:
-                    "Label displayed on the update a skill form description (French) field.",
-                })}
+              <RichTextInput
+                id="descriptionFr"
+                label={intl.formatMessage(adminMessages.descriptionFr)}
+                name="descriptionFr"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+                wordLimit={TEXT_AREA_MAX_WORDS_FR}
               />
+
               <Input
-                id="keywords_en"
-                name="keywords.en"
+                id="mandateAuthorityEn"
+                name="mandateAuthorityEn"
                 label={intl.formatMessage({
-                  defaultMessage: "Keywords (English)",
-                  id: "FiylOa",
+                  defaultMessage: "Mandate authority (English)",
+                  id: "T9alkU",
                   description:
-                    "Label displayed on the skill form keywords field in English.",
-                })}
-                context={intl.formatMessage({
-                  defaultMessage:
-                    "This field accepts a list of comma separated keywords associated with the skill.",
-                  id: "NT3jrI",
-                  description:
-                    "Additional context describing the purpose of the skills 'keyword' field.",
+                    "Label displayed on the community form mandate authority field in English.",
                 })}
                 type="text"
               />
               <Input
-                id="keywords_fr"
-                name="keywords.fr"
+                id="mandateAuthorityFr"
+                name="mandateAuthorityFr"
                 label={intl.formatMessage({
-                  defaultMessage: "Keywords (French)",
-                  id: "fOl4Ez",
+                  defaultMessage: "Mandate authority (French)",
+                  id: "oWPn6I",
                   description:
-                    "Label displayed on the skill form keywords field in French.",
-                })}
-                context={intl.formatMessage({
-                  defaultMessage:
-                    "This field accepts a list of comma separated keywords associated with the skill.",
-                  id: "NT3jrI",
-                  description:
-                    "Additional context describing the purpose of the skills 'keyword' field.",
+                    "Label displayed on the community form mandate authority field in French.",
                 })}
                 type="text"
               />
@@ -267,7 +264,7 @@ const UpdateCommunityPage_Query = graphql(/* GraphQL */ `
         fr
       }
 
-      ...ViewCommunityPage_Community
+      ...UpdateCommunityPage_Community
     }
   }
 `);
@@ -283,6 +280,7 @@ const UpdateCommunity_Mutation = graphql(/* GraphQL */ `
 export const UpdateCommunity = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: UpdateCommunityPage_Query,
@@ -297,6 +295,7 @@ export const UpdateCommunity = () => {
     return executeMutation({ id: communityId, community: input }).then(
       (result) => {
         if (result.data?.updateCommunity) {
+          navigate(paths.communityView(communityId));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Community updated successfully!",
@@ -304,7 +303,6 @@ export const UpdateCommunity = () => {
               description: "Message displayed after a community is updated",
             }),
           );
-          return;
         }
         throw new Error("Failed to save community");
       },
@@ -338,9 +336,9 @@ export const UpdateCommunity = () => {
   });
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Edit a skill",
-    id: "spzerx",
-    description: "Page title for the edit skill page.",
+    defaultMessage: "Update a community",
+    id: "Es6z/1",
+    description: "Page title for the edit community page.",
   });
 
   return (
