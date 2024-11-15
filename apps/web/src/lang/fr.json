@@ -2459,6 +2459,10 @@
     "defaultMessage": "Bilingue avancé (C B C)",
     "description": "Bilingual advanced language requirement"
   },
+  "AktnIU": {
+    "defaultMessage": "Créer une nouvelle classification",
+    "description": "Heading displayed above the Create Classification form."
+  },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'project portfolio management' IT work stream"
@@ -8058,6 +8062,10 @@
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
   },
+  "dotl8X": {
+    "defaultMessage": "Recherche par mot-clé",
+    "description": "Label for keyword search input"
+  },
   "dpO8Va": {
     "defaultMessage": "Statut du placement",
     "description": "Label for the job placement status field"
@@ -9085,6 +9093,10 @@
   "iGXXjP": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
+  },
+  "iHDhMh": {
+    "defaultMessage": "Numéro de niveau",
+    "description": "Label for classification level"
   },
   "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
