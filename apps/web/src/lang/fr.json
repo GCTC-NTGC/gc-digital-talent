@@ -4847,6 +4847,10 @@
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Label for the 'planning and reporting' IT work stream"
   },
+  "NJIdH1": {
+    "defaultMessage": "Compétences de cette famille",
+    "description": "Label for skills input in skill family form"
+  },
   "NJUJl0": {
     "defaultMessage": "Il n’y a aucun statut de selectionné.",
     "description": "Message displayed when no statuses are shown"
@@ -8045,6 +8049,10 @@
   "doatZI": {
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
+  },
+  "dotl8X": {
+    "defaultMessage": "Recherche par mot-clé",
+    "description": "Label for keyword search input"
   },
   "dpO8Va": {
     "defaultMessage": "Statut du placement",
