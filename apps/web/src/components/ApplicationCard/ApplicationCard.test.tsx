@@ -70,7 +70,7 @@ describe("ApplicationCard", () => {
       ),
     });
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
@@ -92,7 +92,7 @@ describe("ApplicationCard", () => {
     });
 
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(4);
+    expect(links).toHaveLength(3);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
@@ -128,7 +128,7 @@ describe("ApplicationCard", () => {
       ),
     });
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(2);
     const qualifiedLabel = screen.queryByText("Submission date passed");
 
     expect(qualifiedLabel).toBeInTheDocument();
