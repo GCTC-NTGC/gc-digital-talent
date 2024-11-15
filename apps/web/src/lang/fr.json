@@ -10830,10 +10830,6 @@
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
   },
-  "rXdaZW": {
-    "defaultMessage": "Obtenir du soutien",
-    "description": "Link text to direct a user to the support page"
-  },
   "rZ0GyE": {
     "defaultMessage": "Modifications apportées aux procédures obligatoires en 2024",
     "description": "Heading for section describing the 2024 changes to the directive"
@@ -11941,10 +11937,6 @@
   "yCHFQo": {
     "defaultMessage": "Bilingue (intermédiaire – BBB/BBB)",
     "description": "Bilingual intermediate personnel language"
-  },
-  "yE/QNS": {
-    "defaultMessage": "Obtenez du soutien pour le poste {title}",
-    "description": "Link text to direct a user to the support page"
   },
   "yExs/j": {
     "defaultMessage": "Nous sommes désolés, mais nous ne pouvons pas trouver la page que vous cherchez.",
