@@ -144,6 +144,8 @@ const getRoutes = (lang: Locales) => {
 
     // Admin - Skill Families
     skillFamilyTable: () => [adminUrl, "settings", "skill-families"].join("/"),
+    skillFamilyView: (id: string) =>
+      `${adminUrl}/settings/skill-families/${id}`,
     skillFamilyCreate: () =>
       [adminUrl, "settings", "skill-families", "create"].join("/"),
     skillFamilyUpdate: (skillFamilyId: string) =>

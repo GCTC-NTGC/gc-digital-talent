@@ -535,6 +535,10 @@
     "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour ce ou cette membre :",
     "description": "Lead in text for the add role to user form."
   },
+  "0cy9n/": {
+    "defaultMessage": "Informations sur la famille de compétences",
+    "description": "Subtitle for viewing a specific skill family"
+  },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
@@ -1422,10 +1426,6 @@
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
-  },
-  "5Al53V": {
-    "defaultMessage": "Créer une famille de compétences",
-    "description": "Title displayed on the create a skill family form."
   },
   "5C8xs4": {
     "defaultMessage": "Sélectionnez une équipe",
@@ -2338,6 +2338,10 @@
   "A44nkj": {
     "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des TI au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe TI</link>, signée en décembre 2023, par le groupe TI de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe TI, et ce jusqu’à la date d’expiration de la convention.",
     "description": "First paragraph describing the training fund"
+  },
+  "A7fDb8": {
+    "defaultMessage": "Compétences de cette famille",
+    "description": "Label for display of skills within a specific family"
   },
   "A94Zgi": {
     "defaultMessage": "Découvrez les possibilités d’apprentissage offertes aux membres du personnel des TI pour acquérir des compétences et les perfectionner.",
@@ -3327,10 +3331,6 @@
     "defaultMessage": "Publié",
     "description": "Title displayed on the Pool table published at column"
   },
-  "FCQnWB": {
-    "defaultMessage": "Créer - famille",
-    "description": "Page title for the skill family creation page"
-  },
   "FDGVHB": {
     "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
     "description": "third 2024 key change rationale to the directive"
@@ -3570,10 +3570,6 @@
   "GQsJAi": {
     "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures</a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
-  },
-  "GQskY1": {
-    "defaultMessage": "Mettre à jour une famille de compétences",
-    "description": "Title displayed on the update a skillFamily form."
   },
   "GSHQHG": {
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
@@ -4850,6 +4846,10 @@
   "NHjbIl": {
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Label for the 'planning and reporting' IT work stream"
+  },
+  "NJIdH1": {
+    "defaultMessage": "Compétences de cette famille",
+    "description": "Label for skills input in skill family form"
   },
   "NJUJl0": {
     "defaultMessage": "Il n’y a aucun statut de selectionné.",
@@ -7094,6 +7094,10 @@
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 3 compétences comportementales ou \"compétences relationnelles”</strong> qu’ils cherchent à améliorer activement.",
     "description": "Description of a users behavioural skills to improve for admins"
   },
+  "YjDiUu": {
+    "defaultMessage": "Annulez et revenez aux familles de compétences",
+    "description": "Link text to return to skill family table"
+  },
   "YjMfWZ": {
     "defaultMessage": "Nom de l’équipe (Français)",
     "description": "Name of an organization/team in French field."
@@ -7469,10 +7473,6 @@
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
-  },
-  "azdo5+": {
-    "defaultMessage": "Modifier - famille",
-    "description": "Page title for the skill family edit page"
   },
   "b+KdqW": {
     "defaultMessage": "Renseignements sur l'équipe",
@@ -8049,6 +8049,10 @@
   "doatZI": {
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
+  },
+  "dotl8X": {
+    "defaultMessage": "Recherche par mot-clé",
+    "description": "Label for keyword search input"
   },
   "dpO8Va": {
     "defaultMessage": "Statut du placement",
@@ -9026,6 +9030,10 @@
     "defaultMessage": "Votre compte CléGC",
     "description": "Accordion trigger for your GCKey account info."
   },
+  "i4OGTD": {
+    "defaultMessage": "Créer une famille de compétences",
+    "description": "Page title for the skill family creation page"
+  },
   "i4TGiO": {
     "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une nouvelle équipe ou en modifier une qui existe déjà.",
     "description": "Descriptive text about the list of teams in the admin portal."
@@ -9153,6 +9161,10 @@
   "idv7rY": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get deleted."
+  },
+  "ifVyI/": {
+    "defaultMessage": "Modifiez les informations sur la famille de compétences",
+    "description": "Link text to edit a skill family"
   },
   "igTx2a": {
     "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
@@ -10682,6 +10694,10 @@
     "defaultMessage": "Erreur : l'archivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get archived."
   },
+  "qkuRs8": {
+    "defaultMessage": "Créez une famille de compétences",
+    "description": "Button text to create a skill family"
+  },
   "qlVBtp": {
     "defaultMessage": "Embaucher un·e apprenti·e",
     "description": "Link to send an email to the team"
@@ -11626,6 +11642,10 @@
     "defaultMessage": "Créer un profil",
     "description": "Link text to direct users to the profile page when anonymous"
   },
+  "wSlABO": {
+    "defaultMessage": "Modifier une famille de compétences ",
+    "description": "Page title for the skill family edit page"
+  },
   "wTAdQe": {
     "defaultMessage": "{role} à {organization}",
     "description": "Role at organization"
@@ -11993,10 +12013,6 @@
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
     "description": "Call to action to begin editing government information"
-  },
-  "yXwlJw": {
-    "defaultMessage": "Chercher les familles de compétences",
-    "description": "Label for the skill families table search input"
   },
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
