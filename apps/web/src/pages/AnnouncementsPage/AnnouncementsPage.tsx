@@ -4,7 +4,6 @@ import { useQuery, useMutation } from "urql";
 import { SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -79,7 +78,14 @@ const AnnouncementsPage = () => {
     return executeMutation({ sitewideAnnouncementInput: input }, context).then(
       (result) => {
         if (result.data?.updateSitewideAnnouncement) {
-          toast.success(intl.formatMessage(commonMessages.success));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Sitewide announcement updated successfully!",
+              id: "kY05h1",
+              description:
+                "Message displayed when a user successfully updates sitewide announcement information",
+            }),
+          );
           return;
         }
         throw new Error("Failed to save announcement");
