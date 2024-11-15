@@ -79,7 +79,14 @@ const AnnouncementsPage = () => {
     return executeMutation({ sitewideAnnouncementInput: input }, context).then(
       (result) => {
         if (result.data?.updateSitewideAnnouncement) {
-          toast.success(intl.formatMessage(commonMessages.success));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Sitewide announcement updated successfully!",
+              id: "kY05h1",
+              description:
+                "Message displayed when a user successfully updates sitewide announcement information",
+            }),
+          );
           return;
         }
         throw new Error("Failed to save announcement");

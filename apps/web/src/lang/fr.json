@@ -9550,6 +9550,10 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
+  "kY05h1": {
+    "defaultMessage": "L'annonce à l’échelle du site a été mise à jour avec succès!",
+    "description": "Message displayed when a user successfully updates sitewide announcement information"
+  },
   "kbMB6R": {
     "defaultMessage": "Lieu de travail et terminologie",
     "description": "Heading for the pool work location dialog"
