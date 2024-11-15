@@ -92,7 +92,7 @@
     "description": "Message displayed when user attempts to apply to an unpublished pool"
   },
   "17dZD4": {
-    "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
+    "defaultMessage": "Nous informerons le candidat ou la candidate de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
   },
   "1UX8RD": {

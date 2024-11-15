@@ -520,7 +520,7 @@
     "description": "Title for pool candidates"
   },
   "0YZeO0": {
-    "defaultMessage": "Embauché (Temporaire)",
+    "defaultMessage": "Embauché(e) (occasionnel)",
     "description": "Status for an application that has been hired with a casual contract"
   },
   "0YpfAG": {
@@ -1275,10 +1275,6 @@
     "defaultMessage": "Parlez-nous de <strong>votre expérience professionnelle, de votre participation à la vie de la collectivité, des prix que vous avez reçus, de vos initiatives personnelles et de vos études</strong>. Vous utiliserez ces renseignements ultérieurement dans votre candidature pour nous aider à comprendre comment vous répondez aux exigences en matière d’éducation et de compétences de ce poste.",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
-  "4Z3/xp": {
-    "defaultMessage": "Supprimer le candidat",
-    "description": "Title for action to remove a candidate"
-  },
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
@@ -1556,7 +1552,7 @@
     "description": "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_"
   },
   "5r2C2L": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat à « en cours d’évaluation »?",
+    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat ou de la candidate à « En cours d'évaluation »?",
     "description": "Final question on revert final decision dialog on view pool candidate page"
   },
   "5r5XSh": {
@@ -3200,7 +3196,7 @@
     "description": "Application step skipped page details"
   },
   "ETrCOq": {
-    "defaultMessage": "Statut du candidat",
+    "defaultMessage": "Statut du (de la) candidat(e)",
     "description": "Title for admin editing a pool candidates status"
   },
   "EUDRhe": {
@@ -3264,7 +3260,7 @@
     "description": "Description of a decorative image of a woman and a laptop"
   },
   "EvR6qK": {
-    "defaultMessage": "Candidat(e) qui se qualifie",
+    "defaultMessage": "Qualifiez le candidat ou la candidate",
     "description": "Qualify candidate option"
   },
   "Evn5Mo": {
@@ -3292,7 +3288,7 @@
     "description": "Message displayed to users when saving self-declaration is successful."
   },
   "F00OD4": {
-    "defaultMessage": "Statut du candidat",
+    "defaultMessage": "Statut du (de la) candidat(e)",
     "description": "Title of the 'Candidate status' section of the view-user page"
   },
   "F1OHq7": {
@@ -3730,6 +3726,10 @@
   "HXF9GA": {
     "defaultMessage": "Bassin demandé",
     "description": "Title for the pool block in the manager info section of the single search request view."
+  },
+  "HY0vjz": {
+    "defaultMessage": "Supprimer le (la) candidat(e)",
+    "description": "Title for action to remove a candidate infinitive"
   },
   "HYeViW": {
     "defaultMessage": "Comprendre les dates limites pour présenter une demande",
@@ -4360,7 +4360,7 @@
     "description": "Title for the 'IT-04 Manager' classification"
   },
   "KqAp09": {
-    "defaultMessage": "Poursuivre l’ébauche de votre demande pour le poste {applicationTitle}",
+    "defaultMessage": "Poursuivez l’ébauche de votre demande pour le poste {applicationTitle}",
     "description": "Link text to apply for a pool advertisement"
   },
   "KqEyqD": {
@@ -4882,6 +4882,10 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
+  },
+  "NWDow2": {
+    "defaultMessage": "Supprimez le (la) candidat(e)",
+    "description": "Title for action to remove a candidate imperative"
   },
   "NZ3laJ": {
     "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
@@ -5420,7 +5424,7 @@
     "description": "Placeholder for stream filter in search form."
   },
   "QJi1ZQ": {
-    "defaultMessage": "Annuler la décision et mettre le statut à jour",
+    "defaultMessage": "Annulez la décision et mettez le statut à jour",
     "description": "Button label to revert final decision on view pool candidate page"
   },
   "QKGmDP": {
@@ -5480,7 +5484,7 @@
     "description": "On-call 24/7 personnel other requirement"
   },
   "QaMkP7": {
-    "defaultMessage": "Autre mesures",
+    "defaultMessage": "Autres mesures",
     "description": "Title for more actions sidebar on view pool candidate page"
   },
   "QagkWo": {
@@ -9142,6 +9146,10 @@
     "defaultMessage": "Expériences communautaires",
     "description": "Heading for community experiences in experience by type listing"
   },
+  "iXgAIb": {
+    "defaultMessage": "Le candidat ou la candidate a reçu la cote <strong>{decision}</strong> le <strong>{date}</strong>.",
+    "description": "Qualified candidate details on revert final decision dialog on view pool candidate page"
+  },
   "iYD0eJ": {
     "defaultMessage": "Le candidat/la candidate a confirmé ce qui suit :",
     "description": "Lead-in for list of application confirmation list"
@@ -9415,7 +9423,7 @@
     "description": "Lead in text for the add role to user form."
   },
   "jiJ8qo": {
-    "defaultMessage": "Poursuivre l’ébauche",
+    "defaultMessage": "Poursuivez l'ébauche",
     "description": "Link text to continue a specific application that is in draft state."
   },
   "joXPYW": {
@@ -9449,10 +9457,6 @@
   "jx7Sf1": {
     "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
     "description": "Bilingual Positions message"
-  },
-  "jxH8bt": {
-    "defaultMessage": "Le candidat a reçu la cote <strong>{decision}</strong> le <strong>{date}</strong>",
-    "description": "Qualified candidate details on revert final decision dialog on view pool candidate page"
   },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
@@ -9815,7 +9819,7 @@
     "description": "Various language requirement description"
   },
   "mF9apF": {
-    "defaultMessage": "Utiliser la présente section pour finaliser la décision ayant trait à la demande du/de la candidat(e) une fois que vous aurez effectué toutes les vérifications nécessaires.",
+    "defaultMessage": "Utilisez la présente section pour finaliser la décision ayant trait à la demande du candidat ou de la candidate une fois que vous aurez effectué toutes les vérifications nécessaires.",
     "description": "Text describing a dialog's purpose"
   },
   "mGGj/i": {
@@ -10143,7 +10147,7 @@
     "description": "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
   "ngHHmI": {
-    "defaultMessage": "Sauvegarder la décision finale",
+    "defaultMessage": "Sauvegardez la décision finale",
     "description": "Button to click on to fill out a final decision form"
   },
   "ngYP95": {
@@ -10239,7 +10243,7 @@
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
   },
   "oIM22z": {
-    "defaultMessage": "Disqualifier le/la candidat(e)",
+    "defaultMessage": "Disqualifiez le candidat ou la candidate",
     "description": "Disqualify candidate option"
   },
   "oIRkby": {
@@ -10411,7 +10415,7 @@
     "description": "Placeholder message when there is no skill family selected"
   },
   "pErNfb": {
-    "defaultMessage": "Retirer le candidat et mettre à jour le statut",
+    "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
     "description": "Button text to remove a candidate and update their status"
   },
   "pFYfVv": {
@@ -11703,7 +11707,7 @@
     "description": "Label displayed on an Experience form for role input"
   },
   "wrqRvV": {
-    "defaultMessage": "N’a pas réussi(e) au cours de l’évaluation",
+    "defaultMessage": "N’a pas réussi au cours de l'évaluation",
     "description": "Unsuccessful during assessment option"
   },
   "wsKhRd": {
