@@ -38,6 +38,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Remove candidate",
+    "fr": [
+      "Supprimer le (la) candidat(e)",
+      "Supprimez le (la) candidat(e)"
+    ]
+  },
+  {
     "en": "Remove from process",
     "fr": [
       "Retirez du processus",
@@ -80,6 +87,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Continue draft",
+    "fr": [
+      "Poursuivez l'ébauche",
+      "Poursuivre l’ébauche"
+    ]
+  },
+  {
     "en": "Remove from community",
     "fr": [
       "Retirez de la collectivité",
@@ -91,13 +105,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "À propos de ce rôle",
       "Au sujet de ce rôle"
-    ]
-  },
-  {
-    "en": "Remove candidate",
-    "fr": [
-      "Supprimer le (la) candidat(e)",
-      "Supprimez le (la) candidat(e)"
     ]
   }
 ]"
