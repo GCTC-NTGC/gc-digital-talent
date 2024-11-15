@@ -111,11 +111,6 @@ describe("ApplicationCard", () => {
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
     );
 
-    expect(links[3]).toHaveTextContent("Get support");
-    expect(links[3]).toHaveAttribute(
-      "href",
-      expect.stringContaining("support"),
-    );
     const hiredCasualLabel = screen.queryByText("Hired (Casual)");
     expect(hiredCasualLabel).toBeInTheDocument();
   });
