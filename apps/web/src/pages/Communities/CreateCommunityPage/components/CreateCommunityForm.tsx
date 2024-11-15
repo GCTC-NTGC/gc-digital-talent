@@ -23,13 +23,21 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
+// import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+//TODO: switch back to constants File
+const FRENCH_WORDS_PER_ENGLISH_WORD = 7 / 5;
+
+const TEXT_AREA_MAX_WORDS_EN = 200;
+const TEXT_AREA_MAX_WORDS_FR = Math.round(
+  TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD,
+);
+
 interface FormValues {
   key: string;
   name?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
+  mandateAuthority?: Maybe<LocalizedStringInput>;
 }
-
-const TEXT_AREA_MAX_WORDS = 200;
 
 const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
   return {
@@ -41,6 +49,10 @@ const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
     description: {
       en: data.description?.en,
       fr: data.description?.fr,
+    },
+    mandateAuthority: {
+      en: data.mandateAuthority?.en,
+      fr: data.mandateAuthority?.fr,
     },
   };
 };
@@ -128,7 +140,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              wordLimit={TEXT_AREA_MAX_WORDS}
+              wordLimit={TEXT_AREA_MAX_WORDS_EN}
             />
             <RichTextInput
               id="description.fr"
@@ -137,7 +149,29 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              wordLimit={TEXT_AREA_MAX_WORDS}
+              wordLimit={TEXT_AREA_MAX_WORDS_FR}
+            />
+            <Input
+              id="mandateAuthority.en"
+              name="mandateAuthority.en"
+              label={intl.formatMessage({
+                defaultMessage: "Mandate authority (English)",
+                id: "T9alkU",
+                description:
+                  "Label displayed on the community form mandate authority field in English.",
+              })}
+              type="text"
+            />
+            <Input
+              id="mandateAuthority.fr"
+              name="mandateAuthority.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Mandate authority (French)",
+                id: "oWPn6I",
+                description:
+                  "Label displayed on the community form mandate authority field in French.",
+              })}
+              type="text"
             />
             <div data-h2-grid-column="p-tablet(span 2)">
               <Input

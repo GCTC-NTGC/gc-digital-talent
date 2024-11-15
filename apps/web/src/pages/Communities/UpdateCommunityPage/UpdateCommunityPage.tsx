@@ -114,6 +114,7 @@ const CommunityForm = ({
 }: CommunityFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const community = getFragment(UpdateCommunityPage_CommunityFragment, query);
   const methods = useForm<FormValues>({
     defaultValues: apiDataToFormValues(community),
@@ -123,11 +124,18 @@ const CommunityForm = ({
   const handleSave = async (formValues: FormValues) => {
     return onUpdate(formValuesToApiData(formValues))
       .then(() => {
-        methods.reset(formValues, {
-          keepDirty: false,
-        });
+        navigate(paths.communityView(community.id));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Community updated successfully!",
+            id: "8oFk6S",
+            description: "Message displayed after a community is updated",
+          }),
+        );
       })
-      .catch(() => methods.reset(formValues));
+      .catch(() => {
+        throw new Error("Failed to save community");
+      });
   };
   return (
     <FormProvider {...methods}>
@@ -198,7 +206,6 @@ const CommunityForm = ({
                 }}
                 wordLimit={TEXT_AREA_MAX_WORDS_FR}
               />
-
               <Input
                 id="mandateAuthorityEn"
                 name="mandateAuthorityEn"
@@ -280,7 +287,6 @@ const UpdateCommunity_Mutation = graphql(/* GraphQL */ `
 export const UpdateCommunity = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const navigate = useNavigate();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: UpdateCommunityPage_Query,
@@ -295,16 +301,9 @@ export const UpdateCommunity = () => {
     return executeMutation({ id: communityId, community: input }).then(
       (result) => {
         if (result.data?.updateCommunity) {
-          navigate(paths.communityView(communityId));
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Community updated successfully!",
-              id: "8oFk6S",
-              description: "Message displayed after a community is updated",
-            }),
-          );
+          return Promise.resolve();
         }
-        throw new Error("Failed to save community");
+        return Promise.reject(new Error(result.error?.toString()));
       },
     );
   };
