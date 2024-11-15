@@ -109,10 +109,10 @@ const ButtonLinkContent = ({
     };
   }
   let contentDisplay: Record<string, string> = {
-    "data-h2-display": "base(flex) base:children[>*](inline-block)",
-    "data-h2-flex-wrap": "base(nowrap)",
-    "data-h2-align-items": "base(flex-start)",
-    "data-h2-vertical-align": "base:children[>*](middle)",
+    "data-h2-display": "base(flex)",
+    "data-h2-flex-flow": "base(row nowrap)",
+    "data-h2-justify-content": "base(flex-start)",
+    "data-h2-align-items": "base(stretch)",
   };
   if (mode === "text") {
     contentDisplay = {
@@ -182,11 +182,25 @@ const ButtonLinkContent = ({
   }
 
   return (
-    <span {...contentDisplay} {...rest}>
+    <span {...contentDisplay} {...textSize} {...rest}>
       {Icon && (
-        <Icon data-h2-margin-right="base(x.25)" {...iconSize} {...iconMargin} />
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center)"
+          data-h2-align-items="base(flex-start)"
+        >
+          <Icon
+            data-h2-height="base(1em)"
+            data-h2-margin-right="base(x.25)"
+            {...iconMargin}
+          />
+        </div>
       )}
-      <span {...textSize} data-h2-text-decoration="base(underline)">
+      <span
+        data-h2-text-decoration="base(underline)"
+        data-h2-align-self="base(flex-start)"
+        data-h2-line-height="base(1em)"
+      >
         {children}
       </span>
       {UtilityIcon && (
