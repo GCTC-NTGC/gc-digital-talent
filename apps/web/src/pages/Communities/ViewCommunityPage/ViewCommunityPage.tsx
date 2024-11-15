@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useOutletContext } from "react-router-dom";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -24,6 +25,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import Hero from "~/components/Hero";
+
+import { ContextType } from "../CommunityMembersPage/components/types";
 
 interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
@@ -67,9 +71,9 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           data-h2-font-weight="base(400)"
         >
           {intl.formatMessage({
-            defaultMessage: "Community information",
-            id: "7VU7Vt",
-            description: "Heading for the 'view a community' form",
+            defaultMessage: "Basic information",
+            id: "Zffatu",
+            description: "Heading for the basic information section of a form",
           })}
         </Heading>
       </div>
@@ -80,20 +84,24 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           data-h2-gap="base(x1)"
         >
           <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
-            {community.name?.en ??
-              intl.formatMessage(commonMessages.notProvided)}
+            {community.name?.en
+              ? community.name.en
+              : intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
-            {community.name?.fr ??
-              intl.formatMessage(commonMessages.notProvided)}
+            {community.name?.fr
+              ? community.name.fr
+              : intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(adminMessages.descriptionEn)}>
-            {community.description?.en ??
-              intl.formatMessage(commonMessages.notProvided)}
+            {community.description?.en
+              ? community.description.en
+              : intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(adminMessages.descriptionFr)}>
-            {community.description?.fr ??
-              intl.formatMessage(commonMessages.notProvided)}
+            {community.description?.fr
+              ? community.description.fr
+              : intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <div data-h2-grid-column="p-tablet(span 2)">
             <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
@@ -145,11 +153,21 @@ const ViewCommunityPage = () => {
     description: "Title for community information",
   });
 
+  const { communityName, navigationCrumbs, navTabs } =
+    useOutletContext<ContextType>();
+
   return (
     <>
       <SEO title={pageTitle} />
+      <Hero
+        title={
+          fetching ? intl.formatMessage(commonMessages.loading) : communityName
+        }
+        crumbs={navigationCrumbs}
+        navTabs={navTabs}
+      />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
+        <div data-h2-padding="base(x2, 0)">
           <Pending fetching={fetching} error={error}>
             {data?.community ? (
               <ViewCommunityForm query={data.community} />
