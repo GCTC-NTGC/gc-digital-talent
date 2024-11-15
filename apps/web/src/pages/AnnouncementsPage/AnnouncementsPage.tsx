@@ -4,7 +4,6 @@ import { useQuery, useMutation } from "urql";
 import { SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
