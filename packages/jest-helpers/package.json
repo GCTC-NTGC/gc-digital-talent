@@ -19,7 +19,7 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "jest": "^29.7.0",
     "react-helmet-async": "^2.0.5",
-    "react-intl": "^6.7.0",
+    "react-intl": "^6.8.7",
     "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
