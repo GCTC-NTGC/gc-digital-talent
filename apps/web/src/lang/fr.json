@@ -1567,10 +1567,6 @@
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
-  "5tmTP/": {
-    "defaultMessage": "Chercher les classifications",
-    "description": "Label for the classifications table search input"
-  },
   "5wKh/o": {
     "defaultMessage": "Démontré",
     "description": "Option for assessment decision when candidate has successful assessment."
@@ -2259,6 +2255,10 @@
     "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des dirigeantes principales et dirigeants principals de l'information et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
     "description": "The directives digital executive roles and structures component"
   },
+  "9g11GN": {
+    "defaultMessage": "Créer une classification",
+    "description": "Page title for the classification creation page"
+  },
   "9gpVCX": {
     "defaultMessage": "Prêt à être embauché",
     "description": "Status for an application where user user is ready to hire"
@@ -2462,6 +2462,10 @@
   "AjVbZs": {
     "defaultMessage": "Bilingue avancé (C B C)",
     "description": "Bilingual advanced language requirement"
+  },
+  "AktnIU": {
+    "defaultMessage": "Créer une nouvelle classification",
+    "description": "Heading displayed above the Create Classification form."
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
@@ -3035,10 +3039,6 @@
     "defaultMessage": "Télétravail autorisé",
     "description": "Label for _telework option_ fieldset in the _digital services contracting questionnaire_"
   },
-  "DexZJJ": {
-    "defaultMessage": "Créer une classification",
-    "description": "Heading displayed above the Create Classification form."
-  },
   "DgMIfz": {
     "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
     "description": "Application box heading part one"
@@ -3158,10 +3158,6 @@
   "E3loNV": {
     "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
     "description": "Title for the 'planning and reporting' IT work stream"
-  },
-  "E8BMJW": {
-    "defaultMessage": "Créer<hidden> une classification</hidden>",
-    "description": "Breadcrumb title for the create classification page link."
   },
   "EB70Il": {
     "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe.",
@@ -4594,6 +4590,10 @@
   "Lu5ppY": {
     "defaultMessage": "Tout sélectionner",
     "description": "Label for the checkbox to select all rows in a table"
+  },
+  "Lv8q5A": {
+    "defaultMessage": "Informations sur la classification",
+    "description": "Subtitle for viewing a specific classification"
   },
   "LvHCvn": {
     "defaultMessage": "Langue de communication préférée :",
@@ -6394,6 +6394,10 @@
     "defaultMessage": "Premières Nations (inscrites ou non)",
     "description": "Label for First Nations community"
   },
+  "VWEwki": {
+    "defaultMessage": "Salaire minimal",
+    "description": "Label for classification minimum salary display"
+  },
   "VWLWLY": {
     "defaultMessage": "Ajouter une nouvelle évaluation",
     "description": "Button text to add a new assessment to the assessment plan"
@@ -6481,6 +6485,10 @@
   "VsV4Vu": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra le rôle suivant :",
     "description": "Text notifying user which role will be removed from the user"
+  },
+  "VvOx9a": {
+    "defaultMessage": "Modifiez les informations sur la classification",
+    "description": "Link text to edit a classification"
   },
   "Vw7bLe": {
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
@@ -6785,6 +6793,10 @@
   "XOeFdu": {
     "defaultMessage": "À quoi s’attendre (français)",
     "description": "Label for a process' French what to expect after applying"
+  },
+  "XPJs0+": {
+    "defaultMessage": "Modifier une classification",
+    "description": "Page title for editing a classification"
   },
   "XRbVxf": {
     "defaultMessage": "Modifier<hidden> {skillName}</hidden>",
@@ -8446,10 +8458,6 @@
     "defaultMessage": "Catégorie (anglais)",
     "description": "Title for category in English"
   },
-  "fYyK2p": {
-    "defaultMessage": "Créer une classification",
-    "description": "Page title for the classification creation page"
-  },
   "fcH4nb": {
     "defaultMessage": "Créez la compétence",
     "description": "Button label to create a new skill"
@@ -8818,6 +8826,10 @@
     "defaultMessage": "<strong>Les postes sur place</strong> requièrent une présence à temps plein au bureau, sans possibilité de travailler à distance.",
     "description": "Definition for 'on-site positions'"
   },
+  "hGEhAB": {
+    "defaultMessage": "Groupe",
+    "description": "Label for classification group display"
+  },
   "hGlM9B": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
@@ -9085,6 +9097,10 @@
   "iGXXjP": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
+  },
+  "iHDhMh": {
+    "defaultMessage": "Numéro de niveau",
+    "description": "Label for classification level"
   },
   "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
@@ -10321,6 +10337,10 @@
   "om2bZu": {
     "defaultMessage": "Le présent énoncé a été préparé le 8 novembre 2022.",
     "description": "Disclaimer for the when the accessibility statement was last updated"
+  },
+  "om9QYn": {
+    "defaultMessage": "Annulez et revenez aux classifications",
+    "description": "Link text to return to classification table"
   },
   "opkSia": {
     "defaultMessage": "Gérer « {skillName} »",
@@ -12150,6 +12170,10 @@
     "defaultMessage": "Prenez une longueur d'avance sur les prochaines étapes ou découvrez d'autres possibilités d'emploi.",
     "description": "Subtitle for the application success page"
   },
+  "zKCAjY": {
+    "defaultMessage": "Salaire maximal",
+    "description": "Label for classification maximum salary display"
+  },
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
@@ -12245,6 +12269,10 @@
   "ztx8xL": {
     "defaultMessage": "Voir les notifications",
     "description": "Button text to open the notifications dialog"
+  },
+  "ztzRUG": {
+    "defaultMessage": "Créez une classification",
+    "description": "Button text to create a classification"
   },
   "zv4Vyd": {
     "defaultMessage": "Compétences comportementales requises",
