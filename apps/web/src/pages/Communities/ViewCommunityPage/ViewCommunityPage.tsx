@@ -45,6 +45,10 @@ const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    mandateAuthority {
+      en
+      fr
+    }
   }
 `);
 
@@ -101,6 +105,30 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           <FieldDisplay label={intl.formatMessage(adminMessages.descriptionFr)}>
             {community.description?.fr
               ? community.description.fr
+              : intl.formatMessage(commonMessages.notProvided)}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Mandate authority (English)",
+              id: "T9alkU",
+              description:
+                "Label displayed on the community form mandate authority field in English.",
+            })}
+          >
+            {community.mandateAuthority?.en
+              ? community.mandateAuthority.en
+              : intl.formatMessage(commonMessages.notProvided)}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Mandate authority (French)",
+              id: "oWPn6I",
+              description:
+                "Label displayed on the community form mandate authority field in French.",
+            })}
+          >
+            {community.mandateAuthority?.fr
+              ? community.mandateAuthority.fr
               : intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <div data-h2-grid-column="p-tablet(span 2)">
