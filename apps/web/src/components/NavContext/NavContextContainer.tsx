@@ -11,7 +11,7 @@ import { assertUnreachable, notEmpty } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 // this array is ordered by privilege to allow proper sorting
-const NAV_ROLES_BY_PRIVILEGE = [
+export const NAV_ROLES_BY_PRIVILEGE = [
   null,
   "applicant",
   "manager",
@@ -19,7 +19,19 @@ const NAV_ROLES_BY_PRIVILEGE = [
   "admin",
 ] as const;
 
-export type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
+type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
+
+export const isNavRole = (x: unknown): x is NavRole => {
+  switch (x) {
+    case "applicant":
+    case "manager":
+    case "community":
+    case "admin":
+      return true;
+    default:
+      return false;
+  }
+};
 
 export interface NavContextState {
   navRole: NavRole;

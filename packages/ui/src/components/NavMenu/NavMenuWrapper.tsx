@@ -15,7 +15,7 @@ import useControllableState from "../../hooks/useControllableState";
 import { NavMenuProvider } from "./NavMenuProvider";
 import NavMenu from "./NavMenu";
 
-export interface NavMenuProps {
+interface NavMenuProps {
   /** Sets the section to be 'open' by default */
   defaultOpen?: boolean;
   /** Controllable open state */
@@ -93,7 +93,7 @@ const NavMenuWrapper = ({
             transition={{ duration: 0.2, ease: "easeInOut" }}
             data-h2-flex-item="base(content)"
             data-h2-position="base(fixed) l-tablet(sticky)"
-            data-h2-top="l-tablet(0)"
+            data-h2-top="l-tablet(-1px)"
             data-h2-bottom="base(x3.5) l-tablet(auto)"
             data-h2-right="base(x.75) l-tablet(auto)"
             data-h2-left="base(x.75) l-tablet(auto)"

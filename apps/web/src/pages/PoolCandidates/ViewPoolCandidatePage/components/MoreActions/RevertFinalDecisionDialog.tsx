@@ -145,8 +145,8 @@ const RevertFinalDecisionDialog = ({
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "Candidate was marked <strong>{decision}</strong> on <strong>{date}</strong>",
-                  id: "jxH8bt",
+                    "Candidate was marked <strong>{decision}</strong> on <strong>{date}</strong>.",
+                  id: "iXgAIb",
                   description:
                     "Qualified candidate details on revert final decision dialog on view pool candidate page",
                 },

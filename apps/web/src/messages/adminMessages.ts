@@ -209,6 +209,11 @@ const messages = defineMessages({
     description:
       "Message displayed to user when a role has been removed from a user",
   },
+  searchByKeyword: {
+    defaultMessage: "Search by keyword",
+    id: "dotl8X",
+    description: "Label for keyword search input",
+  },
 });
 
 export default messages;

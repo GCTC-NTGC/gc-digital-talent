@@ -17,7 +17,7 @@ import { CommunityMember } from "~/utils/communityUtils";
 import EditCommunityMemberDialog from "./components/EditCommunityMemberDialog";
 import RemoveCommunityMemberDialog from "./components/RemoveCommunityMemberDialog";
 
-function orderRoles(roles: Role[], intl: IntlShape) {
+export function orderRoles(roles: Role[], intl: IntlShape) {
   return orderBy(roles, ({ displayName }) => {
     const value = getLocalizedName(displayName, intl);
 

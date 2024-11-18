@@ -18,6 +18,10 @@ const authorizationQuery = graphql(/** GraphQL */ `
           id
           name
           isTeamBased
+          displayName {
+            en
+            fr
+          }
         }
         team {
           id

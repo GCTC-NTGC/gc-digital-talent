@@ -42,22 +42,6 @@ const commonMessages = defineMessages({
     id: "AvBSV+",
     description: "Title displayed for a table error loading state.",
   },
-  required: {
-    defaultMessage: "Required",
-    id: "Bvr4b6",
-    description: "Displayed next to required form inputs.",
-  },
-  optional: {
-    defaultMessage: "Optional",
-    id: "WUC9pX",
-    description: "Displayed next to optional form inputs.",
-  },
-  unSaved: {
-    defaultMessage: "You have unsaved changes",
-    id: "9u6ULg",
-    description:
-      "Displayed next to form inputs when they have been changed but not saved.",
-  },
   notFound: {
     defaultMessage: "Not found",
     id: "ufSiRU",
@@ -88,21 +72,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Error: name not loaded",
     id: "DdOEWx",
     description: "Message when name value not found",
-  },
-  error: {
-    defaultMessage: "error",
-    id: "ACO2Uz",
-    description: "Message for the error status",
-  },
-  partial: {
-    defaultMessage: "partial success",
-    id: "qVI4xG",
-    description: "Message for the partial success status",
-  },
-  success: {
-    defaultMessage: "success",
-    id: "99cWuv",
-    description: "Message for the success status",
   },
   dividingColon: {
     defaultMessage: ": ",
@@ -238,11 +207,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Important",
     id: "IKGhHj",
     description: "Important note or caption",
-  },
-  print: {
-    defaultMessage: "Print",
-    id: "f5z4R/",
-    description: "Label for print button",
   },
   expiryDate: {
     defaultMessage: "Expiry date",
