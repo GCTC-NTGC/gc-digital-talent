@@ -34,11 +34,9 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import { ContextType } from "../CommunityMembersPage/components/types";
-// import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
-//TODO: switch back to constants File
-const FRENCH_WORDS_PER_ENGLISH_WORD = 7 / 5;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(

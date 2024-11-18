@@ -22,10 +22,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
-
-// import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
-//TODO: switch back to constants File
-const FRENCH_WORDS_PER_ENGLISH_WORD = 7 / 5;
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(
@@ -102,6 +99,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
               color="primary"
               Icon={IdentificationIcon}
               data-h2-margin="base(0, 0, x1.5, 0)"
+              data-h2-font-weight="base(400)"
             >
               {intl.formatMessage({
                 defaultMessage: "Community information",
