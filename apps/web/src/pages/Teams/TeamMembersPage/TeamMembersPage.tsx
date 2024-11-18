@@ -5,17 +5,13 @@ import { useQuery } from "urql";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization, hasRole } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  checkRole,
-  groupRoleAssignmentsByUser,
-  TeamMember,
-} from "~/utils/teamUtils";
+import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -37,7 +33,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   const intl = useIntl();
   const team = getFragment(TeamMembersPage_TeamFragment, teamQuery);
   const { roleAssignments } = useAuthorization();
-  const canModifyMembers = checkRole(
+  const canModifyMembers = hasRole(
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
   );

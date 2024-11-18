@@ -11,7 +11,7 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   FragmentType,
   getFragment,
@@ -32,7 +32,6 @@ import {
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
-import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
@@ -136,13 +135,13 @@ export const ViewPool = ({
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status, intl);
-  const canPublish = checkRole(
+  const canPublish = hasRole(
     [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
   // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
-  const canDuplicate = checkRole(
+  const canDuplicate = hasRole(
     [
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityRecruiter,
@@ -150,7 +149,7 @@ export const ViewPool = ({
     ],
     roleAssignments,
   );
-  const canArchive = checkRole(
+  const canArchive = hasRole(
     [
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityManager,
@@ -159,7 +158,7 @@ export const ViewPool = ({
     ],
     roleAssignments,
   );
-  const canDelete = checkRole(
+  const canDelete = hasRole(
     [
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityRecruiter,

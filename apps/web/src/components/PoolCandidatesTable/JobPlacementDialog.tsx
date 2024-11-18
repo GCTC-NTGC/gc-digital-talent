@@ -26,11 +26,10 @@ import {
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import { checkRole } from "~/utils/teamUtils";
 
 export const PLACEMENT_TYPE_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
@@ -127,7 +126,7 @@ const JobPlacementDialog = ({
   );
 
   const { roleAssignments } = useAuthorization();
-  const canPlace = checkRole(
+  const canPlace = hasRole(
     [
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityAdmin,
