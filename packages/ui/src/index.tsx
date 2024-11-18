@@ -28,6 +28,7 @@ import {
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
+import CardSeparator from "./components/CardSeparator";
 import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
@@ -154,6 +155,7 @@ export {
   CardFlat,
   CardSectioned,
   CardRepeater,
+  CardSeparator,
   Chips,
   Chip,
   Collapsible,
