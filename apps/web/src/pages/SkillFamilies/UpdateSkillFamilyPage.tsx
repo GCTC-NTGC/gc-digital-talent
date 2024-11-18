@@ -25,9 +25,9 @@ import {
   Pending,
   NotFound,
   Heading,
-  Separator,
   CardBasic,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import {
   SkillFamily,
@@ -336,9 +336,7 @@ export const UpdateSkillFamily = ({
                     intl.formatMessage(commonMessages.notProvided)}
                 </FieldDisplay>
               </div>
-              <div data-h2-margin="base(0 -x1)">
-                <Separator decorative orientation="horizontal" space="sm" />
-              </div>
+              <CardSeparator />
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(x1)"

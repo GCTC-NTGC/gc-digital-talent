@@ -10,8 +10,8 @@ import {
   CardBasic,
   Chips,
   Chip,
-  Separator,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import {
   Scalars,
@@ -164,9 +164,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
           </div>
-          <div data-h2-margin="base(0 -x1)">
-            <Separator decorative orientation="horizontal" space="sm" />
-          </div>
+          <CardSeparator />
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
