@@ -31,6 +31,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -1190,7 +1191,7 @@ class PoolCandidate extends Model
             FinalDecision::TO_ASSESS_REMOVED->name => 230,
             FinalDecision::REMOVED->name => 240,
             FinalDecision::QUALIFIED_EXPIRED->name => 250,
-            default => null
+            default => $this->unMatchedDecision($decision)
         };
 
         $assessmentStatus = $this->computed_assessment_status;
@@ -1207,5 +1208,12 @@ class PoolCandidate extends Model
             'decision' => $decision,
             'weight' => $weight,
         ];
+    }
+
+    private function unMatchedDecision(?string $decison)
+    {
+        Log::error(sprintf('No match for decision %s', $decison));
+
+        return null;
     }
 }
