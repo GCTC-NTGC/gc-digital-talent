@@ -913,6 +913,23 @@ type SitewideAnnouncement {
   message: LocalizedString!
 }
 
+type TrainingOpportunity {
+  id: UUID
+  title: LocalizedString
+  courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedString
+  applicationUrl: LocalizedString @rename(attribute: "application_url")
+  courseFormat: LocalizedCourseFormat @rename(attribute: "course_format")
+}
+
+input TrainingOpportunitiesFilterInput {
+  hidePassedRegistrationDeadline: Boolean @scope
+  opportunityLanguage: CourseLanguage @scope
+}
+
 input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
@@ -1066,6 +1083,15 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
+  trainingOpportunitiesPaginated(
+    where: TrainingOpportunitiesFilterInput
+  ): [TrainingOpportunity]
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      model: "App\\Models\\TrainingOpportunity"
+    )
 
   localizedEnumStrings(
     enumName: String!

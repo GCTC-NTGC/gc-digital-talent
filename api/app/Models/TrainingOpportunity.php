@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\CourseLanguage;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,4 +44,30 @@ class TrainingOpportunity extends Model
      * The attributes that can be filled using mass-assignment.
      */
     protected $fillable = [];
+
+    /**
+     * Scopes
+     */
+    public static function scopeHidePassedRegistrationDeadline(Builder $query, ?bool $filterBool): Builder
+    {
+        // if true only display where registration deadline is in the future
+        if (isset($filterBool) && $filterBool) {
+            $query->where(function ($query) {
+                $query->whereDate('registration_deadline', '>=', date('Y-m-d'))
+                    ->orWhereNull('registration_deadline');
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeOpportunityLanguage(Builder $query, ?string $language): Builder
+    {
+        $courseLanguageArray = array_column(CourseLanguage::cases(), 'name');
+        if (isset($language) && in_array($language, $courseLanguageArray)) {
+            $query->where('course_language', '=', $language);
+        }
+
+        return $query;
+    }
 }
