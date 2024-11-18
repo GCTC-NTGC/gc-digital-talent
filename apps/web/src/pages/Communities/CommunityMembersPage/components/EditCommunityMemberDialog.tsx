@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { useMutation } from "urql";
 import { useOutletContext } from "react-router-dom";
 
@@ -31,18 +29,22 @@ interface EditCommunityMemberDialogProps {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 const EditCommunityMemberDialog = ({
   user,
   community,
   hasPlatformAdmin,
+  isOpen,
+  setIsOpen,
 }: EditCommunityMemberDialogProps) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserCommunityRoles_Mutation);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const initialRolesIds = user.roles.map((role) => role.id);
 
   const methods = useForm<CommunityMemberFormValues>({
@@ -118,26 +120,6 @@ const EditCommunityMemberDialog = ({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger>
-        <Button
-          color="secondary"
-          aria-label={intl.formatMessage(
-            {
-              defaultMessage:
-                "Edit community roles of {userName} in {communityName}",
-              id: "WY3oiC",
-              description:
-                "Aria label for the dialog trigger to edit user community membership",
-            },
-            {
-              userName,
-              communityName: getLocalizedName(community.name, intl),
-            },
-          )}
-          icon={PencilSquareIcon}
-          mode="icon_only"
-        />
-      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage(

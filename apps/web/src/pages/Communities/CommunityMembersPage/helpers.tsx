@@ -1,8 +1,10 @@
+import { useState } from "react";
 import orderBy from "lodash/orderBy";
-import { IntlShape } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
+import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link } from "@gc-digital-talent/ui";
+import { Button, DropdownMenu, Link } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Maybe,
@@ -28,28 +30,72 @@ function orderRoles(roles: Role[], intl: IntlShape) {
   });
 }
 
-export const actionCell = (
+export const ActionCell = (
   user: CommunityMember,
   community: CommunityMembersPageCommunityFragmentType,
   hasPlatformAdmin: boolean,
-) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-wrap="base(wrap)"
-    data-h2-gap="base(x.25)"
-  >
-    <EditCommunityMemberDialog
-      user={user}
-      community={community}
-      hasPlatformAdmin={hasPlatformAdmin}
-    />
-    <RemoveCommunityMemberDialog
-      user={user}
-      community={community}
-      hasPlatformAdmin={hasPlatformAdmin}
-    />
-  </div>
-);
+) => {
+  const intl = useIntl();
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState<boolean>(false);
+  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState<boolean>(false);
+  return (
+    <>
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Button
+            icon={EllipsisVerticalIcon}
+            mode="icon_only"
+            color="black"
+            aria-label={intl.formatMessage(
+              {
+                defaultMessage: "Actions for {userName} in {communityName}",
+                id: "J+haAz",
+                description:
+                  "Aria label for the menu trigger for community actions",
+              },
+              {
+                userName: `${user.firstName} ${user.lastName}`,
+                communityName: getLocalizedName(community.name, intl),
+              },
+            )}
+          />
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content>
+          <DropdownMenu.Item onSelect={() => setIsEditDialogOpen(true)}>
+            {intl.formatMessage({
+              defaultMessage: "Edit community roles",
+              id: "PsGkXc",
+              description:
+                "Label for the form to edit a users community membership",
+            })}
+          </DropdownMenu.Item>
+          <DropdownMenu.Item onSelect={() => setIsRemoveDialogOpen(true)}>
+            {intl.formatMessage({
+              defaultMessage: "Remove member",
+              id: "wsKhRd",
+              description:
+                "Label for the dialog to remove a users community membership",
+            })}
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+      <EditCommunityMemberDialog
+        user={user}
+        community={community}
+        hasPlatformAdmin={hasPlatformAdmin}
+        isOpen={isEditDialogOpen}
+        setIsOpen={setIsEditDialogOpen}
+      />
+      <RemoveCommunityMemberDialog
+        user={user}
+        community={community}
+        hasPlatformAdmin={hasPlatformAdmin}
+        isOpen={isRemoveDialogOpen}
+        setIsOpen={setIsRemoveDialogOpen}
+      />
+    </>
+  );
+};
 
 export function emailLinkCell(
   email: Maybe<string> | undefined,

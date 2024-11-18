@@ -25,7 +25,7 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
-import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
+import { ActionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import { CommunityMembersPageFragment, ContextType } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 
@@ -99,7 +99,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
         cell: ({ row: { original: member } }) =>
-          actionCell(member, community, hasPlatformAdmin),
+          ActionCell(member, community, hasPlatformAdmin),
         meta: {
           hideMobileHeader: true,
           shrink: true,

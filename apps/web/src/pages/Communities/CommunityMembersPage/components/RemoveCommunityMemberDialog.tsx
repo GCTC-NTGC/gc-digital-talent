@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useMutation } from "urql";
 import { useOutletContext } from "react-router-dom";
 
@@ -27,19 +25,22 @@ interface RemoveCommunityMemberDialogProps {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 const RemoveCommunityMemberDialog = ({
   user,
   community,
   hasPlatformAdmin,
+  isOpen,
+  setIsOpen,
 }: RemoveCommunityMemberDialogProps) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const [{ fetching }, executeMutation] = useMutation(
     UpdateUserCommunityRoles_Mutation,
   );
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const roleInputArray: RoleInput[] = user.roles.map((role) => {
     return { roleId: role.id, teamId };
   });
@@ -99,25 +100,6 @@ const RemoveCommunityMemberDialog = ({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger>
-        <Button
-          color="error"
-          aria-label={intl.formatMessage(
-            {
-              defaultMessage: "Remove {userName} from {communityName}",
-              id: "AKI35i",
-              description:
-                "Aria label for the dialog trigger to remove a user from a community",
-            },
-            {
-              userName,
-              communityName,
-            },
-          )}
-          icon={TrashIcon}
-          mode="icon_only"
-        />
-      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage(
