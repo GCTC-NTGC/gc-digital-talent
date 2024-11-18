@@ -70,4 +70,11 @@ describe("hasRole tests", () => {
 
     expect(f(testRole, testUserRoles)).toBeFalsy();
   });
+
+  test("empty array of checkrole always returns true", () => {
+    const testRole: RoleName[] = [];
+    const testUserRoles = undefined;
+
+    expect(f(testRole, testUserRoles)).toBeTruthy();
+  });
 });
