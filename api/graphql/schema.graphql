@@ -2442,10 +2442,10 @@ type Mutation {
 
   createTrainingOpportunity(
     createTrainingOpportunity: CreateTrainingOpportunityInput! @spread
-  ): TrainingOpportunity @create
+  ): TrainingOpportunity @create @guard @canModel(ability: "create")
   updateTrainingOpportunity(
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
-  ): TrainingOpportunity @update
+  ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
   # CSV file downloads
   downloadPoolCandidatesCsv(
