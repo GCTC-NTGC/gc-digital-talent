@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useOutletContext } from "react-router-dom";
 
@@ -18,15 +18,22 @@ import {
   checkRole,
 } from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
+import Hero from "~/components/Hero";
+import useRoutes from "~/hooks/useRoutes";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import { CommunityMembersPageFragment, ContextType } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
+
+const pageTitle = defineMessage({
+  defaultMessage: "Community members",
+  id: "mEh+iY",
+  description: "Page title for the view community members page",
+});
 
 const columnHelper = createColumnHelper<CommunityMember>();
 
@@ -54,13 +61,9 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     [community.roleAssignments],
   );
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Community members",
-    id: "mEh+iY",
-    description: "Page title for the view community members page",
-  });
+  const formattedPageTitle = intl.formatMessage(pageTitle);
 
-  let columns = [
+  const columns = [
     columnHelper.accessor(
       (member) => getFullNameLabel(member.firstName, member.lastName, intl),
       {
@@ -80,17 +83,18 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     columnHelper.accessor((member) => roleAccessor(member.roles, intl), {
       id: "roles",
       header: intl.formatMessage({
-        defaultMessage: "Membership roles",
-        id: "9s7Ctc",
-        description:
-          "Title displayed for the community members table roles column.",
+        defaultMessage: "Community roles",
+        id: "6UiKYE",
+        description: "Label for the input to select role of a community role",
       }),
       cell: ({ row: { original: member } }) => roleCell(member.roles, intl),
     }),
   ] as ColumnDef<CommunityMember>[];
 
   if (canAdmin) {
-    columns = [
+    columns.splice(
+      1,
+      0,
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
@@ -101,17 +105,16 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
           shrink: true,
         },
       }),
-      ...columns,
-    ];
+    );
   }
 
   const data = useMemo(() => members.filter(notEmpty), [members]);
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} />
       <Table
-        caption={pageTitle}
+        caption={formattedPageTitle}
         data={data}
         columns={columns}
         sort={{
@@ -125,9 +128,9 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search community members",
-            id: "33oume",
-            description: "Label for the community members table search input",
+            defaultMessage: "Search by keyword",
+            id: "PYMFoh",
+            description: "Label for the keyword search input",
           }),
         }}
         {...(canAdmin && {
@@ -165,6 +168,9 @@ interface RouteParams extends Record<string, string> {
 }
 
 const CommunityMembersPage = () => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: CommunityMembersTeam_Query,
@@ -172,17 +178,48 @@ const CommunityMembersPage = () => {
   });
 
   const community = data?.community;
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+
+  const {
+    communityName,
+    navigationCrumbs: baseCrumbs,
+    navTabs,
+  } = useOutletContext<ContextType>();
+
+  const crumbs = [
+    ...(baseCrumbs ?? []),
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Manage access",
+        id: "J0i4xY",
+        description: "Title for members page",
+      }),
+      url: paths.communityManageAccess(communityId),
+    },
+  ];
 
   return (
-    <AdminContentWrapper>
-      <Pending fetching={fetching} error={error}>
-        {community ? (
-          <CommunityMembers communityQuery={community} />
-        ) : (
-          <ThrowNotFound />
-        )}
-      </Pending>
-    </AdminContentWrapper>
+    <>
+      <SEO title={formattedPageTitle} />
+      <Hero
+        title={
+          fetching ? intl.formatMessage(commonMessages.loading) : communityName
+        }
+        crumbs={crumbs}
+        navTabs={navTabs}
+      />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-padding="base(x2, 0)">
+          <Pending fetching={fetching} error={error}>
+            {community ? (
+              <CommunityMembers communityQuery={community} />
+            ) : (
+              <ThrowNotFound />
+            )}
+          </Pending>
+        </div>
+      </div>
+    </>
   );
 };
 

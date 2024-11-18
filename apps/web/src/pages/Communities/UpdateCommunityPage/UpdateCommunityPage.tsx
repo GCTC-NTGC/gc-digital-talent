@@ -2,14 +2,13 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import { useNavigate } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Submit, Input, RichTextInput } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
-  getLocalizedName,
   formMessages,
 } from "@gc-digital-talent/i18n";
 import {
@@ -33,10 +32,10 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import pageTitles from "~/messages/pageTitles";
+
+import { ContextType } from "../CommunityMembersPage/components/types";
 // import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 //TODO: switch back to constants File
 const FRENCH_WORDS_PER_ENGLISH_WORD = 7 / 5;
@@ -297,6 +296,8 @@ export const UpdateCommunity = () => {
     UpdateCommunity_Mutation,
   );
 
+  const { navigationCrumbs: baseCrumbs } = useOutletContext<ContextType>();
+
   const handleSave = async (input: UpdateCommunityInput) => {
     return executeMutation({ id: communityId, community: input }).then(
       (result) => {
@@ -307,32 +308,18 @@ export const UpdateCommunity = () => {
       },
     );
   };
-  const communityName = getLocalizedName(data?.community?.name, intl);
 
-  const navigationCrumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(pageTitles.communities),
-        url: paths.communityTable(),
-      },
-      ...(communityId
-        ? [
-            {
-              label: communityName,
-              url: paths.communityView(communityId),
-            },
-            {
-              label: intl.formatMessage({
-                defaultMessage: "Edit<hidden> skill</hidden>",
-                id: "M2LfhH",
-                description: "Breadcrumb title for the edit skill page link.",
-              }),
-              url: paths.communityUpdate(communityId),
-            },
-          ]
-        : []),
-    ],
-  });
+  const crumbs = [
+    ...(baseCrumbs ?? []),
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Edit<hidden> skill</hidden>",
+        id: "M2LfhH",
+        description: "Breadcrumb title for the edit skill page link.",
+      }),
+      url: paths.communityUpdate(communityId),
+    },
+  ];
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Update a community",
@@ -343,7 +330,7 @@ export const UpdateCommunity = () => {
   return (
     <>
       <SEO title={pageTitle} />
-      <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
+      <Hero title={pageTitle} crumbs={crumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
             {data?.community ? (

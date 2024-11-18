@@ -2,8 +2,8 @@ import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Chip, Chips } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { Link } from "@gc-digital-talent/ui";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Maybe,
   Role,
@@ -75,16 +75,14 @@ export function emailLinkCell(
 }
 
 export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
-  const nonEmptyRoles = roles?.filter(notEmpty);
-  const roleChips = nonEmptyRoles
+  const nonEmptyRoles = unpackMaybes(roles);
+  const roleItems = nonEmptyRoles
     ? orderRoles(nonEmptyRoles, intl).map((role) => (
-        <Chip color="secondary" key={role.id}>
-          {getLocalizedName(role.displayName, intl)}
-        </Chip>
+        <li key={role.id}>{getLocalizedName(role.displayName, intl)}</li>
       ))
     : null;
 
-  return roleChips ? <Chips>{roleChips}</Chips> : null;
+  return roleItems ? <ul>{roleItems}</ul> : null;
 }
 
 export function roleAccessor(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
