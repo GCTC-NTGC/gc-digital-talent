@@ -30,11 +30,17 @@ function orderRoles(roles: Role[], intl: IntlShape) {
   });
 }
 
-export const ActionCell = (
-  user: CommunityMember,
-  community: CommunityMembersPageCommunityFragmentType,
-  hasPlatformAdmin: boolean,
-) => {
+interface ActionCellProps {
+  user: CommunityMember;
+  community: CommunityMembersPageCommunityFragmentType;
+  hasPlatformAdmin: boolean;
+}
+
+export const ActionCell = ({
+  user,
+  community,
+  hasPlatformAdmin,
+}: ActionCellProps) => {
   const intl = useIntl();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState<boolean>(false);
   const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState<boolean>(false);

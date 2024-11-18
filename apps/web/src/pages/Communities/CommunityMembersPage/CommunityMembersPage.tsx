@@ -98,8 +98,13 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
-        cell: ({ row: { original: member } }) =>
-          ActionCell(member, community, hasPlatformAdmin),
+        cell: ({ row: { original: member } }) => (
+          <ActionCell
+            user={member}
+            community={community}
+            hasPlatformAdmin={hasPlatformAdmin}
+          />
+        ),
         meta: {
           hideMobileHeader: true,
           shrink: true,
