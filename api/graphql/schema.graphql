@@ -1831,6 +1831,28 @@ input UpdateAssessmentResultInput
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
+input CreateTrainingOpportunityInput {
+  title: LocalizedStringInput!
+  courseLanguage: CourseLanguage! @rename(attribute: "course_language")
+  registrationDeadline: Date! @rename(attribute: "registration_deadline")
+  trainingStart: Date! @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput!
+  applicationUrl: LocalizedStringInput! @rename(attribute: "application_url")
+  courseFormat: CourseFormat! @rename(attribute: "course_format")
+}
+
+input UpdateTrainingOpportunityInput {
+  id: UUID!
+  title: LocalizedStringInput
+  courseLanguage: CourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput
+  applicationUrl: LocalizedStringInput @rename(attribute: "application_url")
+  courseFormat: CourseFormat @rename(attribute: "course_format")
+}
 
 input PoolSkillBelongsToMany {
   sync: [UUID!]!
@@ -2417,6 +2439,13 @@ type Mutation {
   updateSitewideAnnouncement(
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
+
+  createTrainingOpportunity(
+    createTrainingOpportunity: CreateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @create
+  updateTrainingOpportunity(
+    updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @update
 
   # CSV file downloads
   downloadPoolCandidatesCsv(

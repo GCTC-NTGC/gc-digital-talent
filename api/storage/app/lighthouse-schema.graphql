@@ -438,6 +438,8 @@ type Mutation {
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
+  createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
+  updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
   downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
@@ -1810,6 +1812,29 @@ input UpdateAssessmentResultInput {
   justifications: [AssessmentResultJustification]
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+}
+
+input CreateTrainingOpportunityInput {
+  title: LocalizedStringInput!
+  courseLanguage: CourseLanguage!
+  registrationDeadline: Date!
+  trainingStart: Date!
+  trainingEnd: Date
+  description: LocalizedStringInput!
+  applicationUrl: LocalizedStringInput!
+  courseFormat: CourseFormat!
+}
+
+input UpdateTrainingOpportunityInput {
+  id: UUID!
+  title: LocalizedStringInput
+  courseLanguage: CourseLanguage
+  registrationDeadline: Date
+  trainingStart: Date
+  trainingEnd: Date
+  description: LocalizedStringInput
+  applicationUrl: LocalizedStringInput
+  courseFormat: CourseFormat
 }
 
 input PoolSkillBelongsToMany {
