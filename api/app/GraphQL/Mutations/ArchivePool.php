@@ -14,12 +14,14 @@ final class ArchivePool
      */
     public function __invoke($_, array $args)
     {
-        /** @var Pool $pool */
+        /** @var Pool|null $pool */
         $pool = Pool::find($args['id']);
-        if ($pool->status !== PoolStatus::CLOSED->name) {
-            throw ValidationException::withMessages(['id' => 'ArchivePoolInvalidStatus']);
+        if ($pool) {
+            if ($pool->status !== PoolStatus::CLOSED->name) {
+                throw ValidationException::withMessages(['id' => 'ArchivePoolInvalidStatus']);
+            }
+            $pool->update(['archived_at' => Carbon::now()]);
         }
-        $pool->update(['archived_at' => Carbon::now()]);
 
         return $pool;
     }
