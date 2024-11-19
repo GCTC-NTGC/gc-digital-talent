@@ -17,8 +17,8 @@ import {
   Pending,
   Heading,
   CardBasic,
-  Separator,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import {
   Skill,
@@ -270,9 +270,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                     }}
                   />
                 </div>
-                <div data-h2-margin="base(0 -x1)">
-                  <Separator decorative orientation="horizontal" space="sm" />
-                </div>
+                <CardSeparator />
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x1)"

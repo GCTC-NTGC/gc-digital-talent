@@ -21,13 +21,13 @@ import Board from "./components/Board/Board";
 import {
   CardBasic,
   CardFlat,
-  CardSectioned,
   type CardBasicProps,
   type CardFlatProps,
 } from "./components/Card";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
+import CardSeparator from "./components/CardSeparator";
 import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
@@ -152,8 +152,8 @@ export {
   Button,
   CardBasic,
   CardFlat,
-  CardSectioned,
   CardRepeater,
+  CardSeparator,
   Chips,
   Chip,
   Collapsible,

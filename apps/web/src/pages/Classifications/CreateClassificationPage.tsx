@@ -10,7 +10,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { CardBasic, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -227,9 +227,7 @@ export const CreateClassification = () => {
                     }}
                   />
                 </div>
-                <div data-h2-margin="base(0 -x1)">
-                  <Separator decorative orientation="horizontal" space="sm" />
-                </div>
+                <CardSeparator />
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x1)"

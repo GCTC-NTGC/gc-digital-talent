@@ -10,8 +10,8 @@ import {
   NotFound,
   CardBasic,
   Heading,
-  Separator,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
@@ -285,9 +285,7 @@ export const UpdateClassificationForm = ({
                   }}
                 />
               </div>
-              <div data-h2-margin="base(0 -x1)">
-                <Separator decorative orientation="horizontal" space="sm" />
-              </div>
+              <CardSeparator />
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(x1)"
