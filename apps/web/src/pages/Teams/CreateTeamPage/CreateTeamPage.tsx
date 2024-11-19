@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "urql";
 import { Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql, CreateTeamInput } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -13,6 +12,7 @@ import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import permissionConstants from "~/constants/permissionConstants";
 
 import CreateTeamForm from "./components/CreateTeamForm";
 
@@ -105,7 +105,7 @@ const CreateTeamPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().editTeam}>
     <CreateTeamPage />
   </RequireAuth>
 );

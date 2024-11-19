@@ -25,7 +25,6 @@ import {
   getFragment,
   UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
@@ -47,6 +46,7 @@ import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/pro
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
@@ -885,16 +885,7 @@ export const EditPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().editProcess}>
     <EditPoolPage />
   </RequireAuth>
 );

@@ -8,7 +8,6 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import UserProfile from "~/components/UserProfile";
@@ -17,6 +16,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
+import permissionConstants from "~/constants/permissionConstants";
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
@@ -457,16 +457,7 @@ const AdminUserProfilePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewUserProfile}>
     <AdminUserProfilePage />
   </RequireAuth>
 );

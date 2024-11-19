@@ -1,8 +1,8 @@
 import { Scalars } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import ViewSearchRequestApi from "./components/ViewSearchRequest";
 
@@ -17,13 +17,7 @@ export const SingleSearchRequestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewRequests}>
     <SingleSearchRequestPage />
   </RequireAuth>
 );

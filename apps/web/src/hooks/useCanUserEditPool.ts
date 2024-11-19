@@ -1,8 +1,7 @@
-import { useAuthorization, ROLE_NAME } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
 import { Maybe, PoolStatus } from "@gc-digital-talent/graphql";
 
-import { checkRole } from "../utils/teamUtils";
+import permissionConstants from "~/constants/permissionConstants";
 
 const useCanUserEditPool = (status?: Maybe<PoolStatus>) => {
   const { userAuthInfo } = useAuthorization();
@@ -10,9 +9,9 @@ const useCanUserEditPool = (status?: Maybe<PoolStatus>) => {
   if (status === PoolStatus.Draft) return true;
 
   if (status === PoolStatus.Published) {
-    return checkRole(
-      [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
-      unpackMaybes(userAuthInfo?.roleAssignments),
+    return hasRole(
+      permissionConstants().publishProcess,
+      userAuthInfo?.roleAssignments,
     );
   }
 

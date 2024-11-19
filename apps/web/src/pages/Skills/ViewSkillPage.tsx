@@ -273,7 +273,7 @@ const ViewSkillPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <ViewSkillPage />
   </RequireAuth>
 );

@@ -3,11 +3,12 @@ import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
 
@@ -53,7 +54,7 @@ const CareerTimelineAndRecruitmentPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants().isApplicant}>
     <CareerTimelineAndRecruitmentPage />
   </RequireAuth>
 );

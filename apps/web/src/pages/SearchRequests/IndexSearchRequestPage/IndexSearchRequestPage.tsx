@@ -1,7 +1,5 @@
 import { useIntl } from "react-intl";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-
 import SEO from "~/components/SEO/SEO";
 import SearchRequestTable from "~/components/SearchRequestTable/SearchRequestTable";
 import useRoutes from "~/hooks/useRoutes";
@@ -10,6 +8,7 @@ import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import permissionConstants from "~/constants/permissionConstants";
 
 export const IndexSearchRequestPage = () => {
   const intl = useIntl();
@@ -41,13 +40,7 @@ export const IndexSearchRequestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewRequests}>
     <IndexSearchRequestPage />
   </RequireAuth>
 );

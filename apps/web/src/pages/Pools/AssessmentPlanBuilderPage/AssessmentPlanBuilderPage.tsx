@@ -30,6 +30,7 @@ import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import messages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import OrganizeSection, {
   sectionTitle as organizeSectionTitle,
@@ -251,16 +252,7 @@ export const AssessmentPlanBuilderPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewProcesses}>
     <AssessmentPlanBuilderPage />
   </RequireAuth>
 );

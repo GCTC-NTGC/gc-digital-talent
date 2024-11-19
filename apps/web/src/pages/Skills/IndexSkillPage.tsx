@@ -1,13 +1,12 @@
 import { useIntl } from "react-intl";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import permissionConstants from "~/constants/permissionConstants";
 
 import SkillTableApi from "./components/SkillTable";
 
@@ -40,7 +39,7 @@ export const IndexSkillPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <IndexSkillPage />
   </RequireAuth>
 );

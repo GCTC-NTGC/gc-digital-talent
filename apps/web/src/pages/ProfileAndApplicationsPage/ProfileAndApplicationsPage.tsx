@@ -5,11 +5,11 @@ import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import ProfileAndApplicationsHeading from "./components/ProfileAndApplicationsHeading";
 import TrackApplications from "./components/TrackApplications/TrackApplications";
@@ -88,7 +88,7 @@ const ProfileAndApplicationsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants().isApplicant}>
     <ProfileAndApplicationsPage />
   </RequireAuth>
 );

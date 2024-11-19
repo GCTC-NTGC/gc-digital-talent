@@ -5,12 +5,12 @@ import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { graphql, Scalars, UpdateTeamInput } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import UpdateTeamForm from "./components/UpdateTeamForm";
 
@@ -106,7 +106,7 @@ const EditTeamPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().editTeam}>
     <EditTeamPage />
   </RequireAuth>
 );

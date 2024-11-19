@@ -17,6 +17,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { checkRole } from "~/utils/communityUtils";
+import permissionConstants from "~/constants/permissionConstants";
 
 const CommunityLayout_CommunityFragment = graphql(/* GraphQL */ `
   fragment CommunityLayout_Community on Community {
@@ -172,14 +173,7 @@ const CommunityLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewCommunities}>
     <CommunityLayout />
   </RequireAuth>
 );

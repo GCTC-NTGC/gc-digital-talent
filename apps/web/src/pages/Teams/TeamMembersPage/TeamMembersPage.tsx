@@ -5,22 +5,19 @@ import { useQuery } from "urql";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  checkRole,
-  groupRoleAssignmentsByUser,
-  TeamMember,
-} from "~/utils/teamUtils";
+import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -37,8 +34,8 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   const intl = useIntl();
   const team = getFragment(TeamMembersPage_TeamFragment, teamQuery);
   const { roleAssignments } = useAuthorization();
-  const canModifyMembers = checkRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+  const canModifyMembers = hasRole(
+    permissionConstants().manageTeamMembers,
     roleAssignments,
   );
 
@@ -166,13 +163,7 @@ const TeamMembersPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewTeams}>
     <TeamMembersPage />
   </RequireAuth>
 );

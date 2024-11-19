@@ -108,7 +108,7 @@ const NotificationsPage = () => {
 
 export const Component = () => {
   return (
-    <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <RequireAuth roles={permissionConstants().isApplicant}>
       <NotificationsPage />
     </RequireAuth>
   );

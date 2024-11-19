@@ -41,7 +41,7 @@ export const IndexClassificationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <IndexClassificationPage />
   </RequireAuth>
 );

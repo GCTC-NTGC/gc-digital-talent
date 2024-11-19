@@ -7,7 +7,6 @@ import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
 import { User, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -17,6 +16,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import { PageNavInfo } from "~/types/pages";
 import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 type PageNavKeys = "profile" | "info" | "edit";
 
@@ -150,16 +150,7 @@ const UserLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewUserProfile}>
     <UserLayout />
   </RequireAuth>
 );

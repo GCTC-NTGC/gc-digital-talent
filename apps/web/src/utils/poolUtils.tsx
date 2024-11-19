@@ -13,8 +13,7 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { hasRole } from "@gc-digital-talent/auth";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
@@ -33,6 +32,7 @@ import poolMessages from "~/messages/poolMessages";
 import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
 import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { wrapAbbr } from "./nameUtils";
 import nodeToString from "./nodeToString";
@@ -52,18 +52,7 @@ export const isAdvertisementVisible = (
   if (status !== PoolStatus.Draft) {
     return true;
   }
-  const allowedRoles: RoleName[] = [
-    ROLE_NAME.PlatformAdmin,
-    ROLE_NAME.PoolOperator,
-  ];
-  return (
-    roleAssignments.filter(notEmpty).some((assignment) => {
-      return (
-        assignment.role?.name &&
-        allowedRoles.includes(assignment.role.name as RoleName)
-      );
-    }) ?? false
-  );
+  return hasRole(permissionConstants().viewProcesses, roleAssignments);
 };
 
 export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
