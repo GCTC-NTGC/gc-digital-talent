@@ -18,6 +18,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { checkRole } from "~/utils/communityUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -121,11 +122,7 @@ export const CommunityTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search by keyword",
-          id: "lNU7FS",
-          description: "Label for the pool candidates table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       {...(canCreateMembers
         ? {

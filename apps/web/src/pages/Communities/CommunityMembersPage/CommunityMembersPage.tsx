@@ -23,6 +23,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { ActionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -132,11 +133,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         }}
         search={{
           internal: true,
-          label: intl.formatMessage({
-            defaultMessage: "Search by keyword",
-            id: "PYMFoh",
-            description: "Label for the keyword search input",
-          }),
+          label: intl.formatMessage(adminMessages.searchByKeyword),
         }}
         {...(canAdmin && {
           add: {
