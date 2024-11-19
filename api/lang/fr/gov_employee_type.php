@@ -5,5 +5,4 @@ return [
     'casual' => 'Simple',
     'term' => 'Durée',
     'indeterminate' => 'Indéterminé',
-    'contractor' => 'Contractor',
 ];
