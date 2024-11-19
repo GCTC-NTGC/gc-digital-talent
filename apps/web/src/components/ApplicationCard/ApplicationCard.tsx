@@ -232,7 +232,6 @@ const ApplicationCard = ({
           show={isApplicantQualified}
           title={applicationTitleString}
         />
-        <ApplicationActions.SupportAction show title={applicationTitleString} />
         <ApplicationActions.DeleteAction
           show={applicationIsDraft}
           title={applicationTitleString}

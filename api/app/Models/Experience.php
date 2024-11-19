@@ -302,7 +302,7 @@ class Experience extends Model
                     'details' => 'details',
                 ];
 
-                $model = $hydrationModel::make([]);
+                $model = new $hydrationModel;
                 $experiences[] = self::hydrateFields($experience, $fields, $model);
             }
         }

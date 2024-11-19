@@ -751,11 +751,13 @@ class PoolCandidate extends Model
             $user = User::findOrFail($args['userId']);
         }
 
+        $now = Carbon::now()->toDateTimeString();
+
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);
-        $query->where(function (Builder $query) use ($user) {
+        $query->where(function (Builder $query) use ($user, $now) {
             if ($user?->isAbleTo('view-any-submittedApplication')) {
-                $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
+                $query->orWhere('submitted_at', '<=', $now);
             }
 
             if ($user?->isAbleTo('view-team-submittedApplication')) {
@@ -764,8 +766,8 @@ class PoolCandidate extends Model
                     return $user->isAbleTo('view-team-submittedApplication', $team);
                 })->pluck('id');
 
-                $query->orWhere(function (Builder $query) use ($teamIds) {
-                    $query->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                $query->orWhere(function (Builder $query) use ($teamIds, $now) {
+                    $query->where('submitted_at', '<=', $now)
                         ->whereHas('pool', function (Builder $query) use ($teamIds) {
                             return $query->where(function (Builder $query) use ($teamIds) {
                                 $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
@@ -849,7 +851,7 @@ class PoolCandidate extends Model
     {
         extract($args);
 
-        if ($order && $locale) {
+        if (isset($order) && isset($locale)) {
             $query = $query->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
         }
 
@@ -1178,27 +1180,21 @@ class PoolCandidate extends Model
             };
         }
 
-        try {
-            $weight = match ($decision) {
-                FinalDecision::QUALIFIED->name => 10,
-                FinalDecision::QUALIFIED_PENDING->name => 20,
-                FinalDecision::QUALIFIED_PLACED->name => 30,
-                FinalDecision::TO_ASSESS->name => 40,
-                // Set aside some values for assessment steps
-                // Giving a decent buffer to increase max steps
-                FinalDecision::DISQUALIFIED_PENDING->name => 200,
-                FinalDecision::DISQUALIFIED->name => 210,
-                FinalDecision::QUALIFIED_REMOVED->name => 220,
-                FinalDecision::TO_ASSESS_REMOVED->name => 230,
-                FinalDecision::REMOVED->name => 240,
-                FinalDecision::QUALIFIED_EXPIRED->name => 250,
-                default => null
-            };
-        } catch (\UnhandledMatchError $e) {
-            Log::error($e->getMessage());
-
-            $weight = null;
-        }
+        $weight = match ($decision) {
+            FinalDecision::QUALIFIED->name => 10,
+            FinalDecision::QUALIFIED_PENDING->name => 20,
+            FinalDecision::QUALIFIED_PLACED->name => 30,
+            FinalDecision::TO_ASSESS->name => 40,
+            // Set aside some values for assessment steps
+            // Giving a decent buffer to increase max steps
+            FinalDecision::DISQUALIFIED_PENDING->name => 200,
+            FinalDecision::DISQUALIFIED->name => 210,
+            FinalDecision::QUALIFIED_REMOVED->name => 220,
+            FinalDecision::TO_ASSESS_REMOVED->name => 230,
+            FinalDecision::REMOVED->name => 240,
+            FinalDecision::QUALIFIED_EXPIRED->name => 250,
+            default => $this->unMatchedDecision($decision)
+        };
 
         $assessmentStatus = $this->computed_assessment_status;
         $currentStep = null;
@@ -1214,5 +1210,12 @@ class PoolCandidate extends Model
             'decision' => $decision,
             'weight' => $weight,
         ];
+    }
+
+    private function unMatchedDecision(?string $decison)
+    {
+        Log::error(sprintf('No match for decision %s', $decison));
+
+        return null;
     }
 }

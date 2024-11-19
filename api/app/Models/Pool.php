@@ -10,6 +10,7 @@ use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,6 +45,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?string $opportunity_length
  * @property ?string $closing_reason
  * @property ?string $change_justification
+ * @property ?string $status
  * @property string $team_id
  * @property string $department_id
  * @property string $community_id
@@ -155,7 +157,7 @@ class Pool extends Model
      *
      * i.e Pool::query()->wherePublished();
      */
-    public function newEloquentBuilder($query): PoolBuilder
+    public function newEloquentBuilder($query): Builder
     {
         return new PoolBuilder($query);
     }

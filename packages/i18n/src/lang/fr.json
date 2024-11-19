@@ -92,7 +92,7 @@
     "description": "Message displayed when user attempts to apply to an unpublished pool"
   },
   "17dZD4": {
-    "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
+    "defaultMessage": "Nous informerons le candidat ou la candidate de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
   },
   "1UX8RD": {
@@ -250,10 +250,6 @@
   "8kUa5H": {
     "defaultMessage": "Une erreur s’est produite au moment de placer le candidat. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that placing a candidate failed"
-  },
-  "99cWuv": {
-    "defaultMessage": "réussite",
-    "description": "Message for the success status"
   },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
