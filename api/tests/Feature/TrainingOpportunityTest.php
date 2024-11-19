@@ -44,7 +44,6 @@ class TrainingOpportunityTest extends TestCase
 
     public function testQueryingPaginatedDeadlineScope(): void
     {
-        TrainingOpportunity::truncate();
         $old = TrainingOpportunity::factory()->create([
             'registration_deadline' => config('constants.past_date'),
         ]);
@@ -154,7 +153,6 @@ class TrainingOpportunityTest extends TestCase
 
     public function testQueryingPaginatedCourseLanguage(): void
     {
-        TrainingOpportunity::truncate();
         $english = TrainingOpportunity::factory()->create([
             'course_language' => CourseLanguage::ENGLISH->name,
         ]);
