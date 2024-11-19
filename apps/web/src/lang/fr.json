@@ -2219,6 +2219,10 @@
     "defaultMessage": "Ministère",
     "description": "Title for department"
   },
+  "9b+Xtt": {
+    "defaultMessage": "Informations sur la collectivité",
+    "description": "Heading for the community information section of a form"
+  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -3234,10 +3238,6 @@
   "ErosNs": {
     "defaultMessage": "Si vous êtes <strong>un(e) employé(e) du gouvernement du Canada </strong>, vous pouvez choisir d'utiliser votre adresse courriel professionnelle, mais nous vous recommandons d'utiliser une adresse courriel personnelle afin de protéger votre confidentialité et de pouvoir continuer à y accéder si vous quittez la fonction publique.",
     "description": "Message on getting started page about the contact email address - part 2."
-  },
-  "Es6z/1": {
-    "defaultMessage": "Modifier une collectivité",
-    "description": "Page title for the edit community page."
   },
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
@@ -5058,6 +5058,10 @@
   "OWYrdr": {
     "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}.",
     "description": "Label for the application deadline approaching notification"
+  },
+  "OY5/aW": {
+    "defaultMessage": "Modifier une collectivité",
+    "description": "Page title for the edit community page."
   },
   "OY6KVG": {
     "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
@@ -7281,10 +7285,6 @@
   "ZfCeq/": {
     "defaultMessage": "Voir les membres de l’équipe",
     "description": "Link text the list of team members page"
-  },
-  "Zffatu": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the basic information section of a form"
   },
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",

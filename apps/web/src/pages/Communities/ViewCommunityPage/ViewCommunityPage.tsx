@@ -78,9 +78,10 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           data-h2-font-weight="base(400)"
         >
           {intl.formatMessage({
-            defaultMessage: "Basic information",
-            id: "Zffatu",
-            description: "Heading for the basic information section of a form",
+            defaultMessage: "Community information",
+            id: "9b+Xtt",
+            description:
+              "Heading for the community information section of a form",
           })}
         </Heading>
       </div>

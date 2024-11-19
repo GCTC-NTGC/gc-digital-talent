@@ -320,8 +320,8 @@ export const UpdateCommunity = () => {
   ];
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Update a community",
-    id: "Es6z/1",
+    defaultMessage: "Edit a community",
+    id: "OY5/aW",
     description: "Page title for the edit community page.",
   });
 
