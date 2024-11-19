@@ -37,11 +37,11 @@ GRAPHQL;
      * This function will leave scalars and arrays of scalars alone, and convert ArgumetnSets into named php arrays.
      *
      * @param  mixed|\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet|array<\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet>  $value  The slice of arguments that belongs to this nested resolver.
-     * @return void
+     * @return mixed
      */
     public function toPlainValue($value)
     {
-        $arg = new Argument();
+        $arg = new Argument;
         $arg->value = $value;
 
         return $arg->toPlain();

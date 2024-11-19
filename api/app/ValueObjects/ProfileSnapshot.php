@@ -99,6 +99,7 @@ class ProfileSnapshot implements Castable
                 ])->findOrFail($value['userId']);
 
                 // collect skills attached to the Pool to pass into resource collection
+                /** @var Pool $pool */
                 $pool = Pool::with(['poolSkills'])->findOrFail($value['poolId']);
                 $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
 
