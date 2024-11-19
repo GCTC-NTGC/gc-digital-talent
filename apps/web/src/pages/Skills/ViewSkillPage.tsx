@@ -8,9 +8,10 @@ import {
   NotFound,
   Heading,
   Link,
-  CardSectioned,
   Chip,
   Chips,
+  CardSeparator,
+  CardBasic,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -92,8 +93,8 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
           })}
         </Heading>
       </div>
-      <CardSectioned.Root>
-        <CardSectioned.Item
+      <CardBasic>
+        <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
           data-h2-gap="base(x1)"
@@ -161,9 +162,9 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
               {skill.key}
             </FieldDisplay>
           </div>
-        </CardSectioned.Item>
-
-        <CardSectioned.Item
+        </div>
+        <CardSeparator />
+        <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
@@ -177,8 +178,8 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
               description: "Link to edit the currently viewed skill",
             })}
           </Link>
-        </CardSectioned.Item>
-      </CardSectioned.Root>
+        </div>
+      </CardBasic>
     </>
   );
 };

@@ -469,12 +469,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 }
 
                 // Modify the email(s) to allow use by another user
-                $newContactEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newContactEmail]);
+                $user->email = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 if (! is_null($user->work_email)) {
-                    $newWorkEmail = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                    $user->update(['email' => $newWorkEmail]);
+                    $user->work_email = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 }
+                $user->save();
             }
             $user->searchable();
         });
