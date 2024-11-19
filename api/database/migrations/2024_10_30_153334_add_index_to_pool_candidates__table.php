@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->index(['submitted_at', 'user_id']);
-            $table->index('status_weight');
+            $table->index(['submitted_at', 'user_id'], 'submitted_at_user_id_index');
+            $table->index('status_weight', 'status_weight_index');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->dropIndex(['submitted_at', 'user_id']);
-            $table->dropIndex('status_weight');
+            $table->dropIndex('submitted_at_user_id_index');
+            $table->dropIndex('status_weight_index');
         });
     }
 };
