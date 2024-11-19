@@ -967,10 +967,6 @@
     "defaultMessage": "Vous n’avez pas encore ajouté d’éléments à votre parcours professionnel.",
     "description": "Message to user when no career timeline items have been attached to profile."
   },
-  "33oume": {
-    "defaultMessage": "Chercher membres de la collectivité",
-    "description": "Label for the community members table search input"
-  },
   "33wMLU": {
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
@@ -1091,10 +1087,6 @@
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
     "description": "Heading for the skill experience details section"
   },
-  "3hqdVV": {
-    "defaultMessage": "Chercher les collectivités",
-    "description": "Label for the communities table search input"
-  },
   "3jfmAz": {
     "defaultMessage": "Arrangement en matière d'approvisionnement",
     "description": "Supply arrangement contract instrument"
@@ -1102,10 +1094,6 @@
   "3jpTNK": {
     "defaultMessage": "Cette revendication a été vérifiée",
     "description": "Label for the verified claim option"
-  },
-  "3kmwRC": {
-    "defaultMessage": "Retourner aux collectivités",
-    "description": "Button text to return to the table of communities page"
   },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
@@ -2359,10 +2347,6 @@
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
   },
-  "AKI35i": {
-    "defaultMessage": "Retirer {userName} de la collectivité {communityName}",
-    "description": "Aria label for the dialog trigger to remove a user from a community"
-  },
   "AKQeBC": {
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
@@ -2579,6 +2563,10 @@
     "defaultMessage": "Compte et confidentialité",
     "description": "Link to the 'Account and privacy' page"
   },
+  "BRd2Xw": {
+    "defaultMessage": "Créez une collectivité",
+    "description": "Text to create a community"
+  },
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
@@ -2606,10 +2594,6 @@
   "BbaMf0": {
     "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
     "description": "Message displayed for search request not found on single search request page."
-  },
-  "BceI+w": {
-    "defaultMessage": "Enregistrer la collectivité",
-    "description": "Text on a button to save community"
   },
   "BdsZwe": {
     "defaultMessage": "Candidature soumise",
@@ -3250,6 +3234,10 @@
   "ErosNs": {
     "defaultMessage": "Si vous êtes <strong>un(e) employé(e) du gouvernement du Canada </strong>, vous pouvez choisir d'utiliser votre adresse courriel professionnelle, mais nous vous recommandons d'utiliser une adresse courriel personnelle afin de protéger votre confidentialité et de pouvoir continuer à y accéder si vous quittez la fonction publique.",
     "description": "Message on getting started page about the contact email address - part 2."
+  },
+  "Es6z/1": {
+    "defaultMessage": "Modifier une collectivité",
+    "description": "Page title for the edit community page."
   },
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
@@ -3943,6 +3931,10 @@
     "defaultMessage": "Nos concepteurs prêtent une attention particulière aux éléments suivants : ",
     "description": "Intro to list of items designers consider for accessibility"
   },
+  "IqZ6W0": {
+    "defaultMessage": "Informations sur la collectivité",
+    "description": "Heading for the 'edit a community' form"
+  },
   "IrV/w5": {
     "defaultMessage": "Valider l’adresse courriel",
     "description": "breadcrumb for email verification page"
@@ -3978,6 +3970,10 @@
   "J+MAUg": {
     "defaultMessage": "Vos renseignements personnels et vos coordonnées ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their personal and contact information."
+  },
+  "J+haAz": {
+    "defaultMessage": "Actions pour {userName} dans {communityName}",
+    "description": "Aria label for the menu trigger for community actions"
   },
   "J/JdxQ": {
     "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
@@ -5991,6 +5987,10 @@
     "defaultMessage": "Votre nom complet",
     "description": "Label displayed for signature input in sign and submit section of application review page."
   },
+  "T9alkU": {
+    "defaultMessage": "Autorité mandataire (anglais)",
+    "description": "Label displayed on the community form mandate authority field in English."
+  },
   "TB5Pnf": {
     "defaultMessage": "En raison de la nature de l’apprentissage, le programme a élaboré un cercle unique de soutien pour les apprenti·es. Il s’agit notamment d’un·e partenaire pair pour le jumelage et le soutien au quotidien, ainsi que d’un mentor qui fournit des conseils expérimentés.",
     "description": "Paragraph 1 of the 'Circle of Support' subsection"
@@ -6609,10 +6609,6 @@
   "WX6NnA": {
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Button text for the create team form submit button"
-  },
-  "WY3oiC": {
-    "defaultMessage": "Modifiez les rôles de {userName} dans {communityName}",
-    "description": "Aria label for the dialog trigger to edit user community membership"
   },
   "WY7q+L": {
     "defaultMessage": "Les compétences en vedette vous permettent de démontrer comment vous avez utilisé ou perfectionné des ensembles de compétences particulièrement importants dans le cadre de votre expérience. Lorsque vous posez votre candidature sur la plateforme, vous êtes invité à lier des compétences essentielles requises pour l’emploi à vos expériences de la même manière, ce qui vous permet de dresser un portrait d’ensemble de vos compétences. Les compétences que vous liez lorsque vous posez votre candidature apparaîtront également ici et pourront être modifiées ultérieurement.",
@@ -7285,6 +7281,10 @@
   "ZfCeq/": {
     "defaultMessage": "Voir les membres de l’équipe",
     "description": "Link text the list of team members page"
+  },
+  "Zffatu": {
+    "defaultMessage": "Informations sur la collectivité",
+    "description": "Heading for the basic information section of a form"
   },
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
@@ -10290,6 +10290,10 @@
     "defaultMessage": "Modifier les rôles dans l'équipe {userName}",
     "description": "Label for the form to edit a users team membership"
   },
+  "oWPn6I": {
+    "defaultMessage": "Autorité mandataire (français)",
+    "description": "Label displayed on the community form mandate authority field in French."
+  },
   "oX23Z+": {
     "defaultMessage": "Excellent travail! Au tour de votre parcours professionnel.",
     "description": "Page title for the application career timeline introduction page"
@@ -10301,6 +10305,10 @@
   "oacrTu": {
     "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign in step."
+  },
+  "ocTGYr": {
+    "defaultMessage": "Informations sur la collectivité",
+    "description": "Heading for the 'create a community' form"
   },
   "og5vUB": {
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
@@ -10537,6 +10545,10 @@
   "pgQl5t": {
     "defaultMessage": "Expérience actuelle associée à cette compétence",
     "description": "Label for a specific skills experience level"
+  },
+  "phS+TP": {
+    "defaultMessage": "Modifiez les informations sur la collectivité",
+    "description": "Link to edit the currently viewed community"
   },
   "piZjS+": {
     "defaultMessage": "Catégorie de compétences",
