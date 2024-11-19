@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import { CardSectioned, Heading, Link } from "@gc-digital-talent/ui";
+import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Input,
@@ -88,103 +88,102 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <CardSectioned.Root>
-        <CardSectioned.Item>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-justify-content="base(center) p-tablet(flex-start)"
+      <CardBasic>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center) p-tablet(flex-start)"
+        >
+          <Heading
+            level="h2"
+            color="primary"
+            Icon={IdentificationIcon}
+            data-h2-margin="base(0, 0, x1.5, 0)"
+            data-h2-font-weight="base(400)"
           >
-            <Heading
-              level="h2"
-              color="primary"
-              Icon={IdentificationIcon}
-              data-h2-margin="base(0, 0, x1.5, 0)"
-              data-h2-font-weight="base(400)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Community information",
-                id: "ocTGYr",
-                description: "Heading for the 'create a community' form",
-              })}
-            </Heading>
+            {intl.formatMessage({
+              defaultMessage: "Community information",
+              id: "ocTGYr",
+              description: "Heading for the 'create a community' form",
+            })}
+          </Heading>
+        </div>
+        <div
+          data-h2-display="base(grid)"
+          data-h2-gap="base(x1)"
+          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+        >
+          <Input
+            id="name.en"
+            label={intl.formatMessage(adminMessages.nameEn)}
+            name="name.en"
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="name.fr"
+            label={intl.formatMessage(adminMessages.nameFr)}
+            name="name.fr"
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <RichTextInput
+            id="description.en"
+            label={intl.formatMessage(adminMessages.descriptionEn)}
+            name="description.en"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            wordLimit={TEXT_AREA_MAX_WORDS_EN}
+          />
+          <RichTextInput
+            id="description.fr"
+            label={intl.formatMessage(adminMessages.descriptionFr)}
+            name="description.fr"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            wordLimit={TEXT_AREA_MAX_WORDS_FR}
+          />
+          <Input
+            id="mandateAuthority.en"
+            name="mandateAuthority.en"
+            label={intl.formatMessage({
+              defaultMessage: "Mandate authority (English)",
+              id: "T9alkU",
+              description:
+                "Label displayed on the community form mandate authority field in English.",
+            })}
+            type="text"
+          />
+          <Input
+            id="mandateAuthority.fr"
+            name="mandateAuthority.fr"
+            label={intl.formatMessage({
+              defaultMessage: "Mandate authority (French)",
+              id: "oWPn6I",
+              description:
+                "Label displayed on the community form mandate authority field in French.",
+            })}
+            type="text"
+          />
+          <div data-h2-grid-column="p-tablet(span 2)">
+            <Input
+              id="key"
+              label={intl.formatMessage(adminMessages.key)}
+              name="key"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
           </div>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-gap="base(x1)"
-            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-          >
-            <Input
-              id="name.en"
-              label={intl.formatMessage(adminMessages.nameEn)}
-              name="name.en"
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name.fr"
-              label={intl.formatMessage(adminMessages.nameFr)}
-              name="name.fr"
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <RichTextInput
-              id="description.en"
-              label={intl.formatMessage(adminMessages.descriptionEn)}
-              name="description.en"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              wordLimit={TEXT_AREA_MAX_WORDS_EN}
-            />
-            <RichTextInput
-              id="description.fr"
-              label={intl.formatMessage(adminMessages.descriptionFr)}
-              name="description.fr"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              wordLimit={TEXT_AREA_MAX_WORDS_FR}
-            />
-            <Input
-              id="mandateAuthority.en"
-              name="mandateAuthority.en"
-              label={intl.formatMessage({
-                defaultMessage: "Mandate authority (English)",
-                id: "T9alkU",
-                description:
-                  "Label displayed on the community form mandate authority field in English.",
-              })}
-              type="text"
-            />
-            <Input
-              id="mandateAuthority.fr"
-              name="mandateAuthority.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Mandate authority (French)",
-                id: "oWPn6I",
-                description:
-                  "Label displayed on the community form mandate authority field in French.",
-              })}
-              type="text"
-            />
-            <div data-h2-grid-column="p-tablet(span 2)">
-              <Input
-                id="key"
-                label={intl.formatMessage(adminMessages.key)}
-                name="key"
-                type="text"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-            </div>
-          </div>
-        </CardSectioned.Item>
-        <CardSectioned.Item
+        </div>
+        <CardSeparator />
+        <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column) p-tablet(row)"
           data-h2-gap="base(x1)"
@@ -204,8 +203,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
               description: "Link text to cancel updating a community",
             })}
           </Link>
-        </CardSectioned.Item>
-      </CardSectioned.Root>
+        </div>
+      </CardBasic>
     </BasicForm>
   );
 };
