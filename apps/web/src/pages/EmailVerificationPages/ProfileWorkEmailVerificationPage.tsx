@@ -92,7 +92,7 @@ const ProfileWorkEmailVerificationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants().isApplicant}>
     <ProfileWorkEmailVerificationPage />
   </RequireAuth>
 );

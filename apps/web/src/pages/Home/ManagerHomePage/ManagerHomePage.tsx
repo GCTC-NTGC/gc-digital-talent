@@ -7,7 +7,6 @@ import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { CardFlat, Flourish, Heading, Link } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -26,6 +25,7 @@ import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-a
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 const pageTitle = defineMessage({
   defaultMessage: "Managers community",
@@ -392,7 +392,7 @@ const ManagerHomePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin, ROLE_NAME.Manager]}>
+  <RequireAuth roles={permissionConstants().viewManagerDashboard}>
     <ManagerHomePage />
   </RequireAuth>
 );

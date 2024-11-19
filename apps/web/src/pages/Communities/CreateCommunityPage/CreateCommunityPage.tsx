@@ -79,7 +79,7 @@ const CreateCommunityPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <CreateCommunityPage />
   </RequireAuth>
 );

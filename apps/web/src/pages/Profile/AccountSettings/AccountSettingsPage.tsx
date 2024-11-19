@@ -238,12 +238,6 @@ export const Component = () => {
   );
 };
 
-// export const Component = () => (
-//   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-//     <AccountSettingsPage />
-//   </RequireAuth>
-// );
-
 Component.displayName = "AccountSettingsPage";
 
 export default Component;

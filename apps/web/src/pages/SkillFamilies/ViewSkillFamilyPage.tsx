@@ -233,7 +233,7 @@ const ViewSkillFamilyPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <ViewSkillFamilyPage />
   </RequireAuth>
 );

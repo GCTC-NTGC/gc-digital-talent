@@ -13,7 +13,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -24,6 +23,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { transformFormValuesToFilterState } from "~/components/AssessmentStepTracker/utils";
 import { FormValues } from "~/components/AssessmentStepTracker/types";
+import permissionConstants from "~/constants/permissionConstants";
 
 interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["input"];
@@ -179,15 +179,7 @@ const ScreeningAndEvaluationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().evaluateCandidates}>
     <ScreeningAndEvaluationPage />
   </RequireAuth>
 );

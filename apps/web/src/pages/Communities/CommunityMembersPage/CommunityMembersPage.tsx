@@ -22,6 +22,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -187,14 +188,7 @@ const CommunityMembersPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewCommunityMembers}>
     <CommunityMembersPage />
   </RequireAuth>
 );

@@ -42,6 +42,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
 import { formatClassificationString } from "~/utils/poolUtils";
+import permissionConstants from "~/constants/permissionConstants";
 
 import PoolCandidateSearchRequestPreviewListItem from "../components/PoolCandidateSearchRequestPreviewListItem";
 import pageMessages from "./messages";
@@ -534,7 +535,7 @@ const ManagerRequestHistoryPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Manager]}>
+  <RequireAuth roles={permissionConstants().viewOwnRequests}>
     <ManagerRequestHistoryPage />
   </RequireAuth>
 );

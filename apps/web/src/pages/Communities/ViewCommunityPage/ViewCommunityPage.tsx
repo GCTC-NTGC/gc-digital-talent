@@ -8,7 +8,6 @@ import {
   UpdateCommunityInput,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
 
 import SEO from "~/components/SEO/SEO";
@@ -17,6 +16,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useReturnPath from "~/hooks/useReturnPath";
+import permissionConstants from "~/constants/permissionConstants";
 
 import CommunitySection from "./components/CommunitySection";
 
@@ -123,14 +123,7 @@ const ViewCommunityPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewCommunities}>
     <ViewCommunityPage />
   </RequireAuth>
 );

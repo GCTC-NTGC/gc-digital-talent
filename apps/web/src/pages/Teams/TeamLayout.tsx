@@ -8,7 +8,6 @@ import { useQuery } from "urql";
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import AdminHero from "~/components/HeroDeprecated/AdminHero";
@@ -16,6 +15,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import RequireAuth from "../../components/RequireAuth/RequireAuth";
 
@@ -145,13 +145,7 @@ const TeamLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewTeams}>
     <TeamLayout />
   </RequireAuth>
 );

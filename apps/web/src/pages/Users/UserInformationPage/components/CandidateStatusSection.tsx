@@ -1,7 +1,9 @@
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
+
+import permissionConstants from "~/constants/permissionConstants";
 
 import { UserInformationProps } from "../types";
 import AddToPoolDialog from "./AddToPoolDialog";
@@ -15,9 +17,7 @@ const CandidateStatusSection = ({
   const { roleAssignments, isLoaded } = useAuthorization();
   const isAdmin =
     isLoaded &&
-    roleAssignments?.some(
-      (roleAssignment) => roleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
-    );
+    hasRole(permissionConstants().managePlatformData, roleAssignments);
 
   const titleString = intl.formatMessage({
     defaultMessage: "Pool status",

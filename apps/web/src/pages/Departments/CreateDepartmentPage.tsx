@@ -221,7 +221,7 @@ const CreateDepartmentPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <CreateDepartmentPage />
   </RequireAuth>
 );

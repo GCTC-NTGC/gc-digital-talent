@@ -31,6 +31,7 @@ import {
   chooseNavRole,
   isNavRole,
 } from "~/components/NavContext/NavContextContainer";
+import permissionConstants from "~/constants/permissionConstants";
 
 import pageMessages from "./messages";
 import PoolCandidateSearchRequestPreviewListItem from "../components/PoolCandidateSearchRequestPreviewListItem";
@@ -433,7 +434,7 @@ const ManagerDashboardPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Manager]}>
+  <RequireAuth roles={permissionConstants().viewManagerDashboard}>
     <ManagerDashboardPage />
   </RequireAuth>
 );

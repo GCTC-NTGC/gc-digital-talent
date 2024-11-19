@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
@@ -178,16 +178,7 @@ const ManageAccessPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewProcesses}>
     <ManageAccessPoolPage />
   </RequireAuth>
 );

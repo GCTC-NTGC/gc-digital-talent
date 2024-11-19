@@ -11,7 +11,7 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   FragmentType,
   getFragment,
@@ -143,7 +143,7 @@ export const ViewPool = ({
   // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
   const canDuplicate = hasRole(
-    permissionConstants().duplicateProcess,
+    permissionConstants().createProcess,
     roleAssignments,
   );
   const canArchive = hasRole(
@@ -576,17 +576,7 @@ const ViewPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewProcesses}>
     <ViewPoolPage />
   </RequireAuth>
 );

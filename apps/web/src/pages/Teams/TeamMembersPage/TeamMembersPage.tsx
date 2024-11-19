@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization, hasRole } from "@gc-digital-talent/auth";
+import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
@@ -163,13 +163,7 @@ const TeamMembersPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants().viewTeams}>
     <TeamMembersPage />
   </RequireAuth>
 );
