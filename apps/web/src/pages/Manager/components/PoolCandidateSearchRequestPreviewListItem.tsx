@@ -1,5 +1,4 @@
 import { IntlShape, useIntl } from "react-intl";
-import { useState } from "react";
 
 import {
   FragmentType,
@@ -67,7 +66,6 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   poolCandidateSearchRequestQuery,
 }: PoolCandidateSearchRequestPreviewListItemProps) => {
   const intl = useIntl();
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const request = getFragment(
     PreviewListItemPoolCandidateSearchRequest_Fragment,
     poolCandidateSearchRequestQuery,
@@ -135,17 +133,7 @@ const PoolCandidateSearchRequestPreviewListItem = ({
       <PreviewList.Item
         title={title}
         metaData={metaDataProps}
-        action={
-          <PreviewList.Button
-            label={title}
-            onClick={() => setDialogOpen(true)}
-          />
-        }
-      />
-      <ReviewTalentRequestDialog
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        id={request.id}
+        action={<ReviewTalentRequestDialog title={title} id={request.id} />}
       />
     </>
   );
