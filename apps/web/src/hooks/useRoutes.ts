@@ -327,6 +327,9 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "training-events", "create"].join("/"),
     trainingEventView: (trainingEventId: string) =>
       [adminUrl, "training-events", trainingEventId].join("/"),
+    trainingEventUpdate: (trainingEventId: string) =>
+      [adminUrl, "training-events", trainingEventId, "edit"].join("/"),
+
     /**
      * Deprecated
      *

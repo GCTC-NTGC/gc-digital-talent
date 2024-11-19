@@ -794,25 +794,25 @@ const createRoute = (locale: Locales) =>
                     lazy: () =>
                       import("../pages/TrainingEvents/CreateTrainingEventPage"),
                   },
-                  // {
-                  //   path: ":skillFamilyId",
-                  //   children: [
-                  //     {
-                  //       index: true,
-                  //       lazy: () =>
-                  //         import(
-                  //           "../pages/SkillFamilies/ViewSkillFamilyPage"
-                  //         ),
-                  //     },
-                  //     {
-                  //       path: "edit",
-                  //       lazy: () =>
-                  //         import(
-                  //           "../pages/SkillFamilies/UpdateSkillFamilyPage"
-                  //         ),
-                  //     },
-                  //   ],
-                  // },
+                  {
+                    path: ":trainingEventId",
+                    children: [
+                      {
+                        index: true,
+                        lazy: () =>
+                          import(
+                            "../pages/TrainingEvents/ViewTrainingEventPage"
+                          ),
+                      },
+                      {
+                        path: "edit",
+                        lazy: () =>
+                          import(
+                            "../pages/TrainingEvents/UpdateTrainingEventPage"
+                          ),
+                      },
+                    ],
+                  },
                 ],
               },
               {

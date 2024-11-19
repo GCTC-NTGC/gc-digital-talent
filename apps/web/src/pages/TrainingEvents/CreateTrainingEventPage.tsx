@@ -6,13 +6,7 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { CreateDepartmentInput, Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  CardBasic,
-  CardSectioned,
-  CardSeparator,
-  Heading,
-  Link,
-} from "@gc-digital-talent/ui";
+import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -27,11 +21,13 @@ import adminMessages from "~/messages/adminMessages";
 type FormValues = CreateDepartmentInput;
 
 interface CreateTrainingEventFormProps {
-  handleTrainingEvent: (data: FormValues) => Promise<Scalars["UUID"]["output"]>;
+  handleCreateTrainingEvent: (
+    data: FormValues,
+  ) => Promise<Scalars["UUID"]["output"]>;
 }
 
 const CreateTrainingEventForm = ({
-  handleTrainingEvent,
+  handleCreateTrainingEvent,
 }: CreateTrainingEventFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -40,7 +36,7 @@ const CreateTrainingEventForm = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleTrainingEvent({
+    return handleCreateTrainingEvent({
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
@@ -84,8 +80,8 @@ const CreateTrainingEventForm = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Event information",
-                id: "2rnlFj",
-                description: "Heading for the 'create an event' form",
+                id: "8ZTHFe",
+                description: "Heading for the event form information section",
               })}
             </Heading>
           </div>
@@ -165,7 +161,7 @@ const CreateTrainingEventPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   // const [, executeMutation] = useMutation(CreateDepartment_Mutation);
-  const handleCreateDepartment = (data: CreateDepartmentInput) =>
+  const handleCreateTrainingEvent = (data: CreateDepartmentInput) =>
     Promise.reject(new Error("TODO"));
   // executeMutation({ department: data }).then((result) => {
   //   if (result.data?.createDepartment?.id) {
@@ -204,7 +200,7 @@ const CreateTrainingEventPage = () => {
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
           <CreateTrainingEventForm
-            handleCreateDepartment={handleCreateDepartment}
+            handleCreateTrainingEvent={handleCreateTrainingEvent}
           />
         </div>
       </Hero>
