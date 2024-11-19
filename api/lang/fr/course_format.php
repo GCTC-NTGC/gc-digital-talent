@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'on_site' => 'On-site',
-    'virtual' => 'Virtual',
+    'on_site' => 'Sur place',
+    'virtual' => 'Virtuel',
 ];
