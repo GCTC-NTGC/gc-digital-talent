@@ -239,6 +239,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   <PoolCandidateSearchRequestPreviewListItem
                                     key={request.id}
                                     poolCandidateSearchRequestQuery={request}
+                                    headingAs="h4"
                                   />
                                 ),
                               )}
