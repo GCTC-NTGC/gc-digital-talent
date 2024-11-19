@@ -169,8 +169,8 @@ class WorkExperienceTest extends TestCase
                 'workExperience' => [
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
                     'govEmploymentType' => WorkExperienceGovEmployeeType::TERM->name,
-                    'classification' => $classification->id,
-                    'department' => $department->id,
+                    'classificationId' => $classification->id,
+                    'departmentId' => $department->id,
                 ],
             ]
         )->assertJsonFragment(

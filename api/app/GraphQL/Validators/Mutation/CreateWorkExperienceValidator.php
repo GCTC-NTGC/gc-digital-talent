@@ -147,7 +147,7 @@ final class CreateWorkExperienceValidator extends Validator
                     )
                 ),
             ],
-            'workExperience.classification' => [
+            'workExperience.classificationId' => [
                 Rule::requiredIf(
                     (
                         $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
@@ -166,7 +166,7 @@ final class CreateWorkExperienceValidator extends Validator
                 ),
                 Rule::exists('classifications', 'id'),
             ],
-            'workExperience.department' => [
+            'workExperience.departmentId' => [
                 Rule::requiredIf(
                     (
                         $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
