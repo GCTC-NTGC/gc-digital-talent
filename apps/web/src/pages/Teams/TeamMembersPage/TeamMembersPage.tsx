@@ -17,6 +17,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -34,7 +35,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   const team = getFragment(TeamMembersPage_TeamFragment, teamQuery);
   const { roleAssignments } = useAuthorization();
   const canModifyMembers = hasRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+    permissionConstants().manageTeamMembers,
     roleAssignments,
   );
 

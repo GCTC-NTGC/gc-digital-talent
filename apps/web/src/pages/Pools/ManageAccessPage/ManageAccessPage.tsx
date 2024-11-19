@@ -16,6 +16,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import {
   actionCell,
@@ -41,7 +42,7 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const canAddRemoveRoles = hasRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    permissionConstants().manageProcessAccess,
     roleAssignments,
   );
 
