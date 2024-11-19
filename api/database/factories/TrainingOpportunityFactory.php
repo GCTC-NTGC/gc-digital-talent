@@ -28,7 +28,7 @@ class TrainingOpportunityFactory extends Factory
         $applicationUrl = $this->faker->url();
         $registrationDeadline = $this->faker->dateTimeBetween('-6 months', '6 months');
         $trainingStart = $this->faker->dateTimeBetween($registrationDeadline, '9 months');
-        $trainingEnd = $this->faker->boolean() ? $this->faker->dateTimeBetween($trainingStart, '12 months') : null;
+        $trainingEnd = $this->faker->optional()->dateTimeBetween($trainingStart, '12 months');
 
         return [
             'title' => ['en' => $title.' EN', 'fr' => $title.' FR'],
