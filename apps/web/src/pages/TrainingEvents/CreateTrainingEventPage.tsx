@@ -7,7 +7,13 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { CreateDepartmentInput, Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
-import { Input, Submit } from "@gc-digital-talent/forms";
+import {
+  DATE_SEGMENT,
+  DateInput,
+  Input,
+  RichTextInput,
+  Submit,
+} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -16,7 +22,8 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import adminMessages from "~/messages/adminMessages";
+
+import formLabels from "./formLabels";
 
 type FormValues = CreateDepartmentInput;
 
@@ -93,7 +100,7 @@ const CreateTrainingEventForm = ({
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage(adminMessages.nameEn)}
+              label={intl.formatMessage(formLabels.titleEn)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -102,28 +109,107 @@ const CreateTrainingEventForm = ({
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage(adminMessages.nameFr)}
+              label={intl.formatMessage(formLabels.titleFr)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <div data-h2-grid-column="p-tablet(span 2)">
-              <Input
-                id="departmentNumber"
-                name="departmentNumber"
-                label={intl.formatMessage({
-                  defaultMessage: "Department number",
-                  id: "66kU6k",
-                  description: "Label for department number",
-                })}
-                type="number"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                min="0"
-              />
+            <Input
+              id="name_en"
+              name="name.en"
+              label={intl.formatMessage(formLabels.courseLanguage)}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label={intl.formatMessage(formLabels.format)}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <DateInput
+              id="awardedDate"
+              legend={intl.formatMessage(formLabels.registrationDeadline)}
+              name="awardedDate"
+              show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                // max: {
+                //   value: strToFormDate(todayDate.toISOString()),
+                //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
+                // },
+              }}
+            />
+            <div data-h2-display="base(none) p-tablet(inherit)">
+              {/* intentionally left blank */}
             </div>
+            <DateInput
+              id="awardedDate"
+              legend={intl.formatMessage(formLabels.trainingStartDate)}
+              name="awardedDate"
+              show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                // max: {
+                //   value: strToFormDate(todayDate.toISOString()),
+                //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
+                // },
+              }}
+            />
+            <DateInput
+              id="awardedDate"
+              legend={intl.formatMessage(formLabels.trainingEndDate)}
+              name="awardedDate"
+              show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+              rules={
+                {
+                  // max: {
+                  //   value: strToFormDate(todayDate.toISOString()),
+                  //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
+                  // },
+                }
+              }
+            />
+            <RichTextInput
+              id="descriptionEn"
+              label={intl.formatMessage(formLabels.descriptionEn)}
+              name="descriptionEn"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <RichTextInput
+              id="descriptionFr"
+              label={intl.formatMessage(formLabels.descriptionFr)}
+              name="descriptionFr"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_en"
+              name="name.en"
+              label={intl.formatMessage(formLabels.applicationUrlEn)}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label={intl.formatMessage(formLabels.applicationUrlFr)}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
           </div>
           <CardSeparator />
           <div

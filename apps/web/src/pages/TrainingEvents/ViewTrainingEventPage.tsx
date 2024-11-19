@@ -20,7 +20,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
-import adminMessages from "~/messages/adminMessages";
+
+import formLabels from "./formLabels";
 
 // export const DepartmentView_Fragment = graphql(/* GraphQL */ `
 //   fragment DepartmentForm on Department {
@@ -71,23 +72,52 @@ export const ViewTrainingEventForm =
             data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
             data-h2-gap="base(x1)"
           >
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+            <FieldDisplay label={intl.formatMessage(formLabels.titleEn)}>
               {/* {department.name.en} */}
             </FieldDisplay>
-            <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+            <FieldDisplay label={intl.formatMessage(formLabels.titleFr)}>
               {/* {department.name.fr} */}
             </FieldDisplay>
-            <div data-h2-grid-column="p-tablet(span 2)">
-              <FieldDisplay
-                label={intl.formatMessage({
-                  defaultMessage: "Department number",
-                  id: "66kU6k",
-                  description: "Label for department number",
-                })}
-              >
-                {/* {department.departmentNumber} */}
-              </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(formLabels.courseLanguage)}>
+              {/* {department.name.en} */}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(formLabels.format)}>
+              {/* {department.name.fr} */}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(formLabels.registrationDeadline)}
+            >
+              {/* {department.name.fr} */}
+            </FieldDisplay>
+            <div data-h2-display="base(none) p-tablet(inherit)">
+              {/* intentionally left blank */}
             </div>
+            <FieldDisplay
+              label={intl.formatMessage(formLabels.trainingStartDate)}
+            >
+              {/* {department.name.fr} */}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(formLabels.trainingEndDate)}
+            >
+              {/* {department.name.fr} */}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(formLabels.descriptionEn)}>
+              {/* {department.name.fr} */}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(formLabels.descriptionFr)}>
+              {/* {department.name.fr} */}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(formLabels.applicationUrlEn)}
+            >
+              {/* {department.name.fr} */}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(formLabels.applicationUrlFr)}
+            >
+              {/* {department.name.fr} */}
+            </FieldDisplay>
           </div>
           <CardSeparator />
           <div
