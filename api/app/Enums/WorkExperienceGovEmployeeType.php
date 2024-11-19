@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum GovEmploymentType
+enum WorkExperienceGovEmployeeType
 {
     use HasLocalization;
 
@@ -16,6 +16,6 @@ enum GovEmploymentType
 
     public static function getLangFilename(): string
     {
-        return 'gov_employment_type';
+        return 'work_experience_gov_employee_type';
     }
 }

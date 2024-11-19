@@ -10,8 +10,8 @@ use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
-use App\Enums\GovEmploymentType;
 use App\Enums\GovPositionType;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\Classification;
 use App\Models\Department;
 use App\Models\User;
@@ -60,9 +60,9 @@ class WorkExperienceFactory extends Factory
         }
 
         if ($employmentCategory === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
-            $govEmploymentType = $this->faker->randomElement(GovEmploymentType::cases())->name;
+            $govEmploymentType = $this->faker->randomElement(WorkExperienceGovEmployeeType::cases())->name;
 
-            if ($govEmploymentType !== GovEmploymentType::STUDENT->name && $govEmploymentType !== GovEmploymentType::CONTRACTOR->name) {
+            if ($govEmploymentType !== WorkExperienceGovEmployeeType::STUDENT->name && $govEmploymentType !== WorkExperienceGovEmployeeType::CONTRACTOR->name) {
                 $classification = Classification::inRandomOrder()->first();
                 if (! $classification) {
                     $classification = Classification::factory()->create();
@@ -75,11 +75,11 @@ class WorkExperienceFactory extends Factory
                 $departmentId = $department->id;
             }
 
-            if ($govEmploymentType === GovEmploymentType::INDETERMINATE->name) {
+            if ($govEmploymentType === WorkExperienceGovEmployeeType::INDETERMINATE->name) {
                 $govPositionType = $this->faker->randomElement(GovPositionType::cases())->name;
             }
 
-            if ($govEmploymentType === GovEmploymentType::CONTRACTOR->name) {
+            if ($govEmploymentType === WorkExperienceGovEmployeeType::CONTRACTOR->name) {
                 $govContractStartDate = $this->faker->date();
                 $govContractEndDate = $this->faker->boolean() ? $this->faker->dateTimeBetween($govContractStartDate) : null;
                 $govContractorRoleSeniority = $this->faker->randomElement(GovContractorRoleSeniority::cases())->name;

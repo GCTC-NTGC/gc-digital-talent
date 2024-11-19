@@ -3,7 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\EmploymentCategory;
-use App\Enums\GovEmploymentType;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\WorkExperience;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -78,7 +78,7 @@ final class UpdateWorkExperienceValidator extends Validator
             'workExperience.govPositionType' => [
                 Rule::requiredIf(
                     (
-                        $govEmploymentType === GovEmploymentType::INDETERMINATE->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -90,7 +90,7 @@ final class UpdateWorkExperienceValidator extends Validator
             'workExperience.govContractStartDate' => [
                 Rule::requiredIf(
                     (
-                        $govEmploymentType === GovEmploymentType::CONTRACTOR->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -109,7 +109,7 @@ final class UpdateWorkExperienceValidator extends Validator
             'workExperience.govContractorRoleSeniority' => [
                 Rule::requiredIf(
                     (
-                        $govEmploymentType === GovEmploymentType::CONTRACTOR->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -121,7 +121,7 @@ final class UpdateWorkExperienceValidator extends Validator
             'workExperience.govContractorType' => [
                 Rule::requiredIf(
                     (
-                        $govEmploymentType === GovEmploymentType::CONTRACTOR->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -169,13 +169,13 @@ final class UpdateWorkExperienceValidator extends Validator
             'workExperience.classification' => [
                 Rule::requiredIf(
                     (
-                        $govEmploymentType === GovEmploymentType::CASUAL->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::CASUAL->name
                     ) ||
                     (
-                        $govEmploymentType === GovEmploymentType::TERM->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::TERM->name
                     ) ||
                     (
-                        $govEmploymentType === GovEmploymentType::INDETERMINATE->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -188,13 +188,13 @@ final class UpdateWorkExperienceValidator extends Validator
             'workExperience.department' => [
                 Rule::requiredIf(
                     (
-                        $govEmploymentType === GovEmploymentType::CASUAL->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::CASUAL->name
                     ) ||
                     (
-                        $govEmploymentType === GovEmploymentType::TERM->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::TERM->name
                     ) ||
                     (
-                        $govEmploymentType === GovEmploymentType::INDETERMINATE->name
+                        $govEmploymentType === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(

@@ -128,11 +128,6 @@ type LocalizedGovEmployeeType {
   label: LocalizedString!
 }
 
-type LocalizedGovEmploymentType {
-  value: GovEmploymentType!
-  label: LocalizedString!
-}
-
 type LocalizedGovPositionType {
   value: GovPositionType!
   label: LocalizedString!
@@ -255,6 +250,11 @@ type LocalizedSkillLevel {
 
 type LocalizedSupervisoryStatus {
   value: SupervisoryStatus!
+  label: LocalizedString!
+}
+
+type LocalizedWorkExperienceGovEmployeeType {
+  value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
 }
 
@@ -1017,7 +1017,7 @@ type WorkExperience implements Experience {
   employmentCategory: LocalizedEmploymentCategory
   extSizeOfOrganization: LocalizedExternalSizeOfOrganization
   extRoleSeniority: LocalizedExternalRoleSeniority
-  govEmploymentType: LocalizedGovEmploymentType
+  govEmploymentType: LocalizedWorkExperienceGovEmployeeType
   govPositionType: LocalizedGovPositionType
   govContractStartDate: Date
   govContractEndDate: Date
@@ -1639,7 +1639,7 @@ input WorkExperienceInput {
   employmentCategory: EmploymentCategory
   extSizeOfOrganization: ExternalSizeOfOrganization
   extRoleSeniority: ExternalRoleSeniority
-  govEmploymentType: GovEmploymentType
+  govEmploymentType: WorkExperienceGovEmployeeType
   govPositionType: GovPositionType
   govContractStartDate: Date
   govContractEndDate: Date
@@ -2995,14 +2995,6 @@ enum GovEmployeeType {
   INDETERMINATE
 }
 
-enum GovEmploymentType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-  CONTRACTOR
-}
-
 enum GovPositionType {
   SUBSTANTIVE
   ACTING
@@ -3211,6 +3203,14 @@ enum SupervisoryStatus {
 enum WhenSkillUsed {
   CURRENT
   PAST
+}
+
+enum WorkExperienceGovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+  CONTRACTOR
 }
 
 enum WorkRegion {

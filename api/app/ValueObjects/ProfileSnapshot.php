@@ -16,11 +16,11 @@ use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
-use App\Enums\GovEmploymentType;
 use App\Enums\GovPositionType;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Http\Resources\UserResource;
 use App\Models\Pool;
@@ -62,7 +62,7 @@ class ProfileSnapshot implements Castable
                 'employmentCategory' => EmploymentCategory::class,
                 'extSizeOfOrganization' => ExternalSizeOfOrganization::class,
                 'extRoleSeniority' => ExternalRoleSeniority::class,
-                'govEmploymentType' => GovEmploymentType::class,
+                'govEmploymentType' => WorkExperienceGovEmployeeType::class,
                 'govPositionType' => GovPositionType::class,
                 'govContractorRoleSeniority' => GovContractorRoleSeniority::class,
                 'govContractorType' => GovContractorType::class,

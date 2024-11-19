@@ -3,7 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\EmploymentCategory;
-use App\Enums\GovEmploymentType;
+use App\Enums\WorkExperienceGovEmployeeType;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -59,7 +59,7 @@ final class CreateWorkExperienceValidator extends Validator
             'workExperience.govPositionType' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::INDETERMINATE->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -71,7 +71,7 @@ final class CreateWorkExperienceValidator extends Validator
             'workExperience.govContractStartDate' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::CONTRACTOR->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -90,7 +90,7 @@ final class CreateWorkExperienceValidator extends Validator
             'workExperience.govContractorRoleSeniority' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::CONTRACTOR->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -102,7 +102,7 @@ final class CreateWorkExperienceValidator extends Validator
             'workExperience.govContractorType' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::CONTRACTOR->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CONTRACTOR->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -150,13 +150,13 @@ final class CreateWorkExperienceValidator extends Validator
             'workExperience.classification' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::CASUAL->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
                     ) ||
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::TERM->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name
                     ) ||
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::INDETERMINATE->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -169,13 +169,13 @@ final class CreateWorkExperienceValidator extends Validator
             'workExperience.department' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::CASUAL->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
                     ) ||
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::TERM->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name
                     ) ||
                     (
-                        $this->arg('workExperience.govEmploymentType') === GovEmploymentType::INDETERMINATE->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
