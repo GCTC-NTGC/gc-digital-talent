@@ -782,6 +782,40 @@ const createRoute = (locale: Locales) =>
                 ],
               },
               {
+                path: "training-events",
+                children: [
+                  {
+                    index: true,
+                    lazy: () =>
+                      import("../pages/TrainingEvents/IndexTrainingEventsPage"),
+                  },
+                  {
+                    path: "create",
+                    lazy: () =>
+                      import("../pages/TrainingEvents/CreateTrainingEventPage"),
+                  },
+                  // {
+                  //   path: ":skillFamilyId",
+                  //   children: [
+                  //     {
+                  //       index: true,
+                  //       lazy: () =>
+                  //         import(
+                  //           "../pages/SkillFamilies/ViewSkillFamilyPage"
+                  //         ),
+                  //     },
+                  //     {
+                  //       path: "edit",
+                  //       lazy: () =>
+                  //         import(
+                  //           "../pages/SkillFamilies/UpdateSkillFamilyPage"
+                  //         ),
+                  //     },
+                  //   ],
+                  // },
+                ],
+              },
+              {
                 path: "settings",
                 children: [
                   {

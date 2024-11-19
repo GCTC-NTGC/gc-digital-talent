@@ -66,4 +66,9 @@ export default defineMessages({
     id: "bVQ/rm",
     description: "Title for the index user page",
   },
+  trainingEvents: {
+    defaultMessage: "Training events",
+    id: "rrE3Zr",
+    description: "Title for the index training events page",
+  },
 });

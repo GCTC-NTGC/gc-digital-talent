@@ -203,6 +203,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       ],
     },
     {
+      label: intl.formatMessage(pageTitles.trainingEvents),
+      href: adminRoutes.trainingEventsIndex(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
       label: intl.formatMessage(navigationMessages.users),
       href: adminRoutes.userTable(),
       roles: [
