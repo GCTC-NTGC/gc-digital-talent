@@ -86,7 +86,7 @@ export type PersonalFormValues = FormValueDateRange & {
   currentRole: boolean;
 };
 
-export type WorkFormValues = FormValueDateRange & {
+type WorkFormValues = FormValueDateRange & {
   role: string;
   organization: string;
   team?: string;
