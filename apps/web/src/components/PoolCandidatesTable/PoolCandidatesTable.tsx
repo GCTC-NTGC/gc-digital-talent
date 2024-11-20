@@ -76,6 +76,7 @@ import {
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
+import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -411,8 +412,9 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesCsv(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
+    $withROD: Boolean
   ) {
-    downloadPoolCandidatesCsv(ids: $ids, where: $where)
+    downloadPoolCandidatesCsv(ids: $ids, where: $where, withROD: $withROD)
   }
 `);
 
@@ -623,13 +625,14 @@ const PoolCandidatesTable = ({
         searchState?.term,
         searchState?.type,
       ),
+      withROD: !!currentPool,
     })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownload = () => {
-    downloadCsv({ ids: selectedRows })
+  const handleCsvDownload = (withROD?: boolean) => {
+    downloadCsv({ ids: selectedRows, withROD })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -996,11 +999,28 @@ const PoolCandidatesTable = ({
           onClick: handleCsvDownloadAll,
           downloading: downloadingCsv,
         },
-        csv: {
-          enable: true,
-          onClick: handleCsvDownload,
-          downloading: downloadingCsv,
-        },
+        csv: currentPool
+          ? {
+              enable: true,
+              component: (
+                <DownloadCandidateCsvButton
+                  inTable
+                  disabled={
+                    !hasSelectedRows ||
+                    downloadingZip ||
+                    downloadingDoc ||
+                    downloadingAsyncFile
+                  }
+                  isDownloading={downloadingCsv}
+                  onClick={handleCsvDownload}
+                />
+              ),
+            }
+          : {
+              enable: true,
+              onClick: handleCsvDownload,
+              downloading: downloadingCsv,
+            },
         doc: {
           enable: true,
           component: (
