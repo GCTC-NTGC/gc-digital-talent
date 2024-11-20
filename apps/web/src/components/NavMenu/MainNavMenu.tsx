@@ -3,6 +3,7 @@ import { useState } from "react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import {
@@ -270,7 +271,10 @@ const MainNavMenu = () => {
           )}
           {loggedIn && (
             <>
-              <NavMenu.Item data-h2-display="base(none) l-tablet(inline-flex)">
+              <NavMenu.Item
+                data-h2-display="base(none) l-tablet(inline-flex)"
+                asChild
+              >
                 <NotificationDialog
                   open={isNotificationDialogOpen}
                   onOpenChange={setNotificationDialogOpen}
