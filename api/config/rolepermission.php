@@ -83,6 +83,7 @@ return [
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'trainingOpportunity' => 'trainingOpportunity',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -629,6 +630,11 @@ return [
         'view-team-communityTeamMembers' => [
             'en' => 'View the members of this community',
             'fr' => 'Voir les membres de cette communauté',
+        ],
+
+        'create-any-trainingOpportunity' => [
+            'en' => 'Create or update a training opportunity',
+            'fr' => 'Créer ou mettre à jour une opportunité de formation',
         ],
     ],
 
@@ -1221,6 +1227,9 @@ return [
             ],
             'poolTeamMembers' => [
                 'any' => ['view'],
+            ],
+            'trainingOpportunity' => [
+                'any' => ['create'],
             ],
         ],
         'manager' => [
