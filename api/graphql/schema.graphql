@@ -913,6 +913,23 @@ type SitewideAnnouncement {
   message: LocalizedString!
 }
 
+type TrainingOpportunity {
+  id: UUID
+  title: LocalizedString
+  courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedString
+  applicationUrl: LocalizedString @rename(attribute: "application_url")
+  courseFormat: LocalizedCourseFormat @rename(attribute: "course_format")
+}
+
+input TrainingOpportunitiesFilterInput {
+  hidePassedRegistrationDeadline: Boolean @scope
+  opportunityLanguage: CourseLanguage @scope
+}
+
 input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
@@ -1074,6 +1091,15 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
+  trainingOpportunitiesPaginated(
+    where: TrainingOpportunitiesFilterInput
+  ): [TrainingOpportunity]
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      model: "App\\Models\\TrainingOpportunity"
+    )
 
   localizedEnumStrings(
     enumName: String!
@@ -1813,6 +1839,28 @@ input UpdateAssessmentResultInput
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
+input CreateTrainingOpportunityInput {
+  title: LocalizedStringInput!
+  courseLanguage: CourseLanguage! @rename(attribute: "course_language")
+  registrationDeadline: Date! @rename(attribute: "registration_deadline")
+  trainingStart: Date! @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput!
+  applicationUrl: LocalizedStringInput! @rename(attribute: "application_url")
+  courseFormat: CourseFormat! @rename(attribute: "course_format")
+}
+
+input UpdateTrainingOpportunityInput {
+  id: UUID!
+  title: LocalizedStringInput
+  courseLanguage: CourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput
+  applicationUrl: LocalizedStringInput @rename(attribute: "application_url")
+  courseFormat: CourseFormat @rename(attribute: "course_format")
+}
 
 input PoolSkillBelongsToMany {
   sync: [UUID!]!
@@ -2399,6 +2447,13 @@ type Mutation {
   updateSitewideAnnouncement(
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
+
+  createTrainingOpportunity(
+    createTrainingOpportunity: CreateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @create @guard @canModel(ability: "create")
+  updateTrainingOpportunity(
+    updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
   # CSV file downloads
   downloadPoolCandidatesCsv(
