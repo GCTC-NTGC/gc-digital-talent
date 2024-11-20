@@ -1018,7 +1018,7 @@ const PoolCandidatesTable = ({
             }
           : {
               enable: true,
-              onClick: handleCsvDownload,
+              onClick: () => handleCsvDownload(),
               downloading: downloadingCsv,
             },
         doc: {
