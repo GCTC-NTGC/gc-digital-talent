@@ -5,12 +5,11 @@ import { useQuery } from "urql";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import { SkillFamily, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
@@ -42,6 +41,20 @@ export const SkillFamilyTable = ({
         meta: {
           isRowTitle: true,
         },
+        cell: ({
+          getValue,
+          row: {
+            original: { id },
+          },
+        }) => (
+          <Link
+            color="secondary"
+            mode="inline"
+            href={paths.skillFamilyView(id)}
+          >
+            {getValue()}
+          </Link>
+        ),
       },
     ),
     columnHelper.accessor(
@@ -57,16 +70,6 @@ export const SkillFamilyTable = ({
         }),
       },
     ),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: skillFamily } }) =>
-        cells.edit(
-          skillFamily.id,
-          paths.skillFamilyTable(),
-          getLocalizedName(skillFamily.name, intl),
-        ),
-    }),
   ] as ColumnDef<SkillFamily>[];
 
   const data = skillFamilies.filter(notEmpty);
@@ -90,11 +93,7 @@ export const SkillFamilyTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search skill families",
-          id: "yXwlJw",
-          description: "Label for the skill families table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {

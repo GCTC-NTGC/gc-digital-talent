@@ -137,40 +137,6 @@ const SeeAdvertisementAction = ({
   );
 };
 
-const SupportAction = ({ show, title }: ActionProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-  if (!show) {
-    return null;
-  }
-
-  return (
-    <Link
-      href={paths.support()}
-      state={{ referrer: window.location.href }}
-      mode="inline"
-      color="black"
-      fontSize="caption"
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage: "Get support for the {title} job",
-          id: "yE/QNS",
-          description: "Link text to direct a user to the support page",
-        },
-        {
-          title,
-        },
-      )}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Get support",
-        id: "rXdaZW",
-        description: "Link text to direct a user to the support page",
-      })}
-    </Link>
-  );
-};
-
 interface CopyApplicationIdActionProps extends ActionProps {
   id: Scalars["UUID"]["output"];
 }
@@ -364,7 +330,6 @@ export default {
   ContinueAction,
   SeeAdvertisementAction,
   DeleteAction,
-  SupportAction,
   ViewAction,
   CopyApplicationIdAction,
   VisitCareerTimelineAction,

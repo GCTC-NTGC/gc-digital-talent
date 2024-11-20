@@ -73,11 +73,6 @@ const commonMessages = defineMessages({
     id: "DdOEWx",
     description: "Message when name value not found",
   },
-  success: {
-    defaultMessage: "success",
-    id: "99cWuv",
-    description: "Message for the success status",
-  },
   dividingColon: {
     defaultMessage: ": ",
     id: "i3Jl6C",

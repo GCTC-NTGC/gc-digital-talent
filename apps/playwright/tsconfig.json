@@ -7,8 +7,15 @@
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "strictNullChecks": true,
+    "skipLibCheck": true,
     "paths": {
       "~/*": ["./*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "!node_modules/@types",
+    "*/node_modules",
+    "!*/node_modules/@types"
+  ]
 }

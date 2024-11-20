@@ -15,7 +15,7 @@ return [
     'screened_out_assessment' => 'Éliminé à la présélection – évaluation',
     'qualified_available' => 'Qualifié disponible',
     'qualified_unavailable' => 'Qualifié non disponible',
-    'qualified_withdrew' => 'Reouter qualifié',
+    'qualified_withdrew' => 'Qualifié(e) retiré(e)',
     'placed_tentative' => 'Offre en cours',
     'placed_casual' => 'Placé occasionnels',
     'placed_term' => 'Période déterminée',

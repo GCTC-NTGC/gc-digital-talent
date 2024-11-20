@@ -464,17 +464,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             // We only need to run this if the user is being soft deleted
             if (! $user->isForceDeleting()) {
                 // Cascade delete to child models
-                foreach ($user->poolCandidates() as $candidate) {
-                    $candidate->delete();
-                }
+                $user->poolCandidates()->delete();
 
                 // Modify the email(s) to allow use by another user
-                $newContactEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newContactEmail]);
+                $user->email = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 if (! is_null($user->work_email)) {
-                    $newWorkEmail = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                    $user->update(['email' => $newWorkEmail]);
+                    $user->work_email = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 }
+                $user->save();
             }
             $user->searchable();
         });
@@ -1145,6 +1142,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         // otherwise: use the regular authorized to view scope
+        /** @var \App\Models\User $query */
         $query->authorizedToView();
     }
 
@@ -1169,7 +1167,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      * Mark the given user's email as verified.
      * Part of the MustVerifyEmail contract.
      *
-     * @return bool
+     * @return void
      */
     public function markEmailAsVerified(EmailType $emailType)
     {

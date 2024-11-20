@@ -16,8 +16,6 @@ import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
 import { Project } from "../SEO/Favicon";
 
-export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
-
 interface LayoutProps {
   project: Project;
   title: string;

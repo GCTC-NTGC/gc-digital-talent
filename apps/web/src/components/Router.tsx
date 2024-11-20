@@ -811,6 +811,13 @@ const createRoute = (locale: Locales) =>
                         path: ":classificationId",
                         children: [
                           {
+                            index: true,
+                            lazy: () =>
+                              import(
+                                "../pages/Classifications/ViewClassificationPage"
+                              ),
+                          },
+                          {
                             path: "edit",
                             lazy: () =>
                               import(
@@ -898,6 +905,13 @@ const createRoute = (locale: Locales) =>
                       {
                         path: ":skillFamilyId",
                         children: [
+                          {
+                            index: true,
+                            lazy: () =>
+                              import(
+                                "../pages/SkillFamilies/ViewSkillFamilyPage"
+                              ),
+                          },
                           {
                             path: "edit",
                             lazy: () =>
