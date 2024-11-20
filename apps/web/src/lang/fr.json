@@ -859,6 +859,10 @@
     "defaultMessage": "Utilisateur introuvable.",
     "description": "Message displayed for user not found."
   },
+  "2cZySB": {
+    "defaultMessage": " Télécharger CSV sans évaluations",
+    "description": "Button label for download candidate csv without ROD data."
+  },
   "2dkgQe": {
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
@@ -2682,6 +2686,10 @@
   "C0LMCq": {
     "defaultMessage": "Rôle actuel",
     "description": "Card title for a nav role switcher"
+  },
+  "C1jirU": {
+    "defaultMessage": "Télécharger CSV avec évaluations",
+    "description": "Button label for download candidate csv with ROD data."
   },
   "C3YsFy": {
     "defaultMessage": "Annuler la décision d’évaluation finale",
