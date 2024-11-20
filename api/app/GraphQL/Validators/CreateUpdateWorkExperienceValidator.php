@@ -1,13 +1,13 @@
 <?php
 
-namespace App\GraphQL\Validators\Mutation;
+namespace App\GraphQL\Validators;
 
 use App\Enums\EmploymentCategory;
 use App\Enums\WorkExperienceGovEmployeeType;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class CreateWorkExperienceValidator extends Validator
+final class CreateUpdateWorkExperienceValidator extends Validator
 {
     /**
      * Return the validation rules.

@@ -1032,12 +1032,11 @@ type Query {
       )
       @with(
         relations: [
-          "user:id,first_name,last_name,email,preferred_lang",
-          "pool:id,process_number",
+          "user:id,first_name,last_name,email,preferred_lang"
+          "pool:id,process_number"
           "skills:id,name"
         ]
-      )
-       # Limit fields for eager loading
+      ) # Limit fields for eager loading
   ): [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
@@ -2193,7 +2192,9 @@ type Mutation {
   ): WorkExperience
     @create
     @canModel(ability: "create", injectArgs: true)
-    @validator
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   createPersonalExperience(
     userId: ID! @rename(attribute: "user_id")
     personalExperience: PersonalExperienceInput! @spread
@@ -2217,7 +2218,9 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id")
-    @validator
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   updatePersonalExperience(
     id: ID!
     personalExperience: PersonalExperienceInput! @spread
