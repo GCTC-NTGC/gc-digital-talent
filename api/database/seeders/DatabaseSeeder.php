@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             SearchRequestRandomSeeder::class,
             DigitalContractingQuestionnaireRandomSeeder::class,
             DepartmentSpecificRecruitmentProcessFormRandomSeeder::class,
+            TrainingOpportunityRandomSeeder::class,
         ]);
     }
 }

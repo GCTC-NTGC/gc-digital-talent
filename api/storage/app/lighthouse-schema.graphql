@@ -68,6 +68,16 @@ type LocalizedCitizenshipStatus {
   label: LocalizedString!
 }
 
+type LocalizedCourseFormat {
+  value: CourseFormat!
+  label: LocalizedString!
+}
+
+type LocalizedCourseLanguage {
+  value: CourseLanguage!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -297,6 +307,7 @@ type Query {
   teams: [Team]!
   roles: [Role]!
   sitewideAnnouncement: SitewideAnnouncement
+  trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
@@ -369,6 +380,15 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): NotificationPaginator!
+  trainingOpportunitiesPaginated(
+    where: TrainingOpportunitiesFilterInput
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): TrainingOpportunityPaginator!
 }
 
 type Mutation {
@@ -468,6 +488,8 @@ type Mutation {
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
+  createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
+  updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
   downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput): Boolean!
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
@@ -1248,6 +1270,23 @@ type SitewideAnnouncement {
   message: LocalizedString!
 }
 
+type TrainingOpportunity {
+  id: UUID
+  title: LocalizedString
+  courseLanguage: LocalizedCourseLanguage
+  registrationDeadline: Date
+  trainingStart: Date
+  trainingEnd: Date
+  description: LocalizedString
+  applicationUrl: LocalizedString
+  courseFormat: LocalizedCourseFormat
+}
+
+input TrainingOpportunitiesFilterInput {
+  hidePassedRegistrationDeadline: Boolean
+  opportunityLanguage: CourseLanguage
+}
+
 input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
@@ -1853,6 +1892,29 @@ input UpdateAssessmentResultInput {
   skillDecisionNotes: String
 }
 
+input CreateTrainingOpportunityInput {
+  title: LocalizedStringInput!
+  courseLanguage: CourseLanguage!
+  registrationDeadline: Date!
+  trainingStart: Date!
+  trainingEnd: Date
+  description: LocalizedStringInput!
+  applicationUrl: LocalizedStringInput!
+  courseFormat: CourseFormat!
+}
+
+input UpdateTrainingOpportunityInput {
+  id: UUID!
+  title: LocalizedStringInput
+  courseLanguage: CourseLanguage
+  registrationDeadline: Date
+  trainingStart: Date
+  trainingEnd: Date
+  description: LocalizedStringInput
+  applicationUrl: LocalizedStringInput
+  courseFormat: CourseFormat
+}
+
 input PoolSkillBelongsToMany {
   sync: [UUID!]!
 }
@@ -2340,6 +2402,15 @@ type NotificationPaginator {
   data: [Notification!]!
 }
 
+"A paginated list of TrainingOpportunity items."
+type TrainingOpportunityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TrainingOpportunity items."
+  data: [TrainingOpportunity!]!
+}
+
 "Allowed column names for Query.poolsPaginated.orderBy."
 enum QueryPoolsPaginatedOrderByUserColumn {
   FIRST_NAME
@@ -2707,6 +2778,17 @@ enum ClaimVerificationResult {
   ACCEPTED
   REJECTED
   UNVERIFIED
+}
+
+enum CourseFormat {
+  ON_SITE
+  VIRTUAL
+}
+
+enum CourseLanguage {
+  ENGLISH
+  FRENCH
+  BILINGUAL
 }
 
 enum AdvertisementType {

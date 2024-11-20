@@ -190,7 +190,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                     data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
                   >
                     <Accordion.Item value="your_talent_searches">
-                      <Accordion.Trigger>
+                      <Accordion.Trigger as="h3">
                         {intl.formatMessage(
                           {
                             defaultMessage: "Your talent requests ({count})",
@@ -239,6 +239,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   <PoolCandidateSearchRequestPreviewListItem
                                     key={request.id}
                                     poolCandidateSearchRequestQuery={request}
+                                    headingAs="h4"
                                   />
                                 ),
                               )}
