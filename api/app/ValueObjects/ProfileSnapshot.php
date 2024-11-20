@@ -152,16 +152,6 @@ class ProfileSnapshot implements Castable
     }
 
     /**
-     * Handle changing the format of the nested classification or department id
-     */
-    private function parseSnapshotModelId($id): mixed
-    {
-        return [
-            'id' => $id,
-        ];
-    }
-
-    /**
      * Iterate through the snapshot and transform
      * non-localized enum values into their localized
      * version.
@@ -173,9 +163,7 @@ class ProfileSnapshot implements Castable
     private function parseSnapshotRecursive(RecursiveArrayIterator $rai, array $accumulator, $enumMap)
     {
         foreach ($rai as $k => $v) {
-            if (($k === 'classification' || $k === 'department') && isset($v)) {
-                $accumulator[$k] = $this->parseSnapshotModelId($v);
-            } elseif (array_key_exists($k, $enumMap)) {
+            if (array_key_exists($k, $enumMap)) {
                 $enum = $enumMap[$k];
                 if (is_array($v) && array_is_list($v)) {
                     $accumulator[$k] = array_map(function ($item) use ($enum) {

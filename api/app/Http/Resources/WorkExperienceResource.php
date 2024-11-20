@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Classification;
+use App\Models\Department;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin \App\Models\WorkExperience */
@@ -37,8 +39,8 @@ class WorkExperienceResource extends JsonResource
             'cafEmploymentType' => $this->caf_employment_type,
             'cafForce' => $this->caf_force,
             'cafRank' => $this->caf_rank,
-            'classification' => $this->classification_id,
-            'department' => $this->department_id,
+            'classification' => $this->classification_id ? (new ClassificationResource(Classification::find($this->classification_id))) : null,
+            'department' => $this->department_id ? (new DepartmentResource(Department::find($this->department_id))) : null,
         ];
     }
 }
