@@ -1,4 +1,11 @@
-import { graphql, TrainingEventViewFragment } from "@gc-digital-talent/graphql";
+import {
+  CourseFormat,
+  CourseLanguage,
+  CreateTrainingOpportunityInput,
+  graphql,
+  TrainingEventViewFragment,
+  UpdateTrainingOpportunityInput,
+} from "@gc-digital-talent/graphql";
 
 export const TrainingEventForm_Fragment = graphql(/* GraphQL */ `
   fragment TrainingEventView on TrainingOpportunity {
@@ -63,5 +70,41 @@ export function convertApiFragmentToFormValues(
     descriptionFr: apiData.description?.fr ?? "",
     applicationUrlEn: apiData.applicationUrl?.en ?? "",
     applicationUrlFr: apiData.applicationUrl?.fr ?? "",
+  };
+}
+
+export function convertFormValuesToCreateInput(
+  formValues: FormValues,
+): CreateTrainingOpportunityInput {
+  return {
+    title: {
+      en: formValues.titleEn,
+      fr: formValues.titleFr,
+    },
+    courseLanguage: formValues.courseLanguage as CourseLanguage,
+    courseFormat: formValues.courseFormat as CourseFormat,
+    registrationDeadline: formValues.registrationDeadline,
+    trainingStart: formValues.trainingStart,
+    trainingEnd: formValues.trainingEnd,
+    description: {
+      en: formValues.descriptionEn,
+      fr: formValues.descriptionFr,
+    },
+    applicationUrl: {
+      en: formValues.applicationUrlEn,
+      fr: formValues.applicationUrlFr,
+    },
+  };
+}
+
+export function convertFormValuesToUpdateInput(
+  id: string,
+  formValues: FormValues,
+): UpdateTrainingOpportunityInput {
+  const createInput = convertFormValuesToCreateInput(formValues);
+  return {
+    id: id,
+    // input is the same as the one for "create" but also includes ID
+    ...createInput,
   };
 }

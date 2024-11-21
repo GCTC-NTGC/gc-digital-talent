@@ -7,6 +7,7 @@ import {
   SortingState,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import {
   DeadlineStatus,
@@ -79,38 +80,13 @@ function transformSortStateToOrderByClause(
   return orderBy?.length ? orderBy : undefined;
 }
 
-// export function transformUserInput(
-//   filterState: TrainingOpportunitiesFilterInput | undefined,
-//   searchBarTerm: string | undefined,
-//   searchType: string | undefined,
-// ): InputMaybe<TrainingOpportunitiesFilterInput> | undefined {
-//   if (
-//     filterState === undefined &&
-//     searchBarTerm === undefined &&
-//     searchType === undefined
-//   ) {
-//     return undefined;
-//   }
-
-//   return {
-//     // search bar
-//     generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
-//     // email: searchType === "email" ? searchBarTerm : undefined,
-//     // workEmail: searchType === "workEmail" ? searchBarTerm : undefined,
-//     // name: searchType === "name" ? searchBarTerm : undefined,
-//     // telephone: searchType === "phone" ? searchBarTerm : undefined,
-//   };
-// }
-
 const TrainingEventsPaginated_Query = graphql(/* GraphQL */ `
   query TrainingEventsPaginated(
-    $where: TrainingOpportunitiesFilterInput
     $first: Int
     $page: Int
     $orderBy: [OrderByClause!]
   ) {
     trainingOpportunitiesPaginated(
-      where: $where
       first: $first
       page: $page
       orderBy: $orderBy
@@ -157,14 +133,14 @@ interface TrainingEventsTableProps {
   title: ReactNode;
 }
 
-export const TrainingEventsTable = ({
-  // classificationsQuery,
-  title,
-}: TrainingEventsTableProps) => {
+export const TrainingEventsTable = ({ title }: TrainingEventsTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
 
   const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.paginationState
@@ -174,9 +150,6 @@ export const TrainingEventsTable = ({
         }
       : INITIAL_STATE.paginationState,
   );
-  // const [searchState, setSearchState] = useState<SearchState>(
-  //   initialState.searchState ?? INITIAL_STATE.searchState,
-  // );
   const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "title", desc: false }],
   );
@@ -193,17 +166,6 @@ export const TrainingEventsTable = ({
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
   };
-
-  // const handleSearchStateChange = ({ term, type }: SearchState) => {
-  //   setPaginationState((previous) => ({
-  //     ...previous,
-  //     pageIndex: 0,
-  //   }));
-  //   setSearchState({
-  //     term: term ?? INITIAL_STATE.searchState.term,
-  //     type: type ?? INITIAL_STATE.searchState.type,
-  //   });
-  // };
 
   const statusChipStyles: Record<DeadlineStatus, ChipProps["color"]> = {
     PUBLISHED: "primary",
@@ -270,12 +232,6 @@ export const TrainingEventsTable = ({
   const [{ data, fetching }] = useQuery({
     query: TrainingEventsPaginated_Query,
     variables: {
-      where: undefined,
-      // where: transformUserInput(
-      //   filterState,
-      //   searchState?.term,
-      //   searchState?.type,
-      // ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       orderBy: sortState
@@ -305,17 +261,21 @@ export const TrainingEventsTable = ({
           handlePaginationStateChange({ pageIndex, pageSize });
         },
       }}
-      // search={{
-      //   internal: false,
-      //   label: intl.formatMessage(adminMessages.searchByKeyword),
-      //   onChange: ({ term, type }: SearchState) => {
-      //     handleSearchStateChange({ term, type });
-      //   },
-      // }}
       sort={{
         internal: false,
         onSortChange: setSortState,
         initialState: defaultState.sortState,
+      }}
+      add={{
+        linkProps: {
+          href: paths.trainingEventCreate(),
+          label: intl.formatMessage({
+            defaultMessage: "Create an event",
+            id: "bWUOmk",
+            description: "Title for link to page to create a training event",
+          }),
+          from: currentUrl,
+        },
       }}
     />
   );

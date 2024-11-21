@@ -2,19 +2,26 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useMutation, useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { CreateDepartmentInput, Scalars } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 import {
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-  RichTextInput,
-  Submit,
-} from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+  CreateTrainingOpportunityInput,
+  graphql,
+  LocalizedEnumString,
+  Scalars,
+} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  CardBasic,
+  CardSeparator,
+  Heading,
+  Link,
+  NotFound,
+  Pending,
+} from "@gc-digital-talent/ui";
+import { Submit } from "@gc-digital-talent/forms";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -23,18 +30,21 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import formLabels from "./formLabels";
-
-type FormValues = CreateDepartmentInput;
+import { convertFormValuesToCreateInput, FormValues } from "./apiUtils";
+import TrainingEventForm from "./components/TrainingEventForm";
 
 interface CreateTrainingEventFormProps {
   handleCreateTrainingEvent: (
-    data: FormValues,
+    input: CreateTrainingOpportunityInput,
   ) => Promise<Scalars["UUID"]["output"]>;
+  courseLanguages: LocalizedEnumString[];
+  courseFormats: LocalizedEnumString[];
 }
 
 const CreateTrainingEventForm = ({
   handleCreateTrainingEvent,
+  courseLanguages,
+  courseFormats,
 }: CreateTrainingEventFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -42,11 +52,10 @@ const CreateTrainingEventForm = ({
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleCreateTrainingEvent({
-      departmentNumber: Number(data.departmentNumber),
-      name: data.name,
-    })
+  const onSubmit: SubmitHandler<FormValues> = async (
+    formValues: FormValues,
+  ) => {
+    return handleCreateTrainingEvent(convertFormValuesToCreateInput(formValues))
       .then((id) => {
         navigate(paths.trainingEventView(id));
         toast.success(
@@ -92,125 +101,10 @@ const CreateTrainingEventForm = ({
               })}
             </Heading>
           </div>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-          >
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage(formLabels.titleEn)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage(formLabels.titleFr)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage(formLabels.courseLanguage)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage(formLabels.format)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <DateInput
-              id="awardedDate"
-              legend={intl.formatMessage(formLabels.registrationDeadline)}
-              name="awardedDate"
-              show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                // max: {
-                //   value: strToFormDate(todayDate.toISOString()),
-                //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                // },
-              }}
-            />
-            <div data-h2-display="base(none) p-tablet(inherit)">
-              {/* intentionally left blank */}
-            </div>
-            <DateInput
-              id="awardedDate"
-              legend={intl.formatMessage(formLabels.trainingStartDate)}
-              name="awardedDate"
-              show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                // max: {
-                //   value: strToFormDate(todayDate.toISOString()),
-                //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                // },
-              }}
-            />
-            <DateInput
-              id="awardedDate"
-              legend={intl.formatMessage(formLabels.trainingEndDate)}
-              name="awardedDate"
-              show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={
-                {
-                  // max: {
-                  //   value: strToFormDate(todayDate.toISOString()),
-                  //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                  // },
-                }
-              }
-            />
-            <RichTextInput
-              id="descriptionEn"
-              label={intl.formatMessage(formLabels.descriptionEn)}
-              name="descriptionEn"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <RichTextInput
-              id="descriptionFr"
-              label={intl.formatMessage(formLabels.descriptionFr)}
-              name="descriptionFr"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage(formLabels.applicationUrlEn)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage(formLabels.applicationUrlFr)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          </div>
+          <TrainingEventForm
+            courseLanguages={courseLanguages}
+            courseFormats={courseFormats}
+          />
           <CardSeparator />
           <div
             data-h2-display="base(flex)"
@@ -243,18 +137,47 @@ const CreateTrainingEventForm = ({
   );
 };
 
+const CreateTrainingEventPage_Query = graphql(/* GraphQL */ `
+  query CreateTrainingEventPage {
+    courseLanguages: localizedEnumStrings(enumName: "CourseLanguage") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    courseFormats: localizedEnumStrings(enumName: "CourseFormat") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const CreateTrainingOpportunity_Mutation = graphql(/* GraphQL */ `
+  mutation createTrainingOpportunity($input: CreateTrainingOpportunityInput!) {
+    createTrainingOpportunity(createTrainingOpportunity: $input) {
+      id
+    }
+  }
+`);
+
 const CreateTrainingEventPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  // const [, executeMutation] = useMutation(CreateDepartment_Mutation);
-  const handleCreateTrainingEvent = (data: CreateDepartmentInput) =>
-    Promise.reject(new Error("TODO"));
-  // executeMutation({ department: data }).then((result) => {
-  //   if (result.data?.createDepartment?.id) {
-  //     return result.data.createDepartment.id;
-  //   }
-  // return Promise.reject(new Error(result.error?.toString()));
-  // });
+  const [{ data, fetching, error }] = useQuery({
+    query: CreateTrainingEventPage_Query,
+  });
+  const [, executeMutation] = useMutation(CreateTrainingOpportunity_Mutation);
+  const handleCreateTrainingEvent = (input: CreateTrainingOpportunityInput) =>
+    executeMutation({ input }).then((result) => {
+      if (result.data?.createTrainingOpportunity?.id) {
+        return result.data.createTrainingOpportunity.id;
+      }
+      return Promise.reject(new Error(result.error?.toString()));
+    });
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -285,9 +208,21 @@ const CreateTrainingEventPage = () => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
-          <CreateTrainingEventForm
-            handleCreateTrainingEvent={handleCreateTrainingEvent}
-          />
+          <Pending fetching={fetching} error={error}>
+            {data?.courseLanguages && data?.courseFormats ? (
+              <CreateTrainingEventForm
+                handleCreateTrainingEvent={handleCreateTrainingEvent}
+                courseLanguages={data.courseLanguages}
+                courseFormats={data.courseFormats}
+              />
+            ) : (
+              <NotFound
+                headingMessage={intl.formatMessage(commonMessages.notFound)}
+              >
+                <p>{intl.formatMessage(commonMessages.notFound)}</p>
+              </NotFound>
+            )}
+          </Pending>
         </div>
       </Hero>
     </>
