@@ -675,10 +675,6 @@
     "defaultMessage": "Modifier une expérience dans la chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
   },
-  "1UYQaC": {
-    "defaultMessage": "Date du début",
-    "description": "Label displayed on an Experience form for start date input"
-  },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations inscrites",
     "description": "The indigenous community for status First Nations"
@@ -1299,10 +1295,6 @@
     "defaultMessage": "Pour la raison suivante",
     "description": "Lead in text for a decisions reason"
   },
-  "4f5qcw": {
-    "defaultMessage": "Rôle actuel",
-    "description": "Label displayed on an Experience form for current role bounded box"
-  },
   "4f9Xsc": {
     "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
     "description": "Paragraph for privacy policy page"
@@ -1426,10 +1418,6 @@
   "5C8xs4": {
     "defaultMessage": "Sélectionnez une équipe",
     "description": "Placeholder text for team selection input"
-  },
-  "5CONbw": {
-    "defaultMessage": "Date d’attribution",
-    "description": "Label displayed on award form for date awarded input"
   },
   "5Cwvgi": {
     "defaultMessage": "Alors que les standards de niveau AA des <wcagLink>Règles pour l’accessibilité des contenus Web 2.1 (WCAG 2.1)</wcagLink> représente un niveau de base pour la conformité, les évaluations des utilisateurs réels nous permettent d’aller au-delà des exigences minimales. L’accessibilité est prise en compte à chaque étape du cycle de conception et de développement de nos produits. Nous voulons nous assurer que tout le monde connaît une expérience agréable sur notre plateforme.",
@@ -2355,6 +2343,10 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
+  "AAvLM5": {
+    "defaultMessage": "Type d’études",
+    "description": "Label displayed on Education form for education type input"
+  },
   "ADPfNp": {
     "defaultMessage": "Valider dès maintenant",
     "description": "Button to start the email address verification process"
@@ -3127,10 +3119,6 @@
     "defaultMessage": "Enregistrer la décision",
     "description": "Submit message for job placement dialog"
   },
-  "DyaaHi": {
-    "defaultMessage": "Portée du prix",
-    "description": "Label displayed on Award form for award scope input"
-  },
   "DzCUmx": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "Description of the application on the homepage"
@@ -3158,6 +3146,10 @@
   "E3loNV": {
     "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
     "description": "Title for the 'planning and reporting' IT work stream"
+  },
+  "E9I34y": {
+    "defaultMessage": "Titre de la thèse",
+    "description": "Label displayed on education form for thesis title input"
   },
   "EB70Il": {
     "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe.",
@@ -4831,10 +4823,6 @@
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
     "description": "Descriptive text explaining the language profile section of the application profile"
   },
-  "N87bC7": {
-    "defaultMessage": "Titre de la thèse",
-    "description": "Label displayed on education form for thesis title input"
-  },
   "NAobki": {
     "defaultMessage": "Si vous rencontrez toujours des difficultés, essayez d'envoyer un nouveau code en utilisant le lien fourni.",
     "description": "Instructions to send another code"
@@ -5651,6 +5639,10 @@
     "defaultMessage": "Qu'est-ce que je fais si j'ai effacé l'appli ou changé de téléphone et que je n'ai pas les codes de récupération?",
     "description": "GCKey question for when user does not have recovery codes"
   },
+  "RDkTqP": {
+    "defaultMessage": "Date d’attribution",
+    "description": "Label displayed on award form for date awarded input"
+  },
   "RGl+Dr": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes",
     "description": "Title of a note describing that a pool is only open to employees"
@@ -5878,6 +5870,10 @@
   "SZ2DsZ": {
     "defaultMessage": "Secrétariat du Conseil du Trésor du Canada",
     "description": "Default department for pool"
+  },
+  "SZeO9P": {
+    "defaultMessage": "Éducation actuelle",
+    "description": "Label displayed on Education Experience form for current education bounded box"
   },
   "SaPE+p": {
     "defaultMessage": "Filtrer par niveaux",
@@ -6758,10 +6754,6 @@
     "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
     "description": "Indigenous Apprenticeship applicant image text alternative"
   },
-  "X8JZSG": {
-    "defaultMessage": "Date de fin",
-    "description": "Label displayed on an Experience form for end date input"
-  },
   "X8e/zb": {
     "defaultMessage": "personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
@@ -7074,6 +7066,10 @@
     "defaultMessage": "Supprimer la notification",
     "description": "Button text to confirm deleting a notification"
   },
+  "Yaxm1W": {
+    "defaultMessage": "Date du début",
+    "description": "Label displayed on an Experience form for start date input"
+  },
   "YbkM7u": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Label for the 'enterprise architecture' IT work stream"
@@ -7377,10 +7373,6 @@
   "aCKQVB": {
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
-  },
-  "aDRIDD": {
-    "defaultMessage": "Éducation actuelle",
-    "description": "Label displayed on Education Experience form for current education bounded box"
   },
   "aFPUbm": {
     "defaultMessage": "Passez en revue votre profil",
@@ -7741,6 +7733,10 @@
   "cCSlti": {
     "defaultMessage": "Vérifier les instructions",
     "description": "Title for review instructions action"
+  },
+  "cD3QKi": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed on an Experience form for end date input"
   },
   "cErFoy": {
     "defaultMessage": "Une femme autochtone porte un manteau de jeans qui est orné de plusieurs épinglettes.",
@@ -8294,10 +8290,6 @@
     "defaultMessage": "Télécharger le profil",
     "description": "Button text to download pool candidate profiles"
   },
-  "elFbzT": {
-    "defaultMessage": "Type d’études",
-    "description": "Label displayed on Education form for education type input"
-  },
   "emx1cK": {
     "defaultMessage": "Résumé des filtres",
     "description": "Title of Summary of filters section"
@@ -8725,6 +8717,10 @@
   "glDA2j": {
     "defaultMessage": "Le fournisseur et ses employés devront-ils avoir accès à des renseignements ou à des actifs protégés et/ou classifiés?",
     "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "gnEK8V": {
+    "defaultMessage": "Portée du prix",
+    "description": "Label displayed on Award form for award scope input"
   },
   "gnGAe8": {
     "defaultMessage": "Niveau de classification actuel",
@@ -9738,6 +9734,10 @@
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
   },
+  "lhCCs2": {
+    "defaultMessage": "Titre du prix",
+    "description": "Label displayed on award form for award title input"
+  },
   "lhLfd7": {
     "defaultMessage": "Créer une collectivité",
     "description": "Text to create a community"
@@ -10046,6 +10046,10 @@
     "defaultMessage": "Nom de l’équipe (Anglais)",
     "description": "Label for the English team display name input"
   },
+  "n4pwef": {
+    "defaultMessage": "Rôle actuel",
+    "description": "Label displayed on an Experience form for current role bounded box"
+  },
   "n7RwgC": {
     "defaultMessage": "Autorité indépendante non gouvernementale requise (par exemple, examen indépendant des services.)",
     "description": "Requires independent contracting rationale"
@@ -10193,6 +10197,10 @@
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
+  },
+  "nyQyqM": {
+    "defaultMessage": "Mon rôle",
+    "description": "Label displayed on an Experience form for role input"
   },
   "nzF0AE": {
     "defaultMessage": "P",
@@ -10618,10 +10626,6 @@
     "defaultMessage": "Créer une nouvelle compétence",
     "description": "Title for Create skill"
   },
-  "q5rd9x": {
-    "defaultMessage": " Description de l’expérience",
-    "description": "Label displayed on Personal Experience form for experience description input"
-  },
   "q70oUn": {
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
@@ -10701,10 +10705,6 @@
   "qXnXKH": {
     "defaultMessage": "Processus dupliqué avec succès!",
     "description": "Message displayed to user after pool is duplicated"
-  },
-  "qeD2p/": {
-    "defaultMessage": "Titre du prix",
-    "description": "Label displayed on award form for award title input"
   },
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
@@ -10801,6 +10801,10 @@
   "rLd5cC": {
     "defaultMessage": "Aller à la page {pageNumber}",
     "description": "Aria label for each button in pagination nav"
+  },
+  "rMJ7fd": {
+    "defaultMessage": "Description de l’expérience",
+    "description": "Label displayed on Personal Experience form for experience description input"
   },
   "rN333X": {
     "defaultMessage": "Profil intégral",
@@ -11709,10 +11713,6 @@
   "wimmA1": {
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
-  },
-  "wl8GI6": {
-    "defaultMessage": "Mon rôle",
-    "description": "Label displayed on an Experience form for role input"
   },
   "wrqRvV": {
     "defaultMessage": "N’a pas réussi au cours de l'évaluation",
