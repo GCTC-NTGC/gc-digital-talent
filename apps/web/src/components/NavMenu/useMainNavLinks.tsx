@@ -223,17 +223,14 @@ const useMainNavLinks = () => {
     />
   );
 
-  const JobTemplates = hasRole(
-    permissions.viewJobTemplates,
-    roleAssignments,
-  ) ? (
+  const JobTemplates = (
     <NavItem
       key="jobTemplate"
       href={paths.jobPosterTemplates()}
       title={intl.formatMessage(navigationMessages.jobTemplates)}
       subMenu
     />
-  ) : null;
+  );
 
   const Announcements = (
     <NavItem
