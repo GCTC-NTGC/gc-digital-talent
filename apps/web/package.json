@@ -49,7 +49,7 @@
     "@gc-digital-talent/theme": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
-    "@heroicons/react": "^2.1.5",
+    "@heroicons/react": "^2.2.0",
     "@microsoft/applicationinsights-web": "^3.3.4",
     "@tanstack/react-table": "^8.20.5",
     "dataloader": "^2.2.2",
