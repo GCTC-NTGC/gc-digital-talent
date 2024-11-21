@@ -80,6 +80,11 @@ describe("Render dashboard page", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
+        name: "Communities",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
         name: "Departments",
       }),
     ).toBeInTheDocument();
@@ -154,6 +159,11 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
+      screen.getByRole("link", {
+        name: "Communities",
+      }),
+    ).toBeInTheDocument();
+    expect(
       screen.queryByRole("link", {
         name: "Departments",
       }),
@@ -177,7 +187,7 @@ describe("Render dashboard page", () => {
       screen.queryByRole("link", {
         name: "Users",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
   });
 
   it("Correctly displays page for process operators", () => {
@@ -229,6 +239,11 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
+      screen.getByRole("link", {
+        name: "Communities",
+      }),
+    ).not.toBeInTheDocument();
+    expect(
       screen.queryByRole("link", {
         name: "Departments",
       }),
@@ -252,7 +267,7 @@ describe("Render dashboard page", () => {
       screen.queryByRole("link", {
         name: "Users",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
   });
 
   it("Correctly displays page for community recruiters", () => {
@@ -304,6 +319,11 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
+      screen.getByRole("link", {
+        name: "Communities",
+      }),
+    ).toBeInTheDocument();
+    expect(
       screen.queryByRole("link", {
         name: "Departments",
       }),
@@ -327,6 +347,6 @@ describe("Render dashboard page", () => {
       screen.queryByRole("link", {
         name: "Users",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
   });
 });
