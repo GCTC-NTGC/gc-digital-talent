@@ -47,8 +47,8 @@ export const getExperienceFormLabels = (
   experienceType?: ExperienceType,
 ) => {
   let currentRole = intl.formatMessage({
-    defaultMessage: "Current Role",
-    id: "4f5qcw",
+    defaultMessage: "Current role",
+    id: "n4pwef",
     description:
       "Label displayed on an Experience form for current role bounded box",
   });
@@ -59,8 +59,8 @@ export const getExperienceFormLabels = (
       break;
     case "education":
       currentRole = intl.formatMessage({
-        defaultMessage: "Current Education",
-        id: "aDRIDD",
+        defaultMessage: "Current education",
+        id: "SZeO9P",
         description:
           "Label displayed on Education Experience form for current education bounded box",
       });
@@ -113,13 +113,13 @@ export const getExperienceFormLabels = (
         "Heading for the experience type section fo the experience form",
     }),
     awardTitle: intl.formatMessage({
-      defaultMessage: "Award Title",
-      id: "qeD2p/",
+      defaultMessage: "Award title",
+      id: "lhCCs2",
       description: "Label displayed on award form for award title input",
     }),
     awardedDate: intl.formatMessage({
-      defaultMessage: "Date Awarded",
-      id: "5CONbw",
+      defaultMessage: "Date awarded",
+      id: "RDkTqP",
       description: "Label displayed on award form for date awarded input",
     }),
     awardedTo: intl.formatMessage({
@@ -133,13 +133,13 @@ export const getExperienceFormLabels = (
       description: "Label displayed on award form for organization section",
     }),
     awardedScope: intl.formatMessage({
-      defaultMessage: "Award Scope",
-      id: "DyaaHi",
+      defaultMessage: "Award scope",
+      id: "gnEK8V",
       description: "Label displayed on Award form for award scope input",
     }),
     role: intl.formatMessage({
-      defaultMessage: "My Role",
-      id: "wl8GI6",
+      defaultMessage: "My role",
+      id: "nyQyqM",
       description: "Label displayed on an Experience form for role input",
     }),
     currentRole,
@@ -151,13 +151,13 @@ export const getExperienceFormLabels = (
         "Label displayed on Community Experience form for project input",
     }),
     startDate: intl.formatMessage({
-      defaultMessage: "Start Date",
-      id: "1UYQaC",
+      defaultMessage: "Start date",
+      id: "Yaxm1W",
       description: "Label displayed on an Experience form for start date input",
     }),
     endDate: intl.formatMessage({
-      defaultMessage: "End Date",
-      id: "X8JZSG",
+      defaultMessage: "End date",
+      id: "cD3QKi",
       description: "Label displayed on an Experience form for end date input",
     }),
     dateRange: intl.formatMessage({
@@ -166,8 +166,8 @@ export const getExperienceFormLabels = (
       description: "Label for the start/end date for an experience",
     }),
     educationType: intl.formatMessage({
-      defaultMessage: "Type of Education",
-      id: "elFbzT",
+      defaultMessage: "Type of education",
+      id: "AAvLM5",
       description: "Label displayed on Education form for education type input",
     }),
     areaOfStudy: intl.formatMessage({
@@ -182,8 +182,8 @@ export const getExperienceFormLabels = (
     }),
     educationStatus: intl.formatMessage(commonMessages.status),
     thesisTitle: intl.formatMessage({
-      defaultMessage: "Thesis Title",
-      id: "N87bC7",
+      defaultMessage: "Thesis title",
+      id: "E9I34y",
       description: "Label displayed on education form for thesis title input",
     }),
     experienceTitle: intl.formatMessage({
@@ -193,8 +193,8 @@ export const getExperienceFormLabels = (
         "Label displayed on Personal Experience form for experience title input",
     }),
     experienceDescription: intl.formatMessage({
-      defaultMessage: "Experience Description",
-      id: "q5rd9x",
+      defaultMessage: "Experience description",
+      id: "rMJ7fd",
       description:
         "Label displayed on Personal Experience form for experience description input",
     }),
