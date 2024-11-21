@@ -251,8 +251,8 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
       vite-plugin-compression2:
-        specifier: ^1.3.0
-        version: 1.3.0(rollup@4.21.0)
+        specifier: ^1.3.1
+        version: 1.3.1(@types/node@22.9.0)(lightningcss@1.25.1)(rollup@4.21.0)(terser@5.31.1)
       vite-plugin-html:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1))
@@ -7508,8 +7508,8 @@ packages:
     resolution: {integrity: sha512-Z6Uz+TYwEqE7ZN50gwn+1LCVo9ZVrpxRPOhOLnncYkY1ZzOYtrX8Fwf/rFktZ8R5mJms6EZf5TqNOMeZmnPq9Q==}
     engines: {node: '>=12'}
 
-  vite-plugin-compression2@1.3.0:
-    resolution: {integrity: sha512-/cYzISoYOo/SwPUBReS1E02a8eNTpQm8+lQUBj5NNGxuq4iZ3JOfWExUlobhVhPMJuejD7dipT+cMLbaWsMbdw==}
+  vite-plugin-compression2@1.3.1:
+    resolution: {integrity: sha512-UMr66CFu+RVPiD8E3iaX9BdZjCgO+lzzaAPAZvL5YgwH6FU4OR/MulJEyp9wq9EKoO6ErjUtPpaiDi3hvzv79Q==}
 
   vite-plugin-html@3.2.2:
     resolution: {integrity: sha512-vb9C9kcdzcIo/Oc3CLZVS03dL5pDlOFuhGlZYDCJ840BhWl/0nGeZWf3Qy7NlOayscY4Cm/QRgULCQkEZige5Q==}
@@ -14946,12 +14946,22 @@ snapshots:
 
   value-or-promise@1.0.12: {}
 
-  vite-plugin-compression2@1.3.0(rollup@4.21.0):
+  vite-plugin-compression2@1.3.1(@types/node@22.9.0)(lightningcss@1.25.1)(rollup@4.21.0)(terser@5.31.1):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
       tar-mini: 0.2.0
+    optionalDependencies:
+      vite: 5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)
     transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - lightningcss
       - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
 
   vite-plugin-html@3.2.2(vite@5.4.11(@types/node@22.9.0)(lightningcss@1.25.1)(terser@5.31.1)):
     dependencies:
