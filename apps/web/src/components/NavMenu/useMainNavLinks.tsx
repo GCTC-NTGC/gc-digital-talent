@@ -16,6 +16,7 @@ import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 import permissionConstants from "~/constants/permissionConstants";
+import pageTitles from "~/messages/pageTitles";
 
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
@@ -249,6 +250,14 @@ const useMainNavLinks = () => {
       subMenu
     />
   );
+  const Communities = (
+    <NavItem
+      key="communities"
+      href={paths.communityTable()}
+      title={intl.formatMessage(pageTitles.communities)}
+      subMenu
+    />
+  );
   const Departments = (
     <NavItem
       key="departments"
@@ -270,6 +279,14 @@ const useMainNavLinks = () => {
       key="skillFamilies"
       href={paths.skillFamilyTable()}
       title={intl.formatMessage(navigationMessages.skillFamilies)}
+      subMenu
+    />
+  );
+  const Teams = (
+    <NavItem
+      key="teams"
+      href={paths.teamTable()}
+      title={intl.formatMessage(pageTitles.teams)}
       subMenu
     />
   );
@@ -408,9 +425,11 @@ const useMainNavLinks = () => {
         systemSettings: [
           Announcements,
           Classifications,
+          Communities,
           Departments,
           Skills,
           SkillFamilies,
+          Teams,
         ],
       };
     default:
