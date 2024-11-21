@@ -3,6 +3,11 @@
 namespace App\Generators;
 
 use App\Enums\ArmedForcesStatus;
+use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentDecisionLevel;
+use App\Enums\AssessmentResultJustification;
+use App\Enums\AssessmentResultType;
+use App\Enums\AssessmentStepType;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
@@ -42,10 +47,15 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
     protected array $poolIds = [];
 
+    protected array $RODStepsWithPoolSkills = [];
+
+    protected array $RODData = [];
+
     protected array $generatedHeaders = [
         'general_questions' => [],
         'screening_questions' => [],
         'skill_details' => [],
+        'ROD_details' => [],
     ];
 
     protected array $headerLocaleKeys = [
@@ -92,9 +102,20 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'education_requirement_experiences',
     ];
 
-    public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
+    public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en', protected bool $withROD = false)
     {
         parent::__construct($fileName, $dir);
+    }
+
+    public function array_find($xs, $f)
+    {
+        foreach ($xs as $x) {
+            if (call_user_func($f, $x) === true) {
+                return $x;
+            }
+        }
+
+        return null;
     }
 
     public function generate(): self
@@ -211,6 +232,47 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     }
                 }
 
+                if ($this->withROD) {
+                    foreach ($candidate->pool->assessmentSteps as $step) {
+                        if ($step->type === AssessmentStepType::APPLICATION_SCREENING->name) {
+                            $result = $this->array_find($candidate->assessmentResults, function ($ar) use ($step) {
+                                return $ar->assessmentStep->id === $step->id && $ar->assessment_result_type === AssessmentResultType::EDUCATION->name;
+                            });
+                            if (! is_null($result)) {
+                                $this->RODData[$step->id]['education'][] = [
+                                    'candidate' => $currentCandidate,
+                                    'decision' => is_null($result->assessment_decision) ?
+                                        Lang::get('common.not_sure', [], $this->lang) :
+                                        $this->localizeEnum($result->assessment_decision, AssessmentDecision::class),
+                                    'details' => $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class),
+                                    'notes' => is_null($result->skill_decision_notes) ? null : $this->sanitizeString($result->skill_decision_notes),
+                                ];
+                            }
+                        }
+                        foreach ($step->poolSkills as $poolSkill) {
+                            $result = $this->array_find($candidate->assessmentResults, function ($ar) use ($poolSkill, $step) {
+                                if (is_null($ar['poolSkill'])) {
+                                    return false;
+                                }
+
+                                return $ar->assessmentStep->id === $step->id && $ar['poolSkill']->id === $poolSkill->id;
+                            });
+                            if (! is_null($result)) {
+                                $this->RODData[$step->id][$poolSkill->id][] = [
+                                    'candidate' => $currentCandidate,
+                                    'decision' => is_null($result->assessment_decision) ?
+                                        Lang::get('common.not_sure', [], $this->lang) :
+                                        $this->localizeEnum($result->assessment_decision, AssessmentDecision::class),
+                                    'details' => is_null($result->assessment_decision_level) ?
+                                        $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class) :
+                                        $this->localizeEnum($result->assessment_decision_level, AssessmentDecisionLevel::class),
+                                    'notes' => is_null($result->skill_decision_notes) ? null : $this->sanitizeString($result->skill_decision_notes),
+                                ];
+                            }
+                        }
+                    }
+                }
+
                 // 1 is added to the key to account for the header row
                 $sheet->fromArray($values, null, sprintf('A%d', $currentCandidate + 1));
                 $currentCandidate++;
@@ -230,6 +292,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             ...$this->generatedHeaders['general_questions'] ?? [],
             ...$this->generatedHeaders['screening_questions'] ?? [],
             ...$this->generatedHeaders['skill_details'] ?? [],
+            ...$this->generatedHeaders['ROD_details'] ?? [],
         ], null, 'A1');
 
         return $this;
@@ -244,7 +307,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
      */
     private function generatePoolHeaders()
     {
-        Pool::with(['generalQuestions', 'screeningQuestions', 'poolSkills' => ['skill']])
+        Pool::with(['generalQuestions', 'screeningQuestions', 'poolSkills' => ['skill'], 'assessmentSteps' => ['poolSkills' => ['skill']]])
             ->whereIn('id', $this->poolIds)
             ->chunk(100, function ($pools) {
                 /** @var Pool $pool */
@@ -274,6 +337,53 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                                     '%s (%s)',
                                     $skill->skill->name[$this->lang],
                                     $this->localizeEnum($group, PoolSkillType::class)
+                                );
+                            }
+                        }
+                    }
+
+                    if ($this->withROD && $pool->assessmentSteps->count() > 0) {
+                        foreach ($pool->assessmentSteps as $step) {
+                            if ($step->type === AssessmentStepType::APPLICATION_SCREENING->name) {
+                                $this->RODStepsWithPoolSkills[$step->id][] = 'education';
+                                $this->generatedHeaders['ROD_details'][] = sprintf(
+                                    '%s - %s - %s',
+                                    $this->localizeEnum($step->type, AssessmentStepType::class),
+                                    Lang::get('headings.education_requirement', [], $this->lang),
+                                    Lang::get('headings.decision', [], $this->lang),
+                                );
+                                $this->generatedHeaders['ROD_details'][] = sprintf(
+                                    '%s - %s - %s',
+                                    $this->localizeEnum($step->type, AssessmentStepType::class),
+                                    Lang::get('headings.education_requirement', [], $this->lang),
+                                    Lang::get('headings.decision_details', [], $this->lang),
+                                );
+                                $this->generatedHeaders['ROD_details'][] = sprintf(
+                                    '%s - %s - %s',
+                                    $this->localizeEnum($step->type, AssessmentStepType::class),
+                                    Lang::get('headings.education_requirement', [], $this->lang),
+                                    Lang::get('headings.decision_notes', [], $this->lang),
+                                );
+                            }
+                            foreach ($step->poolSkills as $poolSkill) {
+                                $this->RODStepsWithPoolSkills[$step->id][] = $poolSkill->id;
+                                $this->generatedHeaders['ROD_details'][] = sprintf(
+                                    '%s - %s - %s',
+                                    $this->localizeEnum($step->type, AssessmentStepType::class),
+                                    $poolSkill->skill->name[$this->lang],
+                                    Lang::get('headings.decision', [], $this->lang),
+                                );
+                                $this->generatedHeaders['ROD_details'][] = sprintf(
+                                    '%s - %s - %s',
+                                    $this->localizeEnum($step->type, AssessmentStepType::class),
+                                    $poolSkill->skill->name[$this->lang],
+                                    Lang::get('headings.decision_details', [], $this->lang),
+                                );
+                                $this->generatedHeaders['ROD_details'][] = sprintf(
+                                    '%s - %s - %s',
+                                    $this->localizeEnum($step->type, AssessmentStepType::class),
+                                    $poolSkill->skill->name[$this->lang],
+                                    Lang::get('headings.decision_notes', [], $this->lang),
                                 );
                             }
                         }
@@ -313,6 +423,22 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 }
             }
         }
+
+        if ($this->withROD) {
+            foreach ($this->RODStepsWithPoolSkills as $step => $poolSkills) {
+                foreach ($poolSkills as $poolSkill) {
+                    $currentColumn += 3;
+                    if (isset($this->RODData[$step][$poolSkill])) {
+                        foreach ($this->RODData[$step][$poolSkill] as $row) {
+                            $sheet->setCellValue([$currentColumn - 2, $row['candidate'] + 1], $row['decision']);
+                            $sheet->setCellValue([$currentColumn - 1, $row['candidate'] + 1], $row['details']);
+                            $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['notes']);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private function buildQuery()
@@ -321,10 +447,12 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'educationRequirementExperiences',
+            'assessmentResults' => ['poolSkill', 'assessmentStep'],
             'pool' => [
                 'generalQuestions',
                 'screeningQuestions',
                 'poolSkills' => ['skill'],
+                'assessmentSteps' => ['poolSkills'],
             ],
             'user' => [
                 'department',

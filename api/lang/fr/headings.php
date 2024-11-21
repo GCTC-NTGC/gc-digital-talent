@@ -76,4 +76,7 @@ return [
     'screening_question' => 'Question de sélection',
     'education_requirement' => 'Exigence d’études',
     'requirement_selection' => 'Exigence de sélection',
+    'decision' => 'Décision',
+    'decision_details' => 'Détails de la décision',
+    'decision_notes' => 'Notes de décision',
 ];
