@@ -1,30 +1,39 @@
-import { RoleName } from "@gc-digital-talent/auth";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 
 const permissionConstants = () => {
-  const viewCandidates: RoleName[] = [
-    "pool_operator",
-    "request_responder",
-    "community_recruiter",
-    "community_admin",
+  const viewCandidates = [
+    ROLE_NAME.PoolOperator,
+    ROLE_NAME.RequestResponder,
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.ProcessOperator,
+    ROLE_NAME.PlatformAdmin,
   ];
-  const viewJobTemplates: RoleName[] = ["pool_operator"];
-  const viewProcesses: RoleName[] = ["pool_operator", "community_manager"];
+  const viewProcesses = [
+    ROLE_NAME.PoolOperator,
+    ROLE_NAME.CommunityManager,
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.ProcessOperator,
+    ROLE_NAME.PlatformAdmin,
+  ];
   const viewRequests: RoleName[] = [
-    "request_responder",
-    "community_recruiter",
-    "community_admin",
+    ROLE_NAME.RequestResponder,
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.PlatformAdmin,
   ];
   const viewUsers: RoleName[] = [
-    "pool_operator",
-    "request_responder",
-    "community_recruiter",
-    "community_admin",
-    "platform_admin",
+    ROLE_NAME.PoolOperator,
+    ROLE_NAME.RequestResponder,
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.ProcessOperator,
+    ROLE_NAME.PlatformAdmin,
   ];
 
   return {
     viewCandidates,
-    viewJobTemplates,
     viewProcesses,
     viewRequests,
     viewUsers,
