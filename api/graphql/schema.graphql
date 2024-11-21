@@ -917,6 +917,7 @@ type TrainingOpportunity {
   title: LocalizedString
   courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
   registrationDeadline: Date @rename(attribute: "registration_deadline")
+  registrationDeadlineStatus: LocalizedDeadlineStatus
   trainingStart: Date @rename(attribute: "training_start")
   trainingEnd: Date @rename(attribute: "training_end")
   description: LocalizedString
@@ -1030,9 +1031,8 @@ type Query {
           "pool:id,process_number"
           "skills:id,name"
         ]
-      )
-  ): # Limit fields for eager loading
-  [PoolCandidateWithSkillCount]!
+      ) # Limit fields for eager loading
+  ): [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
@@ -1093,6 +1093,7 @@ type Query {
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
+    orderBy: [OrderByClause!] @orderBy
   ): [TrainingOpportunity]
     @paginate(
       defaultCount: 10

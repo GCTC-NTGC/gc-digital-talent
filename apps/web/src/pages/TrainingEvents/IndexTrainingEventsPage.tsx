@@ -9,7 +9,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 
-import TrainingEventsTableApi from "./components/TrainingEventsTable";
+import TrainingEventsTable from "./components/TrainingEventsTable";
 
 export const IndexTrainingEventsPage = () => {
   const intl = useIntl();
@@ -34,7 +34,7 @@ export const IndexTrainingEventsPage = () => {
         data-h2-margin="base(x3 0)"
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <TrainingEventsTableApi title={formattedPageTitle} />
+        <TrainingEventsTable title={formattedPageTitle} />
       </div>
     </>
   );
