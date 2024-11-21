@@ -211,6 +211,15 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         ROLE_NAME.PlatformAdmin,
       ],
     },
+    {
+      label: intl.formatMessage(pageTitles.communities),
+      href: adminRoutes.communityTable(),
+      roles: [
+        ROLE_NAME.CommunityAdmin,
+        ROLE_NAME.CommunityManager,
+        ROLE_NAME.PlatformAdmin,
+      ],
+    },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
     (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
