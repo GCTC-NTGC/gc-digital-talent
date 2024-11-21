@@ -104,7 +104,7 @@ test.describe("Admin workflows", () => {
     await appPage.waitForGraphqlResponse(USERS_PAGINATED_QUERY);
 
     await expect(
-      appPage.page.getByRole("button", { name: /filters 2/i }),
+      appPage.page.getByRole("button", { name: /filters 1/i }),
     ).toBeVisible();
   });
 });
