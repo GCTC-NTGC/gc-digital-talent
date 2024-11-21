@@ -653,7 +653,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   details: String
   skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -1027,13 +1026,13 @@ type Query {
       )
       @with(
         relations: [
-          "user:id,first_name,last_name,email,preferred_lang",
-          "pool:id,process_number",
+          "user:id,first_name,last_name,email,preferred_lang"
+          "pool:id,process_number"
           "skills:id,name"
         ]
       )
-       # Limit fields for eager loading
-  ): [PoolCandidateWithSkillCount]!
+  ): # Limit fields for eager loading
+  [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
