@@ -2,25 +2,40 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
   DATE_SEGMENT,
   DateInput,
   Input,
+  localizedEnumToOptions,
   RichTextInput,
+  Select,
   Submit,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
   formMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Heading, Link, CardSeparator, CardBasic } from "@gc-digital-talent/ui";
 import {
+  Heading,
+  Link,
+  CardSeparator,
+  CardBasic,
+  NotFound,
+  Pending,
+} from "@gc-digital-talent/ui";
+import {
+  CourseFormat,
+  CourseLanguage,
   FragmentType,
+  LocalizedEnumString,
   Scalars,
-  UpdateDepartmentInput,
+  UpdateTrainingOpportunityInput,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -34,68 +49,90 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 
 import formLabels from "./formLabels";
+import {
+  FormValues,
+  TrainingEventForm_Fragment,
+  convertApiFragmentToFormValues,
+} from "./apiUtils";
 
-export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
-  fragment DepartmentForm on Department {
-    id
-    departmentNumber
-    name {
-      en
-      fr
-    }
-  }
-`);
-
-type FormValues = UpdateDepartmentInput;
+function convertFormValuesToApiInput(
+  id: string,
+  formValues: FormValues,
+): UpdateTrainingOpportunityInput {
+  return {
+    id: id,
+    title: {
+      en: formValues.titleEn,
+      fr: formValues.titleFr,
+    },
+    courseLanguage: formValues.courseLanguage as CourseLanguage,
+    courseFormat: formValues.courseFormat as CourseFormat,
+    registrationDeadline: formValues.registrationDeadline,
+    trainingStart: formValues.trainingStart,
+    trainingEnd: formValues.trainingEnd,
+    description: {
+      en: formValues.descriptionEn,
+      fr: formValues.descriptionFr,
+    },
+    applicationUrl: {
+      en: formValues.applicationUrlEn,
+      fr: formValues.applicationUrlFr,
+    },
+  };
+}
 
 interface UpdateTrainingEventFormProps {
-  // query: FragmentType<typeof DepartmentForm_Fragment>;
+  query: FragmentType<typeof TrainingEventForm_Fragment>;
   handleUpdateTrainingEvent: (
-    id: string,
-    data: FormValues,
-  ) => Promise<FragmentType<typeof DepartmentForm_Fragment>>;
+    input: UpdateTrainingOpportunityInput,
+  ) => Promise<FragmentType<typeof TrainingEventForm_Fragment>>;
+  courseLanguages: LocalizedEnumString[];
+  courseFormats: LocalizedEnumString[];
 }
 
 export const UpdateTrainingEventForm = ({
-  // query,
+  query,
   handleUpdateTrainingEvent,
+  courseLanguages,
+  courseFormats,
 }: UpdateTrainingEventFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
   const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
-  // const initialDepartment = getFragment(DepartmentForm_Fragment, query);
+  const initialTrainingOpportunity = getFragment(
+    TrainingEventForm_Fragment,
+    query,
+  );
   const methods = useForm<FormValues>({
-    // defaultValues: {
-    //   departmentNumber: initialDepartment.departmentNumber,
-    //   name: initialDepartment.name,
-    // },
+    defaultValues: convertApiFragmentToFormValues(initialTrainingOpportunity),
   });
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateTrainingEvent(trainingEventId, {
-      departmentNumber: Number(data.departmentNumber),
-      name: data.name,
-    })
+  const onSubmit: SubmitHandler<FormValues> = async (
+    formValues: FormValues,
+  ) => {
+    return handleUpdateTrainingEvent(
+      convertFormValuesToApiInput(trainingEventId, formValues),
+    )
       .then(() => {
-        navigate(paths.departmentView(trainingEventId));
+        navigate(paths.trainingEventView(trainingEventId));
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Department updated successfully!",
-            id: "GTR9Pt",
+            defaultMessage: "Training event updated successfully!",
+            id: "Yv8V51",
             description:
-              "Message displayed to user after department is updated successfully.",
+              "Message displayed to user after training event is updated successfully.",
           }),
         );
       })
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: updating department failed",
-            id: "nXRLAX",
+            defaultMessage: "Error: updating training event failed",
+            id: "OnZE7b",
             description:
-              "Message displayed to user after department fails to get updated.",
+              "Message displayed to user after training event fails to get updated.",
           }),
         );
       });
@@ -129,8 +166,8 @@ export const UpdateTrainingEventForm = ({
             data-h2-gap="base(x1)"
           >
             <Input
-              id="name_en"
-              name="name.en"
+              id="titleEn"
+              name="titleEn"
               label={intl.formatMessage(formLabels.titleEn)}
               type="text"
               rules={{
@@ -138,74 +175,70 @@ export const UpdateTrainingEventForm = ({
               }}
             />
             <Input
-              id="name_fr"
-              name="name.fr"
+              id="titleFr"
+              name="titleFr"
               label={intl.formatMessage(formLabels.titleFr)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <Input
-              id="name_fr"
-              name="name.fr"
+            <Select
+              id="courseLanguage"
+              name="courseLanguage"
               label={intl.formatMessage(formLabels.courseLanguage)}
-              type="text"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language",
+                id: "uup5F2",
+                description:
+                  "Placeholder displayed on the user form preferred communication language field.",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              options={localizedEnumToOptions(courseLanguages, intl)}
             />
-            <Input
-              id="name_fr"
-              name="name.fr"
+            <Select
+              id="courseFormat"
+              name="courseFormat"
               label={intl.formatMessage(formLabels.format)}
-              type="text"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a format",
+                id: "m3c4o8",
+                description:
+                  "Placeholder displayed on the select input for a format",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              options={localizedEnumToOptions(courseFormats, intl)}
             />
             <DateInput
-              id="awardedDate"
+              id="registrationDeadline"
               legend={intl.formatMessage(formLabels.registrationDeadline)}
-              name="awardedDate"
+              name="registrationDeadline"
               show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                // max: {
-                //   value: strToFormDate(todayDate.toISOString()),
-                //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                // },
               }}
             />
             <div data-h2-display="base(none) p-tablet(inherit)">
               {/* intentionally left blank */}
             </div>
             <DateInput
-              id="awardedDate"
+              id="trainingStart"
               legend={intl.formatMessage(formLabels.trainingStartDate)}
-              name="awardedDate"
+              name="trainingStart"
               show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                // max: {
-                //   value: strToFormDate(todayDate.toISOString()),
-                //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                // },
               }}
             />
             <DateInput
-              id="awardedDate"
+              id="trainingEnd"
               legend={intl.formatMessage(formLabels.trainingEndDate)}
-              name="awardedDate"
+              name="trainingEnd"
               show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={
-                {
-                  // max: {
-                  //   value: strToFormDate(todayDate.toISOString()),
-                  //   message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                  // },
-                }
-              }
             />
             <RichTextInput
               id="descriptionEn"
@@ -224,8 +257,8 @@ export const UpdateTrainingEventForm = ({
               }}
             />
             <Input
-              id="name_fr"
-              name="name.fr"
+              id="applicationUrlEn"
+              name="applicationUrlEn"
               label={intl.formatMessage(formLabels.applicationUrlEn)}
               type="text"
               rules={{
@@ -233,8 +266,8 @@ export const UpdateTrainingEventForm = ({
               }}
             />
             <Input
-              id="name_fr"
-              name="name.fr"
+              id="applicationUrlFr"
+              name="applicationUrlFr"
               label={intl.formatMessage(formLabels.applicationUrlFr)}
               type="text"
               rules={{
@@ -253,7 +286,7 @@ export const UpdateTrainingEventForm = ({
             <Link
               color="warning"
               mode="inline"
-              href={paths.departmentView(trainingEventId)}
+              href={paths.trainingEventView(trainingEventId)}
             >
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
@@ -268,57 +301,63 @@ interface RouteParams extends Record<string, string> {
   trainingEventId: Scalars["ID"]["output"];
 }
 
-// const Department_Query = graphql(/* GraphQL */ `
-//   query Department($id: UUID!) {
-//     department(id: $id) {
-//       name {
-//         en
-//         fr
-//       }
-//       ...DepartmentForm
-//     }
-//   }
-// `);
+const UpdateTrainingEventPage_Query = graphql(/* GraphQL */ `
+  query UpdateTrainingEventPage($id: UUID!) {
+    trainingOpportunity(id: $id) {
+      title {
+        en
+        fr
+      }
+      ...TrainingEventView
+    }
+    courseLanguages: localizedEnumStrings(enumName: "CourseLanguage") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    courseFormats: localizedEnumStrings(enumName: "CourseFormat") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
-// const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
-//   mutation UpdateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
-//     updateDepartment(id: $id, department: $department) {
-//       ...DepartmentForm
-//     }
-//   }
-// `);
+const UpdateTrainingOpportunity_Mutation = graphql(/* GraphQL */ `
+  mutation updateTrainingOpportunity($input: UpdateTrainingOpportunityInput!) {
+    updateTrainingOpportunity(updateTrainingOpportunity: $input) {
+      ...TrainingEventView
+    }
+  }
+`);
 
 const UpdateTrainingEventPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
-  // const [{ data: departmentData, fetching, error }] = useQuery({
-  //   query: Department_Query,
-  //   variables: { id: trainingEventId },
-  // });
-  // const [, executeMutation] = useMutation(UpdateDepartment_Mutation);
-  const handleUpdateTrainingEvent = (id: string, data: UpdateDepartmentInput) =>
-    Promise.reject(new Error("TODO"));
-  // executeMutation({
-  //   id,
-  //   department: pick(data, [
-  //     "departmentName",
-  //     "name.en",
-  //     "name.fr",
-  //     "departmentNumber",
-  //   ]),
-  // }).then((result) => {
-  //   if (result.data?.updateDepartment) {
-  //     return result.data?.updateDepartment;
-  //   }
-  //   return Promise.reject(new Error(result.error?.toString()));
-  // });
+  const [{ data, fetching, error }] = useQuery({
+    query: UpdateTrainingEventPage_Query,
+    variables: { id: trainingEventId },
+  });
+  const [, executeMutation] = useMutation(UpdateTrainingOpportunity_Mutation);
+  const handleUpdateTrainingEvent = (input: UpdateTrainingOpportunityInput) =>
+    executeMutation({
+      input,
+    }).then((result) => {
+      if (result.data?.updateTrainingOpportunity) {
+        return result.data.updateTrainingOpportunity;
+      }
+      return Promise.reject(new Error(result.error?.toString()));
+    });
 
-  const trainingEventName = "TODO";
-  // const trainingEventName = getLocalizedName(
-  //   departmentData?.department?.name,
-  //   intl,
-  // );
+  const trainingEventName = getLocalizedName(
+    data?.trainingOpportunity?.title,
+    intl,
+  );
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -353,29 +392,24 @@ const UpdateTrainingEventPage = () => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
-          {/* <Pending fetching={fetching} error={error}> */}
-          {/* {departmentData?.department ? ( */}
-          <UpdateTrainingEventForm
-            // query={departmentData.department}
-            handleUpdateTrainingEvent={handleUpdateTrainingEvent}
-          />
-          {/* ) : (
-            <NotFound
-              headingMessage={intl.formatMessage(commonMessages.notFound)}
-            >
-              <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Department {departmentId} not found.",
-                    id: "8Otaw9",
-                    description: "Message displayed for department not found.",
-                  },
-                  { departmentId: trainingEventId },
-                )}
-              </p>
-            </NotFound>
-          )} */}
-          {/* </Pending> */}
+          <Pending fetching={fetching} error={error}>
+            {data?.trainingOpportunity &&
+            data?.courseLanguages &&
+            data?.courseFormats ? (
+              <UpdateTrainingEventForm
+                query={data.trainingOpportunity}
+                handleUpdateTrainingEvent={handleUpdateTrainingEvent}
+                courseLanguages={data.courseLanguages}
+                courseFormats={data.courseFormats}
+              />
+            ) : (
+              <NotFound
+                headingMessage={intl.formatMessage(commonMessages.notFound)}
+              >
+                <p>{intl.formatMessage(commonMessages.notFound)}</p>
+              </NotFound>
+            )}
+          </Pending>
         </div>
       </Hero>
     </>

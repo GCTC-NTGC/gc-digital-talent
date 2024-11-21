@@ -32,41 +32,10 @@ import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 
 import formLabels from "./formLabels";
-
-export const TrainingEventView_Fragment = graphql(/* GraphQL */ `
-  fragment TrainingEventView on TrainingOpportunity {
-    title {
-      en
-      fr
-    }
-    courseLanguage {
-      label {
-        en
-        fr
-      }
-    }
-    courseFormat {
-      label {
-        en
-        fr
-      }
-    }
-    registrationDeadline
-    trainingStart
-    trainingEnd
-    description {
-      en
-      fr
-    }
-    applicationUrl {
-      en
-      fr
-    }
-  }
-`);
+import { TrainingEventForm_Fragment } from "./apiUtils";
 
 interface ViewTrainingEventFormProps {
-  query: FragmentType<typeof TrainingEventView_Fragment>;
+  query: FragmentType<typeof TrainingEventForm_Fragment>;
 }
 
 export const ViewTrainingEventForm = ({
@@ -75,7 +44,7 @@ export const ViewTrainingEventForm = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
-  const trainingOpportunity = getFragment(TrainingEventView_Fragment, query);
+  const trainingOpportunity = getFragment(TrainingEventForm_Fragment, query);
 
   return (
     <>
@@ -187,7 +156,7 @@ interface RouteParams extends Record<string, string> {
   trainingEventId: Scalars["ID"]["output"];
 }
 
-const TrainingEventPage_Query = graphql(/* GraphQL */ `
+const ViewTrainingEventPage_Query = graphql(/* GraphQL */ `
   query ViewTrainingEventPage($id: UUID!) {
     trainingOpportunity(id: $id) {
       title {
@@ -204,7 +173,7 @@ const ViewTrainingEventPage = () => {
   const routes = useRoutes();
   const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
   const [{ data, fetching, error }] = useQuery({
-    query: TrainingEventPage_Query,
+    query: ViewTrainingEventPage_Query,
     variables: { id: trainingEventId },
   });
 
