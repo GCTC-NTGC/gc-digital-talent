@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'self_employed' => 'Self-employed',
-    'firm_or_agency' => 'Firm or agency',
+    'self_employed' => 'Travailleur ou travailleuse autonome',
+    'firm_or_agency' => 'Entreprise ou organisme',
 ];

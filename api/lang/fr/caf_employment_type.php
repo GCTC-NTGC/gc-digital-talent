@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'regular_force' => 'Regular Force',
-    'reserve_force' => 'Reserve Force',
+    'regular_force' => 'Force régulière',
+    'reserve_force' => 'Force de réserve',
 ];

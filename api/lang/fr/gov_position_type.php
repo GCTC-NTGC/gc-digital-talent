@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'substantive' => 'Substantive',
-    'acting' => 'Acting',
-    'secondment' => 'Secondment',
-    'assignment' => 'Assignment',
+    'substantive' => 'Poste d\'attache',
+    'acting' => 'Poste intérimaire',
+    'secondment' => 'Détachement',
+    'assignment' => 'Affectation',
 ];

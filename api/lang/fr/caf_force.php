@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'canadian_army' => 'Canadian Army',
-    'royal_canadian_air_force' => 'Royal Canadian Air Force',
-    'royal_canadian_navy' => 'Royal Canadian Navy',
+    'canadian_army' => 'Armée canadienne',
+    'royal_canadian_air_force' => 'Aviation royale canadienne',
+    'royal_canadian_navy' => 'Marine royale canadienne',
 ];

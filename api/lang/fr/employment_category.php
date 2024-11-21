@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'external_organization' => 'This was a role with an external organization',
-    'government_of_canada' => 'This was a role with the Government of Canada',
-    'canadian_armed_forces' => 'This was a role with the Canadian Armed Forces',
+    'external_organization' => 'Il s\'agissait d\'un rôle au sein d\'une organisation externe',
+    'government_of_canada' => 'Il s\'agissait d\'un rôle au sein du gouvernement du Canada',
+    'canadian_armed_forces' => 'Il s\'agissait d\'un rôle au sein des Forces armées canadiennes',
 ];
