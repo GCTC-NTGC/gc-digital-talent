@@ -223,6 +223,26 @@ class ExperiencePage extends AppPage {
     await this.waitForGraphqlResponse("CreateEducationExperience");
   }
 
+  async linkSkilltoExperience(input: {
+    experienceType: string;
+    skill: string;
+  }) {
+    await this.create();
+    await this.typeLocator.selectOption(input.experienceType);
+
+    await this.page.getByRole("button", { name: "Add a skill" }).click();
+
+    await this.page.getByRole("combobox", { name: "Skill *" }).click();
+
+    await this.page
+      .getByRole("combobox", { name: "Skill *" })
+      .fill(input.skill);
+
+    await this.page.getByRole("option", { name: input.skill }).click();
+
+    await this.page.getByRole("button", { name: /add this skill/i }).click();
+  }
+
   async save() {
     await this.page.getByRole("button", { name: /save and return/i }).click();
   }

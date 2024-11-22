@@ -77,4 +77,20 @@ test.describe("Experiences", () => {
       /successfully added experience/i,
     );
   });
+
+  test("Can link skill to experience", async ({ appPage }) => {
+    const experiencePage = new ExperiencePage(appPage.page);
+    await loginBySub(experiencePage.page, "applicant@test.com");
+
+    const skill = "Courage";
+
+    await experiencePage.linkSkilltoExperience({
+      experienceType: "work",
+      skill: skill,
+    });
+
+    await expect(experiencePage.page.getByRole("alert")).toContainText(
+      skill + " selected.",
+    );
+  });
 });
