@@ -1031,8 +1031,9 @@ type Query {
           "pool:id,process_number"
           "skills:id,name"
         ]
-      ) # Limit fields for eager loading
-  ): [PoolCandidateWithSkillCount]!
+      )
+  ): # Limit fields for eager loading
+  [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
