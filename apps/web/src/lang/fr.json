@@ -1051,6 +1051,10 @@
     "defaultMessage": "Sélectionné(e)",
     "description": "Message displayed when candidate has been screened in at a specific assessment step"
   },
+  "3YO9gR": {
+    "defaultMessage": "La possibilité de formation a été mise à jour avec succès!",
+    "description": "Message displayed to user after training opportunity is updated successfully."
+  },
   "3b6cy/": {
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
@@ -1538,6 +1542,10 @@
   "5pZFQ3": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer la candidature {name}?",
     "description": "Question displayed when user attempts to delete an application"
+  },
+  "5pf2qR": {
+    "defaultMessage": "Modifier une possibilité de formation",
+    "description": "Page title for the training opportunity edit page"
   },
   "5pyCTN": {
     "defaultMessage": "Type d’instrument",
@@ -2871,6 +2879,10 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
   },
+  "Cvl9dd": {
+    "defaultMessage": "Langue de la formation",
+    "description": "The language of the training opportunity"
+  },
   "CwGljY": {
     "defaultMessage": "Votre première langue officielle",
     "description": "Legend first official language status in language information form"
@@ -3179,6 +3191,10 @@
     "defaultMessage": "Toutes les compétences",
     "description": "Label for removing the skill family filter"
   },
+  "EInfnR": {
+    "defaultMessage": "Modifiez les informations sur la possibilité de formation",
+    "description": "Link to edit the currently viewed training opportunity"
+  },
   "EJ09b7": {
     "defaultMessage": "Types d'expérience que vous pouvez ajouter",
     "description": "Button text to open section describing experience types"
@@ -3358,6 +3374,10 @@
   "FNvBxZ": {
     "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}. Vous trouverez l’historique de la carrière du candidat/de la candidate dans la section sur l’échéancier.",
     "description": "Lead-in text for application information"
+  },
+  "FO0HTu": {
+    "defaultMessage": "Date limite de présentation des demandes",
+    "description": "The application deadline of the training opportunity"
   },
   "FRcbbi": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
@@ -3739,6 +3759,10 @@
     "defaultMessage": "Retirez du processus",
     "description": "Button label for the form to remove a process role from a user"
   },
+  "Hc3RTQ": {
+    "defaultMessage": "Erreur : la création de la possibilité de formation a échoué",
+    "description": "Message displayed to user after a training opportunity fails to get created."
+  },
   "Hd0nHP": {
     "defaultMessage": "(À déterminer)",
     "description": "Message displayed when a pool has no expiry date yet"
@@ -4078,6 +4102,10 @@
   "JWAyQT": {
     "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner.",
     "description": "Description of a users technical skills to be improved"
+  },
+  "JZlTsX": {
+    "defaultMessage": "Créez la possibilité de formation",
+    "description": "Button label to submit the create a new opportunity form"
   },
   "JamdKo": {
     "defaultMessage": "Premières Nations non inscrites",
@@ -4807,6 +4835,10 @@
     "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
     "description": "Instructions on requiring information for skills"
   },
+  "N5xj2X": {
+    "defaultMessage": "URL de la demande (français)",
+    "description": "The French application URL of the training opportunity"
+  },
   "N631me": {
     "defaultMessage": "Portée du contrat",
     "description": "Heading for the Scope of the contract section on the digital services contracting questionnaire"
@@ -5042,6 +5074,10 @@
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
     "description": "Introduction for _skills_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "OU/MkT": {
+    "defaultMessage": "Annulez et revenez aux possibilités de formation",
+    "description": "Button label to return to the opportunities table"
   },
   "OVWo88": {
     "defaultMessage": "Statut d'ancien combattant",
@@ -5386,6 +5422,10 @@
   "Q9c+Kg": {
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
     "description": "Title for the find a skill dialog within the skill showcase"
+  },
+  "QAo1Vy": {
+    "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
+    "description": "Message displayed for training opportunity not found."
   },
   "QCesvO": {
     "defaultMessage": "Ajouter un rôle individue",
@@ -6346,6 +6386,10 @@
     "defaultMessage": "Filtre de classification",
     "description": "Label for classification filter in search form."
   },
+  "V95g4E": {
+    "defaultMessage": "Possibilités de formation",
+    "description": "Title for the index training opportunities page"
+  },
   "V9XmLH": {
     "defaultMessage": "les résultats des évaluations automatisés d’accessibilité",
     "description": "List item three, things developers consider for accessibility"
@@ -6610,6 +6654,10 @@
     "defaultMessage": "Autre grade avec spécialisation",
     "description": "Heading for the `other education with specialization` option for EC education requirements"
   },
+  "WWrQYI": {
+    "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
+    "description": "Message displayed to user after training opportunity fails to get updated."
+  },
   "WX6NnA": {
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Button text for the create team form submit button"
@@ -6789,6 +6837,10 @@
   "XKjVO0": {
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
+  },
+  "XKpHTN": {
+    "defaultMessage": "La possibilité de formation a été créée avec succès!",
+    "description": "Message displayed to user after a training opportunity is created successfully."
   },
   "XOFVsC": {
     "defaultMessage": "{count, plural, =1 {# évaluation} other {# évaluations}}",
@@ -6989,6 +7041,10 @@
   "YCv/4v": {
     "defaultMessage": "Durée pendant laquelle le candidat sera pris en considération pour une affectation à la suite de cette procédure. La durée habituelle est de 2 ans.",
     "description": "Help text for setting a candidate expiry date"
+  },
+  "YEYD5j": {
+    "defaultMessage": "Créer<hidden> une possibilité de formation</hidden>",
+    "description": "Breadcrumb title for the create training opportunity page link."
   },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
@@ -7362,6 +7418,10 @@
     "defaultMessage": "Compétences mises en évidence",
     "description": "Label displayed for featured skills attached to an experience"
   },
+  "a9tj6r": {
+    "defaultMessage": "Créez une possibilité de formation",
+    "description": "Title for link to page to create a training opportunity"
+  },
   "aAIZbC": {
     "defaultMessage": "Processus",
     "description": "Link to the Pools page in the nav menu."
@@ -7610,6 +7670,10 @@
     "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
     "description": "Study at institution, HTML"
   },
+  "bg8KBg": {
+    "defaultMessage": "Date de fin de la formation",
+    "description": "The training end date of the training opportunity"
+  },
   "bjcr+t": {
     "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les bons pour examens de certification</hidden>",
     "description": "A link to sign up for updates"
@@ -7677,6 +7741,10 @@
   "buZsS/": {
     "defaultMessage": "<strong>Veuillez sélectionner un niveau approprié de maîtrise de la deuxième langue sur la base des définitions fournies.</strong>",
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
+  },
+  "bwoJyk": {
+    "defaultMessage": "Informations sur la possibilité de formation",
+    "description": "Heading for the opportunity form information section"
   },
   "by9soK": {
     "defaultMessage": "S’agit-il d’un contrat pluriannuel?",
@@ -8109,6 +8177,10 @@
   "dyzeVv": {
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
+  },
+  "dzCyaO": {
+    "defaultMessage": "URL de la demande (anglais)",
+    "description": "The English application URL of the training opportunity"
   },
   "e+xir3": {
     "defaultMessage": "Autres exigences",
@@ -9789,6 +9861,10 @@
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
+  },
+  "m3c4o8": {
+    "defaultMessage": "Sélectionnez un format",
+    "description": "Placeholder displayed on the select input for a format"
   },
   "m3qn9l": {
     "defaultMessage": "Groupes visés par l’équité en matière d’emploi",
@@ -11766,6 +11842,10 @@
     "defaultMessage": "Nous pouvons peut-être vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
   },
+  "xCjb82": {
+    "defaultMessage": "Date de début de la formation",
+    "description": "The training start date of the training opportunity"
+  },
   "xCoGIm": {
     "defaultMessage": "Envisagez d’ajouter au moins une méthode d’évaluation pour améliorer la qualité de votre bassin de candidats.",
     "description": "Description for warning message when the user has few assessments to the assessment plan"
@@ -11842,6 +11922,10 @@
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",
     "description": "Description du fonctionnement des profils de candidature"
   },
+  "xhdl6Q": {
+    "defaultMessage": "Modifier <hidden>la possibilité de formation</hidden>",
+    "description": "Breadcrumb title for the edit training opportunity page link."
+  },
   "xj7X6V": {
     "defaultMessage": "J’ai lu le préambule.",
     "description": "Preamble confirmation statement of the _digital services contracting questionnaire_"
@@ -11897,6 +11981,10 @@
   "xwBt36": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
+  },
+  "xynA9Y": {
+    "defaultMessage": "Créer une possibilité de formation",
+    "description": "Page title for the training opportunity creation page"
   },
   "xzSXz9": {
     "defaultMessage": "Type d’emploi",
@@ -12009,6 +12097,10 @@
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",
     "description": "Link text for guidance resource download"
+  },
+  "yWen8A": {
+    "defaultMessage": "Format",
+    "description": "The format of the training opportunity"
   },
   "yXWaAj": {
     "defaultMessage": "Veuillez préciser le niveau de sécurité",
