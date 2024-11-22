@@ -15,6 +15,7 @@ import {
 import {
   FragmentType,
   Scalars,
+  ViewCommunityQuery,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -190,15 +191,12 @@ const ViewCommunity_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ViewCommunityPage = () => {
+interface ViewCommunityPageProps {
+  community: NonNullable<ViewCommunityQuery["community"]>;
+}
+
+const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
   const intl = useIntl();
-
-  const { communityId } = useRequiredParams<RouteParams>("communityId");
-  const [{ data, fetching, error }] = useQuery({
-    query: ViewCommunity_Query,
-    variables: { id: communityId },
-  });
-
   const pageTitle = intl.formatMessage({
     defaultMessage: "Community information",
     id: "W0Bh1G",
@@ -211,38 +209,43 @@ const ViewCommunityPage = () => {
   return (
     <>
       <SEO title={pageTitle} />
-      <Hero
-        title={
-          fetching ? intl.formatMessage(commonMessages.loading) : communityName
-        }
-        crumbs={navigationCrumbs}
-        navTabs={navTabs}
-      />
+      <Hero title={communityName} crumbs={navigationCrumbs} navTabs={navTabs} />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x2, 0)">
-          <Pending fetching={fetching} error={error}>
-            {data?.community ? (
-              <ViewCommunityForm query={data.community} />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Community {communityId} not found.",
-                      id: "TfbBB7",
-                      description: "Message displayed for community not found.",
-                    },
-                    { communityId },
-                  )}
-                </p>
-              </NotFound>
-            )}
-          </Pending>
+          <ViewCommunityForm query={community} />
         </div>
       </div>
     </>
+  );
+};
+
+// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
+const ViewCommunityPageApiWrapper = () => {
+  const intl = useIntl();
+  const { communityId } = useRequiredParams<RouteParams>("communityId");
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewCommunity_Query,
+    variables: { id: communityId },
+  });
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.community ? (
+        <ViewCommunityPage community={data.community} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Community {communityId} not found.",
+                id: "TfbBB7",
+                description: "Message displayed for community not found.",
+              },
+              { communityId },
+            )}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 
@@ -255,7 +258,7 @@ export const Component = () => (
       ROLE_NAME.PlatformAdmin,
     ]}
   >
-    <ViewCommunityPage />
+    <ViewCommunityPageApiWrapper />
   </RequireAuth>
 );
 

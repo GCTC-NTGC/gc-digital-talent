@@ -8,7 +8,12 @@ import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
+import {
+  CommunityMembersTeamQuery,
+  getFragment,
+  graphql,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -165,17 +170,16 @@ interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
 }
 
-const CommunityMembersPage = () => {
+interface CommunityMembersPageProps {
+  community: NonNullable<CommunityMembersTeamQuery["community"]>;
+}
+
+const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const { communityId } = useRequiredParams<RouteParams>("communityId");
-  const [{ data, fetching, error }] = useQuery({
-    query: CommunityMembersTeam_Query,
-    variables: { communityId },
-  });
 
-  const community = data?.community;
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
   const {
@@ -199,25 +203,31 @@ const CommunityMembersPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <Hero
-        title={
-          fetching ? intl.formatMessage(commonMessages.loading) : communityName
-        }
-        crumbs={crumbs}
-        navTabs={navTabs}
-      />
+      <Hero title={communityName} crumbs={crumbs} navTabs={navTabs} />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x2, 0)">
-          <Pending fetching={fetching} error={error}>
-            {community ? (
-              <CommunityMembers communityQuery={community} />
-            ) : (
-              <ThrowNotFound />
-            )}
-          </Pending>
+          <CommunityMembers communityQuery={community} />
         </div>
       </div>
     </>
+  );
+};
+
+// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
+const CommunityMembersPageApiWrapper = () => {
+  const { communityId } = useRequiredParams<RouteParams>("communityId");
+  const [{ data, fetching, error }] = useQuery({
+    query: CommunityMembersTeam_Query,
+    variables: { communityId },
+  });
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.community ? (
+        <CommunityMembersPage community={data.community} />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
   );
 };
 
@@ -230,7 +240,7 @@ export const Component = () => (
       ROLE_NAME.PlatformAdmin,
     ]}
   >
-    <CommunityMembersPage />
+    <CommunityMembersPageApiWrapper />
   </RequireAuth>
 );
 
