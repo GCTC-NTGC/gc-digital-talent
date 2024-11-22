@@ -17,7 +17,7 @@ import {
   getFragment,
   graphql,
   Scalars,
-  ViewTrainingEventPageQuery,
+  ViewTrainingOpportunityPageQuery,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
@@ -33,19 +33,24 @@ import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 
 import formLabels from "./formLabels";
-import { TrainingEventForm_Fragment } from "./apiUtils";
+import { TrainingOpportunityForm_Fragment } from "./apiUtils";
 
-interface ViewTrainingEventFormProps {
-  query: FragmentType<typeof TrainingEventForm_Fragment>;
+interface ViewTrainingOpportunityFormProps {
+  query: FragmentType<typeof TrainingOpportunityForm_Fragment>;
 }
 
-export const ViewTrainingEventForm = ({
+export const ViewTrainingOpportunityForm = ({
   query,
-}: ViewTrainingEventFormProps) => {
+}: ViewTrainingOpportunityFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
-  const trainingOpportunity = getFragment(TrainingEventForm_Fragment, query);
+  const { trainingOpportunityId } = useRequiredParams<RouteParams>(
+    "trainingOpportunityId",
+  );
+  const trainingOpportunity = getFragment(
+    TrainingOpportunityForm_Fragment,
+    query,
+  );
 
   return (
     <>
@@ -61,9 +66,9 @@ export const ViewTrainingEventForm = ({
           data-h2-font-weight="base(400)"
         >
           {intl.formatMessage({
-            defaultMessage: "Event information",
-            id: "8ZTHFe",
-            description: "Heading for the event form information section",
+            defaultMessage: "Training opportunity information",
+            id: "bwoJyk",
+            description: "Heading for the opportunity form information section",
           })}
         </Heading>
       </div>
@@ -138,13 +143,14 @@ export const ViewTrainingEventForm = ({
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
           <Link
-            href={paths.trainingEventUpdate(trainingEventId)}
+            href={paths.trainingOpportunityUpdate(trainingOpportunityId)}
             data-h2-font-weight="base(bold)"
           >
             {intl.formatMessage({
-              defaultMessage: "Edit event information",
-              id: "i83KtN",
-              description: "Link to edit the currently viewed training event",
+              defaultMessage: "Edit training opportunity information",
+              id: "EInfnR",
+              description:
+                "Link to edit the currently viewed training opportunity",
             })}
           </Link>
         </div>
@@ -154,99 +160,110 @@ export const ViewTrainingEventForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  trainingEventId: Scalars["ID"]["output"];
+  trainingOpportunityId: Scalars["ID"]["output"];
 }
 
-interface ViewTrainingEventPageProps {
+interface ViewTrainingOpportunityPageProps {
   trainingOpportunity: NonNullable<
-    ViewTrainingEventPageQuery["trainingOpportunity"]
+    ViewTrainingOpportunityPageQuery["trainingOpportunity"]
   >;
 }
 
-const ViewTrainingEventPage = ({
+const ViewTrainingOpportunityPage = ({
   trainingOpportunity,
-}: ViewTrainingEventPageProps) => {
+}: ViewTrainingOpportunityPageProps) => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
-  const trainingEventName = getLocalizedName(trainingOpportunity.title, intl);
+  const { trainingOpportunityId } = useRequiredParams<RouteParams>(
+    "trainingOpportunityId",
+  );
+  const trainingOpportunityName = getLocalizedName(
+    trainingOpportunity.title,
+    intl,
+  );
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(pageTitles.trainingEvents),
-        url: routes.trainingEventsIndex(),
+        label: intl.formatMessage(pageTitles.trainingOpportunities),
+        url: routes.trainingOpportunitiesIndex(),
       },
       {
-        label: trainingEventName,
-        url: routes.trainingEventView(trainingEventId),
+        label: trainingOpportunityName,
+        url: routes.trainingOpportunityView(trainingOpportunityId),
       },
     ],
   });
 
   const navTabs = [
     {
-      url: routes.trainingEventView(trainingEventId),
+      url: routes.trainingOpportunityView(trainingOpportunityId),
       label: intl.formatMessage({
-        defaultMessage: "Event information",
-        id: "8ZTHFe",
-        description: "Heading for the event form information section",
+        defaultMessage: "Training opportunity information",
+        id: "bwoJyk",
+        description: "Heading for the opportunity form information section",
       }),
     },
   ];
 
   return (
     <>
-      <SEO title={trainingEventName} />
+      <SEO title={trainingOpportunityName} />
       <Hero
-        title={trainingEventName}
+        title={trainingOpportunityName}
         crumbs={navigationCrumbs}
         navTabs={navTabs}
       />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x3, 0)">
-          <ViewTrainingEventForm query={trainingOpportunity} />
+          <ViewTrainingOpportunityForm query={trainingOpportunity} />
         </div>
       </div>
     </>
   );
 };
 
-const ViewTrainingEventPage_Query = graphql(/* GraphQL */ `
-  query ViewTrainingEventPage($id: UUID!) {
+const ViewTrainingOpportunityPage_Query = graphql(/* GraphQL */ `
+  query ViewTrainingOpportunityPage($id: UUID!) {
     trainingOpportunity(id: $id) {
       title {
         en
         fr
       }
-      ...TrainingEventView
+      ...TrainingOpportunityView
     }
   }
 `);
 
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const ViewTrainingEventPageApiWrapper = () => {
+const ViewTrainingOpportunityPageApiWrapper = () => {
   const intl = useIntl();
-  const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
+  const { trainingOpportunityId } = useRequiredParams<RouteParams>(
+    "trainingOpportunityId",
+  );
   const [{ data, fetching, error }] = useQuery({
-    query: ViewTrainingEventPage_Query,
-    variables: { id: trainingEventId },
+    query: ViewTrainingOpportunityPage_Query,
+    variables: { id: trainingOpportunityId },
   });
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.trainingOpportunity ? (
-        <ViewTrainingEventPage trainingOpportunity={data.trainingOpportunity} />
+        <ViewTrainingOpportunityPage
+          trainingOpportunity={data.trainingOpportunity}
+        />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
             {intl.formatMessage(
               {
-                defaultMessage: "Event {trainingEventId} not found.",
-                id: "z1otyE",
-                description: "Message displayed for training event not found.",
+                defaultMessage:
+                  "Opportunity {trainingOpportunityId} not found.",
+                id: "QAo1Vy",
+                description:
+                  "Message displayed for training opportunity not found.",
               },
-              { trainingEventId },
+              { trainingOpportunityId },
             )}
           </p>
         </NotFound>
@@ -257,10 +274,10 @@ const ViewTrainingEventPageApiWrapper = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <ViewTrainingEventPageApiWrapper />
+    <ViewTrainingOpportunityPageApiWrapper />
   </RequireAuth>
 );
 
-Component.displayName = "AdminViewTrainingEventPage";
+Component.displayName = "AdminViewTrainingOpportunityPage";
 
-export default ViewTrainingEventPage;
+export default ViewTrainingOpportunityPage;

@@ -3,12 +3,12 @@ import {
   CourseLanguage,
   CreateTrainingOpportunityInput,
   graphql,
-  TrainingEventViewFragment,
+  TrainingOpportunityViewFragment,
   UpdateTrainingOpportunityInput,
 } from "@gc-digital-talent/graphql";
 
-export const TrainingEventForm_Fragment = graphql(/* GraphQL */ `
-  fragment TrainingEventView on TrainingOpportunity {
+export const TrainingOpportunityForm_Fragment = graphql(/* GraphQL */ `
+  fragment TrainingOpportunityView on TrainingOpportunity {
     title {
       en
       fr
@@ -56,7 +56,7 @@ export interface FormValues {
 }
 
 export function convertApiFragmentToFormValues(
-  apiData: TrainingEventViewFragment,
+  apiData: TrainingOpportunityViewFragment,
 ): FormValues {
   return {
     titleEn: apiData.title?.en ?? "",

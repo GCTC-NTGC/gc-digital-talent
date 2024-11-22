@@ -782,33 +782,37 @@ const createRoute = (locale: Locales) =>
                 ],
               },
               {
-                path: "training-events",
+                path: "training-opportunities",
                 children: [
                   {
                     index: true,
                     lazy: () =>
-                      import("../pages/TrainingEvents/IndexTrainingEventsPage"),
+                      import(
+                        "../pages/TrainingOpportunities/IndexTrainingOpportunitiesPage"
+                      ),
                   },
                   {
                     path: "create",
                     lazy: () =>
-                      import("../pages/TrainingEvents/CreateTrainingEventPage"),
+                      import(
+                        "../pages/TrainingOpportunities/CreateTrainingOpportunityPage"
+                      ),
                   },
                   {
-                    path: ":trainingEventId",
+                    path: ":trainingOpportunityId",
                     children: [
                       {
                         index: true,
                         lazy: () =>
                           import(
-                            "../pages/TrainingEvents/ViewTrainingEventPage"
+                            "../pages/TrainingOpportunities/ViewTrainingOpportunityPage"
                           ),
                       },
                       {
                         path: "edit",
                         lazy: () =>
                           import(
-                            "../pages/TrainingEvents/UpdateTrainingEventPage"
+                            "../pages/TrainingOpportunities/UpdateTrainingOpportunityPage"
                           ),
                       },
                     ],

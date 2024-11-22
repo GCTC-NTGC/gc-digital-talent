@@ -80,8 +80,8 @@ function transformSortStateToOrderByClause(
   return orderBy?.length ? orderBy : undefined;
 }
 
-const TrainingEventsPaginated_Query = graphql(/* GraphQL */ `
-  query TrainingEventsPaginated(
+const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
+  query TrainingOpportunitiesPaginated(
     $first: Int
     $page: Int
     $orderBy: [OrderByClause!]
@@ -129,11 +129,13 @@ const TrainingEventsPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface TrainingEventsTableProps {
+interface TrainingOpportunitiesTableProps {
   title: ReactNode;
 }
 
-const TrainingEventsTable = ({ title }: TrainingEventsTableProps) => {
+const TrainingOpportunitiesTable = ({
+  title,
+}: TrainingOpportunitiesTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -173,64 +175,83 @@ const TrainingEventsTable = ({ title }: TrainingEventsTableProps) => {
   } as const;
 
   const columns = [
-    columnHelper.accessor((event) => getLocalizedName(event.title, intl), {
-      id: "name",
-      header: intl.formatMessage(commonMessages.name),
-      cell: ({ row: { original: event } }) =>
-        event.id ? (
-          <Link
-            href={paths.trainingEventView(event.id)}
-            data-h2-font-weight="base(700)"
-          >
-            {getLocalizedName(event.title, intl)}
-          </Link>
-        ) : (
-          getLocalizedName(event.title, intl)
-        ),
-      meta: {
-        isRowTitle: true,
+    columnHelper.accessor(
+      (opportunity) => getLocalizedName(opportunity.title, intl),
+      {
+        id: "name",
+        header: intl.formatMessage(commonMessages.name),
+        cell: ({ row: { original: opportunity } }) =>
+          opportunity.id ? (
+            <Link
+              href={paths.trainingOpportunityView(opportunity.id)}
+              data-h2-font-weight="base(700)"
+            >
+              {getLocalizedName(opportunity.title, intl)}
+            </Link>
+          ) : (
+            getLocalizedName(opportunity.title, intl)
+          ),
+        meta: {
+          isRowTitle: true,
+        },
       },
-    }),
-    columnHelper.accessor((event) => (event.courseLanguage?.label, intl), {
-      id: "language",
-      header: intl.formatMessage(commonMessages.language),
-      cell: ({ row: { original: event } }) =>
-        getLocalizedName(event.courseLanguage?.label, intl),
-    }),
-    columnHelper.accessor((event) => event.registrationDeadlineStatus, {
-      id: "status",
-      header: intl.formatMessage(commonMessages.status),
-      cell: ({ row: { original: event } }) =>
-        event.registrationDeadlineStatus?.value ? (
-          <Chip
-            color={statusChipStyles[event.registrationDeadlineStatus.value]}
-          >
-            {getLocalizedName(event.registrationDeadlineStatus?.label, intl)}
-          </Chip>
-        ) : (
-          intl.formatMessage(adminMessages.noneProvided)
-        ),
-    }),
-    columnHelper.accessor((event) => (event.registrationDeadline, intl), {
-      id: "registrationDeadline",
-      header: intl.formatMessage(formLabels.registrationDeadline),
-      cell: ({ row: { original: event } }) => event.registrationDeadline,
-    }),
-    columnHelper.accessor((event) => (event.trainingStart, intl), {
+    ),
+    columnHelper.accessor(
+      (opportunity) => (opportunity.courseLanguage?.label, intl),
+      {
+        id: "language",
+        header: intl.formatMessage(commonMessages.language),
+        cell: ({ row: { original: opportunity } }) =>
+          getLocalizedName(opportunity.courseLanguage?.label, intl),
+      },
+    ),
+    columnHelper.accessor(
+      (opportunity) => opportunity.registrationDeadlineStatus,
+      {
+        id: "status",
+        header: intl.formatMessage(commonMessages.status),
+        cell: ({ row: { original: opportunity } }) =>
+          opportunity.registrationDeadlineStatus?.value ? (
+            <Chip
+              color={
+                statusChipStyles[opportunity.registrationDeadlineStatus.value]
+              }
+            >
+              {getLocalizedName(
+                opportunity.registrationDeadlineStatus?.label,
+                intl,
+              )}
+            </Chip>
+          ) : (
+            intl.formatMessage(adminMessages.noneProvided)
+          ),
+      },
+    ),
+    columnHelper.accessor(
+      (opportunity) => (opportunity.registrationDeadline, intl),
+      {
+        id: "registrationDeadline",
+        header: intl.formatMessage(formLabels.registrationDeadline),
+        cell: ({ row: { original: opportunity } }) =>
+          opportunity.registrationDeadline,
+      },
+    ),
+    columnHelper.accessor((opportunity) => (opportunity.trainingStart, intl), {
       id: "trainingStartDate",
       header: intl.formatMessage(formLabels.trainingStartDate),
-      cell: ({ row: { original: event } }) => event.trainingStart,
+      cell: ({ row: { original: opportunity } }) => opportunity.trainingStart,
     }),
-    columnHelper.accessor((event) => (event.trainingEnd, intl), {
+    columnHelper.accessor((opportunity) => (opportunity.trainingEnd, intl), {
       id: "trainingEndDate",
       header: intl.formatMessage(formLabels.trainingEndDate),
-      cell: ({ row: { original: event } }) =>
-        event.trainingEnd ?? intl.formatMessage(adminMessages.noneProvided),
+      cell: ({ row: { original: opportunity } }) =>
+        opportunity.trainingEnd ??
+        intl.formatMessage(adminMessages.noneProvided),
     }),
   ] as ColumnDef<TrainingOpportunity>[];
 
   const [{ data, fetching }] = useQuery({
-    query: TrainingEventsPaginated_Query,
+    query: TrainingOpportunitiesPaginated_Query,
     variables: {
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
@@ -268,11 +289,12 @@ const TrainingEventsTable = ({ title }: TrainingEventsTableProps) => {
       }}
       add={{
         linkProps: {
-          href: paths.trainingEventCreate(),
+          href: paths.trainingOpportunityCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create an event",
-            id: "bWUOmk",
-            description: "Title for link to page to create a training event",
+            defaultMessage: "Create a training opportunity",
+            id: "a9tj6r",
+            description:
+              "Title for link to page to create a training opportunity",
           }),
           from: currentUrl,
         },
@@ -281,4 +303,4 @@ const TrainingEventsTable = ({ title }: TrainingEventsTableProps) => {
   );
 };
 
-export default TrainingEventsTable;
+export default TrainingOpportunitiesTable;

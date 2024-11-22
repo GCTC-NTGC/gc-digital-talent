@@ -31,21 +31,23 @@ import pageTitles from "~/messages/pageTitles";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { convertFormValuesToCreateInput, FormValues } from "./apiUtils";
-import TrainingEventForm, {
-  TrainingEventFormOptions_Fragment,
+import TrainingOpportunityForm, {
+  TrainingOpportunityFormOptions_Fragment,
 } from "./components/TrainingOpportunityForm";
 
-interface CreateTrainingEventFormProps {
-  handleCreateTrainingEvent: (
+interface CreateTrainingOpportunityFormProps {
+  handleCreateTrainingOpportunity: (
     input: CreateTrainingOpportunityInput,
   ) => Promise<Scalars["UUID"]["output"]>;
-  formOptionsQuery: FragmentType<typeof TrainingEventFormOptions_Fragment>;
+  formOptionsQuery: FragmentType<
+    typeof TrainingOpportunityFormOptions_Fragment
+  >;
 }
 
-const CreateTrainingEventForm = ({
-  handleCreateTrainingEvent,
+const CreateTrainingOpportunityForm = ({
+  handleCreateTrainingOpportunity,
   formOptionsQuery,
-}: CreateTrainingEventFormProps) => {
+}: CreateTrainingOpportunityFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -55,25 +57,27 @@ const CreateTrainingEventForm = ({
   const onSubmit: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    return handleCreateTrainingEvent(convertFormValuesToCreateInput(formValues))
+    return handleCreateTrainingOpportunity(
+      convertFormValuesToCreateInput(formValues),
+    )
       .then((id) => {
-        navigate(paths.trainingEventView(id));
+        navigate(paths.trainingOpportunityView(id));
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Training event created successfully!",
-            id: "g2DtHI",
+            defaultMessage: "Training opportunity created successfully!",
+            id: "XKpHTN",
             description:
-              "Message displayed to user after a training event is created successfully.",
+              "Message displayed to user after a training opportunity is created successfully.",
           }),
         );
       })
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: creating training event failed",
-            id: "K2cRGq",
+            defaultMessage: "Error: creating training opportunity failed",
+            id: "Hc3RTQ",
             description:
-              "Message displayed to user after a training event fails to get created.",
+              "Message displayed to user after a training opportunity fails to get created.",
           }),
         );
       });
@@ -95,13 +99,14 @@ const CreateTrainingEventForm = ({
               data-h2-font-weight="base(400)"
             >
               {intl.formatMessage({
-                defaultMessage: "Event information",
-                id: "8ZTHFe",
-                description: "Heading for the event form information section",
+                defaultMessage: "Training opportunity information",
+                id: "bwoJyk",
+                description:
+                  "Heading for the opportunity form information section",
               })}
             </Heading>
           </div>
-          <TrainingEventForm query={formOptionsQuery} />
+          <TrainingOpportunityForm query={formOptionsQuery} />
           <CardSeparator />
           <div
             data-h2-display="base(flex)"
@@ -111,21 +116,22 @@ const CreateTrainingEventForm = ({
           >
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Create event",
-                id: "+21CEK",
+                defaultMessage: "Create training opportunity",
+                id: "JZlTsX",
                 description:
-                  "Button label to submit the create a new event form",
+                  "Button label to submit the create a new opportunity form",
               })}
             />
             <Link
               color="warning"
               mode="inline"
-              href={paths.trainingEventsIndex()}
+              href={paths.trainingOpportunitiesIndex()}
             >
               {intl.formatMessage({
-                defaultMessage: "Cancel and go back to events",
-                id: "qTJFY0",
-                description: "Button label to return to the events table",
+                defaultMessage: "Cancel and go back to training opportunities",
+                id: "OU/MkT",
+                description:
+                  "Button label to return to the opportunities table",
               })}
             </Link>
           </div>
@@ -135,9 +141,9 @@ const CreateTrainingEventForm = ({
   );
 };
 
-const CreateTrainingEventPage_Query = graphql(/* GraphQL */ `
-  query CreateTrainingEventPage {
-    ...TrainingEventFormOptions
+const CreateTrainingOpportunityPage_Query = graphql(/* GraphQL */ `
+  query CreateTrainingOpportunityPage {
+    ...TrainingOpportunityFormOptions
   }
 `);
 
@@ -149,14 +155,16 @@ const CreateTrainingOpportunity_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const CreateTrainingEventPage = () => {
+const CreateTrainingOpportunityPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [{ data, fetching, error }] = useQuery({
-    query: CreateTrainingEventPage_Query,
+    query: CreateTrainingOpportunityPage_Query,
   });
   const [, executeMutation] = useMutation(CreateTrainingOpportunity_Mutation);
-  const handleCreateTrainingEvent = (input: CreateTrainingOpportunityInput) =>
+  const handleCreateTrainingOpportunity = (
+    input: CreateTrainingOpportunityInput,
+  ) =>
     executeMutation({ input }).then((result) => {
       if (result.data?.createTrainingOpportunity?.id) {
         return result.data.createTrainingOpportunity.id;
@@ -167,25 +175,25 @@ const CreateTrainingEventPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(pageTitles.trainingEvents),
+        label: intl.formatMessage(pageTitles.trainingOpportunities),
         url: routes.departmentTable(),
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Create<hidden> an event</hidden>",
-          id: "R6j8QR",
+          defaultMessage: "Create<hidden> a training opportunity</hidden>",
+          id: "YEYD5j",
           description:
-            "Breadcrumb title for the create training event page link.",
+            "Breadcrumb title for the create training opportunity page link.",
         }),
-        url: routes.trainingEventCreate(),
+        url: routes.trainingOpportunityCreate(),
       },
     ],
   });
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Create an event",
-    id: "y6UFyA",
-    description: "Page title for the training event creation page",
+    defaultMessage: "Create a training opportunity",
+    id: "xynA9Y",
+    description: "Page title for the training opportunity creation page",
   });
 
   return (
@@ -195,9 +203,11 @@ const CreateTrainingEventPage = () => {
         <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
             {data ? (
-              <CreateTrainingEventForm
+              <CreateTrainingOpportunityForm
                 formOptionsQuery={data}
-                handleCreateTrainingEvent={handleCreateTrainingEvent}
+                handleCreateTrainingOpportunity={
+                  handleCreateTrainingOpportunity
+                }
               />
             ) : (
               <NotFound
@@ -215,10 +225,10 @@ const CreateTrainingEventPage = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <CreateTrainingEventPage />
+    <CreateTrainingOpportunityPage />
   </RequireAuth>
 );
 
-Component.displayName = "AdminCreateTrainingEventPage";
+Component.displayName = "AdminCreateTrainingOpportunityPage";
 
-export default CreateTrainingEventPage;
+export default CreateTrainingOpportunityPage;

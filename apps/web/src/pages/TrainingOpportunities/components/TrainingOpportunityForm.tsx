@@ -13,8 +13,8 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import formLabels from "../formLabels";
 
-export const TrainingEventFormOptions_Fragment = graphql(/* GraphQL */ `
-  fragment TrainingEventFormOptions on Query {
+export const TrainingOpportunityFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TrainingOpportunityFormOptions on Query {
     courseLanguages: localizedEnumStrings(enumName: "CourseLanguage") {
       value
       label {
@@ -32,14 +32,14 @@ export const TrainingEventFormOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface TrainingEventFormProps {
-  query: FragmentType<typeof TrainingEventFormOptions_Fragment>;
+interface TrainingOpportunityFormProps {
+  query: FragmentType<typeof TrainingOpportunityFormOptions_Fragment>;
 }
 
-const TrainingEventForm = ({ query }: TrainingEventFormProps) => {
+const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
   const intl = useIntl();
   const { courseLanguages, courseFormats } = getFragment(
-    TrainingEventFormOptions_Fragment,
+    TrainingOpportunityFormOptions_Fragment,
     query,
   );
   return (
@@ -160,4 +160,4 @@ const TrainingEventForm = ({ query }: TrainingEventFormProps) => {
   );
 };
 
-export default TrainingEventForm;
+export default TrainingOpportunityForm;

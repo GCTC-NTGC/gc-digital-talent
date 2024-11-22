@@ -13,28 +13,28 @@ const formLabels = defineMessages({
   },
   courseLanguage: {
     defaultMessage: "Course language",
-    id: "358F+g",
-    description: "The language of the training event",
+    id: "Cvl9dd",
+    description: "The language of the training opportunity",
   },
   format: {
     defaultMessage: "Format",
-    id: "/fVA+0",
-    description: "The format of the training event",
+    id: "yWen8A",
+    description: "The format of the training opportunity",
   },
   registrationDeadline: {
     defaultMessage: "Registration deadline",
-    id: "fbRvL4",
-    description: "The registration deadline of the training event",
+    id: "PWgU8s",
+    description: "The registration deadline of the training opportunity",
   },
   trainingStartDate: {
     defaultMessage: "Training start date",
-    id: "ej13jn",
-    description: "The training start date of the training event",
+    id: "xCjb82",
+    description: "The training start date of the training opportunity",
   },
   trainingEndDate: {
     defaultMessage: "Training end date",
-    id: "guY0Ld",
-    description: "The training end date of the training event",
+    id: "bg8KBg",
+    description: "The training end date of the training opportunity",
   },
   descriptionEn: {
     defaultMessage: "Description (English)",
@@ -48,13 +48,13 @@ const formLabels = defineMessages({
   },
   applicationUrlEn: {
     defaultMessage: "Application URL (English)",
-    id: "scK7Nc",
-    description: "The English application URL of the training event",
+    id: "dzCyaO",
+    description: "The English application URL of the training opportunity",
   },
   applicationUrlFr: {
     defaultMessage: "Application URL (French)",
-    id: "p+X+Yq",
-    description: "The French application URL of the training event",
+    id: "N5xj2X",
+    description: "The French application URL of the training opportunity",
   },
 });
 

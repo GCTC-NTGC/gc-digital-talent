@@ -38,33 +38,39 @@ import Hero from "~/components/Hero";
 
 import {
   FormValues,
-  TrainingEventForm_Fragment,
+  TrainingOpportunityForm_Fragment,
   convertApiFragmentToFormValues,
   convertFormValuesToUpdateInput,
 } from "./apiUtils";
-import TrainingEventForm, {
-  TrainingEventFormOptions_Fragment,
+import TrainingOpportunityForm, {
+  TrainingOpportunityFormOptions_Fragment,
 } from "./components/TrainingOpportunityForm";
 
-interface UpdateTrainingEventFormProps {
-  trainingOpportunityQuery: FragmentType<typeof TrainingEventForm_Fragment>;
-  handleUpdateTrainingEvent: (
+interface UpdateTrainingOpportunityFormProps {
+  trainingOpportunityQuery: FragmentType<
+    typeof TrainingOpportunityForm_Fragment
+  >;
+  handleUpdateTrainingOpportunity: (
     input: UpdateTrainingOpportunityInput,
-  ) => Promise<FragmentType<typeof TrainingEventForm_Fragment>>;
-  formOptionsQuery: FragmentType<typeof TrainingEventFormOptions_Fragment>;
+  ) => Promise<FragmentType<typeof TrainingOpportunityForm_Fragment>>;
+  formOptionsQuery: FragmentType<
+    typeof TrainingOpportunityFormOptions_Fragment
+  >;
 }
 
-const UpdateTrainingEventForm = ({
+const UpdateTrainingOpportunityForm = ({
   trainingOpportunityQuery,
-  handleUpdateTrainingEvent,
+  handleUpdateTrainingOpportunity,
   formOptionsQuery,
-}: UpdateTrainingEventFormProps) => {
+}: UpdateTrainingOpportunityFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
+  const { trainingOpportunityId } = useRequiredParams<RouteParams>(
+    "trainingOpportunityId",
+  );
   const initialTrainingOpportunity = getFragment(
-    TrainingEventForm_Fragment,
+    TrainingOpportunityForm_Fragment,
     trainingOpportunityQuery,
   );
   const methods = useForm<FormValues>({
@@ -75,27 +81,27 @@ const UpdateTrainingEventForm = ({
   const onSubmit: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    return handleUpdateTrainingEvent(
-      convertFormValuesToUpdateInput(trainingEventId, formValues),
+    return handleUpdateTrainingOpportunity(
+      convertFormValuesToUpdateInput(trainingOpportunityId, formValues),
     )
       .then(() => {
-        navigate(paths.trainingEventView(trainingEventId));
+        navigate(paths.trainingOpportunityView(trainingOpportunityId));
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Training event updated successfully!",
-            id: "Yv8V51",
+            defaultMessage: "Training opportunity updated successfully!",
+            id: "3YO9gR",
             description:
-              "Message displayed to user after training event is updated successfully.",
+              "Message displayed to user after training opportunity is updated successfully.",
           }),
         );
       })
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: updating training event failed",
-            id: "OnZE7b",
+            defaultMessage: "Error: updating training opportunity failed",
+            id: "WWrQYI",
             description:
-              "Message displayed to user after training event fails to get updated.",
+              "Message displayed to user after training opportunity fails to get updated.",
           }),
         );
       });
@@ -117,13 +123,14 @@ const UpdateTrainingEventForm = ({
               data-h2-font-weight="base(400)"
             >
               {intl.formatMessage({
-                defaultMessage: "Event information",
-                id: "8ZTHFe",
-                description: "Heading for the event form information section",
+                defaultMessage: "Training opportunity information",
+                id: "bwoJyk",
+                description:
+                  "Heading for the opportunity form information section",
               })}
             </Heading>
           </div>
-          <TrainingEventForm query={formOptionsQuery} />
+          <TrainingOpportunityForm query={formOptionsQuery} />
           <CardSeparator />
           <div
             data-h2-display="base(flex)"
@@ -135,7 +142,7 @@ const UpdateTrainingEventForm = ({
             <Link
               color="warning"
               mode="inline"
-              href={paths.trainingEventView(trainingEventId)}
+              href={paths.trainingOpportunityView(trainingOpportunityId)}
             >
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
@@ -147,40 +154,44 @@ const UpdateTrainingEventForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  trainingEventId: Scalars["ID"]["output"];
+  trainingOpportunityId: Scalars["ID"]["output"];
 }
 
-const UpdateTrainingEventPage_Query = graphql(/* GraphQL */ `
-  query UpdateTrainingEventPage($id: UUID!) {
+const UpdateTrainingOpportunityPage_Query = graphql(/* GraphQL */ `
+  query UpdateTrainingOpportunityPage($id: UUID!) {
     trainingOpportunity(id: $id) {
       title {
         en
         fr
       }
-      ...TrainingEventView
+      ...TrainingOpportunityView
     }
-    ...TrainingEventFormOptions
+    ...TrainingOpportunityFormOptions
   }
 `);
 
 const UpdateTrainingOpportunity_Mutation = graphql(/* GraphQL */ `
   mutation updateTrainingOpportunity($input: UpdateTrainingOpportunityInput!) {
     updateTrainingOpportunity(updateTrainingOpportunity: $input) {
-      ...TrainingEventView
+      ...TrainingOpportunityView
     }
   }
 `);
 
-const UpdateTrainingEventPage = () => {
+const UpdateTrainingOpportunityPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
+  const { trainingOpportunityId } = useRequiredParams<RouteParams>(
+    "trainingOpportunityId",
+  );
   const [{ data, fetching, error }] = useQuery({
-    query: UpdateTrainingEventPage_Query,
-    variables: { id: trainingEventId },
+    query: UpdateTrainingOpportunityPage_Query,
+    variables: { id: trainingOpportunityId },
   });
   const [, executeMutation] = useMutation(UpdateTrainingOpportunity_Mutation);
-  const handleUpdateTrainingEvent = (input: UpdateTrainingOpportunityInput) =>
+  const handleUpdateTrainingOpportunity = (
+    input: UpdateTrainingOpportunityInput,
+  ) =>
     executeMutation({
       input,
     }).then((result) => {
@@ -190,7 +201,7 @@ const UpdateTrainingEventPage = () => {
       return Promise.reject(new Error(result.error?.toString()));
     });
 
-  const trainingEventName = getLocalizedName(
+  const trainingOpportunityName = getLocalizedName(
     data?.trainingOpportunity?.title,
     intl,
   );
@@ -198,29 +209,29 @@ const UpdateTrainingEventPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(pageTitles.trainingEvents),
-        url: routes.trainingEventsIndex(),
+        label: intl.formatMessage(pageTitles.trainingOpportunities),
+        url: routes.trainingOpportunitiesIndex(),
       },
       {
-        label: trainingEventName,
-        url: routes.trainingEventView(trainingEventId),
+        label: trainingOpportunityName,
+        url: routes.trainingOpportunityView(trainingOpportunityId),
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Edit<hidden> event</hidden>",
-          id: "NNWkJH",
+          defaultMessage: "Edit<hidden> training opportunity</hidden>",
+          id: "xhdl6Q",
           description:
-            "Breadcrumb title for the edit training event page link.",
+            "Breadcrumb title for the edit training opportunity page link.",
         }),
-        url: routes.trainingEventUpdate(trainingEventId),
+        url: routes.trainingOpportunityUpdate(trainingOpportunityId),
       },
     ],
   });
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Edit an event",
-    id: "bUat3o",
-    description: "Page title for the training event edit page",
+    defaultMessage: "Edit a training opportunity",
+    id: "5pf2qR",
+    description: "Page title for the training opportunity edit page",
   });
 
   return (
@@ -230,9 +241,11 @@ const UpdateTrainingEventPage = () => {
         <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
             {data?.trainingOpportunity ? (
-              <UpdateTrainingEventForm
+              <UpdateTrainingOpportunityForm
                 trainingOpportunityQuery={data.trainingOpportunity}
-                handleUpdateTrainingEvent={handleUpdateTrainingEvent}
+                handleUpdateTrainingOpportunity={
+                  handleUpdateTrainingOpportunity
+                }
                 formOptionsQuery={data}
               />
             ) : (
@@ -251,10 +264,10 @@ const UpdateTrainingEventPage = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <UpdateTrainingEventPage />
+    <UpdateTrainingOpportunityPage />
   </RequireAuth>
 );
 
-Component.displayName = "AdminUpdateTrainingEventPage";
+Component.displayName = "AdminUpdateTrainingOpportunityPage";
 
-export default UpdateTrainingEventPage;
+export default UpdateTrainingOpportunityPage;
