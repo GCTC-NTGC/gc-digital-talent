@@ -1,7 +1,5 @@
 import { defineMessages } from "react-intl";
 
-import adminMessages from "~/messages/adminMessages";
-
 const formLabels = defineMessages({
   titleEn: {
     defaultMessage: "Title (English)",
@@ -38,8 +36,16 @@ const formLabels = defineMessages({
     id: "guY0Ld",
     description: "The training end date of the training event",
   },
-  descriptionEn: adminMessages.descriptionEn,
-  descriptionFr: adminMessages.descriptionFr,
+  descriptionEn: {
+    defaultMessage: "Description (English)",
+    id: "gASASB",
+    description: "Title for description in English.",
+  },
+  descriptionFr: {
+    defaultMessage: "Description (French)",
+    id: "DK2tnK",
+    description: "Title for description in French.",
+  },
   applicationUrlEn: {
     defaultMessage: "Application URL (English)",
     id: "scK7Nc",
