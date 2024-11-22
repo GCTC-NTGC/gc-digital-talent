@@ -1,8 +1,20 @@
+import {
+  useState,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+} from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { useOutletContext } from "react-router-dom";
 
-import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
+import {
+  Dialog,
+  Button,
+  Chip,
+  Chips,
+  DropdownMenu,
+} from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -21,26 +33,24 @@ import { CommunityMember } from "~/utils/communityUtils";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 import { ContextType } from "./types";
 
-interface RemoveCommunityMemberDialogProps {
+type RemoveCommunityMemberDialogProps = ComponentPropsWithoutRef<
+  typeof DropdownMenu.Item
+> & {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-}
+};
 
-const RemoveCommunityMemberDialog = ({
-  user,
-  community,
-  hasPlatformAdmin,
-  isOpen,
-  setIsOpen,
-}: RemoveCommunityMemberDialogProps) => {
+const RemoveCommunityMemberDialog = forwardRef<
+  ElementRef<typeof DropdownMenu.Item>,
+  RemoveCommunityMemberDialogProps
+>(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const [{ fetching }, executeMutation] = useMutation(
     UpdateUserCommunityRoles_Mutation,
   );
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const roleInputArray: RoleInput[] = user.roles.map((role) => {
     return { roleId: role.id, teamId };
   });
@@ -100,6 +110,23 @@ const RemoveCommunityMemberDialog = ({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger>
+        <DropdownMenu.Item
+          ref={forwardedRef}
+          onSelect={(event) => {
+            event.preventDefault();
+            onSelect?.(event);
+          }}
+          {...rest}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Remove member",
+            id: "wsKhRd",
+            description:
+              "Label for the dialog to remove a users community membership",
+          })}
+        </DropdownMenu.Item>
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage(
@@ -153,6 +180,6 @@ const RemoveCommunityMemberDialog = ({
       </Dialog.Content>
     </Dialog.Root>
   );
-};
+});
 
 export default RemoveCommunityMemberDialog;

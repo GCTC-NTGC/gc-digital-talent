@@ -26,7 +26,7 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
-import { ActionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
+import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import { CommunityMembersPageFragment, ContextType } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 
@@ -99,13 +99,9 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
-        cell: ({ row: { original: member } }) => (
-          <ActionCell
-            user={member}
-            community={community}
-            hasPlatformAdmin={hasPlatformAdmin}
-          />
-        ),
+        cell: ({ row: { original: member } }) =>
+          actionCell(member, community, hasPlatformAdmin, intl),
+
         meta: {
           hideMobileHeader: true,
           shrink: true,

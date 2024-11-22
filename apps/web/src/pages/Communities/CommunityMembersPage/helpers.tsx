@@ -1,6 +1,5 @@
-import { useState } from "react";
 import orderBy from "lodash/orderBy";
-import { IntlShape, useIntl } from "react-intl";
+import { IntlShape } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -30,20 +29,12 @@ export function orderRoles(roles: Role[], intl: IntlShape) {
   });
 }
 
-interface ActionCellProps {
-  user: CommunityMember;
-  community: CommunityMembersPageCommunityFragmentType;
-  hasPlatformAdmin: boolean;
-}
-
-export const ActionCell = ({
-  user,
-  community,
-  hasPlatformAdmin,
-}: ActionCellProps) => {
-  const intl = useIntl();
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState<boolean>(false);
-  const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState<boolean>(false);
+export const actionCell = (
+  user: CommunityMember,
+  community: CommunityMembersPageCommunityFragmentType,
+  hasPlatformAdmin: boolean,
+  intl: IntlShape,
+) => {
   return (
     <>
       <DropdownMenu.Root>
@@ -67,38 +58,18 @@ export const ActionCell = ({
           />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
-          <DropdownMenu.Item onSelect={() => setIsEditDialogOpen(true)}>
-            {intl.formatMessage({
-              defaultMessage: "Edit community roles",
-              id: "PsGkXc",
-              description:
-                "Label for the form to edit a users community membership",
-            })}
-          </DropdownMenu.Item>
-          <DropdownMenu.Item onSelect={() => setIsRemoveDialogOpen(true)}>
-            {intl.formatMessage({
-              defaultMessage: "Remove member",
-              id: "wsKhRd",
-              description:
-                "Label for the dialog to remove a users community membership",
-            })}
-          </DropdownMenu.Item>
+          <EditCommunityMemberDialog
+            user={user}
+            community={community}
+            hasPlatformAdmin={hasPlatformAdmin}
+          />
+          <RemoveCommunityMemberDialog
+            user={user}
+            community={community}
+            hasPlatformAdmin={hasPlatformAdmin}
+          />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-      <EditCommunityMemberDialog
-        user={user}
-        community={community}
-        hasPlatformAdmin={hasPlatformAdmin}
-        isOpen={isEditDialogOpen}
-        setIsOpen={setIsEditDialogOpen}
-      />
-      <RemoveCommunityMemberDialog
-        user={user}
-        community={community}
-        hasPlatformAdmin={hasPlatformAdmin}
-        isOpen={isRemoveDialogOpen}
-        setIsOpen={setIsRemoveDialogOpen}
-      />
     </>
   );
 };

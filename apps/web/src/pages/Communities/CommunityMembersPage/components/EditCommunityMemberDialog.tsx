@@ -1,9 +1,15 @@
+import {
+  useState,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+} from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { useOutletContext } from "react-router-dom";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -25,26 +31,23 @@ import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 
-interface EditCommunityMemberDialogProps {
+type EditCommunityMemberDialogProps = ComponentPropsWithoutRef<
+  typeof DropdownMenu.Item
+> & {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-}
+};
 
-const EditCommunityMemberDialog = ({
-  user,
-  community,
-  hasPlatformAdmin,
-  isOpen,
-  setIsOpen,
-}: EditCommunityMemberDialogProps) => {
+const EditCommunityMemberDialog = forwardRef<
+  ElementRef<typeof DropdownMenu.Item>,
+  EditCommunityMemberDialogProps
+>(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserCommunityRoles_Mutation);
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const initialRolesIds = user.roles.map((role) => role.id);
 
   const methods = useForm<CommunityMemberFormValues>({
@@ -120,6 +123,23 @@ const EditCommunityMemberDialog = ({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger>
+        <DropdownMenu.Item
+          ref={forwardedRef}
+          onSelect={(event) => {
+            event.preventDefault();
+            onSelect?.(event);
+          }}
+          {...rest}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Edit community roles",
+            id: "PsGkXc",
+            description:
+              "Label for the form to edit a users community membership",
+          })}
+        </DropdownMenu.Item>
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage(
@@ -198,6 +218,6 @@ const EditCommunityMemberDialog = ({
       </Dialog.Content>
     </Dialog.Root>
   );
-};
+});
 
 export default EditCommunityMemberDialog;
