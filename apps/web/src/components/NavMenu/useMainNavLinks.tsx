@@ -53,7 +53,6 @@ const NavItem = ({
 const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const permissions = permissionConstants();
   const isSmallScreen = useIsSmallScreen(1080);
 
   const { navRole } = useNavContext();
@@ -78,7 +77,7 @@ const useMainNavLinks = () => {
     />
   );
 
-  const ViewUsers = hasRole(permissions.viewUsers, roleAssignments) ? (
+  const ViewUsers = hasRole(permissionConstants.viewUsers, roleAssignments) ? (
     <NavItem
       key="viewUsers"
       href={paths.userTable()}
@@ -127,7 +126,10 @@ const useMainNavLinks = () => {
     />
   );
 
-  const Processes = hasRole(permissions.viewProcesses, roleAssignments) ? (
+  const Processes = hasRole(
+    permissionConstants.viewProcesses,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="adminProcesses"
       href={paths.poolTable()}
@@ -135,7 +137,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Requests = hasRole(permissions.viewRequests, roleAssignments) ? (
+  const Requests = hasRole(
+    permissionConstants.viewRequests,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="requests"
       href={paths.searchRequestTable()}
@@ -143,7 +148,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Candidates = hasRole(permissions.viewCandidates, roleAssignments) ? (
+  const Candidates = hasRole(
+    permissionConstants.viewCandidates,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="candidates"
       href={paths.poolCandidates()}

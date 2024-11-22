@@ -102,17 +102,17 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(navigationMessages.candidates),
       href: adminRoutes.poolCandidates(),
-      roles: permissionConstants().viewCandidates,
+      roles: permissionConstants.viewCandidates,
     },
     {
       label: intl.formatMessage(navigationMessages.processes),
       href: adminRoutes.poolTable(),
-      roles: permissionConstants().viewProcesses,
+      roles: permissionConstants.viewProcesses,
     },
     {
       label: intl.formatMessage(pageTitles.talentRequests),
       href: adminRoutes.searchRequestTable(),
-      roles: permissionConstants().viewRequests,
+      roles: permissionConstants.viewRequests,
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
@@ -191,7 +191,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(navigationMessages.users),
       href: adminRoutes.userTable(),
-      roles: permissionConstants().viewUsers,
+      roles: permissionConstants.viewUsers,
     },
     {
       label: intl.formatMessage(pageTitles.communities),
