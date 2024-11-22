@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useWatch } from "react-hook-form";
 
 import {
   DATE_SEGMENT,
@@ -10,8 +11,10 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { currentDate } from "@gc-digital-talent/date-helpers";
 
 import formLabels from "../formLabels";
+import { FormValues } from "../apiUtils";
 
 export const TrainingOpportunityFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment TrainingOpportunityFormOptions on Query {
@@ -42,6 +45,7 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
     TrainingOpportunityFormOptions_Fragment,
     query,
   );
+  const startDate = useWatch<FormValues>({ name: "trainingStartDate" });
   return (
     <div
       data-h2-display="base(grid)"
@@ -102,6 +106,10 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
         rules={{
           required: intl.formatMessage(errorMessages.required),
+          min: {
+            value: currentDate(),
+            message: intl.formatMessage(errorMessages.futureDate),
+          },
         }}
       />
       <div data-h2-display="base(none) p-tablet(inherit)">
@@ -114,6 +122,10 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
         rules={{
           required: intl.formatMessage(errorMessages.required),
+          min: {
+            value: currentDate(),
+            message: intl.formatMessage(errorMessages.futureDate),
+          },
         }}
       />
       <DateInput
@@ -121,6 +133,16 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         legend={intl.formatMessage(formLabels.trainingEndDate)}
         name="trainingEndDate"
         show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+        rules={{
+          min: {
+            value: String(startDate),
+            message: String(
+              intl.formatMessage(errorMessages.mustBeGreater, {
+                value: startDate,
+              }),
+            ),
+          },
+        }}
       />
       <RichTextInput
         id="descriptionEn"
