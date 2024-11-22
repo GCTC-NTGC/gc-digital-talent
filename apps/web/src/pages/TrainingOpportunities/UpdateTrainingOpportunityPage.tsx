@@ -44,7 +44,7 @@ import {
 } from "./apiUtils";
 import TrainingEventForm, {
   TrainingEventFormOptions_Fragment,
-} from "./components/TrainingEventForm";
+} from "./components/TrainingOpportunityForm";
 
 interface UpdateTrainingEventFormProps {
   trainingOpportunityQuery: FragmentType<typeof TrainingEventForm_Fragment>;

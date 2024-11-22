@@ -33,7 +33,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { convertFormValuesToCreateInput, FormValues } from "./apiUtils";
 import TrainingEventForm, {
   TrainingEventFormOptions_Fragment,
-} from "./components/TrainingEventForm";
+} from "./components/TrainingOpportunityForm";
 
 interface CreateTrainingEventFormProps {
   handleCreateTrainingEvent: (
