@@ -137,9 +137,9 @@ export const UpdateClassificationForm = ({
       id: classification.id,
       classification: input,
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.updateClassification) {
-          navigate(paths.classificationView(classification.id));
+          await navigate(paths.classificationView(classification.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Classification updated successfully!",

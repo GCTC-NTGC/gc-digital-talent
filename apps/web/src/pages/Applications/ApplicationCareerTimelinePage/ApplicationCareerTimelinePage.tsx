@@ -212,7 +212,7 @@ export const ApplicationCareerTimeline = ({
         insertSubmittedStep: ApplicationStep.ReviewYourResume,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -222,7 +222,7 @@ export const ApplicationCareerTimeline = ({
                 "Message displayed to users when saving career timeline is successful.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {

@@ -616,7 +616,7 @@ const EmployeeInformation = () => {
       return;
     }
     await handleUpdateEmployee(meId, input)
-      .then(() => {
+      .then(async () => {
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully updated.",
@@ -627,9 +627,9 @@ const EmployeeInformation = () => {
         );
         if (skipVerification) {
           const navigationTarget = from ?? paths.profileAndApplications();
-          navigate(navigationTarget);
+          await navigate(navigationTarget);
         } else {
-          navigate({
+          await navigate({
             pathname: paths.workEmailVerification(),
             search: from ? createSearchParams({ from }).toString() : "",
           });

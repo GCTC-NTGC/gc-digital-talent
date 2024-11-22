@@ -27,9 +27,9 @@ const NotificationLink = forwardRef<
     event.stopPropagation();
 
     markAsRead()
-      .then(() => {
+      .then(async () => {
         onRead?.();
-        navigate(href);
+        await navigate(href);
       })
       .catch((err) => logger.error(String(err)));
   };

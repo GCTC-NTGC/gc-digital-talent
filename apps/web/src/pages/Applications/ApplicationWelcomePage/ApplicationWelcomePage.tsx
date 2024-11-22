@@ -89,9 +89,9 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         insertSubmittedStep: ApplicationStep.Welcome,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.data) {
-          navigate(nextStepPath);
+          await navigate(nextStepPath);
         }
       })
       .catch(() => {

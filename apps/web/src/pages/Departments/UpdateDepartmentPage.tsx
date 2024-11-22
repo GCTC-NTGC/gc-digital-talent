@@ -81,8 +81,8 @@ export const UpdateDepartmentForm = ({
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
-      .then(() => {
-        navigate(paths.departmentView(initialDepartment.id));
+      .then(async () => {
+        await navigate(paths.departmentView(initialDepartment.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",

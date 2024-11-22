@@ -105,8 +105,8 @@ export const CreateSkillForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleCreateSkill(formValuesToSubmitData(values))
-      .then((id) => {
-        navigate(paths.skillView(id));
+      .then(async (id) => {
+        await navigate(paths.skillView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill created successfully!",

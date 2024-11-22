@@ -113,7 +113,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   // that has not been submitted yet, or the last step
   useEffect(() => {
     if (empty(currentPage)) {
-      navigate(nextStepToSubmit.mainPage.link.url, {
+      void navigate(nextStepToSubmit.mainPage.link.url, {
         replace: true,
       });
     }

@@ -352,7 +352,7 @@ export const UpdateUserSkillForm = ({
   );
   const mutating = creating || updating || deleting;
 
-  const handleSuccess = (msg?: ReactNode) => {
+  const handleSuccess = async (msg?: ReactNode) => {
     toast.success(
       msg ??
         intl.formatMessage({
@@ -361,7 +361,7 @@ export const UpdateUserSkillForm = ({
           description: "Message displayed when a user updates a skill",
         }),
     );
-    navigate(returnPath);
+    await navigate(returnPath);
   };
 
   const handleError = (msg?: ReactNode) => {

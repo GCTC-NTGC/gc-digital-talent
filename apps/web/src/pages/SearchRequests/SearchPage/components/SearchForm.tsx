@@ -78,10 +78,10 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
     return () => subscription.unsubscribe();
   }, [classifications, watch]);
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = async (values: FormValues) => {
     const poolIds = values.pool ? [{ id: values.pool }] : [];
 
-    navigate(paths.request(), {
+    await navigate(paths.request(), {
       state: {
         applicantFilter: {
           ...applicantFilter,

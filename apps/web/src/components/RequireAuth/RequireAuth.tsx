@@ -51,7 +51,7 @@ const RequireAuth = ({
       loginSearchParams.append("from", location.pathname);
       const personality = searchParams.get("personality");
       if (personality) loginSearchParams.append("personality", personality);
-      navigate(
+      void navigate(
         {
           pathname: loginRedirectPath,
           search: loginSearchParams.toString(),

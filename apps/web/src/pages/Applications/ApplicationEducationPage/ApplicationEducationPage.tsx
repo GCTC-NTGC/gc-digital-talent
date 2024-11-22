@@ -171,7 +171,7 @@ const ApplicationEducation = ({
           }),
         },
       })
-        .then((res) => {
+        .then(async (res) => {
           if (!res.error) {
             toast.success(
               intl.formatMessage({
@@ -182,7 +182,9 @@ const ApplicationEducation = ({
                   "Message displayed to users when saving education requirement is successful.",
               }),
             );
-            navigate(formValues.action === "continue" ? nextStep : cancelPath);
+            await navigate(
+              formValues.action === "continue" ? nextStep : cancelPath,
+            );
           }
         })
         .catch(() => {

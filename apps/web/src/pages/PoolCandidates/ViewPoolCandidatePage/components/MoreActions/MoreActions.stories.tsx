@@ -34,7 +34,7 @@ const ReactRouterDecorator: Decorator<Args> = (Story) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(".", {
+    void navigate(".", {
       state: {
         candidateIds: poolCandidates.map((poolCandidate) => poolCandidate.id),
         stepName: "Step 1: Application screening",

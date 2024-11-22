@@ -55,8 +55,8 @@ const Display = ({
   const navigate = useNavigate();
   const routes = useRoutes();
 
-  const handleVerifyNowClick = () => {
-    navigate(
+  const handleVerifyNowClick = async () => {
+    await navigate(
       routes.verifyContactEmail({
         emailAddress: email,
       }),

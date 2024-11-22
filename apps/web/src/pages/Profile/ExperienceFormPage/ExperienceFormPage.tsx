@@ -259,7 +259,7 @@ export const ExperienceForm = ({
   const [type, action] = watch(["experienceType", "action"]);
   const actionProps = register("action");
 
-  const handleSuccess = () => {
+  const handleSuccess = async () => {
     toast.success(
       edit
         ? intl.formatMessage({
@@ -277,7 +277,7 @@ export const ExperienceForm = ({
     );
 
     if (action !== "add-another") {
-      navigate(returnPath);
+      await navigate(returnPath);
     }
   };
 
@@ -299,11 +299,11 @@ export const ExperienceForm = ({
     );
   };
 
-  const handleMutationResponse = (res: ExperienceMutationResponse) => {
+  const handleMutationResponse = async (res: ExperienceMutationResponse) => {
     if (res.error) {
       handleError();
     } else {
-      handleSuccess();
+      await handleSuccess();
     }
   };
 
@@ -318,8 +318,8 @@ export const ExperienceForm = ({
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
       return res
-        .then((mutationResponse) => {
-          handleMutationResponse(mutationResponse);
+        .then(async (mutationResponse) => {
+          await handleMutationResponse(mutationResponse);
         })
         .catch(handleError);
     }
@@ -337,8 +337,8 @@ export const ExperienceForm = ({
       executeDeletionMutation({
         id: experienceIdExact,
       })
-        .then((result) => {
-          navigate(returnPath);
+        .then(async (result) => {
+          await navigate(returnPath);
           toast.success(
             intl.formatMessage({
               defaultMessage: "Experience Deleted",

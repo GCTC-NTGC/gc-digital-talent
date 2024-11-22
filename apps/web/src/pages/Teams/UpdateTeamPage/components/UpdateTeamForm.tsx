@@ -104,8 +104,8 @@ const UpdateTeamForm = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(team.id, formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
+      .then(async () => {
+        await navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Team updated successfully!",

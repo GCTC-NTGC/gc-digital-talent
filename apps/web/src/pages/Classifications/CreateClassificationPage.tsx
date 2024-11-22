@@ -80,9 +80,9 @@ export const CreateClassification = () => {
       maxSalary: Number(data.maxSalary),
     };
     return executeMutation({ classification })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createClassification) {
-          navigate(
+          await navigate(
             paths.classificationView(result.data.createClassification.id),
           );
           toast.success(

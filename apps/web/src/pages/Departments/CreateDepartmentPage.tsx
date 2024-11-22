@@ -45,8 +45,8 @@ export const CreateDepartmentForm = ({
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
-      .then((id) => {
-        navigate(paths.departmentView(id));
+      .then(async (id) => {
+        await navigate(paths.departmentView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department created successfully!",

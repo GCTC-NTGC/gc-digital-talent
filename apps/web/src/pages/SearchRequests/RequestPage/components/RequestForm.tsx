@@ -343,10 +343,10 @@ export const RequestForm = ({
       initialResultCount: candidateCount,
     };
     return handleCreatePoolCandidateSearchRequest(submitData)
-      .then((res) => {
+      .then(async (res) => {
         if (res) {
           removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
-          navigate(paths.requestConfirmation(res.id));
+          await navigate(paths.requestConfirmation(res.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Request created successfully!",

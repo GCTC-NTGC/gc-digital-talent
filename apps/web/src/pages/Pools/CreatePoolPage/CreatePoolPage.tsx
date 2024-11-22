@@ -130,9 +130,9 @@ export const CreatePoolForm = ({
       data.community,
       formValuesToSubmitData(data),
     )
-      .then((result) => {
+      .then(async (result) => {
         if (result) {
-          navigate(paths.poolUpdate(result.id));
+          await navigate(paths.poolUpdate(result.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Recruitment process created successfully!",

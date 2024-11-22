@@ -461,14 +461,14 @@ const GettingStarted = () => {
   useEffect(() => {
     if (shouldNavigate) {
       if (verifyEmail) {
-        navigate({
+        void navigate({
           pathname: paths.emailVerification(),
           search: from
             ? createSearchParams({ from, emailAddress: email }).toString()
             : "",
         });
       } else {
-        navigate({
+        void navigate({
           pathname: paths.employeeInformation(),
           search: from ? createSearchParams({ from }).toString() : "",
         });

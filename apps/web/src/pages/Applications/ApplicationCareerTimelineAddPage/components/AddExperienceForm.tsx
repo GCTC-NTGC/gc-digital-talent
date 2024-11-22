@@ -68,7 +68,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     const args = getMutationArgs(userAuthInfo?.id ?? "", submitData);
     if (executeMutation) {
       executeMutation(args)
-        .then((res) => {
+        .then(async (res) => {
           if (!isSuccessfulCreate(res)) {
             toast.error(
               intl.formatMessage({
@@ -90,7 +90,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
               }),
             );
             if (formValues.action !== "add-another") {
-              navigate(paths.applicationCareerTimeline(applicationId));
+              await navigate(paths.applicationCareerTimeline(applicationId));
             }
           }
         })

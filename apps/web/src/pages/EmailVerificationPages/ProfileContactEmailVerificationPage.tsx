@@ -45,12 +45,12 @@ const ProfileContactEmailVerificationPage = () => {
     ],
   });
 
-  const handleVerificationSuccess = (): void => {
-    navigate(paths.profile());
+  const handleVerificationSuccess = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
-  const handleSkip = (): void => {
-    navigate(paths.profile());
+  const handleSkip = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
   return (

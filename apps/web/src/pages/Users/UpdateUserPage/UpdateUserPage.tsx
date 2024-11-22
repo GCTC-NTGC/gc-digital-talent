@@ -155,8 +155,8 @@ export const UpdateUserForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     await handleUpdateUser(initialUser.id, formValuesToSubmitData(values))
-      .then(() => {
-        navigate(navigateTo);
+      .then(async () => {
+        await navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",

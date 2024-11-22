@@ -60,8 +60,8 @@ const Display = ({
         description: "affirm no entitlement",
       });
 
-  const handleVerifyNowClick = () => {
-    navigate(routes.verifyWorkEmail());
+  const handleVerifyNowClick = async () => {
+    await navigate(routes.verifyWorkEmail());
   };
 
   const emailVerificationComponents = isWorkEmailVerified ? (

@@ -180,7 +180,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
     questionnaire: DigitalContractingQuestionnaireInput,
   ) => {
     await executeMutation({ questionnaire })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createDigitalContractingQuestionnaire?.id) {
           toast.success(
             intl.formatMessage({
@@ -190,7 +190,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
                 "Message displayed to user if the questionnaire was saved successfully.",
             }),
           );
-          navigate(paths.directive());
+          await navigate(paths.directive());
         } else {
           toastError();
         }

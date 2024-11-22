@@ -59,8 +59,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
+      .then(async () => {
+        await navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Community created successfully!",

@@ -218,9 +218,9 @@ export const UpdateSkillFamily = ({
         skills: skillsInput,
       }),
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.updateSkillFamily) {
-          navigate(paths.skillFamilyView(skillFamily.id));
+          await navigate(paths.skillFamilyView(skillFamily.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Skill family updated successfully!",

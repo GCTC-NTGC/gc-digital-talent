@@ -185,8 +185,8 @@ export const UpdateSkillForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(values))
-      .then(() => {
-        navigate(paths.skillView(initialSkill.id));
+      .then(async () => {
+        await navigate(paths.skillView(initialSkill.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill updated successfully!",
