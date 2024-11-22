@@ -17,6 +17,7 @@ import {
   getFragment,
   graphql,
   Scalars,
+  ViewTrainingEventPageQuery,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
@@ -156,31 +157,19 @@ interface RouteParams extends Record<string, string> {
   trainingEventId: Scalars["ID"]["output"];
 }
 
-const ViewTrainingEventPage_Query = graphql(/* GraphQL */ `
-  query ViewTrainingEventPage($id: UUID!) {
-    trainingOpportunity(id: $id) {
-      title {
-        en
-        fr
-      }
-      ...TrainingEventView
-    }
-  }
-`);
+interface ViewTrainingEventPageProps {
+  trainingOpportunity: NonNullable<
+    ViewTrainingEventPageQuery["trainingOpportunity"]
+  >;
+}
 
-const ViewTrainingEventPage = () => {
+const ViewTrainingEventPage = ({
+  trainingOpportunity,
+}: ViewTrainingEventPageProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
-  const [{ data, fetching, error }] = useQuery({
-    query: ViewTrainingEventPage_Query,
-    variables: { id: trainingEventId },
-  });
-
-  const trainingEventName = getLocalizedName(
-    data?.trainingOpportunity?.title,
-    intl,
-  );
+  const trainingEventName = getLocalizedName(trainingOpportunity.title, intl);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -210,46 +199,65 @@ const ViewTrainingEventPage = () => {
     <>
       <SEO title={trainingEventName} />
       <Hero
-        title={
-          fetching
-            ? intl.formatMessage(commonMessages.loading)
-            : trainingEventName
-        }
+        title={trainingEventName}
         crumbs={navigationCrumbs}
         navTabs={navTabs}
       />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x3, 0)">
-          <Pending fetching={fetching} error={error}>
-            {data?.trainingOpportunity ? (
-              <ViewTrainingEventForm query={data.trainingOpportunity} />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Event {trainingEventId} not found.",
-                      id: "z1otyE",
-                      description:
-                        "Message displayed for training event not found.",
-                    },
-                    { trainingEventId },
-                  )}
-                </p>
-              </NotFound>
-            )}
-          </Pending>
+          <ViewTrainingEventForm query={trainingOpportunity} />
         </div>
       </div>
     </>
   );
 };
 
+const ViewTrainingEventPage_Query = graphql(/* GraphQL */ `
+  query ViewTrainingEventPage($id: UUID!) {
+    trainingOpportunity(id: $id) {
+      title {
+        en
+        fr
+      }
+      ...TrainingEventView
+    }
+  }
+`);
+
+// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
+const ViewTrainingEventPageApiWrapper = () => {
+  const intl = useIntl();
+  const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewTrainingEventPage_Query,
+    variables: { id: trainingEventId },
+  });
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.trainingOpportunity ? (
+        <ViewTrainingEventPage trainingOpportunity={data.trainingOpportunity} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Event {trainingEventId} not found.",
+                id: "z1otyE",
+                description: "Message displayed for training event not found.",
+              },
+              { trainingEventId },
+            )}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
+  );
+};
+
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <ViewTrainingEventPage />
+    <ViewTrainingEventPageApiWrapper />
   </RequireAuth>
 );
 
