@@ -49,7 +49,7 @@ const INITIAL_STATE: InitialState = {
 
 const defaultState = {
   ...INITIAL_STATE,
-  sortState: [{ id: "title", desc: false }],
+  sortState: [{ id: "name", desc: false }],
   filters: {},
 };
 
