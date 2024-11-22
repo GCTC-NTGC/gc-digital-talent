@@ -16,14 +16,7 @@ const Providers = ({ children }: ProvidersProps) => {
   return (
     <HelmetProvider>
       <IntlProvider locale="en" defaultRichTextElements={richTextElements}>
-        <BrowserRouter
-          future={{
-            v7_relativeSplatPath: true,
-            v7_startTransition: true,
-          }}
-        >
-          {children}
-        </BrowserRouter>
+        <BrowserRouter>{children}</BrowserRouter>
       </IntlProvider>
     </HelmetProvider>
   );
