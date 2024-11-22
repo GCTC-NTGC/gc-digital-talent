@@ -21,10 +21,10 @@ const formLabels = defineMessages({
     id: "yWen8A",
     description: "The format of the training opportunity",
   },
-  registrationDeadline: {
-    defaultMessage: "Registration deadline",
-    id: "PWgU8s",
-    description: "The registration deadline of the training opportunity",
+  applicationDeadline: {
+    defaultMessage: "Application deadline",
+    id: "FO0HTu",
+    description: "The application deadline of the training opportunity",
   },
   trainingStartDate: {
     defaultMessage: "Training start date",

@@ -61,7 +61,7 @@ function transformSortStateToOrderByClause(
     ["name", `title->${locale}`],
     ["language", "course_language"],
     ["status", "registration_deadline"], // deadline status is not a real column, but storting by deadline achieves the same thing
-    ["registrationDeadline", "registration_deadline"],
+    ["applicationDeadline", "registration_deadline"],
     ["trainingStartDate", "training_start"],
     ["trainingEndDate", "training_end"],
   ]);
@@ -230,8 +230,8 @@ const TrainingOpportunitiesTable = ({
     columnHelper.accessor(
       (opportunity) => (opportunity.registrationDeadline, intl),
       {
-        id: "registrationDeadline",
-        header: intl.formatMessage(formLabels.registrationDeadline),
+        id: "applicationDeadline",
+        header: intl.formatMessage(formLabels.applicationDeadline),
         cell: ({ row: { original: opportunity } }) =>
           opportunity.registrationDeadline,
       },

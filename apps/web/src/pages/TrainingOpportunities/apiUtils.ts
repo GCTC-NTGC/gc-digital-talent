@@ -46,9 +46,9 @@ export interface FormValues {
   titleFr: string;
   courseLanguage: string;
   courseFormat: string;
-  registrationDeadline: string;
-  trainingStart: string;
-  trainingEnd: string;
+  applicationDeadline: string;
+  trainingStartDate: string;
+  trainingEndDate: string;
   descriptionEn: string;
   descriptionFr: string;
   applicationUrlEn: string;
@@ -63,9 +63,9 @@ export function convertApiFragmentToFormValues(
     titleFr: apiData.title?.fr ?? "",
     courseLanguage: apiData.courseLanguage?.value ?? "",
     courseFormat: apiData.courseFormat?.value ?? "",
-    registrationDeadline: apiData.registrationDeadline ?? "",
-    trainingStart: apiData.trainingStart ?? "",
-    trainingEnd: apiData.trainingEnd ?? "",
+    applicationDeadline: apiData.registrationDeadline ?? "",
+    trainingStartDate: apiData.trainingStart ?? "",
+    trainingEndDate: apiData.trainingEnd ?? "",
     descriptionEn: apiData.description?.en ?? "",
     descriptionFr: apiData.description?.fr ?? "",
     applicationUrlEn: apiData.applicationUrl?.en ?? "",
@@ -83,9 +83,9 @@ export function convertFormValuesToCreateInput(
     },
     courseLanguage: formValues.courseLanguage as CourseLanguage,
     courseFormat: formValues.courseFormat as CourseFormat,
-    registrationDeadline: formValues.registrationDeadline,
-    trainingStart: formValues.trainingStart,
-    trainingEnd: formValues.trainingEnd,
+    registrationDeadline: formValues.applicationDeadline,
+    trainingStart: formValues.trainingStartDate,
+    trainingEnd: formValues.trainingEndDate,
     description: {
       en: formValues.descriptionEn,
       fr: formValues.descriptionFr,

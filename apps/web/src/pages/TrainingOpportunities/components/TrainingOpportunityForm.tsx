@@ -96,9 +96,9 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         options={localizedEnumToOptions(courseFormats, intl)}
       />
       <DateInput
-        id="registrationDeadline"
-        legend={intl.formatMessage(formLabels.registrationDeadline)}
-        name="registrationDeadline"
+        id="applicationDeadline"
+        legend={intl.formatMessage(formLabels.applicationDeadline)}
+        name="applicationDeadline"
         show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -108,18 +108,18 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         {/* intentionally left blank */}
       </div>
       <DateInput
-        id="trainingStart"
+        id="trainingStartDate"
         legend={intl.formatMessage(formLabels.trainingStartDate)}
-        name="trainingStart"
+        name="trainingStartDate"
         show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
       />
       <DateInput
-        id="trainingEnd"
+        id="trainingEndDate"
         legend={intl.formatMessage(formLabels.trainingEndDate)}
-        name="trainingEnd"
+        name="trainingEndDate"
         show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
       />
       <RichTextInput

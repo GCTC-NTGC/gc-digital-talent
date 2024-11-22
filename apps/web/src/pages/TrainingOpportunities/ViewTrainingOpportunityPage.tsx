@@ -96,7 +96,7 @@ export const ViewTrainingOpportunityForm = ({
             {getLocalizedName(trainingOpportunity.courseFormat?.label, intl)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage(formLabels.registrationDeadline)}
+            label={intl.formatMessage(formLabels.applicationDeadline)}
           >
             {trainingOpportunity.registrationDeadline}
           </FieldDisplay>
