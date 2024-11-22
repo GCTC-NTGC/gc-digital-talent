@@ -18,4 +18,5 @@ return [
     'present' => 'Aujourd’hui',
     'at' => 'à',
     'not_provided' => 'Renseignements manquants',
+    'not_sure' => 'Pas certain',
 ];

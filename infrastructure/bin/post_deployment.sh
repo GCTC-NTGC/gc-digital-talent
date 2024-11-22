@@ -48,7 +48,7 @@ if
     mkdir --parents /tmp/bootstrap/cache /tmp/api/storage/framework/cache/data && \
     chown www-data:www-data /tmp/bootstrap/cache && \
     chown -R www-data:www-data /tmp/api/storage && \
-    php artisan config:cache ;
+    php artisan optimize;
 then
     add_section_block ":white_check_mark: Laravel cache setup *successful*."
 else

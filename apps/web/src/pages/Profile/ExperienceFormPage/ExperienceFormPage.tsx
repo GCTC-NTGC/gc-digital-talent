@@ -133,9 +133,6 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormExperience on Experience {
     id
     details
-    user {
-      id
-    }
     skills {
       id
       key
