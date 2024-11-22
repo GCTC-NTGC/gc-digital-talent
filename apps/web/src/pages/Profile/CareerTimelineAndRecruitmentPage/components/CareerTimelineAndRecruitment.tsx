@@ -43,10 +43,6 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineExperience on Experience {
     id
     details
-    user {
-      id
-      email
-    }
     skills {
       id
       key
