@@ -21,7 +21,6 @@ import {
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
-  LocalizedEnumString,
   Scalars,
   UpdateTrainingOpportunityInput,
   getFragment,
@@ -43,22 +42,22 @@ import {
   convertApiFragmentToFormValues,
   convertFormValuesToUpdateInput,
 } from "./apiUtils";
-import TrainingEventForm from "./components/TrainingEventForm";
+import TrainingEventForm, {
+  TrainingEventFormOptions_Fragment,
+} from "./components/TrainingEventForm";
 
 interface UpdateTrainingEventFormProps {
-  query: FragmentType<typeof TrainingEventForm_Fragment>;
+  trainingOpportunityQuery: FragmentType<typeof TrainingEventForm_Fragment>;
   handleUpdateTrainingEvent: (
     input: UpdateTrainingOpportunityInput,
   ) => Promise<FragmentType<typeof TrainingEventForm_Fragment>>;
-  courseLanguages: LocalizedEnumString[];
-  courseFormats: LocalizedEnumString[];
+  formOptionsQuery: FragmentType<typeof TrainingEventFormOptions_Fragment>;
 }
 
 const UpdateTrainingEventForm = ({
-  query,
+  trainingOpportunityQuery,
   handleUpdateTrainingEvent,
-  courseLanguages,
-  courseFormats,
+  formOptionsQuery,
 }: UpdateTrainingEventFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -66,7 +65,7 @@ const UpdateTrainingEventForm = ({
   const { trainingEventId } = useRequiredParams<RouteParams>("trainingEventId");
   const initialTrainingOpportunity = getFragment(
     TrainingEventForm_Fragment,
-    query,
+    trainingOpportunityQuery,
   );
   const methods = useForm<FormValues>({
     defaultValues: convertApiFragmentToFormValues(initialTrainingOpportunity),
@@ -124,10 +123,7 @@ const UpdateTrainingEventForm = ({
               })}
             </Heading>
           </div>
-          <TrainingEventForm
-            courseLanguages={courseLanguages}
-            courseFormats={courseFormats}
-          />
+          <TrainingEventForm query={formOptionsQuery} />
           <CardSeparator />
           <div
             data-h2-display="base(flex)"
@@ -163,20 +159,7 @@ const UpdateTrainingEventPage_Query = graphql(/* GraphQL */ `
       }
       ...TrainingEventView
     }
-    courseLanguages: localizedEnumStrings(enumName: "CourseLanguage") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    courseFormats: localizedEnumStrings(enumName: "CourseFormat") {
-      value
-      label {
-        en
-        fr
-      }
-    }
+    ...TrainingEventFormOptions
   }
 `);
 
@@ -246,14 +229,11 @@ const UpdateTrainingEventPage = () => {
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
-            {data?.trainingOpportunity &&
-            data?.courseLanguages &&
-            data?.courseFormats ? (
+            {data?.trainingOpportunity ? (
               <UpdateTrainingEventForm
-                query={data.trainingOpportunity}
+                trainingOpportunityQuery={data.trainingOpportunity}
                 handleUpdateTrainingEvent={handleUpdateTrainingEvent}
-                courseLanguages={data.courseLanguages}
-                courseFormats={data.courseFormats}
+                formOptionsQuery={data}
               />
             ) : (
               <NotFound

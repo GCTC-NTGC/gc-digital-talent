@@ -9,20 +9,39 @@ import {
   Select,
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { LocalizedEnumString } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import formLabels from "../formLabels";
 
+export const TrainingEventFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TrainingEventFormOptions on Query {
+    courseLanguages: localizedEnumStrings(enumName: "CourseLanguage") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    courseFormats: localizedEnumStrings(enumName: "CourseFormat") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface TrainingEventFormProps {
-  courseLanguages: LocalizedEnumString[];
-  courseFormats: LocalizedEnumString[];
+  query: FragmentType<typeof TrainingEventFormOptions_Fragment>;
 }
 
-const TrainingEventForm = ({
-  courseLanguages,
-  courseFormats,
-}: TrainingEventFormProps) => {
+const TrainingEventForm = ({ query }: TrainingEventFormProps) => {
   const intl = useIntl();
+  const { courseLanguages, courseFormats } = getFragment(
+    TrainingEventFormOptions_Fragment,
+    query,
+  );
   return (
     <div
       data-h2-display="base(grid)"

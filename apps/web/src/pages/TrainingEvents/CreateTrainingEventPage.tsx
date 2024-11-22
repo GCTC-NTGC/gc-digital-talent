@@ -7,8 +7,8 @@ import { useMutation, useQuery } from "urql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   CreateTrainingOpportunityInput,
+  FragmentType,
   graphql,
-  LocalizedEnumString,
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -31,20 +31,20 @@ import pageTitles from "~/messages/pageTitles";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { convertFormValuesToCreateInput, FormValues } from "./apiUtils";
-import TrainingEventForm from "./components/TrainingEventForm";
+import TrainingEventForm, {
+  TrainingEventFormOptions_Fragment,
+} from "./components/TrainingEventForm";
 
 interface CreateTrainingEventFormProps {
   handleCreateTrainingEvent: (
     input: CreateTrainingOpportunityInput,
   ) => Promise<Scalars["UUID"]["output"]>;
-  courseLanguages: LocalizedEnumString[];
-  courseFormats: LocalizedEnumString[];
+  formOptionsQuery: FragmentType<typeof TrainingEventFormOptions_Fragment>;
 }
 
 const CreateTrainingEventForm = ({
   handleCreateTrainingEvent,
-  courseLanguages,
-  courseFormats,
+  formOptionsQuery,
 }: CreateTrainingEventFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -101,10 +101,7 @@ const CreateTrainingEventForm = ({
               })}
             </Heading>
           </div>
-          <TrainingEventForm
-            courseLanguages={courseLanguages}
-            courseFormats={courseFormats}
-          />
+          <TrainingEventForm query={formOptionsQuery} />
           <CardSeparator />
           <div
             data-h2-display="base(flex)"
@@ -139,20 +136,7 @@ const CreateTrainingEventForm = ({
 
 const CreateTrainingEventPage_Query = graphql(/* GraphQL */ `
   query CreateTrainingEventPage {
-    courseLanguages: localizedEnumStrings(enumName: "CourseLanguage") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    courseFormats: localizedEnumStrings(enumName: "CourseFormat") {
-      value
-      label {
-        en
-        fr
-      }
-    }
+    ...TrainingEventFormOptions
   }
 `);
 
@@ -209,11 +193,10 @@ const CreateTrainingEventPage = () => {
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
-            {data?.courseLanguages && data?.courseFormats ? (
+            {data ? (
               <CreateTrainingEventForm
+                formOptionsQuery={data}
                 handleCreateTrainingEvent={handleCreateTrainingEvent}
-                courseLanguages={data.courseLanguages}
-                courseFormats={data.courseFormats}
               />
             ) : (
               <NotFound
