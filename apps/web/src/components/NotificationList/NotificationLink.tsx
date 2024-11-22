@@ -1,5 +1,5 @@
 import { ElementRef, forwardRef, MouseEventHandler, ReactNode } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
 import kebabCase from "lodash/kebabCase";

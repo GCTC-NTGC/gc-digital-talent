@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { IntlShape, useIntl } from "react-intl";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";

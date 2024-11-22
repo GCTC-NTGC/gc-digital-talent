@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button } from "@gc-digital-talent/ui";

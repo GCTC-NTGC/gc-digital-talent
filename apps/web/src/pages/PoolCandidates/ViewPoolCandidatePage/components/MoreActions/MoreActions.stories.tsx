@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Args, Decorator, Meta, StoryObj } from "@storybook/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import {
   fakeDepartments,

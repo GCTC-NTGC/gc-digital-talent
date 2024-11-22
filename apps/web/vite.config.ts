@@ -24,7 +24,7 @@ const meta = {
   image: `${appUrl}/images/digital-talent/banner.jpg`,
 };
 
-const getEnvVar = (key: string, fallback: string = `""`): string => {
+const getEnvVar = (key: string, fallback = `""`): string => {
   return process.env[key] ? JSON.stringify(process.env[key]) : fallback;
 };
 
@@ -87,7 +87,7 @@ export default defineConfig(({ command }) => ({
           framer: ["framer-motion"],
           graphql: ["@gc-digital-talent/graphql"],
           react: ["react", "react-dom"],
-          router: ["react-router", "react-router-dom"],
+          router: ["react-router", "react-router"],
           tiptap: [
             "@tiptap/react",
             "@tiptap/starter-kit",

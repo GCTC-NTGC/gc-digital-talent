@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
 import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import { LinkProps, NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";

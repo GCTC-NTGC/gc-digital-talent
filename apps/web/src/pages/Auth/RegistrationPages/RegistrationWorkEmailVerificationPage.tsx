@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";

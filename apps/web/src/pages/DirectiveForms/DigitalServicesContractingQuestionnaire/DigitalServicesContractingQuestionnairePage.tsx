@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";

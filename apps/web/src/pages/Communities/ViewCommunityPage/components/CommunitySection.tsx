@@ -1,6 +1,6 @@
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
 import {
   Community,

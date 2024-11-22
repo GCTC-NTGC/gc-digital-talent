@@ -4,7 +4,7 @@ import {
   ErrorResponse,
   isRouteErrorResponse,
   useRouteError,
-} from "react-router-dom";
+} from "react-router";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -54,7 +54,7 @@ const errorStatusMap: Record<string, number> = {
 };
 
 const useErrorMessages = (): ErrorWithMessages => {
-  const error = useRouteError() as Error | ErrorResponse;
+  const error = useRouteError();
   const intl = useIntl();
   const knownErrorMessages: Record<number, Omit<ErrorMessage, "error">> = {
     [401]: {

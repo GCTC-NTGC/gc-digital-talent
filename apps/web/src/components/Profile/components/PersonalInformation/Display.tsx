@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";

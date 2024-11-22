@@ -1,10 +1,5 @@
 import { useEffect } from "react";
-import {
-  Location,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Location, useLocation, useNavigate, useParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";

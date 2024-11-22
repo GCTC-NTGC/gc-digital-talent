@@ -4,7 +4,7 @@ import {
   Outlet,
   useLocation,
   useNavigate,
-} from "react-router-dom";
+} from "react-router";
 import { useQuery } from "urql";
 
 import { useAuthentication } from "@gc-digital-talent/auth";

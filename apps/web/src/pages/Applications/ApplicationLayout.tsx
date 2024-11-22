@@ -1,5 +1,5 @@
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router";
 import flatMap from "lodash/flatMap";
 import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";

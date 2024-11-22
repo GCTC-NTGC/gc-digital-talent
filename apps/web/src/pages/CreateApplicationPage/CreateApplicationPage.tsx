@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
 import { Loading } from "@gc-digital-talent/ui";

@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ReactNode, useEffect } from "react";
 
 import {

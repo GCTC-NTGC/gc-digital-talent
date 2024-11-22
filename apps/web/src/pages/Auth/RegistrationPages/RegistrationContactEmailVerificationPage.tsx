@@ -1,9 +1,5 @@
 import { useIntl } from "react-intl";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType } from "@gc-digital-talent/graphql";
