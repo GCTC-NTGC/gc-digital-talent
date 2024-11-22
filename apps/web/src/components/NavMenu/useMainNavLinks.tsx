@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
 import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
+import { useLocation } from "react-router-dom";
 
-import { getNavLinkStyling, NavMenu } from "@gc-digital-talent/ui";
+import { LinkProps, NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   hasRole,
@@ -11,14 +12,12 @@ import {
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
-import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
-import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
-import LogoutButton from "../Layout/LogoutButton";
 import navMenuMessages from "./messages";
 import useNavContext from "../NavContext/useNavContext";
 import {
@@ -27,19 +26,22 @@ import {
   NAV_ROLES_BY_PRIVILEGE,
 } from "../NavContext/NavContextContainer";
 
-const NavItem = ({
-  href,
-  title,
-  subMenu,
-  ...rest
-}: {
+interface NavItemProps {
   href: string;
   title: string;
   subMenu?: boolean;
-}) => {
+  state?: LinkProps["state"];
+}
+
+const NavItem = ({ href, title, subMenu, state, ...rest }: NavItemProps) => {
   return (
     <NavMenu.Item {...rest}>
-      <NavMenu.Link href={href} type={subMenu ? "subMenuLink" : "link"}>
+      <NavMenu.Link
+        type={subMenu ? "subMenuLink" : "link"}
+        // NOTE: Comes from react-router
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        {...{ state, href }}
+      >
         {title}
       </NavMenu.Link>
     </NavMenu.Item>
@@ -53,7 +55,7 @@ const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const permissions = permissionConstants();
-  const isSmallScreen = useIsSmallScreen(1080);
+  const { pathname } = useLocation();
 
   const { navRole } = useNavContext();
   const { userAuthInfo } = useAuthorization();
@@ -293,14 +295,14 @@ const useMainNavLinks = () => {
     />
   );
 
-  const logoutBtnStyling = getNavLinkStyling("subMenuLink", isSmallScreen);
-
   const SignOut = (
-    <SignOutConfirmation key="sign-out">
-      <LogoutButton {...logoutBtnStyling}>
-        {intl.formatMessage(authMessages.signOut)}
-      </LogoutButton>
-    </SignOutConfirmation>
+    <NavItem
+      key="signOut"
+      href={paths.loggedOut()}
+      title={intl.formatMessage(authMessages.signOut)}
+      state={{ from: pathname }}
+      subMenu
+    />
   );
 
   const getRoleName: Record<string, string> = {

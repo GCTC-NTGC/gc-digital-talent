@@ -1017,7 +1017,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User!
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
