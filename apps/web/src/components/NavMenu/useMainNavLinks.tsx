@@ -301,6 +301,7 @@ const useMainNavLinks = () => {
       href={paths.loggedOut()}
       title={intl.formatMessage(authMessages.signOut)}
       state={{ from: pathname }}
+      subMenu
     />
   );
 
