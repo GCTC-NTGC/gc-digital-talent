@@ -1,10 +1,6 @@
 import { ReactNode } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import {
-  ErrorResponse,
-  isRouteErrorResponse,
-  useRouteError,
-} from "react-router";
+import { isRouteErrorResponse, useRouteError } from "react-router";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -75,12 +71,14 @@ const useErrorMessages = (): ErrorWithMessages => {
     };
   }
 
-  if (error && "name" in error) {
-    if (error.name in errorStatusMap) {
-      return {
-        error,
-        messages: knownErrorMessages[errorStatusMap[error.name]],
-      };
+  if (error instanceof Error) {
+    if (error && "name" in error) {
+      if (error.name in errorStatusMap) {
+        return {
+          error,
+          messages: knownErrorMessages[errorStatusMap[error.name]],
+        };
+      }
     }
   }
 
