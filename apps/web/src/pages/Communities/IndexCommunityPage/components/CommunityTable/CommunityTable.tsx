@@ -18,6 +18,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { checkRole } from "~/utils/communityUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -121,11 +122,7 @@ export const CommunityTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search communities",
-          id: "3hqdVV",
-          description: "Label for the communities table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       {...(canCreateMembers
         ? {
@@ -133,8 +130,8 @@ export const CommunityTable = ({
               linkProps: {
                 href: paths.communityCreate(),
                 label: intl.formatMessage({
-                  defaultMessage: "Create community",
-                  id: "lhLfd7",
+                  defaultMessage: "Create a community",
+                  id: "BRd2Xw",
                   description: "Text to create a community",
                 }),
                 from: currentUrl,

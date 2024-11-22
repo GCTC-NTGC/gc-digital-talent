@@ -489,6 +489,7 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
@@ -1487,12 +1488,14 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input CreateApplicantFilterInput {

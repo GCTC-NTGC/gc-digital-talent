@@ -833,6 +833,7 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  mandateAuthority: LocalizedString
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
@@ -1506,12 +1507,14 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput
 }
 
 input CreateApplicantFilterInput {

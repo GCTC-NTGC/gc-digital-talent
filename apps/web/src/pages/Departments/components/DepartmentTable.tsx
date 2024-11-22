@@ -16,6 +16,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
 
@@ -91,11 +92,7 @@ export const DepartmentTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search by keyword",
-          id: "PYMFoh",
-          description: "Label for the keyword search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {

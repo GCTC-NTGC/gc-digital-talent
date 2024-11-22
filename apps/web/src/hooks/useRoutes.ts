@@ -67,6 +67,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "communities", communityId].join("/"),
     communityManageAccess: (communityId: string) =>
       [adminUrl, "communities", communityId, "manage-access"].join("/"),
+    communityUpdate: (communityId: string) =>
+      [adminUrl, "communities", communityId, "edit"].join("/"),
 
     // Admin - Pools
     poolTable: () => [adminUrl, "pools"].join("/"),

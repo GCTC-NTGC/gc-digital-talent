@@ -31,6 +31,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Create a community",
+    "fr": [
+      "Créez une collectivité",
+      "Créer une collectivité"
+    ]
+  },
+  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
