@@ -17,6 +17,11 @@ const permissionConstants = () => {
     ROLE_NAME.ProcessOperator,
     ROLE_NAME.PlatformAdmin,
   ];
+  const createProcess = [
+    ROLE_NAME.PoolOperator,
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.CommunityAdmin,
+  ];
   const viewRequests: RoleName[] = [
     ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityRecruiter,
@@ -34,6 +39,7 @@ const permissionConstants = () => {
 
   return {
     viewCandidates,
+    createProcess,
     viewProcesses,
     viewRequests,
     viewUsers,

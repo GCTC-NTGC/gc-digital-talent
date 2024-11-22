@@ -23,6 +23,7 @@ import {
   PoolFilterInput,
   PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
@@ -37,6 +38,7 @@ import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import {
   classificationAccessor,
@@ -234,6 +236,12 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       filterRef.current = transformedData;
     }
   };
+
+  const { roleAssignments } = useAuthorization();
+  const canCreatePool = hasRole(
+    permissionConstants().createProcess,
+    roleAssignments,
+  );
 
   const [{ data, fetching }] = useQuery({
     query: PoolTable_Query,
@@ -484,16 +492,21 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         pageSizes: [10, 20, 50],
         onPaginationChange: handlePaginationStateChange,
       }}
-      add={{
-        linkProps: {
-          href: paths.poolCreate(),
-          label: intl.formatMessage({
-            defaultMessage: "Create process",
-            id: "wP9+aN",
-            description: "Heading displayed above the Create process form.",
-          }),
-        },
-      }}
+      add={
+        canCreatePool
+          ? {
+              linkProps: {
+                href: paths.poolCreate(),
+                label: intl.formatMessage({
+                  defaultMessage: "Create process",
+                  id: "wP9+aN",
+                  description:
+                    "Heading displayed above the Create process form.",
+                }),
+              },
+            }
+          : undefined
+      }
       nullMessage={{
         description: intl.formatMessage({
           defaultMessage: 'Use the "Create process" button to get started.',
