@@ -344,11 +344,11 @@ export const UpdateCommunity = () => {
                 <p>
                   {intl.formatMessage(
                     {
-                      defaultMessage: "Skill {skillId} not found.",
-                      id: "953EAy",
-                      description: "Message displayed for skill not found.",
+                      defaultMessage: "Community {communityId} not found.",
+                      id: "TfbBB7",
+                      description: "Message displayed for community not found.",
                     },
-                    { skillId: communityId },
+                    { communityId },
                   )}
                 </p>
               </NotFound>
