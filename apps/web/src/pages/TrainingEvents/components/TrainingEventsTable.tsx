@@ -133,7 +133,7 @@ interface TrainingEventsTableProps {
   title: ReactNode;
 }
 
-export const TrainingEventsTable = ({ title }: TrainingEventsTableProps) => {
+const TrainingEventsTable = ({ title }: TrainingEventsTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
