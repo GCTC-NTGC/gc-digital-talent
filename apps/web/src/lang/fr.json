@@ -5811,6 +5811,10 @@
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
   },
+  "RtX9oA": {
+    "defaultMessage": "Créez une possibilité de formation",
+    "description": "Title for link to page to create a training opportunity (imperative in French)"
+  },
   "RvB1GT": {
     "defaultMessage": "Relations de travail",
     "description": "Label for _labour relations_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
@@ -7417,10 +7421,6 @@
   "a8wd8c": {
     "defaultMessage": "Compétences mises en évidence",
     "description": "Label displayed for featured skills attached to an experience"
-  },
-  "a9tj6r": {
-    "defaultMessage": "Créez une possibilité de formation",
-    "description": "Title for link to page to create a training opportunity"
   },
   "aAIZbC": {
     "defaultMessage": "Processus",
@@ -10914,6 +10914,10 @@
     "defaultMessage": "p. ex., développeur de logiciels",
     "description": "Placeholder for _type of resource_ field in the _digital services contracting questionnaire_"
   },
+  "rTBi+P": {
+    "defaultMessage": "Créer une possibilité de formation",
+    "description": "Page title for the training opportunity creation page (infinitive in French)"
+  },
   "rTnjej": {
     "defaultMessage": "Utilisateur supprimé avec succès",
     "description": "Message displayed when a user has been deleted"
@@ -11981,10 +11985,6 @@
   "xwBt36": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
-  },
-  "xynA9Y": {
-    "defaultMessage": "Créer une possibilité de formation",
-    "description": "Page title for the training opportunity creation page"
   },
   "xzSXz9": {
     "defaultMessage": "Type d’emploi",

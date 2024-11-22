@@ -192,8 +192,9 @@ const CreateTrainingOpportunityPage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a training opportunity",
-    id: "xynA9Y",
-    description: "Page title for the training opportunity creation page",
+    id: "rTBi+P",
+    description:
+      "Page title for the training opportunity creation page (infinitive in French)",
   });
 
   return (

@@ -292,9 +292,9 @@ const TrainingOpportunitiesTable = ({
           href: paths.trainingOpportunityCreate(),
           label: intl.formatMessage({
             defaultMessage: "Create a training opportunity",
-            id: "a9tj6r",
+            id: "RtX9oA",
             description:
-              "Title for link to page to create a training opportunity",
+              "Title for link to page to create a training opportunity (imperative in French)",
           }),
           from: currentUrl,
         },

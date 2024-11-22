@@ -66,6 +66,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Create a training opportunity",
+    "fr": [
+      "Créez une possibilité de formation",
+      "Créer une possibilité de formation"
+    ]
+  },
+  {
     "en": "Add process role",
     "fr": [
       "Ajoutez un rôle dans le processus",
