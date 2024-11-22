@@ -11038,10 +11038,6 @@
     "defaultMessage": "La durée de l’étude est équivalente à l’exigence du diplôme",
     "description": "Text for education accepted information context in screening decision dialog"
   },
-  "k3i6lU": {
-    "defaultMessage": "Langue",
-    "description": "Legend for a language input or title"
-  },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."

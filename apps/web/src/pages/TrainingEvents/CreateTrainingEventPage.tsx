@@ -112,8 +112,9 @@ const CreateTrainingEventForm = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Create event",
-                id: "vRmMjQ",
-                description: "Button label to create a new event",
+                id: "+21CEK",
+                description:
+                  "Button label to submit the create a new event form",
               })}
             />
             <Link
