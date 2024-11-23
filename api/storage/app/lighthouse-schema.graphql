@@ -332,6 +332,7 @@ type Query {
   ): NotificationPaginator!
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
+    orderBy: [OrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
@@ -1207,7 +1208,7 @@ type SitewideAnnouncement {
 }
 
 type TrainingOpportunity {
-  id: UUID
+  id: UUID!
   title: LocalizedString
   courseLanguage: LocalizedCourseLanguage
   registrationDeadline: Date
