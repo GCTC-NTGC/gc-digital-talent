@@ -52,6 +52,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import MetaData, { MetaDataItemProps } from "./components/MetaData/MetaData";
 import { getNavLinkStyling } from "./components/NavMenu";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
@@ -109,6 +110,7 @@ export type {
   ScrollToLinkProps,
   ScrollLinkClickFunc,
   MenuLinkProps,
+  MetaDataItemProps,
   LoadingProps,
   PendingProps,
   PreviewMetaData,
@@ -156,6 +158,7 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  MetaData,
   NavMenu,
   NavMenuWrapper,
   NavTabs,
