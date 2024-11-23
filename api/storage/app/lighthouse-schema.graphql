@@ -1686,8 +1686,8 @@ input WorkExperienceInput {
   cafEmploymentType: CafEmploymentType
   cafForce: CafForce
   cafRank: CafRank
-  classificationId: UUID
-  departmentId: UUID
+  classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
 }
 
 input PersonalExperienceInput {
