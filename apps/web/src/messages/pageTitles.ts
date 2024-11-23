@@ -66,4 +66,14 @@ export default defineMessages({
     id: "bVQ/rm",
     description: "Title for the index user page",
   },
+  itTrainingFund: {
+    defaultMessage: "IT Community Training and Development Fund",
+    id: "ye4m17",
+    description: "Title for the IT training fund page",
+  },
+  instructorLedTraining: {
+    defaultMessage: "Instructor-led training program",
+    id: "3OWq7Q",
+    description: "Title for the instructor led training page",
+  },
 });

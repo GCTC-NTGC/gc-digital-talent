@@ -14,6 +14,7 @@ import image1 from "~/assets/img/it-training-fund-1.webp";
 import image2 from "~/assets/img/it-training-fund-2.webp";
 import image3 from "~/assets/img/it-training-fund-3.webp";
 import SEO from "~/components/SEO/SEO";
+import pageTitles from "~/messages/pageTitles";
 
 const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -28,11 +29,7 @@ const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   );
 };
 
-const pageTitle = defineMessage({
-  defaultMessage: "IT Community Training and Development Fund",
-  id: "wOITol",
-  description: "page title for the IT training fund page",
-});
+const pageTitle = defineMessage(pageTitles.itTrainingFund);
 
 const pageSubtitle = defineMessage({
   defaultMessage:

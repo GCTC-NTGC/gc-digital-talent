@@ -1,0 +1,589 @@
+import { defineMessage, IntlShape, useIntl } from "react-intl";
+import { ReactNode, useEffect, useState } from "react";
+import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import { useQuery } from "urql";
+import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
+
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import {
+  Button,
+  CardBasic,
+  CardSeparator,
+  Chip,
+  Dialog,
+  Heading,
+  Link,
+  Loading,
+  MetaData,
+  MetaDataItemProps,
+  Well,
+} from "@gc-digital-talent/ui";
+import {
+  CourseLanguage,
+  graphql,
+  TrainingOpportunity,
+} from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
+
+import useRoutes from "~/hooks/useRoutes";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import pageTitles from "~/messages/pageTitles";
+
+const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
+  query TrainingOpportunitiesPaginated(
+    $where: TrainingOpportunitiesFilterInput
+    $orderBy: [OrderByClause!]
+  ) {
+    trainingOpportunitiesPaginated(where: $where, orderBy: $orderBy) {
+      data {
+        id
+        title {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        courseLanguage {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        courseFormat {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        registrationDeadline
+        trainingStart
+        trainingEnd
+        applicationUrl {
+          en
+          fr
+        }
+      }
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+    }
+  }
+`);
+
+function getMetaData(
+  intl: IntlShape,
+  trainingOpportunity: TrainingOpportunity,
+): MetaDataItemProps[] {
+  const metaData = [];
+  if (trainingOpportunity.registrationDeadline) {
+    metaData.push({
+      key: `application-deadline-${trainingOpportunity.id}`,
+      type: "text",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "Application deadline",
+            id: "vB6jX+",
+            description: "Label for application deadline meta data",
+          })}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          <span data-h2-font-weight="base(bold)">
+            {formatDate({
+              date: parseDateTimeUtc(trainingOpportunity.registrationDeadline),
+              formatString: "PPP",
+              intl,
+            })}
+          </span>
+        </>
+      ),
+    } satisfies MetaDataItemProps);
+  }
+
+  if (trainingOpportunity.trainingStart && !trainingOpportunity.trainingEnd) {
+    metaData.push({
+      key: `training-starting-date-${trainingOpportunity.id}`,
+      type: "text",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "Training date",
+            id: "yd+VEB",
+            description: "Label for training date meta data",
+          })}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          <span data-h2-font-weight="base(bold)">
+            {formatDate({
+              date: parseDateTimeUtc(trainingOpportunity.trainingStart),
+              formatString: "PPP",
+              intl,
+            })}
+          </span>
+        </>
+      ),
+    } satisfies MetaDataItemProps);
+  }
+
+  if (trainingOpportunity.trainingStart && trainingOpportunity.trainingEnd) {
+    metaData.push({
+      key: `training-dates-${trainingOpportunity.id}`,
+      type: "text",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "Training dates",
+            id: "yK0vlP",
+            description: "Label for training dates meta data",
+          })}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          <span data-h2-font-weight="base(bold)">
+            {formatDate({
+              date: parseDateTimeUtc(trainingOpportunity.trainingStart),
+              formatString: "PPP",
+              intl,
+            })}{" "}
+            {"-"}{" "}
+            {formatDate({
+              date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
+              formatString: "PPP",
+              intl,
+            })}
+          </span>
+        </>
+      ),
+    } satisfies MetaDataItemProps);
+  }
+
+  if (trainingOpportunity.registrationDeadline) {
+    metaData.push({
+      key: `course-format-${trainingOpportunity.id}`,
+      type: "text",
+      children: (
+        <>{getLocalizedName(trainingOpportunity.courseFormat?.label, intl)}</>
+      ),
+    } satisfies MetaDataItemProps);
+  }
+
+  return metaData;
+}
+
+const CourseLanguageChip = ({
+  courseLanguage,
+}: {
+  courseLanguage?: CourseLanguage;
+}) => {
+  const intl = useIntl();
+  switch (courseLanguage) {
+    case CourseLanguage.Bilingual:
+      return (
+        <Chip color="tertiary">
+          {intl.formatMessage(commonMessages.bilingual)}
+        </Chip>
+      );
+    case CourseLanguage.English:
+      return (
+        <Chip color="primary">
+          {intl.formatMessage(commonMessages.english)}
+        </Chip>
+      );
+    case CourseLanguage.French:
+      return (
+        <Chip color="secondary">
+          {intl.formatMessage(commonMessages.french)}
+        </Chip>
+      );
+    default:
+      return null;
+  }
+};
+
+const selectedFilterStyle: Record<string, string> = {
+  mode: "inline",
+  color: "secondary",
+  "data-h2-text-decoration": "base(none)", // TODO: remove underline when selected
+};
+
+const unselectedFilterStyle: Record<string, string> = {
+  mode: "inline",
+  color: "black",
+  "data-h2-font-weight": "base(bold)",
+};
+
+const itLink = (href: string, chunks: ReactNode) => {
+  return (
+    <Link href={href} color="secondary" data-h2-font-weight="base(bold)">
+      {chunks}
+    </Link>
+  );
+};
+
+const pageSubtitle = defineMessage({
+  defaultMessage:
+    "Find available instructor-led training courses and apply to grow your IT expertise.",
+  id: "JlQIBx",
+  description: "Page subtitle for the instructor led training page",
+});
+
+export const Component = () => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  const [{ data, fetching, error }] = useQuery({
+    query: TrainingOpportunitiesPaginated_Query,
+    variables: {
+      where: {
+        hidePassedRegistrationDeadline: true,
+      },
+    },
+  });
+
+  // ordered by application deadline (ascending)
+  const trainingOpportunitiesOrdered = unpackMaybes(
+    data?.trainingOpportunitiesPaginated.data,
+  ).sort((a, b) => {
+    const aDeadline = a.registrationDeadline
+      ? new Date(a.registrationDeadline).getTime()
+      : 0;
+    const bDeadline = b.registrationDeadline
+      ? new Date(b.registrationDeadline).getTime()
+      : 0;
+
+    return aDeadline - bDeadline;
+  });
+
+  useEffect(() => {
+    if (error) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Error: failed to get training opportunities.",
+          id: "vXkM2h",
+          description:
+            "Alert displayed to the user when failing to fetch training opportunities.",
+        }),
+      );
+    }
+  }, [error, intl]);
+
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(pageTitles.itTrainingFund),
+        url: paths.itTrainingFund(),
+      },
+      {
+        label: intl.formatMessage(pageTitles.instructorLedTraining),
+        url: paths.instructorLedTraining(),
+      },
+    ],
+  });
+
+  const [trainingOpportunitiesState, setTrainingOpportunitiesState] = useState(
+    trainingOpportunitiesOrdered,
+  );
+  const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
+    useState<"all" | "english" | "french">("all");
+
+  useEffect(() => {
+    if (trainingOpportunitiesFilteredBy === "all") {
+      setTrainingOpportunitiesState([...trainingOpportunitiesOrdered]);
+    }
+    if (trainingOpportunitiesFilteredBy === "english") {
+      setTrainingOpportunitiesState(
+        trainingOpportunitiesOrdered.filter(
+          (trainingOpportunity) =>
+            trainingOpportunity.courseLanguage?.value ===
+            CourseLanguage.English,
+        ),
+      );
+    }
+    if (trainingOpportunitiesFilteredBy === "french") {
+      setTrainingOpportunitiesState(
+        trainingOpportunitiesOrdered.filter(
+          (trainingOpportunity) =>
+            trainingOpportunity.courseLanguage?.value === CourseLanguage.French,
+        ),
+      );
+    }
+  }, [trainingOpportunitiesOrdered, trainingOpportunitiesFilteredBy]);
+
+  return (
+    <>
+      <SEO
+        title={intl.formatMessage(pageTitles.instructorLedTraining)}
+        description={intl.formatMessage(pageSubtitle)}
+      />
+      <Hero
+        title={intl.formatMessage(pageTitles.instructorLedTraining)}
+        subtitle={intl.formatMessage(pageSubtitle)}
+        crumbs={crumbs}
+        centered
+      />
+      <div data-h2-padding="base(x3, 0)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+          <div data-h2-margin-bottom="base(x3)">
+            <Heading
+              size="h3"
+              Icon={CalendarDaysIcon}
+              color="quaternary"
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Available IT training opportunities",
+                id: "hAy7cB",
+                description:
+                  "Title for available it training opportunities section",
+              })}
+            </Heading>
+            <p data-h2-margin-bottom="base(x.5)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Explore and take advantage of instructor-led training opportunities for Government of Canada IT employees. We’ll continually add new courses, focusing on the government’s most in-demand skills and IT domains.",
+                id: "3qkzyD",
+                description:
+                  "First paragraph of it training opportunities section",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "The training opportunities on this page are supported by the <link>IT Community Training and Development Fund</link> and are available only to employees represented by PIPSC in the IT group.",
+                  id: "KUuhwO",
+                  description:
+                    "Second paragraph of it training opportunities section",
+                },
+                {
+                  link: (chunks: ReactNode) =>
+                    itLink(paths.itTrainingFund(), chunks),
+                },
+              )}
+            </p>
+          </div>
+          <div data-h2-margin-bottom="base(x3)">
+            <Heading
+              size="h3"
+              Icon={UserCircleIcon}
+              color="tertiary"
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Apply and share your profile",
+                id: "WPS1Ic",
+                description: "Title for apply and share your profile section",
+              })}
+            </Heading>
+            <p data-h2-margin-bottom="base(x.5)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "To express your interest, complete the application form and agree to share your GC Digital Talent profile. Your profile helps us confirm your employment status, classification, identification with employment equity groups, and required experience. Before you apply, take a moment to review and update your information or create a profile if you don’t have one yet.",
+                id: "bjwTpe",
+                description: "First paragraph of apply and share section",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "We’ll select participants based on eligibility, necessary skills or experience, and representation of employment equity groups in the GC’s IT workforce. We’ll contact you within 8 business days of the application closing date. If you’re selected, you’ll then have 3 business days to confirm your participation.",
+                id: "pcAgJh",
+                description: "Second paragraph of apply and share section",
+              })}
+            </p>
+          </div>
+          {}
+          {trainingOpportunitiesState.length > 0 && !fetching ? (
+            <>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(row)"
+                data-h2-gap="base(x0.5)"
+                data-h2-margin-bottom="base(x.5)"
+              >
+                <Button
+                  onClick={() => setTrainingOpportunitiesFilteredBy("all")}
+                  {...(trainingOpportunitiesFilteredBy === "all"
+                    ? selectedFilterStyle
+                    : unselectedFilterStyle)}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "View all",
+                    id: "vXcg28",
+                    description:
+                      "Filter by option on instructor training page.",
+                  })}
+                </Button>
+                <Button
+                  onClick={() => setTrainingOpportunitiesFilteredBy("english")}
+                  {...(trainingOpportunitiesFilteredBy === "english"
+                    ? selectedFilterStyle
+                    : unselectedFilterStyle)}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "English only",
+                    id: "YTN8A8",
+                    description:
+                      "Filter by option on instructor training page.",
+                  })}
+                </Button>
+                <Button
+                  onClick={() => setTrainingOpportunitiesFilteredBy("french")}
+                  {...(trainingOpportunitiesFilteredBy === "french"
+                    ? selectedFilterStyle
+                    : unselectedFilterStyle)}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "French only",
+                    id: "wBU9X4",
+                    description:
+                      "Filter by option on instructor training page.",
+                  })}
+                </Button>
+              </div>
+              {trainingOpportunitiesState.map((trainingOpportunity) => {
+                const title = getLocalizedName(trainingOpportunity.title, intl);
+                return (
+                  <>
+                    <CardBasic
+                      key={trainingOpportunity.id}
+                      data-h2-margin-bottom="base(x1)"
+                    >
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-justify-content="base(center) l-tablet(flex-start)"
+                        data-h2-align-items="base(center)"
+                        data-h2-gap="base(x.3)"
+                        data-h2-margin-bottom="base(x.15)"
+                      >
+                        <div
+                          data-h2-display="base(flex)"
+                          data-h2-justify-content="base(center) l-tablet(flex-start)"
+                          data-h2-align-items="base(center)"
+                          data-h2-gap="base(x.3)"
+                        >
+                          <CalendarIcon
+                            data-h2-height="base(x.75)"
+                            data-h2-width="base(x.75)"
+                          />
+                          <Heading
+                            level="h4"
+                            size="h5"
+                            data-h2-font-weight="base(700)"
+                            data-h2-margin="base(0)"
+                          >
+                            {title}
+                          </Heading>
+                        </div>
+                        <CourseLanguageChip
+                          courseLanguage={
+                            trainingOpportunity.courseLanguage?.value
+                          }
+                        />
+                      </div>
+                      <MetaData
+                        metaData={getMetaData(intl, trainingOpportunity)}
+                      />
+                      <CardSeparator />
+                      <Dialog.Root>
+                        <Dialog.Trigger>
+                          <Button mode="text" data-h2-font-weight="base(700)">
+                            {intl.formatMessage({
+                              defaultMessage: "Learn more and apply",
+                              id: "k6HT4M",
+                              description:
+                                "Button label to open a training opportunities dialog",
+                            })}
+                          </Button>
+                        </Dialog.Trigger>
+                        <Dialog.Content>
+                          <Dialog.Header>{title}</Dialog.Header>
+                          <Dialog.Body>
+                            <RichTextRenderer
+                              node={htmlToRichTextJSON(
+                                getLocalizedName(
+                                  trainingOpportunity.description,
+                                  intl,
+                                ),
+                              )}
+                            />
+                            <Dialog.Footer>
+                              <Link
+                                href={getLocalizedName(
+                                  trainingOpportunity.applicationUrl,
+                                  intl,
+                                )}
+                                newTab
+                                color="secondary"
+                                mode="solid"
+                              >
+                                {intl.formatMessage({
+                                  defaultMessage: "Apply now",
+                                  id: "PH68o/",
+                                  description:
+                                    "Label for apply now button in instructor led training",
+                                })}
+                              </Link>
+                              <Dialog.Close>
+                                <Button mode="text" color="tertiary">
+                                  Close
+                                </Button>
+                              </Dialog.Close>
+                            </Dialog.Footer>
+                          </Dialog.Body>
+                        </Dialog.Content>
+                      </Dialog.Root>
+                    </CardBasic>
+                  </>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              {fetching ? (
+                <Loading />
+              ) : (
+                <Well data-h2-padding="base(x.5)">
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There are currently no upcoming training events. Check back later.",
+                      id: "l4d7/6",
+                      description:
+                        "Null message for instructor led training list",
+                    })}
+                  </p>
+                </Well>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+
+Component.displayName = "InstructorLedTrainingPage";
+
+export default Component;
