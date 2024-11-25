@@ -245,19 +245,6 @@ export const Component = () => {
     },
   });
 
-  useEffect(() => {
-    if (error) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: failed to get training opportunities.",
-          id: "vXkM2h",
-          description:
-            "Alert displayed to the user when failing to fetch training opportunities.",
-        }),
-      );
-    }
-  }, [error, intl]);
-
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
