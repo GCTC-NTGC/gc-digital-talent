@@ -27,7 +27,7 @@ const MetaDataItem = ({ children, type, color }: MetaDataItemProps) => {
   }
 };
 
-const MetaData = ({ metaData }: { metaData: MetaDataItemProps[] }) => {
+const MetaData = ({ metaData, ...rest }: { metaData: MetaDataItemProps[] }) => {
   return (
     <div
       data-h2-display="base(flex)"
@@ -39,6 +39,7 @@ const MetaData = ({ metaData }: { metaData: MetaDataItemProps[] }) => {
       data-h2-color="p-tablet:children[::after](black.lighter)"
       data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
       data-h2-font-size="base(caption)"
+      {...rest}
     >
       {metaData.map((data) => (
         <MetaDataItem {...data} key={data.key} />
