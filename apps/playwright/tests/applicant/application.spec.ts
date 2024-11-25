@@ -90,6 +90,7 @@ test.describe("Application", () => {
         ? [technicalSkills[0].id, technicalSkills[1].id]
         : undefined,
     });
+    const [skillOne, skillTwo] = technicalSkills;
     const application = new ApplicationPage(appPage.page, pool.id);
     await loginBySub(application.page, sub, false);
 
@@ -187,13 +188,28 @@ test.describe("Application", () => {
         /please connect at least one career timeline experience to each required technical skill/i,
       ),
     ).toBeVisible();
-    await application.page
-      .getByRole("button", { name: /connect a career timeline experience/i })
-      .first()
-      .click();
+
     // Connect same experience to two different skills.
+    await application.page
+      .getByRole("button", {
+        name: new RegExp(
+          `connect a career timeline experience to ${skillOne.name.en}`,
+          "i",
+        ),
+      })
+      .click();
     await application.connectExperience("QA Testing at Playwright University");
+
+    await application.page
+      .getByRole("button", {
+        name: new RegExp(
+          `connect a career timeline experience to ${skillTwo.name.en}`,
+          "i",
+        ),
+      })
+      .click();
     await application.connectExperience("QA Testing at Playwright University");
+
     await expect(
       application.page.getByText(
         /please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it/i,
