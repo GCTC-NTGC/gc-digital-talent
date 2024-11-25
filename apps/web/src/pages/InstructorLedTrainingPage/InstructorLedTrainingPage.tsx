@@ -24,7 +24,6 @@ import {
   TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
@@ -37,7 +36,7 @@ import pageTitles from "~/messages/pageTitles";
 import CourseLanguageChip from "./CourseLanguageChip";
 
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
-  query TrainingOpportunitiesPaginated(
+  query TrainingOpportunities(
     $where: TrainingOpportunitiesFilterInput
     $orderBy: [OrderByClause!]
   ) {
@@ -236,7 +235,7 @@ export const Component = () => {
   const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
     useState<CourseLanguage.English | CourseLanguage.French | null>(null);
 
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching }] = useQuery({
     query: TrainingOpportunitiesPaginated_Query,
     variables: {
       where: {
