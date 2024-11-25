@@ -3,10 +3,11 @@ import { Page } from "@playwright/test";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  Pool,
   PositionDuration,
   ProvinceOrTerritory,
+  Skill,
   SkillCategory,
+  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -23,8 +24,8 @@ import { getSkills } from "~/utils/skills";
 test.describe("Application", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
-  const poolName = `application test pool ${uniqueTestId}`;
-  let pool: Pool;
+  let technicalSkills: Skill[];
+  let user: User | undefined;
 
   async function expectOnStep(page: Page, step: number) {
     await expect(
@@ -39,7 +40,7 @@ test.describe("Application", () => {
   test.beforeAll(async () => {
     const adminCtx = await graphql.newContext();
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    user = await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
         sub,
@@ -57,18 +58,24 @@ test.describe("Application", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    const technicalSkills = await getSkills(adminCtx, {}).then((skills) => {
+    technicalSkills = await getSkills(adminCtx, {}).then((skills) => {
       return skills.filter(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
     });
+  });
 
-    const createdPool = await createAndPublishPool(adminCtx, {
+  test("Can link same experience to different skills in application", async ({
+    appPage,
+  }) => {
+    const adminCtx = await graphql.newContext();
+    const poolName = `application test pool for link experience to skill ${uniqueTestId}`;
+    const pool = await createAndPublishPool(adminCtx, {
       name: {
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },
-      userId: createdUser?.id ?? "",
+      userId: user?.id ?? "",
       input: {
         generalQuestions: {
           create: [
@@ -83,13 +90,6 @@ test.describe("Application", () => {
         ? [technicalSkills[0].id, technicalSkills[1].id]
         : undefined,
     });
-
-    pool = createdPool;
-  });
-
-  test("Can link same experience to different skills in application", async ({
-    appPage,
-  }) => {
     const application = new ApplicationPage(appPage.page, pool.id);
     await loginBySub(application.page, sub, false);
 
@@ -206,6 +206,27 @@ test.describe("Application", () => {
   });
 
   test("Can submit application", async ({ appPage }) => {
+    const adminCtx = await graphql.newContext();
+    const poolName = `application test pool for submit application ${uniqueTestId}`;
+    const pool = await createAndPublishPool(adminCtx, {
+      name: {
+        en: `${poolName} (EN)`,
+        fr: `${poolName} (FR)`,
+      },
+      userId: user?.id ?? "",
+      input: {
+        generalQuestions: {
+          create: [
+            {
+              question: { en: "Question EN", fr: "Question FR" },
+              sortOrder: 1,
+            },
+          ],
+        },
+      },
+      skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
+    });
+
     const application = new ApplicationPage(appPage.page, pool.id);
     await loginBySub(application.page, sub, false);
 
@@ -369,6 +390,26 @@ test.describe("Application", () => {
   });
 
   test("Can view from dashboard", async ({ page }) => {
+    const adminCtx = await graphql.newContext();
+    const poolName = `application test pool for view dashboard ${uniqueTestId}`;
+    const pool = await createAndPublishPool(adminCtx, {
+      name: {
+        en: `${poolName} (EN)`,
+        fr: `${poolName} (FR)`,
+      },
+      userId: user?.id ?? "",
+      input: {
+        generalQuestions: {
+          create: [
+            {
+              question: { en: "Question EN", fr: "Question FR" },
+              sortOrder: 1,
+            },
+          ],
+        },
+      },
+      skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
+    });
     const applicantCtx = await graphql.newContext(sub);
     const applicant = await me(applicantCtx, {});
     const technicalSkill = await getSkills(applicantCtx, {}).then((skills) => {
