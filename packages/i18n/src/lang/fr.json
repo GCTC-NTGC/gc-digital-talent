@@ -1043,6 +1043,10 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
+  "k3i6lU": {
+    "defaultMessage": "Langue",
+    "description": "Legend for a language input or title"
+  },
   "k8IB9g": {
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
     "description": "Error message that an expiry date must be in the future"

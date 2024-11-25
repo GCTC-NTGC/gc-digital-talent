@@ -6,11 +6,10 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 import CreateCommunityForm from "./components/CreateCommunityForm";
 
@@ -40,8 +39,8 @@ const CreateCommunityPage = () => {
     return executeMutation({
       community: values,
     }).then((result) => {
-      if (result.data?.createCommunity) {
-        return Promise.resolve(result.data?.createCommunity);
+      if (result.data?.createCommunity?.id) {
+        return Promise.resolve(result.data.createCommunity.id);
       }
       return Promise.reject(new Error(result.error?.toString()));
     });
@@ -67,13 +66,16 @@ const CreateCommunityPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <AdminHero
+      <Hero
         title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-      <AdminContentWrapper>
-        <CreateCommunityForm onSubmit={handleSubmit} />
-      </AdminContentWrapper>
+        crumbs={navigationCrumbs}
+        overlap
+        centered
+      >
+        <div data-h2-margin-bottom="base(x3)">
+          <CreateCommunityForm onSubmit={handleSubmit} />
+        </div>
+      </Hero>
     </>
   );
 };
