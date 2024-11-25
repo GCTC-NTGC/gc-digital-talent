@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unused-modules */
 // Static asset extension declarations
 declare module "*.jpg" {
   const url: string;
