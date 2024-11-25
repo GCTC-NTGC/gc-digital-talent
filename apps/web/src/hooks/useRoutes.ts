@@ -337,6 +337,18 @@ const getRoutes = (lang: Locales) => {
         "/",
       ),
 
+    // Training Opportunities (Admin)
+    trainingOpportunitiesIndex: () =>
+      [adminUrl, "training-opportunities"].join("/"),
+    trainingOpportunityCreate: () =>
+      [adminUrl, "training-opportunities", "create"].join("/"),
+    trainingOpportunityView: (trainingOpportunityId: string) =>
+      [adminUrl, "training-opportunities", trainingOpportunityId].join("/"),
+    trainingOpportunityUpdate: (trainingOpportunityId: string) =>
+      [adminUrl, "training-opportunities", trainingOpportunityId, "edit"].join(
+        "/",
+      ),
+
     /**
      * Deprecated
      *
