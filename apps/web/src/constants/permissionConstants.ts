@@ -1,6 +1,6 @@
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 
-const permissionConstants = {
+const permissionConstants: Readonly<Record<string, RoleName[]>> = {
   viewCandidates: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
