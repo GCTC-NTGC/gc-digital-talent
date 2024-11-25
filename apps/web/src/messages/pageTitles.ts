@@ -72,8 +72,8 @@ export default defineMessages({
     description: "Title for the IT training fund page",
   },
   instructorLedTraining: {
-    defaultMessage: "Instructor-led training program",
-    id: "3OWq7Q",
+    defaultMessage: "Instructor-led training opportunities",
+    id: "V4W5oL",
     description: "Title for the instructor led training page",
   },
   trainingOpportunities: {

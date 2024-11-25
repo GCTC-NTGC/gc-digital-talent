@@ -1035,10 +1035,6 @@
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
   },
-  "3OWq7Q": {
-    "defaultMessage": "Possibilités de formation dirigée par un instructeur ou une instructrice",
-    "description": "Title for the instructor led training page"
-  },
   "3PwQT7": {
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
@@ -6402,6 +6398,10 @@
     "defaultMessage": "Afficher les résultats",
     "description": "Submit button within the search filter dialog"
   },
+  "V4W5oL": {
+    "defaultMessage": "Possibilités de formation dirigée par un instructeur ou une instructrice",
+    "description": "Title for the instructor led training page"
+  },
   "V6Y2Np": {
     "defaultMessage": "Réduire toutes les sections d'informations complémentaires",
     "description": "Accessible link text to collapse all accordions for more information"
@@ -7707,7 +7707,7 @@
     "description": "A link to sign up for updates"
   },
   "bjwTpe": {
-    "defaultMessage": "Si vous souhaitez suivre une formation, rendez-vous d’abord sur la plateforme Talents numériques du GC pour créer ou mettre à jour votre profil. Ensuite, remplissez le formulaire de demande et acceptez de partager votre profil, lequel nous permet de confirmer votre situation d’emploi, votre classification, votre appartenance à un groupe visé par l’équité en matière d’emploi et l’expérience requise.",
+    "defaultMessage": "Si vous souhaitez suivre une formation, rendez-vous d'abord sur la plateforme Talents numériques du GC pour créer ou mettre à jour votre profil, lequel nous permet de confirmer votre situation d'emploi, votre classification, votre appartenance à un groupe visé par l'équité en matière d'emploi et l'expérience requise. Ensuite, remplissez le formulaire de demande et acceptez de partager votre profil.",
     "description": "First paragraph of apply and share section"
   },
   "bkAzZm": {
@@ -12135,7 +12135,7 @@
     "description": "Heading for radio group section in application education page."
   },
   "yK0vlP": {
-    "defaultMessage": "Date(s) de la formation",
+    "defaultMessage": "Dates de la formation",
     "description": "Label for training dates meta data"
   },
   "yKQGy8": {
