@@ -76,4 +76,9 @@ export default defineMessages({
     id: "3OWq7Q",
     description: "Title for the instructor led training page",
   },
+  trainingOpportunities: {
+    defaultMessage: "Training opportunities",
+    id: "V95g4E",
+    description: "Title for the index training opportunities page",
+  },
 });

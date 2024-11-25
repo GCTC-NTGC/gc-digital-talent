@@ -27,7 +27,7 @@
     "@gc-digital-talent/graphql": "workspace:*"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.3.8",
+    "@formatjs/cli": "^6.3.11",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/logger": "workspace:*",
@@ -39,7 +39,7 @@
     "js-yaml": "^4.1.0",
     "json-stable-stringify": "^1.1.1",
     "react": "^18.3.1",
-    "react-intl": "^6.8.7",
+    "react-intl": "^7.0.1",
     "react-router-dom": "^6.28.0",
     "tsconfig": "workspace:*",
     "tsx": "^4.19.2",

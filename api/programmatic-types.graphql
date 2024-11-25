@@ -64,6 +64,16 @@ type LocalizedCitizenshipStatus {
   label: LocalizedString!
 }
 
+type LocalizedCourseFormat {
+  value: CourseFormat!
+  label: LocalizedString!
+}
+
+type LocalizedCourseLanguage {
+  value: CourseLanguage!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -321,6 +331,15 @@ type NotificationPaginator {
 
   "A list of Notification items."
   data: [Notification!]!
+}
+
+"A paginated list of TrainingOpportunity items."
+type TrainingOpportunityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TrainingOpportunity items."
+  data: [TrainingOpportunity!]!
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -672,6 +691,17 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum CourseFormat {
+  ON_SITE
+  VIRTUAL
+}
+
+enum CourseLanguage {
+  ENGLISH
+  FRENCH
+  BILINGUAL
+}
+
 enum AdvertisementType {
   INTERNAL
   EXTERNAL
@@ -909,7 +939,7 @@ enum GenericJobTitleKey {
   TECHNICAL_ADVISOR_IT03
   SENIOR_ADVISOR_IT04
   MANAGER_IT04
-  EXECUTIVE_EX03
+  DIGITAL_LEADER_EX_03
 }
 
 enum GovEmployeeType {

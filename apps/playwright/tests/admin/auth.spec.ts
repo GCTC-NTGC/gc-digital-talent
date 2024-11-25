@@ -97,7 +97,7 @@ test.describe("Authenticated", () => {
     await applicantPage.page
       .getByRole("button", { name: "your account" })
       .click();
-    await applicantPage.page.getByRole("button", { name: /sign out/i }).click();
+    await applicantPage.page.getByRole("link", { name: /sign out/i }).click();
     const logoutDialog = applicantPage.page.getByRole("alertdialog", {
       name: /sign out/i,
     });

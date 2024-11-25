@@ -287,11 +287,7 @@ const SkillTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search by keyword",
-          id: "PYMFoh",
-          description: "Label for the keyword search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={
         addButton

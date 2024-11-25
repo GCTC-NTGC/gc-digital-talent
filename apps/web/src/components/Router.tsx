@@ -645,6 +645,13 @@ const createRoute = (locale: Locales) =>
                             "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
                           ),
                       },
+                      {
+                        path: "edit",
+                        lazy: () =>
+                          import(
+                            "../pages/Communities/UpdateCommunityPage/UpdateCommunityPage"
+                          ),
+                      },
                     ],
                   },
                 ],
@@ -790,6 +797,44 @@ const createRoute = (locale: Locales) =>
                       import(
                         "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
                       ),
+                  },
+                ],
+              },
+              {
+                path: "training-opportunities",
+                children: [
+                  {
+                    index: true,
+                    lazy: () =>
+                      import(
+                        "../pages/TrainingOpportunities/IndexTrainingOpportunitiesPage"
+                      ),
+                  },
+                  {
+                    path: "create",
+                    lazy: () =>
+                      import(
+                        "../pages/TrainingOpportunities/CreateTrainingOpportunityPage"
+                      ),
+                  },
+                  {
+                    path: ":trainingOpportunityId",
+                    children: [
+                      {
+                        index: true,
+                        lazy: () =>
+                          import(
+                            "../pages/TrainingOpportunities/ViewTrainingOpportunityPage"
+                          ),
+                      },
+                      {
+                        path: "edit",
+                        lazy: () =>
+                          import(
+                            "../pages/TrainingOpportunities/UpdateTrainingOpportunityPage"
+                          ),
+                      },
+                    ],
                   },
                 ],
               },

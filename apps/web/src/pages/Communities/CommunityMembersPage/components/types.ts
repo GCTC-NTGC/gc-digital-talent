@@ -1,5 +1,7 @@
 import { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 
+import Hero from "~/components/Hero";
+
 import { CommunityMembersPage_CommunityFragment } from "./operations";
 
 export interface CommunityMemberFormValues {
@@ -14,6 +16,9 @@ export type CommunityMembersPageFragment = FragmentType<
 >;
 
 export interface ContextType {
-  teamId: Scalars["UUID"]["output"];
+  communityName: string;
+  teamId: Scalars["UUID"]["output"] | null | undefined;
+  navTabs: React.ComponentProps<typeof Hero>["navTabs"];
+  navigationCrumbs: React.ComponentProps<typeof Hero>["crumbs"];
   canAdmin: boolean;
 }
