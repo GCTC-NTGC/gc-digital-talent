@@ -50,10 +50,10 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Talent requests",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
 
     // resources links
     expect(
@@ -116,7 +116,7 @@ describe("Render dashboard page", () => {
     // card sections
     expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
     expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.queryByText(/administration/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/administration/i)).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -184,7 +184,7 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Users",
       }),
     ).toBeInTheDocument();
@@ -196,7 +196,7 @@ describe("Render dashboard page", () => {
     // card sections
     expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
     expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.queryByText(/administration/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/administration/i)).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -239,7 +239,7 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("link", {
+      screen.queryByRole("link", {
         name: "Communities",
       }),
     ).not.toBeInTheDocument();
@@ -264,7 +264,7 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Users",
       }),
     ).toBeInTheDocument();
@@ -276,7 +276,7 @@ describe("Render dashboard page", () => {
     // card sections
     expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
     expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.queryByText(/administration/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/administration/i)).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -344,7 +344,7 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Users",
       }),
     ).toBeInTheDocument();
