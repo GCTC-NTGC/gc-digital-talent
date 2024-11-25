@@ -5,16 +5,11 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
 
-import {
-  commonMessages,
-  getLocale,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Button,
   CardBasic,
   CardSeparator,
-  Chip,
   Dialog,
   Heading,
   Link,
@@ -28,13 +23,9 @@ import {
   graphql,
   TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  DATE_FORMAT_STRING,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -42,6 +33,8 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+
+import CourseLanguageChip from "./CourseLanguageChip";
 
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunitiesPaginated(
@@ -94,6 +87,21 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const itLink = (href: string, chunks: ReactNode) => {
+  return (
+    <Link href={href} color="secondary" data-h2-font-weight="base(bold)">
+      {chunks}
+    </Link>
+  );
+};
+
+const pageSubtitle = defineMessage({
+  defaultMessage:
+    "Find available instructor-led training courses and apply to grow your IT expertise.",
+  id: "JlQIBx",
+  description: "Page subtitle for the instructor led training page",
+});
 
 function getMetaData(
   intl: IntlShape,
@@ -191,40 +199,10 @@ function getMetaData(
   return metaData;
 }
 
-const CourseLanguageChip = ({
-  courseLanguage,
-}: {
-  courseLanguage?: CourseLanguage;
-}) => {
-  const intl = useIntl();
-  switch (courseLanguage) {
-    case CourseLanguage.Bilingual:
-      return (
-        <Chip color="tertiary">
-          {intl.formatMessage(commonMessages.bilingual)}
-        </Chip>
-      );
-    case CourseLanguage.English:
-      return (
-        <Chip color="primary">
-          {intl.formatMessage(commonMessages.english)}
-        </Chip>
-      );
-    case CourseLanguage.French:
-      return (
-        <Chip color="secondary">
-          {intl.formatMessage(commonMessages.french)}
-        </Chip>
-      );
-    default:
-      return null;
-  }
-};
-
 const selectedFilterStyle: Record<string, string> = {
   mode: "inline",
   color: "secondary",
-  "data-h2-text-decoration": "base(none)", // TODO: remove underline when selected
+  "data-h2-text-decoration": "base(none)",
 };
 
 const unselectedFilterStyle: Record<string, string> = {
@@ -233,46 +211,38 @@ const unselectedFilterStyle: Record<string, string> = {
   "data-h2-font-weight": "base(bold)",
 };
 
-const itLink = (href: string, chunks: ReactNode) => {
-  return (
-    <Link href={href} color="secondary" data-h2-font-weight="base(bold)">
-      {chunks}
-    </Link>
+const filterTrainingOpportunities = (
+  trainingOpportunities: TrainingOpportunity[],
+  filterBy?: CourseLanguage.English | CourseLanguage.French | null,
+): TrainingOpportunity[] => {
+  if (!filterBy) {
+    return trainingOpportunities;
+  }
+  const filteredTrainingOpportunities = trainingOpportunities.filter(
+    (trainingOpportunity) => {
+      return trainingOpportunity.courseLanguage?.value === filterBy;
+    },
   );
+  return filteredTrainingOpportunities;
 };
-
-const pageSubtitle = defineMessage({
-  defaultMessage:
-    "Find available instructor-led training courses and apply to grow your IT expertise.",
-  id: "JlQIBx",
-  description: "Page subtitle for the instructor led training page",
-});
 
 export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
+  const [trainingOpportunitiesState, setTrainingOpportunitiesState] = useState<
+    TrainingOpportunity[]
+  >([]);
+  const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
+    useState<CourseLanguage.English | CourseLanguage.French | null>(null);
+
   const [{ data, fetching, error }] = useQuery({
     query: TrainingOpportunitiesPaginated_Query,
     variables: {
       where: {
-        hidePassedRegistrationDeadline: true,
+        hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
       },
     },
-  });
-
-  // ordered by application deadline (ascending)
-  const trainingOpportunitiesOrdered = unpackMaybes(
-    data?.trainingOpportunitiesPaginated.data,
-  ).sort((a, b) => {
-    const aDeadline = a.registrationDeadline
-      ? new Date(a.registrationDeadline).getTime()
-      : 0;
-    const bDeadline = b.registrationDeadline
-      ? new Date(b.registrationDeadline).getTime()
-      : 0;
-
-    return aDeadline - bDeadline;
   });
 
   useEffect(() => {
@@ -301,34 +271,31 @@ export const Component = () => {
     ],
   });
 
-  const [trainingOpportunitiesState, setTrainingOpportunitiesState] = useState(
-    trainingOpportunitiesOrdered,
-  );
-  const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
-    useState<"all" | "english" | "french">("all");
+  useEffect(
+    () =>
+      setTrainingOpportunitiesState(
+        filterTrainingOpportunities(
+          unpackMaybes(data?.trainingOpportunitiesPaginated.data).sort(
+            // Sorted by registration deadline
+            (a, b) => {
+              const aDeadline = a.registrationDeadline
+                ? new Date(a.registrationDeadline).getTime()
+                : 0;
+              const bDeadline = b.registrationDeadline
+                ? new Date(b.registrationDeadline).getTime()
+                : 0;
 
-  useEffect(() => {
-    if (trainingOpportunitiesFilteredBy === "all") {
-      setTrainingOpportunitiesState([...trainingOpportunitiesOrdered]);
-    }
-    if (trainingOpportunitiesFilteredBy === "english") {
-      setTrainingOpportunitiesState(
-        trainingOpportunitiesOrdered.filter(
-          (trainingOpportunity) =>
-            trainingOpportunity.courseLanguage?.value ===
-            CourseLanguage.English,
+              return aDeadline - bDeadline;
+            },
+          ),
+          trainingOpportunitiesFilteredBy,
         ),
-      );
-    }
-    if (trainingOpportunitiesFilteredBy === "french") {
-      setTrainingOpportunitiesState(
-        trainingOpportunitiesOrdered.filter(
-          (trainingOpportunity) =>
-            trainingOpportunity.courseLanguage?.value === CourseLanguage.French,
-        ),
-      );
-    }
-  }, [trainingOpportunitiesOrdered, trainingOpportunitiesFilteredBy]);
+      ),
+    [
+      data?.trainingOpportunitiesPaginated.data,
+      trainingOpportunitiesFilteredBy,
+    ],
+  );
 
   return (
     <>
@@ -413,156 +380,159 @@ export const Component = () => {
               })}
             </p>
           </div>
-          {}
-          {trainingOpportunitiesState.length > 0 && !fetching ? (
+          {fetching ? (
+            <Loading />
+          ) : (
             <>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(row)"
-                data-h2-gap="base(x0.5)"
-                data-h2-margin-bottom="base(x.5)"
-              >
-                <Button
-                  onClick={() => setTrainingOpportunitiesFilteredBy("all")}
-                  {...(trainingOpportunitiesFilteredBy === "all"
-                    ? selectedFilterStyle
-                    : unselectedFilterStyle)}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "View all",
-                    id: "vXcg28",
-                    description:
-                      "Filter by option on instructor training page.",
-                  })}
-                </Button>
-                <Button
-                  onClick={() => setTrainingOpportunitiesFilteredBy("english")}
-                  {...(trainingOpportunitiesFilteredBy === "english"
-                    ? selectedFilterStyle
-                    : unselectedFilterStyle)}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "English only",
-                    id: "YTN8A8",
-                    description:
-                      "Filter by option on instructor training page.",
-                  })}
-                </Button>
-                <Button
-                  onClick={() => setTrainingOpportunitiesFilteredBy("french")}
-                  {...(trainingOpportunitiesFilteredBy === "french"
-                    ? selectedFilterStyle
-                    : unselectedFilterStyle)}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "French only",
-                    id: "wBU9X4",
-                    description:
-                      "Filter by option on instructor training page.",
-                  })}
-                </Button>
-              </div>
-              {trainingOpportunitiesState.map((trainingOpportunity) => {
-                const title = getLocalizedName(trainingOpportunity.title, intl);
-                return (
-                  <>
-                    <CardBasic
-                      key={trainingOpportunity.id}
-                      data-h2-margin-bottom="base(x1)"
+              {trainingOpportunitiesState.length > 0 ? (
+                <>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(row)"
+                    data-h2-gap="base(x0.5)"
+                    data-h2-margin-bottom="base(x.5)"
+                  >
+                    <Button
+                      onClick={() => setTrainingOpportunitiesFilteredBy(null)}
+                      {...(trainingOpportunitiesFilteredBy === null
+                        ? selectedFilterStyle
+                        : unselectedFilterStyle)}
                     >
-                      <div
-                        data-h2-display="base(flex)"
-                        data-h2-justify-content="base(center) l-tablet(flex-start)"
-                        data-h2-align-items="base(center)"
-                        data-h2-gap="base(x.3)"
-                        data-h2-margin-bottom="base(x.15)"
+                      {intl.formatMessage({
+                        defaultMessage: "View all",
+                        id: "vXcg28",
+                        description:
+                          "Filter by option on instructor training page.",
+                      })}
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        setTrainingOpportunitiesFilteredBy(
+                          CourseLanguage.English,
+                        )
+                      }
+                      {...(trainingOpportunitiesFilteredBy ===
+                      CourseLanguage.English
+                        ? selectedFilterStyle
+                        : unselectedFilterStyle)}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "English only",
+                        id: "YTN8A8",
+                        description:
+                          "Filter by option on instructor training page.",
+                      })}
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        setTrainingOpportunitiesFilteredBy(
+                          CourseLanguage.French,
+                        )
+                      }
+                      {...(trainingOpportunitiesFilteredBy ===
+                      CourseLanguage.French
+                        ? selectedFilterStyle
+                        : unselectedFilterStyle)}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "French only",
+                        id: "wBU9X4",
+                        description:
+                          "Filter by option on instructor training page.",
+                      })}
+                    </Button>
+                  </div>
+                  {trainingOpportunitiesState.map((trainingOpportunity) => {
+                    const localizedTitle = getLocalizedName(
+                      trainingOpportunity.title,
+                      intl,
+                    );
+                    return (
+                      <CardBasic
+                        key={trainingOpportunity.id}
+                        data-h2-margin-bottom="base(x1)"
                       >
                         <div
                           data-h2-display="base(flex)"
+                          data-h2-flex-direction="base(column) l-tablet(row)"
                           data-h2-justify-content="base(center) l-tablet(flex-start)"
                           data-h2-align-items="base(center)"
-                          data-h2-gap="base(x.3)"
+                          data-h2-gap="base(x.75) l-tablet(x.5)"
+                          data-h2-margin-bottom="base(x.5)"
                         >
-                          <CalendarIcon
-                            data-h2-height="base(x.75)"
-                            data-h2-width="base(x.75)"
-                          />
                           <Heading
+                            Icon={CalendarIcon}
                             level="h4"
                             size="h5"
                             data-h2-font-weight="base(700)"
                             data-h2-margin="base(0)"
+                            data-h2-text-align="base(center) l-tablet(initial)"
                           >
-                            {title}
+                            {localizedTitle}
                           </Heading>
+                          <CourseLanguageChip
+                            courseLanguage={
+                              trainingOpportunity.courseLanguage?.value
+                            }
+                          />
                         </div>
-                        <CourseLanguageChip
-                          courseLanguage={
-                            trainingOpportunity.courseLanguage?.value
-                          }
+                        <MetaData
+                          metaData={getMetaData(intl, trainingOpportunity)}
+                          data-h2-align-items="base(center)"
                         />
-                      </div>
-                      <MetaData
-                        metaData={getMetaData(intl, trainingOpportunity)}
-                      />
-                      <CardSeparator />
-                      <Dialog.Root>
-                        <Dialog.Trigger>
-                          <Button mode="text" data-h2-font-weight="base(700)">
-                            {intl.formatMessage({
-                              defaultMessage: "Learn more and apply",
-                              id: "k6HT4M",
-                              description:
-                                "Button label to open a training opportunities dialog",
-                            })}
-                          </Button>
-                        </Dialog.Trigger>
-                        <Dialog.Content>
-                          <Dialog.Header>{title}</Dialog.Header>
-                          <Dialog.Body>
-                            <RichTextRenderer
-                              node={htmlToRichTextJSON(
-                                getLocalizedName(
-                                  trainingOpportunity.description,
-                                  intl,
-                                ),
-                              )}
-                            />
-                            <Dialog.Footer>
-                              <Link
-                                href={getLocalizedName(
-                                  trainingOpportunity.applicationUrl,
-                                  intl,
+                        <CardSeparator />
+                        <Dialog.Root>
+                          <Dialog.Trigger>
+                            <Button mode="text" data-h2-font-weight="base(700)">
+                              {intl.formatMessage({
+                                defaultMessage: "Learn more and apply",
+                                id: "k6HT4M",
+                                description:
+                                  "Button label to open a training opportunities dialog",
+                              })}
+                            </Button>
+                          </Dialog.Trigger>
+                          <Dialog.Content>
+                            <Dialog.Header>{localizedTitle}</Dialog.Header>
+                            <Dialog.Body>
+                              <RichTextRenderer
+                                node={htmlToRichTextJSON(
+                                  getLocalizedName(
+                                    trainingOpportunity.description,
+                                    intl,
+                                  ),
                                 )}
-                                newTab
-                                color="secondary"
-                                mode="solid"
-                              >
-                                {intl.formatMessage({
-                                  defaultMessage: "Apply now",
-                                  id: "PH68o/",
-                                  description:
-                                    "Label for apply now button in instructor led training",
-                                })}
-                              </Link>
-                              <Dialog.Close>
-                                <Button mode="text" color="tertiary">
-                                  Close
-                                </Button>
-                              </Dialog.Close>
-                            </Dialog.Footer>
-                          </Dialog.Body>
-                        </Dialog.Content>
-                      </Dialog.Root>
-                    </CardBasic>
-                  </>
-                );
-              })}
-            </>
-          ) : (
-            <>
-              {fetching ? (
-                <Loading />
+                              />
+                              <Dialog.Footer>
+                                <Link
+                                  href={getLocalizedName(
+                                    trainingOpportunity.applicationUrl,
+                                    intl,
+                                  )}
+                                  newTab
+                                  color="secondary"
+                                  mode="solid"
+                                >
+                                  {intl.formatMessage({
+                                    defaultMessage: "Apply now",
+                                    id: "PH68o/",
+                                    description:
+                                      "Label for apply now button in instructor led training",
+                                  })}
+                                </Link>
+                                <Dialog.Close>
+                                  <Button mode="text" color="tertiary">
+                                    {intl.formatMessage(commonMessages.cancel)}
+                                  </Button>
+                                </Dialog.Close>
+                              </Dialog.Footer>
+                            </Dialog.Body>
+                          </Dialog.Content>
+                        </Dialog.Root>
+                      </CardBasic>
+                    );
+                  })}
+                </>
               ) : (
                 <Well data-h2-padding="base(x.5)">
                   <p data-h2-text-align="base(center)">
