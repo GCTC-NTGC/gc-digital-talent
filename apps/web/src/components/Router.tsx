@@ -18,8 +18,8 @@ const createRoute = (locale: Locales) =>
         {
           path: locale,
           async lazy() {
-            const { ErrorBoundary } = await import(
-              "./Layout/ErrorBoundary/ErrorBoundary"
+            const { RouteErrorBoundary: ErrorBoundary } = await import(
+              "./Layout/RouteErrorBoundary/RouteErrorBoundary"
             );
             return { ErrorBoundary };
           },
