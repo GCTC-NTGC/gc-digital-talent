@@ -295,8 +295,6 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
-        govContractStartDate
-        govContractEndDate
         govContractorRoleSeniority {
           value
           label {

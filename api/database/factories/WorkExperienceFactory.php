@@ -70,14 +70,6 @@ class WorkExperienceFactory extends Factory
                 return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::INDETERMINATE->name ?
                     $this->faker->randomElement(GovPositionType::cases())->name : null;
             },
-            'gov_contract_start_date' => function (array $attributes) {
-                return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::CONTRACTOR->name ?
-                    $this->faker->date() : null;
-            },
-            'gov_contract_end_date' => function (array $attributes) {
-                return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::CONTRACTOR->name && $this->faker->boolean() ?
-                    $this->faker->dateTimeBetween($attributes['gov_contract_start_date']) : null;
-            },
             'gov_contractor_role_seniority' => function (array $attributes) {
                 return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::CONTRACTOR->name ?
                     $this->faker->randomElement(GovContractorRoleSeniority::cases())->name : null;

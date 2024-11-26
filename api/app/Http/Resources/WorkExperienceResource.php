@@ -32,8 +32,6 @@ class WorkExperienceResource extends JsonResource
             'extRoleSeniority' => $this->ext_role_seniority,
             'govEmploymentType' => $this->gov_employment_type,
             'govPositionType' => $this->gov_position_type,
-            'govContractStartDate' => $this->gov_contract_start_date?->format('Y-m-d'),
-            'govContractEndDate' => $this->gov_contract_end_date?->format('Y-m-d'),
             'govContractorRoleSeniority' => $this->gov_contractor_role_seniority,
             'govContractorType' => $this->gov_contractor_type,
             'cafEmploymentType' => $this->caf_employment_type,

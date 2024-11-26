@@ -1047,8 +1047,6 @@ type WorkExperience implements Experience {
   extRoleSeniority: LocalizedExternalRoleSeniority
   govEmploymentType: LocalizedWorkExperienceGovEmployeeType
   govPositionType: LocalizedGovPositionType
-  govContractStartDate: Date
-  govContractEndDate: Date
   govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
   govContractorType: LocalizedGovContractorType
   cafEmploymentType: LocalizedCafEmploymentType
@@ -1689,8 +1687,6 @@ input WorkExperienceInput {
   extRoleSeniority: ExternalRoleSeniority
   govEmploymentType: WorkExperienceGovEmployeeType
   govPositionType: GovPositionType
-  govContractStartDate: Date
-  govContractEndDate: Date
   govContractorRoleSeniority: GovContractorRoleSeniority
   govContractorType: GovContractorType
   cafEmploymentType: CafEmploymentType

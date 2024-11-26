@@ -29,8 +29,6 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property string $gov_position_type
  * @property string $gov_contractor_role_seniority
  * @property string $gov_contractor_type
- * @property ?\Illuminate\Support\Carbon $gov_contract_start_date
- * @property ?\Illuminate\Support\Carbon $gov_contract_end_date
  * @property string $caf_employment_type
  * @property string $caf_force
  * @property string $caf_rank
@@ -74,8 +72,6 @@ class WorkExperience extends Experience
         'ext_role_seniority' => 'extRoleSeniority',
         'gov_employment_type' => 'govEmploymentType',
         'gov_position_type' => 'govPositionType',
-        'gov_contract_start_date' => 'govContractStartDate',
-        'gov_contract_end_date' => 'govContractEndDate',
         'gov_contractor_role_seniority' => 'govContractorRoleSeniority',
         'gov_contractor_type' => 'govContractorType',
         'caf_employment_type' => 'cafEmploymentType',
@@ -176,22 +172,6 @@ class WorkExperience extends Experience
     protected function govPositionType(): Attribute
     {
         return $this->makeJsonPropertyStringAttribute('gov_position_type');
-    }
-
-    /**
-     * Interact with the government contract start date
-     */
-    protected function govContractStartDate(): Attribute
-    {
-        return $this->makeJsonPropertyDateAttribute('gov_contract_start_date');
-    }
-
-    /**
-     * Interact with the government contract end date
-     */
-    protected function govContractEndDate(): Attribute
-    {
-        return $this->makeJsonPropertyDateAttribute('gov_contract_end_date');
     }
 
     /**

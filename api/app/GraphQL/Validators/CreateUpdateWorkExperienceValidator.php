@@ -68,25 +68,6 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                     )
                 ),
             ],
-            'workExperience.govContractStartDate' => [
-                Rule::requiredIf(
-                    (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CONTRACTOR->name
-                    )
-                ),
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
-                    )
-                ),
-            ],
-            'workExperience.govContractEndDate' => [
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
-                    )
-                ),
-            ],
             'workExperience.govContractorRoleSeniority' => [
                 Rule::requiredIf(
                     (

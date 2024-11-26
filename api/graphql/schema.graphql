@@ -686,8 +686,6 @@ type WorkExperience implements Experience {
     @rename(attribute: "gov_employment_type")
   govPositionType: LocalizedGovPositionType
     @rename(attribute: "gov_position_type")
-  govContractStartDate: Date @rename(attribute: "gov_contract_start_date")
-  govContractEndDate: Date @rename(attribute: "gov_contract_end_date")
   govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
     @rename(attribute: "gov_contractor_role_seniority")
   govContractorType: LocalizedGovContractorType
@@ -1639,8 +1637,6 @@ input WorkExperienceInput {
   govEmploymentType: WorkExperienceGovEmployeeType
     @rename(attribute: "gov_employment_type")
   govPositionType: GovPositionType @rename(attribute: "gov_position_type")
-  govContractStartDate: Date @rename(attribute: "gov_contract_start_date")
-  govContractEndDate: Date @rename(attribute: "gov_contract_end_date")
   govContractorRoleSeniority: GovContractorRoleSeniority
     @rename(attribute: "gov_contractor_role_seniority")
   govContractorType: GovContractorType @rename(attribute: "gov_contractor_type")
