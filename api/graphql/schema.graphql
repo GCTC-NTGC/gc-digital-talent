@@ -676,6 +676,26 @@ type WorkExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  employmentCategory: LocalizedEmploymentCategory
+    @rename(attribute: "employment_category")
+  extSizeOfOrganization: LocalizedExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  extRoleSeniority: LocalizedExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: LocalizedWorkExperienceGovEmployeeType
+    @rename(attribute: "gov_employment_type")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "gov_position_type")
+  govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: LocalizedGovContractorType
+    @rename(attribute: "gov_contractor_type")
+  cafEmploymentType: LocalizedCafEmploymentType
+    @rename(attribute: "caf_employment_type")
+  cafForce: LocalizedCafForce @rename(attribute: "caf_force")
+  cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
+  classification: Classification @with(relation: "classification")
+  department: Department @with(relation: "department")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -1608,6 +1628,27 @@ input WorkExperienceInput {
   endDate: Date @rename(attribute: "end_date")
   details: String
   skills: UpdateExperienceSkills @spread
+  employmentCategory: EmploymentCategory
+    @rename(attribute: "employment_category")
+  extSizeOfOrganization: ExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  extRoleSeniority: ExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: WorkExperienceGovEmployeeType
+    @rename(attribute: "gov_employment_type")
+  govPositionType: GovPositionType @rename(attribute: "gov_position_type")
+  govContractorRoleSeniority: GovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: GovContractorType @rename(attribute: "gov_contractor_type")
+  cafEmploymentType: CafEmploymentType @rename(attribute: "caf_employment_type")
+  cafForce: CafForce @rename(attribute: "caf_force")
+  cafRank: CafRank @rename(attribute: "caf_rank")
+  classification: ClassificationBelongsTo
+    @pluck(key: "connect")
+    @rename(attribute: "classification_id")
+  department: DepartmentBelongsTo
+    @pluck(key: "connect")
+    @rename(attribute: "department_id")
 }
 input PersonalExperienceInput {
   title: String
@@ -2200,7 +2241,12 @@ type Mutation {
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @create @canModel(ability: "create", injectArgs: true)
+  ): WorkExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   createPersonalExperience(
     userId: ID! @rename(attribute: "user_id")
     personalExperience: PersonalExperienceInput! @spread
@@ -2220,7 +2266,13 @@ type Mutation {
   updateWorkExperience(
     id: ID!
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @update @guard @canFind(ability: "update", find: "id")
+  ): WorkExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   updatePersonalExperience(
     id: ID!
     personalExperience: PersonalExperienceInput! @spread
