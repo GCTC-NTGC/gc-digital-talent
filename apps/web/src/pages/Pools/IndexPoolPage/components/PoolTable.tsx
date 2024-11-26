@@ -134,6 +134,9 @@ const PoolTable_Query = graphql(/* GraphQL */ `
       id
       ...PoolBookmark
     }
+
+    ...PoolFilterDialogOptions
+
     poolsPaginated(
       where: $where
       orderByPoolBookmarks: $orderByPoolBookmarks
@@ -468,6 +471,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         state: filterRef.current,
         component: (
           <PoolFilterDialog
+            optionsQuery={data}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolFilterInputToFormValues(
               initialFilterInput,
