@@ -136,8 +136,8 @@ export const ClassificationTable = ({
         linkProps: {
           href: paths.classificationCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create new classification",
-            id: "AktnIU",
+            defaultMessage: "Create classification",
+            id: "KLrJY5",
             description:
               "Heading displayed above the Create Classification form.",
           }),

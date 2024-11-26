@@ -33,14 +33,14 @@ const CreateTeam_Mutation = graphql(/* GraphQL */ `
 `);
 
 const pageTitle = defineMessage({
-  defaultMessage: "Create a new team",
-  id: "vyyfX6",
+  defaultMessage: "Create a team",
+  id: "CkrBWY",
   description: "Page title for the create team page",
 });
 
 const subtitle = defineMessage({
-  defaultMessage: "Create a new team from scratch",
-  id: "XaYhX3",
+  defaultMessage: "Create a team from scratch",
+  id: "mBeY2F",
   description: "Descriptive text for the create team page in the admin portal.",
 });
 

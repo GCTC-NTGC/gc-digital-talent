@@ -295,8 +295,8 @@ const SkillTable = ({
               linkProps: {
                 href: paths.skillCreate(),
                 label: intl.formatMessage({
-                  defaultMessage: "Create new skill",
-                  id: "q5j7GV",
+                  defaultMessage: "Create skill",
+                  id: "71mPNh",
                   description: "Title for Create skill",
                 }),
                 from: currentUrl,

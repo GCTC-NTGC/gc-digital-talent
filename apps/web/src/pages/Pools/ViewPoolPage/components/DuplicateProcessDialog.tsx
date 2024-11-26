@@ -138,9 +138,9 @@ const DuplicateProcessDialog = ({
 
               <p data-h2-margin="base(x1, 0)">
                 {intl.formatMessage({
-                  id: "NivtzV",
+                  id: "AZEoFk",
                   defaultMessage:
-                    "This will create a new process and copy all existing information.",
+                    "This will copy all existing information and create a new process.",
                   description:
                     "Text explaining what will happen when duplicating a process",
                 })}

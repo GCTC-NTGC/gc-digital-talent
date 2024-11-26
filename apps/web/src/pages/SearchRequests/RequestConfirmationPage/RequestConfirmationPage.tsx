@@ -167,8 +167,8 @@ export const Component = () => {
             />
             <Link mode="inline" href={paths.search()} color="secondary">
               {intl.formatMessage({
-                defaultMessage: "Create a new talent request",
-                id: "+d2TiI",
+                defaultMessage: "Create talent request",
+                id: "4Nobtl",
                 description: "Link text to start a new talent request",
               })}
             </Link>
