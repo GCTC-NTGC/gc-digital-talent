@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useMutation, useQuery } from "urql";
@@ -60,8 +60,8 @@ const CreateTrainingOpportunityForm = ({
     return handleCreateTrainingOpportunity(
       convertFormValuesToCreateInput(formValues),
     )
-      .then((id) => {
-        navigate(paths.trainingOpportunityView(id));
+      .then(async (id) => {
+        await navigate(paths.trainingOpportunityView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Training opportunity created successfully!",
