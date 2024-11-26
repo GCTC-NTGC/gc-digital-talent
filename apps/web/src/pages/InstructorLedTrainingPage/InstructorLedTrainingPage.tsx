@@ -224,7 +224,10 @@ const filterTrainingOpportunities = (
   }
   const filteredTrainingOpportunities = trainingOpportunities.filter(
     (trainingOpportunity) => {
-      return trainingOpportunity.courseLanguage?.value === filterBy;
+      return (
+        trainingOpportunity.courseLanguage?.value === filterBy ||
+        trainingOpportunity.courseLanguage?.value === CourseLanguage.Bilingual
+      );
     },
   );
   return filteredTrainingOpportunities;
