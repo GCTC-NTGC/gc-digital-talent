@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property string $key
  * @property array $name
  * @property array $description
+ * @property array $mandate_authority
  */
 class Community extends Model
 {
@@ -27,11 +28,13 @@ class Community extends Model
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
+        'mandate_authority' => 'array',
     ];
 
     protected $fillable = [
         'name',
         'description',
+        'mandate_authority',
     ];
 
     public $guarded = [];

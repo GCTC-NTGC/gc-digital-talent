@@ -489,6 +489,7 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
@@ -653,7 +654,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   details: String
   skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -918,6 +918,7 @@ type TrainingOpportunity {
   title: LocalizedString
   courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
   registrationDeadline: Date @rename(attribute: "registration_deadline")
+  registrationDeadlineStatus: LocalizedDeadlineStatus
   trainingStart: Date @rename(attribute: "training_start")
   trainingEnd: Date @rename(attribute: "training_end")
   description: LocalizedString
@@ -1027,13 +1028,13 @@ type Query {
       )
       @with(
         relations: [
-          "user:id,first_name,last_name,email,preferred_lang",
-          "pool:id,process_number",
+          "user:id,first_name,last_name,email,preferred_lang"
+          "pool:id,process_number"
           "skills:id,name"
         ]
       )
-       # Limit fields for eager loading
-  ): [PoolCandidateWithSkillCount]!
+  ): # Limit fields for eager loading
+  [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
@@ -1094,6 +1095,7 @@ type Query {
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
+    orderBy: [OrderByClause!] @orderBy
   ): [TrainingOpportunity]
     @paginate(
       defaultCount: 10
@@ -1488,12 +1490,14 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input CreateApplicantFilterInput {

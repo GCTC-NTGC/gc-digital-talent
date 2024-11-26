@@ -63,6 +63,11 @@ type LocalizedCourseLanguage {
   label: LocalizedString!
 }
 
+type LocalizedDeadlineStatus {
+  value: DeadlineStatus!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -332,6 +337,7 @@ type Query {
   ): NotificationPaginator!
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
+    orderBy: [OrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
@@ -833,6 +839,7 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  mandateAuthority: LocalizedString
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
@@ -967,7 +974,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User!
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
@@ -1211,6 +1217,7 @@ type TrainingOpportunity {
   title: LocalizedString
   courseLanguage: LocalizedCourseLanguage
   registrationDeadline: Date
+  registrationDeadlineStatus: LocalizedDeadlineStatus
   trainingStart: Date
   trainingEnd: Date
   description: LocalizedString
@@ -1507,12 +1514,14 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput
 }
 
 input CreateApplicantFilterInput {
@@ -2691,6 +2700,11 @@ enum CourseLanguage {
   ENGLISH
   FRENCH
   BILINGUAL
+}
+
+enum DeadlineStatus {
+  PUBLISHED
+  EXPIRED
 }
 
 enum AdvertisementType {

@@ -67,6 +67,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "communities", communityId].join("/"),
     communityManageAccess: (communityId: string) =>
       [adminUrl, "communities", communityId, "manage-access"].join("/"),
+    communityUpdate: (communityId: string) =>
+      [adminUrl, "communities", communityId, "edit"].join("/"),
 
     // Admin - Pools
     poolTable: () => [adminUrl, "pools"].join("/"),
@@ -320,6 +322,18 @@ const getRoutes = (lang: Locales) => {
 
     // IT Training Fund
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
+
+    // Training Opportunities (Admin)
+    trainingOpportunitiesIndex: () =>
+      [adminUrl, "training-opportunities"].join("/"),
+    trainingOpportunityCreate: () =>
+      [adminUrl, "training-opportunities", "create"].join("/"),
+    trainingOpportunityView: (trainingOpportunityId: string) =>
+      [adminUrl, "training-opportunities", trainingOpportunityId].join("/"),
+    trainingOpportunityUpdate: (trainingOpportunityId: string) =>
+      [adminUrl, "training-opportunities", trainingOpportunityId, "edit"].join(
+        "/",
+      ),
 
     /**
      * Deprecated

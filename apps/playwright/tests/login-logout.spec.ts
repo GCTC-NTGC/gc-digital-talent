@@ -347,7 +347,7 @@ test.describe("Login and logout", () => {
     await pageTwo.goto("/en/");
     await pageTwo.getByRole("button", { name: "your account" }).click();
     await expect(
-      pageTwo.getByRole("button", { name: /sign out/i }),
+      pageTwo.getByRole("link", { name: /sign out/i }),
     ).toBeVisible();
 
     // simulate logged out in first page context
