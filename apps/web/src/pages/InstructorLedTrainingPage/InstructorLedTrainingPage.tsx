@@ -250,6 +250,7 @@ export const Component = () => {
       where: {
         hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
       },
+      orderBy: [{ column: "registration_deadline", order: SortOrder.Asc }],
     },
   });
 
