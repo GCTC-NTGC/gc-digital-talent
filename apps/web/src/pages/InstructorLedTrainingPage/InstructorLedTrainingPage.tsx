@@ -37,10 +37,15 @@ import CourseLanguageChip from "./CourseLanguageChip";
 
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunities(
+    $first: Int
     $where: TrainingOpportunitiesFilterInput
     $orderBy: [OrderByClause!]
   ) {
-    trainingOpportunitiesPaginated(where: $where, orderBy: $orderBy) {
+    trainingOpportunitiesPaginated(
+      first: $first
+      where: $where
+      orderBy: $orderBy
+    ) {
       data {
         id
         title {
@@ -238,6 +243,7 @@ export const Component = () => {
   const [{ data, fetching }] = useQuery({
     query: TrainingOpportunitiesPaginated_Query,
     variables: {
+      first: 100,
       where: {
         hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
       },
