@@ -46,6 +46,7 @@ export const Component = () => (
       ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.PlatformAdmin,
     ]}
   >
     <IndexSearchRequestPage />

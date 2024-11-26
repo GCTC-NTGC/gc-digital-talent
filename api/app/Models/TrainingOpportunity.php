@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Enums\CourseLanguage;
+use App\Enums\DeadlineStatus;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,6 +54,7 @@ class TrainingOpportunity extends Model
     {
         // if true only display where registration deadline is in the future
         if (isset($filterBool) && $filterBool) {
+            // this should match the logic in registrationDeadlineStatus
             $query->where(function ($query) {
                 $query->whereDate('registration_deadline', '>=', date('Y-m-d'))
                     ->orWhereNull('registration_deadline');
@@ -65,9 +68,25 @@ class TrainingOpportunity extends Model
     {
         $courseLanguageArray = array_column(CourseLanguage::cases(), 'name');
         if (isset($language) && in_array($language, $courseLanguageArray)) {
-            $query->where('course_language', '=', $language);
+            $query->where('course_language', '=', $language)
+                ->orWhere('course_language', '=', CourseLanguage::BILINGUAL);
         }
 
         return $query;
+    }
+
+    /**
+     * Get the registration deadline status with respect to the current date
+     */
+    protected function registrationDeadlineStatus(): Attribute
+    {
+        /** @disregard P1003 Not using value parameter */
+        return Attribute::make(
+            // this should match the logic in scopeHidePassedRegistrationDeadline
+            get: fn (mixed $value, array $attributes) => $attributes['registration_deadline'] >= date('Y-m-d') || is_null($attributes['registration_deadline'])
+                ? DeadlineStatus::PUBLISHED->name
+                : DeadlineStatus::EXPIRED->name
+
+        );
     }
 }

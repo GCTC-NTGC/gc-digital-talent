@@ -17,8 +17,8 @@ const createRoute = (locale: Locales) =>
           {
             path: locale,
             async lazy() {
-              const { ErrorBoundary } = await import(
-                "./Layout/ErrorBoundary/ErrorBoundary"
+              const { RouteErrorBoundary: ErrorBoundary } = await import(
+                "./Layout/RouteErrorBoundary/RouteErrorBoundary"
               );
               return { ErrorBoundary };
             },
@@ -525,8 +525,20 @@ const createRoute = (locale: Locales) =>
               },
               {
                 path: "it-training-fund",
-                lazy: () =>
-                  import("../pages/ItTrainingFundPage/ItTrainingFundPage"),
+                children: [
+                  {
+                    index: true,
+                    lazy: () =>
+                      import("../pages/ItTrainingFundPage/ItTrainingFundPage"),
+                  },
+                  {
+                    path: "instructor-led-training",
+                    lazy: () =>
+                      import(
+                        "../pages/InstructorLedTrainingPage/InstructorLedTrainingPage"
+                      ),
+                  },
+                ],
               },
               {
                 path: "*",
@@ -631,6 +643,13 @@ const createRoute = (locale: Locales) =>
                         lazy: () =>
                           import(
                             "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
+                          ),
+                      },
+                      {
+                        path: "edit",
+                        lazy: () =>
+                          import(
+                            "../pages/Communities/UpdateCommunityPage/UpdateCommunityPage"
                           ),
                       },
                     ],
@@ -778,6 +797,44 @@ const createRoute = (locale: Locales) =>
                       import(
                         "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
                       ),
+                  },
+                ],
+              },
+              {
+                path: "training-opportunities",
+                children: [
+                  {
+                    index: true,
+                    lazy: () =>
+                      import(
+                        "../pages/TrainingOpportunities/IndexTrainingOpportunitiesPage"
+                      ),
+                  },
+                  {
+                    path: "create",
+                    lazy: () =>
+                      import(
+                        "../pages/TrainingOpportunities/CreateTrainingOpportunityPage"
+                      ),
+                  },
+                  {
+                    path: ":trainingOpportunityId",
+                    children: [
+                      {
+                        index: true,
+                        lazy: () =>
+                          import(
+                            "../pages/TrainingOpportunities/ViewTrainingOpportunityPage"
+                          ),
+                      },
+                      {
+                        path: "edit",
+                        lazy: () =>
+                          import(
+                            "../pages/TrainingOpportunities/UpdateTrainingOpportunityPage"
+                          ),
+                      },
+                    ],
                   },
                 ],
               },

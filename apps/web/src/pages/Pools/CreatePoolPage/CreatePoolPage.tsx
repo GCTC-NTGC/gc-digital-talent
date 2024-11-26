@@ -22,7 +22,6 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
@@ -32,6 +31,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import messages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -417,13 +417,7 @@ const CreatePoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.createProcess}>
     <CreatePoolPage />
   </RequireAuth>
 );

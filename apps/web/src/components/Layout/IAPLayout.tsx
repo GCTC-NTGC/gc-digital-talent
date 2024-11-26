@@ -25,8 +25,8 @@ import micMessages from "~/lang/micCompiled.json";
 
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";
-
-export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
+import ErrorBoundary from "./RouteErrorBoundary/RouteErrorBoundary";
+export { ErrorBoundary };
 
 const messages = new Map<string, Messages>([
   ["crg", crgMessages],

@@ -489,6 +489,7 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
@@ -935,10 +936,11 @@ type SitewideAnnouncement {
 }
 
 type TrainingOpportunity {
-  id: UUID
+  id: UUID!
   title: LocalizedString
   courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
   registrationDeadline: Date @rename(attribute: "registration_deadline")
+  registrationDeadlineStatus: LocalizedDeadlineStatus
   trainingStart: Date @rename(attribute: "training_start")
   trainingEnd: Date @rename(attribute: "training_end")
   description: LocalizedString
@@ -1114,6 +1116,7 @@ type Query {
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
+    orderBy: [OrderByClause!] @orderBy
   ): [TrainingOpportunity]
     @paginate(
       defaultCount: 10
@@ -1508,12 +1511,14 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input CreateApplicantFilterInput {

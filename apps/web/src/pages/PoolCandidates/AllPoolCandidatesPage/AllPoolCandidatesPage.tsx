@@ -60,6 +60,9 @@ export const Component = () => (
     roles={[
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

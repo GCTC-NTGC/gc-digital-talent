@@ -42,6 +42,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import adminMessages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { orderRoles } from "../Communities/CommunityMembersPage/helpers";
 
@@ -101,32 +102,17 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(navigationMessages.candidates),
       href: adminRoutes.poolCandidates(),
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.RequestResponder,
-        ROLE_NAME.PlatformAdmin,
-      ],
+      roles: permissionConstants.viewCandidates,
     },
     {
       label: intl.formatMessage(navigationMessages.processes),
       href: adminRoutes.poolTable(),
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.CommunityManager,
-        ROLE_NAME.PlatformAdmin,
-        ROLE_NAME.CommunityAdmin,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.ProcessOperator,
-      ],
+      roles: permissionConstants.viewProcesses,
     },
     {
       label: intl.formatMessage(pageTitles.talentRequests),
       href: adminRoutes.searchRequestTable(),
-      roles: [
-        ROLE_NAME.RequestResponder,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.CommunityAdmin,
-      ],
+      roles: permissionConstants.viewRequests,
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
@@ -203,11 +189,21 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       ],
     },
     {
+      label: intl.formatMessage(pageTitles.trainingOpportunities),
+      href: adminRoutes.trainingOpportunitiesIndex(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
       label: intl.formatMessage(navigationMessages.users),
       href: adminRoutes.userTable(),
+      roles: permissionConstants.viewUsers,
+    },
+    {
+      label: intl.formatMessage(pageTitles.communities),
+      href: adminRoutes.communityTable(),
       roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.RequestResponder,
+        ROLE_NAME.CommunityAdmin,
+        ROLE_NAME.CommunityRecruiter,
         ROLE_NAME.PlatformAdmin,
       ],
     },
