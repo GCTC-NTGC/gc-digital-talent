@@ -57,7 +57,11 @@ const ListItemNode: NodeRenderer = ({ children }) => {
 };
 
 const HeadingNode: NodeRenderer = ({ children }) => {
-  return <Heading level="h3">{children}</Heading>;
+  return (
+    <Heading level="h3" size="h4">
+      {children}
+    </Heading>
+  );
 };
 
 const nodeRenderMap: RenderMap = {
