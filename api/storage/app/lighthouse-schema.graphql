@@ -1213,7 +1213,7 @@ type SitewideAnnouncement {
 }
 
 type TrainingOpportunity {
-  id: UUID
+  id: UUID!
   title: LocalizedString
   courseLanguage: LocalizedCourseLanguage
   registrationDeadline: Date

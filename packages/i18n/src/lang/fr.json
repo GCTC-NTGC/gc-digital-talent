@@ -275,6 +275,10 @@
     "defaultMessage": "Date d'expiration",
     "description": "Label for expiry Date"
   },
+  "AFPD79": {
+    "defaultMessage": "Bilingue",
+    "description": "Label for bilingual"
+  },
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"

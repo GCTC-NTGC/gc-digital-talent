@@ -68,7 +68,8 @@ class TrainingOpportunity extends Model
     {
         $courseLanguageArray = array_column(CourseLanguage::cases(), 'name');
         if (isset($language) && in_array($language, $courseLanguageArray)) {
-            $query->where('course_language', '=', $language);
+            $query->where('course_language', '=', $language)
+                ->orWhere('course_language', '=', CourseLanguage::BILINGUAL);
         }
 
         return $query;

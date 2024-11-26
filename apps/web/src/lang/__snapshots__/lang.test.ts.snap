@@ -59,6 +59,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Apply now",
+    "fr": [
+      "Postulez dès-maintenant",
+      "Présentez votre demande"
+    ]
+  },
+  {
     "en": "Remove membership<hidden> in {team}</hidden>",
     "fr": [
       "Retirez de l'équipe<hidden> dans {team}</hidden>",

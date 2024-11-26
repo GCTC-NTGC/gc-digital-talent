@@ -914,7 +914,7 @@ type SitewideAnnouncement {
 }
 
 type TrainingOpportunity {
-  id: UUID
+  id: UUID!
   title: LocalizedString
   courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
   registrationDeadline: Date @rename(attribute: "registration_deadline")
@@ -1032,9 +1032,8 @@ type Query {
           "pool:id,process_number"
           "skills:id,name"
         ]
-      )
-  ): # Limit fields for eager loading
-  [PoolCandidateWithSkillCount]!
+      ) # Limit fields for eager loading
+  ): [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
