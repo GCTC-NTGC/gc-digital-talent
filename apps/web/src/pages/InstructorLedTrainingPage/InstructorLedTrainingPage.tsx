@@ -479,12 +479,18 @@ export const Component = () => {
                         <Dialog.Root>
                           <Dialog.Trigger>
                             <Button mode="text" data-h2-font-weight="base(700)">
-                              {intl.formatMessage({
-                                defaultMessage: "Learn more and apply",
-                                id: "k6HT4M",
-                                description:
-                                  "Button label to open a training opportunities dialog",
-                              })}
+                              {intl.formatMessage(
+                                {
+                                  defaultMessage:
+                                    "Learn more and apply <hidden>for {trainingOpportunityTitle}</hidden>",
+                                  id: "4t9lEL",
+                                  description:
+                                    "Button label to open a training opportunities dialog",
+                                },
+                                {
+                                  trainingOpportunityTitle: localizedTitle,
+                                },
+                              )}
                             </Button>
                           </Dialog.Trigger>
                           <Dialog.Content>
