@@ -238,6 +238,11 @@ const commonMessages = defineMessages({
     id: "JYpEeW",
     description: "Name of French language",
   },
+  bilingual: {
+    defaultMessage: "Bilingual",
+    id: "AFPD79",
+    description: "Label for bilingual",
+  },
   bilingualEnglishFrench: {
     defaultMessage: "Bilingual (English and French)",
     id: "jStpFw",
@@ -288,6 +293,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Work email address",
     id: "pOL68A",
     description: "Title for work email address",
+  },
+  language: {
+    defaultMessage: "Language",
+    id: "k3i6lU",
+    description: "Legend for a language input or title",
   },
 });
 

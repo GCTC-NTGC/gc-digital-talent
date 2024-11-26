@@ -93,6 +93,7 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.PlatformAdmin,
     ]}
   >
     <IndexPoolCandidatePage />

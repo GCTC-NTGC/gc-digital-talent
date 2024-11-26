@@ -47,10 +47,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
-  "/zFaLD": {
-    "defaultMessage": "Parcourir la bibliothèque de compétences",
-    "description": "Name of skill library page"
-  },
   "09LIbL": {
     "defaultMessage": "Date",
     "description": "Label to identify a date element"
@@ -146,6 +142,10 @@
   "3Nd6dv": {
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
+  },
+  "3SDRDg": {
+    "defaultMessage": "Parcourir la bibliothèque de compétences",
+    "description": "Name of skill library page"
   },
   "3agw4G": {
     "defaultMessage": "<strong> Région de l'Ontario</strong>(excluant Ottawa)",
@@ -274,6 +274,10 @@
   "AAFkmX": {
     "defaultMessage": "Date d'expiration",
     "description": "Label for expiry Date"
+  },
+  "AFPD79": {
+    "defaultMessage": "Bilingue",
+    "description": "Label for bilingual"
   },
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
@@ -1042,6 +1046,10 @@
   "jy7itR": {
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
+  },
+  "k3i6lU": {
+    "defaultMessage": "Langue",
+    "description": "Legend for a language input or title"
   },
   "k8IB9g": {
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
