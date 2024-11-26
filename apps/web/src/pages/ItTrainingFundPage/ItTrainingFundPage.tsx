@@ -472,9 +472,8 @@ export const Component = () => {
                           href={paths.instructorLedTraining()}
                         >
                           {intl.formatMessage({
-                            defaultMessage:
-                              "Sign up for updates<hidden>about instructor-led classes and bootcamps</hidden>",
-                            id: "uuE/zT",
+                            defaultMessage: "Browse training opportunities",
+                            id: "alKxbI",
                             description: "A link to sign up for updates",
                           })}
                         </Link>

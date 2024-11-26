@@ -7562,6 +7562,10 @@
     "defaultMessage": "Cet utilisateur a été supprimé.",
     "description": "Message displayed when admin views a deleted user."
   },
+  "alKxbI": {
+    "defaultMessage": "Parcourir les possibilités de formation",
+    "description": "A link to sign up for updates"
+  },
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
@@ -11529,10 +11533,6 @@
   "utlf9l": {
     "defaultMessage": "À quoi devrais-je m’attendre si je réussis ce processus?",
     "description": "Button text to toggle the accordion for what to expect after admission"
-  },
-  "uuE/zT": {
-    "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d’entrainement dirigés par un instructeur ou une instructrice</hidden>",
-    "description": "A link to sign up for updates"
   },
   "uup5F2": {
     "defaultMessage": "Sélectionnez une langue",
