@@ -507,7 +507,11 @@ export const Component = () => {
                                   })}
                                 </Link>
                                 <Dialog.Close>
-                                  <Button mode="text" color="tertiary">
+                                  <Button
+                                    mode="text"
+                                    color="warning"
+                                    data-h2-font-weight="base(700)"
+                                  >
                                     {intl.formatMessage(commonMessages.cancel)}
                                   </Button>
                                 </Dialog.Close>
