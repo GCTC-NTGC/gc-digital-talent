@@ -3,14 +3,14 @@ import { ReactNode } from "react";
 import Chip from "../Chip/Chip";
 import { Color } from "../../types";
 
-export interface MetaDataItemProps {
+export interface MetadataItemProps {
   children: ReactNode;
   color?: Color;
   key: string;
   type: "text" | "chip";
 }
 
-const MetaDataItem = ({ children, type, color }: MetaDataItemProps) => {
+const MetadataItem = ({ children, type, color }: MetadataItemProps) => {
   switch (type) {
     case "text":
       return <span data-h2-color="base(black.light)">{children}</span>;
@@ -27,7 +27,7 @@ const MetaDataItem = ({ children, type, color }: MetaDataItemProps) => {
   }
 };
 
-const MetaData = ({ metaData, ...rest }: { metaData: MetaDataItemProps[] }) => {
+const Metadata = ({ metadata, ...rest }: { metadata: MetadataItemProps[] }) => {
   return (
     <div
       data-h2-display="base(flex)"
@@ -41,11 +41,11 @@ const MetaData = ({ metaData, ...rest }: { metaData: MetaDataItemProps[] }) => {
       data-h2-font-size="base(caption)"
       {...rest}
     >
-      {metaData.map((data) => (
-        <MetaDataItem {...data} key={data.key} />
+      {metadata.map((data) => (
+        <MetadataItem {...data} key={data.key} />
       ))}
     </div>
   );
 };
 
-export default MetaData;
+export default Metadata;

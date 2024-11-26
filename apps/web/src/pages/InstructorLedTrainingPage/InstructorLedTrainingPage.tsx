@@ -14,8 +14,8 @@ import {
   Heading,
   Link,
   Loading,
-  MetaData,
-  MetaDataItemProps,
+  Metadata,
+  MetadataItemProps,
   Well,
 } from "@gc-digital-talent/ui";
 import {
@@ -102,13 +102,13 @@ const pageSubtitle = defineMessage({
   description: "Page subtitle for the instructor led training page",
 });
 
-function getMetaData(
+function getMetadata(
   intl: IntlShape,
   trainingOpportunity: TrainingOpportunity,
-): MetaDataItemProps[] {
-  const metaData = [];
+): MetadataItemProps[] {
+  const metadata = [];
   if (trainingOpportunity.registrationDeadline) {
-    metaData.push({
+    metadata.push({
       key: `application-deadline-${trainingOpportunity.id}`,
       type: "text",
       children: (
@@ -128,11 +128,11 @@ function getMetaData(
           </span>
         </>
       ),
-    } satisfies MetaDataItemProps);
+    } satisfies MetadataItemProps);
   }
 
   if (trainingOpportunity.trainingStart && !trainingOpportunity.trainingEnd) {
-    metaData.push({
+    metadata.push({
       key: `training-starting-date-${trainingOpportunity.id}`,
       type: "text",
       children: (
@@ -152,11 +152,11 @@ function getMetaData(
           </span>
         </>
       ),
-    } satisfies MetaDataItemProps);
+    } satisfies MetadataItemProps);
   }
 
   if (trainingOpportunity.trainingStart && trainingOpportunity.trainingEnd) {
-    metaData.push({
+    metadata.push({
       key: `training-dates-${trainingOpportunity.id}`,
       type: "text",
       children: (
@@ -182,20 +182,20 @@ function getMetaData(
           </span>
         </>
       ),
-    } satisfies MetaDataItemProps);
+    } satisfies MetadataItemProps);
   }
 
   if (trainingOpportunity.registrationDeadline) {
-    metaData.push({
+    metadata.push({
       key: `course-format-${trainingOpportunity.id}`,
       type: "text",
       children: (
         <>{getLocalizedName(trainingOpportunity.courseFormat?.label, intl)}</>
       ),
-    } satisfies MetaDataItemProps);
+    } satisfies MetadataItemProps);
   }
 
-  return metaData;
+  return metadata;
 }
 
 const selectedFilterStyle: Record<string, string> = {
@@ -462,8 +462,8 @@ export const Component = () => {
                             }
                           />
                         </div>
-                        <MetaData
-                          metaData={getMetaData(intl, trainingOpportunity)}
+                        <Metadata
+                          metadata={getMetadata(intl, trainingOpportunity)}
                           data-h2-align-items="base(center)"
                         />
                         <CardSeparator />
