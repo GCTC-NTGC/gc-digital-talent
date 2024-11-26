@@ -1,4 +1,8 @@
 {
+  "5xaEhL": {
+    "defaultMessage": "Titre",
+    "description": "Label for toggling a heading in the rich text editor"
+  },
   "+6/qCF": {
     "defaultMessage": "Supprimer",
     "description": "Button text for a dismissible chip"
