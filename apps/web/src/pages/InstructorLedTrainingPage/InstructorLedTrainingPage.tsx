@@ -1,5 +1,5 @@
 import { defineMessage, IntlShape, useIntl } from "react-intl";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
@@ -21,6 +21,7 @@ import {
 import {
   CourseLanguage,
   graphql,
+  SortOrder,
   TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -215,31 +216,10 @@ const unselectedFilterStyle: Record<string, string> = {
   "data-h2-font-weight": "base(bold)",
 };
 
-const filterTrainingOpportunities = (
-  trainingOpportunities: TrainingOpportunity[],
-  filterBy?: CourseLanguage.English | CourseLanguage.French | null,
-): TrainingOpportunity[] => {
-  if (!filterBy) {
-    return trainingOpportunities;
-  }
-  const filteredTrainingOpportunities = trainingOpportunities.filter(
-    (trainingOpportunity) => {
-      return (
-        trainingOpportunity.courseLanguage?.value === filterBy ||
-        trainingOpportunity.courseLanguage?.value === CourseLanguage.Bilingual
-      );
-    },
-  );
-  return filteredTrainingOpportunities;
-};
-
 export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const [trainingOpportunitiesState, setTrainingOpportunitiesState] = useState<
-    TrainingOpportunity[]
-  >([]);
   const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
     useState<CourseLanguage.English | CourseLanguage.French | null>(null);
 
@@ -249,6 +229,7 @@ export const Component = () => {
       first: 100,
       where: {
         hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
+        opportunityLanguage: trainingOpportunitiesFilteredBy,
       },
       orderBy: [{ column: "registration_deadline", order: SortOrder.Asc }],
     },
@@ -267,30 +248,8 @@ export const Component = () => {
     ],
   });
 
-  useEffect(
-    () =>
-      setTrainingOpportunitiesState(
-        filterTrainingOpportunities(
-          unpackMaybes(data?.trainingOpportunitiesPaginated.data).sort(
-            // Sorted by registration deadline
-            (a, b) => {
-              const aDeadline = a.registrationDeadline
-                ? new Date(a.registrationDeadline).getTime()
-                : 0;
-              const bDeadline = b.registrationDeadline
-                ? new Date(b.registrationDeadline).getTime()
-                : 0;
-
-              return aDeadline - bDeadline;
-            },
-          ),
-          trainingOpportunitiesFilteredBy,
-        ),
-      ),
-    [
-      data?.trainingOpportunitiesPaginated.data,
-      trainingOpportunitiesFilteredBy,
-    ],
+  const trainingOpportunities = unpackMaybes(
+    data?.trainingOpportunitiesPaginated.data,
   );
 
   return (
@@ -377,10 +336,10 @@ export const Component = () => {
             </p>
           </div>
           {fetching ? (
-            <Loading />
+            <Loading inline />
           ) : (
             <>
-              {trainingOpportunitiesState.length > 0 ? (
+              {trainingOpportunities.length > 0 ? (
                 <>
                   <div
                     data-h2-display="base(flex)"
@@ -438,7 +397,7 @@ export const Component = () => {
                       })}
                     </Button>
                   </div>
-                  {trainingOpportunitiesState.map((trainingOpportunity) => {
+                  {trainingOpportunities.map((trainingOpportunity) => {
                     const localizedTitle = getLocalizedName(
                       trainingOpportunity.title,
                       intl,
