@@ -193,7 +193,7 @@ const UpdateSkillShowcase = ({
           }
           throw new Error("No data returned");
         })
-      : // otherwise, create new userSkill
+      : // otherwise, create userSkill
         executeCreateMutation({
           userId,
           skillId: skillId ?? "",
