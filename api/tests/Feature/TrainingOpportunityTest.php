@@ -227,7 +227,7 @@ class TrainingOpportunityTest extends TestCase
         )
             ->assertJsonFragment(
                 [
-                    'total' => 1,
+                    'total' => 2,
                 ],
             );
 
@@ -258,7 +258,7 @@ class TrainingOpportunityTest extends TestCase
         )
             ->assertJsonFragment(
                 [
-                    'total' => 1,
+                    'total' => 2,
                 ],
             );
     }

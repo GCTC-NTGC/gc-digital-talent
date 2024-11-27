@@ -3,6 +3,13 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
+    "en": "Create team",
+    "fr": [
+      "Créez une équipe",
+      "Créez l'équipe"
+    ]
+  },
+  {
     "en": "Membership roles",
     "fr": [
       "Rôles des membres",
@@ -14,6 +21,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Rôles dans la collectivité",
       "Rôles dans des collectivités"
+    ]
+  },
+  {
+    "en": "Create skill",
+    "fr": [
+      "Créez une compétence",
+      "Créez la compétence"
     ]
   },
   {
@@ -59,6 +73,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Apply now",
+    "fr": [
+      "Postulez dès-maintenant",
+      "Présentez votre demande"
+    ]
+  },
+  {
     "en": "Remove membership<hidden> in {team}</hidden>",
     "fr": [
       "Retirez de l'équipe<hidden> dans {team}</hidden>",
@@ -84,6 +105,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajoutez un rôle dans le processus",
       "Ajouter des rôles dans des processus"
+    ]
+  },
+  {
+    "en": "Create department",
+    "fr": [
+      "Créez un ministère",
+      "Créez le ministère"
     ]
   },
   {

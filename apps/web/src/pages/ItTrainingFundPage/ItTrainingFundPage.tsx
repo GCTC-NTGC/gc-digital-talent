@@ -14,6 +14,7 @@ import image1 from "~/assets/img/it-training-fund-1.webp";
 import image2 from "~/assets/img/it-training-fund-2.webp";
 import image3 from "~/assets/img/it-training-fund-3.webp";
 import SEO from "~/components/SEO/SEO";
+import pageTitles from "~/messages/pageTitles";
 
 const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -28,11 +29,7 @@ const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   );
 };
 
-const pageTitle = defineMessage({
-  defaultMessage: "IT Community Training and Development Fund",
-  id: "wOITol",
-  description: "page title for the IT training fund page",
-});
+const pageTitle = defineMessage(pageTitles.itTrainingFund);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
@@ -427,10 +424,10 @@ export const Component = () => {
                       >
                         <p data-h2-font-weight="base(bold)">
                           {intl.formatMessage({
-                            defaultMessage: "Coming in winter 2024-25",
-                            id: "h7f4Om",
+                            defaultMessage: "Available now",
+                            id: "L6MPML",
                             description:
-                              "Statement that something will be available in the future",
+                              "Statement that something is available now",
                           })}
                         </p>
                         <ul
@@ -472,12 +469,11 @@ export const Component = () => {
                           data-h2-font-weight="base(bold)"
                           color="secondary"
                           external
-                          href={signUpUrl[locale]}
+                          href={paths.instructorLedTraining()}
                         >
                           {intl.formatMessage({
-                            defaultMessage:
-                              "Sign up for updates<hidden>about instructor-led classes and bootcamps</hidden>",
-                            id: "uuE/zT",
+                            defaultMessage: "Browse training opportunities",
+                            id: "alKxbI",
                             description: "A link to sign up for updates",
                           })}
                         </Link>
