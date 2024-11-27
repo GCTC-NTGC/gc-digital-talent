@@ -39,10 +39,9 @@ class SendInAppNotificationTest extends TestCase
             ->assertExitCode(0);
 
         Notification::assertSentTo(
-            [$user], System::class, function($notification, $channels){
+            [$user], System::class, function ($notification, $channels) {
                 return in_array('database', $channels) && ! in_array(GcNotifyEmailChannel::class, $channels);
             }
         );
     }
-
 }
