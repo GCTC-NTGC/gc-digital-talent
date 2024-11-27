@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\EmploymentCategory;
+use App\Enums\GovContractorType;
 use App\Enums\WorkExperienceGovEmployeeType;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -89,6 +90,18 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                 Rule::prohibitedIf(
                     (
                         $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
+                    )
+                ),
+            ],
+            'workExperience.contractorFirmAgencyName' => [
+                Rule::requiredIf(
+                    (
+                        $this->arg('workExperience.govContractorType') === GovContractorType::FIRM_OR_AGENCY->name
+                    )
+                ),
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('workExperience.govContractorType') !== GovContractorType::FIRM_OR_AGENCY->name
                     )
                 ),
             ],
