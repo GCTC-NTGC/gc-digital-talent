@@ -98,8 +98,8 @@ export const DepartmentTable = ({
         linkProps: {
           href: paths.departmentCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create new department",
-            id: "c7d3np",
+            defaultMessage: "Create department",
+            id: "WIbjog",
             description: "Heading displayed above the Create Department form.",
           }),
           from: currentUrl,
@@ -107,9 +107,8 @@ export const DepartmentTable = ({
       }}
       nullMessage={{
         description: intl.formatMessage({
-          defaultMessage:
-            'Use the "Create new department" button to get started.',
-          id: "VpqH38",
+          defaultMessage: 'Use the "Create department" button to get started.',
+          id: "kiJviy",
           description: "Instructions for adding a department item.",
         }),
       }}

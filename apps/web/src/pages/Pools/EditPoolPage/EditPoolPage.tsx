@@ -260,8 +260,8 @@ export const EditPoolForm = ({
   const pool = getFragment(EditPool_Fragment, poolQuery);
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Create a new recruitment",
-    id: "lNKpJl",
+    defaultMessage: "Create a recruitment",
+    id: "RcRh+P",
     description: "Title for advertisement information of a process",
   });
 
