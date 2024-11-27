@@ -1203,10 +1203,6 @@
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
     "description": "Aria text for icon indicating a skill to assessment step connection."
   },
-  "4Nobtl": {
-    "defaultMessage": "Créez une demande de talent",
-    "description": "Link text to start a new talent request"
-  },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
@@ -7333,6 +7329,10 @@
   "ZLPqdF": {
     "defaultMessage": "Aucun prénom fourni",
     "description": "Fallback for first name value"
+  },
+  "ZN9OsN": {
+    "defaultMessage": "Créez une autre demande de talents",
+    "description": "Link text to start a new talent request"
   },
   "ZNne50": {
     "defaultMessage": "Enregistrer les notes",
