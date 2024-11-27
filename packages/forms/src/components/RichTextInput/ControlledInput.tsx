@@ -11,7 +11,7 @@ import MenuBar from "./MenuBar";
 import Footer from "./Footer";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { FieldState } from "../../types";
-import { buildExtentions, contentStyles } from "./utils";
+import { buildExtensions, contentStyles } from "./utils";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -63,7 +63,7 @@ const ControlledInput = ({
   );
 
   const editor = useEditor({
-    extensions: buildExtentions(allowHeadings),
+    extensions: buildExtensions(allowHeadings),
     content,
     editorProps,
     editable,

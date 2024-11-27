@@ -28,7 +28,7 @@ const extensions = [
   }),
 ];
 
-export const buildExtentions = (allowHeadings?: boolean) => [
+export const buildExtensions = (allowHeadings?: boolean) => [
   ...extensions,
   ...(allowHeadings ? [Heading.configure({ levels: [3] })] : []),
 ];
