@@ -148,6 +148,7 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         id="descriptionEn"
         label={intl.formatMessage(formLabels.descriptionEn)}
         name="descriptionEn"
+        allowHeadings
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
@@ -156,6 +157,7 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         id="descriptionFr"
         label={intl.formatMessage(formLabels.descriptionFr)}
         name="descriptionFr"
+        allowHeadings
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
