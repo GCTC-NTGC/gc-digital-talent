@@ -117,9 +117,9 @@ const CreateTrainingOpportunityForm = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Create training opportunity",
-                id: "JZlTsX",
+                id: "TFAsYS",
                 description:
-                  "Button label to submit the create a new opportunity form",
+                  "Button label to submit the create an opportunity form",
               })}
             />
             <Link

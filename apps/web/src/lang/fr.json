@@ -115,10 +115,6 @@
     "defaultMessage": "Ministères",
     "description": "Title for departments"
   },
-  "+d2TiI": {
-    "defaultMessage": "Créer une nouvelle demande de talent",
-    "description": "Link text to start a new talent request"
-  },
   "+do6jV": {
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
@@ -194,10 +190,6 @@
   "+yB0EH": {
     "defaultMessage": "Type de poste",
     "description": "Label displayed on the job poster template 'type of role' field."
-  },
-  "+zSc5y": {
-    "defaultMessage": "Utilisez le bouton \"Créer une équipe\" pour commencer.",
-    "description": "Instructions for adding a team item."
   },
   "/+naWC": {
     "defaultMessage": "À évaluer",
@@ -886,6 +878,10 @@
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
+  },
+  "2iL6MI": {
+    "defaultMessage": "Créez une équipe",
+    "description": "Link text to create a team in the admin portal"
   },
   "2iXmbY": {
     "defaultMessage": "Agencement <link>acceptable</link> d’études, de formation et/ou d’expérience",
@@ -1743,6 +1739,10 @@
     "defaultMessage": "Un groupe d’Autochtones qui se tiennent debout avec un tambour à main peint.",
     "description": "Indigenous Apprenticeship hero image text alternative"
   },
+  "71mPNh": {
+    "defaultMessage": "Créez une compétence",
+    "description": "Title for Create skill"
+  },
   "72pd2Z": {
     "defaultMessage": "<strong>gestion de l’information</strong>, ou",
     "description": "List item of experiences required in application education page."
@@ -2018,6 +2018,10 @@
   "8W/am2": {
     "defaultMessage": "Cette liste vous permet de mettre en évidence <strong>jusqu'à 5 compétences comportementales ou « générales »</strong> que vous maîtrisez.",
     "description": "Description of a users top behavioural skills"
+  },
+  "8XGVrK": {
+    "defaultMessage": "Créer une affiche de poste à partir de zéro",
+    "description": "Form blurb describing create pool form"
   },
   "8Y+eEc": {
     "defaultMessage": "Vous êtes sur le point d'ajouter cet utilisateur à un autre bassin :",
@@ -2407,6 +2411,10 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
+  "AZEoFk": {
+    "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
+    "description": "Text explaining what will happen when duplicating a process"
+  },
   "AbU5rL": {
     "defaultMessage": "Travail posté",
     "description": "Shift work personnel other requirement"
@@ -2454,10 +2462,6 @@
   "AjVbZs": {
     "defaultMessage": "Bilingue avancé (C B C)",
     "description": "Bilingual advanced language requirement"
-  },
-  "AktnIU": {
-    "defaultMessage": "Créer une nouvelle classification",
-    "description": "Heading displayed above the Create Classification form."
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
@@ -2838,6 +2842,10 @@
   "Cf8mWv": {
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
+  },
+  "CkrBWY": {
+    "defaultMessage": "Créer une équipe",
+    "description": "Page title for the create team page"
   },
   "Cl3GCt": {
     "defaultMessage": "Titre du contrat",
@@ -3655,10 +3663,6 @@
     "defaultMessage": "Technicien (<abbreviation>IT-01</abbreviation>)",
     "description": "Title for the 'IT-01 Technician' classification"
   },
-  "GtrrJ3": {
-    "defaultMessage": "Créer une équipe ",
-    "description": "Link text to create a new team in the admin portal"
-  },
   "GurdF+": {
     "defaultMessage": "Un grade d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économie, en sociologie ou en statistique.",
     "description": "Description for the `just education` option for EC education requirements"
@@ -4106,10 +4110,6 @@
   "JWAyQT": {
     "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner.",
     "description": "Description of a users technical skills to be improved"
-  },
-  "JZlTsX": {
-    "defaultMessage": "Créez la possibilité de formation",
-    "description": "Button label to submit the create a new opportunity form"
   },
   "JamdKo": {
     "defaultMessage": "Premières Nations non inscrites",
@@ -4751,6 +4751,10 @@
     "defaultMessage": "Modifier votre parcours professionnel",
     "description": "Edit link text for career timeline section of the application review page."
   },
+  "MejjjQ": {
+    "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une équipe ou en modifier une qui existe déjà.",
+    "description": "Descriptive text about the list of teams in the admin portal."
+  },
   "MgK9E0": {
     "defaultMessage": "Divers",
     "description": "Various language requirement"
@@ -4923,6 +4927,10 @@
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
   },
+  "NW7sCE": {
+    "defaultMessage": "Créez une classification",
+    "description": "Button text to create classification"
+  },
   "NWDow2": {
     "defaultMessage": "Supprimez le (la) candidat(e)",
     "description": "Title for action to remove a candidate imperative"
@@ -4962,10 +4970,6 @@
   "NflJW7": {
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
-  },
-  "NivtzV": {
-    "defaultMessage": "Cette opération créera un nouveau processus et copiera toute l’information existante.",
-    "description": "Text explaining what will happen when duplicating a process"
   },
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
@@ -5583,10 +5587,6 @@
     "defaultMessage": "constituent de l’usurpation d’identité, de la publicité ou un pourriel",
     "description": "Comments or contributions list item"
   },
-  "QodYZE": {
-    "defaultMessage": "Créer une nouvelle affiche de poste à partir de zéro",
-    "description": "Form blurb describing create pool form"
-  },
   "QpfFEG": {
     "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
@@ -5791,6 +5791,10 @@
     "defaultMessage": "Autres exigences",
     "description": "Title for _other requirements_ section in the _digital services contracting questionnaire_"
   },
+  "RcRh+P": {
+    "defaultMessage": "Créer un recrutement",
+    "description": "Title for advertisement information of a process"
+  },
   "RdmeZV": {
     "defaultMessage": "En savoir davantage sur les niveaux de compétence",
     "description": "Info button label for pool skill levels details."
@@ -5862,6 +5866,10 @@
   "S02Y/P": {
     "defaultMessage": "Chefs d’équipe et conseillers techniques (<abbreviation>IT-03</abbreviation>)",
     "description": "Title for the 'IT-03 Advisor' classification"
+  },
+  "S2Hv5s": {
+    "defaultMessage": "Créez l'équipe",
+    "description": "Button text for the create team form submit button"
   },
   "S2if5C": {
     "defaultMessage": "Questionnaire sauvegardé avec succès.",
@@ -6075,6 +6083,10 @@
     "defaultMessage": "Critères de compétences constituant un atout",
     "description": "Sub title for the pool essential skills"
   },
+  "TFAsYS": {
+    "defaultMessage": "Créez la possibilité de formation",
+    "description": "Button label to submit the create an opportunity form"
+  },
   "THBjEx": {
     "defaultMessage": "Date d'expiration",
     "description": "Label for the expiry date input"
@@ -6168,7 +6180,7 @@
     "description": "Title for the 'software solutions' IT work stream"
   },
   "Tl2FNA": {
-    "defaultMessage": "Utilisez le bouton \"Créer une classification\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton \"Créez une classification\" pour commencer.",
     "description": "Instructions for adding a classification item."
   },
   "TomxAe": {
@@ -6226,6 +6238,10 @@
   "U0MY+6": {
     "defaultMessage": "À quoi vous attendre après avoir soumis votre demande",
     "description": "Title for the what to expect section"
+  },
+  "U0XNwt": {
+    "defaultMessage": "Utilisez le bouton « Créez une équipe » pour commencer.",
+    "description": "Instructions for adding a team item."
   },
   "U0qb7j": {
     "defaultMessage": "Les candidatures qui ne sont plus actives s'affichent ici.",
@@ -6554,10 +6570,6 @@
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
   },
-  "VpqH38": {
-    "defaultMessage": "Utilisez le bouton « Créez un nouveau ministère » pour commencer.",
-    "description": "Instructions for adding a department item."
-  },
   "VrLfLw": {
     "defaultMessage": "Courriel du conseiller/ère en RH",
     "description": "Input label asking for the HR advisor's email address."
@@ -6658,6 +6670,10 @@
     "defaultMessage": "Veuillez préciser les locaux du GC",
     "description": "Label for _gc specific work locations_ fieldset in the _digital services contracting questionnaire_"
   },
+  "WIbjog": {
+    "defaultMessage": "Créez un ministère",
+    "description": "Heading displayed above the Create Department form."
+  },
   "WJSVBr": {
     "defaultMessage": "Copier l’identification de votre demande {title}",
     "description": "Button text to copy a specific application ID"
@@ -6693,10 +6709,6 @@
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
     "description": "Message displayed to user after training opportunity fails to get updated."
-  },
-  "WX6NnA": {
-    "defaultMessage": "Créer une nouvelle équipe",
-    "description": "Button text for the create team form submit button"
   },
   "WY7q+L": {
     "defaultMessage": "Les compétences en vedette vous permettent de démontrer comment vous avez utilisé ou perfectionné des ensembles de compétences particulièrement importants dans le cadre de votre expérience. Lorsque vous posez votre candidature sur la plateforme, vous êtes invité à lier des compétences essentielles requises pour l’emploi à vos expériences de la même manière, ce qui vous permet de dresser un portrait d’ensemble de vos compétences. Les compétences que vous liez lorsque vous posez votre candidature apparaîtront également ici et pourront être modifiées ultérieurement.",
@@ -6917,10 +6929,6 @@
   "XYF/1P": {
     "defaultMessage": "Les renseignements personnels recueillis par le truchement de Talents numériques du GC sont décrits dans le fichier de <personalInfoLink>renseignements personnels du Nuage de talents (SCT PPU 095)</personalInfoLink>.",
     "description": "Paragraph for privacy policy page"
-  },
-  "XaYhX3": {
-    "defaultMessage": "Créer une nouvelle équipe à partir de zéro",
-    "description": "Descriptive text for the create team page in the admin portal."
   },
   "XcS2q2": {
     "defaultMessage": "Rôle retiré avec succès",
@@ -7322,6 +7330,10 @@
     "defaultMessage": "Aucun prénom fourni",
     "description": "Fallback for first name value"
   },
+  "ZN9OsN": {
+    "defaultMessage": "Créez une autre demande de talents",
+    "description": "Link text to start a new talent request"
+  },
   "ZNne50": {
     "defaultMessage": "Enregistrer les notes",
     "description": "Button to save notes for a pool candidate on the view-user page"
@@ -7393,6 +7405,10 @@
   "ZqZc8Z": {
     "defaultMessage": "La création de votre parcours professionnel est un peu différente sur cette plateforme. Tout d’abord, le travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser ultérieurement pour d’autres candidatures.",
     "description": "Application step to begin working on career timeline, paragraph one"
+  },
+  "ZqjOM/": {
+    "defaultMessage": "Créez le ministère",
+    "description": "Button label to create a department"
   },
   "Zre7E9": {
     "defaultMessage": "Si vous n’êtes pas satisfait de notre réponse à votre plainte, communiquez avec la CCDP aux coordonnées ci-dessous : ",
@@ -7825,10 +7841,6 @@
   "c70xDW": {
     "defaultMessage": "Requises",
     "description": "Label for a required skill"
-  },
-  "c7d3np": {
-    "defaultMessage": "Créez un nouveau ministère",
-    "description": "Heading displayed above the Create Department form."
   },
   "cA0iH+": {
     "defaultMessage": "Renseignements personnels",
@@ -8574,10 +8586,6 @@
     "defaultMessage": "Catégorie (anglais)",
     "description": "Title for category in English"
   },
-  "fcH4nb": {
-    "defaultMessage": "Créez la compétence",
-    "description": "Button label to create a new skill"
-  },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the update a skill form description (English) field."
@@ -9166,10 +9174,6 @@
     "defaultMessage": "Créer une famille de compétences",
     "description": "Page title for the skill family creation page"
   },
-  "i4TGiO": {
-    "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une nouvelle équipe ou en modifier une qui existe déjà.",
-    "description": "Descriptive text about the list of teams in the admin portal."
-  },
   "i8DgUB": {
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Label for the 'infrastructure operations' IT work stream"
@@ -9365,10 +9369,6 @@
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
-  },
-  "j/qPu0": {
-    "defaultMessage": "Créez le ministère",
-    "description": "Button label to create a new department"
   },
   "j12uou": {
     "defaultMessage": "un nouveau système technologique, logiciel ou matériel d’une nature fondamentalement différente de ceux utilisés précédemment;",
@@ -9690,6 +9690,10 @@
     "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
     "description": "Button text displayed for Indigenous languages dropdown"
   },
+  "kiJviy": {
+    "defaultMessage": "Utilisez le bouton « Créez un ministère » pour commencer.",
+    "description": "Instructions for adding a department item."
+  },
   "kkZZfT": {
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
     "description": "First paragraph for the pool work location dialog"
@@ -9797,10 +9801,6 @@
   "lKoKu0": {
     "defaultMessage": "42 postes de cadres supérieurs et autres postes de dirigeants ont été pourvus au cours de cet exercice, ce qui a permis de doubler les affectations réalisées au cours de l’exercice financier précédent (2022-2023) et de promouvoir la gestion des talents numériques. Veuillez prendre note que les talents numériques sont ciblés lors des tables rondes annuelles interministérielles sur la gestion des talents.",
     "description": "Description of executive referral services"
-  },
-  "lNKpJl": {
-    "defaultMessage": "Créer un nouveau recrutement",
-    "description": "Title for advertisement information of a process"
   },
   "lNU7FS": {
     "defaultMessage": "Recherche par mot-clé",
@@ -9933,6 +9933,10 @@
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
+  },
+  "mBeY2F": {
+    "defaultMessage": "Créer une équipe à partir de zéro",
+    "description": "Descriptive text for the create team page in the admin portal."
   },
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
@@ -10566,6 +10570,10 @@
     "defaultMessage": "Sélectionnez une famille de compétences",
     "description": "Placeholder message when there is no skill family selected"
   },
+  "pDlEip": {
+    "defaultMessage": "Créez la compétence",
+    "description": "Button label to create a skill"
+  },
   "pErNfb": {
     "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
     "description": "Button text to remove a candidate and update their status"
@@ -10761,10 +10769,6 @@
   "q5V/+5": {
     "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
     "description": "Button text to hide all advanced filters"
-  },
-  "q5j7GV": {
-    "defaultMessage": "Créer une nouvelle compétence",
-    "description": "Title for Create skill"
   },
   "q70oUn": {
     "defaultMessage": "Actuellement non vérifié",
@@ -11685,10 +11689,6 @@
   "vweW8X": {
     "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user authenticator codes not accepted"
-  },
-  "vyyfX6": {
-    "defaultMessage": "Créer une nouvelle équipe",
-    "description": "Page title for the create team page"
   },
   "w+L6oa": {
     "defaultMessage": "Par date",

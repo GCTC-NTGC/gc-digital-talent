@@ -347,8 +347,8 @@ const pageTitle = defineMessage({
 });
 
 const subTitle = defineMessage({
-  defaultMessage: "Create a new job poster from scratch",
-  id: "QodYZE",
+  defaultMessage: "Create a job poster from scratch",
+  id: "8XGVrK",
   description: "Form blurb describing create pool form",
 });
 
