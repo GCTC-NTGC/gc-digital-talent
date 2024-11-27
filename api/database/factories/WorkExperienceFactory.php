@@ -108,11 +108,7 @@ class WorkExperienceFactory extends Factory
                 return null;
             },
             'department_id' => function (array $attributes) {
-                if (
-                    $attributes['employment_category'] === EmploymentCategory::GOVERNMENT_OF_CANADA->name &&
-                    $attributes['gov_employment_type'] !== WorkExperienceGovEmployeeType::STUDENT->name &&
-                    $attributes['gov_employment_type'] !== WorkExperienceGovEmployeeType::CONTRACTOR->name
-                ) {
+                if ($attributes['employment_category'] === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
                     $department = Department::inRandomOrder()->first();
                     if (! $department) {
                         $department = Department::factory()->create();
