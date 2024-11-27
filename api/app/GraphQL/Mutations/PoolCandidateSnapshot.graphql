@@ -309,6 +309,7 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        contractorFirmAgencyName
         cafEmploymentType {
           value
           label {
