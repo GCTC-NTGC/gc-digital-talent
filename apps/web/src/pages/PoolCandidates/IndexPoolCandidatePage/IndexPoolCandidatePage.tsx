@@ -12,7 +12,6 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -53,7 +52,7 @@ export const IndexPoolCandidatePage = () => {
   const currentPool = data?.pool ?? null;
 
   return (
-    <AdminContentWrapper>
+    <>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Talent placement",
@@ -81,7 +80,7 @@ export const IndexPoolCandidatePage = () => {
           title={pageTitle}
         />
       </Pending>
-    </AdminContentWrapper>
+    </>
   );
 };
 
