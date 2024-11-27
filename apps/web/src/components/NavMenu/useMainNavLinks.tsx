@@ -17,6 +17,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 import permissionConstants from "~/constants/permissionConstants";
+import pageTitles from "~/messages/pageTitles";
 
 import navMenuMessages from "./messages";
 import useNavContext from "../NavContext/useNavContext";
@@ -54,7 +55,6 @@ const NavItem = ({ href, title, subMenu, state, ...rest }: NavItemProps) => {
 const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const permissions = permissionConstants();
   const { pathname } = useLocation();
 
   const { navRole } = useNavContext();
@@ -79,7 +79,7 @@ const useMainNavLinks = () => {
     />
   );
 
-  const ViewUsers = hasRole(permissions.viewUsers, roleAssignments) ? (
+  const ViewUsers = hasRole(permissionConstants.viewUsers, roleAssignments) ? (
     <NavItem
       key="viewUsers"
       href={paths.userTable()}
@@ -128,7 +128,10 @@ const useMainNavLinks = () => {
     />
   );
 
-  const Processes = hasRole(permissions.viewProcesses, roleAssignments) ? (
+  const Processes = hasRole(
+    permissionConstants.viewProcesses,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="adminProcesses"
       href={paths.poolTable()}
@@ -136,7 +139,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Requests = hasRole(permissions.viewRequests, roleAssignments) ? (
+  const Requests = hasRole(
+    permissionConstants.viewRequests,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="requests"
       href={paths.searchRequestTable()}
@@ -144,7 +150,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Candidates = hasRole(permissions.viewCandidates, roleAssignments) ? (
+  const Candidates = hasRole(
+    permissionConstants.viewCandidates,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="candidates"
       href={paths.poolCandidates()}
@@ -225,17 +234,14 @@ const useMainNavLinks = () => {
     />
   );
 
-  const JobTemplates = hasRole(
-    permissions.viewJobTemplates,
-    roleAssignments,
-  ) ? (
+  const JobTemplates = (
     <NavItem
       key="jobTemplate"
       href={paths.jobPosterTemplates()}
       title={intl.formatMessage(navigationMessages.jobTemplates)}
       subMenu
     />
-  ) : null;
+  );
 
   const Announcements = (
     <NavItem
@@ -251,6 +257,14 @@ const useMainNavLinks = () => {
       key="classifications"
       href={paths.classificationTable()}
       title={intl.formatMessage(navigationMessages.classifications)}
+      subMenu
+    />
+  );
+  const Communities = (
+    <NavItem
+      key="communities"
+      href={paths.communityTable()}
+      title={intl.formatMessage(pageTitles.communities)}
       subMenu
     />
   );
@@ -275,6 +289,14 @@ const useMainNavLinks = () => {
       key="skillFamilies"
       href={paths.skillFamilyTable()}
       title={intl.formatMessage(navigationMessages.skillFamilies)}
+      subMenu
+    />
+  );
+  const Teams = (
+    <NavItem
+      key="teams"
+      href={paths.teamTable()}
+      title={intl.formatMessage(pageTitles.teams)}
       subMenu
     />
   );
@@ -413,9 +435,11 @@ const useMainNavLinks = () => {
         systemSettings: [
           Announcements,
           Classifications,
+          Communities,
           Departments,
           Skills,
           SkillFamilies,
+          Teams,
         ],
       };
     default:

@@ -154,7 +154,6 @@ test.describe("Authenticated", () => {
   test.describe("Process operator", () => {
     const processOperatorRestrictedPaths = [
       "/en/admin",
-      "/en/admin/users",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
       "/en/admin/settings/departments",
@@ -163,10 +162,14 @@ test.describe("Authenticated", () => {
       "/en/admin/talent-requests",
       "/en/admin/communities",
       "/en/admin/teams",
-      "/en/admin/pool-candidates",
     ];
 
-    const processOperatorAllowedPaths = ["/en/community", "/en/admin/pools"];
+    const processOperatorAllowedPaths = [
+      "/en/community",
+      "/en/admin/users",
+      "/en/admin/pools",
+      "/en/admin/pool-candidates",
+    ];
 
     test("user accesses allowed paths only", async ({
       processOperatorPage,
@@ -206,21 +209,21 @@ test.describe("Authenticated", () => {
   test.describe("Community recruiter", () => {
     const communityRecruiterRestrictedPaths = [
       "/en/admin",
-      "/en/admin/users",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
       "/en/admin/settings/departments",
       "/en/admin/settings/skills",
       "/en/admin/settings/skill-families",
       "/en/admin/teams",
-      "/en/admin/pool-candidates",
     ];
 
     const communityRecruiterAllowedPaths = [
       "/en/community",
       "/en/admin/pools",
+      "/en/admin/pool-candidates",
       "/en/admin/talent-requests",
       "/en/admin/communities",
+      "/en/admin/users",
     ];
 
     test("user accesses allowed paths only", async ({
@@ -261,21 +264,21 @@ test.describe("Authenticated", () => {
   test.describe("Community admin", () => {
     const communityAdminRestrictedPaths = [
       "/en/admin",
-      "/en/admin/users",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
       "/en/admin/settings/departments",
       "/en/admin/settings/skills",
       "/en/admin/settings/skill-families",
-      "/en/admin/pool-candidates",
       "/en/admin/teams",
     ];
 
     const communityAdminAllowedPaths = [
       "/en/community",
       "/en/admin/pools",
+      "/en/admin/pool-candidates",
       "/en/admin/talent-requests",
       "/en/admin/communities",
+      "/en/admin/users",
     ];
 
     test("user accesses allowed paths only", async ({ communityAdminPage }) => {

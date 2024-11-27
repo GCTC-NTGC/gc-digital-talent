@@ -1099,6 +1099,10 @@
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
     "description": "Description for rule pattern on key field"
   },
+  "3qkzyD": {
+    "defaultMessage": "Ne manquez pas de profiter des formations dirigées par un instructeur ou une instructrice réservées aux membres du personnel des TI du gouvernement du Canada. Nous ajoutons régulièrement de nouveaux cours axés sur les compétences et les domaines des TI les plus demandés au gouvernement.",
+    "description": "First paragraph of it training opportunities section"
+  },
   "3rbRfI": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
@@ -1346,6 +1350,10 @@
   "4t/ETT": {
     "defaultMessage": "D’autres exigences s’appliquent pour l’approvisionnement en services professionnels. Consultez les Procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels menées par le Bureau du contrôleur général du Canada.",
     "description": "Description for the related policies card"
+  },
+  "4t9lEL": {
+    "defaultMessage": "Pour en savoir plus et présenter une demande <hidden>pour {trainingOpportunityTitle}</hidden>",
+    "description": "Button label to open a training opportunities dialog"
   },
   "4tIdsX": {
     "defaultMessage": "Talents numériques du GC - Toutes compétences.csv",
@@ -4167,6 +4175,10 @@
     "defaultMessage": "Date de modification : {modifiedDate}",
     "description": "Header for the date of the last modification of the site"
   },
+  "JlQIBx": {
+    "defaultMessage": "Découvrez les cours dirigés par un instructeur ou une instructrice proposés pour améliorer votre expertise en technologie de l’information.",
+    "description": "Page subtitle for the instructor led training page"
+  },
   "Jp/oeD": {
     "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
     "description": "Text for second sign up -> create step."
@@ -4298,6 +4310,10 @@
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
+  },
+  "KUuhwO": {
+    "defaultMessage": "Les formations que vous trouverez dans cette page sont soutenues par le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> et conçues pour le personnel du groupe TI représenté par l’Institut professionnel de la fonction publique du Canada.",
+    "description": "Second paragraph of it training opportunities section"
   },
   "KWXIKL": {
     "defaultMessage": "Membre retiré avec succès",
@@ -5274,6 +5290,10 @@
   "PH5Lah": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
+  },
+  "PH68o/": {
+    "defaultMessage": "Présentez votre demande",
+    "description": "Label for apply now button in instructor led training"
   },
   "PN3PMn": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
@@ -6402,6 +6422,10 @@
     "defaultMessage": "Afficher les résultats",
     "description": "Submit button within the search filter dialog"
   },
+  "V4W5oL": {
+    "defaultMessage": "Possibilités de formation dirigée par un instructeur ou une instructrice",
+    "description": "Title for the instructor led training page"
+  },
   "V6Y2Np": {
     "defaultMessage": "Réduire toutes les sections d'informations complémentaires",
     "description": "Accessible link text to collapse all accordions for more information"
@@ -6669,6 +6693,10 @@
   "WNqXQa": {
     "defaultMessage": "Il y a deux façons de soumettre ce questionnaire. La première façon est de remplir ce questionnaire en ligne ici. Veuillez prendre note que le questionnaire doit être rempli et soumis en une seule fois. Vous ne pouvez pas enregistrer vos réponses en tant que brouillon. La deuxième façon de remplir ce questionnaire est de le télécharger en tant que fichier, de le compléter en dehors de la plateforme et de l’envoyer par courriel à la boîte aux lettres <link>Talents numériques du GC</link>.",
     "description": "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_"
+  },
+  "WPS1Ic": {
+    "defaultMessage": "Présentez une demande et partagez votre profil",
+    "description": "Title for apply and share your profile section"
   },
   "WSMupE": {
     "defaultMessage": "Processus",
@@ -7101,6 +7129,10 @@
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
+  },
+  "YTN8A8": {
+    "defaultMessage": "Anglais seulement",
+    "description": "Filter by option on instructor training page."
   },
   "YV3EoS": {
     "defaultMessage": "Modifier les compétences comportementales pour les améliorer",
@@ -7550,6 +7582,10 @@
     "defaultMessage": "Cet utilisateur a été supprimé.",
     "description": "Message displayed when admin views a deleted user."
   },
+  "alKxbI": {
+    "defaultMessage": "Parcourir les possibilités de formation",
+    "description": "A link to sign up for updates"
+  },
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
@@ -7693,6 +7729,10 @@
   "bjcr+t": {
     "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les bons pour examens de certification</hidden>",
     "description": "A link to sign up for updates"
+  },
+  "bjwTpe": {
+    "defaultMessage": "Si vous souhaitez suivre une formation, rendez-vous d'abord sur la plateforme Talents numériques du GC pour créer ou mettre à jour votre profil, lequel nous permet de confirmer votre situation d'emploi, votre classification, votre appartenance à un groupe visé par l'équité en matière d'emploi et l'expérience requise. Ensuite, remplissez le formulaire de demande et acceptez de partager votre profil.",
+    "description": "First paragraph of apply and share section"
   },
   "bkAzZm": {
     "defaultMessage": "Titre du poste (FR)",
@@ -8902,6 +8942,10 @@
     "defaultMessage": "Les processus de recrutement apparaîtront ici automatiquement au fur et à mesure que vous y serez admis. Vous pouvez commencer par postuler aux offres d'emploi disponibles sur la <link>page de recherche d'emploi</link>.",
     "description": "Additional message displayed in recruitment availability when the user is not in any valid pools"
   },
+  "hAy7cB": {
+    "defaultMessage": "Possibilités de formation en TI",
+    "description": "Title for available it training opportunities section"
+  },
   "hBDz/h": {
     "defaultMessage": "Commencez<hidden> à remplir votre profil linguistique</hidden>",
     "description": "Call to action to begin editing language profile"
@@ -9693,6 +9737,10 @@
   "l1hUeU": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi",
     "description": "Label preceding what groups the user identifies as part of, followed by a colon"
+  },
+  "l4d7/6": {
+    "defaultMessage": "Aucun possibilité de formation n'est actuellement affiché. Revenez plus tard.",
+    "description": "Null message for instructor led training list"
   },
   "l5R6Nc": {
     "defaultMessage": "Veuillez remplir une demande d’habilitation",
@@ -10626,6 +10674,10 @@
     "defaultMessage": "Chercher les rôles",
     "description": "Label for the roles table search input"
   },
+  "pcAgJh": {
+    "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",
+    "description": "Second paragraph of apply and share section"
+  },
   "pe5WkF": {
     "defaultMessage": "Courriel du propriétaire",
     "description": "Title displayed for the Pool table Owner Email column"
@@ -11486,10 +11538,6 @@
     "defaultMessage": "À quoi devrais-je m’attendre si je réussis ce processus?",
     "description": "Button text to toggle the accordion for what to expect after admission"
   },
-  "uuE/zT": {
-    "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d’entrainement dirigés par un instructeur ou une instructrice</hidden>",
-    "description": "A link to sign up for updates"
-  },
   "uup5F2": {
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the user form preferred communication language field."
@@ -11533,6 +11581,10 @@
   "vB1p56": {
     "defaultMessage": "Merci d’avoir postulé dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones!",
     "description": "Title for notification that a an IAP application was submitted"
+  },
+  "vB6jX+": {
+    "defaultMessage": "Date limite de présentation des demandes",
+    "description": "Label for application deadline meta data"
   },
   "vC9NsS": {
     "defaultMessage": "Nos normes",
@@ -11585,6 +11637,10 @@
   "vW/JGo": {
     "defaultMessage": " Cette page offre un aperçu complet de l’historique de vos notifications. À partir de cette page, vous pouvez consulter, épingler et supprimer des notifications de votre compte. Si vous souhaitez gérer les notifications que vous recevez et leur format, vous pouvez le faire à partir de la page des paramètres de votre compte.",
     "description": "Description of the list of a users notifications"
+  },
+  "vXcg28": {
+    "defaultMessage": "Voir tout",
+    "description": "Filter by option on instructor training page."
   },
   "vYi5/y": {
     "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la <cite>Directive sur les talents numériques</cite>. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
@@ -11694,6 +11750,10 @@
     "defaultMessage": "Ajouter un membre",
     "description": "Label for the add member to community form"
   },
+  "wBU9X4": {
+    "defaultMessage": "Français seulement",
+    "description": "Filter by option on instructor training page."
+  },
   "wCf/XC": {
     "defaultMessage": "À propos de ce rôle",
     "description": "Title for basic information"
@@ -11729,10 +11789,6 @@
   "wO1c70": {
     "defaultMessage": "Cette section demande des renseignements sur le recrutement standard, tels que la classification, le titre du poste et la date de clôture",
     "description": "Sub title for basic information"
-  },
-  "wOITol": {
-    "defaultMessage": "Fonds de formation et de perfectionnement de la collectivité de la TI",
-    "description": "page title for the IT training fund page"
   },
   "wORNl0": {
     "defaultMessage": "Sélectionnez une famille ou plus",
@@ -12078,6 +12134,10 @@
     "defaultMessage": "Choisissez le critère auquel vous répondez.",
     "description": "Heading for radio group section in application education page."
   },
+  "yK0vlP": {
+    "defaultMessage": "Dates de la formation",
+    "description": "Label for training dates meta data"
+  },
   "yKQGy8": {
     "defaultMessage": "Niveaux de compétence comportementale",
     "description": "Heading for the skills level definitions of behavioural skills"
@@ -12137,6 +12197,14 @@
   "ybzxmU": {
     "defaultMessage": "Membre des FAC",
     "description": "Veteran/member label"
+  },
+  "yd+VEB": {
+    "defaultMessage": "Date de la formation",
+    "description": "Label for training date meta data"
+  },
+  "ye4m17": {
+    "defaultMessage": "Fonds de formation et de perfectionnement de la collectivité de la TI",
+    "description": "Title for the IT training fund page"
   },
   "yfzR+U": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",

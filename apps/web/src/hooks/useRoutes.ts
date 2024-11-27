@@ -322,6 +322,8 @@ const getRoutes = (lang: Locales) => {
 
     // IT Training Fund
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
+    instructorLedTraining: () =>
+      [baseUrl, "it-training-fund", "instructor-led-training"].join("/"),
 
     // Training Opportunities (Admin)
     trainingOpportunitiesIndex: () =>

@@ -28,6 +28,7 @@
     "spatie/laravel-activitylog": "^4.7",
     "spatie/php-structure-discoverer": "^2.1",
     "staudenmeir/eloquent-has-many-deep": "^1.18",
+    "staudenmeir/eloquent-json-relations": "^1.13.1",
     "web-token/jwt-library": "^4.0"
   },
   "require-dev": {
