@@ -373,6 +373,7 @@ trait GeneratesUserDoc
                     : $this->localize('experiences.government_of_canada')
                 );
                 $section->addText($experience->getDateRange($this->lang));
+                $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
                 $this->addLabelText(
                     $section,
                     $this->localize('experiences.employment_type'),
@@ -397,12 +398,15 @@ trait GeneratesUserDoc
                         $this->localizeEnum($experience->gov_contractor_type, GovContractorType::class)
                     );
                 }
-                if ($experience->gov_employment_type !== WorkExperienceGovEmployeeType::CONTRACTOR->name) {
+                if (
+                    $experience->gov_employment_type !== WorkExperienceGovEmployeeType::CONTRACTOR->name &&
+                    $experience->gov_employment_type !== WorkExperienceGovEmployeeType::STUDENT->name
+                ) {
                     $classification = Classification::findOrFail($experience->classification_id);
                     $this->addLabelText(
                         $section,
                         $this->localize('experiences.classification'),
-                        $classification->name[$this->lang]
+                        $classification->group.'-'.$classification->level
                     );
                 }
             }
