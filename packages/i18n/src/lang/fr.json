@@ -199,6 +199,10 @@
     "defaultMessage": "Sélectionnez un mois",
     "description": "Placeholder for a month select field"
   },
+  "5xaEhL": {
+    "defaultMessage": "Titre",
+    "description": "Label for toggling a heading in the rich text editor"
+  },
   "6/U6rm": {
     "defaultMessage": "Décision finale relative à l’évaluation",
     "description": "Final assessment decision"
