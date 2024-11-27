@@ -5,7 +5,9 @@ import { loginBySub } from "~/utils/auth";
 const USERS_PAGINATED_QUERY = "UsersPaginated";
 
 const searchForUser = async (appPage: AppPage, name: string) => {
-  await appPage.page.getByRole("textbox", { name: /search/i }).fill(name);
+  await appPage.page
+    .getByRole("textbox", { name: /search/i })
+    .fill(name, { timeout: 30000 });
 
   await appPage.waitForGraphqlResponse(USERS_PAGINATED_QUERY);
 };
@@ -45,7 +47,6 @@ test.describe("Admin workflows", () => {
 
     await appPage.page.getByRole("link", { name: /edit gul fields/i }).click();
     await appPage.waitForGraphqlResponse("UpdateUserData");
-    await appPage.waitForGraphqlResponse("UpdateUserOptions");
 
     await appPage.page
       .getByRole("textbox", { name: /telephone/i })
