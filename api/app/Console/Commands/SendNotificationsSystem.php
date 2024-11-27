@@ -64,15 +64,16 @@ class SendNotificationsSystem extends Command
 
         $this->channelApp = $this->option('channelApp');
 
-        if(!$this->channelEmail && !$this->channelApp){
+        if (! $this->channelEmail && ! $this->channelApp) {
             $this->error('No channels selected.');
+
             return 1;
         }
 
         $collectionArr = [];
 
         // find the views in api/resources/views/
-        if($this->channelEmail){
+        if ($this->channelEmail) {
             $this->emailSubject = [
                 'en' => $viewGroup.'.email_subject_en',
                 'fr' => $viewGroup.'.email_subject_fr',
@@ -87,7 +88,7 @@ class SendNotificationsSystem extends Command
             $collectionArr[] = $this->emailContent['fr'];
         }
 
-        if($this->channelApp){
+        if ($this->channelApp) {
             $this->inAppMessage = [
                 'en' => $viewGroup.'.in_app_message_en',
                 'fr' => $viewGroup.'.in_app_message_fr',

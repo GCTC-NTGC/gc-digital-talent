@@ -41,11 +41,11 @@ class System extends Notification implements CanBeSentViaGcNotifyEmail
 
         $arr = [];
 
-        if($this->channelApp){
+        if ($this->channelApp) {
             $arr[] = 'database';
         }
 
-        if($this->channelEmail){
+        if ($this->channelEmail) {
             $arr[] = GcNotifyEmailChannel::class;
         }
 
