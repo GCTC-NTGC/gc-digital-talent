@@ -137,9 +137,8 @@ export const ClassificationTable = ({
           href: paths.classificationCreate(),
           label: intl.formatMessage({
             defaultMessage: "Create classification",
-            id: "KLrJY5",
-            description:
-              "Heading displayed above the Create Classification form.",
+            id: "NW7sCE",
+            description: "Button text to create classification",
           }),
           from: `${pathname}${search}${hash}`,
         },

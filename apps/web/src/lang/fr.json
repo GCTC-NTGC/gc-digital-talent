@@ -4299,10 +4299,6 @@
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
   },
-  "KLrJY5": {
-    "defaultMessage": "Créer une classification",
-    "description": "Heading displayed above the Create Classification form."
-  },
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
     "description": "Text prompting for input when duplicating a process"
@@ -4934,6 +4930,10 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
+  },
+  "NW7sCE": {
+    "defaultMessage": "Créez une classification",
+    "description": "Button text to create classification"
   },
   "NWDow2": {
     "defaultMessage": "Supprimez le (la) candidat(e)",
@@ -6184,7 +6184,7 @@
     "description": "Title for the 'software solutions' IT work stream"
   },
   "Tl2FNA": {
-    "defaultMessage": "Utilisez le bouton \"Créer une classification\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton \"Créez une classification\" pour commencer.",
     "description": "Instructions for adding a classification item."
   },
   "TomxAe": {
