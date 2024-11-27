@@ -112,7 +112,7 @@ test.describe("User information", () => {
         en: `Playwright DCM Pool ${uniqueTestId} (EN)`,
         fr: `Playwright DCM Pool ${uniqueTestId} (FR)`,
       },
-      skillId: skill?.id ?? "",
+      skillIds: skill ? [skill?.id] : undefined,
     });
 
     const applicantCtx = await graphql.newContext(sub);
