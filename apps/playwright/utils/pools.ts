@@ -7,7 +7,6 @@ import {
   PoolOpportunityLength,
   PoolSkill,
   PoolSkillType,
-  PoolStream,
   PublishingGroup,
   SecurityStatus,
   SkillCategory,
@@ -22,9 +21,9 @@ import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";
 import { getSkills } from "./skills";
+import { getWorkStreams } from "./workStreams";
 
 const defaultPool: Partial<UpdatePoolInput> = {
-  stream: PoolStream.BusinessAdvisoryServices,
   closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
   yourImpact: {
     en: "test impact EN",
@@ -49,12 +48,14 @@ const Test_CreatePoolMutationDocument = /* GraphQL */ `
     $userId: ID!
     $teamId: ID!
     $communityId: ID!
+    $workStreamId: ID!
     $pool: CreatePoolInput!
   ) {
     createPool(
       userId: $userId
       teamId: $teamId
       communityId: $communityId
+      workStreamId: $workStreamId
       pool: $pool
     ) {
       id
@@ -72,6 +73,7 @@ interface CreatePoolArgs {
   communityId?: string;
   classificationId?: string;
   departmentId?: string;
+  workStreamId?: string;
 }
 
 export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
@@ -102,6 +104,12 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
     departmentId = departments[0].id;
   }
 
+  let workStreamId = opts.workStreamId;
+  if (!workStreamId) {
+    const workStreams = await getWorkStreams(ctx, {});
+    workStreamId = workStreams[0].id;
+  }
+
   return ctx
     .post(Test_CreatePoolMutationDocument, {
       isPrivileged: true,
@@ -112,6 +120,7 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
         pool: {
           classification: { connect: classificationId },
           department: { connect: departmentId },
+          workStream: { connect: workStreamId },
         },
       },
     })

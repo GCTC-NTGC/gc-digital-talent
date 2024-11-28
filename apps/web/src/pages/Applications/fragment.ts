@@ -258,9 +258,9 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }

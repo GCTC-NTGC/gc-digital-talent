@@ -29,8 +29,9 @@ const JobPosterTemplateBasicDetails_Fragment = graphql(/* GraphQL */ `
       group
       level
     }
-    stream {
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -126,7 +127,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
                 "Label displayed on the pool form stream/job title field.",
             })}
           >
-            {getLocalizedName(jobPosterTemplate.stream?.label, intl)}
+            {getLocalizedName(jobPosterTemplate.workStream?.name, intl)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

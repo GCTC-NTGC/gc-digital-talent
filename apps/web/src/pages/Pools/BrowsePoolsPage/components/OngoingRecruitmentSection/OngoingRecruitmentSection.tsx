@@ -66,7 +66,7 @@ const selectPoolForSection = (
       .find(
         (p) =>
           // must match section stream
-          p.stream?.value === stream &&
+          p.workStream?.key === stream &&
           // must include section classification group and level
           !!(
             p.classification?.group === group &&
@@ -101,12 +101,9 @@ const OngoingRecruitmentSection_QueryFragment = graphql(/* GraphQL */ `
         }
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
-        en
-        fr
-      }
+    workStreams {
+      id
+      key
     }
   }
 `);
@@ -1060,7 +1057,7 @@ const OngoingRecruitmentSection = ({
                   })
                 : getLocalizedEnumStringByValue(
                     quickFilterStream,
-                    data?.streams,
+                    data?.workStreams,
                     intl,
                   )}
             </Button>

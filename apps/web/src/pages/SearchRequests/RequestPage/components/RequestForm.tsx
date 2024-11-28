@@ -131,9 +131,9 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -177,9 +177,9 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
@@ -386,10 +386,12 @@ export const RequestForm = ({
         ),
       ),
     ),
-    qualifiedStreams: unpackMaybes(
-      applicantFilter?.qualifiedStreams?.map((stream) =>
-        enumInputToLocalizedEnum(stream, optionsData?.streams),
-      ),
+    workStreams: unpackMaybes(
+      applicantFilter?.workStreams?.map((stream) => {
+        return unpackMaybes(optionsData?.workStreams).find((workStream) => {
+          return workStream.id === stream?.id;
+        });
+      }),
     ),
     qualifiedClassifications:
       applicantFilter?.qualifiedClassifications

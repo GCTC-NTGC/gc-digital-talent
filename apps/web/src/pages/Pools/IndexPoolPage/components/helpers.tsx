@@ -30,11 +30,11 @@ import { FormValues } from "./PoolFilterDialog";
 import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(
-  pool: Pick<Pool, "name" | "stream">,
+  pool: Pick<Pool, "name" | "workStream">,
   intl: IntlShape,
 ) {
   const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
+  return `${name.toLowerCase()} ${getLocalizedName(pool.workStream?.name, intl, true)}`;
 }
 
 export function viewCell(
@@ -276,7 +276,7 @@ export function transformFormValuesToFilterInput(
   return {
     publishingGroups: data.publishingGroups,
     statuses: data.statuses,
-    streams: data.streams,
+    workStreams: data.workStreams,
     classifications: data.classifications.map((classification) => {
       const [group, level] = classification.split("-");
       return { group, level: Number(level) };
@@ -290,7 +290,7 @@ export function transformPoolFilterInputToFormValues(
   return {
     publishingGroups: unpackMaybes(input?.publishingGroups),
     statuses: unpackMaybes(input?.statuses),
-    streams: unpackMaybes(input?.streams),
+    workStreams: unpackMaybes(input?.workStreams),
     classifications: unpackMaybes(input?.classifications).map(
       (c) => `${c.group}-${c.level}`,
     ),

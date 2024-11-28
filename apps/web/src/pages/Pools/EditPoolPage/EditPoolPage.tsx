@@ -51,6 +51,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import PoolNameSection, {
   PoolClassification_Fragment,
   PoolDepartment_Fragment,
+  PoolWorkStream_Fragment,
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
 import ClosingDateSection, {
@@ -102,9 +103,9 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolYourImpact
 
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -241,6 +242,7 @@ export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
   departments: FragmentType<typeof PoolDepartment_Fragment>[];
+  workStreams: FragmentType<typeof PoolWorkStream_Fragment>[];
   skills: Skill[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
@@ -251,6 +253,7 @@ export const EditPoolForm = ({
   poolQuery,
   classifications,
   departments,
+  workStreams,
   skills,
   onSave,
   onUpdatePublished,
@@ -277,7 +280,7 @@ export const EditPoolForm = ({
       areaOfSelection: pool.areaOfSelection,
       classification: pool.classification,
       department: pool.department,
-      stream: pool.stream,
+      workStream: pool.workStream,
       name: pool.name,
       processNumber: pool.processNumber,
       publishingGroup: pool.publishingGroup,
@@ -315,7 +318,7 @@ export const EditPoolForm = ({
         areaOfSelection: pool.areaOfSelection,
         classification: pool.classification,
         department: pool.department,
-        stream: pool.stream,
+        workStream: pool.workStream,
         name: pool.name,
         processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
@@ -370,7 +373,7 @@ export const EditPoolForm = ({
     educationRequirements: {
       id: "education-requirements",
       hasError: educationRequirementIsNull({
-        stream: pool.stream,
+        workStream: pool.workStream,
         name: pool.name,
         processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
@@ -574,6 +577,7 @@ export const EditPoolForm = ({
                       poolQuery={pool}
                       classificationsQuery={classifications}
                       departmentsQuery={departments}
+                      workStreamsQuery={workStreams}
                       sectionMetadata={sectionMetadata.poolName}
                       onSave={onSave}
                     />
@@ -776,6 +780,11 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       ...PoolDepartment
     }
 
+    # all work streams to populate form dropdown
+    workStreams {
+      ...PoolWorkStream
+    }
+
     # all skills to populate skill pickers
     skills {
       id
@@ -868,6 +877,7 @@ export const EditPoolPage = () => {
             classifications={unpackMaybes(data.classifications)}
             departments={unpackMaybes(data.departments)}
             skills={data.skills.filter(notEmpty)}
+            workStreams={unpackMaybes(data.workStreams)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
             onUpdatePublished={(updateData) =>
               mutations.updatePublished(poolId, updateData)

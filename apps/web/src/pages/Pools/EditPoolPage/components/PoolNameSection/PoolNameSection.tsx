@@ -77,9 +77,9 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -140,16 +140,19 @@ export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const PoolWorkStream_Fragment = graphql(/* GraphQL */ `
+  fragment PoolWorkStream on WorkStream {
+    id
+    name {
+      en
+      fr
+    }
+  }
+`);
+
 const PoolNameOptions_Query = graphql(/* GraphQL */ `
   query PoolNameOptions {
     publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
       value
       label {
         en
@@ -192,12 +195,14 @@ type PoolNameSectionProps = SectionProps<
 > & {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
   departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
+  workStreamsQuery: FragmentType<typeof PoolWorkStream_Fragment>[];
 };
 
 const PoolNameSection = ({
   poolQuery,
   classificationsQuery,
   departmentsQuery,
+  workStreamsQuery,
   sectionMetadata,
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
@@ -217,6 +222,7 @@ const PoolNameSection = ({
     classificationsQuery,
   );
   const departments = getFragment(PoolDepartment_Fragment, departmentsQuery);
+  const workStreams = getFragment(PoolWorkStream_Fragment, workStreamsQuery);
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
@@ -393,7 +399,10 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={localizedEnumToOptions(data?.streams, intl)}
+                  options={workStreams.map((stream) => ({
+                    value: stream.id,
+                    label: getLocalizedName(stream.name, intl),
+                  }))}
                   disabled={formDisabled}
                 />
                 <Input

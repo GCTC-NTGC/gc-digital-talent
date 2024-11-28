@@ -23,8 +23,8 @@ import {
   Maybe,
   Classification,
   Pool,
-  LocalizedPoolStream,
   LocalizedPoolStatus,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -91,7 +91,7 @@ export const formatClassificationString = ({
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
-  stream?: Maybe<LocalizedPoolStream>;
+  workStream?: Maybe<WorkStream>;
   short?: boolean;
   intl: IntlShape;
 }
@@ -99,14 +99,16 @@ interface formattedPoolPosterTitleProps {
 export const formattedPoolPosterTitle = ({
   title,
   classification,
-  stream,
+  workStream,
   short,
   intl,
 }: formattedPoolPosterTitleProps): {
   html: ReactNode;
   label: string;
 } => {
-  const streamString = stream ? getLocalizedName(stream.label, intl) : "";
+  const streamString = workStream
+    ? getLocalizedName(workStream?.name, intl)
+    : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
     : "";
@@ -147,7 +149,7 @@ interface PoolTitleOptions {
 }
 
 type PoolTitle = Maybe<
-  Pick<Pool, "name" | "publishingGroup" | "stream"> & {
+  Pick<Pool, "name" | "publishingGroup" | "workStream"> & {
     classification?: Maybe<Pick<Classification, "group" | "level">>;
   }
 >;
@@ -184,7 +186,7 @@ export const poolTitle = (
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
     classification: pool?.classification,
-    stream: pool?.stream,
+    workStream: pool?.workStream,
     short: options?.short,
     intl,
   });
@@ -233,7 +235,7 @@ export const useAdminPoolPages = (
 ) => {
   const paths = useRoutes();
   const poolName = getFullPoolTitleLabel(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,

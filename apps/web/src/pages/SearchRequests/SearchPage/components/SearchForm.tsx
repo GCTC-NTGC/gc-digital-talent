@@ -44,6 +44,7 @@ const styledCount = (chunks: ReactNode) => (
 interface SearchFormProps {
   classifications: Pick<Classification, "group" | "level" | "id">[];
   skills: Skill[];
+  workStreams: WorkStream[];
 }
 
 export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
@@ -246,6 +247,13 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       group
       level
     }
+    workStreams {
+      id
+      name {
+        en
+        fr
+      }
+    }
     skills {
       id
       key
@@ -285,10 +293,15 @@ const SearchFormAPI = () => {
 
   const skills = unpackMaybes<Skill>(data?.skills);
   const classifications = unpackMaybes(data?.classifications);
+  const workStreams = unpackMaybes(data?.workStreams);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SearchForm skills={skills} classifications={classifications} />
+      <SearchForm
+        skills={skills}
+        classifications={classifications}
+        workStreams={workStreams}
+      />
     </Pending>
   );
 };
