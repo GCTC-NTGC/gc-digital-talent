@@ -88,6 +88,28 @@ class WorkExperience extends Experience
         return sprintf('%s %s %s', $this->role, Lang::get('common.at', [], $lang), $this->organization);
     }
 
+    // extends dateRange, check if the end date is in the future and append a message if needed
+    public function getDateRangeWithFutureEndDateCheck($lang = 'en'): string
+    {
+        $format = 'MMM Y';
+        $start = $this->start_date->locale($lang)->isoFormat($format);
+        $now = date('Y-m-d');
+
+        if (isset($this->end_date)) {
+            $end = $this->end_date->locale($lang)->isoFormat($format);
+
+            if ($this->end_date > $now) {
+                return "$start - $end".' '.Lang::get('common.expected_end_date', [], $lang);
+            }
+
+            return "$start - $end";
+        }
+
+        $end = Lang::get('common.present', [], $lang);
+
+        return "$start - $end";
+    }
+
     /**
      * The "booted" method of the model.
      */

@@ -289,6 +289,7 @@ trait GeneratesUserDoc
     {
 
         if ($type === AwardExperience::class) {
+            /** @var AwardExperience $experience */
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
@@ -297,12 +298,14 @@ trait GeneratesUserDoc
         }
 
         if ($type === CommunityExperience::class) {
+            /** @var CommunityExperience $experience */
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
         }
 
         if ($type === EducationExperience::class) {
+            /** @var EducationExperience $experience */
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
@@ -311,15 +314,17 @@ trait GeneratesUserDoc
         }
 
         if ($type === PersonalExperience::class) {
+            /** @var PersonalExperience $experience */
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
         }
 
         if ($type === WorkExperience::class) {
+            /** @var WorkExperience $experience */
             if ($experience->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
                 $section->addTitle($experience->getTitle($this->lang), $headingRank);
-                $section->addText($experience->getDateRange($this->lang));
+                $section->addText($experience->getDateRangeWithFutureEndDateCheck($this->lang));
                 $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
                 $this->addLabelText(
                     $section, $this->localize('experiences.size_organization'),
@@ -344,7 +349,7 @@ trait GeneratesUserDoc
                     $headingRank
                 );
                 $section->addText($this->localize('experiences.canadian_armed_forces'));
-                $section->addText($experience->getDateRange($this->lang));
+                $section->addText($experience->getDateRangeWithFutureEndDateCheck($this->lang));
                 $this->addLabelText(
                     $section, $this->localize('experiences.employment_type'),
                     $this->localizeEnum($experience->caf_employment_type,
@@ -372,7 +377,7 @@ trait GeneratesUserDoc
                     $this->localize('experiences.contractor')
                     : $this->localize('experiences.government_of_canada')
                 );
-                $section->addText($experience->getDateRange($this->lang));
+                $section->addText($experience->getDateRangeWithFutureEndDateCheck($this->lang));
                 $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
                 $this->addLabelText(
                     $section,
@@ -397,6 +402,13 @@ trait GeneratesUserDoc
                         $this->localize('experiences.contractor_type'),
                         $this->localizeEnum($experience->gov_contractor_type, GovContractorType::class)
                     );
+                    if ($experience->gov_contractor_type === GovContractorType::FIRM_OR_AGENCY->name) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('experiences.contract_firm_agency'),
+                            $experience->contractor_firm_agency_name
+                        );
+                    }
                 }
                 if (
                     $experience->gov_employment_type !== WorkExperienceGovEmployeeType::CONTRACTOR->name &&
