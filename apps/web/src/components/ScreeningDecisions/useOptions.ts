@@ -75,9 +75,10 @@ const useOptions = (
   assessmentDecisionItems: CardOption[];
   successfulOptions: CardOption[];
   unsuccessfulOptions: CheckboxOption[];
+  fetching: boolean;
 } => {
   const intl = useIntl();
-  const [{ data }] = useQuery({ query: ScreeningOptions_Query });
+  const [{ data, fetching }] = useQuery({ query: ScreeningOptions_Query });
 
   const assessmentDecisionItems: CardOption[] = [
     {
@@ -222,6 +223,7 @@ const useOptions = (
     assessmentDecisionItems,
     successfulOptions,
     unsuccessfulOptions,
+    fetching,
   };
 };
 

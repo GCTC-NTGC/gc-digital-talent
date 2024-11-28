@@ -9,7 +9,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Well } from "@gc-digital-talent/ui";
+import { Loading, Well } from "@gc-digital-talent/ui";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -66,8 +66,12 @@ const ScreeningDecisionDialogForm = ({
   const watchAssessmentDecision = watch("assessmentDecision");
   const watchJustifications = watch("justifications");
 
-  const { assessmentDecisionItems, successfulOptions, unsuccessfulOptions } =
-    options;
+  const {
+    assessmentDecisionItems,
+    successfulOptions,
+    unsuccessfulOptions,
+    fetching,
+  } = options;
 
   const isAssessmentDecisionSuccessful =
     watchAssessmentDecision === AssessmentDecision.Successful;
@@ -141,7 +145,9 @@ const ScreeningDecisionDialogForm = ({
     intl,
   );
 
-  return (
+  return fetching ? (
+    <Loading inline />
+  ) : (
     <>
       <div data-h2-margin-bottom="base(x1)">
         <CardOptionGroup
