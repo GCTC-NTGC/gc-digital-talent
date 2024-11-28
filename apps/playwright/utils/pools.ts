@@ -222,7 +222,7 @@ interface CreateAndPublishPoolArgs {
   name?: LocalizedString;
   classificationId?: string;
   departmentId?: string;
-  skillId?: string;
+  skillIds?: string[];
   input?: UpdatePoolInput;
 }
 
@@ -233,7 +233,7 @@ export const createAndPublishPool: GraphQLRequestFunc<
   ctx,
   {
     userId,
-    skillId,
+    skillIds,
     name,
     teamId,
     communityId,
@@ -261,14 +261,28 @@ export const createAndPublishPool: GraphQLRequestFunc<
       },
     });
 
-    await createPoolSkill(ctx, {
-      poolId: pool.id,
-      skillId,
-      poolSkill: {
-        type: PoolSkillType.Essential,
-        requiredLevel: SkillLevel.Beginner,
-      },
-    });
+    if (skillIds) {
+      await Promise.all(
+        skillIds.map(async (skillId) => {
+          await createPoolSkill(ctx, {
+            poolId: pool.id,
+            skillId,
+            poolSkill: {
+              type: PoolSkillType.Essential,
+              requiredLevel: SkillLevel.Beginner,
+            },
+          });
+        }),
+      );
+    } else {
+      await createPoolSkill(ctx, {
+        poolId: pool.id,
+        poolSkill: {
+          type: PoolSkillType.Essential,
+          requiredLevel: SkillLevel.Beginner,
+        },
+      });
+    }
 
     return await publishPool(ctx, pool.id);
   });

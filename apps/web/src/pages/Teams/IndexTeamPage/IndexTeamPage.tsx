@@ -14,8 +14,8 @@ import TeamTableApi from "./components/TeamTable/TeamTable";
 
 const subTitle = defineMessage({
   defaultMessage:
-    "The following is a table of teams along with their details. You can also create a new team or edit existing ones.",
-  id: "i4TGiO",
+    "The following is a table of teams along with their details. You can also create a team or edit existing ones.",
+  id: "MejjjQ",
   description: "Descriptive text about the list of teams in the admin portal.",
 });
 
