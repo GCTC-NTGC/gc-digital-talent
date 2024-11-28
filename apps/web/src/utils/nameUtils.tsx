@@ -209,6 +209,12 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
+    case /CR/.exec(stringifyText)?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("CR"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
     default:
       return (
         <abbr title={title ?? fallbackTitle}>
