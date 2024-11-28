@@ -74,7 +74,7 @@ test.describe("Pool candidates", () => {
 
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: createdUser?.id ?? "",
-      skillId: technicalSkill?.id ?? "",
+      skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: LOCALIZED_STRING,
     });
 

@@ -35,6 +35,10 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
+  "/pptJd": {
+    "defaultMessage": "Commis aux écritures et aux règlements",
+    "description": "Full name of abbreviation for CR"
+  },
   "/pzsYm": {
     "defaultMessage": "Profil du (de la) candidat(e)",
     "description": "Name of Applicant profile page"

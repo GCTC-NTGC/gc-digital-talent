@@ -78,6 +78,10 @@ class WorkExperienceFactory extends Factory
                 return $attributes['gov_employment_type'] === WorkExperienceGovEmployeeType::CONTRACTOR->name ?
                     $this->faker->randomElement(GovContractorType::cases())->name : null;
             },
+            'contractor_firm_agency_name' => function (array $attributes) {
+                return $attributes['gov_contractor_type'] === GovContractorType::FIRM_OR_AGENCY->name ?
+                    $this->faker->company : null;
+            },
             'caf_employment_type' => function (array $attributes) {
                 return $attributes['employment_category'] === EmploymentCategory::CANADIAN_ARMED_FORCES->name ?
                     $this->faker->randomElement(CafEmploymentType::cases())->name : null;

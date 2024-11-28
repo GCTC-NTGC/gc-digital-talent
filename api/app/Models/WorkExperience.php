@@ -34,6 +34,7 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property string $caf_rank
  * @property string $classification_id
  * @property string $department_id
+ * @property string $contractor_firm_agency_name
  */
 class WorkExperience extends Experience
 {
@@ -79,6 +80,7 @@ class WorkExperience extends Experience
         'caf_rank' => 'cafRank',
         'classification_id' => 'classificationId',
         'department_id' => 'departmentId',
+        'contractor_firm_agency_name' => 'contractorFirmAgencyName',
     ];
 
     public function getTitle(?string $lang = 'en'): string
@@ -188,6 +190,14 @@ class WorkExperience extends Experience
     protected function govContractorType(): Attribute
     {
         return $this->makeJsonPropertyStringAttribute('gov_contractor_type');
+    }
+
+    /**
+     * Interact with the contractor firm or agency name
+     */
+    protected function contractorFirmAgencyName(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('contractor_firm_agency_name');
     }
 
     /**

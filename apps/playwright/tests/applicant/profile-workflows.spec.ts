@@ -10,9 +10,6 @@ test.describe("User Profile", () => {
       .getByRole("button", { name: /edit personal/i })
       .click();
 
-    await applicantPage.waitForGraphqlResponse(
-      "PersonalInformationFormOptions",
-    );
     await applicantPage.page
       .getByRole("textbox", { name: /telephone/i })
       .fill("123-456-7890");
@@ -29,7 +26,6 @@ test.describe("User Profile", () => {
     await applicantPage.page
       .getByRole("button", { name: /edit work preferences/i })
       .click();
-    await applicantPage.waitForGraphqlResponse("WorkPreferencesOptions");
     await applicantPage.page
       .getByRole("textbox", { name: /please indicate if there is a city/i })
       .fill("Test locations");

@@ -16,7 +16,7 @@ final readonly class DownloadPoolCandidateDoc
     /**
      * @disregard P1003 Will not use
      *
-     * @param  array{id: ?string, anonymous: ?boolean}  $args
+     * @param  array{id: ?string, anonymous: ?bool}  $args
      */
     public function __invoke(null $_, array $args)
     {
