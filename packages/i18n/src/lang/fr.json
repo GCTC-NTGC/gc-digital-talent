@@ -780,7 +780,7 @@
     "description": "Error message that the pool advertisement must have an expiry date."
   },
   "XTuwjA": {
-    "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
+    "defaultMessage": "Cette chaîne de clés de groupe de compétences est déjà utilisée",
     "description": "Error message that the given skill family key is already in use."
   },
   "XUR5dD": {
