@@ -177,19 +177,19 @@ return [
 
         'view-any-skillFamily' => [
             'en' => 'View Any Skill family',
-            'fr' => 'Visionner toute famille de compétences',
+            'fr' => 'Visionner n\'importe quel groupe de compétences',
         ],
         'create-any-skillFamily' => [
             'en' => 'Create Any Skill family',
-            'fr' => 'Créer toute famille de compétences',
+            'fr' => 'Créer n\'importe quel groupe de compétences',
         ],
         'update-any-skillFamily' => [
             'en' => 'Update Any Skill family',
-            'fr' => 'Mettre à jour toute famille de compétences',
+            'fr' => 'Mettre à jour n\'importe quel groupe de compétences',
         ],
         'delete-any-skillFamily' => [
             'en' => 'Delete Any Skill family',
-            'fr' => 'Supprimer toute famille de compétences',
+            'fr' => 'Supprimer n\'importe quel groupe de compétences',
         ],
 
         'create-any-user' => [
