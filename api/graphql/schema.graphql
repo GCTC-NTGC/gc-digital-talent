@@ -277,7 +277,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "security_clearance")
   language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
-  stream: LocalizedPoolStream
+  workStream: WorkStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: LocalizedPublishingGroup
     @rename(attribute: "publishing_group")
@@ -514,6 +514,14 @@ type Team implements HasRoleAssignments {
   teamIdForRoleAssignment: ID @rename(attribute: "id")
 }
 
+type WorkStream {
+  id: UUID!
+  key: String
+  name: LocalizedString
+  plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
+  community: Community
+}
+
 type Role {
   id: ID!
   name: String! # represents a unique key for a role
@@ -583,6 +591,7 @@ type ApplicantFilter {
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [LocalizedPoolStream]
     @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
+  workStreams: [WorkStream] @belongsToMany
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -772,7 +781,7 @@ type JobPosterTemplate {
   description: LocalizedString
   supervisoryStatus: LocalizedSupervisoryStatus
     @rename(attribute: "supervisory_status")
-  stream: LocalizedPoolStream
+  workStream: WorkStream
   workDescription: LocalizedString @rename(attribute: "work_description")
   tasks: LocalizedString
   keywords: LocalizedKeywords
@@ -845,7 +854,7 @@ input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
   team: String @scope
-  streams: [PoolStream!] @scope
+  workStreams: [UUID!] @scope
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
@@ -879,6 +888,7 @@ input ApplicantFilterInput {
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  workStreams: [IdInput] @scope(name: "workStreams") @pluck(key: "id")
   community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
@@ -1104,6 +1114,7 @@ type Query {
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+  workStreams: [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
     where: NotificationFilterInput
@@ -1470,6 +1481,22 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input CreateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput!
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo!
+}
+
+input UpdateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo
+}
+
 input PoolBelongsToMany {
   sync: [ID!]
 }
@@ -1485,6 +1512,15 @@ input DepartmentBelongsToMany {
 
 input CommunityBelongsTo {
   connect: UUID!
+}
+
+input WorkStreamBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input WorkStreamBelongsToMany {
+  sync: [ID!]
 }
 
 input CreateTeamInput {
@@ -1537,6 +1573,7 @@ input CreateApplicantFilterInput {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
   qualifiedClassifications: ClassificationBelongsToMany
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -1784,7 +1821,7 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
   department: DepartmentBelongsTo
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   processNumber: String @rename(attribute: "process_number")
   # Closing date
   closingDate: DateTime
@@ -2036,7 +2073,7 @@ input CreateJobPosterTemplateInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
-  stream: PoolStream!
+  workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
   keywords: LocalizedKeywordsInput
@@ -2056,7 +2093,7 @@ input UpdateJobPosterTemplateInput @validator {
   name: LocalizedStringInput
   description: LocalizedStringInput
   supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput
   keywords: LocalizedStringInput
@@ -2414,6 +2451,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+
+  # Work stream mutations
+  createWorkStream(workStream: CreateWorkStreamInput! @spread): WorkStream
+    @create
+    @guard
+    @canModel(ability: "create")
+  updateWorkStream(
+    id: ID!
+    workStream: UpdateWorkStreamInput! @spread
+  ): WorkStream @update @guard @canFind(ability: "update", find: "id")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team

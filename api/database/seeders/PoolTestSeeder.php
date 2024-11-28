@@ -11,6 +11,7 @@ use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\WorkStream;
 use Illuminate\Database\Seeder;
 
 class PoolTestSeeder extends Seeder
@@ -29,6 +30,7 @@ class PoolTestSeeder extends Seeder
         $dcmTeamId = Team::select('id')->where('name', 'digital-community-management')->sole()->id;
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
+        $businessAdvisoryStreamId = WorkStream::select('id')->where('key', PoolStream::BUSINESS_ADVISORY_SERVICES->name)->sole()->id;
 
         // CMO Digital
         $createdPool = Pool::factory()
@@ -48,10 +50,12 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                'work_stream_id' => $businessAdvisoryStreamId,
             ]);
         $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
         $createdPool->classification_id = $classificationIT01Id;
         $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
+        $createdPool->work_stream_id = $businessAdvisoryStreamId;
         $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
         if (! is_null($processOperatorUser)) {
             $createdPool->addProcessOperators([$processOperatorUser->id]);
@@ -76,6 +80,7 @@ class PoolTestSeeder extends Seeder
                     'closing_date' => config('constants.far_future_date'),
                     'publishing_group' => PublishingGroup::IAP->name,
                     'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'work_stream_id' => $businessAdvisoryStreamId,
                 ],
             );
 
@@ -98,7 +103,7 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-
+                'work_stream_id' => $businessAdvisoryStreamId,
             ]);
 
         // IT -02
@@ -121,7 +126,7 @@ class PoolTestSeeder extends Seeder
                     'closing_date' => config('constants.far_future_date'),
                     'publishing_group' => PublishingGroup::IT_JOBS->name,
                     'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-
+                    'work_stream_id' => $businessAdvisoryStreamId,
                 ],
             );
 
@@ -146,7 +151,7 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-
+                'work_stream_id' => $businessAdvisoryStreamId,
             ]);
 
         //IT -04
@@ -170,7 +175,7 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => now()->addMonths(6),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-
+                'work_stream_id' => $businessAdvisoryStreamId,
             ]);
 
         // IT - 05 Closed - Simple
@@ -195,6 +200,7 @@ class PoolTestSeeder extends Seeder
                     'closing_date' => config('constants.past_date'),
                     'publishing_group' => PublishingGroup::IT_JOBS->name,
                     'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'work_stream_id' => $businessAdvisoryStreamId,
                 ],
             );
 
@@ -214,6 +220,7 @@ class PoolTestSeeder extends Seeder
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'EX')->where('level', 3)->sole()->id,
                     'stream' => PoolStream::EXECUTIVE_GROUP->name,
+                    'work_stream_id' => $businessAdvisoryStreamId,
                     'user_id' => $adminUserId,
                     'team_id' => $dcmTeamId,
                     'community_id' => $digitalCommunityId,
@@ -236,6 +243,7 @@ class PoolTestSeeder extends Seeder
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'PM')->where('level', 1)->sole()->id,
                 'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                'work_stream_id' => WorkStream::where('key', PoolStream::ACCESS_INFORMATION_PRIVACY->name)->first()->id,
                 'user_id' => $adminUserId,
                 'team_id' => $dcmTeamId,
                 'community_id' => $atipCommunityId,

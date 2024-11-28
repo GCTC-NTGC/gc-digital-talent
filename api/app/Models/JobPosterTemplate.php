@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $reference_id
  * @property array $description
  * @property string $supervisory_status
- * @property string $stream
+ * @property WorkStream $stream
  * @property array $work_description
  * @property array $tasks
  * @property array $keywords
@@ -53,7 +53,6 @@ class JobPosterTemplate extends Model
         'name',
         'description',
         'key',
-        'stream',
         'supervisory_status',
         'work_description',
         'tasks',
@@ -78,5 +77,13 @@ class JobPosterTemplate extends Model
     {
         return $this->belongsToMany(Skill::class)
             ->withPivot('type', 'required_skill_level');
+    }
+
+    /**
+     * Associated work stream
+     */
+    public function workStream(): BelongsTo
+    {
+        return $this->belongsTo(WorkStream::class);
     }
 }

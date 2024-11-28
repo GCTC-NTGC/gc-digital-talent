@@ -39,7 +39,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array $special_note
  * @property ?string $security_clearance
  * @property ?string $advertisement_language
- * @property ?string $stream
+ * @property ?WorkStream $workStream
  * @property ?string $process_number
  * @property ?string $publishing_group
  * @property ?string $opportunity_length
@@ -95,7 +95,6 @@ class Pool extends Model
         'published_at',
         'name',
         'key_tasks',
-        'stream',
         'security_clearance',
         'advertisement_language',
         'your_impact',
@@ -114,7 +113,7 @@ class Pool extends Model
         'id',
         'name',
         'user_id',
-        'stream',
+        'work_stream_id',
         'publishing_group',
         'published_at',
         'archived_at',
@@ -223,6 +222,11 @@ class Pool extends Model
     public function publishedPoolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->notDraft();
+    }
+
+    public function workStream(): BelongsTo
+    {
+        return $this->belongsTo(WorkStream::class);
     }
 
     public function essentialSkills(): BelongsToMany

@@ -511,6 +511,15 @@ return [
             'fr' => 'Supprimer toute équipe',
         ],
 
+        'create-any-workStream' => [
+            'en' => 'Create Any Work Stream',
+            'fr' => 'Créer toute équipe',
+        ],
+        'update-any-workStream' => [
+            'en' => 'Update Any Work Stream',
+            'fr' => 'Mettre à jour toute équipe',
+        ],
+
         'view-any-role' => [
             'en' => 'View Any Role',
             'fr' => 'Visionner tout rôle',

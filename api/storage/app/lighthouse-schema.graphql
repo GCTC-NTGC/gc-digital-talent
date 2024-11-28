@@ -311,6 +311,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
@@ -471,6 +472,8 @@ type Mutation {
   createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
   updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
+  createWorkStream(workStream: CreateWorkStreamInput!): WorkStream
+  updateWorkStream(id: ID!, workStream: UpdateWorkStreamInput!): WorkStream
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
@@ -733,7 +736,7 @@ type Pool implements HasRoleAssignments {
   securityClearance: LocalizedSecurityStatus
   language: LocalizedPoolLanguage
   status: LocalizedPoolStatus
-  stream: LocalizedPoolStream
+  workStream: WorkStream
   processNumber: String
   publishingGroup: LocalizedPublishingGroup
   opportunityLength: LocalizedPoolOpportunityLength
@@ -908,6 +911,14 @@ type Team implements HasRoleAssignments {
   teamIdForRoleAssignment: ID
 }
 
+type WorkStream {
+  id: UUID!
+  key: String
+  name: LocalizedString
+  plainLanguageName: LocalizedString
+  community: Community
+}
+
 type Role {
   id: ID!
   name: String!
@@ -961,6 +972,7 @@ type ApplicantFilter {
   skills: [Skill]
   qualifiedClassifications: [Classification]
   qualifiedStreams: [LocalizedPoolStream]
+  workStreams: [WorkStream]
   pools: [Pool]
   community: Community
 }
@@ -1124,7 +1136,7 @@ type JobPosterTemplate {
   name: LocalizedString
   description: LocalizedString
   supervisoryStatus: LocalizedSupervisoryStatus
-  stream: LocalizedPoolStream
+  workStream: WorkStream
   workDescription: LocalizedString
   tasks: LocalizedString
   keywords: LocalizedKeywords
@@ -1193,7 +1205,7 @@ input PoolFilterInput {
   generalSearch: String
   name: String
   team: String
-  streams: [PoolStream!]
+  workStreams: [UUID!]
   statuses: [PoolStatus!] = []
   processNumber: String
   publishingGroups: [PublishingGroup!]
@@ -1223,6 +1235,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
+  workStreams: [IdInput]
   community: IdInput
 }
 
@@ -1540,6 +1553,20 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input CreateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput!
+  plainLanguageName: LocalizedStringInput
+  community: CommunityBelongsTo!
+}
+
+input UpdateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput
+  plainLanguageName: LocalizedStringInput
+  community: CommunityBelongsTo
+}
+
 input PoolBelongsToMany {
   sync: [ID!]
 }
@@ -1555,6 +1582,15 @@ input DepartmentBelongsToMany {
 
 input CommunityBelongsTo {
   connect: UUID!
+}
+
+input WorkStreamBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input WorkStreamBelongsToMany {
+  sync: [ID!]
 }
 
 input CreateTeamInput {
@@ -1600,6 +1636,7 @@ input CreateApplicantFilterInput {
   armedForcesStatus: ArmedForcesStatus
   qualifiedClassifications: ClassificationBelongsToMany
   qualifiedStreams: [PoolStream]
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -1828,7 +1865,7 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
   department: DepartmentBelongsTo
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   processNumber: String
   closingDate: DateTime
   closingReason: String
@@ -2038,7 +2075,7 @@ input CreateJobPosterTemplateInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus!
-  stream: PoolStream!
+  workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput!
   keywords: LocalizedKeywordsInput
@@ -2055,7 +2092,7 @@ input UpdateJobPosterTemplateInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   supervisoryStatus: SupervisoryStatus
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput
   keywords: LocalizedStringInput

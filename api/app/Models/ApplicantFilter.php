@@ -65,6 +65,11 @@ class ApplicantFilter extends Model
         return $this->belongsTo(Community::class);
     }
 
+    public function workStreams(): BelongsToMany
+    {
+        return $this->belongsToMany(WorkStream::class);
+    }
+
     /* these fields are factored out into a sub-object by this accessor to mirror the way they are queried */
     public function getEquityAttribute()
     {
