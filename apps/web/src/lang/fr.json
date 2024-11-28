@@ -2331,10 +2331,6 @@
     "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des TI au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe TI</link>, signée en décembre 2023, par le groupe TI de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe TI, et ce jusqu’à la date d’expiration de la convention.",
     "description": "First paragraph describing the training fund"
   },
-  "A7fDb8": {
-    "defaultMessage": "Compétences de cette famille",
-    "description": "Label for display of skills within a specific family"
-  },
   "A94Zgi": {
     "defaultMessage": "Découvrez les possibilités d’apprentissage offertes aux membres du personnel des TI pour acquérir des compétences et les perfectionner.",
     "description": "Page subtitle for the IT training fund page"
@@ -4884,7 +4880,7 @@
     "description": "Label for the 'planning and reporting' IT work stream"
   },
   "NJIdH1": {
-    "defaultMessage": "Compétences de cette famille",
+    "defaultMessage": "Compétences de ce groupe",
     "description": "Label for skills input in skill family form"
   },
   "NJUJl0": {
