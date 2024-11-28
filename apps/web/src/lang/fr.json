@@ -2363,6 +2363,10 @@
     "defaultMessage": "Valider dès maintenant",
     "description": "Button to start the email address verification process"
   },
+  "AH2U9S": {
+    "defaultMessage": "Gestionnaire P M 6",
+    "description": "PM-06 classification aria label including titles"
+  },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
@@ -5910,6 +5914,10 @@
   "SLedtO": {
     "defaultMessage": "Profil de l’utilisateur",
     "description": "Title for the user profile page"
+  },
+  "SM7PIR": {
+    "defaultMessage": "Analyste principal P M 5",
+    "description": "PM-05 classification aria label including titles"
   },
   "SNwPLZ": {
     "defaultMessage": "<strong>Ma situation concorde avec l’option d’expérience de travail appliquée</strong>",
@@ -11078,6 +11086,10 @@
     "defaultMessage": "Question de sélection {index}",
     "description": "Legend for screening question fieldset"
   },
+  "s+m6Sr": {
+    "defaultMessage": "PM-06 : Gestionnaire",
+    "description": "PM-06 classification label including titles"
+  },
   "s/BI/4": {
     "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux ont été nominés aux tables rondes en gestion des talents; EXposition ciblant les cadres supérieurs et Prolonger EXposition se concentrant sur les candidats de groupes et niveaux EX équivalents et EX moins un.  Les nominations sont compilées dans la base de données en gestion des talents numériques. Cette base de données constitue la source principale de données lorsque les organisations veulent d'obtenir des références tout au long de l'année.",
     "description": "Description of identifying digital talents"
@@ -11161,6 +11173,10 @@
   "sa8LdD": {
     "defaultMessage": "Situation des RH – solutions de dotation disponible non viables",
     "description": "HR situation contracting rationale"
+  },
+  "sapiL3": {
+    "defaultMessage": "PM-05 : Analyste principal",
+    "description": "PM-05 classification label including titles"
   },
   "sapxcU": {
     "defaultMessage": "Avertissement",
