@@ -64,9 +64,9 @@ export const SkillFamilyTable = ({
         sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Description",
-          id: "XSo129",
+          id: "pa8AtS",
           description:
-            "Title displayed for the Skill Family table Description column.",
+            "Title displayed for the Skill family table Description column.",
         }),
       },
     ),
@@ -99,10 +99,10 @@ export const SkillFamilyTable = ({
         linkProps: {
           href: paths.skillFamilyCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Skill Family",
-            id: "TRqbR/",
+            defaultMessage: "Create Skill family",
+            id: "zsrToE",
             description:
-              "Heading displayed above the Create Skill Family form.",
+              "Heading displayed above the Create Skill family form.",
           }),
           from: currentUrl,
         },
@@ -110,8 +110,8 @@ export const SkillFamilyTable = ({
       nullMessage={{
         description: intl.formatMessage({
           defaultMessage:
-            'Use the "Create Skill Family" button to get started.',
-          id: "zp1ShM",
+            'Use the "Create Skill family" button to get started.',
+          id: "Vqqi98",
           description: "Instructions for adding a skill family item.",
         }),
       }}

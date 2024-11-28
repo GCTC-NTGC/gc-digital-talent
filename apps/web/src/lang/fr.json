@@ -6119,10 +6119,6 @@
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
     "description": "Comments or contributions list item"
   },
-  "TRqbR/": {
-    "defaultMessage": "Créer une famille de compétences",
-    "description": "Heading displayed above the Create Skill Family form."
-  },
   "TS63OC": {
     "defaultMessage": "Veuillez indiquer la classification et le niveau de votre groupe de travail actuel.",
     "description": "Text blurb, asking about classification and level in the government info form"
@@ -6570,6 +6566,10 @@
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
   },
+  "Vqqi98": {
+    "defaultMessage": "Utilisez le bouton « Créer une famille de compétences » pour commencer.",
+    "description": "Instructions for adding a skill family item."
+  },
   "VrLfLw": {
     "defaultMessage": "Courriel du conseiller/ère en RH",
     "description": "Input label asking for the HR advisor's email address."
@@ -6909,10 +6909,6 @@
   "XS21o1": {
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
     "description": "Learn more dialog question five paragraph one"
-  },
-  "XSo129": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the Skill Family table Description column."
   },
   "XVI4qU": {
     "defaultMessage": "un changement technologique d’un système, d’un logiciel ou d’un matériel d’une nature fondamentalement différente de ceux utilisés précédemment.",
@@ -10666,6 +10662,10 @@
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
     "description": "Subtitle for confirmation to delete a skill"
   },
+  "pa8AtS": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the Skill family table Description column."
+  },
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
@@ -12394,10 +12394,6 @@
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
   },
-  "zp1ShM": {
-    "defaultMessage": "Utilisez le bouton \"Créer une famille de compétences\" pour commencer.",
-    "description": "Instructions for adding a skill family item."
-  },
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
     "description": "Message displayed to user after skillFamily fails to get updated."
@@ -12417,6 +12413,10 @@
   "zsUuN9": {
     "defaultMessage": "Modifier l'expérience",
     "description": "Title for edit experience page"
+  },
+  "zsrToE": {
+    "defaultMessage": "Créer une famille de compétences",
+    "description": "Heading displayed above the Create Skill family form."
   },
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",
