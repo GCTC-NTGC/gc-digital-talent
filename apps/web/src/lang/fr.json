@@ -528,7 +528,7 @@
     "description": "Lead in text for the add role to user form."
   },
   "0cy9n/": {
-    "defaultMessage": "Informations sur la famille de compétences",
+    "defaultMessage": "Informations sur le groupe de compétences",
     "description": "Subtitle for viewing a specific skill family"
   },
   "0dQ62G": {
@@ -9299,7 +9299,7 @@
     "description": "Message displayed to user after pool fails to get deleted."
   },
   "ifVyI/": {
-    "defaultMessage": "Modifiez les informations sur la famille de compétences",
+    "defaultMessage": "Modifiez les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
   },
   "igTx2a": {
