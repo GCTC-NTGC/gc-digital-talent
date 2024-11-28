@@ -23,6 +23,7 @@ import {
   getLocalizedEnumStringByValue,
   sortCandidateRemovalReason,
 } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
@@ -57,7 +58,7 @@ export const RemoveCandidateDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const RemoveCandidateOptions_Fragment = graphql(/* GraphQL */ `
+export const RemoveCandidateOptions_Fragment = graphql(/* GraphQL */ `
   fragment RemoveCandidateOptions on Query {
     removalReasons: localizedEnumStrings(enumName: "CandidateRemovalReason") {
       value
@@ -84,6 +85,8 @@ const RemoveCandidateDialog = ({
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const candidate = getFragment(RemoveCandidateDialog_Fragment, removalQuery);
   const options = getFragment(RemoveCandidateOptions_Fragment, optionsQuery);
+
+  const removalReasons = unpackMaybes(options?.removalReasons);
 
   const [{ fetching }, removeCandidate] = useMutation(RemoveCandidate_Mutation);
 
@@ -176,7 +179,7 @@ const RemoveCandidateDialog = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   items={localizedEnumToOptions(
-                    sortCandidateRemovalReason(options?.removalReasons),
+                    sortCandidateRemovalReason(removalReasons),
 
                     intl,
                   )}
@@ -190,7 +193,7 @@ const RemoveCandidateDialog = ({
                     }}
                     label={getLocalizedEnumStringByValue(
                       CandidateRemovalReason.Other,
-                      options?.removalReasons,
+                      removalReasons,
 
                       intl,
                     )}

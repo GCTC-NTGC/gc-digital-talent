@@ -55,7 +55,7 @@ import {
 import CommunityRoleTable from "./components/CommunityRoleTable";
 import ProcessRoleTable from "./components/ProcessRoleTable";
 
-const UpdateUserOptions_Fragment = graphql(/* GraphQL */ `
+export const UpdateUserOptions_Fragment = graphql(/* GraphQL */ `
   fragment UpdateUserOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value
