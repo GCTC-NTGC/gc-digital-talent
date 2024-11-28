@@ -991,6 +991,10 @@
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
     "description": "Error message when attempting to un-archive a pool with an invalid status."
   },
+  "i+8teP": {
+    "defaultMessage": "Description",
+    "description": "Title for description"
+  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"

@@ -2311,10 +2311,6 @@
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
   },
-  "9yGJ6k": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the skill table Description column."
-  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -10661,10 +10657,6 @@
   "pYXeXV": {
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
     "description": "Subtitle for confirmation to delete a skill"
-  },
-  "pa8AtS": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the Skill family table Description column."
   },
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",

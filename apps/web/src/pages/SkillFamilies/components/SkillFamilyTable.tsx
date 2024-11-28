@@ -62,12 +62,7 @@ export const SkillFamilyTable = ({
       {
         id: "description",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Description",
-          id: "pa8AtS",
-          description:
-            "Title displayed for the Skill family table Description column.",
-        }),
+        header: intl.formatMessage(commonMessages.description),
       },
     ),
   ] as ColumnDef<SkillFamily>[];
