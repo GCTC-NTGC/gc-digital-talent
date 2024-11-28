@@ -3568,7 +3568,7 @@
     "description": "The email address has been verified to be owned by user"
   },
   "GNhFh2": {
-    "defaultMessage": "Sélectionnez une famille de compétences ou plus",
+    "defaultMessage": "Sélectionnez un groupe de compétences ou plus",
     "description": "Placeholder displayed on the skill form skill families field."
   },
   "GOCEuh": {
@@ -6563,7 +6563,7 @@
     "description": "Status for an application that has been hired with a term contract"
   },
   "Vqqi98": {
-    "defaultMessage": "Utilisez le bouton « Créer une famille de compétences » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un groupe de compétences » pour commencer.",
     "description": "Instructions for adding a skill family item."
   },
   "VrLfLw": {
@@ -9163,7 +9163,7 @@
     "description": "Accordion trigger for your GCKey account info."
   },
   "i4OGTD": {
-    "defaultMessage": "Créer une famille de compétences",
+    "defaultMessage": "Créer un groupe de compétences",
     "description": "Page title for the skill family creation page"
   },
   "i8DgUB": {
@@ -9503,7 +9503,7 @@
     "description": "Message that appears when there are no general messages for a pool"
   },
   "jYPyWq": {
-    "defaultMessage": "Sélectionner une famille de compétences et une compétence pour continuer.",
+    "defaultMessage": "Sélectionner un groupe de compétences et une compétence pour continuer.",
     "description": "Error message when a user attempts to add a skill before selecting one"
   },
   "jZi53k": {
@@ -10559,7 +10559,7 @@
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "pCZ1wt": {
-    "defaultMessage": "Sélectionnez une famille de compétences",
+    "defaultMessage": "Sélectionnez un groupe de compétences",
     "description": "Placeholder message when there is no skill family selected"
   },
   "pDlEip": {
@@ -10851,7 +10851,7 @@
     "description": "Message displayed to user after pool fails to get archived."
   },
   "qkuRs8": {
-    "defaultMessage": "Créez une famille de compétences",
+    "defaultMessage": "Créez un groupe de compétences",
     "description": "Button text to create a skill family"
   },
   "qlVBtp": {
@@ -11795,7 +11795,7 @@
     "description": "Link text to direct users to the profile page when anonymous"
   },
   "wSlABO": {
-    "defaultMessage": "Modifier une famille de compétences ",
+    "defaultMessage": "Modifier un groupe de compétences ",
     "description": "Page title for the skill family edit page"
   },
   "wTAdQe": {
@@ -12235,7 +12235,7 @@
     "description": "Link text to users profile to update contact information"
   },
   "ytTGvb": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un groupe de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the skill families 'key' field."
   },
   "ywkgJx": {
@@ -12407,7 +12407,7 @@
     "description": "Title for edit experience page"
   },
   "zsrToE": {
-    "defaultMessage": "Créer une famille de compétences",
+    "defaultMessage": "Créer un groupe de compétences",
     "description": "Heading displayed above the Create Skill family form."
   },
   "ztQSF+": {
