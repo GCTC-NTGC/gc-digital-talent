@@ -6,6 +6,11 @@ const richTextMessages = defineMessages({
     id: "tEUGpL",
     description: "Label for toggling a bullet list in the rich text editor",
   },
+  heading: {
+    defaultMessage: "Heading",
+    id: "5xaEhL",
+    description: "Label for toggling a heading in the rich text editor",
+  },
   undo: {
     defaultMessage: "Undo",
     id: "cP2cZ0",
