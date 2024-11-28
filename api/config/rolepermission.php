@@ -84,6 +84,7 @@ return [
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
         'trainingOpportunity' => 'trainingOpportunity',
+        'workStream' => 'workStream',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -1230,6 +1231,9 @@ return [
             ],
             'trainingOpportunity' => [
                 'any' => ['create'],
+            ],
+            'workStream' => [
+                'any' => ['create', 'update'],
             ],
         ],
         'manager' => [

@@ -4,14 +4,13 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\WorkStream;
-use Illuminate\Auth\Access\Response;
 
 class WorkStreamPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(?User $user): bool
     {
         return false;
     }
@@ -19,7 +18,7 @@ class WorkStreamPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, WorkStream $workStream): bool
+    public function view(?User $user, WorkStream $workStream): bool
     {
         return false;
     }
@@ -29,7 +28,7 @@ class WorkStreamPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->isAbleTo('create-any-workStream');
     }
 
     /**
@@ -37,7 +36,7 @@ class WorkStreamPolicy
      */
     public function update(User $user, WorkStream $workStream): bool
     {
-        return false;
+        return $user->isAbleTo('update-any-workStream');
     }
 
     /**
