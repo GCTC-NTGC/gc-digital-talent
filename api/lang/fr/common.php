@@ -19,4 +19,5 @@ return [
     'at' => 'à',
     'not_provided' => 'Renseignements manquants',
     'not_sure' => 'Pas certain',
+    'expected_end_date' => '(Expected end date)',
 ];

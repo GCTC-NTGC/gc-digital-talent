@@ -22,9 +22,10 @@ return [
     'seniority_role' => 'Seniority of the role',
     'canadian_armed_forces' => 'Canadian Armed Forces',
     'rank_category' => 'Rank category',
-    'government_of_canada' => 'Government of Canada',
-    'contractor' => 'Contractor',
+    'government_of_canada' => 'Gouvernement du Canada',
+    'contractor' => 'Entrepreneur ou entrepreneuse',
     'position_type' => 'Position type',
     'contractor_type' => 'Contractor type',
     'classification' => 'Classification',
+    'contract_firm_agency' => 'Contracting firm or agency',
 ];

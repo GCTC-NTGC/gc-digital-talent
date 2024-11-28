@@ -27,4 +27,5 @@ return [
     'position_type' => 'Position type',
     'contractor_type' => 'Contractor type',
     'classification' => 'Classification',
+    'contract_firm_agency' => 'Contracting firm or agency',
 ];
