@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/**
+ * Class WorkStream
+ *
+ * @property string $id
+ * @property array $name
+ * @property array $plain_language_name
+ * @property Community $community
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ */
+class WorkStream extends Model
+{
+    protected $keyType = 'string';
+
+    protected $casts = [
+        'name' => 'array',
+        'plain_language_name' => 'array',
+    ];
+
+    protected $fillable = [
+        'key',
+        'name',
+        'plain_language_name',
+        'community_id',
+    ];
+
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
+    }
+}
