@@ -860,7 +860,7 @@
     "description": "Title for qualified recruitments section"
   },
   "2ekC5r": {
-    "defaultMessage": "Famille de compétences mise à jour avec succès!",
+    "defaultMessage": "Groupe de compétences mise à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
   },
   "2f+IKU": {
@@ -7351,7 +7351,7 @@
     "description": "Error message when pool candidates could not be loaded"
   },
   "ZWnKEJ": {
-    "defaultMessage": "Famille de compétences {skillFamilyId} non trouvée.",
+    "defaultMessage": "Groupe de compétences {skillFamilyId} non trouvée.",
     "description": "Message displayed for skillFamily not found."
   },
   "ZYqWBR": {
