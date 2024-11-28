@@ -12,6 +12,8 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       }
     }
 
+    ...UpdateUserOptions
+
     user(id: $id, trashed: WITH) {
       id
       email
