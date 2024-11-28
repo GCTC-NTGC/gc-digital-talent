@@ -6263,6 +6263,10 @@
     "defaultMessage": "À l’exception de quelques compétences comportementales très particulières, seuls des renseignements techniques sont recueillis auprès des candidats dans la candidature initiale. Cela signifie que lors de votre examen, vous ne verrez que les données d’expérience relatives aux compétences techniques et à quelques compétences comportementales précises. Deux raisons expliquent ce choix.",
     "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"
   },
+  "UA37iG": {
+    "defaultMessage": "Commis C R 4",
+    "description": "CR-04 classification aria label including titles"
+  },
   "UCv0X2": {
     "defaultMessage": "L’engagement de l’équipe de Talents numériques du GC",
     "description": "Title for our commitment to inclusivity and equity"
@@ -9173,6 +9177,10 @@
   "i4OGTD": {
     "defaultMessage": "Créer une famille de compétences",
     "description": "Page title for the skill family creation page"
+  },
+  "i7nfvV": {
+    "defaultMessage": "CR-04 : Commis",
+    "description": "CR-04 classification label including titles"
   },
   "i8DgUB": {
     "defaultMessage": "Opérations d’infrastructure de la TI",

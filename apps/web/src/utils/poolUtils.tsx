@@ -499,6 +499,12 @@ export const getClassificationSalaryRangeUrl = (
         fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
       };
       break;
+    case "CR":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
+      };
+      break;
     default:
       break;
   }
