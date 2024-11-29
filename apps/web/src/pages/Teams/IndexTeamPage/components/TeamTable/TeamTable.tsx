@@ -148,17 +148,17 @@ export const TeamTable = ({
         linkProps: {
           href: paths.teamCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Team",
-            id: "GtrrJ3",
-            description: "Link text to create a new team in the admin portal",
+            defaultMessage: "Create team",
+            id: "2iL6MI",
+            description: "Link text to create a team in the admin portal",
           }),
           from: currentUrl,
         },
       }}
       nullMessage={{
         description: intl.formatMessage({
-          defaultMessage: 'Use the "Create Team" button to get started.',
-          id: "+zSc5y",
+          defaultMessage: 'Use the "Create team" button to get started.',
+          id: "U0XNwt",
           description: "Instructions for adding a team item.",
         }),
       }}

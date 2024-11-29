@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
  * Class Classification
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Classification extends Model
 {
     use HasFactory;
+    use HasJsonRelationships;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -55,7 +57,7 @@ class Classification extends Model
 
     /**
      * Used to limit the results for the search page input
-     * to IT up to level 5 and PM up to level 4
+     * to IT up to level 5 and PM up to level 6 and CR level 4
      *
      * TODO: Update in #9483 to derive from new column
      */
@@ -68,7 +70,9 @@ class Classification extends Model
         $query->where(function ($query) {
             $query->where('group', 'IT')->where('level', '<=', 5);
         })->orWhere(function ($query) {
-            $query->where('group', 'PM')->where('level', '<=', 4);
+            $query->where('group', 'PM')->where('level', '<=', 6);
+        })->orWhere(function ($query) {
+            $query->where('group', 'CR')->where('level', '=', 4);
         });
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Classification;
+use App\Models\Department;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin \App\Models\WorkExperience */
@@ -25,6 +27,19 @@ class WorkExperienceResource extends JsonResource
             'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
+            'employmentCategory' => $this->employment_category,
+            'extSizeOfOrganization' => $this->ext_size_of_organization,
+            'extRoleSeniority' => $this->ext_role_seniority,
+            'govEmploymentType' => $this->gov_employment_type,
+            'govPositionType' => $this->gov_position_type,
+            'govContractorRoleSeniority' => $this->gov_contractor_role_seniority,
+            'govContractorType' => $this->gov_contractor_type,
+            'contractorFirmAgencyName' => $this->contractor_firm_agency_name,
+            'cafEmploymentType' => $this->caf_employment_type,
+            'cafForce' => $this->caf_force,
+            'cafRank' => $this->caf_rank,
+            'classification' => $this->classification_id ? (new ClassificationResource(Classification::find($this->classification_id))) : null,
+            'department' => $this->department_id ? (new DepartmentResource(Department::find($this->department_id))) : null,
         ];
     }
 }

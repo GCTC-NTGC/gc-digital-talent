@@ -4,7 +4,6 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
-import { useEffect } from "react";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -56,7 +55,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import pageTitles from "~/messages/pageTitles";
 
-import { SkillFormOptions_Query } from "./operations";
+import { SkillFormOptions_Fragment } from "./operations";
 
 interface Option<V> {
   value: V;
@@ -116,6 +115,7 @@ export const UpdateSkill_Fragment = graphql(/* GraphQL */ `
 interface UpdateSkillFormProps {
   skillQuery: FragmentType<typeof UpdateSkill_Fragment>;
   familiesQuery: FragmentType<typeof UpdateSkillSkillFamily_Fragment>[];
+  optionsQuery?: FragmentType<typeof SkillFormOptions_Fragment>;
   handleUpdateSkill: (
     id: string,
     data: UpdateSkillInput,
@@ -125,13 +125,14 @@ interface UpdateSkillFormProps {
 export const UpdateSkillForm = ({
   skillQuery,
   familiesQuery,
+  optionsQuery,
   handleUpdateSkill,
 }: UpdateSkillFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [{ data }] = useQuery({ query: SkillFormOptions_Query });
+  const data = getFragment(SkillFormOptions_Fragment, optionsQuery);
   const initialSkill = getFragment(UpdateSkill_Fragment, skillQuery);
   const skillFamilies = getFragment(
     UpdateSkillSkillFamily_Fragment,
@@ -174,12 +175,6 @@ export const UpdateSkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialSkill),
   });
-
-  // category is populated by fetched enums, this can possibly not finish until after form has already rendered
-  // so reset to default value (initialSkill) once enums loaded
-  useEffect(() => {
-    methods.resetField("category");
-  }, [data?.categories, methods]);
 
   const { handleSubmit } = methods;
 
@@ -393,6 +388,8 @@ interface RouteParams extends Record<string, string> {
 
 const UpdateSkillData_Query = graphql(/* GraphQL */ `
   query UpdateSkillData($id: UUID!) {
+    ...SkillFormOptions
+
     skillFamilies {
       ...UpdateSkillSkillFamily
     }
@@ -498,6 +495,7 @@ export const UpdateSkill = () => {
               <UpdateSkillForm
                 skillQuery={data?.skill}
                 familiesQuery={unpackMaybes(data?.skillFamilies)}
+                optionsQuery={data}
                 handleUpdateSkill={handleUpdateSkill}
               />
             ) : (

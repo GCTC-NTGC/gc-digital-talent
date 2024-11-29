@@ -91,6 +91,8 @@ class ApplicationPage extends AppPage {
     await this.page
       .getByRole("button", { name: /add this experience/i })
       .click();
+
+    await this.waitForGraphqlResponse("UpdateEducationExperience");
   }
 
   async answerQuestion(question: number) {

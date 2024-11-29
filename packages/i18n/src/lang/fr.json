@@ -35,6 +35,10 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
+  "/pptJd": {
+    "defaultMessage": "Commis aux écritures et aux règlements",
+    "description": "Full name of abbreviation for CR"
+  },
   "/pzsYm": {
     "defaultMessage": "Profil du (de la) candidat(e)",
     "description": "Name of Applicant profile page"
@@ -198,6 +202,10 @@
   "5hXz/z": {
     "defaultMessage": "Sélectionnez un mois",
     "description": "Placeholder for a month select field"
+  },
+  "5xaEhL": {
+    "defaultMessage": "Titre",
+    "description": "Label for toggling a heading in the rich text editor"
   },
   "6/U6rm": {
     "defaultMessage": "Décision finale relative à l’évaluation",

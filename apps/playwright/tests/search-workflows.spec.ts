@@ -83,7 +83,7 @@ test.describe("Talent search", () => {
     // Accepted pool
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
-      skillId: technicalSkill?.id,
+      skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       classificationId: classification.id,
       name: {
         en: poolName,

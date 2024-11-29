@@ -140,8 +140,8 @@ export const CreateDepartmentForm = ({
             <Submit
               text={intl.formatMessage({
                 defaultMessage: "Create department",
-                id: "j/qPu0",
-                description: "Button label to create a new department",
+                id: "ZqjOM/",
+                description: "Button label to create a department",
               })}
             />
             <Link color="warning" mode="inline" href={paths.departmentTable()}>

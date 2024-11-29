@@ -12,7 +12,7 @@ test.describe("Process actions", () => {
   const uniqueTestId = Date.now().valueOf();
   const PROCESS_TITLE = `Test process ${uniqueTestId}`;
 
-  test("Should create a new pool", async ({ adminPage }) => {
+  test("Should create a pool", async ({ adminPage }) => {
     await adminPage.page.goto("/en/admin/pools");
     await adminPage.waitForGraphqlResponse("PoolTable");
 

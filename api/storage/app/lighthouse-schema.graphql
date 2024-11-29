@@ -33,6 +33,21 @@ type LocalizedAwardedTo {
   label: LocalizedString!
 }
 
+type LocalizedCafEmploymentType {
+  value: CafEmploymentType!
+  label: LocalizedString!
+}
+
+type LocalizedCafForce {
+  value: CafForce!
+  label: LocalizedString!
+}
+
+type LocalizedCafRank {
+  value: CafRank!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateExpiryFilter {
   value: CandidateExpiryFilter!
   label: LocalizedString!
@@ -83,6 +98,11 @@ type LocalizedEducationType {
   label: LocalizedString!
 }
 
+type LocalizedEmploymentCategory {
+  value: EmploymentCategory!
+  label: LocalizedString!
+}
+
 type LocalizedEstimatedLanguageAbility {
   value: EstimatedLanguageAbility!
   label: LocalizedString!
@@ -93,13 +113,38 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedExternalRoleSeniority {
+  value: ExternalRoleSeniority!
+  label: LocalizedString!
+}
+
+type LocalizedExternalSizeOfOrganization {
+  value: ExternalSizeOfOrganization!
+  label: LocalizedString!
+}
+
 type LocalizedFinalDecision {
   value: FinalDecision!
   label: LocalizedString!
 }
 
+type LocalizedGovContractorRoleSeniority {
+  value: GovContractorRoleSeniority!
+  label: LocalizedString!
+}
+
+type LocalizedGovContractorType {
+  value: GovContractorType!
+  label: LocalizedString!
+}
+
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
+  label: LocalizedString!
+}
+
+type LocalizedGovPositionType {
+  value: GovPositionType!
   label: LocalizedString!
 }
 
@@ -220,6 +265,11 @@ type LocalizedSkillLevel {
 
 type LocalizedSupervisoryStatus {
   value: SupervisoryStatus!
+  label: LocalizedString!
+}
+
+type LocalizedWorkExperienceGovEmployeeType {
+  value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
 }
 
@@ -992,6 +1042,19 @@ type WorkExperience implements Experience {
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  employmentCategory: LocalizedEmploymentCategory
+  extSizeOfOrganization: LocalizedExternalSizeOfOrganization
+  extRoleSeniority: LocalizedExternalRoleSeniority
+  govEmploymentType: LocalizedWorkExperienceGovEmployeeType
+  govPositionType: LocalizedGovPositionType
+  govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
+  govContractorType: LocalizedGovContractorType
+  contractorFirmAgencyName: String
+  cafEmploymentType: LocalizedCafEmploymentType
+  cafForce: LocalizedCafForce
+  cafRank: LocalizedCafRank
+  classification: Classification
+  department: Department
 }
 
 type PersonalExperience implements Experience {
@@ -1620,6 +1683,19 @@ input WorkExperienceInput {
   endDate: Date
   details: String
   skills: UpdateExperienceSkills
+  employmentCategory: EmploymentCategory
+  extSizeOfOrganization: ExternalSizeOfOrganization
+  extRoleSeniority: ExternalRoleSeniority
+  govEmploymentType: WorkExperienceGovEmployeeType
+  govPositionType: GovPositionType
+  govContractorRoleSeniority: GovContractorRoleSeniority
+  govContractorType: GovContractorType
+  cafEmploymentType: CafEmploymentType
+  contractorFirmAgencyName: String
+  cafForce: CafForce
+  cafRank: CafRank
+  classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
 }
 
 input PersonalExperienceInput {
@@ -2661,6 +2737,26 @@ enum AwardedTo {
   MY_ORGANIZATION
 }
 
+enum CafEmploymentType {
+  REGULAR_FORCE
+  RESERVE_FORCE
+}
+
+enum CafForce {
+  CANADIAN_ARMY
+  ROYAL_CANADIAN_AIR_FORCE
+  ROYAL_CANADIAN_NAVY
+}
+
+enum CafRank {
+  GENERAL_FLAG_OFFICER
+  SENIOR_OFFICER
+  JUNIOR_OFFICER
+  SUBORDINATE_OFFICER
+  WARRANT_PETTY_SENIOR_NCO
+  JUNIOR_NON_COMMISSIONED
+}
+
 enum CandidateExpiryFilter {
   ACTIVE
   EXPIRED
@@ -2907,6 +3003,12 @@ enum EmailType {
   WORK
 }
 
+enum EmploymentCategory {
+  EXTERNAL_ORGANIZATION
+  GOVERNMENT_OF_CANADA
+  CANADIAN_ARMED_FORCES
+}
+
 enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
@@ -2921,6 +3023,24 @@ enum EvaluatedLanguageAbility {
   E
   P
   NOT_ASSESSED
+}
+
+enum ExternalRoleSeniority {
+  INTERN_COOP
+  JUNIOR
+  INTERMEDIATE
+  SENIOR
+  TEAM_LEAD_MANAGER
+  EXECUTIVE
+  SENIOR_EXECUTIVE
+  SELF_EMPLOYED
+}
+
+enum ExternalSizeOfOrganization {
+  ONE_TO_THIRTY_FIVE
+  THIRTY_SIX_TO_ONE_HUNDRED
+  ONE_HUNDRED_ONE_TO_ONE_THOUSAND
+  ONE_THOUSAND_PLUS
 }
 
 enum FinalDecision {
@@ -2947,11 +3067,33 @@ enum GenericJobTitleKey {
   DIGITAL_LEADER_EX_03
 }
 
+enum GovContractorRoleSeniority {
+  INTERN_COOP
+  JUNIOR
+  INTERMEDIATE
+  SENIOR
+  TEAM_LEAD_MANAGER
+  EXECUTIVE
+  SENIOR_EXECUTIVE
+}
+
+enum GovContractorType {
+  SELF_EMPLOYED
+  FIRM_OR_AGENCY
+}
+
 enum GovEmployeeType {
   STUDENT
   CASUAL
   TERM
   INDETERMINATE
+}
+
+enum GovPositionType {
+  SUBSTANTIVE
+  ACTING
+  SECONDMENT
+  ASSIGNMENT
 }
 
 enum IndigenousCommunity {
@@ -3155,6 +3297,14 @@ enum SupervisoryStatus {
 enum WhenSkillUsed {
   CURRENT
   PAST
+}
+
+enum WorkExperienceGovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+  CONTRACTOR
 }
 
 enum WorkRegion {

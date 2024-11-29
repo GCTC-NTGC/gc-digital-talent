@@ -1,8 +1,9 @@
 import { CharacterCount } from "@tiptap/extension-character-count";
+import { Heading } from "@tiptap/extension-heading";
 import { Link } from "@tiptap/extension-link";
 import { StarterKit } from "@tiptap/starter-kit";
 
-export const extensions = [
+const extensions = [
   // REF: https://tiptap.dev/api/extensions/starter-kit
   StarterKit.configure({
     // Disabled Nodes
@@ -25,6 +26,11 @@ export const extensions = [
   Link.configure({
     openOnClick: false,
   }),
+];
+
+export const buildExtensions = (allowHeadings?: boolean) => [
+  ...extensions,
+  ...(allowHeadings ? [Heading.configure({ levels: [3] })] : []),
 ];
 
 export const contentStyles = {

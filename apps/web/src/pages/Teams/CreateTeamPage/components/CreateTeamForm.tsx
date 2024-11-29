@@ -84,8 +84,8 @@ const CreateTeamForm = ({
       >
         <Submit
           text={intl.formatMessage({
-            defaultMessage: "Create new team",
-            id: "WX6NnA",
+            defaultMessage: "Create team",
+            id: "S2Hv5s",
             description: "Button text for the create team form submit button",
           })}
         />
