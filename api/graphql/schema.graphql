@@ -2455,7 +2455,7 @@ type Mutation {
     @guard
     @canModel(ability: "create")
   updateWorkStream(
-    id: ID!
+    id: UUID!
     workStream: UpdateWorkStreamInput! @spread
   ): WorkStream @update @guard @canFind(ability: "update", find: "id")
 
