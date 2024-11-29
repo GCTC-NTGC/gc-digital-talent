@@ -70,7 +70,7 @@ class SendNotificationsSystem extends Command
             return 1;
         }
 
-        $collectionArr = [];
+        $configuredViews = [];
 
         // find the views in api/resources/views/
         if ($this->channelEmail) {
@@ -82,10 +82,10 @@ class SendNotificationsSystem extends Command
                 'en' => $viewGroup.'.email_content_en',
                 'fr' => $viewGroup.'.email_subject_fr',
             ];
-            $collectionArr[] = $this->emailSubject['en'];
-            $collectionArr[] = $this->emailSubject['fr'];
-            $collectionArr[] = $this->emailContent['en'];
-            $collectionArr[] = $this->emailContent['fr'];
+            $configuredViews[] = $this->emailSubject['en'];
+            $configuredViews[] = $this->emailSubject['fr'];
+            $configuredViews[] = $this->emailContent['en'];
+            $configuredViews[] = $this->emailContent['fr'];
         }
 
         if ($this->channelApp) {
@@ -97,13 +97,13 @@ class SendNotificationsSystem extends Command
                 'en' => $viewGroup.'.in_app_href_en',
                 'fr' => $viewGroup.'.in_app_href_fr',
             ];
-            $collectionArr[] = $this->inAppMessage['en'];
-            $collectionArr[] = $this->inAppMessage['fr'];
-            $collectionArr[] = $this->inAppHref['en'];
-            $collectionArr[] = $this->inAppHref['fr'];
+            $configuredViews[] = $this->inAppMessage['en'];
+            $configuredViews[] = $this->inAppMessage['fr'];
+            $configuredViews[] = $this->inAppHref['en'];
+            $configuredViews[] = $this->inAppHref['fr'];
         }
 
-        collect($collectionArr)->each(function ($viewName) {
+        collect($configuredViews)->each(function ($viewName) {
             if (! View::exists($viewName)) {
                 throw new Error('View not found: '.$viewName);
             }
