@@ -17,6 +17,7 @@ import {
   Classification,
   ApplicantFilterInput,
   Skill,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 

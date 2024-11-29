@@ -764,7 +764,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 }
 
                 if (array_key_exists('qualifiedStreams', $filters)) {
-                    $query->streams($filters['qualifiedStreams']);
+                    $query->whereWorkStreamIn($filters['qualifiedStreams']);
                 }
             });
 

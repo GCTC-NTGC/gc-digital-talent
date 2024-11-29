@@ -29,7 +29,7 @@ final class CountPoolCandidatesByPool
             }
 
             if (array_key_exists('qualifiedStreams', $filters)) {
-                $query->streams($filters['qualifiedStreams']);
+                $query->whereWorkStreamIn($filters['qualifiedStreams']);
             }
         });
 

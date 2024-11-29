@@ -301,9 +301,7 @@ class PoolCandidate extends Model
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
-                $query->whereHas('workStream', function ($query) use ($streams) {
-                    $query->whereIn('id', $streams);
-                });
+                $query->whereWorkStreamIn($streams);
             });
 
         return $query;

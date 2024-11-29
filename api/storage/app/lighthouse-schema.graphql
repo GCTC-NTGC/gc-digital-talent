@@ -971,8 +971,7 @@ type ApplicantFilter {
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
-  qualifiedStreams: [LocalizedPoolStream]
-  workStreams: [WorkStream]
+  qualifiedStreams: [WorkStream]
   pools: [Pool]
   community: Community
 }
@@ -1234,8 +1233,7 @@ input ApplicantFilterInput {
   skills: [IdInput]
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
-  qualifiedStreams: [PoolStream]
-  workStreams: [IdInput]
+  qualifiedStreams: [IdInput]
   community: IdInput
 }
 

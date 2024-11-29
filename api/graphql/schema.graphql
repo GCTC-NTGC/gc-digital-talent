@@ -277,7 +277,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "security_clearance")
   language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
-  workStream: WorkStream
+  workStream: WorkStream @belongsTo
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: LocalizedPublishingGroup
     @rename(attribute: "publishing_group")
@@ -589,9 +589,7 @@ type ApplicantFilter {
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
-  qualifiedStreams: [LocalizedPoolStream]
-    @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
-  workStreams: [WorkStream] @belongsToMany
+  qualifiedStreams: [WorkStream] @belongsToMany
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -887,8 +885,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
-  qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  workStreams: [IdInput] @scope(name: "workStreams") @pluck(key: "id")
+  qualifiedStreams: [IdInput] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 

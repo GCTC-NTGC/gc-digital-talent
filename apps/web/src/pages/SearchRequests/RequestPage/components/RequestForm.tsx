@@ -179,6 +179,7 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
     }
     workStreams {
       id
+      key
       name {
         en
         fr
@@ -241,6 +242,13 @@ export const RequestForm = ({
     communitiesQuery,
   );
 
+  const workStreams = unpackMaybes(optionsData?.workStreams).filter(
+    (workStream) =>
+      applicantFilter?.qualifiedStreams?.some(
+        (filterStream) => filterStream?.id === workStream.id,
+      ),
+  );
+
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
   });
@@ -256,9 +264,12 @@ export const RequestForm = ({
       values?.positionType === true
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
-    const qualifiedStreams = applicantFilter?.qualifiedStreams;
     let community = communities?.find((c) => c.key === "digital");
-    if (qualifiedStreams?.includes(PoolStream.AccessInformationPrivacy)) {
+    if (
+      workStreams?.find(
+        (workStream) => workStream.key === PoolStream.AccessInformationPrivacy,
+      )
+    ) {
       community = communities?.find((c) => c.key === "atip");
     }
 
@@ -286,7 +297,9 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
-          qualifiedStreams,
+          workStreams: {
+            sync: workStreams.map(({ id }) => id),
+          },
           community: {
             connect: community?.id ?? communities[0].id,
           },
@@ -386,13 +399,7 @@ export const RequestForm = ({
         ),
       ),
     ),
-    workStreams: unpackMaybes(
-      applicantFilter?.workStreams?.map((stream) => {
-        return unpackMaybes(optionsData?.workStreams).find((workStream) => {
-          return workStream.id === stream?.id;
-        });
-      }),
-    ),
+    qualifiedStreams: workStreams,
     qualifiedClassifications:
       applicantFilter?.qualifiedClassifications
         ?.map((qualifiedClassification) => {

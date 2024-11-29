@@ -104,7 +104,7 @@ export const dataToFormValues = (
   data: ApplicantFilterInput,
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
 ): FormValues => {
-  const stream = data?.qualifiedStreams?.find(notEmpty);
+  const workStream = data?.workStreams?.find(notEmpty);
 
   return {
     classification: getCurrentClassification(selectedClassifications),
@@ -117,7 +117,7 @@ export const dataToFormValues = (
     ],
     educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
     skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    stream: stream ?? "",
+    workStream: workStream?.id,
     locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
     operationalRequirements:
       data.operationalRequirements?.filter(notEmpty) ?? [],
@@ -172,6 +172,8 @@ export const formValuesToData = (
       ? durationSelectionToEnum(values.employmentDuration)
       : undefined,
     locationPreferences: values.locationPreferences ?? [],
-    qualifiedStreams: values.stream ? [values.stream] : undefined,
+    qualifiedStreams: values.workStream
+      ? [{ id: values.workStream }]
+      : undefined,
   };
 };

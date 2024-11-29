@@ -110,9 +110,9 @@ const ApplicantFilters = ({
     ),
   ).map((label) => getLocalizedName(label, intl));
 
-  const streams = unpackMaybes(
-    applicantFilter?.qualifiedStreams?.flatMap((stream) => stream?.label),
-  ).map((label) => getLocalizedName(label, intl));
+  const streams = unpackMaybes(applicantFilter?.qualifiedStreams).map(
+    (workStream) => getLocalizedName(workStream.name, intl),
+  );
 
   const communityName: string =
     applicantFilter && applicantFilter.community

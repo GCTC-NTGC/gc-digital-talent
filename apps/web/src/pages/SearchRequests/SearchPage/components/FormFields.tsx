@@ -12,6 +12,7 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
+  getLocalizedName,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import { Classification, Skill, graphql } from "@gc-digital-talent/graphql";
@@ -29,9 +30,9 @@ import { classificationAriaLabels, classificationLabels } from "../labels";
 
 const SearchRequestOptions_Query = graphql(/* GraphQL */ `
   query SearchRequestOptions {
-    poolStreams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
@@ -78,7 +79,10 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
     data?.languageAbilities,
     intl,
   );
-  const streamOptions = localizedEnumToOptions(data?.poolStreams, intl);
+  const streamOptions = unpackMaybes(data?.workStreams).map((workStream) => ({
+    value: workStream.id,
+    label: getLocalizedName(workStream?.name, intl),
+  }));
   const sortedWorkRegions = sortWorkRegion(unpackMaybes(data?.workRegions));
   const workRegionOptions = localizedEnumToOptions(sortedWorkRegions, intl);
 
@@ -125,9 +129,9 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
             trackUnsaved={false}
           />
           <Select
-            id="stream"
+            id="workStream"
             label={intl.formatMessage(processMessages.stream)}
-            name="stream"
+            name="workStream"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a job stream",
               id: "QJ5uDV",
