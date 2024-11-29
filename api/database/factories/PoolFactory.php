@@ -188,6 +188,13 @@ class PoolFactory extends Factory
             // the base state is draft already
             $hasSpecialNote = $this->faker->boolean();
             $isRemote = $this->faker->boolean();
+            $workStreamId = WorkStream::inRandomOrder()
+                ->limit(1)
+                ->pluck('id')
+                ->first();
+            if (is_null($workStreamId)) {
+                $workStreamId = WorkStream::factory()->create()->id;
+            }
 
             return [
                 'published_at' => null,
@@ -203,7 +210,7 @@ class PoolFactory extends Factory
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $this->faker->boolean,
                 'stream' => $this->faker->randomElement(PoolStream::cases())->name,
-                'work_stream_id' => WorkStream::inRandomOrder()->first()->id,
+                'work_stream_id' => $workStreamId,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
@@ -228,6 +235,13 @@ class PoolFactory extends Factory
         return $this->state(function (array $attributes) {
             $isRemote = $this->faker->boolean();
             $hasSpecialNote = $this->faker->boolean();
+            $workStreamId = WorkStream::inRandomOrder()
+                ->limit(1)
+                ->pluck('id')
+                ->first();
+            if (is_null($workStreamId)) {
+                $workStreamId = WorkStream::factory()->create()->id;
+            }
 
             return [
                 // published in the past, closes in the future
@@ -244,7 +258,7 @@ class PoolFactory extends Factory
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $isRemote,
                 'stream' => $this->faker->randomElement(PoolStream::cases())->name,
-                'work_stream_id' => WorkStream::inRandomOrder()->first()->id,
+                'work_stream_id' => $workStreamId,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
