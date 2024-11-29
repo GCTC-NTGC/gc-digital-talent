@@ -80,6 +80,11 @@ class Community extends Model
         return $this->hasMany(Pool::class);
     }
 
+    public function workStreams(): HasMany
+    {
+        return $this->hasMany(WorkStream::class);
+    }
+
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs

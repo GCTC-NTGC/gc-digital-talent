@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             // standard platform data
-            RolePermissionSeeder::class,
-            ClassificationSeeder::class,
+            RolePermissionSeeder::class, ClassificationSeeder::class,
             DepartmentSeeder::class,
             GenericJobTitleSeeder::class,
             SkillFamilySeeder::class,
             SkillSeeder::class,
             CommunitySeeder::class,
+            WorkStreamSeeder::class,
             TeamSeeder::class,
             JobPosterTemplateSeeder::class,
 

@@ -79,4 +79,12 @@ class JobPosterTemplate extends Model
         return $this->belongsToMany(Skill::class)
             ->withPivot('type', 'required_skill_level');
     }
+
+    /**
+     * Associated work stream
+     */
+    public function workStream(): BelongsTo
+    {
+        return $this->belongsTo(WorkStream::class);
+    }
 }
