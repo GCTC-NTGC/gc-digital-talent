@@ -7346,10 +7346,6 @@
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
   },
-  "ZWnKEJ": {
-    "defaultMessage": "Groupe de compétences {skillFamilyId} non trouvé.",
-    "description": "Message displayed for skillFamily not found."
-  },
   "ZYqWBR": {
     "defaultMessage": "Ajouter une nouvelle compétence",
     "description": "Button text to open the skill dialog and add a skill"
@@ -7585,6 +7581,10 @@
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Link text to register instead of signing in"
+  },
+  "asjJwj": {
+    "defaultMessage": "Groupe de compétences {skillFamilyId} non trouvé.",
+    "description": "Message displayed for skillFamily not found."
   },
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
