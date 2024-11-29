@@ -6,7 +6,7 @@ use App\Rules\IsStatusOrNonStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UpdateUserInputValidator extends Validator
+final class UpdateUserAsUserInputValidator extends Validator
 {
     /**
      * Return the validation rules.
