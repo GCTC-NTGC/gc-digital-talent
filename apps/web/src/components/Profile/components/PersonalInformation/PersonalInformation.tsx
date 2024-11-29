@@ -1,12 +1,13 @@
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import { useQuery } from "urql";
 
-import { ToggleSection, Well } from "@gc-digital-talent/ui";
+import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Pool } from "@gc-digital-talent/graphql";
+import { graphql, Pool } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -27,6 +28,12 @@ import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";
 
+const PersonalInformationForm_Query = graphql(/* GraphQL */ `
+  query PersonalInformationForm {
+    ...PersonalInformationFormOptions
+  }
+`);
+
 const PersonalInformation = ({
   user,
   onUpdate,
@@ -44,6 +51,9 @@ const PersonalInformation = ({
   });
   const applicationContext = useApplicationContext();
   const isInApplication = !!applicationContext.currentStepOrdinal;
+  const [{ data, fetching }] = useQuery({
+    query: PersonalInformationForm_Query,
+  });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues, user))
@@ -116,16 +126,20 @@ const PersonalInformation = ({
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <BasicForm
-            labels={labels}
-            onSubmit={handleSubmit}
-            options={{
-              defaultValues: dataToFormValues(user),
-            }}
-          >
-            <FormFields labels={labels} />
-            <FormActions isUpdating={isUpdating} />
-          </BasicForm>
+          {fetching ? (
+            <Loading inline />
+          ) : (
+            <BasicForm
+              labels={labels}
+              onSubmit={handleSubmit}
+              options={{
+                defaultValues: dataToFormValues(user),
+              }}
+            >
+              <FormFields labels={labels} optionsQuery={data} />
+              <FormActions isUpdating={isUpdating} />
+            </BasicForm>
+          )}
         </ToggleSection.OpenContent>
       </ToggleSection.Content>
     </ToggleSection.Root>

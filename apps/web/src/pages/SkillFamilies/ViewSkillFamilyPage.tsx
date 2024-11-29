@@ -68,6 +68,18 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
   const pageTitle = getLocalizedName(skillFamily.name, intl);
   const subTitle = intl.formatMessage(messages.skillFamilyInfo);
 
+  const skillObjectsLocalized: { id: string; name: string }[] | undefined =
+    skillFamily.skills?.map((skill) => {
+      return { id: skill.id, name: getLocalizedName(skill.name, intl) };
+    });
+  const skillObjectsLocalizedSorted = skillObjectsLocalized
+    ? skillObjectsLocalized.sort((a, b) => {
+        const aName = a.name;
+        const bName = b.name;
+        return aName.localeCompare(bName);
+      })
+    : undefined;
+
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -139,12 +151,11 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
             </FieldDisplay>
             <div data-h2-grid-column="p-tablet(1 / 3)">
               <FieldDisplay label={intl.formatMessage(messages.skillsInFamily)}>
-                {skillFamily?.skills?.length ? (
+                {skillObjectsLocalizedSorted &&
+                skillObjectsLocalizedSorted.length > 0 ? (
                   <Chips>
-                    {skillFamily.skills?.map((skill) => (
-                      <Chip key={skill.id}>
-                        {getLocalizedName(skill.name, intl)}
-                      </Chip>
+                    {skillObjectsLocalizedSorted.map((skillObject) => (
+                      <Chip key={skillObject.id}>{skillObject.name}</Chip>
                     ))}
                   </Chips>
                 ) : (

@@ -1049,6 +1049,7 @@ type WorkExperience implements Experience {
   govPositionType: LocalizedGovPositionType
   govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
   govContractorType: LocalizedGovContractorType
+  contractorFirmAgencyName: String
   cafEmploymentType: LocalizedCafEmploymentType
   cafForce: LocalizedCafForce
   cafRank: LocalizedCafRank
@@ -1690,6 +1691,7 @@ input WorkExperienceInput {
   govContractorRoleSeniority: GovContractorRoleSeniority
   govContractorType: GovContractorType
   cafEmploymentType: CafEmploymentType
+  contractorFirmAgencyName: String
   cafForce: CafForce
   cafRank: CafRank
   classification: ClassificationBelongsTo

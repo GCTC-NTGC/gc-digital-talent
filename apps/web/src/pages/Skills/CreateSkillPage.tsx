@@ -34,6 +34,8 @@ import {
   SkillCategory,
   graphql,
   Scalars,
+  getFragment,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -46,7 +48,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import pageTitles from "~/messages/pageTitles";
 
-import { SkillFormOptions_Query } from "./operations";
+import { SkillFormOptions_Fragment } from "./operations";
 
 interface Option<V> {
   value: V;
@@ -72,6 +74,7 @@ type FormValues = Pick<Skill, "description"> & {
 };
 interface CreateSkillFormProps {
   families: SkillFamily[];
+  optionsQuery?: FragmentType<typeof SkillFormOptions_Fragment>;
   handleCreateSkill: (
     data: CreateSkillInput,
   ) => Promise<Scalars["UUID"]["output"]>;
@@ -79,13 +82,14 @@ interface CreateSkillFormProps {
 
 export const CreateSkillForm = ({
   families,
+  optionsQuery,
   handleCreateSkill,
 }: CreateSkillFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [{ data }] = useQuery({ query: SkillFormOptions_Query });
+  const data = getFragment(SkillFormOptions_Fragment, optionsQuery);
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
   const sortedFamilies = sortBy(families, (family) => {
@@ -333,6 +337,8 @@ export const CreateSkillForm = ({
 
 const CreateSkillSkillFamilies_Query = graphql(/* GraphQL */ `
   query CreateSkillSkillFamilies {
+    ...SkillFormOptions
+
     skillFamilies {
       id
       key
@@ -387,13 +393,13 @@ const CreateSkill_Mutation = graphql(/* GraphQL */ `
 const CreateSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [{ data: lookupData, fetching, error }] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: CreateSkillSkillFamilies_Query,
   });
 
   const [, executeMutation] = useMutation(CreateSkill_Mutation);
-  const handleCreateSkill = (data: CreateSkillInput) =>
-    executeMutation({ skill: data }).then((result) => {
+  const handleCreateSkill = (input: CreateSkillInput) =>
+    executeMutation({ skill: input }).then((result) => {
       if (result.data?.createSkill?.id) {
         return result.data.createSkill.id;
       }
@@ -430,8 +436,9 @@ const CreateSkillPage = () => {
         <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
             <CreateSkillForm
+              optionsQuery={data}
               handleCreateSkill={handleCreateSkill}
-              families={unpackMaybes(lookupData?.skillFamilies)}
+              families={unpackMaybes(data?.skillFamilies)}
             />
           </Pending>
         </div>

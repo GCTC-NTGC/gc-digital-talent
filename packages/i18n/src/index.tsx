@@ -15,7 +15,6 @@ import {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  getLocalizedArray,
 } from "./utils/localize";
 import {
   apiMessages,
@@ -46,7 +45,6 @@ import {
   getSkillLevelDefinition,
   getSkillLevelMessages,
 } from "./messages/localizedConstants";
-import type { LocalizedArray } from "./utils/localize";
 import {
   type MaybeLocalizedEnums,
   type GenericLocalizedEnum,
@@ -76,7 +74,6 @@ export {
   richTextElements,
   isLocale,
   getLocale,
-  getLocalizedArray,
   oppositeLocale,
   changeLocale,
   localizePath,
@@ -138,11 +135,5 @@ export {
   getSkillLevelMessages,
 };
 
-export type {
-  Locales,
-  Messages,
-  LocalizedArray,
-  MaybeLocalizedEnums,
-  GenericLocalizedEnum,
-};
+export type { Locales, Messages, MaybeLocalizedEnums, GenericLocalizedEnum };
 export { fr };
