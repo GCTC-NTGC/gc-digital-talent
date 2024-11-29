@@ -6,12 +6,17 @@ import { ReactNode, useState, useEffect } from "react";
 
 import {
   Button,
+  CardFlat,
   Heading,
   Loading,
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
+import {
+  unpackMaybes,
+  notEmpty,
+  buildMailToUri,
+} from "@gc-digital-talent/helpers";
 import {
   graphql,
   Classification,
@@ -100,6 +105,46 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
     setValue("pool", "");
     setValue("count", candidateCount);
   };
+
+  const hireAnApprenticeEmailUri = buildMailToUri(
+    "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
+    intl.formatMessage({
+      defaultMessage: "I'm interested in offering an apprenticeship",
+      id: "HqtjhD",
+      description: "Subject line of a manager's email for apprenticeship",
+    }),
+    [
+      intl.formatMessage({
+        defaultMessage:
+          "To best support you in your journey to hire an IT Apprentice, please let us know if you",
+        id: "ZKss5S",
+        description: "Paragraph 1 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
+        id: "ipKAvI",
+        description: "Paragraph 2 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
+        id: "18pJdz",
+        description: "Paragraph 3 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage: "3. Other…",
+        id: "Fz49kD",
+        description: "Paragraph 4 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
+        id: "x45gSl",
+        description: "Paragraph 5 of a manager's email for apprenticeship",
+      }),
+    ].join("\n"),
+  );
 
   return (
     <div
@@ -219,6 +264,30 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
                     data-h2-display="base(flex)"
                     data-h2-flex-direction="base(column)"
                   >
+                    <CardFlat
+                      title={intl.formatMessage({
+                        defaultMessage:
+                          "Have you considered hiring an Indigenous IT Apprentice?",
+                        id: "TZu/iQ",
+                        description:
+                          "Title for IT Apprenticeship Program for Indigenous Peoples search card",
+                      })}
+                      color="tertiary"
+                      links={[
+                        { href: "#", label: "With link", mode: "inline" },
+                        { href: "#", label: "Second link", mode: "inline" },
+                      ]}
+                    >
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers that Indigenous peoples face when it comes to finding employment in the Government of Canada’s digital workforce. Contact the team today to become a hiring partner and discover how you can strengthen your team with Indigenous IT talent. Together we are empowered to capitalize on the diversity of experiences and ideas that Indigenous Peoples bring and build a more inclusive and dynamic Public Service. Your participation in the IT Apprenticeship Program for Indigenous Peoples contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
+                          id: "8fnrPY",
+                          description:
+                            "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card",
+                        })}
+                      </p>
+                    </CardFlat>
                     {results.map(({ pool, candidateCount: resultsCount }) => (
                       <SearchResultCard
                         key={pool.id}
