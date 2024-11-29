@@ -76,7 +76,7 @@ class WorkStreamTest extends TestCase
      *
      * @return void
      */
-    public function test_anonymous_view_any()
+    public function testAnonymousViewAny()
     {
         $this->graphQL('query { workStreams { id key } }')
             ->assertJsonFragment(['id' => WorkStream::first()->id]);
@@ -85,7 +85,7 @@ class WorkStreamTest extends TestCase
     /**
      * Test admin can create
      */
-    public function test_platform_admin_can_create()
+    public function testPlatformAdminCanCreate()
     {
 
         $this->actingAs($this->admin, 'api')
@@ -125,7 +125,7 @@ class WorkStreamTest extends TestCase
     /**
      * Test non-admin cannot create
      */
-    public function test_non_admin_cannot_create()
+    public function testNonAdminCannotCreate()
     {
 
         $this->actingAs($this->nonAdmin, 'api')
@@ -148,7 +148,7 @@ class WorkStreamTest extends TestCase
     /**
      * Test platform admins can update existing work streams
      */
-    public function test_platform_admin_can_update()
+    public function testPlatformAdminCanUpdate()
     {
         $workStreamId = WorkStream::first()->id;
 
@@ -179,7 +179,7 @@ class WorkStreamTest extends TestCase
     /**
      * Test non-admin cannot update
      */
-    public function test_non_admin_cannot_update()
+    public function testNonAdminCannotUpdate()
     {
         $workStreamId = WorkStream::first()->id;
 
