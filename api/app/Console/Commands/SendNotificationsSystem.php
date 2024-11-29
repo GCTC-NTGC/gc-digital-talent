@@ -20,8 +20,8 @@ class SendNotificationsSystem extends Command
     protected $signature = 'send-notifications:system
                             {viewGroup : The group of views to render the notification with}
                             {emailAddress? : The email address of the user to send to}
-                            {--channelEmail : The email channel to send notifications via}
-                            {--channelApp : The app channel to send notifications via}
+                            {--channelEmail : Enable sending via the email channel}
+                            {--channelApp : Enable sending via the app channel}
                             ';
 
     /**
