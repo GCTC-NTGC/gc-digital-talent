@@ -48,14 +48,12 @@ const Test_CreatePoolMutationDocument = /* GraphQL */ `
     $userId: ID!
     $teamId: ID!
     $communityId: ID!
-    $workStreamId: ID!
     $pool: CreatePoolInput!
   ) {
     createPool(
       userId: $userId
       teamId: $teamId
       communityId: $communityId
-      workStreamId: $workStreamId
       pool: $pool
     ) {
       id
@@ -73,7 +71,6 @@ interface CreatePoolArgs {
   communityId?: string;
   classificationId?: string;
   departmentId?: string;
-  workStreamId?: string;
 }
 
 export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
@@ -104,12 +101,6 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
     departmentId = departments[0].id;
   }
 
-  let workStreamId = opts.workStreamId;
-  if (!workStreamId) {
-    const workStreams = await getWorkStreams(ctx, {});
-    workStreamId = workStreams[0].id;
-  }
-
   return ctx
     .post(Test_CreatePoolMutationDocument, {
       isPrivileged: true,
@@ -120,7 +111,6 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
         pool: {
           classification: { connect: classificationId },
           department: { connect: departmentId },
-          workStream: { connect: workStreamId },
         },
       },
     })
@@ -231,6 +221,7 @@ interface CreateAndPublishPoolArgs {
   name?: LocalizedString;
   classificationId?: string;
   departmentId?: string;
+  workStreamId?: string;
   skillIds?: string[];
   input?: UpdatePoolInput;
 }
@@ -248,6 +239,7 @@ export const createAndPublishPool: GraphQLRequestFunc<
     communityId,
     classificationId,
     departmentId,
+    workStreamId,
     input,
   },
 ) => {
@@ -258,6 +250,12 @@ export const createAndPublishPool: GraphQLRequestFunc<
     classificationId,
     departmentId,
   }).then(async (pool) => {
+    let workStream = workStreamId;
+    if (!workStream) {
+      const workStreams = await getWorkStreams(ctx, {});
+      workStream = workStreams[0].id;
+    }
+
     await updatePool(ctx, {
       poolId: pool.id,
       pool: {
@@ -267,6 +265,7 @@ export const createAndPublishPool: GraphQLRequestFunc<
           fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
         },
         ...input,
+        workStream: { connect: workStream },
       },
     });
 

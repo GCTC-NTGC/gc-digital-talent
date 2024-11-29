@@ -6,6 +6,7 @@ const Test_WorkStreamQueryDocument = /* GraphQL */ `
   query WorkStreams {
     workStreams {
       id
+      key
       name {
         en
         fr

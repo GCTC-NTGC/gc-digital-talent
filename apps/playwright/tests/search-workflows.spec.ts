@@ -21,6 +21,7 @@ import { createUserWithRoles, me } from "~/utils/user";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
+import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Talent search", () => {
   const uniqueTestId = Date.now().valueOf();
@@ -80,11 +81,16 @@ test.describe("Talent search", () => {
     classification = classifications[0];
 
     const adminUser = await me(adminCtx, {});
+    const workStreams = await getWorkStreams(adminCtx, {});
+    const businessLineAdvisory = workStreams.find(
+      (workStream) => workStream.key === "BUSINESS_ADVISORY_SERVICES",
+    );
     // Accepted pool
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       classificationId: classification.id,
+      workStreamId: businessLineAdvisory?.id,
       name: {
         en: poolName,
         fr: `${poolName} (FR)`,
