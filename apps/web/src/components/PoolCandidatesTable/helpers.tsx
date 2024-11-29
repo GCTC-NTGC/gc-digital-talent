@@ -13,7 +13,6 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
-  PoolStream,
   PublishingGroup,
   Maybe,
   Pool,
@@ -34,7 +33,7 @@ import {
   LocalizedString,
   ClaimVerificationSort,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -380,7 +379,9 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.appliedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
-    stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
+    stream: unpackMaybes(input?.applicantFilter?.qualifiedStreams).map(
+      ({ id }) => id,
+    ),
     languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
@@ -427,7 +428,7 @@ export function transformFormValuesToFilterState(
       languageAbility: data.languageAbility
         ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      qualifiedStreams: data.stream as PoolStream[],
+      qualifiedStreams: data.stream.map((id) => ({ id })),
       operationalRequirements: data.operationalRequirement
         .map((requirement) => {
           return stringToEnumOperational(requirement);
