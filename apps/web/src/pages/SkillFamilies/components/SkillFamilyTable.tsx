@@ -94,8 +94,8 @@ export const SkillFamilyTable = ({
         linkProps: {
           href: paths.skillFamilyCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Skill family",
-            id: "zsrToE",
+            defaultMessage: "Create skill family",
+            id: "oDDr9J",
             description:
               "Heading displayed above the Create Skill family form.",
           }),
@@ -105,8 +105,8 @@ export const SkillFamilyTable = ({
       nullMessage={{
         description: intl.formatMessage({
           defaultMessage:
-            'Use the "Create Skill family" button to get started.',
-          id: "Vqqi98",
+            'Use the "Create skill family" button to get started.',
+          id: "4ujx9e",
           description: "Instructions for adding a skill family item.",
         }),
       }}
