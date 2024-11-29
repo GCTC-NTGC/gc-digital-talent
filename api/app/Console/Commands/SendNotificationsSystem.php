@@ -107,7 +107,7 @@ class SendNotificationsSystem extends Command
             if (! View::exists($configuredView)) {
                 throw new Error('View not found: '.$configuredView);
             }
-        };
+        }
 
         $singleEmailAddress = $this->argument('emailAddress');
         if (! is_null($singleEmailAddress)) {
