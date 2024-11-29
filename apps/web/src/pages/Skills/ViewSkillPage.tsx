@@ -73,6 +73,21 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
   const skill = getFragment(SkillView_Fragment, query);
 
   const skillFamilies = skill.families ?? [];
+  const skillFamilyObjectsLocalized: { id: string; name: string }[] =
+    skillFamilies.map((skillFamily) => {
+      return {
+        id: skillFamily.id,
+        name: getLocalizedName(skillFamily.name, intl),
+      };
+    });
+  const skillFamilyObjectsLocalizedSorted = skillFamilyObjectsLocalized.sort(
+    (a, b) => {
+      const aName = a.name;
+      const bName = b.name;
+      return aName.localeCompare(bName);
+    },
+  );
+
   return (
     <>
       <div
@@ -146,9 +161,9 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
             >
               {skillFamilies.length > 0 ? (
                 <Chips>
-                  {skillFamilies.map((family) => (
-                    <Chip key={family.id} color="primary">
-                      {getLocalizedName(family.name, intl)}
+                  {skillFamilyObjectsLocalizedSorted.map((skillFamily) => (
+                    <Chip key={skillFamily.id} color="primary">
+                      {skillFamily.name}
                     </Chip>
                   ))}
                 </Chips>
