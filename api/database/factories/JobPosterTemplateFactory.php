@@ -37,7 +37,7 @@ class JobPosterTemplateFactory extends Factory
             $classification = Classification::factory()->create();
         }
 
-        $workStream = WorkStream::isRandomOrder()->first();
+        $workStream = WorkStream::inRandomOrder()->first();
         if (! $workStream) {
             $workStream = WorkStream::factory()->create();
         }
