@@ -1,1 +1,1 @@
-https://example.org
+Il s'agit d'une notification de test.
