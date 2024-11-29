@@ -6,8 +6,8 @@ import { ReactNode, useState, useEffect } from "react";
 
 import {
   Button,
-  CardFlat,
   Heading,
+  Link,
   Loading,
   Pending,
   Separator,
@@ -146,6 +146,13 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
     ].join("\n"),
   );
 
+  const selectedClassificationIsIT1 = applicantFilter.qualifiedClassifications
+    ?.filter(notEmpty)
+    .some(
+      (classification) =>
+        classification.group === "IT" && classification.level === 1,
+    );
+
   return (
     <div
       data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
@@ -264,30 +271,76 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
                     data-h2-display="base(flex)"
                     data-h2-flex-direction="base(column)"
                   >
-                    <CardFlat
-                      title={intl.formatMessage({
-                        defaultMessage:
-                          "Have you considered hiring an Indigenous IT Apprentice?",
-                        id: "TZu/iQ",
-                        description:
-                          "Title for IT Apprenticeship Program for Indigenous Peoples search card",
-                      })}
-                      color="tertiary"
-                      links={[
-                        { href: "#", label: "With link", mode: "inline" },
-                        { href: "#", label: "Second link", mode: "inline" },
-                      ]}
-                    >
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers that Indigenous peoples face when it comes to finding employment in the Government of Canada’s digital workforce. Contact the team today to become a hiring partner and discover how you can strengthen your team with Indigenous IT talent. Together we are empowered to capitalize on the diversity of experiences and ideas that Indigenous Peoples bring and build a more inclusive and dynamic Public Service. Your participation in the IT Apprenticeship Program for Indigenous Peoples contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
-                          id: "8fnrPY",
-                          description:
-                            "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card",
-                        })}
-                      </p>
-                    </CardFlat>
+                    {selectedClassificationIsIT1 && (
+                      <div
+                        data-h2-background-color="base(foreground)"
+                        data-h2-shadow="base(larger)"
+                        data-h2-border-left="base(x.5 solid tertiary)"
+                        data-h2-margin="base(x1, 0, 0, 0)"
+                        data-h2-radius="base(0, s, s, 0)"
+                        data-h2-padding="base(x1)"
+                      >
+                        <p
+                          data-h2-font-size="base(h6)"
+                          data-h2-font-weight="base(700)"
+                        >
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "Have you considered hiring an Indigenous IT Apprentice?",
+                            id: "TZu/iQ",
+                            description:
+                              "Title for IT Apprenticeship Program for Indigenous Peoples search card",
+                          })}
+                        </p>
+                        <p
+                          data-h2-margin="base(x.5, 0, x1, 0)"
+                          data-h2-display="base(flex)"
+                          data-h2-gap="base(0, x.5)"
+                        >
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers that Indigenous peoples face when it comes to finding employment in the Government of Canada’s digital workforce. Contact the team today to become a hiring partner and discover how you can strengthen your team with Indigenous IT talent. Together we are empowered to capitalize on the diversity of experiences and ideas that Indigenous Peoples bring and build a more inclusive and dynamic Public Service. Your participation in the IT Apprenticeship Program for Indigenous Peoples contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
+                            id: "8fnrPY",
+                            description:
+                              "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card",
+                          })}
+                        </p>
+                        <Separator space="sm" />
+                        <div
+                          data-h2-display="base(flex)"
+                          data-h2-flex-direction="base(row)"
+                          data-h2-flex-wrap="base(wrap)"
+                          data-h2-align-items="base(center)"
+                          data-h2-gap="base(x1)"
+                          data-h2-margin="base(x1, 0, 0, 0)"
+                        >
+                          <Link
+                            mode="solid"
+                            color="tertiary"
+                            href={hireAnApprenticeEmailUri}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage: "Contact the team",
+                              id: "gJ7CQw",
+                              description: "Link to send an email to the team",
+                            })}
+                          </Link>
+                          <Link
+                            mode="inline"
+                            color="tertiary"
+                            href={paths.iapManager()}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Visit the IT Apprenticeship Program for Indigenous Peoples manager page",
+                              id: "zVGzWa",
+                              description:
+                                "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page",
+                            })}
+                          </Link>
+                        </div>
+                      </div>
+                    )}
                     {results.map(({ pool, candidateCount: resultsCount }) => (
                       <SearchResultCard
                         key={pool.id}
