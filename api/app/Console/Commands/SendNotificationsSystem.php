@@ -103,11 +103,11 @@ class SendNotificationsSystem extends Command
             $configuredViews[] = $this->inAppHref['fr'];
         }
 
-        collect($configuredViews)->each(function ($viewName) {
-            if (! View::exists($viewName)) {
-                throw new Error('View not found: '.$viewName);
+        foreach ($configuredViews as $configuredView) {
+            if (! View::exists($configuredView)) {
+                throw new Error('View not found: '.$configuredView);
             }
-        });
+        };
 
         $singleEmailAddress = $this->argument('emailAddress');
         if (! is_null($singleEmailAddress)) {
