@@ -4,6 +4,10 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
+// find out where local log file should go
+$filesystemsConfig = include config_path('filesystems.php');
+$localLogFile = $filesystemsConfig['disks']['logFiles']['root'].DIRECTORY_SEPARATOR.'laravel.log';
+
 return [
 
     /*
@@ -50,19 +54,19 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'stdout'],
             'ignore_exceptions' => false,
         ],
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => $localLogFile,
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => $localLogFile,
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
@@ -121,7 +125,7 @@ return [
         ],
 
         'emergency' => [
-            'path' => storage_path('logs/laravel.log'),
+            'path' => $localLogFile,
         ],
     ],
 
