@@ -21,6 +21,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Database\Seeders\TeamSeeder;
+use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -42,6 +43,7 @@ class ApplicantFilterTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->bootRefreshesSchemaCache();
 
+        $this->
         $this->seed(RolePermissionSeeder::class);
         $this->seed(DepartmentSeeder::class);
         $this->seed(TeamSeeder::class);
@@ -213,11 +215,13 @@ class ApplicantFilterTest extends TestCase
     {
 
         // Before we add relationships, we need to seed the related values
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(CommunitySeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolTestSeeder::class);
+        $this->seed([
+            ClassificationSeeder::class,
+            CommunitySeeder::class,
+            WorkStreamSeeder::class,
+            SkillSeeder::class,
+            PoolTestSeeder::class,
+        ]);
 
         // By default, factory doesn't add relationships.
         $filter = ApplicantFilter::factory()->create();
@@ -406,12 +410,15 @@ class ApplicantFilterTest extends TestCase
     public function testFilterCanBeStoredAndRetrievedWithoutChangingResults()
     {
         // Seed everything used in generating Users
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(CommunitySeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolTestSeeder::class);
+        $this->seed([
+            ClassificationSeeder::class,
+            CommunitySeeder::class,
+            GenericJobTitleSeeder::class,
+            WorkStreamSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            PoolTestSeeder::class,
+        ]);
 
         $community = Community::where('key', 'digital')->first();
         $pool = Pool::factory()
