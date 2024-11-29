@@ -8,8 +8,8 @@ const generateWorkStream = (): WorkStream => {
   return {
     id: faker.string.uuid(),
     key: faker.helpers.slugify(faker.string.sample()),
-    name: toLocalizedString(faker.company.name()),
-    plainLanguageName: toLocalizedString(faker.company.name()),
+    name: toLocalizedString(faker.company.catchPhrase()),
+    plainLanguageName: toLocalizedString(faker.company.catchPhrase()),
   };
 };
 
