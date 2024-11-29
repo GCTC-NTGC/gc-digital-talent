@@ -67,7 +67,7 @@ class SendNotificationsSystem extends Command
         if (! $this->channelEmail && ! $this->channelApp) {
             $this->error('No channels selected.');
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $collectionArr = [];
