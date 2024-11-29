@@ -45,6 +45,10 @@ return [
             'driver' => 'local',
             'root' => env('STORAGE_USER_GENERATED_FILES_PATH', storage_path('app').DIRECTORY_SEPARATOR.'user_generated'),
         ],
+        'logFiles' => [
+            'driver' => 'local',
+            'root' => env('STORAGE_LOG_FILES_PATH', storage_path('logs')),
+        ],
 
         'public' => [
             'driver' => 'local',
