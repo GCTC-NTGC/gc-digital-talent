@@ -43,10 +43,11 @@ class ApplicantFilterTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->bootRefreshesSchemaCache();
 
-        $this->
-        $this->seed(RolePermissionSeeder::class);
-        $this->seed(DepartmentSeeder::class);
-        $this->seed(TeamSeeder::class);
+        $this->seed([
+            RolePermissionSeeder::class,
+            DepartmentSeeder::class,
+            TeamSeeder::class,
+        ]);
 
         // Create super user we run tests as
         // Note: this extra user does change the results of a couple queries
@@ -219,6 +220,7 @@ class ApplicantFilterTest extends TestCase
             ClassificationSeeder::class,
             CommunitySeeder::class,
             WorkStreamSeeder::class,
+            SkillFamilySeeder::class,
             SkillSeeder::class,
             PoolTestSeeder::class,
         ]);
@@ -246,11 +248,14 @@ class ApplicantFilterTest extends TestCase
     public function testQueryRelationships()
     {
         // Before we add relationships, we need to seed the related values
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(CommunitySeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolTestSeeder::class);
+        $this->seed([
+            ClassificationSeeder::class,
+            CommunitySeeder::class,
+            WorkStreamSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            PoolTestSeeder::class,
+        ]);
 
         $filter = ApplicantFilter::factory()->withRelationships()->create();
         $request = PoolCandidateSearchRequest::factory()->create([
