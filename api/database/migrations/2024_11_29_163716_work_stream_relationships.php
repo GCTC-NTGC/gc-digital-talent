@@ -42,11 +42,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->dropForeign('work_stream_id');
+            $table->dropConstrainedForeignId('work_stream_id');
         });
 
         Schema::table('job_poster_templates', function (Blueprint $table) {
-            $table->dropForeign('work_stream_id');
+            $table->dropConstrainedForeignId('work_stream_id');
         });
 
         Schema::dropIfExists('applicant_filter_work_stream');
