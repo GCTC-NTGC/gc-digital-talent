@@ -85,6 +85,7 @@ export const SkillFamilyTable = ({
       }}
       sort={{
         internal: true,
+        initialState: [{ id: "name", desc: false }],
       }}
       search={{
         internal: true,
