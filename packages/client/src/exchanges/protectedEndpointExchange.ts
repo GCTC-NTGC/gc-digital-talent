@@ -3,14 +3,7 @@ import type { Exchange } from "@urql/core";
 
 import { apiHost, protectedUrl } from "../constants";
 
-const privilegedPaths = [
-  "/admin",
-  "/en/admin",
-  "/fr/admin",
-  "/directive-on-digital-talent",
-  "/en/directive-on-digital-talent",
-  "/fr/directive-on-digital-talent",
-];
+const privilegedPaths = ["/admin", "/en/admin", "/fr/admin"];
 
 // A custom exchange that changes to the protected endpoint depending on the current location
 
