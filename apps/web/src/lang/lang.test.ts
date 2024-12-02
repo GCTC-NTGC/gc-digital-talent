@@ -53,7 +53,7 @@ describe("message files", () => {
     );
 
     expect(messagesArr).toEqual(
-      expect.not.arrayContaining([expect.stringMatching(/"/)]),
+      expect.not.arrayContaining([expect.stringMatching(new RegExp(/"|“|”/g))]),
     );
   });
 });
