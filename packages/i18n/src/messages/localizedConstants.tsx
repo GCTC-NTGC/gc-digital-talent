@@ -617,6 +617,11 @@ const abbreviations = defineMessages({
     id: "W5Dkd1",
     description: "Full name of abbreviation for EC",
   },
+  CR: {
+    defaultMessage: "Clerical and Regulatory",
+    id: "/pptJd",
+    description: "Full name of abbreviation for CR",
+  },
 });
 
 export const getAbbreviations = (

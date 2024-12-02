@@ -35,6 +35,10 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
+  "/pptJd": {
+    "defaultMessage": "Commis aux écritures et aux règlements",
+    "description": "Full name of abbreviation for CR"
+  },
   "/pzsYm": {
     "defaultMessage": "Profil du (de la) candidat(e)",
     "description": "Name of Applicant profile page"
@@ -256,7 +260,7 @@
     "description": "Error message for when an error occurs during role assignment"
   },
   "9RXifp": {
-    "defaultMessage": "Familles de compétences",
+    "defaultMessage": "Groupes de compétences",
     "description": "Name of skill families page"
   },
   "9aW0M6": {
@@ -780,7 +784,7 @@
     "description": "Error message that the pool advertisement must have an expiry date."
   },
   "XTuwjA": {
-    "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
+    "defaultMessage": "Cette chaîne de clés de groupe de compétences est déjà utilisée",
     "description": "Error message that the given skill family key is already in use."
   },
   "XUR5dD": {
@@ -990,6 +994,10 @@
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
     "description": "Error message when attempting to un-archive a pool with an invalid status."
+  },
+  "i+8teP": {
+    "defaultMessage": "Description",
+    "description": "Title for description"
   },
   "i3Jl6C": {
     "defaultMessage": " : ",

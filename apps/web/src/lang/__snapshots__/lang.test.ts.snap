@@ -136,6 +136,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Create skill family",
+    "fr": [
+      "Créer un groupe de compétences",
+      "Créez le groupe de compétences"
+    ]
+  },
+  {
     "en": "Remove from community",
     "fr": [
       "Retirez de la collectivité",

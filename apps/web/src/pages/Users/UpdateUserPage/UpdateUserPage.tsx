@@ -28,6 +28,8 @@ import {
   User,
   graphql,
   UpdateUserDataQuery as UpdateUserDataQueryType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -53,8 +55,8 @@ import {
 import CommunityRoleTable from "./components/CommunityRoleTable";
 import ProcessRoleTable from "./components/ProcessRoleTable";
 
-const UpdateUserOptions_Query = graphql(/* GraphQL */ `
-  query UpdateUserOptions {
+export const UpdateUserOptions_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateUserOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value
       label {
@@ -95,6 +97,7 @@ type FormValues = Pick<
 > & { isGovEmployee: string };
 interface UpdateUserFormProps {
   initialUser: PartialUser;
+  formOptionsQuery: FragmentType<typeof UpdateUserOptions_Fragment>;
   handleUpdateUser: (
     id: string,
     data: UpdateUserAsAdminInput,
@@ -103,12 +106,13 @@ interface UpdateUserFormProps {
 
 export const UpdateUserForm = ({
   initialUser,
+  formOptionsQuery,
   handleUpdateUser,
 }: UpdateUserFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [{ data }] = useQuery({ query: UpdateUserOptions_Query });
+  const formOptions = getFragment(UpdateUserOptions_Fragment, formOptionsQuery);
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -178,7 +182,10 @@ export const UpdateUserForm = ({
       });
   };
 
-  const languageOptions = localizedEnumToOptions(data?.languages, intl);
+  const languageOptions = localizedEnumToOptions(
+    unpackMaybes(formOptions?.languages),
+    intl,
+  );
 
   return (
     <section data-h2-wrapper="base(left, s)">
@@ -423,6 +430,7 @@ const UpdateUserPage = () => {
           {data?.user ? (
             <>
               <UpdateUserForm
+                formOptionsQuery={data}
                 initialUser={data.user}
                 handleUpdateUser={handleUpdateUser}
               />

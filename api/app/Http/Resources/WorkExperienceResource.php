@@ -34,6 +34,7 @@ class WorkExperienceResource extends JsonResource
             'govPositionType' => $this->gov_position_type,
             'govContractorRoleSeniority' => $this->gov_contractor_role_seniority,
             'govContractorType' => $this->gov_contractor_type,
+            'contractorFirmAgencyName' => $this->contractor_firm_agency_name,
             'cafEmploymentType' => $this->caf_employment_type,
             'cafForce' => $this->caf_force,
             'cafRank' => $this->caf_rank,

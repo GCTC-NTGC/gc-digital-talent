@@ -14,12 +14,17 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 // Used by specific dialogs
-export interface CommonFilterDialogProps<TFieldValues extends FieldValues> {
+export interface CommonFilterDialogProps<
+  TFieldValues extends FieldValues,
+  TOptions = object,
+> {
   onSubmit: SubmitHandler<TFieldValues>;
   /** When the user resets filters they will return to these values. If initialValues is empty, resetValues is used to initialize the filters. */
   resetValues: TFieldValues;
   /** If initialValues is set, it will override resetValues when the filter form is first initialized. */
   initialValues?: Partial<TFieldValues>;
+  /** Any options that come from the API (e.g. localized enums) */
+  optionsQuery?: TOptions;
 }
 
 interface FilterDialogProps<TFieldValues extends FieldValues> {
