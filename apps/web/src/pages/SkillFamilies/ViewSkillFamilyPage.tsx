@@ -150,14 +150,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
             <div data-h2-grid-column="p-tablet(1 / 3)">
-              <FieldDisplay
-                label={intl.formatMessage({
-                  defaultMessage: "Skills in this family",
-                  id: "A7fDb8",
-                  description:
-                    "Label for display of skills within a specific family",
-                })}
-              >
+              <FieldDisplay label={intl.formatMessage(messages.skillsInFamily)}>
                 {skillObjectsLocalizedSorted &&
                 skillObjectsLocalizedSorted.length > 0 ? (
                   <Chips>
@@ -228,8 +221,8 @@ const ViewSkillFamilyPage = () => {
           <p>
             {intl.formatMessage(
               {
-                defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                id: "ZWnKEJ",
+                defaultMessage: "Skill family {skillFamilyId} not found.",
+                id: "asjJwj",
                 description: "Message displayed for skillFamily not found.",
               },
               { skillFamilyId },
