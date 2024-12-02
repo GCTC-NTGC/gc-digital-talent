@@ -11,7 +11,7 @@ export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
   },
   h2: {
     "data-h2-font-size": "base(h2)",
-    "data-h2-font-weight": "base(700)",
+    "data-h2-font-weight": "base(400)",
     "data-h2-margin": "base(x2, 0, x.5, 0)",
     "data-h2-stroke-width": "base:children[svg path](1.6)",
     "data-h2-height": "base:children[svg](x1.65)",
@@ -19,7 +19,7 @@ export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
   },
   h3: {
     "data-h2-font-size": "base(h3)",
-    "data-h2-font-weight": "base(400)",
+    "data-h2-font-weight": "base(700)",
     "data-h2-margin": "base(x1.5, 0, x.25, 0)",
     "data-h2-stroke-width": "base:children[svg path](1.6)",
     "data-h2-height": "base:children[svg](x1.35)",
@@ -35,7 +35,7 @@ export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
   },
   h5: {
     "data-h2-font-size": "base(h5)",
-    "data-h2-font-weight": "base(400)",
+    "data-h2-font-weight": "base(700)",
     "data-h2-margin": "base(x1, 0, x.25, 0)",
     "data-h2-stroke-width": "base:children[svg path](1.6)",
     "data-h2-height": "base:children[svg](x.95)",
