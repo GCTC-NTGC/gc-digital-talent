@@ -440,7 +440,7 @@
     "description": "Indigenous Apprenticeship feathers image text alternative"
   },
   "0E9hiS": {
-    "defaultMessage": "Familles de compétences",
+    "defaultMessage": "Groupes de compétences",
     "description": "Title for skill families"
   },
   "0EuaJv": {
@@ -528,7 +528,7 @@
     "description": "Lead in text for the add role to user form."
   },
   "0cy9n/": {
-    "defaultMessage": "Informations sur la famille de compétences",
+    "defaultMessage": "Informations sur le groupe de compétences",
     "description": "Subtitle for viewing a specific skill family"
   },
   "0dQ62G": {
@@ -736,7 +736,7 @@
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
   "1sutYh": {
-    "defaultMessage": "Familles de compétences (anglais)",
+    "defaultMessage": "Groupes de compétences (anglais)",
     "description": "Title for skill families in English"
   },
   "1xI8uo": {
@@ -860,7 +860,7 @@
     "description": "Title for qualified recruitments section"
   },
   "2ekC5r": {
-    "defaultMessage": "Famille de compétences mise à jour avec succès!",
+    "defaultMessage": "Groupe de compétences mis à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
   },
   "2f+IKU": {
@@ -1354,6 +1354,10 @@
   "4tIdsX": {
     "defaultMessage": "Talents numériques du GC - Toutes compétences.csv",
     "description": "Filename for skills CSV file download"
+  },
+  "4ujx9e": {
+    "defaultMessage": "Utilisez le bouton « Créer un groupe de compétences » pour commencer.",
+    "description": "Instructions for adding a skill family item."
   },
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
@@ -2311,10 +2315,6 @@
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
   },
-  "9yGJ6k": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the skill table Description column."
-  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -2334,10 +2334,6 @@
   "A44nkj": {
     "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des TI au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe TI</link>, signée en décembre 2023, par le groupe TI de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe TI, et ce jusqu’à la date d’expiration de la convention.",
     "description": "First paragraph describing the training fund"
-  },
-  "A7fDb8": {
-    "defaultMessage": "Compétences de cette famille",
-    "description": "Label for display of skills within a specific family"
   },
   "A94Zgi": {
     "defaultMessage": "Découvrez les possibilités d’apprentissage offertes aux membres du personnel des TI pour acquérir des compétences et les perfectionner.",
@@ -3576,7 +3572,7 @@
     "description": "The email address has been verified to be owned by user"
   },
   "GNhFh2": {
-    "defaultMessage": "Sélectionnez une famille de compétences ou plus",
+    "defaultMessage": "Sélectionnez un groupe de compétences ou plus",
     "description": "Placeholder displayed on the skill form skill families field."
   },
   "GOCEuh": {
@@ -4892,7 +4888,7 @@
     "description": "Label for the 'planning and reporting' IT work stream"
   },
   "NJIdH1": {
-    "defaultMessage": "Compétences de cette famille",
+    "defaultMessage": "Compétences de ce groupe",
     "description": "Label for skills input in skill family form"
   },
   "NJUJl0": {
@@ -5248,7 +5244,7 @@
     "description": "Fine print for hiring policy for pool advertisement"
   },
   "PAySDr": {
-    "defaultMessage": "Familles de compétences (français)",
+    "defaultMessage": "Groupes de compétences (français)",
     "description": "Title for skill families in French"
   },
   "PB2VIT": {
@@ -6127,10 +6123,6 @@
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
     "description": "Comments or contributions list item"
   },
-  "TRqbR/": {
-    "defaultMessage": "Créer une famille de compétences",
-    "description": "Heading displayed above the Create Skill Family form."
-  },
   "TS63OC": {
     "defaultMessage": "Veuillez indiquer la classification et le niveau de votre groupe de travail actuel.",
     "description": "Text blurb, asking about classification and level in the government info form"
@@ -6922,10 +6914,6 @@
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
     "description": "Learn more dialog question five paragraph one"
   },
-  "XSo129": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the Skill Family table Description column."
-  },
   "XVI4qU": {
     "defaultMessage": "un changement technologique d’un système, d’un logiciel ou d’un matériel d’une nature fondamentalement différente de ceux utilisés précédemment.",
     "description": "technological change factor - technological change to a system"
@@ -7227,7 +7215,7 @@
     "description": "Description of a users behavioural skills to improve for admins"
   },
   "YjDiUu": {
-    "defaultMessage": "Annulez et revenez aux familles de compétences",
+    "defaultMessage": "Annulez et revenez aux groupes de compétences",
     "description": "Link text to return to skill family table"
   },
   "YjMfWZ": {
@@ -7369,10 +7357,6 @@
   "ZVfbLF": {
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
-  },
-  "ZWnKEJ": {
-    "defaultMessage": "Famille de compétences {skillFamilyId} non trouvée.",
-    "description": "Message displayed for skillFamily not found."
   },
   "ZYqWBR": {
     "defaultMessage": "Ajouter une nouvelle compétence",
@@ -7609,6 +7593,10 @@
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Link text to register instead of signing in"
+  },
+  "asjJwj": {
+    "defaultMessage": "Groupe de compétences {skillFamilyId} non trouvé.",
+    "description": "Message displayed for skillFamily not found."
   },
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
@@ -8055,7 +8043,7 @@
     "description": "Aria label for system notification icons in notification settings."
   },
   "d8CQJr": {
-    "defaultMessage": " Création réussie de la famille de compétences!",
+    "defaultMessage": " Création réussie du groupe de compétences!",
     "description": "Message displayed to user after skill family is created successfully."
   },
   "d8j/Sr": {
@@ -9183,7 +9171,7 @@
     "description": "Accordion trigger for your GCKey account info."
   },
   "i4OGTD": {
-    "defaultMessage": "Créer une famille de compétences",
+    "defaultMessage": "Créer un groupe de compétences",
     "description": "Page title for the skill family creation page"
   },
   "i7nfvV": {
@@ -9323,7 +9311,7 @@
     "description": "Message displayed to user after pool fails to get deleted."
   },
   "ifVyI/": {
-    "defaultMessage": "Modifiez les informations sur la famille de compétences",
+    "defaultMessage": "Modifiez les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
   },
   "igTx2a": {
@@ -9527,7 +9515,7 @@
     "description": "Message that appears when there are no general messages for a pool"
   },
   "jYPyWq": {
-    "defaultMessage": "Sélectionner une famille de compétences et une compétence pour continuer.",
+    "defaultMessage": "Sélectionner un groupe de compétences et une compétence pour continuer.",
     "description": "Error message when a user attempts to add a skill before selecting one"
   },
   "jZi53k": {
@@ -10402,6 +10390,10 @@
     "defaultMessage": "Annulez et revenez à l'éditeur de compétence",
     "description": "Button label to return to the skills table"
   },
+  "oDDr9J": {
+    "defaultMessage": "Créer un groupe de compétences",
+    "description": "Heading displayed above the Create Skill family form."
+  },
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
@@ -10583,7 +10575,7 @@
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "pCZ1wt": {
-    "defaultMessage": "Sélectionnez une famille de compétences",
+    "defaultMessage": "Sélectionnez un groupe de compétences",
     "description": "Placeholder message when there is no skill family selected"
   },
   "pDlEip": {
@@ -10875,7 +10867,7 @@
     "description": "Message displayed to user after pool fails to get archived."
   },
   "qkuRs8": {
-    "defaultMessage": "Créez une famille de compétences",
+    "defaultMessage": "Créez le groupe de compétences",
     "description": "Button text to create a skill family"
   },
   "qlVBtp": {
@@ -11815,7 +11807,7 @@
     "description": "Sub title for basic information"
   },
   "wORNl0": {
-    "defaultMessage": "Sélectionnez une famille ou plus",
+    "defaultMessage": "Sélectionnez un groupe ou plus",
     "description": "Placeholder displayed on the skill form families field."
   },
   "wP9+aN": {
@@ -11827,7 +11819,7 @@
     "description": "Link text to direct users to the profile page when anonymous"
   },
   "wSlABO": {
-    "defaultMessage": "Modifier une famille de compétences ",
+    "defaultMessage": "Modifier un groupe de compétences ",
     "description": "Page title for the skill family edit page"
   },
   "wTAdQe": {
@@ -12267,7 +12259,7 @@
     "description": "Link text to users profile to update contact information"
   },
   "ytTGvb": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un groupe de compétences. Elle devrait être fondée sur le nom anglais du groupe de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the skill families 'key' field."
   },
   "ywkgJx": {
@@ -12418,12 +12410,8 @@
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
   },
-  "zp1ShM": {
-    "defaultMessage": "Utilisez le bouton \"Créer une famille de compétences\" pour commencer.",
-    "description": "Instructions for adding a skill family item."
-  },
   "zpwZSQ": {
-    "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
+    "defaultMessage": "Erreur : échec de la mise à jour du groupe de compétences",
     "description": "Message displayed to user after skillFamily fails to get updated."
   },
   "zrEIiB": {

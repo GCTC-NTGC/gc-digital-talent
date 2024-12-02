@@ -15,7 +15,7 @@ import { sanitizeString } from "../../utils";
 export type InputProps = HTMLInputProps &
   CommonInputProps & {
     /** Set the type of the input. */
-    type: "text" | "number" | "email" | "tel" | "password" | "search";
+    type: "text" | "number" | "email" | "tel" | "password" | "search" | "url";
     // Whether to trim leading/ending whitespace upon blurring of an input, default on
     whitespaceTrim?: boolean;
     maxLength?: number;

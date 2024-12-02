@@ -397,8 +397,8 @@ const UpdateSkillFamilyPage = () => {
           <p>
             {intl.formatMessage(
               {
-                defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                id: "ZWnKEJ",
+                defaultMessage: "Skill family {skillFamilyId} not found.",
+                id: "asjJwj",
                 description: "Message displayed for skillFamily not found.",
               },
               { skillFamilyId },

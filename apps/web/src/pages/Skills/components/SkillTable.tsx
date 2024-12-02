@@ -216,12 +216,7 @@ const SkillTable = ({
             getLocalizedName(skill.name, intl),
             getLocalizedName(skill.description, intl),
           ),
-        header: intl.formatMessage({
-          defaultMessage: "Description",
-          id: "9yGJ6k",
-          description:
-            "Title displayed for the skill table Description column.",
-        }),
+        header: intl.formatMessage(commonMessages.description),
       },
     ),
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
