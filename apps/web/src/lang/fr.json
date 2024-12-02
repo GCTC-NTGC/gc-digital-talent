@@ -416,7 +416,7 @@
     "description": "Third paragraph for pool closing date dialog"
   },
   "07sCDh": {
-    "defaultMessage": "Utilisez le bouton \"Créer un processus\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un processus » pour commencer.",
     "description": "Instructions for adding a process item."
   },
   "08IbRz": {
@@ -544,7 +544,7 @@
     "description": "Simplified status label for a complete process advertisement or assessment"
   },
   "0jwdac": {
-    "defaultMessage": "Utilisez le bouton \"Créer une compétence\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer une compétence » pour commencer.",
     "description": "Instructions for adding a skill item."
   },
   "0k6j4V": {
@@ -900,7 +900,7 @@
     "description": "Paragraph 3, importance of self-declaration"
   },
   "2m5USi": {
-    "defaultMessage": "Utilisez le bouton \"Modifier\" pour commencer. ",
+    "defaultMessage": "Utilisez le bouton « Modifier » pour commencer. ",
     "description": "Null message on sections for edit pool page."
   },
   "2n0e2i": {
@@ -2160,7 +2160,7 @@
     "description": "First paragraph for the pool closing date dialog"
   },
   "9IMcqY": {
-    "defaultMessage": "En fin de compte, il revient au comité de sélection ou au gestionnaire de déterminer le nombre approprié de méthodes d’évaluation. Si vous en avez plus de {maxSteps}, sélectionnez \"évaluation supplémentaire\" en dernier ressort, puis communiquez avec notre équipe. Nous pouvons vous expliquer la façon dont ces évaluations supplémentaires peuvent être gérées sur la plateforme.",
+    "defaultMessage": "En fin de compte, il revient au comité de sélection ou au gestionnaire de déterminer le nombre approprié de méthodes d’évaluation. Si vous en avez plus de {maxSteps}, sélectionnez « évaluation supplémentaire » en dernier ressort, puis communiquez avec notre équipe. Nous pouvons vous expliquer la façon dont ces évaluations supplémentaires peuvent être gérées sur la plateforme.",
     "description": "First paragraph of second answer of the Frequently Asked Questions for logging in"
   },
   "9Jkoms": {
@@ -3072,7 +3072,7 @@
     "description": "Message displayed to user after assessment step fails to be saved."
   },
   "DoZebI": {
-    "defaultMessage": "\"B\" indique un niveau intermédiaire.",
+    "defaultMessage": "« B » indique un niveau intermédiaire.",
     "description": "Proficiency level on language requirements dialog"
   },
   "DqM+mu": {
@@ -3476,7 +3476,7 @@
     "description": "Information about what an assessment plan represents"
   },
   "FshBb0": {
-    "defaultMessage": "Commencez par ajouter un article en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
+    "defaultMessage": "Commencez par ajouter un article en vous servant du bouton « Ajouter une nouvelle compétence » fourni à cet effet.",
     "description": "Message displayed when a user has no skills in their library"
   },
   "FtlwFY": {
@@ -4052,7 +4052,7 @@
     "description": "Link text for explore skills page"
   },
   "J8Nltm": {
-    "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence \"{skillName}\" dans le cadre de cette expérience",
+    "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence « {skillName} » dans le cadre de cette expérience",
     "description": "Heading for a single skill on an experience."
   },
   "J8kIar": {
@@ -5412,7 +5412,7 @@
     "description": "Label displayed on the create a skill family form description (French) field."
   },
   "Q2uL2b": {
-    "defaultMessage": "Cette question aide les candidats à comprendre ce que signifie le fait dans un bassin \"pool\" de recrutement, et ce à quoi ils pourraient s’attendre en tant que candidats qui se qualifient.",
+    "defaultMessage": "Cette question aide les candidats à comprendre ce que signifie le fait dans un bassin « pool » de recrutement, et ce à quoi ils pourraient s’attendre en tant que candidats qui se qualifient.",
     "description": "Describes the 'what to expect after admission' section of a process' advertisement."
   },
   "Q3adCp": {
@@ -5976,7 +5976,7 @@
     "description": "First paragraph describing investing in future talent"
   },
   "SfbDLA": {
-    "defaultMessage": "Utilisez le bouton \"Ajouter un nouveau membre\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un nouveau membre » pour commencer.",
     "description": "Instructions for adding a member to a team."
   },
   "SfhT1q": {
@@ -6104,7 +6104,7 @@
     "description": "Heading for section to delete a user"
   },
   "TK0b6n": {
-    "defaultMessage": "Vous pouvez vous server du bouton \"Lier une expérience\" qui sert à mettre cette compétence en évidence.",
+    "defaultMessage": "Vous pouvez vous server du bouton « Lier une expérience » qui sert à mettre cette compétence en évidence.",
     "description": "Instructions displayed when user has experiences but hasn't featured any."
   },
   "TKONR6": {
@@ -6112,7 +6112,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "TN9ndX": {
-    "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
+    "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton « Ajouter une nouvelle compétence » fourni à cet effet.",
     "description": "Message displayed when no skills match a users filters"
   },
   "TOnXeM": {
@@ -6180,7 +6180,7 @@
     "description": "Title for the 'software solutions' IT work stream"
   },
   "Tl2FNA": {
-    "defaultMessage": "Utilisez le bouton \"Créez une classification\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
     "description": "Instructions for adding a classification item."
   },
   "TomxAe": {
@@ -6727,7 +6727,7 @@
     "description": "Label for applicant's priority entitlement status"
   },
   "Wd9+xg": {
-    "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle compétence\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter une nouvelle compétence » pour commencer.",
     "description": "Null message description for asset skills table."
   },
   "WdBt7s": {
@@ -7211,7 +7211,7 @@
     "description": "Label for _type of resource_ fieldset in the _digital services contracting questionnaire_"
   },
   "YiqbTc": {
-    "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 3 compétences comportementales ou \"compétences relationnelles”</strong> qu’ils cherchent à améliorer activement.",
+    "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 3 compétences comportementales ou « compétences relationnelles”</strong> qu’ils cherchent à améliorer activement.",
     "description": "Description of a users behavioural skills to improve for admins"
   },
   "YjDiUu": {
@@ -8255,7 +8255,7 @@
     "description": "Link label for view profile on view pool candidate page"
   },
   "e1mxkv": {
-    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant \"{skillName}\" au \"{skillLevel}\" niveau.",
+    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} » au « {skillLevel} » niveau.",
     "description": "Subtitle for education requirement screening decision dialog."
   },
   "e3BCAd": {
@@ -8291,7 +8291,7 @@
     "description": "List item 1, how self-declaration data is used"
   },
   "e9jncy": {
-    "defaultMessage": "\"C\" est le niveau le plus élevé et il s’agit d’un niveau avancé.",
+    "defaultMessage": "« C » est le niveau le plus élevé et il s’agit d’un niveau avancé.",
     "description": "Proficiency level on language requirements dialog"
   },
   "eCkRlc": {
@@ -9655,7 +9655,7 @@
     "description": "Title for the Digital services contracting questionnaire form page"
   },
   "kUkyuI": {
-    "defaultMessage": "Vous pouvez utiliser le bouton \"Ajouter une compétence\" pour mettre une compétence en vedette ici.",
+    "defaultMessage": "Vous pouvez utiliser le bouton « Ajouter une compétence » pour mettre une compétence en vedette ici.",
     "description": "Secondary message to user when no skills have been attached to experience."
   },
   "kVavip": {
@@ -10363,7 +10363,7 @@
     "description": "Column title for whether a skill is either required or just an asset."
   },
   "o5zW6Y": {
-    "defaultMessage": "Voir les définitions pour \"{skillName}\" et \"{skillLevel}\"",
+    "defaultMessage": "Voir les définitions pour « {skillName} » et « {skillLevel} »",
     "description": "Accordion title for skill and skill level header on screening decision dialog."
   },
   "o6Vyr+": {
@@ -10791,7 +10791,7 @@
     "description": "Description of a users behavioural skills to improve"
   },
   "qD0lyZ": {
-    "defaultMessage": "Le niveau \"A\" est le niveau le moins élevé en matière de bilinguisme et indique un niveau débutant.",
+    "defaultMessage": "Le niveau « A » est le niveau le moins élevé en matière de bilinguisme et indique un niveau débutant.",
     "description": "Proficiency level on language requirements dialog"
   },
   "qEvJjr": {
@@ -11515,7 +11515,7 @@
     "description": "Sub title for the pool core requirements"
   },
   "uiuMqi": {
-    "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle compétence\" pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter une nouvelle compétence » pour commencer.",
     "description": "Null message description for essential skills table."
   },
   "ukcsxj": {
@@ -12275,7 +12275,7 @@
     "description": "Button label for the form to add a community membership to a user"
   },
   "z4wfGZ": {
-    "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton \"Ajouter une nouvelle question \" ayant été fourni à cet effet.",
+    "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton « Ajouter une nouvelle question » ayant été fourni à cet effet.",
     "description": "Instructions on how to add a question when there are none"
   },
   "z59tbA": {
