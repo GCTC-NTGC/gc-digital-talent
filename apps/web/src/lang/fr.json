@@ -4352,7 +4352,7 @@
     "description": "Bilingual advanced personnel language"
   },
   "KehmPp": {
-    "defaultMessage": "“Un ou plusieurs de mes niveaux de langue ne sont <strong>plus valides</strong>.”",
+    "defaultMessage": "« Un ou plusieurs de mes niveaux de langue ne sont <strong>plus valides</strong>. »",
     "description": "Radio option for exam validity input on language information form."
   },
   "Kf7cYc": {
@@ -6951,7 +6951,7 @@
     "description": "Lead in text for button to submit form and navigate to a different page when no Indigenous"
   },
   "XgmS+Y": {
-    "defaultMessage": "“J’ai besoin d’une note spéciale. J’ai relu l’aperçu de mon offre d’emploi et je confirme que cette information n’est pas couverte ailleurs dans l’offre d’emploi.”",
+    "defaultMessage": "« J’ai besoin d’une note spéciale. J’ai relu l’aperçu de mon offre d’emploi et je confirme que cette information n’est pas couverte ailleurs dans l’offre d’emploi. »",
     "description": "Checkbox selection that confirms need for a special note on edit page."
   },
   "Xh1nV6": {
@@ -7211,7 +7211,7 @@
     "description": "Label for _type of resource_ fieldset in the _digital services contracting questionnaire_"
   },
   "YiqbTc": {
-    "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 3 compétences comportementales ou « compétences relationnelles”</strong> qu’ils cherchent à améliorer activement.",
+    "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 3 compétences comportementales ou « compétences relationnelles »</strong> qu’ils cherchent à améliorer activement.",
     "description": "Description of a users behavioural skills to improve for admins"
   },
   "YjDiUu": {
@@ -8783,7 +8783,7 @@
     "description": "Subtitle for the self-declaration page"
   },
   "gS9T4G": {
-    "defaultMessage": "“Mes trois examens de niveau linguistique sont <strong>actuellement valides</strong>.”",
+    "defaultMessage": "« Mes trois examens de niveau linguistique sont <strong>actuellement valides</strong>. »",
     "description": "Radio option for exam validity input on language information form."
   },
   "gU/nxf": {
@@ -10851,7 +10851,7 @@
     "description": "Contract start timeframe of zero to three months"
   },
   "qX9s0l": {
-    "defaultMessage": "Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
+    "defaultMessage": "Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de « présélection des candidatures » et de « questions de présélection (au moment de la candidature) » qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
     "description": "Introduction to the organize section in the assessment plan builder, paragraph 2"
   },
   "qXnXKH": {
