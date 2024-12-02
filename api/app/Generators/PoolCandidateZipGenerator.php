@@ -14,8 +14,8 @@ class PoolCandidateZipGenerator extends ZipGenerator implements FileGeneratorInt
             'user' => [
                 'department',
                 'currentClassification',
-                'experiences' => ['userSkills' => ['skill']],
-                'userSkills' => ['skill'],
+                'experiences.userSkills.skill',
+                'userSkills.skill',
             ],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'generalQuestionResponses' => ['generalQuestion'],
