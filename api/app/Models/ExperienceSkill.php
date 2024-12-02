@@ -40,7 +40,6 @@ class ExperienceSkill extends Model
         return $this->belongsTo(UserSkill::class);
     }
 
-    /** @return HasOneDeep<Skill, $this> */
     public function skill(): HasOneDeep
     {
         return $this->hasOneDeepFromRelations($this->userSkill(), (new UserSkill)->skill());

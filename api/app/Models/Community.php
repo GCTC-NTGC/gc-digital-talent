@@ -78,7 +78,7 @@ class Community extends Model
         return $this->hasMany(Pool::class);
     }
 
-    /** @return HasManyThrough<RoleAssignment, $this> */
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs

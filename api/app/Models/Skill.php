@@ -58,13 +58,13 @@ class Skill extends Model
         return $this->hasMany(UserSkill::class);
     }
 
-    /** @return BelongsToMany<PoolSkill, $this> */
+    /** @return BelongsToMany<Pool, $this> */
     public function poolsEssentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_skill')->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
-    /** @return BelongsToMany<PoolSkill, $this> */
+    /** @return BelongsToMany<Pool, $this> */
     public function poolsNonessentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_skill')->wherePivot('type', PoolSkillType::NONESSENTIAL->name);

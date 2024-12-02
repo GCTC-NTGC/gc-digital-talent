@@ -64,10 +64,9 @@ class RoleAssignment extends Model
         return $this->team->teamable;
     }
 
-    /** @return MorphTo<User, $this> */
     public function user(): MorphTo
     {
-        return $this->morphTo('user')->select([
+        return $this->morphTo(User::class)->select([
             'id',
             'first_name',
             'last_name',

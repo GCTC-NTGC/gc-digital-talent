@@ -208,7 +208,7 @@ class Pool extends Model
         return $this->belongsTo(Community::class);
     }
 
-    /** @return HasManyThrough<RoleAssignment, $this> */
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs
@@ -338,11 +338,13 @@ class Pool extends Model
         $screeningStep->poolSkills()->sync($technicalSkills);
     }
 
+    /** @returns HasMany<GeneralQuestion, $this> */
     public function generalQuestions(): HasMany
     {
         return $this->hasMany(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);
     }
 
+    /** @returns HasMany<ScreeningQuestion, $this> */
     public function screeningQuestions(): HasMany
     {
         return $this->hasMany(ScreeningQuestion::class);

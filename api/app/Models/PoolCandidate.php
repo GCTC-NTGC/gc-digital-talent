@@ -49,7 +49,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $pool_id
  * @property string $user_id
  * @property ?\Illuminate\Support\Carbon $suspended_at
- * @property Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property ?string $education_requirement_option
@@ -122,8 +122,6 @@ class PoolCandidate extends Model
 
     /**
      * The model's default values for attributes.
-     *
-     * @var array
      */
     protected $attributes = [
         'is_bookmarked' => false,
@@ -259,7 +257,7 @@ class PoolCandidate extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
-    /** @return HasMany<Experience, $this> */
+    /** @return BelongsToMany<Experience, $this> */
     public function educationRequirementExperiences(): BelongsToMany
     {
         return $this->belongsToMany(

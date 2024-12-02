@@ -10,7 +10,7 @@ class ApiKeyNotFoundException extends Exception
     /**
      * Report the exception.
      *
-     * @return bool|null
+     * @return void
      */
     public function report()
     {

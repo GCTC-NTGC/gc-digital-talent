@@ -91,7 +91,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_email_notifications
  * @property ?array $enabled_in_app_notifications
  * @property \App\Models\Notification $unreadNotifications
- * @property Collection<\App\Models\Notification> $notifications
+ * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
+ * @method Builder|static authorizedToView()
+ * @method static Builder|static query()
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -207,7 +209,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function preferredLocale(): string
     {
-        return $this?->preferred_lang ?? 'en';
+        return $this->preferred_lang ?? 'en';
     }
 
     /** @return HasMany<Pool, $this> */
@@ -216,7 +218,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(Pool::class);
     }
 
-    /** @return HasMany<Pool, $this> */
+    /** @return BelongsToMany<Pool, $this> */
     public function poolBookmarks(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
@@ -289,7 +291,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(UserSkill::class, 'user_id');
     }
 
-    /** @return HasManyDeep<Skill, $this> */
     public function skills(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
@@ -1155,7 +1156,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         // otherwise: use the regular authorized to view scope
-        /** @var \App\Models\User $query */
+        /** @var Builder<User> $query */
         $query->authorizedToView();
     }
 
