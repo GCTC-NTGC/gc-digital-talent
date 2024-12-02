@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router";
 
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";

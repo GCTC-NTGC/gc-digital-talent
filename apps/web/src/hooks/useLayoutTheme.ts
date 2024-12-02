@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import { useTheme, ThemeKey } from "@gc-digital-talent/theme";
 

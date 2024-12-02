@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -80,9 +80,9 @@ export const CreateClassification = () => {
       maxSalary: Number(data.maxSalary),
     };
     return executeMutation({ classification })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createClassification) {
-          navigate(
+          await navigate(
             paths.classificationView(result.data.createClassification.id),
           );
           toast.success(

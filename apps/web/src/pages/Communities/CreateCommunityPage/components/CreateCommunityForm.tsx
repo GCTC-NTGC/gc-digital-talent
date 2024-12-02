@@ -1,5 +1,5 @@
 import { SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -65,8 +65,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(formValuesToSubmitData(data))
-      .then((id) => {
-        navigate(paths.communityView(id));
+      .then(async (id) => {
+        await navigate(paths.communityView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Community created successfully!",

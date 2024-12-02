@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { StoryContext, StoryFn } from "@storybook/react";
-import { createMemoryRouter, RouterProvider } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router";
 
 interface DefaultPath {
   path: string;

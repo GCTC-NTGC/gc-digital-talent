@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormEvent } from "react";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
@@ -89,9 +89,9 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         insertSubmittedStep: ApplicationStep.Welcome,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (res.data) {
-          navigate(nextStepPath);
+          await navigate(nextStepPath);
         }
       })
       .catch(() => {

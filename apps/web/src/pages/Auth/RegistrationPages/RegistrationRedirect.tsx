@@ -4,7 +4,7 @@ import {
   Outlet,
   useLocation,
   useNavigate,
-} from "react-router-dom";
+} from "react-router";
 import { useQuery } from "urql";
 
 import { useAuthentication } from "@gc-digital-talent/auth";
@@ -55,7 +55,7 @@ export const Component = () => {
      */
     if (loggedIn && !fetching && !stale) {
       if (empty(email) && !isToGettingStarted) {
-        navigate(
+        void navigate(
           {
             pathname: paths.gettingStarted(),
             search: createSearchParams({ from: pathname }).toString(),
@@ -69,7 +69,7 @@ export const Component = () => {
       // If the user has an email but empty isGovEmployee
       // instead redirect to employee registration page
       if (!empty(email) && empty(isGovEmployee) && !isToEmployeeRegistration) {
-        navigate(
+        void navigate(
           {
             pathname: paths.employeeInformation(),
             search: createSearchParams({ from: pathname }).toString(),

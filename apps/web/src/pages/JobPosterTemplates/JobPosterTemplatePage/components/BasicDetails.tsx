@@ -93,12 +93,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
             {getLocalizedName(jobPosterTemplate.name, intl)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Description",
-              id: "9yGJ6k",
-              description:
-                "Title displayed for the skill table Description column.",
-            })}
+            label={intl.formatMessage(commonMessages.description)}
             data-h2-grid-column="p-tablet(span 2) l-tablet(span 3)"
           >
             {getLocalizedName(jobPosterTemplate.description, intl)}

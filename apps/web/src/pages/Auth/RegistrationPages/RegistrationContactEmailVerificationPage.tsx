@@ -1,9 +1,5 @@
 import { useIntl } from "react-intl";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType } from "@gc-digital-talent/graphql";
@@ -34,15 +30,15 @@ const RegistrationContactEmailVerificationPage = () => {
     ],
   });
 
-  const handleVerificationSuccess = (): void => {
-    navigate({
+  const handleVerificationSuccess = async (): Promise<void> => {
+    await navigate({
       pathname: paths.employeeInformation(),
       search: from ? createSearchParams({ from }).toString() : "",
     });
   };
 
-  const handleSkip = (): void => {
-    navigate({
+  const handleSkip = async (): Promise<void> => {
+    await navigate({
       pathname: paths.employeeInformation(),
       search: from ? createSearchParams({ from }).toString() : "",
     });
