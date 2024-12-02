@@ -1,6 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";

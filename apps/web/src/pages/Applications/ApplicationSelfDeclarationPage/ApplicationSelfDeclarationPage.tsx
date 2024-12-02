@@ -371,10 +371,10 @@ export const Component = () => {
 
   const resolvedIndigenousCommunities =
     application.user?.indigenousCommunities?.filter(notEmpty);
-  const handleSubmit: SubmitHandler<FormValues> = (formValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
-      navigate(paths.browsePools());
+      await navigate(paths.browsePools());
       return;
     }
     const newCommunities = formValuesToApiCommunities(formValues);
@@ -391,7 +391,7 @@ export const Component = () => {
         insertSubmittedStep: ApplicationStep.SelfDeclaration,
       },
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.error) throw new Error("Update user and application failed");
 
         toast.success(
@@ -402,7 +402,9 @@ export const Component = () => {
               "Message displayed to users when saving self-declaration is successful.",
           }),
         );
-        navigate(formValues.action === "continue" ? nextStep : cancelPath);
+        await navigate(
+          formValues.action === "continue" ? nextStep : cancelPath,
+        );
       })
       .catch(() => {
         toast.error(

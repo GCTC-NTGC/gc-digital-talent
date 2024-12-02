@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -109,8 +109,8 @@ export const CreateSkillForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleCreateSkill(formValuesToSubmitData(values))
-      .then((id) => {
-        navigate(paths.skillView(id));
+      .then(async (id) => {
+        await navigate(paths.skillView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill created successfully!",

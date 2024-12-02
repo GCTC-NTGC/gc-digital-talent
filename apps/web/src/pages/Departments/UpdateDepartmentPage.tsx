@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
@@ -81,8 +81,8 @@ export const UpdateDepartmentForm = ({
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
-      .then(() => {
-        navigate(paths.departmentView(initialDepartment.id));
+      .then(async () => {
+        await navigate(paths.departmentView(initialDepartment.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",

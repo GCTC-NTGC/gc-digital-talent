@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -45,12 +45,12 @@ const ProfileContactEmailVerificationPage = () => {
     ],
   });
 
-  const handleVerificationSuccess = (): void => {
-    navigate(paths.profile());
+  const handleVerificationSuccess = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
-  const handleSkip = (): void => {
-    navigate(paths.profile());
+  const handleSkip = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
   return (

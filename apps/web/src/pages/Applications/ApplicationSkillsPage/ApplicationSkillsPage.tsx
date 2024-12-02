@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ReactNode, useEffect } from "react";
 
 import {
@@ -136,7 +136,7 @@ export const ApplicationSkills = ({
         applicationId: application.id,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -146,7 +146,7 @@ export const ApplicationSkills = ({
                 "Message displayed to users when saving skills is successful.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {

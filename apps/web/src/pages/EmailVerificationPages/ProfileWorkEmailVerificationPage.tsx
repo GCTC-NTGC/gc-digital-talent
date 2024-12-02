@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useQuery } from "urql";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -54,12 +54,12 @@ const ProfileWorkEmailVerificationPage = () => {
     ],
   });
 
-  const handleVerificationSuccess = (): void => {
-    navigate(paths.profile());
+  const handleVerificationSuccess = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
-  const handleSkip = (): void => {
-    navigate(paths.profile());
+  const handleSkip = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
   return (

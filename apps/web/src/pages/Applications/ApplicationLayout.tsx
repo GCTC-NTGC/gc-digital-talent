@@ -1,5 +1,5 @@
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router";
 import flatMap from "lodash/flatMap";
 import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
@@ -113,7 +113,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   // that has not been submitted yet, or the last step
   useEffect(() => {
     if (empty(currentPage)) {
-      navigate(nextStepToSubmit.mainPage.link.url, {
+      void navigate(nextStepToSubmit.mainPage.link.url, {
         replace: true,
       });
     }

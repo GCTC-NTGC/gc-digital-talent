@@ -2,7 +2,7 @@
 // Note: Disable camelcase since variables are being used by API
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { useLocation, Location } from "react-router-dom";
+import { useLocation, Location } from "react-router";
 import { useQuery } from "urql";
 import { ReactNode, useState } from "react";
 

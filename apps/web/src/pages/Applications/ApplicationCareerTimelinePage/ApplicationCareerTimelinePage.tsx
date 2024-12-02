@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { IntlShape, useIntl } from "react-intl";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
@@ -212,7 +212,7 @@ export const ApplicationCareerTimeline = ({
         insertSubmittedStep: ApplicationStep.ReviewYourResume,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -222,7 +222,7 @@ export const ApplicationCareerTimeline = ({
                 "Message displayed to users when saving career timeline is successful.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {
