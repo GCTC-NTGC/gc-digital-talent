@@ -92,6 +92,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_in_app_notifications
  * @property \App\Models\Notification $unreadNotifications
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
+ *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
  */
