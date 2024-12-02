@@ -15,6 +15,7 @@ import SEO from "~/components/SEO/SEO";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
@@ -61,25 +62,27 @@ export const IndexPoolCandidatePage = () => {
         })}
         description={formattedSubTitle}
       />
-      <Pending fetching={fetching} error={error}>
-        <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
-        <PoolCandidatesTable
-          hidePoolFilter
-          initialFilterInput={{
-            applicantFilter: { pools: [{ id: poolId || "" }] },
-            suspendedStatus: CandidateSuspendedFilter.Active,
-            expiryStatus: CandidateExpiryFilter.Active,
-          }}
-          currentPool={
-            currentPool
-              ? {
-                  id: currentPool.id,
-                }
-              : null
-          }
-          title={pageTitle}
-        />
-      </Pending>
+      <AdminContentWrapper table>
+        <Pending fetching={fetching} error={error}>
+          <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
+          <PoolCandidatesTable
+            hidePoolFilter
+            initialFilterInput={{
+              applicantFilter: { pools: [{ id: poolId || "" }] },
+              suspendedStatus: CandidateSuspendedFilter.Active,
+              expiryStatus: CandidateExpiryFilter.Active,
+            }}
+            currentPool={
+              currentPool
+                ? {
+                    id: currentPool.id,
+                  }
+                : null
+            }
+            title={pageTitle}
+          />
+        </Pending>
+      </AdminContentWrapper>
     </>
   );
 };

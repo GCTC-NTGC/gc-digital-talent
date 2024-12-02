@@ -16,7 +16,7 @@ const AdminContentWrapper = ({ table, children }: AdminContentWrapperProps) => (
       : {
           "data-h2-wrapper":
             "base(center, large, x1) p-tablet(center, large, x2)",
-          "data-h2-padding": "base(0, 0, x3, 0)",
+          "data-h2-padding": "base(x3, 0)",
         })}
   >
     {children}

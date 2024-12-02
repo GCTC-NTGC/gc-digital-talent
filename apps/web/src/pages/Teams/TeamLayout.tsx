@@ -16,6 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
+import Hero from "~/components/Hero";
 
 import RequireAuth from "../../components/RequireAuth/RequireAuth";
 
@@ -98,16 +99,13 @@ const TeamHeader = ({ teamQuery }: TeamHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} description={teamName} />
-      <AdminHero
+      <Hero
         title={currentPage?.title}
         subtitle={teamName}
-        nav={{
-          mode: "subNav",
-          items: Array.from(pages.values()).map((page) => ({
-            label: page.link.label ?? page.title,
-            url: page.link.url,
-          })),
-        }}
+        navTabs={Array.from(pages.values()).map((page) => ({
+          label: page.link.label ?? page.title,
+          url: page.link.url,
+        }))}
       />
     </>
   );

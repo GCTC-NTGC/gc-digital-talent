@@ -17,6 +17,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import { PageNavInfo } from "~/types/pages";
 import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import Hero from "~/components/Hero";
 
 type PageNavKeys = "profile" | "info" | "edit";
 
@@ -85,16 +86,13 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <AdminHero
+      <Hero
         title={currentPage?.title}
         subtitle={userName}
-        nav={{
-          mode: "subNav",
-          items: Array.from(pages.values()).map((page) => ({
-            label: page.link.label ?? page.title,
-            url: page.link.url,
-          })),
-        }}
+        navTabs={Array.from(pages.values()).map((page) => ({
+          label: page.link.label ?? page.title,
+          url: page.link.url,
+        }))}
       />
       {userDeleted ? (
         <Alert.Root
