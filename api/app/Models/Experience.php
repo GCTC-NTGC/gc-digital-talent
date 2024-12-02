@@ -69,11 +69,13 @@ class Experience extends Model
         return new $type;
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /** @return BelongsToMany<UserSkill, $this> */
     public function userSkills(): BelongsToMany
     {
         return $this->belongsToMany(UserSkill::class, 'experience_skill', 'experience_id')
@@ -83,6 +85,7 @@ class Experience extends Model
             ->as('experience_skill');
     }
 
+    /** @return HasManyThrough<Skill, $this> */
     public function skills(): HasManyThrough
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill())
@@ -91,6 +94,7 @@ class Experience extends Model
             ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
     }
 
+    /** @return HasMany<ExperienceSkill, $this> */
     public function experienceSkills(): HasMany
     {
         return $this->hasMany(ExperienceSkill::class);

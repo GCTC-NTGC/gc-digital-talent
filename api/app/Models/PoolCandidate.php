@@ -158,21 +158,25 @@ class PoolCandidate extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class)->select(Pool::getSelectableColumns())->withTrashed();
     }
 
+    /** @return BelongsTo<Department, $this> */
     public function placedDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return HasMany<GeneralQuestionResponse, $this> */
     public function generalQuestionResponses(): HasMany
     {
         return $this->hasMany(GeneralQuestionResponse::class)->select([
@@ -183,12 +187,13 @@ class PoolCandidate extends Model
         ]);
     }
 
+    /** @return HasMany<ScreeningQuestionResponse, $this> */
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
-    // education_requirement_option fulfilled by what experience models
+    /** @return BelongsToMany<AwardExperience, $this> */
     public function educationRequirementAwardExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -200,6 +205,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<CommunityExperience, $this> */
     public function educationRequirementCommunityExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -211,6 +217,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<EducationExperience, $this> */
     public function educationRequirementEducationExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -222,6 +229,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<PersonalExperience, $this> */
     public function educationRequirementPersonalExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -233,6 +241,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<WorkExperience, $this> */
     public function educationRequirementWorkExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -244,11 +253,13 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return HasMany<AssessmentResult, $this> */
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);
     }
 
+    /** @return HasMany<Experience, $this> */
     public function educationRequirementExperiences(): BelongsToMany
     {
         return $this->belongsToMany(

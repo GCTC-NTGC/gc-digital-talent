@@ -32,6 +32,7 @@ class GenericJobTitle extends Model
 
     ];
 
+    /** @return BelongsTo<Classification, $this> */
     public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class);
