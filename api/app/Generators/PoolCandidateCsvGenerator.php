@@ -310,7 +310,13 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
      */
     private function generatePoolHeaders()
     {
-        Pool::with(['generalQuestions', 'screeningQuestions', 'poolSkills.skill', 'assessmentSteps' => ['poolSkills.skill']])
+        Pool::with([
+            'generalQuestions',
+            'screeningQuestions',
+            'poolSkills',
+            'poolSkills.skill',
+            'assessmentSteps' => ['poolSkills.skill'],
+        ])
             ->whereIn('id', $this->poolIds)
             ->chunk(100, function ($pools) {
                 /** @var Pool $pool */
@@ -456,13 +462,18 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             'pool' => [
                 'generalQuestions',
                 'screeningQuestions',
+                'poolSkills',
                 'poolSkills.skill',
+                'assessmentSteps',
                 'assessmentSteps.poolSkills',
             ],
             'user' => [
                 'department',
                 'currentClassification',
-                'userSkills.skill.experiences.skill',
+                'userSkills',
+                'userSkills.skill',
+                'userSkills.experiences',
+                'userSkills.experiences.skills',
                 'awardExperiences.userSkills.skill',
                 'communityExperiences.userSkills.skill',
                 'educationExperiences.userSkills.skill',
