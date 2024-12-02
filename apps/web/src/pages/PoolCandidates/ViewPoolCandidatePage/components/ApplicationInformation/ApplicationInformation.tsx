@@ -163,7 +163,12 @@ const ApplicationInformation = ({
         data-h2-margin-bottom="base(x1)"
       >
         {/** Note: Change to `margin-bottom` when application screening is added  */}
-        <Heading Icon={UserCircleIcon} color="primary" data-h2-margin="base(0)">
+        <Heading
+          Icon={UserCircleIcon}
+          color="primary"
+          data-h2-margin="base(0)"
+          data-h2-font-weight="base(700)"
+        >
           {intl.formatMessage({
             defaultMessage: "Application information",
             id: "R/z71a",

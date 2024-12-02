@@ -95,6 +95,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
         data-h2-font-size="base(h6)"
         {...fontColor}
         data-h2-margin="base(0, 0, 0, 0)"
+        data-h2-font-weight="base(700)"
       >
         {title}
       </Heading>

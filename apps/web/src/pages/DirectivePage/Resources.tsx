@@ -20,6 +20,7 @@ const Resources = () => {
           size="h3"
           color="quaternary"
           data-h2-margin="base(x3, 0, x1, 0)"
+          data-h2-font-weight="base(400)"
         >
           {intl.formatMessage({
             defaultMessage: "Resources",

@@ -74,7 +74,12 @@ export const HomePage = ({ pools }: HomePageProps) => {
           alt: "",
         }}
       >
-        <Heading level="h1" size="h2" data-h2-margin="base(0, 0, x0.5, 0)">
+        <Heading
+          level="h1"
+          size="h2"
+          data-h2-margin="base(0, 0, x0.5, 0)"
+          data-h2-font-weight="base(700)"
+        >
           {intl.formatMessage(pageTitle)}
         </Heading>
         <p

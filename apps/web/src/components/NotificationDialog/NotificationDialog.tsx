@@ -120,6 +120,7 @@ const DialogPortalWithPresence = ({
                   Icon={BellAlertIcon}
                   data-h2-margin="base(0)"
                   data-h2-line-height="base(1)"
+                  data-h2-font-weight="base(400)"
                 >
                   {intl.formatMessage(notificationMessages.title)}
                 </Heading>

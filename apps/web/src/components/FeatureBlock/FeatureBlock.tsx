@@ -38,6 +38,7 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
           size="h2"
           data-h2-font-size="base(h6)"
           data-h2-margin="base(0, 0, x0.25, 0)"
+          data-h2-font-weight="base(700)"
         >
           {content.title}
         </Heading>

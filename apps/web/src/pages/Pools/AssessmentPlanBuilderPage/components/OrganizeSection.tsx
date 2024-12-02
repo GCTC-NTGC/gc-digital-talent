@@ -229,6 +229,7 @@ const OrganizeSection = ({
         level="h3"
         id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
         data-h2-margin-top="base(0)"
+        data-h2-font-weight="base(400)"
       >
         {intl.formatMessage(sectionTitle)}
       </Heading>

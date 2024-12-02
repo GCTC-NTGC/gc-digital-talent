@@ -151,6 +151,7 @@ const HeroDeprecated = ({
               level="h1"
               size="h2"
               data-h2-margin="base(0)"
+              data-h2-font-weight="base(700)"
             >
               {title}
             </Heading>

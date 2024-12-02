@@ -563,6 +563,7 @@ export const EditPoolForm = ({
                         Icon={sectionMetadata.basicInfo.icon}
                         color={sectionMetadata.basicInfo.color}
                         data-h2-margin="base(0)"
+                        data-h2-font-weight="base(400)"
                       >
                         {sectionMetadata.basicInfo.title}
                       </Heading>
@@ -625,6 +626,7 @@ export const EditPoolForm = ({
                         Icon={sectionMetadata.skillRequirements.icon}
                         color={sectionMetadata.skillRequirements.color}
                         data-h2-margin="base(0)"
+                        data-h2-font-weight="base(400)"
                       >
                         {sectionMetadata.skillRequirements.title}
                       </Heading>
@@ -664,6 +666,7 @@ export const EditPoolForm = ({
                           Icon={sectionMetadata.aboutRole.icon}
                           color={sectionMetadata.aboutRole.color}
                           data-h2-margin="base(0)"
+                          data-h2-font-weight="base(400)"
                         >
                           {sectionMetadata.aboutRole.title}
                         </Heading>
@@ -712,6 +715,7 @@ export const EditPoolForm = ({
                           Icon={sectionMetadata.commonQuestions.icon}
                           color={sectionMetadata.commonQuestions.color}
                           data-h2-margin="base(0)"
+                          data-h2-font-weight="base(400)"
                         >
                           {sectionMetadata.commonQuestions.title}
                         </Heading>

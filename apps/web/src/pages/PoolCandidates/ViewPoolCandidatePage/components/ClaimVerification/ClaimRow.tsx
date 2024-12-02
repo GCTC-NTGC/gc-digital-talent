@@ -115,7 +115,12 @@ const ClaimRow = ({ result, title, expiry, children }: ClaimRowProps) => {
         data-h2-width="base(x1)"
       />
       <div>
-        <Heading level="h3" size="h5" data-h2-margin-top="base(0)">
+        <Heading
+          level="h3"
+          size="h5"
+          data-h2-margin-top="base(0)"
+          data-h2-font-weight="base(400)"
+        >
           {title}
         </Heading>
         <VerificationMessage result={result} expiry={expiry} />

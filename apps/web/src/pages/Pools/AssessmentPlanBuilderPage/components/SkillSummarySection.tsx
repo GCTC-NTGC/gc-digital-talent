@@ -39,6 +39,7 @@ const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
         level="h3"
         id={PAGE_SECTION_ID.SKILL_SUMMARY}
         data-h2-margin="base(x3, 0, x1, 0)"
+        data-h2-font-weight="base(400)"
       >
         {intl.formatMessage(sectionTitle)}
       </Heading>

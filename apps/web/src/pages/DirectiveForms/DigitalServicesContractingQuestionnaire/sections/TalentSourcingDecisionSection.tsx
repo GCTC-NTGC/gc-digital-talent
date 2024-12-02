@@ -91,7 +91,12 @@ const TalentSourcingDecisionSection = () => {
           getSectionTitle(PAGE_SECTION_ID.TALENT_SOURCING_DECISION),
         )}
       </Heading>
-      <Heading data-h2-margin="base(x2, 0, x1, 0)" level="h4" size="h5">
+      <Heading
+        data-h2-margin="base(x2, 0, x1, 0)"
+        level="h4"
+        size="h5"
+        data-h2-font-weight="base(400)"
+      >
         {intl.formatMessage({
           defaultMessage: "Rationale for contracting",
           id: "TiutAx",
@@ -254,7 +259,12 @@ const TalentSourcingDecisionSection = () => {
           />
         ) : null}
       </div>
-      <Heading data-h2-margin="base(x2, 0, x1, 0)" level="h4" size="h5">
+      <Heading
+        data-h2-margin="base(x2, 0, x1, 0)"
+        level="h4"
+        size="h5"
+        data-h2-font-weight="base(400)"
+      >
         {intl.formatMessage({
           defaultMessage: "Knowledge transfer",
           id: "OOHY6f",

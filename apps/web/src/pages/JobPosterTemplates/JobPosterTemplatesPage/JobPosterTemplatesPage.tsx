@@ -299,7 +299,13 @@ const JobPosterTemplatesPage = () => {
         crumbs={crumbs}
       />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <Heading level="h2" size="h3" color="primary" Icon={RectangleStackIcon}>
+        <Heading
+          level="h2"
+          size="h3"
+          color="primary"
+          Icon={RectangleStackIcon}
+          data-h2-font-weight="base(400)"
+        >
           {intl.formatMessage({
             defaultMessage: "Find a template",
             id: "XIDaGg",
