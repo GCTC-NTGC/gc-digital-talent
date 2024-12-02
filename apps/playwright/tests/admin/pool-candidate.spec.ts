@@ -4,6 +4,7 @@ import {
   PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
+  Skill,
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
@@ -25,11 +26,12 @@ test.describe("Pool candidates", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
   let candidate: PoolCandidate;
+  let technicalSkill: Skill | undefined;
 
   test.beforeAll(async () => {
     const adminCtx = await graphql.newContext();
 
-    const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
@@ -91,6 +93,107 @@ test.describe("Pool candidates", () => {
     });
 
     candidate = application;
+  });
+
+  test("Snapshot content is rendered", async ({ adminPage }) => {
+    await adminPage.page.goto(
+      `/en/admin/candidates/${candidate.id}/application`,
+    );
+    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    // check verification appears
+    await expect(
+      adminPage.page
+        .locator("div")
+        .filter({ hasText: /^Priority statusThis claim is unverified\.$/ })
+        .getByRole("paragraph"),
+    ).toBeVisible();
+    await expect(
+      adminPage.page
+        .locator("div")
+        .filter({ hasText: /^Veteran statusThis claim is unverified\.$/ })
+        .getByRole("paragraph"),
+    ).toBeVisible();
+
+    // expand snapshot
+    await adminPage.page
+      .getByRole("button", { name: "Expand all application" })
+      .click();
+
+    // personal information
+    await expect(
+      adminPage.page.getByText(/Given namePlaywright/i),
+    ).toBeVisible();
+    await expect(
+      adminPage.page
+        .getByLabel("Personal and contact")
+        .getByText(/playwright.sub./),
+    ).toBeVisible();
+
+    // education experience
+    await expect(
+      adminPage.page.getByText(/Applied work experience/i),
+    ).toBeVisible();
+    await expect(
+      adminPage.page
+        .getByLabel("Minimum experience or")
+        .getByText(/Test Experience/i),
+    ).toBeVisible();
+
+    // essential skills
+    await expect(
+      adminPage.page.getByRole("heading", {
+        name: technicalSkill?.name.en ?? "",
+        exact: true,
+      }),
+    ).toBeVisible();
+    await expect(
+      adminPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
+    ).toBeVisible();
+
+    // work preferences
+    await expect(
+      adminPage.page.getByText(/Indeterminate \(permanent only\)/i),
+    ).toBeVisible();
+    await expect(
+      adminPage.page.getByLabel("Work preferences").getByText(/Test city/i),
+    ).toBeVisible();
+
+    // government employee
+    await expect(
+      adminPage.page.getByText(/Yes, I do have a priority/i),
+    ).toBeVisible();
+    await expect(adminPage.page.getByText("Priority number123")).toBeVisible();
+
+    // signature
+    await expect(
+      adminPage.page.getByText(/Playwright signature/i),
+    ).toBeVisible();
+
+    // assert experience appears three times, twice in snapshot and once in career timeline
+    await expect(adminPage.page.getByText(/Test experience/i)).toHaveCount(3);
+  });
+
+  test("Verification and notes mutations", async ({ adminPage }) => {
+    await adminPage.page.goto(
+      `/en/admin/candidates/${candidate.id}/application`,
+    );
+    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    // priority verification
+    await adminPage.page
+      .getByRole("button", { name: "Edit Priority status" })
+      .click();
+    await adminPage.page.getByLabel("This claim has been verified").click();
+    await adminPage.page.getByPlaceholder("YYYY").fill("2030");
+    await adminPage.page.getByLabel("Month").selectOption("01");
+    await adminPage.page.getByPlaceholder("DD").fill("25");
+    await adminPage.page.getByRole("button", { name: "Save changes" }).click();
+    await expect(
+      adminPage.page.getByText(
+        /This claim has been verified, expires on January 25, 2030/i,
+      ),
+    ).toBeVisible();
   });
 
   test("Qualifying candidate", async ({ adminPage }) => {
