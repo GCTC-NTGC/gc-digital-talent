@@ -1409,8 +1409,12 @@ input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
   level: Int!
-  minSalary: Int @rename(attribute: "min_salary") @rules(apply: ["gt:0"])
-  maxSalary: Int @rename(attribute: "max_salary") @rules(apply: ["gt:0"])
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gt:minSalary"])
 }
 
 input ClassificationBelongsToMany {
@@ -1430,8 +1434,12 @@ input CreatePoolCandidateAsAdminInput {
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
-  minSalary: Int @rename(attribute: "min_salary") @rules(apply: ["gt:0"])
-  maxSalary: Int @rename(attribute: "max_salary") @rules(apply: ["gt:0"])
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gt:minSalary"])
 }
 
 input UpdatePoolCandidateStatusInput {
