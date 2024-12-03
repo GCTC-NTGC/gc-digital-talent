@@ -194,6 +194,100 @@ test.describe("Pool candidates", () => {
         /This claim has been verified, expires on January 25, 2030/i,
       ),
     ).toBeVisible();
+
+    // veteran verification
+    await adminPage.page
+      .getByRole("button", { name: "Edit Veteran status" })
+      .click();
+    await adminPage.page.getByLabel("This claim does not apply to").click();
+    await adminPage.page.getByRole("button", { name: "Save changes" }).click();
+    await expect(
+      adminPage.page.getByText(/This claim does not apply to/i),
+    ).toBeVisible();
+
+    // notes
+    await adminPage.page.getByRole("button", { name: "Add notes" }).click();
+    await adminPage.page.getByLabel("Notes").fill("Notes notes notes");
+    await adminPage.page.getByRole("button", { name: "Save changes" }).click();
+    await expect(adminPage.page.getByText(/Notes notes notes/i)).toBeVisible();
+  });
+
+  test("Completing an assessment step", async ({ adminPage }) => {
+    await adminPage.page.goto(
+      `/en/admin/candidates/${candidate.id}/application`,
+    );
+    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    // to assess icon by application screening
+    await expect(
+      adminPage.page.getByLabel("To assess").locator("path"),
+    ).toBeVisible();
+
+    // education result
+    await adminPage.page
+      .getByRole("row", { name: "Education requirement To" })
+      .getByRole("button")
+      .click();
+    await expect(
+      adminPage.page.getByText("I meet the applied work"),
+    ).toBeVisible();
+    await expect(
+      adminPage.page
+        .getByLabel("Assess the candidate's")
+        .getByText("Test Experience"),
+    ).toBeVisible();
+    await adminPage.page.getByText("Demonstrated", { exact: true }).click();
+    await adminPage.page
+      .getByText("Work experience equivalency is accepted", { exact: true })
+      .click();
+    await adminPage.page.getByRole("button", { name: "Save decision" }).click();
+    await expect(
+      adminPage.page
+        .getByLabel("Assess the candidate's")
+        .getByText("Test Experience"),
+    ).toBeVisible();
+    await expect(
+      adminPage.page.getByText("Demonstrated", { exact: true }),
+    ).toBeVisible();
+
+    // skill result
+    await adminPage.page
+      .getByRole("row", { name: `${technicalSkill?.name?.en}` })
+      .getByRole("button")
+      .click();
+    await expect(
+      adminPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
+    ).toBeVisible();
+    await adminPage.page.getByText("Not demonstrated (Hold for").click();
+    await adminPage.page.getByLabel("Decision notes *").fill("Reason");
+    await adminPage.page.getByRole("button", { name: "Save decision" }).click();
+    await expect(
+      adminPage.page.getByRole("button", {
+        name: "Not demonstrated (Hold for",
+      }),
+    ).toBeVisible();
+
+    // hold icon by application screening, then flip it to screened in
+    await expect(
+      adminPage.page.getByLabel("Hold for assessment").locator("path"),
+    ).toBeVisible();
+    await adminPage.page
+      .getByRole("button", { name: "Not demonstrated (Hold for" })
+      .click();
+    await adminPage.page
+      .getByLabel("Application screening -")
+      .getByText("Demonstrated", { exact: true })
+      .click();
+    await adminPage.page.getByText("At required level").click();
+    await adminPage.page.getByRole("button", { name: "Save decision" }).click();
+    await expect(
+      adminPage.page.getByRole("button", {
+        name: "Demonstrated At required level",
+      }),
+    ).toBeVisible();
+    await expect(
+      adminPage.page.getByLabel("Screened in").locator("path"),
+    ).toBeVisible();
   });
 
   test("Qualifying candidate", async ({ adminPage }) => {
@@ -223,6 +317,41 @@ test.describe("Pool candidates", () => {
 
     await expect(
       adminPage.page.getByText(/expiry date: 2400-01-01/i),
+    ).toBeVisible();
+  });
+
+  test("Removing and reinstating", async ({ adminPage }) => {
+    await adminPage.page.goto(
+      `/en/admin/candidates/${candidate.id}/application`,
+    );
+    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    await adminPage.page
+      .getByRole("button", { name: "Remove candidate" })
+      .click();
+    await adminPage.page
+      .getByLabel("Candidate has requested to be withdrawn")
+      .click();
+    await adminPage.page
+      .getByRole("button", { name: "Remove candidate and update status" })
+      .click();
+    await expect(
+      adminPage.page.getByRole("button", { name: "Removed", exact: true }),
+    ).toBeVisible();
+    await expect(
+      adminPage.page.getByRole("button", { name: "Record final decision" }),
+    ).toBeHidden();
+    await adminPage.page
+      .getByRole("button", { name: "Removed", exact: true })
+      .click();
+    await expect(
+      adminPage.page.getByText("Candidate has requested to be"),
+    ).toBeVisible();
+    await adminPage.page
+      .getByRole("button", { name: "Reinstate candidate and" })
+      .click();
+    await expect(
+      adminPage.page.getByRole("button", { name: "Record final decision" }),
     ).toBeVisible();
   });
 });
