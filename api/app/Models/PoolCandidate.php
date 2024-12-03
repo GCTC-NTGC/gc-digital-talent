@@ -1176,6 +1176,9 @@ class PoolCandidate extends Model
                 PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name,
                 PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
 
+                PoolCandidateStatus::DRAFT->name,
+                PoolCandidateStatus::DRAFT_EXPIRED->name => 'DRAFT',
+
                 default => null
             };
         }
@@ -1189,13 +1192,18 @@ class PoolCandidate extends Model
             // Giving a decent buffer to increase max steps
             FinalDecision::DISQUALIFIED_PENDING->name => 200,
             FinalDecision::DISQUALIFIED->name => 210,
-            FinalDecision::DISQUALIFIED_REMOVED->name => 215,
+            FinalDecision::DISQUALIFIED_REMOVED->name => 215, // I don't think this can be reached right now.
             FinalDecision::QUALIFIED_REMOVED->name => 220,
             FinalDecision::TO_ASSESS_REMOVED->name => 230,
             FinalDecision::REMOVED->name => 240,
             FinalDecision::QUALIFIED_EXPIRED->name => 250,
+            'DRAFT' => null,
             default => $this->unMatchedDecision($decision)
         };
+
+        if ($decision === 'DRAFT') {
+            $decision = null;
+        }
 
         $assessmentStatus = $this->computed_assessment_status;
         $currentStep = null;
