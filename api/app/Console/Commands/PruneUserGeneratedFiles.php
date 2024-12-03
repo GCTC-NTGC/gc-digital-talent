@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class PruneUserGeneratedFiles extends Command
@@ -27,7 +28,7 @@ class PruneUserGeneratedFiles extends Command
      */
     public function handle()
     {
-        $this->info('Pruning old user generated files');
+        Log::info('Pruning old user generated files');
         $now = Carbon::now();
         $disk = Storage::disk('userGenerated');
         $allDirectories = $disk->allDirectories();
@@ -38,7 +39,7 @@ class PruneUserGeneratedFiles extends Command
                 $hoursOld = $now->diffInHours($lastModified);
                 $shouldDelete = $hoursOld > 24;
                 if ($shouldDelete) {
-                    $this->info("Deleting $file - $hoursOld hours old");
+                    Log::info("Deleting $file - $hoursOld hours old");
                     $disk->delete($file);
                 }
             }
