@@ -254,6 +254,7 @@ export const UpdateClassificationForm = ({
                       "Label displayed for the classification form min salary field.",
                   })}
                   type="number"
+                  min="0"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     min: {
@@ -274,6 +275,7 @@ export const UpdateClassificationForm = ({
                       "Label displayed for the classification form max salary field.",
                   })}
                   type="number"
+                  min="0"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     min: {
