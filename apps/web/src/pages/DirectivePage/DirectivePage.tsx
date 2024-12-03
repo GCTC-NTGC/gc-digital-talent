@@ -22,7 +22,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";

@@ -6,7 +6,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";

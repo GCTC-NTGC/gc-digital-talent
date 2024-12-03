@@ -28,7 +28,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";

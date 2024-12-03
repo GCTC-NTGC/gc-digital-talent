@@ -4,7 +4,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 
 import SearchFormApi from "./components/SearchForm";
