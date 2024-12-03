@@ -15,7 +15,6 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { PageNavInfo } from "~/types/pages";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 
