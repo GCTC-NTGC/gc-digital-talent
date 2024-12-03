@@ -70,6 +70,7 @@ class ApplicantFilter extends Model
         return $this->belongsTo(Community::class);
     }
 
+    /** @return BelongsToMany<WorkStream, $this> */
     public function workStreams(): BelongsToMany
     {
         return $this->belongsToMany(WorkStream::class);
