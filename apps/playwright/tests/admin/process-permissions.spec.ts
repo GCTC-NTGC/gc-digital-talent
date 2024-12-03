@@ -8,9 +8,9 @@ import { createUserWithRoles } from "~/utils/user";
 import { createPool, updatePool } from "~/utils/pools";
 
 test.describe("Process permissions", () => {
-  let associatedSub;
-  let unassociatedSub;
-  let poolName;
+  let associatedSub: string;
+  let unassociatedSub: string;
+  let poolName: string;
   let pool: Pool;
 
   test.beforeAll(async () => {
