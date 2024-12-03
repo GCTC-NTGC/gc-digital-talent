@@ -297,7 +297,7 @@ class PoolFactory extends Factory
     {
         return $this->published()->state(function () {
             return [
-                'publishing_group' => PublishingGroup::IT_JOBS->name
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
             ];
         });
     }
