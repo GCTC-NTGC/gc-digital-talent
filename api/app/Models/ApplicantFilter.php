@@ -40,26 +40,31 @@ class ApplicantFilter extends Model
         'qualified_streams' => 'array',
     ];
 
+    /** @return BelongsToMany<Classification, $this> */
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_classification');
     }
 
+    /** @return BelongsToMany<Classification, $this> */
     public function qualifiedClassifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_qualified_classification');
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'applicant_filter_skill');
     }
 
+    /** @return BelongsToMany<Pool, $this> */
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'applicant_filter_pool');
     }
 
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);

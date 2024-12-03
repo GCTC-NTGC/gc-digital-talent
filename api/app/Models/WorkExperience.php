@@ -55,8 +55,6 @@ class WorkExperience extends Experience
 
     /**
      * Default values for attributes
-     *
-     * @var array an array with attribute as key and default as value
      */
     protected $attributes = [
         'experience_type' => WorkExperience::class,
@@ -86,6 +84,29 @@ class WorkExperience extends Experience
     public function getTitle(?string $lang = 'en'): string
     {
         return sprintf('%s %s %s', $this->role, Lang::get('common.at', [], $lang), $this->organization);
+    }
+
+    // extends dateRange, check if the end date is in the future and append a message if needed
+    public function getDateRangeWithFutureEndDateCheck($lang = 'en'): string
+    {
+        $format = 'MMM Y';
+        $start = $this->start_date->locale($lang)->isoFormat($format);
+        $now = date('Y-m-d');
+
+        if (isset($this->end_date)) {
+            $end = $this->end_date->locale($lang)->isoFormat($format);
+
+            // imprecise comparison, experience dates default to first day of the month
+            if ($this->end_date > $now) {
+                return "$start - $end".' '.Lang::get('common.expected_end_date', [], $lang);
+            }
+
+            return "$start - $end";
+        }
+
+        $end = Lang::get('common.present', [], $lang);
+
+        return "$start - $end";
     }
 
     /**

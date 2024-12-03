@@ -38,6 +38,7 @@ class Classification extends Model
         'name' => 'array',
     ];
 
+    /** @return HasMany<GenericJobTitle, $this> */
     public function genericJobTitles(): HasMany
     {
         return $this->hasMany(GenericJobTitle::class);

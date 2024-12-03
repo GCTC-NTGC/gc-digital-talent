@@ -16,6 +16,7 @@ import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
+import { loginBySub } from "~/utils/auth";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -95,216 +96,208 @@ test.describe("Pool candidates", () => {
     candidate = application;
   });
 
-  test("Snapshot content is rendered", async ({ adminPage }) => {
-    await adminPage.page.goto(
-      `/en/admin/candidates/${candidate.id}/application`,
-    );
-    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+  test("Snapshot content is rendered", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
     // check verification appears
     await expect(
-      adminPage.page
+      appPage.page
         .locator("div")
         .filter({ hasText: /^Priority statusThis claim is unverified\.$/ })
         .getByRole("paragraph"),
     ).toBeVisible();
     await expect(
-      adminPage.page
+      appPage.page
         .locator("div")
         .filter({ hasText: /^Veteran statusThis claim is unverified\.$/ })
         .getByRole("paragraph"),
     ).toBeVisible();
 
     // expand snapshot
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Expand all application" })
       .click();
 
     // personal information
+    await expect(appPage.page.getByText(/Given namePlaywright/i)).toBeVisible();
     await expect(
-      adminPage.page.getByText(/Given namePlaywright/i),
-    ).toBeVisible();
-    await expect(
-      adminPage.page
+      appPage.page
         .getByLabel("Personal and contact")
         .getByText(/playwright.sub./),
     ).toBeVisible();
 
     // education experience
     await expect(
-      adminPage.page.getByText(/Applied work experience/i),
+      appPage.page.getByText(/Applied work experience/i),
     ).toBeVisible();
     await expect(
-      adminPage.page
+      appPage.page
         .getByLabel("Minimum experience or")
         .getByText(/Test Experience/i),
     ).toBeVisible();
 
     // essential skills
     await expect(
-      adminPage.page.getByRole("heading", {
+      appPage.page.getByRole("heading", {
         name: technicalSkill?.name.en ?? "",
         exact: true,
       }),
     ).toBeVisible();
     await expect(
-      adminPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
+      appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
     ).toBeVisible();
 
     // work preferences
     await expect(
-      adminPage.page.getByText(/Indeterminate \(permanent only\)/i),
+      appPage.page.getByText(/Indeterminate \(permanent only\)/i),
     ).toBeVisible();
     await expect(
-      adminPage.page.getByLabel("Work preferences").getByText(/Test city/i),
+      appPage.page.getByLabel("Work preferences").getByText(/Test city/i),
     ).toBeVisible();
 
     // government employee
     await expect(
-      adminPage.page.getByText(/Yes, I do have a priority/i),
+      appPage.page.getByText(/Yes, I do have a priority/i),
     ).toBeVisible();
-    await expect(adminPage.page.getByText("Priority number123")).toBeVisible();
+    await expect(appPage.page.getByText("Priority number123")).toBeVisible();
 
     // signature
-    await expect(
-      adminPage.page.getByText(/Playwright signature/i),
-    ).toBeVisible();
+    await expect(appPage.page.getByText(/Playwright signature/i)).toBeVisible();
 
     // assert experience appears three times, twice in snapshot and once in career timeline
-    await expect(adminPage.page.getByText(/Test experience/i)).toHaveCount(3);
+    await expect(appPage.page.getByText(/Test experience/i)).toHaveCount(3);
   });
 
-  test("Verification and notes mutations", async ({ adminPage }) => {
-    await adminPage.page.goto(
-      `/en/admin/candidates/${candidate.id}/application`,
-    );
-    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+  test("Verification and notes mutations", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
     // priority verification
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Edit Priority status" })
       .click();
-    await adminPage.page.getByLabel("This claim has been verified").click();
-    await adminPage.page.getByPlaceholder("YYYY").fill("2030");
-    await adminPage.page.getByLabel("Month").selectOption("01");
-    await adminPage.page.getByPlaceholder("DD").fill("25");
-    await adminPage.page.getByRole("button", { name: "Save changes" }).click();
+    await appPage.page.getByLabel("This claim has been verified").click();
+    await appPage.page.getByPlaceholder("YYYY").fill("2030");
+    await appPage.page.getByLabel("Month").selectOption("01");
+    await appPage.page.getByPlaceholder("DD").fill("25");
+    await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await expect(
-      adminPage.page.getByText(
+      appPage.page.getByText(
         /This claim has been verified, expires on January 25, 2030/i,
       ),
     ).toBeVisible();
 
     // veteran verification
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Edit Veteran status" })
       .click();
-    await adminPage.page.getByLabel("This claim does not apply to").click();
-    await adminPage.page.getByRole("button", { name: "Save changes" }).click();
+    await appPage.page.getByLabel("This claim does not apply to").click();
+    await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await expect(
-      adminPage.page.getByText(/This claim does not apply to/i),
+      appPage.page.getByText(/This claim does not apply to/i),
     ).toBeVisible();
 
     // notes
-    await adminPage.page.getByRole("button", { name: "Add notes" }).click();
-    await adminPage.page.getByLabel("Notes").fill("Notes notes notes");
-    await adminPage.page.getByRole("button", { name: "Save changes" }).click();
-    await expect(adminPage.page.getByText(/Notes notes notes/i)).toBeVisible();
+    await appPage.page.getByRole("button", { name: "Add notes" }).click();
+    await appPage.page.getByLabel("Notes").fill("Notes notes notes");
+    await appPage.page.getByRole("button", { name: "Save changes" }).click();
+    await expect(appPage.page.getByText(/Notes notes notes/i)).toBeVisible();
   });
 
-  test("Completing an assessment step", async ({ adminPage }) => {
-    await adminPage.page.goto(
-      `/en/admin/candidates/${candidate.id}/application`,
-    );
-    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+  test("Completing an assessment step", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
     // to assess icon by application screening
     await expect(
-      adminPage.page.getByLabel("To assess").locator("path"),
+      appPage.page.getByLabel("To assess").locator("path"),
     ).toBeVisible();
 
     // education result
-    await adminPage.page
+    await appPage.page
       .getByRole("row", { name: "Education requirement To" })
       .getByRole("button")
       .click();
     await expect(
-      adminPage.page.getByText("I meet the applied work"),
+      appPage.page.getByText("I meet the applied work"),
     ).toBeVisible();
     await expect(
-      adminPage.page
+      appPage.page
         .getByLabel("Assess the candidate's")
         .getByText("Test Experience"),
     ).toBeVisible();
-    await adminPage.page.getByText("Demonstrated", { exact: true }).click();
-    await adminPage.page
+    await appPage.page.getByText("Demonstrated", { exact: true }).click();
+    await appPage.page
       .getByText("Work experience equivalency is accepted", { exact: true })
       .click();
-    await adminPage.page.getByRole("button", { name: "Save decision" }).click();
+    await appPage.page.getByRole("button", { name: "Save decision" }).click();
     await expect(
-      adminPage.page
+      appPage.page
         .getByLabel("Assess the candidate's")
         .getByText("Test Experience"),
     ).toBeVisible();
     await expect(
-      adminPage.page.getByText("Demonstrated", { exact: true }),
+      appPage.page.getByText("Demonstrated", { exact: true }),
     ).toBeVisible();
 
     // skill result
-    await adminPage.page
+    await appPage.page
       .getByRole("row", { name: `${technicalSkill?.name?.en}` })
       .getByRole("button")
       .click();
     await expect(
-      adminPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
+      appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
     ).toBeVisible();
-    await adminPage.page.getByText("Not demonstrated (Hold for").click();
-    await adminPage.page.getByLabel("Decision notes *").fill("Reason");
-    await adminPage.page.getByRole("button", { name: "Save decision" }).click();
+    await appPage.page.getByText("Not demonstrated (Hold for").click();
+    await appPage.page.getByLabel("Decision notes *").fill("Reason");
+    await appPage.page.getByRole("button", { name: "Save decision" }).click();
     await expect(
-      adminPage.page.getByRole("button", {
+      appPage.page.getByRole("button", {
         name: "Not demonstrated (Hold for",
       }),
     ).toBeVisible();
 
     // hold icon by application screening, then flip it to screened in
     await expect(
-      adminPage.page.getByLabel("Hold for assessment").locator("path"),
+      appPage.page.getByLabel("Hold for assessment").locator("path"),
     ).toBeVisible();
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Not demonstrated (Hold for" })
       .click();
-    await adminPage.page
+    await appPage.page
       .getByLabel("Application screening -")
       .getByText("Demonstrated", { exact: true })
       .click();
-    await adminPage.page.getByText("At required level").click();
-    await adminPage.page.getByRole("button", { name: "Save decision" }).click();
+    await appPage.page.getByText("At required level").click();
+    await appPage.page.getByRole("button", { name: "Save decision" }).click();
     await expect(
-      adminPage.page.getByRole("button", {
+      appPage.page.getByRole("button", {
         name: "Demonstrated At required level",
       }),
     ).toBeVisible();
     await expect(
-      adminPage.page.getByLabel("Screened in").locator("path"),
+      appPage.page.getByLabel("Screened in").locator("path"),
     ).toBeVisible();
   });
 
-  test("Qualifying candidate", async ({ adminPage }) => {
-    await adminPage.page.goto(
-      `/en/admin/candidates/${candidate.id}/application`,
-    );
-    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+  test("Qualifying candidate", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /record final decision/i })
       .click();
 
-    await adminPage.page
+    await appPage.page
       .getByRole("radio", { name: /^qualify candidate/i })
       .click();
 
-    const expiryDate = adminPage.page.getByRole("group", {
+    const expiryDate = appPage.page.getByRole("group", {
       name: /expiry date/i,
     });
 
@@ -313,45 +306,44 @@ test.describe("Pool candidates", () => {
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
     await expiryDate.getByRole("spinbutton", { name: /day/i }).fill("1");
-    await adminPage.page.getByRole("button", { name: /save changes/i }).click();
+    await appPage.page.getByRole("button", { name: /save changes/i }).click();
 
     await expect(
-      adminPage.page.getByText(/expiry date: 2400-01-01/i),
+      appPage.page.getByText(/expiry date: 2400-01-01/i),
     ).toBeVisible();
   });
 
-  test("Removing and reinstating", async ({ adminPage }) => {
-    await adminPage.page.goto(
-      `/en/admin/candidates/${candidate.id}/application`,
-    );
-    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+  test("Removing and reinstating", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Remove candidate" })
       .click();
-    await adminPage.page
+    await appPage.page
       .getByLabel("Candidate has requested to be withdrawn")
       .click();
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Remove candidate and update status" })
       .click();
     await expect(
-      adminPage.page.getByRole("button", { name: "Removed", exact: true }),
+      appPage.page.getByRole("button", { name: "Removed", exact: true }),
     ).toBeVisible();
     await expect(
-      adminPage.page.getByRole("button", { name: "Record final decision" }),
+      appPage.page.getByRole("button", { name: "Record final decision" }),
     ).toBeHidden();
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Removed", exact: true })
       .click();
     await expect(
-      adminPage.page.getByText("Candidate has requested to be"),
+      appPage.page.getByText("Candidate has requested to be"),
     ).toBeVisible();
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: "Reinstate candidate and" })
       .click();
     await expect(
-      adminPage.page.getByRole("button", { name: "Record final decision" }),
+      appPage.page.getByRole("button", { name: "Record final decision" }),
     ).toBeVisible();
   });
 });
