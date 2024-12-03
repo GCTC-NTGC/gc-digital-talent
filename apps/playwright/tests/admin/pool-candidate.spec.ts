@@ -15,6 +15,7 @@ import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
+import { loginBySub } from "~/utils/auth";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -93,21 +94,20 @@ test.describe("Pool candidates", () => {
     candidate = application;
   });
 
-  test("Qualifying candidate", async ({ adminPage }) => {
-    await adminPage.page.goto(
-      `/en/admin/candidates/${candidate.id}/application`,
-    );
-    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+  test("Qualifying candidate", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /record final decision/i })
       .click();
 
-    await adminPage.page
+    await appPage.page
       .getByRole("radio", { name: /^qualify candidate/i })
       .click();
 
-    const expiryDate = adminPage.page.getByRole("group", {
+    const expiryDate = appPage.page.getByRole("group", {
       name: /expiry date/i,
     });
 
@@ -116,10 +116,10 @@ test.describe("Pool candidates", () => {
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
     await expiryDate.getByRole("spinbutton", { name: /day/i }).fill("1");
-    await adminPage.page.getByRole("button", { name: /save changes/i }).click();
+    await appPage.page.getByRole("button", { name: /save changes/i }).click();
 
     await expect(
-      adminPage.page.getByText(/expiry date: 2400-01-01/i),
+      appPage.page.getByText(/expiry date: 2400-01-01/i),
     ).toBeVisible();
   });
 });

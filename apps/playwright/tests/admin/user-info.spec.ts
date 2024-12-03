@@ -134,8 +134,8 @@ test.describe("User information", () => {
     await assertSuccess(appPage.page);
   });
 
-  test("Platform admin can access", async ({ adminPage }) => {
-    await loginAndVisitUser(adminPage, "admin@test.com", user);
-    await assertSuccess(adminPage.page);
+  test("Platform admin can access", async ({ appPage }) => {
+    await loginAndVisitUser(appPage, "admin@test.com", user);
+    await assertSuccess(appPage.page);
   });
 });
