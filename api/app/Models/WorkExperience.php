@@ -98,6 +98,7 @@ class WorkExperience extends Experience
         if (isset($this->end_date)) {
             $end = $this->end_date->locale($lang)->isoFormat($format);
 
+            // imprecise comparison, experience dates default to first day of the month
             if ($this->end_date > $now) {
                 return "$start - $end".' '.Lang::get('common.expected_end_date', [], $lang);
             }

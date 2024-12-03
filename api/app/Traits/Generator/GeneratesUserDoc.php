@@ -362,13 +362,14 @@ trait GeneratesUserDoc
                 );
             }
             if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
-                $department = Department::findOrFail($experience->department_id);
+                /** @var Department | null $department */
+                $department = Department::find($experience->department_id);
                 $section->addTitle(
                     sprintf(
                         '%s %s %s',
                         $experience->role,
                         Lang::get('common.at', [], $this->lang),
-                        $department->name[$this->lang],
+                        $department ? $department->name[$this->lang] : Lang::get('common.not_found', [], $this->lang),
                     ),
                     $headingRank
                 );
@@ -414,11 +415,12 @@ trait GeneratesUserDoc
                     $experience->gov_employment_type !== WorkExperienceGovEmployeeType::CONTRACTOR->name &&
                     $experience->gov_employment_type !== WorkExperienceGovEmployeeType::STUDENT->name
                 ) {
-                    $classification = Classification::findOrFail($experience->classification_id);
+                    /** @var Classification | null $classification */
+                    $classification = Classification::find($experience->classification_id);
                     $this->addLabelText(
                         $section,
                         $this->localize('experiences.classification'),
-                        $classification->group.'-'.$classification->level
+                        $classification ? $classification->group.'-'.$classification->level : Lang::get('common.not_found', [], $this->lang),
                     );
                 }
             }
