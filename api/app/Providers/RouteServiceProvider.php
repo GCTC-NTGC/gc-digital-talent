@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
 
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(config('app.rate_limit'))->by(
-                $request->user()?->id
+                $request->user()->id
                 ?? $request->cookie('ai_user')
                 ?? $request->ip()
             )->response(function () {
@@ -66,7 +66,7 @@ class RouteServiceProvider extends ServiceProvider
         });
         RateLimiter::for('web', function (Request $request) {
             return Limit::perMinute(config('app.rate_limit'))->by(
-                $request->user()?->id
+                $request->user()->id
                 ?? $request->cookie('ai_user')
                 ?? $request->ip()
             )->response(function () {
@@ -78,7 +78,7 @@ class RouteServiceProvider extends ServiceProvider
         // This limiter is for the throttle directive which can be set independently of the route-based limiters and can raise graphql-style error messages.
         RateLimiter::for('graphql', function (Request $request) {
             return Limit::perMinute(config('app.rate_limit'))->by(
-                $request->user()?->id
+                $request->user()->id
                 ?? $request->cookie('ai_user')
                 ?? $request->ip()
             );

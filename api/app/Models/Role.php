@@ -37,7 +37,7 @@ class Role extends LaratrustRole
 
     public $guarded = [];
 
-    // A relationship to the custom roleAssignments pivot model
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);

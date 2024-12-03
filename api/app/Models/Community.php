@@ -54,32 +54,31 @@ class Community extends Model
         });
     }
 
-    /**
-     * Search requests
-     */
+    /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
-    /**
-     * ApplicationFilters
-     */
+    /** @return HasMany<ApplicantFilter, $this> */
     public function applicantFilters(): HasMany
     {
         return $this->hasMany(ApplicantFilter::class);
     }
 
+    /** @return MorphOne<Team, $this> */
     public function team(): MorphOne
     {
         return $this->morphOne(Team::class, 'teamable');
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }
 
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs

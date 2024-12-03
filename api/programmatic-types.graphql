@@ -89,6 +89,11 @@ type LocalizedCourseLanguage {
   label: LocalizedString!
 }
 
+type LocalizedDeadlineStatus {
+  value: DeadlineStatus!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -146,11 +151,6 @@ type LocalizedGovContractorType {
 
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
-  label: LocalizedString!
-}
-
-type LocalizedGovEmploymentType {
-  value: GovEmploymentType!
   label: LocalizedString!
 }
 
@@ -279,6 +279,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedWorkExperienceGovEmployeeType {
+  value: WorkExperienceGovEmployeeType!
+  label: LocalizedString!
+}
+
 type LocalizedWorkRegion {
   value: WorkRegion!
   label: LocalizedString!
@@ -298,7 +303,7 @@ scalar Boolean
 
 """
 The `Int` scalar type represents non-fractional signed whole numeric
-values. Int can represent values between -(2^31) and 2^31 - 1.
+values. Int can represent values between -(2^31) and 2^31 - 1. 
 """
 scalar Int
 
@@ -772,6 +777,11 @@ enum CourseLanguage {
   BILINGUAL
 }
 
+enum DeadlineStatus {
+  PUBLISHED
+  EXPIRED
+}
+
 enum AdvertisementType {
   INTERNAL
   EXTERNAL
@@ -1058,14 +1068,6 @@ enum GovEmployeeType {
   INDETERMINATE
 }
 
-enum GovEmploymentType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-  CONTRACTOR
-}
-
 enum GovPositionType {
   SUBSTANTIVE
   ACTING
@@ -1274,6 +1276,14 @@ enum SupervisoryStatus {
 enum WhenSkillUsed {
   CURRENT
   PAST
+}
+
+enum WorkExperienceGovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+  CONTRACTOR
 }
 
 enum WorkRegion {

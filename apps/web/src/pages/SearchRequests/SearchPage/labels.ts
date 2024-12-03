@@ -47,6 +47,21 @@ export const classificationLabels: Record<string, MessageDescriptor> =
       id: "46pgKa",
       description: "PM-04 classification label including titles",
     },
+    "PM-05": {
+      defaultMessage: "PM-05: Senior Analyst",
+      id: "sapiL3",
+      description: "PM-05 classification label including titles",
+    },
+    "PM-06": {
+      defaultMessage: "PM-06: Manager",
+      id: "s+m6Sr",
+      description: "PM-06 classification label including titles",
+    },
+    "CR-04": {
+      defaultMessage: "CR-04: Clerk",
+      id: "i7nfvV",
+      description: "CR-04 classification label including titles",
+    },
   });
 
 export const classificationAriaLabels: Record<string, MessageDescriptor> =
@@ -95,5 +110,20 @@ export const classificationAriaLabels: Record<string, MessageDescriptor> =
       defaultMessage: "Analyst P M 4",
       id: "g54x1Z",
       description: "PM-04 classification aria label including titles",
+    },
+    "PM-05": {
+      defaultMessage: "Senior Analyst P M 5",
+      id: "SM7PIR",
+      description: "PM-05 classification aria label including titles",
+    },
+    "PM-06": {
+      defaultMessage: "Manager P M 6",
+      id: "AH2U9S",
+      description: "PM-06 classification aria label including titles",
+    },
+    "CR-04": {
+      defaultMessage: "Clerk C R 4",
+      id: "UA37iG",
+      description: "CR-04 classification aria label including titles",
     },
   });

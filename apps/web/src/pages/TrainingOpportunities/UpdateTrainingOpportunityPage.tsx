@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -84,8 +84,8 @@ const UpdateTrainingOpportunityForm = ({
     return handleUpdateTrainingOpportunity(
       convertFormValuesToUpdateInput(trainingOpportunityId, formValues),
     )
-      .then(() => {
-        navigate(paths.trainingOpportunityView(trainingOpportunityId));
+      .then(async () => {
+        await navigate(paths.trainingOpportunityView(trainingOpportunityId));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Training opportunity updated successfully!",

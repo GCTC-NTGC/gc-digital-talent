@@ -1,6 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -62,12 +62,7 @@ export const SkillFamilyTable = ({
       {
         id: "description",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Description",
-          id: "XSo129",
-          description:
-            "Title displayed for the Skill Family table Description column.",
-        }),
+        header: intl.formatMessage(commonMessages.description),
       },
     ),
   ] as ColumnDef<SkillFamily>[];
@@ -90,6 +85,7 @@ export const SkillFamilyTable = ({
       }}
       sort={{
         internal: true,
+        initialState: [{ id: "name", desc: false }],
       }}
       search={{
         internal: true,
@@ -99,10 +95,10 @@ export const SkillFamilyTable = ({
         linkProps: {
           href: paths.skillFamilyCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Skill Family",
-            id: "TRqbR/",
+            defaultMessage: "Create skill family",
+            id: "oDDr9J",
             description:
-              "Heading displayed above the Create Skill Family form.",
+              "Heading displayed above the Create Skill family form.",
           }),
           from: currentUrl,
         },
@@ -110,8 +106,8 @@ export const SkillFamilyTable = ({
       nullMessage={{
         description: intl.formatMessage({
           defaultMessage:
-            'Use the "Create Skill Family" button to get started.',
-          id: "zp1ShM",
+            'Use the "Create skill family" button to get started.',
+          id: "4ujx9e",
           description: "Instructions for adding a skill family item.",
         }),
       }}

@@ -87,7 +87,7 @@ export default defineConfig(({ command }) => ({
           framer: ["framer-motion"],
           graphql: ["@gc-digital-talent/graphql"],
           react: ["react", "react-dom"],
-          router: ["react-router", "react-router-dom"],
+          router: ["react-router", "react-router"],
           tiptap: [
             "@tiptap/react",
             "@tiptap/starter-kit",

@@ -6,7 +6,7 @@ import {
 } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
 import {
   Dialog,

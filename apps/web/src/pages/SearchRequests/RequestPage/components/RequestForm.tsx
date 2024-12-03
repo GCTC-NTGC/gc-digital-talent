@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -356,10 +356,10 @@ export const RequestForm = ({
       initialResultCount: candidateCount,
     };
     return handleCreatePoolCandidateSearchRequest(submitData)
-      .then((res) => {
+      .then(async (res) => {
         if (res) {
           removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
-          navigate(paths.requestConfirmation(res.id));
+          await navigate(paths.requestConfirmation(res.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Request created successfully!",

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -218,9 +218,9 @@ export const UpdateSkillFamily = ({
         skills: skillsInput,
       }),
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.updateSkillFamily) {
-          navigate(paths.skillFamilyView(skillFamily.id));
+          await navigate(paths.skillFamilyView(skillFamily.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Skill family updated successfully!",
@@ -397,8 +397,8 @@ const UpdateSkillFamilyPage = () => {
           <p>
             {intl.formatMessage(
               {
-                defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                id: "ZWnKEJ",
+                defaultMessage: "Skill family {skillFamilyId} not found.",
+                id: "asjJwj",
                 description: "Message displayed for skillFamily not found.",
               },
               { skillFamilyId },

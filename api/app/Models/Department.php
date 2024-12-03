@@ -35,14 +35,13 @@ class Department extends Model
         'name' => 'array',
     ];
 
-    /**
-     * Model relations
-     */
+    /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
+    /** @return BelongsToMany<Team, $this> */
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class, 'team_department');
@@ -68,10 +67,8 @@ class Department extends Model
         return $query;
     }
 
-    /**
-     * Get the pools for the department.
-     */
-    public function pools()
+    /** @return HasMany<Pool, $this> */
+    public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }

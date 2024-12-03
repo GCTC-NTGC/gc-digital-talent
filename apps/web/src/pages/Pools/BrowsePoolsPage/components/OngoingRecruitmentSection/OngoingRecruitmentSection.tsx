@@ -1,6 +1,6 @@
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import { Fragment, ReactNode, useEffect, useState } from "react";

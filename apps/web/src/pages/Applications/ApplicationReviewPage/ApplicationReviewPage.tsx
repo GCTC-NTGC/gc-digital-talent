@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
@@ -123,7 +123,7 @@ const ApplicationReview = ({
       id: application.id,
       signature: formValues.signature,
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -133,7 +133,7 @@ const ApplicationReview = ({
                 "Success message after submission for the application review page.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {

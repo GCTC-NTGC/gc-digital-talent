@@ -179,11 +179,13 @@ class Pool extends Model
         return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
     }
 
+    /** @return BelongsTo<Team, $this> */
     public function legacyTeam(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id');
     }
 
+    /** @return MorphOne<Team, $this> */
     public function team(): MorphOne
     {
         return $this->morphOne(Team::class, 'teamable');
@@ -191,17 +193,21 @@ class Pool extends Model
 
     /**
      * Get the department that owns the pool.
+     *
+     * @return BelongsTo<Department, $this>
      */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
     }
 
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs
@@ -209,26 +215,31 @@ class Pool extends Model
         return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
 
+    /** @return BelongsTo<Classification, $this> */
     public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class);
     }
 
+    /** @return HasMany<PoolCandidate, $this> */
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
     }
 
+    /** @return HasMany<PoolCandidate, $this> */
     public function publishedPoolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->notDraft();
     }
 
+    /** @return BelongsTo<WorkStream, $this> */
     public function workStream(): BelongsTo
     {
         return $this->belongsTo(WorkStream::class);
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function essentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'pool_skill')
@@ -237,6 +248,7 @@ class Pool extends Model
             ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function nonessentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'pool_skill')
@@ -245,11 +257,13 @@ class Pool extends Model
             ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
+    /** @return HasMany<PoolSkill, $this> */
     public function poolSkills(): HasMany
     {
         return $this->hasMany(PoolSkill::class);
     }
 
+    /** @return HasMany<AssessmentStep, $this> */
     public function assessmentSteps(): HasMany
     {
         return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
@@ -329,11 +343,13 @@ class Pool extends Model
         $screeningStep->poolSkills()->sync($technicalSkills);
     }
 
+    /** @returns HasMany<GeneralQuestion, $this> */
     public function generalQuestions(): HasMany
     {
         return $this->hasMany(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);
     }
 
+    /** @returns HasMany<ScreeningQuestion, $this> */
     public function screeningQuestions(): HasMany
     {
         return $this->hasMany(ScreeningQuestion::class);

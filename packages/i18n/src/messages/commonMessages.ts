@@ -299,6 +299,11 @@ const commonMessages = defineMessages({
     id: "k3i6lU",
     description: "Legend for a language input or title",
   },
+  description: {
+    defaultMessage: "Description",
+    id: "i+8teP",
+    description: "Title for description",
+  },
 });
 
 export default commonMessages;
