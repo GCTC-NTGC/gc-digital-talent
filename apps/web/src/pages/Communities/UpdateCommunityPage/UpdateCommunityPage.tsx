@@ -121,8 +121,8 @@ const CommunityForm = ({
 
   const handleSave = async (formValues: FormValues) => {
     return onUpdate(formValuesToApiData(formValues))
-      .then(() => {
-        navigate(paths.communityView(community.id));
+      .then(async () => {
+        await navigate(paths.communityView(community.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Community updated successfully!",

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -45,8 +45,8 @@ export const CreateDepartmentForm = ({
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
-      .then((id) => {
-        navigate(paths.departmentView(id));
+      .then(async (id) => {
+        await navigate(paths.departmentView(id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department created successfully!",

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";

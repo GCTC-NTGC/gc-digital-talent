@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useIntl } from "react-intl";
 
 import { useLogger } from "@gc-digital-talent/logger";

@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { createIntl, createIntlCache, useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 
 import {

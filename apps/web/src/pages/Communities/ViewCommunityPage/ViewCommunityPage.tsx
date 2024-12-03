@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {

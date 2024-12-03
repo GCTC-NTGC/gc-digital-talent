@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
@@ -465,14 +461,14 @@ const GettingStarted = () => {
   useEffect(() => {
     if (shouldNavigate) {
       if (verifyEmail) {
-        navigate({
+        void navigate({
           pathname: paths.emailVerification(),
           search: from
             ? createSearchParams({ from, emailAddress: email }).toString()
             : "",
         });
       } else {
-        navigate({
+        void navigate({
           pathname: paths.employeeInformation(),
           search: from ? createSearchParams({ from }).toString() : "",
         });

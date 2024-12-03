@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import {
   ApplicantFilterInput,

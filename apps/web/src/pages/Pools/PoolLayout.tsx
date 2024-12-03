@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { OperationContext, useQuery } from "urql";
 import isString from "lodash/isString";
 

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -72,7 +72,7 @@ const EditExperienceForm = ({
     const args = getMutationArgs(experience?.id || "", submitData);
     if (executeMutation) {
       executeMutation(args)
-        .then((res) => {
+        .then(async (res) => {
           if (res.error) {
             toast.error(
               intl.formatMessage({
@@ -91,7 +91,7 @@ const EditExperienceForm = ({
                   "Success message displayed after updating an experience",
               }),
             );
-            navigate(returnPath);
+            await navigate(returnPath);
           }
         })
         .catch(() => {
@@ -112,8 +112,8 @@ const EditExperienceForm = ({
       executeDeletionMutation({
         id: experience.id,
       })
-        .then((result) => {
-          navigate(returnPath);
+        .then(async (result) => {
+          await navigate(returnPath);
           toast.success(
             intl.formatMessage({
               defaultMessage: "Experience Deleted",
