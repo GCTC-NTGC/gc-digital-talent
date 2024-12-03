@@ -35,7 +35,7 @@ class WorkStream extends Model
         'community_id',
     ];
 
-    /** @return BelongsTo<Classification, $this> */
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
