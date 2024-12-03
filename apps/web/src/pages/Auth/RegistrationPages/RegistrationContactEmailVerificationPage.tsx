@@ -49,7 +49,6 @@ const RegistrationContactEmailVerificationPage = () => {
       title={intl.formatMessage(messages.title)}
       subtitle={intl.formatMessage(messages.subtitle)}
       crumbs={crumbs}
-      simpleCrumbs
     >
       <div
         data-h2-padding="base(x2) "
