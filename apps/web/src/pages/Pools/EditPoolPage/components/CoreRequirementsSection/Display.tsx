@@ -2,23 +2,26 @@ import { useIntl } from "react-intl";
 
 import {
   commonMessages,
-  getLanguageRequirement,
-  getSecurityClearance,
   getLocale,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { EditPoolCoreRequirementsFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
 
-const Display = ({ pool, subtitle }: DisplayProps) => {
+const Display = ({
+  pool,
+  subtitle,
+}: DisplayProps<EditPoolCoreRequirementsFragment>) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { language, securityClearance, location, isRemote } = pool;
 
-  const hasLocation = !!(isRemote || (location && location[locale]));
+  const hasLocation = isRemote || (!!location?.en && !!location?.fr);
 
   return (
     <>
@@ -26,7 +29,7 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
-        {...(location && location[locale]
+        {...(location?.[locale]
           ? {
               "data-h2-grid-template-columns":
                 "p-tablet(repeat(2, 1fr)) l-tablet(repeat(4, 1fr))",
@@ -40,17 +43,13 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
           hasError={!language}
           label={intl.formatMessage(processMessages.languageRequirement)}
         >
-          {language
-            ? intl.formatMessage(getLanguageRequirement(language))
-            : notProvided}
+          {getLocalizedName(language?.label, intl)}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!securityClearance}
           label={intl.formatMessage(processMessages.securityRequirement)}
         >
-          {securityClearance
-            ? intl.formatMessage(getSecurityClearance(securityClearance))
-            : notProvided}
+          {getLocalizedName(securityClearance?.label, intl)}
         </ToggleForm.FieldDisplay>
         {isRemote ? (
           <ToggleForm.FieldDisplay
@@ -70,13 +69,13 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
               hasError={!hasLocation}
               label={intl.formatMessage(processMessages.locationEn)}
             >
-              {location?.en || notProvided}
+              {location?.en ?? notProvided}
             </ToggleForm.FieldDisplay>
             <ToggleForm.FieldDisplay
               hasError={!hasLocation}
               label={intl.formatMessage(processMessages.locationFr)}
             >
-              {location?.fr || notProvided}
+              {location?.fr ?? notProvided}
             </ToggleForm.FieldDisplay>
           </>
         )}

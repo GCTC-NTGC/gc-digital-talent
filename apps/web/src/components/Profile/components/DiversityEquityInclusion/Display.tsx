@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import {
   commonMessages,
   getEmploymentEquityStatement,
-  getIndigenousCommunity,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -26,11 +26,13 @@ const Display = ({
   const intl = useIntl();
   const nonLegacyIndigenousCommunities =
     unpackMaybes(indigenousCommunities).filter(
-      (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+      (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
   const isIndigenous =
     indigenousCommunities && indigenousCommunities.length > 0;
   const hasClaimedEquityGroup =
+    // Note, we only care about one truthy value so nullish coalescing is inappropriate here.
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     isWoman || hasDisability || isVisibleMinority || isIndigenous;
 
   return hasClaimedEquityGroup ? (
@@ -57,17 +59,13 @@ const Display = ({
                 ? nonLegacyIndigenousCommunities.map((community) => {
                     return (
                       <li
-                        key={community}
+                        key={community.value}
                         data-h2-display="base(flex)"
                         data-h2-align-items="base(center)"
                         data-h2-gap="base(0, x.25)"
                       >
-                        <CommunityIcon community={community} />
-                        <span>
-                          {intl.formatMessage(
-                            getIndigenousCommunity(community),
-                          )}
-                        </span>
+                        <CommunityIcon community={community.value} />
+                        <span>{getLocalizedName(community.label, intl)}</span>
                       </li>
                     );
                   })

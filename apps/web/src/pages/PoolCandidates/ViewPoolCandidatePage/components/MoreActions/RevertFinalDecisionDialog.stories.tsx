@@ -1,6 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
   PoolCandidateStatus,
@@ -13,11 +16,17 @@ import RevertFinalDecisionDialog, {
 
 const fakedCandidate = fakePoolCandidates(1)[0];
 const qualifiedData = makeFragmentData(
-  { ...fakedCandidate, status: PoolCandidateStatus.QualifiedAvailable },
+  {
+    ...fakedCandidate,
+    status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
+  },
   RevertFinalDecisionDialog_Fragment,
 );
 const disqualifiedData = makeFragmentData(
-  { ...fakedCandidate, status: PoolCandidateStatus.ScreenedOutAssessment },
+  {
+    ...fakedCandidate,
+    status: toLocalizedEnum(PoolCandidateStatus.ScreenedOutAssessment),
+  },
   RevertFinalDecisionDialog_Fragment,
 );
 

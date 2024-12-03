@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $pool_candidate_id
  * @property string $screening_question_id
  * @property string $answer
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class ScreeningQuestionResponse extends Model
 {
@@ -25,15 +25,11 @@ class ScreeningQuestionResponse extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [];
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'pool_candidate_id',
@@ -41,11 +37,13 @@ class ScreeningQuestionResponse extends Model
         'answer',
     ];
 
+    /** @return BelongsTo<PoolCandidate, $this> */
     public function poolCandidate(): BelongsTo
     {
         return $this->belongsTo(PoolCandidate::class);
     }
 
+    /** @return BelongsTo<ScreeningQuestion, $this> */
     public function screeningQuestion(): BelongsTo
     {
         return $this->belongsTo(ScreeningQuestion::class);

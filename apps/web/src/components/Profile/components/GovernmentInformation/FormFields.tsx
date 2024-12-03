@@ -8,16 +8,11 @@ import {
   Input,
   RadioGroup,
   Select,
-  enumToOptions,
+  localizedEnumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  getGovEmployeeType,
-  uiMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { errorMessages, uiMessages, getLocale } from "@gc-digital-talent/i18n";
+import { notEmpty, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
   GovEmployeeType,
@@ -27,6 +22,7 @@ import {
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { getGroupOptions, getLevelOptions } from "./utils";
+import { FormValues } from "./types";
 
 const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
@@ -63,17 +59,33 @@ export const GovernmentInfoClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const GovernmentInfoEmployeeTypes_Fragment = graphql(/* GraphQL */ `
+  fragment GovernmentInfoEmployeeTypes on Query {
+    employeeTypes: localizedEnumStrings(enumName: "GovEmployeeType") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface FormFieldsProps {
   departmentsQuery: FragmentType<typeof GovernmentInfoDepartment_Fragment>[];
   classificationsQuery: FragmentType<
     typeof GovernmentInfoClassification_Fragment
   >[];
+  employeeTypesQuery?: FragmentType<
+    typeof GovernmentInfoEmployeeTypes_Fragment
+  >;
   labels: FieldLabels;
 }
 
 const FormFields = ({
   departmentsQuery,
   classificationsQuery,
+  employeeTypesQuery,
   labels,
 }: FormFieldsProps) => {
   const intl = useIntl();
@@ -86,8 +98,12 @@ const FormFields = ({
     GovernmentInfoClassification_Fragment,
     classificationsQuery,
   );
+  const employeeTypesData = getFragment(
+    GovernmentInfoEmployeeTypes_Fragment,
+    employeeTypesQuery,
+  );
   useDirtyFields("government");
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
     watch([
@@ -112,7 +128,7 @@ const FormFields = ({
    * to avoid confusing users about unsaved changes
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, {
         keepDirty: false,
       });
@@ -202,10 +218,10 @@ const FormFields = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            items={enumToOptions(GovEmployeeType).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getGovEmployeeType(value)),
-            }))}
+            items={localizedEnumToOptions(
+              employeeTypesData?.employeeTypes,
+              intl,
+            )}
           />
         </>
       )}
@@ -261,6 +277,26 @@ const FormFields = ({
             )}
           </div>
         </>
+      )}
+      {isGovEmployee && (
+        <Input
+          id="workEmail"
+          name="workEmail"
+          type="email"
+          label={labels.workEmail}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            pattern: {
+              value: workEmailDomainRegex,
+              message: intl.formatMessage({
+                defaultMessage:
+                  "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
+                id: "BLOt/e",
+                description: "Description for rule pattern on work email field",
+              }),
+            },
+          }}
+        />
       )}
       <RadioGroup
         idPrefix="priorityEntitlementYesNo"

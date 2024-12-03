@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
@@ -48,9 +48,9 @@ const Application_SubmitMutation = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   signature: string;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -90,7 +90,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationReviewProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiences: ExperienceForDate[];
 }
 
 const ApplicationReview = ({
@@ -123,7 +123,7 @@ const ApplicationReview = ({
       id: application.id,
       signature: formValues.signature,
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -133,7 +133,7 @@ const ApplicationReview = ({
                 "Success message after submission for the application review page.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {
@@ -172,13 +172,13 @@ const ApplicationReview = ({
   const allSkills = poolSkillsToSkills(application.pool.poolSkills);
 
   const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
+    application.pool.screeningQuestions?.filter(notEmpty) ?? [];
   const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+    application.screeningQuestionResponses?.filter(notEmpty) ?? [];
   const generalQuestions =
-    application.pool.generalQuestions?.filter(notEmpty) || [];
+    application.pool.generalQuestions?.filter(notEmpty) ?? [];
   const generalQuestionResponses =
-    application.generalQuestionResponses?.filter(notEmpty) || [];
+    application.generalQuestionResponses?.filter(notEmpty) ?? [];
 
   const classificationGroup = application.pool.classification?.group;
   return (
@@ -616,7 +616,9 @@ const ApplicationReview = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application?.pool ? (
     <ApplicationReview application={application} experiences={experiences} />

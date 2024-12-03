@@ -15,10 +15,10 @@ import { SubExperienceFormProps } from "~/types/experience";
 const WorkFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
-  // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "currentRole" });
+  // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
+  const isCurrent = useWatch<{ currentRole: string }>({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const startDate = useWatch({ name: "startDate" });
+  const startDate = useWatch<{ startDate: string }>({ name: "startDate" });
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">

@@ -21,6 +21,11 @@ const messages = defineMessages({
     id: "kvpRgN",
     description: "Title for classifications",
   },
+  department: {
+    defaultMessage: "Department",
+    id: "9aW0M6",
+    description: "Title for department",
+  },
   departments: {
     defaultMessage: "Departments",
     id: "+d/NdU",
@@ -45,6 +50,11 @@ const messages = defineMessages({
     defaultMessage: "Team",
     id: "kKSGje",
     description: "Title for team",
+  },
+  community: {
+    defaultMessage: "Community",
+    id: "LOjdrP",
+    description: "Title for community",
   },
   pools: {
     defaultMessage: "Pools",
@@ -164,6 +174,45 @@ const messages = defineMessages({
     defaultMessage: "Assessment plan",
     id: "fkYYe3",
     description: "Title for the assessment plan builder",
+  },
+  groupAndLevel: {
+    defaultMessage: "Group and level",
+    id: "Rn5e/i",
+    description: "Title for group and level on summary of filters section",
+  },
+  key: {
+    defaultMessage: "Key",
+    id: "ae3u1t",
+    description: "Title for key field",
+  },
+  rolesAdded: {
+    defaultMessage: "Role(s) added successfully",
+    id: "/17wgm",
+    description:
+      "Message displayed to user when one or more roles have been added to a user",
+  },
+  rolesUpdated: {
+    defaultMessage: "Member roles updated successfully",
+    id: "ALIgEC",
+    description:
+      "Alert displayed to user when a team member's roles have been updated",
+  },
+  rolesUpdateFailed: {
+    defaultMessage: "Member role update failed",
+    id: "Ly2bBb",
+    description:
+      "Alert displayed to user when an error occurs while editing a team member's roles",
+  },
+  roleRemoved: {
+    defaultMessage: "Role removed successfully",
+    id: "XcS2q2",
+    description:
+      "Message displayed to user when a role has been removed from a user",
+  },
+  searchByKeyword: {
+    defaultMessage: "Search by keyword",
+    id: "dotl8X",
+    description: "Label for keyword search input",
   },
 });
 

@@ -14,7 +14,10 @@ import {
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getLocalizedEnumStringByValue,
+} from "@gc-digital-talent/i18n";
 import {
   PoolSkillType,
   FragmentType,
@@ -27,44 +30,55 @@ import { categorizeSkill, filterPoolSkillsByType } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
 
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
-import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
+import { getQualifiedRecruitmentInfo } from "./utils";
 
 export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentCard on PoolCandidate {
     ...RecruitmentAvailabilityDialog
     id
-    status
-    suspendedAt
-    pool {
-      id
-      stream
-      publishingGroup
-      name {
+    status {
+      value
+      label {
         en
         fr
       }
-      classification {
-        id
-        group
-        level
+    }
+    suspendedAt
+    pool {
+      id
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
       }
-      team {
+      department {
         id
-        name
-        departments {
-          id
-          departmentNumber
-          name {
-            en
-            fr
-          }
+        departmentNumber
+        name {
+          en
+          fr
         }
       }
       poolSkills {
         id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
         skill {
           id
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           key
           name {
             en
@@ -76,19 +90,41 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const QualifiedRecruitmentCardCategories_Fragment = graphql(
+  /* GraphQL */ `
+    fragment QualifiedRequirementCardCategories on Query {
+      categories: localizedEnumStrings(enumName: "SkillCategory") {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+  `,
+);
+
 export interface QualifiedRecruitmentCardProps {
   candidateQuery: FragmentType<typeof QualifiedRecruitmentCard_Fragment>;
+  categoriesQuery?: FragmentType<
+    typeof QualifiedRecruitmentCardCategories_Fragment
+  >;
   headingLevel?: HeadingRank;
 }
 
 const QualifiedRecruitmentCard = ({
   candidateQuery,
+  categoriesQuery,
   headingLevel = "h2",
 }: QualifiedRecruitmentCardProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const categoryData = getFragment(
+    QualifiedRecruitmentCardCategories_Fragment,
+    categoriesQuery,
+  );
   const candidate = getFragment(
     QualifiedRecruitmentCard_Fragment,
     candidateQuery,
@@ -99,10 +135,7 @@ const QualifiedRecruitmentCard = ({
     availability: { icon: AvailabilityIcon, ...availability },
   } = getQualifiedRecruitmentInfo(candidate, intl);
 
-  const departments = joinDepartments(
-    candidate.pool?.team?.departments ?? [],
-    intl,
-  );
+  const department = getLocalizedName(candidate.pool?.department?.name, intl);
 
   // NOTE: Until we store assessed skills, we will just be displayed all essential skills
   const essentialSkills = filterPoolSkillsByType(
@@ -147,7 +180,7 @@ const QualifiedRecruitmentCard = ({
         data-h2-color="base(secondary.darker)"
         data-h2-margin="base(x.25 0 x1 0)"
       >
-        {getRecruitmentType(candidate.pool.publishingGroup, intl)}
+        {getRecruitmentType(candidate.pool.publishingGroup?.value, intl)}
       </p>
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
@@ -222,13 +255,13 @@ const QualifiedRecruitmentCard = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "The following skills were assessed by {departments}",
-                id: "VwVXYb",
+                  "The following skills were assessed by {department}",
+                id: "hgRyDs",
                 description:
                   "Lead in text describing the skills assessed for a qualified recruitment",
               },
               {
-                departments,
+                department,
               },
             )}
           </Heading>
@@ -242,8 +275,10 @@ const QualifiedRecruitmentCard = ({
                 data-h2-font-weight="base(700)"
                 color="secondary"
               >
-                {intl.formatMessage(
-                  getSkillCategory(SkillCategory.Behavioural),
+                {getLocalizedEnumStringByValue(
+                  SkillCategory.Behavioural,
+                  categoryData?.categories,
+                  intl,
                 )}
               </Heading>
               <ul
@@ -267,7 +302,11 @@ const QualifiedRecruitmentCard = ({
                 data-h2-font-weight="base(700)"
                 color="secondary"
               >
-                {intl.formatMessage(getSkillCategory(SkillCategory.Technical))}
+                {getLocalizedEnumStringByValue(
+                  SkillCategory.Technical,
+                  categoryData?.categories,
+                  intl,
+                )}
               </Heading>
               <ul
                 data-h2-display="base(grid)"
@@ -328,8 +367,8 @@ const QualifiedRecruitmentCard = ({
             color="black"
             fontSize="caption"
             icon={linkCopied ? CheckIcon : undefined}
-            onClick={() => {
-              navigator.clipboard.writeText(candidate.id);
+            onClick={async () => {
+              await navigator.clipboard.writeText(candidate.id);
               setLinkCopied(true);
             }}
             aria-label={intl.formatMessage(

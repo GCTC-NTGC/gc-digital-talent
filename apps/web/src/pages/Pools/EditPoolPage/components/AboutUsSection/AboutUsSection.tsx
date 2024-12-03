@@ -33,11 +33,17 @@ import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "../UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
 
-export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
+const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolAboutUs on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     aboutUs {
       en
       fr
@@ -45,10 +51,10 @@ export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   aboutUsEn?: LocalizedString["en"];
   aboutUsFr?: LocalizedString["fr"];
-};
+}
 
 export type AboutUsSubmitData = Pick<UpdatePoolInput, "aboutUs">;
 
@@ -70,7 +76,7 @@ const AboutUsSection = ({
   const intl = useIntl();
   const pool = getFragment(EditPoolAboutUs_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
-  const canEdit = useCanUserEditPool(pool.status);
+  const canEdit = useCanUserEditPool(pool.status?.value);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -180,7 +186,7 @@ const AboutUsSection = ({
               </div>
 
               <ActionWrapper>
-                {canEdit && pool.status === PoolStatus.Draft && (
+                {canEdit && pool.status?.value === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -193,7 +199,7 @@ const AboutUsSection = ({
                     isSubmitting={isSubmitting}
                   />
                 )}{" "}
-                {canEdit && pool.status === PoolStatus.Published && (
+                {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}
                     onUpdatePublished={handleUpdatePublished}

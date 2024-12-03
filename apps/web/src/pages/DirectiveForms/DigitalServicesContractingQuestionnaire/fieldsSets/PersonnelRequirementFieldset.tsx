@@ -16,6 +16,7 @@ import {
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   Skill,
+  SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 
@@ -38,10 +39,10 @@ import {
 import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
 
-export type PersonnelRequirementFieldsetProps = {
+export interface PersonnelRequirementFieldsetProps {
   fieldsetName: string;
-  skills: Array<Skill>;
-};
+  skills: Skill[];
+}
 
 const PersonnelRequirementFieldset = ({
   fieldsetName,
@@ -58,9 +59,9 @@ const PersonnelRequirementFieldset = ({
       `${fieldsetName}.skillRequirements`,
       `${fieldsetName}.language`,
       `${fieldsetName}.security`,
-    ]);
+    ]) as [unknown, unknown, unknown];
 
-  const selectedSkillRequirements: Array<SkillRequirementFormValues> =
+  const selectedSkillRequirements: SkillRequirementFormValues[] =
     Array.isArray(selectedSkillRequirementsUntyped) &&
     selectedSkillRequirementsUntyped.every((e) =>
       isSkillRequirementFormValues(e),
@@ -101,7 +102,7 @@ const PersonnelRequirementFieldset = ({
       ]);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const handleSkillDialogEdit = (
@@ -116,7 +117,7 @@ const PersonnelRequirementFieldset = ({
       setValue(`${fieldsetName}.skillRequirements.${index}`, newEntry);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const removeSkill = (skillId: string) => {
@@ -169,7 +170,10 @@ const PersonnelRequirementFieldset = ({
           ? selectedSkillModel?.families[0]
           : null;
         const skillLevel = selectedSkillModel
-          ? getSkillLevelName(requirement.level, selectedSkillModel.category)
+          ? getSkillLevelName(
+              requirement.level,
+              selectedSkillModel.category.value ?? SkillCategory.Technical,
+            )
           : commonMessages.notFound;
         const skillName = getLocalizedName(selectedSkillModel?.name, intl);
         return (
@@ -224,7 +228,9 @@ const PersonnelRequirementFieldset = ({
                   initialState={{
                     skill: requirement.skillId,
                     skillLevel: stringToEnum(SkillLevel, requirement.level),
-                    category: selectedSkillModel?.category,
+                    category:
+                      selectedSkillModel?.category.value ??
+                      SkillCategory.Technical,
                     family: selectedSkillFamilyModel?.id,
                   }}
                 />

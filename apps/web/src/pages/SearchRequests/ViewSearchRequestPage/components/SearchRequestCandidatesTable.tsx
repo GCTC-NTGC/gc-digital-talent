@@ -15,6 +15,10 @@ import {
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
 } from "@gc-digital-talent/graphql";
+import {
+  localizedEnumArrayToInput,
+  localizedEnumToInput,
+} from "@gc-digital-talent/i18n";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import adminMessages from "~/messages/adminMessages";
@@ -59,13 +63,14 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   const mapping: MappingType = {
     equity: omitIdAndTypename,
     hasDiploma: identity,
-    languageAbility: identity,
-    locationPreferences: identity,
-    operationalRequirements: identity,
+    languageAbility: localizedEnumToInput,
+    locationPreferences: localizedEnumArrayToInput,
+    operationalRequirements: localizedEnumArrayToInput,
     pools: (pools) => pools?.filter(notEmpty).map(pickId),
     skills: (skills) => skills?.filter(notEmpty).map(pickId),
     positionDuration: identity,
-    qualifiedStreams: identity,
+    qualifiedStreams: localizedEnumArrayToInput,
+    community: (community) => (community ? pickId(community) : undefined),
   };
 
   const emptyFilter: ApplicantFilterInput = {};
@@ -79,9 +84,9 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
         // There should be way to get the types to work without using "any", but I'm having trouble.
         // I think its safe to fallback on any here because mapping has just been defined, and we can be confident that key and transform line up correctly.
 
-        // eslint-disable-next-line no-param-reassign
+        // eslint-disable-next-line no-param-reassign, @typescript-eslint/no-unsafe-assignment
         applicantFilterInput[typedKey] = transform(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
           applicantFilter[typedKey] as any,
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ) as any;

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -23,7 +23,20 @@ import { PublishedEditableSectionProps } from "../../types";
 const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment UpdatePublishedProcessDialog on Pool {
     id
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     name {
       en
       fr
@@ -48,9 +61,14 @@ const UpdatePublishedProcessDialog = ({
   poolQuery,
 }: UpdatePublishedProcessDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const pool = getFragment(UpdatePublishedProcessDialog_Fragment, poolQuery);
-  const title = getShortPoolTitleHtml(intl, pool);
+  const title = getShortPoolTitleHtml(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -64,8 +82,8 @@ const UpdatePublishedProcessDialog = ({
     });
   };
 
-  const handleSave = () => {
-    methods.handleSubmit(handleUpdate)();
+  const handleSave = async () => {
+    await methods.handleSubmit(handleUpdate)();
   };
 
   const label = intl.formatMessage({

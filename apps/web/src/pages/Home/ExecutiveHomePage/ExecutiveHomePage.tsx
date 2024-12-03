@@ -19,7 +19,7 @@ import { ExecutiveHomePageQuery, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import HomeHero from "~/components/Hero/HomeHero";
+import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -159,7 +159,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         data-h2-position="base(relative)"
         data-h2-z-index="base(3)"
       >
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
           <Heading
             level="h2"
             size="h3"
@@ -300,8 +300,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
         >
           {intl.formatMessage({
             defaultMessage:
-              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job now or just thinking about the future, a strong profile is your path to new opportunities.",
-            id: "naE1xF",
+              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",
+            id: "JEKihk",
             description:
               "Description of how application profiles works for managers/executives.",
           })}
@@ -502,7 +502,13 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
   query ExecutiveHomePage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      publishingGroup
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
       ...PoolCard
     }
   }
@@ -518,7 +524,10 @@ export const Component = () => {
 
   const filteredPools =
     data?.publishedPools.filter(
-      (pool) => typeof pool !== `undefined` && !!pool && isExecPool(pool),
+      (pool) =>
+        typeof pool !== `undefined` &&
+        !!pool &&
+        isExecPool(pool.publishingGroup?.value),
     ) ?? [];
 
   return (

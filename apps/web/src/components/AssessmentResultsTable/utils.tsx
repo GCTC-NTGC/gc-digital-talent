@@ -7,18 +7,15 @@ import { IntlShape } from "react-intl";
 
 import {
   AssessmentDecision,
-  AssessmentResult,
+  AssessmentResultStatus,
   AssessmentStep,
   AssessmentStepType,
+  Maybe,
 } from "@gc-digital-talent/graphql";
-import {
-  getAssessmentDecision,
-  getAssessmentStepType,
-  commonMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import { getResultsDecision } from "~/utils/poolCandidate";
 import { NO_DECISION } from "~/utils/assessmentResults";
 
 import {
@@ -109,13 +106,13 @@ export const columnHeader = (
 };
 
 export const columnStatus = (
-  assessmentStep: AssessmentStep,
-  assessmentResults?: AssessmentResult[],
+  assessmentStep: Pick<AssessmentStep, "id">,
+  assessmentStatus?: Maybe<AssessmentResultStatus>,
 ): ColumnStatus => {
-  const assessmentDecisionResult = getResultsDecision(
-    assessmentStep,
-    assessmentResults,
-  );
+  const assessmentDecisionResult =
+    assessmentStatus?.assessmentStepStatuses?.find(
+      (stepStatus) => stepStatus?.step === assessmentStep.id,
+    )?.decision ?? NO_DECISION;
 
   switch (assessmentDecisionResult) {
     case AssessmentDecision.Unsuccessful:
@@ -151,19 +148,19 @@ const columnHelper = createColumnHelper<AssessmentTableRow>();
 export const buildColumn = ({
   id,
   poolCandidate,
+  experiences,
   assessmentStep,
   intl,
   header,
 }: AssessmentTableRowColumnProps): AssessmentTableRowColumn => {
   return columnHelper.accessor(
     ({ assessmentResults }) => {
-      const assessmentResult = assessmentResults.find(
+      const assessmentResult = unpackMaybes(assessmentResults).find(
         (ar) => ar.assessmentStep?.id === assessmentStep.id,
       );
-      return intl.formatMessage(
-        assessmentResult?.assessmentDecision
-          ? getAssessmentDecision(assessmentResult?.assessmentDecision)
-          : commonMessages.notFound,
+      return getLocalizedName(
+        assessmentResult?.assessmentDecision?.label,
+        intl,
       );
     },
     {
@@ -176,20 +173,51 @@ export const buildColumn = ({
       }) => {
         // Check if the pool skill (row) is associated with the assessment step (column)
         const isEducationRequirement =
-          assessmentStep.type === AssessmentStepType.ApplicationScreening &&
+          assessmentStep.type?.value ===
+            AssessmentStepType.ApplicationScreening &&
           (poolSkill === undefined || poolSkill === null);
 
         // Check if an assessmentResult already exists on the assessment step, if show update dialog
         // Additionally, checks if it's the  education requirement cell
-        const assessmentResult = assessmentResults.find(
+        const assessmentResult = unpackMaybes(assessmentResults).find(
           (ar) => ar.assessmentStep?.id === assessmentStep.id,
         );
         if (assessmentResult || isEducationRequirement) {
           return cells.jsx(
             <Dialog
-              assessmentStep={assessmentStep}
-              assessmentResult={assessmentResult}
-              poolCandidate={poolCandidate}
+              assessmentStep={{
+                id: assessmentStep.id,
+                type: assessmentStep.type,
+                title: assessmentStep.title,
+              }}
+              assessmentResult={
+                assessmentResult
+                  ? {
+                      id: assessmentResult.id,
+                      poolSkill: assessmentResult.poolSkill,
+                      justifications: assessmentResult.justifications,
+                      assessmentDecision: assessmentResult.assessmentDecision,
+                      assessmentDecisionLevel:
+                        assessmentResult.assessmentDecisionLevel,
+                      skillDecisionNotes: assessmentResult.skillDecisionNotes,
+                    }
+                  : null
+              }
+              experiences={experiences}
+              poolCandidate={{
+                id: poolCandidate.id,
+                profileSnapshot: String(poolCandidate.profileSnapshot),
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
+                educationRequirementOption:
+                  poolCandidate.educationRequirementOption,
+                educationRequirementExperiences:
+                  poolCandidate.educationRequirementExperiences,
+                pool: {
+                  classification: poolCandidate.pool.classification,
+                  publishingGroup: poolCandidate.pool.publishingGroup,
+                },
+              }}
               educationRequirement={isEducationRequirement}
             />,
           );
@@ -199,15 +227,32 @@ export const buildColumn = ({
         const hasPoolSkill = assessmentStep.poolSkills?.find(
           (ps) => ps?.id === poolSkill?.id,
         );
+
         if (hasPoolSkill) {
           return cells.jsx(
             <Dialog
-              assessmentStep={assessmentStep}
-              poolCandidate={poolCandidate}
+              assessmentStep={{
+                id: assessmentStep.id,
+                type: assessmentStep.type,
+                title: assessmentStep.title,
+              }}
+              assessmentResult={assessmentResult} // always undefined
+              experiences={experiences}
+              poolCandidate={{
+                id: poolCandidate.id,
+                profileSnapshot: String(poolCandidate.profileSnapshot),
+                screeningQuestionResponses:
+                  poolCandidate.screeningQuestionResponses,
+                pool: {
+                  classification: poolCandidate.pool.classification,
+                  publishingGroup: poolCandidate.pool.publishingGroup,
+                },
+              }}
               poolSkillToAssess={poolSkill}
             />,
           );
         }
+
         return (
           <span data-h2-visually-hidden="l-tablet(invisible)">
             {intl.formatMessage(commonMessages.notApplicable)}
@@ -215,12 +260,8 @@ export const buildColumn = ({
         );
       },
       meta: {
-        mobileHeader: intl.formatMessage(
-          getAssessmentStepType(assessmentStep.type ?? "unknownType"),
-        ),
-        columnDialogHeader: intl.formatMessage(
-          getAssessmentStepType(assessmentStep.type ?? "unknownType"),
-        ),
+        mobileHeader: getLocalizedName(assessmentStep.type?.label, intl),
+        columnDialogHeader: getLocalizedName(assessmentStep.type?.label, intl),
       },
     },
   ) as AssessmentTableRowColumn;

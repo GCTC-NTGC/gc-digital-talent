@@ -1,23 +1,35 @@
-import { JSX } from "react";
+import { JSX, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import { useQuery } from "urql";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
-  getPublishingGroup,
   uiMessages,
+  sortOpportunityLength,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
 import {
-  PublishingGroup,
+  CheckboxOption,
+  Checklist,
+  Input,
+  RadioGroup,
+  Select,
+  Submit,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
+import {
   PoolStatus,
   FragmentType,
   getFragment,
   graphql,
+  PoolSelectionLimitation,
+  PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   isInNullState,
@@ -35,8 +47,7 @@ import {
   dataToFormValues,
   formValuesToSubmitData,
   getClassificationOptions,
-  getOpportunityLengthOptions,
-  getStreamOptions,
+  getDepartmentOptions,
 } from "./utils";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
@@ -44,19 +55,65 @@ import ActionWrapper from "../ActionWrapper";
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     processNumber
-    publishingGroup
-    opportunityLength
-    stream
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    opportunityLength {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     classification {
       id
       group
       level
     }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     name {
       en
       fr
+    }
+    areaOfSelection {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    selectionLimitations {
+      value
+      label {
+        en
+        fr
+      }
     }
   }
 `);
@@ -73,20 +130,79 @@ export const PoolClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment PoolDepartment on Department {
+    id
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+const PoolNameOptions_Query = graphql(/* GraphQL */ `
+  query PoolNameOptions {
+    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    opportunityLengths: localizedEnumStrings(
+      enumName: "PoolOpportunityLength"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    allPoolAreaOfSelections: localizedEnumStrings(
+      enumName: "PoolAreaOfSelection"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    allPoolSelectionLimitations: localizedEnumStrings(
+      enumName: "PoolSelectionLimitation"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 type PoolNameSectionProps = SectionProps<
   PoolNameSubmitData,
   FragmentType<typeof EditPoolName_Fragment>
 > & {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
+  departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
 };
 
 const PoolNameSection = ({
   poolQuery,
   classificationsQuery,
+  departmentsQuery,
   sectionMetadata,
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
+  const [{ data }] = useQuery({ query: PoolNameOptions_Query });
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
@@ -100,11 +216,31 @@ const PoolNameSection = ({
     PoolClassification_Fragment,
     classificationsQuery,
   );
+  const departments = getFragment(PoolDepartment_Fragment, departmentsQuery);
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch, resetField } = methods;
+
+  // hooks to watch, needed for conditional rendering
+  const [selectedAreaOfSelection] = watch(["areaOfSelection"]);
+  const isAreaOfSelectionEmployeesOnly =
+    selectedAreaOfSelection === PoolAreaOfSelection.Employees;
+
+  /**
+   * Reset un-rendered fields
+   */
+  useEffect(() => {
+    const resetDirtyField = (name: keyof FormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+
+    // Reset all optional fields
+    if (!isAreaOfSelectionEmployeesOnly) {
+      resetDirtyField("selectionLimitations");
+    }
+  }, [resetField, isAreaOfSelectionEmployeesOnly]);
 
   const handleSave = async (formValues: FormValues) => {
     return onSave(formValuesToSubmitData(formValues))
@@ -117,8 +253,39 @@ const PoolNameSection = ({
       .catch(() => methods.reset(formValues));
   };
 
+  const allPoolSelectionLimitations = unpackMaybes(
+    data?.allPoolSelectionLimitations,
+  );
+
+  const poolSelectionLimitationsCaptions: Record<
+    PoolSelectionLimitation,
+    string
+  > = {
+    AT_LEVEL_ONLY: intl.formatMessage({
+      defaultMessage:
+        "This will indicate to applicants that only at-level or equivalent level employees will be considered for this opportunity.",
+      id: "p+rROQ",
+      description: "Caption for the at-level-only selection limitation",
+    }),
+    DEPARTMENTAL_PREFERENCE: intl.formatMessage({
+      defaultMessage:
+        "This will indicate to applicants that people employed by the departments linked to this opportunity will be given preference during selection.",
+      id: "js5ZcB",
+      description:
+        "Caption for the departmental-preference selection limitation",
+    }),
+  };
+
+  const allPoolSelectionLimitationItems =
+    allPoolSelectionLimitations.map<CheckboxOption>(({ value, label }) => ({
+      value: value,
+      label: getLocalizedName(label, intl),
+      contentBelow:
+        poolSelectionLimitationsCaptions[value as PoolSelectionLimitation],
+    }));
+
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -151,7 +318,14 @@ const PoolNameSection = ({
       <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
+          {isNull ? (
+            <ToggleForm.NullDisplay />
+          ) : (
+            <Display
+              pool={pool}
+              allPoolSelectionLimitations={allPoolSelectionLimitations}
+            />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
@@ -162,6 +336,36 @@ const PoolNameSection = ({
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
                 data-h2-margin-bottom="base(x1)"
               >
+                <div data-h2-grid-column="l-tablet(1 / span 2)">
+                  <RadioGroup
+                    id="areaOfSelection"
+                    idPrefix="areaOfSelection"
+                    legend={intl.formatMessage(processMessages.areaOfSelection)}
+                    name="areaOfSelection"
+                    disabled={formDisabled}
+                    items={localizedEnumToOptions(
+                      data?.allPoolAreaOfSelections,
+                      intl,
+                      [
+                        PoolAreaOfSelection.Public,
+                        PoolAreaOfSelection.Employees,
+                      ],
+                    )}
+                  />
+                </div>
+                {isAreaOfSelectionEmployeesOnly && (
+                  <div data-h2-grid-column="l-tablet(1 / span 2)">
+                    <Checklist
+                      id="selectionLimitations"
+                      idPrefix="selectionLimitations"
+                      name="selectionLimitations"
+                      legend={intl.formatMessage(
+                        processMessages.selectionLimitations,
+                      )}
+                      items={allPoolSelectionLimitationItems}
+                    />
+                  </div>
+                )}
                 <Select
                   id="classification"
                   label={intl.formatMessage({
@@ -189,7 +393,7 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={getStreamOptions(intl)}
+                  options={localizedEnumToOptions(data?.streams, intl)}
                   disabled={formDisabled}
                 />
                 <Input
@@ -223,13 +427,26 @@ const PoolNameSection = ({
                 data-h2-margin-bottom="base(x1)"
               >
                 <Select
+                  id="department"
+                  label={intl.formatMessage(commonMessages.department)}
+                  name="department"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
+                  options={getDepartmentOptions(departments, intl)}
+                  disabled={formDisabled}
+                />
+                <Select
                   id="opportunityLength"
                   name="opportunityLength"
                   label={intl.formatMessage(processMessages.opportunityLength)}
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={getOpportunityLengthOptions(intl)}
+                  options={localizedEnumToOptions(
+                    sortOpportunityLength(data?.opportunityLengths),
+                    intl,
+                  )}
                   disabled={formDisabled}
                   doNotSort
                 />
@@ -260,16 +477,7 @@ const PoolNameSection = ({
                     id: "Y0WLp5",
                     description: "Placeholder for publishing group field",
                   })}
-                  options={enumToOptions(PublishingGroup).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getPublishingGroup(value)),
-                    ariaLabel: intl
-                      .formatMessage(getPublishingGroup(value))
-                      .replace(
-                        intl.locale === "en" ? "IT" : "TI",
-                        intl.locale === "en" ? "I T" : "T I",
-                      ),
-                  }))}
+                  options={localizedEnumToOptions(data?.publishingGroups, intl)}
                   disabled={formDisabled}
                 />
               </div>

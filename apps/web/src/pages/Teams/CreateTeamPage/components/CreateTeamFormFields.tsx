@@ -4,22 +4,28 @@ import { useFormContext } from "react-hook-form";
 import kebabCase from "lodash/kebabCase";
 
 import { Input, Combobox, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Maybe, Department } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
+import { FormValues } from "./types";
+
 const TEXT_AREA_ROWS = 4;
 const TEXT_AREA_MAX_WORDS = 200;
 
 interface CreateTeamFormFieldsProps {
-  departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
+  departments?: Maybe<Maybe<Omit<Department, "teams">>[]>;
 }
 
 const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
   const intl = useIntl();
-  const { setValue, getValues } = useFormContext();
+  const { setValue, getValues } = useFormContext<FormValues>();
 
   const departmentOptions =
     departments?.filter(notEmpty).map((department) => ({
@@ -94,11 +100,7 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
           type="email"
           id="contactEmail"
           name="contactEmail"
-          label={intl.formatMessage({
-            defaultMessage: "Contact email",
-            id: "PhrOLp",
-            description: "Label for the French team display name input",
-          })}
+          label={intl.formatMessage(commonMessages.email)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

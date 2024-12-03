@@ -11,16 +11,10 @@ import {
   Locales,
   commonMessages,
   getLocalizedName,
-  getPoolStatus,
-  getPoolStream,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
@@ -29,8 +23,8 @@ import {
   Maybe,
   Classification,
   Pool,
-  PoolStream,
-  PoolOpportunityLength,
+  LocalizedPoolStream,
+  LocalizedPoolStatus,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -41,24 +35,7 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
-
-/**
- * Check if a pool matches a
- * classification
- *
- * @param pool
- * @param classification
- * @returns boolean
- */
-export const poolMatchesClassification = (
-  pool: Pool,
-  classification: Classification,
-): boolean => {
-  return (
-    pool.classification?.group === classification?.group &&
-    pool.classification?.level === classification?.level
-  );
-};
+import nodeToString from "./nodeToString";
 
 /**
  * Determine if the advertisement can be
@@ -78,6 +55,9 @@ export const isAdvertisementVisible = (
   const allowedRoles: RoleName[] = [
     ROLE_NAME.PlatformAdmin,
     ROLE_NAME.PoolOperator,
+    ROLE_NAME.ProcessOperator,
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.CommunityAdmin,
   ];
   return (
     roleAssignments.filter(notEmpty).some((assignment) => {
@@ -89,12 +69,12 @@ export const isAdvertisementVisible = (
   );
 };
 
-export function isIAPPool(pool: Maybe<Pool>): boolean {
-  return pool?.publishingGroup === PublishingGroup.Iap;
+export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+  return publishingGroup === PublishingGroup.Iap;
 }
 
-export function isExecPool(pool: Maybe<Pool>): boolean {
-  return pool?.publishingGroup === PublishingGroup.ExecutiveJobs;
+export function isExecPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+  return publishingGroup === PublishingGroup.ExecutiveJobs;
 }
 
 interface formatClassificationStringProps {
@@ -110,8 +90,8 @@ export const formatClassificationString = ({
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
-  classification: Maybe<Classification> | undefined;
-  stream?: Maybe<PoolStream>;
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
+  stream?: Maybe<LocalizedPoolStream>;
   short?: boolean;
   intl: IntlShape;
 }
@@ -126,12 +106,10 @@ export const formattedPoolPosterTitle = ({
   html: ReactNode;
   label: string;
 } => {
-  const streamString = stream
-    ? `${intl.formatMessage(getPoolStream(stream))}`
-    : "";
+  const streamString = stream ? getLocalizedName(stream.label, intl) : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
-    : null ?? "";
+    : "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -149,17 +127,17 @@ export const formattedPoolPosterTitle = ({
             {intl.formatMessage(commonMessages.dividingColon)}
           </>
         ) : null}
-        {title || ""}
+        {title ?? ""}
       </>
     ) : (
       <>
-        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
+        {title ?? ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
     label: short
-      ? `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim()
-      : `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
+      ? `${hasGroupAndLevel ? genericTitle : ""}${title ?? ""}`.trim()
+      : `${title ?? ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 
@@ -168,9 +146,15 @@ interface PoolTitleOptions {
   short?: boolean;
 }
 
+type PoolTitle = Maybe<
+  Pick<Pool, "name" | "publishingGroup" | "stream"> & {
+    classification?: Maybe<Pick<Classification, "group" | "level">>;
+  }
+>;
+
 export const poolTitle = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: PoolTitleOptions,
 ): { html: ReactNode; label: string } => {
   const fallbackTitle =
@@ -185,12 +169,12 @@ export const poolTitle = (
   if (pool === null || pool === undefined)
     return {
       html: fallbackTitle,
-      label: fallbackTitle.toString(),
+      label: nodeToString(fallbackTitle),
     };
 
   const specificTitle = getLocalizedName(pool?.name, intl);
 
-  if (isIAPPool(pool)) {
+  if (isIAPPool(pool.publishingGroup?.value)) {
     return {
       html: specificTitle,
       label: specificTitle,
@@ -213,19 +197,19 @@ export const poolTitle = (
 
 export const getFullPoolTitleHtml = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): string => poolTitle(intl, pool, options).label;
 
 export const getShortPoolTitleHtml = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): ReactNode =>
   poolTitle(intl, pool, {
@@ -235,7 +219,7 @@ export const getShortPoolTitleHtml = (
 
 export const getShortPoolTitleLabel = (
   intl: IntlShape,
-  pool: Maybe<Pool>,
+  pool: PoolTitle,
   options?: { defaultTitle?: string },
 ): string =>
   poolTitle(intl, pool, {
@@ -243,9 +227,17 @@ export const getShortPoolTitleLabel = (
     short: true,
   }).label;
 
-export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
+export const useAdminPoolPages = (
+  intl: IntlShape,
+  pool: Pick<Pool, "id"> & PoolTitle,
+) => {
   const paths = useRoutes();
-  const poolName = getFullPoolTitleLabel(intl, pool);
+  const poolName = getFullPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
 
   return new Map<PageNavKeys, PageNavInfo>([
     [
@@ -372,6 +364,19 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
         },
       },
     ],
+    [
+      "manage-access",
+      {
+        title: intl.formatMessage({
+          defaultMessage: "Manage access",
+          id: "J0i4xY",
+          description: "Title for members page",
+        }),
+        link: {
+          url: paths.poolManageAccess(pool.id),
+        },
+      },
+    ],
   ]);
 };
 
@@ -390,11 +395,11 @@ export const getAdvertisementStatus = (
   return pool.isComplete ? "complete" : "incomplete";
 };
 
-type StatusBadge = {
+interface StatusBadge {
   color: Color;
-  label: MessageDescriptor;
+  label?: MessageDescriptor | string;
   icon?: IconType;
-};
+}
 
 const defaultCompleteness: StatusBadge = {
   color: "error",
@@ -426,15 +431,16 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status?: Maybe<PoolStatus>,
+  status: Maybe<LocalizedPoolStatus> | undefined,
+  intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {
     color: "black",
-    label: getPoolStatus(status ?? PoolStatus.Draft),
+    label: getLocalizedName(status?.label, intl),
     icon: LockClosedIcon,
   };
 
-  if (status === PoolStatus.Draft) {
+  if (status?.value === PoolStatus.Draft) {
     return {
       ...statusBadge,
       color: "warning",
@@ -442,9 +448,9 @@ export const getProcessStatusBadge = (
     };
   }
 
-  if (status === PoolStatus.Published) {
+  if (status?.value === PoolStatus.Published) {
     return {
-      label: poolMessages.open,
+      label: intl.formatMessage(poolMessages.open),
       color: "primary",
       icon: RocketLaunchIcon,
     };
@@ -454,7 +460,7 @@ export const getProcessStatusBadge = (
 };
 
 export function getClassificationName(
-  { group, level, name }: Classification,
+  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) {
   const groupLevelStr = `${group}-0${level}`;
@@ -467,36 +473,9 @@ export function getClassificationName(
   return `${groupLevelStr} (${nameStr})`;
 }
 
-type FormattedClosingDates = {
-  local?: string;
-  pacific?: string;
-};
-
-export const formatClosingDate = (
-  closingDate: Pool["closingDate"],
-  intl: IntlShape,
-): FormattedClosingDates => {
-  if (closingDate) {
-    const closingDateObject = parseDateTimeUtc(closingDate);
-    return {
-      local: relativeClosingDate({
-        closingDate: closingDateObject,
-        intl,
-      }),
-      pacific: relativeClosingDate({
-        closingDate: closingDateObject,
-        intl,
-        timeZone: "Canada/Pacific",
-      }),
-    };
-  }
-
-  return {};
-};
-
 export const getClassificationSalaryRangeUrl = (
   locale: Locales,
-  classification?: Maybe<Classification>,
+  classification?: Maybe<Pick<Classification, "group">>,
 ): string | null => {
   let localizedUrl: Record<Locales, string> | null = null;
   switch (classification?.group) {
@@ -520,6 +499,12 @@ export const getClassificationSalaryRangeUrl = (
         fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
       };
       break;
+    case "CR":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
+      };
+      break;
     default:
       break;
   }
@@ -528,11 +513,3 @@ export const getClassificationSalaryRangeUrl = (
 
   return null;
 };
-
-export const sortedOpportunityLengths = [
-  PoolOpportunityLength.TermSixMonths,
-  PoolOpportunityLength.TermOneYear,
-  PoolOpportunityLength.TermTwoYears,
-  PoolOpportunityLength.Indeterminate,
-  PoolOpportunityLength.Various,
-];

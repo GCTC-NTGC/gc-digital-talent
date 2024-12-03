@@ -9,8 +9,6 @@ final class RevertFinalDecision
 {
     /**
      * Reverting the qualify or disqualify candidate operations
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
@@ -19,6 +17,7 @@ final class RevertFinalDecision
         $candidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $candidate->expiry_date = null;
         $candidate->final_decision_at = null;
+
         $candidate->save();
 
         return $candidate;

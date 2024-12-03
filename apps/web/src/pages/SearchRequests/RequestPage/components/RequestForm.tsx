@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -11,11 +11,15 @@ import {
   Select,
   Submit,
   TextArea,
-  enumToOptions,
+  localizedEnumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
-import { errorMessages, getSearchRequestReason } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  enumInputToLocalizedEnum,
+  sortPoolCandidateSearchRequestReason,
+} from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -35,7 +39,6 @@ import {
   ApplicantFilter,
   ApplicantFilterInput,
   PoolCandidateSearchPositionType,
-  PoolCandidateSearchRequestReason,
   type RequestForm_CreateRequestMutation as CreateRequestMutation,
   graphql,
   FragmentType,
@@ -50,6 +53,7 @@ import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -57,7 +61,7 @@ const directiveLink = (chunks: ReactNode, href: string) => (
   </Link>
 );
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
-type FormValues = {
+interface FormValues {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
   email?: CreatePoolCandidateSearchRequestInput["email"];
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
@@ -68,24 +72,24 @@ type FormValues = {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
-      sync?: Array<Maybe<Classification["id"]>>;
+      sync?: Maybe<Classification["id"]>[];
     };
     qualifiedStreams?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
-      sync?: Array<Maybe<Skill["id"]>>;
+      sync?: Maybe<Skill["id"]>[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: Array<Maybe<OperationalRequirement>>;
+    operationalRequirements?: Maybe<OperationalRequirement>[];
     pools?: {
-      sync?: Array<Maybe<Pool["id"]>>;
+      sync?: Maybe<Pool["id"]>[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
   };
   department?: DepartmentBelongsTo["connect"];
-};
+}
 
 export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormClassification on Classification {
@@ -106,7 +110,7 @@ export const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
+const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormCommunity on Community {
     id
     key
@@ -127,7 +131,57 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        stream
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
+const RequestOptions_Query = graphql(/* GraphQL */ `
+  query RequestOptions {
+    requestReasons: localizedEnumStrings(
+      enumName: "PoolCandidateSearchRequestReason"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    operationalRequirements: localizedEnumStrings(
+      enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
       }
     }
   }
@@ -143,7 +197,7 @@ export interface RequestFormProps {
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
@@ -165,6 +219,9 @@ export const RequestForm = ({
   const cacheKey = "ts-createRequest";
   const location = useLocation();
   const state = location.state as BrowserHistoryState;
+  const [{ data: optionsData }] = useQuery({
+    query: RequestOptions_Query,
+  });
   const [{ data: poolsData }] = useQuery({
     query: PoolsInFilter_Query,
     variables: {
@@ -200,9 +257,9 @@ export const RequestForm = ({
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
     const qualifiedStreams = applicantFilter?.qualifiedStreams;
-    let community = communities.find((c) => c.key === "digital");
+    let community = communities?.find((c) => c.key === "digital");
     if (qualifiedStreams?.includes(PoolStream.AccessInformationPrivacy)) {
-      community = communities.find((c) => c.key === "atip");
+      community = communities?.find((c) => c.key === "atip");
     }
 
     return {
@@ -220,10 +277,9 @@ export const RequestForm = ({
       },
       applicantFilter: {
         create: {
-          positionDuration:
-            applicantFilter && applicantFilter.positionDuration
-              ? applicantFilter.positionDuration
-              : null,
+          positionDuration: applicantFilter?.positionDuration
+            ? applicantFilter.positionDuration
+            : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,
@@ -282,11 +338,15 @@ export const RequestForm = ({
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
-      .then((res) => {
+    const submitData: CreatePoolCandidateSearchRequestInput = {
+      ...formValuesToSubmitData(data),
+      initialResultCount: candidateCount,
+    };
+    return handleCreatePoolCandidateSearchRequest(submitData)
+      .then(async (res) => {
         if (res) {
           removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
-          navigate(paths.requestConfirmation(res.id));
+          await navigate(paths.requestConfirmation(res.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Request created successfully!",
@@ -309,6 +369,28 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
+    languageAbility: enumInputToLocalizedEnum(
+      applicantFilter?.languageAbility,
+      optionsData?.languageAbilities,
+    ),
+    locationPreferences: unpackMaybes(
+      applicantFilter?.locationPreferences?.map((workRegion) =>
+        enumInputToLocalizedEnum(workRegion, optionsData?.workRegions),
+      ),
+    ),
+    operationalRequirements: unpackMaybes(
+      applicantFilter?.operationalRequirements?.map((requirement) =>
+        enumInputToLocalizedEnum(
+          requirement,
+          optionsData?.operationalRequirements,
+        ),
+      ),
+    ),
+    qualifiedStreams: unpackMaybes(
+      applicantFilter?.qualifiedStreams?.map((stream) =>
+        enumInputToLocalizedEnum(stream, optionsData?.streams),
+      ),
+    ),
     qualifiedClassifications:
       applicantFilter?.qualifiedClassifications
         ?.map((qualifiedClassification) => {
@@ -329,7 +411,9 @@ export const RequestForm = ({
         })
         .filter(notEmpty) ?? [],
     pools: unpackMaybes(poolsData?.poolsPaginated.data),
-    community: communities.find((c) => c.id === applicantFilter?.community?.id),
+    community: communities?.find(
+      (c) => c.id === applicantFilter?.community?.id,
+    ),
   };
 
   return (
@@ -378,8 +462,8 @@ export const RequestForm = ({
                 id="department"
                 name="department"
                 label={intl.formatMessage({
-                  defaultMessage: "Department / Hiring Organization",
-                  id: "UUIb3j",
+                  defaultMessage: "Department / Hiring organization",
+                  id: "P7ItrT",
                   description:
                     "Label for department select input in the request form",
                 })}
@@ -465,15 +549,10 @@ export const RequestForm = ({
                 "Legend for the options related to the reason for submitting a request.",
             })}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-            items={enumToOptions(PoolCandidateSearchRequestReason, [
-              PoolCandidateSearchRequestReason.ImmediateHire,
-              PoolCandidateSearchRequestReason.UpcomingNeed,
-              PoolCandidateSearchRequestReason.GeneralInterest,
-              PoolCandidateSearchRequestReason.UpcomingNeed,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getSearchRequestReason(value)),
-            }))}
+            items={localizedEnumToOptions(
+              sortPoolCandidateSearchRequestReason(optionsData?.requestReasons),
+              intl,
+            )}
           />
           <p data-h2-margin="base(x1 0)">
             {intl.formatMessage(
@@ -515,12 +594,9 @@ export const RequestForm = ({
                     description:
                       "Label for input asking whether a job opportunity will have supervising duties.",
                   })}
-                  label={intl.formatMessage({
-                    defaultMessage: "Yes, this is a supervisory position",
-                    id: "mrMxsI",
-                    description:
-                      "Checkbox selection that confirms a job opportunity will have supervising duties. ",
-                  })}
+                  label={intl.formatMessage(
+                    talentRequestMessages.supervisoryPositionYes,
+                  )}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -564,12 +640,9 @@ export const RequestForm = ({
             <TextArea
               id="additionalComments"
               name="additionalComments"
-              label={intl.formatMessage({
-                defaultMessage: "Additional Comments",
-                id: "FC5tje",
-                description:
-                  "Label for additional comments textarea in the request form.",
-              })}
+              label={intl.formatMessage(
+                talentRequestMessages.additionalComments,
+              )}
               rows={8}
             />
           </div>
@@ -600,7 +673,7 @@ export const RequestForm = ({
                   "Total estimated candidates message in summary of filters",
               },
               {
-                candidateCountNumber: candidateCount || 0,
+                candidateCountNumber: candidateCount ?? 0,
               },
             )}
           </p>
@@ -613,8 +686,8 @@ export const RequestForm = ({
           >
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Submit Request",
-                id: "eTTlR0",
+                defaultMessage: "Submit request",
+                id: "4CLNTw",
                 description: "Submit button text on request form.",
               })}
             />
@@ -675,7 +748,13 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     classifications {
       ...RequestFormClassification
@@ -695,14 +774,14 @@ const RequestFormApi = ({
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Classification>[];
+  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: RequestForm_SearchRequestDataQuery,
   });
 
-  const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
+  const skills: Skill[] = unpackMaybes(lookupData?.skills);
 
   const [, executeMutation] = useMutation(RequestForm_CreateRequestMutation);
   const handleCreatePoolCandidateSearchRequest = (
@@ -712,7 +791,7 @@ const RequestFormApi = ({
       if (result.data?.createPoolCandidateSearchRequest) {
         return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   return (

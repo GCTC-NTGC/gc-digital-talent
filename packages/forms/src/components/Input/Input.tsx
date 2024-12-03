@@ -1,6 +1,5 @@
 import { FocusEvent } from "react";
-import get from "lodash/get";
-import { FieldError, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -16,7 +15,7 @@ import { sanitizeString } from "../../utils";
 export type InputProps = HTMLInputProps &
   CommonInputProps & {
     /** Set the type of the input. */
-    type: "text" | "number" | "email" | "tel" | "password" | "search";
+    type: "text" | "number" | "email" | "tel" | "password" | "search" | "url";
     // Whether to trim leading/ending whitespace upon blurring of an input, default on
     whitespaceTrim?: boolean;
     maxLength?: number;
@@ -42,17 +41,16 @@ const Input = ({
     setValue,
     formState: { errors },
   } = useFormContext();
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
   const baseStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
+  const isInvalid = fieldState === "invalid";
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
-      error,
+      error: isInvalid,
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -77,7 +75,7 @@ const Input = ({
         type={type}
         aria-describedby={ariaDescribedBy}
         aria-required={!!rules.required}
-        aria-invalid={!!error}
+        aria-invalid={isInvalid}
         {...baseStyles}
         {...stateStyles}
         {...register(name, {
@@ -98,11 +96,7 @@ const Input = ({
           : {})}
         {...rest}
       />
-      <Field.Descriptions
-        ids={descriptionIds}
-        error={error}
-        context={context}
-      />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

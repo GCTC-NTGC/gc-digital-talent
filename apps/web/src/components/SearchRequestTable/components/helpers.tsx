@@ -1,24 +1,20 @@
 import { IntlShape } from "react-intl";
 
 import { Link, Chip, Spoiler, Chips } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getPoolCandidateSearchStatus,
-} from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Classification,
   Maybe,
   PoolCandidateSearchRequest,
-  PoolCandidateSearchStatus,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]> | undefined,
+  classifications:
+    | Maybe<Maybe<Pick<Classification, "group" | "level">>[]>
+    | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -27,7 +23,9 @@ export function classificationAccessor(
 }
 
 export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
+  classifications:
+    | Maybe<Maybe<Pick<Classification, "group" | "level">>[] | undefined>
+    | undefined,
   intl: IntlShape,
 ) {
   const filteredClassifications = classifications
@@ -50,23 +48,8 @@ export function classificationsCell(
   );
 }
 
-export function dateCell(
-  date: Maybe<Scalars["DateTime"]["output"]>,
-  intl: IntlShape,
-) {
-  return date ? (
-    <span>
-      {formatDate({
-        date: parseDateTimeUtc(date),
-        formatString: "PPP p",
-        intl,
-      })}
-    </span>
-  ) : null;
-}
-
 export const jobTitleCell = (
-  searchRequest: PoolCandidateSearchRequest,
+  searchRequest: Pick<PoolCandidateSearchRequest, "id" | "jobTitle">,
   paths: ReturnType<typeof useRoutes>,
 ) => {
   return (
@@ -77,7 +60,7 @@ export const jobTitleCell = (
 };
 
 export const notesCell = (
-  searchRequest: PoolCandidateSearchRequest,
+  searchRequest: Pick<PoolCandidateSearchRequest, "adminNotes" | "jobTitle">,
   intl: IntlShape,
 ) =>
   searchRequest?.adminNotes ? (
@@ -98,7 +81,10 @@ export const notesCell = (
   ) : null;
 
 export const detailsCell = (
-  searchRequest: PoolCandidateSearchRequest,
+  searchRequest: Pick<
+    PoolCandidateSearchRequest,
+    "additionalComments" | "jobTitle"
+  >,
   intl: IntlShape,
 ) =>
   searchRequest?.additionalComments ? (
@@ -117,19 +103,3 @@ export const detailsCell = (
       )}
     />
   ) : null;
-
-export const statusCell = (
-  status: PoolCandidateSearchStatus | null | undefined,
-  intl: IntlShape,
-) =>
-  status
-    ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
-    : "";
-
-export function viewCell(url: string, label: Maybe<string>, intl: IntlShape) {
-  return (
-    <Link href={url} color="black">
-      {label || intl.formatMessage(commonMessages.noNameProvided)}
-    </Link>
-  );
-}

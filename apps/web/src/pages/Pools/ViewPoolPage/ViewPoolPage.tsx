@@ -2,6 +2,7 @@
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
+import isString from "lodash/isString";
 
 import { Pending, NotFound, Link, Heading, Chip } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -18,6 +19,7 @@ import {
   PoolStatus,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -38,7 +40,9 @@ import processMessages from "~/messages/processMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
-import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
+import DuplicateProcessDialog, {
+  DuplicatePoolDepartment_Fragment,
+} from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
@@ -49,12 +53,31 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
     ...AssessmentPlanStatus
     id
-    publishingGroup
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishedAt
     isComplete
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
     processNumber
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     poolCandidatesCount
     classification {
       id
@@ -65,27 +88,27 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    poolSkills {
-      id
-      type
-    }
   }
 `);
 
 export interface ViewPoolProps {
   poolQuery: FragmentType<typeof ViewPool_Fragment>;
+  departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
   onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
   onClose: (reason: string) => Promise<void>;
   onArchive: () => Promise<void>;
-  onDuplicate: () => Promise<void>;
+  onDuplicate: (opts: {
+    department: Scalars["ID"]["output"] | undefined;
+  }) => Promise<void>;
   onUnarchive: () => Promise<void>;
 }
 
 export const ViewPool = ({
   poolQuery,
+  departmentsQuery,
   isFetching,
   onPublish,
   onDelete,
@@ -99,18 +122,51 @@ export const ViewPool = ({
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
   const pool = getFragment(ViewPool_Fragment, poolQuery);
-  const poolName = getShortPoolTitleHtml(intl, pool);
-  const advertisementStatus = getAdvertisementStatus(pool);
+  const poolName = getShortPoolTitleHtml(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
+  const advertisementStatus = getAdvertisementStatus({
+    publishedAt: pool.publishedAt,
+    isComplete: pool.isComplete,
+  });
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
-  const processBadge = getProcessStatusBadge(pool.status);
+  const processBadge = getProcessStatusBadge(pool.status, intl);
   const canPublish = checkRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+    [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
-  // Same roles can edit submitted advertisements
+  // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
+  const canDuplicate = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
+  const canArchive = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
+  const canDelete = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -146,7 +202,7 @@ export const ViewPool = ({
   return (
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
-      <div data-h2-container="base(left, large, 0)">
+      <div data-h2-wrapper="base(left, large, 0)">
         <Heading level="h2" Icon={UserGroupIcon} color="primary">
           {pageTitle}
         </Heading>
@@ -174,12 +230,16 @@ export const ViewPool = ({
                     "Title for advertisement information of a process",
                 })}
               </Heading>
-              <Chip
-                color={advertisementBadge.color}
-                data-h2-flex-shrink="base(0)"
-              >
-                {intl.formatMessage(advertisementBadge.label)}
-              </Chip>
+              {advertisementBadge.label && (
+                <Chip
+                  color={advertisementBadge.color}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {isString(advertisementBadge.label)
+                    ? advertisementBadge.label
+                    : intl.formatMessage(advertisementBadge.label)}
+                </Chip>
+              )}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -193,7 +253,7 @@ export const ViewPool = ({
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage(processMessages.processNumber)}
               {intl.formatMessage(commonMessages.dividingColon)}
-              {pool.processNumber || (
+              {pool.processNumber ?? (
                 <span data-h2-color="base(error.darkest)">
                   {intl.formatMessage(commonMessages.notProvided)}
                 </span>
@@ -204,7 +264,9 @@ export const ViewPool = ({
                 <Link
                   mode="inline"
                   color={
-                    pool.status === PoolStatus.Published ? "error" : "secondary"
+                    pool.status?.value === PoolStatus.Published
+                      ? "error"
+                      : "secondary"
                   }
                   href={paths.poolUpdate(pool.id)}
                 >
@@ -247,9 +309,16 @@ export const ViewPool = ({
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
                 {intl.formatMessage(messages.assessmentPlan)}
               </Heading>
-              <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
-                {intl.formatMessage(assessmentBadge.label)}
-              </Chip>
+              {assessmentBadge.label && (
+                <Chip
+                  color={assessmentBadge.color}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {isString(assessmentBadge.label)
+                    ? assessmentBadge.label
+                    : intl.formatMessage(assessmentBadge.label)}
+                </Chip>
+              )}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -292,15 +361,19 @@ export const ViewPool = ({
                     "Title for card for actions related to changing the status of a process",
                 })}
               </Heading>
-              <Chip
-                color={processBadge.color}
-                icon={processBadge.icon}
-                data-h2-flex-shrink="base(0)"
-              >
-                {intl.formatMessage(processBadge.label)}
-              </Chip>
+              {processBadge.label && (
+                <Chip
+                  color={processBadge.color}
+                  icon={processBadge.icon}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {isString(processBadge.label)
+                    ? processBadge.label
+                    : intl.formatMessage(processBadge.label)}
+                </Chip>
+              )}
             </ProcessCard.Header>
-            {pool.status === PoolStatus.Published && (
+            {pool.status?.value === PoolStatus.Published && (
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage(
                   {
@@ -317,7 +390,7 @@ export const ViewPool = ({
               </p>
             )}
             {[PoolStatus.Archived, PoolStatus.Closed].includes(
-              pool.status ?? PoolStatus.Draft,
+              pool.status?.value ?? PoolStatus.Draft,
             ) && (
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage(
@@ -334,7 +407,7 @@ export const ViewPool = ({
                 )}
               </p>
             )}
-            {pool.status === PoolStatus.Draft ? (
+            {pool.status?.value === PoolStatus.Draft ? (
               <>
                 <p data-h2-margin="base(x1 0)">
                   {intl.formatMessage({
@@ -375,7 +448,7 @@ export const ViewPool = ({
               </p>
             )}
             <ProcessCard.Footer>
-              {pool.status === PoolStatus.Draft && canPublish && (
+              {pool.status?.value === PoolStatus.Draft && canPublish && (
                 <PublishProcessDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
@@ -383,40 +456,42 @@ export const ViewPool = ({
                   isReadyToPublish={isReadyToPublish}
                 />
               )}
-              {!canPublish && pool.status === PoolStatus.Draft && (
+              {!canPublish && pool.status?.value === PoolStatus.Draft && (
                 <SubmitForPublishingDialog
                   isReadyToPublish={isReadyToPublish}
                 />
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
-                pool.status ?? PoolStatus.Draft,
-              ) && (
-                <ChangeDateDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onExtend={onExtend}
-                  onClose={onClose}
-                />
-              )}
-              {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
+                pool.status?.value ?? PoolStatus.Draft,
+              ) &&
+                canPublish && (
+                  <ChangeDateDialog
+                    {...commonDialogProps}
+                    closingDate={pool.closingDate}
+                    onExtend={onExtend}
+                    onClose={onClose}
+                  />
+                )}
+              {canDuplicate && (
                 <DuplicateProcessDialog
                   {...commonDialogProps}
+                  departmentsQuery={departmentsQuery}
                   onDuplicate={onDuplicate}
                 />
               )}
-              {pool.status === PoolStatus.Closed && (
+              {pool.status?.value === PoolStatus.Closed && canArchive && (
                 <ArchiveProcessDialog
                   {...commonDialogProps}
                   onArchive={onArchive}
                 />
               )}
-              {pool.status === PoolStatus.Archived && (
+              {pool.status?.value === PoolStatus.Archived && canArchive && (
                 <UnarchiveProcessDialog
                   {...commonDialogProps}
                   onUnarchive={onUnarchive}
                 />
               )}
-              {pool.status === PoolStatus.Draft && (
+              {pool.status?.value === PoolStatus.Draft && canDelete && (
                 <DeleteProcessDialog
                   {...commonDialogProps}
                   onDelete={onDelete}
@@ -430,9 +505,9 @@ export const ViewPool = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {
@@ -442,6 +517,9 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
         id
         name
       }
+    }
+    departments {
+      ...DuplicatePoolDepartment
     }
   }
 `);
@@ -461,6 +539,7 @@ const ViewPoolPage = () => {
         {poolId && data?.pool ? (
           <ViewPool
             poolQuery={data.pool}
+            departmentsQuery={unpackMaybes(data?.departments)}
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
@@ -468,8 +547,12 @@ const ViewPoolPage = () => {
             onClose={async (reason: string) => {
               return mutations.close(poolId, reason);
             }}
-            onDuplicate={async () => {
-              return mutations.duplicate(poolId, data?.pool?.team?.id || "");
+            onDuplicate={async ({ department }) => {
+              return mutations.duplicate(
+                poolId,
+                data?.pool?.team?.id ?? "",
+                department,
+              );
             }}
             onArchive={async () => {
               return mutations.archive(poolId);
@@ -512,6 +595,9 @@ export const Component = () => (
       ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <ViewPoolPage />

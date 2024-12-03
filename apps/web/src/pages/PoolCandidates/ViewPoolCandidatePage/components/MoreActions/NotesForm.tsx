@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
@@ -21,15 +20,15 @@ import adminMessages from "~/messages/adminMessages";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-export const NotesForm_Fragment = graphql(/* Graphql */ `
+const NotesForm_Fragment = graphql(/* Graphql */ `
   fragment NotesForm on PoolCandidate {
     id
     notes
   }
 `);
-type FormValues = {
+interface FormValues {
   notes?: PoolCandidate["notes"];
-};
+}
 
 interface NotesFormProps {
   poolCandidate: FragmentType<typeof NotesForm_Fragment>;

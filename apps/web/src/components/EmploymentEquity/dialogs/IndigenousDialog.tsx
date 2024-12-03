@@ -8,9 +8,10 @@ import {
   formMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/utils";
-import { CommunityList } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/CommunitySelection";
+import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
+import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
 import {
   apiCommunitiesToFormValuesWithBoolean as apiCommunitiesToFormValues,
   FormValuesWithBoolean as FormValues,
@@ -36,7 +37,11 @@ const IndigenousDialog = ({
   const intl = useIntl();
   const methods = useForm<FormValuesWithSignature>({
     defaultValues: {
-      ...apiCommunitiesToFormValues(indigenousCommunities),
+      ...apiCommunitiesToFormValues(
+        unpackMaybes(
+          indigenousCommunities.flatMap((community) => community.value),
+        ),
+      ),
       signature,
     },
   });
@@ -44,7 +49,7 @@ const IndigenousDialog = ({
   const communities = watch("communities");
   const hasCommunitiesSelected = communities && communities.length > 0;
 
-  const submitHandler: SubmitHandler<FormValuesWithSignature> = async (
+  const submitHandler: SubmitHandler<FormValuesWithSignature> = (
     data: FormValuesWithSignature,
   ) => {
     const newCommunities = formValuesToApiCommunities(data);
@@ -110,8 +115,8 @@ const IndigenousDialog = ({
                   <p data-h2-padding-bottom="base(x1)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
-                      id: "7i+qEB",
+                        "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these job opportunities.",
+                      id: "9LR5wC",
                       description:
                         "Disclaimer before signing Indigenous self-declaration form",
                     })}

@@ -6,25 +6,26 @@ import PauseIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import {
   AssessmentDecision,
-  AssessmentResult,
   AssessmentResultType,
   Skill,
+  FinalDecisionDialogFragment as FinalDecisionDialogFragmentType,
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
 
 interface AssessmentSummaryProps {
   essentialSkills: Skill[];
   nonessentialSkills: Skill[];
-  assessmentResults: AssessmentResult[];
+  assessmentResults: FinalDecisionDialogFragmentType["assessmentResults"];
 }
 
-type SkillAssessmentCalculated = {
+interface SkillAssessmentCalculated {
   successful: number;
   unsuccessful: number;
   hold: number;
-};
+}
 
 const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
   const intl = useIntl();
@@ -96,10 +97,10 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
   );
 };
 
-type TableRow = {
+interface TableRow {
   name: string;
   results: SkillAssessmentCalculated;
-};
+}
 
 const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
   return (
@@ -123,19 +124,22 @@ const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
 // given a skill and array of results, return the score for that skill
 const skillAssessmentResultCalculator = (
   skill: Skill,
-  assessmentResults: AssessmentResult[],
+  assessmentResults: FinalDecisionDialogFragmentType["assessmentResults"],
 ): SkillAssessmentCalculated => {
-  const applicableAssessmentResults = assessmentResults.filter(
+  const unpackedAssessmentResults = unpackMaybes(assessmentResults);
+  const applicableAssessmentResults = unpackedAssessmentResults.filter(
     (result) => result.poolSkill?.skill?.id === skill.id,
   );
   const successful = applicableAssessmentResults.filter(
-    (result) => result.assessmentDecision === AssessmentDecision.Successful,
+    (result) =>
+      result.assessmentDecision?.value === AssessmentDecision.Successful,
   ).length;
   const unsuccessful = applicableAssessmentResults.filter(
-    (result) => result.assessmentDecision === AssessmentDecision.Unsuccessful,
+    (result) =>
+      result.assessmentDecision?.value === AssessmentDecision.Unsuccessful,
   ).length;
   const hold = applicableAssessmentResults.filter(
-    (result) => result.assessmentDecision === AssessmentDecision.Hold,
+    (result) => result.assessmentDecision?.value === AssessmentDecision.Hold,
   ).length;
   return {
     successful,
@@ -150,21 +154,22 @@ const AssessmentSummary = ({
   assessmentResults,
 }: AssessmentSummaryProps) => {
   const intl = useIntl();
+  const assessmentResultsUnpacked = unpackMaybes(assessmentResults);
 
   // determine if education requirement met, should be an array of one after filtering
   let educationAssessmentResultDecision = AssessmentDecision.Hold;
-  const educationAssessmentResult = assessmentResults.filter(
+  const educationAssessmentResult = assessmentResultsUnpacked.filter(
     (result) => result.assessmentResultType === AssessmentResultType.Education,
   );
   if (
     educationAssessmentResult[0] &&
-    educationAssessmentResult[0].assessmentDecision ===
+    educationAssessmentResult[0].assessmentDecision?.value ===
       AssessmentDecision.Successful
   ) {
     educationAssessmentResultDecision = AssessmentDecision.Successful;
   } else if (
     educationAssessmentResult[0] &&
-    educationAssessmentResult[0].assessmentDecision ===
+    educationAssessmentResult[0].assessmentDecision?.value ===
       AssessmentDecision.Unsuccessful
   ) {
     educationAssessmentResultDecision = AssessmentDecision.Unsuccessful;
@@ -188,7 +193,7 @@ const AssessmentSummary = ({
   const essentialSkillsTableData: TableRow[] = essentialSkills.map((skill) => {
     const essentialSkillCalculated = skillAssessmentResultCalculator(
       skill,
-      assessmentResults,
+      assessmentResultsUnpacked,
     );
     return {
       name: getLocalizedName(skill.name, intl),
@@ -205,7 +210,7 @@ const AssessmentSummary = ({
     (skill) => {
       const essentialSkillCalculated = skillAssessmentResultCalculator(
         skill,
-        assessmentResults,
+        assessmentResultsUnpacked,
       );
       return {
         name: getLocalizedName(skill.name, intl),

@@ -1,8 +1,10 @@
 import fakeAssessmentResults from "./fakeAssessmentResults";
 import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeClassifications from "./fakeClassifications";
+import fakeCommunities from "./fakeCommunities";
 import fakeDepartments from "./fakeDepartments";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
+import toLocalizedEnum, { fakeLocalizedEnum } from "./fakeLocalizedEnum";
 import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakePools from "./fakePools";
@@ -21,6 +23,7 @@ export {
   fakeAssessmentResults,
   fakeAssessmentSteps,
   fakeClassifications,
+  fakeCommunities,
   fakeDepartments,
   fakeExperiences,
   fakePools,
@@ -35,6 +38,8 @@ export {
   fakeUsers,
   fakeUser,
   fakeUserSkills,
+  fakeLocalizedEnum,
+  toLocalizedEnum,
 };
 
 // Static Data

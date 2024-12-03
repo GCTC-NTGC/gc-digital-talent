@@ -12,6 +12,8 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       }
     }
 
+    ...UpdateUserOptions
+
     user(id: $id, trashed: WITH) {
       id
       email
@@ -29,12 +31,29 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
               fr
             }
           }
-          team {
+          teamable {
             id
-            name
-            displayName {
-              en
-              fr
+            __typename
+            ... on Pool {
+              name {
+                en
+                fr
+              }
+              teamIdForRoleAssignment
+            }
+            ... on Community {
+              name {
+                en
+                fr
+              }
+              key
+              teamIdForRoleAssignment
+            }
+            ... on Team {
+              displayName {
+                en
+                fr
+              }
             }
           }
         }
@@ -43,9 +62,29 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
+      isGovEmployee
+      workEmail
+      preferredLang {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      preferredLanguageForInterview {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      preferredLanguageForExam {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -62,22 +101,40 @@ export const UpdateUserAsAdmin_Mutation = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
-      currentProvince
+      currentProvince {
+        value
+      }
       currentCity
 
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
+      preferredLang {
+        value
+      }
+      preferredLanguageForInterview {
+        value
+      }
+      preferredLanguageForExam {
+        value
+      }
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      firstOfficialLanguage
+      firstOfficialLanguage {
+        value
+      }
       secondLanguageExamCompleted
       secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
+      comprehensionLevel {
+        value
+      }
+      writtenLevel {
+        value
+      }
+      verbalLevel {
+        value
+      }
+      estimatedLanguageAbility {
+        value
+      }
 
       isGovEmployee
       hasPriorityEntitlement
@@ -105,13 +162,19 @@ export const UpdateUserAsAdmin_Mutation = graphql(/* GraphQL */ `
       isWoman
       hasDisability
       isVisibleMinority
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
 
       hasDiploma
-      locationPreferences
+      locationPreferences {
+        value
+      }
       locationExemptions
-      acceptedOperationalRequirements
+      acceptedOperationalRequirements {
+        value
+      }
       positionDuration
     }
   }

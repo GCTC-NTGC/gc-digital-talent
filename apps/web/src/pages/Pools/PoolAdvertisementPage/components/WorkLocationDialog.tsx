@@ -4,9 +4,9 @@ import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIc
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-type WorkLocationDialogProps = {
+interface WorkLocationDialogProps {
   workLocation: string;
-};
+}
 
 const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
   const intl = useIntl();
@@ -26,7 +26,7 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
           })}
         />
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

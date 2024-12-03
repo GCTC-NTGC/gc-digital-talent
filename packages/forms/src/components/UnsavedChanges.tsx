@@ -5,7 +5,7 @@ import { Alert, ScrollToLink } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import type { FieldLabels } from "./BasicForm";
+import type { FieldLabels } from "../types";
 
 interface UnsavedChangesProps {
   labels?: FieldLabels;
@@ -31,7 +31,7 @@ const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
        * save invalid fields, we prefer error message over
        * the unsaved message
        */
-      const fieldDirty = dirtyFields[field];
+      const fieldDirty = Boolean(dirtyFields[field]);
       const fieldInvalid = errors[field];
       if (labels && field in labels && fieldDirty && !fieldInvalid) {
         return {

@@ -14,15 +14,20 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 // Used by specific dialogs
-export type CommonFilterDialogProps<TFieldValues extends FieldValues> = {
+export interface CommonFilterDialogProps<
+  TFieldValues extends FieldValues,
+  TOptions = object,
+> {
   onSubmit: SubmitHandler<TFieldValues>;
   /** When the user resets filters they will return to these values. If initialValues is empty, resetValues is used to initialize the filters. */
   resetValues: TFieldValues;
   /** If initialValues is set, it will override resetValues when the filter form is first initialized. */
   initialValues?: Partial<TFieldValues>;
-};
+  /** Any options that come from the API (e.g. localized enums) */
+  optionsQuery?: TOptions;
+}
 
-type FilterDialogProps<TFieldValues extends FieldValues> = {
+interface FilterDialogProps<TFieldValues extends FieldValues> {
   onSubmit: CommonFilterDialogProps<TFieldValues>["onSubmit"];
   options?: UseFormProps<TFieldValues, unknown>;
   // Values to reset to (removing URL state)
@@ -31,7 +36,7 @@ type FilterDialogProps<TFieldValues extends FieldValues> = {
   children: ReactNode;
   /** Modify the filter count in the button (most commonly used for hidden filters) */
   modifyFilterCount?: number;
-};
+}
 
 const FilterDialog = <TFieldValues extends FieldValues>({
   onSubmit,
@@ -94,6 +99,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     setIsOpen(newOpen);
   };
 
+  const modifiedFitlerCount = filterCount + (modifyFilterCount ?? 0);
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
@@ -102,8 +108,8 @@ const FilterDialog = <TFieldValues extends FieldValues>({
           type="button"
           block
           icon={AdjustmentsVerticalIcon}
-          {...(filterCount > 0 && {
-            counter: filterCount + (modifyFilterCount ?? 0),
+          {...(modifiedFitlerCount > 0 && {
+            counter: modifiedFitlerCount,
           })}
         >
           {intl.formatMessage({
@@ -114,7 +120,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
           })}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content wide>
+      <Dialog.Content wide hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

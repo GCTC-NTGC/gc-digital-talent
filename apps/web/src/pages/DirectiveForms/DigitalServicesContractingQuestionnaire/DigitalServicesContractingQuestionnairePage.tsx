@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
@@ -17,9 +17,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import Hero from "~/components/Hero";
-import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
-import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
+import Hero from "~/components/HeroDeprecated";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
@@ -41,13 +39,13 @@ export const pageTitle = defineMessage({
     "Title for the Digital services contracting questionnaire form page",
 });
 
-export type DigitalServicesContractingQuestionnaireProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-  skills: Array<Skill>;
+export interface DigitalServicesContractingQuestionnaireProps {
+  departments: Omit<Department, "departmentNumber">[];
+  skills: Skill[];
   isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;
   defaultValues?: Partial<FormValues>;
-};
+}
 
 export const DigitalServicesContractingQuestionnaire = ({
   departments,
@@ -88,7 +86,7 @@ export const DigitalServicesContractingQuestionnaire = ({
         })}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation data-h2-padding-top="base(x3)">
             <TableOfContents.List>
@@ -119,7 +117,11 @@ export const DigitalServicesContractingQuestionnaire = ({
               color="secondary"
               block
               external
-              href={locale === "fr" ? contractingFr : contractingEn}
+              href={
+                locale === "fr"
+                  ? "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
+                  : "/static/documents/Digital_Contracting_Questionnaire_EN.docx"
+              }
             >
               {intl.formatMessage({
                 defaultMessage: "Download a copy of this form",
@@ -178,7 +180,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
     questionnaire: DigitalContractingQuestionnaireInput,
   ) => {
     await executeMutation({ questionnaire })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createDigitalContractingQuestionnaire?.id) {
           toast.success(
             intl.formatMessage({
@@ -188,7 +190,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
                 "Message displayed to user if the questionnaire was saved successfully.",
             }),
           );
-          navigate(paths.directive());
+          await navigate(paths.directive());
         } else {
           toastError();
         }

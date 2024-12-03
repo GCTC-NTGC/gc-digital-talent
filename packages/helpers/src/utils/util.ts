@@ -39,7 +39,7 @@ export function getId<T extends { id: string }>(item: T): string {
  * @param key
  */
 export function hasKey<T>(
-  object: { [key: string]: T },
+  object: Record<string, T>,
   key: string | number,
 ): boolean {
   return object[key] !== undefined;
@@ -52,7 +52,7 @@ export function hasKey<T>(
  * @param errorMessage
  */
 export function getOrThrowError<T>(
-  object: { [key: string]: T },
+  object: Record<string, T>,
   key: string | number,
   errorMessage: string,
 ): T {
@@ -159,7 +159,7 @@ export function groupBy<
  */
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function assertUnreachable(x: never): never {
+export function assertUnreachable(_: never): never {
   throw new Error("Didn't expect to be reachable.");
 }
 
@@ -168,9 +168,7 @@ export function assertUnreachable(x: never): never {
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(
-  data?: Maybe<Array<Maybe<T> | undefined>>,
-): T[] {
+export function unpackMaybes<T>(data?: Maybe<(Maybe<T> | undefined)[]>): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 
@@ -182,4 +180,19 @@ export function pickMap<T, K extends keyof T>(
   return unpackMaybes(list).map(
     (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
   );
+}
+
+/**
+ * Ensure localized enum string
+ * contains a value
+ *
+ * @param localizedEnum
+ * @returns boolean
+ */
+export function localizedEnumHasValue<
+  T extends {
+    value?: unknown;
+  },
+>(localizedEnum: T): boolean {
+  return !!localizedEnum.value;
 }

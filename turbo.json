@@ -1,51 +1,92 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
-  "pipeline": {
+  "globalDependencies": [
+    "package.json",
+    "**/.env",
+    "pnpm-workspace.yaml"
+  ],
+  "tasks": {
     "build": {
-      "dependsOn": ["^intl-compile", "intl-compile", "^codegen"],
-      "inputs": ["src/**", "package.json"],
-      "outputs": ["dist/**"],
-      "outputMode": "new-only"
+      "dependsOn": [
+        "^intl-compile",
+        "intl-compile",
+        "^codegen"
+      ],
+      "inputs": [
+        "src/**",
+        "package.json"
+      ],
+      "outputs": [
+        "dist/**"
+      ],
+      "outputLogs": "new-only"
     },
     "build:css": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "../../hydrogen.config.json"],
-      "outputs": ["src/assets/css/hydrogen.css"]
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "../../hydrogen.config.json"
+      ],
+      "outputs": [
+        "src/assets/css/hydrogen.css"
+      ]
     },
     "codegen": {
       "inputs": [
         "../../api/storage/app/lighthouse-schema.graphql",
         "../../packages/**/src/**/*.ts",
         "../../packages/**/src/**/*.tsx",
-        "../../apps/e2e/**/src/**/*.ts",
-        "../../apps/e2e/**/src/**/*.tsx",
         "src/**/*.ts",
         "src/**/*.tsx"
       ],
-      "outputs": ["src/index.ts"],
-      "outputMode": "new-only",
-      "cache": false
+      "outputs": [
+        "src/index.ts"
+      ],
+      "cache": false,
+      "outputLogs": "new-only"
     },
     "dev": {
-      "dependsOn": ["intl-compile", "^intl-compile", "^codegen"],
-      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json"],
-      "outputs": ["dist/**"],
-      "outputMode": "new-only"
+      "dependsOn": [
+        "intl-compile",
+        "^intl-compile",
+        "^codegen"
+      ],
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "package.json"
+      ],
+      "outputs": [
+        "dist/**"
+      ],
+      "outputLogs": "new-only"
     },
     "watch": {
-      "dependsOn": ["intl-compile", "^intl-compile"],
+      "dependsOn": [
+        "intl-compile",
+        "^intl-compile"
+      ],
       "cache": false,
       "persistent": true
     },
     "build:intl-cli": {
-      "inputs": ["src/cli.ts"],
-      "outputs": ["dist/cli.js"],
-      "outputMode": "new-only"
+      "inputs": [
+        "src/cli.ts"
+      ],
+      "outputs": [
+        "dist/cli.js"
+      ],
+      "outputLogs": "new-only"
     },
     "intl-extract": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
-      "outputs": ["src/lang/en.json"],
-      "outputMode": "new-only"
+      "inputs": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+      ],
+      "outputs": [
+        "src/lang/en.json"
+      ],
+      "outputLogs": "new-only"
     },
     "intl-compile": {
       "inputs": [
@@ -56,10 +97,15 @@
         "src/lang/ojw.json",
         "src/lang/mic.json"
       ],
-      "dependsOn": ["intl-extract", "^intl-extract"],
-      "outputs": ["src/lang/*{Compiled}.json"],
+      "dependsOn": [
+        "intl-extract",
+        "^intl-extract"
+      ],
+      "outputs": [
+        "src/lang/*{Compiled}.json"
+      ],
       "cache": false,
-      "outputMode": "new-only"
+      "outputLogs": "new-only"
     },
     "check-intl": {
       "inputs": [
@@ -72,35 +118,60 @@
         "src/lang/ojw.json",
         "src/lang/mic.json"
       ],
-      "dependsOn": ["intl-compile", "^intl-compile"],
+      "dependsOn": [
+        "intl-compile",
+        "^intl-compile"
+      ],
       "cache": false,
-      "outputMode": "new-only"
+      "outputLogs": "new-only"
     },
     "storybook": {
-      "dependsOn": ["^codegen", "^intl-compile", "intl-compile"],
+      "dependsOn": [
+        "^codegen",
+        "^intl-compile",
+        "intl-compile"
+      ],
       "outputs": []
     },
     "build-storybook": {
-      "outputs": ["dist/**", "storybook-static/**"]
+      "outputs": [
+        "dist/**",
+        "storybook-static/**"
+      ]
     },
     "test": {
-      "outputMode": "new-only"
+      "outputLogs": "new-only"
     },
     "clean": {
       "cache": false
     },
-    "e2e": {},
-    "e2e:open": {},
     "e2e:playwright": {},
-    "e2e:run": {},
-    "e2e:run:all": {
-      "dependsOn": ["^e2e:run:all"]
-    },
-    "e2e:run:inspect": {},
     "lint": {
       "inputs": [
         "../../packages/eslint-config-custom/index.js",
         "../../packages/eslint-config-custom/react.js",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
+    },
+    "lint:fix": {
+      "inputs": [
+        "../../packages/eslint-config-custom/index.js",
+        "../../packages/eslint-config-custom/react.js",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
+    },
+    "prettier": {
+      "inputs": [
+        "./.prettierrc",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
+    },
+    "prettier:fix": {
+      "inputs": [
+        "./.prettierrc",
         "**/*.{ts,tsx}",
         "!node_modules"
       ]

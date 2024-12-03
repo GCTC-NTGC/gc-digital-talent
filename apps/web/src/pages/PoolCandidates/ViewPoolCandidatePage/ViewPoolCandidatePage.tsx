@@ -12,7 +12,7 @@ import {
   Chips,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
@@ -20,7 +20,6 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
-  Department,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -28,21 +27,23 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
+import ChangeStatusDialog from "~/components/CandidateDialog/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
+import pageTitles from "~/messages/pageTitles";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import MoreActions from "./components/MoreActions/MoreActions";
+import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -52,348 +53,71 @@ const screeningAndAssessmentTitle = defineMessage({
 
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
+    ...JobPlacementOptions
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
+      ...ClaimVerification
+      ...AssessmentResultsTable
+      ...ChangeStatusDialog_PoolCandidate
+      ...ApplicationInformation_PoolCandidate
       id
-      status
+      profileSnapshot
+      finalDecision {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      assessmentStatus {
+        currentStep
+        assessmentStepStatuses {
+          decision
+          step
+        }
+      }
       user {
         ...ApplicationProfileDetails
-        id
+        ...PoolStatusTable
+        ...ChangeStatusDialog_User
         firstName
         lastName
-        currentCity
-        currentProvince
-        telephone
-        email
-        citizenship
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
         hasPriorityEntitlement
-        armedForcesStatus
         priorityWeight
-        poolCandidates {
-          id
-          status
-          expiryDate
-          notes
-          suspendedAt
-          user {
-            id
-          }
-          pool {
-            id
-            name {
-              en
-              fr
-            }
-            classification {
-              id
-              group
-              level
-            }
-            stream
-            publishingGroup
-            team {
-              id
-              name
-              displayName {
-                en
-                fr
-              }
-            }
-          }
-        }
-        userSkills {
-          id
-          user {
-            id
-          }
-          skill {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category
-          }
-          skillLevel
-        }
-        experiences {
-          id
-          __typename
-          details
-          user {
-            id
-            email
-          }
-          skills {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category
-            experienceSkillRecord {
-              details
-            }
-          }
-          ... on AwardExperience {
-            title
-            issuedBy
-            awardedDate
-            awardedTo
-            awardedScope
-            details
-          }
-          ... on CommunityExperience {
-            title
-            organization
-            project
-            startDate
-            endDate
-            details
-          }
-          ... on EducationExperience {
-            institution
-            areaOfStudy
-            thesisTitle
-            startDate
-            endDate
-            type
-            status
-            details
-          }
-          ... on PersonalExperience {
-            title
-            description
-            startDate
-            endDate
-            details
-          }
-          ... on WorkExperience {
-            role
-            organization
-            division
-            startDate
-            endDate
-            details
+        armedForcesStatus {
+          value
+          label {
+            en
+            fr
           }
         }
       }
-      educationRequirementExperiences {
-        id
-        __typename
-        details
-        user {
-          id
-          email
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-          details
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-          details
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-          details
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-          details
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-          details
-        }
-      }
-      educationRequirementOption
-      profileSnapshot
-      notes
-      signature
-      submittedAt
-      expiryDate
       pool {
+        ...ApplicationInformation_PoolFragment
         id
+        processNumber
         name {
           en
           fr
         }
-        stream
         classification {
           id
           group
           level
         }
-        poolSkills {
-          skill {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category
-            families {
-              id
-              key
-              name {
-                en
-                fr
-              }
-            }
-          }
-        }
-        generalQuestions {
-          id
-          question {
+        stream {
+          value
+          label {
             en
             fr
           }
         }
-        assessmentSteps {
-          id
-          title {
+        publishingGroup {
+          value
+          label {
             en
             fr
           }
-          type
-          sortOrder
-          poolSkills {
-            id
-            type
-          }
-        }
-        poolSkills {
-          id
-          type
-          requiredLevel
-          skill {
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            id
-            category
-            key
-          }
-        }
-        screeningQuestions {
-          id
-          question {
-            en
-            fr
-          }
-        }
-        ...ApplicationInformation_PoolFragment
-      }
-      assessmentResults {
-        id
-        poolCandidate {
-          id
-          pool {
-            id
-          }
-          user {
-            id
-            userSkills {
-              id
-              user {
-                id
-              }
-              skill {
-                id
-                key
-                name {
-                  en
-                  fr
-                }
-                category
-              }
-              skillLevel
-            }
-          }
-        }
-        assessmentDecision
-        assessmentDecisionLevel
-        assessmentResultType
-        assessmentStep {
-          id
-          type
-          title {
-            en
-            fr
-          }
-        }
-        justifications
-        assessmentDecisionLevel
-        skillDecisionNotes
-        poolSkill {
-          id
-          type
-          requiredLevel
-          skill {
-            id
-            key
-            category
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-          }
-        }
-      }
-      screeningQuestionResponses {
-        id
-        answer
-        screeningQuestion {
-          id
         }
       }
     }
@@ -410,24 +134,23 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  departments: Department[];
+  jobPlacementOptions: JobPlacementOptionsFragmentType;
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  departments,
+  jobPlacementOptions,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
-  const snapshotCandidate = parsedSnapshot?.poolCandidates
-    ?.filter(notEmpty)
-    .find(({ id }) => id === poolCandidate.id);
+  const parsedSnapshot = JSON.parse(
+    String(poolCandidate.profileSnapshot),
+  ) as Maybe<User>;
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
-    poolCandidate,
-    unpackMaybes(poolCandidate.pool.assessmentSteps),
+    poolCandidate.finalDecision,
+    poolCandidate.assessmentStatus,
     intl,
   );
 
@@ -440,11 +163,16 @@ export const ViewPoolCandidate = ({
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexPoolPageTitle),
+        label: intl.formatMessage(pageTitles.processes),
         url: paths.poolTable(),
       },
       {
-        label: getFullPoolTitleLabel(intl, poolCandidate.pool),
+        label: getFullPoolTitleLabel(intl, {
+          stream: poolCandidate.pool.stream,
+          name: poolCandidate.pool.name,
+          publishingGroup: poolCandidate.pool.publishingGroup,
+          classification: poolCandidate.pool.classification,
+        }),
         url: paths.poolView(poolCandidate.pool.id),
       },
       {
@@ -456,7 +184,6 @@ export const ViewPoolCandidate = ({
         url: paths.poolCandidateApplication(poolCandidate.id),
       },
     ],
-    isAdmin: true,
   });
 
   return (
@@ -483,7 +210,7 @@ export const ViewPoolCandidate = ({
                 })}
               </Chip>
             ) : null}
-            {poolCandidate.user.armedForcesStatus ===
+            {poolCandidate.user.armedForcesStatus?.value ===
               ArmedForcesStatus.Veteran ||
             poolCandidate.user.priorityWeight === 20 ? (
               <Chip key="veteran" color="black">
@@ -521,7 +248,7 @@ export const ViewPoolCandidate = ({
             </p>
             <MoreActions
               poolCandidate={poolCandidate}
-              departments={departments}
+              jobPlacementOptions={jobPlacementOptions}
             />
             <div
               data-h2-display="base(flex)"
@@ -553,7 +280,7 @@ export const ViewPoolCandidate = ({
                 {intl.formatMessage(commonMessages.status)}
                 {intl.formatMessage(commonMessages.dividingColon)}
                 <ChangeStatusDialog
-                  selectedCandidate={poolCandidate}
+                  selectedCandidateQuery={poolCandidate}
                   user={poolCandidate.user}
                 />
               </p>
@@ -568,15 +295,19 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidate={poolCandidate} />
+              <AssessmentResultsTable
+                poolCandidateQuery={poolCandidate}
+                experiences={nonEmptyExperiences}
+              />
             </div>
+            <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
               <div data-h2-margin-top="base(x2)">
                 <ErrorBoundary>
                   <ApplicationInformation
                     poolQuery={poolCandidate.pool}
                     snapshot={parsedSnapshot}
-                    application={snapshotCandidate}
+                    applicationQuery={poolCandidate}
                   />
                 </ErrorBoundary>
                 <div data-h2-margin="base(x2 0)">
@@ -591,7 +322,7 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable user={poolCandidate.user} />
+                        <PoolStatusTable userQuery={poolCandidate.user} />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>
@@ -627,10 +358,10 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["AssessmentResult"],
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
-};
+}
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
@@ -646,7 +377,7 @@ export const ViewPoolCandidatePage = () => {
       {data?.poolCandidate ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          departments={data.departments.filter(notEmpty)}
+          jobPlacementOptions={data}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
@@ -672,6 +403,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <ViewPoolCandidatePage />

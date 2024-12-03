@@ -12,11 +12,11 @@ The frontend [React](https://reactjs.org/) projects uses environment variables i
 
 ### Build-Time Variables
 
-The **apps** subprojects (./) have `.env` files that are copied from `.env.example` template files like the Laravel project. When the app projects are built using [webpack](https://webpack.js.org/), variables from the `.env` file are defined in the resulting bundle using [DefinePlugin](https://webpack.js.org/plugins/define-plugin/). These values are "baked into" the bundle and if there are any variable changes, the subproject must be rebuilt to reflect them.
+The **apps** subprojects (./) have `.env` files that are copied from `.env.example` template files like the Laravel project. When the app projects are built using [vite](https://vitejs.dev/), variables from the `.env` file are defined in the resulting bundle using [define option](https://vitejs.dev/config/shared-options.html#define). These values are "baked into" the bundle and if there are any variable changes, the subproject must be rebuilt to reflect them.
 
 ### Run-Time Variables
 
-For deployment in production, there needs to be a way to change variables in the program without rebuilding. This allows us to use environment variables as "feature flags", which enable/disable specific features with the same deployed code artifact. This is done using [envsubst](https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html) to fill environment variables into the `config.js` files while setting up the app service, post-deploy. In a development environment, these variables are injected into the `config.js` files by webpack during build. To update these variables locally, just update the `.env` file and rebuild the bundle.
+For deployment in production, there needs to be a way to change variables in the program without rebuilding. This allows us to use environment variables as "feature flags", which enable/disable specific features with the same deployed code artifact. This is done using [envsubst](https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html) to fill environment variables into the `index.html` files while setting up the app service, post-deploy. In a development environment, these variables are injected into the `index.html` file by vite during build. To update these variables locally, just update the `.env` file and rebuild the bundle.
 
 To check what variables have been set in the app, open the console of your browser and enter:
 `window.__SERVER_CONFIG__`
@@ -25,14 +25,14 @@ To check what variables have been set in the app, open the console of your brows
 
 Since run-time variables are used to maintain the current feature set and can be changed, tests should be run against both versions of a specific feature set. In order to do this, the feature flags must be overridden in the test specifications.
 
-When writing test specifications, run-time variables can be modified for the entire spec, or for specific tests using the `cy.overrideFeatureFlags(flags)` command.
+When writing test specifications, run-time variables can be modified for the entire spec, or for specific tests using the `overrideFeatureFlags(flags)` method.
 
 ##### Override for entire spec
 
 ```tsx
-describe("Override for all tests", () => {
-  beforeEach(() => {
-    cy.overrideFeatureFlags({ FEATURE_FLAG: null });
+test("Override for all tests", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
+    overrideFeatureFlags({ FEATURE_FLAG: null });
   });
 });
 ```
@@ -40,13 +40,13 @@ describe("Override for all tests", () => {
 ##### Override for specific test
 
 ```tsx
-describe("Override for specific test", () => {
-  it("Is overridden", () => {
-    cy.overrideFeatureFlags({ FEATURE_FLAG: null }); // Must be called before visiting a page
-    cy.visit("/");
+test("Override for specific test", async ({ page }) => {
+  test("Is overridden", () => {
+    overrideFeatureFlags({ FEATURE_FLAG: null }); // Must be called before visiting a page
+    await page.goto("/");
   });
-  it("Is default", () => {
-    cy.visit("/");
+  test("Is default", async ({ page }) => {
+    await page.goto("/");
   });
 });
 ```

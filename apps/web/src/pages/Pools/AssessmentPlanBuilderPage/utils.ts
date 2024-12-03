@@ -1,36 +1,38 @@
 /* eslint-disable import/prefer-default-export */
 import { IntlShape } from "react-intl";
 
-import {
-  commonMessages,
-  getAssessmentStepType,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
-  assessmentStep: AssessmentStep,
+  assessmentStep: Pick<AssessmentStep, "type" | "title">,
   intl: IntlShape,
 ): string => {
   const localizedTitle = getLocalizedName(assessmentStep?.title, intl, true);
-  if (localizedTitle && assessmentStep.type) {
-    return `${localizedTitle} (${intl.formatMessage(
-      getAssessmentStepType(assessmentStep.type),
-    )})`;
+  const localizedType = getLocalizedName(
+    assessmentStep.type?.label,
+    intl,
+    true,
+  );
+  if (localizedTitle && localizedType) {
+    return `${localizedTitle} (${localizedType})`;
   }
 
-  if (!localizedTitle && assessmentStep.type) {
-    return intl.formatMessage(getAssessmentStepType(assessmentStep.type));
+  if (!localizedTitle && localizedType) {
+    return localizedType;
   }
 
-  if (localizedTitle && !assessmentStep.type) {
+  if (localizedTitle && !localizedType) {
     return localizedTitle;
   }
 
   return intl.formatMessage(commonMessages.notAvailable);
 };
 
-export const poolSkillToOption = (poolSkill: PoolSkill, intl: IntlShape) => ({
+export const poolSkillToOption = (
+  poolSkill: Pick<PoolSkill, "id" | "skill">,
+  intl: IntlShape,
+) => ({
   value: poolSkill.id,
   label: poolSkill?.skill?.name
     ? getLocalizedName(poolSkill.skill.name, intl)

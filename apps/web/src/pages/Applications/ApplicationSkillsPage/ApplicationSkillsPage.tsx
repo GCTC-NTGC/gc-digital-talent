@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ReactNode, useEffect } from "react";
 
 import {
@@ -39,9 +39,9 @@ const careerTimelineLink = (children: ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
-type FormValues = {
+interface FormValues {
   skillsMissingExperiences: number;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -77,7 +77,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 export interface ApplicationSkillsProps extends ApplicationPageProps {
-  experiences: Array<AnyExperience>;
+  experiences: AnyExperience[];
 }
 
 export const ApplicationSkills = ({
@@ -110,7 +110,7 @@ export const ApplicationSkills = ({
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 
   const isSkillsExperiencesIncomplete = isIncomplete(
-    application.user,
+    experiences,
     application.pool,
   );
 
@@ -128,7 +128,7 @@ export const ApplicationSkills = ({
       "Descriptive text about how optional skills are used in the application process",
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     executeMutation({
       id: application.id,
       application: {
@@ -136,7 +136,7 @@ export const ApplicationSkills = ({
         applicationId: application.id,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -146,7 +146,7 @@ export const ApplicationSkills = ({
                 "Message displayed to users when saving skills is successful.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {
@@ -199,8 +199,8 @@ export const ApplicationSkills = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a career timeline experience, you can do so by returning to the <careerTimelineLink>career timeline step</careerTimelineLink> in the application.",
-            id: "MUwxzr",
+              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. To add or change an experience in your career timeline, go back to <careerTimelineLink>Review your career timeline</careerTimelineLink>.",
+            id: "6EzUZV",
             description:
               "Lead in paragraph for adding experiences to a users skills",
           },
@@ -375,7 +375,9 @@ export const ApplicationSkills = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application ? (
     <ApplicationSkills application={application} experiences={experiences} />

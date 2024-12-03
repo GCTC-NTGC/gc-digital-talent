@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  IndigenousCommunity,
+  LocalizedIndigenousCommunity,
   Maybe,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
@@ -23,7 +23,7 @@ import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
   hasDisability?: Maybe<boolean>;
-  indigenousCommunities?: Maybe<Array<Maybe<IndigenousCommunity>>>;
+  indigenousCommunities?: Maybe<Maybe<LocalizedIndigenousCommunity>[]>;
   indigenousDeclarationSignature?: Maybe<string>;
   isVisibleMinority?: Maybe<boolean>;
   isWoman?: Maybe<boolean>;
@@ -36,8 +36,8 @@ interface EquityOptionsProps {
 
 const resolveMaybe = (value: Maybe<boolean> | undefined): boolean => !!value;
 const resolveMaybeArray = <T,>(
-  value: Maybe<Array<Maybe<T> | undefined>> | undefined,
-): Array<T> => {
+  value: Maybe<(Maybe<T> | undefined)[]> | undefined,
+): T[] => {
   return value?.filter(notEmpty) ?? [];
 };
 
@@ -103,13 +103,19 @@ const EquityOptions = ({
       });
   };
 
+  const handleError = () => {
+    toast.error(intl.formatMessage(profileMessages.updatingFailed));
+  };
+
   const handleMultipleFieldSave = (data: UpdateUserAsUserInput) => {
-    onUpdate(data).then((res) => {
-      if (res) toast.success(intl.formatMessage(profileMessages.userUpdated));
-      else {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      }
-    });
+    onUpdate(data)
+      .then((res) => {
+        if (res) toast.success(intl.formatMessage(profileMessages.userUpdated));
+        else {
+          handleError();
+        }
+      })
+      .catch(handleError);
   };
 
   return (

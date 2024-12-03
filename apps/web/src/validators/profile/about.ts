@@ -10,8 +10,6 @@ export type PartialUser = Pick<
   | "preferredLang"
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
-  | "currentCity"
-  | "currentProvince"
   | "citizenship"
   | "armedForcesStatus"
 >;
@@ -22,8 +20,6 @@ export function hasAllEmptyFields({
   telephone,
   email,
   preferredLang,
-  currentCity,
-  currentProvince,
   citizenship,
   armedForcesStatus,
 }: PartialUser): boolean {
@@ -33,8 +29,6 @@ export function hasAllEmptyFields({
     !email &&
     !telephone &&
     !preferredLang &&
-    !currentCity &&
-    !currentProvince &&
     !citizenship &&
     empty(armedForcesStatus)
   );
@@ -48,8 +42,6 @@ export function hasEmptyRequiredFields({
   preferredLang,
   preferredLanguageForInterview,
   preferredLanguageForExam,
-  currentCity,
-  currentProvince,
   citizenship,
   armedForcesStatus,
 }: PartialUser): boolean {
@@ -61,8 +53,6 @@ export function hasEmptyRequiredFields({
     !preferredLang ||
     !preferredLanguageForInterview ||
     !preferredLanguageForExam ||
-    !currentCity ||
-    !currentProvince ||
     !citizenship ||
     empty(armedForcesStatus)
   );

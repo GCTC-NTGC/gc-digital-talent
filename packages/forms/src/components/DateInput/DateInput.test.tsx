@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { screen, waitFor, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { FormProvider, useForm } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import { ReactNode } from "react";
@@ -67,7 +67,7 @@ describe("DateInput", () => {
     await axeTest(container);
   });
 
-  it("should render subfields", async () => {
+  it("should render subfields", () => {
     const { rerender } = renderDateInput(defaultProps);
 
     expect(screen.getByRole("group", { name: "Date" })).toBeInTheDocument();
@@ -122,7 +122,7 @@ describe("DateInput", () => {
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       const alert = screen.getByRole("alert");
       expect(alert).toBeInTheDocument();
     });
@@ -161,7 +161,7 @@ describe("DateInput", () => {
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(submitFn).toHaveBeenCalledWith({
         date: "2023-01-01",
       });
@@ -209,12 +209,12 @@ describe("DateInput", () => {
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       const alert = screen.getByRole("alert");
       expect(within(alert).getByText(/after/i)).toBeInTheDocument();
     });
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(submitFn).not.toHaveBeenCalled();
     });
   });
@@ -240,7 +240,7 @@ describe("DateInput", () => {
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(submitFn).toHaveBeenCalled();
     });
   });
@@ -286,13 +286,13 @@ describe("DateInput", () => {
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       const alert = screen.getByRole("alert");
 
       expect(within(alert).getByText(/before/i)).toBeInTheDocument();
     });
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(submitFn).not.toHaveBeenCalled();
     });
   });
@@ -318,7 +318,7 @@ describe("DateInput", () => {
 
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(submitFn).toHaveBeenCalled();
     });
   });
@@ -352,14 +352,14 @@ describe("DateInput", () => {
     await user.type(day, "30");
     await user.click(screen.getByRole("button", { name: /submit/i }));
 
-    await waitFor(async () => {
+    await waitFor(() => {
       const alert = screen.getByRole("alert");
       expect(
         within(alert).getByText(/please enter a valid date/i),
       ).toBeInTheDocument();
     });
 
-    await waitFor(async () => {
+    await waitFor(() => {
       expect(submitFn).not.toHaveBeenCalled();
     });
   });

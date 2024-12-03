@@ -3,10 +3,31 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
-    "en": "Screened in",
+    "en": "Create team",
     "fr": [
-      "Sélectionné(e)",
-      "Accepté"
+      "Créez une équipe",
+      "Créez l'équipe"
+    ]
+  },
+  {
+    "en": "Membership roles",
+    "fr": [
+      "Rôles des membres",
+      "Rôles dans l'équipe"
+    ]
+  },
+  {
+    "en": "Community roles",
+    "fr": [
+      "Rôles dans la collectivité",
+      "Rôles dans des collectivités"
+    ]
+  },
+  {
+    "en": "Create skill",
+    "fr": [
+      "Créez une compétence",
+      "Créez la compétence"
     ]
   },
   {
@@ -17,6 +38,20 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add individual role",
+    "fr": [
+      "Ajoutez un rôle individuel",
+      "Ajouter un rôle individue"
+    ]
+  },
+  {
+    "en": "Create a community",
+    "fr": [
+      "Créez une collectivité",
+      "Créer une collectivité"
+    ]
+  },
+  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
@@ -24,10 +59,66 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Required",
+    "en": "Remove candidate",
     "fr": [
-      "Requises",
-      "Champ obligatoire"
+      "Supprimer le (la) candidat(e)",
+      "Supprimez le (la) candidat(e)"
+    ]
+  },
+  {
+    "en": "Remove from process",
+    "fr": [
+      "Retirez du processus",
+      "Retirer du processus"
+    ]
+  },
+  {
+    "en": "Apply now",
+    "fr": [
+      "Postulez dès-maintenant",
+      "Présentez votre demande"
+    ]
+  },
+  {
+    "en": "Remove membership<hidden> in {team}</hidden>",
+    "fr": [
+      "Retirez de l'équipe<hidden> dans {team}</hidden>",
+      "Retirer de l'équipe<hidden> dans {team}</hidden>"
+    ]
+  },
+  {
+    "en": "Add team role",
+    "fr": [
+      "Ajouter un rôle dans l'équipe",
+      "Ajoutez un rôle dans l'équipe"
+    ]
+  },
+  {
+    "en": "Create a training opportunity",
+    "fr": [
+      "Créez une possibilité de formation",
+      "Créer une possibilité de formation"
+    ]
+  },
+  {
+    "en": "Add process role",
+    "fr": [
+      "Ajoutez un rôle dans le processus",
+      "Ajouter des rôles dans des processus"
+    ]
+  },
+  {
+    "en": "Create department",
+    "fr": [
+      "Créez un ministère",
+      "Créez le ministère"
+    ]
+  },
+  {
+    "en": "Add community role",
+    "fr": [
+      "Ajouter un rôle dans la collectivité",
+      "Ajoutez un rôle dans la collectivité"
     ]
   },
   {
@@ -38,10 +129,24 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Optional",
+    "en": "Continue draft",
     "fr": [
-      "Facultatives",
-      "Facultatif"
+      "Poursuivez l'ébauche",
+      "Poursuivre l’ébauche"
+    ]
+  },
+  {
+    "en": "Create skill family",
+    "fr": [
+      "Créer un groupe de compétences",
+      "Créez le groupe de compétences"
+    ]
+  },
+  {
+    "en": "Remove from community",
+    "fr": [
+      "Retirez de la collectivité",
+      "Retirer de la collectivité"
     ]
   },
   {

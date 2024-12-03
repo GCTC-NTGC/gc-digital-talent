@@ -1,21 +1,38 @@
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 
+import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
-import { Link } from "@gc-digital-talent/ui";
+import { Button, Chip, Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
-  getLanguage,
-  getProvinceOrTerritory,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
+import profileMessages from "~/messages/profileMessages";
+import useRoutes from "~/hooks/useRoutes";
+
 import FieldDisplay from "../FieldDisplay";
-import DisplayColumn from "../DisplayColumn";
-import { PartialUser } from "./types";
+
+type PartialUser = Pick<
+  User,
+  | "firstName"
+  | "lastName"
+  | "email"
+  | "isEmailVerified"
+  | "telephone"
+  | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
+  | "citizenship"
+  | "armedForcesStatus"
+>;
 
 interface DisplayProps {
   user: PartialUser;
+  showEmailVerification?: boolean;
 }
 
 const Display = ({
@@ -23,148 +40,170 @@ const Display = ({
     firstName,
     lastName,
     email,
+    isEmailVerified,
     telephone,
     preferredLang,
     preferredLanguageForInterview,
     preferredLanguageForExam,
-    currentCity,
-    currentProvince,
     citizenship,
     armedForcesStatus,
   },
+  showEmailVerification = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const navigate = useNavigate();
+  const routes = useRoutes();
+
+  const handleVerifyNowClick = async () => {
+    await navigate(
+      routes.verifyContactEmail({
+        emailAddress: email,
+      }),
+    );
+  };
+
+  const emailVerificationComponents = isEmailVerified ? (
+    <Chip color="success">
+      {intl.formatMessage({
+        defaultMessage: "Verified",
+        id: "GMglI5",
+        description: "The email address has been verified to be owned by user",
+      })}
+    </Chip>
+  ) : (
+    <>
+      <Chip color="error">
+        {intl.formatMessage({
+          defaultMessage: "Unverified",
+          id: "tUIvbq",
+          description:
+            "The email address has not been verified to be owned by user",
+        })}
+      </Chip>
+      <Button
+        type="button"
+        mode="inline"
+        color="error"
+        data-h2-margin="base(0 0 x.15 0)" // line up with chip
+        onClick={handleVerifyNowClick}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Verify now",
+          id: "ADPfNp",
+          description: "Button to start the email address verification process",
+        })}
+      </Button>
+    </>
+  );
 
   return (
-    <>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
-        data-h2-gap="base(x1)"
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
+      data-h2-gap="base(x1)"
+    >
+      <FieldDisplay
+        hasError={!firstName}
+        label={intl.formatMessage({
+          defaultMessage: "Given name",
+          id: "DUh8zg",
+          description: "Label for given name field",
+        })}
       >
-        <DisplayColumn>
-          <FieldDisplay
-            hasError={!firstName}
-            label={intl.formatMessage({
-              defaultMessage: "Given name",
-              id: "DUh8zg",
-              description: "Label for given name field",
-            })}
-          >
-            {firstName || notProvided}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!telephone}
-            label={intl.formatMessage(commonMessages.telephone)}
-          >
-            {telephone ? (
-              <Link
-                color="black"
-                external
-                href={`tel:${telephone}`}
-                aria-label={telephone.replace(/.{1}/g, "$& ")}
-              >
-                {telephone}
-              </Link>
-            ) : (
-              notProvided
-            )}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!preferredLang}
-            label={intl.formatMessage({
-              defaultMessage: "Communication language",
-              id: "ceofev",
-              description: "Legend text for communication language preference",
-            })}
-          >
-            {preferredLang
-              ? intl.formatMessage(getLanguage(preferredLang))
-              : notProvided}
-          </FieldDisplay>
-        </DisplayColumn>
-        <DisplayColumn>
-          <FieldDisplay
-            hasError={!lastName}
-            label={intl.formatMessage({
-              defaultMessage: "Surname",
-              id: "dssZUt",
-              description: "Label for surname field",
-            })}
-          >
-            {lastName || notProvided}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!currentCity}
-            label={intl.formatMessage({
-              defaultMessage: "Current city",
-              id: "de/Vcy",
-              description: "Label for current city field in About Me form",
-            })}
-          >
-            {currentCity || notProvided}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!preferredLanguageForInterview}
-            label={intl.formatMessage({
-              defaultMessage: "Spoken interview language",
-              id: "ehrsDa",
-              description:
-                "Legend text for spoken interview language preference for interviews",
-            })}
-          >
-            {preferredLanguageForInterview
-              ? intl.formatMessage(getLanguage(preferredLanguageForInterview))
-              : notProvided}
-          </FieldDisplay>
-        </DisplayColumn>
-        <DisplayColumn>
-          <FieldDisplay
-            hasError={!email}
-            label={intl.formatMessage(commonMessages.email)}
-          >
-            {email || notProvided}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!currentProvince}
-            label={intl.formatMessage({
-              defaultMessage: "Province or territory",
-              id: "yzgwjd",
-              description: "Label for current province or territory field",
-            })}
-          >
-            {currentProvince
-              ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
-              : notProvided}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!preferredLanguageForExam}
-            label={intl.formatMessage({
-              defaultMessage: "Written exam language",
-              id: "boPmF+",
-              description:
-                "Legend text for written exam language preference for exams",
-            })}
-          >
-            {preferredLanguageForExam
-              ? intl.formatMessage(getLanguage(preferredLanguageForExam))
-              : notProvided}
-          </FieldDisplay>
-        </DisplayColumn>
+        {firstName ?? notProvided}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!lastName}
+        label={intl.formatMessage({
+          defaultMessage: "Surname",
+          id: "dssZUt",
+          description: "Label for surname field",
+        })}
+      >
+        {lastName ?? notProvided}
+      </FieldDisplay>
+      <div
+        data-h2-grid-column-start="p-tablet(1)"
+        data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(row)"
+        data-h2-gap="base(x0.5)"
+        data-h2-align-items="base(end)"
+      >
+        <FieldDisplay
+          hasError={!email}
+          label={intl.formatMessage(commonMessages.email)}
+          data-h2-margin="base(0 0 x.15 0)" // line up with chip
+        >
+          {email ?? notProvided}
+        </FieldDisplay>
+        {showEmailVerification ? emailVerificationComponents : null}
       </div>
       <FieldDisplay
-        hasError={empty(armedForcesStatus)}
-        label={intl.formatMessage({
-          defaultMessage: "Veteran status",
-          id: "OVWo88",
-          description: "Title for Veteran status",
-        })}
-        data-h2-padding-top="base(x1)"
+        hasError={!telephone}
+        label={intl.formatMessage(commonMessages.telephone)}
       >
-        {armedForcesStatus !== null && armedForcesStatus !== undefined
+        {telephone ? (
+          <Link
+            color="black"
+            external
+            href={`tel:${telephone}`}
+            aria-label={telephone.replace(/.{1}/g, "$& ")}
+          >
+            {telephone}
+          </Link>
+        ) : (
+          notProvided
+        )}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!preferredLang}
+        label={intl.formatMessage({
+          defaultMessage: "Communication language",
+          id: "ceofev",
+          description: "Legend text for communication language preference",
+        })}
+      >
+        {preferredLang?.label
+          ? getLocalizedName(preferredLang.label, intl)
+          : notProvided}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!preferredLanguageForInterview}
+        label={intl.formatMessage({
+          defaultMessage: "Spoken interview language",
+          id: "ehrsDa",
+          description:
+            "Legend text for spoken interview language preference for interviews",
+        })}
+      >
+        {preferredLanguageForInterview?.label
+          ? getLocalizedName(preferredLanguageForInterview.label, intl)
+          : notProvided}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={!preferredLanguageForExam}
+        label={intl.formatMessage({
+          defaultMessage: "Written exam language",
+          id: "boPmF+",
+          description:
+            "Legend text for written exam language preference for exams",
+        })}
+      >
+        {preferredLanguageForExam?.label
+          ? getLocalizedName(preferredLanguageForExam.label, intl)
+          : notProvided}
+      </FieldDisplay>
+      <FieldDisplay
+        hasError={empty(armedForcesStatus)}
+        label={intl.formatMessage(profileMessages.veteranStatus)}
+        data-h2-grid-column-start="p-tablet(1)"
+        data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
+      >
+        {armedForcesStatus?.value
           ? intl.formatMessage(
-              getArmedForcesStatusesProfile(armedForcesStatus, false),
+              getArmedForcesStatusesProfile(armedForcesStatus.value, false),
             )
           : notProvided}
       </FieldDisplay>
@@ -175,13 +214,14 @@ const Display = ({
           id: "4v9y7U",
           description: "Citizenship status label",
         })}
-        data-h2-padding-top="base(x1)"
+        data-h2-grid-column-start="p-tablet(1)"
+        data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
       >
-        {citizenship
-          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship))
+        {citizenship?.value
+          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship.value))
           : notProvided}
       </FieldDisplay>
-    </>
+    </div>
   );
 };
 

@@ -5,9 +5,13 @@ import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
+interface LocationState {
+  referrer?: string;
+}
+
 const generateLink = (
   href: LinkProps["href"],
-  state: LinkProps["state"],
+  state: LocationState,
   chunks: ReactNode,
 ) => (
   <Link newTab external href={href} state={state}>
@@ -26,7 +30,7 @@ const ClosingDateDialog = ({ title }: { title: ReactNode }): JSX.Element => {
           {title}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -38,6 +41,7 @@ class UserRoleTest extends TestCase
             ->asApplicant()
             ->asRequestResponder()
             ->asAdmin()
+            ->asCommunityManager()
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
@@ -202,8 +206,8 @@ class UserRoleTest extends TestCase
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role.
     public function testAdminCanAddAndRemoveNonTeamRoleToUser()
     {
-        $oldRole = Role::factory()->create(['is_team_based' => false]);
-        $newRole = Role::factory()->create(['is_team_based' => false]);
+        $oldRole = Role::where('name', 'guest')->sole();
+        $newRole = Role::where('name', 'base_user')->sole();
         $user = User::factory()->create()->syncRoles([$oldRole]);
 
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -222,10 +226,10 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
+                            ['roleId' => $newRole->id],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
+                            ['roleId' => $oldRole->id],
                         ],
                     ],
                 ],
@@ -246,8 +250,8 @@ class UserRoleTest extends TestCase
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role, now with teams!
     public function testAdminCanAddAndRemoveTeamRoleToUser()
     {
-        $oldRole = Role::factory()->create(['is_team_based' => true]);
-        $newRole = Role::factory()->create(['is_team_based' => true]);
+        $oldRole = Role::where('name', 'process_operator')->sole();
+        $newRole = Role::where('name', 'process_operator')->sole();
         $oldTeam = Team::factory()->create();
         $newTeam = Team::factory()->create();
         $user = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
@@ -269,12 +273,16 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
-                            'team' => $newTeam->id,
+                            [
+                                'roleId' => $newRole->id,
+                                'teamId' => $newTeam->id,
+                            ],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id,
+                            [
+                                'roleId' => $oldRole->id,
+                                'teamId' => $oldTeam->id,
+                            ],
                         ],
                     ],
                 ],
@@ -287,7 +295,7 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create a user and attempt to add a non-team role with a team.  Assert that validation fails.
+    // Create a user and attempt to add a non-team role with a team. Assert that validation fails.
     public function testAdminCannotAddNonTeamRoleWithATeam()
     {
         $role = Role::factory()->create(['is_team_based' => false]);
@@ -311,8 +319,10 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$role->id],
-                            'team' => $team->id,
+                            [
+                                'roleId' => $role->id,
+                                'teamId' => $team->id,
+                            ],
                         ],
                     ],
                 ],
@@ -324,7 +334,7 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create a user and attempt to add a team role without a team.  Assert that validation fails.
+    // Create a user and attempt to add a team role without a team. Assert that validation fails.
     public function testAdminCannotAddTeamRoleWithoutATeam()
     {
         $role = Role::factory()->create(['is_team_based' => true]);
@@ -347,7 +357,9 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$role->id],
+                            [
+                                'roleId' => $role->id,
+                            ],
                         ],
                     ],
                 ],
@@ -456,12 +468,16 @@ class UserRoleTest extends TestCase
                     'userId' => $otherUser->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
-                            'team' => $newTeam->id,
+                            [
+                                'roleId' => $newRole->id,
+                                'teamId' => $newTeam->id,
+                            ],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id,
+                            [
+                                'roleId' => $oldRole->id,
+                                'teamId' => $oldTeam->id,
+                            ],
                         ],
                     ],
                 ],
@@ -494,12 +510,16 @@ class UserRoleTest extends TestCase
                     'userId' => $this->baseUser->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
-                            'team' => $newTeam->id,
+                            [
+                                'roleId' => $newRole->id,
+                                'teamId' => $newTeam->id,
+                            ],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id,
+                            [
+                                'roleId' => $oldRole->id,
+                                'teamId' => $oldTeam->id,
+                            ],
                         ],
                     ],
                 ],

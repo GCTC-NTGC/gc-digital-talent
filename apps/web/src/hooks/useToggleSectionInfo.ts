@@ -15,14 +15,14 @@ interface GetToggleSectionIconArgs {
   optional?: boolean | null;
 }
 
-export type SectionIcon = {
+export interface SectionIcon {
   icon: IconType;
   color?: HeadingProps["color"];
-};
+}
 
 type GetToggleSectionIconFn = (args: GetToggleSectionIconArgs) => SectionIcon;
 
-export const getToggleSectionIcon: GetToggleSectionIconFn = ({
+const getToggleSectionIcon: GetToggleSectionIconFn = ({
   isEditing,
   fallback = InformationCircleIcon,
   completed,

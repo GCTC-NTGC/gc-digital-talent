@@ -1,16 +1,8 @@
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
-import { IntlShape } from "react-intl";
 
-import { getLocale } from "@gc-digital-talent/i18n";
-import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  notEmpty,
-  uniqueItems,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
-import {
-  UserSkill,
   SkillLevel,
   Experience,
   Maybe,
@@ -59,7 +51,7 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
 }
 
 export type InvertedSkillExperience = Skill & {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 };
 /**
  * Transforms an array of experiences with child skills into a tree of skills with child experiences.
@@ -67,7 +59,7 @@ export type InvertedSkillExperience = Skill & {
  * @returns { Skill[] } - The new collection of skills with child experiences
  */
 export function invertSkillExperienceTree(
-  experiences: Experience[],
+  experiences: Omit<Experience, "user">[],
 ): InvertedSkillExperience[] {
   const allChildSkills = flatMap(experiences, (s) => s.skills).filter(notEmpty);
   const uniqueSkills = uniqBy(allChildSkills, "id");
@@ -89,28 +81,17 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Maybe<Array<Skill>> | undefined,
+  skills: Maybe<Skill[]> | undefined,
   category: SkillCategory,
 ) {
   return skills
-    ?.filter((skill) => skill.category === category)
-    .filter(notEmpty);
-}
-
-export function filterUserSkillsByCategory(
-  userSkills: Maybe<Array<UserSkill>>,
-  category: SkillCategory,
-) {
-  return userSkills
-    ?.filter((userSkill) => {
-      return userSkill.skill.category === category;
-    })
+    ?.filter((skill) => skill.category.value === category)
     .filter(notEmpty);
 }
 
 export function categorizeSkill(
-  skills: Maybe<Array<Skill>> | undefined,
-): Record<SkillCategory, Maybe<Array<Skill> | undefined>> {
+  skills: Maybe<Skill[]> | undefined,
+): Record<SkillCategory, Maybe<Skill[] | undefined>> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -121,44 +102,6 @@ export function categorizeSkill(
       SkillCategory.Behavioural,
     ),
   };
-}
-
-export function categorizeUserSkill(
-  userSkills: Maybe<Array<UserSkill>>,
-): Record<SkillCategory, Maybe<Array<UserSkill> | undefined>> {
-  return {
-    [SkillCategory.Technical]: filterUserSkillsByCategory(
-      userSkills,
-      SkillCategory.Technical,
-    ),
-    [SkillCategory.Behavioural]: filterUserSkillsByCategory(
-      userSkills,
-      SkillCategory.Behavioural,
-    ),
-  };
-}
-
-export function filterSkillsByNameOrKeywords(
-  skills: Array<Skill>,
-  searchQuery: string,
-  intl: IntlShape,
-) {
-  const locale = getLocale(intl);
-
-  const matchedSkills = skills
-    .filter((skill) => {
-      return (
-        matchStringCaseDiacriticInsensitive(
-          searchQuery,
-          skill.name[locale] ?? "",
-        ) ||
-        skill.keywords?.[locale]?.some((keyword) => {
-          return matchStringCaseDiacriticInsensitive(searchQuery, keyword);
-        })
-      );
-    })
-    .filter(notEmpty);
-  return matchedSkills;
 }
 
 export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
@@ -174,38 +117,6 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
 };
 
 /**
- * Differentiate Missing Skills
- *
- * Determines if a skill is missing or present but
- * simply missing details
- *
- * @param missingSkills Skill[] Array of skills that are missing from the application
- * @param addedSkills Skill[] Array of skills added to a users profile
- * @returns [skills: Skill[], details: Skill[]] Tuple where first index is the skills
- *          That are completely missing and second index are the skills that are present
- *          but missing details
- */
-export const differentiateMissingSkills = (
-  missingSkills: Skill[],
-  addedSkills?: Skill[],
-) => {
-  const skills: Skill[] = [];
-  const details: Skill[] = [];
-
-  missingSkills.forEach((skill) => {
-    const addedSkill = addedSkills?.find((added) => added.id === skill.id);
-
-    if (addedSkill && !addedSkill.experienceSkillRecord?.details) {
-      details.push(skill);
-    } else {
-      skills.push(skill);
-    }
-  });
-
-  return [skills, details];
-};
-
-/**
  * Get Experience Skills
  *
  * Filters an array of experiences to get
@@ -216,36 +127,14 @@ export const differentiateMissingSkills = (
  * @returns Experience[]  New array of experiences
  */
 export const getExperienceSkills = (
-  experiences: Experience[],
+  experiences: Omit<Experience, "user">[],
   skill?: Pick<Skill, "id">,
-): Experience[] => {
+): Omit<Experience, "user">[] => {
   return experiences.filter((experience) =>
     experience.skills?.some(
       (experienceSkill) => experienceSkill.id === skill?.id,
     ),
   );
-};
-
-/**
- * Get Experience's Skill Ids
- *
- * Given an array of experiences, return an array of skill ids found with duplicates removed
- *
- * @param experiences Experience[] Array of experiences
- * @returns String[] Array of unique skill ids
- */
-export const getExperiencesSkillIds = (experiences: Experience[]): string[] => {
-  let idCollection: string[] = [];
-  experiences.forEach((experience) => {
-    const { skills } = experience;
-    if (skills && skills.length > 0) {
-      const skillIdArray = skills.map((skill) => skill.id);
-      idCollection = [...idCollection, ...skillIdArray];
-    }
-  });
-  const deDupedIdCollection = uniqueItems(idCollection);
-
-  return deDupedIdCollection;
 };
 
 /**
@@ -284,23 +173,6 @@ export const parseKeywords = (
 const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
 
 /**
- * Sort skills by category
- *
- * Technical first, behavioural second
- *
- * @param skills Skill[]
- * @returns Skill[]
- */
-export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
-  return skills.sort((skillA, skillB) => {
-    return (
-      categoryOrder.indexOf(skillA.category) -
-      categoryOrder.indexOf(skillB.category)
-    );
-  });
-};
-
-/**
  * Sort poolSkills collection by category of attached skill
  *
  * Technical first, behavioural second
@@ -314,8 +186,12 @@ export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
   return poolSkills.sort((poolSkillA, poolSkillB) => {
     if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
       return (
-        categoryOrder.indexOf(poolSkillA.skill.category) -
-        categoryOrder.indexOf(poolSkillB.skill.category)
+        categoryOrder.indexOf(
+          poolSkillA.skill.category.value ?? SkillCategory.Behavioural,
+        ) -
+        categoryOrder.indexOf(
+          poolSkillB.skill.category.value ?? SkillCategory.Behavioural,
+        )
       );
     }
     return 0;
@@ -324,6 +200,7 @@ export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
 
 /**
  * Filter poolSkills to get an array of essential or nonessential skills
+ * Type PoolSkill not constrained as a maybe array of maybes won't get checked either way without a more thorough refactor
  *
  * @param poolSkills PoolSkill[]
  * @param poolSkillType PoolSkillType
@@ -334,24 +211,24 @@ export const filterPoolSkillsByType = (
   poolSkillType: PoolSkillType,
 ): Skill[] => {
   const skills = unpackMaybes(poolSkills)
-    .filter((poolSkill) => poolSkill.type === poolSkillType)
+    .filter((poolSkill) => poolSkill.type?.value === poolSkillType)
     .map((poolSkill) => poolSkill.skill);
   return unpackMaybes(skills);
 };
 
 export function groupPoolSkillByType(
   poolSkills?: Maybe<Maybe<PoolSkill>[]>,
-): Map<PoolSkillType, Array<Skill>> {
+): Map<PoolSkillType, Skill[]> {
   return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
     const { type, skill } = poolSkill;
-    if (type && skill) {
-      if (!map.has(type)) {
-        map.set(type, []);
+    if (type?.value && skill) {
+      if (!map.has(type.value)) {
+        map.set(type.value, []);
       }
-      map.get(type)?.push(skill);
+      map.get(type.value)?.push(skill);
     }
     return map;
-  }, new Map<PoolSkillType, Array<Skill>>());
+  }, new Map<PoolSkillType, Skill[]>());
 }
 
 export function poolSkillsToSkills(poolSkills?: Maybe<Maybe<PoolSkill>[]>) {

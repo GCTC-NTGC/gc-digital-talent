@@ -36,10 +36,10 @@ const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => (
   </button>
 );
 
-type ToastProps = {
+interface ToastProps {
   disableTransition?: boolean;
   autoClose?: ToastContainerProps["autoClose"];
-};
+}
 
 const Toast = ({ disableTransition, autoClose = 5000 }: ToastProps) => (
   <ToastContainer

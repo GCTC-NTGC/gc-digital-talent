@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentDecisionLevel;
 use App\Enums\AssessmentResultJustification;
@@ -14,6 +16,7 @@ use App\Models\PoolSkill;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -82,8 +85,8 @@ class AssessmentResultTest extends TestCase
             updateAssessmentResult(updateAssessmentResult: $updateAssessmentResult) {
                 id
                 assessmentResultType
-                assessmentDecision
-                justifications
+                assessmentDecision { value }
+                justifications { value }
             }
         }
     ';
@@ -203,8 +206,12 @@ class AssessmentResultTest extends TestCase
             )
             ->assertJsonFragment([
                 'assessmentResultType' => AssessmentResultType::EDUCATION->name,
-                'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
-                'justifications' => [AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT->name],
+                'assessmentDecision' => [
+                    'value' => AssessmentDecision::UNSUCCESSFUL->name,
+                ],
+                'justifications' => [[
+                    'value' => AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT->name,
+                ]],
             ]);
     }
 

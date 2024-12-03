@@ -11,6 +11,7 @@ import {
 
 import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakeDepartments from "./fakeDepartments";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateSearchRequest = (
   departments: Department[],
@@ -23,11 +24,15 @@ const generateSearchRequest = (
     department: faker.helpers.arrayElement<Department>(departments),
     jobTitle: faker.person.jobTitle(),
     managerJobTitle: faker.person.jobTitle(),
-    positionType: faker.helpers.arrayElement<PoolCandidateSearchPositionType>(
-      Object.values(PoolCandidateSearchPositionType),
+    positionType: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateSearchPositionType>(
+        Object.values(PoolCandidateSearchPositionType),
+      ),
     ),
-    reason: faker.helpers.arrayElement<PoolCandidateSearchRequestReason>(
-      Object.values(PoolCandidateSearchRequestReason),
+    reason: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateSearchRequestReason>(
+        Object.values(PoolCandidateSearchRequestReason),
+      ),
     ),
     additionalComments: faker.lorem.sentences(5),
     hrAdvisorEmail: faker.internet.email(),
@@ -36,8 +41,10 @@ const generateSearchRequest = (
     requestedDate: faker.date
       .between({ from: "2000-01-01", to: "2020-12-31" })
       .toISOString(),
-    status: faker.helpers.arrayElement<PoolCandidateSearchStatus>(
-      Object.values(PoolCandidateSearchStatus),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateSearchStatus>(
+        Object.values(PoolCandidateSearchStatus),
+      ),
     ),
     adminNotes: faker.lorem.sentences(5),
   };
@@ -48,7 +55,7 @@ export default (): PoolCandidateSearchRequest[] => {
   const applicantFilters = fakeApplicantFilters();
 
   faker.seed(0); // repeatable results
-  return [...Array(20)].map(() =>
+  return Array.from({ length: 20 }, () =>
     generateSearchRequest(departments, applicantFilters),
   );
 };

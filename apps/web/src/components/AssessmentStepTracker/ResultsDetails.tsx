@@ -67,7 +67,7 @@ const StatusCount = ({
 };
 
 interface ResultsDetailsProps {
-  step: AssessmentStep;
+  step: Pick<AssessmentStep, "type" | "title">;
   resultCounts?: ResultDecisionCounts;
   filters?: ResultFilters;
 }
@@ -81,7 +81,7 @@ const ResultsDetails = ({
   const intl = useIntl();
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =
-    step.type === AssessmentStepType.ApplicationScreening;
+    step.type?.value === AssessmentStepType.ApplicationScreening;
   const totalCount = Object.values(resultCounts ?? {}).reduce(
     (total, decisionCount) => {
       return total + decisionCount;

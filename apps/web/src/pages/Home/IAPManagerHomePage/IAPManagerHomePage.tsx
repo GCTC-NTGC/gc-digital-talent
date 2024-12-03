@@ -16,8 +16,6 @@ import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.web
 import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
-import packageEnDoc from "~/assets/documents/Manager package - ITAPIP.pptx";
-import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.pptx";
 
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
@@ -169,7 +167,11 @@ export const Component = () => {
               external
               mode="cta"
               icon={ArrowDownTrayIcon}
-              href={locale === "en" ? packageEnDoc : packageFrDoc}
+              href={
+                locale === "en"
+                  ? "/static/documents/Manager package - ITAPIP.pptx"
+                  : "/static/documents/Trousse du gestionnaire - PATIPA.pptx"
+              }
               color="primary"
               data-h2-text-align="base(center)"
             >
@@ -185,7 +187,7 @@ export const Component = () => {
 
       <div data-h2-layer="base(1, relative)">
         <div
-          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
           {/* pull-up overlap */}
@@ -300,7 +302,11 @@ export const Component = () => {
                   <Link
                     mode="solid"
                     external
-                    href={locale === "en" ? packageEnDoc : packageFrDoc}
+                    href={
+                      locale === "en"
+                        ? "/static/documents/Manager package - ITAPIP.pptx"
+                        : "/static/documents/Trousse du gestionnaire - PATIPA.pptx"
+                    }
                     color="primary"
                     data-h2-text-align="base(center)"
                   >
@@ -561,7 +567,7 @@ export const Component = () => {
         </div>
       </div>
 
-      <div data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)">
+      <div data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)">
         <div data-h2-padding="base(x2) p-tablet(x2.5) l-tablet(x3)">
           {/* ready for IT section */}
           <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
@@ -689,7 +695,11 @@ export const Component = () => {
                   <Link
                     mode="solid"
                     external
-                    href={locale === "en" ? packageEnDoc : packageFrDoc}
+                    href={
+                      locale === "en"
+                        ? "/static/documents/Manager package - ITAPIP.pptx"
+                        : "/static/documents/Trousse du gestionnaire - PATIPA.pptx"
+                    }
                     color="secondary"
                     data-h2-text-align="base(center)"
                   >

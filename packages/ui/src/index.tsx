@@ -7,13 +7,16 @@ import {
   IconProps,
   ButtonLinkMode,
 } from "./types";
-import Accordion from "./components/Accordion";
+import Accordion, { type AccordionMetaData } from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
 import Counter from "./components/Button/Counter";
-import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
+import Breadcrumbs, {
+  Crumb,
+  type BreadcrumbsProps,
+} from "./components/Breadcrumbs";
 import Board from "./components/Board/Board";
 import {
   CardBasic,
@@ -24,10 +27,11 @@ import {
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
+import CardSeparator from "./components/CardSeparator";
 import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
-import DefinitionList from "./components/DefinitionList/DefinitionList";
+import DescriptionList from "./components/DescriptionList/DescriptionList";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
@@ -48,23 +52,20 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
+import { getNavLinkStyling } from "./components/NavMenu";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, {
   type PendingProps,
   LoadingErrorMessage,
 } from "./components/Pending";
+import PreviewList, {
+  type MetaDataProps as PreviewMetaData,
+} from "./components/PreviewList/PreviewList";
+import ResourceBlock from "./components/ResourceBlock";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
-import SideMenu, {
-  ExternalSideMenuItem,
-  SideMenuButton,
-  SideMenuItem,
-  SideMenuContentWrapper,
-  SideMenuCategory,
-  type SideMenuProps,
-  type SideMenuItemProps,
-} from "./components/SideMenu";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
@@ -85,10 +86,14 @@ import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
+import TaskCard from "./components/TaskCard";
+import NavMenu from "./components/NavMenu/NavMenu";
+import NavMenuWrapper from "./components/NavMenu/NavMenuWrapper";
 
 export type {
   Color,
   HeadingRank,
+  AccordionMetaData,
   AlertProps,
   BreadcrumbsProps,
   ButtonProps,
@@ -105,12 +110,12 @@ export type {
   ScrollToLinkProps,
   ScrollLinkClickFunc,
   MenuLinkProps,
+  MetadataItemProps,
   LoadingProps,
   PendingProps,
+  PreviewMetaData,
   ChipProps,
   SidebarProps,
-  SideMenuProps,
-  SideMenuItemProps,
   SpoilerProps,
   StepperProps,
   StepType,
@@ -132,15 +137,17 @@ export {
   useAnnouncer,
   Board,
   Breadcrumbs,
+  Crumb,
   Button,
   CardBasic,
   CardFlat,
   CardRepeater,
+  CardSeparator,
   Chips,
   Chip,
   Collapsible,
   Counter,
-  DefinitionList,
+  DescriptionList,
   Dialog,
   /* Re-exporting primitive for custom solutions */
   DialogPrimitive,
@@ -151,26 +158,26 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  Metadata,
+  NavMenu,
+  NavMenuWrapper,
   NavTabs,
   Loading,
   LoadingErrorMessage,
   Pending,
+  PreviewList,
+  ResourceBlock,
   NotFound,
   ThrowNotFound,
   ScrollArea,
   Separator,
-  SideMenu,
-  ExternalSideMenuItem,
   Sidebar,
-  SideMenuButton,
-  SideMenuItem,
-  SideMenuCategory,
-  SideMenuContentWrapper,
   Spoiler,
   Stepper,
   Switch,
   TableOfContents,
   Tabs,
+  TaskCard,
   ToggleGroup,
   ToggleSection,
   TreeView,
@@ -183,4 +190,5 @@ export {
   headingStyles,
   useCardRepeaterContext,
   useControllableState,
+  getNavLinkStyling,
 };

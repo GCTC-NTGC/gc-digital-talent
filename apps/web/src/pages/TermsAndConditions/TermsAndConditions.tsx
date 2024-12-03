@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import heroImg from "~/assets/img/accessibility-statement-header.webp";
@@ -24,10 +24,10 @@ export type SectionKey =
   | "accessibilityCommitment"
   | "socialMedia";
 
-type Section = {
+interface Section {
   id: string;
   title: ReactNode;
-};
+}
 
 const privacyPolicyLink = (path: string, chunks: ReactNode) => (
   <Link href={path}>{chunks}</Link>
@@ -303,7 +303,7 @@ export const Component = () => {
         subtitle={subtitle}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>

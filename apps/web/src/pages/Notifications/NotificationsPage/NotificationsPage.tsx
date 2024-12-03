@@ -2,18 +2,11 @@ import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import {
-  CardBasic,
-  Heading,
-  Link,
-  Sidebar,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { CardBasic, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import NotificationList from "~/components/NotificationList/NotificationList";
@@ -45,7 +38,7 @@ const NotificationsPage = () => {
         crumbs={breadcrumbs}
       />
       <section data-h2-margin="base(x3, 0)">
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <Sidebar.Wrapper>
             <Sidebar.Sidebar>
               <CardBasic>
@@ -114,14 +107,10 @@ const NotificationsPage = () => {
 };
 
 export const Component = () => {
-  const { notifications } = useFeatureFlags();
-
-  return notifications ? (
+  return (
     <RequireAuth roles={[ROLE_NAME.Applicant]}>
       <NotificationsPage />
     </RequireAuth>
-  ) : (
-    <ThrowNotFound />
   );
 };
 

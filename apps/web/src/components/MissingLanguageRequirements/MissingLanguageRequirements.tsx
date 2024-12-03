@@ -76,7 +76,7 @@ const MissingLanguageRequirementsBlock = ({
 
 export interface MissingLanguageRequirementsProps {
   user?: PartialUser;
-  pool?: Pool | null;
+  pool?: Pick<Pool, "language"> | null;
   headingLevel?: HeadingRank;
 }
 
@@ -87,10 +87,9 @@ const MissingLanguageRequirements = ({
 }: MissingLanguageRequirementsProps) => {
   const intl = useIntl();
 
-  const missingLanguageRequirements = getMissingLanguageRequirements(
-    user,
-    pool,
-  ).map((messageDescriptor) => intl.formatMessage(messageDescriptor));
+  const missingLanguageRequirements = getMissingLanguageRequirements(user, {
+    language: pool?.language,
+  }).map((messageDescriptor) => intl.formatMessage(messageDescriptor));
 
   return missingLanguageRequirements.length ? (
     <MissingLanguageRequirementsBlock

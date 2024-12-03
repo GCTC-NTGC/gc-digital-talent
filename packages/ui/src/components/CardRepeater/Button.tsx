@@ -11,7 +11,7 @@ import { useCardRepeaterContext } from "./CardRepeaterProvider";
 
 type Animation = "none" | "translate-up" | "translate-down";
 
-export type ActionButtonProps = ComponentPropsWithoutRef<typeof Button> & {
+type ActionButtonProps = ComponentPropsWithoutRef<typeof Button> & {
   animation?: Animation;
 };
 
@@ -67,7 +67,7 @@ export const Add = forwardRef<
       {reachedMax ? (
         <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>
       ) : (
-        children || intl.formatMessage(formMessages.repeaterAddItem)
+        (children ?? intl.formatMessage(formMessages.repeaterAddItem))
       )}{" "}
       {max && `(${total}/${max})`}
     </Button>

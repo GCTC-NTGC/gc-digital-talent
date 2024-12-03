@@ -3,26 +3,46 @@ import { useIntl } from "react-intl";
 import {
   Input,
   RadioGroup,
-  Select,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   formMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
-  getLanguage,
-  getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
-import { Language, ProvinceOrTerritory } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 
-const FormFields = ({ labels }: FormFieldProps) => {
+const PersonalInformationFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment PersonalInformationFormOptions on Query {
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const FormFields = ({
+  labels,
+  optionsQuery,
+}: FormFieldProps<
+  FragmentType<typeof PersonalInformationFormOptions_Fragment>
+>) => {
   const intl = useIntl();
+  const data = getFragment(
+    PersonalInformationFormOptions_Fragment,
+    optionsQuery,
+  );
   useDirtyFields("personal");
+
+  const languageOptions = localizedEnumToOptions(data?.languages, intl);
 
   return (
     <>
@@ -69,33 +89,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
             required: intl.formatMessage(errorMessages.required),
           }}
         />
-        <Input
-          id="currentCity"
-          name="currentCity"
-          type="text"
-          label={labels.currentCity}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Select
-          id="currentProvince"
-          name="currentProvince"
-          label={labels.currentProvince}
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a province or territory",
-            id: "H1wLfA",
-            description:
-              "Placeholder displayed on the About Me form province or territory field.",
-          })}
-          options={enumToOptions(ProvinceOrTerritory).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getProvinceOrTerritory(value)),
-          }))}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
       </div>
       <div
         data-h2-display="base(grid)"
@@ -109,10 +102,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           idPrefix="preferredLang"
           name="preferredLang"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={enumToOptions(Language).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguage(value)),
-          }))}
+          items={languageOptions}
         />
         <RadioGroup
           id="preferredLanguageForInterview"
@@ -120,10 +110,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           idPrefix="preferredLanguageForInterview"
           name="preferredLanguageForInterview"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={enumToOptions(Language).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguage(value)),
-          }))}
+          items={languageOptions}
         />
         <RadioGroup
           id="preferredLanguageForExam"
@@ -131,10 +118,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           idPrefix="preferredLanguageForExam"
           name="preferredLanguageForExam"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={enumToOptions(Language).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguage(value)),
-          }))}
+          items={languageOptions}
         />
       </div>
       <div data-h2-margin-bottom="base(x1)">

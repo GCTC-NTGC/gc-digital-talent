@@ -6,9 +6,9 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ViewSearchRequestApi from "./components/ViewSearchRequest";
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   searchRequestId: Scalars["ID"]["output"];
-};
+}
 
 export const SingleSearchRequestPage = () => {
   const { searchRequestId } = useRequiredParams<RouteParams>("searchRequestId");
@@ -17,7 +17,13 @@ export const SingleSearchRequestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.RequestResponder]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ]}
+  >
     <SingleSearchRequestPage />
   </RequireAuth>
 );

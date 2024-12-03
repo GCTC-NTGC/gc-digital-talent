@@ -4,7 +4,6 @@ import { SortingState } from "@tanstack/react-table";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  graphql,
   InputMaybe,
   OrderByClause,
   PositionDuration,
@@ -57,6 +56,7 @@ export function transformUserInput(
     // search bar
     generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
+    workEmail: searchType === "workEmail" ? searchBarTerm : undefined,
     name: searchType === "name" ? searchBarTerm : undefined,
     telephone: searchType === "phone" ? searchBarTerm : undefined,
 
@@ -77,6 +77,7 @@ export function transformSortStateToOrderByClause(
     ["id", "id"],
     ["candidateName", "first_name"],
     ["email", "email"],
+    ["workEmail", "work_email"],
     ["telephone", "telephone"],
     ["preferredLang", "preferred_lang"],
     ["createdDate", "created_at"],
@@ -139,6 +140,7 @@ export function transformFormValuesToUserFilterInput(
 export function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
+  const positionDuration = input?.applicantFilter?.positionDuration;
   return {
     languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
@@ -147,11 +149,9 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
     skills:
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    employmentDuration:
-      input?.applicantFilter?.positionDuration &&
-      input.applicantFilter.positionDuration.includes(
-        PositionDuration.Temporary,
-      )
+    employmentDuration: !positionDuration?.length
+      ? ""
+      : positionDuration.includes(PositionDuration.Temporary)
         ? "TERM"
         : "INDETERMINATE",
     govEmployee: input?.isGovEmployee ? "true" : "",
@@ -164,218 +164,3 @@ export function transformUserFilterInputToFormValues(
     trashed: input?.trashed ? "true" : "",
   };
 }
-
-export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
-  query UsersTable_SelectUsers($ids: [ID]!) {
-    applicants(includeIds: $ids) {
-      id
-      email
-      firstName
-      lastName
-      telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      lookingForEnglish
-      lookingForFrench
-      lookingForBilingual
-      firstOfficialLanguage
-      secondLanguageExamCompleted
-      secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
-      isGovEmployee
-      govEmployeeType
-      hasPriorityEntitlement
-      priorityNumber
-      locationPreferences
-      locationExemptions
-      positionDuration
-      acceptedOperationalRequirements
-      isWoman
-      indigenousCommunities
-      indigenousDeclarationSignature
-      isVisibleMinority
-      hasDisability
-      citizenship
-      armedForcesStatus
-      department {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      currentClassification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-      }
-      experiences {
-        id
-        __typename
-        user {
-          id
-          email
-        }
-        details
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      poolCandidates {
-        status
-        expiryDate
-        user {
-          id
-        }
-        pool {
-          id
-          name {
-            en
-            fr
-          }
-          stream
-          classification {
-            id
-            group
-            level
-          }
-        }
-        id
-      }
-      topTechnicalSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      topBehaviouralSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      improveTechnicalSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      improveBehaviouralSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-    }
-  }
-`);

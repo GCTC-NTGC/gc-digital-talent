@@ -23,12 +23,17 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     env:
-      PNPM_VERSION: "8.15.0"
+      PNPM_VERSION: "9.12.3"
     steps:
       - uses: actions/checkout@v4
         with:
           # Chromatic requires full git history.
           fetch-depth: 0
+
+      - name: "Copy .env"
+        working-directory: "./apps/web"
+        run: |
+          cp .env.example .env
 
       - uses: pnpm/action-setup@v4
         with:
@@ -56,7 +61,7 @@ jobs:
           pnpm build
 
       - name: "Publish Storybook: all"
-        uses: chromaui/action@v11.4.0
+        uses: chromaui/action@v11.19.0
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.

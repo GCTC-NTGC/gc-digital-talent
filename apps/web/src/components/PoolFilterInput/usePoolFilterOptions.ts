@@ -25,8 +25,20 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
     ) {
       data {
         id
-        publishingGroup
-        stream
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -44,11 +56,11 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type UsePoolFilterOptionsReturn = {
+interface UsePoolFilterOptionsReturn {
   poolOptions: Option[];
   total: number;
   fetching: boolean;
-};
+}
 
 const usePoolFilterOptions = (
   where?: PoolFilterInput,
@@ -72,7 +84,12 @@ const usePoolFilterOptions = (
     () =>
       pools.map((pool) => ({
         value: pool.id,
-        label: getShortPoolTitleLabel(intl, pool),
+        label: getShortPoolTitleLabel(intl, {
+          stream: pool.stream,
+          name: pool.name,
+          publishingGroup: pool.publishingGroup,
+          classification: pool.classification,
+        }),
       })),
     [pools, intl],
   );

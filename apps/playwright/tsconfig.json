@@ -1,8 +1,21 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "jsx": "react-jsx",
+    "module": "ES2020",
+    "resolveJsonModule": true,
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
     "paths": {
       "~/*": ["./*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "!node_modules/@types",
+    "*/node_modules",
+    "!*/node_modules/@types"
+  ]
 }

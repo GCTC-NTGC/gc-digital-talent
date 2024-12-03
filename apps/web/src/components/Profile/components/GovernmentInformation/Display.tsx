@@ -1,21 +1,20 @@
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router";
 
-import { enumToOptions } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  getGovEmployeeType,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
-import { GovEmployeeType } from "@gc-digital-talent/graphql";
+import { Button, Chip } from "@gc-digital-talent/ui";
 
 import { wrapAbbr } from "~/utils/nameUtils";
+import profileMessages from "~/messages/profileMessages";
+import useRoutes from "~/hooks/useRoutes";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
 
 interface DisplayProps {
   user: PartialUser;
+  showEmailVerification?: boolean;
 }
 
 const Display = ({
@@ -26,13 +25,14 @@ const Display = ({
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
+    workEmail,
+    isWorkEmailVerified,
   },
+  showEmailVerification = false,
 }: DisplayProps) => {
   const intl = useIntl();
-  const govEmployeeTypeId =
-    enumToOptions(GovEmployeeType).find(
-      (type) => type.value === govEmployeeType,
-    )?.value || "";
+  const navigate = useNavigate();
+  const routes = useRoutes();
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
@@ -60,6 +60,44 @@ const Display = ({
         description: "affirm no entitlement",
       });
 
+  const handleVerifyNowClick = async () => {
+    await navigate(routes.verifyWorkEmail());
+  };
+
+  const emailVerificationComponents = isWorkEmailVerified ? (
+    <Chip color="success">
+      {intl.formatMessage({
+        defaultMessage: "Verified",
+        id: "GMglI5",
+        description: "The email address has been verified to be owned by user",
+      })}
+    </Chip>
+  ) : (
+    <>
+      <Chip color="error">
+        {intl.formatMessage({
+          defaultMessage: "Unverified",
+          id: "tUIvbq",
+          description:
+            "The email address has not been verified to be owned by user",
+        })}
+      </Chip>
+      <Button
+        type="button"
+        mode="inline"
+        color="error"
+        data-h2-margin="base(0 0 x.15 0)" // line up with chip
+        onClick={handleVerifyNowClick}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Verify now",
+          id: "ADPfNp",
+          description: "Button to start the email address verification process",
+        })}
+      </Button>
+    </>
+  );
+
   return (
     <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
       <FieldDisplay
@@ -84,8 +122,7 @@ const Display = ({
               description: "Employment type label",
             })}
           >
-            {govEmployeeTypeId &&
-              intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
+            {getLocalizedName(govEmployeeType?.label, intl)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -101,15 +138,32 @@ const Display = ({
                 )
               : notProvided}
           </FieldDisplay>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-gap="base(x0.5)"
+            data-h2-align-items="base(end)"
+          >
+            <FieldDisplay
+              hasError={!workEmail}
+              label={intl.formatMessage({
+                defaultMessage: "Work email",
+                id: "tj9Dz3",
+                description: "Work email label",
+              })}
+              data-h2-margin="base(0 0 x.15 0)" // line up with chip
+            >
+              {workEmail ?? notProvided}
+            </FieldDisplay>
+            {showEmailVerification && workEmail
+              ? emailVerificationComponents
+              : null}
+          </div>
         </>
       )}
       <FieldDisplay
         hasError={empty(hasPriorityEntitlement)}
-        label={intl.formatMessage({
-          defaultMessage: "Priority status",
-          id: "IDNjBI",
-          description: "Priority entitlement label",
-        })}
+        label={intl.formatMessage(profileMessages.priorityStatus)}
       >
         {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
       </FieldDisplay>
@@ -121,7 +175,7 @@ const Display = ({
             description: "Priority number label",
           })}
         >
-          {priorityNumber || notProvided}
+          {priorityNumber ?? notProvided}
         </FieldDisplay>
       )}
     </div>

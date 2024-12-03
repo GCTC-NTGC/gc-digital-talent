@@ -1,7 +1,8 @@
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
-} from "react-router-dom";
+  To,
+} from "react-router";
 import { DetailedHTMLProps, AnchorHTMLAttributes, forwardRef } from "react";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
@@ -17,11 +18,12 @@ export type LinkProps = ButtonLinkProps &
       AnchorHTMLAttributes<HTMLAnchorElement>,
       HTMLAnchorElement
     >,
-    "ref"
+    "ref" | "href"
   > & {
     external?: boolean;
     newTab?: boolean;
     disabled?: boolean;
+    href?: To;
   };
 
 const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
@@ -47,7 +49,9 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       throw new Error("Icon is required when mode is set to 'cta'");
     }
 
-    const url = sanitizeUrl(href);
+    // NOTE: Only expect strings so far
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    const url = href ? sanitizeUrl(String(href)) : undefined;
 
     const commonProps = {
       ...(newTab
@@ -76,14 +80,14 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       return (
         // NOTE: We do want to allow external links to be rendered as <a> tags
         // eslint-disable-next-line react/forbid-elements
-        <a ref={ref} href={url || "#"} {...commonProps}>
+        <a ref={ref} href={url ?? "#"} {...commonProps}>
           {content}
         </a>
       );
     }
 
     return (
-      <RouterLink ref={ref} to={url || "#"} {...commonProps}>
+      <RouterLink ref={ref} to={url ?? "#"} {...commonProps}>
         {content}
       </RouterLink>
     );

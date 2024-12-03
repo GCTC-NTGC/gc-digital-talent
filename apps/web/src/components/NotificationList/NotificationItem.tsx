@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
-import { Link as BaseLink, useNavigate } from "react-router-dom";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
-import { ReactNode, MouseEvent } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -21,16 +20,19 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useNotificationInfo from "~/hooks/useNotificationInfo";
 
-import RemoveDialog from "./RemoveDialog";
 import {
   MarkNotificationAsRead_Mutation,
   MarkNotificationAsUnread_Mutation,
 } from "./mutations";
+import RemoveDialog from "./RemoveDialog";
+import NotificationDownload from "./NotificationDownload";
+import NotificationLink from "./NotificationLink";
+import NotificationButton from "./NotificationButton";
 
-type LinkWrapperProps = {
+interface LinkWrapperProps {
   inDialog?: boolean;
   children: ReactNode;
-};
+}
 
 const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -63,6 +65,22 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
     ... on NewJobPostedNotification {
       poolId
     }
+    ... on SystemNotification {
+      message {
+        en
+        fr
+      }
+      href {
+        en
+        fr
+      }
+    }
+    ... on UserFileGeneratedNotification {
+      fileName
+    }
+    ... on UserFileGenerationErrorNotification {
+      fileName
+    }
   }
 `);
 
@@ -70,20 +88,24 @@ interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
   inDialog?: boolean;
+  focusRef?: React.MutableRefObject<
+    (HTMLAnchorElement & HTMLButtonElement) | null
+  >;
   onRead?: () => void;
 }
 
 const NotificationItem = ({
   notification: notificationQuery,
   inDialog,
+  focusRef,
   onRead,
 }: NotificationItemProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const notification = getFragment(
     NotificationItem_Fragment,
     notificationQuery,
   );
+  const itemRef = useRef<HTMLLIElement>(null);
   const info = useNotificationInfo(notification);
   const isUnread = notification.readAt === null;
 
@@ -93,27 +115,32 @@ const NotificationItem = ({
   const [{ fetching: markingAsUnread }, executeMarkAsUnreadMutation] =
     useMutation(MarkNotificationAsUnread_Mutation);
 
+  useEffect(() => {
+    if (focusRef) focusRef.current?.focus();
+  }, [focusRef]);
+
+  // Store the next list item on mount
+  // Then, attempt to focus it on unmount
+  useEffect(() => {
+    const nextListItem = itemRef.current?.nextElementSibling;
+    return () => {
+      nextListItem
+        ?.querySelector<
+          HTMLAnchorElement | HTMLButtonElement
+        >("[data-notification-link]")
+        ?.focus();
+    };
+  }, []);
+
   if (!info) return null;
 
   const isTogglingReadStatus = markingAsRead || markingAsUnread;
 
-  const toggleReadStatus = () => {
+  const toggleReadStatus = async () => {
     const mutation = isUnread
       ? executeMarkAsReadMutation
       : executeMarkAsUnreadMutation;
-    mutation({ id: notification.id });
-  };
-
-  const handleLinkClicked = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.stopPropagation();
-
-    executeMarkAsReadMutation({ id: notification.id }).then((res) => {
-      if (res.data?.markNotificationAsRead) {
-        onRead?.();
-        navigate(info.href);
-      }
-      return false;
-    });
+    await mutation({ id: notification.id });
   };
 
   const createdAt = notification.createdAt
@@ -124,8 +151,15 @@ const NotificationItem = ({
       })
     : intl.formatMessage(commonMessages.notAvailable);
 
+  const commonLinkProps = {
+    ref: focusRef,
+    id: notification.id,
+    onRead,
+    isUnread,
+  };
+
   return (
-    <li>
+    <li ref={itemRef}>
       <CardBasic
         data-h2-display="base(flex)"
         {...(inDialog
@@ -147,6 +181,7 @@ const NotificationItem = ({
           data-h2-grid-template-columns="base(x.5 1fr)"
           data-h2-grid-template-rows="base(auto auto)"
           data-h2-gap="base(x.25)"
+          data-h2-width="base(100%)"
         >
           <div
             data-h2-font-size="base(copy)"
@@ -171,21 +206,30 @@ const NotificationItem = ({
             data-h2-display="base(flex)"
             data-h2-align-items="base(flex-start)"
             data-h2-gap="base(x.25)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-width="base(100%)"
           >
-            <LinkWrapper inDialog={inDialog}>
-              <BaseLink
-                to={info.href}
-                onClick={handleLinkClicked}
-                data-h2-text-decoration="base(none)"
-                data-h2-color="base:hover(secondary.darker)"
-                data-h2-outline="base(none)"
-                {...(isUnread && {
-                  "data-h2-font-weight": "base(700)",
-                })}
-              >
+            {info.href ? (
+              <LinkWrapper inDialog={inDialog}>
+                {info.download ? (
+                  <NotificationDownload
+                    href={info.href}
+                    fileName={info.download}
+                    {...commonLinkProps}
+                  >
+                    {info.message}
+                  </NotificationDownload>
+                ) : (
+                  <NotificationLink href={info.href} {...commonLinkProps}>
+                    {info.message}
+                  </NotificationLink>
+                )}
+              </LinkWrapper>
+            ) : (
+              <NotificationButton {...commonLinkProps}>
                 {info.message}
-              </BaseLink>
-            </LinkWrapper>
+              </NotificationButton>
+            )}
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
                 <Button

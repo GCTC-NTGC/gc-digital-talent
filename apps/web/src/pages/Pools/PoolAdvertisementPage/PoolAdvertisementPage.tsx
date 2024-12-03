@@ -20,23 +20,20 @@ import {
   Well,
   CardBasic,
   Button,
+  Separator,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
-  getLanguageRequirement,
-  getSecurityClearance,
   localizeSalaryRange,
   commonMessages,
   getLocalizedName,
   navigationMessages,
-  getPoolStream,
   uiMessages,
   Locales,
-  getPoolOpportunityLength,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import {
   graphql,
@@ -57,29 +54,34 @@ import {
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-
 import ApplicationLink, {
   ApplicationLinkProps,
-} from "./components/ApplicationLink";
+} from "~/components/ApplicationLink/ApplicationLink";
+import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
+
 import Text from "./components/Text";
-import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
 import SkillLevelDialog from "./components/SkillLevelDialog";
+import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
+import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
+import DeadlineValue from "./components/DeadlineValue";
+import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
+import WhoCanApplyText from "./components/WhoCanApplyText";
 
-type SectionContent = {
+interface SectionContent {
   id: string;
   linkText?: string;
   title: string;
-};
+}
 
 const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
   return email ? (
@@ -87,7 +89,7 @@ const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
       {chunks}
     </Link>
   ) : (
-    chunks
+    <>{chunks}</>
   );
 };
 
@@ -109,6 +111,24 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
+const DeadlineDialogReturn = ({
+  closingDate,
+  closingReason,
+}: {
+  closingDate: string | null | undefined;
+  closingReason: string | null | undefined;
+}): ReactNode | null => {
+  if (closingDate && !closingReason) {
+    return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;
+  }
+
+  if (closingReason) {
+    return <ClosedEarlyDeadlineDialog />;
+  }
+
+  return null;
+};
+
 export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
   fragment PoolAdvertisement on Pool {
     id
@@ -116,12 +136,49 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
-    status
-    language
-    securityClearance
-    opportunityLength
+    closingReason
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    language {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    securityClearance {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    department {
+      name {
+        en
+        fr
+      }
+    }
+    opportunityLength {
+      value
+      label {
+        en
+        fr
+      }
+    }
     classification {
       id
       group
@@ -167,11 +224,23 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -184,25 +253,31 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     processNumber
-    publishingGroup
-    generalQuestions {
-      id
-      question {
+    publishingGroup {
+      value
+      label {
         en
         fr
       }
     }
     team {
       id
-      name
       contactEmail
       displayName {
         en
         fr
       }
     }
+    ...AreaOfSelectionNote
+    ...WhoCanApplyText
   }
 `);
 
@@ -240,9 +315,11 @@ export const PoolPoster = ({
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
 
+  const departmentName = getLocalizedName(pool.department?.name, intl, true);
+
   const { classification } = pool;
   const genericJobTitles =
-    classification?.genericJobTitles?.filter(notEmpty) || [];
+    classification?.genericJobTitles?.filter(notEmpty) ?? [];
   let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
     classificationString = formatClassificationString({
@@ -250,8 +327,18 @@ export const PoolPoster = ({
       level: classification?.level,
     });
   }
-  const poolTitle = getShortPoolTitleLabel(intl, pool);
-  const fullPoolTitle = getFullPoolTitleHtml(intl, pool);
+  const poolTitle = getShortPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
+  const fullPoolTitle = getFullPoolTitleHtml(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
   const formattedSubTitle = intl.formatMessage(subTitle);
   const salaryRangeUrl = getClassificationSalaryRangeUrl(
     locale,
@@ -265,41 +352,45 @@ export const PoolPoster = ({
       })
     : getLocalizedName(pool.location, intl);
 
-  const showAboutUs = !!(pool.aboutUs && pool.aboutUs[locale]);
-  const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
-  const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
-  const showWhatToExpectAdmission = !!(
-    pool.whatToExpectAdmission && pool.whatToExpectAdmission[locale]
+  const showAboutUs = !!pool.aboutUs?.[locale];
+  const showSpecialNote = !!pool.specialNote?.[locale];
+  const showWhatToExpect = !!pool.whatToExpect?.[locale];
+  const showWhatToExpectAdmission = !!pool.whatToExpectAdmission?.[locale];
+
+  const opportunityLength = getLocalizedName(
+    pool.opportunityLength?.label,
+    intl,
+    true,
   );
 
-  const opportunityLength = pool.opportunityLength
-    ? intl.formatMessage(getPoolOpportunityLength(pool.opportunityLength))
-    : "";
+  const languageRequirement = getLocalizedName(
+    pool.language?.label,
+    intl,
+    true,
+  );
 
-  const languageRequirement = pool.language
-    ? intl.formatMessage(getLanguageRequirement(pool.language))
-    : "";
-
-  const securityClearance = pool.securityClearance
-    ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
-    : "";
+  const securityClearance = getLocalizedName(
+    pool.securityClearance?.label,
+    intl,
+    true,
+  );
 
   // Separate essential and asset skills, sort them by category, and confirm they include skill data
   const poolSkills = unpackMaybes(pool.poolSkills);
   const essentialPoolSkills = sortPoolSkillsBySkillCategory(
     poolSkills.filter(
-      (poolSkill) => poolSkill.type === PoolSkillType.Essential,
+      (poolSkill) => poolSkill.type?.value === PoolSkillType.Essential,
     ),
   );
   const nonessentialPoolSkills = sortPoolSkillsBySkillCategory(
     poolSkills.filter(
-      (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
+      (poolSkill) => poolSkill.type?.value === PoolSkillType.Nonessential,
     ),
   );
 
   const contactEmail = pool.team?.contactEmail;
 
-  const canApply = !!(pool?.status === PoolStatus.Published);
+  const canApply = !!(pool?.status?.value === PoolStatus.Published);
 
   const toggleMoreInfoValue = () => {
     if (moreInfoValue.length > 0) {
@@ -412,7 +503,7 @@ export const PoolPoster = ({
       <SEO title={poolTitle} description={formattedSubTitle} />
       <Hero title={poolTitle} subtitle={formattedSubTitle} crumbs={links} />
       <div
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"
       >
         <TableOfContents.Wrapper>
@@ -466,8 +557,8 @@ export const PoolPoster = ({
                 mode="inline"
                 color="secondary"
                 icon={linkCopied ? CheckIcon : undefined}
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
+                onClick={async () => {
+                  await navigator.clipboard.writeText(window.location.href);
                   setLinkCopied(true);
                   setTimeout(() => {
                     setLinkCopied(false);
@@ -561,6 +652,7 @@ export const PoolPoster = ({
                   />
                 </Well>
               )}
+              <AreaOfSelectionWell poolQuery={pool} />
 
               <CardBasic>
                 <DataRow
@@ -572,11 +664,7 @@ export const PoolPoster = ({
                       description: "Label for pool advertisement stream",
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
-                  value={
-                    pool.stream
-                      ? intl.formatMessage(getPoolStream(pool.stream))
-                      : notAvailable
-                  }
+                  value={getLocalizedName(pool.stream?.label, intl)}
                   suffix={
                     classification?.group === "IT" ? (
                       <Link
@@ -602,6 +690,13 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
+                    intl.formatMessage(commonMessages.department) +
+                    intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={departmentName}
+                />
+                <DataRow
+                  label={
                     intl.formatMessage({
                       defaultMessage: "Salary range",
                       id: "GgBjAd",
@@ -613,7 +708,7 @@ export const PoolPoster = ({
                       classification?.minSalary,
                       classification?.maxSalary,
                       locale,
-                    ) || notAvailable
+                    ) ?? notAvailable
                   }
                   suffix={
                     salaryRangeUrl && (
@@ -642,31 +737,16 @@ export const PoolPoster = ({
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={
-                    pool.closingDate
-                      ? intl.formatMessage(
-                          {
-                            defaultMessage: "Apply on or before {closingDate}",
-                            id: "LjYzkS",
-                            description:
-                              "Message to apply to the pool before deadline",
-                          },
-                          {
-                            closingDate: formatDate({
-                              date: parseDateTimeUtc(pool.closingDate),
-                              formatString: "PPP",
-                              intl,
-                              timeZone: "Canada/Pacific",
-                            }),
-                          },
-                        )
-                      : notAvailable
+                    <DeadlineValue
+                      closingDate={pool.closingDate}
+                      closingReason={pool.closingReason}
+                    />
                   }
                   suffix={
-                    pool.closingDate ? (
-                      <DeadlineDialog
-                        deadline={parseDateTimeUtc(pool.closingDate)}
-                      />
-                    ) : null
+                    <DeadlineDialogReturn
+                      closingDate={pool.closingDate}
+                      closingReason={pool.closingReason}
+                    />
                   }
                 />
                 <DataRow
@@ -723,26 +803,7 @@ export const PoolPoster = ({
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={languageRequirement}
-                  suffix={
-                    <Link
-                      newTab
-                      external
-                      color="secondary"
-                      mode="icon_only"
-                      icon={InformationCircleIcon}
-                      href={
-                        locale === "fr"
-                          ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
-                          : "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
-                      }
-                      aria-label={`${intl.formatMessage({
-                        defaultMessage: "Learn more about language testing",
-                        id: "Swde4t",
-                        description:
-                          "Link text for language testing information",
-                      })} ${intl.formatMessage(uiMessages.newTab)}`}
-                    />
-                  }
+                  suffix={<LanguageRequirementDialog />}
                 />
                 <DataRow
                   label={
@@ -801,7 +862,7 @@ export const PoolPoster = ({
                 )}
               </Text>
               <EducationRequirements
-                isIAP={pool.publishingGroup === PublishingGroup.Iap}
+                isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
                 classificationGroup={classificationGroup}
               />
             </TableOfContents.Section>
@@ -864,8 +925,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful.',
-                  id: "WppiY9",
+                    'To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful. These additional assessments may be conducted on any of the required or optional skills.',
+                  id: "Qxl9Ec",
                   description:
                     "Descriptive text about how skills are used during the application process",
                 })}
@@ -890,6 +951,7 @@ export const PoolPoster = ({
                   <SkillAccordion
                     key={poolSkill.id}
                     poolSkillQuery={poolSkill}
+                    required={false}
                   />
                 ))}
               </Accordion.Root>
@@ -1030,31 +1092,14 @@ export const PoolPoster = ({
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"Who can apply to this recruitment process?"',
-                      id: "EpL8MD",
+                        "Who can apply to this recruitment process?",
+                      id: "Y63cqS",
                       description:
                         "Button text to toggle the accordion for who can apply",
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin-top="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
-                        id: "faWz84",
-                        description:
-                          "List of criteria needed in order to apply",
-                      })}
-                    </Text>
-                    <Text data-h2-margin-bottom="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
-                        id: "aCg/OZ",
-                        description:
-                          "First hiring policy for pool advertisement",
-                      })}
-                    </Text>
+                    <WhoCanApplyText poolQuery={pool} />
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericJobTitles.length ? (
@@ -1072,8 +1117,8 @@ export const PoolPoster = ({
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"How are equity and inclusion considered in this recruitment process?"',
-                      id: "WPJAiw",
+                        "How are equity and inclusion considered in this recruitment process?",
+                      id: "mDsQmj",
                       description:
                         "Button text to toggle the accordion for diversity, equity, and inclusion",
                     })}
@@ -1098,13 +1143,12 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
-
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"Who can I contact with questions or accommodation needs?"',
-                      id: "IbWzvu",
+                        "Who can I contact with questions or accommodation needs?",
+                      id: "2/fjEP",
                       description:
                         "Button text to toggle the accordion for accommodations contact",
                     })}
@@ -1114,15 +1158,14 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "Please contact the <a>{name} team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
-                          id: "rKUVdL",
+                            "Please <a>contact the team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
+                          id: "YK/RNP",
                           description:
                             "Opening sentence asking if accommodations are needed",
                         },
                         {
                           a: (chunks: ReactNode) =>
                             anchorTag(chunks, contactEmail),
-                          name: getLocalizedName(pool.team?.displayName, intl),
                         },
                       )}
                     </Text>
@@ -1132,8 +1175,8 @@ export const PoolPoster = ({
                   <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
                     <Accordion.Trigger as="h3">
                       {intl.formatMessage({
-                        defaultMessage: '"What should I expect after I apply?"',
-                        id: "pdi2SU",
+                        defaultMessage: "What should I expect after I apply?",
+                        id: "PDGUT2",
                         description:
                           "Button text to toggle the accordion for what to expect after you apply",
                       })}
@@ -1154,8 +1197,8 @@ export const PoolPoster = ({
                     <Accordion.Trigger as="h3">
                       {intl.formatMessage({
                         defaultMessage:
-                          '"What should I expect if I\'m successful in the process?"',
-                        id: "hwVlzN",
+                          "What should I expect if I'm successful in the process?",
+                        id: "utlf9l",
                         description:
                           "Button text to toggle the accordion for what to expect after admission",
                       })}
@@ -1212,6 +1255,23 @@ export const PoolPoster = ({
               </Text>
               <ApplicationLink {...applicationLinkProps} />
             </TableOfContents.Section>
+            {pool.processNumber && (
+              <>
+                <Separator orientation="horizontal" space="sm" decorative />
+                <p
+                  data-h2-text-align="base(right)"
+                  data-h2-color="base(black.light)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Selection process number",
+                    id: "LdlxBV",
+                    description: "Label for a process number",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {pool.processNumber}
+                </p>
+              </>
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
@@ -1233,9 +1293,9 @@ const PoolNotFound = () => {
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
   query PoolAdvertisementPage($id: UUID!) {
@@ -1252,7 +1312,9 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
     pool(id: $id) {
       ...PoolAdvertisement
       id
-      status
+      status {
+        value
+      }
     }
   }
 `);
@@ -1267,8 +1329,8 @@ export const Component = () => {
   });
 
   const isVisible = isAdvertisementVisible(
-    auth?.roleAssignments?.filter(notEmpty) || [],
-    data?.pool?.status ?? null,
+    auth?.roleAssignments?.filter(notEmpty) ?? [],
+    data?.pool?.status?.value ?? null,
   );
 
   // Attempt to find an application for this user+pool combination

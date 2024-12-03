@@ -17,122 +17,14 @@ import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
-    me {
-      id
-      poolCandidates {
-        id
-        pool {
-          id
-        }
-        submittedAt
-      }
-    }
     pool(id: $id) {
       id
-      name {
-        en
-        fr
-      }
-      stream
-      closingDate
-      status
-      language
-      securityClearance
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      whatToExpect {
-        en
-        fr
-      }
-      specialNote {
-        en
-        fr
-      }
-      poolSkills {
-        id
-        type
-        skill {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category
-          families {
-            id
-            key
-            description {
-              en
-              fr
-            }
-            name {
-              en
-              fr
-            }
-          }
-        }
-      }
-
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishingGroup
-      generalQuestions {
-        id
-        question {
-          en
-          fr
-        }
-      }
-      team {
-        id
-        name
-        contactEmail
-        displayName {
-          en
-          fr
-        }
-      }
     }
   }
 `);
@@ -158,6 +50,8 @@ export const IndexPoolCandidatePage = () => {
     },
   });
 
+  const currentPool = data?.pool ?? null;
+
   return (
     <AdminContentWrapper>
       <SEO
@@ -177,7 +71,13 @@ export const IndexPoolCandidatePage = () => {
             suspendedStatus: CandidateSuspendedFilter.Active,
             expiryStatus: CandidateExpiryFilter.Active,
           }}
-          currentPool={data?.pool}
+          currentPool={
+            currentPool
+              ? {
+                  id: currentPool.id,
+                }
+              : null
+          }
           title={pageTitle}
         />
       </Pending>
@@ -186,7 +86,16 @@ export const IndexPoolCandidatePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.RequestResponder]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
     <IndexPoolCandidatePage />
   </RequireAuth>
 );

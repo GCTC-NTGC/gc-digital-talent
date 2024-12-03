@@ -57,8 +57,8 @@ const defaultTheme: Theme = {
 };
 
 const getDefaultTheme = (override?: ThemeOverride): Theme => ({
-  mode: override?.mode || defaultTheme.mode,
-  key: override?.key || defaultTheme.key,
+  mode: override?.mode ?? defaultTheme.mode,
+  key: override?.key ?? defaultTheme.key,
 });
 
 interface ThemeProviderProps {
@@ -109,7 +109,7 @@ const ThemeProvider = ({
 
   useEffect(() => {
     const hydrogen = document.querySelectorAll(
-      themeSelector || "html[data-h2], body[data-h2]",
+      themeSelector ?? "html[data-h2], body[data-h2]",
     );
     let themeString: string | undefined = "";
 
@@ -169,9 +169,9 @@ const ThemeProvider = ({
 
   const state = useMemo(
     () => ({
-      fullMode: override?.mode || mode,
-      mode: override?.mode || computedMode,
-      key: override?.key || key,
+      fullMode: override?.mode ?? mode,
+      mode: override?.mode ?? computedMode,
+      key: override?.key ?? key,
       setTheme,
       setMode,
       setKey,

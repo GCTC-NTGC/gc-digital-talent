@@ -1,15 +1,14 @@
 import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 
-import {
-  Dialog,
-  Button,
-  Heading,
-  Accordion,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Dialog, Button, Heading, Well } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  formMessages,
+  getLocale,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { Experience, Scalars } from "@gc-digital-talent/graphql";
 
@@ -18,12 +17,13 @@ import {
   getExperienceName,
 } from "~/utils/experienceUtils";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-const TEXT_AREA_MAX_WORDS = 160;
+const TEXT_AREA_MAX_WORDS_EN = 160;
 
 const getSkillArgs = (
   skillId: Scalars["ID"]["output"],
-  experience?: Experience,
+  experience?: Omit<Experience, "user">,
   details?: string,
   remove?: boolean,
 ) => {
@@ -44,16 +44,16 @@ const getSkillArgs = (
 
 type FormAction = "connect" | "remove";
 
-type FormValues = {
+interface FormValues {
   experience?: Scalars["ID"]["output"];
   skill?: Scalars["ID"]["output"];
   details?: string;
   action?: FormAction;
-};
+}
 
 interface ExperienceSkillFormProps {
   defaultValues: FormValues;
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   onSuccess: () => void;
 }
 
@@ -63,6 +63,7 @@ const ExperienceSkillForm = ({
   experiences,
 }: ExperienceSkillFormProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const methods = useForm<FormValues>({
     defaultValues,
   });
@@ -78,13 +79,13 @@ const ExperienceSkillForm = ({
   );
   const experienceType = selectedExperience
     ? deriveExperienceType(selectedExperience)
-    : "";
+    : "personal";
   const { executeMutation, getMutationArgs, executing } =
     useExperienceMutations("update", experienceType);
 
   const handleSubmit = async (formValues: FormValues) => {
     const args = getMutationArgs(
-      formValues.experience || "",
+      formValues.experience ?? "",
       formValues.skill
         ? {
             skills: getSkillArgs(
@@ -130,6 +131,11 @@ const ExperienceSkillForm = ({
         });
     }
   };
+
+  const wordCountLimits: Record<Locales, number> = {
+    en: TEXT_AREA_MAX_WORDS_EN,
+    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
+  } as const;
 
   return (
     <FormProvider {...methods}>
@@ -178,56 +184,52 @@ const ExperienceSkillForm = ({
             description: "Instructions on how to describe a skill",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0)">
-          <Accordion.Root type="single" size="sm" collapsible>
-            <Accordion.Item value="skillQuestions">
-              <Accordion.Trigger as="h3">
-                {intl.formatMessage({
-                  defaultMessage: "How to best describe a skill experience",
-                  id: "1/Q9jX",
-                  description:
-                    "Title for instructions on how to describe a skill",
-                })}
-              </Accordion.Trigger>
-              <Accordion.Content>
-                <ul data-h2-padding="base(0, 0, 0, x1)">
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What did you accomplish, create or deliver using this skill?",
-                      id: "WEVxYV",
-                      description: "Question for clarifying skill details",
-                    })}
-                  </li>
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What tasks or activities did you do that relate to this skill?",
-                      id: "ac1z9L",
-                      description: "Question about related tasks to a skill",
-                    })}
-                  </li>
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Were there any special techniques or approaches that you used?",
-                      id: "Ivvi/F",
-                      description: "Question about techniques used for a skill",
-                    })}
-                  </li>
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "How much responsibility did you have in this role?",
-                      id: "Qjpmm8",
-                      description: "Question for clarifying skill details",
-                    })}
-                  </li>
-                </ul>
-              </Accordion.Content>
-            </Accordion.Item>
-          </Accordion.Root>
-        </div>
+        <Heading
+          level="h3"
+          size="h6"
+          data-h2-font-size="base(copy)"
+          data-h2-margin-top="base(x.5)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "How to best describe a skill experience",
+            id: "1/Q9jX",
+            description: "Title for instructions on how to describe a skill",
+          })}
+        </Heading>
+        <ul data-h2-margin="base(x.5 0 x1 0)">
+          <li>
+            {intl.formatMessage({
+              defaultMessage:
+                "How did you demonstrate this skill in this role?",
+              id: "3eeKdd",
+              description: "Question for clarifying skill details",
+            })}
+          </li>
+          <li>
+            {intl.formatMessage({
+              defaultMessage:
+                "What tasks or activities did you do that relate to this skill?",
+              id: "ac1z9L",
+              description: "Question about related tasks to a skill",
+            })}
+          </li>
+          <li>
+            {intl.formatMessage({
+              defaultMessage:
+                "Were there any special techniques or approaches that you used?",
+              id: "Ivvi/F",
+              description: "Question about techniques used for a skill",
+            })}
+          </li>
+          <li>
+            {intl.formatMessage({
+              defaultMessage:
+                "How much responsibility did you have in this role?",
+              id: "Qjpmm8",
+              description: "Question for clarifying skill details",
+            })}
+          </li>
+        </ul>
         {!selectedExperienceId ? (
           <Well>
             <p data-h2-text-align="base(center)">
@@ -243,7 +245,7 @@ const ExperienceSkillForm = ({
           <TextArea
             id="details"
             name="details"
-            wordLimit={TEXT_AREA_MAX_WORDS}
+            wordLimit={wordCountLimits[locale]}
             label={intl.formatMessage({
               defaultMessage: "Describe how you used this skill",
               id: "L7PqXn",

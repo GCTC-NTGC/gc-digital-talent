@@ -1,11 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  fakeLocalizedEnum,
+  fakePoolCandidates,
+} from "@gc-digital-talent/fake-data";
+import {
+  CandidateRemovalReason,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
+import {
+  MockGraphqlDecorator,
+  OverlayOrDialogDecorator,
+} from "@gc-digital-talent/storybook-helpers";
 
 import RemoveCandidateDialog, {
   RemoveCandidateDialog_Fragment,
+  RemoveCandidateOptions_Fragment,
 } from "./RemoveCandidateDialog";
 
 const mockCandidates = fakePoolCandidates(1);
@@ -14,12 +24,18 @@ const mockCandidateFragment = makeFragmentData(
   RemoveCandidateDialog_Fragment,
 );
 
+const optionsFragment = makeFragmentData(
+  { removalReasons: fakeLocalizedEnum(CandidateRemovalReason) },
+  RemoveCandidateOptions_Fragment,
+);
+
 const meta = {
   title: "Components/Remove Candidate Dialog",
   component: RemoveCandidateDialog,
-  decorators: [OverlayOrDialogDecorator],
+  decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
     removalQuery: mockCandidateFragment,
+    optionsQuery: optionsFragment,
     defaultOpen: true,
   },
 } satisfies Meta<typeof RemoveCandidateDialog>;

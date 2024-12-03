@@ -32,7 +32,13 @@ const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolSpecialNote on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     specialNote {
       en
       fr
@@ -40,11 +46,11 @@ const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   hasSpecialNote: boolean;
   specialNoteEn?: LocalizedString["en"];
   specialNoteFr?: LocalizedString["fr"];
-};
+}
 
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
@@ -66,7 +72,7 @@ const SpecialNoteSection = ({
   const intl = useIntl();
   const pool = getFragment(EditPoolSpecialNote_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
-  const canEdit = useCanUserEditPool(pool.status);
+  const canEdit = useCanUserEditPool(pool.status?.value);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -76,9 +82,8 @@ const SpecialNoteSection = ({
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
-    hasSpecialNote: !!(
-      initialData.specialNote?.en || initialData.specialNote?.fr
-    ),
+    hasSpecialNote:
+      !!initialData.specialNote?.en || !!initialData.specialNote?.fr,
     specialNoteEn: initialData.specialNote?.en ?? "",
     specialNoteFr: initialData.specialNote?.fr ?? "",
   });
@@ -225,7 +230,7 @@ const SpecialNoteSection = ({
               )}
 
               <ActionWrapper>
-                {canEdit && pool.status === PoolStatus.Draft && (
+                {canEdit && pool.status?.value === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -239,7 +244,7 @@ const SpecialNoteSection = ({
                     isSubmitting={isSubmitting}
                   />
                 )}
-                {canEdit && pool.status === PoolStatus.Published && (
+                {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}
                     onUpdatePublished={handleUpdatePublished}

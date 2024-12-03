@@ -4,14 +4,18 @@ import { IntlShape } from "react-intl";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe, Role, Team } from "@gc-digital-talent/graphql";
+import {
+  Maybe,
+  Role,
+  TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { TeamMember } from "~/utils/teamUtils";
 
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
 import RemoveTeamMemberDialog from "./components/RemoveTeamMemberDialog";
 
-export function orderRoles(roles: Array<Role>, intl: IntlShape) {
+function orderRoles(roles: Role[], intl: IntlShape) {
   return orderBy(roles, ({ displayName }) => {
     const value = getLocalizedName(displayName, intl);
 
@@ -24,7 +28,10 @@ export function orderRoles(roles: Array<Role>, intl: IntlShape) {
   });
 }
 
-export const actionCell = (user: TeamMember, team: Team) => (
+export const actionCell = (
+  user: TeamMember,
+  team: TeamMembersPageTeamFragmentType,
+) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-wrap="base(wrap)"

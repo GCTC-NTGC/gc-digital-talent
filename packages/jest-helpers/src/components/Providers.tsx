@@ -1,6 +1,7 @@
+/* eslint-disable camelcase */
 import { HelmetProvider } from "react-helmet-async";
 import { IntlProvider } from "react-intl";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { ReactNode } from "react";
 
 import { richTextElements } from "@gc-digital-talent/i18n";

@@ -3,9 +3,9 @@
  */
 import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
-import { screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { never } from "wonka";
+import { act, screen, waitFor } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
+import { never, fromValue } from "wonka";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
 import {
@@ -13,7 +13,11 @@ import {
   renderWithProviders,
   updateDate,
 } from "@gc-digital-talent/jest-helpers";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import {
+  AwardedScope,
+  AwardedTo,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
 import type { ExperienceType } from "~/types/experience";
 
@@ -27,9 +31,17 @@ const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
 const mockClient = {
   executeMutation: jest.fn(() => never),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+  executeQuery: jest.fn(() =>
+    fromValue({
+      data: {
+        awardedTo: [{ value: AwardedTo.Me, label: { en: "Me", fr: "Me" } }],
+        awardedScopes: [
+          { value: AwardedScope.Local, label: { en: "Local", fr: "Local" } },
+        ],
+      },
+    }),
+  ),
+};
 
 const skillFragments = mockSkills.map((skill) =>
   makeFragmentData(skill, ExperienceFormSkill_Fragment),
@@ -90,7 +102,7 @@ describe("ExperienceForm", () => {
     await axeTest(container);
   });
 
-  it("should render award fields", async () => {
+  it("should render award fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
@@ -119,7 +131,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render community fields", async () => {
+  it("should render community fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "community",
@@ -145,7 +157,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render education fields", async () => {
+  it("should render education fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "education",
@@ -181,7 +193,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render personal fields", async () => {
+  it("should render personal fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "personal",
@@ -213,7 +225,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render work fields", async () => {
+  it("should render work fields", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work",
@@ -243,7 +255,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render additional details", async () => {
+  it("should render additional details", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
@@ -255,7 +267,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render link featured skills", async () => {
+  it("should render link featured skills", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
@@ -331,24 +343,23 @@ describe("ExperienceForm", () => {
     await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
   });
 
-  // TODO: Commenting out test below until the <SkillBrowserDialog /> error is resolved... When skill dialog is opened this console.error() appears -> "Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
-  // it("should add skill", async () => {
-  //   renderExperienceForm({
-  //     userId: mockUserId,
-  //     experienceType: "award",
-  //     skillsQuery: skillFragments,
-  //   });
+  it("should add skill", () => {
+    renderExperienceForm({
+      userId: mockUserId,
+      experienceType: "award",
+      skillsQuery: skillFragments,
+    });
 
-  //   await act(() => {
-  //     screen
-  //       .getAllByRole("button", {
-  //         name: /add a skill/i,
-  //       })[0]
-  //       .click();
-  //   });
-  // });
+    act(() => {
+      screen
+        .getAllByRole("button", {
+          name: /add a skill/i,
+        })[0]
+        .click();
+    });
+  });
 
-  it("delete should not render when edit is false", async () => {
+  it("delete should not render when edit is false", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",

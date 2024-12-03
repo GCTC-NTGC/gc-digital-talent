@@ -13,7 +13,7 @@ describe("message files", () => {
     To update expected changes to the snapshot:
     `npx jest ./src/lang/lang.test.ts --testNamePattern="should have no changes to duplicate strings" --updateSnapshot`
     */
-  it("should have no changes to duplicate strings", async () => {
+  it("should have no changes to duplicate strings", () => {
     const enMessages: Record<string, { defaultMessage: string }> = {
       ...rawWebEnMessages,
       ...rawI18nEnMessages,
@@ -41,5 +41,19 @@ describe("message files", () => {
     expect(
       stringify(messagesWithMultipleFrStrings, { space: "  " }),
     ).toMatchSnapshot();
+  });
+  it("should have no quotes in french strings", () => {
+    const frMessages: Record<string, { defaultMessage: string }> = {
+      ...rawWebFrMessages,
+      ...rawI18nFrMessages,
+    };
+
+    const messagesArr = Object.keys(frMessages).map(
+      (messageId) => frMessages[messageId]?.defaultMessage,
+    );
+
+    expect(messagesArr).toEqual(
+      expect.not.arrayContaining([expect.stringMatching(new RegExp(/"|“|”/g))]),
+    );
   });
 });

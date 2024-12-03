@@ -16,10 +16,10 @@ import AdminLayout from "./AdminLayout";
 
 const availableRoles = Object.values(ROLE_NAME);
 
-type AdminLayoutArgs = {
+interface AdminLayoutArgs {
   loggedIn: boolean;
   roles: RoleName[];
-};
+}
 
 export default {
   component: AdminLayout,
@@ -33,9 +33,11 @@ export default {
       options: availableRoles,
     },
   },
-  chromatic: {
-    modes: {
-      light: allModes.light,
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+      },
     },
   },
 } as Meta<AdminLayoutArgs>;

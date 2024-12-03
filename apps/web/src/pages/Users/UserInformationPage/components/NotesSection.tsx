@@ -32,16 +32,13 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
     if (res.data?.updatePoolCandidateNotes) {
       return res.data.updatePoolCandidateNotes;
     }
-    return Promise.reject(res.error);
+    return Promise.reject(new Error(res.error?.toString()));
   };
 
-  const handleSubmit = async (formValues: { [x: string]: string }) => {
-    user?.poolCandidates?.forEach(async (candidate) => {
-      if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
-        await handleUpdateCandidate(
-          candidate.id,
-          formValues[candidate.id] ?? "",
-        )
+  const handleSubmit = (formValues: Record<string, string>) => {
+    user?.poolCandidates?.forEach((candidate) => {
+      if (candidate && (candidate.notes ?? "") !== formValues[candidate.id]) {
+        handleUpdateCandidate(candidate.id, formValues[candidate.id] ?? "")
           .then(() => {
             toast.success(
               intl.formatMessage(
@@ -53,7 +50,12 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, {
+                    stream: candidate.pool.stream,
+                    name: candidate.pool.name,
+                    publishingGroup: candidate.pool.publishingGroup,
+                    classification: candidate.pool.classification,
+                  }),
                 },
               ),
             );
@@ -69,7 +71,12 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, {
+                    stream: candidate.pool.stream,
+                    name: candidate.pool.name,
+                    publishingGroup: candidate.pool.publishingGroup,
+                    classification: candidate.pool.classification,
+                  }),
                 },
               ),
             );
@@ -114,7 +121,12 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                           "Label for the notes field for a specific pool",
                       },
                       {
-                        poolName: getShortPoolTitleHtml(intl, candidate.pool),
+                        poolName: getShortPoolTitleHtml(intl, {
+                          stream: candidate.pool.stream,
+                          name: candidate.pool.name,
+                          publishingGroup: candidate.pool.publishingGroup,
+                          classification: candidate.pool.classification,
+                        }),
                       },
                     )}
                     defaultValue={candidate.notes ? candidate.notes : ""}

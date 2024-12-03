@@ -14,6 +14,13 @@ updates:
       day: "thursday"
     open-pull-requests-limit: 50
     groups:
+      radix:
+        patterns:
+          - "@radix-ui*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
       storybook:
         patterns:
           - "@storybook*"
@@ -37,6 +44,21 @@ updates:
       types:
         patterns:
           - "@types/*"
+        update-types:
+          - "minor"
+          - "patch"
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/eslint-plugin"
+          - "@typescript-eslint/parser"
+          - "typescript-eslint"
+        update-types:
+          - "minor"
+          - "patch"
+      turbo:
+        patterns:
+          - "turbo"
+          - "eslint-plugin-turbo"
         update-types:
           - "minor"
           - "patch"

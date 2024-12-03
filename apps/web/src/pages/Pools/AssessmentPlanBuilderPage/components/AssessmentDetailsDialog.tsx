@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 import { ReactNode, useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Well } from "@gc-digital-talent/ui";
@@ -9,7 +9,6 @@ import {
   errorMessages,
   getLocalizedName,
   uiMessages,
-  getAssessmentStepType,
 } from "@gc-digital-talent/i18n";
 import {
   Select,
@@ -18,9 +17,9 @@ import {
   TextArea,
   Checklist,
   CheckboxOption,
-  Option,
   Field,
   alphaSortOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -47,10 +46,10 @@ import {
 } from "../constants";
 import { poolSkillToOption } from "../utils";
 
-type AssessedSkillsItems = {
+interface AssessedSkillsItems {
   essentialSkillItems: CheckboxOption[];
   assetSkills: CheckboxOption[];
-};
+}
 
 const AssessmentDetailsDialog_CreateMutation = graphql(/* GraphQL */ `
   mutation createAssessmentStep(
@@ -95,10 +94,22 @@ const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
 const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentDetailsDialogPoolSkill on PoolSkill {
     id
-    type
+    type {
+      value
+      label {
+        en
+        fr
+      }
+    }
     skill {
       id
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       key
       name {
         en
@@ -111,16 +122,41 @@ const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const AssessmentDetailsDialogOptions_Query = graphql(/* GraphQL */ `
+  query AssessmentDetailsDialogOptions {
+    assessmentStepTypes: localizedEnumStrings(enumName: "AssessmentStepType") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const allowedStepTypes = [
+  // can't manually choose or edit application screening step
+  AssessmentStepType.ScreeningQuestionsAtApplication,
+  AssessmentStepType.TechnicalExamAtSite,
+  AssessmentStepType.TechnicalExamAtHome,
+  AssessmentStepType.PscExam,
+  AssessmentStepType.InterviewGroup,
+  AssessmentStepType.InterviewIndividual,
+  AssessmentStepType.InterviewFollowup,
+  AssessmentStepType.ReferenceCheck,
+  AssessmentStepType.AdditionalAssessment,
+];
+
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
-type FormValues = {
+interface FormValues {
   id?: Maybe<Scalars["ID"]["output"]>;
   poolId?: Maybe<Scalars["ID"]["output"]>;
   typeOfAssessment?: Maybe<AssessmentStepType>;
   assessmentTitleEn?: Maybe<string>;
   assessmentTitleFr?: Maybe<string>;
-  screeningQuestionFieldArray?: Array<{
+  screeningQuestionFieldArray?: {
     id: string | null;
     screeningQuestion: {
       id?: Maybe<Scalars["ID"]["output"]>;
@@ -128,17 +164,17 @@ type FormValues = {
       en?: Maybe<string>;
       fr?: Maybe<string>;
     };
-  }>;
-  assessedSkills?: Maybe<Array<Scalars["ID"]["output"]>>;
-  assessedSkillsScreeningQuestions?: Maybe<Array<Scalars["ID"]["output"]>>;
-};
+  }[];
+  assessedSkills?: Maybe<Scalars["ID"]["output"][]>;
+  assessedSkillsScreeningQuestions?: Maybe<Scalars["ID"]["output"][]>;
+}
 
 type InitialValues = Omit<
   FormValues,
   "poolId" | "screeningQuestionFieldArray"
 > & {
   poolId: NonNullable<FormValues["poolId"]>;
-  screeningQuestions?: Array<ScreeningQuestion>;
+  screeningQuestions?: ScreeningQuestion[];
 };
 
 interface AssessmentDetailsDialogProps {
@@ -159,6 +195,9 @@ const AssessmentDetailsDialog = ({
   onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
+  const [{ data: stringsData }] = useQuery({
+    query: AssessmentDetailsDialogOptions_Query,
+  });
   const allPoolSkills = getFragment(
     AssessmentDetailsDialogPoolSkill_Fragment,
     poolSkillsQuery,
@@ -271,7 +310,7 @@ const AssessmentDetailsDialog = ({
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      poolId: values.poolId,
+      poolId: values.poolId ?? "",
       assessmentStep: {
         type: values.typeOfAssessment,
         title: {
@@ -288,7 +327,7 @@ const AssessmentDetailsDialog = ({
         if (result?.data?.createAssessmentStep?.id) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return Promise.reject(new Error(result.error?.toString()));
       },
     );
   };
@@ -297,7 +336,7 @@ const AssessmentDetailsDialog = ({
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      id: values.id,
+      id: values.id ?? "",
       assessmentStep: {
         type: values.typeOfAssessment,
         title: {
@@ -314,7 +353,7 @@ const AssessmentDetailsDialog = ({
         if (res?.data?.updateAssessmentStep?.id) {
           return Promise.resolve();
         }
-        return Promise.reject();
+        return Promise.reject(new Error(res.error?.toString()));
       },
     );
   };
@@ -323,7 +362,7 @@ const AssessmentDetailsDialog = ({
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
-      poolId: values.poolId,
+      poolId: values.poolId ?? "",
       screeningQuestions: values.screeningQuestionFieldArray?.map(
         ({ screeningQuestion }, index) => ({
           question: {
@@ -352,7 +391,7 @@ const AssessmentDetailsDialog = ({
       if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
         return Promise.resolve();
       }
-      return Promise.reject();
+      return Promise.reject(new Error(res.error?.toString()));
     });
   };
 
@@ -399,21 +438,27 @@ const AssessmentDetailsDialog = ({
 
   const assessedSkillsItems: AssessedSkillsItems = allPoolSkills.reduce(
     (assessedSkills: AssessedSkillsItems, poolSkill: PoolSkill) => {
-      if (poolSkill.type === PoolSkillType.Essential) {
+      if (poolSkill.type?.value === PoolSkillType.Essential) {
         return {
           essentialSkillItems: [
             ...assessedSkills.essentialSkillItems,
-            poolSkillToOption(poolSkill, intl),
+            poolSkillToOption(
+              { id: poolSkill.id, skill: poolSkill.skill },
+              intl,
+            ),
           ],
           assetSkills: assessedSkills.assetSkills,
         };
       }
 
-      if (poolSkill.type === PoolSkillType.Nonessential) {
+      if (poolSkill.type?.value === PoolSkillType.Nonessential) {
         return {
           assetSkills: [
             ...assessedSkills.assetSkills,
-            poolSkillToOption(poolSkill, intl),
+            poolSkillToOption(
+              { id: poolSkill.id, skill: poolSkill.skill },
+              intl,
+            ),
           ],
           essentialSkillItems: assessedSkills.essentialSkillItems,
         };
@@ -427,36 +472,22 @@ const AssessmentDetailsDialog = ({
     },
   );
 
-  const assessmentStepTypeOptions = [
-    // can't manually choose or edit application screening step
-    AssessmentStepType.ScreeningQuestionsAtApplication,
-    AssessmentStepType.TechnicalExamAtSite,
-    AssessmentStepType.TechnicalExamAtHome,
-    AssessmentStepType.PscExam,
-    AssessmentStepType.InterviewGroup,
-    AssessmentStepType.InterviewIndividual,
-    AssessmentStepType.InterviewFollowup,
-    AssessmentStepType.ReferenceCheck,
-    AssessmentStepType.AdditionalAssessment,
-  ]
-    .filter(
-      (stepType) =>
-        !disallowStepTypes.some(
-          (disallowStepType) => disallowStepType === stepType,
-        ),
-    )
-    .map<Option>((stepType) => ({
-      value: stepType,
-      label: intl.formatMessage(getAssessmentStepType(stepType)),
-    }));
-
+  const assessmentStepTypeOptions = localizedEnumToOptions(
+    stringsData?.assessmentStepTypes?.filter((stepType) => {
+      const value = (stepType.value ?? "") as AssessmentStepType;
+      return (
+        allowedStepTypes.includes(value) && !disallowStepTypes.includes(value)
+      );
+    }),
+    intl,
+  );
   const dialogBusy =
     updateAssessmentStepFetching ||
     createAssessmentStepFetching ||
     createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
 
   const missingEssentialSkills = allPoolSkills
-    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
+    .filter((poolSkill) => poolSkill.type?.value === PoolSkillType.Essential)
     .filter(({ assessmentSteps }) => {
       const steps = unpackMaybes(assessmentSteps);
 
@@ -470,7 +501,7 @@ const AssessmentDetailsDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage: "Provide additional details about this assessment",
@@ -526,10 +557,7 @@ const AssessmentDetailsDialog = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   disabled={dialogAction === "update"}
-                  options={assessmentStepTypeOptions.map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getAssessmentStepType(value)),
-                  }))}
+                  options={assessmentStepTypeOptions}
                   doNotSort
                 />
 

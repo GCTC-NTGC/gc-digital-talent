@@ -2,13 +2,17 @@
 // Note: Disable camelcase since variables are being used by API
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation, Location } from "react-router";
 import { useQuery } from "urql";
 import { ReactNode, useState } from "react";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
@@ -19,14 +23,14 @@ import {
   TALENTSEARCH_SUPPORT_EMAIL,
 } from "~/constants/talentSearchConstants";
 
-export type FormValues = {
+interface FormValues {
   user_id: string;
   name: string;
   email: string;
   description: string;
   subject: string;
   previous_url: string;
-};
+}
 
 interface SupportFormProps {
   showSupportForm: boolean;
@@ -101,6 +105,10 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   );
 };
 
+interface LocationState {
+  referrer?: string;
+}
+
 const SupportForm = ({
   showSupportForm,
   onFormToggle,
@@ -108,15 +116,15 @@ const SupportForm = ({
   currentUser,
 }: SupportFormProps) => {
   const intl = useIntl();
-  const location = useLocation();
+  const location = useLocation() as Location<LocationState>;
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
-      user_id: currentUser?.id || "",
+      user_id: currentUser?.id ?? "",
       name: currentUser
         ? getFullNameLabel(currentUser.firstName, currentUser.lastName, intl)
         : "",
-      email: currentUser?.email || "",
+      email: currentUser?.email ?? "",
       previous_url: previousUrl || "",
     },
   });
@@ -174,11 +182,7 @@ const SupportForm = ({
               id="email"
               name="email"
               type="email"
-              label={intl.formatMessage({
-                defaultMessage: "Your email",
-                id: "szLvj0",
-                description: "Support form email field label",
-              })}
+              label={intl.formatMessage(commonMessages.email)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -299,7 +303,7 @@ const SupportFormApi = () => {
     }
 
     // we didn't get an OK so let's take a closer look at the response
-    const responseBody = await response.json();
+    const responseBody = (await response.json()) as Record<string, unknown>;
     const errorCode = `${response.status} - ${response.statusText}`;
     logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
 
@@ -343,5 +347,4 @@ const SupportFormApi = () => {
   );
 };
 
-export const SupportFormComponent = SupportForm;
 export default SupportFormApi;

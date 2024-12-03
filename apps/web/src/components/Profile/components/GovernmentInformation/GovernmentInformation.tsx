@@ -8,7 +8,7 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, Pool } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -16,6 +16,9 @@ import {
   hasAllEmptyFields,
 } from "~/validators/profile/governmentInformation";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+// not importing a whole page, just a context
+// eslint-disable-next-line no-restricted-imports
+import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 
 import { SectionProps } from "../../types";
 import FormActions from "../FormActions";
@@ -30,6 +33,7 @@ import Display from "./Display";
 
 const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
   query GetProfileFormOptions {
+    ...GovernmentInfoEmployeeTypes
     departments {
       ...GovernmentInfoDepartment
     }
@@ -44,7 +48,7 @@ const GovernmentInformation = ({
   onUpdate,
   isUpdating,
   pool,
-}: SectionProps) => {
+}: SectionProps<Pick<Pool, "id">>) => {
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const intl = useIntl();
@@ -54,6 +58,8 @@ const GovernmentInformation = ({
     emptyRequired,
     fallbackIcon: BuildingLibraryIcon,
   });
+  const applicationContext = useApplicationContext();
+  const isInApplication = !!applicationContext.currentStepOrdinal;
 
   const [{ data }] = useQuery({ query: GovernmentInformationFormData_Query });
   const classifications = getFragment(
@@ -64,7 +70,7 @@ const GovernmentInformation = ({
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(
       user.id,
-      formValuesToSubmitData(formValues, [...classifications]),
+      formValuesToSubmitData(formValues, user.id, [...classifications]),
     )
       .then((response) => {
         if (response) {
@@ -127,7 +133,11 @@ const GovernmentInformation = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display user={user} />}
+          {isNull ? (
+            <NullDisplay />
+          ) : (
+            <Display user={user} showEmailVerification={!isInApplication} />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <BasicForm
@@ -142,6 +152,7 @@ const GovernmentInformation = ({
               labels={labels}
               departmentsQuery={unpackMaybes(data?.departments)}
               classificationsQuery={unpackMaybes(data?.classifications)}
+              employeeTypesQuery={data}
             />
             <FormActions isUpdating={isUpdating} />
           </BasicForm>

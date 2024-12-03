@@ -1,5 +1,5 @@
 import { SubmitHandler } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
 
@@ -10,30 +10,22 @@ import {
   CreateTeamInput,
   CreateTeamMutation,
   FragmentType,
-  LocalizedStringInput,
-  Maybe,
-  Scalars,
   getFragment,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import CreateTeamFormFields from "./CreateTeamFormFields";
 import { TeamDepartmentOption_Fragment } from "../../operations";
-
-type FormValues = {
-  displayName?: Maybe<LocalizedStringInput>;
-  contactEmail?: Maybe<Scalars["Email"]["output"]>;
-  departments?: Array<Scalars["UUID"]["output"]>;
-  description?: Maybe<LocalizedStringInput>;
-};
+import { FormValues } from "./types";
 
 const formValuesToSubmitData = (data: FormValues): CreateTeamInput => {
   const { displayName, contactEmail, departments, description } = data;
   return {
     displayName,
     contactEmail,
-    name: kebabCase(displayName?.en || ""),
+    name: kebabCase(displayName?.en ?? ""),
     departments: { sync: departments },
     description,
   };
@@ -57,14 +49,12 @@ const CreateTeamForm = ({
     TeamDepartmentOption_Fragment,
     departmentsQuery,
   );
-
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.teamTable();
+  const navigateTo = useReturnPath(paths.teamTable());
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
+      .then(async () => {
+        await navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Team updated successfully!",
@@ -94,8 +84,8 @@ const CreateTeamForm = ({
       >
         <Submit
           text={intl.formatMessage({
-            defaultMessage: "Create new team",
-            id: "WX6NnA",
+            defaultMessage: "Create team",
+            id: "S2Hv5s",
             description: "Button text for the create team form submit button",
           })}
         />

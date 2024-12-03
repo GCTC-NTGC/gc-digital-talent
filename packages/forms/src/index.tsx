@@ -36,16 +36,13 @@ import SwitchInput, {
 } from "./components/SwitchInput/SwitchInput";
 import TextArea, { type TextAreaProps } from "./components/TextArea";
 import WordCounter, { type WordCounterProps } from "./components/WordCounter";
-import BasicForm, {
-  type BasicFormProps,
-  type FieldLabels,
-} from "./components/BasicForm";
+import BasicForm, { type BasicFormProps } from "./components/BasicForm";
 import ErrorSummary from "./components/ErrorSummary";
 import UnsavedChanges from "./components/UnsavedChanges";
 import {
   unpackIds,
   enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
@@ -57,7 +54,7 @@ import {
   alphaSortOptions,
 } from "./utils";
 import useInputStyles from "./hooks/useInputStyles";
-import { Option, OptGroup, OptGroupOrOption } from "./types";
+import { Option, OptGroup, OptGroupOrOption, FieldLabels } from "./types";
 
 export {
   DATE_SEGMENT,
@@ -118,7 +115,7 @@ export type {
 export {
   unpackIds,
   enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,

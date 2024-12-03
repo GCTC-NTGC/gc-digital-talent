@@ -12,7 +12,7 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
-import { SubExperienceFormProps } from "~/types/experience";
+import { PersonalFormValues, SubExperienceFormProps } from "~/types/experience";
 
 const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
@@ -20,12 +20,14 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   const {
     setValue,
     formState: { defaultValues },
-  } = useFormContext();
-  // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "currentRole" });
+  } = useFormContext<PersonalFormValues>();
+  // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
+  const isCurrent = useWatch<PersonalFormValues>({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch({ name: "startDate" });
-  const watchDescription = useWatch({ name: "experienceDescription" });
+  const watchStartDate = useWatch<PersonalFormValues>({ name: "startDate" });
+  const watchDescription = useWatch<PersonalFormValues>({
+    name: "experienceDescription",
+  });
 
   useEffect(() => {
     if (watchDescription !== defaultValues?.experienceDescription) {
@@ -108,10 +110,11 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
                   : {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
-                        value: watchStartDate,
-                        message: intl.formatMessage(
-                          errorMessages.dateMustFollow,
-                          { value: watchStartDate },
+                        value: String(watchStartDate),
+                        message: String(
+                          intl.formatMessage(errorMessages.dateMustFollow, {
+                            value: watchStartDate,
+                          }),
                         ),
                       },
                     }

@@ -10,28 +10,103 @@ query getProfile($userId: UUID!) {
     firstName
     lastName
     email
+    isEmailVerified
     telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
     currentCity
-    citizenship
-    armedForcesStatus
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
     isGovEmployee
+    workEmail
+    isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
-    govEmployeeType
+    govEmployeeType {
+      value
+      label {
+        en
+        fr
+      }
+    }
     department {
       id
       departmentNumber
@@ -51,20 +126,34 @@ query getProfile($userId: UUID!) {
     }
     isWoman
     hasDisability
-    indigenousCommunities
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+      }
+    }
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
-    locationPreferences
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
-    acceptedOperationalRequirements
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
     positionDuration
     userSkills {
       id
-      user {
-        id
-        email
-      }
       skill {
         id
         key
@@ -72,17 +161,19 @@ query getProfile($userId: UUID!) {
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
     }
     experiences {
       # profileExperience fragment
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -99,7 +190,13 @@ query getProfile($userId: UUID!) {
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         experienceSkillRecord {
           details
         }
@@ -108,8 +205,20 @@ query getProfile($userId: UUID!) {
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on CommunityExperience {
         title
@@ -124,8 +233,20 @@ query getProfile($userId: UUID!) {
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on PersonalExperience {
         title
@@ -139,140 +260,98 @@ query getProfile($userId: UUID!) {
         division
         startDate
         endDate
+        employmentCategory {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extSizeOfOrganization {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govPositionType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        contractorFirmAgencyName
+        cafEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafForce {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafRank {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          id
+          name {
+            en
+            fr
+          }
+          group
+          level
+          maxSalary
+          minSalary
+        }
+        department {
+          id
+          name {
+            en
+            fr
+          }
+          departmentNumber
+        }
       }
     }
     isProfileComplete
-    poolCandidates {
-      id
-      user {
-        id
-        email
-      }
-      status
-      expiryDate
-      signature
-      archivedAt
-      submittedAt
-      suspendedAt
-      pool {
-        id
-        closingDate
-        name {
-          en
-          fr
-        }
-        stream
-        classification {
-          id
-          group
-          level
-          name {
-            en
-            fr
-          }
-          genericJobTitles {
-            id
-            key
-            name {
-              en
-              fr
-            }
-          }
-          minSalary
-          maxSalary
-        }
-      }
-      educationRequirementOption
-      educationRequirementExperiences {
-        # profileExperience fragment
-        id
-        __typename
-        details
-        user {
-          id
-          email
-        }
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      screeningQuestionResponses {
-        id
-        answer
-        screeningQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
-        }
-      }
-      generalQuestionResponses {
-        id
-        answer
-        generalQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
-        }
-      }
-    }
   }
 }

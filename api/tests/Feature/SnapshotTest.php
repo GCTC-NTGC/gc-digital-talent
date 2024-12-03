@@ -2,12 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AwardExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\ValueObjects\ProfileSnapshot;
 use Database\Seeders\RolePermissionSeeder;
 use Faker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,6 +22,7 @@ use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertSame;
 
 class SnapshotTest extends TestCase
 {
@@ -69,7 +73,6 @@ class SnapshotTest extends TestCase
         assertNotNull($expectedSnapshot);
 
         $poolCandidate->setApplicationSnapshot();
-        $poolCandidate->save();
 
         // get the just-created snapshot
         $actualSnapshot = $this->actingAs($user, 'api')->graphQL(
@@ -86,12 +89,8 @@ class SnapshotTest extends TestCase
 
         $decodedActual = json_decode($actualSnapshot, true);
 
-        // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
-        // array_values reindexes the array from zero https://stackoverflow.com/a/3401863
-        $filteredPoolCandidates = array_values(array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
-            return $poolCandidate['id'] === $individualPoolCandidate['id'];
-        }));
-        $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
+        // Add version number
+        $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
 
         // line-up query format with how the snapshot is ordered
         $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
@@ -147,7 +146,6 @@ class SnapshotTest extends TestCase
 
         // submit the application, re-grab the model so as to access profile_snapshot
         $poolCandidate->setApplicationSnapshot();
-        $poolCandidate->save();
         $updatedPoolCandidate = PoolCandidate::findOrFail($poolCandidate->id);
         $snapshot = $updatedPoolCandidate->profile_snapshot;
 
@@ -166,5 +164,90 @@ class SnapshotTest extends TestCase
         $intersectedArray = array_intersect($unusedSkillIds, $snapshotSkillIds);
         $intersectedArrayLength = count($intersectedArray);
         assertEquals($intersectedArrayLength, 0);
+    }
+
+    public function testSetApplicationSnapshotDoesNotOverwrite()
+    {
+        // non-null snapshot value set
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+        $pool = Pool::factory()->published()->create();
+        $poolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+            'profile_snapshot' => ['snapshot' => 'set'],
+        ]);
+
+        $poolCandidate->setApplicationSnapshot();
+
+        $updatedPoolCandidate = PoolCandidate::findOrFail($poolCandidate->id);
+        $snapshot = $updatedPoolCandidate->profile_snapshot;
+
+        // snapshot field unchanged
+        assertSame(['snapshot' => 'set'], $snapshot);
+    }
+
+    public function testLocalizingLegacyEnums()
+    {
+        // non-null snapshot value set
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+        $pool = Pool::factory()->published()->create();
+        $poolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+            'profile_snapshot' => [
+                // Single enum
+                'preferredLang' => Language::EN->name,
+                // Array based enum
+                'acceptedOperationalRequirements' => [
+                    OperationalRequirement::DRIVERS_LICENSE->name,
+                    // Confirm does not double parse
+                    [
+                        'value' => OperationalRequirement::ON_CALL->name,
+                        'label' => OperationalRequirement::localizedString(
+                            OperationalRequirement::ON_CALL->name
+                        ),
+                    ],
+                ],
+                // Empty string details
+                // NOTE: Regression test for empty strings treated as localized enums
+                'experiences' => [
+                    [
+                        'details' => '',
+                    ],
+                ],
+            ],
+        ]);
+
+        $snapshot = $poolCandidate->profile_snapshot;
+
+        // snapshot contains localized enums
+        assertSame([
+            // Single enum
+            'preferredLang' => [
+                'value' => Language::EN->name,
+                'label' => Language::localizedString(Language::EN->name),
+            ],
+            // Array based enum
+            'acceptedOperationalRequirements' => [
+                [
+                    'value' => OperationalRequirement::DRIVERS_LICENSE->name,
+                    'label' => OperationalRequirement::localizedString(OperationalRequirement::DRIVERS_LICENSE->name),
+                ],
+                [
+                    'value' => OperationalRequirement::ON_CALL->name,
+                    'label' => OperationalRequirement::localizedString(OperationalRequirement::ON_CALL->name),
+                ],
+            ],
+            // Empty string details
+            'experiences' => [
+                [
+                    'details' => '',
+                ],
+            ],
+        ], $snapshot);
     }
 }

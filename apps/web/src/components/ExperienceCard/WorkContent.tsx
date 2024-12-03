@@ -11,7 +11,7 @@ import { ContentProps } from "./types";
 const WorkContent = ({
   experience: { division },
   headingLevel,
-}: ContentProps<WorkExperience>) => {
+}: ContentProps<Omit<WorkExperience, "user">>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 

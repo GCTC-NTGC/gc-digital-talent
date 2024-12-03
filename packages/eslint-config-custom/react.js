@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     "./index.js",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:jsx-a11y/recommended",
   ],
   globals: {
@@ -20,12 +21,7 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: "module",
   },
-  plugins: [
-    "react",
-    "react-hooks",
-    "formatjs",
-    "jsx-a11y",
-  ],
+  plugins: ["react", "react-hooks", "formatjs", "jsx-a11y"],
   rules: {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
@@ -50,7 +46,7 @@ module.exports = {
     "react/require-default-props": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": [
-      "warn",
+      "error",
       {
         additionalHooks: "(useDeepCompareEffect)",
       },
@@ -91,8 +87,8 @@ module.exports = {
         td: ["gridcell"],
       },
     ],
-    "@typescript-eslint/ban-types": [
-      "warn",
+    "@typescript-eslint/no-restricted-types": [
+      "error",
       {
         types: {
           "React.FunctionComponent":
@@ -101,47 +97,56 @@ module.exports = {
         },
       },
     ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+        caughtErrors: "all",
+        caughtErrorsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+      },
+    ],
     "react/function-component-definition": "off",
     "no-restricted-imports": [
       "error",
       {
-        name: "lodash",
-        message:
-          "Please import the individual function, not the entire library.",
-      },
-      {
-        name: "date-fns",
-        message:
-          "Please import the individual function, not the entire library.",
-      },
-      {
-        name: "date-fns-tz",
-        message:
-          "Please import the individual function, not the entire library.",
-      },
-      {
-        name: "@heroicons/react/24/outline",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "@heroicons/react/24/solid",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "@heroicons/react/20/outline",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "@heroicons/react/20/solid",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "jpg",
-        message: "Please use WebP as the image format.",
-      },
-      {
-        name: "png",
-        message: "Please use WebP as the image format.",
+        patterns: [
+          {
+            group: ["lodash", "!lodash/"],
+            message:
+              "Please import the individual function, not the entire library.",
+          },
+          {
+            group: ["date-fns", "!date-fns/"],
+            message:
+              "Please import the individual function, not the entire library.",
+          },
+          {
+            group: [
+              "@heroicons/react/24/outline",
+              "@heroicons/react/24/solid",
+              "@heroicons/react/20/outline",
+              "@heroicons/react/20/solid",
+
+              "!@heroicons/react/24/outline/",
+              "!@heroicons/react/24/solid/",
+              "!@heroicons/react/20/outline/",
+              "!@heroicons/react/20/solid/",
+            ],
+            message: "Please import the individual icons, not the entire set.",
+          },
+          {
+            group: ["*.jpg", "*.png"],
+            message: "Please use WebP as the image format.",
+          },
+          {
+            group: ["~/pages"],
+            message: "Please move to central location.",
+          },
+        ],
       },
     ],
     "react/forbid-elements": [1, { forbid: ["a", "hr"] }],
@@ -154,8 +159,8 @@ module.exports = {
       },
       {
         selector: "CallExpression[callee.name='useLocale']",
-        message: "Please use getLocale instead."
-      }
+        message: "Please use getLocale instead.",
+      },
     ],
   },
 };

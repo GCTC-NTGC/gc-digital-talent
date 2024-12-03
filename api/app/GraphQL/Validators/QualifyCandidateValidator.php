@@ -32,7 +32,7 @@ final class QualifyCandidateValidator extends Validator
         ];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_QUALIFICATION]);
+            throw ValidationException::withMessages(['id' => ApiErrorEnums::INVALID_STATUS_QUALIFICATION]);
         }
 
         return [

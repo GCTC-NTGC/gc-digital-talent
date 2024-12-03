@@ -4,11 +4,15 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import { Button, CardBasic } from "@gc-digital-talent/ui";
 import { TextArea } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  errorMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";
 
-export interface SkillsInDetailProps {
+interface SkillsInDetailProps {
   skills: FormSkills;
   onDelete: (id: string) => void;
 }
@@ -78,6 +82,16 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 id={`skill-in-detail-${id}`}
                 name={`skills.${index}.details`}
                 wordLimit={MAX_WORDS}
+                aria-label={intl.formatMessage(
+                  {
+                    id: "Opn8nz",
+                    defaultMessage:
+                      "Describe how {skillName} featured in this role",
+                    description:
+                      "More descriptive label for the textarea in the skills in detail section",
+                  },
+                  { skillName: getLocalizedName(name, intl, true) },
+                )}
                 label={intl.formatMessage({
                   defaultMessage:
                     "Describe how this skill featured in this role",

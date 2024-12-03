@@ -4,8 +4,11 @@ namespace Database\Seeders;
 
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -35,12 +38,19 @@ class PoolCandidateTestSeeder extends Seeder
         $candidateOne->save();
         $this->publishedPools = Pool::select('id', 'name')->whereNotNull('published_at')->get();
 
-        // 1- Perfect Priority
+        // 1 - Perfect Priority
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                    expiryDate: now()->addYears(2),
+                    priorityStatus: ClaimVerificationResult::ACCEPTED->name,
+                    priorityExpiry: now()->addYears(2),
+                    placedAt: now()->subDays(2),
+                );
             })
             ->create([
                 'first_name' => 'Perfect',
@@ -52,15 +62,20 @@ class PoolCandidateTestSeeder extends Seeder
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        //2- Barely qualified Veteran
+        // 2 - Entry-level Veteran
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                    expiryDate: now()->addYears(2),
+                    veteranStatus: ClaimVerificationResult::UNVERIFIED->name,
+                );
             })
             ->create([
-                'first_name' => 'Barely qualified',
+                'first_name' => 'Entry-level',
                 'last_name' => 'Veteran',
                 'email' => 'veteran@test.com',
                 'sub' => 'veteran@test.com',
@@ -68,28 +83,38 @@ class PoolCandidateTestSeeder extends Seeder
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
             ]);
 
-        // 3- Try-hard Not a veteran
+        // 3 - Assertive Non-veteran
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::PLACED_TENTATIVE, now()->addYears(2));
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::PLACED_TENTATIVE->name,
+                    expiryDate: now()->addYears(2),
+                    veteranStatus: ClaimVerificationResult::REJECTED->name,
+                );
             })
             ->create([
-                'first_name' => 'Try-hard',
-                'last_name' => 'Not a veteran',
-                'email' => 'try-hard@test.com',
-                'sub' => 'try-hard@test.com',
+                'first_name' => 'Assertive',
+                'last_name' => 'Non-veteran',
+                'email' => 'assertive@test.com',
+                'sub' => 'assertive@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
-                'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
+                'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
             ]);
 
-        //4- Absent Canadian
+        // 4 - Absent Canadian
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::REMOVED);
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::REMOVED->name,
+                    removalReason: CandidateRemovalReason::NOT_RESPONSIVE->name,
+                    expiryDate: now()->addYears(2),
+                );
             })
             ->create([
                 'first_name' => 'Absent',
@@ -99,81 +124,124 @@ class PoolCandidateTestSeeder extends Seeder
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        //5- Screened-out Non-Canadian
+        // 5 - Screened-out Non-Canadian
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                    expiryDate: now()->addYears(2),
+                );
             })
             ->create([
                 'first_name' => 'Screened-out',
                 'last_name' => 'Non-Canadian',
-                'email' => 'Screened-out@test.com',
-                'sub' => 'Screened-out@test.com',
+                'email' => 'screened-out@test.com',
+                'sub' => 'screened-out@test.com',
                 'citizenship' => CitizenshipStatus::OTHER->name,
             ]);
 
-        // 6- Failed Notes master
+        // 6 - Failed Notes Wizard
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::REMOVED->name,
+                    removalReason: CandidateRemovalReason::OTHER->name,
+                    expiryDate: now()->addYears(2),
+                );
             })
             ->create([
                 'first_name' => 'Failed',
-                'last_name' => 'NotesMaster',
-                'email' => 'Failed@test.com',
-                'sub' => 'Failed@test.com',
+                'last_name' => 'Notes Wizard',
+                'email' => 'failed@test.com',
+                'sub' => 'failed@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        // 7- Barely qualified Holder
+        // 7 - Entry-level Holder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                    expiryDate: now()->addYears(2),
+                );
             })
             ->create([
-                'first_name' => 'Barely',
-                'last_name' => 'qualified Holder',
-                'email' => 'barely@test.com',
-                'sub' => 'barely@test.com',
+                'first_name' => 'Entry-level',
+                'last_name' => 'Holder',
+                'email' => 'entry-level-holder@test.com',
+                'sub' => 'entry-level-holder@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
             ]);
 
-        //8- Unsuccessful Priority
+        // 8 - Unsuccessful Priority
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->afterCreating(function (User $user) {
-                $this->applyToAllPools($user, PoolCandidateStatus::SCREENED_OUT_ASSESSMENT);
+                $this->applyToAllPools(
+                    user: $user,
+                    status: PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                    priorityStatus: ClaimVerificationResult::UNVERIFIED->name,
+                    expiryDate: now()->addYears(2),
+                );
             })
             ->create([
                 'first_name' => 'Unsuccessful',
                 'last_name' => 'Priority',
-                'email' => 'Unsuccessful@test.com',
-                'sub' => 'Unsuccessful@test.com',
+                'email' => 'unsuccessful@test.com',
+                'sub' => 'unsuccessful@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
-
     }
 
-    private function applyToAllPools($user, $status, $expiryDate = null, $placedDepartmentId = null)
+    private function applyToAllPools(
+        $user,
+        $status,
+        $removalReason = null,
+        $expiryDate = null,
+        $priorityStatus = null,
+        $priorityExpiry = null,
+        $veteranStatus = null,
+        $veteranExpiry = null,
+        $placedAt = null)
     {
         foreach ($this->publishedPools as $pool) {
             // create a pool candidate in the pool
             PoolCandidate::factory()->for($user)->for($pool)
+                ->afterCreating(function (PoolCandidate $candidate) use ($removalReason, $placedAt, $priorityStatus, $priorityExpiry, $veteranStatus, $veteranExpiry) {
+                    if ($removalReason == CandidateRemovalReason::OTHER->name) {
+                        $candidate->removal_reason_other = 'Other reason';
+                    } else {
+                        $candidate->removal_reason_other = null;
+                    }
+                    $candidate->priority_verification = $priorityStatus;
+                    $candidate->priority_verification_expiry = $priorityExpiry;
+                    $candidate->veteran_verification = $veteranStatus;
+                    $candidate->veteran_verification_expiry = $veteranExpiry;
+                    $candidate->placed_department_id = isset($placedAt) ?
+                        Department::inRandomOrder()->first()->id : null;
+
+                    $candidate->save();
+                    $candidate->setApplicationSnapshot();
+                })
                 ->create([
                     'pool_id' => $pool->id,
                     'user_id' => $user->id,
                     'submitted_at' => config('constants.far_past_date'),
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-                    'pool_candidate_status' => $status->name,
+                    'pool_candidate_status' => $status,
+                    'removal_reason' => $removalReason,
                     'expiry_date' => $expiryDate,
-                    'placed_department_id' => $placedDepartmentId,
+                    'placed_at' => $placedAt,
                 ]);
         }
     }

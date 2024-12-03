@@ -27,8 +27,15 @@ fi
 # First block is the header
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
+# Configure PHP CLI
+if echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini ; then
+    add_section_block ":white_check_mark: Configure PHP CLI *successful*."
+else
+    add_section_block ":X: Configure PHP CLI *failed*. $MENTION"
+fi
+
 # Install packages from repository
-if apt-get update && apt-get install -y supervisor cron; then
+if apt-get update && apt-get install --yes --no-install-recommends supervisor cron postgresql-client; then
     add_section_block ":white_check_mark: Install packages from repository *successful*."
 else
     add_section_block ":X: Install packages from repository *failed*. $MENTION"
@@ -38,9 +45,10 @@ cd /home/site/wwwroot/api
 
 # Laravel local cache
 if
-    mkdir --parents /tmp/bootstrap/cache && \
+    mkdir --parents /tmp/bootstrap/cache /tmp/api/storage/framework/cache/data && \
     chown www-data:www-data /tmp/bootstrap/cache && \
-    php artisan config:cache ;
+    chown -R www-data:www-data /tmp/api/storage && \
+    php artisan optimize;
 then
     add_section_block ":white_check_mark: Laravel cache setup *successful*."
 else
@@ -108,7 +116,7 @@ else
 fi
 
 # Environment config variable substitutions
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/config.js /home/site/config-web.js; then
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/index.html /home/site/index.html; then
     add_section_block ":white_check_mark: Copy config for web *successful*."
 else
     add_section_block ":X: Copy config for web *failed*. $MENTION"

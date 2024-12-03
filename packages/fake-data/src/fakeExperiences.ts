@@ -19,6 +19,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getStaticSkills } from "./fakeSkills";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 type WithTypename<T extends { __typename?: string }> = T & {
   __typename: NonNullable<T["__typename"]>;
@@ -71,21 +72,12 @@ const generateAward = (): GeneratedAwardExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     title: `experience title ${faker.lorem.word()}`,
-    awardedTo: faker.helpers.arrayElement<AwardedTo>([
-      AwardedTo.Me,
-      AwardedTo.MyOrganization,
-      AwardedTo.MyProject,
-      AwardedTo.MyTeam,
-    ]),
-    awardedScope: faker.helpers.arrayElement<AwardedScope>([
-      AwardedScope.Community,
-      AwardedScope.International,
-      AwardedScope.Local,
-      AwardedScope.National,
-      AwardedScope.Organizational,
-      AwardedScope.Provincial,
-      AwardedScope.SubOrganizational,
-    ]),
+    awardedTo: toLocalizedEnum(
+      faker.helpers.arrayElement<AwardedTo>(Object.values(AwardedTo)),
+    ),
+    awardedScope: toLocalizedEnum(
+      faker.helpers.arrayElement<AwardedScope>(Object.values(AwardedScope)),
+    ),
     awardedDate: staticDates.start,
     issuedBy: faker.company.name(),
     experienceSkillRecord: {
@@ -126,24 +118,15 @@ const generateEducation = (): GeneratedEducationExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     areaOfStudy: faker.music.genre(),
-    type: faker.helpers.arrayElement<EducationType>([
-      EducationType.BachelorsDegree,
-      EducationType.Certification,
-      EducationType.Diploma,
-      EducationType.MastersDegree,
-      EducationType.OnlineCourse,
-      EducationType.Other,
-      EducationType.Phd,
-      EducationType.PostDoctoralFellowship,
-    ]),
+    type: toLocalizedEnum(
+      faker.helpers.arrayElement<EducationType>(Object.values(EducationType)),
+    ),
     institution: faker.person.lastName(),
-    status: faker.helpers.arrayElement<EducationStatus>([
-      EducationStatus.Audited,
-      EducationStatus.DidNotComplete,
-      EducationStatus.InProgress,
-      EducationStatus.SuccessCredential,
-      EducationStatus.SuccessNoCredential,
-    ]),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<EducationStatus>(
+        Object.values(EducationStatus),
+      ),
+    ),
     startDate: staticDates.start,
     endDate: staticDates.end,
     thesisTitle: faker.lorem.words(),
@@ -207,7 +190,7 @@ export default (numberOfExperiences: number) => {
   ];
 
   // fill an array with random experiences
-  const experiences = [...Array(numberOfExperiences)].map(() => {
+  const experiences = Array.from({ length: numberOfExperiences }, () => {
     const generator = faker.helpers.arrayElement(generators);
     return generator();
   });
@@ -219,31 +202,31 @@ export default (numberOfExperiences: number) => {
 export const experienceGenerators = {
   awardExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateAward();
     });
   },
   communityExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateCommunity();
     });
   },
   educationExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateEducation();
     });
   },
   personalExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generatePersonal();
     });
   },
   workExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return [...Array(numOfExp)].map(() => {
+    return Array.from({ length: numOfExp }, () => {
       return generateWork();
     });
   },

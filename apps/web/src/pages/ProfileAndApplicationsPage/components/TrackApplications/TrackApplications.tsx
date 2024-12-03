@@ -9,7 +9,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress } from "~/utils/applicationUtils";
-import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 
 function buildLink(href: string, chunks: ReactNode): ReactElement {
@@ -20,7 +20,13 @@ export const TrackApplicationsCandidate_Fragment = graphql(/* GraphQL */ `
   fragment TrackApplicationsCandidate on PoolCandidate {
     ...ApplicationCard
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     pool {
       id
       closingDate
@@ -32,7 +38,7 @@ interface TrackApplicationsProps {
   applicationsQuery: FragmentType<typeof TrackApplicationsCandidate_Fragment>[];
 }
 
-type AccordionItems = Array<"in_progress" | "past" | "">;
+type AccordionItems = ("in_progress" | "past" | "")[];
 
 const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
   const intl = useIntl();

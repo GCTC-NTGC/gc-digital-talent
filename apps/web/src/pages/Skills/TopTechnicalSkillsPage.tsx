@@ -3,10 +3,16 @@ import { OperationContext, useMutation, useQuery } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  Skill,
+  SkillCategory,
+  UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -14,17 +20,30 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import UpdateSkillShowcase, {
   FormValues,
+  UpdateSkillShowcase_SkillFragment,
+  UpdateSkillShowcase_UserSkillFragment,
 } from "./components/UpdateSkillShowcase";
-import {
-  UpdateUserSkillRankings_Mutation,
-  UserSkills_Query,
-} from "./operations";
+import { UpdateUserSkillRankings_Mutation } from "./operations";
 
 const MAX_SKILL_COUNT = 10;
 
+const TopTechnicalSkillsPage_Query = graphql(/* GraphQL */ `
+  query TopTechnicalSkillsPageQuery {
+    me {
+      id
+      userSkills {
+        ...UpdateSkillShowcase_UserSkill
+      }
+    }
+    skills {
+      ...UpdateSkillShowcase_Skill
+    }
+  }
+`);
+
 interface TopTechnicalSkillsProps {
   skills: Skill[];
-  userSkills: UserSkill[];
+  userSkills: UpdateSkillShowcaseUserSkillFragmentType[];
   initialSkills: FormValues;
   stale: boolean;
 }
@@ -98,10 +117,12 @@ const TopTechnicalSkills = ({
     formValues: FormValues,
   ): Promise<void> =>
     executeMutation({
-      userId: userAuthInfo?.id,
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         topTechnicalSkillsRanked: [
-          ...formValues.userSkills.map((userSkill) => userSkill.skill),
+          ...unpackMaybes(
+            formValues.userSkills.map((userSkill) => userSkill.skill),
+          ),
         ],
       },
     }).then((res) => {
@@ -117,7 +138,7 @@ const TopTechnicalSkills = ({
   ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
     return executeMutation({
-      userId: userAuthInfo?.id,
+      userId: userAuthInfo?.id ?? "",
       userSkillRanking: {
         topTechnicalSkillsRanked: mergedSkillIds,
       },
@@ -131,7 +152,7 @@ const TopTechnicalSkills = ({
 
   return (
     <UpdateSkillShowcase
-      userId={userAuthInfo?.id}
+      userId={userAuthInfo?.id ?? ""}
       crumbs={crumbs}
       pageInfo={pageInfo}
       allSkills={skills}
@@ -152,20 +173,31 @@ const context: Partial<OperationContext> = {
 
 const TopTechnicalSkillsPage = () => {
   const [{ data, fetching, error, stale }] = useQuery({
-    query: UserSkills_Query,
+    query: TopTechnicalSkillsPage_Query,
     context,
   });
-  const userSkills = data?.me?.userSkills?.filter(notEmpty);
-  const technicalSkills = data?.skills
-    .filter(notEmpty)
-    .filter((skill) => skill.category === SkillCategory.Technical);
+
+  const userSkillsQuery = data?.me?.userSkills?.filter(notEmpty);
+  const userSkills = getFragment(
+    UpdateSkillShowcase_UserSkillFragment,
+    userSkillsQuery,
+  );
+
+  const skillsQuery = data?.skills.filter(notEmpty);
+  const skills = getFragment(
+    UpdateSkillShowcase_SkillFragment,
+    skillsQuery,
+  )?.filter(notEmpty);
+  const technicalSkills = skills
+    ? skills.filter((skill) => skill.category.value === SkillCategory.Technical)
+    : [];
 
   const initialSkills: FormValues = {
     userSkills:
       userSkills
         ?.filter(
           (userSkill) =>
-            userSkill.skill.category === SkillCategory.Technical &&
+            userSkill.skill.category.value === SkillCategory.Technical &&
             userSkill.topSkillsRank,
         )
         .sort(
@@ -176,7 +208,7 @@ const TopTechnicalSkillsPage = () => {
             skill: userSkill.skill.id,
             skillLevel: userSkill.skillLevel ?? undefined,
             whenSkillUsed: userSkill.whenSkillUsed ?? undefined,
-            category: userSkill.skill.category,
+            category: userSkill.skill.category.value,
           };
         }) ?? [],
   };

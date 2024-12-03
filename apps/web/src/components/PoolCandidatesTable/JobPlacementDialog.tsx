@@ -7,11 +7,10 @@ import {
   RadioGroup,
   Select,
   Submit,
-  enumToOptions,
+  localizedEnumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import {
-  Department,
   FragmentType,
   PlacementType,
   PoolCandidateStatus,
@@ -21,14 +20,17 @@ import {
 import {
   commonMessages,
   errorMessages,
-  getPlacementType,
-  getPoolCandidateStatus,
+  getLocalizedName,
+  sortPlacementType,
 } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { checkRole } from "~/utils/teamUtils";
 
 export const PLACEMENT_TYPE_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
@@ -59,7 +61,13 @@ const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
 export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementDialog on PoolCandidate {
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     placedDepartment {
       id
       name {
@@ -70,21 +78,44 @@ export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
+  fragment JobPlacementOptions on Query {
+    placementTypes: localizedEnumStrings(enumName: "PlacementType") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    departments {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export type JobPlacementOptionsFragmentType = FragmentType<
+  typeof JobPlacementOptions_Query
+>;
+
+interface FormValues {
   placementType?: PlacementType | "NOT_PLACED";
   placedDepartment?: string;
-};
+}
 
 interface JobPlacementDialogProps {
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
-  departments: Department[];
+  optionsQuery?: JobPlacementOptionsFragmentType;
   context?: "table" | "view";
   defaultOpen?: boolean;
 }
 
 const JobPlacementDialog = ({
   jobPlacementDialogQuery,
-  departments,
+  optionsQuery,
   context = "table",
   defaultOpen = false,
 }: JobPlacementDialogProps) => {
@@ -95,15 +126,27 @@ const JobPlacementDialog = ({
     RevertPlaceCandidate_Mutation,
   );
 
+  const { roleAssignments } = useAuthorization();
+  const canPlace = checkRole(
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+    ],
+    roleAssignments,
+  );
+
   const {
     id: poolCandidateId,
     status,
     placedDepartment,
   } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
+  const options = getFragment(JobPlacementOptions_Query, optionsQuery);
 
   const placementType =
-    status && PLACEMENT_TYPE_STATUSES.includes(status)
-      ? (status as unknown as PlacementType)
+    status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
+      ? (status.value as unknown as PlacementType)
       : "NOT_PLACED";
 
   const methods = useForm<FormValues>({
@@ -113,7 +156,7 @@ const JobPlacementDialog = ({
     },
   });
 
-  if (!isQualifiedStatus(status)) {
+  if (!isQualifiedStatus(status?.value)) {
     return <span>{intl.formatMessage(commonMessages.notAvailable)}</span>;
   }
 
@@ -152,7 +195,7 @@ const JobPlacementDialog = ({
       await executePlacedCandidate({
         id: poolCandidateId,
         placeCandidate: {
-          departmentId: values.placedDepartment,
+          departmentId: values.placedDepartment ?? "",
           placementType: values.placementType,
         },
       })
@@ -190,26 +233,22 @@ const JobPlacementDialog = ({
       value: "NOT_PLACED",
       label: intl.formatMessage(poolCandidateMessages.notPlaced),
     },
-    ...enumToOptions(PlacementType, [
-      PlacementType.PlacedTentative,
-      PlacementType.PlacedCasual,
-      PlacementType.PlacedTerm,
-      PlacementType.PlacedIndeterminate,
-    ]).map(({ value }) => ({
-      value,
-      label: intl.formatMessage(getPlacementType(value)),
-    })),
+    ...localizedEnumToOptions(sortPlacementType(options?.placementTypes), intl),
   ];
 
   let label = intl.formatMessage(commonMessages.notAvailable);
   if (status) {
-    if (isNotPlacedStatus(status)) {
+    if (isNotPlacedStatus(status.value)) {
       label = intl.formatMessage(poolCandidateMessages.notPlaced);
     }
 
-    if (status && PLACEMENT_TYPE_STATUSES.includes(status)) {
-      label = intl.formatMessage(getPoolCandidateStatus(status));
+    if (status.value && PLACEMENT_TYPE_STATUSES.includes(status.value)) {
+      label = getLocalizedName(status.label, intl);
     }
+  }
+
+  if (!canPlace) {
+    return <span>{label}</span>;
   }
 
   return (
@@ -273,7 +312,10 @@ const JobPlacementDialog = ({
                       description:
                         "Null selection for department select input in the request form.",
                     })}
-                    options={objectsToSortedOptions([...departments], intl)}
+                    options={objectsToSortedOptions(
+                      unpackMaybes(options?.departments),
+                      intl,
+                    )}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -304,12 +346,12 @@ const JobPlacementDialog = ({
 
 export function jobPlacementDialogAccessor(
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>,
-  departments: Department[],
+  optionsQuery?: JobPlacementOptionsFragmentType,
 ) {
   return (
     <JobPlacementDialog
       jobPlacementDialogQuery={jobPlacementDialogQuery}
-      departments={departments}
+      optionsQuery={optionsQuery}
     />
   );
 }

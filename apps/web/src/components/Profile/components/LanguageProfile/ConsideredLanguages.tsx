@@ -5,30 +5,20 @@ import { ReactNode, useEffect } from "react";
 import {
   RadioGroup,
   FieldLabels,
-  enumToOptions,
   Checkbox,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   Locales,
   errorMessages,
-  getEvaluatedLanguageAbility,
-  getLanguage,
   getLocale,
+  sortEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { EvaluatedLanguageAbility, Language } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
-
-const EvaluatedAbilityItemsSortOrder = [
-  EvaluatedLanguageAbility.P,
-  EvaluatedLanguageAbility.E,
-  EvaluatedLanguageAbility.C,
-  EvaluatedLanguageAbility.B,
-  EvaluatedLanguageAbility.A,
-  EvaluatedLanguageAbility.X,
-  EvaluatedLanguageAbility.NotAssessed,
-];
+import { FormValues } from "./types";
 
 const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
   return (
@@ -61,14 +51,41 @@ const selfAssessmentLink = (msg: ReactNode, locale: Locales) => {
     </Link>
   );
 };
+
+export const LanguageProfileOptions_Fragment = graphql(/* GraphQL */ `
+  fragment LanguageProfileOptions on Query {
+    evaluatedLanguageAbilities: localizedEnumStrings(
+      enumName: "EvaluatedLanguageAbility"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface ConsideredLanguagesProps {
   labels: FieldLabels;
+  optionsQuery?: FragmentType<typeof LanguageProfileOptions_Fragment>;
 }
 
-const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
+const ConsideredLanguages = ({
+  labels,
+  optionsQuery,
+}: ConsideredLanguagesProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const { watch, resetField } = useFormContext();
+  const data = getFragment(LanguageProfileOptions_Fragment, optionsQuery);
+  const { watch, resetField } = useFormContext<FormValues>();
 
   // hooks to watch, needed for conditional rendering
   const [consideredLanguages, secondLanguageExamCompleted] = watch([
@@ -76,13 +93,10 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     "secondLanguageExamCompleted",
   ]);
 
-  const evaluatedAbilityItems = enumToOptions(
-    EvaluatedLanguageAbility,
-    EvaluatedAbilityItemsSortOrder,
-  ).map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getEvaluatedLanguageAbility(value)),
-  }));
+  const evaluatedAbilityItems = localizedEnumToOptions(
+    sortEvaluatedLanguageAbility(data?.evaluatedLanguageAbilities),
+    intl,
+  );
 
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 
@@ -96,7 +110,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
    * Reset un-rendered fields
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false });
     };
 
@@ -148,10 +162,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
-        items={enumToOptions(Language).map(({ value }) => ({
-          value,
-          label: intl.formatMessage(getLanguage(value)),
-        }))}
+        items={localizedEnumToOptions(data?.languages, intl)}
       />
       <p>
         {intl.formatMessage({

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\AwardExperience;
 use App\Models\ExperienceSkill;
 use App\Models\Skill;
@@ -11,7 +13,6 @@ use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -64,9 +65,7 @@ class ExperienceTest extends TestCase
             $userSkills[2]->id => ['details' => 'third skill'],
         ]);
 
-        $response = $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
+        $response = $this->actingAs($this->platformAdmin, 'api')->graphQL(<<<'GRAPHQL'
             query getUser($id: UUID!) {
                 user(id: $id) {
                     workExperiences {
@@ -80,19 +79,33 @@ class ExperienceTest extends TestCase
                     }
                 }
             }
-        ',
+        GRAPHQL,
             [
                 'id' => $this->platformAdmin->id,
             ]
         );
-        // Assert that the experience  from query with all three skills, and that the pivot details work correctly.
-        $response->assertJson(fn (AssertableJson $json) => $json->has('data.user.workExperiences.0', fn (AssertableJson $json) => $json->where('id', $experience->id)
-            ->has('skills', 3)
-            ->has('skills.0', fn (AssertableJson $json) => $json->where('id', $userSkills[0]->skill_id)
-                ->where('experienceSkillRecord.details', 'first skill')
-            )
-        )
-        );
+
+        $this->assertEqualsCanonicalizing([
+            [
+
+                'id' => $userSkills[0]->skill->id,
+                'experienceSkillRecord' => [
+                    'details' => 'first skill',
+                ],
+            ],
+            [
+                'id' => $userSkills[1]->skill->id,
+                'experienceSkillRecord' => [
+                    'details' => 'second skill',
+                ],
+            ],
+            [
+                'id' => $userSkills[2]->skill->id,
+                'experienceSkillRecord' => [
+                    'details' => 'third skill',
+                ],
+            ],
+        ], $response['data']['user']['workExperiences'][0]['skills']);
     }
 
     protected function checkCreatesUserSkills($method): void

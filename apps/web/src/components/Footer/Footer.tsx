@@ -60,14 +60,17 @@ const Footer = ({ width }: FooterProps) => {
       }),
     },
   ];
+
   let footerWidth = {
-    "data-h2-container": "base(center, large, x1) p-tablet(center, large, x2)",
+    "data-h2-wrapper": "base(center, large, x1) p-tablet(center, large, x2)",
   };
+
   if (width === "full") {
     footerWidth = {
-      "data-h2-container": "base(center, full, x1) p-tablet(center, full, x2)",
+      "data-h2-wrapper": "base(center, full, x1) p-tablet(center, full, x2)",
     };
   }
+
   return (
     <footer
       data-h2-background-color="base(foreground) base:dark(white)"
@@ -99,7 +102,7 @@ const Footer = ({ width }: FooterProps) => {
               })}
             >
               {links.map((props) => (
-                <Link key={props.href} color="black" {...props} />
+                <Link key={String(props.href)} color="black" {...props} />
               ))}
             </nav>
             <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">
@@ -116,9 +119,7 @@ const Footer = ({ width }: FooterProps) => {
                         "Header for the date of the last modification of the site",
                     },
                     {
-                      modifiedDate: new Date(
-                        process.env.BUILD_DATE ?? "1970-01-01",
-                      )
+                      modifiedDate: new Date(BUILD_DATE ?? "1970-01-01")
                         .toISOString()
                         .slice(0, 10),
                     },

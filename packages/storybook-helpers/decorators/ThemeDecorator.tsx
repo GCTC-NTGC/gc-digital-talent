@@ -24,14 +24,14 @@ export const THEMES: Record<ThemeKey, Record<ThemeMode, string>> = {
   },
 };
 
-export interface WithThemeFromHydrogenConfig {
+interface WithThemeFromHydrogenConfig {
   themes: Record<string, string>;
   defaultTheme: string;
 }
 
-type ThemeSetterProps = {
+interface ThemeSetterProps {
   theme: Theme;
-};
+}
 const ThemeSetter = ({ theme }: ThemeSetterProps) => {
   const { setTheme, key, mode } = useTheme();
 
@@ -56,7 +56,7 @@ const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
   return (storyFn, context) => {
     const selectedTheme = pluckThemeFromContext(context);
     const { themeOverride } = useThemeParameters();
-    const selected = themeOverride || selectedTheme || defaultTheme;
+    const selected = (themeOverride ?? selectedTheme) || defaultTheme;
 
     const themeArr = useMemo(
       () =>

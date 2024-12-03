@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
  * Class Department
@@ -15,34 +16,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int $department_number
  * @property array $name
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class Department extends Model
 {
     use HasFactory;
+    use HasJsonRelationships;
     use SoftDeletes;
 
     protected $keyType = 'string';
 
     /**
      * The attributes that should be case.
-     *
-     * @var array
      */
     protected $casts = [
         'name' => 'array',
     ];
 
-    /**
-     * Model relations
-     */
+    /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
+    /** @return BelongsToMany<Team, $this> */
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class, 'team_department');
@@ -66,5 +65,11 @@ class Department extends Model
         $query->whereIn('id', $departmentIds);
 
         return $query;
+    }
+
+    /** @return HasMany<Pool, $this> */
+    public function pools(): HasMany
+    {
+        return $this->hasMany(Pool::class);
     }
 }

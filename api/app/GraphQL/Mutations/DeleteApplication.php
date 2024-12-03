@@ -12,8 +12,6 @@ final class DeleteApplication
 {
     /**
      * Delete an application
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
@@ -28,7 +26,7 @@ final class DeleteApplication
         // execute hard delete and verify model was deleted by checking that is not true
         $success = $application->forceDelete();
         if (! $success) {
-            throw ValidationException::withMessages([ApiErrorEnums::APPLICATION_DELETE_FAILED]);
+            throw ValidationException::withMessages(['id' => ApiErrorEnums::APPLICATION_DELETE_FAILED]);
         }
 
         return $application;

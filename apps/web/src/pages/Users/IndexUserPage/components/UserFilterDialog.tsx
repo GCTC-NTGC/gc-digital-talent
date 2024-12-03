@@ -3,14 +3,11 @@ import { OperationContext, useQuery } from "urql";
 
 import {
   EmploymentDuration,
-  OperationalRequirements,
   commonMessages,
   getEmploymentDuration,
-  getLanguageAbility,
   getLocalizedName,
-  getOperationalRequirement,
-  getWorkRegion,
   navigationMessages,
+  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import {
   Checkbox,
@@ -18,14 +15,10 @@ import {
   Combobox,
   Select,
   enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  LanguageAbility,
-  WorkRegion,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -35,7 +28,7 @@ import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
-export type FormValues = {
+export interface FormValues {
   pools: string[];
   languageAbility: string;
   operationalRequirement: string[];
@@ -46,7 +39,7 @@ export type FormValues = {
   govEmployee: string;
   roles: string[];
   trashed: string;
-};
+}
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -62,12 +55,37 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+      }
     }
     roles {
       id
       name
       displayName {
+        en
+        fr
+      }
+    }
+    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    operationalRequirements: localizedEnumStrings(
+      enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
         en
         fr
       }
@@ -115,15 +133,8 @@ const UserFilterDialog = ({
             name="languageAbility"
             enableNull
             nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-            label={intl.formatMessage({
-              defaultMessage: "Languages",
-              id: "iUAe/2",
-              description: "Label for language ability field",
-            })}
-            options={enumToOptions(LanguageAbility).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguageAbility(value)),
-            }))}
+            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
+            options={localizedEnumToOptions(data?.languageAbilities, intl)}
           />
           <Select
             id="employmentDuration"
@@ -148,11 +159,9 @@ const UserFilterDialog = ({
             idPrefix="workRegion"
             name="workRegion"
             legend={intl.formatMessage(navigationMessages.workLocation)}
-            items={enumToOptionsWorkRegionSorted(WorkRegion).map(
-              ({ value }) => ({
-                value,
-                label: intl.formatMessage(getWorkRegion(value)),
-              }),
+            items={localizedEnumToOptions(
+              sortWorkRegion(data?.workRegions),
+              intl,
             )}
           />
         </div>
@@ -213,12 +222,7 @@ const UserFilterDialog = ({
             idPrefix="operationalRequirement"
             name="operationalRequirement"
             legend={intl.formatMessage(navigationMessages.workPreferences)}
-            items={OperationalRequirements.map((value) => ({
-              value,
-              label: intl.formatMessage(
-                getOperationalRequirement(value, "short"),
-              ),
-            }))}
+            items={localizedEnumToOptions(data?.operationalRequirements, intl)}
           />
         </div>
         <div data-h2-grid-column="l-tablet(span 2)">

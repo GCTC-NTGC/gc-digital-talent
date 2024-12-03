@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Community;
 use App\Models\Department;
+use App\Models\Pool;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,6 +26,16 @@ class DepartmentTest extends TestCase
 
     protected $adminUser;
 
+    protected $processOperatorUser;
+
+    protected $communityRecruiterUser;
+
+    protected $communityAdminUser;
+
+    protected $community;
+
+    protected $teamPool;
+
     protected $department;
 
     protected $toBeDeleted;
@@ -36,6 +48,11 @@ class DepartmentTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
+        $this->community = Community::factory()->create(['name' => 'test-team']);
+        $this->teamPool = Pool::factory()->create([
+            'community_id' => $this->community->id,
+        ]);
+
         $this->baseUser = User::create([
             'email' => 'base-user@test.com',
             'sub' => 'base-user@test.com',
@@ -43,8 +60,6 @@ class DepartmentTest extends TestCase
         $this->baseUser->syncRoles([
             'guest',
             'base_user',
-            'pool_operator',
-            'request_responder',
         ]);
 
         $this->adminUser = User::create([
@@ -52,6 +67,24 @@ class DepartmentTest extends TestCase
             'sub' => 'admin-user@test.com',
         ]);
         $this->adminUser->addRole('platform_admin');
+
+        $this->processOperatorUser = User::factory()
+            ->asProcessOperator($this->teamPool->id)
+            ->create([
+                'email' => 'process-operator-user@test.com',
+            ]);
+
+        $this->communityRecruiterUser = User::factory()
+            ->asCommunityRecruiter($this->community->id)
+            ->create([
+                'email' => 'community-recruiter-user@test.com',
+            ]);
+
+        $this->communityAdminUser = User::factory()
+            ->asCommunityAdmin($this->community->id)
+            ->create([
+                'email' => 'community-admin-user@test.com',
+            ]);
 
         $this->department = Department::factory()->create();
         $this->toBeDeleted = Department::factory()->create();
@@ -95,7 +128,7 @@ class DepartmentTest extends TestCase
     }
 
     /**
-     * Test updating a department
+     * Only Platform Admin can update
      *
      * @return void
      */
@@ -129,14 +162,24 @@ class DepartmentTest extends TestCase
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+        // succeeds
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['id' => $this->department->id, 'name' => $variables['department']['name']]);
     }
 
     /**
-     * Test creation of department
+     * Only Platform Admin can create
      *
      * @return void
      */
@@ -169,14 +212,24 @@ class DepartmentTest extends TestCase
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+        // succeeds
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['name' => $variables['department']['name']]);
     }
 
     /**
-     * Test base user cannot update or delete
+     * Only Platform Admin can delete
      *
      * @return void
      */
@@ -197,9 +250,55 @@ class DepartmentTest extends TestCase
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+        // succeeds
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['id' => $this->toBeDeleted->id]);
+    }
+
+    public function testCanViewPools()
+    {
+        // a draft pool shouldn't be visible to a regular user
+        $draftPool = Pool::factory()
+            ->draft()
+            ->for($this->adminUser)
+            ->for($this->department)
+            ->create();
+
+        // a published pool should be visible to a regular user
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->for($this->department)
+            ->create();
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */ '
+                query Get($id: UUID!) {
+                    department(id: $id) {
+                        pools {
+                            id
+                        }
+                    }
+                } ', ['id' => $this->department->id]
+            );
+
+        $response->assertJsonFragment([
+            'pools' => [
+                ['id' => $publishedPool->id],
+            ],
+        ]);
+
     }
 }

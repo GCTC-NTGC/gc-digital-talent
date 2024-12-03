@@ -1,8 +1,14 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
+import {
+  fakeUsers,
+  fakeTeams,
+  fakeRoles,
+  fakeLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import UpdateUserPage from "./UpdateUserPage";
+import UpdateUserPage, { UpdateUserOptions_Fragment } from "./UpdateUserPage";
 
 const availableRoles = fakeRoles();
 const teamsData = fakeTeams(10);
@@ -48,6 +54,12 @@ Default.parameters = {
       data: {
         user: userData,
         roles: availableRoles,
+        ...makeFragmentData(
+          {
+            languages: fakeLocalizedEnum(Language),
+          },
+          UpdateUserOptions_Fragment,
+        ),
       },
     },
   },

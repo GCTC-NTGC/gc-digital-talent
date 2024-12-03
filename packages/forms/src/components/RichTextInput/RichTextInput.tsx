@@ -1,6 +1,5 @@
-import { FieldError, useFormContext, Controller } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { useIntl } from "react-intl";
-import get from "lodash/get";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -12,7 +11,7 @@ import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
-export type RichTextInputProps = Omit<
+type RichTextInputProps = Omit<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   "ref"
 > &
@@ -21,6 +20,8 @@ export type RichTextInputProps = Omit<
     wordLimit?: number;
     /** Set this component to be read only */
     readOnly?: boolean;
+    /** Determine if the option to add headings is enabled */
+    allowHeadings?: boolean;
   };
 
 const RichTextInput = ({
@@ -31,6 +32,7 @@ const RichTextInput = ({
   wordLimit,
   rules = {},
   readOnly,
+  allowHeadings,
   trackUnsaved = true,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
@@ -42,13 +44,11 @@ const RichTextInput = ({
   const intl = useIntl();
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
-      error,
+      error: fieldState === "invalid",
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -93,6 +93,7 @@ const RichTextInput = ({
             wordLimit={wordLimit}
             trackUnsaved={trackUnsaved}
             fieldState={fieldState}
+            allowHeadings={allowHeadings}
             inputProps={{
               id,
               ...wordLimitStyles,
@@ -106,11 +107,7 @@ const RichTextInput = ({
           />
         )}
       />
-      <Field.Descriptions
-        ids={descriptionIds}
-        error={error}
-        context={context}
-      />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

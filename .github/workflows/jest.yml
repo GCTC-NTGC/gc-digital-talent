@@ -15,7 +15,7 @@ jobs:
     name: Jest
     runs-on: ubuntu-22.04
     env:
-      PNPM_VERSION: "8.15.0"
+      PNPM_VERSION: "9.12.3"
 
     steps:
       - name: Get number of CPU cores
@@ -23,6 +23,12 @@ jobs:
         id: cpu-cores
 
       - uses: actions/checkout@v4
+
+      - name: "Copy .env"
+        working-directory: "./apps/web"
+        run: |
+          cp .env.example .env
+
       - uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
@@ -51,7 +57,7 @@ jobs:
           fi
       - name: "Upload coverage report to Codecov"
         if: github.actor != 'dependabot[bot]'
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests

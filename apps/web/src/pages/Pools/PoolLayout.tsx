@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { Outlet } from "react-router-dom";
-import { useQuery } from "urql";
+import { Outlet } from "react-router";
+import { OperationContext, useQuery } from "urql";
+import isString from "lodash/isString";
 
 import {
   Pending,
@@ -28,7 +29,7 @@ import {
 } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import { PageNavInfo } from "~/types/pages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -37,7 +38,20 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
     ...AssessmentPlanStatus
     id
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     publishedAt
     isComplete
     name {
@@ -77,7 +91,12 @@ const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
   if (currentPage?.link.url.includes("plan")) {
     return currentPage?.title;
   }
-  return getShortPoolTitleLabel(intl, pool);
+  return getShortPoolTitleLabel(intl, {
+    stream: pool.stream,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    classification: pool.classification,
+  });
 };
 
 interface HeroSubtitleProps {
@@ -104,7 +123,13 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const { announce } = useAnnouncer();
   const pool = getFragment(PoolLayout_Fragment, poolQuery);
 
-  const pages = useAdminPoolPages(intl, pool);
+  const pages = useAdminPoolPages(intl, {
+    id: pool.id,
+    name: pool.name,
+    publishingGroup: pool.publishingGroup,
+    stream: pool.stream,
+    classification: pool.classification,
+  });
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   const subTitle = pool.team
@@ -149,16 +174,23 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
               }
         }
         contentRight={
-          (currentPage?.link.url.includes("edit") ||
-            currentPage?.link.url.includes("plan")) && (
+          (currentPage?.link.url.includes("edit") ??
+            currentPage?.link.url.includes("plan")) &&
+          badge.label && (
             <Chip color={badge.color} data-h2-flex-shrink="base(0)">
-              {intl.formatMessage(badge.label)}
+              {isString(badge.label)
+                ? badge.label
+                : intl.formatMessage(badge.label)}
             </Chip>
           )
         }
       />
     </>
   );
+};
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["AssessmentStep", "PoolSkill"],
 };
 
 const PoolLayout_Query = graphql(/* GraphQL */ `
@@ -169,9 +201,9 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: string;
-};
+}
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
@@ -180,6 +212,7 @@ const PoolLayout = () => {
     variables: {
       poolId,
     },
+    context,
   });
 
   return (
@@ -199,6 +232,9 @@ export const Component = () => (
       ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <PoolLayout />

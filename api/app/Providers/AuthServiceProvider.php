@@ -11,7 +11,6 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\WorkExperience;
 use App\Policies\ClassificationPolicy;
@@ -95,6 +94,7 @@ class AuthServiceProvider extends ServiceProvider
 
             // By this point we have verified that the token is legitimate
             $userMatch = User::where('sub', $sub)->withTrashed()->first();
+
             if ($userMatch) {
                 if ($userMatch->deleted_at != null) {
                     throw new AuthenticationException('Login as deleted user: '.$userMatch->sub, 'user_deleted');
@@ -102,16 +102,8 @@ class AuthServiceProvider extends ServiceProvider
 
                 return $userMatch;
             } else {
-                // No user found for given subscriber - lets auto-register them
-                $newUser = new User;
-                $newUser->sub = $sub;
-                $newUser->save();
-                $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
-                    Role::where('name', 'base_user')->sole(),
-                    Role::where('name', 'applicant')->sole(),
-                ], null);
-
-                return $newUser;
+                // No user found for given subscriber
+                throw new AuthenticationException('Login as un-retrievable user: '.$sub, 'user_not_found');
             }
         }
 

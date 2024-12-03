@@ -6,10 +6,8 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  Department,
   FragmentType,
   Scalars,
   getFragment,
@@ -22,6 +20,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import AboutSection from "./components/AboutSection";
 import CandidateStatusSection from "./components/CandidateStatusSection";
@@ -36,76 +35,154 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     firstName
     lastName
     telephone
-    citizenship
-    armedForcesStatus
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
     currentCity
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
     isGovEmployee
-    govEmployeeType
+    govEmployeeType {
+      value
+      label {
+        en
+        fr
+      }
+    }
     hasPriorityEntitlement
     priorityNumber
     priorityWeight
-    locationPreferences
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
     positionDuration
-    acceptedOperationalRequirements
-    indigenousCommunities
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+      }
+    }
     indigenousDeclarationSignature
     hasDisability
     isVisibleMinority
     isWoman
     poolCandidates {
       id
-      status
-      expiryDate
       notes
-      suspendedAt
-      submittedAt
-      isBookmarked
-      placedDepartment {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      user {
-        id
-      }
       pool {
         id
         name {
           en
           fr
         }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
         classification {
           id
           group
           level
-        }
-        stream
-        publishingGroup
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
         }
       }
     }
@@ -129,10 +206,6 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -149,7 +222,13 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         experienceSkillRecord {
           details
         }
@@ -158,8 +237,12 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+        }
+        awardedScope {
+          value
+        }
       }
       ... on CommunityExperience {
         title
@@ -174,8 +257,20 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on PersonalExperience {
         title
@@ -193,13 +288,16 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     topTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -211,13 +309,16 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     topBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -229,13 +330,16 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     improveTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -247,13 +351,16 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     improveBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -268,12 +375,12 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
 
 interface UserInformationProps {
   userQuery: FragmentType<typeof UserInfo_Fragment>;
-  departments: Department[];
+  jobPlacementOptions: JobPlacementOptionsFragmentType;
 }
 
 export const UserInformation = ({
   userQuery,
-  departments,
+  jobPlacementOptions,
 }: UserInformationProps) => {
   const intl = useIntl();
   const user = getFragment(UserInfo_Fragment, userQuery);
@@ -298,7 +405,12 @@ export const UserInformation = ({
           "Title of the 'Candidate status' section of the view-user page",
       }),
       titleIcon: CalculatorIcon,
-      content: <CandidateStatusSection user={user} departments={departments} />,
+      content: (
+        <CandidateStatusSection
+          user={user}
+          jobPlacementOptions={jobPlacementOptions}
+        />
+      ),
     },
     {
       id: "notes",
@@ -357,20 +469,13 @@ const UserInformation_Query = graphql(/* GraphQL */ `
       ...UserInfo
     }
 
-    departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
+    ...JobPlacementOptions
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UserInformationPage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
@@ -381,7 +486,6 @@ const UserInformationPage = () => {
   });
 
   const user = data?.user;
-  const departments = unpackMaybes(data?.departments);
 
   return (
     <AdminContentWrapper>
@@ -394,7 +498,7 @@ const UserInformationPage = () => {
       />
       <Pending fetching={fetching} error={error}>
         {user ? (
-          <UserInformation userQuery={user} departments={departments} />
+          <UserInformation userQuery={user} jobPlacementOptions={data} />
         ) : (
           <ThrowNotFound />
         )}
@@ -409,6 +513,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <UserInformationPage />

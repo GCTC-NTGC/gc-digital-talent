@@ -6,6 +6,7 @@ use App\Models\Permission;
 use BackedEnum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Laratrust\Checkers\User\UserDefaultChecker;
 use Laratrust\Helper;
@@ -24,19 +25,23 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     protected function isSafeToUseRole(string|array|BackedEnum $name): bool
     {
         $name = Helper::standardize($name);
-        $isProtectedRequest = Request::get('isProtectedRequest');
 
-        // if it's a protected request then any role is safe to use
-        // if it's a limited (unprivileged) role then it's always safe to use
-        return $isProtectedRequest || in_array($name, $this::LIMITED_ROLES);
+        $isProtectedRequest = Request::get('isProtectedRequest');
+        $isLimitedRole = in_array($name, $this::LIMITED_ROLES);
+        $isNotRoutedRequest = is_null(Request::route());
+
+        return
+            $isProtectedRequest      // if it's a protected request then any role is safe to use
+            || $isLimitedRole        // if it's a limited (unprivileged) role then it's always safe to use
+            || $isNotRoutedRequest;  // if it's not a routed request (Tinker, scheduled job) then any role is safe to use
     }
 
     // decide if it is safe for the current user to use the given permission
     protected function isSafeToUsePermission(string|array|BackedEnum $permission): bool
     {
         $permission = Helper::standardize($permission);
-        $isProtectedRequest = Request::get('isProtectedRequest');
 
+        $isProtectedRequest = Request::get('isProtectedRequest');
         $limitedPermissions =
         Cache::remember('limitedPermissions', 3600, function () {
             return
@@ -44,10 +49,12 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
               $query->whereIn('name', $this::LIMITED_ROLES);
           })->pluck('name')->toArray();
         });
+        $isLimitedPermission = in_array($permission, $limitedPermissions);
+        $isNotRoutedRequest = is_null(Request::route());
 
-        // if it's a protected request then any permission is safe to use
-        // if it's a limited (unprivileged) permission then it's always safe to use
-        return $isProtectedRequest || in_array($permission, $limitedPermissions);
+        return $isProtectedRequest  // if it's a protected request then any permission is safe to use
+        || $isLimitedPermission     // if it's a limited (unprivileged) permission then it's always safe to use
+        || $isNotRoutedRequest;     // if it's not a routed request (Tinker, scheduled job) then any role is safe to use
     }
 
     public function currentUserHasRole(
@@ -56,6 +63,8 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         bool $requireAll = false
     ): bool {
         if (! $this->isSafeToUseRole($name)) {
+            Log::debug('Tried to unsafely use role '.json_encode($name));
+
             return false; // user effectively doesn't have role if it is unsafe to use it
         }
 
@@ -68,6 +77,8 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         bool $requireAll = false
     ): bool {
         if (! $this->isSafeToUsePermission($permission)) {
+            Log::debug('Tried to unsafely use permission '.json_encode($permission));
+
             return false; // user effectively doesn't have permission if it is unsafe to use it
         }
 

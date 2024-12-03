@@ -11,27 +11,36 @@ import {
   AssessmentResultJustification,
 } from "@gc-digital-talent/graphql";
 
+import toLocalizedEnum from "./fakeLocalizedEnum";
+
 const generateAssessmentResult = (
-  amount: number,
+  index: number,
   assessmentStep?: Maybe<AssessmentStep>,
   poolSkill?: Maybe<PoolSkill>,
 ): AssessmentResult => {
+  faker.seed(index); // repeatable results
+
   return {
     id: faker.string.uuid(),
     assessmentStep,
-    assessmentDecision: faker.helpers.arrayElement<AssessmentDecision>(
-      Object.values(AssessmentDecision),
+    assessmentDecision: toLocalizedEnum(
+      faker.helpers.arrayElement<AssessmentDecision>(
+        Object.values(AssessmentDecision),
+      ),
     ),
-    assessmentDecisionLevel:
+    assessmentDecisionLevel: toLocalizedEnum(
       faker.helpers.arrayElement<AssessmentDecisionLevel>(
         Object.values(AssessmentDecisionLevel),
       ),
+    ),
     assessmentResultType: faker.helpers.arrayElement<AssessmentResultType>(
       Object.values(AssessmentResultType),
     ),
-    justifications: faker.helpers.arrayElements<AssessmentResultJustification>(
-      Object.values(AssessmentResultJustification),
-    ),
+    justifications: faker.helpers
+      .arrayElements<AssessmentResultJustification>(
+        Object.values(AssessmentResultJustification),
+      )
+      .map((justification) => toLocalizedEnum(justification)),
     poolSkill,
     skillDecisionNotes: "skillDecisionNotes",
   };
@@ -42,9 +51,7 @@ export default (
   assessmentStep?: Maybe<AssessmentStep>,
   poolSkill?: Maybe<PoolSkill>,
 ): AssessmentResult[] => {
-  faker.seed(0); // repeatable results
-  const amountToGenerate = numToGenerate || 20;
-  return [...Array(amountToGenerate)].map(() =>
-    generateAssessmentResult(amountToGenerate, assessmentStep, poolSkill),
+  return Array.from({ length: numToGenerate ?? 20 }, (_x, index) =>
+    generateAssessmentResult(index, assessmentStep, poolSkill),
   );
 };

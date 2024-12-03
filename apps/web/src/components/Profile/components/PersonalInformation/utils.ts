@@ -7,9 +7,12 @@ import {
   CitizenshipStatus,
   UpdateUserAsUserInput,
   User,
+  UserProfileFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { FormValues, PartialUser } from "./types";
+import profileMessages from "~/messages/profileMessages";
+
+import { FormValues } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   preferredLang: intl.formatMessage({
@@ -28,16 +31,6 @@ export const getLabels = (intl: IntlShape) => ({
     id: "boPmF+",
     description: "Legend text for written exam language preference for exams",
   }),
-  currentProvince: intl.formatMessage({
-    defaultMessage: "Province or territory",
-    id: "yzgwjd",
-    description: "Label for current province or territory field",
-  }),
-  currentCity: intl.formatMessage({
-    defaultMessage: "Current city",
-    id: "de/Vcy",
-    description: "Label for current city field in About Me form",
-  }),
   telephone: intl.formatMessage(commonMessages.telephone),
   firstName: intl.formatMessage({
     defaultMessage: "Given name",
@@ -49,35 +42,27 @@ export const getLabels = (intl: IntlShape) => ({
     id: "dssZUt",
     description: "Label for surname field",
   }),
-  email: intl.formatMessage({
-    defaultMessage: "Personal email",
-    id: "g1++nq",
-    description: "Label for email field",
-  }),
+  email: intl.formatMessage(commonMessages.email),
   citizenship: intl.formatMessage({
     defaultMessage: "Citizenship status",
     id: "7DUfu+",
     description: "Legend text for citizenship status",
   }),
-  armedForcesStatus: intl.formatMessage({
-    defaultMessage: "Veteran status",
-    id: "OVWo88",
-    description: "Title for Veteran status",
-  }),
+  armedForcesStatus: intl.formatMessage(profileMessages.veteranStatus),
 });
 
-export const dataToFormValues = (data?: PartialUser | null): FormValues => ({
-  preferredLang: data?.preferredLang,
-  preferredLanguageForInterview: data?.preferredLanguageForInterview,
-  preferredLanguageForExam: data?.preferredLanguageForExam,
-  currentProvince: data?.currentProvince,
-  currentCity: data?.currentCity,
+export const dataToFormValues = (
+  data?: UserProfileFragmentType | null,
+): FormValues => ({
+  preferredLang: data?.preferredLang?.value,
+  preferredLanguageForInterview: data?.preferredLanguageForInterview?.value,
+  preferredLanguageForExam: data?.preferredLanguageForExam?.value,
   telephone: data?.telephone,
   firstName: data?.firstName,
   lastName: data?.lastName,
   email: data?.email,
-  citizenship: data?.citizenship,
-  armedForcesStatus: data?.armedForcesStatus,
+  citizenship: data?.citizenship?.value,
+  armedForcesStatus: data?.armedForcesStatus?.value,
 });
 
 export const formValuesToSubmitData = (

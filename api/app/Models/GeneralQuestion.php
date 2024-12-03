@@ -16,8 +16,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $pool_id
  * @property array $question
  * @property int $sort_order
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class GeneralQuestion extends Model
 {
@@ -28,8 +28,6 @@ class GeneralQuestion extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'question' => 'array',
@@ -37,8 +35,6 @@ class GeneralQuestion extends Model
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'question',
@@ -53,11 +49,13 @@ class GeneralQuestion extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
     }
 
+    /** @return HasMany<GeneralQuestionResponse, $this> */
     public function generalQuestionResponses(): HasMany
     {
         return $this->hasMany(GeneralQuestionResponse::class);

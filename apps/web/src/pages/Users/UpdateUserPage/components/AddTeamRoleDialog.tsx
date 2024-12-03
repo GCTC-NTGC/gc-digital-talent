@@ -20,10 +20,14 @@ import {
   Role,
   User,
   graphql,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
+
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+import { isTeamTeamable } from "./helpers";
 
 const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
   query AddTeamRoleTeams {
@@ -37,14 +41,15 @@ const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
-  roles: Array<string>;
+interface FormValues {
+  roles: string[];
   team: string | null;
-};
+}
 
 interface AddTeamRoleDialogProps {
-  user: User;
-  availableRoles: Array<Role>;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
+  availableRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -52,12 +57,14 @@ interface AddTeamRoleDialogProps {
 
 const AddTeamRoleDialog = ({
   user,
+  authInfo,
   availableRoles,
   onAddRoles,
 }: AddTeamRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const { id, firstName, lastName } = user;
+  const userName = getFullNameHtml(firstName, lastName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -74,31 +81,37 @@ const AddTeamRoleDialog = ({
   } = methods;
 
   const handleAddRoles = async (formValues: FormValues) => {
+    let { roles } = formValues;
+    // despite the typing, roles is just a string may be complicated by there being only one team based role available
+    if (!Array.isArray(roles)) {
+      roles = [roles];
+    }
+
+    const roleInputArray: RoleInput[] = roles.map((role) => {
+      return { roleId: role, teamId: formValues.team };
+    });
+
     return onAddRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
-        attach: {
-          roles: formValues.roles,
-          team: formValues.team,
-        },
+        attach: roleInputArray,
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Role(s) added successfully",
-          id: "/17wgm",
-          description:
-            "Message displayed to user when one or more roles have been added to a user",
-        }),
-      );
+      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
 
-  const label = intl.formatMessage({
-    defaultMessage: "Add new membership",
-    id: "Ibt1fL",
-    description: "Label for the form to add a team membership to a user",
+  const dialogLabel = intl.formatMessage({
+    defaultMessage: "Add team role",
+    id: "RYd/pl",
+    description: "Header for the form to add a team membership to a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Add team role",
+    id: "wKXLmR",
+    description: "Label for the button to add a role to a user",
   });
 
   const roleOptions = availableRoles
@@ -110,13 +123,13 @@ const AddTeamRoleDialog = ({
 
   const teamId = watch("team");
   useEffect(() => {
-    const roleAssignments = user?.authInfo?.roleAssignments || [];
+    const roleAssignments = authInfo?.roleAssignments ?? [];
     const activeRoleIds = roleAssignments
-      .filter((ra) => ra?.team?.id === teamId)
+      .filter((ra) => isTeamTeamable(ra?.teamable) && ra.teamable.id === teamId)
       .map((r) => r?.role?.id)
       .filter(notEmpty);
     setValue("roles", activeRoleIds);
-  }, [user?.authInfo?.roleAssignments, teamId, setValue]);
+  }, [authInfo?.roleAssignments, teamId, setValue]);
 
   const [{ data: teamsData }] = useQuery({
     query: AddTeamRoleTeams_Query,
@@ -130,12 +143,12 @@ const AddTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="solid" icon={PlusIcon}>
-          {label}
+        <Button color="secondary" mode="solid" icon={PlusIcon}>
+          {buttonLabel}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(

@@ -1,10 +1,14 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
+use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolSkill;
 use App\Models\Skill;
@@ -13,7 +17,10 @@ use App\Models\User;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
+use Database\Seeders\SkillFamilySeeder;
+use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -115,14 +122,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::PUBLISHED->name,
+                    'status' => [
+                        'value' => PoolStatus::PUBLISHED->name,
+                    ],
                 ],
             ],
         ]);
@@ -133,14 +142,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::CLOSED->name,
+                    'status' => [
+                        'value' => PoolStatus::CLOSED->name,
+                    ],
                 ],
             ],
         ]);
@@ -151,14 +162,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::DRAFT->name,
+                    'status' => [
+                        'value' => PoolStatus::DRAFT->name,
+                    ],
                 ],
             ],
         ]);
@@ -169,14 +182,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::DRAFT->name,
+                    'status' => [
+                        'value' => PoolStatus::DRAFT->name,
+                    ],
                 ],
             ],
         ]);
@@ -187,14 +202,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::ARCHIVED->name,
+                    'status' => [
+                        'value' => PoolStatus::ARCHIVED->name,
+                    ],
                 ],
             ],
         ]);
@@ -223,14 +240,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::PUBLISHED->name,
+                    'status' => [
+                        'value' => PoolStatus::PUBLISHED->name,
+                    ],
                 ],
             ],
         ]);
@@ -241,14 +260,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::CLOSED->name,
+                    'status' => [
+                        'value' => PoolStatus::CLOSED->name,
+                    ],
                 ],
             ],
         ]);
@@ -475,7 +496,7 @@ class PoolTest extends TestCase
             '
                 mutation ArchivePool($id: ID!) {
                     archivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -483,7 +504,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => PoolStatus::ARCHIVED->name]);
+            ->assertJsonFragment(['status' => ['value' => PoolStatus::ARCHIVED->name]]);
     }
 
     public function testCantArchiveActive(): void
@@ -495,7 +516,7 @@ class PoolTest extends TestCase
             '
                 mutation ArchivePool($id: ID!) {
                     archivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -515,7 +536,7 @@ class PoolTest extends TestCase
             '
                 mutation UnarchivePool($id: ID!) {
                     unarchivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -523,7 +544,9 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => PoolStatus::CLOSED->name]);
+            ->assertJsonFragment(['status' => [
+                'value' => PoolStatus::CLOSED->name,
+            ]]);
     }
 
     public function testCantUnarchiveClosed(): void
@@ -535,7 +558,7 @@ class PoolTest extends TestCase
             '
                 mutation UnarchivePool($id: ID!) {
                     unarchivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -560,7 +583,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot publish due to soft deleted essential skill $skill2
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation PublishPool($id: ID!) {
@@ -578,7 +601,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can now publish with $skill2 removed
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -660,17 +683,15 @@ class PoolTest extends TestCase
         $allPools = Pool::all();
         assertSame(count($allPools), 7);
 
-        $activePools = Pool::where((function ($query) {
-            Pool::scopeCurrentlyActive($query);
-        }))->get();
+        $activePools = Pool::query()->whereCurrentlyActive()->get();
         assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
     }
 
     public function testPoolIsCompleteAccessor(): void
     {
         $queryPool =
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
             query pool($id: UUID!){
                 pool(id :$id) {
                     isComplete
@@ -723,8 +744,8 @@ class PoolTest extends TestCase
     public function testPoolIsCompleteAccessorSkillLevel(): void
     {
         $queryPool =
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
             query pool($id: UUID!){
                 pool(id :$id) {
                     isComplete
@@ -767,7 +788,6 @@ class PoolTest extends TestCase
 
     public function testAssessmentStepValidation(): void
     {
-
         Classification::factory()->create();
         Skill::factory()->count(5)->create([
             'category' => SkillCategory::TECHNICAL->name,
@@ -781,8 +801,30 @@ class PoolTest extends TestCase
                 'published_at' => null,
             ]);
 
-        // Note: Default factory has no pool skills attached to Screening question step
+        // assessment plan marked as incomplete due to steps missing skills
         $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query pool($id: UUID!) {
+                pool(id: $id) {
+                    assessmentPlanIsComplete
+                }
+            }
+            ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => false,
+                ],
+            ],
+        ]);
+
+        // Note: Default factory has no pool skills attached to Screening question step
+        // assert cannot publish due to assessment steps missing skills
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -802,8 +844,50 @@ class PoolTest extends TestCase
             $assessmentStep->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
         }
 
+        // assessment plan now marked as complete
+        $this->actingAs($this->communityManager, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
+
+        // assessment plan now marked as complete
+        $this->actingAs($this->communityManager, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
+
         // assert can now publish as all steps have attached skills
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -847,8 +931,50 @@ class PoolTest extends TestCase
             $assessmentStep->poolSkills()->sync([$completePool->poolSkills[0]->id]);
         }
 
-        // assert cannot publish due to the one pool skill lacking an assessment
+        // assessment plan marked as incomplete due to pool skills missing steps
         $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => false,
+                ],
+            ],
+        ]);
+
+        // assessment plan marked as incomplete due to pool skills missing steps
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => false,
+                ],
+            ],
+        ]);
+
+        // assert cannot publish due to the one pool skill lacking an assessment
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -868,8 +994,50 @@ class PoolTest extends TestCase
             $assessmentStep->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
         }
 
-        // assert successful now that all pool skills have an assessment
+        // assessment plan now marked as complete
         $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                            query pool($id: UUID!) {
+                                pool(id: $id) {
+                                    assessmentPlanIsComplete
+                                }
+                            }
+                            ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
+
+        // assessment plan now marked as complete
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                            query pool($id: UUID!) {
+                                pool(id: $id) {
+                                    assessmentPlanIsComplete
+                                }
+                            }
+                            ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
+
+        // assert successful now that all pool skills have an assessment
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                                 mutation PublishPool($id: ID!) {
@@ -924,7 +1092,8 @@ class PoolTest extends TestCase
             'name' => ['en' => 'Not EN', 'fr' => 'Not FR'],
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -957,7 +1126,8 @@ class PoolTest extends TestCase
             'team_id' => Team::factory()->create(),
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -1001,13 +1171,14 @@ class PoolTest extends TestCase
             'stream' => PoolStream::DATABASE_MANAGEMENT->name,
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            stream
+                            stream { value }
                         }
                     }
                 }
@@ -1024,11 +1195,15 @@ class PoolTest extends TestCase
             'data' => [
                 [
                     'id' => $ATIP->id,
-                    'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    'stream' => [
+                        'value' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    ],
                 ],
                 [
                     'id' => $BAS->id,
-                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'stream' => [
+                        'value' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    ],
                 ],
             ],
         ]);
@@ -1053,13 +1228,14 @@ class PoolTest extends TestCase
             'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            publishingGroup
+                            publishingGroup { value }
                         }
                     }
                 }
@@ -1076,11 +1252,15 @@ class PoolTest extends TestCase
             'data' => [
                 [
                     'id' => $IT->id,
-                    'publishingGroup' => PublishingGroup::IT_JOBS->name,
+                    'publishingGroup' => [
+                        'value' => PublishingGroup::IT_JOBS->name,
+                    ],
                 ],
                 [
                     'id' => $IAP->id,
-                    'publishingGroup' => PublishingGroup::IAP->name,
+                    'publishingGroup' => [
+                        'value' => PublishingGroup::IAP->name,
+                    ],
                 ],
             ],
         ]);
@@ -1096,14 +1276,16 @@ class PoolTest extends TestCase
         $closed = Pool::factory()->closed()->create();
         $published = Pool::factory()->published()->create();
         $draft = Pool::factory()->create();
+        $archived = Pool::factory()->archived()->create();
 
-        $query = /** @lang GraphQL */
+        $query =
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            status
+                            status { value }
                         }
                     }
                 }
@@ -1117,7 +1299,9 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $closed->id,
-                'status' => PoolStatus::CLOSED->name,
+                'status' => [
+                    'value' => PoolStatus::CLOSED->name,
+                ],
             ]);
 
         assertSame(1, count($closedRes->json('data.poolsPaginated.data')));
@@ -1130,7 +1314,9 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $published->id,
-                'status' => PoolStatus::PUBLISHED->name,
+                'status' => [
+                    'value' => PoolStatus::PUBLISHED->name,
+                ],
             ]);
 
         assertSame(1, count($publishedRes->json('data.poolsPaginated.data')));
@@ -1143,11 +1329,66 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $draft->id,
-                'status' => PoolStatus::DRAFT->name,
+                'status' => [
+                    'value' => PoolStatus::DRAFT->name,
+                ],
             ]);
 
         assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
 
+        $archivedRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::ARCHIVED->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $archived->id,
+                'status' => [
+                    'value' => PoolStatus::ARCHIVED->name,
+                ],
+            ]);
+
+        assertSame(1, count($archivedRes->json('data.poolsPaginated.data')));
+
+        // all but archived
+        $emptyRequestRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [],
+            ])
+            ->assertJsonFragment([
+                'id' => $closed->id,
+                'status' => [
+                    'value' => PoolStatus::CLOSED->name,
+                ],
+            ])
+            ->assertJsonFragment([
+                'id' => $published->id,
+                'status' => [
+                    'value' => PoolStatus::PUBLISHED->name,
+                ],
+            ])
+            ->assertJsonFragment([
+                'id' => $draft->id,
+                'status' => [
+                    'value' => PoolStatus::DRAFT->name,
+                ],
+            ]);
+
+        assertSame(3, count($emptyRequestRes->json('data.poolsPaginated.data')));
+
+        // no results returned
+        Pool::destroy($draft->id);
+        $noResultsRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::DRAFT->name],
+                ],
+            ]);
+
+        assertSame(0, count($noResultsRes->json('data.poolsPaginated.data')));
     }
 
     /**
@@ -1176,7 +1417,8 @@ class PoolTest extends TestCase
             ]),
         ]);
 
-        $query = /** @lang GraphQL */
+        $query =
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -1227,7 +1469,90 @@ class PoolTest extends TestCase
             ]);
 
         assertSame(2, count($AARes->json('data.poolsPaginated.data')));
+    }
 
+    /**
+     * @group paginated
+     */
+    public function testCanAdminScope(): void
+    {
+        // two published pools
+        $teamPool = Pool::factory()->published()->create([
+            'team_id' => $this->team,
+        ]);
+        Pool::factory()->published()->create([
+            'team_id' => Team::factory()->create(),
+        ]);
+
+        $query =
+            /** @lang GraphQL */
+            '
+                query poolsPaginated($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                        }
+                    }
+                }
+            ';
+
+        $totalPoolsCount = count(Pool::all());
+        assertSame(2, $totalPoolsCount);
+
+        // admin sees both pools when true
+        $adminQuery = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ]);
+        assertSame(2, count($adminQuery->json('data.poolsPaginated.data')));
+
+        // pool operator sees the one team pool when true
+        $poolOperatorQuery = $this
+            ->actingAs($this->poolOperator, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ])->assertJsonFragment(['id' => $teamPool->id]);
+        assertSame(1, count($poolOperatorQuery->json('data.poolsPaginated.data')));
+
+        // base user sees zero pools when true
+        $userQuery = $this
+            ->actingAs($this->baseUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ]);
+        assertSame(0, count($userQuery->json('data.poolsPaginated.data')));
+
+        // anonymous sees zero pools when true
+        $anonymousQuery = $this
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ]);
+        assertSame(0, count($anonymousQuery->json('data.poolsPaginated.data')));
+
+        // empty query returns both pools for anonymous
+        $emptyQuery = $this
+            ->graphQL($query, [
+                'where' => [],
+            ]);
+        assertSame(2, count($emptyQuery->json('data.poolsPaginated.data')));
+
+        // false returns both pools for anonymous
+        $falseQuery = $this
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => false,
+                ],
+            ]);
+        assertSame(2, count($falseQuery->json('data.poolsPaginated.data')));
     }
 
     /**
@@ -1246,7 +1571,9 @@ class PoolTest extends TestCase
                 'team_id' => $this->team,
             ]);
 
-        $mutation = /** GraphQL */ '
+        $mutation =
+            /** GraphQL */
+            '
             mutation UpdatePublishedPool($id: ID!, $pool: UpdatePublishedPoolInput!) {
                 updatePublishedPool(id: $id, pool: $pool) {
                     id
@@ -1276,14 +1603,10 @@ class PoolTest extends TestCase
                 ],
             ]);
 
-        // Platform admins can edit
+        // Platform admins cannot edit
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $vars)
-            ->assertExactJson([
-                'data' => [
-                    'updatePublishedPool' => ['id' => $pool->id],
-                ],
-            ]);
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Cannot update without justification
         $this->actingAs($this->adminUser, 'api')
@@ -1299,5 +1622,220 @@ class PoolTest extends TestCase
             ->assertJsonFragment([
                 'message' => 'Variable "$pool" got invalid value {"aboutUs":{"en":"About us EN","fr":"About us FR"}}; Field "changeJustification" of required type "String!" was not provided.',
             ]);
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolBookmarksScope(): void
+    {
+        $pool1 = Pool::factory(['created_at' => config('constants.past_date')])->create();
+        $pool2 = Pool::factory(['created_at' => config('constants.past_date')])->withBookmark($this->adminUser->id)->create();
+        $pool3 = Pool::factory()->create();
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query ScopePoolBookmark($where: PoolFilterInput, $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!], $orderByPoolBookmarks: PoolBookmarksOrderByInput) {
+                poolsPaginated(where: $where, orderBy: $orderBy, orderByPoolBookmarks: $orderByPoolBookmarks) {
+                    data {
+                        id
+                        createdDate
+                    }
+                }
+            }
+        ';
+        $vars = [
+            'where' => [],
+            'orderByPoolBookmarks' => [
+                'column' => 'poolBookmarks',
+                'order' => 'ASC',
+            ],
+            'orderBy' => [
+                [
+                    'column' => 'created_at',
+                    'order' => 'ASC',
+                ],
+            ],
+        ];
+
+        $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphql($query, $vars)
+            ->assertJson([
+                'data' => [
+                    'poolsPaginated' => [
+                        'data' => [
+                            ['id' => $pool2->id], // Bookmarked
+                            ['id' => $pool1->id],
+                            ['id' => $pool3->id],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // Add another bookmark
+        $pool4 = Pool::factory()->withBookmark($this->adminUser->id)->create();
+        $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphql($query, $vars)
+            ->assertJson([
+                'data' => [
+                    'poolsPaginated' => [
+                        'data' => [
+                            ['id' => $pool2->id], // Bookmarked
+                            ['id' => $pool4->id], // Bookmarked
+                            ['id' => $pool1->id],
+                            ['id' => $pool3->id],
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testCanViewDepartment()
+    {
+        $department = Department::factory()->create();
+
+        // a published pool should be visible to a regular user
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->for($department)
+            ->create();
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query Get($id: UUID!) {
+                    pool(id: $id) {
+                        department {
+                            id
+                        }
+                    }
+                } ',
+                ['id' => $publishedPool->id]
+            );
+
+        $response->assertJsonFragment([
+            'department' => ['id' => $department->id],
+        ]);
+    }
+
+    // test mutation createPool(...)
+    public function testCreatePool()
+    {
+        $community = Community::factory()->create();
+        $classification = Classification::factory()->create();
+        $department = Department::factory()->create();
+
+        $response = $this->actingAs($this->poolOperator, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $teamId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, teamId: $teamId, communityId: $communityId, pool: $pool) {
+                    id
+                    owner {
+                        id
+                    }
+                    team {
+                        id
+                    }
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'userId' => $this->poolOperator->id,
+                    'teamId' => $this->team->id,
+                    'communityId' => $community->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $department->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertJsonFragment([
+            'owner' => ['id' => $this->poolOperator->id],
+        ])->assertJsonFragment([
+            'team' => ['id' => $this->team->id],
+        ])->assertJsonFragment([
+            'community' => ['id' => $community->id],
+        ])->assertJsonFragment([
+            'classification' => ['id' => $classification->id],
+        ])->assertJsonFragment([
+            'department' => ['id' => $department->id],
+        ]);
+    }
+
+    public function testDuplicatePool()
+    {
+        $this->seed([
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+        ]);
+
+        $department = Department::factory()->create();
+
+        $original = Pool::factory()
+            ->draft()
+            ->for($this->poolOperator)
+            ->withPoolSkills(3, 3)
+            ->create();
+
+        $response = $this->actingAs($this->poolOperator, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                mutation Duplicate($id: ID!, $teamId: ID!, $pool: DuplicatePoolInput!) {
+                    duplicatePool(id: $id, teamId: $teamId, pool: $pool) {
+                        id
+                    }
+                }',
+                [
+                    'id' => $original->id,
+                    'teamId' => $this->team->id,
+                    'pool' => ['departmentId' => $department->id],
+                ]
+            );
+
+        $responseJson = $response->json();
+
+        $duplicated = Pool::with('poolSkills.skill')->find($responseJson['data']['duplicatePool']['id']);
+
+        $this->assertStringContainsString($original->name['en'], $duplicated->name['en']);
+        $this->assertStringContainsString($original->name['fr'], $duplicated->name['fr']);
+
+        // Check exact copied values
+        $keysToPluck = ['operational_requirements', 'key_tasks', 'your_impact', 'security_clearance', 'advertisement_language', 'is_remote', 'what_to_expect', 'special_note', 'opportunity_length', 'what_to_expect_admission', 'about_us', 'classification_id'];
+
+        $originalValues = Arr::only($original->toArray(), $keysToPluck);
+        $duplicatedValues = Arr::only($duplicated->toArray(), $keysToPluck);
+
+        $this->assertEquals($originalValues, $duplicatedValues);
+
+        $originalSkills = array_map([$this, 'filterSkillKeys'], $original->poolSkills->toArray());
+        $duplicatedSkills = array_map([$this, 'filterSkillKeys'], $duplicated->poolSkills->toArray());
+
+        $this->assertEquals($originalSkills, $duplicatedSkills);
+    }
+
+    private function filterSkillKeys(array $poolSkill)
+    {
+        return Arr::only($poolSkill, ['type', 'required_skill_level', 'skill_id']);
     }
 }

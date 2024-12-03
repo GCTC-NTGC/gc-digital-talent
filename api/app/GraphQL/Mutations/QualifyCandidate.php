@@ -10,8 +10,6 @@ final class QualifyCandidate
 {
     /**
      * Qualify operation for a candidate
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
@@ -22,6 +20,7 @@ final class QualifyCandidate
         $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $candidate->expiry_date = $expiryDate;
         $candidate->final_decision_at = $now;
+
         $candidate->save();
 
         return $candidate;

@@ -5,7 +5,6 @@ import {
   Accordion,
   Tabs,
   HeadingRank,
-  Link,
   Button,
   Well,
 } from "@gc-digital-talent/ui";
@@ -29,15 +28,13 @@ import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
 interface ExperienceSectionProps {
-  experiences?: Experience[];
+  experiences?: Omit<Experience, "user">[];
   editParam?: string;
-  editPath?: string;
   headingLevel?: HeadingRank;
 }
 
 const ExperienceSection = ({
   experiences,
-  editPath,
   editParam,
   headingLevel = "h3",
 }: ExperienceSectionProps) => {
@@ -49,34 +46,34 @@ const ExperienceSection = ({
       experiences
         ?.filter(isAwardExperience)
         .map(
-          (award: AwardExperience) =>
+          (award: Omit<AwardExperience, "user">) =>
             ({
               ...award,
               startDate: award.awardedDate,
               endDate: award.awardedDate,
             }) as AwardExperience & { startDate: string; endDate: string },
         )
-        .sort(compareByDate) || [],
+        .sort(compareByDate) ?? [],
     [experiences],
   );
 
   const communityExperiences = useMemo(
-    () => experiences?.filter(isCommunityExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
   const educationExperiences = useMemo(
-    () => experiences?.filter(isEducationExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isEducationExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
   const personalExperiences = useMemo(
-    () => experiences?.filter(isPersonalExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
   const workExperiences = useMemo(
-    () => experiences?.filter(isWorkExperience).sort(compareByDate) || [],
+    () => experiences?.filter(isWorkExperience).sort(compareByDate) ?? [],
     [experiences],
   );
 
@@ -109,8 +106,8 @@ const ExperienceSection = ({
   const sortedBySkills = allSkills
     .filter(({ id }, index) => !skillIds.includes(id, index + 1)) //  Remove duplicate skills
     .sort((skill1, skill2) => {
-      const skill1Name: string = skill1.name[locale] || "";
-      const skill2Name: string = skill2.name[locale] || "";
+      const skill1Name: string = skill1.name[locale] ?? "";
+      const skill2Name: string = skill2.name[locale] ?? "";
       return skill1Name.localeCompare(skill2Name);
     }); //  Sort skills alphabetically
 
@@ -212,29 +209,7 @@ const ExperienceSection = ({
     </Tabs.Root>
   ) : (
     <Well>
-      {!editPath ? (
-        <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
-      ) : (
-        <>
-          <p data-h2-padding="base(0, 0, x1, 0)">
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any information here yet.",
-              id: "SCCX7B",
-              description: "Message for when no data exists for the section",
-            })}
-          </p>
-          <p>
-            <Link mode="inline" href={editPath}>
-              {intl.formatMessage({
-                defaultMessage: "Edit your experience options.",
-                id: "c39xT8",
-                description:
-                  "Link text to edit experience information on profile.",
-              })}
-            </Link>
-          </p>
-        </>
-      )}
+      <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
     </Well>
   );
 };

@@ -34,6 +34,7 @@ gctalent
 heroicons
 ilike
 Inclusivity
+inuk
 Inuk
 jwks
 Laratrust
@@ -64,8 +65,9 @@ subcomponents
 subquery
 TALENTSEARCH
 tanstack
-TELEWORK
+teamable
 Telework
+TELEWORK
 testid
 textbox
 Timeframe

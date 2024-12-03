@@ -19,7 +19,7 @@ export function viewCell(
 ) {
   return (
     <Link href={url} color="black" state={{ from: currentUrl ?? null }}>
-      {label || intl.formatMessage(commonMessages.noNameProvided)}
+      {label ?? intl.formatMessage(commonMessages.noNameProvided)}
     </Link>
   );
 }
@@ -84,7 +84,7 @@ export function myRolesCell(
 export function roleAssignmentsToRoleTeamArray(
   roleAssignments: RoleAssignment[],
 ): MyRoleTeam[] {
-  let collection: Array<MyRoleTeam> = [];
+  let collection: MyRoleTeam[] = [];
 
   roleAssignments.forEach((roleAssignment) => {
     if (

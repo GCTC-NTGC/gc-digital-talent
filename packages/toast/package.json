@@ -2,28 +2,31 @@
   "name": "@gc-digital-talent/toast",
   "license": "AGPL-3.0",
   "version": "1.0.0",
+  "type": "module",
   "types": "./src/index.tsx",
   "exports": {
     ".": "./src/index.tsx"
   },
   "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.3",
-    "react-toastify": "^10.0.4"
+    "@heroicons/react": "^2.2.0",
+    "react-toastify": "^10.0.6"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.4.1",
+    "@faker-js/faker": "^9.2.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@storybook/react": "^8.1.5",
-    "@types/react": "^18.3.3",
+    "@storybook/react": "^8.4.5",
+    "@types/react": "^18.3.12",
     "eslint": "^8.57.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   }
 }

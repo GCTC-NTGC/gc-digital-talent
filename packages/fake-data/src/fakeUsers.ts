@@ -28,6 +28,7 @@ import {
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 type GeneratedUser = User & {
   __typename: "User";
@@ -40,7 +41,7 @@ type GeneratedUser = User & {
       | GeneratedWorkExperience
     >[]
   >;
-  poolCandidates?: Maybe<Array<Maybe<GeneratedPoolCandidate>>>;
+  poolCandidates?: Maybe<Maybe<GeneratedPoolCandidate>[]>;
 };
 
 const generateUser = (
@@ -54,7 +55,10 @@ const generateUser = (
   workExperiences: GeneratedWorkExperience[], // Experiences belonging to this user
 
   poolCandidates: GeneratedPoolCandidate[] = [], // poolCandidates associating this user with a pool
+  index: number,
 ): GeneratedUser => {
+  faker.seed(index); // repeatable results
+
   return {
     __typename: "User",
     id: faker.string.uuid(),
@@ -64,56 +68,64 @@ const generateUser = (
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     telephone: faker.helpers.replaceSymbols("+###########"),
-    preferredLang: faker.helpers.arrayElement<Language>(
-      Object.values(Language),
+    preferredLang: toLocalizedEnum(
+      faker.helpers.arrayElement<Language>(Object.values(Language)),
     ),
-    preferredLanguageForInterview: faker.helpers.arrayElement<Language>(
-      Object.values(Language),
+    preferredLanguageForInterview: toLocalizedEnum(
+      faker.helpers.arrayElement<Language>(Object.values(Language)),
     ),
-    preferredLanguageForExam: faker.helpers.arrayElement<Language>(
-      Object.values(Language),
+    preferredLanguageForExam: toLocalizedEnum(
+      faker.helpers.arrayElement<Language>(Object.values(Language)),
     ),
-    currentProvince: faker.helpers.arrayElement<ProvinceOrTerritory>(
-      Object.values(ProvinceOrTerritory),
+    currentProvince: toLocalizedEnum(
+      faker.helpers.arrayElement<ProvinceOrTerritory>(
+        Object.values(ProvinceOrTerritory),
+      ),
     ),
     currentCity: faker.location.city(),
-    citizenship: faker.helpers.arrayElement<CitizenshipStatus>([
-      CitizenshipStatus.Citizen,
-      CitizenshipStatus.PermanentResident,
-      CitizenshipStatus.Other,
-    ]),
-    armedForcesStatus: faker.helpers.arrayElement<ArmedForcesStatus>([
-      ArmedForcesStatus.Veteran,
-      ArmedForcesStatus.Member,
-      ArmedForcesStatus.NonCaf,
-    ]),
+    citizenship: toLocalizedEnum(
+      faker.helpers.arrayElement<CitizenshipStatus>(
+        Object.values(CitizenshipStatus),
+      ),
+    ),
+    armedForcesStatus: toLocalizedEnum(
+      faker.helpers.arrayElement<ArmedForcesStatus>(
+        Object.values(ArmedForcesStatus),
+      ),
+    ),
 
     // Language
     lookingForEnglish: faker.datatype.boolean(),
     lookingForFrench: faker.datatype.boolean(),
     lookingForBilingual: faker.datatype.boolean(),
-    comprehensionLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
-      Object.values(EvaluatedLanguageAbility),
+    comprehensionLevel: toLocalizedEnum(
+      faker.helpers.arrayElement<EvaluatedLanguageAbility>(
+        Object.values(EvaluatedLanguageAbility),
+      ),
     ),
-    writtenLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
-      Object.values(EvaluatedLanguageAbility),
+    writtenLevel: toLocalizedEnum(
+      faker.helpers.arrayElement<EvaluatedLanguageAbility>(
+        Object.values(EvaluatedLanguageAbility),
+      ),
     ),
-    verbalLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
-      Object.values(EvaluatedLanguageAbility),
+    verbalLevel: toLocalizedEnum(
+      faker.helpers.arrayElement<EvaluatedLanguageAbility>(
+        Object.values(EvaluatedLanguageAbility),
+      ),
     ),
-    estimatedLanguageAbility:
+    estimatedLanguageAbility: toLocalizedEnum(
       faker.helpers.arrayElement<EstimatedLanguageAbility>(
         Object.values(EstimatedLanguageAbility),
       ),
+    ),
 
     // Gov info
     isGovEmployee: faker.datatype.boolean(),
-    govEmployeeType: faker.helpers.arrayElement<GovEmployeeType>([
-      GovEmployeeType.Student,
-      GovEmployeeType.Casual,
-      GovEmployeeType.Term,
-      GovEmployeeType.Indeterminate,
-    ]),
+    govEmployeeType: toLocalizedEnum(
+      faker.helpers.arrayElement<GovEmployeeType>(
+        Object.values(GovEmployeeType),
+      ),
+    ),
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
       faker.helpers.arrayElement<Classification>(classifications),
@@ -123,25 +135,21 @@ const generateUser = (
     isWoman: faker.datatype.boolean(),
     hasDisability: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
-    indigenousCommunities: faker.helpers.arrayElements<IndigenousCommunity>([
-      IndigenousCommunity.StatusFirstNations,
-      IndigenousCommunity.NonStatusFirstNations,
-      IndigenousCommunity.Inuit,
-      IndigenousCommunity.Metis,
-      IndigenousCommunity.Other,
-      IndigenousCommunity.LegacyIsIndigenous,
-    ]),
+    indigenousCommunities: faker.helpers
+      .arrayElements<IndigenousCommunity>(Object.values(IndigenousCommunity))
+      .map((community) => toLocalizedEnum(community)),
 
     // Applicant info
     hasDiploma: faker.datatype.boolean(),
-    locationPreferences: faker.helpers.arrayElements<WorkRegion>(
-      Object.values(WorkRegion),
-    ),
+    locationPreferences: faker.helpers
+      .arrayElements<WorkRegion>(Object.values(WorkRegion))
+      .map((pref) => toLocalizedEnum(pref)),
     locationExemptions: faker.location.city(),
-    acceptedOperationalRequirements:
-      faker.helpers.arrayElements<OperationalRequirement>(
+    acceptedOperationalRequirements: faker.helpers
+      .arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
-      ),
+      )
+      .map((req) => toLocalizedEnum(req)),
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],
@@ -175,8 +183,7 @@ const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
   const personalExperiences: GeneratedPersonalExperience[] = [];
   const workExperiences: GeneratedWorkExperience[] = [];
 
-  faker.seed(0); // repeatable results
-  return [...Array(numToGenerate)].map(() =>
+  return Array.from({ length: numToGenerate }, (_x, index) =>
     generateUser(
       departments,
       classifications,
@@ -185,6 +192,8 @@ const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
       educationExperiences,
       personalExperiences,
       workExperiences,
+      [],
+      index,
     ),
   );
 };
@@ -206,56 +215,64 @@ export const fakeUser = (): User => {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     telephone: faker.helpers.replaceSymbols("+###########"),
-    preferredLang: faker.helpers.arrayElement<Language>(
-      Object.values(Language),
+    preferredLang: toLocalizedEnum(
+      faker.helpers.arrayElement<Language>(Object.values(Language)),
     ),
-    preferredLanguageForInterview: faker.helpers.arrayElement<Language>(
-      Object.values(Language),
+    preferredLanguageForInterview: toLocalizedEnum(
+      faker.helpers.arrayElement<Language>(Object.values(Language)),
     ),
-    preferredLanguageForExam: faker.helpers.arrayElement<Language>(
-      Object.values(Language),
+    preferredLanguageForExam: toLocalizedEnum(
+      faker.helpers.arrayElement<Language>(Object.values(Language)),
     ),
-    currentProvince: faker.helpers.arrayElement<ProvinceOrTerritory>(
-      Object.values(ProvinceOrTerritory),
+    currentProvince: toLocalizedEnum(
+      faker.helpers.arrayElement<ProvinceOrTerritory>(
+        Object.values(ProvinceOrTerritory),
+      ),
     ),
     currentCity: faker.location.city(),
-    citizenship: faker.helpers.arrayElement<CitizenshipStatus>([
-      CitizenshipStatus.Citizen,
-      CitizenshipStatus.PermanentResident,
-      CitizenshipStatus.Other,
-    ]),
-    armedForcesStatus: faker.helpers.arrayElement<ArmedForcesStatus>([
-      ArmedForcesStatus.Veteran,
-      ArmedForcesStatus.Member,
-      ArmedForcesStatus.NonCaf,
-    ]),
+    citizenship: toLocalizedEnum(
+      faker.helpers.arrayElement<CitizenshipStatus>(
+        Object.values(CitizenshipStatus),
+      ),
+    ),
+    armedForcesStatus: toLocalizedEnum(
+      faker.helpers.arrayElement<ArmedForcesStatus>(
+        Object.values(ArmedForcesStatus),
+      ),
+    ),
 
     // Language
     lookingForEnglish: faker.datatype.boolean(),
     lookingForFrench: faker.datatype.boolean(),
     lookingForBilingual: faker.datatype.boolean(),
-    comprehensionLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
-      Object.values(EvaluatedLanguageAbility),
+    comprehensionLevel: toLocalizedEnum(
+      faker.helpers.arrayElement<EvaluatedLanguageAbility>(
+        Object.values(EvaluatedLanguageAbility),
+      ),
     ),
-    writtenLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
-      Object.values(EvaluatedLanguageAbility),
+    writtenLevel: toLocalizedEnum(
+      faker.helpers.arrayElement<EvaluatedLanguageAbility>(
+        Object.values(EvaluatedLanguageAbility),
+      ),
     ),
-    verbalLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
-      Object.values(EvaluatedLanguageAbility),
+    verbalLevel: toLocalizedEnum(
+      faker.helpers.arrayElement<EvaluatedLanguageAbility>(
+        Object.values(EvaluatedLanguageAbility),
+      ),
     ),
-    estimatedLanguageAbility:
+    estimatedLanguageAbility: toLocalizedEnum(
       faker.helpers.arrayElement<EstimatedLanguageAbility>(
         Object.values(EstimatedLanguageAbility),
       ),
+    ),
 
     // Gov info
     isGovEmployee: faker.datatype.boolean(),
-    govEmployeeType: faker.helpers.arrayElement<GovEmployeeType>([
-      GovEmployeeType.Student,
-      GovEmployeeType.Casual,
-      GovEmployeeType.Term,
-      GovEmployeeType.Indeterminate,
-    ]),
+    govEmployeeType: toLocalizedEnum(
+      faker.helpers.arrayElement<GovEmployeeType>(
+        Object.values(GovEmployeeType),
+      ),
+    ),
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
       faker.helpers.arrayElement<Classification>(classifications),
@@ -265,25 +282,21 @@ export const fakeUser = (): User => {
     isWoman: faker.datatype.boolean(),
     hasDisability: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
-    indigenousCommunities: faker.helpers.arrayElements<IndigenousCommunity>([
-      IndigenousCommunity.StatusFirstNations,
-      IndigenousCommunity.NonStatusFirstNations,
-      IndigenousCommunity.Inuit,
-      IndigenousCommunity.Metis,
-      IndigenousCommunity.Other,
-      IndigenousCommunity.LegacyIsIndigenous,
-    ]),
+    indigenousCommunities: faker.helpers
+      .arrayElements<IndigenousCommunity>(Object.values(IndigenousCommunity))
+      .map((community) => toLocalizedEnum(community)),
 
     // Applicant info
     hasDiploma: faker.datatype.boolean(),
-    locationPreferences: faker.helpers.arrayElements<WorkRegion>(
-      Object.values(WorkRegion),
-    ),
+    locationPreferences: faker.helpers
+      .arrayElements<WorkRegion>(Object.values(WorkRegion))
+      .map((pref) => toLocalizedEnum(pref)),
     locationExemptions: faker.location.city(),
-    acceptedOperationalRequirements:
-      faker.helpers.arrayElements<OperationalRequirement>(
+    acceptedOperationalRequirements: faker.helpers
+      .arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
-      ),
+      )
+      .map((req) => toLocalizedEnum(req)),
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],

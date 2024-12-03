@@ -1,26 +1,35 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useMutation, useQuery } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Select, Submit, Input, enumToOptions } from "@gc-digital-talent/forms";
 import {
-  errorMessages,
-  commonMessages,
-  getLanguage,
-} from "@gc-digital-talent/i18n";
-import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
+  Select,
+  Submit,
+  Input,
+  localizedEnumToOptions,
+  Checkbox,
+} from "@gc-digital-talent/forms";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import {
+  emptyToNull,
+  unpackMaybes,
+  workEmailDomainRegex,
+} from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 import {
   UpdateUserRolesInput,
   UpdateUserSubInput,
-  Language,
   Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
   User,
+  graphql,
+  UpdateUserDataQuery as UpdateUserDataQueryType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -29,6 +38,8 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import UserRoleTable from "./components/IndividualRoleTable";
 import TeamRoleTable from "./components/TeamRoleTable";
@@ -41,8 +52,38 @@ import {
   UpdateUserRoles_Mutation,
   UpdateUserSub_Mutation,
 } from "./operations";
-import RequireAuth from "../../../components/RequireAuth/RequireAuth";
+import CommunityRoleTable from "./components/CommunityRoleTable";
+import ProcessRoleTable from "./components/ProcessRoleTable";
 
+export const UpdateUserOptions_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateUserOptions on Query {
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export type UpdateUserDataAuthInfoType = NonNullable<
+  UpdateUserDataQueryType["user"]
+>["authInfo"];
+
+type PartialUser = Pick<
+  User,
+  | "id"
+  | "email"
+  | "firstName"
+  | "lastName"
+  | "preferredLang"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
+  | "telephone"
+  | "isGovEmployee"
+  | "workEmail"
+>;
 type FormValues = Pick<
   UpdateUserAsAdminInput,
   | "email"
@@ -52,9 +93,11 @@ type FormValues = Pick<
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
   | "telephone"
->;
+  | "workEmail"
+> & { isGovEmployee: string };
 interface UpdateUserFormProps {
-  initialUser: User;
+  initialUser: PartialUser;
+  formOptionsQuery: FragmentType<typeof UpdateUserOptions_Fragment>;
   handleUpdateUser: (
     id: string,
     data: UpdateUserAsAdminInput,
@@ -63,11 +106,13 @@ interface UpdateUserFormProps {
 
 export const UpdateUserForm = ({
   initialUser,
+  formOptionsQuery,
   handleUpdateUser,
 }: UpdateUserFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const formOptions = getFragment(UpdateUserOptions_Fragment, formOptionsQuery);
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -78,24 +123,44 @@ export const UpdateUserForm = ({
     telephone: emptyToNull(values.telephone),
     // empty string will violate uniqueness constraints
     email: emptyToNull(values.email),
+    // massage from FormValue type to UpdateUserAsAdminInput
+    isGovEmployee: values.isGovEmployee ? true : false,
+    // empty string will violate uniqueness constraints
+    workEmail: emptyToNull(values.workEmail),
   });
 
-  const dataToFormValues = (data: User): FormValues => ({
-    ...data,
+  const dataToFormValues = ({
+    email,
+    firstName,
+    lastName,
+    telephone,
+    preferredLang,
+    preferredLanguageForExam,
+    preferredLanguageForInterview,
+    isGovEmployee,
+    workEmail,
+  }: PartialUser): FormValues => ({
+    email,
+    firstName,
+    lastName,
+    telephone,
+    preferredLang: preferredLang?.value,
+    preferredLanguageForExam: preferredLanguageForExam?.value,
+    preferredLanguageForInterview: preferredLanguageForInterview?.value,
+    isGovEmployee: isGovEmployee ? "true" : "",
+    workEmail,
   });
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialUser),
   });
   const { handleSubmit } = methods;
+  const navigateTo = useReturnPath(paths.userTable());
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.userTable();
-
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleUpdateUser(initialUser.id, formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
+  const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
+    await handleUpdateUser(initialUser.id, formValuesToSubmitData(values))
+      .then(async () => {
+        await navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -117,8 +182,13 @@ export const UpdateUserForm = ({
       });
   };
 
+  const languageOptions = localizedEnumToOptions(
+    unpackMaybes(formOptions?.languages),
+    intl,
+  );
+
   return (
-    <section data-h2-container="base(left, s)">
+    <section data-h2-wrapper="base(left, s)">
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -179,10 +249,7 @@ export const UpdateUserForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(Language).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguage(value)),
-            }))}
+            options={languageOptions}
           />
           <Select
             id="preferredLanguageForInterview"
@@ -201,10 +268,7 @@ export const UpdateUserForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(Language).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguage(value)),
-            }))}
+            options={languageOptions}
           />
           <Select
             id="preferredLanguageForExam"
@@ -223,10 +287,35 @@ export const UpdateUserForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(Language).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguage(value)),
-            }))}
+            options={languageOptions}
+          />
+          <Checkbox
+            id="isGovEmployee"
+            name="isGovEmployee"
+            value="true"
+            label={intl.formatMessage({
+              defaultMessage: "Government employee",
+              id: "bOA3EH",
+              description: "Label for the government employee field",
+            })}
+          />
+          <Input
+            id="workEmail"
+            label={intl.formatMessage(commonMessages.workEmail)}
+            type="email"
+            name="workEmail"
+            rules={{
+              pattern: {
+                value: workEmailDomainRegex,
+                message: intl.formatMessage({
+                  defaultMessage:
+                    "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
+                  id: "BLOt/e",
+                  description:
+                    "Description for rule pattern on work email field",
+                }),
+              },
+            }}
           />
           <div data-h2-align-self="base(flex-start)">
             <Submit />
@@ -242,9 +331,9 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserPage = () => {
   const intl = useIntl();
@@ -279,13 +368,15 @@ const UpdateUserPage = () => {
           "preferredLanguageForExam",
           "sub",
           "roleAssignmentsInput",
+          "isGovEmployee",
+          "workEmail",
         ]),
       },
     }).then((result) => {
       if (result.data?.updateUserAsAdmin) {
         return result.data.updateUserAsAdmin;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const handleUpdateUserRoles = (input: UpdateUserRolesInput) =>
@@ -297,7 +388,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserRoles) {
         return result.data.updateUserRoles;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const handleUpdateUserSub = (input: UpdateUserSubInput) =>
@@ -309,7 +400,7 @@ const UpdateUserPage = () => {
       if (result.data?.updateUserSub) {
         return result.data.updateUserSub;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const [, executeDeleteMutation] = useMutation(DeleteUser_Mutation);
@@ -320,7 +411,7 @@ const UpdateUserPage = () => {
       if (result.data?.deleteUser) {
         return result.data.deleteUser;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const availableRoles = unpackMaybes(data?.roles);
@@ -338,11 +429,12 @@ const UpdateUserPage = () => {
         {data?.user ? (
           <>
             <UpdateUserForm
+              formOptionsQuery={data}
               initialUser={data.user}
               handleUpdateUser={handleUpdateUser}
             />
             <UpdateUserSubForm
-              user={data.user}
+              authInfo={data.user?.authInfo}
               onUpdateSub={handleUpdateUserSub}
             />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
@@ -350,11 +442,25 @@ const UpdateUserPage = () => {
             </Heading>
             <UserRoleTable
               user={data.user}
+              authInfo={data.user?.authInfo}
               availableRoles={availableRoles}
               onUpdateUserRoles={handleUpdateUserRoles}
             />
             <TeamRoleTable
               user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <CommunityRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
+              availableRoles={availableRoles}
+              onUpdateUserRoles={handleUpdateUserRoles}
+            />
+            <ProcessRoleTable
+              user={data.user}
+              authInfo={data.user?.authInfo}
               availableRoles={availableRoles}
               onUpdateUserRoles={handleUpdateUserRoles}
             />

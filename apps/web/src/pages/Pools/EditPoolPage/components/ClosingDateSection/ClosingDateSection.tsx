@@ -41,14 +41,20 @@ const dialog = (chunks: ReactNode) => <ClosingDateDialog title={chunks} />;
 const EditPoolClosingDate_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolClosingDate on Pool {
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
   }
 `);
 
-type FormValues = {
+interface FormValues {
   endDate?: Pool["closingDate"];
-};
+}
 
 export type ClosingDateSubmitData = Pick<UpdatePoolInput, "closingDate">;
 type ClosingDateSectionProps = SectionProps<
@@ -117,7 +123,7 @@ const ClosingDateSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage(
     {

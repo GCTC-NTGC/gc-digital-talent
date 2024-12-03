@@ -12,15 +12,12 @@ use Illuminate\Support\Facades\DB;
 
 final class CreateOrUpdateScreeningQuestionAssessmentStep
 {
-    /**
-     * @param  null  $_
-     * @param  array{}  $args
-     */
     public function __invoke($_, array $args)
     {
         // Run everything in a transaction
         DB::beginTransaction();
         try {
+            /** @var Pool $pool */
             $pool = Pool::find($args['poolId']);
             $existingQuestions = ScreeningQuestion::where('pool_id', '=', $args['poolId'])->get();
             $incomingQuestions = is_array($args['screeningQuestions']) ? $args['screeningQuestions'] : [];
@@ -58,7 +55,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
 
                     $questionToUpdate->save();
                 } else {
-                    $newQuestion = new ScreeningQuestion();
+                    $newQuestion = new ScreeningQuestion;
                     $newQuestion->assessment_step_id = $assessmentStep->id;
                     $newQuestion->question = $incomingQuestion['question'];
                     $newQuestion->sort_order = isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null;

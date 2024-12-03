@@ -1,6 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
@@ -18,6 +18,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -50,11 +51,11 @@ export const TeamTable_TeamFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type TeamTableFragment = FragmentType<typeof TeamTable_TeamFragment>[];
+type TeamTableFragment = FragmentType<typeof TeamTable_TeamFragment>[];
 
 export interface TeamTableProps {
   teamsQuery: TeamTableFragment;
-  myRolesAndTeams: Array<MyRoleTeam>;
+  myRolesAndTeams: MyRoleTeam[];
   title: string;
 }
 
@@ -72,11 +73,7 @@ export const TeamTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: team } }) =>
         cells.actions({
           id: team.id,
@@ -151,12 +148,19 @@ export const TeamTable = ({
         linkProps: {
           href: paths.teamCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Team",
-            id: "GtrrJ3",
-            description: "Link text to create a new team in the admin portal",
+            defaultMessage: "Create team",
+            id: "2iL6MI",
+            description: "Link text to create a team in the admin portal",
           }),
           from: currentUrl,
         },
+      }}
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create team" button to get started.',
+          id: "U0XNwt",
+          description: "Instructions for adding a team item.",
+        }),
       }}
     />
   );

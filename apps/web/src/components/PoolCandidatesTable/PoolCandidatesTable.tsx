@@ -7,32 +7,27 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useClient, useQuery } from "urql";
+import { OperationContext, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
-import DataLoader from "dataloader";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
-  getLanguage,
   getLocale,
   getLocalizedName,
-  getPoolCandidatePriorities,
-  getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
-  PoolCandidate,
   PoolCandidateSearchInput,
-  InputMaybe,
   Pool,
   Maybe,
   PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
 } from "@gc-digital-talent/graphql";
+import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -41,7 +36,6 @@ import {
 } from "~/components/Table/ResponsiveTable/constants";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
@@ -49,14 +43,14 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
-import { SearchState, SelectingFor } from "../Table/ResponsiveTable/types";
+import { SearchState } from "../Table/ResponsiveTable/types";
 import {
   bookmarkCell,
   bookmarkHeader,
-  PoolCandidatesTable_SelectPoolCandidatesQuery,
   candidacyStatusAccessor,
   candidateNameCell,
   currentLocationAccessor,
@@ -68,6 +62,8 @@ import {
   getSortOrder,
   processCell,
   getPoolNameSort,
+  getClaimVerificationSort,
+  addSearchToPoolCandidateFilterInput,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -75,19 +71,49 @@ import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
-  getPoolCandidateCsvData,
-  getPoolCandidateCsvHeaders,
-} from "./poolCandidateCsv";
-import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
+import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
+import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
 const CandidatesTable_Query = graphql(/* GraphQL */ `
   query CandidatesTable_Query {
+    ...PoolCandidateFilterDialog
+    ...JobPlacementOptions
+    suspendedStatuses: localizedEnumStrings(
+      enumName: "CandidateSuspendedFilter"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    provinces: localizedEnumStrings(enumName: "ProvinceOrTerritory") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    priorities: localizedEnumStrings(enumName: "PriorityWeight") {
+      value
+      label {
+        en
+        fr
+      }
+    }
     skills {
       id
       key
@@ -103,7 +129,13 @@ const CandidatesTable_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       families {
         id
         key
@@ -117,14 +149,6 @@ const CandidatesTable_Query = graphql(/* GraphQL */ `
         }
       }
     }
-    departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
   }
 `);
 
@@ -135,6 +159,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
+    $orderByClaimVerification: ClaimVerificationSort
   ) {
     poolCandidatesPaginated(
       where: $where
@@ -142,6 +167,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       page: $page
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
+      orderByClaimVerification: $orderByClaimVerification
     ) {
       data {
         id
@@ -149,8 +175,17 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialog
           id
           ...PoolCandidate_Bookmark
+          category {
+            weight
+            value
+            label {
+              en
+              fr
+            }
+          }
           pool {
             id
+            processNumber
             name {
               en
               fr
@@ -160,29 +195,24 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               group
               level
             }
-            stream
-            # TODO: assessmentSteps and assessmentResults can be removed if status computations are moved to backend #8960
-            assessmentSteps {
-              id
-              type
-              sortOrder
-              poolSkills {
-                id
-                type
+            stream {
+              value
+              label {
+                en
+                fr
               }
             }
           }
-          assessmentResults {
-            id
-            assessmentStep {
-              id
+          finalDecision {
+            value
+            label {
+              en
+              fr
             }
-            poolSkill {
-              id
-              type
-            }
-            assessmentResultType
-            assessmentDecision
+          }
+          assessmentStatus {
+            currentStep
+            overallAssessmentStatus
           }
           user {
             # Personal info
@@ -191,29 +221,101 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             firstName
             lastName
             telephone
-            preferredLang
-            preferredLanguageForInterview
-            preferredLanguageForExam
+            preferredLang {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            preferredLanguageForInterview {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            preferredLanguageForExam {
+              value
+              label {
+                en
+                fr
+              }
+            }
             currentCity
-            currentProvince
-            citizenship
-            armedForcesStatus
+            currentProvince {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            citizenship {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            armedForcesStatus {
+              value
+              label {
+                en
+                fr
+              }
+            }
 
             # Language
             lookingForEnglish
             lookingForFrench
             lookingForBilingual
-            firstOfficialLanguage
+            firstOfficialLanguage {
+              value
+              label {
+                en
+                fr
+              }
+            }
             secondLanguageExamCompleted
             secondLanguageExamValidity
-            comprehensionLevel
-            writtenLevel
-            verbalLevel
-            estimatedLanguageAbility
+            comprehensionLevel {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            writtenLevel {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            verbalLevel {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            estimatedLanguageAbility {
+              value
+              label {
+                en
+                fr
+              }
+            }
 
             # Gov info
             isGovEmployee
-            govEmployeeType
+            govEmployeeType {
+              value
+              label {
+                en
+                fr
+              }
+            }
             currentClassification {
               id
               group
@@ -238,24 +340,57 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             isWoman
             isVisibleMinority
             hasDisability
-            indigenousCommunities
+            indigenousCommunities {
+              value
+              label {
+                en
+                fr
+              }
+            }
             indigenousDeclarationSignature
 
             # Applicant info
             hasDiploma
-            locationPreferences
+            locationPreferences {
+              value
+              label {
+                en
+                fr
+              }
+            }
             locationExemptions
-            acceptedOperationalRequirements
+            acceptedOperationalRequirements {
+              value
+              label {
+                en
+                fr
+              }
+            }
             positionDuration
             priorityWeight
+            priority {
+              value
+              label {
+                en
+                fr
+              }
+            }
           }
           isBookmarked
           expiryDate
-          status
+          status {
+            value
+            label {
+              en
+              fr
+            }
+          }
           submittedAt
           notes
           archivedAt
           suspendedAt
+          priorityVerification
+          veteranVerification
         }
         skillCount
       }
@@ -272,6 +407,33 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesCsv(
+    $ids: [UUID!]
+    $where: PoolCandidateSearchInput
+    $withROD: Boolean
+  ) {
+    downloadPoolCandidatesCsv(ids: $ids, where: $where, withROD: $withROD)
+  }
+`);
+
+const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
+    downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
+  }
+`);
+
+const DownloadSinglePoolCandidateDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidateDoc($id: UUID!, $anonymous: Boolean!) {
+    downloadPoolCandidateDoc(id: $id, anonymous: $anonymous)
+  }
+`);
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
 
 const defaultState = {
   ...INITIAL_STATE,
@@ -300,7 +462,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pool>;
+  currentPool?: Maybe<Pick<Pool, "id">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -308,19 +470,39 @@ const PoolCandidatesTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const initialState = getTableStateFromSearchParams(defaultState);
-  const client = useClient();
-  const [isSelecting, setIsSelecting] = useState<boolean>(false);
-  const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
-  const [selectedCandidates, setSelectedCandidates] = useState<PoolCandidate[]>(
-    [],
-  );
+  const apiRoutes = useApiRoutes();
+
+  const defaultSortState = currentPool
+    ? [{ id: "finalDecision", desc: false }]
+    : [{ id: "dateReceived", desc: true }];
+  const initialState = getTableStateFromSearchParams({
+    ...defaultState,
+    sortState: defaultSortState,
+  });
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchInput)
+        : initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
+
+  const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
+    DownloadPoolCandidatesCsv_Mutation,
+  );
+
+  const [{ fetching: downloadingZip }, downloadZip] = useMutation(
+    DownloadPoolCandidatesZip_Mutation,
+  );
+
+  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
+    DownloadSinglePoolCandidateDoc_Mutation,
+  );
+
+  const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
+    useAsyncFileDownload();
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
@@ -356,7 +538,7 @@ const PoolCandidatesTable = ({
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
@@ -387,41 +569,6 @@ const PoolCandidatesTable = ({
     }
   };
 
-  // merge search bar input with fancy filter state
-  const addSearchToPoolCandidateFilterInput = (
-    fancyFilterState: PoolCandidateSearchInput | undefined,
-    searchBarTerm: string | undefined,
-    searchType: string | undefined,
-  ): InputMaybe<PoolCandidateSearchInput> | undefined => {
-    if (
-      fancyFilterState === undefined &&
-      searchBarTerm === undefined &&
-      searchType === undefined
-    ) {
-      return undefined;
-    }
-    return {
-      // search bar
-      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
-      email: searchType === "email" ? searchBarTerm : undefined,
-      name: searchType === "name" ? searchBarTerm : undefined,
-      notes: searchType === "notes" ? searchBarTerm : undefined,
-
-      // from fancy filter
-      applicantFilter: {
-        ...fancyFilterState?.applicantFilter,
-        hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
-      },
-      poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
-      priorityWeight: fancyFilterState?.priorityWeight,
-      expiryStatus: fancyFilterState?.expiryStatus,
-      suspendedStatus: fancyFilterState?.suspendedStatus,
-      isGovEmployee: fancyFilterState?.isGovEmployee,
-      publishingGroups: fancyFilterState?.publishingGroups,
-      appliedClassifications: fancyFilterState?.appliedClassifications,
-    };
-  };
-
   const [{ data, fetching }] = useQuery({
     query: CandidatesTableCandidatesPaginated_Query,
     variables: {
@@ -434,10 +581,14 @@ const PoolCandidatesTable = ({
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      orderByClaimVerification: getClaimVerificationSort(
+        sortState,
+        doNotUseBookmark,
+      ),
     },
   });
 
-  const filteredData: Array<PoolCandidateWithSkillCount> = useMemo(() => {
+  const filteredData: PoolCandidateWithSkillCount[] = useMemo(() => {
     const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
@@ -448,76 +599,67 @@ const PoolCandidatesTable = ({
 
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
+    context,
   });
   const allSkills = unpackMaybes(tableData?.skills);
   const filteredSkillIds = filterState?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const departments = unpackMaybes(tableData?.departments);
+  const handleDownloadError = () => {
+    toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
+  };
 
-  const isPoolCandidate = (
-    candidate: Error | PoolCandidate | null,
-  ): candidate is PoolCandidate =>
-    candidate !== null && !(candidate instanceof Error);
+  const handleDownloadRes = (hasData: boolean) => {
+    if (hasData) {
+      toast.info(intl.formatMessage(commonMessages.preparingDownload));
+    } else {
+      handleDownloadError();
+    }
+  };
 
-  const batchLoader = new DataLoader<string, PoolCandidate | null>(
-    async (ids) => {
-      const batchSize = 100;
-      const batches = [];
+  const handleCsvDownloadAll = () => {
+    downloadCsv({
+      where: addSearchToPoolCandidateFilterInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
+      withROD: !!currentPool,
+    })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
+  };
 
-      for (let i = 0; i < ids.length; i += batchSize) {
-        const batchIds = ids.slice(i, i + batchSize);
-        batches.push(
-          client
-            .query<{
-              poolCandidates: PoolCandidate[];
-            }>(PoolCandidatesTable_SelectPoolCandidatesQuery, {
-              ids: batchIds,
-            })
-            .then((result) => result.data?.poolCandidates ?? []),
-        );
-      }
+  const handleCsvDownload = (withROD?: boolean) => {
+    downloadCsv({ ids: selectedRows, withROD })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
+  };
 
-      try {
-        const batchResults = await Promise.all(batches);
-        const candidates = batchResults.flat(); // Flatten the array
-
-        return ids.map(
-          (id) => candidates.find((candidate) => candidate.id === id) ?? null,
-        );
-      } catch (error) {
-        return ids.map(() => null); // Return null for all IDs in case of an error
-      }
-    },
-    {
-      // Configure DataLoader to cache the results for each ID
-      cacheKeyFn: (key) => key,
-    },
-  );
-
-  const querySelected = async (
-    action: SelectingFor,
-  ): Promise<PoolCandidate[]> => {
-    try {
-      setSelectingFor(action);
-      setIsSelecting(true);
-      const poolCandidates = await batchLoader.loadMany(selectedRows);
-      const filteredPoolCandidates = poolCandidates.filter(isPoolCandidate);
-
-      if (filteredPoolCandidates.length === 0) {
-        toast.error(intl.formatMessage(adminMessages.noRowsSelected));
-      } else {
-        setSelectedCandidates(filteredPoolCandidates);
-      }
-
-      return filteredPoolCandidates;
-    } catch (error) {
-      toast.error(intl.formatMessage(errorMessages.unknown));
-      return [];
-    } finally {
-      setIsSelecting(false);
-      setSelectingFor(null);
+  const handleDocDownload = (anonymous: boolean) => {
+    if (selectedRows.length === 1) {
+      downloadDoc({ id: selectedRows[0], anonymous })
+        .then(async (res) => {
+          if (res?.data?.downloadPoolCandidateDoc) {
+            await executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(
+                res.data.downloadPoolCandidateDoc,
+              ),
+              fileName: res.data.downloadPoolCandidateDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      downloadZip({
+        ids: selectedRows,
+        anonymous,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
     }
   };
 
@@ -558,10 +700,12 @@ const PoolCandidatesTable = ({
           },
         }) =>
           candidateNameCell(
-            poolCandidate,
+            poolCandidate.id,
             paths,
             intl,
             candidateIdsFromFilterData,
+            poolCandidate.user.firstName,
+            poolCandidate.user.lastName,
           ),
         meta: {
           isRowTitle: true,
@@ -572,7 +716,13 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.accessor(
-            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            ({ poolCandidate: { pool } }) =>
+              getFullPoolTitleLabel(intl, {
+                stream: pool.stream,
+                name: pool.name,
+                publishingGroup: pool.publishingGroup,
+                classification: pool.classification,
+              }),
             {
               id: "process",
               header: intl.formatMessage(processMessages.process),
@@ -583,55 +733,61 @@ const PoolCandidatesTable = ({
                     poolCandidate: { pool },
                   },
                 },
-              }) => processCell(pool, paths, intl),
+              }) =>
+                processCell(
+                  {
+                    id: pool.id,
+                    stream: pool.stream,
+                    name: pool.name,
+                    publishingGroup: pool.publishingGroup,
+                    classification: pool.classification,
+                  },
+                  paths,
+                  intl,
+                ),
+            },
+          ),
+          columnHelper.accessor(
+            ({ poolCandidate: { pool } }) => pool.processNumber,
+            {
+              id: "processNumber",
+              header: intl.formatMessage(processMessages.processNumber),
+              sortingFn: normalizedText,
             },
           ),
         ]),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
-        intl.formatMessage(
-          user.priorityWeight
-            ? getPoolCandidatePriorities(user.priorityWeight)
-            : commonMessages.notFound,
-        ),
+      ({ poolCandidate: { category } }) =>
+        getLocalizedName(category?.label, intl),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
             original: {
-              poolCandidate: { user },
+              poolCandidate: { category },
             },
           },
-        }) => priorityCell(user.priorityWeight, intl),
+        }) =>
+          category ? priorityCell(category.weight, category.label, intl) : null,
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
+      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({
           row: {
-            original: { poolCandidate },
+            original: {
+              poolCandidate: { finalDecision, assessmentStatus },
+            },
           },
-        }) =>
-          finalDecisionCell(
-            intl,
-            poolCandidate,
-            unpackMaybes(poolCandidate?.pool?.assessmentSteps),
-          ),
-        enableSorting: false,
+        }) => finalDecisionCell(finalDecision, assessmentStatus, intl),
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
+      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -642,7 +798,7 @@ const PoolCandidatesTable = ({
         }) =>
           jobPlacementDialogAccessor(
             poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
-            departments,
+            tableData,
           ),
         enableSorting: false,
       },
@@ -659,7 +815,11 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       ({ poolCandidate }) =>
-        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
+        candidacyStatusAccessor(
+          poolCandidate.suspendedAt,
+          tableData?.suspendedStatuses,
+          intl,
+        ),
       {
         id: "candidacyStatus",
         header: intl.formatMessage(tableMessages.candidacyStatus),
@@ -673,20 +833,45 @@ const PoolCandidatesTable = ({
         row: {
           original: { poolCandidate },
         },
-      }) => notesCell(poolCandidate, intl),
+      }) =>
+        notesCell(
+          intl,
+          poolCandidate.notes,
+          poolCandidate.user.firstName,
+          poolCandidate.user.lastName,
+        ),
     }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
-        intl.formatMessage(
-          user.preferredLang
-            ? getLanguage(user.preferredLang)
-            : commonMessages.notFound,
-        ),
+        getLocalizedName(user.preferredLang?.label, intl),
       {
         id: "preferredLang",
         header: intl.formatMessage(
           commonMessages.preferredCommunicationLanguage,
         ),
+      },
+    ),
+    columnHelper.accessor(
+      ({
+        poolCandidate: {
+          user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
+        },
+      }) => {
+        const arr = [];
+        if (lookingForEnglish) {
+          arr.push(intl.formatMessage(commonMessages.english));
+        }
+        if (lookingForFrench) {
+          arr.push(intl.formatMessage(commonMessages.french));
+        }
+        if (lookingForBilingual) {
+          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
+        }
+        return arr.join(", ");
+      },
+      {
+        id: "languageAbility",
+        header: intl.formatMessage(commonMessages.workingLanguageAbility),
       },
     ),
     columnHelper.accessor("skillCount", {
@@ -747,6 +932,7 @@ const PoolCandidatesTable = ({
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
   const hiddenColumnIds = ["candidacyStatus", "notes"];
+  const hasSelectedRows = selectedRows.length > 0;
 
   return (
     <Table<PoolCandidateWithSkillCount>
@@ -775,13 +961,14 @@ const PoolCandidatesTable = ({
       sort={{
         internal: false,
         onSortChange: setSortState,
-        initialState: defaultState.sortState,
+        initialState: defaultSortState,
       }}
       filter={{
         initialState: initialFilterInput,
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog
+            query={tableData}
             {...{ hidePoolFilter }}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolCandidateSearchInputToFormValues(
@@ -807,42 +994,49 @@ const PoolCandidatesTable = ({
           }),
       }}
       download={{
-        disableBtn: isSelecting,
-        fetching: isSelecting && selectingFor === "download",
-        selection: {
-          csv: {
-            headers: getPoolCandidateCsvHeaders(intl, currentPool),
-            data: async () => {
-              const selected = await querySelected("download");
-              return getPoolCandidateCsvData(selected ?? [], intl);
-            },
-            fileName: intl.formatMessage(
-              {
-                defaultMessage: "pool_candidates_{date}.csv",
-                id: "aWsXoR",
-                description: "Filename for pool candidate CSV file download",
-              },
-              {
-                date: new Date().toISOString(),
-              },
-            ),
-          },
+        all: {
+          enable: true,
+          onClick: handleCsvDownloadAll,
+          downloading: downloadingCsv,
         },
-      }}
-      print={{
-        component: (
-          <UserProfilePrintButton
-            users={selectedCandidates}
-            beforePrint={async () => {
-              await querySelected("print");
-            }}
-            disabled={isSelecting}
-            fetching={isSelecting && selectingFor === "print"}
-            color="whiteFixed"
-            mode="inline"
-            fontSize="caption"
-          />
-        ),
+        csv: currentPool
+          ? {
+              enable: true,
+              component: (
+                <DownloadCandidateCsvButton
+                  inTable
+                  disabled={
+                    !hasSelectedRows ||
+                    downloadingZip ||
+                    downloadingDoc ||
+                    downloadingAsyncFile
+                  }
+                  isDownloading={downloadingCsv}
+                  onClick={handleCsvDownload}
+                />
+              ),
+            }
+          : {
+              enable: true,
+              onClick: () => handleCsvDownload(),
+              downloading: downloadingCsv,
+            },
+        doc: {
+          enable: true,
+          component: (
+            <DownloadUsersDocButton
+              inTable
+              disabled={
+                !hasSelectedRows ||
+                downloadingZip ||
+                downloadingDoc ||
+                downloadingAsyncFile
+              }
+              isDownloading={downloadingZip}
+              onClick={handleDocDownload}
+            />
+          ),
+        },
       }}
       pagination={{
         internal: false,

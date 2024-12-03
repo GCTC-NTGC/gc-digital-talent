@@ -23,21 +23,21 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
-import { getSelfDeclarationLabels } from "~/pages/Applications/ApplicationSelfDeclarationPage/SelfDeclaration/utils";
-import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/SelfDeclarationDialog";
-import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";
-import DefinitionDialog from "~/pages/Home/IAPHomePage/components/Dialog/DefinitionDialog";
+import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
+import SelfDeclarationDialog from "~/components/IAPDialog/SelfDeclarationDialog";
+import VerificationDialog from "~/components/IAPDialog/VerificationDialog";
+import DefinitionDialog from "~/components/IAPDialog/DefinitionDialog";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
   apiCommunitiesToFormValuesWithYesNo as apiCommunitiesToFormValues,
   formValuesToApiCommunities,
   type FormValuesWithYesNo as IndigenousFormValues,
 } from "~/utils/indigenousDeclaration";
+import HelpLink from "~/components/SelfDeclaration/HelpLink";
+import CommunitySelection from "~/components/SelfDeclaration/CommunitySelection";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import HelpLink from "./SelfDeclaration/HelpLink";
-import CommunitySelection from "./SelfDeclaration/CommunitySelection";
 import useApplication from "../useApplication";
 
 const Application_UpdateSelfDeclarationMutation = graphql(/* GraphQL */ `
@@ -49,7 +49,9 @@ const Application_UpdateSelfDeclarationMutation = graphql(/* GraphQL */ `
   ) {
     updateUserAsUser(id: $userId, user: $userInput) {
       id
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
     }
     updateApplication(id: $applicationId, application: $applicationInput) {
@@ -220,8 +222,8 @@ export const ApplicationSelfDeclaration = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
-                    id: "7i+qEB",
+                      "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these job opportunities.",
+                    id: "9LR5wC",
                     description:
                       "Disclaimer before signing Indigenous self-declaration form",
                   })}
@@ -372,7 +374,7 @@ export const Component = () => {
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
-      navigate(paths.browsePools());
+      await navigate(paths.browsePools());
       return;
     }
     const newCommunities = formValuesToApiCommunities(formValues);
@@ -389,7 +391,7 @@ export const Component = () => {
         insertSubmittedStep: ApplicationStep.SelfDeclaration,
       },
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.error) throw new Error("Update user and application failed");
 
         toast.success(
@@ -400,7 +402,9 @@ export const Component = () => {
               "Message displayed to users when saving self-declaration is successful.",
           }),
         );
-        navigate(formValues.action === "continue" ? nextStep : cancelPath);
+        await navigate(
+          formValues.action === "continue" ? nextStep : cancelPath,
+        );
       })
       .catch(() => {
         toast.error(
@@ -417,7 +421,9 @@ export const Component = () => {
   return application && application?.user ? (
     <ApplicationSelfDeclaration
       application={application}
-      indigenousCommunities={resolvedIndigenousCommunities}
+      indigenousCommunities={resolvedIndigenousCommunities?.map(
+        (community) => community.value,
+      )}
       signature={application.user.indigenousDeclarationSignature ?? null}
       onSubmit={handleSubmit}
     />

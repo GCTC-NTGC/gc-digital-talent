@@ -1,22 +1,17 @@
 import { defineMessage, useIntl } from "react-intl";
-import BoltOutlineIcon from "@heroicons/react/24/outline/BoltIcon";
-import BoltSolidIcon from "@heroicons/react/24/solid/BoltIcon";
 import { ReactNode } from "react";
 
-import { Alert, Heading, IconType, Link, Well } from "@gc-digital-talent/ui";
+import { Alert, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
-import adminMessages from "~/messages/adminMessages";
 import skillBrowserMessages from "~/components/SkillBrowser/messages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SkillTable from "./components/SkillTable";
-
-export const pageSolidIcon: IconType = BoltSolidIcon;
-export const pageOutlineIcon: IconType = BoltOutlineIcon;
 
 const suggestionLink = (chunks: ReactNode, href: string) => (
   <Link href={href} state={{ referrer: window.location.href }}>
@@ -24,12 +19,7 @@ const suggestionLink = (chunks: ReactNode, href: string) => (
   </Link>
 );
 
-export const adminPageTitle = defineMessage({
-  defaultMessage: "Skills list",
-  id: "J6atIv",
-  description: "Link text for explore skills page",
-});
-const pageTitle = defineMessage(adminMessages.skills);
+const pageTitle = defineMessage(navigationMessages.skillsLibrary);
 const pageSubtitle = defineMessage({
   defaultMessage: "Explore all the skills on our site.",
   id: "eTOg2E",
@@ -61,7 +51,7 @@ export const Component = () => {
         crumbs={crumbs}
       />
       <section
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin="base(x3)"
       >
         <Alert.Root

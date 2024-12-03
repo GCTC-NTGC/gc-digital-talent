@@ -7,6 +7,7 @@ use App\Enums\PoolLanguage;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -24,12 +25,16 @@ class PoolTestSeeder extends Seeder
 
         // Caching commonly used queries
         $adminUserId = User::select('id')->where('email', 'admin@test.com')->sole()->id;
+        $processOperatorUser = User::select('id')->where('email', 'process@test.com')->first();
         $dcmTeamId = Team::select('id')->where('name', 'digital-community-management')->sole()->id;
+        $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
+        $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
 
         // CMO Digital
         $createdPool = Pool::factory()
             ->withPoolSkills(4, 4)
             ->withQuestions(2, 2)
+            ->withBookmark($adminUserId)
             ->published()
             ->createOrGetExisting([
                 'name' => [
@@ -38,6 +43,7 @@ class PoolTestSeeder extends Seeder
                 ],
                 'user_id' => $adminUserId,
                 'team_id' => $dcmTeamId,
+                'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -47,6 +53,9 @@ class PoolTestSeeder extends Seeder
         $createdPool->classification_id = $classificationIT01Id;
         $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
         $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
+        if (! is_null($processOperatorUser)) {
+            $createdPool->addProcessOperators([$processOperatorUser->id]);
+        }
         $createdPool->save();
 
         // IAP
@@ -62,6 +71,7 @@ class PoolTestSeeder extends Seeder
                     ],
                     'user_id' => $adminUserId,
                     'team_id' => $dcmTeamId,
+                    'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.far_future_date'),
                     'publishing_group' => PublishingGroup::IAP->name,
@@ -73,6 +83,7 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(0, 0)
             ->withQuestions(0, 0)
+            ->withBookmark($adminUserId)
             ->draft()
             ->createOrGetExisting([
                 'name' => [
@@ -82,6 +93,7 @@ class PoolTestSeeder extends Seeder
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id,
                 'user_id' => $adminUserId,
                 'team_id' => $dcmTeamId,
+                'community_id' => $digitalCommunityId,
                 'published_at' => null,
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -104,6 +116,7 @@ class PoolTestSeeder extends Seeder
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 2)->sole()->id,
                     'user_id' => $adminUserId,
                     'team_id' => $dcmTeamId,
+                    'community_id' => $digitalCommunityId,
                     'published_at' => null,
                     'closing_date' => config('constants.far_future_date'),
                     'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -128,6 +141,7 @@ class PoolTestSeeder extends Seeder
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 3)->sole()->id,
                 'user_id' => $adminUserId,
                 'team_id' => $dcmTeamId,
+                'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
@@ -151,6 +165,7 @@ class PoolTestSeeder extends Seeder
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 4)->sole()->id,
                 'user_id' => $adminUserId,
                 'team_id' => $dcmTeamId,
+                'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -175,6 +190,7 @@ class PoolTestSeeder extends Seeder
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 5)->sole()->id,
                     'user_id' => $adminUserId,
                     'team_id' => $dcmTeamId,
+                    'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
                     'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -200,6 +216,7 @@ class PoolTestSeeder extends Seeder
                     'stream' => PoolStream::EXECUTIVE_GROUP->name,
                     'user_id' => $adminUserId,
                     'team_id' => $dcmTeamId,
+                    'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
                     'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
@@ -221,6 +238,7 @@ class PoolTestSeeder extends Seeder
                 'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
                 'user_id' => $adminUserId,
                 'team_id' => $dcmTeamId,
+                'community_id' => $atipCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
                 'publishing_group' => PublishingGroup::OTHER->name,

@@ -2,10 +2,16 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\EducationStatus;
+use App\Enums\EducationType;
+use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\EducationExperience */
 class EducationExperienceResource extends JsonResource
 {
+    use HasLocalizedEnums;
+
     /**
      * Transform the resource into an array.
      *
@@ -20,13 +26,12 @@ class EducationExperienceResource extends JsonResource
             'institution' => $this->institution,
             'areaOfStudy' => $this->area_of_study,
             'thesisTitle' => $this->thesis_title,
-            'type' => $this->type,
-            'status' => $this->status,
+            'type' => $this->localizeEnum($this->type, EducationType::class),
+            'status' => $this->localizeEnum($this->status, EducationStatus::class),
             'startDate' => $this->start_date?->format('Y-m-d'),
             'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
-            'user' => new UserStubResource($this->user),
         ];
     }
 }

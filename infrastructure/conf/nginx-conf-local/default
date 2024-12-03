@@ -29,6 +29,15 @@ server {
     # The following are only added if they do not already exist.  Avoid overwriting headers from PHP.
     add_header Cache-Control $hdr_cache_control;
 
+    # CSP Headers
+    set $cspNonce $request_id;
+    sub_filter_types *;
+    sub_filter '**CSP_NONCE**' $cspNonce;
+    sub_filter_once off;
+
+    add_header Reporting-Endpoints csp="/api/csp-report";
+    add_header Content-Security-Policy-Report-Only "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' data:; report-uri /api/csp-report/; report-to csp;" always;
+
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent {
         absolute_redirect on;
@@ -55,6 +64,33 @@ server {
     location = /en/applicant/profile-and-applications/skills/showcase { return 301 /en/applicant/skills/showcase$is_args$args; }
     location = /fr/applicant/profile-and-applications/skills/showcase { return 301 /fr/applicant/skills/showcase$is_args$args; }
     location ~ ^/(en|fr)/users/(.+)(/|$) { return 301 /$1/applicant$is_args$args; }
+    # permanent redirect for documents moved to static hosting
+    location = "/documents/Arbre_decisionnel_PDF_FR.pdf" { return 301 "/static/documents/Arbre_decisionnel_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Arbre_decisionnel_texte_FR.docx" { return 301 "/static/documents/Arbre_decisionnel_texte_FR.docx$is_args$args"; }
+    location = "/documents/Decision_Tree_PDF_EN.pdf" { return 301 "/static/documents/Decision_Tree_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Decision_Tree_Text_EN.docx" { return 301 "/static/documents/Decision_Tree_Text_EN.docx$is_args$args"; }
+    location = "/documents/Digital_Contracting_Questionnaire_EN.docx" { return 301 "/static/documents/Digital_Contracting_Questionnaire_EN.docx$is_args$args"; }
+    location = "/documents/Digital_Recruitment_Template_EN.docx" { return 301 "/static/documents/Digital_Recruitment_Template_EN.docx$is_args$args"; }
+    location = "/documents/Enabling_Conditions_Guidance_EN.docx" { return 301 "/static/documents/Enabling_Conditions_Guidance_EN.docx$is_args$args"; }
+    location = "/documents/Forward_Talent_Plan_EN.docx" { return 301 "/static/documents/Forward_Talent_Plan_EN.docx$is_args$args"; }
+    location = "/documents/Guidance_HR_PDF_EN.pdf" { return 301 "/static/documents/Guidance_HR_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Guidance_HR_text_EN.docx" { return 301 "/static/documents/Guidance_HR_text_EN.docx$is_args$args"; }
+    location = "/documents/Guidance_Manager_PDF_EN.pdf" { return 301 "/static/documents/Guidance_Manager_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Guidance_Manager_text_EN.docx" { return 301 "/static/documents/Guidance_Manager_text_EN.docx$is_args$args"; }
+    location = "/documents/Guidance_Procurement_PDF_EN.pdf" { return 301 "/static/documents/Guidance_Procurement_PDF_EN.pdf$is_args$args"; }
+    location = "/documents/Guidance_Procurement_text_EN.docx" { return 301 "/static/documents/Guidance_Procurement_text_EN.docx$is_args$args"; }
+    location = "/documents/Manager package - ITAPIP.pptx" { return 301 "/static/documents/Manager package - ITAPIP.pptx$is_args$args"; }
+    location = "/documents/Modele_de_recrutement_numerique_FR.docx" { return 301 "/static/documents/Modele_de_recrutement_numerique_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_RH_PDF_FR.pdf" { return 301 "/static/documents/Orientation_RH_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Orientation_RH_texte_FR.docx" { return 301 "/static/documents/Orientation_RH_texte_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_approvisionnement_PDF_FR.pdf" { return 301 "/static/documents/Orientation_approvisionnement_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Orientation_approvisionnement_texte_FR.docx" { return 301 "/static/documents/Orientation_approvisionnement_texte_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_gestionnaire_PDF_FR.pdf" { return 301 "/static/documents/Orientation_gestionnaire_PDF_FR.pdf$is_args$args"; }
+    location = "/documents/Orientation_gestionnaire_texte_FR.docx" { return 301 "/static/documents/Orientation_gestionnaire_texte_FR.docx$is_args$args"; }
+    location = "/documents/Orientation_sur_les_conditions_habilitantes_FR.docx" { return 301 "/static/documents/Orientation_sur_les_conditions_habilitantes_FR.docx$is_args$args"; }
+    location = "/documents/Plan_prospectif_sur_les_talents_FR.docx" { return 301 "/static/documents/Plan_prospectif_sur_les_talents_FR.docx$is_args$args"; }
+    location = "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx" { return 301 "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx$is_args$args"; }
+    location = "/documents/Trousse du gestionnaire - PATIPA.pptx" { return 301 "/static/documents/Trousse du gestionnaire - PATIPA.pptx$is_args$args"; }
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
@@ -101,11 +137,6 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_index index.php;
-    }
-    # for sharing runtime env variables with client code
-    location = /config.js {
-        # add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
-        alias /home/site/wwwroot/apps/web/dist/config.js; # technically this would get caught the main assets block, but this mirrors prod conf
     }
 
     # api
@@ -158,7 +189,8 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
-    location /api/ {
+
+    location ^~ /api/ {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
@@ -172,7 +204,8 @@ server {
 
     # serve other asset files files
     # NOTE: this is set up like this to mirror prod version, where different location blocks allow unique cach-control headers
-    location ~ "\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
+    # NOTE2: this excludes assets starting with /static/ since there's a redirect to static hosting for that case below
+    location ~ "^(?!/static/).*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
         # contenthashed asset files get cached for a year
         location ~ "^/(.*\.)?[a-z0-9]{20}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
             # add_header Cache-Control "public, max-age=31536000"; # 1 year
@@ -188,6 +221,11 @@ server {
     location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
         # add_header Cache-Control "public, max-age=604800"; # 1 week
         try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
+    }
+
+    # The reverse proxy is not present locally so this provides a temporary redirect to prod static hosting for testing
+    location /static/ {
+        return 307 https://talent.canada.ca$request_uri;
     }
 
     # for all other uris, serve SPA index with no caching

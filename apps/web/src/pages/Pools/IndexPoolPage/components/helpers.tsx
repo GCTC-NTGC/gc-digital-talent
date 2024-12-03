@@ -1,40 +1,47 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
-import {
-  Locales,
-  getLocalizedName,
-  getPoolStream,
-} from "@gc-digital-talent/i18n";
+import { Locales, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
+  FragmentType,
   LocalizedString,
   Maybe,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
+  PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
   SortOrder,
+  User,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
 import { FormValues } from "./PoolFilterDialog";
+import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
-export function poolNameAccessor(pool: Pool, intl: IntlShape) {
+export function poolNameAccessor(
+  pool: Pick<Pool, "name" | "stream">,
+  intl: IntlShape,
+) {
   const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${
-    pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""
-  }`;
+  return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
 }
 
-export function viewCell(url: string, pool: Pool, intl: IntlShape) {
+export function viewCell(
+  url: string,
+  pool: Pick<Pool, "name">,
+  intl: IntlShape,
+) {
   return (
     <Link color="black" href={url}>
       {getLocalizedName(pool.name, intl)}
@@ -63,7 +70,10 @@ export function viewTeamLinkCell(
   ) : null;
 }
 
-export function fullNameCell(pool: Pool, intl: IntlShape) {
+export function fullNameCell(
+  pool: { owner: Pick<User, "firstName" | "lastName"> },
+  intl: IntlShape,
+) {
   return (
     <span>
       {getFullNameHtml(pool.owner?.firstName, pool.owner?.lastName, intl)}
@@ -72,42 +82,15 @@ export function fullNameCell(pool: Pool, intl: IntlShape) {
 }
 
 export function classificationAccessor(
-  classification: Maybe<Classification> | undefined,
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   return classification
     ? `${classification.group}-0${classification.level}`
     : "";
 }
 
-export function classificationSortFn(rowA: Pool, rowB: Pool) {
-  // passing in sortType to override default sort
-  const rowAGroup =
-    rowA.classification && rowA.classification ? rowA.classification.group : "";
-  const rowBGroup =
-    rowB.classification && rowB.classification ? rowB.classification.group : "";
-  const rowALevel =
-    rowA.classification && rowA.classification ? rowA.classification.level : 0;
-  const rowBLevel =
-    rowB.classification && rowB.classification ? rowB.classification.level : 0;
-
-  if (rowAGroup.toLowerCase() > rowBGroup.toLowerCase()) {
-    return 1;
-  }
-  if (rowAGroup.toLowerCase() < rowBGroup.toLowerCase()) {
-    return -1;
-  }
-  // if groups identical then sort by level
-  if (rowALevel > rowBLevel) {
-    return 1;
-  }
-  if (rowALevel < rowBLevel) {
-    return -1;
-  }
-  return 0;
-}
-
 export function classificationCell(
-  classification: Maybe<Classification> | undefined,
+  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   if (!classification) return null;
 
@@ -118,7 +101,10 @@ export function classificationCell(
   );
 }
 
-export function emailLinkAccessor(pool: Pool, intl: IntlShape) {
+export function emailLinkAccessor(
+  pool: { owner: Pick<User, "email"> },
+  intl: IntlShape,
+) {
   if (pool.owner?.email) {
     return (
       <Link color="black" external href={`mailto:${pool.owner.email}`}>
@@ -138,23 +124,23 @@ export function emailLinkAccessor(pool: Pool, intl: IntlShape) {
 }
 
 export function ownerNameAccessor(pool: Pool) {
-  const firstName =
-    pool.owner && pool.owner.firstName
-      ? pool.owner.firstName.toLowerCase()
-      : "";
-  const lastName =
-    pool.owner && pool.owner.lastName ? pool.owner.lastName.toLowerCase() : "";
+  const firstName = pool.owner?.firstName
+    ? pool.owner.firstName.toLowerCase()
+    : "";
+  const lastName = pool.owner?.lastName
+    ? pool.owner.lastName.toLowerCase()
+    : "";
   return `${firstName} ${lastName}`;
 }
 
 export function ownerEmailAccessor(pool: Pool) {
-  return pool.owner && pool.owner.email ? pool.owner.email.toLowerCase() : "";
+  return pool.owner?.email ? pool.owner.email.toLowerCase() : "";
 }
 
-type TransformPoolInputArgs = {
+interface TransformPoolInputArgs {
   search: SearchState;
   filters?: PoolFilterInput;
-};
+}
 
 export function transformPoolInput({
   search,
@@ -168,8 +154,10 @@ export function transformPoolInput({
     return undefined;
   }
 
+  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // only show pools that the use is able to admin
+
   return {
-    ...filters,
+    ...filtersWithCanAdmin,
     generalSearch: !!search.term && !search.type ? search.term : undefined,
     name: search.type === "name" ? search.term : undefined,
     team: search.type === "type" ? search.term : undefined,
@@ -184,12 +172,15 @@ export function getOrderByClause(
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
     ["stream", "stream"],
+    ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
+    ["publishedAt", "published_at"],
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
     ["classification", "classification"],
     ["team", "team"],
+    ["poolBookmarks", "poolBookmarks"],
     // ["status", "status"],
   ]);
 
@@ -198,6 +189,8 @@ export function getOrderByClause(
     return !!columnName;
   });
 
+  // PoolBookmarks is handled by another arg
+  if (sortingRule?.id === "poolBookmarks") return undefined;
   // Team is handled by another arg
   if (sortingRule?.id === "team") return undefined;
 
@@ -270,6 +263,13 @@ export function getTeamDisplayNameSort(
   };
 }
 
+export function getPoolBookmarkSort(): PoolBookmarksOrderByInput | undefined {
+  return {
+    column: "poolBookmarks",
+    order: SortOrder.Asc,
+  };
+}
+
 export function transformFormValuesToFilterInput(
   data: FormValues,
 ): PoolFilterInput {
@@ -296,3 +296,18 @@ export function transformPoolFilterInputToFormValues(
     ),
   };
 }
+
+export const poolBookmarkCell = (
+  owner: FragmentType<typeof PoolBookmark_Fragment>,
+  poolId: string,
+  poolName?: Maybe<LocalizedString>,
+) => {
+  return <PoolBookmark user={owner} poolId={poolId} poolName={poolName} />;
+};
+
+export const poolBookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    data-h2-width="base(x1)"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);

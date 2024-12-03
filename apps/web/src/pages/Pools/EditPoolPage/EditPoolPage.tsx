@@ -12,7 +12,11 @@ import {
   Heading,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  NotFoundError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   graphql,
   Scalars,
@@ -46,6 +50,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
+  PoolDepartment_Fragment,
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
 import ClosingDateSection, {
@@ -97,15 +102,51 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolYourImpact
 
     id
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     processNumber
-    publishingGroup
-    opportunityLength
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    opportunityLength {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
-    language
-    securityClearance
+    language {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    securityClearance {
+      value
+      label {
+        en
+        fr
+      }
+    }
     publishedAt
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     location {
       en
       fr
@@ -121,11 +162,23 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
       requiredLevel
       skill {
         id
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         key
         name {
           en
@@ -153,6 +206,22 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    isRemote
+    areaOfSelection {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -171,7 +240,8 @@ export type PoolSubmitData =
 export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
-  skills: Array<Skill>;
+  departments: FragmentType<typeof PoolDepartment_Fragment>[];
+  skills: Skill[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
   poolSkillMutations: PoolSkillMutationsType;
@@ -180,6 +250,7 @@ export interface EditPoolFormProps {
 export const EditPoolForm = ({
   poolQuery,
   classifications,
+  departments,
   skills,
   onSave,
   onUpdatePublished,
@@ -189,8 +260,8 @@ export const EditPoolForm = ({
   const pool = getFragment(EditPool_Fragment, poolQuery);
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Create a new recruitment",
-    id: "lNKpJl",
+    defaultMessage: "Create a recruitment",
+    id: "RcRh+P",
     description: "Title for advertisement information of a process",
   });
 
@@ -201,11 +272,25 @@ export const EditPoolForm = ({
     description: "Description of a process' advertisement",
   });
 
-  const basicInfoHasError = poolNameError(pool) || closingDateError(pool);
+  const basicInfoHasError =
+    poolNameError({
+      areaOfSelection: pool.areaOfSelection,
+      classification: pool.classification,
+      department: pool.department,
+      stream: pool.stream,
+      name: pool.name,
+      processNumber: pool.processNumber,
+      publishingGroup: pool.publishingGroup,
+      opportunityLength: pool.opportunityLength,
+    }) ||
+    closingDateError({ closingDate: pool.closingDate, status: pool.status });
   const skillRequirementsHasError =
-    essentialSkillsError(pool) || nonessentialSkillsError(pool);
+    essentialSkillsError({ poolSkills: pool.poolSkills }) ||
+    nonessentialSkillsError({ poolSkills: pool.poolSkills });
   const aboutRoleHasError =
-    yourImpactError(pool) || keyTasksError(pool) || aboutUsError(pool);
+    yourImpactError({ yourImpact: pool.yourImpact }) ||
+    keyTasksError({ keyTasks: pool.keyTasks }) ||
+    aboutUsError({ aboutUs: pool.aboutUs });
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
       id: "basic-info",
@@ -226,7 +311,16 @@ export const EditPoolForm = ({
     },
     poolName: {
       id: "pool-name",
-      hasError: poolNameError(pool),
+      hasError: poolNameError({
+        areaOfSelection: pool.areaOfSelection,
+        classification: pool.classification,
+        department: pool.department,
+        stream: pool.stream,
+        name: pool.name,
+        processNumber: pool.processNumber,
+        publishingGroup: pool.publishingGroup,
+        opportunityLength: pool.opportunityLength,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Advertisement details",
         id: "KEm64j",
@@ -236,7 +330,10 @@ export const EditPoolForm = ({
     },
     closingDate: {
       id: "closing-date",
-      hasError: closingDateError(pool),
+      hasError: closingDateError({
+        closingDate: pool.closingDate,
+        status: pool.status,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Closing date",
         id: "I8jlr2",
@@ -246,7 +343,12 @@ export const EditPoolForm = ({
     },
     coreRequirements: {
       id: "core-requirements",
-      hasError: coreRequirementsError(pool),
+      hasError: coreRequirementsError({
+        language: pool.language,
+        securityClearance: pool.securityClearance,
+        location: pool.location,
+        isRemote: pool.isRemote,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Core requirements",
         id: "uWfG0e",
@@ -261,11 +363,18 @@ export const EditPoolForm = ({
         id: "+6tF6S",
         description: "Sub title for the special note section",
       }),
-      status: specialNoteIsNull(pool) ? "optional" : "success",
+      status: specialNoteIsNull({ specialNote: pool.specialNote })
+        ? "optional"
+        : "success",
     },
     educationRequirements: {
       id: "education-requirements",
-      hasError: educationRequirementIsNull(pool),
+      hasError: educationRequirementIsNull({
+        stream: pool.stream,
+        name: pool.name,
+        processNumber: pool.processNumber,
+        publishingGroup: pool.publishingGroup,
+      }),
       title: intl.formatMessage({
         defaultMessage: "Minimum education",
         id: "Quwegl",
@@ -291,7 +400,7 @@ export const EditPoolForm = ({
     },
     essentialSkills: {
       id: "essential-skills",
-      hasError: essentialSkillsError(pool),
+      hasError: essentialSkillsError({ poolSkills: pool.poolSkills }),
       title: intl.formatMessage({
         defaultMessage: "Essential skill criteria",
         id: "xIniPc",
@@ -301,7 +410,7 @@ export const EditPoolForm = ({
     },
     assetSkills: {
       id: "asset-skills",
-      hasError: nonessentialSkillsError(pool),
+      hasError: nonessentialSkillsError({ poolSkills: pool.poolSkills }),
       title: intl.formatMessage({
         defaultMessage: "Asset skill criteria",
         id: "TE2Nwv",
@@ -328,7 +437,7 @@ export const EditPoolForm = ({
     },
     yourImpact: {
       id: "your-impact",
-      hasError: yourImpactError(pool),
+      hasError: yourImpactError({ yourImpact: pool.yourImpact }),
       title: intl.formatMessage({
         defaultMessage: "Your impact",
         id: "ry3jFR",
@@ -338,7 +447,7 @@ export const EditPoolForm = ({
     },
     workTasks: {
       id: "work-tasks",
-      hasError: keyTasksError(pool),
+      hasError: keyTasksError({ keyTasks: pool.keyTasks }),
       title: intl.formatMessage({
         defaultMessage: "Work tasks",
         id: "GXw2um",
@@ -358,7 +467,9 @@ export const EditPoolForm = ({
     },
     commonQuestions: {
       id: "common-questions",
-      hasError: whatToExpectAdmissionError(pool), // Add understanding classification (#8831) validation here
+      hasError: whatToExpectAdmissionError({
+        whatToExpectAdmission: pool.whatToExpectAdmission,
+      }), // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
         defaultMessage: "Common questions",
         id: "RahVQS",
@@ -410,7 +521,7 @@ export const EditPoolForm = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <AdminContentWrapper>
-        <div data-h2-container="base(left, large, 0)">
+        <div data-h2-wrapper="base(left, large, 0)">
           <TableOfContents.Wrapper>
             <TableOfContents.Navigation>
               <TableOfContents.List
@@ -425,7 +536,7 @@ export const EditPoolForm = ({
                         asListItem={false}
                         title={meta.shortTitle ?? meta.title}
                         status={
-                          meta.hasError ? "error" : meta.status || "success"
+                          meta.hasError ? "error" : (meta.status ?? "success")
                         }
                         scrollTo={meta.id}
                       />
@@ -462,6 +573,7 @@ export const EditPoolForm = ({
                     <PoolNameSection
                       poolQuery={pool}
                       classificationsQuery={classifications}
+                      departmentsQuery={departments}
                       sectionMetadata={sectionMetadata.poolName}
                       onSave={onSave}
                     />
@@ -644,13 +756,24 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   query EditPoolPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
-      status
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
       ...EditPool
     }
 
     # all classifications to populate form dropdown
     classifications {
       ...PoolClassification
+    }
+
+    # all departments to populate form dropdown
+    departments {
+      ...PoolDepartment
     }
 
     # all skills to populate skill pickers
@@ -669,7 +792,13 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       families {
         id
         key
@@ -686,9 +815,9 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["PoolSkill"],
@@ -709,10 +838,7 @@ export const EditPoolPage = () => {
   );
 
   if (!poolId) {
-    throw new Response(notFoundMessage, {
-      status: 404,
-      statusText: "Not Found",
-    });
+    throw new NotFoundError(notFoundMessage);
   }
 
   const [{ data, fetching, error }] = useQuery({
@@ -740,6 +866,7 @@ export const EditPoolPage = () => {
           <EditPoolForm
             poolQuery={data.pool}
             classifications={unpackMaybes(data.classifications)}
+            departments={unpackMaybes(data.departments)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
             onUpdatePublished={(updateData) =>
@@ -763,6 +890,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <EditPoolPage />

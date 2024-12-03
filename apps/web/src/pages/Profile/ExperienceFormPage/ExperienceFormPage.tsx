@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Location, useLocation, useNavigate, useParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";
@@ -26,7 +26,8 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { Submit } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -41,7 +42,7 @@ import type {
   ExperienceMutationResponse,
 } from "~/types/experience";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import AdditionalDetails from "~/components/ExperienceFormFields/AdditionalDetails";
@@ -53,7 +54,6 @@ import {
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -82,7 +82,7 @@ const addSubTitle = defineMessage({
 
 type FormAction = "return" | "add-another";
 type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
-  experienceType: ExperienceType | "";
+  experienceType?: ExperienceType;
   action: FormAction;
 };
 
@@ -102,7 +102,13 @@ export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    category
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
     families {
       id
       key
@@ -118,13 +124,10 @@ export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
+const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormExperience on Experience {
     id
     details
-    user {
-      id
-    }
     skills {
       id
       key
@@ -132,7 +135,13 @@ export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       experienceSkillRecord {
         details
       }
@@ -141,8 +150,20 @@ export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       title
       issuedBy
       awardedDate
-      awardedTo
-      awardedScope
+      awardedTo {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      awardedScope {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     ... on CommunityExperience {
       title
@@ -157,8 +178,20 @@ export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type
-      status
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     ... on PersonalExperience {
       title
@@ -226,7 +259,7 @@ export const ExperienceForm = ({
   const [type, action] = watch(["experienceType", "action"]);
   const actionProps = register("action");
 
-  const handleSuccess = () => {
+  const handleSuccess = async () => {
     toast.success(
       edit
         ? intl.formatMessage({
@@ -244,7 +277,7 @@ export const ExperienceForm = ({
     );
 
     if (action !== "add-another") {
-      navigate(returnPath);
+      await navigate(returnPath);
     }
   };
 
@@ -266,26 +299,27 @@ export const ExperienceForm = ({
     );
   };
 
-  const handleMutationResponse = (res: ExperienceMutationResponse) => {
+  const handleMutationResponse = async (res: ExperienceMutationResponse) => {
     if (res.error) {
       handleError();
     } else {
-      handleSuccess();
+      await handleSuccess();
     }
   };
 
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experience ? "update" : "create",
-    type,
-  );
+  const {
+    executeMutation,
+    executing: mutationExecuting,
+    getMutationArgs,
+  } = useExperienceMutations(experience ? "update" : "create", type);
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    const args = getMutationArgs(experienceId || userId || "", values);
+    const args = getMutationArgs(experienceId ?? userId ?? "", values);
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
       return res
-        .then((mutationResponse) => {
-          handleMutationResponse(mutationResponse);
+        .then(async (mutationResponse) => {
+          await handleMutationResponse(mutationResponse);
         })
         .catch(handleError);
     }
@@ -293,9 +327,9 @@ export const ExperienceForm = ({
     return undefined;
   };
 
-  const experienceIdExact = experienceId || "";
+  const experienceIdExact = experienceId ?? "";
   const executeDeletionMutation = useDeleteExperienceMutation(
-    type || undefined,
+    type ?? undefined,
   );
 
   const handleDeleteExperience = () => {
@@ -303,8 +337,8 @@ export const ExperienceForm = ({
       executeDeletionMutation({
         id: experienceIdExact,
       })
-        .then((result) => {
-          navigate(returnPath);
+        .then(async (result) => {
+          await navigate(returnPath);
           toast.success(
             intl.formatMessage({
               defaultMessage: "Experience Deleted",
@@ -329,7 +363,7 @@ export const ExperienceForm = ({
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");
       reset();
-      setValue("experienceType", "");
+      setValue("experienceType", undefined);
     }
   }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
@@ -375,7 +409,7 @@ export const ExperienceForm = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <Hero title={pageTitle} subtitle={pageSubtitle} crumbs={crumbs} />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>
@@ -457,14 +491,15 @@ export const ExperienceForm = ({
                     data-h2-flex-direction="base(column) l-tablet(row)"
                     data-h2-align-items="base(flex-start) l-tablet(center)"
                   >
-                    <Button type="submit">
-                      {intl.formatMessage({
+                    <Submit
+                      text={intl.formatMessage({
                         defaultMessage: "Save and return to my career timeline",
                         id: "jZi53k",
                         description:
                           "Label on button to save and return on the current experience",
                       })}
-                    </Button>
+                      isSubmitting={mutationExecuting}
+                    />
                     <Link color="quaternary" mode="inline" href={returnPath}>
                       {intl.formatMessage(formMessages.cancelGoBack)}
                     </Link>
@@ -530,26 +565,33 @@ export const ExperienceForm = ({
                       value="return"
                       {...actionProps}
                       onClick={() => setValue("action", "return")}
+                      disabled={mutationExecuting}
                     >
-                      {intl.formatMessage({
-                        defaultMessage: "Save and return to my career timeline",
-                        id: "jZi53k",
-                        description:
-                          "Label on button to save and return on the current experience",
-                      })}
+                      {mutationExecuting
+                        ? intl.formatMessage(formMessages.submitting)
+                        : intl.formatMessage({
+                            defaultMessage:
+                              "Save and return to my career timeline",
+                            id: "jZi53k",
+                            description:
+                              "Label on button to save and return on the current experience",
+                          })}
                     </Button>
                     <Button
                       type="submit"
                       mode="inline"
                       {...actionProps}
                       onClick={() => setValue("action", "add-another")}
+                      disabled={mutationExecuting}
                     >
-                      {intl.formatMessage({
-                        defaultMessage: "Save and add another",
-                        id: "+7v9Dq",
-                        description:
-                          "Text for save button and add another button on experience form.",
-                      })}
+                      {mutationExecuting
+                        ? intl.formatMessage(formMessages.submitting)
+                        : intl.formatMessage({
+                            defaultMessage: "Save and add another",
+                            id: "+7v9Dq",
+                            description:
+                              "Text for save button and add another button on experience form.",
+                          })}
                     </Button>
                     <Link mode="inline" href={returnPath}>
                       {intl.formatMessage(formMessages.cancelGoBack)}
@@ -587,21 +629,23 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
       id
       experiences {
         id
-        user {
-          id
-        }
         ...ExperienceFormExperience
       }
     }
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];
-};
-export interface ExperienceFormContainerProps {
+}
+
+interface LocationState {
+  experienceType?: ExperienceType;
+}
+
+interface ExperienceFormContainerProps {
   edit?: boolean;
 }
 
@@ -609,7 +653,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
   const { experienceId } = useParams<RouteParams>();
-  const { state } = useLocation();
+  const { state } = useLocation() as Location<LocationState>;
 
   const [{ data, fetching, error }] = useQuery({
     query: ExperienceFormData_Query,
@@ -622,7 +666,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
 
   const experienceType = experience
     ? deriveExperienceType(experience)
-    : state?.experienceType || "";
+    : state?.experienceType;
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -630,10 +674,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
         <ExperienceForm
           edit={edit}
           experienceQuery={experience}
-          experienceId={experienceId || ""}
-          experienceType={experienceType}
+          experienceId={experienceId}
+          experienceType={experienceType ?? "personal"}
           skillsQuery={skills}
-          userId={userAuthInfo?.id || ""}
+          userId={userAuthInfo?.id ?? ""}
         />
       ) : (
         <ThrowNotFound
@@ -648,21 +692,5 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     </Pending>
   );
 };
-
-export const Create = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ExperienceFormContainer />
-  </RequireAuth>
-);
-
-Create.displayName = "CreateExperienceFormPage";
-
-export const Edit = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ExperienceFormContainer edit />
-  </RequireAuth>
-);
-
-Edit.displayName = "EditExperienceFormPage";
 
 export default ExperienceFormContainer;

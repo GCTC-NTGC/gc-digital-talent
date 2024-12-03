@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Well } from "@gc-digital-talent/ui";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+import { EditPoolSpecialNoteFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
@@ -10,7 +11,10 @@ import processMessages from "~/messages/processMessages";
 import { DisplayProps } from "../../types";
 import { hasAllEmptyFields } from "../../../../../validators/process/specialNote";
 
-const Display = ({ pool, subtitle }: DisplayProps) => {
+const Display = ({
+  pool,
+  subtitle,
+}: DisplayProps<EditPoolSpecialNoteFragment>) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const isNull = hasAllEmptyFields(pool);

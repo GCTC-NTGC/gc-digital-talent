@@ -1,11 +1,12 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
 import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
+import { Submit } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -48,7 +49,7 @@ const EditExperienceForm = ({
   const returnPath = paths.applicationCareerTimeline(applicationId);
   const experienceType = deriveExperienceType(experience);
   const defaultValues = queryResultToDefaultValues(
-    experienceType || "award",
+    experienceType ?? "award",
     experience,
   );
   const methods = useForm<ExperienceExperienceFormValues>({
@@ -64,14 +65,14 @@ const EditExperienceForm = ({
     experienceType,
   );
 
-  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
+  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = (
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], experienceType);
     const args = getMutationArgs(experience?.id || "", submitData);
     if (executeMutation) {
       executeMutation(args)
-        .then((res) => {
+        .then(async (res) => {
           if (res.error) {
             toast.error(
               intl.formatMessage({
@@ -90,7 +91,7 @@ const EditExperienceForm = ({
                   "Success message displayed after updating an experience",
               }),
             );
-            navigate(returnPath);
+            await navigate(returnPath);
           }
         })
         .catch(() => {
@@ -111,8 +112,8 @@ const EditExperienceForm = ({
       executeDeletionMutation({
         id: experience.id,
       })
-        .then((result) => {
-          navigate(returnPath);
+        .then(async (result) => {
+          await navigate(returnPath);
           toast.success(
             intl.formatMessage({
               defaultMessage: "Experience Deleted",
@@ -150,9 +151,11 @@ const EditExperienceForm = ({
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"
         >
-          <Button type="submit" disabled={isSubmitting} color="secondary">
-            {intl.formatMessage(formMessages.saveChanges)}
-          </Button>
+          <Submit
+            text={intl.formatMessage(formMessages.saveChanges)}
+            isSubmitting={isSubmitting}
+            color="secondary"
+          />
           <Link
             color="warning"
             mode="inline"

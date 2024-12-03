@@ -4,7 +4,7 @@
   "tokenCallbacks": [
     {
       "issuerId": "oxauth",
-      "tokenExpiry": 120,
+      "tokenExpiry": 600,
       "requestMappings": [
         {
           "requestParam": "client_id",
@@ -12,9 +12,28 @@
           "claims": {
             "aud": "00000000-0000-0000-0123-456789abcdef",
             "code": "00000000-0000-0000-0123-456789abcdef",
-            "scope": ["openid", "offline_access"],
+            "scope": [
+              "openid",
+              "offline_access"
+            ],
             "token_type": "bearer",
             "client_id": "00000000-0000-0000-0123-456789abcdef"
+          }
+        },
+        {
+          "requestParam": "client_id",
+          "match": "e2e",
+          "claims": {
+            "sub": "${sub}",
+            "aud": "00000000-0000-0000-0123-456789abcdef",
+            "code": "00000000-0000-0000-0123-456789abcdef",
+            "scope": [
+              "openid",
+              "offline_access"
+            ],
+            "token_type": "bearer",
+            "client_id": "00000000-0000-0000-0123-456789abcdef",
+            "iss": "http://mock-auth:8080/oxauth"
           }
         }
       ]

@@ -1,7 +1,6 @@
 import {
   PropsWithChildren,
   ReactElement,
-  ReactNode,
   useEffect,
   useMemo,
   useRef,
@@ -11,6 +10,7 @@ import {
   FieldValues,
   FormProvider,
   Path,
+  PathValue,
   SubmitErrorHandler,
   SubmitHandler,
   useForm,
@@ -27,8 +27,7 @@ import {
 import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
 import { flattenErrors } from "../utils";
-
-export type FieldLabels = Record<string, ReactNode>;
+import { FieldLabels } from "../types";
 
 /**
  * Basic Form Props
@@ -84,7 +83,7 @@ function BasicForm<TFieldValues extends FieldValues>({
     formState: { isDirty },
   } = methods;
 
-  const handleSubmit = async (data: TFieldValues) => {
+  const handleSubmit = (data: TFieldValues) => {
     // Reset form to clear dirty values
     reset(data, {
       keepDirty: false,
@@ -122,11 +121,19 @@ function BasicForm<TFieldValues extends FieldValues>({
         Object.keys(cachedValues).forEach((field) => {
           // Hack: Type our field name
           const typedFieldName = field as Path<TFieldValues>;
-          const value = cachedValues[field];
+          const value: PathValue<
+            TFieldValues,
+            Path<TFieldValues>
+          > = cachedValues[field] as PathValue<
+            TFieldValues,
+            Path<TFieldValues>
+          >;
           const defaultValues = options?.defaultValues as
             | TFieldValues
             | undefined;
-          const defaultValue = defaultValues ? defaultValues[field] : null;
+          const defaultValue: unknown = defaultValues
+            ? defaultValues[field]
+            : null;
           if (value) {
             if (!defaultValue || value !== defaultValue) {
               methods.setValue(typedFieldName, value, {

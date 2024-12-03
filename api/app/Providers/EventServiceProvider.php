@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
-use App\Events\ApplicationSubmitted;
-use App\Listeners\StoreApplicationSnapshot;
+use App\Events\AssessmentResultSaved;
+use App\Events\CandidateStatusChanged;
+use App\Events\UserFileGenerated;
+use App\Listeners\ComputeCandidateAssessmentStatus;
+use App\Listeners\ComputeCandidateFinalDecision;
+use App\Listeners\SendFileGeneratedNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -14,8 +18,14 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        ApplicationSubmitted::class => [
-            StoreApplicationSnapshot::class,
+        AssessmentResultSaved::class => [
+            ComputeCandidateAssessmentStatus::class,
+        ],
+        CandidateStatusChanged::class => [
+            ComputeCandidateFinalDecision::class,
+        ],
+        UserFileGenerated::class => [
+            SendFileGeneratedNotification::class,
         ],
     ];
 

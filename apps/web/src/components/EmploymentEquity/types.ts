@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 import {
   IndigenousCommunity,
+  LocalizedIndigenousCommunity,
   UpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
 
@@ -23,12 +24,12 @@ export interface EquityDialogProps {
 }
 
 export interface IndigenousUpdateProps {
-  indigenousCommunities: Array<IndigenousCommunity>;
+  indigenousCommunities: IndigenousCommunity[];
   indigenousDeclarationSignature?: string | null;
 }
 
 export interface IndigenousDialogProps {
-  indigenousCommunities: Array<IndigenousCommunity>;
+  indigenousCommunities: LocalizedIndigenousCommunity[];
   signature: string | undefined;
   onSave: (data: IndigenousUpdateProps) => void;
   children: ReactNode;

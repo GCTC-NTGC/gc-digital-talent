@@ -3,7 +3,10 @@ import debounce from "lodash/debounce";
 import { useState } from "react";
 
 import { Combobox } from "@gc-digital-talent/forms";
-import { PoolFilterInput, Scalars } from "@gc-digital-talent/graphql";
+import type {
+  PoolFilterInput as TPoolFilterInput,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -13,7 +16,7 @@ interface PoolFilterInputProps {
   name?: string;
   id?: string;
   label?: React.ReactNode;
-  filterInput?: PoolFilterInput;
+  filterInput?: TPoolFilterInput;
   includeIds?: Scalars["UUID"]["input"][];
   excludeIds?: Scalars["UUID"]["input"][];
 }
@@ -50,7 +53,7 @@ const PoolFilterInput = ({
       {...{ name, id }}
       isMulti
       isExternalSearch
-      label={label || intl.formatMessage(adminMessages.pools)}
+      label={label ?? intl.formatMessage(adminMessages.pools)}
       fetching={poolsFetching}
       total={total}
       onSearch={handleDebouncedSearch}

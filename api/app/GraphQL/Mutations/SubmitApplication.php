@@ -16,8 +16,6 @@ final class SubmitApplication
 {
     /**
      * Submit an application
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
@@ -50,9 +48,15 @@ final class SubmitApplication
         // need to save application before setting application snapshot since fields have yet to be saved to the database.
         $application->save();
 
-        $application->setApplicationSnapshot();
+        $application->setApplicationSnapshot(false);
+
+        $assessmentStatus = $application->computeAssessmentStatus();
+
+        $application->computed_assessment_status = $assessmentStatus;
 
         $application->save();
+
+        $application->refresh();
 
         return $application;
     }

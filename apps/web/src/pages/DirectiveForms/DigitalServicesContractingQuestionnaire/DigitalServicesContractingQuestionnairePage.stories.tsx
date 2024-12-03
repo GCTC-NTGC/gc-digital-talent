@@ -43,6 +43,9 @@ const meta: Meta<typeof DigitalServicesContractingQuestionnaire> = {
       });
     },
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 export default meta;
 type Story = StoryObj<typeof DigitalServicesContractingQuestionnaire>;

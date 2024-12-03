@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftEndOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
@@ -10,7 +10,7 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -75,7 +75,7 @@ export const Component = () => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
       <div data-h2-padding="base(x3, 0)">
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           {!iapMode ? (
             <>
               {/* Standard copy */}
@@ -240,7 +240,7 @@ export const Component = () => {
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(gckeyMessages.questionAuthCodes, {
+                      {intl.formatMessage(gckeyMessages.answerAuthCodes, {
                         helpLink: (chunks: ReactNode) =>
                           helpLink(chunks, paths.support()),
                       })}

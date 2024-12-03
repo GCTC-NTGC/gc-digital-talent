@@ -22,9 +22,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $language_ability
  * @property array $work_regions
  * @property array $operational_requirements
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class PoolCandidateFilter extends Model
 {
@@ -35,8 +35,6 @@ class PoolCandidateFilter extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'requested_date' => 'date',
@@ -44,16 +42,19 @@ class PoolCandidateFilter extends Model
         'operational_requirements' => 'array',
     ];
 
+    /** @return BelongsToMany<Classification, $this> */
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'classification_pool_candidate_filter');
     }
 
+    /** @return BelongsToMany<Pool, $this> */
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_pool_candidate_filter');
     }
 
+    /** @return HasOne<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequest(): HasOne
     {
         return $this->hasOne(PoolCandidateSearchRequest::class);

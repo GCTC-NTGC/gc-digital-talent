@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 export const DOTS = "...";
 
@@ -13,7 +13,7 @@ const range = (start: number, end: number): number[] => {
 
 type UsePaginationReturn = (number | typeof DOTS)[];
 
-type UsePaginationArgs = {
+interface UsePaginationArgs {
   /** The current page  */
   currentPage: number;
   /** Total available pages */
@@ -22,7 +22,7 @@ type UsePaginationArgs = {
   siblings?: number;
   /** Amount of elements visible on left/right edges, defaults to 1  */
   boundaries?: number;
-};
+}
 
 type UsePagination = (args: UsePaginationArgs) => UsePaginationReturn;
 
@@ -91,23 +91,3 @@ export const usePagination: UsePagination = ({
 
   return pageRange;
 };
-
-/**
- * A pagination hook that returns a list of variables needed for the pagination component.
- * @param page current page
- * @param pageSize total number of items per page
- * @param data array of data
- * @returns { currentPage, currentTableData, setCurrentPage, setPageSize }
- */
-export function usePaginationVars<T>(pageSize: number, data: T[]) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSizeState, setPageSize] = useState(pageSize);
-
-  const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * pageSizeState;
-    const lastPageIndex = firstPageIndex + pageSizeState;
-    return data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, data, pageSizeState]);
-
-  return { currentPage, currentTableData, setCurrentPage, setPageSize };
-}

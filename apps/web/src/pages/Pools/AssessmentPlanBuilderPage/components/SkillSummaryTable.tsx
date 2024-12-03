@@ -3,24 +3,19 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { IntlShape, useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  commonMessages,
-  getAssessmentStepType,
-  getLocalizedName,
-  getPoolSkillType,
-  getSkillCategory,
-} from "@gc-digital-talent/i18n";
-import {
-  AssessmentStep,
   AssessmentStepType,
   FragmentType,
+  LocalizedAssessmentStepType,
   Maybe,
-  PoolSkill,
   PoolSkillType,
   Skill,
   SkillCategory,
   getFragment,
   graphql,
+  SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
+  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 
@@ -32,11 +27,23 @@ import { assessmentStepDisplayName } from "../utils";
 export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
   fragment SkillSummaryPoolSkill on PoolSkill {
     id
-    type
+    type {
+      value
+      label {
+        en
+        fr
+      }
+    }
     skill {
       id
       key
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -48,7 +55,13 @@ export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
 export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
   fragment SkillSummaryTableAssessmentStep on AssessmentStep {
     id
-    type
+    type {
+      value
+      label {
+        en
+        fr
+      }
+    }
     sortOrder
     title {
       en
@@ -60,9 +73,9 @@ export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const columnHelper = createColumnHelper<PoolSkill>();
+const columnHelper = createColumnHelper<SkillSummaryPoolSkillFragmentType>();
 
-export interface SkillSummaryTableProps {
+interface SkillSummaryTableProps {
   poolSkillsQuery: FragmentType<typeof SkillSummaryTablePoolSkill_Fragment>[];
   assessmentStepsQuery: FragmentType<
     typeof SkillSummaryTableAssessmentStep_Fragment
@@ -72,7 +85,7 @@ export interface SkillSummaryTableProps {
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: Maybe<AssessmentStepType> | undefined,
+  assessmentStepType: Maybe<LocalizedAssessmentStepType> | undefined,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {
@@ -80,10 +93,9 @@ const CheckIconElement = (
   }
   const { name } = skill;
   const localizedName = getLocalizedName(name, intl);
-  const assessmentStepTypeLocalized = intl.formatMessage(
-    assessmentStepType
-      ? getAssessmentStepType(assessmentStepType)
-      : commonMessages.nameNotLoaded,
+  const assessmentStepTypeLocalized = getLocalizedName(
+    assessmentStepType?.label,
+    intl,
   );
 
   return (
@@ -107,8 +119,8 @@ const CheckIconElement = (
 };
 
 const plannedAssessmentCell = (
-  poolSkill: PoolSkill,
-  assessmentSteps: readonly AssessmentStep[],
+  poolSkill: SkillSummaryPoolSkillFragmentType,
+  assessmentSteps: readonly SkillSummaryAssessmentStepFragmentType[],
   intl: IntlShape,
 ): JSX.Element | null => {
   const assessmentCount = assessmentSteps.filter((assessmentStep) =>
@@ -140,19 +152,19 @@ const plannedAssessmentCell = (
 };
 
 interface RequirementTypeCellProps {
-  poolSkill: PoolSkill;
+  poolSkill: SkillSummaryPoolSkillFragmentType;
   intl: IntlShape;
 }
 
 const assessmentStepCell = (
-  poolSkill: PoolSkill,
-  assessmentStep: AssessmentStep,
+  poolSkill: SkillSummaryPoolSkillFragmentType,
+  assessmentStep: SkillSummaryAssessmentStepFragmentType,
   intl: IntlShape,
 ): JSX.Element | null => {
   // return early with specific message for certain combination
   if (
-    poolSkill.skill?.category === SkillCategory.Behavioural &&
-    assessmentStep.type === AssessmentStepType.ApplicationScreening
+    poolSkill.skill?.category.value === SkillCategory.Behavioural &&
+    assessmentStep.type?.value === AssessmentStepType.ApplicationScreening
   ) {
     return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
   }
@@ -169,12 +181,12 @@ const assessmentStepCell = (
 
 const requirementTypeCell = ({ poolSkill, intl }: RequirementTypeCellProps) => {
   if (!poolSkill.type) return null;
-  return poolSkill.type === PoolSkillType.Essential ? (
+  return poolSkill.type.value === PoolSkillType.Essential ? (
     <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
-      {intl.formatMessage(getPoolSkillType(poolSkill.type))}
+      {getLocalizedName(poolSkill.type.label, intl)}
     </span>
   ) : (
-    <span>{intl.formatMessage(getPoolSkillType(poolSkill.type))}</span>
+    <span>{getLocalizedName(poolSkill.type.label, intl)}</span>
   );
 };
 
@@ -212,7 +224,9 @@ const SkillSummaryTable = ({
           "Title for a column that displays the number of assessments planned for a skill.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),
+        cells.jsx(
+          plannedAssessmentCell({ id: poolSkill.id }, assessmentSteps, intl),
+        ),
       enableHiding: false,
     }),
     columnHelper.display({
@@ -228,10 +242,7 @@ const SkillSummaryTable = ({
         cells.jsx(requirementTypeCell({ poolSkill, intl })),
     }),
     columnHelper.accessor(
-      (row) =>
-        row.skill
-          ? intl.formatMessage(getSkillCategory(row.skill.category))
-          : "",
+      ({ skill }) => getLocalizedName(skill?.category.label, intl),
       {
         id: "skillCategory",
         header: intl.formatMessage({
@@ -242,7 +253,7 @@ const SkillSummaryTable = ({
         enableHiding: false,
       },
     ),
-  ] as ColumnDef<PoolSkill>[];
+  ] as ColumnDef<SkillSummaryPoolSkillFragmentType>[];
 
   let columns = initialColumns;
   // ensure array of assessments is sorted by sortOrder, if null bump to end, then add them to the core columns
@@ -252,19 +263,32 @@ const SkillSummaryTable = ({
     return aPosition > bPosition ? 1 : -1;
   });
   sortedAssessmentSteps.forEach((assessmentStep) => {
-    const headerName = assessmentStepDisplayName(assessmentStep, intl);
+    const headerName = assessmentStepDisplayName(
+      { type: assessmentStep.type, title: assessmentStep.title },
+      intl,
+    );
     const newColumn = columnHelper.display({
-      id: assessmentStep.type ?? assessmentStep.id,
+      id: assessmentStep.type?.value ?? assessmentStep.id,
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(assessmentStepCell(poolSkill, assessmentStep, intl)),
+        cells.jsx(
+          assessmentStepCell(
+            { id: poolSkill.id, skill: poolSkill.skill },
+            {
+              id: assessmentStep.id,
+              type: assessmentStep.type,
+              poolSkills: assessmentStep.poolSkills,
+            },
+            intl,
+          ),
+        ),
       enableHiding: false,
     });
     columns = [...columns, newColumn];
   });
 
   return (
-    <Table<PoolSkill>
+    <Table<SkillSummaryPoolSkillFragmentType>
       data={[...poolSkills]}
       caption={title}
       columns={columns}

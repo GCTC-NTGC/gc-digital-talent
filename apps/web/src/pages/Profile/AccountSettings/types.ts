@@ -1,14 +1,14 @@
 import { NotificationFamily } from "@gc-digital-talent/graphql";
 
-export type UpdateNotificationInput = {
+export interface UpdateNotificationInput {
   enabledEmailNotifications: NotificationFamily[];
   enabledInAppNotifications: NotificationFamily[];
-};
+}
 
 export type NotificationType = "email" | "inApp";
 
-export type FormValues = {
+export interface FormValues {
   systemMessages: NotificationType[];
   applicationUpdates: NotificationType[];
   jobAlerts: NotificationType[];
-};
+}

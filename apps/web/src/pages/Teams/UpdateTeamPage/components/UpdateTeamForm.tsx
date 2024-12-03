@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
 import kebabCase from "lodash/kebabCase";
@@ -20,6 +20,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import useReturnPath from "~/hooks/useReturnPath";
 
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
 import { TeamDepartmentOption_Fragment } from "../../operations";
@@ -48,16 +49,14 @@ export const UpdateTeamPage_TeamFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type UpdateTeamPageFragment = FragmentType<
-  typeof UpdateTeamPage_TeamFragment
->;
+type UpdateTeamPageFragment = FragmentType<typeof UpdateTeamPage_TeamFragment>;
 
-type FormValues = {
+interface FormValues {
   displayName?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   contactEmail?: Maybe<Scalars["Email"]["output"]>;
-  departments?: Array<Scalars["UUID"]["output"]>;
-};
+  departments?: Scalars["UUID"]["output"][];
+}
 
 const dataToFormValues = (data: UpdateTeamPageFragmentType): FormValues => {
   const { departments, displayName, description, ...rest } = data;
@@ -74,7 +73,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
   return {
     ...rest,
     displayName,
-    name: kebabCase(displayName?.en || ""),
+    name: displayName?.en ? kebabCase(displayName.en) : undefined,
     departments: { sync: departments },
   };
 };
@@ -101,14 +100,12 @@ const UpdateTeamForm = ({
   );
   const paths = useRoutes();
   const navigate = useNavigate();
-
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.teamTable();
+  const navigateTo = useReturnPath(paths.teamTable());
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(team.id, formValuesToSubmitData(data))
-      .then(() => {
-        navigate(navigateTo);
+      .then(async () => {
+        await navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Team updated successfully!",

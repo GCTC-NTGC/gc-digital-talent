@@ -4,8 +4,10 @@ namespace Database\Factories;
 
 use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
+use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
+use App\Enums\PoolSelectionLimitation;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
@@ -13,6 +15,8 @@ use App\Enums\SecurityStatus;
 use App\Enums\SkillLevel;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
+use App\Models\Community;
+use App\Models\Department;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
@@ -48,6 +52,7 @@ class PoolFactory extends Factory
         }
 
         $teamId = Team::inRandomOrder()
+            ->whereNull('teamable_id')
             ->limit(1)
             ->pluck('id')
             ->first();
@@ -62,12 +67,30 @@ class PoolFactory extends Factory
 
         $name = $this->faker->unique()->company();
 
+        $departmentId = Department::inRandomOrder()
+            ->limit(1)
+            ->pluck('id')
+            ->first();
+        if (is_null($departmentId)) {
+            $departmentId = Department::factory()->create()->id;
+        }
+
+        $communityId = Community::inRandomOrder()
+            ->limit(1)
+            ->pluck('id')
+            ->first();
+        if (is_null($communityId)) {
+            $communityId = Community::factory()->create()->id;
+        }
+
         // this is essentially the draft state
         return [
             'name' => ['en' => $name, 'fr' => $name],
             'user_id' => $adminUserId,
             'team_id' => $teamId,
             'classification_id' => $classification->id,
+            'department_id' => $departmentId,
+            'community_id' => $communityId,
         ];
     }
 
@@ -166,6 +189,7 @@ class PoolFactory extends Factory
             $isRemote = $this->faker->boolean();
 
             return [
+                'published_at' => null,
                 'operational_requirements' => $this->faker->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
                 'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
@@ -181,6 +205,15 @@ class PoolFactory extends Factory
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
+                'area_of_selection' => $this->faker->optional()->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
+                'selection_limitations' => function (array $attributes) {
+                    return $attributes['area_of_selection'] == PoolAreaOfSelection::EMPLOYEES->name
+                        ? $this->faker->randomElements(
+                            array_column(PoolSelectionLimitation::cases(), 'name'),
+                            $this->faker->numberBetween(0, count(PoolSelectionLimitation::cases()))
+                        )
+                        : [];
+                },
             ];
         });
     }
@@ -213,6 +246,15 @@ class PoolFactory extends Factory
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
                 'change_justification' => $this->faker->boolean(50) ? $this->faker->paragraph() : null,
+                'area_of_selection' => $this->faker->randomElement(array_column(PoolAreaOfSelection::cases(), 'name')),
+                'selection_limitations' => function (array $attributes) {
+                    return $attributes['area_of_selection'] == PoolAreaOfSelection::EMPLOYEES->name
+                        ? $this->faker->randomElements(
+                            array_column(PoolSelectionLimitation::cases(), 'name'),
+                            $this->faker->numberBetween(0, count(PoolSelectionLimitation::cases()))
+                        )
+                        : [];
+                },
             ];
         });
     }
@@ -253,7 +295,7 @@ class PoolFactory extends Factory
      */
     public function candidatesAvailableInSearch()
     {
-        return $this->state(function () {
+        return $this->published()->state(function () {
             return [
                 'publishing_group' => $this->faker->randomElement([
                     PublishingGroup::IT_JOBS->name,
@@ -309,5 +351,35 @@ class PoolFactory extends Factory
         }
 
         return $this->create($attributes);
+    }
+
+    // Add a pool bookmark attached to user
+    public function withBookmark(string $user_id)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($user_id) {
+            $pool->poolBookmarks()->attach($user_id);
+
+            return $pool;
+        });
+    }
+
+    /**
+     * Attach the users to the related pool.
+     * Creates a new user if no userIds passed in.
+     *
+     * @param  array|null  $userIds  - Id of the users to attach the role to
+     * @return void
+     */
+    public function withProcessOperators(?array $userIds = null)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($userIds) {
+            if (is_null($userIds) || count($userIds) === 0) {
+                $pool->addProcessOperators(User::factory()->create()->id);
+            } else {
+                foreach ($userIds as $userId) {
+                    $pool->addProcessOperators($userId);
+                }
+            }
+        });
     }
 }

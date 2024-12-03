@@ -16,13 +16,14 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   UpdateUserSkillRankingsInput,
-  Skill,
-  UserSkill,
   Scalars,
+  graphql,
+  UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
+  UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
@@ -32,12 +33,77 @@ import {
 } from "../operations";
 import SkillShowcaseCard from "./SkillShowcaseCard";
 
-export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
+export const UpdateSkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillShowcase_UserSkill on UserSkill {
+    id
+    whenSkillUsed
+    skillLevel
+    topSkillsRank
+    improveSkillsRank
+    skill {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
+export const UpdateSkillShowcase_SkillFragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillShowcase_Skill on Skill {
+    id
+    key
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export interface FormValues {
+  userSkills: SkillBrowserDialogFormValues[];
+}
 
 interface UpdateSkillShowcaseProps {
-  userId: Scalars["UUID"];
-  allSkills: Skill[];
-  allUserSkills: UserSkill[];
+  userId: Scalars["UUID"]["output"];
+  allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
+  allSkills: UpdateSkillShowcaseSkillFragmentType[];
   initialData: FormValues;
   maxItems: number;
   crumbs: BreadcrumbsProps["crumbs"];
@@ -61,8 +127,8 @@ interface UpdateSkillShowcaseProps {
 
 const UpdateSkillShowcase = ({
   userId,
-  allSkills,
   allUserSkills,
+  allSkills,
   initialData,
   maxItems,
   crumbs,
@@ -86,7 +152,7 @@ const UpdateSkillShowcase = ({
 
   const handleSuccess = (msg?: ReactNode) => {
     toast.success(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Successfully updated skill",
           id: "vMBiMV",
@@ -108,9 +174,10 @@ const UpdateSkillShowcase = ({
     const mutationPromise = userHasSkill
       ? // update existing userSkill
         executeUpdateMutation({
-          id: allUserSkills.find(
-            (userSkill) => userSkill.skill.id === values.skill,
-          )?.id,
+          id:
+            allUserSkills.find(
+              (userSkill) => userSkill.skill.id === values.skill,
+            )?.id ?? "",
           userSkill: {
             skillLevel: values.skillLevel,
             whenSkillUsed: values.whenSkillUsed,
@@ -126,10 +193,10 @@ const UpdateSkillShowcase = ({
           }
           throw new Error("No data returned");
         })
-      : // otherwise, create new userSkill
+      : // otherwise, create userSkill
         executeCreateMutation({
           userId,
-          skillId,
+          skillId: skillId ?? "",
           userSkill: {
             skillLevel: values.skillLevel,
             whenSkillUsed: values.whenSkillUsed,
@@ -238,7 +305,7 @@ const UpdateSkillShowcase = ({
         subtitle={pageInfo.description}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>

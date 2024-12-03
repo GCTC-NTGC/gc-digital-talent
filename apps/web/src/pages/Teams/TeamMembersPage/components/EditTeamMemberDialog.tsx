@@ -14,7 +14,10 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
+import {
+  RoleInput,
+  TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
@@ -35,6 +38,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   const { roles, fetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const initialRolesIds = user.roles.map((role) => role.id);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {
@@ -42,7 +46,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
       userDisplay: user.id,
       teamId: team.id,
       teamDisplay: team.id,
-      roles: user.roles.map((role) => role.id),
+      roles: initialRolesIds,
     },
   });
 
@@ -52,39 +56,36 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   } = methods;
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
+    const rolesToAttach = formValues.roles.filter(
+      (role) => !initialRolesIds.includes(role),
+    );
+    const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
+    const rolesToDetach = initialRolesIds.filter(
+      (role) => !formValues.roles.includes(role),
+    );
+    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
+
     await executeMutation({
-      teamRoleAssignments: {
+      updateUserRolesInput: {
         userId: formValues.userId,
-        teamId: formValues.teamId,
-        roleAssignments: {
-          attach: {
-            roles: formValues.roles,
-          },
+        roleAssignmentsInput: {
+          attach: rolesToAttachArray.length ? rolesToAttachArray : undefined,
+          detach: rolesToDetachArray.length ? rolesToDetachArray : undefined,
         },
       },
     })
       .then((res) => {
         if (!res.error) {
           setIsOpen(false);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Member roles updated successfully",
-              id: "ALIgEC",
-              description:
-                "Alert displayed to user when a team member's roles have been updated",
-            }),
-          );
+          toast.success(intl.formatMessage(adminMessages.rolesAdded));
         }
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "Ly2bBb",
-            description:
-              "Alert displayed to user when an error occurs while editing a team member's roles",
-          }),
-        );
+        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
       });
   };
 

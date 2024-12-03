@@ -14,12 +14,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $title
  * @property string $issued_by
- * @property Illuminate\Support\Carbon $awarded_date
+ * @property ?\Illuminate\Support\Carbon $awarded_date
  * @property string $awarded_to
  * @property string $awarded_scope
  * @property string $details
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class AwardExperience extends Experience
 {
@@ -35,11 +35,17 @@ class AwardExperience extends Experience
 
     /**
      * Default values for attributes
-     *
-     * @var array an array with attribute as key and default as value
      */
     protected $attributes = [
         'experience_type' => AwardExperience::class,
+    ];
+
+    protected static $hydrationFields = [
+        'title' => 'title',
+        'issued_by' => 'issuedBy',
+        'awarded_date' => 'awardedDate',
+        'awarded_to' => 'awardedTo',
+        'awarded_scope' => 'awardedScope',
     ];
 
     public function getTitle(): string

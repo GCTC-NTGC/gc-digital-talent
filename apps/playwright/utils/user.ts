@@ -1,14 +1,20 @@
 import {
-  User,
   Language,
   ProvinceOrTerritory,
   WorkRegion,
   PositionDuration,
   CitizenshipStatus,
   ArmedForcesStatus,
+  CreateUserInput,
+  User,
+  UpdateUserAsUserInput,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
-export const defaultUser: Partial<User> = {
+import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import { getRoles } from "./roles";
+
+export const defaultUser: Partial<CreateUserInput> = {
   // required
   firstName: "Playwright",
   lastName: "User",
@@ -43,10 +49,123 @@ export const Test_CreateUserMutationDocument = /* GraphQL */ `
   }
 `;
 
+export const createUser: GraphQLRequestFunc<
+  User,
+  Partial<CreateUserInput>
+> = async (ctx, user) => {
+  return ctx
+    .post(Test_CreateUserMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        user: {
+          ...defaultUser,
+          ...user,
+        },
+      },
+    })
+    .then((res: GraphQLResponse<"createUser", User>) => res.createUser);
+};
+
+const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
+    updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
+      id
+    }
+  }
+`;
+
+export const Test_UpdateUserMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateUser($id: ID!, $user: UpdateUserAsUserInput!) {
+    updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`;
+
+interface UpdateUserAsUserArgs {
+  user: Partial<UpdateUserAsUserInput>;
+  id: Scalars["ID"]["input"];
+}
+
+export const updateUser: GraphQLRequestFunc<
+  User,
+  UpdateUserAsUserArgs
+> = async (ctx, { id, user }) => {
+  return ctx
+    .post(Test_UpdateUserMutationDocument, {
+      variables: {
+        id,
+        user,
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"updateUserAsUser", User>) => res.updateUserAsUser,
+    );
+};
+
+type RoleInput = string | [string, string];
+
+interface AddRolesToUserInput {
+  userId: string;
+  roles: RoleInput[];
+  team?: string;
+}
+
+export const addRolesToUser: GraphQLRequestFunc<
+  void,
+  AddRolesToUserInput
+> = async (ctx, { userId, roles }) => {
+  const allRoles = await getRoles(ctx);
+  const roleInputArray = roles.map((role) => {
+    let roleName = role;
+    let teamId: string | undefined;
+    if (Array.isArray(role)) {
+      roleName = role[0];
+      teamId = role[1];
+    }
+    const apiRole = allRoles.find((r) => r.name === roleName);
+    if (!apiRole) return undefined;
+
+    return { roleId: apiRole.id, teamId };
+  });
+
+  await ctx.post(Test_UpdateUserRolesMutationDocument, {
+    isPrivileged: true,
+    variables: {
+      updateUserRolesInput: {
+        userId,
+        roleAssignmentsInput: {
+          attach: roleInputArray,
+        },
+      },
+    },
+  });
+};
+
+interface CreateUserWithRolesInput {
+  user?: Partial<CreateUserInput>;
+  roles: RoleInput[];
+  team?: string;
+}
+
+export const createUserWithRoles: GraphQLRequestFunc<
+  User | undefined,
+  CreateUserWithRolesInput
+> = async (ctx, { user, ...roleInput }) => {
+  if (!user) return undefined;
+  return createUser(ctx, user).then(async (u) => {
+    await addRolesToUser(ctx, { userId: u.id, ...roleInput });
+    return u;
+  });
+};
+
 export const Test_MeQueryDocument = /* GraphQL */ `
   query Test_Me {
     me {
       id
+      firstName
+      lastName
+      email
       experiences {
         id
         __typename
@@ -66,7 +185,9 @@ export const Test_MeQueryDocument = /* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+          }
           experienceSkillRecord {
             details
           }
@@ -75,8 +196,12 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+          }
+          awardedScope {
+            value
+          }
         }
         ... on CommunityExperience {
           title
@@ -91,8 +216,12 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+          }
+          status {
+            value
+          }
         }
         ... on PersonalExperience {
           title
@@ -111,3 +240,9 @@ export const Test_MeQueryDocument = /* GraphQL */ `
     }
   }
 `;
+
+export const me: GraphQLRequestFunc<User> = async (ctx) => {
+  return ctx
+    .post(Test_MeQueryDocument)
+    .then((res: GraphQLResponse<"me", User>) => res.me);
+};

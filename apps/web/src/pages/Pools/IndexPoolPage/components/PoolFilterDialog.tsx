@@ -1,39 +1,56 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 
-import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
+import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
+  FragmentType,
   PoolStatus,
   PoolStream,
   PublishingGroup,
   Scalars,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getPoolStatus,
-  getPoolStream,
-  getPublishingGroup,
-} from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 
-export type FormValues = {
+export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
   classifications: Scalars["UUID"]["output"][];
   streams: PoolStream[];
-};
+}
 
-const PoolFilterDialog_Query = graphql(/* GraphQL */ `
-  query PoolFilterDialog {
+const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment PoolFilterDialogOptions on Query {
     classifications {
       group
       level
+    }
+    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    statuses: localizedEnumStrings(enumName: "PoolStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
     }
   }
 `);
@@ -42,11 +59,13 @@ const PoolFilterDialog = ({
   onSubmit,
   resetValues,
   initialValues,
-}: CommonFilterDialogProps<FormValues>) => {
+  optionsQuery,
+}: CommonFilterDialogProps<
+  FormValues,
+  FragmentType<typeof PoolFilterDialogOptions_Fragment>
+>) => {
   const intl = useIntl();
-  const [{ data, fetching }] = useQuery({
-    query: PoolFilterDialog_Query,
-  });
+  const data = getFragment(PoolFilterDialogOptions_Fragment, optionsQuery);
 
   return (
     <FilterDialog<FormValues>
@@ -63,35 +82,25 @@ const PoolFilterDialog = ({
           name="publishingGroups"
           isMulti
           label={intl.formatMessage(adminMessages.publishingGroups)}
-          options={enumToOptions(PublishingGroup).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPublishingGroup(value)),
-          }))}
-        />{" "}
+          options={localizedEnumToOptions(data?.publishingGroups, intl)}
+        />
         <Combobox
           id="statuses"
           name="statuses"
           isMulti
           label={intl.formatMessage(commonMessages.status)}
-          options={enumToOptions(PoolStatus).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolStatus(value)),
-          }))}
+          options={localizedEnumToOptions(data?.statuses, intl)}
         />
         <Combobox
           id="streams"
           name="streams"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={enumToOptions(PoolStream).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolStream(value)),
-          }))}
-        />{" "}
+          options={localizedEnumToOptions(data?.streams, intl)}
+        />
         <Combobox
           id="classifications"
           name="classifications"
-          {...{ fetching }}
           isMulti
           label={intl.formatMessage(adminMessages.classifications)}
           options={unpackMaybes(data?.classifications).map(

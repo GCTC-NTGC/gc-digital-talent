@@ -1,10 +1,22 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  noItems: {
-    defaultMessage: "There are no items to display.",
-    id: "cIqhQK",
-    description: "Message when there is no data to display in a table",
+  noItemsTitle: {
+    defaultMessage: "There aren't any items here.",
+    id: "84XrK+",
+    description: "Default message for an empty table",
+  },
+  actions: {
+    defaultMessage: "Actions",
+    id: "nGx7Xt",
+    description: "Title displayed for actions column",
+  },
+  noRowsSelected: {
+    defaultMessage:
+      "You have not selected any items. Please select at least one item to download.",
+    id: "E/0Y+7",
+    description:
+      "Warning message when user attempts to download without selecting items first",
   },
 });
 

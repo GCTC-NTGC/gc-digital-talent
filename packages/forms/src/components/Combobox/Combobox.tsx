@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Controller, FieldError, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 import omit from "lodash/omit";
 
@@ -18,7 +18,7 @@ import {
   getMultiDefaultValue,
   getSingleDefaultValue,
 } from "./utils";
-import { BaseProps } from "./types";
+import { BaseProps, ComboboxValue } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
 import { alphaSortOptions } from "../../utils";
@@ -69,19 +69,19 @@ const Combobox = ({
     control,
     setValue,
     formState: { errors, defaultValues },
-  } = useFormContext();
+  } = useFormContext<Record<string, ComboboxValue>>();
   const baseStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
-  const error = errors[name]?.message as FieldError;
+  const isInvalid = fieldState === "invalid";
   const isRequired = !!rules?.required;
-  const defaultValue = defaultValues && defaultValues[name];
+  const defaultValue = defaultValues?.[name];
   const currentValue = watch(name);
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
-      error,
+      error: isInvalid,
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -101,12 +101,12 @@ const Combobox = ({
     inputProps,
     fetching,
     isExternalSearch,
-    total: total || options.length,
-    clearLabel: clearLabel || intl.formatMessage(formMessages.resetCombobox),
-    toggleLabel: toggleLabel || intl.formatMessage(formMessages.toggleCombobox),
+    total: total ?? options.length,
+    clearLabel: clearLabel ?? intl.formatMessage(formMessages.resetCombobox),
+    toggleLabel: toggleLabel ?? intl.formatMessage(formMessages.toggleCombobox),
   };
 
-  const isMoreThanMin = (value: string | string[]) => {
+  const isMoreThanMin = (value: ComboboxValue) => {
     if (!rules.min || !value || !isArray(value)) {
       return true;
     }
@@ -116,7 +116,7 @@ const Combobox = ({
     return value.length >= minValue || getErrorMessage(rules.min);
   };
 
-  const isLessThanMax = (value: string | string[]) => {
+  const isLessThanMax = (value: ComboboxValue) => {
     if (!rules.max || !value || !isArray(value)) {
       return true;
     }
@@ -152,7 +152,7 @@ const Combobox = ({
               onSelectedChange={(items) => {
                 setValue(
                   name,
-                  items?.map((item) => item.value),
+                  items?.map((item) => String(item.value)),
                 );
               }}
               value={getMultiDefaultValue(
@@ -165,22 +165,24 @@ const Combobox = ({
           ) : (
             <Single
               onInputChange={onSearch}
-              onSelectedChange={(item) => setValue(name, item?.value)}
+              onSelectedChange={(item) =>
+                setValue(name, item?.value ? String(item.value) : undefined)
+              }
               value={getSingleDefaultValue(
                 optionsModified,
-                defaultValue,
-                currentValue,
+                Array.isArray(defaultValue)
+                  ? defaultValue.join(", ")
+                  : defaultValue,
+                Array.isArray(currentValue)
+                  ? currentValue.join(", ")
+                  : currentValue,
               )}
               {...sharedProps}
             />
           )
         }
       />
-      <Field.Descriptions
-        ids={descriptionIds}
-        error={error}
-        context={context}
-      />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

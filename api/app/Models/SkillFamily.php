@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $key
  * @property array $name
  * @property array $description
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class SkillFamily extends Model
 {
@@ -26,14 +26,13 @@ class SkillFamily extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
     ];
 
+    /** @return BelongsToMany<Skill, $this> */
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class);

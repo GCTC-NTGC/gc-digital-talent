@@ -5,10 +5,8 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { ReactNode } from "react";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   PoolCandidate,
-  Department,
   Maybe,
   PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
@@ -25,22 +23,11 @@ import {
   isSuspendedStatus,
 } from "~/utils/poolCandidate";
 
-export const joinDepartments = (
-  departments: Maybe<Maybe<Pick<Department, "name">>[]>,
-  intl: IntlShape,
-) => {
-  return (
-    departments
-      ?.map((department) => getLocalizedName(department?.name, intl))
-      ?.join(", ") ?? ""
-  );
-};
-
-type StatusChipInfo = {
+interface StatusChipInfo {
   color: Color;
   text: ReactNode;
   icon?: IconType;
-};
+}
 
 export const getStatusChipInfo = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -80,18 +67,18 @@ export const getStatusChipInfo = (
     text,
   };
 };
-type AvailabilityInfo = {
+interface AvailabilityInfo {
   icon: IconType | null;
   color: Record<string, string>;
   text: ReactNode;
   showDialog: boolean;
-};
+}
 
 const getAvailabilityInfo = (
   { status, suspendedAt }: Application,
   intl: IntlShape,
 ): AvailabilityInfo => {
-  if (status === PoolCandidateStatus.Expired) {
+  if (status?.value === PoolCandidateStatus.Expired) {
     return {
       icon: null,
       color: {},
@@ -100,7 +87,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isPlacedStatus(status)) {
+  if (isPlacedStatus(status?.value)) {
     return {
       icon: null,
       color: {},
@@ -109,7 +96,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isSuspendedStatus(status, suspendedAt)) {
+  if (isSuspendedStatus(status?.value, suspendedAt)) {
     return {
       icon: NoSymbolIcon,
       color: {
@@ -120,7 +107,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isInactiveStatus(status)) {
+  if (isInactiveStatus(status?.value)) {
     return {
       icon: null,
       color: {},
@@ -139,14 +126,14 @@ const getAvailabilityInfo = (
   };
 };
 
-type QualifiedRecruitmentInfo = {
+interface QualifiedRecruitmentInfo {
   statusChip: StatusChipInfo;
   availability: AvailabilityInfo;
   title: {
     html: ReactNode;
     label: string;
   };
-};
+}
 
 export const getQualifiedRecruitmentInfo = (
   candidate: Application,
@@ -154,7 +141,7 @@ export const getQualifiedRecruitmentInfo = (
 ): QualifiedRecruitmentInfo => {
   return {
     statusChip: getStatusChipInfo(
-      candidate.status,
+      candidate.status?.value,
       candidate.suspendedAt,
       intl,
     ),

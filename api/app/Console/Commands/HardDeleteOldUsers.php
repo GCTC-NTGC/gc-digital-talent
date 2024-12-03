@@ -29,6 +29,7 @@ class HardDeleteOldUsers extends Command
     public function handle()
     {
         $deleteDate = Carbon::now()->subYears(5);
+        /** @var array<User> $users */
         $users = User::onlyTrashed()->whereDate('deleted_at', '<=', $deleteDate)->get();
 
         $successCount = 0;

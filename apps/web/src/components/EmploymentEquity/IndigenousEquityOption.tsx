@@ -3,8 +3,11 @@ import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { ReactNode, JSX } from "react";
 
 import { Button } from "@gc-digital-talent/ui";
-import { getIndigenousCommunity } from "@gc-digital-talent/i18n";
-import { IndigenousCommunity } from "@gc-digital-talent/graphql";
+import {
+  IndigenousCommunity,
+  LocalizedIndigenousCommunity,
+} from "@gc-digital-talent/graphql";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";
 
@@ -14,7 +17,7 @@ import { IndigenousDialogProps, IndigenousUpdateProps } from "./types";
 type EquityGroup = "indigenous";
 
 interface EquityOptionProps {
-  indigenousCommunities: Array<IndigenousCommunity>;
+  indigenousCommunities: LocalizedIndigenousCommunity[];
   signature: string | undefined;
   option: EquityGroup;
   // Note: Just defining the func signature
@@ -69,7 +72,7 @@ const EquityOption = ({
   const isAdded = indigenousCommunities.length > 0;
 
   const nonLegacyIndigenousCommunities = indigenousCommunities.filter(
-    (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+    (c) => c.value && c.value !== IndigenousCommunity.LegacyIsIndigenous,
   );
 
   return (
@@ -86,15 +89,13 @@ const EquityOption = ({
           ? nonLegacyIndigenousCommunities.map((community) => {
               return (
                 <li
-                  key={community}
+                  key={community.value}
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
                   data-h2-gap="base(0, x.25)"
                 >
-                  <CommunityIcon community={community} />
-                  <span>
-                    {intl.formatMessage(getIndigenousCommunity(community))}
-                  </span>
+                  <CommunityIcon community={community.value} />
+                  <span>{getLocalizedName(community.label, intl)}</span>
                 </li>
               );
             })

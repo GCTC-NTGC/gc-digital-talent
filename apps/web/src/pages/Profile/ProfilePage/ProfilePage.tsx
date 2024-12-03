@@ -6,20 +6,22 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import { SectionProps } from "~/components/Profile/types";
-import { PAGE_SECTION_ID } from "~/components/UserProfile/constants";
+import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+
+import pageMessages from "./messages";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
@@ -28,25 +30,46 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      currentProvince
+      preferredLang {
+        value
+      }
+      preferredLanguageForInterview {
+        value
+      }
+      preferredLanguageForExam {
+        value
+      }
+      currentProvince {
+        value
+      }
       currentCity
-
-      preferredLang
+      preferredLang {
+        value
+      }
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      firstOfficialLanguage
+      firstOfficialLanguage {
+        value
+      }
       secondLanguageExamCompleted
       secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
+      comprehensionLevel {
+        value
+      }
+      writtenLevel {
+        value
+      }
+      verbalLevel {
+        value
+      }
+      estimatedLanguageAbility {
+        value
+      }
 
       isGovEmployee
+      workEmail
+      isWorkEmailVerified
       hasPriorityEntitlement
       priorityNumber
       department {
@@ -72,30 +95,27 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       isWoman
       hasDisability
       isVisibleMinority
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
 
       hasDiploma
-      locationPreferences
+      locationPreferences {
+        value
+      }
       locationExemptions
-      acceptedOperationalRequirements
+      acceptedOperationalRequirements {
+        value
+      }
       positionDuration
     }
   }
 `);
 
-const pageTitle = defineMessage({
-  defaultMessage: "Personal information",
-  id: "g8Ur9z",
-  description: "applicant dashboard card title for profile card",
-});
+const pageTitle = defineMessage(pageMessages.pageTitle);
 
-const subTitle = defineMessage({
-  defaultMessage:
-    "View and update account information including contact and work preferences.",
-  id: "NflJW7",
-  description: "subtitle for the profile page",
-});
+const subTitle = defineMessage(pageMessages.subTitle);
 
 // export text for testing
 // should match the getProfile query from api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql
@@ -110,28 +130,103 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     firstName
     lastName
     email
+    isEmailVerified
     telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
     currentCity
-    citizenship
-    armedForcesStatus
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
     isGovEmployee
+    workEmail
+    isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
-    govEmployeeType
+    govEmployeeType {
+      value
+      label {
+        en
+        fr
+      }
+    }
     department {
       id
       departmentNumber
@@ -151,20 +246,34 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     }
     isWoman
     hasDisability
-    indigenousCommunities
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+      }
+    }
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
-    locationPreferences
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     locationExemptions
-    acceptedOperationalRequirements
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
     positionDuration
     userSkills {
       id
-      user {
-        id
-        email
-      }
       skill {
         id
         key
@@ -172,17 +281,19 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
     }
     experiences {
       # profileExperience fragment
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -199,7 +310,13 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         experienceSkillRecord {
           details
         }
@@ -208,8 +325,20 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on CommunityExperience {
         title
@@ -224,8 +353,20 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on PersonalExperience {
         title
@@ -239,141 +380,99 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         division
         startDate
         endDate
+        employmentCategory {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extSizeOfOrganization {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govPositionType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        contractorFirmAgencyName
+        cafEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafForce {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafRank {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          id
+          name {
+            en
+            fr
+          }
+          group
+          level
+          maxSalary
+          minSalary
+        }
+        department {
+          id
+          name {
+            en
+            fr
+          }
+          departmentNumber
+        }
       }
     }
     isProfileComplete
-    poolCandidates {
-      id
-      user {
-        id
-        email
-      }
-      status
-      expiryDate
-      signature
-      archivedAt
-      submittedAt
-      suspendedAt
-      pool {
-        id
-        closingDate
-        name {
-          en
-          fr
-        }
-        stream
-        classification {
-          id
-          group
-          level
-          name {
-            en
-            fr
-          }
-          genericJobTitles {
-            id
-            key
-            name {
-              en
-              fr
-            }
-          }
-          minSalary
-          maxSalary
-        }
-      }
-      educationRequirementOption
-      educationRequirementExperiences {
-        # profileExperience fragment
-        id
-        __typename
-        details
-        user {
-          id
-          email
-        }
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      screeningQuestionResponses {
-        id
-        answer
-        screeningQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
-        }
-      }
-      generalQuestionResponses {
-        id
-        answer
-        generalQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
-        }
-      }
-    }
   }
 `;
 
@@ -430,7 +529,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
         subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation data-h2-padding-top="base(x3)">
             <TableOfContents.List>

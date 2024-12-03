@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useIntl } from "react-intl";
-import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
+import { useLocation, Outlet, ScrollRestoration } from "react-router";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
@@ -18,17 +18,17 @@ import Header from "~/components/Header/Header";
 import Footer from "~/components/Footer/Footer";
 import IAPNavMenu from "~/components/NavMenu/IAPNavMenu";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
-import * as crgMessages from "~/lang/crgCompiled.json";
-import * as crkMessages from "~/lang/crkCompiled.json";
-import * as ojwMessages from "~/lang/ojwCompiled.json";
-import * as micMessages from "~/lang/micCompiled.json";
+import crgMessages from "~/lang/crgCompiled.json";
+import crkMessages from "~/lang/crkCompiled.json";
+import ojwMessages from "~/lang/ojwCompiled.json";
+import micMessages from "~/lang/micCompiled.json";
 
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";
+import ErrorBoundary from "./RouteErrorBoundary/RouteErrorBoundary";
+export { ErrorBoundary };
 
-export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
-
-const messages: Map<string, Messages> = new Map([
+const messages = new Map<string, Messages>([
   ["crg", crgMessages],
   ["crk", crkMessages],
   ["ojw", ojwMessages],

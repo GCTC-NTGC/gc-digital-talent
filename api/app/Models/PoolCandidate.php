@@ -2,12 +2,23 @@
 
 namespace App\Models;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentResultType;
+use App\Enums\AssessmentStepType;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
+use App\Enums\FinalDecision;
+use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolSkillType;
+use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
-use App\Http\Resources\UserResource;
+use App\Enums\SkillCategory;
 use App\Observers\PoolCandidateObserver;
+use App\ValueObjects\ProfileSnapshot;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,8 +28,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -27,30 +40,34 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class PoolCandidate
  *
  * @property string $id
- * @property Illuminate\Support\Carbon $expiry_date
- * @property Illuminate\Support\Carbon $archived_at
- * @property Illuminate\Support\Carbon $submitted_at
- * @property string $signature
- * @property string $pool_candidate_status
- * @property int $status_weight
+ * @property ?\Illuminate\Support\Carbon $expiry_date
+ * @property ?\Illuminate\Support\Carbon $archived_at
+ * @property ?\Illuminate\Support\Carbon $submitted_at
+ * @property ?string $signature
+ * @property ?string $pool_candidate_status
+ * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property Illuminate\Support\Carbon $suspended_at
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $suspended_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
- * @property string $education_requirement_option
- * @property bool $is_bookmarked
- * @property Illuminate\Support\Carbon $placed_at
- * @property string $placed_department_id
- * @property Illuminate\Support\Carbon $final_decision_at
- * @property Illuminate\Support\Carbon $removed_at
- * @property string $removal_reason
- * @property string $removal_reason_other
- * @property string $veteran_verification
- * @property Illuminate\Support\Carbon $veteran_verification_expiry
- * @property string $priority_verification
- * @property Illuminate\Support\Carbon $priority_verification_expiry
+ * @property ?string $education_requirement_option
+ * @property ?bool $is_bookmarked
+ * @property ?\Illuminate\Support\Carbon $placed_at
+ * @property ?string $placed_department_id
+ * @property ?\Illuminate\Support\Carbon $final_decision_at
+ * @property ?\Illuminate\Support\Carbon $removed_at
+ * @property ?string $removal_reason
+ * @property ?string $removal_reason_other
+ * @property ?string $veteran_verification
+ * @property ?\Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property ?string $priority_verification
+ * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
+ * @property array $computed_assessment_status
+ * @property ?int $computed_final_decision_weight
+ * @property ?string $computed_final_decision
+ * @property array<string, mixed> $profile_snapshot
  */
 class PoolCandidate extends Model
 {
@@ -62,15 +79,13 @@ class PoolCandidate extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'expiry_date' => 'date',
         'archived_at' => 'datetime',
         'submitted_at' => 'datetime',
         'suspended_at' => 'datetime',
-        'profile_snapshot' => 'json',
+        'profile_snapshot' => ProfileSnapshot::class,
         'submitted_steps' => 'array',
         'is_bookmarked' => 'boolean',
         'placed_at' => 'datetime',
@@ -78,12 +93,11 @@ class PoolCandidate extends Model
         'removed_at' => 'datetime',
         'veteran_verification_expiry' => 'date',
         'priority_verification_expiry' => 'date',
+        'computed_assessment_status' => 'array',
     ];
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'archived_at',
@@ -101,14 +115,13 @@ class PoolCandidate extends Model
         'veteran_verification_expiry',
         'priority_verification',
         'priority_verification_expiry',
+        'is_bookmarked',
     ];
 
     protected $touches = ['user'];
 
     /**
      * The model's default values for attributes.
-     *
-     * @var array
      */
     protected $attributes = [
         'is_bookmarked' => false,
@@ -132,7 +145,6 @@ class PoolCandidate extends Model
             if ($model->user()->exists() && $model->isDirty('notes')) {
                 $model->user()->searchable();
             }
-
         });
     }
 
@@ -144,36 +156,42 @@ class PoolCandidate extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class)->select(Pool::getSelectableColumns())->withTrashed();
     }
 
+    /** @return BelongsTo<Department, $this> */
     public function placedDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return HasMany<GeneralQuestionResponse, $this> */
     public function generalQuestionResponses(): HasMany
     {
-        return $this->hasMany(GeneralQuestionResponse::class)->select(['id',
+        return $this->hasMany(GeneralQuestionResponse::class)->select([
+            'id',
             'pool_candidate_id',
             'general_question_id',
             'answer',
         ]);
     }
 
+    /** @return HasMany<ScreeningQuestionResponse, $this> */
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
-    // education_requirement_option fulfilled by what experience models
+    /** @return BelongsToMany<AwardExperience, $this> */
     public function educationRequirementAwardExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -185,6 +203,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<CommunityExperience, $this> */
     public function educationRequirementCommunityExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -196,6 +215,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<EducationExperience, $this> */
     public function educationRequirementEducationExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -207,6 +227,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<PersonalExperience, $this> */
     public function educationRequirementPersonalExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -218,6 +239,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<WorkExperience, $this> */
     public function educationRequirementWorkExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -229,11 +251,13 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return HasMany<AssessmentResult, $this> */
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);
     }
 
+    /** @return BelongsToMany<Experience, $this> */
     public function educationRequirementExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -243,6 +267,31 @@ class PoolCandidate extends Model
             'experience_id'
         )
             ->withTimestamps();
+    }
+
+    public function getCategoryAttribute()
+    {
+        $category = PriorityWeight::OTHER;
+
+        $this->loadMissing(['user' => [
+            'citizenship',
+            'priority_weight',
+            'armed_forces_status',
+        ]]);
+
+        if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::PRIORITY_ENTITLEMENT;
+        } elseif ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
+            $category = PriorityWeight::VETERAN;
+        } elseif ($this->user->citizenship === CitizenshipStatus::CITIZEN->name || $this->user->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name) {
+            $category = PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT;
+        }
+
+        return [
+            'weight' => $category->weight($category->name),
+            'value' => $category->name,
+            'label' => PriorityWeight::localizedString($category->name),
+        ];
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
@@ -268,6 +317,22 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
+     */
+    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    {
+        if (empty($communityId)) {
+            return $query;
+        }
+
+        $query->whereHas('pool', function ($query) use ($communityId) {
+            $query->where('community_id', $communityId);
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -280,7 +345,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('pool', function ($query) use ($classifications) {
-            Pool::scopeClassifications($query, $classifications);
+            $query->whereClassifications($classifications);
         });
 
         return $query;
@@ -324,7 +389,7 @@ class PoolCandidate extends Model
         }
 
         $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
-            $query->whereIn('publishing_group', $publishingGroups);
+            $query->publishingGroups($publishingGroups);
         });
 
         return $query;
@@ -555,89 +620,6 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    /* accessor to obtain pool candidate status, additional logic exists to override database field sometimes*/
-    // pool_candidate_status database value passed into accessor as an argument
-    public function getPoolCandidateStatusAttribute($candidateStatus)
-    {
-        // pull info
-        $submittedAt = $this->submitted_at;
-        $expiryDate = $this->expiry_date;
-        $currentTime = date('Y-m-d H:i:s');
-        $isExpired = $currentTime > $expiryDate ? true : false;
-
-        // // ensure null submitted_at returns either draft or expired draft
-        // if ($submittedAt == null){
-        //     if($isExpired) {
-        //         return ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED;
-        //     }
-        //     return ApiEnums::CANDIDATE_STATUS_DRAFT;
-        // }
-
-        // // ensure expired returned if past expiry date with exception for PLACED
-        // if ($candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_TERM && $candidateStatus != ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE) {
-        //     if ($isExpired) {
-        //         return ApiEnums::CANDIDATE_STATUS_EXPIRED;
-        //     }
-        //     return $candidateStatus;
-        // }
-
-        // no overriding
-        return $candidateStatus;
-    }
-
-    public function createSnapshot()
-    {
-        if ($this->profile_snapshot) {
-            return null;
-        }
-
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'awardExperiences',
-            'awardExperiences.skills',
-            'awardExperiences.user',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'communityExperiences.user',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'educationExperiences.user',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'personalExperiences.user',
-            'workExperiences',
-            'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-        ])->findOrFail($this->user_id);
-        $profile = new UserResource($user);
-
-        // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with([
-            'poolSkills',
-            'classification',
-        ])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
-
-        $profile = new UserResource($user);
-        $profile = $profile->poolSkillIds($poolSkillIds);
-
-        $this->profile_snapshot = $profile;
-        $this->save();
-    }
-
     public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
     {
         if (empty($priorityWeights)) {
@@ -652,9 +634,54 @@ class PoolCandidate extends Model
                     foreach ($priorityWeights as $index => $priorityWeight) {
                         if ($index === 0) {
                             // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                            $query->where('priority_weight', $priorityWeight);
+                            $query->where('priority_weight', PriorityWeight::weight($priorityWeight));
                         } else {
-                            $query->orWhere('priority_weight', $priorityWeight);
+                            $query->orWhere('priority_weight', PriorityWeight::weight($priorityWeight));
+                        }
+                    }
+                });
+        });
+
+        return $query;
+    }
+
+    public function scopeCandidateCategory(Builder $query, ?array $priorityWeights): Builder
+    {
+        if (empty($priorityWeights)) {
+            return $query;
+        }
+
+        $query->whereExists(function ($query) use ($priorityWeights) {
+            $query->selectRaw('null')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($priorityWeights) {
+                    foreach ($priorityWeights as $priorityWeight) {
+                        switch ($priorityWeight) {
+                            case PriorityWeight::PRIORITY_ENTITLEMENT->name:
+                                $query->orWhereIn(
+                                    'priority_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::VETERAN->name:
+                                $query->orWhereIn(
+                                    'veteran_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
+                                $query->orWhereIn(
+                                    'citizenship',
+                                    [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
+                                );
+                                break;
+
+                            case PriorityWeight::OTHER->name:
+                                $query->orWhere('citizenship', CitizenshipStatus::OTHER->name);
+                                break;
                         }
                     }
                 });
@@ -724,39 +751,57 @@ class PoolCandidate extends Model
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
 
-        if (! $user) {
-            return $query->where('id', null);
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
         }
 
-        if (! $user->isAbleTo('view-any-application')) {
-            $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-any-submittedApplication')) {
-                    $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
-                }
+        $now = Carbon::now()->toDateTimeString();
 
-                if ($user->isAbleTo('view-team-submittedApplication')) {
-                    $teamIds = $user->rolesTeams()->get()->pluck('id');
-                    $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query
-                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                return $query->whereIn('id', $teamIds);
+        // we might want to add some filters for some candidates
+        $filterCountBefore = count($query->getQuery()->wheres);
+        $query->where(function (Builder $query) use ($user, $now) {
+            if ($user?->isAbleTo('view-any-submittedApplication')) {
+                $query->orWhere('submitted_at', '<=', $now);
+            }
+
+            if ($user?->isAbleTo('view-team-submittedApplication')) {
+                $allTeam = $user->rolesTeams()->get();
+                $teamIds = $allTeam->filter(function ($team) use ($user) {
+                    return $user->isAbleTo('view-team-submittedApplication', $team);
+                })->pluck('id');
+
+                $query->orWhere(function (Builder $query) use ($teamIds, $now) {
+                    $query->where('submitted_at', '<=', $now)
+                        ->whereHas('pool', function (Builder $query) use ($teamIds) {
+                            return $query->where(function (Builder $query) use ($teamIds) {
+                                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
                             });
-                    });
-                }
+                        });
+                });
+            }
 
-                if ($user->isAbleTo('view-own-application')) {
-                    $query->orWhere('user_id', $user->id);
-                }
-            });
+            if ($user?->isAbleTo('view-own-application')) {
+                $query->orWhere('user_id', $user->id);
+            }
+        });
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
         }
 
-        return $query;
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     /**
@@ -815,70 +860,371 @@ class PoolCandidate extends Model
     {
         extract($args);
 
-        if ($order && $locale) {
+        if (isset($order) && isset($locale)) {
             $query = $query->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
         }
 
         return $query;
-
     }
 
-    public function setApplicationSnapshot()
+    public function scopeOrderByClaimVerification(Builder $query, ?array $args)
     {
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'userSkills.skill',
-            'awardExperiences',
-            'awardExperiences.skills',
-            'awardExperiences.user',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'communityExperiences.user',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'educationExperiences.user',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'personalExperiences.user',
-            'workExperiences',
-            'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.pool.classification.genericJobTitles',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementAwardExperiences.user',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.user',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.user',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.user',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.user',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-            'poolCandidates.user',
-        ])->findOrFail($this->user_id);
 
-        // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with(['poolSkills'])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
+        if (isset($args['order'])) {
 
-        // filter out any non-applicable PoolCandidate models attached to User
-        $poolCandidateCollection = $user->poolCandidates;
-        $filteredPoolCandidateCollection = $poolCandidateCollection->filter(function ($individualPoolCandidate) {
-            return $individualPoolCandidate->id === $this->id;
+            $orderWithoutDirection = <<<'SQL'
+                CASE
+                    WHEN
+                        (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
+                    THEN
+                        40
+                    WHEN
+                        (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
+                        AND
+                        (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                    THEN
+                        30
+                    WHEN
+                        (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
+                        AND
+                        (
+                            (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                            OR
+                            (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                        )
+                    THEN
+                        20
+                    ELSE
+                        10
+                    END
+            SQL;
+
+            $query
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select('users.citizenship', 'pool_candidates.*');
+
+            if (isset($args['useBookmark']) && $args['useBookmark']) {
+                $query->orderBy('is_bookmarked', 'DESC');
+            }
+
+            $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
+
+            $query->orderByRaw($order)->orderBy('submitted_at', 'ASC');
+        }
+
+        return $query;
+    }
+
+    public function setApplicationSnapshot(bool $save = true)
+    {
+        $this->profile_snapshot = ['userId' => $this->user_id, 'poolId' => $this->pool_id];
+
+        if ($save) {
+            $this->save();
+        }
+    }
+
+    /**
+     * Determines a candidates current assessment status
+     * based on the following logic:
+     *
+     *   foreach step in pool->assessmentSteps
+     *       foreach skill in assessmentStep->skills:
+     *           result = find matching assessment result
+     *           if skill is essential:
+     *               if result is UNSUCCESSFUL, THEN mark UNSUCCESSFUL and exit loop
+     *               if result is HOLD THEN mark HOLD and continue loop (to look for failures)
+     *               if result is null or undecided, THEN mark TO ASSESS and continue loop (to look for failures)
+     *           else if skill is asset:
+     *               if skill is Technical AND user did not claim skill, THEN skip and continue loop
+     *               else if null or undecided THEN mark TO ASSESS and continue loop (to look for essential failures)
+     *               else mark nothing and continue, since the result doesn't actually matter
+     *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
+     *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
+     */
+    public function computeAssessmentStatus()
+    {
+        $decisions = [];
+        $currentStep = 1;
+        $this->load([
+            'pool.assessmentSteps',
+            'pool.assessmentSteps.poolSkills',
+            'pool.assessmentSteps.poolSkills.skill',
+            'assessmentResults',
+            'assessmentResults.poolSkill',
+            'user.userSkills',
+        ]);
+
+        foreach ($this->pool->assessmentSteps as $step) {
+            $stepId = $step->id;
+            $hasFailure = false;
+            $hasOnHold = false;
+            $hasToAssess = false;
+
+            $isApplicationScreening = $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
+            $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
+
+            foreach ($step->poolSkills as $poolSkill) {
+                $result = $stepResults->firstWhere('pool_skill_id', $poolSkill->id);
+                $decision = $result?->assessment_decision;
+
+                if ($poolSkill->type === PoolSkillType::ESSENTIAL->name) {
+                    if (! $result || is_null($result->assessment_decision)) {
+                        $hasToAssess = true;
+
+                        continue;
+                    }
+
+                    // UNSUCCESSFUL on essential skills always takes precedence over other statuses, so we can exit the loop right away.
+                    if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
+                        $hasFailure = true;
+                        break;
+                    }
+
+                    if ($decision === AssessmentDecision::HOLD->name) {
+                        $hasOnHold = true;
+
+                        continue;
+                    }
+                } else { // $poolSkill is an ASSET skill
+
+                    // We do not need to evaluate non-essential technical skills that are not on
+                    // the users snapshot, so skip the result check
+                    if ($poolSkill->skill->category === SkillCategory::TECHNICAL->name) {
+                        $isClaimed = false;
+                        $snapshot = $this->profile_snapshot;
+
+                        if ($snapshot) {
+                            $experiences = collect($snapshot['experiences']);
+
+                            $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
+                                foreach ($experience['skills'] as $skill) {
+                                    if ($skill['id'] === $poolSkill->skill_id) {
+                                        return true;
+                                    }
+                                }
+
+                                return false;
+                            });
+                        }
+
+                        if (! $isClaimed) {
+                            continue;
+                        }
+                    }
+
+                    if (! $result || is_null($result->assessment_decision)) {
+                        $hasToAssess = true;
+
+                        continue;
+                    }
+                }
+            }
+
+            if ($isApplicationScreening) {
+                $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
+
+                // automatically to assess if education results null or empty
+                if (! isset($educationResults) || count($educationResults) == 0) {
+                    $hasToAssess = true;
+                }
+
+                foreach ($educationResults as $result) {
+                    if (! $result || is_null($result->assessment_decision)) {
+                        $hasToAssess = true;
+
+                        continue;
+                    }
+
+                    $decision = $result->assessment_decision;
+
+                    if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
+                        $hasFailure = true;
+                        break;
+                    }
+
+                    if ($decision === AssessmentDecision::HOLD->name) {
+                        $hasOnHold = true;
+
+                        continue;
+                    }
+                }
+            }
+
+            // We have results and essential skills exist so,
+            // loop through them to determine success
+
+            if ($hasFailure) {
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                ];
+
+                continue;
+            }
+
+            if ($hasToAssess) {
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => null,
+                ];
+
+                continue;
+            }
+
+            // Candidate has been assessed and was not unsuccessful so continue to next step
+
+            $previousStepsNotPassed = Arr::where($decisions, function ($decision) {
+                return is_null($decision['decision']) ||
+                    $decision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
+            });
+
+            if (! $previousStepsNotPassed) {
+                $currentStep++;
+            }
+
+            if ($hasOnHold) {
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => AssessmentDecision::HOLD->name,
+                ];
+
+                continue;
+            }
+
+            $decisions[] = [
+                'step' => $stepId,
+                'decision' => AssessmentDecision::SUCCESSFUL->name,
+            ];
+        }
+
+        $totalSteps = $this->pool->assessmentSteps->count();
+        $overallAssessmentStatus = OverallAssessmentStatus::TO_ASSESS->name;
+
+        if ($currentStep >= $totalSteps) {
+            $lastStepDecision = end($decisions);
+            if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
+                $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
+                $currentStep = null;
+            }
+        } else {
+            $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
+                return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
+            });
+            if (! empty($unsuccessfulDecisions)) {
+                $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
+            }
+        }
+
+        // While unlikely, current step could go over.
+        // So, set it back to total steps
+        if ($currentStep > $totalSteps) {
+            $currentStep = $totalSteps;
+        }
+
+        return [
+            'currentStep' => $currentStep,
+            'overallAssessmentStatus' => $overallAssessmentStatus,
+            'assessmentStepStatuses' => $decisions,
+        ];
+    }
+
+    public function scopeProcessNumber(Builder $query, ?string $processNumber): Builder
+    {
+        // Early return if no process number was supplied
+        if (empty($processNumber)) {
+            return $query;
+        }
+
+        $query = $query->whereHas('pool', function ($query) use ($processNumber) {
+            $query->processNumber($processNumber);
         });
-        $user->poolCandidates = $filteredPoolCandidateCollection;
 
-        $profile = new UserResource($user);
-        $profile = $profile->poolSkillIds($poolSkillIds);
+        return $query;
+    }
 
-        $this->profile_snapshot = $profile;
+    public function computeFinalDecision()
+    {
+        $this->load(['user']);
+
+        $status = $this->pool_candidate_status;
+        $decision = null;
+
+        if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
+            $assessmentStatus = $this->computed_assessment_status;
+            $overallStatus = null;
+            if (isset($assessmentStatus['overallAssessmentStatus'])) {
+                $overallStatus = $assessmentStatus['overallAssessmentStatus'];
+            }
+
+            $decision = match ($overallStatus) {
+                OverallAssessmentStatus::QUALIFIED->name => FinalDecision::QUALIFIED_PENDING->name,
+                OverallAssessmentStatus::DISQUALIFIED->name => FinalDecision::DISQUALIFIED_PENDING->name,
+                default => FinalDecision::TO_ASSESS->name
+            };
+        } else {
+
+            $decision = match ($status) {
+
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name => FinalDecision::DISQUALIFIED->name,
+
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => FinalDecision::QUALIFIED->name,
+
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                PoolCandidateStatus::PLACED_TERM->name => FinalDecision::QUALIFIED_PLACED->name,
+
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => FinalDecision::TO_ASSESS_REMOVED->name,
+
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name => FinalDecision::QUALIFIED_REMOVED->name,
+
+                PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name,
+                PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
+
+                default => null
+            };
+        }
+
+        $weight = match ($decision) {
+            FinalDecision::QUALIFIED->name => 10,
+            FinalDecision::QUALIFIED_PENDING->name => 20,
+            FinalDecision::QUALIFIED_PLACED->name => 30,
+            FinalDecision::TO_ASSESS->name => 40,
+            // Set aside some values for assessment steps
+            // Giving a decent buffer to increase max steps
+            FinalDecision::DISQUALIFIED_PENDING->name => 200,
+            FinalDecision::DISQUALIFIED->name => 210,
+            FinalDecision::QUALIFIED_REMOVED->name => 220,
+            FinalDecision::TO_ASSESS_REMOVED->name => 230,
+            FinalDecision::REMOVED->name => 240,
+            FinalDecision::QUALIFIED_EXPIRED->name => 250,
+            default => $this->unMatchedDecision($decision)
+        };
+
+        $assessmentStatus = $this->computed_assessment_status;
+        $currentStep = null;
+        if (isset($assessmentStatus)) {
+            $currentStep = $assessmentStatus['currentStep'];
+        }
+
+        if ($decision === FinalDecision::TO_ASSESS->name && $currentStep) {
+            $weight = $weight + $currentStep * 10;
+        }
+
+        return [
+            'decision' => $decision,
+            'weight' => $weight,
+        ];
+    }
+
+    private function unMatchedDecision(?string $decison)
+    {
+        Log::error(sprintf('No match for decision %s', $decison));
+
+        return null;
     }
 }

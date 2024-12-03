@@ -5,7 +5,11 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { fakeUsers, fakePools } from "@gc-digital-talent/fake-data";
+import {
+  fakeUsers,
+  fakePools,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { Pool, PoolLanguage, User } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements, {
@@ -29,15 +33,15 @@ const bilingualApplicant: User = {
 const fakePool = fakePools(1)[0];
 const unilingualPool: Pool = {
   ...fakePool,
-  language: PoolLanguage.English,
+  language: toLocalizedEnum(PoolLanguage.English),
 };
 const bilingualIntermediatePool: Pool = {
   ...fakePool,
-  language: PoolLanguage.BilingualIntermediate,
+  language: toLocalizedEnum(PoolLanguage.BilingualIntermediate),
 };
 const bilingualAdvancedPool: Pool = {
   ...fakePool,
-  language: PoolLanguage.BilingualAdvanced,
+  language: toLocalizedEnum(PoolLanguage.BilingualAdvanced),
 };
 
 const errorMessage = /there is a missing language requirement/i;

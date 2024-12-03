@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
@@ -68,8 +68,8 @@ const DeletePool_Mutation = graphql(/* GraphQL */ `
 `);
 
 const DuplicatePool_Mutation = graphql(/* GraphQL */ `
-  mutation DuplicatePool($id: ID!, $teamId: ID!) {
-    duplicatePool(id: $id, teamId: $teamId) {
+  mutation DuplicatePool($id: ID!, $teamId: ID!, $pool: DuplicatePoolInput!) {
+    duplicatePool(id: $id, teamId: $teamId, pool: $pool) {
       id
     }
   }
@@ -124,7 +124,8 @@ const usePoolMutations = (returnPath?: string) => {
   const paths = useRoutes();
   const navigate = useNavigate();
 
-  const navigateBack = () => navigate(returnPath ?? paths.poolTable());
+  const navigateBack = async () =>
+    await navigate(returnPath ?? paths.poolTable());
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
     useMutation(UpdatePool_Mutation);
@@ -143,7 +144,7 @@ const usePoolMutations = (returnPath?: string) => {
       }),
     );
 
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const update = async (id: string, pool: UpdatePoolInput) => {
@@ -205,7 +206,7 @@ const usePoolMutations = (returnPath?: string) => {
             }),
           );
         } else {
-          handleUpdateError();
+          void handleUpdateError();
         }
       })
       .catch(handleUpdateError);
@@ -227,9 +228,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const publish = async (id: string) => {
     await executePublishMutation({ id })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.publishPool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process published successfully!",
@@ -258,11 +259,11 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const close = (id: string, reason: string) => {
-    executeCloseMutation({ id, reason })
-      .then((result) => {
+  const close = async (id: string, reason: string) => {
+    await executeCloseMutation({ id, reason })
+      .then(async (result) => {
         if (result.data?.closePool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process closed successfully!",
@@ -293,9 +294,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const deletePool = async (id: string) => {
     await executeDeleteMutation({ id })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.deletePool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process deleted successfully!",
@@ -326,9 +327,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const archivePool = async (id: string) => {
     await executeArchiveMutation({ id })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.archivePool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process archived successfully!",
@@ -358,9 +359,13 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const duplicatePool = async (id: string, teamId: string) => {
-    await executeDuplicateMutation({ id, teamId })
-      .then((result) => {
+  const duplicatePool = async (
+    id: string,
+    teamId: string,
+    departmentId: string | undefined,
+  ) => {
+    await executeDuplicateMutation({ id, teamId, pool: { departmentId } })
+      .then(async (result) => {
         if (result.data?.duplicatePool?.id) {
           toast.success(
             intl.formatMessage({
@@ -369,7 +374,7 @@ const usePoolMutations = (returnPath?: string) => {
               description: "Message displayed to user after pool is duplicated",
             }),
           );
-          navigate(paths.poolUpdate(result.data.duplicatePool.id));
+          await navigate(paths.poolUpdate(result.data.duplicatePool.id));
         } else {
           handleDuplicateError();
         }

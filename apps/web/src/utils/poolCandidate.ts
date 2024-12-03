@@ -9,33 +9,22 @@ import { isPast } from "date-fns/isPast";
 import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
 
-import {
-  formatDate,
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
-import {
-  commonMessages,
-  getPoolCandidateStatus,
-} from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
-  AssessmentDecision,
-  AssessmentResult,
-  AssessmentResultType,
-  AssessmentStep,
-  AssessmentStepType,
-  PoolCandidate,
-  PoolSkillType,
   Maybe,
+  PoolCandidate,
   PoolCandidateStatus,
   PublishingGroup,
+  OverallAssessmentStatus,
+  AssessmentResultStatus,
+  ClaimVerificationResult,
+  CitizenshipStatus,
+  AssessmentStep,
+  FinalDecision,
+  LocalizedFinalDecision,
 } from "@gc-digital-talent/graphql";
-import {
-  getOrThrowError,
-  notEmpty,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
@@ -51,7 +40,7 @@ import {
 } from "~/constants/poolCandidate";
 
 import { isOngoingPublishingGroup } from "./poolUtils";
-import { NO_DECISION, NullableDecision } from "./assessmentResults";
+import { NullableDecision } from "./assessmentResults";
 
 export const isDisqualifiedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -122,18 +111,6 @@ export const isExpired = (
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
 };
 
-export const formatClosingDate = (
-  closingDate: Maybe<string>,
-  intl: IntlShape,
-): string => {
-  return closingDate
-    ? relativeClosingDate({
-        closingDate: parseDateTimeUtc(closingDate),
-        intl,
-      })
-    : "";
-};
-
 export const formatSubmittedAt = (
   submittedAt: Maybe<string>,
   intl: IntlShape,
@@ -147,320 +124,34 @@ export const formatSubmittedAt = (
     : "";
 };
 
-export const getResultsDecision = (
-  step: AssessmentStep,
-  results?: AssessmentResult[],
-): NullableDecision => {
-  if (!results) return NO_DECISION;
-  let hasFailure: boolean = false;
-  let hasOnHold: boolean = false;
-  let hasToAssess: boolean = false;
-
-  const stepResults = results.filter((result) => {
-    return result.assessmentStep?.id === step.id;
-  });
-
-  if (stepResults.length === 0) {
-    hasToAssess = true;
-  }
-
-  const requiredSkillAssessments = step.poolSkills?.filter(
-    (poolSkill) => poolSkill?.type === PoolSkillType.Essential,
-  );
-
-  requiredSkillAssessments?.forEach((skillAssessment) => {
-    const assessmentResults = stepResults.filter((result) => {
-      return result.poolSkill?.id === skillAssessment?.id;
-    });
-
-    if (assessmentResults.length === 0) {
-      hasToAssess = true;
-      return;
-    }
-
-    assessmentResults.forEach((assessmentResult) => {
-      switch (assessmentResult.assessmentDecision) {
-        case null:
-        case undefined:
-          hasToAssess = true;
-          break;
-        case AssessmentDecision.Hold:
-          hasOnHold = true;
-          break;
-        case AssessmentDecision.Unsuccessful:
-          hasFailure = true;
-          break;
-        default:
-      }
-    });
-  });
-
-  // Check for Education requirement if this is an ApplicationScreening step
-  if (step.type === AssessmentStepType.ApplicationScreening) {
-    const educationResults = stepResults.filter(
-      (result) =>
-        result.assessmentResultType === AssessmentResultType.Education,
-    );
-    if (educationResults.length === 0) {
-      hasToAssess = true;
-    }
-    educationResults.forEach((result) => {
-      // Any "to assess" should be marked
-      if (result.assessmentDecision === null) {
-        hasToAssess = true;
-      }
-      switch (result.assessmentDecision) {
-        case null:
-          hasToAssess = true;
-          break;
-        case AssessmentDecision.Hold:
-          hasOnHold = true;
-          break;
-        case AssessmentDecision.Unsuccessful:
-          hasFailure = true;
-          break;
-        default:
-      }
-    });
-  }
-
-  if (hasFailure) {
-    return AssessmentDecision.Unsuccessful;
-  }
-  if (hasToAssess) {
-    return NO_DECISION;
-  }
-  if (hasOnHold) {
-    return AssessmentDecision.Hold;
-  }
-
-  return AssessmentDecision.Successful;
-};
-
 export type ResultDecisionCounts = Record<NullableDecision, number>;
-export type PoolCandidateId = string;
-export type AssessmentStepId = string;
 
-export const sumDecisionTypes = (results: NullableDecision[]) => {
-  const stepAccumulation: ResultDecisionCounts = {
-    [NO_DECISION]: 0,
-    [AssessmentDecision.Hold]: 0,
-    [AssessmentDecision.Successful]: 0,
-    [AssessmentDecision.Unsuccessful]: 0,
-  };
-
-  return results.reduce((accumulator: ResultDecisionCounts, result) => {
-    return {
-      ...accumulator,
-      [result]: accumulator[result] + 1,
-    };
-  }, stepAccumulation);
-};
-
-/**
- *
- * @param poolCandidates assessmentResults must be loaded and part of the candidate object.
- * @param steps
- * @returns
- */
-export const determineCandidateStatusPerStep = (
-  poolCandidates: PoolCandidate[],
-  steps: AssessmentStep[],
-): Map<PoolCandidateId, Map<AssessmentStepId, NullableDecision>> => {
-  return poolCandidates.reduce((candidateToResults, candidate) => {
-    const assessmentToResult = steps.reduce((map, step) => {
-      return map.set(
-        step.id,
-        getResultsDecision(step, unpackMaybes(candidate.assessmentResults)),
-      );
-    }, new Map<AssessmentStepId, NullableDecision>());
-    candidateToResults.set(candidate.id, assessmentToResult);
-    return candidateToResults;
-  }, new Map<PoolCandidateId, Map<AssessmentStepId, NullableDecision>>());
-};
-
+// too generic to narrow
 export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
   sortBy(assessmentSteps, (step) => step.sortOrder);
 
-export const getDecisionCountForEachStep = (
-  assessmentSteps: AssessmentStep[],
-  candidateToResults: Map<
-    PoolCandidateId,
-    Map<AssessmentStepId, NullableDecision>
-  >,
-  candidateToCurrentStep: Map<PoolCandidateId, number | null>,
-): Map<AssessmentStepId, ResultDecisionCounts> => {
-  const orderedSteps = getOrderedSteps(assessmentSteps);
-  const decisionCountMap = new Map<AssessmentStepId, ResultDecisionCounts>();
-  for (let index = 0; index < orderedSteps.length; index += 1) {
-    const stepId = orderedSteps[index].id;
-    const poolCandidateIds = Array.from(candidateToCurrentStep.keys());
-    const decisionsForCurrentStep = poolCandidateIds
-      .filter((candidateId) => {
-        // A candidate's result should be counted for its previous steps, current step and any later steps in which they are already assessed
-        // A null step indicates the candidate has successfully passed all assessment steps and should be counted in all of them
-        const candidateStep = candidateToCurrentStep.get(candidateId) ?? null;
-        return (
-          candidateStep === null ||
-          candidateStep >= index ||
-          candidateToResults.get(candidateId)?.get(stepId) !== NO_DECISION
-        );
-      })
-      // For all the filtered-in candidates, get their result for this step and put them together in an array.
-      .reduce(
-        (decisions: Array<NullableDecision | undefined>, candidateId) => [
-          ...decisions,
-          candidateToResults.get(candidateId)?.get(stepId),
-        ],
-        [],
-      )
-      .filter(notEmpty);
-    decisionCountMap.set(stepId, sumDecisionTypes(decisionsForCurrentStep));
-  }
-  return decisionCountMap;
-};
-
-/**
- * Returns the "current step" a candidate should appear at in the assessment tracker.
- * A candidate should appear in all columns less than or equal to its current step.
- * A value of null means that a candidate has passed all steps.
- * @param assessmentToResult
- * @param assessmentOrdering
- * @returns
- */
-const determineCurrentStep = (
-  assessmentToResult: Map<AssessmentStepId, NullableDecision>,
-  assessmentOrdering: string[],
-): number | null => {
-  for (let index = 0; index < assessmentOrdering.length; index += 1) {
-    const assessmentStepId = assessmentOrdering[index];
-    const result = assessmentToResult.get(assessmentStepId);
-    if (result === AssessmentDecision.Unsuccessful || result === NO_DECISION) {
-      return index;
-    }
-    // A candidate can be qualified with some Hold decisions, as long as they are followed by a Successful decision.
-    // That means that if the final step is Hold, we treat it more like NO_DECISION.
-    if (
-      index === assessmentOrdering.length - 1 &&
-      result === AssessmentDecision.Hold
-    ) {
-      return index;
-    }
-  }
-  return null;
-};
-
-export const determineCurrentStepPerCandidate = (
-  candidateToResults: Map<
-    PoolCandidateId,
-    Map<AssessmentStepId, NullableDecision>
-  >,
-  assessmentSteps: AssessmentStep[],
-): Map<PoolCandidateId, number | null> => {
-  const orderedStepIds = assessmentSteps
-    .sort((stepA, stepB) => {
-      return (stepA.sortOrder ?? Number.MAX_SAFE_INTEGER) >
-        (stepB.sortOrder ?? Number.MAX_SAFE_INTEGER)
-        ? 1
-        : -1;
-    })
-    .map((step) => step.id);
-
-  const candidateToCurrentStep = new Map<PoolCandidateId, number | null>();
-  candidateToResults.forEach((assessmentToResult, candidateId) => {
-    candidateToCurrentStep.set(
-      candidateId,
-      determineCurrentStep(assessmentToResult, orderedStepIds),
-    );
-  });
-  return candidateToCurrentStep;
-};
-
 const getFinalDecisionChipColor = (
-  status?: Maybe<PoolCandidateStatus>,
+  finalDecision?: Maybe<FinalDecision>,
 ): Color => {
-  if (isToAssessStatus(status)) {
-    return "warning";
+  switch (finalDecision) {
+    case FinalDecision.ToAssess:
+      return "warning";
+    case FinalDecision.Disqualified:
+    case FinalDecision.DisqualifiedPending:
+      return "error";
+    case FinalDecision.Removed:
+    case FinalDecision.DisqualifiedRemoved:
+    case FinalDecision.QualifiedRemoved:
+    case FinalDecision.QualifiedExpired:
+    case FinalDecision.ToAssessRemoved:
+      return "black";
+    case FinalDecision.Qualified:
+    case FinalDecision.QualifiedPlaced:
+    case FinalDecision.QualifiedPending:
+      return "success";
+    default:
+      return "white";
   }
-
-  if (isDisqualifiedStatus(status)) {
-    return "error";
-  }
-
-  if (isRemovedStatus(status)) {
-    return "black";
-  }
-
-  if (isQualifiedStatus(status)) {
-    return "success";
-  }
-
-  return "white";
-};
-
-export const statusToJobPlacement = (status?: Maybe<PoolCandidateStatus>) => {
-  if (status) {
-    if (isNotPlacedStatus(status)) {
-      return poolCandidateMessages.notPlaced;
-    }
-
-    if (isPlacedStatus(status)) {
-      return getPoolCandidateStatus(status);
-    }
-  }
-
-  return commonMessages.notAvailable;
-};
-
-// Note: By setting the explicit Record<PoolCandidateStatus, x> type, Typescript will actually error if we forget a status!
-const statusToChipMessageMapping: Record<
-  PoolCandidateStatus,
-  MessageDescriptor | MessageDescriptor[]
-> = {
-  [PoolCandidateStatus.Draft]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.DraftExpired]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.NewApplication]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.ApplicationReview]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.ScreenedIn]: poolCandidateMessages.toAssess,
-  [PoolCandidateStatus.UnderAssessment]: poolCandidateMessages.toAssess,
-
-  [PoolCandidateStatus.ScreenedOutApplication]:
-    poolCandidateMessages.disqualified,
-  [PoolCandidateStatus.ScreenedOutAssessment]:
-    poolCandidateMessages.disqualified,
-
-  [PoolCandidateStatus.QualifiedAvailable]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedCasual]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedTerm]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedIndeterminate]: poolCandidateMessages.qualified,
-  [PoolCandidateStatus.PlacedTentative]: poolCandidateMessages.qualified,
-
-  [PoolCandidateStatus.ScreenedOutNotInterested]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.toAssess,
-  ],
-  [PoolCandidateStatus.ScreenedOutNotResponsive]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.toAssess,
-  ],
-  [PoolCandidateStatus.QualifiedUnavailable]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.qualified,
-  ],
-  [PoolCandidateStatus.QualifiedWithdrew]: [
-    commonMessages.removed,
-    commonMessages.dividingColon,
-    poolCandidateMessages.qualified,
-  ],
-  [PoolCandidateStatus.Expired]: [
-    poolCandidateMessages.expired,
-    commonMessages.dividingColon,
-    poolCandidateMessages.qualified,
-  ],
-  [PoolCandidateStatus.Removed]: commonMessages.removed,
 };
 
 /**
@@ -468,11 +159,10 @@ const statusToChipMessageMapping: Record<
  * since the candidate may or may not be ready for a final decision.
  */
 const computeInAssessmentStatusChip = (
-  candidate: PoolCandidate,
-  steps: AssessmentStep[],
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
-  if (steps.length === 0) {
+  if (!assessmentStatus?.overallAssessmentStatus) {
     // This escape hatch mostly applies to Pools created before Record of Decision.
     return {
       label: intl.formatMessage(poolCandidateMessages.toAssess),
@@ -480,18 +170,10 @@ const computeInAssessmentStatusChip = (
     };
   }
 
-  const orderedSteps = sortBy(steps, (step) => step.sortOrder);
-  const candidateResults = determineCandidateStatusPerStep(
-    [candidate],
-    orderedSteps,
-  );
-  const assessmentResults = Array.from(
-    candidateResults.get(candidate.id)?.values() ?? [],
-  );
-  const isUnsuccessful = assessmentResults.some(
-    (decision) => decision === AssessmentDecision.Unsuccessful,
-  );
-  if (isUnsuccessful) {
+  if (
+    assessmentStatus?.overallAssessmentStatus ===
+    OverallAssessmentStatus.Disqualified
+  ) {
     return {
       label:
         intl.formatMessage(poolCandidateMessages.disqualified) +
@@ -500,14 +182,14 @@ const computeInAssessmentStatusChip = (
       color: "error",
     };
   }
-  const candidateCurrentSteps = determineCurrentStepPerCandidate(
-    candidateResults,
-    steps,
-  );
-  const currentStep = candidateCurrentSteps.get(candidate.id);
+
+  const currentStep =
+    typeof assessmentStatus?.currentStep === "undefined"
+      ? 1
+      : assessmentStatus.currentStep;
 
   // currentStep of null means that the candidate has passed all steps and is tentatively qualified!
-  if (currentStep === null || currentStep === undefined) {
+  if (currentStep === null) {
     return {
       label:
         intl.formatMessage(poolCandidateMessages.qualified) +
@@ -528,39 +210,33 @@ const computeInAssessmentStatusChip = (
           description: "Label for the candidates current assessment step",
         },
         {
-          currentStep: currentStep + 1,
+          currentStep,
         },
       ),
     color: "warning",
   };
 };
 
-type StatusChip = {
+interface StatusChip {
   color: Color;
   label: ReactNode;
-};
+}
 
 export const getCandidateStatusChip = (
-  candidate: PoolCandidate,
-  steps: AssessmentStep[],
+  finalDecision: Maybe<LocalizedFinalDecision> | undefined,
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
-  if (isToAssessStatus(candidate.status)) {
-    return computeInAssessmentStatusChip(candidate, steps, intl);
+  if (
+    finalDecision?.value === FinalDecision.ToAssess ||
+    !finalDecision?.value
+  ) {
+    return computeInAssessmentStatusChip(assessmentStatus, intl);
   }
-  const messages =
-    statusToChipMessageMapping[
-      candidate.status ?? PoolCandidateStatus.NewApplication
-    ];
-  const label = Array.isArray(messages)
-    ? messages.reduce(
-        (combined, item) => combined + intl.formatMessage(item),
-        "",
-      )
-    : intl.formatMessage(messages);
+
   return {
-    label,
-    color: getFinalDecisionChipColor(candidate.status),
+    label: getLocalizedName(finalDecision?.label, intl),
+    color: getFinalDecisionChipColor(finalDecision?.value),
   };
 };
 
@@ -649,7 +325,7 @@ const combinedStatusLabels = defineMessages({
 });
 
 // Map pool candidate statuses to their regular combined statuses
-export const statusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
+const statusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
   [PoolCandidateStatus.Draft, combinedStatusLabels.DRAFT],
   [PoolCandidateStatus.NewApplication, combinedStatusLabels.RECEIVED],
   [PoolCandidateStatus.ApplicationReview, combinedStatusLabels.UNDER_REVIEW],
@@ -707,11 +383,62 @@ export const derivedStatusLabel = (
   return combinedStatus ?? null;
 };
 
-export const getCombinedStatusLabel = (
-  statusLabelKey: keyof typeof combinedStatusLabels,
-): MessageDescriptor =>
-  getOrThrowError(
-    combinedStatusLabels,
-    statusLabelKey,
-    `Invalid statusLabelKey '${statusLabelKey}'`,
-  );
+export const priorityWeightAfterVerification = (
+  priorityWeight: number,
+  priorityVerification: ClaimVerificationResult | null | undefined,
+  veteranVerification: ClaimVerificationResult | null | undefined,
+  citizenshipStatus: CitizenshipStatus | null | undefined,
+): number => {
+  // Priority
+  if (
+    priorityWeight === 10 &&
+    (priorityVerification === ClaimVerificationResult.Accepted ||
+      priorityVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 10;
+  }
+
+  // Veteran
+  if (
+    priorityWeight === 20 &&
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Citizen
+  if (priorityWeight === 30) {
+    return 30;
+  }
+
+  // Cascade down from priority to veteran
+  if (
+    priorityWeight === 10 &&
+    (veteranVerification === ClaimVerificationResult.Accepted ||
+      veteranVerification === ClaimVerificationResult.Unverified)
+  ) {
+    return 20;
+  }
+
+  // Cascade down from priority to citizen as veteran didn't apply above
+  if (
+    priorityWeight === 10 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
+  ) {
+    return 30;
+  }
+
+  // Cascade down from veteran to citizen
+  if (
+    priorityWeight === 20 &&
+    (citizenshipStatus === CitizenshipStatus.Citizen ||
+      citizenshipStatus === CitizenshipStatus.PermanentResident)
+  ) {
+    return 30;
+  }
+
+  // final fallback - last (Other)
+  return 40;
+};

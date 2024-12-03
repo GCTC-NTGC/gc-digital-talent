@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $key
  * @property array $name
  * @property int $classification_id
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class GenericJobTitle extends Model
 {
@@ -26,14 +26,13 @@ class GenericJobTitle extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'name' => 'array',
 
     ];
 
+    /** @return BelongsTo<Classification, $this> */
     public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class);

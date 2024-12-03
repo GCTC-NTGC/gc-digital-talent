@@ -1,50 +1,52 @@
 import { IntlShape } from "react-intl";
 
 import {
-  AssessmentResult,
+  AssessmentDecision,
+  AssessmentDecisionLevel,
   AssessmentResultJustification,
   AssessmentResultType,
   CreateAssessmentResultInput,
   Maybe,
   UpdateAssessmentResultInput,
-  UserSkill,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
-export type FormValues = {
-  assessmentDecision:
-    | AssessmentResult["assessmentDecision"]
-    | typeof NO_DECISION;
-  justifications:
-    | AssessmentResult["justifications"]
-    | AssessmentResultJustification;
-  assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
-  skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-};
+type MaybeJustification = Maybe<AssessmentResultJustification>;
 
-export type FormValuesToApiCreateInputArgs = {
+export interface FormValues {
+  assessmentDecision?: Maybe<AssessmentDecision | typeof NO_DECISION>;
+  justifications?: MaybeJustification[] | MaybeJustification;
+  assessmentDecisionLevel?: Maybe<AssessmentDecisionLevel>;
+  skillDecisionNotes?: Maybe<string>;
+}
+
+interface FormValuesToApiCreateInputArgs {
   formValues: FormValues;
   assessmentStepId: string;
   poolCandidateId: string;
   poolSkillId: string;
   assessmentResultType: AssessmentResultType;
-};
+}
 
-export type FormValuesToApiUpdateInputArgs = {
+interface FormValuesToApiUpdateInputArgs {
   formValues: FormValues;
   assessmentResultId: string;
   assessmentResultType: AssessmentResultType;
-};
+}
 
 // If justification is for education requirement assessment, it is just a string, need to tuck it into an array
 const justificationsConverted = (
   justifications: FormValues["justifications"],
-) =>
-  justifications && !Array.isArray(justifications)
+  assessmentDecision: FormValues["assessmentDecision"],
+) => {
+  if (assessmentDecision === AssessmentDecision.Hold) {
+    return [AssessmentResultJustification.FailedOther];
+  }
+  return justifications && !Array.isArray(justifications)
     ? [justifications]
     : justifications;
+};
 
 export function convertFormValuesToApiCreateInput({
   formValues,
@@ -67,7 +69,8 @@ export function convertFormValuesToApiCreateInput({
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: justificationsConverted(justifications) ?? undefined,
+    justifications:
+      justificationsConverted(justifications, assessmentDecision) ?? undefined,
     poolSkillId,
     skillDecisionNotes,
   };
@@ -90,22 +93,10 @@ export function convertFormValuesToApiUpdateInput({
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: justificationsConverted(justifications) ?? undefined,
+    justifications:
+      justificationsConverted(justifications, assessmentDecision) ?? undefined,
     skillDecisionNotes,
   };
-}
-
-export function getLocalizedSkillLevel(
-  userSkill: UserSkill | undefined,
-  intl: IntlShape,
-): string {
-  if (!userSkill || !userSkill.skill || !userSkill.skillLevel) {
-    return intl.formatMessage(commonMessages.notFound);
-  }
-
-  return intl.formatMessage(
-    getSkillLevelName(userSkill.skillLevel, userSkill.skill.category),
-  );
 }
 
 export const educationJustificationContext = (

@@ -35,7 +35,13 @@ const EditPoolYourImpact_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolYourImpact on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     yourImpact {
       en
       fr
@@ -43,10 +49,10 @@ const EditPoolYourImpact_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   yourImpactEn?: LocalizedString["en"];
   yourImpactFr?: LocalizedString["fr"];
-};
+}
 
 export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
@@ -68,7 +74,7 @@ const YourImpactSection = ({
   const intl = useIntl();
   const pool = getFragment(EditPoolYourImpact_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
-  const canEdit = useCanUserEditPool(pool.status);
+  const canEdit = useCanUserEditPool(pool.status?.value);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
@@ -183,7 +189,7 @@ const YourImpactSection = ({
                 />
               </div>
               <ActionWrapper>
-                {canEdit && pool.status === PoolStatus.Draft && (
+                {canEdit && pool.status?.value === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -197,7 +203,7 @@ const YourImpactSection = ({
                     isSubmitting={isSubmitting}
                   />
                 )}
-                {canEdit && pool.status === PoolStatus.Published && (
+                {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}
                     onUpdatePublished={handleUpdatePublished}

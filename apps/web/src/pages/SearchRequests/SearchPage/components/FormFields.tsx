@@ -1,28 +1,21 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   Checklist,
   Field,
   RadioGroup,
   Select,
-  enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
-  getLanguageAbility,
-  getPoolStream,
-  getWorkRegion,
+  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import {
-  Classification,
-  LanguageAbility,
-  PoolStream,
-  Skill,
-  WorkRegion,
-} from "@gc-digital-talent/graphql";
+import { Classification, Skill, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
@@ -34,13 +27,42 @@ import AdvancedFilters from "./AdvancedFilters";
 import { getClassificationLabel } from "../utils";
 import { classificationAriaLabels, classificationLabels } from "../labels";
 
+const SearchRequestOptions_Query = graphql(/* GraphQL */ `
+  query SearchRequestOptions {
+    poolStreams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface FormFieldsProps {
-  classifications: Classification[];
+  classifications: Pick<Classification, "group" | "level">[];
   skills: Skill[];
 }
 
 const FormFields = ({ classifications, skills }: FormFieldsProps) => {
   const intl = useIntl();
+  const [{ data }] = useQuery({
+    query: SearchRequestOptions_Query,
+  });
 
   const classificationOptions = classifications.map((classification) => ({
     value: formatClassificationString(classification),
@@ -52,10 +74,13 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
     ),
   }));
 
-  const streamOptions = enumToOptions(PoolStream).map(({ value }) => ({
-    value: value as PoolStream,
-    label: intl.formatMessage(getPoolStream(value)),
-  }));
+  const languageAbilityOptions = localizedEnumToOptions(
+    data?.languageAbilities,
+    intl,
+  );
+  const streamOptions = localizedEnumToOptions(data?.poolStreams, intl);
+  const sortedWorkRegions = sortWorkRegion(unpackMaybes(data?.workRegions));
+  const workRegionOptions = localizedEnumToOptions(sortedWorkRegions, intl);
 
   return (
     <>
@@ -143,12 +168,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
       </FilterBlock>
       <FilterBlock
         id="workingLanguageFilter"
-        title={intl.formatMessage({
-          defaultMessage: "Working language ability",
-          id: "p72C40",
-          description:
-            "Heading for working language ability section of the search form.",
-        })}
+        title={intl.formatMessage(commonMessages.workingLanguageAbility)}
         text={intl.formatMessage({
           defaultMessage:
             "Select the working language ability the candidate needs for this position. The selected working language ability will be compared to the one chosen by candidates in their applications. To note, candidates who selected Bilingual may not have Government of Canada second language evaluation results.",
@@ -159,12 +179,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
       >
         <RadioGroup
           idPrefix="languageAbility"
-          legend={intl.formatMessage({
-            defaultMessage: "Language",
-            id: "sk9CeW",
-            description:
-              "Legend for the Working Language Ability radio buttons",
-          })}
+          legend={intl.formatMessage(commonMessages.language)}
           name="languageAbility"
           items={[
             {
@@ -176,10 +191,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
                   "No preference for language ability - will accept English or French",
               }),
             },
-            ...enumToOptions(LanguageAbility).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguageAbility(value)),
-            })),
+            ...languageAbilityOptions,
           ]}
           trackUnsaved={false}
         />
@@ -239,8 +251,8 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
         })}
         text={intl.formatMessage({
           defaultMessage:
-            "If you have more detailed work location requirement, let us know in the comment section of the submission form. You can select more than one region.",
-          id: "sM+4cP",
+            "If you have more detailed work location requirements, let us know in the comment section of the submission form. You can select more than one region.",
+          id: "20vfz6",
           description:
             "Message describing the work location filter in the search form.",
         })}
@@ -261,10 +273,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
             id: "F+WFWB",
             description: "Label for work location filter in search form.",
           })}
-          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getWorkRegion(value)),
-          }))}
+          items={workRegionOptions}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

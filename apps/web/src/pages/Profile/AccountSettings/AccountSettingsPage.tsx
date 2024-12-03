@@ -12,15 +12,12 @@ import {
 } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import profileMessages from "~/messages/profileMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AccountManagement from "./AccountManagement";
 import RecruitmentAvailability from "./RecruitmentAvailability";
@@ -44,10 +41,10 @@ export type SectionKey =
   | "notificationSettings"
   | "recruitmentAvailability";
 
-type Section = {
+interface Section {
   id: string;
   title: ReactNode;
-};
+}
 
 const pageTitle = defineMessage({
   defaultMessage: "Account settings",
@@ -68,10 +65,9 @@ const inlineLink = (href: string, chunks: ReactNode) => (
   </Link>
 );
 
-const AccountSettingsPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const featureFlags = useFeatureFlags();
 
   const [{ data, fetching, error }] = useQuery({
     query: AccountSettings_Query,
@@ -118,7 +114,7 @@ const AccountSettingsPage = () => {
     crumbs: [
       {
         label: formattedPageTitle,
-        url: paths.accessibility(),
+        url: paths.accountSettings(),
       },
     ],
   });
@@ -133,19 +129,11 @@ const AccountSettingsPage = () => {
             subtitle={formattedSubTitle}
             crumbs={crumbs}
           />
-          <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+          <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
             <TableOfContents.Wrapper>
               <TableOfContents.Navigation data-h2-padding-top="base(x3)">
                 <TableOfContents.List>
                   {Object.values(sections).map((section) => {
-                    // Remove notifications section if feature flag is turned off.
-                    // Remove the if statement when notifications feature flag is turned on.
-                    if (
-                      !featureFlags.notifications &&
-                      section.id === "notification-settings"
-                    )
-                      return null;
-
                     return (
                       <TableOfContents.ListItem key={section.id}>
                         <TableOfContents.AnchorLink id={section.id}>
@@ -180,34 +168,32 @@ const AccountSettingsPage = () => {
                   </p>
                   <AccountManagement />
                 </TableOfContents.Section>
-                {featureFlags.notifications && (
-                  <TableOfContents.Section
-                    id={sections.notificationSettings.id}
-                    data-h2-margin-top="base(x2) p-tablet(x3)"
+                <TableOfContents.Section
+                  id={sections.notificationSettings.id}
+                  data-h2-margin-top="base(x2) p-tablet(x3)"
+                >
+                  <TableOfContents.Heading
+                    size="h3"
+                    icon={Cog8ToothIcon}
+                    color="secondary"
+                    data-h2-margin="base(0, 0, x1, 0)"
                   >
-                    <TableOfContents.Heading
-                      size="h3"
-                      icon={Cog8ToothIcon}
-                      color="secondary"
-                      data-h2-margin="base(0, 0, x1, 0)"
-                    >
-                      {sections.notificationSettings.title}
-                    </TableOfContents.Heading>
-                    <p data-h2-margin="base(0, 0, x1, 0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "The settings provided in this section allow you to control the types of notifications you receive and where they are delivered. Email notifications are delivered to the contact email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu.",
-                        id: "J/gp3y",
-                        description:
-                          "Subtitle for notification settings section on account settings page.",
-                      })}
-                    </p>
-                    <NotificationSettings
-                      enabledEmailNotifications={enabledEmailNotifications}
-                      enabledInAppNotifications={enabledInAppNotifications}
-                    />
-                  </TableOfContents.Section>
-                )}
+                    {sections.notificationSettings.title}
+                  </TableOfContents.Heading>
+                  <p data-h2-margin="base(0, 0, x1, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The settings provided in this section allow you to control the types of notifications you receive and where they are delivered. Email notifications are delivered to the contact email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu.",
+                      id: "J/gp3y",
+                      description:
+                        "Subtitle for notification settings section on account settings page.",
+                    })}
+                  </p>
+                  <NotificationSettings
+                    enabledEmailNotifications={enabledEmailNotifications}
+                    enabledInAppNotifications={enabledInAppNotifications}
+                  />
+                </TableOfContents.Section>
                 <TableOfContents.Section
                   id={sections.recruitmentAvailability.id}
                   data-h2-margin-top="base(x2) p-tablet(x3)"
@@ -252,12 +238,12 @@ const AccountSettingsPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <AccountSettingsPage />
-  </RequireAuth>
-);
+// export const Component = () => (
+//   <RequireAuth roles={[ROLE_NAME.Applicant]}>
+//     <AccountSettingsPage />
+//   </RequireAuth>
+// );
 
 Component.displayName = "AccountSettingsPage";
 
-export default AccountSettingsPage;
+export default Component;

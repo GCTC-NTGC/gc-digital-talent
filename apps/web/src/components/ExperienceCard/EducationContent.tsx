@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages, getEducationStatus } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { EducationExperience } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -11,7 +11,7 @@ import { ContentProps } from "./types";
 const EducationContent = ({
   experience: { areaOfStudy, status },
   headingLevel,
-}: ContentProps<EducationExperience>) => {
+}: ContentProps<Omit<EducationExperience, "user">>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 
@@ -32,9 +32,9 @@ const EducationContent = ({
         title={experienceFormLabels.educationStatus}
         headingLevel={headingLevel}
       >
-        {intl.formatMessage(
-          status ? getEducationStatus(status) : commonMessages.notAvailable,
-        )}
+        {status?.label
+          ? getLocalizedName(status.label, intl)
+          : intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
     </div>
   );

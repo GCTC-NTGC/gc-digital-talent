@@ -1,17 +1,22 @@
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router";
 import flatMap from "lodash/flatMap";
 import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
 
 import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
-import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import {
+  empty,
+  isUuidError,
+  notEmpty,
+  NotFoundError,
+} from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import IapContactDialog from "~/components/Dialog/IapContactDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -19,7 +24,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { poolTitle, isIAPPool } from "~/utils/poolUtils";
 import {
   applicationStepsToStepperArgs,
-  getApplicationSteps,
   getNextStepToSubmit,
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
@@ -30,10 +34,11 @@ import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
 import { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
+import { getApplicationSteps } from "./utils";
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   experienceId: string;
-};
+}
 
 interface ApplicationPageWrapperProps {
   query: FragmentType<typeof Application_PoolCandidateFragment>;
@@ -52,7 +57,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     experienceId,
   });
   const title = poolTitle(intl, application.pool);
-  const isIAP = isIAPPool(application.pool);
+  const isIAP = isIAPPool(application.pool.publishingGroup?.value);
 
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
@@ -67,7 +72,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   ]).filter(notEmpty);
 
   const currentPage = useCurrentPage(pages);
-  const currentCrumbs = currentPage?.crumbs || [];
+  const currentCrumbs = currentPage?.crumbs ?? [];
 
   const currentStepIndex = steps.findIndex(
     (step) =>
@@ -108,7 +113,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   // that has not been submitted yet, or the last step
   useEffect(() => {
     if (empty(currentPage)) {
-      navigate(nextStepToSubmit.mainPage.link.url, {
+      void navigate(nextStepToSubmit.mainPage.link.url, {
         replace: true,
       });
     }
@@ -133,7 +138,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
         subtitle={currentPage?.subtitle}
       />
       <div
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"
       >
         <TableOfContents.Wrapper>
@@ -189,7 +194,6 @@ const Application_Query = graphql(/* GraphQL */ `
 
 const Layout = () => {
   const id = useApplicationId();
-  const intl = useIntl();
   const [{ data, fetching, error, stale }] = useQuery({
     query: Application_Query,
     context,
@@ -200,10 +204,7 @@ const Layout = () => {
 
   if (error) {
     if (isUuidError(error)) {
-      throw new Response("", {
-        status: 404,
-        statusText: intl.formatMessage(commonMessages.notFound),
-      });
+      throw new NotFoundError();
     }
   }
 

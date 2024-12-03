@@ -11,7 +11,7 @@ import {
   eligibilityLink,
   foreignDegreeLink,
   postSecondaryLink,
-} from "~/pages/Applications/ApplicationEducationPage/utils";
+} from "~/utils/educationUtils";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 
@@ -226,6 +226,56 @@ const EducationRequirements = ({
               {intl.formatMessage(
                 applicationMessages.educationRequirementECEducationPlusDescription,
               )}
+            </Text>
+          </CardBasic>
+        </Wrapper>
+      );
+    case "CR":
+      return (
+        <Wrapper data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)">
+          <CardBasic>
+            <Heading
+              level={headingAs}
+              size="h6"
+              data-h2-margin="base(0 0 x.5 0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Applied work experience",
+                id: "dwYJOo",
+                description:
+                  "Title for the applied work experience requirements",
+              })}
+            </Heading>
+            <Text>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Combination of experience, training or education.",
+                id: "gp+7iZ",
+                description:
+                  "Applied work experience for CR classification group",
+              })}
+            </Text>
+          </CardBasic>
+          <Or />
+          <CardBasic>
+            <Heading
+              level={headingAs}
+              size="h6"
+              data-h2-margin="base(0 0 x.5 0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Two years of secondary school",
+                id: "23YiFr",
+                description: "Title for the secondary school requirements",
+              })}
+            </Heading>
+            <Text>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Successful completion of two years of secondary school.",
+                id: "3c2YZs",
+                description: "Secondary school education requirements",
+              })}
             </Text>
           </CardBasic>
         </Wrapper>

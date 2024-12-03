@@ -1,6 +1,9 @@
 import { SortingFnOption } from "@tanstack/react-table";
 
-import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidateStatus,
+  PoolStatusTable_PoolCandidateFragment as PoolStatusTablePoolCandidateFragmentType,
+} from "@gc-digital-talent/graphql";
 
 const sortOrder = [
   PoolCandidateStatus.PlacedIndeterminate,
@@ -25,18 +28,20 @@ const sortOrder = [
 ];
 
 // eslint-disable-next-line import/prefer-default-export
-const sortStatus: SortingFnOption<PoolCandidate> = (
+const sortStatus: SortingFnOption<PoolStatusTablePoolCandidateFragmentType> = (
   { original: a },
   { original: b },
 ) => {
   const aPosition = sortOrder.indexOf(
-    a.status ?? PoolCandidateStatus.Expired, // if status undefined fallback to treating as last status in ordering
+    a.status?.value ?? PoolCandidateStatus.Expired, // if status undefined fallback to treating as last status in ordering
   );
-  const bPosition = sortOrder.indexOf(b.status ?? PoolCandidateStatus.Expired);
+  const bPosition = sortOrder.indexOf(
+    b.status?.value ?? PoolCandidateStatus.Expired,
+  );
   if (aPosition >= 0 && bPosition >= 0)
     return (
-      sortOrder.indexOf(a.status ?? PoolCandidateStatus.Expired) -
-      sortOrder.indexOf(b.status ?? PoolCandidateStatus.Expired)
+      sortOrder.indexOf(a.status?.value ?? PoolCandidateStatus.Expired) -
+      sortOrder.indexOf(b.status?.value ?? PoolCandidateStatus.Expired)
     );
   if (aPosition >= 0 && bPosition < 0) return -1;
   if (aPosition < 0 && bPosition >= 0) return 1;

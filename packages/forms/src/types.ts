@@ -4,12 +4,9 @@ import {
   FieldsetHTMLAttributes,
   ReactNode,
 } from "react";
-import {
-  RegisterOptions,
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-} from "react-hook-form";
+import { RegisterOptions } from "react-hook-form";
+
+export type FieldLabels = Record<string, ReactNode>;
 
 export type FieldState = "unset" | "invalid" | "dirty";
 
@@ -28,7 +25,7 @@ export type HTMLFieldsetProps = Omit<
   "ref"
 >;
 
-export type CommonInputProps = {
+export interface CommonInputProps {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
@@ -41,31 +38,23 @@ export type CommonInputProps = {
   rules?: RegisterOptions;
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
-};
+}
 
-export type InputFieldError =
-  | string
-  | FieldError
-  // This is from `react-hook-form` so ignore the any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  | Merge<FieldError, FieldErrorsImpl<any>>
-  | undefined;
-
-export type Option = {
+export interface Option {
   label: ReactNode;
   value: string | number;
   disabled?: boolean;
   options?: Option[];
   /** Aria labels for alternate text that will be read by assistive technologies. */
   ariaLabel?: string;
-};
-export type OptGroup = {
+}
+export interface OptGroup {
   label: ReactNode;
   options: Option[];
   disabled?: boolean;
   value: string | number;
   /** Aria labels for alternate text that will be read by assistive technologies. */
   ariaLabel?: string;
-};
+}
 
 export type OptGroupOrOption = OptGroup | Option;

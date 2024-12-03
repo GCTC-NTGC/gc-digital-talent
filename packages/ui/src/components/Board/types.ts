@@ -1,6 +1,4 @@
-export type BoardItem = HTMLLIElement;
-
-export type BoardColumn = {
+export interface BoardColumn {
   element: HTMLDivElement;
-  items: BoardItem[];
-};
+  items: HTMLLIElement[];
+}

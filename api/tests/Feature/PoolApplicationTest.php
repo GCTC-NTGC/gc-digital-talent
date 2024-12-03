@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentStepType;
 use App\Enums\ClaimVerificationResult;
@@ -67,7 +69,7 @@ class PoolApplicationTest extends TestCase
         '
         query poolCandidate($id: UUID!) {
             poolCandidate(id: $id) {
-                status
+                status { value }
             }
         }
     ';
@@ -83,7 +85,7 @@ class PoolApplicationTest extends TestCase
                 pool {
                     id
                 }
-                status
+                status { value }
             }
         }
     ';
@@ -115,7 +117,7 @@ class PoolApplicationTest extends TestCase
             submitApplication(id: $id, signature: $sig) {
                 submittedAt
                 signature
-                status
+                status { value }
             }
         }
     ';
@@ -184,7 +186,9 @@ class PoolApplicationTest extends TestCase
                     'pool' => [
                         'id' => $pool->id,
                     ],
-                    'status' => PoolCandidateStatus::DRAFT->name,
+                    'status' => [
+                        'value' => PoolCandidateStatus::DRAFT->name,
+                    ],
                 ],
             ],
         ];
@@ -526,7 +530,9 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                'status' => [
+                    'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                ],
             ]);
     }
 
@@ -732,7 +738,9 @@ class PoolApplicationTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => PoolCandidateStatus::DRAFT->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::DRAFT->name,
+                        ],
                     ],
                 ],
             ]);
@@ -993,7 +1001,9 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                'status' => [
+                    'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                ],
             ]);
 
         $this->travelTo(Carbon::now()->addMinute()); // to test timestamp related things, gaps in time are required

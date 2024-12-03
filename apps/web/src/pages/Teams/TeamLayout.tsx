@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
@@ -11,7 +11,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -121,9 +121,9 @@ const TeamLayoutTeamName_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   teamId: string;
-};
+}
 
 const TeamLayout = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");

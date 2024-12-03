@@ -9,8 +9,6 @@ final class DisqualifyCandidate
 {
     /**
      * Disqualify operation for a candidate
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
@@ -20,6 +18,7 @@ final class DisqualifyCandidate
 
         $candidate->pool_candidate_status = $reason;
         $candidate->final_decision_at = $now;
+
         $candidate->save();
 
         return $candidate;

@@ -7,7 +7,10 @@ import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -35,9 +38,7 @@ const defaultProps = {
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const renderCard = (props: QualifiedRecruitmentCardProps) =>
   renderWithProviders(
@@ -52,13 +53,13 @@ describe("QualifiedRecruitmentCard", () => {
     await axeTest(container);
   });
 
-  it("PLACED_CASUAL and UN-SUSPENDED", async () => {
+  it("PLACED_CASUAL and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedCasual,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -86,13 +87,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_CASUAL and SUSPENDED", async () => {
+  it("PLACED_CASUAL and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedCasual,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -120,13 +121,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_INDETERMINATE and UN-SUSPENDED", async () => {
+  it("PLACED_INDETERMINATE and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedIndeterminate,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedIndeterminate),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -154,13 +155,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_INDETERMINATE and SUSPENDED", async () => {
+  it("PLACED_INDETERMINATE and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedIndeterminate,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedIndeterminate),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -188,13 +189,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_TERM and UN-SUSPENDED", async () => {
+  it("PLACED_TERM and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedTerm,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedTerm),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -222,13 +223,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("PLACED_TERM and SUSPENDED", async () => {
+  it("PLACED_TERM and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedTerm,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedTerm),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -256,13 +257,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_AVAILABLE and UN-SUSPENDED", async () => {
+  it("QUALIFIED_AVAILABLE and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedAvailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -281,13 +282,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(3);
   });
 
-  it("QUALIFIED_AVAILABLE and SUSPENDED", async () => {
+  it("QUALIFIED_AVAILABLE and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedAvailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -308,13 +309,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(3);
   });
 
-  it("QUALIFIED_UNAVAILABLE and UN-SUSPENDED", async () => {
+  it("QUALIFIED_UNAVAILABLE and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedUnavailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedUnavailable),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -342,13 +343,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_UNAVAILABLE and SUSPENDED", async () => {
+  it("QUALIFIED_UNAVAILABLE and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedUnavailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedUnavailable),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -376,13 +377,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_WITHDREW and UN-SUSPENDED", async () => {
+  it("QUALIFIED_WITHDREW and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedWithdrew,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedWithdrew),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -410,13 +411,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("QUALIFIED_WITHDREW and SUSPENDED", async () => {
+  it("QUALIFIED_WITHDREW and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedWithdrew,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedWithdrew),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -444,13 +445,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("EXPIRED and UN-SUSPENDED", async () => {
+  it("EXPIRED and UN-SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.Expired,
+          status: toLocalizedEnum(PoolCandidateStatus.Expired),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -478,13 +479,13 @@ describe("QualifiedRecruitmentCard", () => {
     expect(buttons).toHaveLength(2);
   });
 
-  it("EXPIRED and SUSPENDED", async () => {
+  it("EXPIRED and SUSPENDED", () => {
     renderCard({
       ...defaultProps,
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.Expired,
+          status: toLocalizedEnum(PoolCandidateStatus.Expired),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,

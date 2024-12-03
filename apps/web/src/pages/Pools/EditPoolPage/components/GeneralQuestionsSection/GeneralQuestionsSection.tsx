@@ -29,7 +29,9 @@ const MAX_GENERAL_QUESTIONS = 10;
 const EditPoolGeneralQuestions_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolGeneralQuestions on Pool {
     id
-    status
+    status {
+      value
+    }
     generalQuestions {
       id
       sortOrder
@@ -64,20 +66,20 @@ const GeneralQuestionsSection = ({
   );
   const { isSubmitting } = useEditPoolContext();
 
-  const handleUpdate = (newQuestions: GeneralQuestion[]) => {
+  const handleUpdate = async (newQuestions: GeneralQuestion[]) => {
     setIsUpdating(true);
     const generalQuestions = repeaterQuestionsToSubmitData(
       newQuestions,
       questions,
     );
-    onSave({ generalQuestions }).then(() => {
+    await onSave({ generalQuestions }).then(() => {
       setIsUpdating(false);
     });
   };
 
   // disabled unless status is draft
   const formDisabled =
-    pool.status !== PoolStatus.Draft || isUpdating || isSubmitting;
+    pool.status?.value !== PoolStatus.Draft || isUpdating || isSubmitting;
 
   return (
     <>

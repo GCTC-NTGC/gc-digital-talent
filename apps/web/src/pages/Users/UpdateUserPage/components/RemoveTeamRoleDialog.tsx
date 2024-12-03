@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
 import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
 import {
@@ -16,14 +16,16 @@ import {
   Role,
   Team,
   User,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 interface RemoveTeamRoleDialogProps {
-  user: User;
+  user: Pick<User, "id" | "firstName" | "lastName">;
   roles: Role[];
-  team: Team;
+  team: Pick<Team, "id" | "displayName">;
   onRemoveRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -38,52 +40,51 @@ const RemoveTeamRoleDialog = ({
   const intl = useIntl();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { id, firstName, lastName } = user;
 
   const handleRemove = async () => {
+    const roleInputArray: RoleInput[] = roles.map((r) => {
+      return { roleId: r.id, teamId: team.id };
+    });
     setIsDeleting(true);
     return onRemoveRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
-        detach: {
-          roles: roles.map((r) => r.id),
-          team: team.id,
-        },
+        detach: roleInputArray,
       },
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Role removed successfully",
-            id: "XcS2q2",
-            description:
-              "Message displayed to user when a role has been removed from a user",
-          }),
-        );
+        toast.success(intl.formatMessage(adminMessages.roleRemoved));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "Ly2bBb",
-            description:
-              "Alert displayed to user when an error occurs while editing a team member's roles",
-          }),
-        );
+        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
       })
       .finally(() => setIsDeleting(false));
   };
 
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const userName = getFullNameHtml(firstName, lastName, intl);
   const roleDisplayName = (role: Role) =>
     getLocalizedName(role.displayName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
 
-  const label = intl.formatMessage(
+  const dialogLabel = intl.formatMessage(
     {
       defaultMessage: "Remove membership<hidden> in {team}</hidden>",
-      id: "sSnNWm",
-      description: "Label for the form to remove a team role from a user",
+      id: "vkOyl3",
+      description: "Header for the form to remove a team role from a user",
+    },
+    {
+      team: teamDisplayName,
+    },
+  );
+
+  const buttonLabel = intl.formatMessage(
+    {
+      defaultMessage: "Remove membership<hidden> in {team}</hidden>",
+      id: "N6Qn5a",
+      description:
+        "Button label for the form to remove a team role from a user",
     },
     {
       team: teamDisplayName,
@@ -93,13 +94,12 @@ const RemoveTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black">
-          <TrashIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
-          <span data-h2-visually-hidden="base(invisible)">{label}</span>
+        <Button color="error" icon={TrashIcon} mode="icon_only">
+          <span data-h2-visually-hidden="base(invisible)">{buttonLabel}</span>
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(
@@ -155,7 +155,9 @@ const RemoveTeamRoleDialog = ({
               onClick={handleRemove}
               disabled={isDeleting}
             >
-              {isDeleting ? intl.formatMessage(commonMessages.removing) : label}
+              {isDeleting
+                ? intl.formatMessage(commonMessages.removing)
+                : buttonLabel}
             </Button>
           </Dialog.Footer>
         </Dialog.Body>

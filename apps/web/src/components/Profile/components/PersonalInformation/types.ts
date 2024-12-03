@@ -1,18 +1,19 @@
-import { User } from "@gc-digital-talent/graphql";
+import {
+  ArmedForcesStatus,
+  CitizenshipStatus,
+  Language,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 
-export type PartialUser = Pick<
-  User,
-  | "preferredLang"
-  | "preferredLanguageForInterview"
-  | "preferredLanguageForExam"
-  | "currentProvince"
-  | "currentCity"
-  | "telephone"
-  | "firstName"
-  | "lastName"
-  | "email"
-  | "citizenship"
-  | "armedForcesStatus"
->;
-
-export type FormValues = PartialUser;
+export interface FormValues {
+  armedForcesStatus?: Maybe<ArmedForcesStatus>;
+  citizenship?: Maybe<CitizenshipStatus>;
+  preferredLang?: Maybe<Language>;
+  preferredLanguageForInterview?: Maybe<Language>;
+  preferredLanguageForExam?: Maybe<Language>;
+  telephone?: Maybe<string>;
+  firstName?: Maybe<string>;
+  lastName?: Maybe<string>;
+  email?: Maybe<string>;
+  isEmailVerified?: Maybe<boolean>;
+}

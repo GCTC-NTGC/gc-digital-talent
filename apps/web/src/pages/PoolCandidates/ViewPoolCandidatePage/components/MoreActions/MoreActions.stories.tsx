@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Args, Decorator, Meta, StoryObj } from "@storybook/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import {
   fakeDepartments,
   fakePoolCandidates,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
@@ -24,13 +25,16 @@ const profileSnapshot: User = {
 fakeCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 const getData = (status: PoolCandidateStatus) =>
-  makeFragmentData({ ...fakeCandidate, status }, MoreActions_Fragment);
+  makeFragmentData(
+    { ...fakeCandidate, status: toLocalizedEnum(status) },
+    MoreActions_Fragment,
+  );
 
 const ReactRouterDecorator: Decorator<Args> = (Story) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(".", {
+    void navigate(".", {
       state: {
         candidateIds: poolCandidates.map((poolCandidate) => poolCandidate.id),
         stepName: "Step 1: Application screening",

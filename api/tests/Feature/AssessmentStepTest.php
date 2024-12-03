@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\AssessmentStepType;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentStep;
@@ -9,6 +11,7 @@ use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -56,7 +59,7 @@ class AssessmentStepTest extends TestCase
         mutation createAssessmentStep($poolId: UUID!, $assessmentStep: AssessmentStepInput!){
             createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
                 id
-                type
+                type { value }
                 title {
                     en
                     fr
@@ -75,7 +78,7 @@ class AssessmentStepTest extends TestCase
         mutation updateAssessmentStep($id: UUID!, $assessmentStep: AssessmentStepInput!){
             updateAssessmentStep(id: $id, assessmentStep: $assessmentStep) {
                 id
-                type
+                type { value }
                 title {
                     en
                     fr
@@ -134,7 +137,9 @@ class AssessmentStepTest extends TestCase
                 ]
             )
             ->assertJsonFragment([
-                'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
+                'type' => [
+                    'value' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
+                ],
                 'title' => [
                     'en' => 'en',
                     'fr' => 'fr',
@@ -169,7 +174,9 @@ class AssessmentStepTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $assessment->id,
-                'type' => AssessmentStepType::PSC_EXAM->name,
+                'type' => [
+                    'value' => AssessmentStepType::PSC_EXAM->name,
+                ],
                 'title' => [
                     'en' => 'en',
                     'fr' => 'fr',

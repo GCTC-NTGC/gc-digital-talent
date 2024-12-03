@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import {
   Button,
@@ -23,21 +23,21 @@ import { isEducationExperience } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
+import { getEducationRequirementOptions } from "~/utils/educationUtils";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
-import { getEducationRequirementOptions } from "./utils";
 import useApplication from "../useApplication";
 
 type PageAction = "continue" | "cancel";
 
-type FormValues = {
+interface FormValues {
   educationRequirement: EducationRequirementOption;
   educationRequirementExperiences: string[]; // List of ids
   action: PageAction;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -78,7 +78,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationEducationProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiences: ExperienceForDate[];
 }
 
 const ApplicationEducation = ({
@@ -106,7 +106,7 @@ const ApplicationEducation = ({
     defaultValues: {
       // Only show default values if applicant has previously submitted data.
       ...(application.educationRequirementOption && {
-        educationRequirement: application.educationRequirementOption,
+        educationRequirement: application.educationRequirementOption.value,
       }),
       ...(application.educationRequirementExperiences && {
         educationRequirementExperiences:
@@ -143,7 +143,7 @@ const ApplicationEducation = ({
           EducationRequirementOption.Education &&
           experiences.filter(
             (experience) =>
-              isEducationExperience(experience as ExperienceForDate) &&
+              isEducationExperience(experience) &&
               includesExperience(experience.id),
           ).length > 0));
 
@@ -171,7 +171,7 @@ const ApplicationEducation = ({
           }),
         },
       })
-        .then((res) => {
+        .then(async (res) => {
           if (!res.error) {
             toast.success(
               intl.formatMessage({
@@ -182,7 +182,9 @@ const ApplicationEducation = ({
                   "Message displayed to users when saving education requirement is successful.",
               }),
             );
-            navigate(formValues.action === "continue" ? nextStep : cancelPath);
+            await navigate(
+              formValues.action === "continue" ? nextStep : cancelPath,
+            );
           }
         })
         .catch(() => {
@@ -235,8 +237,8 @@ const ApplicationEducation = ({
           <p data-h2-margin="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
-              id: "rxo7fM",
+                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. <strong>If both apply to you, select the education criteria.</strong>",
+              id: "prb1eH",
               description:
                 "Description for radio group section in application education page.",
             })}
@@ -318,7 +320,9 @@ const ApplicationEducation = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application?.pool ? (
     <ApplicationEducation application={application} experiences={experiences} />

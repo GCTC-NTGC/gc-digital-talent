@@ -1,9 +1,9 @@
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { ReactNode, useEffect } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, UnauthorizedError } from "@gc-digital-talent/helpers";
 import {
   RoleName,
   useAuthentication,
@@ -12,9 +12,11 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 
+import useNavContext from "../NavContext/useNavContext";
+
 interface RequireAuthProps {
   children: ReactNode;
-  roles: Array<RoleName>;
+  roles: RoleName[];
   loginPath?: string;
 }
 
@@ -31,6 +33,7 @@ const RequireAuth = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const loginRedirectPath = loginPath ?? paths.login();
+  const navContext = useNavContext();
 
   const userRoleNames = roleAssignments
     ?.map((a) => a.role?.name)
@@ -48,7 +51,7 @@ const RequireAuth = ({
       loginSearchParams.append("from", location.pathname);
       const personality = searchParams.get("personality");
       if (personality) loginSearchParams.append("personality", personality);
-      navigate(
+      void navigate(
         {
           pathname: loginRedirectPath,
           search: loginSearchParams.toString(),
@@ -59,6 +62,12 @@ const RequireAuth = ({
       );
     }
   }, [location.pathname, loggedIn, loginRedirectPath, navigate, searchParams]);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      navContext.onAuthorizedRolesChanged(authorizedRoleNames);
+    }
+  }, [authorizedRoleNames, isAuthorized, navContext]);
 
   // Prevent showing children while login redirect happens
   if (!loggedIn) {
@@ -72,10 +81,7 @@ const RequireAuth = ({
         pathname: location.pathname,
       }),
     );
-    throw new Response("", {
-      status: 401,
-      statusText: "Unauthorized",
-    });
+    throw new UnauthorizedError();
   }
 
   // Note: Need to return a ReactElement

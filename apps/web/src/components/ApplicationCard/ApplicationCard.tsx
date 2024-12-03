@@ -18,7 +18,7 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 import { getStatusChipInfo } from "~/components/QualifiedRecruitmentCard/utils";
-import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
+import ApplicationLink from "~/components/ApplicationLink/ApplicationLink";
 
 import ApplicationActions from "./ApplicationActions";
 import { getApplicationDeadlineMessage } from "./utils";
@@ -34,13 +34,32 @@ const ApplicationCardDelete_Mutation = graphql(/* GraphQL */ `
 export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationCard on PoolCandidate {
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     suspendedAt
     submittedAt
     pool {
       id
       closingDate
-      stream
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -68,13 +87,13 @@ const ApplicationCard = ({
   const application = getFragment(ApplicationCard_Fragment, poolCandidateQuery);
 
   // Conditionals for card actions
-  const applicationIsDraft = isDraft(application.status);
+  const applicationIsDraft = isDraft(application.status?.value);
   const recruitmentIsExpired = isExpired(
-    application.status,
+    application.status?.value,
     application.pool.closingDate,
   );
   const isDraftExpired = applicationIsDraft && recruitmentIsExpired;
-  const isApplicantQualified = isQualifiedStatus(application.status);
+  const isApplicantQualified = isQualifiedStatus(application.status?.value);
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
   const statusChip = isDraftExpired
@@ -83,18 +102,32 @@ const ApplicationCard = ({
         application.suspendedAt,
         intl,
       )
-    : getStatusChipInfo(application.status, application.suspendedAt, intl);
+    : getStatusChipInfo(
+        application.status?.value,
+        application.suspendedAt,
+        intl,
+      );
 
   const applicationDeadlineMessage = getApplicationDeadlineMessage(
     intl,
     application.pool.closingDate,
     application.submittedAt,
   );
-  const applicationTitle = getShortPoolTitleHtml(intl, application.pool);
-  const applicationTitleString = getShortPoolTitleLabel(intl, application.pool);
+  const applicationTitle = getShortPoolTitleHtml(intl, {
+    stream: application.pool.stream,
+    name: application.pool.name,
+    publishingGroup: application.pool.publishingGroup,
+    classification: application.pool.classification,
+  });
+  const applicationTitleString = getShortPoolTitleLabel(intl, {
+    stream: application.pool.stream,
+    name: application.pool.name,
+    publishingGroup: application.pool.publishingGroup,
+    classification: application.pool.classification,
+  });
 
-  const deleteApplication = () => {
-    executeDeleteMutation({
+  const deleteApplication = async () => {
+    await executeDeleteMutation({
       id: application.id,
     }).then((result) => {
       if (result.data?.deleteApplication) {
@@ -199,7 +232,6 @@ const ApplicationCard = ({
           show={isApplicantQualified}
           title={applicationTitleString}
         />
-        <ApplicationActions.SupportAction show title={applicationTitleString} />
         <ApplicationActions.DeleteAction
           show={applicationIsDraft}
           title={applicationTitleString}

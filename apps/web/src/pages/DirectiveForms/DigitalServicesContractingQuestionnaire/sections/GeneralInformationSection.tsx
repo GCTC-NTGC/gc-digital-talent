@@ -23,9 +23,6 @@ import {
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 
-import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
-import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
-
 import {
   buildExternalLink,
   enumToOptions,
@@ -43,16 +40,17 @@ import {
 } from "../../localizedConstants";
 import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
+import { FormValues } from "../formValues";
 
-type GeneralInformationSectionProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-};
+interface GeneralInformationSectionProps {
+  departments: Omit<Department, "departmentNumber">[];
+}
 
 const GeneralInformationSection = ({
   departments,
 }: GeneralInformationSectionProps) => {
   const intl = useIntl();
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
@@ -84,7 +82,7 @@ const GeneralInformationSection = ({
    * Reset un-rendered fields
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
 
@@ -380,7 +378,10 @@ const GeneralInformationSection = ({
                 {
                   link1: (chunks: ReactNode) => {
                     const locale = getLocale(intl);
-                    const url = locale === "en" ? talentPlanEn : talentPlanFr;
+                    const url =
+                      locale === "en"
+                        ? "/static/documents/Forward_Talent_Plan_EN.docx"
+                        : "/static/documents/Plan_prospectif_sur_les_talents_FR.docx";
                     return buildExternalLink(url, chunks);
                   },
                   link2: (chunks: ReactNode) =>

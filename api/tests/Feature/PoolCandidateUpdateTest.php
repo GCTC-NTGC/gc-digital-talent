@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
@@ -16,9 +18,11 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
@@ -54,6 +58,8 @@ class PoolCandidateUpdateTest extends TestCase
     protected $poolCandidate;
 
     protected $unauthorizedMessage;
+
+    protected $manualStatusUpdateMutation;
 
     protected $placeCandidateMutation;
 
@@ -132,13 +138,24 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->unauthorizedMessage = 'This action is unauthorized.';
 
+        $this->manualStatusUpdateMutation = <<<'GRAPHQL'
+            mutation updatePoolCandidateStatus($id: UUID!, $candidate: UpdatePoolCandidateStatusInput!) {
+                updatePoolCandidateStatus(id: $id, poolCandidate: $candidate) {
+                    status { value }
+                    finalDecisionAt
+                    placedAt
+                    removedAt
+                }
+            }
+        GRAPHQL;
+
         $this->placeCandidateMutation =
         /** @lang GraphQL */
         '
         mutation placeCandidate($id: UUID!, $placeCandidate: PlaceCandidateInput!) {
             placeCandidate(id: $id, placeCandidate: $placeCandidate) {
                 id
-                status
+                status { value }
                 placedAt
                 placedDepartment {
                     id
@@ -153,7 +170,7 @@ class PoolCandidateUpdateTest extends TestCase
         mutation revertPlaceCandidate($id: UUID!) {
             revertPlaceCandidate(id: $id) {
                 id
-                status
+                status { value }
                 placedAt
                 placedDepartment {
                     id
@@ -168,7 +185,7 @@ class PoolCandidateUpdateTest extends TestCase
         mutation qualifyCandidate($id: UUID!, $expiryDate: Date!) {
             qualifyCandidate(id: $id, expiryDate: $expiryDate) {
               id
-              status
+              status { value }
               expiryDate
               finalDecisionAt
             }
@@ -181,7 +198,7 @@ class PoolCandidateUpdateTest extends TestCase
         mutation disqualifyCandidate($id: UUID!, $reason: DisqualificationReason!) {
             disqualifyCandidate(id: $id, reason: $reason) {
               id
-              status
+              status { value }
               finalDecisionAt
             }
           }
@@ -193,7 +210,7 @@ class PoolCandidateUpdateTest extends TestCase
         mutation revertFinalDecision($id: UUID!) {
             revertFinalDecision(id: $id) {
               id
-              status
+              status { value }
               expiryDate
               finalDecisionAt
             }
@@ -209,9 +226,9 @@ class PoolCandidateUpdateTest extends TestCase
                 removalReason: $removalReason,
                 removalReasonOther: $removalReasonOther
             ){
-                status
+                status { value }
                 removedAt
-                removalReason
+                removalReason { value }
                 removalReasonOther
             }
         }
@@ -222,9 +239,9 @@ class PoolCandidateUpdateTest extends TestCase
             '
         mutation reinstateTest($id: UUID!) {
             reinstateCandidate (id: $id){
-                status
+                status { value }
                 removedAt
-                removalReason
+                removalReason { value }
                 removalReasonOther
             }
         }
@@ -322,7 +339,7 @@ class PoolCandidateUpdateTest extends TestCase
             mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
                 updateApplication(id: $id, application: $application) {
                     id
-                    educationRequirementOption
+                    educationRequirementOption { value }
                     educationRequirementExperiences {
                         id
                     }
@@ -349,7 +366,9 @@ class PoolCandidateUpdateTest extends TestCase
                 ],
             ],
         ]);
-        $response->assertJsonFragment(['educationRequirementOption' => EducationRequirementOption::EDUCATION->name]);
+        $response->assertJsonFragment(['educationRequirementOption' => [
+            'value' => EducationRequirementOption::EDUCATION->name,
+        ]]);
         $response->assertJsonFragment([
             ['id' => $educationExperienceIds[0]],
         ]);
@@ -364,7 +383,9 @@ class PoolCandidateUpdateTest extends TestCase
                 ],
             ],
         ]);
-        $response->assertJsonFragment(['educationRequirementOption' => EducationRequirementOption::APPLIED_WORK->name]);
+        $response->assertJsonFragment(['educationRequirementOption' => [
+            'value' => EducationRequirementOption::APPLIED_WORK->name,
+        ]]);
         $response->assertJsonMissing([
             ['id' => $educationExperienceIds[0]],
         ]);
@@ -476,7 +497,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.placeCandidate');
 
-        assertSame($response['status'], PoolCandidateStatus::PLACED_CASUAL->name);
+        assertSame($response['status']['value'], PoolCandidateStatus::PLACED_CASUAL->name);
         assertNotNull($response['placedAt']);
         assertSame($response['placedDepartment']['id'], $department->id);
     }
@@ -511,7 +532,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.revertPlaceCandidate');
 
-        assertSame($response['status'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
         assertNull($response['placedAt']);
         assertNull($response['placedDepartment']);
     }
@@ -558,7 +579,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.qualifyCandidate');
 
-        assertSame($response['status'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
         assertNotNull($response['finalDecisionAt']);
     }
@@ -594,7 +615,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.disqualifyCandidate');
 
-        assertSame($response['status'], PoolCandidateStatus::SCREENED_OUT_APPLICATION->name);
+        assertSame($response['status']['value'], PoolCandidateStatus::SCREENED_OUT_APPLICATION->name);
         assertNotNull($response['finalDecisionAt']);
     }
 
@@ -615,7 +636,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.qualifyCandidate');
 
-        assertSame($response['status'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
         assertNotNull($response['finalDecisionAt']);
 
@@ -628,7 +649,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.revertFinalDecision');
 
-        assertSame($response['status'], PoolCandidateStatus::UNDER_ASSESSMENT->name);
+        assertSame($response['status']['value'], PoolCandidateStatus::UNDER_ASSESSMENT->name);
         assertNull($response['expiryDate']);
         assertNull($response['finalDecisionAt']);
 
@@ -668,7 +689,9 @@ class PoolCandidateUpdateTest extends TestCase
 
         // New fields are updated correctly
         $response->assertJsonFragment([
-            'removalReason' => CandidateRemovalReason::OTHER->name,
+            'removalReason' => [
+                'value' => CandidateRemovalReason::OTHER->name,
+            ],
             'removalReasonOther' => 'test reason',
         ]);
 
@@ -699,7 +722,9 @@ class PoolCandidateUpdateTest extends TestCase
             $this->actingAs($this->requestResponderUser, 'api')
                 ->graphQL($this->removeMutationDocument, $variables)
                 ->assertJsonFragment([
-                    'status' => $finalStatus,
+                    'status' => [
+                        'value' => $finalStatus,
+                    ],
                 ]);
         }
 
@@ -778,7 +803,9 @@ class PoolCandidateUpdateTest extends TestCase
             $this->actingAs($this->requestResponderUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
                 ->assertJsonFragment([
-                    'status' => $finalStatus,
+                    'status' => [
+                        'value' => $finalStatus,
+                    ],
                 ]);
         }
 
@@ -952,21 +979,111 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
             ]);
+    }
 
-        // rejected does not need an expiry date, mutation fails
-        $this->actingAs($this->poolOperatorUser, 'api')
-            ->graphQL(
-                $updateClaimVerificationDocument,
-                [
-                    'id' => $candidate->id,
-                    'poolCandidate' => [
-                        'veteranVerification' => null,
-                        'veteranVerificationExpiry' => null,
-                        'priorityVerification' => ClaimVerificationResult::REJECTED->name,
-                        'priorityVerificationExpiry' => config('constants.far_future_date'),
-                    ],
-                ]
-            )
-            ->assertGraphQLErrorMessage('Validation failed for the field [updatePoolCandidateClaimVerification].');
+    /**
+     * @dataProvider manualStatusProvider
+     */
+    public function testManualStatusUpdatesTimestamps($status, $timestamp)
+    {
+        // Ensure time stamps are set to compare against
+        // and we are starting from no status
+        $past = config('constants.past_datetime');
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->final_decision_at = $past;
+        $this->poolCandidate->placed_at = $past;
+        $this->poolCandidate->removed_at = $past;
+        $this->poolCandidate->save();
+
+        $camelTimestamp = Str::camel($timestamp);
+        $original = $this->poolCandidate->$timestamp;
+
+        $response = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => $status],
+            ]);
+
+        // Assert the expected time stamp was changed
+        $data = $response['data']['updatePoolCandidateStatus'];
+        $new = new Carbon($data[$camelTimestamp]);
+        $this->assertGreaterThan($original->timestamp, $new->timestamp, sprintf(
+            '%s is not greater than %s',
+            $new->toDayDateTimeString(),
+            $original->toDayDateTimeString()
+        ));
+
+        // Ensure other time stamps remain the same
+        $unchanged = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp]);
+        foreach ($unchanged as $unchagedTimestamp) {
+            $this->assertEquals($this->poolCandidate->$unchagedTimestamp, $data[Str::camel($unchagedTimestamp)]);
+        }
+
+        // Attempt to make change again and assert it does not affect timestamp
+        $noChangeResponse = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => $status],
+            ]);
+
+        $unChangeData = $noChangeResponse['data']['updatePoolCandidateStatus'];
+        $unchanged = new Carbon($unChangeData[$camelTimestamp]);
+
+        $this->assertEquals($new->timestamp, $unchanged->timestamp);
+    }
+
+    public static function manualStatusProvider()
+    {
+        return [
+            // Final decision
+            'screened out assessment sets final decision' => [
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                'final_decision_at',
+            ],
+            'screened out application sets final decision' => [
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                'final_decision_at',
+            ],
+            'qualified available sets final decision' => [
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                'final_decision_at',
+            ],
+
+            // Removed
+            'screened out not responsive sets removed at' => [
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+                'removed_at',
+            ],
+            'qualified unavailable sets removed at' => [
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                'removed_at',
+            ],
+            'qualified withdrew sets removed at' => [
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                'removed_at',
+            ],
+            'removed sets removed at' => [
+                PoolCandidateStatus::REMOVED->name,
+                'removed_at',
+            ],
+
+            // Placed
+            'placed tenative sets removed at' => [
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                'placed_at',
+            ],
+            'placed casual sets placed at' => [
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                'placed_at',
+            ],
+            'placed term sets placed at' => [
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                'placed_at',
+            ],
+            'placed indetermined sets placed at' => [
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                'placed_at',
+            ],
+        ];
     }
 }

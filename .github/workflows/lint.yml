@@ -21,7 +21,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-22.04
     env:
-      PNPM_VERSION: "8.15.0"
+      PNPM_VERSION: "9.12.3"
 
     services:
       postgres:
@@ -38,6 +38,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Add postgres extension pgcrypto # not included with postgres 12
         run: docker run --rm --network ${{ job.container.network }} postgres:12.15 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'CREATE EXTENSION IF NOT EXISTS pgcrypto';"
+
+      - name: "Copy .env"
+        working-directory: "./apps/web"
+        run: |
+          cp .env.example .env
 
       - uses: pnpm/action-setup@v4
         with:
@@ -59,14 +64,19 @@ jobs:
 
       - name: "Run ESlint: all workspaces"
         working-directory: ./
-        # Pass arg to eslint so that any warnings will raise error code and fail workflow.
-        run: pnpm run lint -- --max-warnings=0
+        run: pnpm run lint
 
       - name: "Run typescript linting: all workspaces"
         # Allow tsc linting to happen even if js linting step raises errors.
         if: always()
         working-directory: ./
         run: pnpm run tsc
+
+      - name: "Run prettier check: all workspaces"
+        # Allow tsc linting to happen even if js linting step raises errors.
+        if: always()
+        working-directory: ./
+        run: pnpm run prettier
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -83,3 +93,7 @@ jobs:
       - name: Run Pint
         working-directory: api
         run: vendor/bin/pint --test
+
+      - name: Run static analysis
+        working-directory: api
+        run: vendor/bin/phpstan analyse -c phpstan.neon

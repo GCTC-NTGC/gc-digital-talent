@@ -1,41 +1,45 @@
 import { IntlShape } from "react-intl";
 
-import {
-  getLocalizedName,
-  getSkillCategory,
-  LocalizedArray,
-  getLocalizedArray,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
 import {
+  LocalizedSkillCategory,
   Maybe,
   Skill,
-  SkillCategory,
   SkillFamily,
 } from "@gc-digital-talent/graphql";
 
 export function categoryAccessor(
-  category: Maybe<SkillCategory>,
+  category: Maybe<LocalizedSkillCategory>,
   intl: IntlShape,
 ) {
-  return category
-    ? intl.formatMessage(getSkillCategory(category as string))
-    : "";
+  return category?.label ? getLocalizedName(category.label, intl) : "";
 }
 
 export function skillFamiliesCell(
   skillFamilies: Maybe<Maybe<SkillFamily>[]> | undefined,
   intl: IntlShape,
 ) {
-  const families = skillFamilies
+  const maxCharacterCount = 50;
+  const familyNames = skillFamilies
     ?.filter(notEmpty)
     .sort()
-    .map((family) => (
-      <li key={family?.key}>{getLocalizedName(family.name, intl)}</li>
-    ));
+    .map((family) => getLocalizedName(family.name, intl));
 
-  return families ? <ul>{families}</ul> : null;
+  familyNames?.sort((a, b) => a.localeCompare(b));
+
+  const familyItems = familyNames?.map((familyName) => (
+    <li key={familyName}>
+      {familyName.length < maxCharacterCount ? (
+        familyName
+      ) : (
+        <>{familyName.slice(0, maxCharacterCount)}&hellip;</>
+      )}
+    </li>
+  ));
+
+  return familyItems ? <ul>{familyItems}</ul> : null;
 }
 
 export function familiesAccessor(skill: Skill, intl: IntlShape) {
@@ -44,10 +48,6 @@ export function familiesAccessor(skill: Skill, intl: IntlShape) {
     .filter(notEmpty)
     .sort()
     .join(", ");
-}
-
-export function keywordsAccessor(skill: Skill, intl: IntlShape) {
-  return getLocalizedArray(skill.keywords as LocalizedArray, intl);
 }
 
 export function descriptionCell(

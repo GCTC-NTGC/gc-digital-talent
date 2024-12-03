@@ -6,7 +6,6 @@ const config: CodegenConfig = {
     "../auth/src/**/*.tsx",
     "../../apps/web/src/**/*.tsx",
     "../../apps/web/src/**/*.ts",
-    "../../apps/e2e/cypress/**/*.ts",
   ],
   ignoreNoDocuments: true,
   generates: {
@@ -18,6 +17,8 @@ const config: CodegenConfig = {
           DateTime: "string",
           Email: "string",
           PhoneNumber: "string",
+          KeyString: "string",
+          UUID: "string",
         },
       },
       presetConfig: {

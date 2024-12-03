@@ -82,7 +82,7 @@ class OpenIdBearerTokenService
     }
 
     // get a Lcobucci\JWT\Configuration object for a given key ID
-    private function getConfiguration(string $keyId): ?Configuration
+    private function getConfiguration(string $keyId): Configuration
     {
         if (! $keyId) {
             throw new Exception('No key ID provided');
@@ -158,7 +158,15 @@ class OpenIdBearerTokenService
                 ]);
 
             if ($response->failed()) {
-                Log::error('Failed when GETting the introspection verification in verifyJwtWithIntrospection');
+                $errorCode = $response->json('error');
+                $isNormalErrorCode = $errorCode == 'access_denied';
+
+                $errorMessageToLog = 'Failed when GETting the introspection verification in verifyJwtWithIntrospection '.$errorCode;
+                if (! $isNormalErrorCode) {
+                    Log::error($errorMessageToLog);
+                } else {
+                    Log::debug($errorMessageToLog);
+                }
                 Log::debug((string) $response->getBody());
                 throw new Exception('Failed to get introspection');
             }

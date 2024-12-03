@@ -3,12 +3,12 @@
 namespace App\Policies;
 
 use App\Enums\PoolStatus;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Carbon;
 
 class PoolPolicy
 {
@@ -44,8 +44,12 @@ class PoolPolicy
             }
 
             // Load team only when needed to check if team owns draft.
-            $pool->loadMissing('team');
-            if ($user->isAbleTo('view-team-pool', $pool->team)) {
+            $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+            $teamPermission = ! is_null($pool->team) && $user->isAbleTo('view-team-draftPool', $pool->team);
+            $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('view-team-draftPool', $pool->legacyTeam);
+            $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-draftPool', $pool->community->team);
+
+            if ($teamPermission || $legacyTeamPermission || $communityPermission) {
                 return true;
             }
         }
@@ -72,38 +76,49 @@ class PoolPolicy
      */
     public function create(User $user, $request)
     {
-        if (array_key_exists('team_id', $request)) {
-            $team_id = $request['team_id'];
 
-            // Get the team to check against
-            $team = Team::find($team_id);
+        $teamId = isset($request['team_id']) ? $request['team_id'] : null;
+        $communityId = isset($request['community_id']) ? $request['community_id'] : null;
 
-            // Confirm the user can create pools for the team
-            if (! is_null($team)) {
-                if ($user->isAbleTo('create-team-pool', $team)) {
-                    return true;
-                }
-            } else {
-                return Response::deny('Cannot find a team matching team_id.');
-            }
-        } else {
-            Response::deny('Pool must be associated with a team when it is created.');
+        if (is_null($teamId) || is_null($communityId)) {
+            return false;
         }
 
-        return Response::deny('Cannot create a pool for that team.');
+        if ($user->isAbleTo('create-any-pool')) {
+            return true; // return early, permission does not exist at the moment
+        }
+
+        $team = Team::findOrFail($teamId);
+        $community = Community::with('team')->findOrFail($communityId);
+
+        if ($user->isAbleTo('create-team-draftPool', $team)) {
+            // user is a legacy pool operator
+            return true;
+        }
+
+        if (! is_null($community->team) && $user->isAbleTo('create-team-draftPool', $community->team)) {
+            // user is a community recruiter or community admin
+            return true;
+        }
+
+        return false; // fallback to fail
     }
 
     /**
-     * Determine whether the user can create pools.
+     * Determine whether the user can duplicate pools.
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function duplicate(User $user, $request)
     {
-        $existing = Pool::findOrFail($request['id']);
+        /** @var Pool $existing */
+        $existing = Pool::with(['team', 'community.team'])->findOrFail($request['id']);
 
         // Confirm the user can create pools for the team
-        if ($user->isAbleTo('create-team-pool', $existing->team)) {
+        $teamPermission = ! is_null($existing->team) && $user->isAbleTo('create-team-draftPool', $existing->team);
+        $legacyTeamPermission = ! is_null($existing->legacyTeam) && $user->isAbleTo('create-team-draftPool', $existing->legacyTeam);
+        $communityPermission = ! is_null($existing->community->team) && $user->isAbleTo('create-team-draftPool', $existing->community->team);
+        if ($teamPermission || $legacyTeamPermission || $communityPermission) {
             return true;
         } else {
             return Response::deny('Cannot duplicate a pool for that team.');
@@ -117,10 +132,13 @@ class PoolPolicy
      */
     public function updateDraft(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
+        $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('update-team-draftPool', $pool->legacyTeam);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-draftPool', $pool->community->team);
 
         return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-            && $user->isAbleTo('update-team-draftPool', $pool->team);
+            && ($teamPermission || $legacyTeamPermission || $communityPermission);
     }
 
     /**
@@ -130,8 +148,22 @@ class PoolPolicy
      */
     public function updatePublished(User $user, Pool $pool)
     {
-        return $pool->getStatusAttribute() === PoolStatus::PUBLISHED->name
-            && $user->isAbleTo('update-any-publishedPool');
+        if (! ($pool->getStatusAttribute() === PoolStatus::PUBLISHED->name)) {
+            return false;
+        }
+
+        if ($user->isAbleTo('update-any-publishedPool')) {
+            return true;
+        }
+
+        $pool->loadMissing(['community.team']);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
+
+        if ($communityPermission) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -141,18 +173,18 @@ class PoolPolicy
      */
     public function publish(User $user, Pool $pool)
     {
-        // The status must be DRAFT to be able to publish it.
-        if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
-            // The closing date must be greater than today's date at the end of day.
-            if ($pool->closing_date && $pool->closing_date > Carbon::now()->endOfDay()) {
-                if ($user->isAbleTo('publish-any-pool')) {
-                    return true;
-                }
-            } else {
-                return Response::deny('Expiry date must be a future date.');
-            }
-        } else {
+        if ($pool->status !== PoolStatus::DRAFT->name) {
             return Response::deny('Pool has already been published.');
+        }
+
+        if ($user->isAbleTo('publish-any-draftPool')) {
+            return true;
+        }
+
+        $pool->loadMissing(['community.team']);
+
+        if (isset($pool->community->team) && $user->isAbleTo('publish-team-draftPool', $pool->community->team)) {
+            return true;
         }
 
         return Response::deny('Cannot publish that pool.');
@@ -165,9 +197,12 @@ class PoolPolicy
      */
     public function changePoolClosingDate(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
+        $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('update-team-publishedPool', $pool->legacyTeam);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
 
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return $user->isAbleTo('update-any-publishedPool') || $teamPermission || $legacyTeamPermission || $communityPermission;
     }
 
     /**
@@ -177,9 +212,12 @@ class PoolPolicy
      */
     public function closePool(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
+        $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('update-team-publishedPool', $pool->legacyTeam);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
 
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return $user->isAbleTo('update-any-publishedPool') || $teamPermission || $legacyTeamPermission || $communityPermission;
     }
 
     /**
@@ -190,9 +228,12 @@ class PoolPolicy
     public function deleteDraft(User $user, Pool $pool)
     {
         if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
-            $pool->loadMissing('team');
+            $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+            $teamPermission = ! is_null($pool->team) && $user->isAbleTo('delete-team-draftPool', $pool->team);
+            $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('delete-team-draftPool', $pool->legacyTeam);
+            $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('delete-team-draftPool', $pool->community->team);
 
-            if ($user->isAbleTo('delete-team-draftPool', $pool->team)) {
+            if ($teamPermission || $legacyTeamPermission || $communityPermission) {
                 return true;
             }
         } else {
@@ -209,9 +250,12 @@ class PoolPolicy
      */
     public function archiveAndUnarchive(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('archive-team-publishedPool', $pool->team);
+        $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('archive-team-publishedPool', $pool->legacyTeam);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('archive-team-publishedPool', $pool->community->team);
 
-        return $user->isAbleTo('archive-team-pool', $pool->team);
+        return $teamPermission || $legacyTeamPermission || $communityPermission;
     }
 
     /**
@@ -225,8 +269,30 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing('team');
+        $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->team);
+        $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('view-team-assessmentPlan', $pool->legacyTeam);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->community->team);
 
-        return $user->isAbleTo('view-team-assessmentPlan', $pool->team);
+        return $teamPermission || $legacyTeamPermission || $communityPermission;
+    }
+
+    /**
+     * Determine whether the user can view the team members of a specific pools team
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTeamMembers(User $user, Pool $pool)
+    {
+        if ($user->isAbleTo('view-any-poolTeamMembers') || $user->isAbleTo('view-any-teamMembers')) {
+            return true;
+        }
+
+        $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
+        $teamPermission = ! is_null($pool->team) && ($user->isAbleTo('view-team-teamMembers', $pool->team) || $user->isAbleTo('view-team-poolTeamMembers', $pool->team));
+        $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('view-team-teamMembers', $pool->legacyTeam);
+        $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->community->team);
+
+        return $teamPermission || $legacyTeamPermission || $communityPermission;
     }
 }

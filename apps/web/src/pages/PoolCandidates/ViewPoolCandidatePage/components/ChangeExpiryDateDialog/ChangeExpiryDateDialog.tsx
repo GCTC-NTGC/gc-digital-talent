@@ -18,9 +18,9 @@ import applicationMessages from "~/messages/applicationMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
-type FormValues = {
+interface FormValues {
   expiryDate: string;
-};
+}
 
 const ChangeExpiryDate_Mutation = graphql(/* GraphQL */ `
   mutation ChangeExpiryDate(
@@ -38,7 +38,9 @@ const CandidateExpiryDateDialog_Fragment = graphql(/* GraphQL */ `
   fragment CandidateExpiryDateDialog on PoolCandidate {
     id
     expiryDate
-    status
+    status {
+      value
+    }
   }
 `);
 
@@ -68,7 +70,10 @@ const ChangeExpiryDateDialog = ({
 
   const { handleSubmit } = methods;
 
-  if (!application.expiryDate || !isQualifiedStatus(application.status)) {
+  if (
+    !application.expiryDate ||
+    !isQualifiedStatus(application.status?.value)
+  ) {
     return null;
   }
 

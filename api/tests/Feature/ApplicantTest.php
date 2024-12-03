@@ -1,15 +1,19 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
+use App\Models\Classification;
 use App\Models\CommunityExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -54,7 +58,7 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQuery(): void
     {
         // Get the ID of the base admin user
-        $user = User::All()->first();
+        $user = User::all()->first();
         $ITPool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
             'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
@@ -1231,7 +1235,7 @@ class ApplicantTest extends TestCase
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
-                    status
+                    status { value }
                 }
             }
         ';
@@ -1244,7 +1248,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 10,
-                        'status' => PoolCandidateStatus::DRAFT->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::DRAFT->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1260,7 +1266,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 20,
-                        'status' => PoolCandidateStatus::DRAFT_EXPIRED->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::DRAFT_EXPIRED->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1277,7 +1285,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 30,
-                        'status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1292,7 +1302,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 40,
-                        'status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1307,7 +1319,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 50,
-                        'status' => PoolCandidateStatus::SCREENED_IN->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::SCREENED_IN->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1322,7 +1336,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 60,
-                        'status' => PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1337,7 +1353,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 70,
-                        'status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1352,7 +1370,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 80,
-                        'status' => PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1367,7 +1387,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 90,
-                        'status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1382,7 +1404,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 100,
-                        'status' => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1397,7 +1421,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 110,
-                        'status' => PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1412,7 +1438,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 120,
-                        'status' => PoolCandidateStatus::PLACED_CASUAL->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::PLACED_CASUAL->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1427,7 +1455,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 130,
-                        'status' => PoolCandidateStatus::PLACED_TERM->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::PLACED_TERM->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1442,7 +1472,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 140,
-                        'status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1457,7 +1489,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 150,
-                        'status' => PoolCandidateStatus::EXPIRED->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::EXPIRED->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1472,7 +1506,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 160,
-                        'status' => PoolCandidateStatus::REMOVED->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::REMOVED->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1882,6 +1918,138 @@ class ApplicantTest extends TestCase
                             'total' => 5,
                         ],
                     ],
+                ],
+            ]);
+
+    }
+
+    public function testClassificationAndStreamsFilter()
+    {
+        $targetClassification = Classification::factory()->create();
+        $excludedClassification = Classification::factory()->create();
+
+        $targetStream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
+        $excludedStream = PoolStream::ACCESS_INFORMATION_PRIVACY->name;
+
+        $targetClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification,
+            'stream' => $excludedStream,
+        ]);
+        $targetStreamPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $excludedClassification,
+            'stream' => $targetStream,
+        ]);
+        $targetStreamAndClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification,
+            'stream' => $targetStream,
+        ]);
+        $excludedPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $excludedClassification,
+            'stream' => $excludedStream,
+        ]);
+
+        $targetUser = User::factory()->create();
+        $targetClassificationUser = User::factory()->create();
+        $targetStreamUser = User::factory()->create();
+        $excludedUser = User::factory()->create();
+
+        // Should show up for classification filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $targetClassificationPool,
+        ]);
+
+        // Should should up for stream filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $targetStreamPool,
+        ]);
+
+        // Should show up for both stream + classification filters
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $targetStreamAndClassificationPool,
+        ]);
+
+        // Should show up for classification filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetClassificationUser,
+            'pool_id' => $targetClassificationPool,
+        ]);
+
+        // Should should up for stream filter only
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetStreamUser,
+            'pool_id' => $targetStreamPool,
+        ]);
+
+        // Should never show up
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $targetUser,
+            'pool_id' => $excludedPool,
+        ]);
+
+        // Should never show up
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $excludedUser,
+            'pool_id' => $excludedPool,
+        ]);
+
+        $query = /* GraphQL */ '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ';
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'qualifiedClassifications' => [
+                            [
+                                'group' => $targetClassification->group,
+                                'level' => $targetClassification->level,
+                            ],
+                        ],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'countApplicants' => 2,
+                ],
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'qualifiedStreams' => [$targetStream],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'countApplicants' => 2,
+                ],
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'qualifiedClassifications' => [
+                            [
+                                'group' => $targetClassification->group,
+                                'level' => $targetClassification->level,
+                            ],
+                        ],
+                        'qualifiedStreams' => [
+                            $targetStream,
+                        ],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'countApplicants' => 1,
                 ],
             ]);
 

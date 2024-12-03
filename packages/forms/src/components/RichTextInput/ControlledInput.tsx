@@ -11,7 +11,7 @@ import MenuBar from "./MenuBar";
 import Footer from "./Footer";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { FieldState } from "../../types";
-import { contentStyles, extensions } from "./utils";
+import { buildExtensions, contentStyles } from "./utils";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -23,14 +23,14 @@ interface ControlledInputProps {
   trackUnsaved?: boolean;
   /** Current field state (to update styles) */
   fieldState: FieldState;
-  inputProps?: {
-    [name: string]: string;
-  };
+  inputProps?: Record<string, string>;
+  allowHeadings?: boolean;
 }
 
 const ControlledInput = ({
   field: { onChange, name },
   formState: { defaultValues },
+  allowHeadings,
   fieldState,
   inputProps,
   editable,
@@ -39,7 +39,9 @@ const ControlledInput = ({
 }: ControlledInputProps) => {
   const inputStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
-  const content = defaultValues ? defaultValues[name] : undefined;
+  const content = defaultValues?.[name]
+    ? String(defaultValues[name])
+    : undefined;
 
   const editorProps = useMemo(
     () => ({
@@ -61,7 +63,7 @@ const ControlledInput = ({
   );
 
   const editor = useEditor({
-    extensions,
+    extensions: buildExtensions(allowHeadings),
     content,
     editorProps,
     editable,
@@ -82,7 +84,7 @@ const ControlledInput = ({
 
   return (
     <div>
-      <MenuBar {...{ editor }} />
+      <MenuBar allowHeadings={allowHeadings} {...{ editor }} />
       <div data-h2-color="base(black)">
         <EditorContent {...{ content, editor }} />
       </div>

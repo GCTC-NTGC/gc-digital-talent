@@ -2,8 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { toDate } from "date-fns-tz";
 import { createIntl, createIntlCache } from "react-intl";
+import { parseISO } from "date-fns";
+import { tz } from "@date-fns/tz";
 
 import {
   convertDateTimeToDate,
@@ -62,10 +63,10 @@ describe("relativeClosingDate tests", () => {
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("today in a different time zone", () => {
     const s = f({
-      closingDate: toDate("2021-12-31 23:59:59", {
-        timeZone: "Canada/Pacific",
+      closingDate: parseISO("2021-12-31 23:59:59", {
+        in: tz("Canada/Pacific"),
       }),
-      now: toDate("2022-01-01 1:00:00", { timeZone: "Canada/Eastern" }),
+      now: parseISO("2022-01-01 01:00:00", { in: tz("Canada/Eastern") }),
       intl,
       timeZone: "Canada/Pacific",
     });
@@ -75,10 +76,10 @@ describe("relativeClosingDate tests", () => {
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("tomorrow in a different time zone", () => {
     const s = f({
-      closingDate: toDate("2021-12-31 23:59:59", {
-        timeZone: "Canada/Pacific",
+      closingDate: parseISO("2021-12-31 23:59:59", {
+        in: tz("Canada/Pacific"),
       }),
-      now: toDate("2021-12-31 00:00:00", { timeZone: "Canada/Eastern" }),
+      now: parseISO("2021-12-31 00:00:00", { in: tz("Canada/Eastern") }),
       intl,
       timeZone: "Canada/Pacific",
     });
@@ -88,10 +89,10 @@ describe("relativeClosingDate tests", () => {
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("future days in a different time zone", () => {
     const s = f({
-      closingDate: toDate("2021-12-31 23:59:59", {
-        timeZone: "Canada/Pacific",
+      closingDate: parseISO("2021-12-31 23:59:59", {
+        in: tz("Canada/Pacific"),
       }),
-      now: toDate("2021-12-01", { timeZone: "Canada/Eastern" }),
+      now: parseISO("2021-12-01", { in: tz("Canada/Eastern") }),
       intl,
       timeZone: "Canada/Pacific",
     });

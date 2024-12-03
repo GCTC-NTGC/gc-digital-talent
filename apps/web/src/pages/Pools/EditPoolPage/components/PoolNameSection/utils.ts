@@ -1,12 +1,8 @@
 import { IntlShape } from "react-intl";
 
-import { Option, enumToOptions } from "@gc-digital-talent/forms";
+import { Option } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  getLocalizedName,
-  getPoolStream,
-  getPoolOpportunityLength,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   PoolOpportunityLength,
   Classification,
@@ -16,33 +12,43 @@ import {
   PoolStream,
   PublishingGroup,
   UpdatePoolInput,
+  Department,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
-import { sortedOpportunityLengths } from "~/utils/poolUtils";
-
-export type FormValues = {
+export interface FormValues {
+  areaOfSelection?: Maybe<PoolAreaOfSelection>;
+  selectionLimitations?: Maybe<PoolSelectionLimitation[]>;
   classification?: Classification["id"];
+  department?: Department["id"];
   stream?: PoolStream;
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
   processNumber?: string;
   publishingGroup?: Maybe<PublishingGroup>;
   opportunityLength?: Maybe<PoolOpportunityLength>;
-};
+}
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
+  areaOfSelection: initialData.areaOfSelection?.value ?? undefined,
+  selectionLimitations: initialData.selectionLimitations?.map((l) => l.value),
   classification: initialData.classification?.id ?? "",
-  stream: initialData.stream ?? undefined,
+  department: initialData.department?.id ?? "",
+  stream: initialData.stream?.value ?? undefined,
   specificTitleEn: initialData.name?.en ?? "",
   specificTitleFr: initialData.name?.fr ?? "",
   processNumber: initialData.processNumber ?? "",
-  publishingGroup: initialData.publishingGroup,
-  opportunityLength: initialData.opportunityLength,
+  publishingGroup: initialData.publishingGroup?.value,
+  opportunityLength: initialData.opportunityLength?.value,
 });
 
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
+  | "areaOfSelection"
+  | "selectionLimitations"
   | "classification"
+  | "department"
   | "name"
   | "stream"
   | "processNumber"
@@ -53,9 +59,16 @@ export type PoolNameSubmitData = Pick<
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): PoolNameSubmitData => ({
+  areaOfSelection: formValues.areaOfSelection,
+  selectionLimitations: formValues.selectionLimitations ?? [],
   classification: formValues.classification
     ? {
         connect: formValues.classification,
+      }
+    : undefined,
+  department: formValues.department
+    ? {
+        connect: formValues.department,
       }
     : undefined,
   stream: formValues.stream ? formValues.stream : undefined,
@@ -82,16 +95,12 @@ export const getClassificationOptions = (
   }));
 };
 
-export const getStreamOptions = (intl: IntlShape): Option[] => {
-  return enumToOptions(PoolStream).map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getPoolStream(value)),
-  }));
-};
-
-export const getOpportunityLengthOptions = (intl: IntlShape): Option[] => {
-  return sortedOpportunityLengths.map((value) => ({
-    value,
-    label: intl.formatMessage(getPoolOpportunityLength(value)),
+export const getDepartmentOptions = (
+  departments: readonly Pick<Department, "id" | "name">[],
+  intl: IntlShape,
+): Option[] => {
+  return departments.filter(notEmpty).map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl),
   }));
 };

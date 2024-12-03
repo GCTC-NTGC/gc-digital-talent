@@ -1,27 +1,26 @@
 import {
-  User,
   EducationRequirementOption,
   Pool,
-  PoolCandidate,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { ExperienceForDate } from "~/types/experience";
 import { isEducationExperience } from "~/utils/experienceUtils";
 
 const stepHasError = (
-  _user: User,
+  _user: ApplicationPoolCandidateFragmentType["user"],
   _pool: Pool,
-  application: Omit<PoolCandidate, "pool">,
+  application: ApplicationPoolCandidateFragmentType,
 ) => {
   return (
     !application.educationRequirementOption ||
     !application.educationRequirementExperiences ||
-    ((application.educationRequirementOption ===
+    ((application.educationRequirementOption.value ===
       EducationRequirementOption.AppliedWork ||
-      application.educationRequirementOption ===
+      application.educationRequirementOption.value ===
         EducationRequirementOption.ProfessionalDesignation) &&
       application.educationRequirementExperiences.length === 0) ||
-    (application.educationRequirementOption ===
+    (application.educationRequirementOption.value ===
       EducationRequirementOption.Education &&
       application.educationRequirementExperiences.filter((experience) =>
         isEducationExperience(experience as ExperienceForDate),

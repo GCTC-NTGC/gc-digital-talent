@@ -6,6 +6,7 @@ use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class EducationExperience
@@ -15,13 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $institution
  * @property string $area_of_study
  * @property string $thesis_title
- * @property Illuminate\Support\Carbon $start_date
- * @property Illuminate\Support\Carbon $end_date
+ * @property ?\Illuminate\Support\Carbon $start_date
+ * @property ?\Illuminate\Support\Carbon $end_date
  * @property string $type
  * @property string $status
  * @property string $details
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class EducationExperience extends Experience
 {
@@ -37,16 +38,24 @@ class EducationExperience extends Experience
 
     /**
      * Default values for attributes
-     *
-     * @var array an array with attribute as key and default as value
      */
     protected $attributes = [
         'experience_type' => EducationExperience::class,
     ];
 
-    public function getTitle(): string
+    protected static $hydrationFields = [
+        'institution' => 'institution',
+        'area_of_study' => 'areaOfStudy',
+        'thesis_title' => 'thesisTitle',
+        'type' => 'type',
+        'status' => 'status',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
+    ];
+
+    public function getTitle(?string $lang = 'en'): string
     {
-        return sprintf('%s at %s', $this->area_of_study, $this->institution);
+        return sprintf('%s %s %s', $this->area_of_study, Lang::get('common.at', [], $lang), $this->institution);
     }
 
     /**

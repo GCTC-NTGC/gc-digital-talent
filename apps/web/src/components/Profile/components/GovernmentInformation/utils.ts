@@ -2,11 +2,12 @@ import { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
 import { empty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Classification,
   GovEmployeeType,
   UpdateUserAsUserInput,
+  User,
 } from "@gc-digital-talent/graphql";
 
 import { splitAndJoin } from "~/utils/nameUtils";
@@ -25,7 +26,7 @@ import { FormValues, PartialUser } from "./types";
 const classificationFormToId = (
   group: string | undefined,
   level: string | undefined,
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): string | undefined => {
   return classifications.find(
     (classification) =>
@@ -35,7 +36,8 @@ const classificationFormToId = (
 
 export const formValuesToSubmitData = (
   values: FormValues,
-  classifications: Classification[],
+  userId: User["id"],
+  classifications: Pick<Classification, "group" | "level" | "id">[],
 ): UpdateUserAsUserInput => {
   const classificationId = classificationFormToId(
     values.currentClassificationGroup,
@@ -47,12 +49,14 @@ export const formValuesToSubmitData = (
   // IE, picks term position and IT-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
   if (values.govEmployeeYesNo === "no") {
     return {
+      id: userId,
       isGovEmployee: false,
       govEmployeeType: null,
       department: { disconnect: true },
       currentClassification: {
         disconnect: true,
       },
+      workEmail: null,
       hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
       priorityNumber:
         values.priorityEntitlementYesNo === "yes" &&
@@ -63,12 +67,14 @@ export const formValuesToSubmitData = (
   }
   if (values.govEmployeeType === GovEmployeeType.Student) {
     return {
+      id: userId,
       isGovEmployee: values.govEmployeeYesNo === "yes",
       govEmployeeType: values.govEmployeeType,
       department: values.department ? { connect: values.department } : null,
       currentClassification: {
         disconnect: true,
       },
+      workEmail: values.workEmail,
       hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
       priorityNumber:
         values.priorityEntitlementYesNo === "yes" &&
@@ -79,6 +85,7 @@ export const formValuesToSubmitData = (
   }
   if (values.govEmployeeType === GovEmployeeType.Casual) {
     return {
+      id: userId,
       isGovEmployee: values.govEmployeeYesNo === "yes",
       govEmployeeType: values.govEmployeeType,
       department: values.department ? { connect: values.department } : null,
@@ -87,6 +94,7 @@ export const formValuesToSubmitData = (
             connect: classificationId,
           }
         : null,
+      workEmail: values.workEmail,
       hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
       priorityNumber:
         values.priorityEntitlementYesNo === "yes" &&
@@ -96,6 +104,7 @@ export const formValuesToSubmitData = (
     };
   }
   return {
+    id: userId,
     isGovEmployee: values.govEmployeeYesNo === "yes",
     govEmployeeType: values.govEmployeeType,
     department: values.department ? { connect: values.department } : null,
@@ -104,6 +113,7 @@ export const formValuesToSubmitData = (
           connect: classificationId,
         }
       : null,
+    workEmail: values.workEmail,
     hasPriorityEntitlement: values.priorityEntitlementYesNo === "yes",
     priorityNumber:
       values.priorityEntitlementYesNo === "yes" &&
@@ -128,13 +138,14 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
     priorityEntitlementNumber: data?.priorityNumber
       ? data.priorityNumber
       : undefined,
-    govEmployeeType: data?.govEmployeeType,
+    govEmployeeType: data?.govEmployeeType?.value,
     lateralDeployBool: undefined,
     department: data?.department?.id,
     currentClassificationGroup: data?.currentClassification?.group,
     currentClassificationLevel: data?.currentClassification?.level
       ? String(data.currentClassification.level)
       : undefined,
+    workEmail: data.workEmail,
   };
 };
 
@@ -164,6 +175,7 @@ export const getLabels = (intl: IntlShape) => ({
     id: "gnGAe8",
     description: "Label displayed on classification level input",
   }),
+  workEmail: intl.formatMessage(commonMessages.workEmail),
   priorityEntitlementYesNo: intl.formatMessage({
     defaultMessage: "Do you have a priority entitlement?",
     id: "/h9mNu",
@@ -181,7 +193,7 @@ export const getLabels = (intl: IntlShape) => ({
  * Get classification group options
  */
 export const getGroupOptions = (
-  classifications: Classification[],
+  classifications: Pick<Classification, "group" | "name">[],
   intl: IntlShape,
 ) => {
   const classGroupsWithDupes: {
@@ -220,8 +232,8 @@ export const getGroupOptions = (
  * @returns
  */
 export const getLevelOptions = (
-  classifications: Classification[],
-  groupSelection: Classification["group"],
+  classifications: Pick<Classification, "group" | "level">[],
+  groupSelection?: Classification["group"],
 ) =>
   classifications
     .filter((x) => x.group === groupSelection)

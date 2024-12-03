@@ -2,9 +2,7 @@ import { HTMLAttributes, forwardRef } from "react";
 
 import { IconType, Color } from "../../types";
 import { headingStyles, iconStyles } from "./styles";
-
-export type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-export type HeadingRef = HTMLHeadingElement;
+import { HeadingLevel, HeadingRef } from "./types";
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   level?: HeadingLevel;
@@ -20,7 +18,7 @@ const Heading = forwardRef<HeadingRef, HeadingProps>(
     return (
       <El
         ref={forwardedRef}
-        {...headingStyles[size || level]}
+        {...headingStyles[size ?? level]}
         {...(Icon && {
           "data-h2-display": "base(flex)",
           "data-h2-align-items": "base(center)",

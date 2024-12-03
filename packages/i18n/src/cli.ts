@@ -1,14 +1,13 @@
 #!/bin/env node
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-console */
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
-const yargs = require("yargs");
-const yaml = require("js-yaml");
-const stringify = require("json-stable-stringify"); // provides sorted output
+import yargs from "yargs/yargs";
+import yaml from "js-yaml";
+import stringify from "json-stable-stringify"; // provides sorted output
 
-const { argv } = yargs(process.argv.slice(2))
+const argv = yargs(process.argv.slice(2))
   .option("dir", {
     demandOption: false,
     describe: "path to the current working directory",
@@ -46,7 +45,17 @@ const { argv } = yargs(process.argv.slice(2))
       "path to json file containing an array of keys which are expected to be identical in fr and en",
     string: true,
   })
-  .help();
+  .help()
+  .parseSync();
+
+interface Message {
+  defaultMessage: string;
+  description: string;
+}
+
+type Messages = Record<string, Message>;
+
+type Whitelist = string[];
 
 /**
  * Loads data from a json or yml file as a js object or array.
@@ -63,10 +72,10 @@ const readDataFile = (
   }
   const ext = path.extname(filename);
   if (ext === ".json") {
-    return JSON.parse(fs.readFileSync(filename));
+    return JSON.parse(fs.readFileSync(filename, "utf8")) as Messages;
   }
   if (ext === ".yml" || ext === ".yaml") {
-    return yaml.load(fs.readFileSync(filename));
+    return yaml.load(fs.readFileSync(filename, "utf8")) as Whitelist;
   }
   // For unknown file types, throw error
   throw new Error(
@@ -75,16 +84,16 @@ const readDataFile = (
 };
 
 // Change directory if it was passed
-const { dir } = argv;
-if (dir) {
-  process.chdir(dir);
+if (argv.dir) {
+  process.chdir(argv.dir);
 }
 
 // First read all relevant files and convert to js objects.
-const en = readDataFile(argv.en, {});
-const frOriginal = readDataFile(argv.fr, {});
-const whitelist = readDataFile(argv.whitelist, []);
-const frNew = readDataFile(argv["merge-fr"], {});
+const en = readDataFile(argv.en, {}) as Messages;
+const frOriginal = readDataFile(argv.fr, {}) as Messages;
+const whitelist = readDataFile(argv?.whitelist ?? "", []) as Whitelist;
+const mergeFr = argv?.["merge-fr"] ?? "";
+const frNew = readDataFile(mergeFr, {}) as Messages;
 
 // This variable is used to track changes that may need to be made to fr.json. That way, we only update the file once, at the end.
 let outputFr = { ...frOriginal, ...frNew };
@@ -118,7 +127,7 @@ if (Object.keys(frNew).length > 0) {
 const transform = (
   obj: Record<string, unknown>,
   predicate: (v: unknown, k: string) => boolean,
-) => {
+): Record<string, unknown> => {
   return Object.keys(obj).reduce((memo: Record<string, unknown>, key) => {
     if (predicate(obj[key], key)) {
       // eslint-disable-next-line no-param-reassign
@@ -134,16 +143,22 @@ const transform = (
  * @param {string[]} keys
  * @returns {Record<string, unknown>}
  */
-const omit = (obj: Record<string, unknown>, keys: string[]) =>
-  transform(obj, (value, key) => !keys.includes(key));
+const omit = (
+  obj: Record<string, unknown>,
+  keys: string[],
+): Record<string, unknown> =>
+  transform(obj, (_value, key) => !keys.includes(key));
 /**
  * Return a copy of obj, excluding all keys not specified.
  * @param {Record<string, unknown>} obj
  * @param {string[]} keys
  * @returns {Record<string, unknown>}
  */
-const pick = (obj: Record<string, unknown>, keys: string[]) =>
-  transform(obj, (value, key) => keys.includes(key));
+const pick = (
+  obj: Record<string, unknown>,
+  keys: string[],
+): Record<string, unknown> =>
+  transform(obj, (_value, key) => keys.includes(key));
 
 // All keys in the original en file.
 const enKeys = Object.keys(en);
@@ -188,7 +203,7 @@ if (
 }
 
 if (argv["rm-orphaned"] && orphanedKeys.length > 0) {
-  outputFr = omit(outputFr, orphanedKeys);
+  outputFr = omit(outputFr, orphanedKeys) as Messages;
   console.warn(
     "These values were removed from fr as they are not in en:",
     orphaned,

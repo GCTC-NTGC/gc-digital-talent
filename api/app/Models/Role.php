@@ -14,8 +14,8 @@ use Laratrust\Models\Role as LaratrustRole;
  * @property bool $is_team_based
  * @property array $display_name
  * @property array $description
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class Role extends LaratrustRole
 {
@@ -37,7 +37,7 @@ class Role extends LaratrustRole
 
     public $guarded = [];
 
-    // A relationship to the custom roleAssignments pivot model
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);

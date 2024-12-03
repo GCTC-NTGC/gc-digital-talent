@@ -8,15 +8,15 @@
   },
   "scripts": {
     "codegen": "graphql-codegen --config codegen.ts",
-    "watch": "pnpm run codegen -- --watch"
+    "watch": "pnpm run codegen --watch"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.2",
-    "@graphql-codegen/client-preset": "^4.2.6",
-    "@parcel/watcher": "^2.4.1",
-    "graphql": "^16.8.1",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/client-preset": "^4.5.1",
+    "@parcel/watcher": "^2.5.0",
+    "graphql": "^16.9.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.5",
-    "urql": "^4.1.0"
+    "typescript": "^5.7.2",
+    "urql": "^4.2.1"
   }
 }

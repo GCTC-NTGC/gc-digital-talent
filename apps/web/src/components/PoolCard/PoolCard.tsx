@@ -1,7 +1,8 @@
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
+import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
 import {
   Heading,
@@ -22,10 +23,13 @@ import {
   Classification,
   FragmentType,
   Maybe,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
   PoolSkillType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -37,7 +41,20 @@ import IconLabel from "./IconLabel";
 export const PoolCard_Fragment = graphql(/* GraphQL */ `
   fragment PoolCard on Pool {
     id
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
     name {
       en
@@ -52,10 +69,22 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
       skill {
         id
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         key
         name {
           en
@@ -63,12 +92,18 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    areaOfSelection {
+      value
+    }
+    selectionLimitations {
+      value
+    }
   }
 `);
 
 const getSalaryRange = (
   locale: string,
-  classification?: Maybe<Classification>,
+  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
 ) => {
   if (!classification) return null;
 
@@ -77,6 +112,63 @@ const getSalaryRange = (
     classification.maxSalary,
     locale,
   );
+};
+
+const deriveWhoCanApplyString = (
+  areaOfSelection: PoolAreaOfSelection,
+  selectionLimitations: PoolSelectionLimitation[],
+  intl: IntlShape,
+): string | null => {
+  if (areaOfSelection == PoolAreaOfSelection.Public) {
+    return intl.formatMessage({
+      defaultMessage: "Open to the public",
+      id: "L0eho2",
+      description: "Combined eligibility string for 'open to the public'",
+    });
+  }
+  if (areaOfSelection == PoolAreaOfSelection.Employees) {
+    if (
+      selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly) &&
+      selectionLimitations?.includes(
+        PoolSelectionLimitation.DepartmentalPreference,
+      )
+    ) {
+      return intl.formatMessage({
+        defaultMessage: "Employees (at-level, departmental preference)",
+        id: "4VQGU4",
+        description:
+          "Combined eligibility string for 'employees only', 'at-level only', and 'departmental preference'",
+      });
+    }
+    if (selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly)) {
+      return intl.formatMessage({
+        defaultMessage: "Employees (at-level)",
+        id: "JCX6jN",
+        description:
+          "Combined eligibility string for 'employees only' and 'at-level only'",
+      });
+    }
+    if (
+      selectionLimitations?.includes(
+        PoolSelectionLimitation.DepartmentalPreference,
+      )
+    ) {
+      return intl.formatMessage({
+        defaultMessage: "Employees (departmental preference)",
+        id: "g6coYl",
+        description:
+          "Combined eligibility string for 'employees only' and 'departmental preference'",
+      });
+    }
+    // fall-through for employees only
+    return intl.formatMessage({
+      defaultMessage: "Employees",
+      id: "TOnXeM",
+      description:
+        "Combined eligibility string for 'employees only' with no other limitations",
+    });
+  }
+  return null;
 };
 
 export interface PoolCardProps {
@@ -165,7 +257,12 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-max-width="p-tablet(75%)"
             data-h2-min-height="base(x4.5) p-tablet(auto)"
           >
-            {getShortPoolTitleHtml(intl, pool)}
+            {getShortPoolTitleHtml(intl, {
+              stream: pool.stream,
+              name: pool.name,
+              publishingGroup: pool.publishingGroup,
+              classification: pool.classification,
+            })}
           </Heading>
           <div
             data-h2-background-color="base(secondary)"
@@ -179,7 +276,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
         <div
           data-h2-display="base(block) l-tablet(flex)"
           data-h2-gap="base(x2)"
-          data-h2-margin-top="base(x1) base:children[>p:last-child](x1) l-tablet:children[>p:last-child](0px)"
+          data-h2-margin-top="base(x1) base:children[>p](x1) l-tablet:children[>p](0px)"
         >
           <IconLabel
             icon={CalendarIcon}
@@ -214,6 +311,24 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
                   id: "Hd0nHP",
                 })}
           </IconLabel>
+          {pool.areaOfSelection ? (
+            <IconLabel
+              icon={UsersIcon}
+              label={
+                intl.formatMessage({
+                  defaultMessage: "Who can apply",
+                  id: "/lByjT",
+                  description: "Label for pool advertisement area of selection",
+                }) + intl.formatMessage(commonMessages.dividingColon)
+              }
+            >
+              {deriveWhoCanApplyString(
+                pool.areaOfSelection.value,
+                unpackMaybes(pool.selectionLimitations).map((l) => l.value),
+                intl,
+              ) ?? intl.formatMessage(commonMessages.notAvailable)}
+            </IconLabel>
+          ) : undefined}
           <IconLabel
             icon={CurrencyDollarIcon}
             label={

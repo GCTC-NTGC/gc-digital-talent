@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -61,14 +61,14 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     useExperienceMutations("create", type);
   const actionProps = register("action");
 
-  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
+  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = (
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], type);
-    const args = getMutationArgs(userAuthInfo?.id || "", submitData);
+    const args = getMutationArgs(userAuthInfo?.id ?? "", submitData);
     if (executeMutation) {
       executeMutation(args)
-        .then((res) => {
+        .then(async (res) => {
           if (!isSuccessfulCreate(res)) {
             toast.error(
               intl.formatMessage({
@@ -90,7 +90,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
               }),
             );
             if (formValues.action !== "add-another") {
-              navigate(paths.applicationCareerTimeline(applicationId));
+              await navigate(paths.applicationCareerTimeline(applicationId));
             }
           }
         })

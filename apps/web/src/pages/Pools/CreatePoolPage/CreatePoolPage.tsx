@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -7,6 +7,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Option, Select, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
@@ -14,7 +15,6 @@ import {
 import { Pending, Link } from "@gc-digital-talent/ui";
 import {
   graphql,
-  RoleAssignment,
   CreatePoolInput,
   CreatePoolMutation,
   Maybe,
@@ -22,15 +22,16 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
+import messages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -44,27 +45,54 @@ const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+const CreatePoolDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment CreatePoolDepartment on Department {
+    id
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
+  fragment CreatePoolCommunity on Community {
+    id
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+interface FormValues {
   classification: string;
   team: string;
-};
+  department: string;
+  community: string;
+}
 
 interface CreatePoolFormProps {
   userId: string;
   classificationsQuery: FragmentType<
     typeof CreatePoolClassification_Fragment
   >[];
+  departmentsQuery: FragmentType<typeof CreatePoolDepartment_Fragment>[];
+  communitiesQuery: FragmentType<typeof CreatePoolCommunity_Fragment>[];
   handleCreatePool: (
     userId: string,
     teamId: string,
+    communityId: string,
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
-  teamsArray: Team[];
+  teamsArray: Pick<Team, "id" | "displayName">[];
 }
 
 export const CreatePoolForm = ({
   userId,
   classificationsQuery,
+  departmentsQuery,
+  communitiesQuery,
   handleCreatePool,
   teamsArray,
 }: CreatePoolFormProps) => {
@@ -77,18 +105,34 @@ export const CreatePoolForm = ({
     CreatePoolClassification_Fragment,
     classificationsQuery,
   );
+  const departments = getFragment(
+    CreatePoolDepartment_Fragment,
+    departmentsQuery,
+  );
+  const communities = getFragment(
+    CreatePoolCommunity_Fragment,
+    communitiesQuery,
+  );
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
     classification: {
       connect: values.classification,
     },
+    department: {
+      connect: values.department,
+    },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(userId, data.team, formValuesToSubmitData(data))
-      .then((result) => {
+    await handleCreatePool(
+      userId,
+      data.team,
+      data.community,
+      formValuesToSubmitData(data),
+    )
+      .then(async (result) => {
         if (result) {
-          navigate(paths.poolUpdate(result.id));
+          await navigate(paths.poolUpdate(result.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Recruitment process created successfully!",
@@ -124,8 +168,18 @@ export const CreatePoolForm = ({
     label: getLocalizedName(displayName, intl),
   }));
 
+  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl),
+  }));
+
+  const communityOptions: Option[] = communities.map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl),
+  }));
+
   return (
-    <div data-h2-container="base(left, small, 0)">
+    <div data-h2-wrapper="base(left, small, 0)">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
@@ -135,12 +189,7 @@ export const CreatePoolForm = ({
           >
             <Select
               id="classification"
-              label={intl.formatMessage({
-                defaultMessage: "Starting group and level",
-                id: "gN5gy5",
-                description:
-                  "Label displayed on the pool form classification field.",
-              })}
+              label={intl.formatMessage(messages.groupAndLevel)}
               name="classification"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a classification",
@@ -154,13 +203,20 @@ export const CreatePoolForm = ({
               }}
             />
             <Select
+              id="community"
+              label={intl.formatMessage(messages.community)}
+              name="community"
+              nullSelection={intl.formatMessage(
+                commonMessages.selectACommunity,
+              )}
+              options={communityOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Select
               id="team"
-              label={intl.formatMessage({
-                defaultMessage: "Parent team",
-                id: "mOS8rj",
-                description:
-                  "Label displayed for selecting what team a new pool belongs to.",
-              })}
+              label={intl.formatMessage(messages.team)}
               name="team"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a team",
@@ -168,6 +224,21 @@ export const CreatePoolForm = ({
                 description: "Placeholder displayed for team selection input.",
               })}
               options={teamOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Select
+              id="department"
+              label={intl.formatMessage(messages.department)}
+              name="department"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a department",
+                id: "y827h2",
+                description:
+                  "Null selection for department select input in the request form.",
+              })}
+              options={departmentOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -197,9 +268,13 @@ export const CreatePoolForm = ({
   );
 };
 
+interface ConstrainedTeamOnRoleAssignment {
+  team?: Maybe<Pick<Team, "id" | "displayName">>;
+}
+
 const roleAssignmentsToTeams = (
-  roleAssignmentArray: Maybe<RoleAssignment[]>,
-): Team[] => {
+  roleAssignmentArray: Maybe<ConstrainedTeamOnRoleAssignment[]>,
+): Pick<Team, "id" | "displayName">[] => {
   const flattenedTeams = roleAssignmentArray?.flatMap(
     (roleAssign) => roleAssign.team,
   );
@@ -223,7 +298,6 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
           id
           team {
             id
-            name
             displayName {
               en
               fr
@@ -235,12 +309,28 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
     classifications {
       ...CreatePoolClassification
     }
+    departments {
+      ...CreatePoolDepartment
+    }
+    communities {
+      ...CreatePoolCommunity
+    }
   }
 `);
 
 const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
-  mutation CreatePool($userId: ID!, $teamId: ID!, $pool: CreatePoolInput!) {
-    createPool(userId: $userId, teamId: $teamId, pool: $pool) {
+  mutation CreatePool(
+    $userId: ID!
+    $teamId: ID!
+    $communityId: ID!
+    $pool: CreatePoolInput!
+  ) {
+    createPool(
+      userId: $userId
+      teamId: $teamId
+      communityId: $communityId
+      pool: $pool
+    ) {
       id
       name {
         en
@@ -257,8 +347,8 @@ const pageTitle = defineMessage({
 });
 
 const subTitle = defineMessage({
-  defaultMessage: "Create a new job poster from scratch",
-  id: "QodYZE",
+  defaultMessage: "Create a job poster from scratch",
+  id: "8XGVrK",
   description: "Form blurb describing create pool form",
 });
 
@@ -270,18 +360,20 @@ const CreatePoolPage = () => {
   const roleAssignments =
     unpackMaybes(data?.me?.authInfo?.roleAssignments) ?? [];
   const teamsArray = roleAssignmentsToTeams(roleAssignments);
+  const teamsArrayFiltered = teamsArray.filter((team) => !!team.displayName); // filter out lacking a display name as a proxy for new teams TODO #10368
 
   const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
     userId: string,
     teamId: string,
+    communityId: string,
     pool: CreatePoolInput,
   ) =>
-    executeMutation({ userId, teamId, pool }).then((result) => {
+    executeMutation({ userId, teamId, communityId, pool }).then((result) => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
@@ -290,7 +382,7 @@ const CreatePoolPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexPoolPageTitle),
+        label: intl.formatMessage(pageTitles.processes),
         url: routes.poolTable(),
       },
       {
@@ -298,7 +390,6 @@ const CreatePoolPage = () => {
         url: routes.poolCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
@@ -314,8 +405,10 @@ const CreatePoolPage = () => {
           <CreatePoolForm
             userId={data?.me?.id ?? ""}
             classificationsQuery={unpackMaybes(data?.classifications)}
+            departmentsQuery={unpackMaybes(data?.departments)}
+            communitiesQuery={unpackMaybes(data?.communities)}
             handleCreatePool={handleCreatePool}
-            teamsArray={teamsArray}
+            teamsArray={teamsArrayFiltered}
           />
         </Pending>
       </AdminContentWrapper>
@@ -324,7 +417,7 @@ const CreatePoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator]}>
+  <RequireAuth roles={permissionConstants.createProcess}>
     <CreatePoolPage />
   </RequireAuth>
 );

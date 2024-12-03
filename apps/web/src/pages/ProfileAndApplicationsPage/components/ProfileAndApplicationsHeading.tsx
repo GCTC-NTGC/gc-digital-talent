@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
@@ -21,7 +21,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import useRoutes, {
   FromIapDraftQueryKey,
   FromIapSuccessQueryKey,
@@ -30,7 +30,6 @@ import {
   aboutSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 import {
@@ -42,8 +41,8 @@ import {
 } from "~/utils/experienceUtils";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import HeroCard from "~/components/HeroCard/HeroCard";
-import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
-import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/constants/sections/userProfile";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 import experienceMessages from "~/messages/experienceMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
 
@@ -78,14 +77,56 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     lastName
     email
     telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
     currentCity
-    currentProvince
-    citizenship
-    armedForcesStatus
-    locationPreferences
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     positionDuration
     isGovEmployee
     hasPriorityEntitlement
@@ -93,19 +134,55 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
-    estimatedLanguageAbility
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    writtenLevel
-    comprehensionLevel
-    verbalLevel
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
     experiences {
       id
     }
     poolCandidates {
       id
-      status
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     userSkills {
       id
@@ -148,7 +225,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
   const skillShowcaseUrl = paths.skillShowcase();
-  const skillLibraryUrl = paths.skillLibrary();
+  const skillLibraryUrl = paths.skillPortfolio();
 
   const hasTopSkills =
     user.topBehaviouralSkillsRanking?.length &&
@@ -197,7 +274,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
               "whiteFixed",
             ),
           a3: (chunks: ReactNode) =>
-            buildLink(paths.skillLibrary(), chunks, "whiteFixed"),
+            buildLink(paths.skillPortfolio(), chunks, "whiteFixed"),
           a4: (chunks: ReactNode) =>
             buildScrollToLink(
               "track-applications-section",
@@ -350,7 +427,6 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             layout="hero"
             title={intl.formatMessage(navigationMessages.workPreferences)}
             status={
-              workLocationSectionHasEmptyRequiredFields(user) ||
               workPreferencesSectionHasEmptyRequiredFields(user)
                 ? "error"
                 : "success"
@@ -464,7 +540,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             })}
             itemCount={
               notEmptyApplications.filter((application) =>
-                isQualifiedStatus(application.status),
+                isQualifiedStatus(application.status?.value),
               ).length
             }
             icon={ShieldCheckIcon}
@@ -476,12 +552,12 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
         </HeroCard>
         <HeroCard
           color="quaternary"
-          title={intl.formatMessage(navigationMessages.skillLibrary)}
+          title={intl.formatMessage(navigationMessages.skillPortfolio)}
           href={`${skillLibraryUrl}#manage`}
         >
           <StatusItem
             layout="hero"
-            title={intl.formatMessage(navigationMessages.skillLibrary)}
+            title={intl.formatMessage(navigationMessages.skillPortfolio)}
             itemCount={skillLibraryCount}
             status={skillLibraryStatus}
             href={`${skillLibraryUrl}#manage`}

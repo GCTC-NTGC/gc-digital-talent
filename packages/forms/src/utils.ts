@@ -1,16 +1,21 @@
 import { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
-import Link from "@tiptap/extension-link";
-import StarterKit from "@tiptap/starter-kit";
+import { Link } from "@tiptap/extension-link";
+import { StarterKit } from "@tiptap/starter-kit";
 import { FieldErrors, FieldValues } from "react-hook-form";
 
 import {
+  LocalizedEnumString,
   LocalizedString,
   Maybe,
   Scalars,
-  WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { getId, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
@@ -23,8 +28,13 @@ import { OptGroupOrOption } from "./types";
  * @returns string[]
  */
 export const unpackIds = (
-  data?: Maybe<Array<Maybe<{ id: string }> | undefined>>,
+  data?: Maybe<(Maybe<{ id: string }> | undefined)[]>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
+
+interface Option {
+  value: string;
+  label: string;
+}
 
 /**
  * Converts a string enum to a list of options for select input.
@@ -35,7 +45,7 @@ export const unpackIds = (
 export function enumToOptions(
   list: Record<string, string>,
   sortOrder?: string[],
-): { value: string; label: string }[] {
+): Option[] {
   const entries = Object.entries(list);
   if (sortOrder) {
     entries.sort((a, b) => {
@@ -67,6 +77,41 @@ export function enumToOptions(
 }
 
 /**
+ * Localized enum to options
+ *
+ * Converts a localized enum to a
+ * field options array
+ */
+export function localizedEnumToOptions(
+  list: Maybe<LocalizedEnumString>[] | undefined | null,
+  intl: IntlShape,
+  sortOrder?: LocalizedEnumString["value"][],
+): Option[] {
+  const localizedEnums = unpackMaybes(list);
+  if (sortOrder) {
+    localizedEnums.sort((a, b) => {
+      const aPosition = sortOrder.indexOf(a.value);
+      const bPosition = sortOrder.indexOf(b.value);
+      if (aPosition >= 0 && bPosition >= 0)
+        // both are in sort list => sort by by that order
+        return sortOrder.indexOf(a.value) - sortOrder.indexOf(b.value);
+      if (aPosition >= 0 && bPosition < 0)
+        // only a is in sort list => sort a before b
+        return -1;
+      if (aPosition < 0 && bPosition >= 0)
+        // only b is in sort list => sort b before a
+        return 1;
+      // neither is in sort list => keep original order
+      return 0;
+    });
+  }
+  return localizedEnums.map(({ value, label }) => ({
+    value,
+    label: getLocalizedName(label, intl),
+  }));
+}
+
+/**
  * Creates a list of values from a list of options.
  * @param list
  * @returns array
@@ -80,10 +125,10 @@ export function getValues<T>(list: { value: T; label: string }[]): T[] {
  * @param unescapedString String that you want escaped characters in
  * @returns { string } String with certain characters escaped
  */
-export function escapeAString(unescapedString: string) {
+export function escapeAString(unescapedString: string): string {
   const inputStringArray = unescapedString.split("");
   const outputStringArray = inputStringArray.map((character) => {
-    if (character.match(/[+*()?[\]\\]/)) {
+    if (/[+*()?[\]\\]/.exec(character)) {
       // looks a little funny due to needing to escape "\" and "]" characters themselves for matching
       return `\\${character}`;
     }
@@ -102,7 +147,7 @@ export function escapeAString(unescapedString: string) {
 export function matchStringCaseDiacriticInsensitive(
   needle: string,
   compareString: string,
-) {
+): boolean {
   if (needle.length > 1000) {
     // short-circuit for very long needle cases, prevents RegExp crashing
     defaultLogger.warning(
@@ -141,7 +186,7 @@ export function matchStringsCaseDiacriticInsensitive(
  * @returns number
  */
 export const countNumberOfWords = (text: string): number => {
-  if (text && text.trim()) {
+  if (text?.trim()) {
     return text.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;
@@ -176,24 +221,6 @@ export const objectsToSortedOptions = (
       label: name?.[locale] ?? intl.formatMessage(commonMessages.notFound),
     }));
 };
-
-// Special Cases
-
-// enumToOptions special case, sort by specific WorkRegion by default, reusable function
-export function enumToOptionsWorkRegionSorted(
-  list: Record<string, string>,
-): { value: string; label: string }[] {
-  return enumToOptions(list, [
-    WorkRegion.Telework,
-    WorkRegion.NationalCapital,
-    WorkRegion.Atlantic,
-    WorkRegion.Quebec,
-    WorkRegion.Ontario,
-    WorkRegion.North,
-    WorkRegion.Prairie,
-    WorkRegion.BritishColumbia,
-  ]);
-}
 
 export function htmlToRichTextJSON(html: string): Node {
   return generateJSON(html, [StarterKit, Link]) as Node;
@@ -238,15 +265,17 @@ export function flattenErrors(
         }
         // If it is a field array, loop through, hoisting up field names
         if (Array.isArray(fieldError)) {
-          fieldError.forEach((subFieldError, index) => {
-            errorNames = [
-              ...errorNames,
-              ...flattenErrors(
-                subFieldError,
-                `${parentKey}${fieldName}.${index}`,
-              ),
-            ];
-          });
+          fieldError.forEach(
+            (subFieldError: FieldErrors<FieldValues>, index) => {
+              errorNames = [
+                ...errorNames,
+                ...flattenErrors(
+                  subFieldError,
+                  `${parentKey}${fieldName}.${index}`,
+                ),
+              ];
+            },
+          );
         }
         // We have an error message so add it to the array (we don't want errors with no message)
         if ("message" in fieldError) {

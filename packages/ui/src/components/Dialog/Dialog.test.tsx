@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { faker } from "@faker-js/faker/locale/en";
 import { ComponentPropsWithoutRef } from "react";
@@ -22,7 +22,7 @@ const DefaultChildren = () => (
     <Dialog.Trigger>
       <Button>Open Dialog</Button>
     </Dialog.Trigger>
-    <Dialog.Content>
+    <Dialog.Content hasSubtitle>
       <Dialog.Header subtitle="Dialog Subtitle">Dialog Title</Dialog.Header>
       <Dialog.Body>
         <p>{faker.lorem.sentences(3)}</p>
@@ -103,7 +103,7 @@ describe("Dialog", () => {
           <Dialog.Trigger>
             <Button icon={PlusIcon}>Open Dialog</Button>
           </Dialog.Trigger>
-          <Dialog.Content>
+          <Dialog.Content hasSubtitle>
             <Dialog.Header subtitle="Dialog Subtitle">
               Dialog Title
             </Dialog.Header>

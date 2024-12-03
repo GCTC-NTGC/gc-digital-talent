@@ -5,85 +5,28 @@
  *
  * For utilities general to the PoolCandidate object, or specific to the Admin side, see ./poolCandidates.ts
  */
-import { IntlShape } from "react-intl";
 import { isPast } from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
-  Application_PoolCandidateFragment,
-  PoolCandidateStatus,
   ApplicationStep,
   Maybe,
   PoolCandidate,
+  LocalizedPoolCandidateStatus,
+  Application_PoolCandidateFragment,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
 import { ApplicationStepInfo } from "~/types/applicationStep";
-import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
-import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
-import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
-import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
-import educationStepInfo from "~/pages/Applications/educationStep/educationStepInfo";
-import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
-import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
-import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
-import { isIAPPool } from "~/utils/poolUtils";
-import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/careerTimelineStepInfo";
 
 import { isDraftStatus, isToAssessStatus } from "./poolCandidate";
 
-type GetApplicationPagesArgs = {
-  paths: ReturnType<typeof useRoutes>;
-  intl: IntlShape;
-  application: Application_PoolCandidateFragment;
-  experienceId?: string;
-};
-
-// Dynamically build the list of application steps for this application
-export const getApplicationSteps = ({
-  paths,
-  intl,
-  application,
-  experienceId,
-}: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
-  const showQuestionStep =
-    application.pool.generalQuestions?.length ||
-    application.pool.screeningQuestions?.length;
-
-  // build the order of step functions to call
-  const stepInfoFunctions = [
-    welcomeStepInfo,
-    ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
-    profileStepInfo,
-    careerTimelineStepInfo,
-    educationStepInfo,
-    skillsStepInfo,
-    ...(showQuestionStep ? [questionsStepInfo] : []),
-    reviewStepInfo,
-    successPageInfo,
-  ];
-
-  // call the functions with their dynamic ordinal
-  const stepInfos = stepInfoFunctions.map((func, index) =>
-    func({
-      paths,
-      intl,
-      application,
-      resourceId: experienceId,
-      stepOrdinal: index + 1,
-    }),
-  );
-
-  return stepInfos;
-};
-
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
-  stepsInfosInApplication: Array<ApplicationStepInfo>,
-  prerequisiteSteps: Maybe<Array<ApplicationStep>> | undefined,
-  submittedSteps: Maybe<Array<ApplicationStep>> | undefined,
-): Maybe<Array<ApplicationStep>> | undefined => {
+  stepsInfosInApplication: ApplicationStepInfo[],
+  prerequisiteSteps: Maybe<ApplicationStep[]> | undefined,
+  submittedSteps: Maybe<ApplicationStep[]> | undefined,
+): Maybe<ApplicationStep[]> | undefined => {
   // figure out the application step enum values for this flow (may or may not include conditional steps)
   const stepsInThisApplication = stepsInfosInApplication.map(
     (step) => step.applicationStep,
@@ -103,7 +46,7 @@ const missingPrerequisitesFromThisApplication = (
 
 // What step should we go to, to resume the application
 export function getNextStepToSubmit(
-  stepsInThisApplication: Array<ApplicationStepInfo>,
+  stepsInThisApplication: ApplicationStepInfo[],
   submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): ApplicationStepInfo {
   let nextStep = stepsInThisApplication[0];
@@ -116,7 +59,7 @@ export function getNextStepToSubmit(
     });
 
     nextStep =
-      nonSubmittedStep ||
+      nonSubmittedStep ??
       stepsInThisApplication[stepsInThisApplication.length - 1];
   }
 
@@ -126,7 +69,7 @@ export function getNextStepToSubmit(
 // check if the current page should be disabled and figure out where to return the user to
 export function isOnDisabledPage(
   currentPageUrl: string | undefined,
-  steps: Array<ApplicationStepInfo>,
+  steps: ApplicationStepInfo[],
   submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): boolean {
   // where are we right now?
@@ -150,15 +93,15 @@ export function isOnDisabledPage(
 }
 
 export function applicationStepsToStepperArgs(
-  applicationSteps: Array<ApplicationStepInfo>,
-  application: PoolCandidate,
+  applicationSteps: ApplicationStepInfo[],
+  application: Application_PoolCandidateFragment,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
     .map((step) => {
       return {
         href: step.mainPage.link.url,
-        label: step.mainPage.link.label || step.mainPage.title,
+        label: step.mainPage.link.label ?? step.mainPage.title,
         completed:
           step.applicationStep &&
           application.submittedSteps?.includes(step.applicationStep),
@@ -180,13 +123,14 @@ export type Application = Omit<PoolCandidate, "user">;
  * - OR has been submitted but is still in assessment
  */
 export function isApplicationInProgress(a: {
-  status?: Maybe<PoolCandidateStatus>;
+  status?: Maybe<LocalizedPoolCandidateStatus>;
   pool: { closingDate?: Maybe<string> };
 }): boolean {
   const poolIsExpired = a.pool.closingDate
     ? isPast(parseDateTimeUtc(a.pool.closingDate))
     : false; // If it doesn't have a closing date it can't be expired
   return (
-    (isDraftStatus(a.status) && !poolIsExpired) || isToAssessStatus(a.status)
+    (isDraftStatus(a.status?.value) && !poolIsExpired) ||
+    isToAssessStatus(a.status?.value)
   );
 }

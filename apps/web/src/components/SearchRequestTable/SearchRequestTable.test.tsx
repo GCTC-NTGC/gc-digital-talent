@@ -35,9 +35,7 @@ const mockClient = {
         },
       },
     }),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const renderSearchRequestsTable = () =>
   renderWithProviders(
@@ -52,7 +50,7 @@ describe("SearchRequestsTable", () => {
     await axeTest(container);
   });
 
-  it("Should render the table", async () => {
+  it("Should render the table", () => {
     renderSearchRequestsTable();
 
     // Assert table filled with values and the result of requests[0] is present

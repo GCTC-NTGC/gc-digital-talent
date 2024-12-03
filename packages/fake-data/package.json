@@ -2,25 +2,29 @@
   "name": "@gc-digital-talent/fake-data",
   "license": "AGPL-3.0",
   "version": "1.0.0",
+  "type": "module",
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
   "scripts": {
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@faker-js/faker": "^8.4.1",
+    "@faker-js/faker": "^9.2.0",
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
+    "@gc-digital-talent/i18n": "workspace:*",
     "enforce-unique": "^1.3.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/lodash": "^4.17.4",
+    "@types/lodash": "^4.17.13",
     "eslint": "^8.57.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   }
 }

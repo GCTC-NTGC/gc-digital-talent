@@ -10,17 +10,13 @@ import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 import { useQuery } from "urql";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getLocalizedName,
-  getPoolStream,
-} from "@gc-digital-talent/i18n";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   InputMaybe,
   PoolCandidateSearchRequestInput,
-  PoolCandidateSearchRequest,
   graphql,
+  SearchRequestTableQuery as SearchRequestTableQueryType,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -34,7 +30,6 @@ import {
   detailsCell,
   jobTitleCell,
   notesCell,
-  statusCell,
 } from "./components/helpers";
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
@@ -51,7 +46,11 @@ import {
   transformSortStateToOrderByClause,
 } from "./components/utils";
 
-const columnHelper = createColumnHelper<PoolCandidateSearchRequest>();
+type SearchRequestTableQuerySearchRequestType =
+  SearchRequestTableQueryType["poolCandidateSearchRequestsPaginated"]["data"][number];
+
+const columnHelper =
+  createColumnHelper<SearchRequestTableQuerySearchRequestType>();
 
 interface SearchRequestTableProps {
   title: string;
@@ -126,11 +125,24 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
             group
             level
           }
-          qualifiedStreams
+          qualifiedStreams {
+            value
+            label {
+              en
+              fr
+            }
+          }
         }
         department {
           id
           departmentNumber
+          name {
+            en
+            fr
+          }
+        }
+        community {
+          id
           name {
             en
             fr
@@ -141,9 +153,21 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
         id
         jobTitle
         managerJobTitle
-        positionType
+        positionType {
+          value
+          label {
+            en
+            fr
+          }
+        }
         requestedDate
-        status
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
         statusChangedAt
         wasEmpty
       }
@@ -166,8 +190,11 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const paths = useRoutes();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchRequestInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchRequestInput)
+        : {},
     [filtersEncoded],
   );
   const filterRef = useRef<PoolCandidateSearchRequestInput | undefined>(
@@ -213,7 +240,10 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         isRowTitle: true,
       },
       cell: ({ row: { original: searchRequest } }) =>
-        jobTitleCell(searchRequest, paths),
+        jobTitleCell(
+          { id: searchRequest.id, jobTitle: searchRequest.jobTitle },
+          paths,
+        ),
     }),
     columnHelper.accessor(
       (row) =>
@@ -238,23 +268,29 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        row.applicantFilter?.qualifiedStreams
-          ?.filter(notEmpty)
-          .map((stream) => intl.formatMessage(getPoolStream(stream)))
-          .join(","),
+      ({ applicantFilter }) =>
+        unpackMaybes(
+          applicantFilter?.qualifiedStreams?.map((stream) =>
+            getLocalizedName(stream?.label, intl),
+          ),
+        ).join(","),
       {
         id: "stream",
         header: intl.formatMessage(processMessages.stream),
         enableColumnFilter: false,
         enableSorting: false,
-        cell: ({ row: { original: row } }) =>
+        cell: ({
+          row: {
+            original: { applicantFilter },
+          },
+        }) =>
           cells.commaList({
             list:
-              row.applicantFilter?.qualifiedStreams
-                ?.filter(notEmpty)
-                .map((stream) => intl.formatMessage(getPoolStream(stream))) ??
-              [],
+              unpackMaybes(
+                applicantFilter?.qualifiedStreams?.map((stream) =>
+                  getLocalizedName(stream?.label, intl, true),
+                ),
+              ) ?? [],
           }),
       },
     ),
@@ -280,13 +316,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         enableSorting: false,
       },
     ),
-    columnHelper.accessor("status", {
-      id: "status",
-      header: intl.formatMessage(commonMessages.status),
-      enableColumnFilter: false,
-      cell: ({ row: { original: searchRequest } }) =>
-        statusCell(searchRequest.status, intl),
-    }),
+    columnHelper.accessor(
+      ({ status }) => getLocalizedName(status?.label, intl, true),
+      {
+        id: "status",
+        header: intl.formatMessage(commonMessages.status),
+        enableColumnFilter: false,
+      },
+    ),
     columnHelper.accessor(
       ({ requestedDate }) => accessors.date(requestedDate),
       {
@@ -310,16 +347,37 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       enableSorting: false,
       header: intl.formatMessage(adminMessages.notes),
       cell: ({ row: { original: searchRequest } }) =>
-        notesCell(searchRequest, intl),
+        notesCell(
+          {
+            adminNotes: searchRequest.adminNotes,
+            jobTitle: searchRequest.jobTitle,
+          },
+          intl,
+        ),
     }),
     columnHelper.accessor("additionalComments", {
       id: "additionalComments",
       enableSorting: false,
       header: intl.formatMessage(adminMessages.details),
       cell: ({ row: { original: searchRequest } }) =>
-        detailsCell(searchRequest, intl),
+        detailsCell(
+          {
+            additionalComments: searchRequest.additionalComments,
+            jobTitle: searchRequest.jobTitle,
+          },
+          intl,
+        ),
     }),
-  ] as ColumnDef<PoolCandidateSearchRequest>[];
+    columnHelper.accessor(
+      ({ community }) => getLocalizedName(community?.name, intl, true),
+      {
+        id: "community",
+        header: intl.formatMessage(adminMessages.community),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+  ] as ColumnDef<SearchRequestTableQuerySearchRequestType>[];
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -328,7 +386,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     setPaginationState((previous) => ({
       pageIndex:
         previous.pageSize === pageSize
-          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          ? (pageIndex ?? INITIAL_STATE.paginationState.pageIndex)
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
@@ -365,7 +423,10 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     data?.poolCandidateSearchRequestsPaginated?.data.filter(notEmpty) ?? [];
 
   return (
-    <Table<PoolCandidateSearchRequest, PoolCandidateSearchRequestInput>
+    <Table<
+      SearchRequestTableQuerySearchRequestType,
+      PoolCandidateSearchRequestInput
+    >
       data={requestData}
       caption={title}
       columns={columns}
@@ -375,6 +436,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         "email",
         "adminNotes",
         "additionalComments",
+        "community",
       ]}
       isLoading={fetching}
       sort={{

@@ -9,7 +9,10 @@ export function isInNullState({
   name,
   processNumber,
   publishingGroup,
-}: Pool): boolean {
+}: Pick<
+  Pool,
+  "stream" | "name" | "processNumber" | "publishingGroup"
+>): boolean {
   return !!(
     !stream &&
     !name?.en &&
@@ -21,15 +24,29 @@ export function isInNullState({
 }
 
 export function hasEmptyRequiredFields({
+  areaOfSelection,
   classification,
+  department,
   stream,
   name,
   processNumber,
   publishingGroup,
   opportunityLength,
-}: Pool): boolean {
+}: Pick<
+  Pool,
+  | "areaOfSelection"
+  | "classification"
+  | "department"
+  | "stream"
+  | "name"
+  | "processNumber"
+  | "publishingGroup"
+  | "opportunityLength"
+>): boolean {
   return !!(
+    !areaOfSelection?.value ||
     !classification ||
+    !department ||
     !stream ||
     !name?.en ||
     !name?.fr ||

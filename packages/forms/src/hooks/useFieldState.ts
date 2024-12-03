@@ -1,5 +1,4 @@
-import { useFormState } from "react-hook-form";
-import get from "lodash/get";
+import { get, useFormState } from "react-hook-form";
 
 import { FieldState } from "../types";
 
@@ -13,8 +12,8 @@ import { FieldState } from "../types";
  */
 const useFieldState = (name: string, ignoreUnsaved = false): FieldState => {
   const { errors, dirtyFields } = useFormState();
-  const isDirty = get(dirtyFields, name, false);
-  const isInvalid = get(errors, name, false);
+  const isDirty = Boolean(get(dirtyFields, name, false));
+  const isInvalid = get(errors, name, false) as boolean;
 
   if (isInvalid) {
     return "invalid";

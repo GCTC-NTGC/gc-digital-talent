@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { Scalars } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -32,9 +32,9 @@ const subTitle = defineMessage({
   description: "Subtitle for the request confirmation page.",
 });
 
-type RequestConfirmationParams = {
+interface RouteParams extends Record<string, string> {
   requestId: Scalars["ID"]["output"];
-};
+}
 
 const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
@@ -45,8 +45,7 @@ const mailLink = (chunks: ReactNode) => (
 export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { requestId } =
-    useRequiredParams<RequestConfirmationParams>("requestId");
+  const { requestId } = useRequiredParams<RouteParams>("requestId");
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedSubTitle = intl.formatMessage(subTitle);
@@ -91,7 +90,7 @@ export const Component = () => {
         subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <Alert.Root type="success" live={false} data-h2-margin="base(x3, 0)">
           <Alert.Title>
             {intl.formatMessage({
@@ -168,8 +167,8 @@ export const Component = () => {
             />
             <Link mode="inline" href={paths.search()} color="secondary">
               {intl.formatMessage({
-                defaultMessage: "Create a new talent request",
-                id: "+d2TiI",
+                defaultMessage: "Create another talent request",
+                id: "ZN9OsN",
                 description: "Link text to start a new talent request",
               })}
             </Link>

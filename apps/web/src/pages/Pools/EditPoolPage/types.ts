@@ -3,26 +3,51 @@ import { ReactNode } from "react";
 import {
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
-  Pool,
   UpdatePublishedPoolInput,
+  EditPoolWhatToExpectAdmissionFragment,
+  EditPoolAboutUsFragment,
+  EditPoolClosingDateFragment,
+  EditPoolCoreRequirementsFragment,
+  EditPoolEducationRequirementsFragment,
+  EditPoolGeneralQuestionsFragment,
+  EditPoolKeyTasksFragment,
+  EditPoolNameFragment,
+  EditPoolSkillsFragment,
+  EditPoolSpecialNoteFragment,
+  EditPoolWhatToExpectFragment,
+  EditPoolYourImpactFragment,
 } from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 
-export type DisplayProps = {
-  pool: Pool;
-  subtitle?: ReactNode;
-};
+type PoolDisplayFragments =
+  | EditPoolAboutUsFragment
+  | EditPoolClosingDateFragment
+  | EditPoolCoreRequirementsFragment
+  | EditPoolEducationRequirementsFragment
+  | EditPoolGeneralQuestionsFragment
+  | EditPoolKeyTasksFragment
+  | EditPoolNameFragment
+  | EditPoolSkillsFragment
+  | EditPoolSpecialNoteFragment
+  | EditPoolWhatToExpectAdmissionFragment
+  | EditPoolWhatToExpectFragment
+  | EditPoolYourImpactFragment;
 
-export type SectionProps<T, F> = {
+export interface DisplayProps<T extends PoolDisplayFragments> {
+  pool: T;
+  subtitle?: ReactNode;
+}
+
+export interface SectionProps<T, F> {
   poolQuery: F;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: T) => Promise<void>;
-};
+}
 
-export type PublishedEditableSectionProps = {
+export interface PublishedEditableSectionProps {
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
-};
+}
 
 export type SectionKey =
   | "basicInfo"
@@ -43,7 +68,7 @@ export type SectionKey =
   | "whatToExpectAdmission"
   | "generalQuestions";
 
-export type PoolSkillMutationsType = {
+export interface PoolSkillMutationsType {
   create: (
     poolId: string,
     skillId: string,
@@ -51,4 +76,4 @@ export type PoolSkillMutationsType = {
   ) => Promise<void>;
   update: (id: string, poolSkill: UpdatePoolSkillInput) => Promise<void>;
   delete: (id: string) => Promise<void>;
-};
+}

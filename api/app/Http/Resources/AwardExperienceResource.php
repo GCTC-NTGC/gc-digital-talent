@@ -2,10 +2,16 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\AwardedScope;
+use App\Enums\AwardedTo;
+use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\AwardExperience */
 class AwardExperienceResource extends JsonResource
 {
+    use HasLocalizedEnums;
+
     /**
      * Transform the resource into an array.
      *
@@ -20,11 +26,10 @@ class AwardExperienceResource extends JsonResource
             'title' => $this->title,
             'issuedBy' => $this->issued_by,
             'awardedDate' => $this->awarded_date?->format('Y-m-d'),
-            'awardedTo' => $this->awarded_to,
-            'awardedScope' => $this->awarded_scope,
+            'awardedTo' => $this->localizeEnum($this->awarded_to, AwardedTo::class),
+            'awardedScope' => $this->localizeEnum($this->awarded_scope, AwardedScope::class),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
-            'user' => new UserStubResource($this->user),
         ];
     }
 }

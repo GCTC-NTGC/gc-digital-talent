@@ -1,13 +1,14 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan
+.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer
 
-DOCKER_RUN=docker-compose run --rm maintenance bash
-DOCKER_EXEC=docker-compose exec -w /home/site/wwwroot/api webserver sh -c
+DOCKER_RUN=docker compose run --rm maintenance bash
+DOCKER_API=docker compose run --rm -w /var/www/html/api maintenance sh -c
+DOCKER_PNPM=docker compose run -w /var/www/html --rm maintenance pnpm
 
 up:
-	docker-compose up --build --detach
+	docker compose up --build --detach
 
 down:
-	docker-compose down
+	docker compose down
 
 setup:
 	$(DOCKER_RUN) setup.sh
@@ -25,13 +26,32 @@ refresh-api:
 	$(DOCKER_RUN) refresh_api.sh
 
 seed-fresh:
-	$(DOCKER_EXEC) "php artisan migrate:fresh --seed"
+	$(DOCKER_API) "php artisan migrate:fresh --seed"
 
 migrate:
-	$(DOCKER_EXEC) "php artisan migrate"
+	$(DOCKER_API) "php artisan migrate"
+
+composer:
+	$(DOCKER_API) "composer $(CMD)"
 
 artisan:
-	$(DOCKER_EXEC) "php artisan $(CMD)"
+	$(DOCKER_API) "php artisan $(CMD)"
 
 watch:
-	docker-compose run -w /var/www/html --rm maintenance pnpm run watch
+	$(DOCKER_PNPM) run watch
+
+lint:
+	$(DOCKER_API) "php ./vendor/bin/pint"
+	$(DOCKER_PNPM) lint
+
+lint-php:
+	$(DOCKER_API) "vendor/bin/pint --test"
+
+phpstan:
+	$(DOCKER_API) "vendor/bin/phpstan analyse -c phpstan.neon"
+
+queue-work:
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+
+test:
+	$(DOCKER_API) "php artisan test $(CMD)"

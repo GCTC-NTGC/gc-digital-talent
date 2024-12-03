@@ -1,20 +1,17 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
-import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
+import { useIntl } from "react-intl";
 import { useQuery, useMutation } from "urql";
 
 import { SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
-import { Pending, IconType } from "@gc-digital-talent/ui";
+import { Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 
@@ -58,14 +55,6 @@ const UpdateSitewideAnnouncement_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Announcements",
-  id: "ll9u08",
-  description: "Page title for the announcements page",
-});
-export const pageOutlineIcon: IconType = MegaphoneOutlineIcon;
-export const pageSolidIcon: IconType = MegaphoneSolidIcon;
-
 // To help the URQL cache work
 // Keep the reference stable.
 const context = { additionalTypenames: ["SitewideAnnouncement"] };
@@ -73,7 +62,7 @@ const context = { additionalTypenames: ["SitewideAnnouncement"] };
 const AnnouncementsPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.announcements);
 
   const [{ data: initialData, fetching: queryFetching, error: queryError }] =
     useQuery({
@@ -89,7 +78,14 @@ const AnnouncementsPage = () => {
     return executeMutation({ sitewideAnnouncementInput: input }, context).then(
       (result) => {
         if (result.data?.updateSitewideAnnouncement) {
-          toast.success(intl.formatMessage(commonMessages.success));
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Sitewide announcement updated successfully!",
+              id: "kY05h1",
+              description:
+                "Message displayed when a user successfully updates sitewide announcement information",
+            }),
+          );
           return;
         }
         throw new Error("Failed to save announcement");
@@ -104,26 +100,23 @@ const AnnouncementsPage = () => {
         url: routes.announcements(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <AdminHero
-        title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-
-      <AdminContentWrapper>
-        <Pending fetching={queryFetching} error={queryError}>
-          <SitewideAnnouncementSection
-            initialData={initialData?.sitewideAnnouncement}
-            onUpdate={handleSave}
-            isSubmitting={isSubmitting}
-          />
-        </Pending>
-      </AdminContentWrapper>
+      <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-padding="base(x3, 0, x3, 0)">
+          <Pending fetching={queryFetching} error={queryError}>
+            <SitewideAnnouncementSection
+              initialData={initialData?.sitewideAnnouncement}
+              onUpdate={handleSave}
+              isSubmitting={isSubmitting}
+            />
+          </Pending>
+        </div>
+      </div>
     </>
   );
 };

@@ -29,17 +29,35 @@ import AssessmentSummary from "./components/AssessmentSummary";
 export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment FinalDecisionDialog on PoolCandidate {
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     expiryDate
     pool {
       poolSkills {
         id
-        type
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
         requiredLevel
         skill {
           id
           key
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           name {
             en
             fr
@@ -49,14 +67,26 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
     }
     assessmentResults {
       id
-      assessmentDecision
+      assessmentDecision {
+        value
+        label {
+          en
+          fr
+        }
+      }
       assessmentResultType
       poolSkill {
         id
         skill {
           id
           key
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           name {
             en
             fr
@@ -74,7 +104,9 @@ const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   ) {
     qualifyCandidate(id: $id, expiryDate: $expiryDate) {
       id
-      status
+      status {
+        value
+      }
       expiryDate
     }
   }
@@ -87,17 +119,19 @@ const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
   ) {
     disqualifyCandidate(id: $id, reason: $reason) {
       id
-      status
+      status {
+        value
+      }
       expiryDate
     }
   }
 `);
 
-type FormValues = {
+interface FormValues {
   finalAssessmentDecision?: string;
   disqualifiedDecision?: string;
   expiryDate?: string;
-};
+}
 
 interface FinalDecisionDialogProps {
   poolCandidate: FragmentType<typeof FinalDecisionDialog_Fragment>;

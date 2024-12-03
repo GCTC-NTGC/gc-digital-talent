@@ -13,6 +13,7 @@ import {
   PoolStream,
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
+import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
 import OngoingRecruitmentSection, {
   OngoingRecruitmentSectionProps,
@@ -20,9 +21,9 @@ import OngoingRecruitmentSection, {
 
 const publishedPool: Pool = {
   id: "publishedPool",
-  publishingGroup: PublishingGroup.ItJobsOngoing,
-  status: PoolStatus.Published,
-  stream: PoolStream.BusinessAdvisoryServices,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobsOngoing),
+  status: toLocalizedEnum(PoolStatus.Published),
+  stream: toLocalizedEnum(PoolStream.BusinessAdvisoryServices),
   classification: { id: "it-01", group: "IT", level: 1 },
 };
 
@@ -53,7 +54,7 @@ describe("BrowsePoolsPage", () => {
 
   // sort logic: by expiry date whichever one expires first should appear first on the list
   // sort logic: if they have the same expiry date, whichever one was published first should appear first
-  it("should properly sort jobs", async () => {
+  it("should properly sort jobs", () => {
     // should appear first: it expires first even though it was published later
     const closesFirst = {
       ...publishedPool,

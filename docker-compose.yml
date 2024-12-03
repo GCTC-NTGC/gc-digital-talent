@@ -21,8 +21,9 @@ services:
       - 8080:8080
 
   webserver:
-    # All images: https://mcr.microsoft.com/v2/appsvc/php/tags/list
-    image: mcr.microsoft.com/appsvc/php:8.2-fpm-xdebug_20230908.3.tuxprod
+    build:
+      context: ./
+      dockerfile: infrastructure/webserver.Dockerfile
     restart: always
     volumes:
       - ./:/home/site/wwwroot
@@ -75,7 +76,7 @@ services:
   #
   #   3. Rebuild docker container:
   #
-  #       $ docker-compose up --detach --build mock-auth
+  #       $ docker compose up --detach --build mock-auth
   #
   #   4. Confirm working by visiting:
   #

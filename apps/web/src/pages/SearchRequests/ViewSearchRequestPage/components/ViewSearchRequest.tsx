@@ -4,10 +4,7 @@ import { useQuery } from "urql";
 import {
   getLocale,
   commonMessages,
-  getPoolCandidateSearchStatus,
   getLocalizedName,
-  getPoolCandidateSearchPositionType,
-  getSearchRequestReason,
 } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -29,10 +26,11 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import SEO from "~/components/SEO/SEO";
-import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import pageTitles from "~/messages/pageTitles";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -181,8 +179,8 @@ const ManagerInfo = ({
                 <FilterBlock
                   title={intl.formatMessage(commonMessages.status)}
                   content={
-                    status
-                      ? intl.formatMessage(getPoolCandidateSearchStatus(status))
+                    status?.label
+                      ? getLocalizedName(status.label, intl)
                       : intl.formatMessage(commonMessages.notApplicable)
                   }
                 />
@@ -232,8 +230,20 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
     jobTitle
     managerJobTitle
     hrAdvisorEmail
-    positionType
-    reason
+    positionType {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    reason {
+      value
+      label {
+        en
+        fr
+      }
+    }
     wasEmpty
     additionalComments
     poolCandidateFilter {
@@ -254,9 +264,27 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         isVisibleMinority
         isWoman
       }
-      languageAbility
-      operationalRequirements
-      workRegions
+      languageAbility {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      operationalRequirements {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      workRegions {
+        value
+        label {
+          en
+          fr
+        }
+      }
       pools {
         id
         name {
@@ -268,11 +296,23 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
     }
     requestedDate
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     statusChangedAt
     adminNotes
     applicantFilter {
@@ -284,9 +324,27 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         isVisibleMinority
         isWoman
       }
-      languageAbility
-      operationalRequirements
-      locationPreferences
+      languageAbility {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      operationalRequirements {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      locationPreferences {
+        value
+        label {
+          en
+          fr
+        }
+      }
       positionDuration
       skills {
         id
@@ -295,7 +353,13 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       pools {
         id
@@ -303,7 +367,13 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
         classification {
           id
           group
@@ -319,7 +389,21 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         group
         level
       }
-      qualifiedStreams
+      qualifiedStreams {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      community {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -362,7 +446,7 @@ export const ViewSearchRequest = ({
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexSearchRequestPageTitle),
+        label: intl.formatMessage(pageTitles.talentRequests),
         url: routes.searchRequestTable(),
       },
       {
@@ -370,7 +454,6 @@ export const ViewSearchRequest = ({
         url: routes.searchRequestView(id),
       },
     ],
-    isAdmin: true,
   });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
@@ -433,9 +516,7 @@ export const ViewSearchRequest = ({
                 id: "enffKD",
                 description: "Label for the reason for submitting the request.",
               })}
-              content={
-                reason ? intl.formatMessage(getSearchRequestReason(reason)) : ""
-              }
+              content={getLocalizedName(reason?.label, intl, true)}
             />
             <Separator space="sm" data-h2-margin-top="base(0)" />
             <SearchRequestFilters filters={abstractFilter} />
@@ -463,22 +544,17 @@ export const ViewSearchRequest = ({
                       description: "Label for an opportunity's position type.",
                     })}
                     content={
-                      positionType
-                        ? intl.formatMessage(
-                            getPoolCandidateSearchPositionType(positionType),
-                          )
+                      positionType?.label
+                        ? getLocalizedName(positionType.label, intl)
                         : intl.formatMessage(adminMessages.noneProvided)
                     }
                   />
                 </div>
               </div>
               <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Additional Comments",
-                  id: "WqOnFF",
-                  description:
-                    "Title for the additional comments block in the search request filters",
-                })}
+                title={intl.formatMessage(
+                  talentRequestMessages.additionalComments,
+                )}
                 content={additionalComments}
               />
             </div>

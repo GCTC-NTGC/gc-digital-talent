@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { IntlShape, useIntl } from "react-intl";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
@@ -16,6 +16,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Experience, ApplicationStep } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -35,10 +36,10 @@ import useApplication from "../useApplication";
 
 type SortOptions = "date_desc" | "type_asc";
 
-type FormValues = {
+interface FormValues {
   sortExperiencesBy: SortOptions;
   experienceCount: number;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -155,7 +156,7 @@ function formatExperienceCount(
 }
 
 interface ApplicationCareerTimelineProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiences: ExperienceForDate[];
 }
 
 export const ApplicationCareerTimeline = ({
@@ -202,15 +203,16 @@ export const ApplicationCareerTimeline = ({
     return deriveExperienceType(e);
   });
   const hasSomeExperience = !!experiences.length;
+  const hasExperiencesByType = !!experienceList.length;
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     executeMutation({
       id: application.id,
       application: {
         insertSubmittedStep: ApplicationStep.ReviewYourResume,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -220,7 +222,7 @@ export const ApplicationCareerTimeline = ({
                 "Message displayed to users when saving career timeline is successful.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {
@@ -322,7 +324,7 @@ export const ApplicationCareerTimeline = ({
 
       <div
         data-h2-flex-grid="base(center, x1, x1)"
-        data-h2-margin-bottom="base(x.5)"
+        data-h2-padding-bottom="base(x.5)"
       >
         <ExperienceSortAndFilter
           initialFormValues={sortAndFilterValues}
@@ -350,20 +352,26 @@ export const ApplicationCareerTimeline = ({
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experienceList.map((experience) => {
-            return (
-              <ExperienceCard
-                key={experience.id}
-                experience={experience}
-                headingLevel="h3"
-                showSkills={false}
-                editPath={paths.applicationCareerTimelineEdit(
-                  application.id,
-                  experience.id,
-                )}
-              />
-            );
-          })}
+          {hasExperiencesByType ? (
+            experienceList.map((experience) => {
+              return (
+                <ExperienceCard
+                  key={experience.id}
+                  experience={experience}
+                  headingLevel="h3"
+                  showSkills={false}
+                  editPath={paths.applicationCareerTimelineEdit(
+                    application.id,
+                    experience.id,
+                  )}
+                />
+              );
+            })
+          ) : (
+            <Well data-h2-text-align="base(center)">
+              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+            </Well>
+          )}
         </div>
       ) : (
         <Well>
@@ -429,7 +437,9 @@ export const ApplicationCareerTimeline = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application ? (
     <ApplicationCareerTimeline

@@ -20,7 +20,7 @@ const About = () => {
         data-h2-position="base(relative)"
         data-h2-padding="base(calc((3rem * var(--h2-line-height-copy)) + 3%), 0, x3, 0) p-tablet(calc((4rem * var(--h2-line-height-copy)) + 3%), 0, x4, 0) l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%), 0, x6, 0)"
       >
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <div data-h2-color="base:all(black)">
             <Heading
               level="h2"
@@ -56,7 +56,7 @@ const About = () => {
                     href:
                       locale === "en"
                         ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
-                        : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeante-principale-information.html",
+                        : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeant-principal-information.html",
                     label: intl.formatMessage({
                       defaultMessage:
                         "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",

@@ -2,12 +2,12 @@ import { type Logger, defaultLogger } from "@gc-digital-talent/logger";
 
 type LogMessage = string | (() => string);
 
-const defaultMessage: string = "Condition failed";
+const defaultMessage = "Condition failed";
 
-type LogInvariantArgs = {
+interface LogInvariantArgs {
   logger?: Logger;
   message?: string;
-};
+}
 
 function logInvariant({
   logger = defaultLogger,

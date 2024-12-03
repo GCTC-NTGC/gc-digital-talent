@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
+import { useRef } from "react";
 
 import { Scalars, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -42,10 +43,11 @@ interface NotificationPageProps {
   page: number;
   onlyUnread?: boolean;
   isLastPage?: boolean;
-  exclude?: Scalars["UUID"]["input"][];
+  excludeIds?: Scalars["UUID"]["input"][];
   first?: number;
   inDialog?: boolean;
   onRead?: () => void;
+  fetchingLiveNotifications?: boolean;
 }
 
 const NotificationListPage = ({
@@ -55,15 +57,17 @@ const NotificationListPage = ({
   isLastPage,
   inDialog,
   onRead,
-  exclude = [],
+  excludeIds = [],
+  fetchingLiveNotifications,
 }: NotificationPageProps) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   searchParams.set("page", `${page + 1}`);
   const [{ data, fetching }] = useQuery({
     query: Notifications_Query,
+    pause: fetchingLiveNotifications,
     variables: {
-      excludeIds: exclude,
+      excludeIds,
       first: first ?? PER_PAGE,
       page,
       where: {
@@ -74,27 +78,43 @@ const NotificationListPage = ({
 
   const notifications = unpackMaybes(data?.notifications?.data);
 
+  const isLoading =
+    (fetching || fetchingLiveNotifications) && excludeIds.length === 0;
+
   const showNullMessage =
     notifications.length === 0 &&
     page === 1 &&
     !fetching &&
-    exclude.length === 0;
+    !fetchingLiveNotifications &&
+    excludeIds.length === 0;
+
+  const firstNewNotification = useRef<HTMLAnchorElement & HTMLButtonElement>(
+    null,
+  );
 
   return (
     <>
-      {notifications.length > 0 ? (
+      {isLoading ? (
+        <Loading inline />
+      ) : (
         <>
-          {notifications.map((notification) => (
-            <NotificationItem
-              key={notification.id}
-              notification={notification}
-              inDialog={inDialog}
-              onRead={onRead}
-            />
-          ))}
+          {notifications.length > 0 ? (
+            <>
+              {notifications.map((notification, index) => (
+                <NotificationItem
+                  key={notification.id}
+                  focusRef={
+                    index === 0 && page !== 1 ? firstNewNotification : undefined
+                  }
+                  notification={notification}
+                  inDialog={inDialog}
+                  onRead={onRead}
+                />
+              ))}
+            </>
+          ) : null}
         </>
-      ) : null}
-      {fetching && exclude.length === 0 && <Loading inline />}
+      )}
       {showNullMessage && (
         <NotificationPortal.Portal
           containerId={NULL_MESSAGE_ROOT_ID}
@@ -107,16 +127,16 @@ const NotificationListPage = ({
           >
             <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
-                defaultMessage: "There aren't any notifications here.",
-                id: "8JYRed",
+                defaultMessage: "You don't have any new notifications.",
+                id: "6cr+Qy",
                 description: "Title for the no notifications message",
               })}
             </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "As you receive notifications, they'll appear here and automatically be categorized on whether you've actioned or pinned them.",
-                id: "91KsMq",
+                  "Check back here for alerts about a variety of activities on the platform, including job opportunities, new features, and more.",
+                id: "d4aLWc",
                 description:
                   "Explanation of how the list of notifications work",
               })}

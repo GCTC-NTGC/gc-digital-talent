@@ -13,7 +13,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   formMessages,
-  getPoolCandidateStatus,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
@@ -38,7 +38,13 @@ export const RevertFinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
     id
     expiryDate
     finalDecisionAt
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -95,7 +101,8 @@ const RevertFinalDecisionDialog = ({
   };
 
   const isQualified =
-    isQualifiedStatus(status) || status === PoolCandidateStatus.Expired;
+    isQualifiedStatus(status?.value) ||
+    status?.value === PoolCandidateStatus.Expired;
 
   const finalDecisionDate = finalDecisionAt
     ? formatDate({
@@ -105,7 +112,7 @@ const RevertFinalDecisionDialog = ({
       })
     : intl.formatMessage(commonMessages.notAvailable);
 
-  if (!isQualified || !isDisqualifiedStatus(status)) {
+  if (!isQualified || !isDisqualifiedStatus(status?.value)) {
     intl.formatMessage(commonMessages.notApplicable);
   }
   return (
@@ -138,8 +145,8 @@ const RevertFinalDecisionDialog = ({
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "Candidate was marked <strong>{decision}</strong> on <strong>{date}</strong>",
-                  id: "jxH8bt",
+                    "Candidate was marked <strong>{decision}</strong> on <strong>{date}</strong>.",
+                  id: "iXgAIb",
                   description:
                     "Qualified candidate details on revert final decision dialog on view pool candidate page",
                 },
@@ -165,11 +172,7 @@ const RevertFinalDecisionDialog = ({
                   {intl.formatMessage(commonMessages.dividingColon)}
                 </p>
                 <p data-h2-font-weight="base(bold)">
-                  {intl.formatMessage(
-                    status
-                      ? getPoolCandidateStatus(status)
-                      : commonMessages.notFound,
-                  )}
+                  {getLocalizedName(status?.label, intl)}
                 </p>
               </div>
             )}

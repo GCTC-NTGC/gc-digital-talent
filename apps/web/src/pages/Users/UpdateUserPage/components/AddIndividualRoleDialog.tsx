@@ -17,17 +17,22 @@ import {
   UpdateUserRolesMutation,
   Role,
   User,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
-type FormValues = {
-  roles: Array<string>;
-};
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
+
+interface FormValues {
+  roles: string[];
+}
 
 interface AddIndividualRoleDialogProps {
-  user: User;
-  availableRoles: Array<Role>;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
+  availableRoles: Role[];
   onAddRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -35,12 +40,14 @@ interface AddIndividualRoleDialogProps {
 
 const AddIndividualRoleDialog = ({
   user,
+  authInfo,
   availableRoles,
   onAddRoles,
 }: AddIndividualRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const { id, firstName, lastName } = user;
+  const userName = getFullNameHtml(firstName, lastName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -54,37 +61,38 @@ const AddIndividualRoleDialog = ({
   } = methods;
 
   const handleAddRoles = async (formValues: FormValues) => {
+    const roleInputArray: RoleInput[] = formValues.roles.map((role) => {
+      return { roleId: role };
+    });
+
     return onAddRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
-        attach: {
-          roles: formValues.roles,
-        },
+        attach: roleInputArray,
       },
     }).then(() => {
       setIsOpen(false);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Role(s) added successfully",
-          id: "/17wgm",
-          description:
-            "Message displayed to user when one or more roles have been added to a user",
-        }),
-      );
+      toast.success(intl.formatMessage(adminMessages.rolesAdded));
     });
   };
 
-  const label = intl.formatMessage({
-    defaultMessage: "Add new role",
-    id: "2lNHxh",
-    description: "Label for the form to add a role to a user",
+  const dialogLabel = intl.formatMessage({
+    defaultMessage: "Add individual role",
+    id: "QCesvO",
+    description: "Header for the form to add a role to a user",
+  });
+
+  const buttonLabel = intl.formatMessage({
+    defaultMessage: "Add individual role",
+    id: "9ufudR",
+    description: "Label for the button to add a role to a user",
   });
 
   const roleOptions = availableRoles
     .filter((role) => {
       return (
         !role.isTeamBased &&
-        !user?.authInfo?.roleAssignments?.some(
+        !authInfo?.roleAssignments?.some(
           (assignment) => assignment?.role?.id === role.id,
         )
       );
@@ -97,12 +105,12 @@ const AddIndividualRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="solid" icon={PlusIcon}>
-          {label}
+        <Button color="secondary" mode="solid" icon={PlusIcon}>
+          {buttonLabel}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>{dialogLabel}</Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(0, 0 ,x1, 0)">
             {intl.formatMessage(

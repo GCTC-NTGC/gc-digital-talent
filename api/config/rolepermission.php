@@ -63,27 +63,39 @@ return [
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
-        'pool' => 'pool',
-        'publishedPool' => 'publishedPool',
-        'draftPool' => 'draftPool',
-        'poolClosingDate' => 'poolClosingDate',
-        'application' => 'application',
-        'submittedApplication' => 'submittedApplication',
-        'draftApplication' => 'draftApplication',
-        'applicationNotes' => 'applicationNotes',
-        'applicationStatus' => 'applicationStatus',
-        'applicantCount' => 'applicantCount',
-        'searchRequest' => 'searchRequest',
-        'team' => 'team',
-        'teamMembers' => 'teamMembers',
-        'role' => 'role',
-        'directiveForm' => 'directiveForm',
         'applicantProfile' => 'applicantProfile',
-        'teamRole' => 'teamRole',
+        'draftPool' => 'draftPool',
+        'publishedPool' => 'publishedPool',
+        'pool' => 'pool',
         'assessmentPlan' => 'assessmentPlan',
-        'assessmentResult' => 'assessmentResult',
+        'application' => 'application',
+        'draftApplication' => 'draftApplication',
+        'submittedApplication' => 'submittedApplication',
+        'applicationAssessment' => 'applicationAssessment',
+        'applicationDecision' => 'applicationDecision',
+        'applicationPlacement' => 'applicationPlacement',
+        'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision, but can't be fully removed until after #8671.
+        'applicantCount' => 'applicantCount',
+        'jobPosterTemplate' => 'jobPosterTemplate',
+        'searchRequest' => 'searchRequest',
+        'role' => 'role',
         'announcement' => 'announcement',
         'community' => 'community',
+        'poolTeamMembers' => 'poolTeamMembers',
+        'communityTeamMembers' => 'communityTeamMembers',
+        'trainingOpportunity' => 'trainingOpportunity',
+
+        'platformAdminMembership' => 'platformAdminMembership',
+        'communityAdminMembership' => 'communityAdminMembership',
+        'communityRecruiterMembership' => 'communityRecruiterMembership',
+        'processOperatorMembership' => 'processOperatorMembership',
+        'managerMembership' => 'managerMembership',
+
+        'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
+        'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
+        'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources. Remove during #10368 (Post-communities cleanup)
+
+        'directiveForm' => 'directiveForm',
     ],
 
     /*
@@ -164,20 +176,20 @@ return [
         ],
 
         'view-any-skillFamily' => [
-            'en' => 'View Any Skill Family',
-            'fr' => 'Visionner toute famille de compétences',
+            'en' => 'View Any Skill family',
+            'fr' => 'Visionner n\'importe quel groupe de compétences',
         ],
         'create-any-skillFamily' => [
-            'en' => 'Create Any Skill Family',
-            'fr' => 'Créer toute famille de compétences',
+            'en' => 'Create Any Skill family',
+            'fr' => 'Créer n\'importe quel groupe de compétences',
         ],
         'update-any-skillFamily' => [
-            'en' => 'Update Any Skill Family',
-            'fr' => 'Mettre à jour toute famille de compétences',
+            'en' => 'Update Any Skill family',
+            'fr' => 'Mettre à jour n\'importe quel groupe de compétences',
         ],
         'delete-any-skillFamily' => [
-            'en' => 'Delete Any Skill Family',
-            'fr' => 'Supprimer toute famille de compétences',
+            'en' => 'Delete Any Skill family',
+            'fr' => 'Supprimer n\'importe quel groupe de compétences',
         ],
 
         'create-any-user' => [
@@ -188,17 +200,13 @@ return [
             'en' => 'View Any User',
             'fr' => 'Visionner tout utilisateur',
         ],
-        'view-any-userBasicInfo' => [
-            'en' => 'View basic info of any User',
-            'fr' => 'Afficher les informations de base de tout utilisateur',
-        ],
         'view-own-user' => [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur',
         ],
-        'view-team-applicantProfile' => [
-            'en' => 'View Team User',
-            'fr' => 'Visionner l\'utilisateur de l\'équipe',
+        'view-any-userBasicInfo' => [
+            'en' => 'View basic info of any User',
+            'fr' => 'Afficher les informations de base de tout utilisateur',
         ],
         'update-any-user' => [
             'en' => 'Update Any User (does not include updating the "sub" field or role assignments)',
@@ -217,9 +225,26 @@ return [
             'fr' => 'Supprimer tout utilisateur',
         ],
 
-        'view-team-pool' => [
-            'en' => 'View Pools in this Team',
-            'fr' => 'Voir les bassins de cette équipe',
+        'view-any-applicantProfile' => [
+            'en' => 'View any Applicant Profile',
+            'fr' => 'Visionner tout profil de candidat',
+        ],
+        'view-team-applicantProfile' => [
+            'en' => 'View Team User',
+            'fr' => 'Visionner l\'utilisateur de l\'équipe',
+        ],
+        'view-own-applicantProfile' => [
+            'en' => 'View Own Applicant Profile',
+            'fr' => 'Visionner son propre profil de candidat',
+        ],
+        'update-own-applicantProfile' => [
+            'en' => 'Update Own Applicant Profile',
+            'fr' => 'Mettre à jour son propre profil de candidat',
+        ],
+
+        'view-team-draftPool' => [
+            'en' => 'View draft Pools in this Team',
+            'fr' => 'Voir les bassins de brouillons dans cette équipe',
         ],
         'view-any-pool' => [
             'en' => 'View any Pool, published or not',
@@ -229,7 +254,7 @@ return [
             'en' => 'View Any Published Pool',
             'fr' => 'Visionner toute annonce publiée dans un bassin',
         ],
-        'create-team-pool' => [
+        'create-team-draftPool' => [
             'en' => 'Create Pools in this Team',
             'fr' => 'Créer des bassins dans cette équipe',
         ],
@@ -241,27 +266,52 @@ return [
             'en' => 'Update published Pools',
             'fr' => 'Mise à jour des bassins publiés',
         ],
-        'publish-team-pool' => [
+        'publish-team-draftPool' => [
             'en' => 'Publish Pools in this Team',
             'fr' => 'Publier des bassins dans cette équipe',
         ],
-        'publish-any-pool' => [
+        'publish-any-draftPool' => [
             'en' => 'Publish any draft Pool',
             'fr' => 'Publier n\'import quel bassin',
         ],
-        'update-team-poolClosingDate' => [
-            'en' => 'Update the closing date of published Pools in this Team',
-            'fr' => 'Mise à jour de la date de clôture des bassins publiés dans cette équipe',
+        'update-team-publishedPool' => [
+            'en' => 'Update published Pools in this Team',
+            'fr' => 'Mise à jour des bassins publiés dans cette équipe',
         ],
         'delete-team-draftPool' => [
             'en' => 'Delete draft Pools in this Team',
             'fr' => 'Supprimer les pools de brouillons dans cette équipe',
         ],
-        'archive-team-pool' => [
+        'archive-team-publishedPool' => [
             'en' => 'Archive the pools in this team',
             'fr' => 'Archiver les pools de cette équipe',
         ],
+        'archive-any-publishedPool' => [
+            'en' => 'Archive any published pool',
+            'fr' => 'Archiver n\'import quel bassin publié',
+        ],
 
+        'view-any-assessmentPlan' => [
+            'en' => 'View the assessment plan (assessment steps) for any pool.',
+            'fr' => 'Consulter le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
+        ],
+        'view-team-assessmentPlan' => [
+            'en' => 'View the assessment plan (assessment steps) for pools run by your team only.',
+            'fr' => 'Consultez le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
+        ],
+        'update-any-assessmentPlan' => [
+            'en' => 'Edit the assessment plan (assessment steps) for any pool.',
+            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
+        ],
+        'update-team-assessmentPlan' => [
+            'en' => 'Edit the assessment plan (assessment steps) for pools run by your team only.',
+            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
+        ],
+
+        'create-any-application' => [
+            'en' => 'Add any user to any Pool, skipping the draft and submission process',
+            'fr' => 'Ajoutez n\'importe quel utilisateur à n\'importe quel pool, en sautant le processus de rédaction et de soumission.',
+        ],
         'view-own-application' => [
             'en' => 'View Own Application',
             'fr' => 'Visionner sa propre candidature',
@@ -282,7 +332,7 @@ return [
             'en' => 'Update my own draft Application',
             'fr' => 'Mise à jour de mon candidature provisoire',
         ],
-        'submit-own-application' => [
+        'submit-own-draftApplication' => [
             'en' => 'Submit my own Application',
             'fr' => 'Soumettre ma propre candidature',
         ],
@@ -297,23 +347,6 @@ return [
         'suspend-own-submittedApplication' => [
             'en' => 'Suspend or un-suspend Own Submitted Application',
             'fr' => 'Suspendre ou débloquer sa propre candidature présentée',
-        ],
-
-        'view-team-applicationNotes' => [
-            'en' => 'View the notes of Applications submitted to this Team\'s Pools',
-            'fr' => 'Consulter les notes des candidatures soumises aux bassins de cette équipe.',
-        ],
-        'view-any-applicationNotes' => [
-            'en' => 'View the notes of any submitted Application',
-            'fr' => 'Consulter les notes de n\'importe quel candidature soumise',
-        ],
-        'update-team-applicationNotes' => [
-            'en' => 'Update the notes of Applications submitted to this Team\'s Pools',
-            'fr' => 'Mettre à jour les notes des demandes soumises aux bassins de cette équipe.',
-        ],
-        'update-any-applicationNotes' => [
-            'en' => 'Update the notes of any submitted Applications',
-            'fr' => 'Mettre à jour les notes des demandes soumises aux bassins de cette équipe.',
         ],
 
         'view-own-applicationStatus' => [
@@ -337,14 +370,82 @@ return [
             'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.',
         ],
 
-        'create-any-application' => [
-            'en' => 'Add any user to any Pool, skipping the draft and submission process',
-            'fr' => 'Ajoutez n\'importe quel utilisateur à n\'importe quel pool, en sautant le processus de rédaction et de soumission.',
+        'view-any-applicationAssessment' => [
+            'en' => 'View the assessment of any submitted Application',
+            'fr' => 'Consulter l\'évaluation de n\'importe quelle candidature soumise',
         ],
-
+        'view-team-applicationAssessment' => [
+            'en' => 'View the assessment of Applications submitted to this Team\'s Pools',
+            'fr' => 'Consulter l\'évaluation des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'update-any-applicationAssessment' => [
+            'en' => 'Update the assessment of any submitted Application',
+            'fr' => 'Mettre à jour l\'évaluation de n\'importe quelle candidature soumise',
+        ],
+        'update-team-applicationAssessment' => [
+            'en' => 'Update the assessment of Applications submitted to this Team\'s Pools',
+            'fr' => 'Mettre à jour l\'évaluation des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'view-any-applicationDecision' => [
+            'en' => 'View the decision of any submitted Application',
+            'fr' => 'Consulter la décision de n\'importe quelle candidature soumise',
+        ],
+        'view-team-applicationDecision' => [
+            'en' => 'View the decision of Applications submitted to this Team\'s Pools',
+            'fr' => 'Consulter la décision des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'view-own-applicationDecision' => [
+            'en' => 'View the decision of my own Applications',
+            'fr' => 'Consulter la décision de mes propres candidatures',
+        ],
+        'update-team-applicationDecision' => [
+            'en' => 'Update the decision of Applications submitted to this Team\'s Pools',
+            'fr' => 'Mettre à jour la décision des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'update-any-applicationDecision' => [
+            'en' => 'Update the decision of any submitted Application',
+            'fr' => 'Mettre à jour la décision de n\'importe quelle candidature soumise',
+        ],
+        'view-any-applicationPlacement' => [
+            'en' => 'View the placement of any submitted Application',
+            'fr' => 'Consulter le placement de n\'importe quelle candidature soumise',
+        ],
+        'view-team-applicationPlacement' => [
+            'en' => 'View the placement of Applications submitted to this Team\'s Pools',
+            'fr' => 'Consulter le placement des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'view-own-applicationPlacement' => [
+            'en' => 'View the placement of my own Applications',
+            'fr' => 'Consulter le placement de mes propres candidatures',
+        ],
+        'update-team-applicationPlacement' => [
+            'en' => 'Update the placement of Applications submitted to this Team\'s Pools',
+            'fr' => 'Mettre à jour le placement des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'update-any-applicationPlacement' => [
+            'en' => 'Update the placement of any submitted Application',
+            'fr' => 'Mettre à jour le placement de n\'importe quelle candidature soumise',
+        ],
         'view-any-applicantCount' => [
             'en' => 'View the count result of any filter-Applicant query',
             'fr' => 'Visualiser le résultat du comptage de n\'importe quelle requête filtre-demandeur',
+        ],
+
+        'view-any-jobPosterTemplate' => [
+            'en' => 'View any job poster template',
+            'fr' => 'Voir n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'create-any-jobPosterTemplate' => [
+            'en' => 'Create any job poster template',
+            'fr' => 'Créer n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'update-any-jobPosterTemplate' => [
+            'en' => 'Update any job poster template',
+            'fr' => 'Mise à jour de tout modèle d\'affiche d\'emploi',
+        ],
+        'delete-any-jobPosterTemplate' => [
+            'en' => 'Delete any job poster template',
+            'fr' => 'Supprimer un modèle d\'offre d\'emploi',
         ],
 
         'create-any-searchRequest' => [
@@ -374,6 +475,10 @@ return [
         'delete-any-searchRequest' => [
             'en' => 'Delete SearchRequests submitted to this Team',
             'fr' => 'Supprimer n\'import quelle demande de recherche',
+        ],
+        'view-own-searchRequest' => [
+            'en' => 'View own SearchRequests',
+            'fr' => 'Voir ses propres demandes de recherche',
         ],
 
         'view-any-team' => [
@@ -443,39 +548,9 @@ return [
             'fr' => 'Supprimer tout formulaire de directive',
         ],
 
-        'view-any-assessmentPlan' => [
-            'en' => 'View the assessment plan (assessment steps) for any pool.',
-            'fr' => 'Consulter le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
-        ],
-        'view-team-assessmentPlan' => [
-            'en' => 'View the assessment plan (assessment steps) for pools run by your team only.',
-            'fr' => 'Consultez le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
-        ],
-        'update-any-assessmentPlan' => [
-            'en' => 'Edit the assessment plan (assessment steps) for any pool.',
-            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
-        ],
-        'update-team-assessmentPlan' => [
-            'en' => 'Edit the assessment plan (assessment steps) for pools run by your team only.',
-            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
-        ],
-
-        'view-any-assessmentResult' => [
-            'en' => 'View assessment results for any pool',
-            'fr' => 'Voir les résultats de l\'évaluation pour n\'importe quel bassin',
-        ],
-        'view-team-assessmentResult' => [
-            'en' => 'View assessment results for pools run by your team only',
-            'fr' => 'Visualiser les résultats des évaluations pour les pools gérés par votre équipe uniquement',
-        ],
-        'update-team-assessmentResult' => [
-            'en' => 'Mutate assessment result objects',
-            'fr' => 'Modifier les objets de résultats d\'évaluation',
-        ],
-
         'view-any-announcement' => [
             'en' => 'View any announcement',
-            'fr' => 'Voir toutes les annonces',
+            'fr' => 'Vissioner toutes les annonces',
         ],
         'update-any-announcement' => [
             'en' => 'Update any announcement',
@@ -484,7 +559,82 @@ return [
 
         'view-any-community' => [
             'en' => 'View any community',
-            'fr' => 'Voir toutes les communautés',
+            'fr' => 'Vissioner toutes les communautés',
+        ],
+        'view-team-community' => [
+            'en' => 'View this community',
+            'fr' => 'Vissioner cette communauté',
+        ],
+        'create-any-community' => [
+            'en' => 'Create any community',
+            'fr' => 'Créer toute communauté',
+        ],
+        'update-any-community' => [
+            'en' => 'Update any community',
+            'fr' => 'Mise à jour de toute communauté',
+        ],
+        'update-team-community' => [
+            'en' => 'Update this commuinty',
+            'fr' => 'Mise à jour cette communautés',
+        ],
+        'delete-any-community' => [
+            'en' => 'Delete any community',
+            'fr' => 'Supprimer toute communauté',
+        ],
+
+        'update-any-platformAdminMembership' => [
+            'en' => 'Add or remove the Platform Admin role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de plateforme de n\'importe quel utilisateur',
+        ],
+        'update-any-communityAdminMembership' => [
+            'en' => 'Add or remove the Community Admin role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de communauté de n\'importe quel utilisateur',
+        ],
+        'update-team-communityAdminMembership' => [
+            'en' => 'Add or remove the Community Admin role, for this community, to any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur de communauté, pour cette communauté, à n\'importe quel utilisateur',
+        ],
+        'update-any-communityRecruiterMembership' => [
+            'en' => 'Add or remove the Community Recruiter role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de recruteur de communauté de n\'importe quel utilisateur',
+        ],
+        'update-team-communityRecruiterMembership' => [
+            'en' => 'Add or remove the Community Recruiter role, for this community, to any user',
+            'fr' => 'Ajouter ou supprimer le rôle de recruteur de communauté, pour cette communauté, à n\'importe quel utilisateur',
+        ],
+        'update-any-processOperatorMembership' => [
+            'en' => 'Add or remove the Process Operator role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus de n\'importe quel utilisateur',
+        ],
+        'update-team-processOperatorMembership' => [
+            'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
+        ],
+        'update-any-managerMembership' => [
+            'en' => 'Add or remove the Manager role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de gestionnaire à n\'importe quel utilisateur',
+        ],
+
+        'view-any-poolTeamMembers' => [
+            'en' => 'View the members of any pool',
+            'fr' => 'Voir les membres de n\'importe quel bassin',
+        ],
+        'view-team-poolTeamMembers' => [
+            'en' => 'View the members of this pool, or of this community\'s pools',
+            'fr' => 'Voir les membres de ce bassin, ou des bassins de cette communauté',
+        ],
+        'view-any-communityTeamMembers' => [
+            'en' => 'View the members of any community',
+            'fr' => 'Voir les membres de n\'importe quelle communauté',
+        ],
+        'view-team-communityTeamMembers' => [
+            'en' => 'View the members of this community',
+            'fr' => 'Voir les membres de cette communauté',
+        ],
+
+        'create-any-trainingOpportunity' => [
+            'en' => 'Create or update a training opportunity',
+            'fr' => 'Créer ou mettre à jour une opportunité de formation',
         ],
     ],
 
@@ -538,6 +688,7 @@ return [
             'is_team_based' => false,
         ],
 
+        // TODO: remove during #10368 (Post-communities cleanup)
         'pool_operator' => [
             'display_name' => [
                 'en' => 'Pool Operator',
@@ -550,6 +701,7 @@ return [
             'is_team_based' => true,
         ],
 
+        // TODO: remove during #10368 (Post-communities cleanup)
         'request_responder' => [
             'display_name' => [
                 'en' => 'Request Responder',
@@ -562,6 +714,7 @@ return [
             'is_team_based' => false,
         ],
 
+        // TODO: remove during #10368 (Post-communities cleanup)
         'community_manager' => [
             'display_name' => [
                 'en' => 'Community Manager',
@@ -574,6 +727,42 @@ return [
             'is_team_based' => false,
         ],
 
+        'process_operator' => [
+            'display_name' => [
+                'en' => 'Process Operator',
+                'fr' => 'Opérateur de processus',
+            ],
+            'description' => [
+                'en' => 'Runs a hiring process, all the way from editing the details of the poster and assessment plan, to assessing and qualifying candidates. Is specific to only a single process. Does not include the ability to publish the poster, create new posters, or add other operators.',
+                'fr' => 'Gère un processus de recrutement, de l\'édition des détails de l\'affiche et du plan d\'évaluation, à l\'évaluation et à la qualification des candidats. Est spécifique à un seul processus. N\'inclut pas la capacité de publier l\'affiche, de créer de nouvelles affiches ou d\'ajouter d\'autres opérateurs.',
+            ],
+            'is_team_based' => true,
+        ],
+
+        'community_recruiter' => [
+            'display_name' => [
+                'en' => 'Community Recruiter',
+                'fr' => 'Recruteur de communauté',
+            ],
+            'description' => [
+                'en' => 'Can create new posters within their community and assign Process Operators to them. Can do anything Process Operators can do, on posters in their community. Can view the profiles of any user who has applied to a community process. Can view and respond to requests to the community.',
+                'fr' => 'Peut créer de nouvelles affiches dans sa communauté et y affecter des opérateurs de processus. Ils peuvent faire tout ce que les opérateurs de processus peuvent faire sur les affiches de leur communauté. Ils peuvent consulter le profil de tout utilisateur ayant participé à un processus communautaire. Ils peuvent consulter les demandes adressées à la communauté et y répondre.',
+            ],
+            'is_team_based' => true,
+        ],
+
+        'community_admin' => [
+            'display_name' => [
+                'en' => 'Community Administrator',
+                'fr' => 'Administrateur de communauté',
+            ],
+            'description' => [
+                'en' => 'Can do anything Community Recruiters can do, and can also publish pools in their community and assign Community Recruiters.',
+                'fr' => 'Peut faire tout ce que les recruteurs de communauté peuvent faire, et peut également publier des bassins dans leur communauté et affecter des recruteurs de communauté.',
+            ],
+            'is_team_based' => true,
+        ],
+
         'platform_admin' => [
             'display_name' => [
                 'en' => 'Platform Administrator',
@@ -582,6 +771,18 @@ return [
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), publishes pools, manages business data, and has the extraordinary ability to edit or delete other users.',
                 'fr' => 'Crée des équipes, attribue des rôles à d\'autres utilisateurs (y compris l\'attribution d\'utilisateurs à des organisations), publie des pools, gère des données commerciales et a la capacité extraordinaire de modifier ou de supprimer d\'autres utilisateurs.',
+            ],
+            'is_team_based' => false,
+        ],
+
+        'manager' => [
+            'display_name' => [
+                'en' => 'Manager',
+                'fr' => 'Gestionnaire',
+            ],
+            'description' => [
+                'en' => 'Can search for talent and submit talent requests.',
+                'fr' => 'Possibilité de rechercher des talents et de soumettre des demandes de talents.',
             ],
             'is_team_based' => false,
         ],
@@ -618,10 +819,19 @@ return [
             'skillFamily' => [
                 'any' => ['view'],
             ],
+            'community' => [
+                'any' => ['view'],
+            ],
+            'role' => [
+                'any' => ['view'],
+            ],
             'publishedPool' => [
                 'any' => ['view'],
             ],
             'applicantCount' => [
+                'any' => ['view'],
+            ],
+            'jobPosterTemplate' => [
                 'any' => ['view'],
             ],
             'searchRequest' => [
@@ -630,13 +840,7 @@ return [
             'team' => [
                 'any' => ['view'],
             ],
-            'role' => [
-                'any' => ['view'],
-            ],
             'announcement' => [
-                'any' => ['view'],
-            ],
-            'community' => [
                 'any' => ['view'],
             ],
         ],
@@ -657,6 +861,12 @@ return [
             'skillFamily' => [
                 'any' => ['view'],
             ],
+            'community' => [
+                'any' => ['view'],
+            ],
+            'role' => [
+                'any' => ['view'],
+            ],
             'user' => [
                 'own' => ['view', 'update'],
             ],
@@ -666,29 +876,27 @@ return [
             'applicantCount' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view'],
+            ],
             'searchRequest' => [
                 'any' => ['create'],
+                'own' => ['view'],
             ],
             'team' => [
                 'any' => ['view'],
             ],
-            'role' => [
-                'any' => ['view'],
-            ],
             'announcement' => [
-                'any' => ['view'],
-            ],
-            'community' => [
                 'any' => ['view'],
             ],
         ],
 
         'applicant' => [
             'application' => [
-                'own' => ['view', 'submit'],
+                'own' => ['view'],
             ],
             'draftApplication' => [
-                'own' => ['create', 'delete', 'update'],
+                'own' => ['create', 'update', 'submit', 'delete'],
             ],
             'submittedApplication' => [
                 'own' => ['archive', 'suspend'],
@@ -696,17 +904,20 @@ return [
             'applicationStatus' => [
                 'own' => ['view'],
             ],
+            'applicationDecision' => [
+                'own' => ['view'],
+            ],
+            'applicationPlacement' => [
+                'own' => ['view'],
+            ],
         ],
 
         'pool_operator' => [
-            'pool' => [
-                'team' => ['view', 'create', 'archive'],
-            ],
             'draftPool' => [
-                'team' => ['update', 'delete'],
+                'team' => ['create', 'view', 'update', 'delete'],
             ],
-            'poolClosingDate' => [
-                'team' => ['update'],
+            'publishedPool' => [
+                'team' => ['archive'],
             ],
             'submittedApplication' => [
                 'team' => ['view'],
@@ -714,7 +925,13 @@ return [
             'applicationStatus' => [
                 'team' => ['view', 'update'],
             ],
-            'applicationNotes' => [
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
                 'team' => ['view', 'update'],
             ],
             'teamMembers' => [
@@ -729,9 +946,6 @@ return [
             'assessmentPlan' => [
                 'team' => ['view', 'update'],
             ],
-            'assessmentResult' => [
-                'team' => ['view', 'update'],
-            ],
         ],
 
         'request_responder' => [
@@ -741,7 +955,13 @@ return [
             'applicationStatus' => [
                 'any' => ['view', 'update'],
             ],
-            'applicationNotes' => [
+            'applicationAssessment' => [
+                'any' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'any' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
                 'any' => ['view', 'update'],
             ],
             'searchRequest' => [
@@ -753,9 +973,6 @@ return [
             'assessmentPlan' => [
                 'any' => ['view'],
             ],
-            'assessmentResult' => [
-                'any' => ['view'],
-            ],
         ],
 
         'community_manager' => [
@@ -763,10 +980,13 @@ return [
                 'any' => ['view'],
             ],
             'pool' => [
-                'any' => ['view', 'publish'],
+                'any' => ['view'],
+            ],
+            'draftPool' => [
+                'any' => ['publish'],
             ],
             'publishedPool' => [
-                'any' => ['update'],
+                'any' => ['update', 'archive'],
             ],
             'teamMembers' => [
                 'any' => ['view'],
@@ -782,24 +1002,156 @@ return [
             ],
         ],
 
+        'process_operator' => [
+            'applicantProfile' => [
+                'team' => ['view'],
+            ],
+            'draftPool' => [
+                'team' => ['view', 'update'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view', 'update'],
+            ],
+            'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view'],
+            ],
+            'poolTeamMembers' => [
+                'team' => ['view'],
+            ],
+        ],
+
+        'community_recruiter' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'applicantProfile' => [
+                'team' => ['view'],
+            ],
+            'draftPool' => [
+                'team' => ['view', 'create', 'update', 'delete'],
+            ],
+            'publishedPool' => [
+                'team' => ['archive'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view', 'update'],
+            ],
+            'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view', 'update'],
+            ],
+            'searchRequest' => [
+                'team' => ['view', 'update', 'delete'],
+            ],
+            'community' => [
+                'team' => ['view'],
+            ],
+            'communityTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'poolTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+        ],
+
+        'community_admin' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'applicantProfile' => [
+                'team' => ['view'],
+            ],
+            'draftPool' => [
+                'team' => ['view', 'create', 'update', 'delete', 'publish'],
+            ],
+            'publishedPool' => [
+                'team' => ['update', 'archive'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view', 'update'],
+            ],
+            'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view', 'update'],
+            ],
+            'searchRequest' => [
+                'team' => ['view', 'update', 'delete'],
+            ],
+            'community' => [
+                'team' => ['view', 'update'],
+            ],
+            'communityTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'communityRecruiterMembership' => [
+                'team' => ['update'],
+            ],
+            'poolTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+        ],
+
         'platform_admin' => [
             'classification' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete'],
             ],
             'department' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete'],
             ],
             'genericJobTitle' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete'],
             ],
             'skill' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete'],
             ],
             'skillFamily' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete'],
+            ],
+            'community' => [
+                'any' => ['create', 'view', 'update', 'delete'],
             ],
             'user' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete'], // TODO: remove update and create during #10368 (Post-communities cleanup)
             ],
             'userSub' => [
                 'any' => ['update'],
@@ -807,14 +1159,38 @@ return [
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
-            'pool' => [
-                'any' => ['view', 'publish'],
+            'applicantProfile' => [
+                'any' => ['view'],
             ],
-            'publishedPool' => [
-                'any' => ['update'],
+            'pool' => [
+                'any' => ['view'],
+            ],
+            'assessmentPlan' => [
+                'any' => ['view'],
             ],
             'application' => [
-                'any' => ['create'],
+                'any' => ['create'], // TODO: remove create any application permission during #10368 (Post-communities cleanup)
+            ],
+            'submittedApplication' => [
+                'any' => ['view'],
+            ],
+            'applicationStatus' => [
+                'any' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'any' => ['view'],
+            ],
+            'applicationDecision' => [
+                'any' => ['view'],
+            ],
+            'applicationPlacement' => [
+                'any' => ['view'],
+            ],
+            'jobPosterTemplate' => [
+                'any' => ['view', 'create', 'update', 'delete'],
+            ],
+            'searchRequest' => [
+                'any' => ['view'],
             ],
             'teamMembers' => [
                 'any' => ['view'],
@@ -828,15 +1204,36 @@ return [
             'directiveForm' => [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
-            'assessmentPlan' => [
-                'any' => ['view'],
-            ],
-            'assessmentResult' => [
-                'any' => ['view'],
-            ],
             'announcement' => [
+                'any' => ['view', 'update'],
+            ],
+            'platformAdminMembership' => [
                 'any' => ['update'],
             ],
+            'communityAdminMembership' => [
+                'any' => ['update'],
+            ],
+            'communityRecruiterMembership' => [
+                'any' => ['update'],
+            ],
+            'processOperatorMembership' => [
+                'any' => ['update'],
+            ],
+            'managerMembership' => [
+                'any' => ['update'],
+            ],
+            'communityTeamMembers' => [
+                'any' => ['view'],
+            ],
+            'poolTeamMembers' => [
+                'any' => ['view'],
+            ],
+            'trainingOpportunity' => [
+                'any' => ['create'],
+            ],
+        ],
+        'manager' => [
+            // granted permissions will be defined later
         ],
     ],
 ];

@@ -12,7 +12,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Skill } from "@gc-digital-talent/graphql";
+import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
@@ -124,7 +124,7 @@ const SkillBrowserDialog = ({
 
   const triggerProps = {
     id: trigger?.id,
-    children: trigger?.label || triggerMessage,
+    children: trigger?.label ?? triggerMessage,
     icon: derivedIcon,
     mode: trigger?.mode,
     disabled: trigger?.disabled,
@@ -133,7 +133,7 @@ const SkillBrowserDialog = ({
 
   useEffect(() => {
     if (watchSkill) {
-      formTrigger("skill");
+      void formTrigger("skill");
     }
   }, [watchSkill, formTrigger]);
 
@@ -145,7 +145,7 @@ const SkillBrowserDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
-        {customTrigger || (
+        {customTrigger ?? (
           <Button {...triggerProps} {...rest} color="secondary" />
         )}
       </Dialog.Trigger>
@@ -160,12 +160,18 @@ const SkillBrowserDialog = ({
               />
               {selectedSkill && shouldShowDetails && (
                 <SkillDetails
-                  category={selectedSkill.category}
+                  category={
+                    selectedSkill.category.value ?? SkillCategory.Technical
+                  }
                   context={context}
                 />
               )}
               {selectedSkill && context === "pool" && (
-                <SkillDetailsPool category={selectedSkill.category} />
+                <SkillDetailsPool
+                  category={
+                    selectedSkill.category.value ?? SkillCategory.Technical
+                  }
+                />
               )}
               <Dialog.Footer>
                 <Button

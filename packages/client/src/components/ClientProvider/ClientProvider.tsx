@@ -14,6 +14,7 @@ import { useIntl } from "react-intl";
 import {
   ACCESS_TOKEN,
   LOGOUT_REASON_KEY,
+  NAV_ROLE_KEY,
   REFRESH_TOKEN,
   useAuthentication,
 } from "@gc-digital-talent/auth";
@@ -21,7 +22,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { LogoutReason } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import {
   buildValidationErrorMessageNode,
@@ -32,8 +33,7 @@ import {
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
-
-const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
+import { apiHost, apiUri } from "../../constants";
 
 const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
   let tokenIsKnownToBeExpired = false;
@@ -55,9 +55,9 @@ const ClientProvider = ({
   children?: ReactNode;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
-  const { protectedApi: protectedApiFlag } = useFeatureFlags();
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);
   // Keep the contents of that mutable object up to date
@@ -69,11 +69,12 @@ const ClientProvider = ({
     return (
       client ??
       createClient({
-        url: apiUri,
+        url: `${apiHost}${apiUri}`,
         requestPolicy: "cache-and-network",
+        fetchOptions: { headers: { "Accept-Language": locale } },
         exchanges: [
           cacheExchange,
-          ...(protectedApiFlag ? [protectedEndpointExchange] : []),
+          protectedEndpointExchange,
           mapExchange({
             onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
@@ -93,6 +94,7 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "user-deleted";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                localStorage.removeItem(NAV_ROLE_KEY);
                 authRef.current.logout();
                 return;
               }
@@ -104,6 +106,7 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "session-expired";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                localStorage.removeItem(NAV_ROLE_KEY);
                 authRef.current.logout();
                 return;
               }
@@ -122,6 +125,8 @@ const ClientProvider = ({
               if (errorMessageNode) toast.error(errorMessageNode);
             },
           }),
+          // NOTE: Needed to colour the function
+          // eslint-disable-next-line @typescript-eslint/require-await
           authExchange(async (utils) => {
             return {
               addAuthToOperation: (operation) => {
@@ -139,13 +144,13 @@ const ClientProvider = ({
                 return isTokenKnownToBeExpired(accessToken);
               },
               didAuthError(error) {
-                const didError =
-                  error && error.response
-                    ? error.response.status === 401 ||
-                      error.graphQLErrors.some(
-                        (e) => e.extensions?.category === "authentication",
-                      )
-                    : false;
+                const res = error.response as Response | null;
+                const didError = res
+                  ? res.status === 401 ||
+                    error.graphQLErrors.some(
+                      (e) => e.extensions?.category === "authentication",
+                    )
+                  : false;
 
                 return didError;
               },
@@ -165,7 +170,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger, protectedApiFlag]);
+  }, [client, intl, locale, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

@@ -16,11 +16,12 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import { PAGE_SECTION_ID, titles } from "~/constants/sections/careerTimeline";
+import { QualifiedRecruitmentCardCategories_Fragment } from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 
-import { PAGE_SECTION_ID, titles } from "../constants";
 import CareerTimelineSection from "./CareerTimelineSection";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
@@ -42,10 +43,6 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineExperience on Experience {
     id
     details
-    user {
-      id
-      email
-    }
     skills {
       id
       key
@@ -53,7 +50,13 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       experienceSkillRecord {
         details
       }
@@ -62,8 +65,20 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       title
       issuedBy
       awardedDate
-      awardedTo
-      awardedScope
+      awardedTo {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      awardedScope {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     ... on CommunityExperience {
       title
@@ -78,8 +93,20 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type
-      status
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     ... on PersonalExperience {
       title
@@ -97,11 +124,13 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
+const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineApplication on PoolCandidate {
     ...QualifiedRecruitmentsCandidate
     id
-    status
+    status {
+      value
+    }
     archivedAt
     submittedAt
     suspendedAt
@@ -112,39 +141,11 @@ export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      publishingGroup
-      stream
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-        minSalary
-        maxSalary
+      publishingGroup {
+        value
       }
-
-      team {
-        id
-        name
-        departments {
-          id
-          departmentNumber
-          name {
-            en
-            fr
-          }
-        }
+      stream {
+        value
       }
     }
   }
@@ -154,11 +155,15 @@ interface CareerTimelineAndRecruitmentProps {
   userId: string;
   experiencesQuery: FragmentType<typeof CareerTimelineExperience_Fragment>[];
   applicationsQuery: FragmentType<typeof CareerTimelineApplication_Fragment>[];
+  categoriesQuery: FragmentType<
+    typeof QualifiedRecruitmentCardCategories_Fragment
+  >;
 }
 
 const CareerTimelineAndRecruitment = ({
   experiencesQuery,
   applicationsQuery,
+  categoriesQuery,
   userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
@@ -192,7 +197,7 @@ const CareerTimelineAndRecruitment = ({
     <>
       <SEO title={pageTitle} description={formattedSubtitle} />
       <Hero title={pageTitle} subtitle={formattedSubtitle} crumbs={crumbs} />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>
@@ -274,6 +279,7 @@ const CareerTimelineAndRecruitment = ({
               </p>
               <QualifiedRecruitmentsSection
                 applicationsQuery={[...applications]}
+                categoriesQuery={categoriesQuery}
               />
             </TableOfContents.Section>
           </TableOfContents.Content>

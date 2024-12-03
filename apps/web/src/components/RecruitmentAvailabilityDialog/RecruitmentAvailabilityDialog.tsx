@@ -11,9 +11,9 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { poolTitle } from "~/utils/poolUtils";
 
-type FormValues = {
+interface FormValues {
   isSuspended: "true" | "false"; // Note: RadioGroup only accepts strings
-};
+}
 
 const RecruitmentAvailabilityChangeSuspendedAt_Mutation = graphql(
   /* GraphQL */ `
@@ -32,7 +32,20 @@ const RecruitmentAvailabilityDialog_Fragment = graphql(/* GraphQL */ `
     suspendedAt
     pool {
       id
-      stream
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -63,7 +76,12 @@ const RecruitmentAvailabilityDialog = ({
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isSuspended = !!candidate.suspendedAt;
-  const title = poolTitle(intl, candidate.pool);
+  const title = poolTitle(intl, {
+    stream: candidate.pool.stream,
+    name: candidate.pool.name,
+    publishingGroup: candidate.pool.publishingGroup,
+    classification: candidate.pool.classification,
+  });
 
   const methods = useForm<FormValues>({
     defaultValues: { isSuspended: isSuspended ? "true" : "false" },

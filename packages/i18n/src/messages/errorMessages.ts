@@ -1,6 +1,11 @@
 import { defineMessages } from "react-intl";
 
 const errorMessages = defineMessages({
+  error: {
+    defaultMessage: "Error",
+    id: "ra+8d1",
+    description: "Generic error message",
+  },
   required: {
     // These errors must be passed to react-hook-form as error messages, and it only expects strings.
     // However, when we use rich text elements like `<hidden>`, formatMessage will return ReactNode.
@@ -110,6 +115,18 @@ const errorMessages = defineMessages({
       "Your request wasn't completed. Please try again or contact our team for help.",
     id: "Gv3lBS",
     description: "Message for Unauthorized or Request Rejected server response",
+  },
+  downloadRequestFailed: {
+    defaultMessage:
+      "There was a problem downloading your file. If you continue to receive this error, please get in touch with our support team.",
+    id: "DIK7Z1",
+    description: "Message for when the download request failed",
+  },
+  downloadingFileFailed: {
+    defaultMessage:
+      "There was a problem on our end. {fileName} failed to download. If you continue to receive this error, please get in touch with our support team.",
+    id: "EW8RHQ",
+    description: "Error message when a file download fails",
   },
 });
 

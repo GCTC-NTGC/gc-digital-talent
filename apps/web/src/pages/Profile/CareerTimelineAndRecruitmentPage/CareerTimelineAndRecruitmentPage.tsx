@@ -11,7 +11,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
 
-const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
+export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
   query CareerTimelineExperiences($id: UUID!) {
     user(id: $id) {
       id
@@ -22,6 +22,7 @@ const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
         ...CareerTimelineApplication
       }
     }
+    ...QualifiedRequirementCardCategories
   }
 `);
 
@@ -30,7 +31,7 @@ const CareerTimelineAndRecruitmentPage = () => {
   const { userAuthInfo } = useAuthorization();
   const [{ data, fetching, error }] = useQuery({
     query: CareerTimelineExperiences_Query,
-    variables: { id: userAuthInfo?.id || "" },
+    variables: { id: userAuthInfo?.id ?? "" },
   });
 
   return (
@@ -40,6 +41,7 @@ const CareerTimelineAndRecruitmentPage = () => {
           userId={data?.user.id}
           experiencesQuery={unpackMaybes(data?.user.experiences)}
           applicationsQuery={unpackMaybes(data?.user.poolCandidates)}
+          categoriesQuery={data}
         />
       ) : (
         <ThrowNotFound

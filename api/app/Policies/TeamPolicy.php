@@ -67,10 +67,9 @@ class TeamPolicy
     /**
      * Determine whether the user can view a specific teams, team members.
      *
-     * @param  \App\Models\Team/null $team
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewTeamMembers(User $user, Team $team)
+    public function viewTeamMembers(User $user, ?Team $team)
     {
         return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $team);
     }
@@ -83,5 +82,18 @@ class TeamPolicy
     public function assignTeamMembers(User $user, Team $team)
     {
         return $user->isAbleTo('assign-any-role') || $user->isAbleTo('assign-any-teamRole') || $user->isAbleTo('assign-team-role', $team);
+    }
+
+    /**
+     * Determine whether the user can view the teams Teamable
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTeamable(User $user, Team $team)
+    {
+        $team->loadMissing('teamable');
+
+        // Allow any user to see if there is no teamable
+        return is_null($team->teamable) || $user->can('view', $team->teamable);
     }
 }

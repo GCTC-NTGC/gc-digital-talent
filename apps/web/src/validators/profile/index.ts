@@ -1,27 +1,23 @@
 import {
   hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
-  PartialUser as PartialUserAbout,
+  type PartialUser as PartialUserAbout,
 } from "./about";
 import {
   hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
-  PartialUser as PartialUserDei,
+  type PartialUser as PartialUserDei,
 } from "./diversityEquityInclusion";
 import {
   hasEmptyRequiredFields as governmentInformationSectionHasEmptyRequiredFields,
-  PartialUser as PartialUserGovernment,
+  type PartialUser as PartialUserGovernment,
 } from "./governmentInformation";
 import {
   hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
   hasUnsatisfiedRequirements as languageInformationSectionHasUnsatisfiedRequirements,
-  PartialUser as PartialUserLanguage,
+  type PartialUser as PartialUserLanguage,
 } from "./languageInformation";
 import {
-  hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
-  PartialUser as PartialUserLocation,
-} from "./workLocation";
-import {
   hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
-  PartialUser as PartialUserPreferences,
+  type PartialUser as PartialUserPreferences,
 } from "./workPreferences";
 import { isIncomplete as careerTimelineIsIncomplete } from "./careerTimeline";
 import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
@@ -34,7 +30,6 @@ export {
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
-  workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
   careerTimelineIsIncomplete,
   skillRequirementsIsIncomplete,
@@ -44,6 +39,5 @@ export {
   PartialUserDei,
   PartialUserGovernment,
   PartialUserLanguage,
-  PartialUserLocation,
   PartialUserPreferences,
 };

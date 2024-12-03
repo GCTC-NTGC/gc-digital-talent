@@ -8,8 +8,6 @@ final class TogglePoolCandidateBookmark
 {
     /**
      * Toggles the pool candidates is_bookmarked.
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {

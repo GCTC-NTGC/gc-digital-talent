@@ -1,18 +1,20 @@
 import { IntlShape } from "react-intl";
 import { ReactNode } from "react";
 
-import { getEvaluatedLanguageAbility } from "@gc-digital-talent/i18n";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
-  EvaluatedLanguageAbility,
   LanguageAbility,
+  LocalizedEvaluatedLanguageAbility,
+  LocalizedProvinceOrTerritory,
   Maybe,
   OperationalRequirement,
   PoolCandidateStatus,
   PositionDuration,
+  PriorityWeight,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 // convert string type to Enum types for various selections
 export function stringToEnumLanguage(
@@ -59,6 +61,15 @@ export function stringToEnumPoolCandidateStatus(
   return undefined;
 }
 
+export function stringToEnumPriorityWeight(
+  selection: string,
+): PriorityWeight | undefined {
+  if (Object.values(PriorityWeight).includes(selection as PriorityWeight)) {
+    return selection as PriorityWeight;
+  }
+  return undefined;
+}
+
 export function stringToEnumCandidateExpiry(
   selection: string,
 ): CandidateExpiryFilter | undefined {
@@ -100,19 +111,37 @@ export function durationToEnumPositionDuration(
 
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
-  comprehensionLevel: Maybe<EvaluatedLanguageAbility> | undefined,
-  writtenLevel: Maybe<EvaluatedLanguageAbility> | undefined,
-  verbalLevel: Maybe<EvaluatedLanguageAbility> | undefined,
+  comprehensionLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
+  writtenLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
+  verbalLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
 ): ReactNode => {
   return [
-    comprehensionLevel
-      ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))
+    comprehensionLevel?.label
+      ? getLocalizedName(comprehensionLevel.label, intl)
       : "",
-    writtenLevel
-      ? intl.formatMessage(getEvaluatedLanguageAbility(writtenLevel))
-      : "",
-    verbalLevel
-      ? intl.formatMessage(getEvaluatedLanguageAbility(verbalLevel))
-      : "",
+    writtenLevel?.label ? getLocalizedName(writtenLevel.label, intl) : "",
+    verbalLevel?.label ? getLocalizedName(verbalLevel.label, intl) : "",
   ].join(", ");
+};
+
+interface FormatLocationArgs {
+  city?: Maybe<string>;
+  region?: Maybe<LocalizedProvinceOrTerritory>;
+  intl: IntlShape;
+}
+
+export const formatLocation = ({
+  city,
+  region,
+  intl,
+}: FormatLocationArgs): string => {
+  if (city && region?.label) {
+    return `${city}, ${getLocalizedName(region.label, intl)}`;
+  }
+
+  if (city && !region) return city;
+
+  if (region && !city) return getLocalizedName(region.label, intl);
+
+  return intl.formatMessage(commonMessages.notProvided);
 };

@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
@@ -9,6 +11,7 @@ use App\Enums\PositionDuration;
 use App\Enums\WorkRegion;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
+use App\Models\Community;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
@@ -29,6 +32,8 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertSame;
+
 class UserTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -36,7 +41,6 @@ class UserTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    // protected $requestResponder;
     protected $platformAdmin;
 
     protected function setUp(): void
@@ -80,9 +84,9 @@ class UserTest extends TestCase
                     lastName
                     email
                     telephone
-                    preferredLang
-                    preferredLanguageForInterview
-                    preferredLanguageForExam
+                    preferredLang { value }
+                    preferredLanguageForInterview { value }
+                    preferredLanguageForExam { value }
                 }
             }
         ',
@@ -122,9 +126,9 @@ class UserTest extends TestCase
                     lastName
                     email
                     telephone
-                    preferredLang
-                    preferredLanguageForInterview
-                    preferredLanguageForExam
+                    preferredLang { value }
+                    preferredLanguageForInterview { value }
+                    preferredLanguageForExam { value }
                 }
             }
         ',
@@ -2290,10 +2294,16 @@ class UserTest extends TestCase
 
     public function testRoleAssignmentScope(): void
     {
+        $testTeam = Team::factory()->create();
+        $testPool = Pool::factory()->create();
+        $testCommunity = Community::factory()->create();
+
         $adminId = Role::where('name', 'platform_admin')->value('id');
         $responderId = Role::where('name', 'request_responder')->value('id');
-        $operatorId = Role::where('name', 'pool_operator')->value('id');
-        $testTeam = Team::factory()->create();
+        $poolOperatorId = Role::where('name', 'pool_operator')->value('id');
+        $processOperatorId = Role::where('name', 'process_operator')->value('id');
+        $communityRecruiterId = Role::where('name', 'community_recruiter')->value('id');
+        $communityAdminId = Role::where('name', 'community_admin')->value('id');
 
         // Create users
         User::factory(1)->asAdmin()->create();
@@ -2302,8 +2312,11 @@ class UserTest extends TestCase
         User::factory(7)->asRequestResponder()->create();
         User::factory(11)->asApplicant()->create();
 
-        // Assert that null roleAssignments returns all users, including the one from setUp()
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+        User::factory(2)->asProcessOperator($testPool->id)->create();
+        User::factory(3)->asCommunityRecruiter($testCommunity->id)->create();
+        User::factory(3)->asCommunityAdmin($testCommunity->id)->create();
+
+        $query =
             /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
@@ -2313,69 +2326,66 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ',
-            [
-                'where' => ['roles' => null],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 28,
-                    ],
-                ],
-            ],
-        ]);
+        ';
 
-        // assert filtering for platform admin returns 2, including the one from setUp()
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => ['roles' => [$adminId]],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2,
-                    ],
-                ],
-            ],
-        ]);
+        $empty = ['where' => []];
+        $nullRoles = ['where' => ['roles' => null]];
+        $adminRoles = ['where' => ['roles' => [$adminId]]];
+        $responderRoles = ['where' => ['roles' => [$responderId]]];
+        $poolRoles = ['where' => ['roles' => [$poolOperatorId]]];
+        $processRoles = ['where' => ['roles' => [$processOperatorId]]];
+        $recruiterRoles = ['where' => ['roles' => [$communityRecruiterId]]];
+        $communityAdminRoles = ['where' => ['roles' => [$communityAdminId]]];
+        $communityCombinedRoles = ['where' => ['roles' => [$communityAdminId, $communityRecruiterId]]]; // check more than one role at a time
 
-        // assert filtering for pool operator and request responder returns 12
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                    query getUsersPaginated($where: UserFilterInput) {
-                        usersPaginated(where: $where) {
-                            paginatorInfo {
-                                total
-                            }
-                        }
-                    }
-                ',
-            [
-                'where' => ['roles' => [$operatorId, $responderId]],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 12,
-                    ],
-                ],
-            ],
-        ]);
+        assertSame(36, count(User::all())); // ensure total user count is expected 36
+
+        // assert each query returns expected count
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $empty)
+            ->assertJsonFragment([
+                'total' => 36,
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $nullRoles)
+            ->assertJsonFragment([
+                'total' => 36,
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $adminRoles)
+            ->assertJsonFragment([
+                'total' => 2, // includes created and setup admins
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $responderRoles)
+            ->assertJsonFragment([
+                'total' => 7,
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $poolRoles)
+            ->assertJsonFragment([
+                'total' => 5,
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $processRoles)
+            ->assertJsonFragment([
+                'total' => 2,
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $recruiterRoles)
+            ->assertJsonFragment([
+                'total' => 3,
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $communityAdminRoles)
+            ->assertJsonFragment([
+                'total' => 3,
+            ]);
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, $communityCombinedRoles)
+            ->assertJsonFragment([
+                'total' => 6,
+            ]);
     }
 
     public function testUpdateUserIsStatusOrNonStatusRule(): void
@@ -2387,7 +2397,9 @@ class UserTest extends TestCase
             '
             mutation updateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!){
                 updateUserAsUser(id: $id, user: $user) {
-                    indigenousCommunities
+                    indigenousCommunities {
+                        value
+                    }
                 }
             }
         ';
@@ -2403,7 +2415,9 @@ class UserTest extends TestCase
                     ],
                 ]
             )
-            ->assertJsonFragment(['indigenousCommunities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name]]);
+            ->assertJsonFragment(['indigenousCommunities' => [[
+                'value' => IndigenousCommunity::STATUS_FIRST_NATIONS->name,
+            ]]]);
         $this->actingAs($applicant, 'api')
             ->graphQL(
                 $updateUserAsUser,
@@ -2414,7 +2428,9 @@ class UserTest extends TestCase
                     ],
                 ]
             )
-            ->assertJsonFragment(['indigenousCommunities' => [IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name]]);
+            ->assertJsonFragment(['indigenousCommunities' => [[
+                'value' => IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name,
+            ]]]);
         $this->actingAs($applicant, 'api')
             ->graphQL(
                 $updateUserAsUser,
@@ -2481,5 +2497,53 @@ class UserTest extends TestCase
         )->assertJsonFragment([
             'sub' => 'admin123',
         ]);
+    }
+
+    public function testUsersNestedPoolCandidates(): void
+    {
+        // applicant has one submitted and one draft application
+        $applicant = User::factory()->asApplicant()->create();
+        $draftApplication = PoolCandidate::factory()->create([
+            'user_id' => $applicant->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+        $submittedApplication = PoolCandidate::factory()->create([
+            'user_id' => $applicant->id,
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+
+        $candidateCount = count(PoolCandidate::all());
+        assertSame(2, $candidateCount);
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query user($id: UUID!) {
+                user(id: $id) {
+                    poolCandidates {
+                        id
+                    }
+                }
+            }
+        ';
+
+        // assert admin can fetch applicant user and their applications without error
+        // assert the JSON superset only contains one application
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query,
+                [
+                    'id' => $applicant->id,
+                ]
+            )->assertJson([
+                'data' => [
+                    'user' => [
+                        'poolCandidates' => [
+                            ['id' => $submittedApplication->id],
+                        ],
+                    ],
+                ],
+            ]);
     }
 }

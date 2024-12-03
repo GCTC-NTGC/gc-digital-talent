@@ -25,6 +25,9 @@ const meta: Meta<typeof PersonnelRequirementFieldset> = {
     skills: mockSkills,
     fieldsetName: "fakeField",
   },
+  parameters: {
+    chromatic: { disableSnapshot: true },
+  },
 };
 export default meta;
 

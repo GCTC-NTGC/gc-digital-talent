@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { m } from "framer-motion";
 import orderBy from "lodash/orderBy";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
 
@@ -28,12 +28,13 @@ import sash from "~/assets/img/sash.webp";
 import lowerBack from "~/assets/img/lower-back.webp";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.webp";
+import { ApplyDialog, RequirementDialog } from "~/components/IAPDialog";
+import Heading from "~/components/IAPHeading/Heading";
+import AccommodationsDialog from "~/components/IAPDialog/AccommodationsDialog";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
-import { ApplyDialog, RequirementDialog } from "./components/Dialog";
-import Heading from "./components/Heading";
 import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
@@ -47,7 +48,6 @@ import {
   TrendingUp,
   Triangle,
 } from "./components/Svg";
-import AccommodationsDialog from "./components/Dialog/AccommodationsDialog";
 
 const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
@@ -180,7 +180,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* About section */}
         <div data-h2-layer="base(1, relative)">
           <div
-            data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div
@@ -299,7 +299,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* Learn section */}
         <div>
           <div
-            data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
@@ -408,7 +408,7 @@ export const Home = ({ query }: HomeProps) => {
           data-h2-margin="base(x2, 0, 0, 0)"
         >
           <div
-            data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
@@ -534,7 +534,7 @@ export const Home = ({ query }: HomeProps) => {
             backgroundPosition: "right 10% center",
           }}
         >
-          <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
+          <div data-h2-wrapper="base(center, medium, x1) l-tablet(center, medium, x2)">
             <Heading
               light
               data-h2-color="base:all(white)"
@@ -558,7 +558,7 @@ export const Home = ({ query }: HomeProps) => {
             backgroundPosition: "top center",
           }}
         >
-          <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
+          <div data-h2-wrapper="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
             <div>
               <div
                 data-h2-shadow="base(l)"
@@ -661,7 +661,7 @@ export const Home = ({ query }: HomeProps) => {
             />
           </div>
           <div
-            data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div

@@ -1,0 +1,1 @@
+/fr/applicant/career-timeline

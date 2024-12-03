@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
@@ -19,19 +19,21 @@ import {
   User,
   Team,
   Scalars,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
-type FormValues = {
-  roles: Array<Scalars["UUID"]["output"]>;
-};
+interface FormValues {
+  roles: Scalars["UUID"]["output"][];
+}
 
 interface EditTeamRoleDialogProps {
-  user: User;
-  initialRoles: Array<Role>;
-  allRoles: Array<Role>;
-  team: Team;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  initialRoles: Role[];
+  allRoles: Role[];
+  team: Pick<Team, "id" | "displayName">;
   onEditRoles: (
     submitData: UpdateUserRolesInput,
   ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
@@ -46,12 +48,15 @@ const EditTeamRoleDialog = ({
 }: EditTeamRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userDisplayName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const { id, firstName, lastName } = user;
+
+  const userDisplayName = getFullNameHtml(firstName, lastName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
+  const initialRolesIds = initialRoles.map((role) => role.id);
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      roles: initialRoles.map((role) => role.id),
+      roles: initialRolesIds,
     },
   });
 
@@ -61,35 +66,32 @@ const EditTeamRoleDialog = ({
   } = methods;
 
   const handleEditRoles = async (formValues: FormValues) => {
+    const rolesToAttach = formValues.roles.filter(
+      (role) => !initialRolesIds.includes(role),
+    );
+    const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
+    const rolesToDetach = initialRolesIds.filter(
+      (role) => !formValues.roles.includes(role),
+    );
+    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
+
     return onEditRoles({
-      userId: user.id,
+      userId: id,
       roleAssignmentsInput: {
-        sync: {
-          roles: formValues.roles,
-          team: team.id,
-        },
+        attach: rolesToAttachArray.length ? rolesToAttachArray : undefined,
+        detach: rolesToDetachArray.length ? rolesToDetachArray : undefined,
       },
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Member roles updated successfully",
-            id: "ALIgEC",
-            description:
-              "Alert displayed to user when a team member's roles have been updated",
-          }),
-        );
+        toast.success(intl.formatMessage(adminMessages.rolesUpdated));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Member role update failed",
-            id: "Ly2bBb",
-            description:
-              "Alert displayed to user when an error occurs while editing a team member's roles",
-          }),
-        );
+        toast.error(intl.formatMessage(adminMessages.rolesUpdateFailed));
       });
   };
 
@@ -106,6 +108,14 @@ const EditTeamRoleDialog = ({
 
   const roleOptions = allRoles
     .filter((role) => role.isTeamBased)
+    .filter(
+      (role) =>
+        ![
+          "community_admin",
+          "community_recruiter",
+          "process_operator",
+        ].includes(role.name),
+    ) // These roles are meant to be connected to different kinds of Teams.
     .map((role) => ({
       label: getLocalizedName(role.displayName, intl),
       value: role.id,
@@ -114,8 +124,7 @@ const EditTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black">
-          <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
+        <Button color="secondary" icon={PencilSquareIcon} mode="icon_only">
           <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>

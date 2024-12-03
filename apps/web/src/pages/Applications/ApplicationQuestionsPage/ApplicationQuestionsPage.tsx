@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
@@ -59,14 +59,14 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
+    application.pool.screeningQuestions?.filter(notEmpty) ?? [];
   const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+    application.screeningQuestionResponses?.filter(notEmpty) ?? [];
   const generalQuestions =
-    application.pool.generalQuestions?.filter(notEmpty) || [];
+    application.pool.generalQuestions?.filter(notEmpty) ?? [];
   const generalQuestionResponses =
-    application.generalQuestionResponses?.filter(notEmpty) || [];
-  const handleSubmit = async (formValues: FormValues) => {
+    application.generalQuestionResponses?.filter(notEmpty) ?? [];
+  const handleSubmit = (formValues: FormValues) => {
     const data = formValuesToSubmitData(
       formValues,
       screeningQuestionResponses,
@@ -79,7 +79,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         insertSubmittedStep: ApplicationStep.ScreeningQuestions,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -89,7 +89,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving question responses is successful.",
             }),
           );
-          navigate(
+          await navigate(
             formValues.action === "continue"
               ? paths.applicationReview(application.id)
               : cancelPath,

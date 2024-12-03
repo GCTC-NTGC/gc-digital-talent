@@ -8,31 +8,31 @@ import { Skill, Experience, Scalars } from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 
-type FormValues = {
+interface FormValues {
   experience?: Scalars["ID"]["output"];
   skill?: Scalars["ID"]["output"];
   details?: string;
-};
+}
 
 const deriveDefaultValues = (
   skill?: Skill,
-  experience?: Experience,
+  experience?: Omit<Experience, "user">,
 ): FormValues => {
   const details = experience?.skills?.find(
     (experienceSkill) => experienceSkill.id === skill?.id,
   )?.experienceSkillRecord?.details;
   return {
-    skill: skill?.id || undefined,
-    experience: experience?.id || undefined,
-    details: details || undefined,
+    skill: skill?.id ?? undefined,
+    experience: experience?.id ?? undefined,
+    details: details ?? undefined,
   };
 };
 
 interface ExperienceSkillFormDialogProps {
   onSave?: () => void;
   skill?: Skill;
-  experience?: Experience;
-  availableExperiences?: Experience[];
+  experience?: Omit<Experience, "user">;
+  availableExperiences?: Omit<Experience, "user">[];
   trigger?: ReactNode;
 }
 
@@ -64,7 +64,7 @@ const ExperienceSkillFormDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        {trigger || (
+        {trigger ?? (
           <Button icon={PencilSquareIcon} color="tertiary" mode="inline">
             {intl.formatMessage(commonMessages.edit)}
           </Button>

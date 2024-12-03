@@ -15,10 +15,12 @@ use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Models\AwardExperience;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
+use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
@@ -97,12 +99,13 @@ class UserFactory extends Factory
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
             'is_gov_employee' => $isGovEmployee,
+            'work_email' => $isGovEmployee ? $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca' : null,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
-            'has_diploma' => $this->faker->boolean(90), // temporary fix for Cypress workflows
+            'has_diploma' => $this->faker->boolean(90),
             'location_preferences' => $this->faker->randomElements(
                 [
                     'TELEWORK',
@@ -184,6 +187,7 @@ class UserFactory extends Factory
             if (! $isGovEmployee) {
                 return [
                     'is_gov_employee' => false,
+                    'work_email' => null,
                     'current_classification' => null,
                     'gov_employee_type' => null,
                     'department' => null,
@@ -195,6 +199,7 @@ class UserFactory extends Factory
 
             return [
                 'is_gov_employee' => true,
+                'work_email' => $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca',
                 'current_classification' => $randomClassification ? $randomClassification->id : null,
                 'gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
                 'department' => $randomDepartment ? $randomDepartment->id : null,
@@ -286,6 +291,81 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $user->addRole('platform_admin');
+        });
+    }
+
+    /**
+     * Attach the process operator role to a user after creation.
+     *
+     * @param  string|array  $poolId  Id of the pool or pools to attach the role to
+     * @return $this
+     */
+    public function asProcessOperator(string|array $poolId)
+    {
+        return $this->afterCreating(function (User $user) use ($poolId) {
+            if (is_array($poolId)) {
+                foreach ($poolId as $singlePoolId) {
+                    $pool = Pool::find($singlePoolId);
+                    $pool->addProcessOperators($user->id);
+                }
+            } else {
+                $pool = Pool::find($poolId);
+                $pool->addProcessOperators($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the community recruiter role to a user after creation.
+     *
+     * @param  string|array  $communityId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asCommunityRecruiter(string|array $communityId)
+    {
+        return $this->afterCreating(function (User $user) use ($communityId) {
+            if (is_array($communityId)) {
+                foreach ($communityId as $singleCommunityId) {
+                    $community = Community::find($singleCommunityId);
+                    $community->addCommunityRecruiters($user->id);
+                }
+            } else {
+                $community = Community::find($communityId);
+                $community->addCommunityRecruiters($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the community admin role to a user after creation.
+     *
+     * @param  string|array  $communityId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asCommunityAdmin(string|array $communityId)
+    {
+        return $this->afterCreating(function (User $user) use ($communityId) {
+            if (is_array($communityId)) {
+                foreach ($communityId as $singleCommunityId) {
+                    $community = Community::find($singleCommunityId);
+                    $community->addCommunityAdmins($user->id);
+                }
+            } else {
+                $community = Community::find($communityId);
+                $community->addCommunityAdmins($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the manager role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asManager()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('manager');
         });
     }
 }

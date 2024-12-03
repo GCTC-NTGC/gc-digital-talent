@@ -1,18 +1,35 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
+import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
+import {
+  SkillCategory,
+  SkillFamily,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 
-export type FormValues = {
+const SkillFilterOptions_Query = graphql(/* GraphQL */ `
+  query SkillFilterOptions {
+    categories: localizedEnumStrings(enumName: "SkillCategory") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export interface FormValues {
   skillFamilies?: string[];
   skillCategories?: SkillCategory[];
-};
+}
 
 type SkillFilterDialogProps = CommonFilterDialogProps<FormValues> & {
   skillFamilies: SkillFamily[];
@@ -27,6 +44,9 @@ const SkillFilterDialog = ({
   onSubmit,
 }: SkillFilterDialogProps) => {
   const intl = useIntl();
+  const [{ data, fetching: optionsFetching }] = useQuery({
+    query: SkillFilterOptions_Query,
+  });
 
   return (
     <FilterDialog<FormValues>
@@ -54,11 +74,9 @@ const SkillFilterDialog = ({
           id="skillCategories"
           name="skillCategories"
           isMulti
+          fetching={optionsFetching}
           label={intl.formatMessage(adminMessages.category)}
-          options={enumToOptions(SkillCategory).map(({ value, label }) => ({
-            value,
-            label,
-          }))}
+          options={localizedEnumToOptions(data?.categories, intl)}
         />
       </div>
     </FilterDialog>

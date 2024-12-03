@@ -25,11 +25,22 @@ class PoolCandidateSearchRequestTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
+    protected $adminUser;
+
     protected function setUp(): void
     {
         parent::setUp();
-
+        $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
+
+        $this->adminUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     /**
@@ -47,6 +58,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             'managerJobTitle' => 'Manager',
             'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
             'reason' => PoolCandidateSearchRequestReason::GENERAL_INTEREST->name,
+            'initialResultCount' => 100,
         ];
 
         return array_merge($defaultInput, $additionalInput);
@@ -84,7 +96,7 @@ class PoolCandidateSearchRequestTest extends TestCase
     {
         $this->seed(DepartmentSeeder::class);
         $departmentId = Department::inRandomOrder()->first()->id;
-        $errorMessage = "Variable \"\$input\" got invalid value {\"fullName\":\"Test\",\"email\":\"test@domain.com\",\"jobTitle\":\"Job Title\",\"managerJobTitle\":\"Manager\",\"positionType\":\"INDIVIDUAL_CONTRIBUTOR\",\"reason\":\"GENERAL_INTEREST\",\"department\":{\"connect\":\"$departmentId\"}}; Field \"applicantFilter\" of required type \"ApplicantFilterBelongsTo!\" was not provided.";
+        $errorMessage = "Variable \"\$input\" got invalid value {\"fullName\":\"Test\",\"email\":\"test@domain.com\",\"jobTitle\":\"Job Title\",\"managerJobTitle\":\"Manager\",\"positionType\":\"INDIVIDUAL_CONTRIBUTOR\",\"reason\":\"GENERAL_INTEREST\",\"initialResultCount\":100,\"department\":{\"connect\":\"$departmentId\"}}; Field \"applicantFilter\" of required type \"ApplicantFilterBelongsTo!\" was not provided.";
 
         $this->runCreateMutation([
             'department' => [
@@ -101,6 +113,7 @@ class PoolCandidateSearchRequestTest extends TestCase
      */
     public function testMutationCreatePassesWithApplicantFilter()
     {
+        $this->seed(RolePermissionSeeder::class);
         $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
 
@@ -152,7 +165,14 @@ class PoolCandidateSearchRequestTest extends TestCase
             'request_responder',
         ]);
 
-        $searchRequest1 = PoolCandidateSearchRequest::factory()->create();
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $searchRequest1 = PoolCandidateSearchRequest::factory()->create(['community_id' => $community->id, 'user_id' => null]);
+        $searchRequest2 = PoolCandidateSearchRequest::factory()->create(['community_id' => $otherCommunity->id, 'user_id' => null]);
+
+        $communityRecruiter = User::factory()
+            ->asCommunityRecruiter([$community->id])
+            ->create();
 
         $querySearchRequest =
             /** @lang GraphQL */
@@ -183,8 +203,15 @@ class PoolCandidateSearchRequestTest extends TestCase
         ';
 
         $whereSearchRequest1 = ['id' => $searchRequest1->id];
+        $whereSearchRequest2 = ['id' => $searchRequest2->id];
         $whereUpdateSearchRequest1 = [
             'id' => $searchRequest1->id,
+            'poolCandidateSearchRequest' => [
+                'adminNotes' => 'hardcoded message here',
+            ],
+        ];
+        $whereUpdateSearchRequest2 = [
+            'id' => $searchRequest2->id,
             'poolCandidateSearchRequest' => [
                 'adminNotes' => 'hardcoded message here',
             ],
@@ -200,11 +227,12 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         // test viewing collection of search requests
         $this->actingAs($baseUser, 'api')
-            ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { data { id } } }')
-            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
+            ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { paginatorInfo { count } } }')
+            ->assertJsonFragment(['count' => 0]);
         $this->actingAs($requestResponder, 'api')
             ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { data { id } } }')
-            ->assertJsonFragment(['id' => $searchRequest1->id]);
+            ->assertJsonFragment(['id' => $searchRequest1->id])
+            ->assertJsonFragment(['id' => $searchRequest2->id]);
 
         // test updating a search request
         $this->actingAs($baseUser, 'api')
@@ -214,12 +242,183 @@ class PoolCandidateSearchRequestTest extends TestCase
             ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest1)
             ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
 
+        // community recruiter can only update searchRequest 1
+        $this->actingAs($communityRecruiter, 'api')
+            ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest1)
+            ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
+        $this->actingAs($communityRecruiter, 'api')
+            ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest2)
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
+
         // test deleting a search request
         $this->actingAs($baseUser, 'api')
             ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest1)
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
-        $this->actingAs($requestResponder, 'api')
-            ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest1)
+
+        // community recruiter can only delete searchRequest 1
+        $this->actingAs($communityRecruiter, 'api')
+            ->graphQL($mutationDeleteSearchRequest, $whereUpdateSearchRequest1)
             ->assertJsonFragment(['id' => $searchRequest1->id]);
+        $this->actingAs($communityRecruiter, 'api')
+            ->graphQL($mutationDeleteSearchRequest, $whereUpdateSearchRequest2)
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
+
+        // responder deletes request 2
+        $this->actingAs($requestResponder, 'api')
+            ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest2)
+            ->assertJsonFragment(['id' => $searchRequest2->id]);
+    }
+
+    /**
+     * Test that the user_id is null when a guest user creates a PoolCandidateSearchRequest
+     *
+     * @return void
+     */
+    public function testUserIdForGuestUsers()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        // Assert user_id is null when guest user creates a pool candidate search request
+        $this->runCreateMutation([
+            'department' => [
+                'connect' => Department::inRandomOrder()->first()->id,
+            ],
+            'community' => [
+                'connect' => Community::inRandomOrder()->first()->id,
+            ],
+            'applicantFilter' => [
+                'create' => [
+                    'hasDiploma' => true,
+                    'community' => [
+                        'connect' => Community::inRandomOrder()->first()->id,
+                    ],
+                ],
+            ],
+        ])->assertSuccessful();
+
+        $searchRequest = PoolCandidateSearchRequest::first();
+        $this->assertNull($searchRequest->user_id);
+    }
+
+    /**
+     * Test that the user_id is set and correct when a logged in user creates a PooLCandidateSearchRequest
+     *
+     * @return void
+     */
+    public function testUserIdForLoggedInUsers()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        // Assert user_id is not null after creating with logged in user,
+        // and it has the correct id.
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            mutation createPoolCandidateSearchRequest($input: CreatePoolCandidateSearchRequestInput!) {
+                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $input) {
+                    id
+                }
+            }
+            ',
+            [
+                'input' => $this->getInput([
+                    'department' => [
+                        'connect' => Department::inRandomOrder()->first()->id,
+                    ],
+                    'community' => [
+                        'connect' => Community::inRandomOrder()->first()->id,
+                    ],
+                    'applicantFilter' => [
+                        'create' => [
+                            'hasDiploma' => true,
+                            'community' => [
+                                'connect' => Community::inRandomOrder()->first()->id,
+                            ],
+                        ],
+                    ],
+                ]),
+            ]
+        )->assertSuccessful();
+
+        $this->assertTrue(PoolCandidateSearchRequest::where('user_id', $this->adminUser->id)->exists());
+    }
+
+    public function testUserCanSeeTheirOwnRequests()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->create();
+        $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
+        $user2 = User::factory()->create();
+        $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
+        $request3 = PoolCandidateSearchRequest::factory()->create(['user_id' => null]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequests {
+                me {
+                    poolCandidateSearchRequests {
+                        id
+                    }
+                }
+            }
+            GRAPHQL
+        )->assertExactJson([
+            'data' => [
+                'me' => [
+                    'poolCandidateSearchRequests' => [
+                        // Can only see request 1.  Request 2 belongs to another user and 3 is for no user.
+                        ['id' => $request1->id],
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    public function testUserCanSeeTheirOwnRequest()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->create();
+        $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequest($requestId: ID!) {
+                    poolCandidateSearchRequest(id: $requestId) {
+                        id
+                }
+            }
+            GRAPHQL,
+            ['requestId' => $request1->id]
+        )->assertExactJson([
+            'data' => [
+                'poolCandidateSearchRequest' => [
+                    'id' => $request1->id,
+                ],
+            ],
+        ]);
+    }
+
+    public function testUserCanNotSeeOtherRequest()
+    {
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
+
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
+
+        $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'
+            query MyRequest($requestId: ID!) {
+                    poolCandidateSearchRequest(id: $requestId) {
+                        id
+                }
+            }
+            GRAPHQL,
+            ['requestId' => $request2->id]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }

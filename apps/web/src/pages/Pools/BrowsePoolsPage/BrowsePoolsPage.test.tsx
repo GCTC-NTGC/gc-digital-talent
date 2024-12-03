@@ -8,37 +8,38 @@ import { fromValue } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
 import BrowsePools from "./BrowsePoolsPage";
 
 const publishedItJobsPool: Pool = {
   id: "publishedItJobsPool",
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
+  status: toLocalizedEnum(PoolStatus.Published),
 };
 
 const expiredItJobsPool: Pool = {
   id: "expiredItJobsPool",
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Closed,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
+  status: toLocalizedEnum(PoolStatus.Closed),
 };
 
 const archivedItJobsPool: Pool = {
   id: "archivedItJobsPool",
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Archived,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
+  status: toLocalizedEnum(PoolStatus.Archived),
 };
 
 const publishedExecJobsPool: Pool = {
   id: "publishedExecJobsPool",
-  publishingGroup: PublishingGroup.ExecutiveJobs,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ExecutiveJobs),
+  status: toLocalizedEnum(PoolStatus.Published),
 };
 
 const publishedIAPJobsPool: Pool = {
   id: "publishedIAPJobsPool",
-  publishingGroup: PublishingGroup.Iap,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.Iap),
+  status: toLocalizedEnum(PoolStatus.Published),
 };
 
 describe("BrowsePoolsPage", () => {
@@ -51,9 +52,7 @@ describe("BrowsePoolsPage", () => {
             publishedPools: pools,
           },
         }),
-      // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any;
+    };
 
     return renderWithProviders(
       <GraphqlProvider value={mockClient}>
@@ -68,7 +67,7 @@ describe("BrowsePoolsPage", () => {
     await axeTest(container);
   });
 
-  it("should only show published jobs", async () => {
+  it("should only show published jobs", () => {
     renderBrowsePoolsPage({
       pools: [
         // draft pools can not be returned by API query
@@ -97,7 +96,7 @@ describe("BrowsePoolsPage", () => {
     );
   });
 
-  it("should only show IT and Executive jobs", async () => {
+  it("should only show IT and Executive jobs", () => {
     renderBrowsePoolsPage({
       pools: [publishedItJobsPool, publishedExecJobsPool, publishedIAPJobsPool],
     });

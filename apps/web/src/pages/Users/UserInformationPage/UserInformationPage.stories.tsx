@@ -3,10 +3,13 @@ import { StoryFn } from "@storybook/react";
 
 import {
   fakeDepartments,
+  fakeLocalizedEnum,
   fakePools,
   fakeUser,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
+  PlacementType,
   PoolCandidate,
   PoolCandidateStatus,
   makeFragmentData,
@@ -16,6 +19,8 @@ import {
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
+
+import { JobPlacementOptions_Query } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import UserInformationPage, {
   UserInfo_Fragment,
@@ -39,8 +44,10 @@ const poolCandidates: PoolCandidate[] = [
       .toISOString()
       .substring(0, 10),
     isBookmarked: faker.datatype.boolean(0.2),
-    status: faker.helpers.arrayElement<PoolCandidateStatus>(
-      Object.values(PoolCandidateStatus),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateStatus>(
+        Object.values(PoolCandidateStatus),
+      ),
     ),
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     finalDecisionAt: faker.helpers.arrayElement([
@@ -59,8 +66,10 @@ const poolCandidates: PoolCandidate[] = [
       .toISOString()
       .substring(0, 10),
     isBookmarked: faker.datatype.boolean(0.2),
-    status: faker.helpers.arrayElement<PoolCandidateStatus>(
-      Object.values(PoolCandidateStatus),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateStatus>(
+        Object.values(PoolCandidateStatus),
+      ),
     ),
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     finalDecisionAt: faker.helpers.arrayElement([
@@ -79,8 +88,10 @@ const poolCandidates: PoolCandidate[] = [
       .toISOString()
       .substring(0, 10),
     isBookmarked: faker.datatype.boolean(0.2),
-    status: faker.helpers.arrayElement<PoolCandidateStatus>(
-      Object.values(PoolCandidateStatus),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateStatus>(
+        Object.values(PoolCandidateStatus),
+      ),
     ),
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     finalDecisionAt: faker.helpers.arrayElement([
@@ -122,7 +133,13 @@ const Template: StoryFn<typeof UserInformationPage> = () => {
   return (
     <UserInformation
       userQuery={makeFragmentData(typeAdjustedUser, UserInfo_Fragment)}
-      departments={mockDepartments}
+      jobPlacementOptions={makeFragmentData(
+        {
+          departments: mockDepartments,
+          placementTypes: fakeLocalizedEnum(PlacementType),
+        },
+        JobPlacementOptions_Query,
+      )}
     />
   );
 };

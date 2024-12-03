@@ -1,8 +1,5 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import IdentificationOutlineIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import IdentificationSolidIcon from "@heroicons/react/24/solid/IdentificationIcon";
+import { useIntl } from "react-intl";
 
-import { IconType } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
@@ -13,23 +10,16 @@ import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/Hero/AdminHero";
+import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Candidate search",
-  id: "i16C7G",
-  description: "Title for the all pool candidates page",
-});
-export const pageOutlineIcon: IconType = IdentificationOutlineIcon;
-export const pageSolidIcon: IconType = IdentificationSolidIcon;
+import pageTitles from "~/messages/pageTitles";
 
 export const AllPoolCandidatesPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.candidateSearch);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -42,7 +32,6 @@ export const AllPoolCandidatesPage = () => {
         url: routes.poolCandidates(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
@@ -71,6 +60,9 @@ export const Component = () => (
     roles={[
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

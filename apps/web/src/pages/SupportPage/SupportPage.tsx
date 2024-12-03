@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { useTheme } from "@gc-digital-talent/theme";
 
-import Hero from "~/components/Hero";
+import Hero from "~/components/HeroDeprecated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import flourishTopLight from "~/assets/img/support_top_light.webp";
@@ -63,7 +63,7 @@ export const Component = () => {
         />
         <div
           data-h2-position="base(relative)"
-          data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
+          data-h2-wrapper="base(center, small, x1) p-tablet(center, small, x2)"
         >
           <div
             data-h2-padding="base(x2)"

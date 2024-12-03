@@ -15,9 +15,9 @@ import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
 
 type StoryProps = RepeaterProps &
   Pick<RepeaterFieldsetProps, "hideLegend" | "moveDisabledIndexes"> & {
-    defaultValues: Array<LocalizedString>;
+    defaultValues: LocalizedString[];
     name: string;
-    removeDisabledIndexes?: Array<number>;
+    removeDisabledIndexes?: number[];
   };
 
 export default {

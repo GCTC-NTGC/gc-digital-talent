@@ -23,6 +23,10 @@ import {
   PoolSkillType,
   PoolSkill,
   SkillLevel,
+  Department,
+  PoolOpportunityLength,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -33,15 +37,21 @@ import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
 import toLocalizedString from "./fakeLocalizedString";
 import fakeAssessmentSteps from "./fakeAssessmentSteps";
+import fakeDepartments from "./fakeDepartments";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generatePool = (
   users: User[],
   skills: Skill[],
   classifications: Classification[],
+  departments: Department[],
   englishName = "",
   frenchName = "",
   essentialSkillCount = -1,
+  index: number,
 ): Pool => {
+  faker.seed(index); // repeatable results
+
   const ownerUser: User = faker.helpers.arrayElement<User>(users);
   const essentialSkills = faker.helpers.arrayElements(
     skills,
@@ -65,7 +75,7 @@ const generatePool = (
         requiredLevel: faker.helpers.arrayElement<SkillLevel>(
           Object.values(SkillLevel),
         ),
-        type: PoolSkillType.Essential,
+        type: toLocalizedEnum(PoolSkillType.Essential),
       };
     }),
     ...nonessentialSkills.map((skill) => {
@@ -75,10 +85,13 @@ const generatePool = (
         requiredLevel: faker.helpers.arrayElement<SkillLevel>(
           Object.values(SkillLevel),
         ),
-        type: PoolSkillType.Nonessential,
+        type: toLocalizedEnum(PoolSkillType.Nonessential),
       };
     }),
   ];
+  const areaOfSelection = toLocalizedEnum(
+    faker.helpers.arrayElement(Object.values(PoolAreaOfSelection)),
+  );
   return {
     id: faker.string.uuid(),
     owner: pick(ownerUser, [
@@ -92,15 +105,24 @@ const generatePool = (
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
     },
     classification: faker.helpers.arrayElement<Classification>(classifications),
+    department: faker.helpers.arrayElement<Department>(departments),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
-    stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
+    stream: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
+    ),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()),
     publishingGroup: faker.helpers.maybe(() =>
-      faker.helpers.arrayElement(Object.values(PublishingGroup)),
+      toLocalizedEnum(
+        faker.helpers.arrayElement(Object.values(PublishingGroup)),
+      ),
     ),
-    language: faker.helpers.arrayElement(Object.values(PoolLanguage)),
+    language: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(PoolLanguage)),
+    ),
     location: toLocalizedString(faker.location.city()),
-    status: faker.helpers.arrayElement(Object.values(PoolStatus)),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(PoolStatus)),
+    ),
     closingDate: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString(),
@@ -108,8 +130,11 @@ const generatePool = (
       .between({ from: FAR_PAST_DATE, to: PAST_DATE })
       .toISOString(),
     poolSkills,
-    securityClearance: faker.helpers.arrayElement(
-      Object.values(SecurityStatus),
+    securityClearance: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(SecurityStatus)),
+    ),
+    opportunityLength: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(PoolOpportunityLength)),
     ),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
     generalQuestions: faker.helpers.arrayElements<GeneralQuestion>(
@@ -126,6 +151,15 @@ const generatePool = (
       )[0],
       fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup)[0],
     ],
+    areaOfSelection: areaOfSelection,
+    selectionLimitations:
+      areaOfSelection.value == PoolAreaOfSelection.Employees
+        ? faker.helpers.arrayElements(
+            Object.values(PoolSelectionLimitation).map((l) =>
+              toLocalizedEnum(l),
+            ),
+          )
+        : [],
   };
 };
 
@@ -133,40 +167,45 @@ export default (
   numToGenerate = 10,
   skills = fakeSkills(100, fakeSkillFamilies(6)),
   classifications = fakeClassifications(),
+  departments = fakeDepartments(),
   essentialSkillCount = -1,
 ): Pool[] => {
   const users = fakeUsers();
-  faker.seed(0); // repeatable results
 
-  return [...Array(numToGenerate)].map((_, index) => {
+  return Array.from({ length: numToGenerate }, (_, index) => {
     switch (index) {
       case 0:
         return generatePool(
           users,
           skills,
           classifications,
+          departments,
           "CMO",
           "CMO",
           essentialSkillCount,
+          0,
         );
       case 1:
         return generatePool(
           users,
           skills,
           classifications,
-
+          departments,
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
           essentialSkillCount,
+          0,
         );
       default:
         return generatePool(
           users,
           skills,
           classifications,
+          departments,
           "",
           "",
           essentialSkillCount,
+          index,
         );
     }
   });

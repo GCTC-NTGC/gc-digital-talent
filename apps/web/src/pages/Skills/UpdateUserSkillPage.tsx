@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -26,6 +26,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   FragmentType,
   Scalars,
+  SkillCategory,
   SkillLevel,
   WhenSkillUsed,
   getFragment,
@@ -34,7 +35,7 @@ import {
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/HeroDeprecated/HeroDeprecated";
 import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
@@ -49,16 +50,16 @@ import {
   UpdateUserSkill_Mutation,
 } from "./operations";
 
-type PageSection = {
+interface PageSection {
   id: string;
   title: ReactNode;
-};
+}
 type PageSections = Record<string, PageSection>;
 
-type FormValues = {
+interface FormValues {
   skillLevel: SkillLevel;
   whenSkillUsed: WhenSkillUsed;
-};
+}
 
 interface NullExperienceMessageProps {
   hasExperiences: boolean;
@@ -119,7 +120,13 @@ export const UpdateUserSkillSkill_Fragment = graphql(/* GraphQL */ `
   fragment UpdateUserSkillSkill on Skill {
     id
     key
-    category
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
     name {
       en
       fr
@@ -136,15 +143,16 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
     id
     __typename
     details
-    user {
-      id
-    }
     ... on AwardExperience {
       title
       issuedBy
       awardedDate
-      awardedTo
-      awardedScope
+      awardedTo {
+        value
+      }
+      awardedScope {
+        value
+      }
     }
     ... on CommunityExperience {
       title
@@ -159,8 +167,12 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type
-      status
+      type {
+        value
+      }
+      status {
+        value
+      }
     }
     ... on PersonalExperience {
       title
@@ -191,7 +203,13 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
     skill {
       id
       key
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -201,15 +219,24 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
       id
       __typename
       details
-      user {
-        id
-      }
       ... on AwardExperience {
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on CommunityExperience {
         title
@@ -224,8 +251,20 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on PersonalExperience {
         title
@@ -243,7 +282,13 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
       skills {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -287,7 +332,7 @@ export const UpdateUserSkillForm = ({
   const fromShowcase = from && from === "showcase";
   const returnPath = fromShowcase
     ? paths.skillShowcase()
-    : paths.skillLibrary();
+    : paths.skillPortfolio();
 
   const availableExperiences = experiences.filter(
     (exp) =>
@@ -307,21 +352,21 @@ export const UpdateUserSkillForm = ({
   );
   const mutating = creating || updating || deleting;
 
-  const handleSuccess = (msg?: ReactNode) => {
+  const handleSuccess = async (msg?: ReactNode) => {
     toast.success(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Successfully updated skill!",
           id: "Vfa3Ek",
           description: "Message displayed when a user updates a skill",
         }),
     );
-    navigate(returnPath);
+    await navigate(returnPath);
   };
 
   const handleError = (msg?: ReactNode) => {
     toast.error(
-      msg ||
+      msg ??
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
           id: "kfjmTt",
@@ -352,7 +397,7 @@ export const UpdateUserSkillForm = ({
 
   const handleDelete = () => {
     executeDeleteMutation({
-      id: userSkill?.id,
+      id: userSkill?.id ?? "",
     })
       .then(() =>
         handleSuccess(
@@ -384,8 +429,8 @@ export const UpdateUserSkillForm = ({
       },
 
       {
-        label: intl.formatMessage(navigationMessages.skillLibrary),
-        url: paths.skillLibrary(),
+        label: intl.formatMessage(navigationMessages.skillPortfolio),
+        url: paths.skillPortfolio(),
       },
       ...(fromShowcase
         ? [
@@ -436,7 +481,7 @@ export const UpdateUserSkillForm = ({
     <>
       <SEO title={pageTitle} description={formattedSubTitle} />
       <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>
@@ -507,7 +552,9 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <UserSkillFormFields category={skill.category} />
+                  <UserSkillFormFields
+                    category={skill.category.value ?? SkillCategory.Technical}
+                  />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"
@@ -532,7 +579,7 @@ export const UpdateUserSkillForm = ({
                             })}
                           </Button>
                         </Dialog.Trigger>
-                        <Dialog.Content>
+                        <Dialog.Content hasSubtitle>
                           <Dialog.Header
                             subtitle={intl.formatMessage({
                               defaultMessage:
@@ -719,9 +766,9 @@ export const UpdateUserSkillForm = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   skillId: Scalars["ID"]["output"];
-};
+}
 
 const UpdateUserSkill_Query = graphql(/* GraphQL */ `
   query UserSkill($skillId: UUID!) {

@@ -1,32 +1,21 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import LightBulbOutlineIcon from "@heroicons/react/24/outline/LightBulbIcon";
-import LightBulbSolidIcon from "@heroicons/react/24/solid/LightBulbIcon";
+import { useIntl } from "react-intl";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import AdminHero from "~/components/Hero/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 import SkillTableApi from "./components/SkillTable";
-
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Skills editor",
-  id: "8ioBIZ",
-  description: "Title for skills editor",
-});
-export const pageSolidIcon: IconType = LightBulbSolidIcon;
-export const pageOutlineIcon: IconType = LightBulbOutlineIcon;
 
 export const IndexSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.skillsEditor);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -35,19 +24,17 @@ export const IndexSkillPage = () => {
         url: routes.skillTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <AdminHero
-        title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-      <AdminContentWrapper>
-        <SkillTableApi title={formattedPageTitle} addButton />
-      </AdminContentWrapper>
+      <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-padding="base(x3, 0)">
+          <SkillTableApi title={formattedPageTitle} addButton />
+        </div>
+      </div>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -10,21 +10,27 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { RadioGroup, TextArea, enumToOptions } from "@gc-digital-talent/forms";
+import {
+  RadioGroup,
+  TextArea,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   formMessages,
-  getCandidateRemovalReason,
+  getLocalizedEnumStringByValue,
+  sortCandidateRemovalReason,
 } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
-type FormValues = {
+interface FormValues {
   removalReason?: CandidateRemovalReason;
   removalReasonOther?: string;
-};
+}
 
 const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
   mutation RemoveCandidate(
@@ -45,46 +51,60 @@ const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
 export const RemoveCandidateDialog_Fragment = graphql(/* GraphQL */ `
   fragment RemoveCandidateDialog on PoolCandidate {
     id
-    removalReason
+    removalReason {
+      value
+    }
     removalReasonOther
   }
 `);
 
-const title = defineMessage({
-  defaultMessage: "Remove candidate",
-  id: "4Z3/xp",
-  description: "Title for action to remove a candidate",
-});
+export const RemoveCandidateOptions_Fragment = graphql(/* GraphQL */ `
+  fragment RemoveCandidateOptions on Query {
+    removalReasons: localizedEnumStrings(enumName: "CandidateRemovalReason") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 interface RemoveCandidateDialogProps {
   removalQuery: FragmentType<typeof RemoveCandidateDialog_Fragment>;
+  optionsQuery?: FragmentType<typeof RemoveCandidateOptions_Fragment>;
   defaultOpen?: boolean;
 }
 
 const RemoveCandidateDialog = ({
   removalQuery,
+  optionsQuery,
   defaultOpen = false,
 }: RemoveCandidateDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const candidate = getFragment(RemoveCandidateDialog_Fragment, removalQuery);
+  const options = getFragment(RemoveCandidateOptions_Fragment, optionsQuery);
+
+  const removalReasons = unpackMaybes(options?.removalReasons);
 
   const [{ fetching }, removeCandidate] = useMutation(RemoveCandidate_Mutation);
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      removalReason: candidate.removalReason ?? undefined,
+      removalReason: candidate.removalReason?.value ?? undefined,
       removalReasonOther: candidate.removalReasonOther ?? undefined,
     },
   });
+  const { watch } = methods;
 
-  const removalReason = methods.watch("removalReason");
+  const removalReason = watch("removalReason");
 
-  const submitHandler = async (data: FormValues) => {
+  const submitHandler = async (values: FormValues) => {
     await removeCandidate({
       id: candidate.id,
-      removalReason: data.removalReason ?? CandidateRemovalReason.Other,
-      removalReasonOther: data.removalReasonOther ?? "",
+      removalReason: values.removalReason ?? CandidateRemovalReason.Other,
+      removalReasonOther: values.removalReasonOther ?? "",
     })
       .then((res) => {
         if (res.data?.removeCandidate?.id) {
@@ -114,11 +134,21 @@ const RemoveCandidateDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button mode="inline" color="error" block>
-          {intl.formatMessage(title)}
+          {intl.formatMessage({
+            defaultMessage: "Remove candidate",
+            id: "NWDow2",
+            description: "Title for action to remove a candidate imperative",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{intl.formatMessage(title)}</Dialog.Header>
+        <Dialog.Header>
+          {intl.formatMessage({
+            defaultMessage: "Remove candidate",
+            id: "HY0vjz",
+            description: "Title for action to remove a candidate infinitive",
+          })}
+        </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(submitHandler)}>
@@ -148,14 +178,11 @@ const RemoveCandidateDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  items={enumToOptions(CandidateRemovalReason, [
-                    CandidateRemovalReason.RequestedToBeWithdrawn,
-                    CandidateRemovalReason.NotResponsive,
-                    CandidateRemovalReason.Other,
-                  ]).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getCandidateRemovalReason(value)),
-                  }))}
+                  items={localizedEnumToOptions(
+                    sortCandidateRemovalReason(removalReasons),
+
+                    intl,
+                  )}
                 />
                 {removalReason === CandidateRemovalReason.Other && (
                   <TextArea
@@ -164,8 +191,11 @@ const RemoveCandidateDialog = ({
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
-                    label={intl.formatMessage(
-                      getCandidateRemovalReason(CandidateRemovalReason.Other),
+                    label={getLocalizedEnumStringByValue(
+                      CandidateRemovalReason.Other,
+                      removalReasons,
+
+                      intl,
                     )}
                   />
                 )}

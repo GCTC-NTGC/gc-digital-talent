@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
 
 import { Chip, Chips } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import adminMessages from "~/messages/adminMessages";
 
-export const ViewTeamPage_TeamFragment = graphql(/* GraphQL */ `
+const ViewTeamPage_TeamFragment = graphql(/* GraphQL */ `
   fragment ViewTeamPage_Team on Team {
     id
     name
@@ -109,11 +109,7 @@ const ViewTeam = ({ teamQuery }: ViewTeamProps) => {
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <p data-h2-margin-top="base(x1)">
-            {intl.formatMessage({
-              defaultMessage: "Key",
-              id: "CvV2l6",
-              description: "Label for an entity 'key' field",
-            })}
+            {intl.formatMessage(adminMessages.key)}
           </p>
           <p
             data-h2-color="base:all(black)"
@@ -128,11 +124,7 @@ const ViewTeam = ({ teamQuery }: ViewTeamProps) => {
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <p data-h2-margin-top="base(x1)">
-            {intl.formatMessage({
-              defaultMessage: "Contact email",
-              id: "nGNj5Q",
-              description: "Contact email",
-            })}
+            {intl.formatMessage(commonMessages.email)}
           </p>
           <p
             data-h2-color="base:all(black)"

@@ -9,7 +9,7 @@ import UserCandidatesTable from "./UserCandidatesTable/UserCandidatesTable";
 
 const CandidateStatusSection = ({
   user,
-  departments,
+  jobPlacementOptions,
 }: UserInformationProps) => {
   const intl = useIntl();
   const { roleAssignments, isLoaded } = useAuthorization();
@@ -33,7 +33,7 @@ const CandidateStatusSection = ({
       <UserCandidatesTable
         userQuery={user}
         title={titleString}
-        departments={departments ?? []}
+        jobPlacementOptions={jobPlacementOptions}
       />
       {isAdmin && (
         <>
@@ -45,7 +45,7 @@ const CandidateStatusSection = ({
                 "Title of the 'Add user to pools' section of the view-user page",
             })}
           </h4>
-          <AddToPoolDialog user={user} />
+          <AddToPoolDialog user={user} poolCandidates={user.poolCandidates} />
         </>
       )}
     </>

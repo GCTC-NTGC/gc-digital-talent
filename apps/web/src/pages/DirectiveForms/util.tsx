@@ -33,7 +33,7 @@ export function getDirectiveUrl(intl: IntlShape): string {
 export const OTHER_ID = "OTHER";
 
 // custom type guard for enum value
-export function isEnumValue<T extends object>(
+function isEnumValue<T extends object>(
   typeObject: T,
   value: unknown,
 ): value is T[keyof T] {
@@ -56,9 +56,9 @@ export function stringToEnum<T extends object>(
 // typed helper function to turn an enum into an array of options
 export function enumToOptions<T extends object>(
   typeObject: T,
-  sortOrder?: Array<T[keyof T]>,
+  sortOrder?: T[keyof T][],
 ): { value: T[keyof T]; label: string }[] {
-  const entries = Object.entries(typeObject);
+  const entries = Object.entries(typeObject) as [string, T[keyof T]][];
   if (sortOrder) {
     entries.sort((a, b) => {
       const aPosition = sortOrder.indexOf(a[1]);

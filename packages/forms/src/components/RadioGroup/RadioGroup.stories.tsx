@@ -3,6 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker/locale/en";
 
 import { VIEWPORT, allModes } from "@gc-digital-talent/storybook-helpers";
+import { Link } from "@gc-digital-talent/ui";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -110,8 +111,43 @@ LongLegend.args = {
 export const ContentBelow = Template.bind({});
 ContentBelow.args = {
   ...Default.args,
-  items: Default.args.items?.map((item) => ({
-    ...item,
-    contentBelow: faker.lorem.lines(6),
-  })),
+  items: [
+    {
+      value: "one",
+      label: "Box One",
+      contentBelow: faker.lorem.lines(6),
+    },
+    {
+      value: "two",
+      label: "Box Two",
+      contentBelow: (
+        <p>
+          Wrapped in a p.
+          <br />
+          {faker.lorem.lines(6)}
+        </p>
+      ),
+    },
+    {
+      value: "three",
+      label: "Box three",
+      contentBelow: (
+        <p>
+          Wrapped in a p with link and a ul.
+          <br />
+          {faker.lorem.lines(6)}{" "}
+          <Link href="#" color="black" newTab external>
+            An external link with a lot of words
+          </Link>
+          . {faker.lorem.lines(2)}
+          <ul>
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+            <li>List item 4</li>
+          </ul>
+        </p>
+      ),
+    },
+  ],
 };

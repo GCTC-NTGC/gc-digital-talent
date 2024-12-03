@@ -1,11 +1,11 @@
 import { Pool } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
-import PoolPage from "~/fixtures/PoolPage";
-import TeamPage from "~/fixtures/TeamPage";
-import { getDCM } from "~/utils/teams";
-import { getClassifications } from "~/utils/classification";
+import { createTeam, getDCM } from "~/utils/teams";
 import { loginBySub } from "~/utils/auth";
+import graphql from "~/utils/graphql";
+import { createUserWithRoles } from "~/utils/user";
+import { createPool, updatePool } from "~/utils/pools";
 
 test.describe("Process permissions", () => {
   let associatedSub;
@@ -13,71 +13,59 @@ test.describe("Process permissions", () => {
   let poolName;
   let pool: Pool;
 
-  test.beforeAll(async ({ adminPage }) => {
+  test.beforeAll(async () => {
     const uniqueTestId = Date.now().valueOf();
     unassociatedSub = `playwright.sub.unassociated.${uniqueTestId}`;
     const unassociatedPoolManagerEmail = `${unassociatedSub}@example.org`;
     associatedSub = `playwright.sub.associated.${uniqueTestId}`;
     const associatedPoolManagerEmail = `${associatedSub}@example.org`;
     poolName = `pool auth test ${uniqueTestId}`;
-    const poolPage = new PoolPage(adminPage.page);
-    const teamPage = new TeamPage(adminPage.page);
 
-    const orphanTeam = await teamPage.createTeam({
+    const adminCtx = await graphql.newContext();
+
+    const orphanTeam = await createTeam(adminCtx, {
       name: `orphan-team.${uniqueTestId}`,
     });
 
-    const unassociatedPoolManager = await adminPage.createUser({
-      email: unassociatedPoolManagerEmail,
-      sub: unassociatedSub,
-    });
-
-    await adminPage.addRolesToUser(unassociatedPoolManager.id, [
-      "guest",
-      "base_user",
-      "applicant",
-    ]);
-
-    await adminPage.addRolesToUser(
-      unassociatedPoolManager.id,
-      ["pool_manager"],
-      orphanTeam.id,
-    );
-
-    const team = await getDCM();
-
-    const associatedPoolManager = await adminPage.createUser({
-      email: associatedPoolManagerEmail,
-      sub: associatedSub,
-    });
-
-    await adminPage.addRolesToUser(associatedPoolManager.id, [
-      "guest",
-      "base_user",
-      "applicant",
-    ]);
-
-    await adminPage.addRolesToUser(
-      associatedPoolManager.id,
-      ["pool_operator"],
-      team.id,
-    );
-
-    const classifications = await getClassifications();
-    const createdPool = await poolPage.createPool(
-      associatedPoolManager.id,
-      team.id,
-      {
-        classification: {
-          connect: classifications[0].id,
-        },
+    await createUserWithRoles(adminCtx, {
+      user: {
+        email: unassociatedPoolManagerEmail,
+        sub: unassociatedSub,
       },
-    );
+      roles: [
+        "guest",
+        "base_user",
+        "applicant",
+        ["pool_operator", orphanTeam.id],
+      ],
+    });
 
-    await poolPage.updatePool(createdPool.id, {
-      name: {
-        en: poolName,
-        fr: poolName,
+    const team = await getDCM(adminCtx, {});
+
+    const associatedPoolManager = await createUserWithRoles(adminCtx, {
+      user: {
+        email: associatedPoolManagerEmail,
+        sub: associatedSub,
+      },
+      roles: [
+        "guest",
+        "base_user",
+        "applicant",
+        ["pool_operator", team?.id ?? ""],
+      ],
+    });
+
+    const createdPool = await createPool(adminCtx, {
+      userId: associatedPoolManager?.id ?? "",
+    });
+
+    await updatePool(adminCtx, {
+      poolId: createdPool.id,
+      pool: {
+        name: {
+          en: poolName,
+          fr: poolName,
+        },
       },
     });
 
@@ -85,7 +73,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Platform admin can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, "admin@test.com", false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
     await appPage.waitForGraphqlResponse("PoolLayout");
@@ -98,7 +86,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Community manager can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "community@test.com");
+    await loginBySub(appPage.page, "legacy-community@test.com", false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
     await appPage.waitForGraphqlResponse("PoolLayout");
@@ -111,7 +99,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Associated pool manager can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, associatedSub);
+    await loginBySub(appPage.page, associatedSub, false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
     await appPage.waitForGraphqlResponse("PoolLayout");
@@ -124,19 +112,17 @@ test.describe("Process permissions", () => {
   });
 
   test("Unassociated pool manager cannot view", async ({ appPage }) => {
-    await loginBySub(appPage.page, unassociatedSub);
+    await loginBySub(appPage.page, unassociatedSub, false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
 
     await expect(
-      appPage.page.getByRole("heading", {
-        name: /not authorized to view this page/i,
-      }),
+      appPage.page.getByText(/this action is unauthorized/i).first(),
     ).toBeVisible();
   });
 
   test("Request responder cannot view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "request@test.com");
+    await loginBySub(appPage.page, "request@test.com", false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
 

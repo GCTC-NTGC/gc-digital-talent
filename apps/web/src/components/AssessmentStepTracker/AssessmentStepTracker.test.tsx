@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /**
  * @jest-environment jsdom
  */
@@ -5,9 +6,9 @@ import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   AssessmentDecision,
@@ -28,10 +29,12 @@ import {
   filterResults,
   ResultFilters,
   filterAlreadyDisqualified,
+  CandidateAssessmentResult,
 } from "./utils";
 import {
   armedForcesCandidate,
   bookmarkedCandidate,
+  claimVerificationTestData,
   filterDisqualifiedTestData,
   firstByName,
   lastByFirstName,
@@ -51,6 +54,8 @@ const defaultFilters: ResultFilters = {
   [AssessmentDecision.Unsuccessful]: true,
 };
 
+const mockFn = jest.fn();
+
 // This should always make the component visible
 const defaultProps: AssessmentStepTrackerProps = {
   fetching: false,
@@ -62,12 +67,11 @@ const defaultProps: AssessmentStepTrackerProps = {
     poolWithAssessmentSteps,
     AssessmentStepTracker_PoolFragment,
   ),
+  onSubmitDialog: mockFn,
 };
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const renderAssessmentStepTracker = (
   overrideProps?: AssessmentStepTrackerProps,
@@ -91,11 +95,6 @@ describe("AssessmentStepTracker", () => {
     await user.click(screen.getByRole("switch", { name: /on hold/i }));
     await user.click(screen.getByRole("switch", { name: /unsuccessful/i }));
   };
-
-  it("should have no accessibility errors", async () => {
-    const { container } = renderAssessmentStepTracker();
-    await axeTest(container);
-  });
 
   it("should display candidates with the correct ordinals", async () => {
     renderAssessmentStepTracker();
@@ -235,7 +234,7 @@ describe("AssessmentStepTracker", () => {
     // They are in the correct order
     const orderArray = Array.from(
       { length: stepArray.length },
-      (x, i) => i + 1,
+      (_x, i) => i + 1,
     );
     const stepOrder = stepArray
       .map((step) => step.step.sortOrder)
@@ -393,8 +392,39 @@ describe("AssessmentStepTracker", () => {
     expect(filteredCandidates.length).toEqual(2);
     const attemptToFindFilteredCandidate = filteredCandidates.filter(
       (candidate) =>
-        candidate.status === PoolCandidateStatus.ScreenedOutApplication,
+        candidate.status?.value === PoolCandidateStatus.ScreenedOutApplication,
     );
     expect(attemptToFindFilteredCandidate.length).toEqual(0);
+  });
+
+  it("should sort candidates by claim verification values", () => {
+    const candidates = claimVerificationTestData;
+    expect(candidates.length).toEqual(6);
+
+    // type wiggle
+    const typeMappedCandidates: CandidateAssessmentResult[] = candidates.map(
+      (candidate) => {
+        return {
+          poolCandidate: candidate,
+          decision: "noDecision",
+        };
+      },
+    );
+    const sortedCandidates = sortResultsAndAddOrdinal(typeMappedCandidates);
+
+    // assert accepted and unverified precede rejected
+    expect(sortedCandidates.length).toEqual(6);
+    expect(sortedCandidates[0].poolCandidate.id).toEqual(
+      "priority-entitlement-accepted",
+    );
+    expect(sortedCandidates[1].poolCandidate.id).toEqual(
+      "priority-entitlement-unverified",
+    );
+    expect(sortedCandidates[2].poolCandidate.id).toEqual("veteran-accepted");
+    expect(sortedCandidates[3].poolCandidate.id).toEqual("veteran-unverified");
+    expect(sortedCandidates[4].poolCandidate.id).toEqual(
+      "priority-entitlement-rejected",
+    );
+    expect(sortedCandidates[5].poolCandidate.id).toEqual("veteran-rejected");
   });
 });

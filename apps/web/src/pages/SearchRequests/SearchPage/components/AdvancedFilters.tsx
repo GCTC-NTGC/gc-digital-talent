@@ -2,17 +2,24 @@ import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
+import { useQuery } from "urql";
 
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
-import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import {
-  getOperationalRequirement,
+  Checklist,
+  RadioGroup,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
+import {
   getEmploymentDuration,
   EmploymentDuration,
-  OperationalRequirements,
+  getOperationalRequirement,
 } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { NullSelection } from "~/types/searchRequest";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import { NullSelection, FormValues } from "~/types/searchRequest";
 
 import FilterBlock from "./FilterBlock";
 
@@ -23,7 +30,7 @@ interface FieldOption {
 
 const getFieldLabel = (
   value: string | string[],
-  options: Array<FieldOption>,
+  options: FieldOption[],
   intl: IntlShape,
 ) => {
   let label;
@@ -40,7 +47,7 @@ const getFieldLabel = (
   }
 
   return (
-    label ||
+    label ??
     intl.formatMessage({
       defaultMessage: "(None selected)",
       id: "+O6J4u",
@@ -55,9 +62,26 @@ const accordionIds = {
   operationalRequirements: "operationalRequirements",
 };
 
+const AdvancedFilterOptions_Query = graphql(/* GraphQL */ `
+  query AdvancedFilterOptions {
+    operationalRequirements: localizedEnumStrings(
+      enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const AdvancedFilters = () => {
   const intl = useIntl();
-  const { watch } = useFormContext();
+  const [{ data, fetching }] = useQuery({
+    query: AdvancedFilterOptions_Query,
+  });
+  const { watch } = useFormContext<FormValues>();
   const [openFilters, setOpenFilters] = useState<string[]>([]);
   const [educationRequirement, employmentDuration, operationalRequirements] =
     watch([
@@ -110,18 +134,15 @@ const AdvancedFilters = () => {
     },
   ];
 
-  const operationalRequirementOptions = OperationalRequirements.map(
-    (value) => ({
-      value,
-      label: intl.formatMessage(getOperationalRequirement(value)),
-    }),
-  );
+  const requirements = unpackMaybes(data?.operationalRequirements);
+  const operationalRequirementOptions = requirements.map(({ value }) => ({
+    value,
+    label: intl.formatMessage(getOperationalRequirement(value)),
+  }));
 
-  const operationalRequirementOptionsShort = OperationalRequirements.map(
-    (value) => ({
-      value,
-      label: intl.formatMessage(getOperationalRequirement(value, "short")),
-    }),
+  const operationalRequirementOptionsShort = localizedEnumToOptions(
+    requirements,
+    intl,
   );
 
   const toggleOpenFilters = () => {
@@ -229,11 +250,7 @@ const AdvancedFilters = () => {
               intl,
             )}
           >
-            {intl.formatMessage({
-              defaultMessage: "Employment duration",
-              description: "Title for Employment duration section",
-              id: "Muh/+P",
-            })}
+            {intl.formatMessage(talentRequestMessages.employmentDuration)}
           </Accordion.Trigger>
           <Accordion.Content>
             <FilterBlock
@@ -256,49 +273,48 @@ const AdvancedFilters = () => {
             </FilterBlock>
           </Accordion.Content>
         </Accordion.Item>
-        <Accordion.Item value="operationalRequirements">
-          <Accordion.Trigger
-            as="h4"
-            subtitle={getFieldLabel(
-              operationalRequirements,
-              operationalRequirementOptionsShort,
-              intl,
-            )}
-          >
-            {intl.formatMessage({
-              defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "laGCzG",
-              description:
-                "Heading for operational requirements section of the search form.",
-            })}
-          </Accordion.Trigger>
-          <Accordion.Content>
-            <FilterBlock
-              id="operationalRequirementFilter"
-              text={intl.formatMessage({
-                defaultMessage:
-                  "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
-                id: "IT6Djp",
-                description:
-                  "Message describing the operational requirements filter in the search form.",
-              })}
+        {!fetching && (
+          <Accordion.Item value="operationalRequirements">
+            <Accordion.Trigger
+              as="h4"
+              subtitle={getFieldLabel(
+                unpackMaybes(operationalRequirements),
+                operationalRequirementOptionsShort,
+                intl,
+              )}
             >
-              <Checklist
-                idPrefix="operationalRequirements"
-                legend={intl.formatMessage({
-                  defaultMessage: "Conditions of employment",
-                  id: "bKvvaI",
+              {intl.formatMessage({
+                defaultMessage:
+                  "Conditions of employment / Operational requirements",
+                id: "laGCzG",
+                description:
+                  "Heading for operational requirements section of the search form.",
+              })}
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <FilterBlock
+                id="operationalRequirementFilter"
+                text={intl.formatMessage({
+                  defaultMessage:
+                    "The selected conditions of employment will be compared to those chosen by candidates in their applications.",
+                  id: "IT6Djp",
                   description:
-                    "Legend for the Conditions of Employment filter checklist",
+                    "Message describing the operational requirements filter in the search form.",
                 })}
-                name="operationalRequirements"
-                items={operationalRequirementOptions}
-                trackUnsaved={false}
-              />
-            </FilterBlock>
-          </Accordion.Content>
-        </Accordion.Item>
+              >
+                <Checklist
+                  idPrefix="operationalRequirements"
+                  legend={intl.formatMessage(
+                    talentRequestMessages.conditionsOfEmployment,
+                  )}
+                  name="operationalRequirements"
+                  items={operationalRequirementOptions}
+                  trackUnsaved={false}
+                />
+              </FilterBlock>
+            </Accordion.Content>
+          </Accordion.Item>
+        )}
       </Accordion.Root>
     </>
   );

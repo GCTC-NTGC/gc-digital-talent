@@ -9,8 +9,6 @@ final class RevertPlaceCandidate
 {
     /**
      * Revert the placing operation for a candidate
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
@@ -19,6 +17,7 @@ final class RevertPlaceCandidate
         $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $candidate->placed_at = null;
         $candidate->placed_department_id = null;
+
         $candidate->save();
 
         return $candidate;

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import type { Args, Decorator } from "@storybook/react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -22,7 +22,11 @@ const longLabelSteps = defaultSteps.map((step, index) => {
     : step;
 });
 
-const ReactRouterDecorator: Decorator<Args> = (Story, options) => {
+interface StoryArgs {
+  steps: StepType[];
+}
+
+const ReactRouterDecorator: Decorator<StoryArgs & Args> = (Story, options) => {
   const { args } = options;
   const location = useLocation();
   useEffect(() => {

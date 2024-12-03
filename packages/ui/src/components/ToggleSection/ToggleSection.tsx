@@ -195,7 +195,7 @@ const Trigger = forwardRef<
       ref={forwardedRef}
       asChild
       aria-controls={controls}
-      pressed={context?.open || false}
+      pressed={context?.open ?? false}
       onPressedChange={handleOnPressedChange}
       {...toggleProps}
     >

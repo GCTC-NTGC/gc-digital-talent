@@ -3,12 +3,8 @@ import { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 interface SkewedImageContainerProps {
   children: ReactNode;
   imgSrc: string;
-  imgProps?: DetailedHTMLProps<
-    HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > & {
-    [data: string]: string;
-  };
+  imgProps?: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
+    Record<string, string>;
 }
 
 const SkewedImageContainer = ({
@@ -56,7 +52,7 @@ const SkewedImageContainer = ({
       </div>
       <div
         data-h2-position="base(relative)"
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       >
         <div data-h2-padding="base(x4, 0, 50vh, 0) p-tablet(x5, 0, 60vh, 0) l-tablet(x7, 0, x6, 0)">
           {children}

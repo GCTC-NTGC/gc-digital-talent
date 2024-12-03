@@ -6,6 +6,7 @@ use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\EmailAttachmentException;
 use App\Exceptions\InvalidBulkRowDataException;
 use App\Exceptions\NotFutureDateException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -87,7 +88,7 @@ class Client
      *                              ]
      *                              ]
      * @param  string  $template  ID of the template to use
-     * @param  Carbon\Carbon  $scheduleFor  (optional)
+     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      */
     public function sendBulkEmail($name, $rows, $template, $scheduleFor = null, $replyTo = null)
@@ -114,7 +115,7 @@ class Client
      *                              ]
      *                              ]
      * @param  string  $template  ID of the template to use
-     * @param  Carbon\Carbon  $scheduleFor  (optional)
+     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      */
     public function sendBulkSms($name, $rows, $template, $scheduleFor = null, $replyTo = null)
@@ -208,9 +209,9 @@ class Client
      * Build Bulk Payload
      *
      * @param  string  $name  Used to identify this bulk of notifications later on.
-     * @param  array<string>  $rows  The recipient of the notification
+     * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
-     * @param  Carbon\Carbon  $scheduleFor  (optional)
+     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
@@ -240,9 +241,9 @@ class Client
      * Build Bulk Email Payload
      *
      * @param  string  $name  Used to identify this bulk of notifications later on.
-     * @param  array<string>  $rows  The recipient of the notification
+     * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
-     * @param  Carbon\Carbon  $scheduleFor  (optional)
+     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
@@ -282,9 +283,9 @@ class Client
      * Build Bulk SMS Payload
      *
      * @param  string  $name  Used to identify this bulk of notifications later on.
-     * @param  array<string>  $rows  The recipient of the notification
+     * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
-     * @param  Carbon\Carbon  $scheduleFor  (optional)
+     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
@@ -322,11 +323,8 @@ class Client
 
     /**
      * Build Bulk Personalisation Headers
-     *
-     * @param  array<array<string>>  $rows  The recipient of the notification
-     * @return array<string>
      */
-    private function buildBulkPersonalisationHeaders($personalisation)
+    private function buildBulkPersonalisationHeaders(array $personalisation): array
     {
         $personalisationHeaders = [];
 
@@ -334,7 +332,7 @@ class Client
             throw new InvalidBulkRowDataException('No data found in personalisation key.');
         }
 
-        foreach ($personalisation as $header => $value) {
+        foreach ($personalisation as $header => $_) {
             array_push($personalisationHeaders, $header);
         }
 
@@ -343,11 +341,8 @@ class Client
 
     /**
      * Build Bulk Personalisation Row Data
-     *
-     * @param  array<array<string>>  $rows  The recipient of the notification
-     * @return array<string>
      */
-    private function buildBulkPersonalisationRowData($personalisation)
+    private function buildBulkPersonalisationRowData(array $personalisation): array
     {
 
         $personalisationData = [];
@@ -416,35 +411,10 @@ class Client
      * POST
      *
      * Make a POST request to the GC Notify API
-     *
-     * @param  string  $endpoint  URL to make request to
-     * @param  array<mixed>  $payload  Parameters passed to request
-     * @param  array<mixed>  $headers  (optional) Headers to add to request
-     * @return \Illuminate\Http\Client\Response,
-     *
-     * @throws
      */
-    private function post($endpoint, $payload, $headers = [])
+    private function post(string $endpoint, array $payload, array $headers = []): Response
     {
         return Http::withHeaders($this->buildHeaders($headers))
             ->post(self::BASE_URL.$endpoint, $payload);
-    }
-
-    /**
-     * GET
-     *
-     * Make a GET request to the GC Notify API
-     *
-     * @param  string  $endpoint  URL to make request to
-     * @param  array<mixed>  $payload  Parameters passed to request
-     * @param  array<mixed>  $headers  (optional) Headers to add to request
-     * @return \Illuminate\Http\Client\Response,
-     *
-     * @throws
-     */
-    private function get($endpoint, $payload, $headers = [])
-    {
-        return Http::withHeaders($this->buildHeaders($headers))
-            ->get(self::BASE_URL.$endpoint, $payload);
     }
 }

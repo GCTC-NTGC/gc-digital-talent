@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Laratrust\Models\Team as LaratrustTeam;
 
 /**
@@ -16,8 +17,8 @@ use Laratrust\Models\Team as LaratrustTeam;
  * @property string $contact_email
  * @property array $display_name
  * @property array $description
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class Team extends LaratrustTeam
 {
@@ -33,6 +34,8 @@ class Team extends LaratrustTeam
     protected $fillable = [
         'name',
         'display_name',
+        'teamable_id',
+        'teamable_type',
     ];
 
     public $guarded = [];
@@ -42,12 +45,18 @@ class Team extends LaratrustTeam
         return $this->belongsToMany(Department::class, 'team_department');
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }
 
-    // A relationship to the custom roleAssignments pivot model
+    public function teamable(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);

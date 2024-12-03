@@ -1,5 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 import { ReactNode } from "react";
 
 import {
@@ -21,6 +21,7 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -47,6 +48,10 @@ const pageSubtitle = defineMessage({
   description: "Subtitle for the assessment plan builder",
 });
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["AssessmentStep", "PoolSkill"],
+};
+
 const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentPlanBuilderPool on Pool {
     id
@@ -55,10 +60,14 @@ const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
     ...AssessmentPlanStatus
     poolSkills {
       id
-      type
+      type {
+        value
+      }
       skill {
         id
-        category
+        category {
+          value
+        }
         key
         name {
           en
@@ -128,9 +137,9 @@ export const AssessmentPlanBuilder = ({
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
   query AssessmentPlanBuilderPage($poolId: UUID!) {
@@ -141,6 +150,10 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
         id
         name
       }
+      community {
+        teamIdForRoleAssignment
+      }
+      teamIdForRoleAssignment
     }
   }
 `);
@@ -160,16 +173,14 @@ export const AssessmentPlanBuilderPage = () => {
   );
 
   if (!poolId) {
-    throw new Response(notFoundMessage, {
-      status: 404,
-      statusText: "Not Found",
-    });
+    throw new NotFoundError(notFoundMessage);
   }
 
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useQuery({
       query: AssessmentPlanBuilderPage_Query,
       variables: { poolId },
+      context,
     });
 
   // RequireAuth in router can't check team roles
@@ -179,6 +190,15 @@ export const AssessmentPlanBuilderPage = () => {
         (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
           authorizedRoleAssignment.team?.name ===
             queryData?.pool?.team?.name) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.ProcessOperator &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityRecruiter &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.community?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityAdmin &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.community?.teamIdForRoleAssignment) ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
@@ -236,6 +256,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <AssessmentPlanBuilderPage />

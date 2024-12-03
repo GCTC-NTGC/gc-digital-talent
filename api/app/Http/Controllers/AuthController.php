@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use App\Services\OpenIdBearerTokenService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
@@ -33,6 +36,11 @@ class AuthController extends Controller
         $request->session()->put(
             'from',
             $request->input('from')
+        );
+
+        $request->session()->put(
+            'devServer',
+            $request->input('devServer')
         );
 
         $requestedLocale = $request->input('locale');
@@ -108,6 +116,25 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session nonce')
         );
 
+        // nothing to break the session now, mark login successful with a last active update
+        $sub = $token->claims()->get('sub');
+        $userMatch = User::where('sub', $sub)->withTrashed()->first();
+        $now = Carbon::now();
+        if (isset($userMatch)) {
+            $userMatch->last_sign_in_at = $now;
+            $userMatch->save();
+        } else {
+            // No user found for given subscriber - lets auto-register them
+            $newUser = new User;
+            $newUser->sub = $sub;
+            $newUser->last_sign_in_at = $now;
+            $newUser->save();
+            $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
+                Role::where('name', 'base_user')->sole(),
+                Role::where('name', 'applicant')->sole(),
+            ], null);
+        }
+
         $query = http_build_query($response->json());
 
         $from = $request->session()->pull('from');
@@ -119,7 +146,14 @@ class AuthController extends Controller
             $from = null;
         } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $navigateToUri = strlen($from) > 0 ? config('app.url').$from : config('oauth.post_login_redirect');
+        $appUrl = config('app.url');
+        $postLoginRedirect = config('oauth.post_login_redirect');
+        if ($request->session()->pull('devServer')) {
+            $appUrl = config('app.dev_url');
+            $postLoginRedirect = config('oauth.dev_post_login_redirect');
+        }
+
+        $navigateToUri = strlen($from) > 0 ? $appUrl.$from : $postLoginRedirect;
 
         return redirect($navigateToUri.'?'.$query);
     }
@@ -138,7 +172,15 @@ class AuthController extends Controller
                 'refresh_token' => $refreshToken,
             ]);
         if ($response->failed()) {
-            Log::error('Failed when POSTing to the token URI in refresh');
+            $errorCode = $response->json('error');
+            $isNormalErrorCode = $errorCode == 'invalid_grant';
+
+            $errorMessageToLog = 'Failed when POSTing to the token URI in refresh '.$errorCode;
+            if (! $isNormalErrorCode) {
+                Log::error($errorMessageToLog);
+            } else {
+                Log::debug($errorMessageToLog);
+            }
             Log::debug((string) $response->getBody());
 
             return response('Failed to get token', 400);

@@ -44,10 +44,12 @@ jobs:
         with:
           php-version: "8.2"
           extensions: bcmath
+          coverage: pcov
 
-      - name: Install composer dependencies
+      - name: Install api dependencies
         working-directory: api
         run: |
+          sudo apt-get install --yes --no-install-recommends postgresql-client
           cp .env.example .env
           composer install --prefer-dist --no-scripts
 
@@ -57,13 +59,13 @@ jobs:
           DB_HOST: localhost
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            php artisan test --coverage-clover=coverage.xml
+            php artisan test --parallel --processes=2 --coverage-clover=coverage.xml
           else
             php artisan test
           fi
       - name: Upload coverage report to Codecov
         if: github.actor != 'dependabot[bot]'
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage.xml

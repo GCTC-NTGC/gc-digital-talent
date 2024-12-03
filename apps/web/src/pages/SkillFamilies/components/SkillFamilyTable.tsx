@@ -1,23 +1,22 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import { SkillFamily, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<SkillFamily>();
 
 interface SkillFamilyTableProps {
-  skillFamilies: Array<SkillFamily>;
+  skillFamilies: SkillFamily[];
   title: string;
 }
 
@@ -42,6 +41,20 @@ export const SkillFamilyTable = ({
         meta: {
           isRowTitle: true,
         },
+        cell: ({
+          getValue,
+          row: {
+            original: { id },
+          },
+        }) => (
+          <Link
+            color="secondary"
+            mode="inline"
+            href={paths.skillFamilyView(id)}
+          >
+            {getValue()}
+          </Link>
+        ),
       },
     ),
     columnHelper.accessor(
@@ -49,24 +62,9 @@ export const SkillFamilyTable = ({
       {
         id: "description",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Description",
-          id: "XSo129",
-          description:
-            "Title displayed for the Skill Family table Description column.",
-        }),
+        header: intl.formatMessage(commonMessages.description),
       },
     ),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: skillFamily } }) =>
-        cells.edit(
-          skillFamily.id,
-          paths.skillFamilyTable(),
-          getLocalizedName(skillFamily.name, intl),
-        ),
-    }),
   ] as ColumnDef<SkillFamily>[];
 
   const data = skillFamilies.filter(notEmpty);
@@ -87,26 +85,31 @@ export const SkillFamilyTable = ({
       }}
       sort={{
         internal: true,
+        initialState: [{ id: "name", desc: false }],
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search skill families",
-          id: "yXwlJw",
-          description: "Label for the skill families table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {
           href: paths.skillFamilyCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Skill Family",
-            id: "TRqbR/",
+            defaultMessage: "Create skill family",
+            id: "oDDr9J",
             description:
-              "Heading displayed above the Create Skill Family form.",
+              "Heading displayed above the Create Skill family form.",
           }),
           from: currentUrl,
         },
+      }}
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage:
+            'Use the "Create skill family" button to get started.',
+          id: "4ujx9e",
+          description: "Instructions for adding a skill family item.",
+        }),
       }}
     />
   );
@@ -132,7 +135,13 @@ const SkillFamilies_Query = graphql(/* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
     }
   }

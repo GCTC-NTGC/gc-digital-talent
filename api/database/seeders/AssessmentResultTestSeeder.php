@@ -74,7 +74,7 @@ class AssessmentResultTestSeeder extends Seeder
         ]);
 
         $publishedPool = Pool::select('id')->where('name->en', 'Published – Complex')->sole();
-        $user1 = User::select('id')->where('first_name', 'Perfect')->sole();
+        $user1 = User::select('id')->where('email', 'perfect@test.com')->sole();
         $poolCandidate1 = PoolCandidate::select('id')->where('user_id', $user1->id)->where('pool_id', $publishedPool->id)->sole();
         $assessmentStep = AssessmentStep::factory()->create([
             'pool_id' => $publishedPool->id,
@@ -88,7 +88,7 @@ class AssessmentResultTestSeeder extends Seeder
             AssessmentDecision::SUCCESSFUL->name,
             AssessmentResultType::EDUCATION);
 
-        $user2 = User::select('id')->where('first_name', 'Barely qualified')->sole();
+        $user2 = User::select('id')->where('email', 'veteran@test.com')->sole();
         $poolCandidate2 = PoolCandidate::select('id')->where('user_id', $user2->id)->where('pool_id', $publishedPool->id)->sole();
         $this->assessSkillsWithLevelAndJustification(
             $poolCandidate2,
@@ -99,7 +99,7 @@ class AssessmentResultTestSeeder extends Seeder
             AssessmentDecision::SUCCESSFUL->name,
             AssessmentResultType::SKILL);
 
-        $user3 = User::select('id')->where('first_name', 'Try-hard')->sole();
+        $user3 = User::select('id')->where('email', 'assertive@test.com')->sole();
         $poolCandidate3 = PoolCandidate::select('id')->where('user_id', $user3->id)->where('pool_id', $publishedPool->id)->sole();
         $this->assessSkillsWithLevelAndJustification(
             $poolCandidate3,
@@ -110,7 +110,7 @@ class AssessmentResultTestSeeder extends Seeder
             AssessmentDecision::SUCCESSFUL->name,
             AssessmentResultType::SKILL);
 
-        $user4 = User::select('id')->where('first_name', 'Absent')->sole();
+        $user4 = User::select('id')->where('email', 'absent@test.com')->sole();
         $poolCandidate4 = PoolCandidate::select('id')->where('user_id', $user4->id)->where('pool_id', $publishedPool->id)->sole();
         $this->assessSkillsWithLevelAndJustification(
             $poolCandidate4,
@@ -120,7 +120,7 @@ class AssessmentResultTestSeeder extends Seeder
             AssessmentDecision::HOLD->name,
             AssessmentResultType::SKILL);
 
-        $user5 = User::select('id')->where('first_name', 'Screened-out')->sole();
+        $user5 = User::select('id')->where('email', 'screened-out@test.com')->sole();
         $poolCandidate5 = PoolCandidate::select('id')->where('user_id', $user5->id)->where('pool_id', $publishedPool->id)->sole();
         $this->assessSkillsWithLevelAndJustification(
             $poolCandidate5,
@@ -132,7 +132,7 @@ class AssessmentResultTestSeeder extends Seeder
             AssessmentDecision::UNSUCCESSFUL->name,
             AssessmentResultType::EDUCATION);
 
-        $user6 = User::select('id')->where('first_name', 'Failed')->sole();
+        $user6 = User::select('id')->where('email', 'failed@test.com')->sole();
         $poolCandidate6 = PoolCandidate::select('id')->where('user_id', $user6->id)->where('pool_id', $publishedPool->id)->sole();
         $this->assessSkillsWithLevelAndJustification(
             $poolCandidate6,
@@ -142,7 +142,7 @@ class AssessmentResultTestSeeder extends Seeder
             AssessmentDecision::UNSUCCESSFUL->name,
             AssessmentResultType::EDUCATION);
 
-        $user7 = User::select('id')->where('first_name', 'Barely')->sole();
+        $user7 = User::select('id')->where('email', 'entry-level-holder@test.com')->sole();
         $poolCandidate7 = PoolCandidate::select('id')->where('user_id', $user7->id)->where('pool_id', $publishedPool->id)->sole();
         $this->assessSkillsWithLevelAndJustification(
             $poolCandidate7,
@@ -161,7 +161,7 @@ class AssessmentResultTestSeeder extends Seeder
             AssessmentDecision::HOLD->name,
             assessmentResultType::SKILL);
 
-        $user8 = User::select('id')->where('first_name', 'Unsuccessful')->sole();
+        $user8 = User::select('id')->where('email', 'unsuccessful@test.com')->sole();
         $poolCandidate8 = PoolCandidate::select('id')->where('user_id', $user8->id)->where('pool_id', $publishedPool->id)->sole();
         // select first essential skill from pool skills
         $firstEssentialSkill = $publishedPool->poolSkills()->where('type', PoolSkillType::ESSENTIAL->name)->first();
@@ -185,13 +185,15 @@ class AssessmentResultTestSeeder extends Seeder
         $assessmentDecision,
         $assessmentResultType)
     {
+        $nullJustifications = $assessmentDecision === AssessmentDecision::HOLD->name || is_null($assessmentDecision);
+
         if ($assessmentResultType == null) {
             $assessmentResultType = AssessmentResultType::SKILL;
         } elseif ($assessmentResultType == AssessmentResultType::EDUCATION) {
             AssessmentResult::factory()->withResultType($assessmentResultType)->create([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
-                'justifications' => $justifications,
+                'justifications' => $nullJustifications ? null : $justifications,
                 'assessment_decision' => $assessmentDecision,
             ]);
         } else {
@@ -201,7 +203,7 @@ class AssessmentResultTestSeeder extends Seeder
                     'pool_candidate_id' => $poolCandidate->id,
                     'pool_skill_id' => $poolSkill,
                     'assessment_decision_level' => $level,
-                    'justifications' => $justifications,
+                    'justifications' => $nullJustifications ? null : $justifications,
                     'assessment_decision' => $assessmentDecision,
                 ]);
             }

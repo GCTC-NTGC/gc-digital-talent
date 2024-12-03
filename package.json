@@ -5,12 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": ">=20.11.0",
-    "pnpm": ">=8.15.0"
+    "pnpm": ">=9.12.3"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@9.12.3",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "h2-build && turbo run build --filter @gc-digital-talent/web",
@@ -28,25 +25,24 @@
     "intl-extract": "turbo run intl-extract",
     "intl-compile": "turbo run intl-compile",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "prettier": "turbo run prettier",
+    "prettier:fix": "turbo run prettier:fix",
     "storybook": "pnpm --filter @gc-digital-talent/web run storybook",
     "storybook:design-system": "pnpm --filter @gc-digital-talent/web run storybook:design-system",
     "storybook:web": "pnpm --filter @gc-digital-talent/web run storybook:web",
     "build-storybook": "pnpm --filter @gc-digital-talent/web run build-storybook",
     "test": "turbo run test",
     "watch": "turbo run watch --filter @gc-digital-talent/web --filter @gc-digital-talent/graphql",
-    "e2e": "pnpm --filter @gc-digital-talent/e2e run e2e",
     "e2e:playwright": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright",
     "e2e:playwright:chromium": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:chromium",
     "e2e:playwright:firefox": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:firefox",
     "e2e:playwright:webkit": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:webkit",
     "e2e:playwright:report": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:report",
-    "e2e:open": "pnpm run e2e:open",
-    "e2e:run:all": "pnpm --filter @gc-digital-talent/e2e run e2e:run:all",
-    "e2e:run:inspect": "pnpm --filter @gc-digital-talent/e2e run e2e:run:inspect",
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@hydrogen-css/hydrogen": "2.0.5",
-    "turbo": "^1.13.3"
+    "@hydrogen-css/hydrogen": "2.1.0",
+    "turbo": "^2.3.3"
   }
 }

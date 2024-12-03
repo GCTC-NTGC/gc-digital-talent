@@ -7,8 +7,8 @@
       "label": "Setup Project",
       "type": "shell",
 
-      "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "setup.sh"],
+      "command": "docker",
+      "args": ["compose", "run", "--rm", "maintenance", "bash", "setup.sh"],
 
       "presentation": {
         "echo": true,
@@ -24,8 +24,15 @@
       "label": "Refresh Frontend",
       "type": "shell",
 
-      "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_frontend.sh"],
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "maintenance",
+        "bash",
+        "refresh_frontend.sh"
+      ],
 
       "presentation": {
         "echo": true,
@@ -41,8 +48,15 @@
       "label": "Refresh API",
       "type": "shell",
 
-      "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_api.sh"],
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "maintenance",
+        "bash",
+        "refresh_api.sh"
+      ],
 
       "presentation": {
         "echo": true,
@@ -58,8 +72,15 @@
       "label": "Refresh Web",
       "type": "shell",
 
-      "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_frontend.sh"],
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "maintenance",
+        "bash",
+        "refresh_frontend.sh"
+      ],
 
       "presentation": {
         "echo": true,
@@ -75,8 +96,15 @@
       "label": "Refresh All",
       "type": "shell",
 
-      "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_all.sh"],
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "maintenance",
+        "bash",
+        "refresh_all.sh"
+      ],
 
       "presentation": {
         "echo": true,
@@ -92,8 +120,8 @@
       "label": "Docker Compose Down",
       "type": "shell",
 
-      "command": "docker-compose",
-      "args": ["down"],
+      "command": "docker",
+      "args": ["compose", "down"],
 
       "presentation": {
         "echo": true,
@@ -109,8 +137,8 @@
       "label": "Docker Compose Up",
       "type": "shell",
 
-      "command": "docker-compose",
-      "args": ["up", "--detach", "--build"],
+      "command": "docker",
+      "args": ["compose", "up", "--detach", "--build"],
 
       "presentation": {
         "echo": true,

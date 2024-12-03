@@ -2,12 +2,11 @@
 
 namespace App\Console;
 
-use App\Console\Commands\HardDeleteOldUsers;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
+use App\Console\Commands\SendNotificationsPoolPublished;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -29,18 +28,18 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->appendOutputTo('/tmp/laravel-prune-user-generated-files.log');
 
-        if (config('feature.notifications')) {
+        // queue up Application Deadline Approaching emails every day, close to the time the pool would close
+        $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
+            ->timezone('America/Toronto')
+            // 10 PM Eastern is the same day across the country, close to the end of the day in NL
+            ->dailyAt('22:00')
+            ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
 
-            // queue up Application Deadline Approaching emails every day, close to the time the pool would close
-            $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
-                ->timezone('America/Toronto')
-                // 10 PM Eastern is the same day across the country, close to the end of the day in NL
-                ->dailyAt('22:00')
-                ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
-
-        } else {
-            Log::debug('Notification flag is off.  Skipping all notification sending commands.');
-        }
+        // send out 'new pool' emails overnight
+        $schedule->command(SendNotificationsPoolPublished::class)
+            ->timezone('America/Toronto')
+            ->dailyAt('3:00')
+            ->appendOutputTo('/tmp/send-notifications-pool-published.log');
     }
 
     /**

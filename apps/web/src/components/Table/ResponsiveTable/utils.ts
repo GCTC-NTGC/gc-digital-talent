@@ -3,14 +3,9 @@ import {
   ColumnFiltersState,
   Column,
   ColumnMeta,
-  SortingState,
 } from "@tanstack/react-table";
 
-import {
-  InputMaybe,
-  OrderByClause,
-  SortOrder,
-} from "@gc-digital-talent/graphql";
+import nodeToString from "~/utils/nodeToString";
 
 import { SearchState } from "./types";
 
@@ -50,28 +45,12 @@ export const getColumnHeader = <T>(
   column: Column<T>,
   metaKey?: keyof ColumnMeta<T, string>,
 ): string => {
-  const header = column.columnDef.header?.toString() || "";
+  const header = column.columnDef.header?.toString() ?? "";
   if (metaKey) {
     const { meta } = column.columnDef;
-    const metaHeader = (meta && metaKey in meta ? meta[metaKey] : header) || "";
-    return metaHeader.toString();
+    const metaHeader = (meta && metaKey in meta ? meta[metaKey] : header) ?? "";
+    return nodeToString(metaHeader);
   }
 
   return header;
-};
-
-/**
- * Convert the table sorting state to a
- * graphql OrderBy clause
- */
-export const sortingStateToOrderByClause = (
-  sortingState: SortingState,
-  columnMap?: Map<string, string>,
-): InputMaybe<OrderByClause | OrderByClause[]> | undefined => {
-  if (!sortingState) return undefined;
-
-  return sortingState.map((rule) => ({
-    column: columnMap?.get(rule.id) ?? rule.id,
-    order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
-  }));
 };

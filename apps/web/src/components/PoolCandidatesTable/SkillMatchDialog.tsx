@@ -14,10 +14,6 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
       experiences {
         id
         __typename
-        user {
-          id
-          email
-        }
         details
         skills {
           id
@@ -34,7 +30,13 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           experienceSkillRecord {
             details
           }
@@ -43,8 +45,20 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          awardedScope {
+            value
+            label {
+              en
+              fr
+            }
+          }
         }
         ... on CommunityExperience {
           title
@@ -59,8 +73,20 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          status {
+            value
+            label {
+              en
+              fr
+            }
+          }
         }
         ... on PersonalExperience {
           title

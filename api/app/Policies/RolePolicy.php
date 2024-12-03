@@ -13,7 +13,6 @@ class RolePolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user)
@@ -35,8 +34,6 @@ class RolePolicy
     /**
      * Determine whether the user can view a specific role
      *
-     * @param  \App\Models\User|null  $user
-     * @param  \App\Models\Role|null  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user)
@@ -47,8 +44,6 @@ class RolePolicy
     /**
      * Determine whether the user can update a specific role
      *
-     * @param  \App\Models\User|null  $user
-     * @param  \App\Models\Role|null  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user)
