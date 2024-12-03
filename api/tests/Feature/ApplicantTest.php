@@ -61,7 +61,7 @@ class ApplicantTest extends TestCase
         $user = User::all()->first();
         $ITPool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
-            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
         ]);
         $ITPool2 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
@@ -1736,12 +1736,6 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $itPool->id,
         ]);
-        $itOngoingPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
-            'user_id' => $this->adminUser->id,
-        ]);
-        PoolCandidate::factory()->availableInSearch()->create([
-            'pool_id' => $itOngoingPool->id,
-        ]);
         $execPool = Pool::factory()->published()->create([
             'user_id' => $this->adminUser->id,
             'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
@@ -1762,7 +1756,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 2,
+                'countApplicants' => 1,
             ],
         ]);
     }

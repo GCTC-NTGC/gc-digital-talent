@@ -144,7 +144,7 @@ class PoolTestSeeder extends Seeder
                 'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
 
             ]);

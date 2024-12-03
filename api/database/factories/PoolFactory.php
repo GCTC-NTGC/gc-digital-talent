@@ -297,10 +297,7 @@ class PoolFactory extends Factory
     {
         return $this->published()->state(function () {
             return [
-                'publishing_group' => $this->faker->randomElement([
-                    PublishingGroup::IT_JOBS->name,
-                    PublishingGroup::IT_JOBS_ONGOING->name,
-                ]),
+                'publishing_group' => PublishingGroup::IT_JOBS->name
             ];
         });
     }
