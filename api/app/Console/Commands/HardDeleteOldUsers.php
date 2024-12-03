@@ -6,6 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class HardDeleteOldUsers extends Command
 {
@@ -39,18 +40,18 @@ class HardDeleteOldUsers extends Command
             $trashDate = $user->deleted_at->toFormattedDateString();
             try {
                 $user->forceDelete();
-                $this->info("User {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate}) hard deleted");
+                Log::info("User {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate}) hard deleted");
                 $successCount++;
             } catch (Exception $e) {
-                $this->error("Failed to delete user: {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate})");
-                $this->error($e->getMessage());
+                Log::error("Failed to delete user: {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate})");
+                Log::error($e->getMessage());
                 $failCount++;
             }
         }
-        $this->info('Command complete');
-        $this->info("{$successCount} users hard deleted");
+        Log::info('Command complete');
+        Log::info("{$successCount} users hard deleted");
         if ($failCount > 0) {
-            $this->error("{$failCount} users failed to delete");
+            Log::error("{$failCount} users failed to delete");
         }
     }
 }

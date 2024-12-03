@@ -7,6 +7,8 @@ SLACK_WEBHOOK_URI=$1
 # Can review this file even if the slack delivery fails
 PAYLOAD_FILE=/tmp/post_deploy_log_payload.json
 
+echo "Starting post_deployment.sh"
+
 # Reusable function to add a section block with a markdown string
 add_section_block () {
   BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \"$1\" } }"
