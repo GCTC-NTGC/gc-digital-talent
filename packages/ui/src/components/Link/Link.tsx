@@ -2,7 +2,7 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
   To,
-} from "react-router-dom";
+} from "react-router";
 import { DetailedHTMLProps, AnchorHTMLAttributes, forwardRef } from "react";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";

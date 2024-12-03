@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 

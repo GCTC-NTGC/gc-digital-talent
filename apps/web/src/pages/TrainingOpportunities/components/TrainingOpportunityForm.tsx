@@ -166,7 +166,7 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         id="applicationUrlEn"
         name="applicationUrlEn"
         label={intl.formatMessage(formLabels.applicationUrlEn)}
-        type="text"
+        type="url"
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
@@ -175,7 +175,7 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         id="applicationUrlFr"
         name="applicationUrlFr"
         label={intl.formatMessage(formLabels.applicationUrlFr)}
-        type="text"
+        type="url"
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}

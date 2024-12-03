@@ -63,17 +63,13 @@ class JobPosterTemplate extends Model
         'nonessential_technical_skills_notes',
     ];
 
-    /**
-     * Associated classification
-     */
+    /** @return BelongsTo<Classification, $this> */
     public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class);
     }
 
-    /**
-     * Associated skills
-     */
+    /** @return BelongsToMany<Skill, $this> */
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class)

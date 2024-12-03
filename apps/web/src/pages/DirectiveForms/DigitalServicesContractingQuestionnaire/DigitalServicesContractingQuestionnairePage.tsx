@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
@@ -180,7 +180,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
     questionnaire: DigitalContractingQuestionnaireInput,
   ) => {
     await executeMutation({ questionnaire })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createDigitalContractingQuestionnaire?.id) {
           toast.success(
             intl.formatMessage({
@@ -190,7 +190,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
                 "Message displayed to user if the questionnaire was saved successfully.",
             }),
           );
-          navigate(paths.directive());
+          await navigate(paths.directive());
         } else {
           toastError();
         }

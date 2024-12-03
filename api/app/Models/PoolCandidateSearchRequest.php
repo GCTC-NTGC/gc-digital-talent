@@ -99,24 +99,25 @@ class PoolCandidateSearchRequest extends Model
             ->dontSubmitEmptyLogs();
     }
 
-    /**
-     * Model relations
-     */
+    /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return BelongsTo<PoolCandidateFilter, $this> */
     public function poolCandidateFilter(): BelongsTo
     {
         return $this->belongsTo(PoolCandidateFilter::class);
     }
 
+    /** @return BelongsTo<ApplicantFilter, $this> */
     public function applicantFilter(): BelongsTo
     {
         return $this->belongsTo(ApplicantFilter::class);
     }
 
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);

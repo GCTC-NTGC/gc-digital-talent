@@ -2,7 +2,7 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/navigation-menu
  */
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import {
   forwardRef,
   ElementRef,

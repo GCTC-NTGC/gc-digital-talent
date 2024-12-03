@@ -36,6 +36,7 @@ use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -90,7 +91,10 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_email_notifications
  * @property ?array $enabled_in_app_notifications
  * @property \App\Models\Notification $unreadNotifications
- * @property Collection<\App\Models\Notification> $notifications
+ * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
+ *
+ * @method Builder|static authorizedToView()
+ * @method static Builder|static query()
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -206,78 +210,89 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function preferredLocale(): string
     {
-        return $this?->preferred_lang ?? 'en';
+        return $this->preferred_lang ?? 'en';
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }
 
+    /** @return BelongsToMany<Pool, $this> */
     public function poolBookmarks(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
     }
 
+    /** @return HasMany<PoolCandidate, $this> */
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->withTrashed();
     }
 
+    /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department')
             ->select(['id', 'name', 'department_number']);
     }
 
+    /** @return BelongsTo<Classification, $this> */
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, 'current_classification');
     }
 
-    // All the relationships for experiences
+    /** @return HasMany<AwardExperience, $this> */
     public function awardExperiences(): HasMany
     {
         return $this->hasMany(AwardExperience::class);
     }
 
+    /** @return HasMany<CommunityExperience, $this> */
     public function communityExperiences(): HasMany
     {
         return $this->hasMany(CommunityExperience::class);
     }
 
+    /** @return HasMany<EducationExperience, $this> */
     public function educationExperiences(): HasMany
     {
         return $this->hasMany(EducationExperience::class);
     }
 
+    /** @return HasMany<PersonalExperience, $this> */
     public function personalExperiences(): HasMany
     {
         return $this->hasMany(PersonalExperience::class);
     }
 
+    /** @return HasMany<WorkExperience, $this> */
     public function workExperiences(): HasMany
     {
         return $this->hasMany(WorkExperience::class);
     }
 
+    /** @return HasMany<Experience, $this> */
     public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class);
     }
 
-    // A relationship to the custom roleAssignments pivot model
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);
     }
 
+    /** @return HasMany<UserSkill, $this> */
     public function userSkills(): HasMany
     {
         return $this->hasMany(UserSkill::class, 'user_id');
     }
 
-    public function skills()
+    public function skills(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
     }
@@ -1142,7 +1157,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         // otherwise: use the regular authorized to view scope
-        /** @var \App\Models\User $query */
+        /** @var Builder<User> $query */
         $query->authorizedToView();
     }
 

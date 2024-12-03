@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -180,8 +180,8 @@ export const UpdateSkillForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(values))
-      .then(() => {
-        navigate(paths.skillView(initialSkill.id));
+      .then(async () => {
+        await navigate(paths.skillView(initialSkill.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill updated successfully!",

@@ -1,5 +1,5 @@
 import { IntlProvider, useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { ReactNode, JSX } from "react";
 
 import { Messages } from "../types";
