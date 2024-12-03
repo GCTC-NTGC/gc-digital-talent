@@ -60,16 +60,19 @@ class AssessmentResult extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<AssessmentStep, $this> */
     public function assessmentStep(): BelongsTo
     {
         return $this->belongsTo(AssessmentStep::class);
     }
 
+    /** @return BelongsTo<PoolCandidate, $this> */
     public function poolCandidate(): BelongsTo
     {
         return $this->belongsTo(PoolCandidate::class);
     }
 
+    /** @return BelongsTo<PoolSkill, $this> */
     public function poolSkill(): BelongsTo
     {
         return $this->belongsTo(PoolSkill::class);

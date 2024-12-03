@@ -21,6 +21,7 @@ use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Support\Collection;
 use PhpOffice\PhpWord\Element\Section;
@@ -171,7 +172,7 @@ trait GeneratesUserDoc
         $section->addTitle($this->localizeHeading('work_preferences'), $headingRank);
 
         $section->addText($this->localizeHeading('contract_duration'), $this->strong);
-        foreach ($user?->position_duration ?? [] as $duration) {
+        foreach ($user->position_duration ?? [] as $duration) {
             $section->addListItem($this->localizeEnum($duration, PositionDuration::class));
         }
 
@@ -320,6 +321,7 @@ trait GeneratesUserDoc
 
             $experience->userSkills->each(function ($userSkill) use ($section) {
                 $skillRun = $section->addListItemRun();
+                /** @var UserSkill $userSkill */
                 $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
                 if (isset($userSkill->experience_skill->details)) {
                     $skillRun->addText($this->colon().$userSkill->experience_skill->details);

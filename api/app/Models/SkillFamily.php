@@ -32,6 +32,7 @@ class SkillFamily extends Model
         'description' => 'array',
     ];
 
+    /** @return BelongsToMany<Skill, $this> */
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class);

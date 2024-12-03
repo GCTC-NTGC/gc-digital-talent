@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $id
  * @property string $user_id
  * @property string $skill_id
+ * @property Skill $skill
  * @property string $skill_level
  * @property string $when_skill_used
  * @property int $top_skills_rank
@@ -52,16 +53,19 @@ class UserSkill extends Model
         );
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /** @return BelongsTo<Skill, $this> */
     public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class, 'skill_id')->withTrashed();  // include soft deleted skills
     }
 
+    /** @return BelongsToMany<AwardExperience, $this> */
     public function awardExperiences()
     {
         return $this->belongsToMany(
@@ -76,6 +80,7 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
+    /** @return BelongsToMany<CommunityExperience, $this> */
     public function communityExperiences()
     {
         return $this->belongsToMany(
@@ -90,6 +95,7 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
+    /** @return BelongsToMany<EducationExperience, $this> */
     public function educationExperiences()
     {
         return $this->belongsToMany(
@@ -104,6 +110,7 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
+    /** @return BelongsToMany<PersonalExperience, $this> */
     public function personalExperiences()
     {
         return $this->belongsToMany(
@@ -118,6 +125,7 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
+    /** @return BelongsToMany<WorkExperience, $this> */
     public function workExperiences()
     {
         return $this->belongsToMany(
@@ -132,6 +140,7 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
+    /** @return BelongsToMany<Experience, $this> */
     public function experiences(): BelongsToMany
     {
         return $this->belongsToMany(
