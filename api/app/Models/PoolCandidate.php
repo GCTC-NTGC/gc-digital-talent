@@ -1192,9 +1192,9 @@ class PoolCandidate extends Model
             // Giving a decent buffer to increase max steps
             FinalDecision::DISQUALIFIED_PENDING->name => 200,
             FinalDecision::DISQUALIFIED->name => 210,
-            FinalDecision::DISQUALIFIED_REMOVED->name => 215, // I don't think this can be reached right now.
             FinalDecision::QUALIFIED_REMOVED->name => 220,
             FinalDecision::TO_ASSESS_REMOVED->name => 230,
+            FinalDecision::DISQUALIFIED_REMOVED->name => 235, // I don't think this can be reached right now.
             FinalDecision::REMOVED->name => 240,
             FinalDecision::QUALIFIED_EXPIRED->name => 250,
             'DRAFT' => null,
