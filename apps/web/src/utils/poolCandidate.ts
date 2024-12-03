@@ -16,7 +16,6 @@ import {
   Maybe,
   PoolCandidate,
   PoolCandidateStatus,
-  PublishingGroup,
   OverallAssessmentStatus,
   AssessmentResultStatus,
   ClaimVerificationResult,
