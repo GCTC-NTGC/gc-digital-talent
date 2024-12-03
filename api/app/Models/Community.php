@@ -86,6 +86,7 @@ class Community extends Model
         return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
 
+    /** @return HasMany<WorkStream, $this> */
     public function workStreams(): HasMany
     {
         return $this->hasMany(WorkStream::class);
