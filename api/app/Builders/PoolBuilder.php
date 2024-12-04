@@ -235,6 +235,7 @@ class PoolBuilder extends Builder
             default => throw new \Exception('Invalid nulls option'),
         };
 
+        // SQL execution from user input!  Ensure sufficient sanitization.
         $this->orderByRaw("$columnSql $orderOptionSql $nullsOptionSql");
 
         return $this;
