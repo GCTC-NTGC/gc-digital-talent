@@ -1141,6 +1141,11 @@ class PoolCandidate extends Model
         $status = $this->pool_candidate_status;
         $decision = null;
 
+        // Short circuit for a case which shouldn't really come up. A PoolCandidate should never go from non-draft back to draft, but just in case...
+        if($status === PoolCandidateStatus::DRAFT->name || $status === PoolCandidateStatus::DRAFT_EXPIRED->name) {
+            return [ 'decision' => null, 'weight' => null ];
+        }
+
         if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
             $assessmentStatus = $this->computed_assessment_status;
             $overallStatus = null;
@@ -1176,9 +1181,6 @@ class PoolCandidate extends Model
                 PoolCandidateStatus::REMOVED->name => FinalDecision::REMOVED->name,
                 PoolCandidateStatus::EXPIRED->name => FinalDecision::QUALIFIED_EXPIRED->name,
 
-                PoolCandidateStatus::DRAFT->name,
-                PoolCandidateStatus::DRAFT_EXPIRED->name => 'DRAFT',
-
                 default => null
             };
         }
@@ -1197,13 +1199,8 @@ class PoolCandidate extends Model
             FinalDecision::DISQUALIFIED_REMOVED->name => 235, // I don't think this can be reached right now.
             FinalDecision::REMOVED->name => 240,
             FinalDecision::QUALIFIED_EXPIRED->name => 250,
-            'DRAFT' => null,
             default => $this->unMatchedDecision($decision)
         };
-
-        if ($decision === 'DRAFT') {
-            $decision = null;
-        }
 
         $assessmentStatus = $this->computed_assessment_status;
         $currentStep = null;
