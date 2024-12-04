@@ -1080,7 +1080,7 @@ class PoolCandidateUpdateTest extends TestCase
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 'placed_at',
             ],
-            'placed indetermined sets placed at' => [
+            'placed indeterminate sets placed at' => [
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 'placed_at',
             ],
