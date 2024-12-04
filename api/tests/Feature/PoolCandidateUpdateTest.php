@@ -1015,8 +1015,8 @@ class PoolCandidateUpdateTest extends TestCase
 
         // Ensure other time stamps remain the same
         $unchanged = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp]);
-        foreach ($unchanged as $unchagedTimestamp) {
-            $this->assertEquals($this->poolCandidate->$unchagedTimestamp, $data[Str::camel($unchagedTimestamp)]);
+        foreach ($unchanged as $unchangedTimestamp) {
+            $this->assertEquals($this->poolCandidate->$unchangedTimestamp, $data[Str::camel($unchangedTimestamp)]);
         }
 
         // Attempt to make change again and assert it does not affect timestamp
