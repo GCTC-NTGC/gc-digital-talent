@@ -179,10 +179,14 @@ test.describe("Pool candidates", () => {
     await appPage.page
       .getByRole("button", { name: "Edit Priority status" })
       .click();
-    await appPage.page.getByLabel("This claim has been verified").click();
-    await appPage.page.getByPlaceholder("YYYY").fill("2030");
-    await appPage.page.getByLabel("Month").selectOption("01");
-    await appPage.page.getByPlaceholder("DD").fill("25");
+    await appPage.page
+      .getByRole("radio", { name: "This claim has been verified" })
+      .click();
+    await appPage.page.getByRole("spinbutton", { name: "Year" }).fill("2030");
+    await appPage.page
+      .getByRole("combobox", { name: "Month" })
+      .selectOption("01");
+    await appPage.page.getByRole("spinbutton", { name: "Day" }).fill("25");
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await expect(
       appPage.page.getByText(
@@ -194,7 +198,9 @@ test.describe("Pool candidates", () => {
     await appPage.page
       .getByRole("button", { name: "Edit Veteran status" })
       .click();
-    await appPage.page.getByLabel("This claim does not apply to").click();
+    await appPage.page
+      .getByRole("radio", { name: "This claim does not apply to" })
+      .click();
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await expect(
       appPage.page.getByText(/This claim does not apply to/i),
@@ -202,8 +208,14 @@ test.describe("Pool candidates", () => {
 
     // notes
     await appPage.page.getByRole("button", { name: "Add notes" }).click();
-    await appPage.page.getByLabel("Notes").fill("Notes notes notes");
+    await appPage.page
+      .getByRole("textbox", { name: "Notes" })
+      .fill("Notes notes notes");
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
+    await appPage.waitForGraphqlResponse("PoolCandidate_UpdateNotes");
+    await expect(
+      appPage.page.getByRole("button", { name: "Edit notes" }),
+    ).toBeVisible();
     await expect(appPage.page.getByText(/Notes notes notes/i)).toBeVisible();
   });
 
@@ -241,7 +253,9 @@ test.describe("Pool candidates", () => {
         .getByText("Test Experience"),
     ).toBeVisible();
     await expect(
-      appPage.page.getByText("Demonstrated", { exact: true }),
+      appPage.page.getByRole("button", {
+        name: "Demonstrated",
+      }),
     ).toBeVisible();
 
     // skill result
@@ -322,7 +336,7 @@ test.describe("Pool candidates", () => {
       .getByRole("button", { name: "Remove candidate" })
       .click();
     await appPage.page
-      .getByLabel("Candidate has requested to be withdrawn")
+      .getByRole("radio", { name: "Candidate has requested to be withdrawn" })
       .click();
     await appPage.page
       .getByRole("button", { name: "Remove candidate and update status" })
