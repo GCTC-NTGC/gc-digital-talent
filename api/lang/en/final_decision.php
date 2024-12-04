@@ -15,5 +15,4 @@ return [
 
     'to_assess' => 'To assess',
     'to_assess_removed' => 'Removed: To assess',
-    'to_assess_step' => 'To assess: Step ',
 ];

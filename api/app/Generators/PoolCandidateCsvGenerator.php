@@ -289,7 +289,11 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                             } elseif ($candidate->computed_assessment_status['currentStep'] === null) {
                                 $decision = Lang::get('final_decision.qualified_pending', [], $this->lang);
                             } else {
-                                $decision = Lang::get('final_decision.to_assess_step', [], $this->lang).$candidate->computed_assessment_status['currentStep'];
+                                $decision = Lang::get('final_decision.to_assess', [], $this->lang)
+                                            .$this->colon()
+                                            .Lang::get('common.step', [], $this->lang)
+                                            .' '
+                                            .$candidate->computed_assessment_status['currentStep'];
                             }
                         }
                     } else {
