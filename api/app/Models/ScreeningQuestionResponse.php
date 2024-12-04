@@ -37,11 +37,13 @@ class ScreeningQuestionResponse extends Model
         'answer',
     ];
 
+    /** @return BelongsTo<PoolCandidate, $this> */
     public function poolCandidate(): BelongsTo
     {
         return $this->belongsTo(PoolCandidate::class);
     }
 
+    /** @return BelongsTo<ScreeningQuestion, $this> */
     public function screeningQuestion(): BelongsTo
     {
         return $this->belongsTo(ScreeningQuestion::class);

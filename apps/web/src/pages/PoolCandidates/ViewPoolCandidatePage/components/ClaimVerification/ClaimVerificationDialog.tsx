@@ -103,8 +103,8 @@ const ClaimVerificationDialog = ({
         if (res.data?.updatePoolCandidateClaimVerification?.id) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Successfully update claim verification",
-              id: "uIzewF",
+              defaultMessage: "Successfully updated claim verification",
+              id: "pFkIhb",
               description:
                 "Success message when updating a candidates claim verification",
             }),

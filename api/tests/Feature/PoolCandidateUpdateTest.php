@@ -986,7 +986,7 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testManualStatusUpdatesTimestamps($status, $timestamp)
     {
-        // Ensure time stamps are set to compare against
+        // Ensure timestamps are set to compare against
         // and we are starting from no status
         $past = config('constants.past_datetime');
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
@@ -1004,7 +1004,7 @@ class PoolCandidateUpdateTest extends TestCase
                 'candidate' => ['status' => $status],
             ]);
 
-        // Assert the expected time stamp was changed
+        // Assert the expected timestamp was changed
         $data = $response['data']['updatePoolCandidateStatus'];
         $new = new Carbon($data[$camelTimestamp]);
         $this->assertGreaterThan($original->timestamp, $new->timestamp, sprintf(
@@ -1013,10 +1013,10 @@ class PoolCandidateUpdateTest extends TestCase
             $original->toDayDateTimeString()
         ));
 
-        // Ensure other time stamps remain the same
+        // Ensure other timestamps remain the same
         $unchanged = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp]);
-        foreach ($unchanged as $unchagedTimestamp) {
-            $this->assertEquals($this->poolCandidate->$unchagedTimestamp, $data[Str::camel($unchagedTimestamp)]);
+        foreach ($unchanged as $unchangedTimestamp) {
+            $this->assertEquals($this->poolCandidate->$unchangedTimestamp, $data[Str::camel($unchangedTimestamp)]);
         }
 
         // Attempt to make change again and assert it does not affect timestamp
@@ -1068,7 +1068,7 @@ class PoolCandidateUpdateTest extends TestCase
             ],
 
             // Placed
-            'placed tenative sets removed at' => [
+            'placed tentative sets removed at' => [
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
                 'placed_at',
             ],
@@ -1080,7 +1080,7 @@ class PoolCandidateUpdateTest extends TestCase
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 'placed_at',
             ],
-            'placed indetermined sets placed at' => [
+            'placed indeterminate sets placed at' => [
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 'placed_at',
             ],

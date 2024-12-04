@@ -7,9 +7,11 @@ use App\Enums\SkillLevel;
 use App\Models\JobPosterTemplate;
 use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
+use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -75,6 +77,8 @@ class JobPosterTemplateTest extends TestCase
             ClassificationSeeder::class,
             SkillFamilySeeder::class,
             SkillSeeder::class,
+            CommunitySeeder::class,
+            WorkStreamSeeder::class,
         ]);
 
         // Add a few elevated roles to confirm unauthorized

@@ -50,16 +50,19 @@ class ScreeningQuestion extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
     }
 
+    /** @return BelongsTo<AssessmentStep, $this> */
     public function assessmentStep(): BelongsTo
     {
         return $this->belongsTo(AssessmentStep::class);
     }
 
+    /** @return HasMany<ScreeningQuestionResponse, $this> */
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);

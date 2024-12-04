@@ -1,35 +1,34 @@
 import { test, expect } from "~/fixtures";
+import { loginBySub } from "~/utils/auth";
 
 test.describe("Notifications", () => {
-  test("Dialog appears and disappears", async ({ applicantPage }) => {
-    await applicantPage.page.goto("/en/applicant");
+  test("Dialog appears and disappears", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.page.goto("/en/applicant");
 
     // open pane and confirm link to notifications page
     await expect(
-      applicantPage.page.getByRole("button", { name: /view notifications/i }),
+      appPage.page.getByRole("button", { name: /view notifications/i }),
     ).toBeVisible();
-    await applicantPage.page
+    await appPage.page
       .getByRole("button", { name: /view notifications/i })
       .click();
     await expect(
-      applicantPage.page.getByRole("link", { name: /view all notifications/i }),
+      appPage.page.getByRole("link", { name: /view all notifications/i }),
     ).toBeVisible();
 
     // pane closes
-    await applicantPage.page
+    await appPage.page
       .getByRole("button", { name: /close notifications/i })
       .click();
     await expect(
-      applicantPage.page.getByRole("link", { name: /view all notifications/i }),
+      appPage.page.getByRole("link", { name: /view all notifications/i }),
     ).toBeHidden();
 
     // overlay gone and page responsive
-    await applicantPage.page
-      .getByRole("link", { name: /home/i })
-      .first()
-      .click();
+    await appPage.page.getByRole("link", { name: /home/i }).first().click();
     await expect(
-      applicantPage.page.getByRole("heading", {
+      appPage.page.getByRole("heading", {
         name: "GC Digital Talent",
         level: 1,
       }),

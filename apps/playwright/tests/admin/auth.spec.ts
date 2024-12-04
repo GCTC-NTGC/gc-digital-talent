@@ -1,6 +1,11 @@
 import { test, expect } from "~/fixtures";
 import auth from "~/constants/auth";
-import { getAuthCookies, getAuthTokens, AuthCookies } from "~/utils/auth";
+import {
+  getAuthCookies,
+  getAuthTokens,
+  AuthCookies,
+  loginBySub,
+} from "~/utils/auth";
 
 function expectAuthCookies(cookies: AuthCookies) {
   expect(cookies).toEqual(
@@ -71,9 +76,10 @@ test.describe("Anonymous user", () => {
 });
 
 test.describe("Authenticated", () => {
-  test("Has tokens", async ({ applicantPage }) => {
-    await applicantPage.gotoHome();
-    const tokens = await getAuthTokens(applicantPage.page);
+  test("Has tokens", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.gotoHome();
+    const tokens = await getAuthTokens(appPage.page);
 
     expect(tokens).toEqual(
       expect.objectContaining({
@@ -84,31 +90,31 @@ test.describe("Authenticated", () => {
     );
   });
 
-  test("Has cookies", async ({ applicantPage }) => {
-    await applicantPage.gotoHome();
-    const cookies = await getAuthCookies(applicantPage.page);
+  test("Has cookies", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.gotoHome();
+    const cookies = await getAuthCookies(appPage.page);
 
     expect(cookies).toBeDefined();
     expectAuthCookies(cookies);
   });
 
-  test("Can logout", async ({ applicantPage }) => {
-    await applicantPage.gotoHome();
-    await applicantPage.page
-      .getByRole("button", { name: "your account" })
-      .click();
-    await applicantPage.page.getByRole("link", { name: /sign out/i }).click();
-    const logoutDialog = applicantPage.page.getByRole("alertdialog", {
+  test("Can logout", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.gotoHome();
+    await appPage.page.getByRole("button", { name: "your account" }).click();
+    await appPage.page.getByRole("link", { name: /sign out/i }).click();
+    const logoutDialog = appPage.page.getByRole("alertdialog", {
       name: /sign out/i,
     });
 
     await logoutDialog.getByRole("button", { name: /sign out/i }).click();
 
     await expect(
-      applicantPage.page.getByRole("link", { name: /sign in/i }),
+      appPage.page.getByRole("link", { name: /sign in/i }),
     ).toBeVisible();
 
-    const tokens = await getAuthTokens(applicantPage.page);
+    const tokens = await getAuthTokens(appPage.page);
 
     expect(tokens.idToken).toBeNull();
     expect(tokens.accessToken).toBeNull();
@@ -116,10 +122,11 @@ test.describe("Authenticated", () => {
   });
 
   test.describe("Admin user", () => {
-    test("Can access restricted paths", async ({ adminPage }) => {
+    test("Can access restricted paths", async ({ appPage }) => {
+      await loginBySub(appPage.appPage, "admin@test.com");
       await Promise.all(
         restrictedPaths.map(async (restrictedPath) => {
-          const context = adminPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -134,10 +141,11 @@ test.describe("Authenticated", () => {
   });
 
   test.describe("Applicant user", () => {
-    test("Cannot access restricted paths", async ({ applicantPage }) => {
+    test("Cannot access restricted paths", async ({ appPage }) => {
+      await loginBySub(appPage.page, "applicant@test.com");
       await Promise.all(
         restrictedPaths.map(async (restrictedPath) => {
-          const context = applicantPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -171,12 +179,11 @@ test.describe("Authenticated", () => {
       "/en/admin/pool-candidates",
     ];
 
-    test("user accesses allowed paths only", async ({
-      processOperatorPage,
-    }) => {
+    test("user accesses allowed paths only", async ({ appPage }) => {
+      await loginBySub(appPage.page, "process@test.com");
       await Promise.all(
         processOperatorRestrictedPaths.map(async (restrictedPath) => {
-          const context = processOperatorPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -189,7 +196,7 @@ test.describe("Authenticated", () => {
       );
       await Promise.all(
         processOperatorAllowedPaths.map(async (allowedPath) => {
-          const context = processOperatorPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(allowedPath);
           await page.waitForURL(allowedPath);
@@ -226,12 +233,11 @@ test.describe("Authenticated", () => {
       "/en/admin/users",
     ];
 
-    test("user accesses allowed paths only", async ({
-      communityRecruiterPage,
-    }) => {
+    test("user accesses allowed paths only", async ({ appPage }) => {
+      await loginBySub(appPage.page, "recruiter@test.com");
       await Promise.all(
         communityRecruiterRestrictedPaths.map(async (restrictedPath) => {
-          const context = communityRecruiterPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -244,7 +250,7 @@ test.describe("Authenticated", () => {
       );
       await Promise.all(
         communityRecruiterAllowedPaths.map(async (allowedPath) => {
-          const context = communityRecruiterPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(allowedPath);
           await page.waitForURL(allowedPath);
@@ -281,10 +287,11 @@ test.describe("Authenticated", () => {
       "/en/admin/users",
     ];
 
-    test("user accesses allowed paths only", async ({ communityAdminPage }) => {
+    test("user accesses allowed paths only", async ({ appPage }) => {
+      await loginBySub(appPage.page, "community@test.com");
       await Promise.all(
         communityAdminRestrictedPaths.map(async (restrictedPath) => {
-          const context = communityAdminPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
           await page.waitForURL(restrictedPath);
@@ -297,7 +304,7 @@ test.describe("Authenticated", () => {
       );
       await Promise.all(
         communityAdminAllowedPaths.map(async (allowedPath) => {
-          const context = communityAdminPage.page.context();
+          const context = appPage.page.context();
           const page = await context.newPage();
           await page.goto(allowedPath);
           await page.waitForURL(allowedPath);
@@ -316,11 +323,12 @@ test.describe("Authenticated", () => {
 });
 
 test.describe("Login", () => {
-  test("succeeds for an existing admin user", async ({ adminPage }) => {
-    await adminPage.page.goto("/admin");
-    await adminPage.waitForGraphqlResponse("AdminDashboard_Query");
+  test("succeeds for an existing admin user", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto("/admin");
+    await appPage.waitForGraphqlResponse("AdminDashboard_Query");
     await expect(
-      adminPage.page.getByRole("heading", {
+      appPage.page.getByRole("heading", {
         name: /welcome back, dale monroe/i,
       }),
     ).toBeVisible();

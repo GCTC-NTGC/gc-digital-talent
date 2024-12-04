@@ -4892,7 +4892,7 @@
     "description": "Label for skills input in skill family form"
   },
   "NJUJl0": {
-    "defaultMessage": "Il n’y a aucun statut de selectionné.",
+    "defaultMessage": "Il n’y a aucun statut sélectionné.",
     "description": "Message displayed when no statuses are shown"
   },
   "NP/fsS": {
@@ -10558,6 +10558,10 @@
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
   },
+  "pFkIhb": {
+    "defaultMessage": "Mise à jour réussie de la vérification de la revendication",
+    "description": "Success message when updating a candidates claim verification"
+  },
   "pFowOu": {
     "defaultMessage": "Toutes les notifications",
     "description": "Link text to show all notifications"
@@ -11433,10 +11437,6 @@
   "uIWFvk": {
     "defaultMessage": "Vous êtes à l’affût des possibilités découlant de ce recrutement.",
     "description": "Message displayed when a user is appearing in a recruitment"
-  },
-  "uIzewF": {
-    "defaultMessage": "Mise à jour réussie de la vérification de la revendication",
-    "description": "Success message when updating a candidates claim verification"
   },
   "uJ1rk3": {
     "defaultMessage": "Il existe trois groupes distincts de peuples autochtones qui sont reconnus par la Constitution canadienne. On vous demandera de confirmer au(x)quel(s) de vous appartenez par l’entremise de la Formulaire d’autodéclaration à l’intention des peuples autochtones.",
