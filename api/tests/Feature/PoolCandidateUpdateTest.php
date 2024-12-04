@@ -986,7 +986,7 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testManualStatusUpdatesTimestamps($status, $timestamp)
     {
-        // Ensure time stamps are set to compare against
+        // Ensure timestamps are set to compare against
         // and we are starting from no status
         $past = config('constants.past_datetime');
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
@@ -1004,7 +1004,7 @@ class PoolCandidateUpdateTest extends TestCase
                 'candidate' => ['status' => $status],
             ]);
 
-        // Assert the expected time stamp was changed
+        // Assert the expected timestamp was changed
         $data = $response['data']['updatePoolCandidateStatus'];
         $new = new Carbon($data[$camelTimestamp]);
         $this->assertGreaterThan($original->timestamp, $new->timestamp, sprintf(
@@ -1013,7 +1013,7 @@ class PoolCandidateUpdateTest extends TestCase
             $original->toDayDateTimeString()
         ));
 
-        // Ensure other time stamps remain the same
+        // Ensure other timestamps remain the same
         $unchanged = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp]);
         foreach ($unchanged as $unchangedTimestamp) {
             $this->assertEquals($this->poolCandidate->$unchangedTimestamp, $data[Str::camel($unchangedTimestamp)]);
