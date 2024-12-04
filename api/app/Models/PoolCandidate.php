@@ -1142,8 +1142,8 @@ class PoolCandidate extends Model
         $decision = null;
 
         // Short circuit for a case which shouldn't really come up. A PoolCandidate should never go from non-draft back to draft, but just in case...
-        if($status === PoolCandidateStatus::DRAFT->name || $status === PoolCandidateStatus::DRAFT_EXPIRED->name) {
-            return [ 'decision' => null, 'weight' => null ];
+        if ($status === PoolCandidateStatus::DRAFT->name || $status === PoolCandidateStatus::DRAFT_EXPIRED->name) {
+            return ['decision' => null, 'weight' => null];
         }
 
         if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
