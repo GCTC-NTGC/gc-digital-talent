@@ -357,6 +357,9 @@ test.describe("Pool candidates", () => {
       .getByRole("button", { name: "Reinstate candidate and" })
       .click();
     await expect(
+      appPage.page.getByRole("button", { name: "Removed", exact: true }),
+    ).toBeHidden();
+    await expect(
       appPage.page.getByRole("button", { name: "Record final decision" }),
     ).toBeVisible();
   });
