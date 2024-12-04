@@ -222,6 +222,12 @@ class Pool extends Model
         return $this->belongsTo(Classification::class);
     }
 
+    /** @return BelongsTo<WorkStream, $this> */
+    public function workStream(): BelongsTo
+    {
+        return $this->belongsTo(WorkStream::class);
+    }
+
     /** @return HasMany<PoolCandidate, $this> */
     public function poolCandidates(): HasMany
     {
