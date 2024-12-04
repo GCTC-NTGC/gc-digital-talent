@@ -6,7 +6,7 @@ enum AdvertisingPlatform
 {
     case GCJOBS;
     case GCCONNEX;
-    case GCXCHNAGE;
+    case GCXCHANGE;
     case GC_COLLAB;
     case FACEBOOK;
     case LINKEDIN;

@@ -2811,7 +2811,7 @@ enum AdvertisementType {
 enum AdvertisingPlatform {
   GCJOBS
   GCCONNEX
-  GCXCHNAGE
+  GCXCHANGE
   GC_COLLAB
   FACEBOOK
   LINKEDIN
