@@ -7,11 +7,7 @@ interface SvgComponentProps extends SVGProps {
 }
 
 const Svg = ({ children, ...rest }: SvgComponentProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    preserveAspectRatio="xMinYMin meet"
-    {...rest}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" {...rest}>
     {children}
   </svg>
 );
