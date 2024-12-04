@@ -10,6 +10,7 @@ use App\Enums\SupervisoryStatus;
 use App\Models\Classification;
 use App\Models\JobPosterTemplate;
 use App\Models\Skill;
+use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -50,6 +51,7 @@ class JobPosterTemplateFactory extends Factory
         return [
             'supervisory_status' => $this->faker->randomElement(SupervisoryStatus::cases())->name,
             'stream' => $this->faker->randomElement(PoolStream::cases())->name,
+            'work_stream_id' => WorkStream::inRandomOrder()->first()->id,
             'reference_id' => implode('_', $this->faker->words()),
             'classification_id' => $classification->id,
             'name' => [

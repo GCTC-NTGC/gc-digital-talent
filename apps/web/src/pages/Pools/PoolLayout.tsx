@@ -38,9 +38,9 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
     ...AssessmentPlanStatus
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -92,7 +92,7 @@ const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
     return currentPage?.title;
   }
   return getShortPoolTitleLabel(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
@@ -127,7 +127,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     id: pool.id,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
-    stream: pool.stream,
+    workStream: pool.workStream,
     classification: pool.classification,
   });
   const currentPage = useCurrentPage<PageNavKeys>(pages);

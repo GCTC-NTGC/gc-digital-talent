@@ -118,13 +118,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      stream {
-        value
-        label {
-          en
-          fr
-        }
-      }
       name {
         en
         fr
@@ -134,9 +127,9 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         group
         level
       }
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }

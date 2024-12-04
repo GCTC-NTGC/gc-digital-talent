@@ -70,13 +70,13 @@ describe("poolUtils tests", () => {
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
-          stream: null,
+          workStream: null,
         }).label,
       ).toBe("Web Developer (IT-01)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
-          stream: undefined,
+          workStream: undefined,
         }).label,
       ).toBe("Web Developer (IT-01)");
     });
@@ -85,14 +85,14 @@ describe("poolUtils tests", () => {
         formattedPoolPosterTitle({
           ...baseInputs,
           classification: undefined,
-          stream: null,
+          workStream: null,
         }).label,
       ).toBe("Web Developer");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           classification: null,
-          stream: undefined,
+          workStream: undefined,
         }).label,
       ).toBe("Web Developer");
     });
@@ -101,7 +101,7 @@ describe("poolUtils tests", () => {
         formattedPoolPosterTitle({
           title: "",
           classification: null,
-          stream: null,
+          workStream: null,
           intl,
         }).label,
       ).toBe("");

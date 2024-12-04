@@ -301,6 +301,7 @@ class JobPosterTemplateTest extends TestCase
             'description' => $template->description,
             'supervisoryStatus' => $template->supervisory_status,
             'stream' => $template->stream,
+            'work_stream_id' => $template->work_stream_id,
             'tasks' => $template->tasks,
             'workDescription' => $template->work_description,
             'keywords' => $template->keywords,

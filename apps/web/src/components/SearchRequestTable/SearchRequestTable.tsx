@@ -126,8 +126,8 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
             level
           }
           qualifiedStreams {
-            value
-            label {
+            id
+            name {
               en
               fr
             }
@@ -271,7 +271,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       ({ applicantFilter }) =>
         unpackMaybes(
           applicantFilter?.qualifiedStreams?.map((stream) =>
-            getLocalizedName(stream?.label, intl),
+            getLocalizedName(stream?.name, intl),
           ),
         ).join(","),
       {
@@ -288,7 +288,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
             list:
               unpackMaybes(
                 applicantFilter?.qualifiedStreams?.map((stream) =>
-                  getLocalizedName(stream?.label, intl, true),
+                  getLocalizedName(stream?.name, intl, true),
                 ),
               ) ?? [],
           }),

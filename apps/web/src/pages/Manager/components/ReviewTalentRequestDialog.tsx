@@ -56,7 +56,8 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
           level
         }
         qualifiedStreams {
-          label {
+          id
+          name {
             fr
             en
           }
@@ -189,7 +190,7 @@ const ReviewTalentRequestDialogContent = ({
             {workStreams.length > 0
               ? deriveSingleString(
                   workStreams,
-                  (stream) => getLocalizedName(stream.label, intl),
+                  (stream) => getLocalizedName(stream?.name, intl),
                   locale,
                 )
               : nullMessage}

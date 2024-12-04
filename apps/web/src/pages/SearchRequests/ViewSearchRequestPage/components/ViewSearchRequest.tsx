@@ -296,9 +296,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -367,9 +367,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -390,8 +390,8 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         level
       }
       qualifiedStreams {
-        value
-        label {
+        id
+        name {
           en
           fr
         }

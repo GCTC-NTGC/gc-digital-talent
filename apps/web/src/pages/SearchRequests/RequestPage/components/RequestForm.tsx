@@ -131,9 +131,9 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -177,9 +177,10 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      key
+      name {
         en
         fr
       }
@@ -241,6 +242,13 @@ export const RequestForm = ({
     communitiesQuery,
   );
 
+  const workStreams = unpackMaybes(optionsData?.workStreams).filter(
+    (workStream) =>
+      applicantFilter?.qualifiedStreams?.some(
+        (filterStream) => filterStream?.id === workStream.id,
+      ),
+  );
+
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
   });
@@ -256,9 +264,12 @@ export const RequestForm = ({
       values?.positionType === true
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
-    const qualifiedStreams = applicantFilter?.qualifiedStreams;
     let community = communities?.find((c) => c.key === "digital");
-    if (qualifiedStreams?.includes(PoolStream.AccessInformationPrivacy)) {
+    if (
+      workStreams?.find(
+        (workStream) => workStream.key === PoolStream.AccessInformationPrivacy,
+      )
+    ) {
       community = communities?.find((c) => c.key === "atip");
     }
 
@@ -286,7 +297,9 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
-          qualifiedStreams,
+          workStreams: {
+            sync: workStreams.map(({ id }) => id),
+          },
           community: {
             connect: community?.id ?? communities[0].id,
           },
@@ -386,11 +399,7 @@ export const RequestForm = ({
         ),
       ),
     ),
-    qualifiedStreams: unpackMaybes(
-      applicantFilter?.qualifiedStreams?.map((stream) =>
-        enumInputToLocalizedEnum(stream, optionsData?.streams),
-      ),
-    ),
+    qualifiedStreams: workStreams,
     qualifiedClassifications:
       applicantFilter?.qualifiedClassifications
         ?.map((qualifiedClassification) => {

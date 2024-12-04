@@ -22,9 +22,9 @@ const testId = (text: ReactNode) => (
 const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchResultCard_Pool on Pool {
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -121,7 +121,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         id={`search_pool_${pool.id}`}
       >
         {getShortPoolTitleHtml(intl, {
-          stream: pool.stream,
+          workStream: pool.workStream,
           name: pool.name,
           publishingGroup: pool.publishingGroup,
           classification: pool.classification,
