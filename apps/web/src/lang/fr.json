@@ -4539,6 +4539,10 @@
     "defaultMessage": "Collectivité",
     "description": "Title for community"
   },
+  "LQbKTy": {
+    "defaultMessage": "Consultez nos possibilités d'emploi pour trouver un poste de gestionnaire qui vous inspire. Posez votre candidature pour jouer un rôle clé au sein de l'une des équipes de TI du gouvernement du Canada et avoir un impact significatif.",
+    "description": "Summary for the feature about finding manager jobs"
+  },
   "LTpCFL": {
     "defaultMessage": "À propos de nous",
     "description": "Title for about us section on a pool advertisement."
@@ -8765,10 +8769,6 @@
   "gU/nxf": {
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
     "description": "Title for application career timeline add experience"
-  },
-  "gURsqG": {
-    "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents afin de connaître les possibilités d'emploi spécifiques ou posez votre candidature à un processus de recrutement en cours dans l'un des volets de travail génériques des TI. Consultez régulièrement le site pour connaître les nouvelles possibilités d'emploi.",
-    "description": "Summary for the feature about finding manager jobs"
   },
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
