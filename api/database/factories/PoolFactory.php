@@ -188,11 +188,8 @@ class PoolFactory extends Factory
             // the base state is draft already
             $hasSpecialNote = $this->faker->boolean();
             $isRemote = $this->faker->boolean();
-            $workStreamId = WorkStream::inRandomOrder()
-                ->limit(1)
-                ->pluck('id')
-                ->first();
-            if (is_null($workStreamId)) {
+            $workStreamId = WorkStream::inRandomOrder()->first()?->id;
+            if (! $workStreamId) {
                 $workStreamId = WorkStream::factory()->create()->id;
             }
 
