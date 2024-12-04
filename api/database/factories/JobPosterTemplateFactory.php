@@ -37,7 +37,8 @@ class JobPosterTemplateFactory extends Factory
             $classification = Classification::factory()->create();
         }
 
-        $workStream = WorkStream::inRandomOrder()->first();
+        $poolStream = $this->faker->randomElement(PoolStream::cases())->name;
+        $workStream = WorkStream::where('key', $poolStream)->first();
         if (! $workStream) {
             $workStream = WorkStream::factory()->create();
         }
@@ -55,7 +56,7 @@ class JobPosterTemplateFactory extends Factory
 
         return [
             'supervisory_status' => $this->faker->randomElement(SupervisoryStatus::cases())->name,
-            'stream' => $this->faker->randomElement(PoolStream::cases())->name,
+            'stream' => $poolStream,
             'work_stream_id' => $workStream->id,
             'reference_id' => implode('_', $this->faker->words()),
             'classification_id' => $classification->id,
