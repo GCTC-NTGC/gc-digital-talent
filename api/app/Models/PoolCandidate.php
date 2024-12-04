@@ -1221,9 +1221,9 @@ class PoolCandidate extends Model
         ];
     }
 
-    private function unMatchedDecision(?string $decison)
+    private function unMatchedDecision(?string $decision)
     {
-        Log::error(sprintf('No match for decision %s', $decison));
+        Log::error(sprintf('No match for decision %s', $decision));
 
         return null;
     }
