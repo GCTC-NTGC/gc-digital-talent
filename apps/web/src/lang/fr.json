@@ -5907,6 +5907,10 @@
     "defaultMessage": "<strong>Ma situation concorde avec l’option d’expérience de travail appliquée</strong>",
     "description": "Radio group option for education requirement filter in application education form."
   },
+  "SP8yeX": {
+    "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement.",
+    "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
+  },
   "SQJgGP": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
     "description": "Lead-in text on a complete process, ready for publishing"
@@ -12253,10 +12257,6 @@
   "z6omvn": {
     "defaultMessage": "ne respectent pas les principes de la Charte canadienne des droits et libertés, Loi constitutionnelle de 1982",
     "description": "Comments or contributions list item"
-  },
-  "z7FpHz": {
-    "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
-    "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
   },
   "z8b14H": {
     "defaultMessage": "contiennent des renseignements personnels",
