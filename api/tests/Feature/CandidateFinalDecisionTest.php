@@ -96,7 +96,7 @@ class CandidateFinalDecisionTest extends TestCase
     public static function statusProvider()
     {
 
-        $qualfied = [
+        $qualified = [
             'decision' => FinalDecision::QUALIFIED->name,
             'weight' => 10,
         ];
@@ -138,14 +138,14 @@ class CandidateFinalDecisionTest extends TestCase
 
         return [
             // Qualified
-            'Qualfied available' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, $qualfied],
+            'Qualified available' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, $qualified],
             // To assess
             'New application' => [PoolCandidateStatus::NEW_APPLICATION->name, $toAssess],
             'Application review' => [PoolCandidateStatus::APPLICATION_REVIEW->name, $toAssess],
             'Under assessment' => [PoolCandidateStatus::UNDER_ASSESSMENT->name, $toAssess],
             'Screened in' => [PoolCandidateStatus::SCREENED_IN->name, $toAssess],
 
-            // Qualfied - Placed
+            // Qualified - Placed
             'Placed casual' => [PoolCandidateStatus::PLACED_CASUAL->name, $qualifiedPlaced],
             'Placed indeterminate' => [PoolCandidateStatus::PLACED_INDETERMINATE->name, $qualifiedPlaced],
             'Placed term' => [PoolCandidateStatus::PLACED_TERM->name, $qualifiedPlaced],
@@ -156,8 +156,8 @@ class CandidateFinalDecisionTest extends TestCase
             'Screened out application' => [PoolCandidateStatus::SCREENED_OUT_APPLICATION->name, $disqualified],
 
             // Qualified - Removed
-            'Qualfied unavailable' => [PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name, $qualifiedRemoved],
-            'Qualfied withdrew' => [PoolCandidateStatus::QUALIFIED_WITHDREW->name, $qualifiedRemoved],
+            'Qualified unavailable' => [PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name, $qualifiedRemoved],
+            'Qualified withdrew' => [PoolCandidateStatus::QUALIFIED_WITHDREW->name, $qualifiedRemoved],
 
             // To assess - Removed
             'Screened out not interested' => [PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name, $toAssesRemoved],
