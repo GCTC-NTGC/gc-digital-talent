@@ -1414,7 +1414,7 @@ input CreateClassificationInput {
     @rules(apply: ["numeric", "min:0"])
   maxSalary: Int
     @rename(attribute: "max_salary")
-    @rules(apply: ["numeric", "min:0", "gt:minSalary"])
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input ClassificationBelongsToMany {
@@ -1439,7 +1439,7 @@ input UpdateClassificationInput {
     @rules(apply: ["numeric", "min:0"])
   maxSalary: Int
     @rename(attribute: "max_salary")
-    @rules(apply: ["numeric", "min:0", "gt:minSalary"])
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input UpdatePoolCandidateStatusInput {
