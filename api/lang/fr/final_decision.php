@@ -15,4 +15,5 @@ return [
 
     'to_assess' => 'À évaluer',
     'to_assess_removed' => 'Retiré : À évaluer',
+    'to_assess_step' => 'À évaluer : Étape ',
 ];
