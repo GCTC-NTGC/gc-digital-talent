@@ -215,6 +215,10 @@
     "defaultMessage": "Fournissez vos renseignements",
     "description": "How it works, step 2 heading"
   },
+  "/61ANw": {
+    "defaultMessage": "Les candidatures pour les possibilités de recrutement peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
+    "description": "Description for the track applications section on the profile and applications, paragraph one."
+  },
   "/81xCT": {
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
@@ -9285,10 +9289,6 @@
   "ifVyI/": {
     "defaultMessage": "Modifiez les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
-  },
-  "igTx2a": {
-    "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
-    "description": "Description for the track applications section on the profile and applications, paragraph one."
   },
   "iiEGjW": {
     "defaultMessage": "Nous avons bien reçu votre message.",
