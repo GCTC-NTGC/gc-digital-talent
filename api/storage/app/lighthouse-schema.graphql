@@ -346,6 +346,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1220,6 +1221,12 @@ input PoolTeamDisplayNameOrderByInput {
 input PoolBookmarksOrderByInput {
   column: String!
   order: SortOrder!
+}
+
+input OrderByColumnInput {
+  column: String!
+  order: SortOrder!
+  nulls: NullsOption
 }
 
 input ApplicantFilterInput {
@@ -3149,6 +3156,11 @@ enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
   JOB_ALERT
+}
+
+enum NullsOption {
+  ORDER_FIRST
+  ORDER_LAST
 }
 
 enum OperationalRequirement {

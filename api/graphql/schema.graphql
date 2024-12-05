@@ -872,6 +872,12 @@ input PoolBookmarksOrderByInput {
   order: SortOrder!
 }
 
+input OrderByColumnInput {
+  column: String!
+  order: SortOrder!
+  nulls: NullsOption
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -1020,6 +1026,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
         relations: [
