@@ -211,7 +211,9 @@ class PoolBuilder extends Builder
         $nulls = $args['nulls'] ?? null;
 
         // verify if column name is valid
-        $selectableColumns = $this->model->getSelectableColumns();
+        /** @var \App\Models\Pool */
+        $model = $this->model;
+        $selectableColumns = $model->getSelectableColumns();
         if (! in_array($column, $selectableColumns)) {
             throw new \Exception('Invalid column');
         }
