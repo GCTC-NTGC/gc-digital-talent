@@ -1253,8 +1253,7 @@ input CreateUserInput {
 """
 When updating a User, all fields are optional
 """
-input UpdateUserAsAdminInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
@@ -1334,8 +1333,7 @@ input UpdateUserRolesInput {
   roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
-input UpdateUserAsUserInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsUserInput @validator {
   id: ID
   # Personal info
   email: Email @lowerCase
