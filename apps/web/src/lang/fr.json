@@ -1863,10 +1863,6 @@
     "defaultMessage": "Comment les données d’autodéclaration sont-elles utilisées?",
     "description": "Title for how self-declaration data is used section"
   },
-  "7nxtBm": {
-    "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
-    "description": "Subtitle for the admin dashboard page"
-  },
   "7oq1Qa": {
     "defaultMessage": "Décision finale",
     "description": "Title displayed on the Pool Candidates table final decision column"

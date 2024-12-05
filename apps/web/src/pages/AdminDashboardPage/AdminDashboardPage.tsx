@@ -48,8 +48,8 @@ import { orderRoles } from "../Communities/CommunityMembersPage/helpers";
 
 const subTitle = defineMessage({
   defaultMessage:
-    "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
-  id: "7nxtBm",
+    "This is the administrator hub of GC Digital Talent. Here you can recruit and manage talent, find resources, and adjust platform settings.",
+  id: "0Wx0kW",
   description: "Subtitle for the admin dashboard page",
 });
 
