@@ -121,50 +121,60 @@ test.describe("Pool candidates", () => {
       .click();
 
     // personal information
-    await expect(appPage.page.getByText(/Given namePlaywright/i)).toBeVisible();
-    await expect(
-      appPage.page
-        .getByLabel("Personal and contact")
-        .getByText(/playwright.sub./),
-    ).toBeVisible();
+    const personal = appPage.page.getByRole("region", {
+      name: /personal and contact/i,
+    });
+    await expect(personal).toContainText(/given namePlaywright/i);
+    await expect(personal).toContainText(/playwright.sub./);
 
     // education experience
+    const educationExperience = appPage.page.getByRole("region", {
+      name: /minimum experience or equivalent/i,
+    });
     await expect(
-      appPage.page.getByText(/Applied work experience/i),
+      educationExperience.getByText(/Applied work experience/i),
     ).toBeVisible();
     await expect(
-      appPage.page
-        .getByLabel("Minimum experience or")
-        .getByText(/Test Experience/i),
+      educationExperience.getByText(/Test Experience/i),
     ).toBeVisible();
 
     // essential skills
+    const essentialSkills = appPage.page.getByRole("region", {
+      name: /essential skills/i,
+    });
     await expect(
-      appPage.page.getByRole("heading", {
+      essentialSkills.getByRole("heading", {
         name: technicalSkill?.name.en ?? "",
         exact: true,
       }),
     ).toBeVisible();
     await expect(
-      appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
+      essentialSkills.getByText(`Test skill ${technicalSkill?.name?.en}`),
     ).toBeVisible();
 
     // work preferences
+    const workPreferences = appPage.page.getByRole("region", {
+      name: /work preferences/i,
+    });
     await expect(
-      appPage.page.getByText(/Indeterminate \(permanent only\)/i),
+      workPreferences.getByText(/Indeterminate \(permanent only\)/i),
     ).toBeVisible();
-    await expect(
-      appPage.page.getByLabel("Work preferences").getByText(/Test city/i),
-    ).toBeVisible();
+    await expect(workPreferences.getByText(/Test city/i)).toBeVisible();
 
     // government employee
+    const govEmployee = appPage.page.getByRole("region", {
+      name: /government employee information/i,
+    });
     await expect(
-      appPage.page.getByText(/Yes, I do have a priority/i),
+      govEmployee.getByText(/Yes, I do have a priority/i),
     ).toBeVisible();
-    await expect(appPage.page.getByText("Priority number123")).toBeVisible();
+    await expect(govEmployee.getByText("Priority number123")).toBeVisible();
 
     // signature
-    await expect(appPage.page.getByText(/Playwright signature/i)).toBeVisible();
+    const signature = appPage.page.getByRole("region", {
+      name: /signature/i,
+    });
+    await expect(signature.getByText(/Playwright signature/i)).toBeVisible();
 
     // assert experience appears three times, twice in snapshot and once in career timeline
     await expect(appPage.page.getByText(/Test experience/i)).toHaveCount(3);
@@ -267,7 +277,9 @@ test.describe("Pool candidates", () => {
       appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
     ).toBeVisible();
     await appPage.page.getByText("Not demonstrated (Hold for").click();
-    await appPage.page.getByLabel("Decision notes *").fill("Reason");
+    await appPage.page
+      .getByRole("textbox", { name: "decision notes" })
+      .fill("Reason");
     await appPage.page.getByRole("button", { name: "Save decision" }).click();
     await expect(
       appPage.page.getByRole("button", {
