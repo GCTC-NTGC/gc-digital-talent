@@ -515,6 +515,10 @@
     "defaultMessage": "Candidats du bassin",
     "description": "Title for pool candidates"
   },
+  "0Wx0kW": {
+    "defaultMessage": "Il s’agit du carrefour de l’administrateur de Talents numériques du GC. À partir d’ici, il est possible de recruter et gérer des talents, trouver des ressources et ajuster les paramètres de la plateforme.",
+    "description": "Subtitle for the admin dashboard page"
+  },
   "0YZeO0": {
     "defaultMessage": "Embauché(e) (occasionnel)",
     "description": "Status for an application that has been hired with a casual contract"
@@ -5498,6 +5502,10 @@
   "QNmxIN": {
     "defaultMessage": "Identifiant de processus copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
+  },
+  "QOf3kT": {
+    "defaultMessage": "Voici votre tableau de bord de la collectivité. Vous pouvez y recruter et gérer des talents, et trouver des ressources.",
+    "description": "Subtitle for the community dashboard page"
   },
   "QQXvOh": {
     "defaultMessage": "Notre engagement à l’égard de l’accessibilité",
