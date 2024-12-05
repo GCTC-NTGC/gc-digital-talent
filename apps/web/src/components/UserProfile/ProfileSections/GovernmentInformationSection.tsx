@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Chip, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocale,
@@ -19,6 +19,8 @@ interface GovernmentInformationSectionProps {
     | "currentClassification"
     | "hasPriorityEntitlement"
     | "priorityNumber"
+    | "workEmail"
+    | "isWorkEmailVerified"
   >;
 }
 
@@ -34,6 +36,8 @@ const GovernmentInformationSection = ({
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
+    workEmail,
+    isWorkEmailVerified
   } = user;
 
   return (
@@ -113,96 +117,144 @@ const GovernmentInformationSection = ({
               </p>
             </div>
           )}
-        </div>
-      )}
-      {isGovEmployee === false && (
-        <div data-h2-flex-grid="base(flex-start, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "You are not entered as a current government employee.",
-                id: "9pdtnR",
-                description:
-                  "Message indicating the user is not marked in the system as being federally employed currently",
-              })}
-            </p>
-          </div>
-        </div>
-      )}
-      {isGovEmployee === false && (
-        <div data-h2-flex-grid="base(flex-start, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "I am not a current government employee.",
-                id: "eLXTfi",
-                description:
-                  "Message indicating the user is not marked in the system as being federally employed currently",
-              })}
-            </p>
-          </div>
-        </div>
-      )}
-      {hasPriorityEntitlement !== null && (
-        <div
-          data-h2-flex-grid="base(flex-start, x2, x1)"
-          data-h2-padding="base(x1, 0, 0, 0)"
-        >
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              <span data-h2-display="base(block)">
-                {intl.formatMessage({
-                  defaultMessage: "Priority entitlement",
-                  id: "Wd/+eR",
-                  description:
-                    "Label for applicant's priority entitlement status",
-                })}
-              </span>
-              <span data-h2-font-weight="base(700)">
-                {hasPriorityEntitlement
-                  ? intl.formatMessage({
-                      defaultMessage: "I do have a priority entitlement",
-                      id: "+tKl71",
-                      description: "affirm possession of priority entitlement",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "I do not have a priority entitlement",
-                      id: "x0FRH/",
-                      description: "affirm no entitlement",
-                    })}
-              </span>
-            </p>
-          </div>
-          {hasPriorityEntitlement && (
+          {workEmail && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
                   {intl.formatMessage({
-                    defaultMessage: "Priority number",
-                    id: "mGGj/i",
-                    description: "Label for applicant's priority number value",
+                    defaultMessage: "Work email",
+                    id: "tj9Dz3",
+                    description: "Work email label",
                   })}
+
                 </span>
-                <span data-h2-font-weight="base(700)">
-                  {priorityNumber
-                    ? priorityNumber
-                    : intl.formatMessage(commonMessages.notProvided)}
+                <span data-h2-font-weight="base(700)"
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(row)"
+                  data-h2-gap="base(x0.5)"
+                  data-h2-align-items="base(end)"
+                >
+                  <span>{workEmail}</span>
+                  {isWorkEmailVerified ? (
+                    <Chip color="success">
+                      {intl.formatMessage({
+                        defaultMessage: "Verified",
+                        id: "GMglI5",
+                        description: "The email address has been verified to be owned by user",
+                      })}
+                    </Chip>
+                  ) : (
+                    <Chip color="error">
+                      {intl.formatMessage({
+                        defaultMessage: "Unverified",
+                        id: "tUIvbq",
+                        description:
+                          "The email address has not been verified to be owned by user",
+                      })}
+                    </Chip>
+                  )}
                 </span>
               </p>
             </div>
           )}
         </div>
       )}
-
-      {isGovEmployee === null && hasPriorityEntitlement === null && (
-        <div data-h2-flex-grid="base(flex-start, x2, x1)">
-          <div data-h2-flex-item="base(1of1)">
-            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
+      {
+        isGovEmployee === false && (
+          <div data-h2-flex-grid="base(flex-start, x2, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "You are not entered as a current government employee.",
+                  id: "9pdtnR",
+                  description:
+                    "Message indicating the user is not marked in the system as being federally employed currently",
+                })}
+              </p>
+            </div>
           </div>
-        </div>
-      )}
-    </Well>
+        )
+      }
+      {
+        isGovEmployee === false && (
+          <div data-h2-flex-grid="base(flex-start, x2, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "I am not a current government employee.",
+                  id: "eLXTfi",
+                  description:
+                    "Message indicating the user is not marked in the system as being federally employed currently",
+                })}
+              </p>
+            </div>
+          </div>
+        )
+      }
+      {
+        hasPriorityEntitlement !== null && (
+          <div
+            data-h2-flex-grid="base(flex-start, x2, x1)"
+            data-h2-padding="base(x1, 0, 0, 0)"
+          >
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Priority entitlement",
+                    id: "Wd/+eR",
+                    description:
+                      "Label for applicant's priority entitlement status",
+                  })}
+                </span>
+                <span data-h2-font-weight="base(700)">
+                  {hasPriorityEntitlement
+                    ? intl.formatMessage({
+                      defaultMessage: "I do have a priority entitlement",
+                      id: "+tKl71",
+                      description: "affirm possession of priority entitlement",
+                    })
+                    : intl.formatMessage({
+                      defaultMessage: "I do not have a priority entitlement",
+                      id: "x0FRH/",
+                      description: "affirm no entitlement",
+                    })}
+                </span>
+              </p>
+            </div>
+            {hasPriorityEntitlement && (
+              <div data-h2-flex-item="base(1of1)">
+                <p>
+                  <span data-h2-display="base(block)">
+                    {intl.formatMessage({
+                      defaultMessage: "Priority number",
+                      id: "mGGj/i",
+                      description: "Label for applicant's priority number value",
+                    })}
+                  </span>
+                  <span data-h2-font-weight="base(700)">
+                    {priorityNumber
+                      ? priorityNumber
+                      : intl.formatMessage(commonMessages.notProvided)}
+                  </span>
+                </p>
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      {
+        isGovEmployee === null && hasPriorityEntitlement === null && (
+          <div data-h2-flex-grid="base(flex-start, x2, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
+            </div>
+          </div>
+        )
+      }
+    </Well >
   );
 };
 
