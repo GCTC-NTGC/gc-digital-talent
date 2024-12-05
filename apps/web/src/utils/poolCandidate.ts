@@ -16,7 +16,6 @@ import {
   Maybe,
   PoolCandidate,
   PoolCandidateStatus,
-  PublishingGroup,
   OverallAssessmentStatus,
   AssessmentResultStatus,
   ClaimVerificationResult,
@@ -39,7 +38,6 @@ import {
   SCREENED_OUT_STATUSES,
 } from "~/constants/poolCandidate";
 
-import { isOngoingPublishingGroup } from "./poolUtils";
 import { NullableDecision } from "./assessmentResults";
 
 export const isDisqualifiedStatus = (
@@ -86,14 +84,6 @@ export const isSuspendedStatus = (
 
   return !!(isSuspended && status === PoolCandidateStatus.QualifiedAvailable);
 };
-
-export const getRecruitmentType = (
-  publishingGroup: Maybe<PublishingGroup> | undefined,
-  intl: IntlShape,
-) =>
-  isOngoingPublishingGroup(publishingGroup)
-    ? intl.formatMessage(poolCandidateMessages.ongoingRecruitment)
-    : intl.formatMessage(poolCandidateMessages.targetedRecruitment);
 
 export const isDraft = (
   status: Maybe<PoolCandidateStatus> | undefined,

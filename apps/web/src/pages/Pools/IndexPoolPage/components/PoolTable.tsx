@@ -58,6 +58,7 @@ import {
   poolBookmarkHeader,
   poolBookmarkCell,
   getPoolBookmarkSort,
+  getOrderByColumnSort,
 } from "./helpers";
 import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
@@ -128,6 +129,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
     $where: PoolFilterInput
     $orderByPoolBookmarks: PoolBookmarksOrderByInput
     $orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    $orderByColumn: OrderByColumnInput
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
     $first: Int
     $page: Int
@@ -143,6 +145,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
       where: $where
       orderByPoolBookmarks: $orderByPoolBookmarks
       orderByTeamDisplayName: $orderByTeamDisplayName
+      orderByColumn: $orderByColumn
       orderBy: $orderBy
       first: $first
       page: $page
@@ -254,6 +257,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       first: paginationState.pageSize,
       orderByPoolBookmarks: getPoolBookmarkSort(),
       orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
+      orderByColumn: getOrderByColumnSort(sortState),
       orderBy: sortState ? getOrderByClause(sortState) : undefined,
     },
   });

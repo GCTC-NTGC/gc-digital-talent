@@ -88,6 +88,7 @@ export const Component = () => {
                 size="h2"
                 color="primary"
                 data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Investing in the future of IT talent",
@@ -117,6 +118,7 @@ export const Component = () => {
                 size="h2"
                 color="tertiary"
                 data-h2-margin="base(0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -249,6 +251,7 @@ export const Component = () => {
                 size="h2"
                 color="quaternary"
                 data-h2-margin="base(0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Three types of learning opportunities",

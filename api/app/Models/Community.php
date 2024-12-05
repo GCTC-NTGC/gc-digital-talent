@@ -78,6 +78,12 @@ class Community extends Model
         return $this->hasMany(Pool::class);
     }
 
+    /** @return HasMany<WorkStream, $this> */
+    public function workStreams(): HasMany
+    {
+        return $this->hasMany(WorkStream::class);
+    }
+
     /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
