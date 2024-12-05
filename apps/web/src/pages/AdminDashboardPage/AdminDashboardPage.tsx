@@ -368,7 +368,7 @@ const AdminDashboard_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const DashboardPageApi = () => {
+export const AdminDashboardPageApi = () => {
   const [{ data, fetching, error }] = useQuery({
     query: AdminDashboard_Query,
   });
@@ -382,10 +382,8 @@ export const DashboardPageApi = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <DashboardPageApi />
+    <AdminDashboardPageApi />
   </RequireAuth>
 );
 
 Component.displayName = "AdminDashboardPage";
-
-export default DashboardPageApi;
