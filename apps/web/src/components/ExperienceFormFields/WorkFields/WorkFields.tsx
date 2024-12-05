@@ -142,12 +142,10 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
-            <div data-h2-flex-item="base(1of1)">
-              <EmploymentCategoryFields
-                employmentCategory={watchEmploymentCategory}
-                labels={labels}
-              />
-            </div>
+            <EmploymentCategoryFields
+              employmentCategory={watchEmploymentCategory}
+              labels={labels}
+            />
           </div>
         </div>
       )}

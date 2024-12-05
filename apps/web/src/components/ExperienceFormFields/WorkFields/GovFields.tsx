@@ -233,7 +233,9 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   return (
     <>
       {fetching ? (
-        <Loading inline />
+        <div data-h2-flex-item="base(1of1)">
+          <Loading inline />
+        </div>
       ) : (
         <>
           <div data-h2-flex-item="base(1of1)">
