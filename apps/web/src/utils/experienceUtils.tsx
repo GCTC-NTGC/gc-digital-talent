@@ -652,7 +652,7 @@ const getWorkExperienceDefaultValues = (
     extRoleSeniority: extRoleSeniority?.value,
     department: department?.id,
     classificationGroup: classification?.group,
-    classificationLevel: classification?.level,
+    classificationLevel: classification?.id,
     govEmploymentType: govEmploymentType?.value,
     govPositionType: govPositionType?.value,
     govContractorRoleSeniority: govContractorRoleSeniority?.value,
