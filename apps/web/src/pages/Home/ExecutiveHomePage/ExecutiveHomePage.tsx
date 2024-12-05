@@ -237,8 +237,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Check out the most recent manager recruitment processes for specific opportunities or apply to ongoing recruitment in any of the IT generic work streams. Check back often for new opportunities.",
-                  id: "gURsqG",
+                    "Check out our job opportunities to find a manager position that inspires you. Apply to play a key role in one of the IT teams at the Government of Canada and make a meaningful impact.",
+                  id: "LQbKTy",
                   description:
                     "Summary for the feature about finding manager jobs",
                 })}

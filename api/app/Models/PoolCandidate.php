@@ -407,7 +407,6 @@ class PoolCandidate extends Model
     public static function scopeInTalentSearchablePublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
-            PublishingGroup::IT_JOBS_ONGOING->name,
             PublishingGroup::IT_JOBS->name,
             PublishingGroup::OTHER->name,
         ]);
