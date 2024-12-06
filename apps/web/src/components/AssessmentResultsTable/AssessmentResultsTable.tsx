@@ -118,13 +118,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      workStream {
-        id
-        name {
-          en
-          fr
-        }
-      }
       name {
         en
         fr
