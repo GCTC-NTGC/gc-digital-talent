@@ -427,7 +427,7 @@ export const UserInformation = ({
   ];
 
   return (
-    <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+    <TableOfContents.Wrapper>
       <TableOfContents.Navigation>
         <TableOfContents.List>
           {items.map((item) => (

@@ -8,6 +8,7 @@ import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import TrainingOpportunitiesTable from "./components/TrainingOpportunitiesTable";
 
@@ -32,12 +33,9 @@ export const IndexTrainingOpportunitiesPage = () => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
-      <div
-        data-h2-margin="base(x3 0)"
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      >
+      <AdminContentWrapper table>
         <TrainingOpportunitiesTable title={formattedPageTitle} />
-      </div>
+      </AdminContentWrapper>
     </>
   );
 };

@@ -203,7 +203,12 @@ export const ViewPool = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <div data-h2-wrapper="base(left, large, 0)">
-        <Heading level="h2" Icon={UserGroupIcon} color="primary">
+        <Heading
+          level="h2"
+          Icon={UserGroupIcon}
+          color="primary"
+          data-h2-margin-top="base(0)"
+        >
           {pageTitle}
         </Heading>
         <p data-h2-margin="base(x1 0)">

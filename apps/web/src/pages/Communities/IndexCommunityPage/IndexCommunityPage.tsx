@@ -8,6 +8,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import CommunityTableApi from "./components/CommunityTable/CommunityTable";
 
@@ -29,11 +30,9 @@ const IndexCommunityPage = () => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
-          <CommunityTableApi title={formattedPageTitle} />
-        </div>
-      </div>
+      <AdminContentWrapper table>
+        <CommunityTableApi title={formattedPageTitle} />
+      </AdminContentWrapper>
     </>
   );
 };

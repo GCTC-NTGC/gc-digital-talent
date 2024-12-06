@@ -23,7 +23,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 

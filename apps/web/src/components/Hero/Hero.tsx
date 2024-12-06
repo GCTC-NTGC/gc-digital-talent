@@ -30,7 +30,7 @@ const paddingMap = {
 
 interface NavTab {
   url: string;
-  label: string;
+  label: ReactNode;
 }
 
 interface HeroSharedProps {
@@ -41,6 +41,8 @@ interface HeroSharedProps {
   buttonLinks?: ButtonLinkType[];
   children?: ReactNode;
   centered?: boolean;
+  status?: ReactNode;
+  additionalContent?: ReactNode;
 }
 
 type HeroWithNavTabsProps = HeroSharedProps & {
@@ -63,6 +65,8 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
     buttonLinks,
     children,
     centered = false,
+    status,
+    additionalContent,
   } = props;
   // conditional props
   const navTabs = "navTabs" in props ? props.navTabs : null;
@@ -217,6 +221,24 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
             </div>
           ) : null}
         </div>
+        <div
+          data-h2-position="base(absolute)"
+          data-h2-top="base(x1) p-tablet(x1.5)"
+          data-h2-right="base(x1) p-tablet(x5)"
+        >
+          {status}
+        </div>
+        {additionalContent ? (
+          <>
+            <div
+              data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
+              data-h2-position="base(relative)"
+              data-h2-z-index="base(3)"
+            >
+              {additionalContent}
+            </div>
+          </>
+        ) : null}
       </div>
       {children ? (
         <>
