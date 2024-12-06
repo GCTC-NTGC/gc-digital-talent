@@ -213,7 +213,7 @@ export interface ExperienceFormProps {
   edit?: boolean;
   experienceQuery?: FragmentType<typeof ExperienceFormExperience_Fragment>;
   experienceId?: string;
-  experienceType: ExperienceType;
+  experienceType?: ExperienceType;
   skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
   userId: string;
 }
@@ -237,7 +237,7 @@ export const ExperienceForm = ({
   const skills = getFragment(ExperienceFormSkill_Fragment, skillsQuery);
 
   const defaultValues =
-    experienceId && experience
+    experienceId && experience && experienceType
       ? queryResultToDefaultValues(experienceType, experience)
       : { experienceType };
 
@@ -675,7 +675,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           edit={edit}
           experienceQuery={experience}
           experienceId={experienceId}
-          experienceType={experienceType ?? "personal"}
+          experienceType={experienceType}
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
         />
