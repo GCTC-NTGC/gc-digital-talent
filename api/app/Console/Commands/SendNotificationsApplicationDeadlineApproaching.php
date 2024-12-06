@@ -41,10 +41,10 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
         $this->info('Running for closing date '.$closingDayInPacific->toDateString().' (Pacific)');
         $startOfClosingDayInUtc = $closingDayInPacific->copy()->startOfDay()->setTimezone('Etc/UTC')->toDateTimeString();
         $endOfClosingDayInUtc = $closingDayInPacific->copy()->endOfDay()->setTimezone('Etc/UTC')->toDateTimeString();
-
         $this->info("Finding pools closing between $startOfClosingDayInUtc and $endOfClosingDayInUtc (UTC)");
 
-        $poolsClosingOnClosingDay = Pool::wasPublished()
+        $poolsClosingOnClosingDay = Pool::query()
+            ->wherePublished()
             ->where('closing_date', '>=', $startOfClosingDayInUtc)
             ->where('closing_date', '<=', $endOfClosingDayInUtc)
             ->with('classification')
@@ -52,6 +52,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
 
         $this->info('Found '.$poolsClosingOnClosingDay->count().' pools.');
 
+        /** @var \App\Models\Pool $pool */
         foreach ($poolsClosingOnClosingDay as $pool) {
             $this->info('Searching pool '.$pool->id.' ('.$pool->name['en'].')');
 
@@ -62,6 +63,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
 
             $this->info('Found '.$draftApplications->count().' applications.');
 
+            /** @var \App\Models\PoolCandidate $poolCandidate */
             foreach ($draftApplications as $poolCandidate) {
                 $notification = new ApplicationDeadlineApproaching(
                     $closingDayInPacific,

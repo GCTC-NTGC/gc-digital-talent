@@ -21,13 +21,13 @@ const getLocationOption = (isRemote: Maybe<boolean> | undefined) => {
   return LocationOption.SpecificLocation;
 };
 
-export type FormValues = {
+export interface FormValues {
   languageRequirement?: PoolLanguage;
   securityRequirement?: SecurityStatus;
   locationOption: LocationOption;
   specificLocationEn?: LocalizedString["en"];
   specificLocationFr?: LocalizedString["fr"];
-};
+}
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
   languageRequirement: initialData.language?.value,

@@ -14,16 +14,18 @@ import { Maybe, Department } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
+import { FormValues } from "./types";
+
 const TEXT_AREA_ROWS = 4;
 const TEXT_AREA_MAX_WORDS = 200;
 
 interface CreateTeamFormFieldsProps {
-  departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
+  departments?: Maybe<Maybe<Omit<Department, "teams">>[]>;
 }
 
 const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
   const intl = useIntl();
-  const { setValue, getValues } = useFormContext();
+  const { setValue, getValues } = useFormContext<FormValues>();
 
   const departmentOptions =
     departments?.filter(notEmpty).map((department) => ({

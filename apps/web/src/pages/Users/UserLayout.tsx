@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
@@ -15,8 +15,8 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { PageNavInfo } from "~/types/pages";
-import AdminHero from "~/components/Hero/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import Hero from "~/components/Hero";
 
 type PageNavKeys = "profile" | "info" | "edit";
 
@@ -85,16 +85,13 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <AdminHero
+      <Hero
         title={currentPage?.title}
         subtitle={userName}
-        nav={{
-          mode: "subNav",
-          items: Array.from(pages.values()).map((page) => ({
-            label: page.link.label ?? page.title,
-            url: page.link.url,
-          })),
-        }}
+        navTabs={Array.from(pages.values()).map((page) => ({
+          label: page.link.label ?? page.title,
+          url: page.link.url,
+        }))}
       />
       {userDeleted ? (
         <Alert.Root
@@ -115,9 +112,9 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: string;
-};
+}
 
 const UserName_Query = graphql(/* GraphQL */ `
   query UserName($userId: UUID!) {
@@ -155,6 +152,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <UserLayout />

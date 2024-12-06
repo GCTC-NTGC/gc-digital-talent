@@ -11,6 +11,11 @@ import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
 
+interface ExperienceSkillValues {
+  experienceType?: ExperienceType;
+  skills: FormSkills;
+}
+
 type AccordionStates = "learn-more" | "";
 interface ExperienceSkillsProps {
   skills: Skill[];
@@ -22,7 +27,7 @@ const ExperienceSkills = ({
   experienceType,
 }: ExperienceSkillsProps) => {
   const intl = useIntl();
-  const { control, watch } = useFormContext();
+  const { control, watch } = useFormContext<ExperienceSkillValues>();
   const type = watch("experienceType");
   const derivedType = type ?? experienceType;
   const watchedSkills: FormSkills = watch("skills");
@@ -33,6 +38,8 @@ const ExperienceSkills = ({
 
   const [accordionState, setAccordionState] = useState<AccordionStates>("");
 
+  // Note: Needed for function colouring
+  // eslint-disable-next-line @typescript-eslint/require-await
   const handleAddSkill = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
     const skill = skills.find(({ id }) => id === skillId);

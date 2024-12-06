@@ -8,26 +8,29 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   UpdateUserSubInput,
   UpdateUserSubMutation,
-  User,
+  UserAuthInfo,
 } from "@gc-digital-talent/graphql";
 
-type FormValues = {
+interface FormValues {
   sub: string;
-};
+}
 
 interface UpdateUserSubFormProps {
-  user: User;
+  authInfo: UserAuthInfo | undefined | null;
   onUpdateSub: (
     submitData: UpdateUserSubInput,
   ) => Promise<UpdateUserSubMutation["updateUserSub"]>;
 }
 
-const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
+const UpdateUserSubForm = ({
+  authInfo,
+  onUpdateSub,
+}: UpdateUserSubFormProps) => {
   const intl = useIntl();
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      sub: user?.authInfo?.sub ?? undefined,
+      sub: authInfo?.sub ?? undefined,
     },
   });
 
@@ -35,7 +38,7 @@ const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
 
   const handleUpdateSub = async (formValues: FormValues) => {
     return onUpdateSub({
-      userId: user.id,
+      userId: authInfo?.id ?? "",
       sub: formValues.sub,
     }).then(() => {
       toast.success(

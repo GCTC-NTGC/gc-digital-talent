@@ -19,7 +19,7 @@ import { ExecutiveHomePageQuery, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import HomeHero from "~/components/Hero/HomeHero";
+import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -237,8 +237,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Check out the most recent manager recruitment processes for specific opportunities or apply to ongoing recruitment in any of the IT generic work streams. Check back often for new opportunities.",
-                  id: "gURsqG",
+                    "Check out our job opportunities to find a manager position that inspires you. Apply to play a key role in one of the IT teams at the Government of Canada and make a meaningful impact.",
+                  id: "LQbKTy",
                   description:
                     "Summary for the feature about finding manager jobs",
                 })}
@@ -300,8 +300,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
         >
           {intl.formatMessage({
             defaultMessage:
-              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job now or just thinking about the future, a strong profile is your path to new opportunities.",
-            id: "naE1xF",
+              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",
+            id: "JEKihk",
             description:
               "Description of how application profiles works for managers/executives.",
           })}

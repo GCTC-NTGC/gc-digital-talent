@@ -39,10 +39,10 @@ import {
 import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
 
-export type PersonnelRequirementFieldsetProps = {
+export interface PersonnelRequirementFieldsetProps {
   fieldsetName: string;
-  skills: Array<Skill>;
-};
+  skills: Skill[];
+}
 
 const PersonnelRequirementFieldset = ({
   fieldsetName,
@@ -59,9 +59,9 @@ const PersonnelRequirementFieldset = ({
       `${fieldsetName}.skillRequirements`,
       `${fieldsetName}.language`,
       `${fieldsetName}.security`,
-    ]);
+    ]) as [unknown, unknown, unknown];
 
-  const selectedSkillRequirements: Array<SkillRequirementFormValues> =
+  const selectedSkillRequirements: SkillRequirementFormValues[] =
     Array.isArray(selectedSkillRequirementsUntyped) &&
     selectedSkillRequirementsUntyped.every((e) =>
       isSkillRequirementFormValues(e),
@@ -102,7 +102,7 @@ const PersonnelRequirementFieldset = ({
       ]);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const handleSkillDialogEdit = (
@@ -117,7 +117,7 @@ const PersonnelRequirementFieldset = ({
       setValue(`${fieldsetName}.skillRequirements.${index}`, newEntry);
       return Promise.resolve();
     }
-    return Promise.reject();
+    return Promise.reject(new Error());
   };
 
   const removeSkill = (skillId: string) => {

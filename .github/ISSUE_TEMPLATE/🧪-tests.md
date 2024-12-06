@@ -8,28 +8,31 @@ assignees: ""
 
 ## 🧪 Tests
 
-Describe the additions/changes you would like to see to the tests.
+<!-- Describe the additions/changes you would like to see to the tests. -->
 
 ## 🕵️ Details
 
-Add any additional details that could assist with the changes/additions being made.
+<!-- Add any additional details that could assist with the changes/additions being made. -->
 
 ## 🙋‍♀️ Proposed Solution
 
-(optional) Do you have a proposed solution?
+<!-- (optional) Do you have a proposed solution? -->
 
 ## ✅ Acceptance Criteria
 
+<!--
 A set of assumptions which, when tested, verify that the debt tests were properly updated and remains functional/passing.
+ -->
 
+<!--
 - [ ] Criteria 1
 - [ ] Criteria 2
+ -->
 
 ## 🛑 Blockers
 
-Issues which must be completed before this one.
+<!-- Issues which must be completed before this one. -->
 
 ```[tasklist]
 ### Blocked By
-- [ ] ticket number
 ```

@@ -10,15 +10,18 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
-import { SubExperienceFormProps } from "~/types/experience";
+import {
+  SubExperienceFormProps,
+  CommunityFormValues,
+} from "~/types/experience";
 
 const CommunityFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
   // to toggle whether endDate is required, the state of the current-role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "currentRole" });
+  const isCurrent = useWatch<CommunityFormValues>({ name: "currentRole" });
   // ensuring endDate isn't before startDate, using this as a minimum value
-  const startDate = useWatch({ name: "startDate" });
+  const startDate = useWatch<CommunityFormValues>({ name: "startDate" });
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
@@ -87,17 +90,16 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
               name="endDate"
               show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={
-                isCurrent
+                isCurrent && startDate
                   ? {}
                   : {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
-                        value: startDate,
-                        message: intl.formatMessage(
-                          errorMessages.mustBeGreater,
-                          {
+                        value: String(startDate),
+                        message: String(
+                          intl.formatMessage(errorMessages.mustBeGreater, {
                             value: startDate,
-                          },
+                          }),
                         ),
                       },
                     }

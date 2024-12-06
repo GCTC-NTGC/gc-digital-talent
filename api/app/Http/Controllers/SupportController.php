@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+use function Safe\parse_url;
+
 class SupportController extends Controller
 {
+    private static $MAX_URL_LENGTH = 255;
+
     public function createTicket(Request $request)
     {
         if (! config('freshdesk.api.tickets_endpoint') || ! config('freshdesk.api.key')) {
@@ -35,7 +39,18 @@ class SupportController extends Controller
             'type' => array_key_exists($request->input('subject'), $type_map) ? $type_map[$request->input('subject')] : null,
         ];
         if ($request->input('previous_url')) {
-            $parameters['custom_fields']['cf_page_url'] = (string) $request->input('previous_url');
+            $url = parse_url((string) $request->input('previous_url'));
+            $path = $url['path'] ?? '/';
+            if (isset($url['query'])) {
+                $path .= '?'.$url['query'];
+            }
+            if (strlen($path) > self::$MAX_URL_LENGTH) {
+                $path = substr($path, 0, self::$MAX_URL_LENGTH);
+            }
+            $parameters['custom_fields']['cf_page_url'] = $path;
+        }
+        if ($request->input('user_agent')) {
+            $parameters['custom_fields']['cf_user_agent'] = (string) $request->input('user_agent');
         }
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
@@ -69,7 +84,7 @@ class SupportController extends Controller
         }
 
         // we don't recognize an error so send a generic 500
-        Log::error('Error when trying to create a ticket: '.$response->getBody(true));
+        Log::error('Error when trying to create a ticket: '.$response->getBody());
 
         return response([
             'serviceResponse' => 'error',

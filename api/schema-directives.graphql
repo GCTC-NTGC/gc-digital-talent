@@ -277,7 +277,10 @@ directive @complexity(
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\ConvertEmptyStringsToNullDirective
 """
-Replaces `""` with `null`.
+Replaces incoming empty strings `""` with `null`.
+
+When used upon fields, empty strings for non-nullable inputs will pass unchanged.
+Only explicitly placing this on non-nullable inputs will force the conversion.
 """
 directive @convertEmptyStringsToNull on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
 
@@ -383,12 +386,12 @@ Marks an element of a GraphQL schema as no longer supported.
 """
 directive @deprecated(
   """
-  Explains why this element was deprecated, usually also including a
-  suggestion for how to access supported similar data. Formatted
-  in [Markdown](https://daringfireball.net/projects/markdown).
+  Explains why this element was deprecated.
+  It is also beneficial to suggest what to use instead.
+  Formatted in Markdown, as specified by [CommonMark](https://commonmark.org).
   """
   reason: String = "No longer supported"
-) on FIELD_DEFINITION | ENUM_VALUE
+) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | ENUM_VALUE
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\DropArgsDirective
 """
@@ -635,6 +638,23 @@ enum HasManyThroughType {
 Corresponds to [the Eloquent relationship HasOne](https://laravel.com/docs/eloquent-relationships#one-to-one).
 """
 directive @hasOne(
+  """
+  Specify the relationship method name in the model class,
+  if it is named different from the field in the schema.
+  """
+  relation: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\HasOneThroughDirective
+"""
+Corresponds to [the Eloquent relationship HasOneThrough](https://laravel.com/docs/eloquent-relationships#has-one-through).
+"""
+directive @hasOneThrough(
   """
   Specify the relationship method name in the model class,
   if it is named different from the field in the schema.

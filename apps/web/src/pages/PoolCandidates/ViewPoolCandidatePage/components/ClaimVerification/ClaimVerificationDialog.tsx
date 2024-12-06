@@ -18,10 +18,10 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import profileMessages from "~/messages/profileMessages";
 
-type FormValues = {
+interface FormValues {
   result: ClaimVerificationResult;
   expiry?: Scalars["DateTime"]["input"];
-};
+}
 
 const UpdateClaimVerification_Mutation = graphql(/* GraphQL */ `
   mutation UpdatePriorityVerification(
@@ -103,8 +103,8 @@ const ClaimVerificationDialog = ({
         if (res.data?.updatePoolCandidateClaimVerification?.id) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Successfully update claim verification",
-              id: "uIzewF",
+              defaultMessage: "Successfully updated claim verification",
+              id: "pFkIhb",
               description:
                 "Success message when updating a candidates claim verification",
             }),

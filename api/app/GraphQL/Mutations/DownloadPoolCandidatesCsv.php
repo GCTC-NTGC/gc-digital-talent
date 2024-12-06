@@ -4,9 +4,8 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\PoolCandidateCsvGenerator;
 use App\Jobs\GenerateUserFile;
-use App\Models\PoolCandidate;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -15,6 +14,8 @@ final class DownloadPoolCandidatesCsv
     /**
      * Dispatches the generation of a
      * csv containing pool candidates
+     *
+     * @disregard P1003 We are not going to be using this var
      */
     public function __invoke($_, array $args)
     {
@@ -22,35 +23,30 @@ final class DownloadPoolCandidatesCsv
         $user = Auth::user();
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
-        $locale = $args['locale'] ?? 'en';
+        $ids = $args['ids'] ?? null;
+        $filters = $args['where'] ?? null;
+        $withROD = $args['withROD'] ?? false;
 
         try {
-            // Make sure this user can see candidates before sending
-            // them to the generation job
-            $ids = PoolCandidate::whereIn('id', $args['ids'])
-                ->authorizedToView()
-                ->get('id')
-                ->pluck('id') // Seems weird but we are just flattening it out
-                ->toArray();
-
-            $fileName = sprintf('%s_%s.csv', Lang::get('filename.candidates', [], $locale), date('Y-m-d_His'));
-
             $generator = new PoolCandidateCsvGenerator(
-                ids: $ids,
-                fileName: $fileName,
+                fileName: sprintf('%s_%s', __($withROD ? 'filename.candidates_rod' : 'filename.candidates'), date('Y-m-d_His')),
                 dir: $user->id,
-                lang: strtolower($locale),
+                lang: App::getLocale(),
+                withROD: $withROD,
             );
+
+            $generator
+                ->setUserId($user->id)
+                ->setIds($ids)
+                ->setFilters($filters);
 
             GenerateUserFile::dispatch($generator, $user);
 
             return true;
         } catch (\Exception $e) {
-            Log::error('Error starting candidate csv generation '.$e->getMessage());
+            Log::error('Error starting candidate csv generation '.$e);
 
             return false;
         }
-
-        return false;
     }
 }

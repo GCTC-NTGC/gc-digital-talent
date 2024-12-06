@@ -17,8 +17,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $assessment_step_id
  * @property array $question
  * @property int $sort_order
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class ScreeningQuestion extends Model
 {
@@ -29,8 +29,6 @@ class ScreeningQuestion extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'question' => 'array',
@@ -38,8 +36,6 @@ class ScreeningQuestion extends Model
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'question',
@@ -54,16 +50,19 @@ class ScreeningQuestion extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
     }
 
+    /** @return BelongsTo<AssessmentStep, $this> */
     public function assessmentStep(): BelongsTo
     {
         return $this->belongsTo(AssessmentStep::class);
     }
 
+    /** @return HasMany<ScreeningQuestionResponse, $this> */
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);

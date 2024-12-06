@@ -1,4 +1,4 @@
-export type BoardColumn = {
+export interface BoardColumn {
   element: HTMLDivElement;
   items: HTMLLIElement[];
-};
+}

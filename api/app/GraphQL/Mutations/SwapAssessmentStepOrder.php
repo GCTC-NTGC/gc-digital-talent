@@ -8,10 +8,6 @@ use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class SwapAssessmentStepOrder
 {
-    /**
-     * @param  null  $_
-     * @param  array{}  $args
-     */
     public function __invoke($_, array $args)
     {
         $stepA = AssessmentStep::find($args['stepIdA']);
@@ -19,12 +15,12 @@ final class SwapAssessmentStepOrder
 
         // Ensure the steps belong to the same pool
         if ($stepA->pool_id !== $stepB->pool_id) {
-            throw ValidationException::withMessages(['AssessmentStepsSamePool']);
+            throw ValidationException::withMessages(['stepIdA' => 'AssessmentStepsSamePool']);
         }
 
         // Don't swap the reserved first two spots
         if ($stepA->sort_order < 3 || $stepB->sort_order < 3) {
-            throw ValidationException::withMessages(['AssessmentStepCannotSwap']);
+            throw ValidationException::withMessages(['stepIdA' => 'AssessmentStepCannotSwap']);
         }
 
         DB::beginTransaction();

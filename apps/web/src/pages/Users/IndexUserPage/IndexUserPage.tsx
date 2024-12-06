@@ -5,10 +5,10 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
-import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 import UserTable from "./components/UserTable";
 
@@ -33,18 +33,17 @@ export const IndexUserPage = () => {
         url: routes.userTable(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedSubTitle} />
-      <AdminHero
+      <Hero
         title={formattedPageTitle}
         subtitle={formattedSubTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
+        crumbs={navigationCrumbs}
       />
-      <AdminContentWrapper>
+      <AdminContentWrapper table>
         <UserTable title={formattedPageTitle} />
       </AdminContentWrapper>
     </>
@@ -56,6 +55,9 @@ export const Component = () => (
     roles={[
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

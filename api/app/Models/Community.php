@@ -12,11 +12,12 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * Class Community
  *
  * @property string $id
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  * @property string $key
  * @property array $name
  * @property array $description
+ * @property array $mandate_authority
  */
 class Community extends Model
 {
@@ -27,41 +28,63 @@ class Community extends Model
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
+        'mandate_authority' => 'array',
     ];
 
     protected $fillable = [
         'name',
         'description',
+        'mandate_authority',
     ];
 
     public $guarded = [];
 
     /**
-     * Search requests
+     * Boot function for using with Community
+     *
+     * @return void
      */
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function (Community $community) {
+            $community->team()->firstOrCreate([], [
+                'name' => 'community-'.$community->id,
+            ]);
+        });
+    }
+
+    /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
-    /**
-     * ApplicationFilters
-     */
+    /** @return HasMany<ApplicantFilter, $this> */
     public function applicantFilters(): HasMany
     {
         return $this->hasMany(ApplicantFilter::class);
     }
 
+    /** @return MorphOne<Team, $this> */
     public function team(): MorphOne
     {
         return $this->morphOne(Team::class, 'teamable');
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }
 
+    /** @return HasMany<WorkStream, $this> */
+    public function workStreams(): HasMany
+    {
+        return $this->hasMany(WorkStream::class);
+    }
+
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs

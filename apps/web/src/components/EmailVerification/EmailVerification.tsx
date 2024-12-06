@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -8,51 +8,54 @@ import { Button, Heading } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { graphql } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
-  mutation SendUserEmailVerification($id: ID!) {
-    sendUserEmailVerification(id: $id) {
+  mutation SendUserEmailVerification($emailType: EmailType) {
+    sendUserEmailVerification(emailType: $emailType) {
       id
-      isEmailVerified
     }
   }
 `);
 
 const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
-  mutation VerifyUserEmail($id: ID!, $code: String!) {
-    verifyUserEmail(id: $id, code: $code) {
+  mutation VerifyUserEmail($emailType: EmailType, $code: String!) {
+    verifyUserEmail(emailType: $emailType, code: $code) {
       id
-      isEmailVerified
     }
   }
 `);
 
 const getTitle = (
   emailType: NonNullable<EmailVerificationProps["emailType"]>,
+  intl: IntlShape,
 ) => {
   switch (emailType) {
-    // presumably we'll have more than one type eventually
-    case "contact":
+    case EmailType.Work:
+      return intl.formatMessage({
+        defaultMessage: "Verify your work email",
+        id: "T7irec",
+        description: "Verify your work email text",
+      });
+    case EmailType.Contact:
     default:
-      return {
+      return intl.formatMessage({
         defaultMessage: "Verify your contact email",
-        id: "TguSOt",
-        description: "Heading for email verification form",
-      };
+        id: "LpCMiC",
+        description: "Verify your contact email text",
+      });
   }
 };
 
 const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
 
-type FormValues = {
+interface FormValues {
   verificationCode: string;
-};
+}
 
 export interface EmailVerificationProps {
-  emailType?: "contact";
+  emailType?: EmailType;
   // The email address that the code was sent to.  Displayed to the user.
   emailAddress?: string | null;
   // Event if verification is successful.
@@ -61,15 +64,14 @@ export interface EmailVerificationProps {
   onSkip?: () => void;
 }
 
-const EmailVerification = ({
-  emailType = "contact",
+export const EmailVerification = ({
+  emailType = EmailType.Contact,
   emailAddress,
   onVerificationSuccess,
   onSkip,
 }: EmailVerificationProps) => {
   const intl = useIntl();
   const logger = useLogger();
-  const { userAuthInfo } = useAuthorization();
   const [, executeSendEmailMutation] = useMutation(
     SendUserEmailVerification_Mutation,
   );
@@ -92,9 +94,9 @@ const EmailVerification = ({
     return () => clearTimeout(timerId);
   }, [canRequestACode]);
 
-  const requestACode = async () => {
+  const requestACode = () => {
     executeSendEmailMutation({
-      id: userAuthInfo?.id,
+      emailType,
     })
       .then((result) => {
         if (!result.data?.sendUserEmailVerification?.id) {
@@ -108,9 +110,9 @@ const EmailVerification = ({
       });
   };
 
-  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
     executeVerifyUserEmailMutation({
-      id: userAuthInfo?.id,
+      emailType,
       code: data.verificationCode,
     })
       .then((result) => {
@@ -181,7 +183,7 @@ const EmailVerification = ({
         color="primary"
         data-h2-text-align="base(center) p-tablet(left)"
       >
-        {intl.formatMessage(getTitle(emailType))}
+        {getTitle(emailType, intl)}
       </Heading>
       <p>
         {emailAddress
@@ -271,4 +273,33 @@ const EmailVerification = ({
   );
 };
 
-export default EmailVerification;
+const EmailVerificationApi = ({
+  emailType,
+  ...rest
+}: EmailVerificationProps) => {
+  const intl = useIntl();
+  const logger = useLogger();
+  const [, executeSendEmailMutation] = useMutation(
+    SendUserEmailVerification_Mutation,
+  );
+
+  useEffect(() => {
+    // Send initial verification email on page load
+    executeSendEmailMutation({
+      emailType,
+    })
+      .then((result) => {
+        if (!result.data?.sendUserEmailVerification?.id) {
+          throw new Error("Send email error");
+        }
+        logger.debug("Initial code was sent");
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.error));
+      });
+  }, [emailType, executeSendEmailMutation, intl, logger]);
+
+  return <EmailVerification emailType={emailType} {...rest} />;
+};
+
+export default EmailVerificationApi;

@@ -16,13 +16,13 @@ use Illuminate\Support\Facades\Lang;
  * @property string $institution
  * @property string $area_of_study
  * @property string $thesis_title
- * @property Illuminate\Support\Carbon $start_date
- * @property Illuminate\Support\Carbon $end_date
+ * @property ?\Illuminate\Support\Carbon $start_date
+ * @property ?\Illuminate\Support\Carbon $end_date
  * @property string $type
  * @property string $status
  * @property string $details
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class EducationExperience extends Experience
 {
@@ -38,11 +38,19 @@ class EducationExperience extends Experience
 
     /**
      * Default values for attributes
-     *
-     * @var array an array with attribute as key and default as value
      */
     protected $attributes = [
         'experience_type' => EducationExperience::class,
+    ];
+
+    protected static $hydrationFields = [
+        'institution' => 'institution',
+        'area_of_study' => 'areaOfStudy',
+        'thesis_title' => 'thesisTitle',
+        'type' => 'type',
+        'status' => 'status',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
     ];
 
     public function getTitle(?string $lang = 'en'): string

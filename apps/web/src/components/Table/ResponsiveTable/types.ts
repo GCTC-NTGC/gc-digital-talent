@@ -9,29 +9,25 @@ import {
   AriaAttributes,
   HTMLAttributes,
   HTMLProps,
-  ReactElement,
   ReactNode,
   JSX,
-  MouseEventHandler,
 } from "react";
 
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 
-export type SearchState = {
+export interface SearchState {
   /** The current search term */
   term?: string;
   /** The column to search by */
   type?: string;
-};
+}
 
-export type SearchColumn = {
+export interface SearchColumn {
   label: string;
   value: string;
-};
+}
 
-export type SelectingFor = "print" | "download" | null;
-
-export type RowSelectDef<T> = {
+export interface RowSelectDef<T> {
   /** Label for the "select all" checkbox in the header */
   allLabel?: string;
   /** Render method for the table cell (`td`) */
@@ -40,7 +36,7 @@ export type RowSelectDef<T> = {
   onRowSelection?: (rows: string[]) => void;
   /** Determine the ID of the row selected (if index is not sufficient) */
   getRowId: (row: T) => string;
-};
+}
 
 export interface SearchFormProps<TData extends RowData> {
   /** Instance of the table */
@@ -73,62 +69,52 @@ export type SearchDef<T> = {
   onChange?: (newState: SearchState) => void;
 } & Omit<SearchDefFormProps<T>, "onChange">;
 
-export type SortDef = {
+export interface SortDef {
   /** Allows the table to manage search */
   internal: boolean;
   initialState?: SortingState;
   /** Callback when sorting rule changes */
   onSortChange?: (sortState: SortingState) => void;
-};
+}
 
-export type FilterDef<TFilterState = object> = {
+export interface FilterDef<TFilterState = object> {
   initialState?: TFilterState;
   state?: TFilterState;
   component: ReactNode;
-};
+}
 
-type AddLinkProps = {
+interface AddLinkProps {
   label: ReactNode;
   href: string;
   from?: string;
-};
+}
 
-export type AddDef = {
+export interface AddDef {
   linkProps?: AddLinkProps;
   component?: ReactNode;
-};
+}
 
-/** Extract props we need for the download button used in `RowSelection.Actions` */
 type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
 
-/** Props for a CSV download button */
-export type DatasetDownloadItem = {
-  /** The props required for CSV Download */
-  csv: Csv;
-  /** The label to display in the button */
-  label?: ReactNode;
-};
+interface DownloadButton {
+  enable?: boolean;
+  downloading?: boolean;
+  component?: ReactNode;
+  onClick?: () => void;
+}
 
-/** Controls the download buttons in `RowSelection.Actions` */
-export type DatasetDownload = {
-  /** Props for the download button when items are selected */
-  selection?: DatasetDownloadItem;
-  /** Props for the download button for all items */
-  all?: DatasetDownloadItem;
-  /** Show loading icon when download data is being fetched */
-  fetching?: boolean;
-  /** Disabled the button for download */
-  disableBtn?: boolean;
-};
+export interface DownloadDef {
+  csv?: DownloadButton;
+  doc?: DownloadButton;
+  all?:
+    | DownloadButton
+    | {
+        csv: Csv;
+        label?: ReactNode;
+      };
+}
 
-/** Controls the print button in `RowSelection.Actions` */
-export type DatasetPrint = {
-  onPrint?: MouseEventHandler;
-  label?: ReactNode;
-  component?: ReactElement;
-};
-
-export type PaginationDef = {
+export interface PaginationDef {
   /** Allows the table to manage search */
   internal: boolean;
   /** Callback for when the pagination changes */
@@ -141,11 +127,11 @@ export type PaginationDef = {
   total?: number;
   /** Available page sizes */
   pageSizes?: number[];
-};
+}
 
-export type InitialState = {
+export interface InitialState {
   hiddenColumnIds: string[];
   paginationState: PaginationState;
   searchState: SearchState;
   sortState: SortingState;
-};
+}

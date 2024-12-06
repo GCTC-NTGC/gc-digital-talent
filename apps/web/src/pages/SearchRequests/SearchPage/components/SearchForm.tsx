@@ -1,25 +1,29 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useQuery } from "urql";
 import { ReactNode, useState, useEffect } from "react";
 
-import { Button, Heading, Pending, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Loading,
+  Pending,
+  Separator,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 import {
   graphql,
   Classification,
   ApplicantFilterInput,
   Skill,
-  getFragment,
-  SearchForm_PoolFragment as SearchFormPoolFragmentType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 
-import { getAvailableClassifications, formValuesToData } from "../utils";
+import { formValuesToData } from "../utils";
 import { useCandidateCount, useInitialFilters } from "../hooks";
 import FormFields from "./FormFields";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -38,20 +42,15 @@ const styledCount = (chunks: ReactNode) => (
 );
 
 interface SearchFormProps {
-  pools: SearchFormPoolFragmentType[];
   classifications: Pick<Classification, "group" | "level" | "id">[];
   skills: Skill[];
 }
 
-export const SearchForm = ({
-  pools,
-  classifications,
-  skills,
-}: SearchFormProps) => {
+export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { defaultValues, initialFilters } = useInitialFilters(pools);
+  const { defaultValues, initialFilters } = useInitialFilters();
 
   const [applicantFilter, setApplicantFilter] =
     useState<ApplicantFilterInput>(initialFilters);
@@ -71,20 +70,18 @@ export const SearchForm = ({
     const subscription = watch((newValues) => {
       const newFilters = formValuesToData(
         newValues as FormValues,
-        pools,
         classifications,
       );
       setApplicantFilter(newFilters);
     });
 
     return () => subscription.unsubscribe();
-  }, [classifications, pools, watch]);
+  }, [classifications, watch]);
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = async (values: FormValues) => {
     const poolIds = values.pool ? [{ id: values.pool }] : [];
-    const selectedPool = pools.find((pool) => pool.id === values.pool);
 
-    navigate(paths.request(), {
+    await navigate(paths.request(), {
       state: {
         applicantFilter: {
           ...applicantFilter,
@@ -92,9 +89,8 @@ export const SearchForm = ({
         },
         allPools: values.allPools,
         candidateCount: values.count,
-        selectedClassifications: selectedPool?.classification
-          ? [selectedPool.classification]
-          : applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+        selectedClassifications:
+          applicantFilter?.qualifiedClassifications?.filter(notEmpty),
       },
     });
   };
@@ -159,10 +155,14 @@ export const SearchForm = ({
             </div>
           </div>
           <Separator />
-          <Heading level="h3" size="h4" id="results">
-            {intl.formatMessage(
-              {
-                defaultMessage: `Results:
+          {fetching ? (
+            <Loading inline />
+          ) : (
+            <>
+              <Heading level="h3" size="h4" id="results">
+                {intl.formatMessage(
+                  {
+                    defaultMessage: `Results:
                     { totalCandidateCount, plural,
                       =0 {<testId><b>{totalCandidateCount}</b></testId> matching candidates}
                       =1 {<testId><b>{totalCandidateCount}</b></testId> matching candidate}
@@ -172,65 +172,66 @@ export const SearchForm = ({
                       =0 {<b>{numPools}</b> pools}
                       =1 {<b>{numPools}</b> pool}
                       other {<b>{numPools}</b> pools} }`,
-                id: "j2qiFb",
-                description:
-                  "Heading for total matching candidates across a certain number of pools in results section of search page.",
-              },
-              {
-                testId,
-                b: styledCount,
-                totalCandidateCount: candidateCount,
-                numPools: results?.length ?? 0,
-              },
-            )}
-          </Heading>
-          <SearchFilterAdvice filters={applicantFilter} />
-
-          {results?.length && candidateCount > 0 ? (
-            <>
-              <p data-h2-margin="base(x1, 0)">
-                <Button
-                  color="primary"
-                  type="submit"
-                  {...poolSubmitProps}
-                  value=""
-                  onClick={handleSubmitAllPools}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Request candidates from all pools",
-                    id: "DxNuJ9",
+                    id: "j2qiFb",
                     description:
-                      "Button text to submit search request for candidates across all pools",
-                  })}
-                </Button>
-              </p>
-              <p
-                data-h2-font-size="base(h4)"
-                data-h2-margin="base(x1.5, 0, x.25, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Or request candidates by pool",
-                  id: "l1f8zy",
-                  description:
-                    "Lead-in text to list of pools managers can request candidates from",
-                })}
-                {intl.formatMessage(commonMessages.dividingColon)}
-              </p>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-              >
-                {results.map(({ pool, candidateCount: resultsCount }) => (
-                  <SearchResultCard
-                    key={pool.id}
-                    candidateCount={resultsCount}
-                    pool={pool}
-                  />
-                ))}
-              </div>
+                      "Heading for total matching candidates across a certain number of pools in results section of search page.",
+                  },
+                  {
+                    testId,
+                    b: styledCount,
+                    totalCandidateCount: candidateCount,
+                    numPools: results?.length ?? 0,
+                  },
+                )}
+              </Heading>
+              <SearchFilterAdvice filters={applicantFilter} />
+              {results?.length && candidateCount > 0 ? (
+                <>
+                  <p data-h2-margin="base(x1, 0)">
+                    <Button
+                      color="primary"
+                      type="submit"
+                      {...poolSubmitProps}
+                      value=""
+                      onClick={handleSubmitAllPools}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Request candidates from all pools",
+                        id: "DxNuJ9",
+                        description:
+                          "Button text to submit search request for candidates across all pools",
+                      })}
+                    </Button>
+                  </p>
+                  <p
+                    data-h2-font-size="base(h4)"
+                    data-h2-margin="base(x1.5, 0, x.25, 0)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Or request candidates by pool",
+                      id: "l1f8zy",
+                      description:
+                        "Lead-in text to list of pools managers can request candidates from",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                  </p>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(column)"
+                  >
+                    {results.map(({ pool, candidateCount: resultsCount }) => (
+                      <SearchResultCard
+                        key={pool.id}
+                        candidateCount={resultsCount}
+                        pool={pool}
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <NoResults />
+              )}
             </>
-          ) : (
-            <NoResults />
           )}
         </form>
       </FormProvider>
@@ -238,22 +239,12 @@ export const SearchForm = ({
   );
 };
 
-const SearchForm_PoolFragment = graphql(/* GraphQL */ `
-  fragment SearchForm_Pool on Pool {
-    ...SearchResultCard_Pool
-    id
-    classification {
+const SearchForm_Query = graphql(/* GraphQL */ `
+  query SearchForm {
+    classifications(availableInSearch: true) {
       id
       group
       level
-    }
-  }
-`);
-
-const SearchForm_Query = graphql(/* GraphQL */ `
-  query SearchForm {
-    publishedPools {
-      ...SearchForm_Pool
     }
     skills {
       id
@@ -293,20 +284,11 @@ const SearchFormAPI = () => {
   const [{ data, fetching, error }] = useQuery({ query: SearchForm_Query });
 
   const skills = unpackMaybes<Skill>(data?.skills);
-  const fragmentPublishedPools = unpackMaybes(data?.publishedPools);
-  const publishedPools = getFragment(
-    SearchForm_PoolFragment,
-    fragmentPublishedPools,
-  );
-  const classifications = getAvailableClassifications(publishedPools);
+  const classifications = unpackMaybes(data?.classifications);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SearchForm
-        skills={skills}
-        pools={publishedPools}
-        classifications={classifications}
-      />
+      <SearchForm skills={skills} classifications={classifications} />
     </Pending>
   );
 };

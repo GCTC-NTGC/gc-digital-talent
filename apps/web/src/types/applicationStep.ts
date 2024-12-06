@@ -3,24 +3,23 @@ import { IntlShape } from "react-intl";
 import {
   ApplicationStep,
   Pool,
-  PoolCandidate,
   Scalars,
-  User,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
 
-type GetApplicationStepInfoArgs = {
-  application: Omit<PoolCandidate, "pool">;
+interface GetApplicationStepInfoArgs {
+  application: ApplicationPoolCandidateFragmentType;
   paths: ReturnType<typeof useRoutes>;
   resourceId?: Scalars["ID"]["output"];
   intl: IntlShape;
   stepOrdinal?: number;
-};
+}
 
-export type ApplicationStepInfo = {
+export interface ApplicationStepInfo {
   // the enum in the API that represents this step
   applicationStep?: ApplicationStep;
   // a page to introduce the step
@@ -28,18 +27,18 @@ export type ApplicationStepInfo = {
   // the main page for the step
   mainPage: PageNavInfo;
   // other pages that are part of the step
-  auxiliaryPages?: Array<PageNavInfo>;
+  auxiliaryPages?: PageNavInfo[];
   // should this step show in stepper navigation
   showInStepper: boolean;
   // Which application steps should be submitted before you can use this page?
-  prerequisites: Array<ApplicationStep>;
+  prerequisites: ApplicationStep[];
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
-    user: User,
+    user: ApplicationPoolCandidateFragmentType["user"],
     pool: Pool,
-    application: Omit<PoolCandidate, "pool">,
+    application: ApplicationPoolCandidateFragmentType,
   ) => boolean;
-};
+}
 
 export type GetApplicationStepInfo = (
   args: GetApplicationStepInfoArgs,

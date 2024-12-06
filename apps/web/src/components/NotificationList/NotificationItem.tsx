@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -29,10 +29,10 @@ import NotificationDownload from "./NotificationDownload";
 import NotificationLink from "./NotificationLink";
 import NotificationButton from "./NotificationButton";
 
-type LinkWrapperProps = {
+interface LinkWrapperProps {
   inDialog?: boolean;
   children: ReactNode;
-};
+}
 
 const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -105,6 +105,7 @@ const NotificationItem = ({
     NotificationItem_Fragment,
     notificationQuery,
   );
+  const itemRef = useRef<HTMLLIElement>(null);
   const info = useNotificationInfo(notification);
   const isUnread = notification.readAt === null;
 
@@ -118,15 +119,28 @@ const NotificationItem = ({
     if (focusRef) focusRef.current?.focus();
   }, [focusRef]);
 
+  // Store the next list item on mount
+  // Then, attempt to focus it on unmount
+  useEffect(() => {
+    const nextListItem = itemRef.current?.nextElementSibling;
+    return () => {
+      nextListItem
+        ?.querySelector<
+          HTMLAnchorElement | HTMLButtonElement
+        >("[data-notification-link]")
+        ?.focus();
+    };
+  }, []);
+
   if (!info) return null;
 
   const isTogglingReadStatus = markingAsRead || markingAsUnread;
 
-  const toggleReadStatus = () => {
+  const toggleReadStatus = async () => {
     const mutation = isUnread
       ? executeMarkAsReadMutation
       : executeMarkAsUnreadMutation;
-    mutation({ id: notification.id });
+    await mutation({ id: notification.id });
   };
 
   const createdAt = notification.createdAt
@@ -145,7 +159,7 @@ const NotificationItem = ({
   };
 
   return (
-    <li>
+    <li ref={itemRef}>
       <CardBasic
         data-h2-display="base(flex)"
         {...(inDialog

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { OperationContext, useQuery } from "urql";
 import isString from "lodash/isString";
 
@@ -29,10 +29,10 @@ import {
 } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminHero from "~/components/Hero/AdminHero";
 import { PageNavInfo } from "~/types/pages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import Hero from "~/components/Hero";
 
 export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
@@ -153,27 +153,21 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} description={subTitle} />
-      <AdminHero
+      <Hero
         title={heroTitleValue}
         subtitle={heroSubtitleValue}
-        nav={
-          // Pages with crumbs are sub-pages and don't show up as tabs
-          currentPage?.crumbs
-            ? {
-                mode: "crumbs",
-                items: currentPage.crumbs,
-              }
-            : {
-                mode: "subNav",
-                items: Array.from(pages.values())
-                  .filter((page) => !page.crumbs)
-                  .map((page) => ({
-                    label: page.link.label ?? page.title,
-                    url: page.link.url,
-                  })),
-              }
+        crumbs={currentPage?.crumbs ?? undefined}
+        navTabs={
+          !currentPage?.crumbs
+            ? Array.from(pages.values())
+                .filter((page) => !page.crumbs)
+                .map((page) => ({
+                  label: page.link.label ?? page.title,
+                  url: page.link.url,
+                }))
+            : undefined
         }
-        contentRight={
+        status={
           (currentPage?.link.url.includes("edit") ||
             currentPage?.link.url.includes("plan")) &&
           badge.label && (
@@ -201,9 +195,9 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: string;
-};
+}
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
@@ -232,6 +226,9 @@ export const Component = () => (
       ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <PoolLayout />

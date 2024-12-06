@@ -33,6 +33,35 @@ const messages = defineMessages({
     id: "+2PPS3",
     description: "Title for priority status",
   },
+  contractDuration: {
+    defaultMessage: "Employment duration preference",
+    id: "TfEUPu",
+    description:
+      "Legend Text for required work preferences options in work preferences form",
+  },
+  anyDuration: {
+    defaultMessage: "Any duration (short term, long term, indeterminate)",
+    id: "ohQoWa",
+    description:
+      "Label displayed on Work Preferences form for any duration option",
+  },
+  permanentDuration: {
+    defaultMessage: "Indeterminate (permanent only)",
+    id: "aB5p3B",
+    description:
+      "Label displayed on Work Preferences form for indeterminate duration option.",
+  },
+  acceptableRequirements: {
+    defaultMessage: "Acceptable job requirements",
+    id: "6UgbrG",
+    description:
+      "Legend for optional work preferences check list in work preferences form",
+  },
+  currentLocation: {
+    defaultMessage: "Current location",
+    id: "v9A5Cb",
+    description: "Legend for users current location",
+  },
 });
 
 export default messages;

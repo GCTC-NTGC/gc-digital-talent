@@ -38,16 +38,16 @@ import {
 
 import { FormValues } from "./types";
 
-export type CandidateAssessmentResult = {
+export interface CandidateAssessmentResult {
   poolCandidate: AssessmentStepTracker_CandidateFragment;
   decision: NullableDecision;
-};
+}
 
-type DecisionInfo = {
+interface DecisionInfo {
   colorStyle: Record<string, string>;
   icon: IconType;
   name: string;
-};
+}
 
 export const getDecisionInfo = (
   decision: Maybe<NullableDecision> | undefined,
@@ -130,16 +130,16 @@ const compareLastNames = (
   resultA: CandidateAssessmentResult,
   resultB: CandidateAssessmentResult,
 ) => {
-  const user1Name: string = resultA.poolCandidate?.user.lastName || "";
-  const user2Name: string = resultB.poolCandidate?.user.lastName || "";
+  const user1Name: string = resultA.poolCandidate?.user.lastName ?? "";
+  const user2Name: string = resultB.poolCandidate?.user.lastName ?? "";
   return user1Name.localeCompare(user2Name);
 };
 const compareFirstNames = (
   resultA: CandidateAssessmentResult,
   resultB: CandidateAssessmentResult,
 ) => {
-  const user1Name: string = resultA.poolCandidate?.user.firstName || "";
-  const user2Name: string = resultB.poolCandidate?.user.firstName || "";
+  const user1Name: string = resultA.poolCandidate?.user.firstName ?? "";
+  const user2Name: string = resultB.poolCandidate?.user.firstName ?? "";
   return user1Name.localeCompare(user2Name);
 };
 
@@ -191,14 +191,15 @@ const filterCandidatesByDecision = (
 // define the type for an assessment step nested in the fragment
 const stepTrackerFragmentSteps: AssessmentStepTrackerPoolType["assessmentSteps"] =
   [];
-const unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
-type StepTrackerFragmentStepType = (typeof unpackedSteps)[number];
+// eslint-disable-next-line no-underscore-dangle
+const _unpackedSteps = unpackMaybes(stepTrackerFragmentSteps);
+type StepTrackerFragmentStepType = (typeof _unpackedSteps)[number];
 
-type StepWithGroupedCandidates = {
+interface StepWithGroupedCandidates {
   step: StepTrackerFragmentStepType;
   resultCounts?: ResultDecisionCounts;
   results: CandidateAssessmentResult[];
-};
+}
 
 export const groupPoolCandidatesByStep = (
   steps: AssessmentStepTrackerPoolType["assessmentSteps"],
@@ -259,13 +260,13 @@ export const groupPoolCandidatesByStep = (
   return stepsWithGroupedCandidates;
 };
 
-export type ResultFilters = {
+export interface ResultFilters {
   query: string;
   [NO_DECISION]: boolean;
   [AssessmentDecision.Successful]: boolean;
   [AssessmentDecision.Hold]: boolean;
   [AssessmentDecision.Unsuccessful]: boolean;
-};
+}
 
 export const defaultFilters: ResultFilters = {
   query: "",

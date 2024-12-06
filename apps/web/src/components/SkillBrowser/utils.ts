@@ -26,10 +26,10 @@ interface SkillBrowserDialogMessages {
   selected: (skillName: string) => ReactNode;
 }
 
-type GetSkillBrowserDialogMessagesArgs = {
+interface GetSkillBrowserDialogMessagesArgs {
   context?: SkillBrowserDialogContext;
   intl: IntlShape;
-};
+}
 
 type GetSkillBrowserDialogMessages = (
   args: GetSkillBrowserDialogMessagesArgs,
@@ -230,9 +230,9 @@ export const showDetails = (
   return context ? detailContexts.includes(context) : false;
 };
 
-type GetFilteredFamiliesArgs = {
+interface GetFilteredFamiliesArgs {
   skills: Skill[];
-};
+}
 
 type GetFilteredFamilies = (args: GetFilteredFamiliesArgs) => SkillFamily[];
 
@@ -242,12 +242,12 @@ export const getFilteredFamilies: GetFilteredFamilies = ({ skills }) => {
   return invertedTree;
 };
 
-type GetFilteredSkillsArgs = {
+interface GetFilteredSkillsArgs {
   skills: Skill[];
-  family: SkillFamily | "all" | "library" | "";
+  family?: string;
   category?: SkillCategory | "all" | "";
   inLibrary?: Skill[];
-};
+}
 
 type GetFilteredSkills = (args: GetFilteredSkillsArgs) => Skill[];
 

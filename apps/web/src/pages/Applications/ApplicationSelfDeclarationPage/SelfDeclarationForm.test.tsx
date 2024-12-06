@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, waitFor, within } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
@@ -14,9 +14,7 @@ import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const mockApplication = fakePoolCandidates(
   1,
@@ -42,7 +40,7 @@ describe("SelfDeclarationForm", () => {
     await axeTest(container);
   });
 
-  it("should not display communities if not Indigenous", async () => {
+  it("should not display communities if not Indigenous", () => {
     renderSelfDeclarationForm();
 
     fireEvent.click(screen.getByRole("radio", { name: /i am not a member/i }));
@@ -88,30 +86,6 @@ describe("SelfDeclarationForm", () => {
     expect(
       await screen.findByRole("checkbox", {
         name: /i don't see my community/i,
-      }),
-    ).toBeInTheDocument();
-  });
-
-  it("should display alert if community selected with other", async () => {
-    renderSelfDeclarationForm();
-
-    fireEvent.click(screen.getByRole("radio", { name: /i affirm that/i }));
-
-    fireEvent.click(
-      await screen.findByRole("checkbox", {
-        name: /i am inuk/i,
-      }),
-    );
-
-    fireEvent.click(
-      await screen.findByRole("checkbox", {
-        name: /i don't see my community/i,
-      }),
-    );
-
-    expect(
-      await within(await screen.findByRole("alert")).findByRole("heading", {
-        name: /are you sure/i,
       }),
     ).toBeInTheDocument();
   });

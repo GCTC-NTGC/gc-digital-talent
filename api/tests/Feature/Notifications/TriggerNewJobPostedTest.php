@@ -3,6 +3,7 @@
 namespace Tests\Feature\Notifications;
 
 use App\Enums\NotificationFamily;
+use App\Enums\PublishingGroup;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -10,6 +11,7 @@ use App\Notifications\NewJobPosted;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -64,6 +66,8 @@ class TriggerNewJobPostedTest extends TestCase
         ];
         $pool->save();
 
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
         Notification::assertNothingSent();
     }
 
@@ -74,13 +78,35 @@ class TriggerNewJobPostedTest extends TestCase
             ->for($this->adminUser)
             ->draft()
             ->create([
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'published_at' => null,
             ]);
 
         $pool->published_at = Carbon::now();
         $pool->save();
 
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
         Notification::assertSentTimes(NewJobPosted::class, 2);
+    }
+
+    // no notification when the pool is published with the "other" group
+    public function testNothingSentForOtherGroup(): void
+    {
+        $pool = Pool::factory()
+            ->for($this->adminUser)
+            ->draft()
+            ->create([
+                'publishing_group' => PublishingGroup::OTHER->name,
+                'published_at' => null,
+            ]);
+
+        $pool->published_at = Carbon::now();
+        $pool->save();
+
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
+        Notification::assertNothingSent();
     }
 
     // no notification when pool is closed or archived
@@ -97,6 +123,8 @@ class TriggerNewJobPostedTest extends TestCase
         $pool->archived_at = Carbon::now();
         $pool->save();
 
+        $this->travel(1)->minutes();
+        Artisan::call('send-notifications:pool-published');
         Notification::assertNothingSent();
     }
 }

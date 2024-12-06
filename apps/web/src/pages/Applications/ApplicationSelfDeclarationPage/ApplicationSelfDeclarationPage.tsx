@@ -222,8 +222,8 @@ export const ApplicationSelfDeclaration = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
-                    id: "7i+qEB",
+                      "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these job opportunities.",
+                    id: "9LR5wC",
                     description:
                       "Disclaimer before signing Indigenous self-declaration form",
                   })}
@@ -374,7 +374,7 @@ export const Component = () => {
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
-      navigate(paths.browsePools());
+      await navigate(paths.browsePools());
       return;
     }
     const newCommunities = formValuesToApiCommunities(formValues);
@@ -391,7 +391,7 @@ export const Component = () => {
         insertSubmittedStep: ApplicationStep.SelfDeclaration,
       },
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.error) throw new Error("Update user and application failed");
 
         toast.success(
@@ -402,7 +402,9 @@ export const Component = () => {
               "Message displayed to users when saving self-declaration is successful.",
           }),
         );
-        navigate(formValues.action === "continue" ? nextStep : cancelPath);
+        await navigate(
+          formValues.action === "continue" ? nextStep : cancelPath,
+        );
       })
       .catch(() => {
         toast.error(

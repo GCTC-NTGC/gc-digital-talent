@@ -19,8 +19,8 @@ export const getPageInfo: GetPageNavInfo = ({
   const path = paths.applicationSkillsIntro(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Let's talk about skills",
-      id: "7ET77N",
+      defaultMessage: "Tell us about your skills",
+      id: "coOFBt",
       description: "Page title for the application skills introduction page",
     }),
     subtitle: intl.formatMessage({
@@ -69,8 +69,8 @@ const ApplicationSkillsIntroduction = ({
       <p data-h2-margin="base(x1, 0, x.5, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "The next step is the most important piece of your application where you'll be asked to talk about how you meet the skill requirements for this role.",
-          id: "ikYbDD",
+            "The next step is the most important part of your application. We'll ask you to talk about how you meet the skill requirements for this role.",
+          id: "Qu3NZ1",
           description:
             "Application step for skill requirements, introduction, description, paragraph one",
         })}

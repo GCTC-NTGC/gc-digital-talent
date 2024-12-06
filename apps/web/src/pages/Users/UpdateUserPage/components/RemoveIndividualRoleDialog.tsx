@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
 import { Dialog, Button, Chip } from "@gc-digital-talent/ui";
 import {
@@ -10,20 +10,25 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Role, User } from "@gc-digital-talent/graphql";
+import { Maybe, Role } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { UpdateUserRolesFunc } from "../types";
 
 interface RemoveIndividualRoleDialogProps {
-  user: User;
+  userId: string;
+  firstName?: Maybe<string>;
+  lastName?: Maybe<string>;
   role: Role;
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const RemoveIndividualRoleDialog = ({
-  user,
+  userId,
+  firstName,
+  lastName,
   role,
   onUpdateUserRoles,
 }: RemoveIndividualRoleDialogProps) => {
@@ -34,26 +39,19 @@ const RemoveIndividualRoleDialog = ({
   const handleRemove = async () => {
     setIsDeleting(true);
     return onUpdateUserRoles({
-      userId: user.id,
+      userId: userId,
       roleAssignmentsInput: {
         detach: [{ roleId: role.id }],
       },
     })
       .then(() => {
         setIsOpen(false);
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Role removed successfully",
-            id: "XcS2q2",
-            description:
-              "Message displayed to user when a role has been removed from a user",
-          }),
-        );
+        toast.success(intl.formatMessage(adminMessages.roleRemoved));
       })
       .finally(() => setIsDeleting(false));
   };
 
-  const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const userName = getFullNameHtml(firstName, lastName, intl);
   const roleDisplayName = getLocalizedName(role.displayName, intl);
 
   const label = intl.formatMessage(
@@ -70,8 +68,7 @@ const RemoveIndividualRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black">
-          <TrashIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
+        <Button color="error" icon={TrashIcon} mode="icon_only">
           <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>

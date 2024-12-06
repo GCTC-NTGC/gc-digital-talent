@@ -126,8 +126,8 @@ const ApplicationCard = ({
     classification: application.pool.classification,
   });
 
-  const deleteApplication = () => {
-    executeDeleteMutation({
+  const deleteApplication = async () => {
+    await executeDeleteMutation({
       id: application.id,
     }).then((result) => {
       if (result.data?.deleteApplication) {
@@ -232,7 +232,6 @@ const ApplicationCard = ({
           show={isApplicantQualified}
           title={applicationTitleString}
         />
-        <ApplicationActions.SupportAction show title={applicationTitleString} />
         <ApplicationActions.DeleteAction
           show={applicationIsDraft}
           title={applicationTitleString}

@@ -26,9 +26,11 @@ import {
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { checkRole } from "~/utils/teamUtils";
 
 export const PLACEMENT_TYPE_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
@@ -99,10 +101,10 @@ export type JobPlacementOptionsFragmentType = FragmentType<
   typeof JobPlacementOptions_Query
 >;
 
-type FormValues = {
+interface FormValues {
   placementType?: PlacementType | "NOT_PLACED";
   placedDepartment?: string;
-};
+}
 
 interface JobPlacementDialogProps {
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
@@ -122,6 +124,17 @@ const JobPlacementDialog = ({
   const [, executePlacedCandidate] = useMutation(PlaceCandidate_Mutation);
   const [, executeRevertPlacedCandidate] = useMutation(
     RevertPlaceCandidate_Mutation,
+  );
+
+  const { roleAssignments } = useAuthorization();
+  const canPlace = checkRole(
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+    ],
+    roleAssignments,
   );
 
   const {
@@ -182,7 +195,7 @@ const JobPlacementDialog = ({
       await executePlacedCandidate({
         id: poolCandidateId,
         placeCandidate: {
-          departmentId: values.placedDepartment,
+          departmentId: values.placedDepartment ?? "",
           placementType: values.placementType,
         },
       })
@@ -232,6 +245,10 @@ const JobPlacementDialog = ({
     if (status.value && PLACEMENT_TYPE_STATUSES.includes(status.value)) {
       label = getLocalizedName(status.label, intl);
     }
+  }
+
+  if (!canPlace) {
+    return <span>{label}</span>;
   }
 
   return (

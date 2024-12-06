@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CspReportController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserGeneratedFilesController;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,5 @@ Route::prefix('user-generated-files')
         // api/config/auth.php
             ->middleware('auth:api');
     });
+
+Route::post('csp-report', [CspReportController::class, 'report']);

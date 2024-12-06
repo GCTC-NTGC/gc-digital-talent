@@ -19,12 +19,12 @@
     "graphql": "^16.9.0",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
-    "urql": "^4.1.0"
+    "urql": "^4.2.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/lodash": "^4.17.7",
-    "@types/react": "^18.3.3",
+    "@types/lodash": "^4.17.13",
+    "@types/react": "^18.3.13",
     "eslint": "^8.57.0",
     "tsconfig": "workspace:*"
   }

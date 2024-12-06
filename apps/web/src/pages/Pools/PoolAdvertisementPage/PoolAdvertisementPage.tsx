@@ -54,7 +54,7 @@ import {
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
@@ -63,9 +63,9 @@ import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 import ApplicationLink, {
   ApplicationLinkProps,
 } from "~/components/ApplicationLink/ApplicationLink";
+import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
 
 import Text from "./components/Text";
-import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
@@ -74,12 +74,14 @@ import SkillLevelDialog from "./components/SkillLevelDialog";
 import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
 import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
 import DeadlineValue from "./components/DeadlineValue";
+import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
+import WhoCanApplyText from "./components/WhoCanApplyText";
 
-type SectionContent = {
+interface SectionContent {
   id: string;
   linkText?: string;
   title: string;
-};
+}
 
 const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
   return email ? (
@@ -87,7 +89,7 @@ const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
       {chunks}
     </Link>
   ) : (
-    chunks
+    <>{chunks}</>
   );
 };
 
@@ -160,6 +162,12 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
     securityClearance {
       value
       label {
+        en
+        fr
+      }
+    }
+    department {
+      name {
         en
         fr
       }
@@ -268,6 +276,8 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    ...AreaOfSelectionNote
+    ...WhoCanApplyText
   }
 `);
 
@@ -305,9 +315,11 @@ export const PoolPoster = ({
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
 
+  const departmentName = getLocalizedName(pool.department?.name, intl, true);
+
   const { classification } = pool;
   const genericJobTitles =
-    classification?.genericJobTitles?.filter(notEmpty) || [];
+    classification?.genericJobTitles?.filter(notEmpty) ?? [];
   let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
     classificationString = formatClassificationString({
@@ -340,12 +352,10 @@ export const PoolPoster = ({
       })
     : getLocalizedName(pool.location, intl);
 
-  const showAboutUs = !!(pool.aboutUs && pool.aboutUs[locale]);
-  const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
-  const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
-  const showWhatToExpectAdmission = !!(
-    pool.whatToExpectAdmission && pool.whatToExpectAdmission[locale]
-  );
+  const showAboutUs = !!pool.aboutUs?.[locale];
+  const showSpecialNote = !!pool.specialNote?.[locale];
+  const showWhatToExpect = !!pool.whatToExpect?.[locale];
+  const showWhatToExpectAdmission = !!pool.whatToExpectAdmission?.[locale];
 
   const opportunityLength = getLocalizedName(
     pool.opportunityLength?.label,
@@ -547,8 +557,8 @@ export const PoolPoster = ({
                 mode="inline"
                 color="secondary"
                 icon={linkCopied ? CheckIcon : undefined}
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
+                onClick={async () => {
+                  await navigator.clipboard.writeText(window.location.href);
                   setLinkCopied(true);
                   setTimeout(() => {
                     setLinkCopied(false);
@@ -642,6 +652,7 @@ export const PoolPoster = ({
                   />
                 </Well>
               )}
+              <AreaOfSelectionWell poolQuery={pool} />
 
               <CardBasic>
                 <DataRow
@@ -679,6 +690,13 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
+                    intl.formatMessage(commonMessages.department) +
+                    intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={departmentName}
+                />
+                <DataRow
+                  label={
                     intl.formatMessage({
                       defaultMessage: "Salary range",
                       id: "GgBjAd",
@@ -690,7 +708,7 @@ export const PoolPoster = ({
                       classification?.minSalary,
                       classification?.maxSalary,
                       locale,
-                    ) || notAvailable
+                    ) ?? notAvailable
                   }
                   suffix={
                     salaryRangeUrl && (
@@ -933,6 +951,7 @@ export const PoolPoster = ({
                   <SkillAccordion
                     key={poolSkill.id}
                     poolSkillQuery={poolSkill}
+                    required={false}
                   />
                 ))}
               </Accordion.Root>
@@ -1073,31 +1092,14 @@ export const PoolPoster = ({
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"Who can apply to this recruitment process?"',
-                      id: "EpL8MD",
+                        "Who can apply to this recruitment process?",
+                      id: "Y63cqS",
                       description:
                         "Button text to toggle the accordion for who can apply",
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text data-h2-margin-top="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
-                        id: "faWz84",
-                        description:
-                          "List of criteria needed in order to apply",
-                      })}
-                    </Text>
-                    <Text data-h2-margin-bottom="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
-                        id: "aCg/OZ",
-                        description:
-                          "First hiring policy for pool advertisement",
-                      })}
-                    </Text>
+                    <WhoCanApplyText poolQuery={pool} />
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericJobTitles.length ? (
@@ -1115,8 +1117,8 @@ export const PoolPoster = ({
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"How are equity and inclusion considered in this recruitment process?"',
-                      id: "WPJAiw",
+                        "How are equity and inclusion considered in this recruitment process?",
+                      id: "mDsQmj",
                       description:
                         "Button text to toggle the accordion for diversity, equity, and inclusion",
                     })}
@@ -1141,13 +1143,12 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
-
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
-                        '"Who can I contact with questions or accommodation needs?"',
-                      id: "IbWzvu",
+                        "Who can I contact with questions or accommodation needs?",
+                      id: "2/fjEP",
                       description:
                         "Button text to toggle the accordion for accommodations contact",
                     })}
@@ -1157,15 +1158,14 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "Please contact the <a>{name} team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
-                          id: "rKUVdL",
+                            "Please <a>contact the team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
+                          id: "YK/RNP",
                           description:
                             "Opening sentence asking if accommodations are needed",
                         },
                         {
                           a: (chunks: ReactNode) =>
                             anchorTag(chunks, contactEmail),
-                          name: getLocalizedName(pool.team?.displayName, intl),
                         },
                       )}
                     </Text>
@@ -1175,8 +1175,8 @@ export const PoolPoster = ({
                   <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
                     <Accordion.Trigger as="h3">
                       {intl.formatMessage({
-                        defaultMessage: '"What should I expect after I apply?"',
-                        id: "pdi2SU",
+                        defaultMessage: "What should I expect after I apply?",
+                        id: "PDGUT2",
                         description:
                           "Button text to toggle the accordion for what to expect after you apply",
                       })}
@@ -1197,8 +1197,8 @@ export const PoolPoster = ({
                     <Accordion.Trigger as="h3">
                       {intl.formatMessage({
                         defaultMessage:
-                          '"What should I expect if I\'m successful in the process?"',
-                        id: "hwVlzN",
+                          "What should I expect if I'm successful in the process?",
+                        id: "utlf9l",
                         description:
                           "Button text to toggle the accordion for what to expect after admission",
                       })}
@@ -1293,9 +1293,9 @@ const PoolNotFound = () => {
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
   query PoolAdvertisementPage($id: UUID!) {
@@ -1329,7 +1329,7 @@ export const Component = () => {
   });
 
   const isVisible = isAdvertisementVisible(
-    auth?.roleAssignments?.filter(notEmpty) || [],
+    auth?.roleAssignments?.filter(notEmpty) ?? [],
     data?.pool?.status?.value ?? null,
   );
 

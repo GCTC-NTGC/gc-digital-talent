@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import { AnimatePresence, m, usePresence } from "framer-motion";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
@@ -6,7 +6,7 @@ import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { UseQueryExecute } from "urql";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
   DialogPrimitive,
@@ -14,8 +14,7 @@ import {
   Heading,
   Dialog,
   Link,
-  commonStyles as sideMenuStyles,
-  SideMenuItemChildren,
+  Color,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -48,6 +47,7 @@ const DialogPortalWithPresence = ({
   const paths = useRoutes();
   const [isPresent] = usePresence();
   const [render, setRender] = useState<boolean>(isPresent);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
@@ -63,21 +63,28 @@ const DialogPortalWithPresence = ({
     return () => clearTimeout(timerId);
   }, [isPresent]);
 
+  const handleCloseFocus = () => {
+    if (containerRef?.current) {
+      containerRef.current.scrollTop = 0;
+    }
+  };
+
   return render ? (
     <Dialog.Portal forceMount>
       <Overlay
         forceMount
-        initial={{ opacity: 0.3 }}
-        animate={{ opacity: 0.3 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0.85 }}
+        animate={{ opacity: 0.85 }}
+        exit={{ opacity: 0.85 }}
         transition={{ duration: 0.2 }}
-        data-h2-background-color="base:all(black)"
+        data-h2-background-color="base:all(black.light)"
         data-h2-position="base(fixed)"
         data-h2-location="base(0)"
-        data-h2-z-index="base(8)"
+        data-h2-z-index="base(97)"
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
+          ref={containerRef}
           initial={{ x: "100%", scale: 0.95 }}
           animate={{ x: 0, scale: 1 }}
           exit={{ x: "100%", scale: 0.95 }}
@@ -95,7 +102,7 @@ const DialogPortalWithPresence = ({
           data-h2-margin="base(x.5 x.5 x.5 auto)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-          data-h2-z-index="base(9)"
+          data-h2-z-index="base(98)"
         >
           <div data-h2-padding="base(x1)">
             <div
@@ -123,6 +130,7 @@ const DialogPortalWithPresence = ({
                     mode="icon_only"
                     color="black"
                     icon={XMarkIcon}
+                    onFocus={handleCloseFocus}
                     aria-label={intl.formatMessage({
                       defaultMessage: "Close notifications",
                       id: "J1n6QO",
@@ -134,14 +142,12 @@ const DialogPortalWithPresence = ({
               </div>
             </div>
             <DialogPrimitive.Description>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
-                  id: "qek0N+",
-                  description: "Instructions on how to manage notifications",
-                })}
-              </p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
+                id: "qek0N+",
+                description: "Instructions on how to manage notifications",
+              })}
             </DialogPrimitive.Description>
           </div>
           <NotificationList live inDialog limit={30} onRead={executeQuery} />
@@ -162,9 +168,51 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
-const NotificationDialog = ({ sideMenu }: { sideMenu?: boolean }) => {
+const linkColorStyling = {
+  "data-h2-color": `
+  base:all(white)
+  base:hover(secondary.lighter)
+  base:hover:dark(secondary.lighter)
+  base:all:focus-visible(black)
+
+  base:children(white)
+  base:focus-visible:children(focus)
+
+  base:selectors[[data-active]](secondary.lighter)
+  base:dark:selectors[[data-active]](secondary.lightest)
+  base:dark:hover:selectors[[data-icon="true"]](secondary.darkest)
+`,
+};
+
+interface NotificationDialog {
+  /** Controllable open state */
+  open?: boolean;
+  /** Callback when the section has been 'opened */
+  onOpenChange?: (open: boolean) => void;
+  /** Trigger color */
+  color?: Color;
+}
+const NotificationDialog = ({
+  open,
+  onOpenChange,
+  color,
+}: NotificationDialog) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const isSmallScreen = useIsSmallScreen(1080);
+
+  useEffect(() => {
+    if (open) {
+      // Pushing the change to the end of the call stack
+      const timer = setTimeout(() => {
+        document.body.style.pointerEvents = "";
+      }, 0);
+
+      return () => clearTimeout(timer);
+    } else {
+      document.body.style.pointerEvents = "auto";
+      return undefined;
+    }
+  }, [open]);
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },
@@ -173,41 +221,43 @@ const NotificationDialog = ({ sideMenu }: { sideMenu?: boolean }) => {
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
 
   return (
-    <DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
-      <DialogPrimitive.Trigger asChild>
-        {sideMenu ? (
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      {open ? (
+        <Dialog.Close asChild>
           <Button
-            mode="text"
-            data-h2-position="base(relative)"
-            data-h2-margin-top="base(-x1)"
-            {...sideMenuStyles}
-          >
-            <SideMenuItemChildren
-              icon={
-                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
-              }
-            >
-              {intl.formatMessage(notificationMessages.title)}
-            </SideMenuItemChildren>
-          </Button>
-        ) : (
+            mode={isSmallScreen ? "solid" : "icon_only"}
+            color={color || isSmallScreen ? "blackFixed" : "whiteFixed"}
+            icon={XMarkIcon}
+            aria-label={intl.formatMessage({
+              defaultMessage: "Close notifications",
+              id: "J1n6QO",
+              description: "Button text to close the notifications dialog",
+            })}
+            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
+          />
+        </Dialog.Close>
+      ) : (
+        <DialogPrimitive.Trigger asChild>
           <Button
-            mode="icon_only"
-            color="black"
+            mode={isSmallScreen ? "solid" : "icon_only"}
+            color={isSmallScreen ? "black" : "secondary"}
             icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-            data-h2-position="base(relative)"
             aria-label={intl.formatMessage({
               defaultMessage: "View notifications",
               id: "ztx8xL",
               description: "Button text to open the notifications dialog",
             })}
+            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
+            data-icon="true"
+            {...(!isSmallScreen && linkColorStyling)}
           />
-        )}
-      </DialogPrimitive.Trigger>
+        </DialogPrimitive.Trigger>
+      )}
+
       <AnimatePresence initial={false}>
-        {isOpen && <DialogPortalWithPresence executeQuery={executeQuery} />}
+        {open && <DialogPortalWithPresence executeQuery={executeQuery} />}
       </AnimatePresence>
-    </DialogPrimitive.Root>
+    </Dialog.Root>
   );
 };
 

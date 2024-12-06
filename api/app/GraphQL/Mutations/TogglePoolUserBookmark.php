@@ -9,13 +9,12 @@ final class TogglePoolUserBookmark
 {
     /**
      * Toggles a user's bookmarked pool
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User */
+        /** @var \App\Models\User | null */
         $user = Auth::user();
+        /** @var \App\Models\Pool */
         $pool = Pool::find($args['pool_id']);
         $user->poolBookmarks()->toggle($pool->id);
 

@@ -6,12 +6,25 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { Role, User } from "@gc-digital-talent/graphql";
 
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
-import { TeamAssignment, UpdateUserRolesFunc } from "../types";
+import {
+  CommunityAssignment,
+  CommunityTeamable,
+  PoolAssignment,
+  PoolTeamable,
+  Teamable,
+  TeamAssignment,
+  TeamTeamable,
+  UpdateUserRolesFunc,
+} from "../types";
 import EditTeamRoleDialog from "./EditTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
+import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
+import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
+import EditProcessRoleDialog from "./EditProcessRoleDialog";
+import RemoveProcessRoleDialog from "./RemoveProcessRoleDialog";
 
 export function roleCell(displayName: string) {
-  return <Chip color="black">{displayName}</Chip>;
+  return <Chip color="secondary">{displayName}</Chip>;
 }
 
 export function teamRolesCell(displayNames: string[]) {
@@ -19,7 +32,7 @@ export function teamRolesCell(displayNames: string[]) {
     <Chips>
       {displayNames.map((displayName) => {
         return (
-          <Chip color="black" key={displayName}>
+          <Chip color="secondary" key={displayName}>
             {displayName}
           </Chip>
         );
@@ -30,13 +43,15 @@ export function teamRolesCell(displayNames: string[]) {
 
 export function actionCell(
   role: Role,
-  user: User,
+  user: Pick<User, "id" | "firstName" | "lastName">,
   onUpdateUserRoles: UpdateUserRolesFunc,
 ) {
   return (
     <RemoveIndividualRoleDialog
       role={role}
-      user={user}
+      userId={user.id}
+      firstName={user.firstName}
+      lastName={user.lastName}
       onUpdateUserRoles={onUpdateUserRoles}
     />
   );
@@ -44,7 +59,7 @@ export function actionCell(
 
 export function teamActionCell(
   teamAssignment: TeamAssignment,
-  user: User,
+  user: Pick<User, "id" | "firstName" | "lastName">,
   onUpdateUserRoles: UpdateUserRolesFunc,
   availableRoles: Role[],
 ) {
@@ -69,7 +84,7 @@ export function teamActionCell(
 
 export function teamCell(displayName: string, href: string) {
   return (
-    <Link color="black" href={href}>
+    <Link color="secondary" href={href} data-h2-font-weight="base(700)">
       {displayName}
     </Link>
   );
@@ -85,3 +100,118 @@ export function teamRolesAccessor(
     .sort((a, b) => a.localeCompare(b))
     .join();
 }
+
+export function communityActionCell(
+  communityAssignment: CommunityAssignment,
+  user: Pick<User, "id" | "firstName" | "lastName">,
+  onUpdateUserRoles: UpdateUserRolesFunc,
+  communityRoles: Role[],
+) {
+  return (
+    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+      <EditCommunityRoleDialog
+        initialRoles={communityAssignment.roles}
+        user={user}
+        community={communityAssignment.community}
+        onEditRoles={onUpdateUserRoles}
+        communityRoles={communityRoles}
+      />
+      <RemoveCommunityRoleDialog
+        roles={communityAssignment.roles}
+        user={user}
+        community={communityAssignment.community}
+        onRemoveRoles={onUpdateUserRoles}
+      />
+    </div>
+  );
+}
+
+export function communityCell(displayName: string, href: string) {
+  return (
+    <Link color="secondary" href={href} data-h2-font-weight="base(700)">
+      {displayName}
+    </Link>
+  );
+}
+
+export function communityRolesAccessor(
+  teamAssignment: CommunityAssignment,
+  intl: IntlShape,
+) {
+  return teamAssignment.roles
+    .map((role) => getLocalizedName(role.displayName, intl), true)
+    .filter(notEmpty)
+    .sort((a, b) => a.localeCompare(b))
+    .join();
+}
+
+export function processActionCell(
+  poolAssignment: PoolAssignment,
+  user: Pick<User, "id" | "firstName" | "lastName">,
+  onUpdateUserRoles: UpdateUserRolesFunc,
+  processRoles: Role[],
+) {
+  return (
+    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+      <EditProcessRoleDialog
+        initialRoles={poolAssignment.roles}
+        user={user}
+        pool={poolAssignment.pool}
+        onEditRoles={onUpdateUserRoles}
+        processRoles={processRoles}
+      />
+      <RemoveProcessRoleDialog
+        roles={poolAssignment.roles}
+        user={user}
+        pool={poolAssignment.pool}
+        onRemoveRoles={onUpdateUserRoles}
+      />
+    </div>
+  );
+}
+
+export function processCell(displayName: string, href: string) {
+  return (
+    <Link color="secondary" href={href} data-h2-font-weight="base(700)">
+      {displayName}
+    </Link>
+  );
+}
+
+export function processRolesAccessor(
+  poolAssignment: PoolAssignment,
+  intl: IntlShape,
+) {
+  return poolAssignment.roles
+    .map((role) => getLocalizedName(role.displayName, intl), true)
+    .filter(notEmpty)
+    .sort((a, b) => a.localeCompare(b))
+    .join();
+}
+
+export const isPoolTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is PoolTeamable => {
+  if (teamable && teamable.__typename === "Pool") {
+    return true;
+  }
+  return false;
+};
+
+export const isCommunityTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is CommunityTeamable => {
+  if (teamable && teamable.__typename === "Community") {
+    return true;
+  }
+  return false;
+};
+
+export const isTeamTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is TeamTeamable => {
+  if (teamable && teamable.__typename === "Team") {
+    return true;
+  }
+  return false;
+};

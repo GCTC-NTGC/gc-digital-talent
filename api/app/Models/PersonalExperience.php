@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $title
  * @property string $description
- * @property Illuminate\Support\Carbon $start_date
- * @property Illuminate\Support\Carbon $end_date
+ * @property ?\Illuminate\Support\Carbon $start_date
+ * @property ?\Illuminate\Support\Carbon $end_date
  * @property string $details
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
  */
 class PersonalExperience extends Experience
 {
@@ -34,11 +34,16 @@ class PersonalExperience extends Experience
 
     /**
      * Default values for attributes
-     *
-     * @var array an array with attribute as key and default as value
      */
     protected $attributes = [
         'experience_type' => PersonalExperience::class,
+    ];
+
+    protected static $hydrationFields = [
+        'title' => 'title',
+        'description' => 'description',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
     ];
 
     public function getTitle(): string

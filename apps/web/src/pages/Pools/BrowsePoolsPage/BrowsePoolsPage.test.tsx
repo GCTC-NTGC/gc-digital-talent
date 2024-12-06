@@ -52,9 +52,7 @@ describe("BrowsePoolsPage", () => {
             publishedPools: pools,
           },
         }),
-      // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any;
+    };
 
     return renderWithProviders(
       <GraphqlProvider value={mockClient}>
@@ -69,7 +67,7 @@ describe("BrowsePoolsPage", () => {
     await axeTest(container);
   });
 
-  it("should only show published jobs", async () => {
+  it("should only show published jobs", () => {
     renderBrowsePoolsPage({
       pools: [
         // draft pools can not be returned by API query
@@ -98,7 +96,7 @@ describe("BrowsePoolsPage", () => {
     );
   });
 
-  it("should only show IT and Executive jobs", async () => {
+  it("should only show IT and Executive jobs", () => {
     renderBrowsePoolsPage({
       pools: [publishedItJobsPool, publishedExecJobsPool, publishedIAPJobsPool],
     });

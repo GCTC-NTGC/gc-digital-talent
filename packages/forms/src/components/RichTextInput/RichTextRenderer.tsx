@@ -1,7 +1,6 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-import { JSX } from "react";
+import { AnchorHTMLAttributes, JSX } from "react";
 
-import { Link, LinkProps } from "@gc-digital-talent/ui";
+import { Heading, Link, LinkProps } from "@gc-digital-talent/ui";
 
 import { RenderMap, Node, NodeRenderer } from "./types";
 
@@ -13,20 +12,22 @@ const DocNode: NodeRenderer = ({ children }) => (
   <div
     data-h2-color="base(black)"
     data-h2-margin="base:children[>p:not(:first-child)](x.5, 0, 0, 0)"
+    data-h2-margin-top="base:children[>*:first-child](0)"
   >
     {children}
   </div>
 );
 
 const TextNode: NodeRenderer = ({ node }) => {
-  const content: string = node.text;
+  const content = String(node.text);
 
   let linkProps: LinkProps = {};
   const isLink = node?.marks?.find((mark) => {
     if (mark.type === "link") {
+      const attrs = mark.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
       linkProps = {
-        href: mark.attrs?.href ?? "",
-        newTab: mark.attrs?.target === "_blank",
+        href: attrs?.href ? String(attrs.href) : undefined,
+        newTab: attrs?.target === "_blank",
       };
       return true;
     }
@@ -55,12 +56,21 @@ const ListItemNode: NodeRenderer = ({ children }) => {
   return <li>{children}</li>;
 };
 
+const HeadingNode: NodeRenderer = ({ children }) => {
+  return (
+    <Heading level="h3" size="h4">
+      {children}
+    </Heading>
+  );
+};
+
 const nodeRenderMap: RenderMap = {
   doc: DocNode,
   text: TextNode,
   paragraph: ParagraphNode,
   bulletList: BulletListNode,
   listItem: ListItemNode,
+  heading: HeadingNode,
 };
 
 interface RichTextRendererProps {

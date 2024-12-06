@@ -12,7 +12,7 @@ export function getFeatureFlagConfig(flags: Partial<FeatureFlags>) {
 
   let body = `let data = new Map();`;
   Object.keys(env).forEach((key) => {
-    const value = env[key];
+    const value = env[key] ? String(env[key]) : undefined;
     if (typeof value !== "undefined") {
       body = `${body} data.set("${key}", "${value}");`;
     }

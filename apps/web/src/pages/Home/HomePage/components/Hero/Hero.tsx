@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
-import HomeHero from "~/components/Hero/HomeHero";
+import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import hero1Landscape from "~/assets/img/hero-1-landscape.webp";
@@ -22,7 +22,7 @@ import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
 import hero4Portrait from "~/assets/img/hero-4-portrait.webp";
 import hero4Tablet from "~/assets/img/hero-4-tablet-portrait.webp";
 
-const landscapeRandomize = (index?: number | undefined) => {
+const landscapeRandomize = (index?: number) => {
   const imageSets = {
     "1": {
       mobile: hero1Portrait,

@@ -35,7 +35,7 @@ const ExperienceByType = ({
   title: string;
   headingLevel?: HeadingRank;
   icon: ReactNode;
-  experiences: Experience[];
+  experiences?: Omit<Experience, "user">[];
   editParam?: string;
   isExperienceOpen: (id: string) => boolean;
   onExperienceOpenChange: (id: string) => void;
@@ -56,7 +56,7 @@ const ExperienceByType = ({
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experiences.map((experience) => (
+          {experiences?.map((experience) => (
             <ExperienceCard
               key={experience.id}
               isOpen={isExperienceOpen(experience.id)}
@@ -73,7 +73,7 @@ const ExperienceByType = ({
   );
 };
 interface ExperienceSectionProps {
-  experiences?: Experience[];
+  experiences?: Omit<Experience, "user">[];
   headingLevel?: HeadingRank;
   editParam?: string;
 }
@@ -92,22 +92,22 @@ const ExperienceByTypeListing = ({
     experiences
       ?.filter(isAwardExperience)
       .map(
-        (award: AwardExperience) =>
+        (award: Omit<AwardExperience, "user">) =>
           ({
             ...award,
             startDate: award.awardedDate,
             endDate: award.awardedDate,
           }) as AwardExperience & { startDate: string; endDate: string },
       )
-      .sort(compareByDate) || [];
+      .sort(compareByDate) ?? [];
   const communityExperiences =
-    experiences?.filter(isCommunityExperience).sort(compareByDate) || [];
+    experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [];
   const educationExperiences =
-    experiences?.filter(isEducationExperience).sort(compareByDate) || [];
+    experiences?.filter(isEducationExperience).sort(compareByDate) ?? [];
   const personalExperiences =
-    experiences?.filter(isPersonalExperience).sort(compareByDate) || [];
+    experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [];
   const workExperiences =
-    experiences?.filter(isWorkExperience).sort(compareByDate) || [];
+    experiences?.filter(isWorkExperience).sort(compareByDate) ?? [];
 
   return (
     <>

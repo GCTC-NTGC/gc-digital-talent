@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import {
+  ApplicantFilter,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
@@ -24,6 +25,7 @@ const defaultFormValues: FormValues = {
   expiryStatus: CandidateExpiryFilter.Active,
   suspendedStatus: CandidateSuspendedFilter.Active,
   govEmployee: "",
+  community: "",
 };
 
 describe("Transform form values to filter state", () => {
@@ -34,10 +36,10 @@ describe("Transform form values to filter state", () => {
     });
 
     expect(hasDisabilityFilters).toEqual(
-      expect.objectContaining({
+      expect.objectContaining<{ applicantFilter: Partial<ApplicantFilter> }>({
         applicantFilter: expect.objectContaining({
           equity: { hasDisability: true },
-        }),
+        }) as Partial<ApplicantFilter>,
       }),
     );
 
@@ -50,7 +52,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isWoman: true },
-        }),
+        }) as Partial<ApplicantFilter>,
       }),
     );
 
@@ -63,7 +65,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isVisibleMinority: true },
-        }),
+        }) as Partial<ApplicantFilter>,
       }),
     );
 
@@ -76,7 +78,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isIndigenous: true },
-        }),
+        }) as Partial<ApplicantFilter>,
       }),
     );
   });
@@ -91,7 +93,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { hasDisability: true, isIndigenous: true },
-        }),
+        }) as Partial<ApplicantFilter>,
       }),
     );
 
@@ -109,7 +111,7 @@ describe("Transform form values to filter state", () => {
             isWoman: true,
             isVisibleMinority: true,
           },
-        }),
+        }) as Partial<ApplicantFilter>,
       }),
     );
   });

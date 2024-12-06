@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $pool_candidate_id
  * @property string $general_question_id
  * @property string $answer
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
  */
 class GeneralQuestionResponse extends Model
 {
@@ -22,15 +22,11 @@ class GeneralQuestionResponse extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [];
 
     /**
      * The attributes that can be filled using mass-assignment.
-     *
-     * @var array
      */
     protected $fillable = [
         'pool_candidate_id',
@@ -38,11 +34,13 @@ class GeneralQuestionResponse extends Model
         'answer',
     ];
 
+    /** @return BelongsTo<PoolCandidate, $this> */
     public function poolCandidate(): BelongsTo
     {
         return $this->belongsTo(PoolCandidate::class);
     }
 
+    /** @return BelongsTo<GeneralQuestion, $this> */
     public function generalQuestion(): BelongsTo
     {
         return $this->belongsTo(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);

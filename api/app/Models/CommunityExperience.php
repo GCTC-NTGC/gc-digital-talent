@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Lang;
  * @property string $title
  * @property string $organization
  * @property string $project
- * @property Illuminate\Support\Carbon $start_date
- * @property Illuminate\Support\Carbon $end_date
+ * @property ?\Illuminate\Support\Carbon $start_date
+ * @property ?\Illuminate\Support\Carbon $end_date
  * @property string $details
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class CommunityExperience extends Experience
 {
@@ -36,11 +36,17 @@ class CommunityExperience extends Experience
 
     /**
      * Default values for attributes
-     *
-     * @var array an array with attribute as key and default as value
      */
     protected $attributes = [
         'experience_type' => CommunityExperience::class,
+    ];
+
+    protected static $hydrationFields = [
+        'title' => 'title',
+        'organization' => 'organization',
+        'project' => 'project',
+        'start_date' => 'startDate',
+        'end_date' => 'endDate',
     ];
 
     public function getTitle(?string $lang = 'en'): string

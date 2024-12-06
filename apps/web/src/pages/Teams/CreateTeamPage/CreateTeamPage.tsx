@@ -9,10 +9,10 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 import CreateTeamForm from "./components/CreateTeamForm";
 
@@ -33,14 +33,14 @@ const CreateTeam_Mutation = graphql(/* GraphQL */ `
 `);
 
 const pageTitle = defineMessage({
-  defaultMessage: "Create a new team",
-  id: "vyyfX6",
+  defaultMessage: "Create a team",
+  id: "CkrBWY",
   description: "Page title for the create team page",
 });
 
 const subtitle = defineMessage({
-  defaultMessage: "Create a new team from scratch",
-  id: "XaYhX3",
+  defaultMessage: "Create a team from scratch",
+  id: "mBeY2F",
   description: "Descriptive text for the create team page in the admin portal.",
 });
 
@@ -63,7 +63,7 @@ const CreateTeamPage = () => {
       if (result.data?.createTeam) {
         return Promise.resolve(result.data?.createTeam);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
   };
 
@@ -82,16 +82,15 @@ const CreateTeamPage = () => {
         url: routes.teamCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedSubTitle} />
-      <AdminHero
+      <Hero
         title={formattedPageTitle}
         subtitle={formattedSubTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
+        crumbs={navigationCrumbs}
       />
       <AdminContentWrapper>
         <Pending fetching={fetching} error={error}>

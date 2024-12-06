@@ -12,7 +12,7 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
   GovEmployeeType,
@@ -22,6 +22,7 @@ import {
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { getGroupOptions, getLevelOptions } from "./utils";
+import { FormValues } from "./types";
 
 const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
@@ -102,7 +103,7 @@ const FormFields = ({
     employeeTypesQuery,
   );
   useDirtyFields("government");
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
     watch([
@@ -127,7 +128,7 @@ const FormFields = ({
    * to avoid confusing users about unsaved changes
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, {
         keepDirty: false,
       });
@@ -276,6 +277,26 @@ const FormFields = ({
             )}
           </div>
         </>
+      )}
+      {isGovEmployee && (
+        <Input
+          id="workEmail"
+          name="workEmail"
+          type="email"
+          label={labels.workEmail}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            pattern: {
+              value: workEmailDomainRegex,
+              message: intl.formatMessage({
+                defaultMessage:
+                  "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
+                id: "BLOt/e",
+                description: "Description for rule pattern on work email field",
+              }),
+            },
+          }}
+        />
       )}
       <RadioGroup
         idPrefix="priorityEntitlementYesNo"

@@ -5,7 +5,9 @@ import { loginBySub } from "~/utils/auth";
 const USERS_PAGINATED_QUERY = "UsersPaginated";
 
 const searchForUser = async (appPage: AppPage, name: string) => {
-  await appPage.page.getByRole("textbox", { name: /search/i }).fill(name);
+  await appPage.page
+    .getByRole("textbox", { name: /search/i })
+    .fill(name, { timeout: 30000 });
 
   await appPage.waitForGraphqlResponse(USERS_PAGINATED_QUERY);
 };
@@ -34,7 +36,7 @@ test.describe("Admin workflows", () => {
     await appPage.page.getByRole("link", { name: /user profile/i }).click();
     await appPage.waitForGraphqlResponse("AdminUserProfile");
     await expect(
-      appPage.page.getByRole("button", { name: /print profile/i }),
+      appPage.page.getByRole("button", { name: /download profile/i }),
     ).toBeVisible();
   });
 
@@ -45,7 +47,6 @@ test.describe("Admin workflows", () => {
 
     await appPage.page.getByRole("link", { name: /edit gul fields/i }).click();
     await appPage.waitForGraphqlResponse("UpdateUserData");
-    await appPage.waitForGraphqlResponse("UpdateUserOptions");
 
     await appPage.page
       .getByRole("textbox", { name: /telephone/i })
@@ -61,8 +62,7 @@ test.describe("Admin workflows", () => {
       /user updated successfully/i,
     );
 
-    await appPage.waitForGraphqlResponse(USERS_PAGINATED_QUERY);
-
+    await searchForUser(appPage, "Applicant");
     await appPage.page
       .getByRole("button", { name: /show or hide columns/i })
       .click();
@@ -83,14 +83,14 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    const downloadPromise = appPage.page.waitForEvent("download");
     await appPage.page
       .getByRole("button", { name: /select gul fields/i })
       .click();
     await appPage.page.getByRole("button", { name: /download csv/i }).click();
-    const download = await downloadPromise;
 
-    expect(download.suggestedFilename()).toContain("users");
+    await expect(appPage.page.getByRole("alert")).toContainText(
+      /preparing your file for download/i,
+    );
   });
 
   test("Filter users table", async ({ appPage }) => {
@@ -105,7 +105,7 @@ test.describe("Admin workflows", () => {
     await appPage.waitForGraphqlResponse(USERS_PAGINATED_QUERY);
 
     await expect(
-      appPage.page.getByRole("button", { name: /filters 2/i }),
+      appPage.page.getByRole("button", { name: /filters 1/i }),
     ).toBeVisible();
   });
 });

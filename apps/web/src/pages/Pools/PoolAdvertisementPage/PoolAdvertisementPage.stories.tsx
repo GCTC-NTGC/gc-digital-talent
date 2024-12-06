@@ -27,11 +27,9 @@ const closedPool = {
   closingReason: null,
   closingDate: FAR_PAST_DATE,
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nullPool: any = {};
-Object.keys(fakePool).forEach((key) => {
-  nullPool[key] = null;
-});
+const nullPool: Pool = {
+  id: "uuid",
+};
 nullPool.id = fakePool.id; // pool will never have a null id
 
 const closedEarlyPool = {

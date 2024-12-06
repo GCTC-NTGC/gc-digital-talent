@@ -21,6 +21,7 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -96,49 +97,43 @@ export const AssessmentPlanBuilder = ({
   });
 
   return (
-    <>
-      <SEO
-        title={intl.formatMessage(pageTitle)}
-        description={intl.formatMessage(pageSubtitle)}
-      />
-      <TableOfContents.Wrapper>
-        <TableOfContents.Navigation>
-          <TableOfContents.List>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink
-                id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
-              >
-                {intl.formatMessage(organizeSectionTitle)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
-                {intl.formatMessage(skillSummarySectionTitle)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-          </TableOfContents.List>
-          <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
-            {intl.formatMessage({
-              defaultMessage: "Back to process details",
-              id: "nPPUMW",
-              description: "Link text to go back to the process details page",
-            })}
-          </Link>
-        </TableOfContents.Navigation>
+    <TableOfContents.Wrapper>
+      <TableOfContents.Navigation>
+        <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink
+              id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
+            >
+              {intl.formatMessage(organizeSectionTitle)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+              {intl.formatMessage(skillSummarySectionTitle)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+        </TableOfContents.List>
+        <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
+          {intl.formatMessage({
+            defaultMessage: "Back to process details",
+            id: "nPPUMW",
+            description: "Link text to go back to the process details page",
+          })}
+        </Link>
+      </TableOfContents.Navigation>
 
-        <TableOfContents.Content>
-          <OrganizeSection poolQuery={pool} pageIsLoading={pageIsLoading} />
-          <SkillSummarySection poolQuery={pool} />
-          <Separator space="lg" />
-        </TableOfContents.Content>
-      </TableOfContents.Wrapper>
-    </>
+      <TableOfContents.Content>
+        <OrganizeSection poolQuery={pool} pageIsLoading={pageIsLoading} />
+        <SkillSummarySection poolQuery={pool} />
+        <Separator space="lg" />
+      </TableOfContents.Content>
+    </TableOfContents.Wrapper>
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
   query AssessmentPlanBuilderPage($poolId: UUID!) {
@@ -149,6 +144,10 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
         id
         name
       }
+      community {
+        teamIdForRoleAssignment
+      }
+      teamIdForRoleAssignment
     }
   }
 `);
@@ -168,10 +167,7 @@ export const AssessmentPlanBuilderPage = () => {
   );
 
   if (!poolId) {
-    throw new Response(notFoundMessage, {
-      status: 404,
-      statusText: "Not Found",
-    });
+    throw new NotFoundError(notFoundMessage);
   }
 
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
@@ -188,6 +184,15 @@ export const AssessmentPlanBuilderPage = () => {
         (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
           authorizedRoleAssignment.team?.name ===
             queryData?.pool?.team?.name) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.ProcessOperator &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityRecruiter &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.community?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityAdmin &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.community?.teamIdForRoleAssignment) ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
@@ -228,14 +233,20 @@ export const AssessmentPlanBuilderPage = () => {
   };
 
   return (
-    <AdminContentWrapper>
-      <Pending
-        fetching={queryFetching || !authorization.isLoaded}
-        error={queryError}
-      >
-        {content()}
-      </Pending>
-    </AdminContentWrapper>
+    <>
+      <SEO
+        title={intl.formatMessage(pageTitle)}
+        description={intl.formatMessage(pageSubtitle)}
+      />
+      <AdminContentWrapper>
+        <Pending
+          fetching={queryFetching || !authorization.isLoaded}
+          error={queryError}
+        >
+          {content()}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 
@@ -245,6 +256,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <AssessmentPlanBuilderPage />

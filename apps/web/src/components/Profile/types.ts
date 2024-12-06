@@ -5,7 +5,7 @@ import {
   PoolCandidate,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
-  User,
+  UserProfileFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 
 export type SectionKey =
@@ -17,7 +17,7 @@ export type SectionKey =
   | "account";
 
 export interface SectionProps<P = void> {
-  user: User;
+  user: UserProfileFragmentType;
   isUpdating?: boolean;
   application?: Pick<PoolCandidate, "id"> & { pool: Pick<Pool, "language"> };
   pool?: Maybe<P>;
@@ -27,6 +27,7 @@ export interface SectionProps<P = void> {
   ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 }
 
-export interface FormFieldProps {
+export interface FormFieldProps<TOptions = object> {
   labels: FieldLabels;
+  optionsQuery?: TOptions;
 }

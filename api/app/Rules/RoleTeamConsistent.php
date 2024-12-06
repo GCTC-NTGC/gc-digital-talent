@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Role;
+use App\Models\Team;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -18,13 +19,20 @@ class RoleTeamConsistent implements ValidationRule
         $roleId = $value['roleId'];
         $teamId = isset($value['teamId']) ? $value['teamId'] : null;
 
-        if ($teamId) {
-            $role = Role::where('id', $roleId)->where('is_team_based', true)->first();
-            if (is_null($role)) {
-                $fail('ROLE_NOT_FOUND');
+        $role = Role::where('id', $roleId)->first();
+
+        if ($role?->is_team_based) {
+            if (is_null($teamId)) {
+                $fail('TEAM_ID_REQUIRED');
+            }
+            $teamExists = Team::where('id', $teamId)->exists();
+            if (! $teamExists) {
+                $fail('TEAM_DOES_NOT_EXIST');
             }
         } else {
-            $role = Role::where('id', $roleId)->where('is_team_based', false)->first();
+            if (! is_null($teamId)) {
+                $fail('ROLE_NOT_TEAM_ROLE');
+            }
             if (is_null($role)) {
                 $fail('ROLE_NOT_FOUND');
             }

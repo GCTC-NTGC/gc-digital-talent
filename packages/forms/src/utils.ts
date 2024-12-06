@@ -28,10 +28,13 @@ import { OptGroupOrOption } from "./types";
  * @returns string[]
  */
 export const unpackIds = (
-  data?: Maybe<Array<Maybe<{ id: string }> | undefined>>,
+  data?: Maybe<(Maybe<{ id: string }> | undefined)[]>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
-type Option = { value: string; label: string };
+interface Option {
+  value: string;
+  label: string;
+}
 
 /**
  * Converts a string enum to a list of options for select input.
@@ -82,8 +85,27 @@ export function enumToOptions(
 export function localizedEnumToOptions(
   list: Maybe<LocalizedEnumString>[] | undefined | null,
   intl: IntlShape,
+  sortOrder?: LocalizedEnumString["value"][],
 ): Option[] {
-  return unpackMaybes(list).map(({ value, label }) => ({
+  const localizedEnums = unpackMaybes(list);
+  if (sortOrder) {
+    localizedEnums.sort((a, b) => {
+      const aPosition = sortOrder.indexOf(a.value);
+      const bPosition = sortOrder.indexOf(b.value);
+      if (aPosition >= 0 && bPosition >= 0)
+        // both are in sort list => sort by by that order
+        return sortOrder.indexOf(a.value) - sortOrder.indexOf(b.value);
+      if (aPosition >= 0 && bPosition < 0)
+        // only a is in sort list => sort a before b
+        return -1;
+      if (aPosition < 0 && bPosition >= 0)
+        // only b is in sort list => sort b before a
+        return 1;
+      // neither is in sort list => keep original order
+      return 0;
+    });
+  }
+  return localizedEnums.map(({ value, label }) => ({
     value,
     label: getLocalizedName(label, intl),
   }));
@@ -103,10 +125,10 @@ export function getValues<T>(list: { value: T; label: string }[]): T[] {
  * @param unescapedString String that you want escaped characters in
  * @returns { string } String with certain characters escaped
  */
-export function escapeAString(unescapedString: string) {
+export function escapeAString(unescapedString: string): string {
   const inputStringArray = unescapedString.split("");
   const outputStringArray = inputStringArray.map((character) => {
-    if (character.match(/[+*()?[\]\\]/)) {
+    if (/[+*()?[\]\\]/.exec(character)) {
       // looks a little funny due to needing to escape "\" and "]" characters themselves for matching
       return `\\${character}`;
     }
@@ -125,7 +147,7 @@ export function escapeAString(unescapedString: string) {
 export function matchStringCaseDiacriticInsensitive(
   needle: string,
   compareString: string,
-) {
+): boolean {
   if (needle.length > 1000) {
     // short-circuit for very long needle cases, prevents RegExp crashing
     defaultLogger.warning(
@@ -164,7 +186,7 @@ export function matchStringsCaseDiacriticInsensitive(
  * @returns number
  */
 export const countNumberOfWords = (text: string): number => {
-  if (text && text.trim()) {
+  if (text?.trim()) {
     return text.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;
@@ -243,15 +265,17 @@ export function flattenErrors(
         }
         // If it is a field array, loop through, hoisting up field names
         if (Array.isArray(fieldError)) {
-          fieldError.forEach((subFieldError, index) => {
-            errorNames = [
-              ...errorNames,
-              ...flattenErrors(
-                subFieldError,
-                `${parentKey}${fieldName}.${index}`,
-              ),
-            ];
-          });
+          fieldError.forEach(
+            (subFieldError: FieldErrors<FieldValues>, index) => {
+              errorNames = [
+                ...errorNames,
+                ...flattenErrors(
+                  subFieldError,
+                  `${parentKey}${fieldName}.${index}`,
+                ),
+              ];
+            },
+          );
         }
         // We have an error message so add it to the array (we don't want errors with no message)
         if ("message" in fieldError) {

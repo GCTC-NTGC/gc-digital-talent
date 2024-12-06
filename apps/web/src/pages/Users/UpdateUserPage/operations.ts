@@ -12,6 +12,8 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       }
     }
 
+    ...UpdateUserOptions
+
     user(id: $id, trashed: WITH) {
       id
       email
@@ -29,12 +31,29 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
               fr
             }
           }
-          team {
+          teamable {
             id
-            name
-            displayName {
-              en
-              fr
+            __typename
+            ... on Pool {
+              name {
+                en
+                fr
+              }
+              teamIdForRoleAssignment
+            }
+            ... on Community {
+              name {
+                en
+                fr
+              }
+              key
+              teamIdForRoleAssignment
+            }
+            ... on Team {
+              displayName {
+                en
+                fr
+              }
             }
           }
         }
@@ -43,6 +62,8 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
+      isGovEmployee
+      workEmail
       preferredLang {
         value
         label {

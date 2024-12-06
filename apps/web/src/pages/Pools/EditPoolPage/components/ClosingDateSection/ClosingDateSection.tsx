@@ -52,9 +52,9 @@ const EditPoolClosingDate_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   endDate?: Pool["closingDate"];
-};
+}
 
 export type ClosingDateSubmitData = Pick<UpdatePoolInput, "closingDate">;
 type ClosingDateSectionProps = SectionProps<

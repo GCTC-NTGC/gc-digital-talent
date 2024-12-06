@@ -26,10 +26,11 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
-import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import Hero from "~/components/Hero";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -54,7 +55,7 @@ const ManagerInfo = ({
 
   return (
     <>
-      <Heading level="h2" size="h4">
+      <Heading level="h2" size="h4" data-h2-margin-top="base(0)">
         {intl.formatMessage({
           defaultMessage: "Manager Information",
           id: "UEsexn",
@@ -395,6 +396,14 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      community {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -445,7 +454,6 @@ export const ViewSearchRequest = ({
         url: routes.searchRequestView(id),
       },
     ],
-    isAdmin: true,
   });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
@@ -468,10 +476,10 @@ export const ViewSearchRequest = ({
   return (
     <>
       <SEO title={formattedPageTitle} description={subTitle} />
-      <AdminHero
+      <Hero
         title={formattedPageTitle}
         subtitle={subTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
+        crumbs={navigationCrumbs}
       />
       <AdminContentWrapper>
         {wasEmpty && (
@@ -544,12 +552,9 @@ export const ViewSearchRequest = ({
                 </div>
               </div>
               <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Additional Comments",
-                  id: "WqOnFF",
-                  description:
-                    "Title for the additional comments block in the search request filters",
-                })}
+                title={intl.formatMessage(
+                  talentRequestMessages.additionalComments,
+                )}
                 content={additionalComments}
               />
             </div>

@@ -82,57 +82,45 @@ class UserPolicy
     /**
      * Determine whether the user can update roles.
      *
-     * @param  UpdateUserRolesInput  $args
+     * @param  array{id: ?string, roleAssignmentsInput: ?array{attach: ?array, detach: ?array}}  $args
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function updateRoles(User $user, $args)
     {
         $targetUserId = isset($args['id']) ? $args['id'] : null;
         $attachRoles = isset($args['roleAssignmentsInput']) && isset($args['roleAssignmentsInput']['attach']) ?
-            $args['roleAssignmentsInput']['attach'] : null;
+            $args['roleAssignmentsInput']['attach'] : [];
         $detachRoles = isset($args['roleAssignmentsInput']) && isset($args['roleAssignmentsInput']['detach']) ?
-            $args['roleAssignmentsInput']['detach'] : null;
+            $args['roleAssignmentsInput']['detach'] : [];
 
         if (is_null($targetUserId)) {
             return false;
         }
 
-        if (! empty($attachRoles)) {
-
-            foreach ($attachRoles as $roleInput) {
-
-                // loop through each element and check
-                if (isset($roleInput['teamId'])) {
-                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
-                        return false;
-                    }
-                } else {
-                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
-                        return false;
-                    }
-                }
+        $canAttachRoles = collect($attachRoles)->every(function ($roleInput) use ($user) {
+            // loop through each element and check
+            if (isset($roleInput['teamId'])) {
+                return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
+            } else {
+                return $this->individualAbleToCheck($user, $roleInput['roleId']);
             }
+        });
+
+        $canDetachRoles = collect($detachRoles)->every(function ($roleInput) use ($user) {
+            // loop through each element and check
+            if (isset($roleInput['teamId'])) {
+                return $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId']);
+            } else {
+                return $this->individualAbleToCheck($user, $roleInput['roleId']);
+            }
+        });
+
+        if ($canAttachRoles && $canDetachRoles) {
+            return true;
         }
 
-        if (! empty($detachRoles)) {
-
-            foreach ($detachRoles as $roleInput) {
-
-                // loop through each element and check
-                if (isset($roleInput['teamId'])) {
-                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
-                        return false;
-                    }
-                } else {
-                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        // nothing failed
-        return true;
+        // user cannot update any roles
+        return false;
     }
 
     /**
@@ -162,7 +150,15 @@ class UserPolicy
         return PoolCandidate::where('user_id', $applicant->id)
             ->notDraft()
             ->whereHas('pool', function ($query) use ($teamIds) {
-                return $query->whereIn('team_id', $teamIds);
+                return $query->where(function ($query) use ($teamIds) {
+                    $query->orWhereHas('legacyTeam', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('team', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    })->orWhereHas('community.team', function ($query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    });
+                });
             })
             ->exists();
     }
@@ -181,18 +177,19 @@ class UserPolicy
         }
 
         $role = Role::findOrFail($roleId);
-        $team = Team::with(['teamable.community.team'])->findOrFail($teamId);
+        $team = Team::with(['teamable.team'])->findOrFail($teamId);
 
         switch ($role->name) {
             case 'pool_operator':
                 return $actor->isAbleTo('assign-any-teamRole');
             case 'process_operator':
                 // Community roles have the update-team-processOperatorMembership permission, and it should give them the ability to assign processOperator roles to pools in their community.
-                $communityTeam = $team->teamable?->community?->team;
+                // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
+                $poolTeam = $team->loadMissing(['teamable.community.team']);
 
                 return $actor->isAbleTo('update-any-processOperatorMembership')
                     || $actor->isAbleTo('update-team-processOperatorMembership', $team)
-                || (isset($communityTeam) && $actor->isAbleTo('update-team-processOperatorMembership', $communityTeam));
+                || (isset($poolTeam->teamable->community->team) && $actor->isAbleTo('update-team-processOperatorMembership', $poolTeam->teamable->community->team));
             case 'community_recruiter':
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
@@ -224,6 +221,9 @@ class UserPolicy
                 return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
                 return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');
+            case 'manager':
+                return $actor->isAbleTo('update-any-managerMembership ') || $actor->isAbleTo('assign-any-role');
+
         }
 
         return false; // reject unknown roles

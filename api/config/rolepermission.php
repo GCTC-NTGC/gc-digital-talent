@@ -76,17 +76,21 @@ return [
         'applicationPlacement' => 'applicationPlacement',
         'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision, but can't be fully removed until after #8671.
         'applicantCount' => 'applicantCount',
+        'jobPosterTemplate' => 'jobPosterTemplate',
         'searchRequest' => 'searchRequest',
         'role' => 'role',
         'announcement' => 'announcement',
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'trainingOpportunity' => 'trainingOpportunity',
+        'workStream' => 'workStream',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
+        'managerMembership' => 'managerMembership',
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
@@ -173,20 +177,20 @@ return [
         ],
 
         'view-any-skillFamily' => [
-            'en' => 'View Any Skill Family',
-            'fr' => 'Visionner toute famille de compétences',
+            'en' => 'View Any Skill family',
+            'fr' => 'Visionner n\'importe quel groupe de compétences',
         ],
         'create-any-skillFamily' => [
-            'en' => 'Create Any Skill Family',
-            'fr' => 'Créer toute famille de compétences',
+            'en' => 'Create Any Skill family',
+            'fr' => 'Créer n\'importe quel groupe de compétences',
         ],
         'update-any-skillFamily' => [
-            'en' => 'Update Any Skill Family',
-            'fr' => 'Mettre à jour toute famille de compétences',
+            'en' => 'Update Any Skill family',
+            'fr' => 'Mettre à jour n\'importe quel groupe de compétences',
         ],
         'delete-any-skillFamily' => [
-            'en' => 'Delete Any Skill Family',
-            'fr' => 'Supprimer toute famille de compétences',
+            'en' => 'Delete Any Skill family',
+            'fr' => 'Supprimer n\'importe quel groupe de compétences',
         ],
 
         'create-any-user' => [
@@ -428,6 +432,23 @@ return [
             'fr' => 'Visualiser le résultat du comptage de n\'importe quelle requête filtre-demandeur',
         ],
 
+        'view-any-jobPosterTemplate' => [
+            'en' => 'View any job poster template',
+            'fr' => 'Voir n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'create-any-jobPosterTemplate' => [
+            'en' => 'Create any job poster template',
+            'fr' => 'Créer n\'importe quel modèle d\'affiche d\'emploi',
+        ],
+        'update-any-jobPosterTemplate' => [
+            'en' => 'Update any job poster template',
+            'fr' => 'Mise à jour de tout modèle d\'affiche d\'emploi',
+        ],
+        'delete-any-jobPosterTemplate' => [
+            'en' => 'Delete any job poster template',
+            'fr' => 'Supprimer un modèle d\'offre d\'emploi',
+        ],
+
         'create-any-searchRequest' => [
             'en' => 'Create Any SearchRequest',
             'fr' => 'Créer toute demande de recherche',
@@ -455,6 +476,10 @@ return [
         'delete-any-searchRequest' => [
             'en' => 'Delete SearchRequests submitted to this Team',
             'fr' => 'Supprimer n\'import quelle demande de recherche',
+        ],
+        'view-own-searchRequest' => [
+            'en' => 'View own SearchRequests',
+            'fr' => 'Voir ses propres demandes de recherche',
         ],
 
         'view-any-team' => [
@@ -484,6 +509,15 @@ return [
         'delete-any-team' => [
             'en' => 'Delete Any Team',
             'fr' => 'Supprimer toute équipe',
+        ],
+
+        'create-any-workStream' => [
+            'en' => 'Create Any Work Stream',
+            'fr' => 'Créer tout volet de travail',
+        ],
+        'update-any-workStream' => [
+            'en' => 'Update Any Work Stream',
+            'fr' => 'Modifier tout volet de travail',
         ],
 
         'view-any-role' => [
@@ -586,6 +620,10 @@ return [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
             'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
         ],
+        'update-any-managerMembership' => [
+            'en' => 'Add or remove the Manager role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de gestionnaire à n\'importe quel utilisateur',
+        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -602,6 +640,11 @@ return [
         'view-team-communityTeamMembers' => [
             'en' => 'View the members of this community',
             'fr' => 'Voir les membres de cette communauté',
+        ],
+
+        'create-any-trainingOpportunity' => [
+            'en' => 'Create or update a training opportunity',
+            'fr' => 'Créer ou mettre à jour une opportunité de formation',
         ],
     ],
 
@@ -741,6 +784,18 @@ return [
             ],
             'is_team_based' => false,
         ],
+
+        'manager' => [
+            'display_name' => [
+                'en' => 'Manager',
+                'fr' => 'Gestionnaire',
+            ],
+            'description' => [
+                'en' => 'Can search for talent and submit talent requests.',
+                'fr' => 'Possibilité de rechercher des talents et de soumettre des demandes de talents.',
+            ],
+            'is_team_based' => false,
+        ],
     ],
 
     /*
@@ -786,6 +841,9 @@ return [
             'applicantCount' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view'],
+            ],
             'searchRequest' => [
                 'any' => ['create'],
             ],
@@ -828,8 +886,12 @@ return [
             'applicantCount' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view'],
+            ],
             'searchRequest' => [
                 'any' => ['create'],
+                'own' => ['view'],
             ],
             'team' => [
                 'any' => ['view'],
@@ -1012,7 +1074,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'searchRequest' => [
-                'any' => ['view', 'update', 'delete'],
+                'team' => ['view', 'update', 'delete'],
             ],
             'community' => [
                 'team' => ['view'],
@@ -1060,7 +1122,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'searchRequest' => [
-                'any' => ['view', 'update', 'delete'],
+                'team' => ['view', 'update', 'delete'],
             ],
             'community' => [
                 'team' => ['view', 'update'],
@@ -1134,6 +1196,9 @@ return [
             'applicationPlacement' => [
                 'any' => ['view'],
             ],
+            'jobPosterTemplate' => [
+                'any' => ['view', 'create', 'update', 'delete'],
+            ],
             'searchRequest' => [
                 'any' => ['view'],
             ],
@@ -1164,12 +1229,24 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
+            'managerMembership' => [
+                'any' => ['update'],
+            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
             'poolTeamMembers' => [
                 'any' => ['view'],
             ],
+            'trainingOpportunity' => [
+                'any' => ['create'],
+            ],
+            'workStream' => [
+                'any' => ['create', 'update'],
+            ],
+        ],
+        'manager' => [
+            // granted permissions will be defined later
         ],
     ],
 ];

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 final readonly class SitewideAnnouncement
 {
-    /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
     {
         $dbRow = DB::table('settings')->where('key', 'sitewide_announcement')->first(['value']);

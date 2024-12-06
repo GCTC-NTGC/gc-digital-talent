@@ -19,14 +19,16 @@ const AboutSection = ({
   const intl = useIntl();
 
   return (
-    <Well>
+    <Well data-h2-display="base(grid)" data-h2-gap="base(x1)">
       {(!!firstName || !!lastName) && (
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Name:",
-            id: "DAmLhV",
-            description: "Name label and colon",
-          })}{" "}
+          <span data-h2-display="base(block)">
+            {intl.formatMessage({
+              defaultMessage: "Name",
+              id: "4QyHfC",
+              description: "Name label and colon",
+            })}
+          </span>
           <span data-h2-font-weight="base(700)">
             {getFullNameHtml(firstName, lastName, intl)}
           </span>
@@ -40,29 +42,31 @@ const AboutSection = ({
         )}
       {armedForcesStatus !== null && armedForcesStatus !== undefined && (
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Member of CAF:",
-            id: "Md/cQS",
-            description: "Veteran/member label",
-          })}{" "}
+          <span data-h2-display="base(block)">
+            {intl.formatMessage({
+              defaultMessage: "Member of CAF",
+              id: "ybzxmU",
+              description: "Veteran/member label",
+            })}
+          </span>
           <span data-h2-font-weight="base(700)">
             {getLocalizedName(armedForcesStatus.label, intl)}
           </span>
         </p>
       )}
-      {citizenship ? (
+      {citizenship && (
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Citizenship:",
-            id: "GiODgs",
-            description: "Citizenship label",
-          })}{" "}
+          <span data-h2-display="base(block)">
+            {intl.formatMessage({
+              defaultMessage: "Citizenship",
+              id: "sr20Tb",
+              description: "Citizenship label",
+            })}
+          </span>
           <span data-h2-font-weight="base(700)">
             {getLocalizedName(citizenship.label, intl)}
           </span>
         </p>
-      ) : (
-        ""
       )}
     </Well>
   );

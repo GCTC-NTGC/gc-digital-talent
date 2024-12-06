@@ -16,12 +16,12 @@ import reviewStepInfo from "./reviewStep/reviewStepInfo";
 import skillsStepInfo from "./skillsStep/skillsStepInfo";
 import successPageInfo from "./successStep/successStepInfo";
 
-type GetApplicationPagesArgs = {
+interface GetApplicationPagesArgs {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
   application: Application_PoolCandidateFragment;
   experienceId?: string;
-};
+}
 
 // Dynamically build the list of application steps for this application
 // eslint-disable-next-line import/prefer-default-export
@@ -30,10 +30,10 @@ export const getApplicationSteps = ({
   intl,
   application,
   experienceId,
-}: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
+}: GetApplicationPagesArgs): ApplicationStepInfo[] => {
   const showQuestionStep =
-    application.pool.generalQuestions?.length ||
-    application.pool.screeningQuestions?.length;
+    !!application.pool.generalQuestions?.length ||
+    !!application.pool.screeningQuestions?.length;
 
   // build the order of step functions to call
   const stepInfoFunctions = [

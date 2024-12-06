@@ -1,7 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { ReactNode, useEffect } from "react";
-import { useQuery } from "urql";
 
 import {
   RadioGroup,
@@ -16,9 +15,10 @@ import {
   sortEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
+import { FormValues } from "./types";
 
 const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
   return (
@@ -52,8 +52,8 @@ const selfAssessmentLink = (msg: ReactNode, locale: Locales) => {
   );
 };
 
-const LanguageProfileOptions_Query = graphql(/* GraphQL */ `
-  query LanguageProfileOptions {
+export const LanguageProfileOptions_Fragment = graphql(/* GraphQL */ `
+  fragment LanguageProfileOptions on Query {
     evaluatedLanguageAbilities: localizedEnumStrings(
       enumName: "EvaluatedLanguageAbility"
     ) {
@@ -75,13 +75,17 @@ const LanguageProfileOptions_Query = graphql(/* GraphQL */ `
 
 interface ConsideredLanguagesProps {
   labels: FieldLabels;
+  optionsQuery?: FragmentType<typeof LanguageProfileOptions_Fragment>;
 }
 
-const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
+const ConsideredLanguages = ({
+  labels,
+  optionsQuery,
+}: ConsideredLanguagesProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const [{ data }] = useQuery({ query: LanguageProfileOptions_Query });
-  const { watch, resetField } = useFormContext();
+  const data = getFragment(LanguageProfileOptions_Fragment, optionsQuery);
+  const { watch, resetField } = useFormContext<FormValues>();
 
   // hooks to watch, needed for conditional rendering
   const [consideredLanguages, secondLanguageExamCompleted] = watch([
@@ -106,7 +110,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
    * Reset un-rendered fields
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false });
     };
 

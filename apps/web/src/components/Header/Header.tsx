@@ -1,12 +1,13 @@
 /* eslint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import {
   localizePath,
   oppositeLocale,
   useLocale,
 } from "@gc-digital-talent/i18n";
+import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
@@ -31,6 +32,13 @@ const Header = ({ width }: HeaderProps) => {
       "data-h2-wrapper": "base(center, full, x1) p-tablet(center, full, x2)",
     };
   }
+
+  const isSmallScreen = useIsSmallScreen(1080);
+  const logoSize = {
+    "data-h2-height": "base(auto)",
+    "data-h2-max-width": "base(x12)",
+  };
+
   return (
     <header
       data-h2-background-color="base(foreground) base:dark(white)"
@@ -53,22 +61,22 @@ const Header = ({ width }: HeaderProps) => {
               {locale === "en" ? (
                 <>
                   <GocLogoEn
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteEn
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>
               ) : (
                 <>
                   <GocLogoFr
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteFr
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>
@@ -83,34 +91,36 @@ const Header = ({ width }: HeaderProps) => {
               </span>
             </a>
           </div>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-gap="base(x.5) p-tablet(x1)"
-            data-h2-align-items="base(center)"
-            data-h2-justify-content="base(center) p-tablet(flex-end)"
-            data-h2-text-align="base(center) p-tablet(left)"
-          >
-            <div>
-              <ThemeSwitcher />
+          {!isSmallScreen && (
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column) p-tablet(row)"
+              data-h2-gap="base(x.5) p-tablet(x1)"
+              data-h2-align-items="base(center)"
+              data-h2-justify-content="base(center) p-tablet(flex-end)"
+              data-h2-text-align="base(center) p-tablet(left)"
+            >
+              <div>
+                <ThemeSwitcher />
+              </div>
+              <div>
+                <a
+                  data-h2-background-color="base:focus-visible(focus)"
+                  data-h2-outline="base(none)"
+                  data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
+                  href={languageTogglePath}
+                  lang={changeToLang === "en" ? "en" : "fr"}
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "<hidden>Changer la langue en </hidden>Français",
+                    id: "Z3h103",
+                    description: "Title for the language toggle link.",
+                  })}
+                </a>
+              </div>
             </div>
-            <div>
-              <a
-                data-h2-background-color="base:focus-visible(focus)"
-                data-h2-outline="base(none)"
-                data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
-                href={languageTogglePath}
-                lang={changeToLang === "en" ? "en" : "fr"}
-              >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<hidden>Changer la langue en </hidden>Français",
-                  id: "Z3h103",
-                  description: "Title for the language toggle link.",
-                })}
-              </a>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </header>

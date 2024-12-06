@@ -45,7 +45,7 @@ const CandidateStatusSection = ({
                 "Title of the 'Add user to pools' section of the view-user page",
             })}
           </h4>
-          <AddToPoolDialog user={user} />
+          <AddToPoolDialog user={user} poolCandidates={user.poolCandidates} />
         </>
       )}
     </>

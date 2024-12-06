@@ -1,12 +1,12 @@
 const { resolve } = require("node:path");
-const project = resolve(process.cwd(), 'tsconfig.json');
+const project = resolve(process.cwd(), "tsconfig.json");
 
 module.exports = {
   parser: "@typescript-eslint/parser",
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -17,9 +17,8 @@ module.exports = {
     ".eslintrc",
     ".eslintrc.cjs",
     "tsconfig.json",
-    "styleMock.js",
-    "fileMock.js",
-    "CssStub.js",
+    "styleMock.ts",
+    "fileMock.ts",
     ".turbo",
     "gql/graphql.ts",
     "dist/**",
@@ -36,7 +35,7 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: "module",
-    project
+    project,
   },
   plugins: [
     "import",
@@ -47,14 +46,14 @@ module.exports = {
   ],
   rules: {
     camelcase: [
-      "warn",
+      "error",
       {
         allow: ["w*Query$", "w*Fragment$", "w*Mutation$", "w*Document$"],
       },
     ],
-    "consistent-return": "warn",
+    "consistent-return": "error",
     "import/no-extraneous-dependencies": "off",
-    "import/extensions": ["warn", "never", { json: "always" }],
+    "import/extensions": ["error", "never", { json: "always" }],
     "import/order": [
       "error",
       {
@@ -82,22 +81,35 @@ module.exports = {
       },
     ],
     "no-only-tests/no-only-tests": "error",
-    "no-param-reassign": "warn",
+    "no-param-reassign": "error",
     "no-use-before-define": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-use-before-define": "warn",
+    "no-console": "error",
+    "no-alert": "error",
+    "prefer-promise-reject-errors": "off",
+    "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/no-shadow": "error",
-    "@typescript-eslint/no-empty-function": "warn",
+    "@typescript-eslint/no-empty-function": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "error",
+      { ignorePrimitives: { boolean: true } },
+    ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      // NOTE: Needed for react-hook-form
+      // REF: https://github.com/orgs/react-hook-form/discussions/8622#discussioncomment-4060570
+      { checksVoidReturn: { attributes: false } },
+    ],
     "no-underscore-dangle": ["error", { allow: ["__typename"] }],
 
-    // CI Only rules to keep local snappy
-    "import/no-named-as-default": process.env.CI ? "warn" : "off",
+    // CI Only rules to keep local snappy, deprecation kept as a warn
+    "import/no-named-as-default": process.env.CI ? "error" : "off",
     "import/namespace": process.env.CI ? "error" : "off",
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
   },
   settings: {
-    "react": {
-      "version": "18.0"
+    react: {
+      version: "18.0",
     },
     "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
@@ -105,7 +117,7 @@ module.exports = {
     },
     "import/resolver": {
       typescript: {
-        project
+        project,
       },
     },
   },

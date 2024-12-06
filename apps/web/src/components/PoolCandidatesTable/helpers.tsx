@@ -28,10 +28,11 @@ import {
   AssessmentResultStatus,
   LocalizedProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByPoolColumn,
-  PriorityWeight,
   Classification,
   LocalizedFinalDecision,
   InputMaybe,
+  LocalizedString,
+  ClaimVerificationSort,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -57,40 +58,22 @@ import CandidateBookmark, {
 } from "../CandidateBookmark/CandidateBookmark";
 
 export const priorityCell = (
-  priorityWeight: number | null | undefined,
-  priorities: MaybeLocalizedEnums | undefined,
+  weight: number,
+  label: LocalizedString,
   intl: IntlShape,
 ) => {
-  let priority: PriorityWeight | null = null;
-  switch (priorityWeight) {
-    case 10:
-      priority = PriorityWeight.PriorityEntitlement;
-      break;
-    case 20:
-      priority = PriorityWeight.Veteran;
-      break;
-    case 30:
-      priority = PriorityWeight.CitizenOrPermanentResident;
-      break;
-    default:
-    // null
-  }
+  const bold = weight === 10 || weight === 20;
 
-  if (!priority) return null;
-
-  const label = getLocalizedEnumStringByValue(priority, priorities, intl);
-
-  if (priorityWeight === 10 || priorityWeight === 20) {
-    return (
-      <span
-        data-h2-color="base(primary.darker)"
-        data-h2-font-weight="base(700)"
-      >
-        {label}
-      </span>
-    );
-  }
-  return <span>{label}</span>;
+  return (
+    <span
+      {...(bold && {
+        "data-h2-color": "base(primary.darker)",
+        "data-h2-font-weight": "base(700)",
+      })}
+    >
+      {getLocalizedName(label, intl)}
+    </span>
+  );
 };
 
 export const candidateNameCell = (
@@ -208,7 +191,7 @@ export const currentLocationAccessor = (
   province: LocalizedProvinceOrTerritory | null | undefined,
   intl: IntlShape,
 ) =>
-  `${city || intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
+  `${city ?? intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
 export const finalDecisionCell = (
   finalDecision: Maybe<LocalizedFinalDecision> | undefined,
@@ -250,7 +233,6 @@ function transformSortStateToOrderByClause(
     ["preferredLang", "PREFERRED_LANG"],
     ["currentLocation", "CURRENT_CITY"],
     ["skillCount", "skill_count"],
-    ["priority", "PRIORITY_WEIGHT"],
     ["status", "status_weight"],
     ["notes", "notes"],
     ["skillCount", "skillCount"],
@@ -294,13 +276,9 @@ function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    [
-      "candidateName",
-      "email",
-      "preferredLang",
-      "currentLocation",
-      "priority",
-    ].includes(sortingRule.id)
+    ["candidateName", "email", "preferredLang", "currentLocation"].includes(
+      sortingRule.id,
+    )
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -342,13 +320,12 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-  currentPool?: Maybe<Pick<Pool, "id">>,
-): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
+): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] | undefined {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
 
   // handle sort in orderByClaimVerification
-  if (!!sortingRules?.find((rule) => rule.id === "priority") && !!currentPool) {
-    return [];
+  if (sortingRules?.find((rule) => rule.id === "priority")) {
+    return undefined;
   }
 
   return [
@@ -364,17 +341,20 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-  currentPool?: Maybe<Pick<Pool, "id">>,
-): Maybe<SortOrder> | undefined {
-  if (!!currentPool && !!sortingState?.find((rule) => rule.id === "priority")) {
+  doNotUseBookmark?: boolean,
+): Maybe<ClaimVerificationSort> {
+  if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
     const sortOrder = sortingState.find((rule) => rule.id === "priority");
     if (sortOrder) {
-      return sortOrder.desc ? SortOrder.Desc : SortOrder.Asc;
+      return {
+        order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
+        useBookmark: !doNotUseBookmark,
+      };
     }
   }
 
-  return undefined;
+  return null;
 }
 
 export function getPoolNameSort(
@@ -435,6 +415,7 @@ export function transformPoolCandidateSearchInputToFormValues(
       ? input.suspendedStatus
       : CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
+    community: input?.applicantFilter?.community?.id ?? "",
   };
 }
 
@@ -471,6 +452,7 @@ export function transformFormValuesToFilterState(
       skills: data.skills.map((id) => {
         return { id };
       }),
+      community: data.community ? { id: data.community } : undefined,
     },
     poolCandidateStatus: data.poolCandidateStatus
       .map((status) => {

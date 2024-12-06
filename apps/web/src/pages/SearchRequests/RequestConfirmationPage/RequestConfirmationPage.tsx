@@ -32,9 +32,9 @@ const subTitle = defineMessage({
   description: "Subtitle for the request confirmation page.",
 });
 
-type RequestConfirmationParams = {
+interface RouteParams extends Record<string, string> {
   requestId: Scalars["ID"]["output"];
-};
+}
 
 const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
@@ -45,8 +45,7 @@ const mailLink = (chunks: ReactNode) => (
 export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { requestId } =
-    useRequiredParams<RequestConfirmationParams>("requestId");
+  const { requestId } = useRequiredParams<RouteParams>("requestId");
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedSubTitle = intl.formatMessage(subTitle);
@@ -168,8 +167,8 @@ export const Component = () => {
             />
             <Link mode="inline" href={paths.search()} color="secondary">
               {intl.formatMessage({
-                defaultMessage: "Create a new talent request",
-                id: "+d2TiI",
+                defaultMessage: "Create another talent request",
+                id: "ZN9OsN",
                 description: "Link text to start a new talent request",
               })}
             </Link>

@@ -9,16 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class PoolCandidateSearchRequest
  *
- * @property int $id
+ * @property string $id
  * @property string $full_name
  * @property string $email
- * @property int $department_id
+ * @property string $department_id
  * @property string $job_title
  * @property string $additional_comments
  * @property string $hr_advisor_email
@@ -29,11 +30,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $request_status_weight
  * @property string $manager_job_title
  * @property string $position_type
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
- * @property Illuminate\Support\Carbon $deleted_at
- * @property Illuminate\Support\Carbon $request_status_changed_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property ?\Carbon\CarbonImmutable $request_status_changed_at
  * @property string $reason
+ * @property string $community_id
+ * @property int $initial_result_count
+ * @property string $user_id
  */
 class PoolCandidateSearchRequest extends Model
 {
@@ -45,12 +49,28 @@ class PoolCandidateSearchRequest extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'request_status_changed_at' => 'datetime',
     ];
+
+    /**
+     * Boot function for using with PoolCandidateSearchRequest
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        parent::boot();
+        static::creating(function ($searchRequest) use ($user) {
+            // unless the user_id was already specified use the currently authenticated user
+            // needed to be able to set the value in a factory
+            $searchRequest->user_id = $searchRequest->user_id ?? $user?->id;
+        });
+    }
 
     /**
      * The "booted" method of the model.
@@ -79,24 +99,25 @@ class PoolCandidateSearchRequest extends Model
             ->dontSubmitEmptyLogs();
     }
 
-    /**
-     * Model relations
-     */
+    /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return BelongsTo<PoolCandidateFilter, $this> */
     public function poolCandidateFilter(): BelongsTo
     {
         return $this->belongsTo(PoolCandidateFilter::class);
     }
 
+    /** @return BelongsTo<ApplicantFilter, $this> */
     public function applicantFilter(): BelongsTo
     {
         return $this->belongsTo(ApplicantFilter::class);
     }
 
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
@@ -240,6 +261,39 @@ class PoolCandidateSearchRequest extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * Scope the query to SearchRequests the current user can view
+     */
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('view-any-searchRequest')) {
+            return $query;
+        }
+
+        if ($user?->isAbleTo('view-team-searchRequest')) {
+            $query->where(function (Builder $query) use ($user) {
+
+                $allTeam = $user->rolesTeams()->get();
+                $teamIds = $allTeam->filter(function ($team) use ($user) {
+                    return $user->isAbleTo('view-team-searchRequest', $team);
+                })->pluck('id');
+
+                $query->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+
+            });
+
+            return $query;
+        }
+
+        // fallback
+        return $query->where('id', null);
     }
 
     /**

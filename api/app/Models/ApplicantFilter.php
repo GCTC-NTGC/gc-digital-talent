@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array $location_preferences
  * @property array $operational_requirements
  * @property array $qualified_streams
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class ApplicantFilter extends Model
 {
@@ -32,8 +32,6 @@ class ApplicantFilter extends Model
 
     /**
      * The attributes that should be cast.
-     *
-     * @var array
      */
     protected $casts = [
         'location_preferences' => 'array',
@@ -42,29 +40,40 @@ class ApplicantFilter extends Model
         'qualified_streams' => 'array',
     ];
 
+    /** @return BelongsToMany<Classification, $this> */
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_classification');
     }
 
+    /** @return BelongsToMany<Classification, $this> */
     public function qualifiedClassifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_qualified_classification');
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'applicant_filter_skill');
     }
 
+    /** @return BelongsToMany<Pool, $this> */
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'applicant_filter_pool');
     }
 
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
+    }
+
+    /** @return BelongsToMany<WorkStream, $this> */
+    public function workStreams(): BelongsToMany
+    {
+        return $this->belongsToMany(WorkStream::class);
     }
 
     /* these fields are factored out into a sub-object by this accessor to mirror the way they are queried */

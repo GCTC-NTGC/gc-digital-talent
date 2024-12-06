@@ -6,7 +6,6 @@ import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
-
 import { hydrogen_watch } from "@hydrogen-css/hydrogen";
 
 dotenv.config({ path: "./.env" });
@@ -25,7 +24,7 @@ const meta = {
   image: `${appUrl}/images/digital-talent/banner.jpg`,
 };
 
-const getEnvVar = (key: string, fallback: string = `""`): string => {
+const getEnvVar = (key: string, fallback = `""`): string => {
   return process.env[key] ? JSON.stringify(process.env[key]) : fallback;
 };
 
@@ -88,7 +87,7 @@ export default defineConfig(({ command }) => ({
           framer: ["framer-motion"],
           graphql: ["@gc-digital-talent/graphql"],
           react: ["react", "react-dom"],
-          router: ["react-router", "react-router-dom"],
+          router: ["react-router", "react-router"],
           tiptap: [
             "@tiptap/react",
             "@tiptap/starter-kit",
@@ -101,6 +100,9 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     port: 3000,
+  },
+  html: {
+    cspNonce: "**CSP_NONCE**",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".json", ".js"],
@@ -116,8 +118,6 @@ export default defineConfig(({ command }) => ({
     API_URI: getEnvVar("VITE_API_URI"),
     API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
     BUILD_DATE: JSON.stringify(new Date()),
-    API_SUPPORT_ENDPOINT: getEnvVar("VITE_API_SUPPORT_ENDPOINT"),
-    TALENTSEARCH_SUPPORT_EMAIL: getEnvVar("VITE_TALENTSEARCH_SUPPORT_EMAIL"),
 
     // run-time variables
     OAUTH_POST_LOGOUT_REDIRECT_EN: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_EN"),
@@ -224,6 +224,13 @@ export default defineConfig(({ command }) => ({
         ],
       },
     }),
-    compression(),
+    /**
+     * NOTE: We are not compressing the index.html
+     * so we can use the ngx_http_sub_module to
+     * replace values at runtime
+     *
+     * REF: https://nginx.org/en/docs/http/ngx_http_sub_module.html
+     */
+    compression({ exclude: /index\.html/i }),
   ],
 }));

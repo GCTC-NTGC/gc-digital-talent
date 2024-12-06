@@ -21,6 +21,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Database\Seeders\TeamSeeder;
+use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -42,9 +43,11 @@ class ApplicantFilterTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->bootRefreshesSchemaCache();
 
-        $this->seed(RolePermissionSeeder::class);
-        $this->seed(DepartmentSeeder::class);
-        $this->seed(TeamSeeder::class);
+        $this->seed([
+            RolePermissionSeeder::class,
+            DepartmentSeeder::class,
+            TeamSeeder::class,
+        ]);
 
         // Create super user we run tests as
         // Note: this extra user does change the results of a couple queries
@@ -213,11 +216,14 @@ class ApplicantFilterTest extends TestCase
     {
 
         // Before we add relationships, we need to seed the related values
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(CommunitySeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolTestSeeder::class);
+        $this->seed([
+            ClassificationSeeder::class,
+            CommunitySeeder::class,
+            WorkStreamSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            PoolTestSeeder::class,
+        ]);
 
         // By default, factory doesn't add relationships.
         $filter = ApplicantFilter::factory()->create();
@@ -242,11 +248,14 @@ class ApplicantFilterTest extends TestCase
     public function testQueryRelationships()
     {
         // Before we add relationships, we need to seed the related values
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(CommunitySeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolTestSeeder::class);
+        $this->seed([
+            ClassificationSeeder::class,
+            CommunitySeeder::class,
+            WorkStreamSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            PoolTestSeeder::class,
+        ]);
 
         $filter = ApplicantFilter::factory()->withRelationships()->create();
         $request = PoolCandidateSearchRequest::factory()->create([
@@ -406,12 +415,15 @@ class ApplicantFilterTest extends TestCase
     public function testFilterCanBeStoredAndRetrievedWithoutChangingResults()
     {
         // Seed everything used in generating Users
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(CommunitySeeder::class);
-        $this->seed(GenericJobTitleSeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolTestSeeder::class);
+        $this->seed([
+            ClassificationSeeder::class,
+            CommunitySeeder::class,
+            GenericJobTitleSeeder::class,
+            WorkStreamSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            PoolTestSeeder::class,
+        ]);
 
         $community = Community::where('key', 'digital')->first();
         $pool = Pool::factory()
@@ -423,6 +435,7 @@ class ApplicantFilterTest extends TestCase
                     'fr' => 'Test Pool FR',
                 ],
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                'community_id' => $community->id,
             ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(10)->availableInSearch()->create([

@@ -20,6 +20,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import tableMessages from "~/components/Table/tableMessages";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -42,7 +43,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   );
 
   const members: TeamMember[] = useMemo(
-    () => groupRoleAssignmentsByUser(team.roleAssignments || []),
+    () => groupRoleAssignmentsByUser(team.roleAssignments ?? []),
     [team.roleAssignments],
   );
 
@@ -84,11 +85,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
     columns = [
       columnHelper.display({
         id: "actions",
-        header: intl.formatMessage({
-          defaultMessage: "Actions",
-          id: "OxeGLu",
-          description: "Title displayed for the team table actions column",
-        }),
+        header: intl.formatMessage(tableMessages.actions),
         cell: ({ row: { original: member } }) => actionCell(member, team),
       }),
       ...columns,
@@ -146,9 +143,9 @@ const TeamMembersTeam_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   teamId: Scalars["ID"]["output"];
-};
+}
 
 const TeamMembersPage = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");

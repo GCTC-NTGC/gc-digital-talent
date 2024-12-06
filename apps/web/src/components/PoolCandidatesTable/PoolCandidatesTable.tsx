@@ -26,9 +26,8 @@ import {
   PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
-  Language,
 } from "@gc-digital-talent/graphql";
-import { Button } from "@gc-digital-talent/ui";
+import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -44,7 +43,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
+import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -66,10 +65,7 @@ import {
   getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
 } from "./helpers";
-import {
-  actionButtonStyles,
-  rowSelectCell,
-} from "../Table/ResponsiveTable/RowSelection";
+import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
@@ -79,8 +75,8 @@ import {
   jobPlacementDialogAccessor,
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
-import DownloadCandidatesDocButton from "../DownloadButton/DownloadCandidatesDocButton";
-import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
+import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
+import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -163,7 +159,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
-    $orderByClaimVerification: SortOrder
+    $orderByClaimVerification: ClaimVerificationSort
   ) {
     poolCandidatesPaginated(
       where: $where
@@ -179,6 +175,14 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialog
           id
           ...PoolCandidate_Bookmark
+          category {
+            weight
+            value
+            label {
+              en
+              fr
+            }
+          }
           pool {
             id
             processNumber
@@ -405,18 +409,24 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesCsv($ids: [UUID!]!, $locale: Language) {
-    downloadPoolCandidatesCsv(ids: $ids, locale: $locale)
+  mutation DownloadPoolCandidatesCsv(
+    $ids: [UUID!]
+    $where: PoolCandidateSearchInput
+    $withROD: Boolean
+  ) {
+    downloadPoolCandidatesCsv(ids: $ids, where: $where, withROD: $withROD)
   }
 `);
 
-const DownloadPoolCandidatesDoc_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesDoc(
-    $ids: [UUID!]!
-    $anonymous: Boolean!
-    $locale: Language
-  ) {
-    downloadPoolCandidatesDoc(ids: $ids, anonymous: $anonymous, locale: $locale)
+const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
+    downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
+  }
+`);
+
+const DownloadSinglePoolCandidateDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadPoolCandidateDoc($id: UUID!, $anonymous: Boolean!) {
+    downloadPoolCandidateDoc(id: $id, anonymous: $anonymous)
   }
 `);
 
@@ -440,7 +450,7 @@ const defaultState = {
     },
     poolCandidateStatus: [],
     priorityWeight: [],
-    publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
+    publishingGroups: [PublishingGroup.ItJobs],
   },
 };
 
@@ -460,11 +470,22 @@ const PoolCandidatesTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const initialState = getTableStateFromSearchParams(defaultState);
+  const apiRoutes = useApiRoutes();
+
+  const defaultSortState = currentPool
+    ? [{ id: "finalDecision", desc: false }]
+    : [{ id: "dateReceived", desc: true }];
+  const initialState = getTableStateFromSearchParams({
+    ...defaultState,
+    sortState: defaultSortState,
+  });
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchInput)
+        : initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
 
@@ -472,9 +493,16 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesCsv_Mutation,
   );
 
-  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
-    DownloadPoolCandidatesDoc_Mutation,
+  const [{ fetching: downloadingZip }, downloadZip] = useMutation(
+    DownloadPoolCandidatesZip_Mutation,
   );
+
+  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
+    DownloadSinglePoolCandidateDoc_Mutation,
+  );
+
+  const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
+    useAsyncFileDownload();
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
@@ -552,20 +580,15 @@ const PoolCandidatesTable = ({
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(
-        sortState,
-        filterState,
-        doNotUseBookmark,
-        currentPool,
-      ),
+      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
       orderByClaimVerification: getClaimVerificationSort(
         sortState,
-        currentPool,
+        doNotUseBookmark,
       ),
     },
   });
 
-  const filteredData: Array<PoolCandidateWithSkillCount> = useMemo(() => {
+  const filteredData: PoolCandidateWithSkillCount[] = useMemo(() => {
     const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
@@ -595,23 +618,49 @@ const PoolCandidatesTable = ({
     }
   };
 
-  const handleCsvDownload = () => {
+  const handleCsvDownloadAll = () => {
     downloadCsv({
-      ids: selectedRows,
-      locale: locale === "fr" ? Language.Fr : Language.En,
+      where: addSearchToPoolCandidateFilterInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
+      withROD: !!currentPool,
     })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
-  const handleDocDownload = (anonymous: boolean) => {
-    downloadDoc({
-      ids: selectedRows,
-      anonymous,
-      locale: locale === "fr" ? Language.Fr : Language.En,
-    })
+  const handleCsvDownload = (withROD?: boolean) => {
+    downloadCsv({ ids: selectedRows, withROD })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
+  };
+
+  const handleDocDownload = (anonymous: boolean) => {
+    if (selectedRows.length === 1) {
+      downloadDoc({ id: selectedRows[0], anonymous })
+        .then(async (res) => {
+          if (res?.data?.downloadPoolCandidateDoc) {
+            await executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(
+                res.data.downloadPoolCandidateDoc,
+              ),
+              fileName: res.data.downloadPoolCandidateDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      downloadZip({
+        ids: selectedRows,
+        anonymous,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    }
   };
 
   const columns = [
@@ -708,28 +757,19 @@ const PoolCandidatesTable = ({
           ),
         ]),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
-        getLocalizedName(user.priority?.label, intl),
+      ({ poolCandidate: { category } }) =>
+        getLocalizedName(category?.label, intl),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
-            original: { poolCandidate },
+            original: {
+              poolCandidate: { category },
+            },
           },
         }) =>
-          priorityCell(
-            poolCandidate.user.priorityWeight
-              ? priorityWeightAfterVerification(
-                  poolCandidate.user.priorityWeight,
-                  poolCandidate.priorityVerification,
-                  poolCandidate.veteranVerification,
-                  poolCandidate.user.citizenship?.value,
-                )
-              : null,
-            tableData?.priorities,
-            intl,
-          ),
+          category ? priorityCell(category.weight, category.label, intl) : null,
       },
     ),
     columnHelper.accessor(
@@ -921,7 +961,7 @@ const PoolCandidatesTable = ({
       sort={{
         internal: false,
         onSortChange: setSortState,
-        initialState: defaultState.sortState,
+        initialState: defaultSortState,
       }}
       filter={{
         initialState: initialFilterInput,
@@ -953,33 +993,50 @@ const PoolCandidatesTable = ({
             ),
           }),
       }}
-      asyncDownload={
-        <Button
-          {...actionButtonStyles}
-          onClick={handleCsvDownload}
-          disabled={downloadingCsv || !hasSelectedRows}
-          data-h2-font-weight="base(400)"
-          {...(downloadingCsv && {
-            icon: SpinnerIcon,
-          })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download CSV",
-            id: "mxOuYK",
-            description:
-              "Text label for button to download a csv file of items in a table.",
-          })}
-        </Button>
-      }
-      print={{
-        component: (
-          <DownloadCandidatesDocButton
-            inTable
-            disabled={!hasSelectedRows || downloadingDoc}
-            onClick={handleDocDownload}
-            isDownloading={downloadingDoc}
-          />
-        ),
+      download={{
+        all: {
+          enable: true,
+          onClick: handleCsvDownloadAll,
+          downloading: downloadingCsv,
+        },
+        csv: currentPool
+          ? {
+              enable: true,
+              component: (
+                <DownloadCandidateCsvButton
+                  inTable
+                  disabled={
+                    !hasSelectedRows ||
+                    downloadingZip ||
+                    downloadingDoc ||
+                    downloadingAsyncFile
+                  }
+                  isDownloading={downloadingCsv}
+                  onClick={handleCsvDownload}
+                />
+              ),
+            }
+          : {
+              enable: true,
+              onClick: () => handleCsvDownload(),
+              downloading: downloadingCsv,
+            },
+        doc: {
+          enable: true,
+          component: (
+            <DownloadUsersDocButton
+              inTable
+              disabled={
+                !hasSelectedRows ||
+                downloadingZip ||
+                downloadingDoc ||
+                downloadingAsyncFile
+              }
+              isDownloading={downloadingZip}
+              onClick={handleDocDownload}
+            />
+          ),
+        },
       }}
       pagination={{
         internal: false,

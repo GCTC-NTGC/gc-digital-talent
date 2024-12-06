@@ -17,8 +17,8 @@ use Laratrust\Models\Team as LaratrustTeam;
  * @property string $contact_email
  * @property array $display_name
  * @property array $description
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class Team extends LaratrustTeam
 {
@@ -45,6 +45,7 @@ class Team extends LaratrustTeam
         return $this->belongsToMany(Department::class, 'team_department');
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
@@ -55,7 +56,7 @@ class Team extends LaratrustTeam
         return $this->morphTo();
     }
 
-    // A relationship to the custom roleAssignments pivot model
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);

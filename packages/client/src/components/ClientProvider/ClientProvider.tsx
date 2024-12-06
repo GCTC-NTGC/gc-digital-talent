@@ -14,6 +14,7 @@ import { useIntl } from "react-intl";
 import {
   ACCESS_TOKEN,
   LOGOUT_REASON_KEY,
+  NAV_ROLE_KEY,
   REFRESH_TOKEN,
   useAuthentication,
 } from "@gc-digital-talent/auth";
@@ -21,6 +22,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { LogoutReason } from "@gc-digital-talent/auth";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import {
   buildValidationErrorMessageNode,
@@ -53,6 +55,7 @@ const ClientProvider = ({
   children?: ReactNode;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
   // Create a mutable object to hold the auth state
@@ -68,6 +71,7 @@ const ClientProvider = ({
       createClient({
         url: `${apiHost}${apiUri}`,
         requestPolicy: "cache-and-network",
+        fetchOptions: { headers: { "Accept-Language": locale } },
         exchanges: [
           cacheExchange,
           protectedEndpointExchange,
@@ -90,6 +94,7 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "user-deleted";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                localStorage.removeItem(NAV_ROLE_KEY);
                 authRef.current.logout();
                 return;
               }
@@ -101,6 +106,7 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "session-expired";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                localStorage.removeItem(NAV_ROLE_KEY);
                 authRef.current.logout();
                 return;
               }
@@ -119,6 +125,8 @@ const ClientProvider = ({
               if (errorMessageNode) toast.error(errorMessageNode);
             },
           }),
+          // NOTE: Needed to colour the function
+          // eslint-disable-next-line @typescript-eslint/require-await
           authExchange(async (utils) => {
             return {
               addAuthToOperation: (operation) => {
@@ -136,13 +144,13 @@ const ClientProvider = ({
                 return isTokenKnownToBeExpired(accessToken);
               },
               didAuthError(error) {
-                const didError =
-                  error && error.response
-                    ? error.response.status === 401 ||
-                      error.graphQLErrors.some(
-                        (e) => e.extensions?.category === "authentication",
-                      )
-                    : false;
+                const res = error.response as Response | null;
+                const didError = res
+                  ? res.status === 401 ||
+                    error.graphQLErrors.some(
+                      (e) => e.extensions?.category === "authentication",
+                    )
+                  : false;
 
                 return didError;
               },
@@ -162,7 +170,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger]);
+  }, [client, intl, locale, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

@@ -39,9 +39,7 @@ const defaultProps = {
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const renderCard = (props: ApplicationCardProps) =>
   renderWithProviders(
@@ -56,7 +54,7 @@ describe("ApplicationCard", () => {
     await axeTest(container);
   });
 
-  it("should have proper action links if the application is in draft", async () => {
+  it("should have proper action links if the application is in draft", () => {
     renderCard({
       ...defaultProps,
       poolCandidateQuery: makeFragmentData(
@@ -72,14 +70,14 @@ describe("ApplicationCard", () => {
       ),
     });
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
     );
   });
 
-  it("should have proper label and action links if placed/hired in pool", async () => {
+  it("should have proper label and action links if placed/hired in pool", () => {
     renderCard({
       ...defaultProps,
       poolCandidateQuery: makeFragmentData(
@@ -94,7 +92,7 @@ describe("ApplicationCard", () => {
     });
 
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(4);
+    expect(links).toHaveLength(3);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
@@ -113,16 +111,11 @@ describe("ApplicationCard", () => {
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
     );
 
-    expect(links[3]).toHaveTextContent("Get support");
-    expect(links[3]).toHaveAttribute(
-      "href",
-      expect.stringContaining("support"),
-    );
     const hiredCasualLabel = screen.queryByText("Hired (Casual)");
     expect(hiredCasualLabel).toBeInTheDocument();
   });
 
-  it("should have proper label if the application is draft but the pool is expired", async () => {
+  it("should have proper label if the application is draft but the pool is expired", () => {
     renderCard({
       ...defaultProps,
       poolCandidateQuery: makeFragmentData(
@@ -135,7 +128,7 @@ describe("ApplicationCard", () => {
       ),
     });
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(2);
     const qualifiedLabel = screen.queryByText("Submission date passed");
 
     expect(qualifiedLabel).toBeInTheDocument();

@@ -49,11 +49,7 @@ const generateSkill = (
 };
 
 export const getStaticSkills = (): Skill[] =>
-  staticSkills.data.skills.map((skill) => ({
-    ...skill,
-    // TO DO: Regenerate static data to no need this
-    category: toLocalizedEnum(skill.category),
-  })) as Skill[];
+  staticSkills.data.skills as Skill[];
 
 export default (
   numToGenerate = 10,
@@ -63,7 +59,7 @@ export default (
   faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
-  return [...Array(numToGenerate)].map(() =>
+  return Array.from({ length: numToGenerate }, () =>
     generateSkill(skillFamilies, uniqueEnforcerId, overrideCategory),
   );
 };

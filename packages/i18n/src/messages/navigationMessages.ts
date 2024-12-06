@@ -51,10 +51,15 @@ const navigationMessages = defineMessages({
     id: "TUfJUD",
     description: "Name of Career timeline page",
   },
-  skillLibrary: {
-    defaultMessage: "Skill library",
-    id: "rbhjTC",
-    description: "Name of the skill library page",
+  skillPortfolio: {
+    defaultMessage: "Skills portfolio",
+    id: "fb/Smc",
+    description: "Name of the skills portfolio page",
+  },
+  skillsLibrary: {
+    defaultMessage: "Skills library",
+    id: "dBc/+T",
+    description: "Name of the skills library page",
   },
   skillShowcase: {
     defaultMessage: "Skill showcase",
@@ -80,6 +85,86 @@ const navigationMessages = defineMessages({
     defaultMessage: "Home",
     id: "Ro+gP0",
     description: "Name of Home page",
+  },
+  applicantProfile: {
+    defaultMessage: "Applicant profile",
+    id: "/pzsYm",
+    description: "Name of Applicant profile page",
+  },
+  managerProfile: {
+    defaultMessage: "Manager profile",
+    id: "oIfw3w",
+    description: "Name of Manager profile page",
+  },
+  accountSettings: {
+    defaultMessage: "Account settings",
+    id: "YSNrLG",
+    description: "Name of Account settings page",
+  },
+  processes: {
+    defaultMessage: "Processes",
+    id: "gt0xAi",
+    description: "Name of Processes page",
+  },
+  candidates: {
+    defaultMessage: "Candidates",
+    id: "g6az2A",
+    description: "Name of Candidates page",
+  },
+  users: {
+    defaultMessage: "Users",
+    id: "LySK4b",
+    description: "Name of Users page",
+  },
+  requests: {
+    defaultMessage: "Requests",
+    id: "qIOz/5",
+    description: "Name of Requests page",
+  },
+  dashboard: {
+    defaultMessage: "Dashboard",
+    id: "jDYG3j",
+    description: "Name of Dashboard page",
+  },
+  contactUs: {
+    defaultMessage: "Contact us",
+    id: "sQt/7l",
+    description: "Name of contact us page",
+  },
+  skillLibrary: {
+    defaultMessage: "Browse the skills library",
+    id: "3SDRDg",
+    description: "Name of skill library page",
+  },
+  jobTemplates: {
+    defaultMessage: "Find a job template",
+    id: "dK8pdO",
+    description: "Name of job template page",
+  },
+  announcements: {
+    defaultMessage: "Announcements",
+    id: "Md1J9+",
+    description: "Name of announcements page",
+  },
+  classifications: {
+    defaultMessage: "Classifications",
+    id: "yz4qnT",
+    description: "Name of classifications page",
+  },
+  departments: {
+    defaultMessage: "Departments",
+    id: "/BvR5P",
+    description: "Name of departments page",
+  },
+  skills: {
+    defaultMessage: "Skills",
+    id: "qtqJ6q",
+    description: "Name of skills page",
+  },
+  skillFamilies: {
+    defaultMessage: "Skill families",
+    id: "9RXifp",
+    description: "Name of skill families page",
   },
 });
 

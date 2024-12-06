@@ -9,7 +9,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Well } from "@gc-digital-talent/ui";
+import { Loading, Well } from "@gc-digital-talent/ui";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -66,8 +66,12 @@ const ScreeningDecisionDialogForm = ({
   const watchAssessmentDecision = watch("assessmentDecision");
   const watchJustifications = watch("justifications");
 
-  const { assessmentDecisionItems, successfulOptions, unsuccessfulOptions } =
-    options;
+  const {
+    assessmentDecisionItems,
+    successfulOptions,
+    unsuccessfulOptions,
+    fetching,
+  } = options;
 
   const isAssessmentDecisionSuccessful =
     watchAssessmentDecision === AssessmentDecision.Successful;
@@ -84,6 +88,9 @@ const ScreeningDecisionDialogForm = ({
       AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
     watchJustifications ===
       AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency;
+  const decisionNotesRequired = watchJustifications?.includes(
+    AssessmentResultJustification.FailedOther,
+  );
 
   /**
    * Reset un-rendered fields
@@ -138,7 +145,9 @@ const ScreeningDecisionDialogForm = ({
     intl,
   );
 
-  return (
+  return fetching ? (
+    <Loading inline />
+  ) : (
     <>
       <div data-h2-margin-bottom="base(x1)">
         <CardOptionGroup
@@ -154,25 +163,36 @@ const ScreeningDecisionDialogForm = ({
       {watchAssessmentDecision === AssessmentDecision.Successful && (
         <div>
           {dialogType === "EDUCATION" ? (
-            <div data-h2-margin-bottom="base(x1)">
-              <CardOptionGroup
-                idPrefix="justifications"
-                name="justifications"
-                legend={labels.justification}
-                items={successfulOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                context={
-                  educationContext ? (
-                    <ContextBlock
-                      messages={educationContext.messages}
-                      key={educationContext.key}
-                    />
-                  ) : null
-                }
-              />
-            </div>
+            <>
+              <div data-h2-margin-bottom="base(x1)">
+                <CardOptionGroup
+                  idPrefix="justifications"
+                  name="justifications"
+                  legend={labels.justification}
+                  items={successfulOptions}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  context={
+                    educationContext ? (
+                      <ContextBlock
+                        messages={educationContext.messages}
+                        key={educationContext.key}
+                      />
+                    ) : null
+                  }
+                />
+              </div>
+              <div data-h2-margin-bottom="base(x1)">
+                <TextArea
+                  id="skillDecisionNotes"
+                  name="skillDecisionNotes"
+                  rows={TEXT_AREA_ROWS}
+                  wordLimit={TEXT_AREA_MAX_WORDS}
+                  label={labels.decisionNotes}
+                />
+              </div>
+            </>
           ) : (
             <>
               <div data-h2-margin-bottom="base(x1)">
@@ -234,7 +254,7 @@ const ScreeningDecisionDialogForm = ({
             wordLimit={TEXT_AREA_MAX_WORDS}
             label={labels.decisionNotes}
             rules={
-              isAssessmentOnHold
+              isAssessmentOnHold || decisionNotesRequired
                 ? { required: intl.formatMessage(errorMessages.required) }
                 : { required: undefined }
             }

@@ -46,7 +46,7 @@ module.exports = {
     "react/require-default-props": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": [
-      "warn",
+      "error",
       {
         additionalHooks: "(useDeepCompareEffect)",
       },
@@ -87,14 +87,26 @@ module.exports = {
         td: ["gridcell"],
       },
     ],
-    "@typescript-eslint/ban-types": [
-      "warn",
+    "@typescript-eslint/no-restricted-types": [
+      "error",
       {
         types: {
           "React.FunctionComponent":
             "https://github.com/facebook/create-react-app/pull/8177",
           "React.FC": "https://github.com/facebook/create-react-app/pull/8177",
         },
+      },
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+        caughtErrors: "all",
+        caughtErrorsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
       },
     ],
     "react/function-component-definition": "off",
@@ -108,7 +120,7 @@ module.exports = {
               "Please import the individual function, not the entire library.",
           },
           {
-            group: ["date-fns", "date-fns-tz", "!date-fns/", "!date-fns-tz/"],
+            group: ["date-fns", "!date-fns/"],
             message:
               "Please import the individual function, not the entire library.",
           },

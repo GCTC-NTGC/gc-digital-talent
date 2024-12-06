@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { createIntl, createIntlCache, useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 
 import {
@@ -15,12 +15,11 @@ import {
   useIntlLanguages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { LoadingErrorMessage } from "@gc-digital-talent/ui";
+import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
 import { Skill, SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 import {
@@ -168,8 +167,9 @@ const SkillTable = ({
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: SkillFilterInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded ? (JSON.parse(filtersEncoded) as SkillFilterInput) : {},
     [filtersEncoded],
   );
 
@@ -198,22 +198,12 @@ const SkillTable = ({
       },
       cell: ({ row: { original: skill } }) => {
         const skillName = getLocalizedName(skill.name, intl);
-        return isPublic
-          ? skillName
-          : cells.edit(skill.id, paths.skillTable(), skillName, skillName);
+        return isPublic ? (
+          skillName
+        ) : (
+          <Link href={paths.skillView(skill.id)}>{skillName}</Link>
+        );
       },
-    }),
-    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
-      id: "skillFamilies",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.skillFamilies),
-      cell: ({ row: { original: skill } }) =>
-        skillFamiliesCell(skill.families, intl),
-    }),
-    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
-      id: "category",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.category),
     }),
     columnHelper.accessor(
       (skill) => getLocalizedName(skill.description, intl, true),
@@ -226,14 +216,21 @@ const SkillTable = ({
             getLocalizedName(skill.name, intl),
             getLocalizedName(skill.description, intl),
           ),
-        header: intl.formatMessage({
-          defaultMessage: "Description",
-          id: "9yGJ6k",
-          description:
-            "Title displayed for the skill table Description column.",
-        }),
+        header: intl.formatMessage(commonMessages.description),
       },
     ),
+    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
+      id: "skillFamilies",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(adminMessages.skillFamilies),
+      cell: ({ row: { original: skill } }) =>
+        skillFamiliesCell(skill.families, intl),
+    }),
+    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
+      id: "category",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(adminMessages.category),
+    }),
   ] as ColumnDef<Skill>[];
 
   useEffect(() => {
@@ -285,11 +282,7 @@ const SkillTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search skills",
-          id: "cWqtEU",
-          description: "Label for the skills table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={
         addButton

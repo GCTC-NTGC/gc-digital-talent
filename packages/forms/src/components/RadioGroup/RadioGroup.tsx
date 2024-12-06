@@ -1,5 +1,4 @@
-import get from "lodash/get";
-import { FieldError, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
@@ -11,11 +10,11 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import getCheckboxRadioStyles from "../../utils/getCheckboxRadioStyles";
 
-export type Radio = {
+export interface Radio {
   value: string | number;
   label: string | ReactNode;
   contentBelow?: ReactNode;
-};
+}
 
 type ColumnRange = 1 | 2 | 3 | 4;
 
@@ -85,8 +84,6 @@ const RadioGroup = ({
     register,
     formState: { errors },
   } = useFormContext();
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
   const baseStyles = useInputStyles();
   const shouldReduceMotion = useReducedMotion();
   const baseRadioStyles = getCheckboxRadioStyles(shouldReduceMotion);
@@ -97,7 +94,7 @@ const RadioGroup = ({
     id: idPrefix,
     describedBy,
     show: {
-      error,
+      error: fieldState === "invalid",
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -164,6 +161,7 @@ const RadioGroup = ({
                   {contentBelow && (
                     <div
                       id={`${id}-content-below`}
+                      data-h2-margin-right="base(x.5)"
                       data-h2-padding-left="base(x1.7)"
                       data-h2-color="base(black.light)"
                       data-h2-font-size="base(caption)"
@@ -177,7 +175,7 @@ const RadioGroup = ({
           </div>
         </Field.BoundingBox>
       </Field.Fieldset>
-      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

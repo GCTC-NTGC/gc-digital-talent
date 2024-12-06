@@ -1,8 +1,8 @@
 import {
   keyStringRegex,
   phoneNumberRegex,
+  workEmailDomainRegex,
 } from "./constants/regularExpressions";
-import lazyRetry from "./utils/lazyRetry";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
@@ -27,11 +27,13 @@ import {
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 import { GraphqlType } from "./types/graphql";
+import { NotFoundError, UnauthorizedError } from "./errors";
 
 export {
   assertUnreachable,
   keyStringRegex,
   phoneNumberRegex,
+  workEmailDomainRegex,
   identity,
   notEmpty,
   empty,
@@ -44,7 +46,6 @@ export {
   emptyToNull,
   emptyToUndefined,
   uniqueItems,
-  lazyRetry,
   normalizeString,
   sanitizeUrl,
   isUuidError,
@@ -53,5 +54,7 @@ export {
   pickMap,
   unpackMaybes,
   localizedEnumHasValue,
+  NotFoundError,
+  UnauthorizedError,
 };
 export type { GraphqlType };

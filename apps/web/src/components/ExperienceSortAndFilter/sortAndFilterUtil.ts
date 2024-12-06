@@ -19,10 +19,10 @@ import { ExperienceForDate } from "~/types/experience";
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 
 export function sortAndFilterExperiences(
-  experiences: Experience[] | undefined,
+  experiences: Omit<Experience, "user">[] | undefined,
   sortAndFilterValues: SortAndFilterValues,
   intl: IntlShape,
-): Experience[] {
+): Omit<Experience, "user">[] {
   const experiencesNotNull = experiences?.filter(notEmpty) ?? [];
 
   const experiencesDateNormalized: ExperienceForDate[] = experiencesNotNull.map(

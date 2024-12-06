@@ -10,7 +10,7 @@ import { getExperienceSkills } from "~/utils/skillUtils";
 
 interface SkillExperiencesProps {
   skill: Skill;
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 }
 
 const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
@@ -49,8 +49,8 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                   to={`experience-${experience.id}`}
                   mode="inline"
                   color="tertiary"
-                  aria-label={intl
-                    .formatMessage(
+                  aria-label={String(
+                    intl.formatMessage(
                       {
                         defaultMessage: "View experience for {experienceName}",
                         id: "MsLKAj",
@@ -60,8 +60,8 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                       {
                         experienceName: getExperienceName(experience, intl),
                       },
-                    )
-                    .toString()}
+                    ),
+                  )}
                 >
                   {intl.formatMessage({
                     defaultMessage: "View experience",
@@ -92,7 +92,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
 
 interface SkillDisplayProps {
   skills: Skill[];
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 }
 
 const SkillDisplay = ({ skills, experiences }: SkillDisplayProps) => {

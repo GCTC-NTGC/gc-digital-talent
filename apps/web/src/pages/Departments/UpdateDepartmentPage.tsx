@@ -1,13 +1,26 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
 import { useMutation, useQuery } from "urql";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { Pending, NotFound } from "@gc-digital-talent/ui";
+import {
+  errorMessages,
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import {
+  Pending,
+  NotFound,
+  Heading,
+  Link,
+  CardSeparator,
+  CardBasic,
+} from "@gc-digital-talent/ui";
 import {
   FragmentType,
   Scalars,
@@ -19,13 +32,12 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentForm on Department {
@@ -64,16 +76,13 @@ export const UpdateDepartmentForm = ({
   });
   const { handleSubmit } = methods;
 
-  const { state } = useLocation();
-  const navigateTo = state?.from ?? paths.departmentTable();
-
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateDepartment(initialDepartment.id, {
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
-      .then(() => {
-        navigate(navigateTo);
+      .then(async () => {
+        await navigate(paths.departmentView(initialDepartment.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",
@@ -96,63 +105,100 @@ export const UpdateDepartmentForm = ({
   };
 
   return (
-    <section data-h2-wrapper="base(left, s)">
-      <FormProvider {...methods}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
-          <Input
-            id="departmentNumber"
-            name="departmentNumber"
-            label={intl.formatMessage({
-              defaultMessage: "Department #",
-              id: "/YiBdv",
-              description:
-                "Label displayed on the create a department form department number field.",
-            })}
-            type="number"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            min="0"
-          />
-          <Input
-            id="name_en"
-            name="name.en"
-            label={intl.formatMessage(adminMessages.nameEn)}
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="name_fr"
-            name="name.fr"
-            label={intl.formatMessage(adminMessages.nameFr)}
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <div data-h2-align-self="base(flex-start)">
-            <Submit />
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardBasic>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(center) p-tablet(flex-start)"
+          >
+            <Heading
+              level="h2"
+              color="primary"
+              Icon={IdentificationIcon}
+              data-h2-margin="base(0, 0, x1.5, 0)"
+              data-h2-font-weight="base(400)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Department information",
+                id: "eNTKLK",
+                description: "Heading for the 'create a department' form",
+              })}
+            </Heading>
           </div>
-        </form>
-      </FormProvider>
-    </section>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+            data-h2-gap="base(x1)"
+          >
+            <Input
+              id="name_en"
+              name="name.en"
+              label={intl.formatMessage(adminMessages.nameEn)}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label={intl.formatMessage(adminMessages.nameFr)}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <div data-h2-grid-column="p-tablet(span 2)">
+              <Input
+                id="departmentNumber"
+                name="departmentNumber"
+                label={intl.formatMessage({
+                  defaultMessage: "Department number",
+                  id: "66kU6k",
+                  description: "Label for department number",
+                })}
+                type="number"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                min="0"
+              />
+            </div>
+          </div>
+          <CardSeparator />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+            data-h2-gap="base(x1)"
+            data-h2-align-items="base(center)"
+          >
+            <Submit text={intl.formatMessage(formMessages.saveChanges)} />
+            <Link
+              color="warning"
+              mode="inline"
+              href={paths.departmentView(initialDepartment.id)}
+            >
+              {intl.formatMessage(commonMessages.cancel)}
+            </Link>
+          </div>
+        </CardBasic>
+      </form>
+    </FormProvider>
   );
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   departmentId: Scalars["ID"]["output"];
-};
+}
 
 const Department_Query = graphql(/* GraphQL */ `
   query Department($id: UUID!) {
     department(id: $id) {
+      name {
+        en
+        fr
+      }
       ...DepartmentForm
     }
   }
@@ -188,14 +234,23 @@ const UpdateDepartmentPage = () => {
       if (result.data?.updateDepartment) {
         return result.data?.updateDepartment;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
+
+  const departmentName = getLocalizedName(
+    departmentData?.department?.name,
+    intl,
+  );
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
         label: intl.formatMessage(pageTitles.departments),
         url: routes.departmentTable(),
+      },
+      {
+        label: departmentName,
+        url: routes.departmentView(departmentId),
       },
       ...(departmentId
         ? [
@@ -211,47 +266,45 @@ const UpdateDepartmentPage = () => {
           ]
         : []),
     ],
-    isAdmin: true,
   });
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Edit department",
-    id: "GKo3Df",
+    defaultMessage: "Edit a department",
+    id: "y+R3x+",
     description: "Page title for the department edit page",
   });
 
   return (
     <>
       <SEO title={pageTitle} />
-      <AdminHero
-        title={pageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-      <AdminContentWrapper>
-        <Pending fetching={fetching} error={error}>
-          {departmentData?.department ? (
-            <UpdateDepartmentForm
-              query={departmentData.department}
-              handleUpdateDepartment={handleUpdateDepartment}
-            />
-          ) : (
-            <NotFound
-              headingMessage={intl.formatMessage(commonMessages.notFound)}
-            >
-              <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Department {departmentId} not found.",
-                    id: "8Otaw9",
-                    description: "Message displayed for department not found.",
-                  },
-                  { departmentId },
-                )}
-              </p>
-            </NotFound>
-          )}
-        </Pending>
-      </AdminContentWrapper>
+      <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
+        <div data-h2-margin-bottom="base(x3)">
+          <Pending fetching={fetching} error={error}>
+            {departmentData?.department ? (
+              <UpdateDepartmentForm
+                query={departmentData.department}
+                handleUpdateDepartment={handleUpdateDepartment}
+              />
+            ) : (
+              <NotFound
+                headingMessage={intl.formatMessage(commonMessages.notFound)}
+              >
+                <p>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "Department {departmentId} not found.",
+                      id: "8Otaw9",
+                      description:
+                        "Message displayed for department not found.",
+                    },
+                    { departmentId },
+                  )}
+                </p>
+              </NotFound>
+            )}
+          </Pending>
+        </div>
+      </Hero>
     </>
   );
 };

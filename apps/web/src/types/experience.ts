@@ -35,33 +35,33 @@ export type ExperienceType =
   | "work";
 
 export type AnyExperience =
-  | AwardExperience
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
+  | Omit<AwardExperience, "user">
+  | Omit<CommunityExperience, "user">
+  | Omit<EducationExperience, "user">
+  | Omit<PersonalExperience, "user">
+  | Omit<WorkExperience, "user">;
 
 export type ExperienceForDate =
-  | (AwardExperience & { startDate: string; endDate: string })
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
+  | (Omit<AwardExperience, "user"> & { startDate: string; endDate: string })
+  | Omit<CommunityExperience, "user">
+  | Omit<EducationExperience, "user">
+  | Omit<PersonalExperience, "user">
+  | Omit<WorkExperience, "user">;
 
-type FormValueDateRange = {
+interface FormValueDateRange {
   startDate: Scalars["Date"]["input"];
   endDate?: Scalars["Date"]["input"];
-};
+}
 
-type AwardFormValues = {
+interface AwardFormValues {
   awardTitle: string;
   awardedTo: AwardedTo;
   issuedBy: string;
   awardedScope: AwardedScope;
   awardedDate: Scalars["Date"]["input"];
-};
+}
 
-type CommunityFormValues = FormValueDateRange & {
+export type CommunityFormValues = FormValueDateRange & {
   title: string;
   organization: string;
   project: string;
@@ -70,18 +70,20 @@ type CommunityFormValues = FormValueDateRange & {
   endDate?: Scalars["Date"]["input"];
 };
 
-type EducationFormValues = FormValueDateRange & {
+export type EducationFormValues = FormValueDateRange & {
   institution: string;
   areaOfStudy: string;
   thesisTitle?: string;
   educationType: EducationType;
   educationStatus: EducationStatus;
+  currentRole: boolean;
 };
 
-type PersonalFormValues = FormValueDateRange & {
+export type PersonalFormValues = FormValueDateRange & {
   experienceTitle: string;
   experienceDescription: string;
   disclaimer: boolean;
+  currentRole: boolean;
 };
 
 type WorkFormValues = FormValueDateRange & {
@@ -94,15 +96,17 @@ export type AllExperienceFormValues = AwardFormValues &
   CommunityFormValues &
   EducationFormValues &
   PersonalFormValues &
-  WorkFormValues;
+  WorkFormValues & {
+    experienceType?: ExperienceType;
+  };
 
-export type FormSkill = {
+export interface FormSkill {
   id?: Maybe<string>;
   skillId: string;
   details: string;
   name: LocalizedString;
-};
-export type FormSkills = Array<FormSkill>;
+}
+export type FormSkills = FormSkill[];
 
 export type ExperienceFormValues<T> = T & {
   details: string;
@@ -113,7 +117,7 @@ export interface SubExperienceFormProps {
   labels: FieldLabels;
 }
 
-export type ExperienceDetailsSubmissionData = {
+export interface ExperienceDetailsSubmissionData {
   areaOfStudy?: string;
   awardedDate?: string;
   awardedTo?: AwardedTo;
@@ -141,7 +145,7 @@ export type ExperienceDetailsSubmissionData = {
       | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
       | undefined;
   };
-};
+}
 
 type ExperienceMutations = CreateAwardExperienceMutation &
   CreateCommunityExperienceMutation &
@@ -178,7 +182,7 @@ export type ExperienceMutationArgs = Exact<{
     workExperience: WorkExperienceInput;
   }>;
 
-export type ExperienceDetailsDefaultValues = {
+export interface ExperienceDetailsDefaultValues {
   areaOfStudy?: string;
   awardedDate?: string;
   awardedTo?: AwardedTo;
@@ -198,4 +202,4 @@ export type ExperienceDetailsDefaultValues = {
   title?: string;
   educationType?: EducationType;
   skills?: FormSkills;
-};
+}

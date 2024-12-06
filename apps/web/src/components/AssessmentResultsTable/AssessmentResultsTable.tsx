@@ -11,6 +11,7 @@ import {
   graphql,
   PoolSkillType,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
+  Experience,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
@@ -33,6 +34,27 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentResultsTable on PoolCandidate {
     id
     profileSnapshot
+    educationRequirementOption {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    educationRequirementExperiences {
+      id
+    }
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
     assessmentStatus {
       currentStep
       overallAssessmentStatus
@@ -168,10 +190,12 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
 
 interface AssessmentResultsTableProps {
   poolCandidateQuery: FragmentType<typeof AssessmentResultsTable_Fragment>;
+  experiences: Omit<Experience, "user">[];
 }
 
 const AssessmentResultsTable = ({
   poolCandidateQuery,
+  experiences,
 }: AssessmentResultsTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -181,7 +205,7 @@ const AssessmentResultsTable = ({
   );
 
   // Get assessment steps from pool
-  const assessmentSteps: Array<AssessmentStep> = unpackMaybes(
+  const assessmentSteps: AssessmentStep[] = unpackMaybes(
     poolCandidate?.pool?.assessmentSteps,
   );
 
@@ -202,7 +226,7 @@ const AssessmentResultsTable = ({
   const assessmentResults = assessmentResultsMaybes.filter(notEmpty);
 
   // Create data for table containing pool skill with matching results and sort pool skills
-  const assessmentTableRows: Array<AssessmentTableRow> = poolSkills
+  const assessmentTableRows: AssessmentTableRow[] = poolSkills
     .map((poolSkill) => {
       const matchingAssessmentResults = assessmentResults.filter(
         (result) => result.poolSkill?.id === poolSkill.id,
@@ -228,8 +252,8 @@ const AssessmentResultsTable = ({
       }
 
       return Intl.Collator().compare(
-        a.poolSkill.skill?.name?.[locale] || "",
-        b.poolSkill.skill?.name?.[locale] || "",
+        a.poolSkill.skill?.name?.[locale] ?? "",
+        b.poolSkill.skill?.name?.[locale] ?? "",
       );
     });
 
@@ -272,6 +296,7 @@ const AssessmentResultsTable = ({
           id,
           header,
           poolCandidate,
+          experiences,
           assessmentStep: {
             id: assessmentStep.id,
             type: assessmentStep.type,
@@ -307,7 +332,6 @@ const AssessmentResultsTable = ({
                 <span>
                   ({getLocalizedName(original.poolSkill.type?.label, intl)})
                 </span>
-                {/* TODO: ADD PoolSkill.skillLevel here --> {original.poolSkill.type === PoolSkillType.Essential && <span>{intl.formatMessage(getTechnicalSkillLevel(original.poolSkill.skillLevel))}</span> */}
               </>
             ) : (
               <span data-h2-font-weight="base(bold)">

@@ -1,12 +1,12 @@
 import type { IntlShape } from "react-intl";
 import { add } from "date-fns/add";
-import { format } from "date-fns/format";
+import { format, FormatOptions } from "date-fns/format";
 import { parse } from "date-fns/parse";
 import { parseISO } from "date-fns/parseISO";
 import { enCA as en } from "date-fns/locale/en-CA";
 import { fr } from "date-fns/locale/fr";
-import { formatInTimeZone, toDate } from "date-fns-tz";
 import { Locale } from "date-fns/locale";
+import { tz } from "@date-fns/tz";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
@@ -48,21 +48,22 @@ export const formatDate = ({
   const locale: Locale = strLocale === "fr" ? fr : en;
 
   // A date formatting function that can use time zones optionally
-  const result = timeZone
-    ? formatInTimeZone(date, timeZone, formatString, { locale })
-    : format(date, formatString, { locale });
+  const result = format(date, formatString, {
+    locale,
+    in: timeZone ? tz(timeZone) : undefined,
+  });
 
   return result;
 };
 
 // parameters for the relativeClosingDate function
-export type relativeClosingDateOptions = {
+export interface relativeClosingDateOptions {
   closingDate: Date;
   now?: Date;
   intl: IntlShape;
   timeZone?: string;
   customFormat?: string;
-};
+}
 
 /**
  * Calculate a friendly date/time string, optionally in a different time zone
@@ -75,19 +76,18 @@ export const relativeClosingDate = ({
   timeZone,
   customFormat,
 }: relativeClosingDateOptions): string => {
-  // A date formatting function that can use time zones optionally
-  const myFormatFunc = timeZone
-    ? (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
-        formatInTimeZone(date, timeZone, formatPattern, options)
-    : (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
-        format(date, formatPattern, options);
+  const formatOpts: FormatOptions = {
+    in: timeZone ? tz(timeZone) : undefined,
+  };
 
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
-  const time = myFormatFunc(closingDate, `p`, {
+  const time = format(closingDate, `p`, {
+    ...formatOpts,
     locale,
   });
-  const dateTime = myFormatFunc(closingDate, customFormat || `PPP p`, {
+  const dateTime = format(closingDate, customFormat ?? `PPP p`, {
+    ...formatOpts,
     locale,
   });
 
@@ -96,8 +96,8 @@ export const relativeClosingDate = ({
   }
 
   if (
-    myFormatFunc(now, DATE_FORMAT_STRING) ===
-    myFormatFunc(closingDate, DATE_FORMAT_STRING)
+    format(now, DATE_FORMAT_STRING, formatOpts) ===
+    format(closingDate, DATE_FORMAT_STRING, formatOpts)
   ) {
     return intl.formatMessage(dateMessages.deadlineToday, {
       time,
@@ -105,8 +105,8 @@ export const relativeClosingDate = ({
   }
 
   if (
-    myFormatFunc(add(now, { days: 1 }), DATE_FORMAT_STRING) ===
-    myFormatFunc(closingDate, DATE_FORMAT_STRING)
+    format(add(now, { days: 1 }), DATE_FORMAT_STRING, formatOpts) ===
+    format(closingDate, DATE_FORMAT_STRING, formatOpts)
   ) {
     return intl.formatMessage(dateMessages.deadlineTomorrow, { time });
   }
@@ -121,11 +121,11 @@ export const strToFormDate = (value: string) => {
 };
 
 export const formDateStringToDate = (value: string, fallback?: Date) => {
-  return parse(value, DATE_FORMAT_STRING, fallback || new Date());
+  return parse(value, DATE_FORMAT_STRING, fallback ?? new Date());
 };
 
 export const formDateTimeStringToDate = (value: string, fallback?: Date) => {
-  return parse(value, DATETIME_FORMAT_STRING, fallback || new Date());
+  return parse(value, DATETIME_FORMAT_STRING, fallback ?? new Date());
 };
 
 // Convert a DateTime from one zone to another
@@ -135,11 +135,13 @@ export const convertDateTimeZone = (
   targetTimeZone: string,
   targetFormatString?: string,
 ): Scalars["DateTime"]["output"] => {
-  const dateObject = toDate(sourceDateTime, { timeZone: sourceTimeZone });
-  const scalarDateTime = formatInTimeZone(
+  const dateObject = parseISO(sourceDateTime, {
+    in: tz(sourceTimeZone),
+  });
+  const scalarDateTime = format(
     dateObject,
-    targetTimeZone,
     targetFormatString ?? DATETIME_FORMAT_STRING,
+    { in: tz(targetTimeZone) },
   );
   return scalarDateTime;
 };
@@ -153,7 +155,7 @@ export const convertDateTimeToDate = (
 
 // Parse an API scalar DateTime as UTC to a native Date object
 export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date =>
-  toDate(d, { timeZone: "UTC" });
+  parseISO(d, { in: tz("UTC") });
 
 /**
  * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING

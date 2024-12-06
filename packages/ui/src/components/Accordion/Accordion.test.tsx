@@ -10,6 +10,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Accordion from "./Accordion";
+import { testMetaData } from "./utils";
 
 type AccordionRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof Accordion.Root
@@ -30,6 +31,7 @@ const DefaultChildren = () => (
   <>
     <Accordion.Item value="one">
       <Accordion.Trigger>Accordion One</Accordion.Trigger>
+      <Accordion.MetaData metadata={testMetaData} />
       <Accordion.Content>
         <Text />
       </Accordion.Content>
@@ -62,7 +64,7 @@ describe("Accordion", () => {
     await axeTest(container);
   });
 
-  it("should should only open one when single", async () => {
+  it("should only open one when single", async () => {
     renderAccordion({
       type: "single",
       children: <DefaultChildren />,

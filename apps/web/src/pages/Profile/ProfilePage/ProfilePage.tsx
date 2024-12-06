@@ -6,7 +6,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -68,6 +68,8 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       }
 
       isGovEmployee
+      workEmail
+      isWorkEmailVerified
       hasPriorityEntitlement
       priorityNumber
       department {
@@ -214,6 +216,8 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
     }
     isGovEmployee
+    workEmail
+    isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
     govEmployeeType {
@@ -270,10 +274,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     positionDuration
     userSkills {
       id
-      user {
-        id
-        email
-      }
       skill {
         id
         key
@@ -294,10 +294,6 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       # profileExperience fragment
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -384,35 +380,71 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         division
         startDate
         endDate
-      }
-    }
-    isProfileComplete
-    poolCandidates {
-      id
-      user {
-        id
-        email
-      }
-      status {
-        value
-        label {
-          en
-          fr
+        employmentCategory {
+          value
+          label {
+            en
+            fr
+          }
         }
-      }
-      expiryDate
-      signature
-      archivedAt
-      submittedAt
-      suspendedAt
-      pool {
-        id
-        closingDate
-        name {
-          en
-          fr
+        extSizeOfOrganization {
+          value
+          label {
+            en
+            fr
+          }
         }
-        stream {
+        extRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govPositionType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        contractorFirmAgencyName
+        cafEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafForce {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafRank {
           value
           label {
             en
@@ -421,152 +453,26 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         }
         classification {
           id
+          name {
+            en
+            fr
+          }
           group
           level
-          name {
-            en
-            fr
-          }
-          genericJobTitles {
-            id
-            key
-            name {
-              en
-              fr
-            }
-          }
-          minSalary
           maxSalary
+          minSalary
         }
-      }
-      educationRequirementOption {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      educationRequirementExperiences {
-        # profileExperience fragment
-        id
-        __typename
-        details
-        user {
+        department {
           id
-          email
-        }
-        skills {
-          id
-          key
           name {
             en
             fr
           }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          awardedScope {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          status {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      screeningQuestionResponses {
-        id
-        answer
-        screeningQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
-        }
-      }
-      generalQuestionResponses {
-        id
-        answer
-        generalQuestion {
-          id
-          sortOrder
-          question {
-            en
-            fr
-          }
+          departmentNumber
         }
       }
     }
+    isProfileComplete
   }
 `;
 

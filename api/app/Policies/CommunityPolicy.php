@@ -32,6 +32,26 @@ class CommunityPolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create(User $user)
+    {
+        return $user->isAbleTo('create-any-community');
+    }
+
+    /**
+     * Determine whether the user can update models.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update(User $user, Community $community)
+    {
+        return $user->isAbleTo('update-any-community') || $user->isAbleTo('update-team-community', $community->team);
+    }
+
+    /**
      * Determine whether the user can view the team members of a specific communities team
      *
      * @return \Illuminate\Auth\Access\Response|bool
@@ -40,6 +60,6 @@ class CommunityPolicy
     {
         $community->loadMissing('team');
 
-        return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $community->team);
+        return $user->isAbleTo('view-any-communityTeamMembers') || $user->isAbleTo('view-team-communityTeamMembers', $community->team);
     }
 }

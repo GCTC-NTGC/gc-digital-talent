@@ -2,33 +2,21 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   PoolCandidate,
-  PoolLanguage,
-  PoolOpportunityLength,
-  PoolSkillType,
-  PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
-  PublishingGroup,
-  SecurityStatus,
+  Skill,
   SkillCategory,
-  SkillLevel,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import PoolPage from "~/fixtures/PoolPage";
-import ApplicationPage from "~/fixtures/ApplicationPage";
-import { loginBySub } from "~/utils/auth";
+import graphql from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
-import { getDCM } from "~/utils/teams";
-import { getClassifications } from "~/utils/classification";
-import { getDepartments } from "~/utils/departments";
-import { getCommunities } from "~/utils/communities";
+import { createUserWithRoles, me } from "~/utils/user";
+import { createAndSubmitApplication } from "~/utils/applications";
+import { createAndPublishPool } from "~/utils/pools";
+import { loginBySub } from "~/utils/auth";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -39,123 +27,303 @@ test.describe("Pool candidates", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
   let candidate: PoolCandidate;
+  let technicalSkill: Skill | undefined;
 
-  test.beforeAll(async ({ adminPage, browser }) => {
-    const poolPage = new PoolPage(adminPage.page);
-    const skills = await getSkills();
-    const technicalSkill = skills.find(
-      (skill) => skill.category.value === SkillCategory.Technical,
-    );
-    const createdUser = await adminPage.createUser({
-      email: `${sub}@example.org`,
-      sub,
-      currentProvince: ProvinceOrTerritory.Alberta,
-      currentCity: "Test city",
-      telephone: "+10123456789",
-      armedForcesStatus: ArmedForcesStatus.Veteran,
-      citizenship: CitizenshipStatus.Citizen,
-      lookingForEnglish: true,
-      isGovEmployee: false,
-      hasPriorityEntitlement: true,
-      priorityNumber: "123",
-      locationPreferences: [WorkRegion.Atlantic],
-      positionDuration: [PositionDuration.Permanent],
-      personalExperiences: {
-        create: [
-          {
-            description: "Test Experience Description",
-            details: "A Playwright test personal experience",
-            skills: {
-              sync: [
-                {
-                  details: `Test Skill ${technicalSkill.name.en}`,
-                  id: technicalSkill.id,
-                },
-              ],
+  test.beforeAll(async () => {
+    const adminCtx = await graphql.newContext();
+
+    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+      return skills.find(
+        (skill) => skill.category.value === SkillCategory.Technical,
+      );
+    });
+
+    const createdUser = await createUserWithRoles(adminCtx, {
+      roles: ["guest", "base_user", "applicant"],
+      user: {
+        email: `${sub}@example.org`,
+        sub,
+        currentProvince: ProvinceOrTerritory.Alberta,
+        currentCity: "Test city",
+        telephone: "+10123456789",
+        armedForcesStatus: ArmedForcesStatus.Veteran,
+        citizenship: CitizenshipStatus.Citizen,
+        lookingForEnglish: true,
+        isGovEmployee: false,
+        hasPriorityEntitlement: true,
+        priorityNumber: "123",
+        locationPreferences: [WorkRegion.Atlantic],
+        positionDuration: [PositionDuration.Permanent],
+        personalExperiences: {
+          create: [
+            {
+              description: "Test Experience Description",
+              details: "A Playwright test personal experience",
+              skills: {
+                sync: [
+                  {
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
+                  },
+                ],
+              },
+              startDate: FAR_PAST_DATE,
+              title: "Test Experience",
             },
-            startDate: FAR_PAST_DATE,
-            title: "Test Experience",
-          },
-        ],
-      },
-    });
-    await adminPage.addRolesToUser(createdUser.id, [
-      "guest",
-      "base_user",
-      "applicant",
-    ]);
-    const team = await getDCM();
-    const classifications = await getClassifications();
-    const departments = await getDepartments();
-    const communities = await getCommunities();
-
-    const createdPool = await poolPage.createPool(
-      createdUser.id,
-      team.id,
-      communities[0].id,
-      {
-        classification: {
-          connect: classifications[0].id,
-        },
-        department: {
-          connect: departments[0].id,
+          ],
         },
       },
-    );
-    await poolPage.updatePool(createdPool.id, {
-      name: {
-        en: `Test Pool EN ${uniqueTestId}`,
-        fr: `Test Pool FR ${uniqueTestId}`,
-      },
-      stream: PoolStream.BusinessAdvisoryServices,
-      closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-      yourImpact: LOCALIZED_STRING,
-      keyTasks: LOCALIZED_STRING,
-      language: PoolLanguage.Various,
-      securityClearance: SecurityStatus.Secret,
-      location: LOCALIZED_STRING,
-      isRemote: true,
-      publishingGroup: PublishingGroup.ItJobs,
-      opportunityLength: PoolOpportunityLength.Various,
     });
-    await poolPage.createPoolSkill(createdPool.id, technicalSkill.id, {
-      type: PoolSkillType.Essential,
-      requiredLevel: SkillLevel.Beginner,
-    });
-    await poolPage.publishPool(createdPool.id);
 
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    const applicationPage = new ApplicationPage(page, createdPool.id);
-    await loginBySub(applicationPage.page, sub, false);
-    const applicationUser: User = await applicationPage.getMe();
-    const application = await applicationPage.createGraphql(
-      createdUser.id,
-      applicationUser.experiences[0].id,
+    const createdPool = await createAndPublishPool(adminCtx, {
+      userId: createdUser?.id ?? "",
+      skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
+      name: LOCALIZED_STRING,
+    });
+
+    const applicantCtx = await graphql.newContext(
+      createdUser?.authInfo?.sub ?? "applicant@test.com",
     );
-    await applicationPage.submitGraphql(
-      application.id,
-      `${createdUser.firstName} signature`,
-    );
+    const applicant = await me(applicantCtx, {});
+
+    const application = await createAndSubmitApplication(applicantCtx, {
+      userId: applicant.id,
+      poolId: createdPool.id,
+      experienceId: applicant?.experiences?.[0]?.id ?? "",
+      signature: `${applicant.firstName} signature`,
+    });
 
     candidate = application;
   });
 
-  test("Qualifying candidate", async ({ adminPage }) => {
-    await adminPage.page.goto(
-      `/en/admin/candidates/${candidate.id}/application`,
-    );
-    await adminPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+  test("Snapshot content is rendered", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await adminPage.page
+    // check verification appears
+    await expect(
+      appPage.page
+        .locator("div")
+        .filter({ hasText: /^Priority statusThis claim is unverified\.$/ })
+        .getByRole("paragraph"),
+    ).toBeVisible();
+    await expect(
+      appPage.page
+        .locator("div")
+        .filter({ hasText: /^Veteran statusThis claim is unverified\.$/ })
+        .getByRole("paragraph"),
+    ).toBeVisible();
+
+    // expand snapshot
+    await appPage.page
+      .getByRole("button", { name: "Expand all application" })
+      .click();
+
+    // personal information
+    const personal = appPage.page.getByRole("region", {
+      name: /personal and contact/i,
+    });
+    await expect(personal).toContainText(/given namePlaywright/i);
+    await expect(personal).toContainText(/playwright.sub./);
+
+    // education experience
+    const educationExperience = appPage.page.getByRole("region", {
+      name: /minimum experience or equivalent/i,
+    });
+    await expect(
+      educationExperience.getByText(/Applied work experience/i),
+    ).toBeVisible();
+    await expect(
+      educationExperience.getByText(/Test Experience/i),
+    ).toBeVisible();
+
+    // essential skills
+    const essentialSkills = appPage.page.getByRole("region", {
+      name: /essential skills/i,
+    });
+    await expect(
+      essentialSkills.getByRole("heading", {
+        name: technicalSkill?.name.en ?? "",
+        exact: true,
+      }),
+    ).toBeVisible();
+    await expect(
+      essentialSkills.getByText(`Test skill ${technicalSkill?.name?.en}`),
+    ).toBeVisible();
+
+    // work preferences
+    const workPreferences = appPage.page.getByRole("region", {
+      name: /work preferences/i,
+    });
+    await expect(
+      workPreferences.getByText(/Indeterminate \(permanent only\)/i),
+    ).toBeVisible();
+    await expect(workPreferences.getByText(/Test city/i)).toBeVisible();
+
+    // government employee
+    const govEmployee = appPage.page.getByRole("region", {
+      name: /government employee information/i,
+    });
+    await expect(
+      govEmployee.getByText(/Yes, I do have a priority/i),
+    ).toBeVisible();
+    await expect(govEmployee.getByText("Priority number123")).toBeVisible();
+
+    // signature
+    const signature = appPage.page.getByRole("region", {
+      name: /signature/i,
+    });
+    await expect(signature.getByText(/Playwright signature/i)).toBeVisible();
+
+    // assert experience appears three times, twice in snapshot and once in career timeline
+    await expect(appPage.page.getByText(/Test experience/i)).toHaveCount(3);
+  });
+
+  test("Verification and notes mutations", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    // priority verification
+    await appPage.page
+      .getByRole("button", { name: "Edit Priority status" })
+      .click();
+    await appPage.page
+      .getByRole("radio", { name: "This claim has been verified" })
+      .click();
+    await appPage.page.getByRole("spinbutton", { name: "Year" }).fill("2030");
+    await appPage.page
+      .getByRole("combobox", { name: "Month" })
+      .selectOption("01");
+    await appPage.page.getByRole("spinbutton", { name: "Day" }).fill("25");
+    await appPage.page.getByRole("button", { name: "Save changes" }).click();
+    await expect(
+      appPage.page.getByText(
+        /This claim has been verified, expires on January 25, 2030/i,
+      ),
+    ).toBeVisible();
+
+    // veteran verification
+    await appPage.page
+      .getByRole("button", { name: "Edit Veteran status" })
+      .click();
+    await appPage.page
+      .getByRole("radio", { name: "This claim does not apply to" })
+      .click();
+    await appPage.page.getByRole("button", { name: "Save changes" }).click();
+    await expect(
+      appPage.page.getByText(/This claim does not apply to/i),
+    ).toBeVisible();
+
+    // notes
+    await appPage.page.getByRole("button", { name: "Add notes" }).click();
+    await appPage.page
+      .getByRole("textbox", { name: "Notes" })
+      .fill("Notes notes notes");
+    await appPage.page.getByRole("button", { name: "Save changes" }).click();
+    await appPage.waitForGraphqlResponse("PoolCandidate_UpdateNotes");
+    await expect(
+      appPage.page.getByRole("button", { name: "Edit notes" }),
+    ).toBeVisible();
+    await expect(appPage.page.getByText(/Notes notes notes/i)).toBeVisible();
+  });
+
+  test("Completing an assessment step", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    // to assess icon by application screening
+    await expect(
+      appPage.page.getByLabel("To assess").locator("path"),
+    ).toBeVisible();
+
+    // education result
+    await appPage.page
+      .getByRole("row", { name: "Education requirement To" })
+      .getByRole("button")
+      .click();
+    await expect(
+      appPage.page.getByText("I meet the applied work"),
+    ).toBeVisible();
+    await expect(
+      appPage.page
+        .getByLabel("Assess the candidate's")
+        .getByText("Test Experience"),
+    ).toBeVisible();
+    await appPage.page.getByText("Demonstrated", { exact: true }).click();
+    await appPage.page
+      .getByText("Work experience equivalency is accepted", { exact: true })
+      .click();
+    await appPage.page.getByRole("button", { name: "Save decision" }).click();
+    await expect(
+      appPage.page
+        .getByLabel("Assess the candidate's")
+        .getByText("Test Experience"),
+    ).toBeVisible();
+    await expect(
+      appPage.page.getByRole("button", {
+        name: "Demonstrated",
+      }),
+    ).toBeVisible();
+
+    // skill result
+    await appPage.page
+      .getByRole("row", { name: `${technicalSkill?.name?.en}` })
+      .getByRole("button")
+      .click();
+    await expect(
+      appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
+    ).toBeVisible();
+    await appPage.page.getByText("Not demonstrated (Hold for").click();
+    await appPage.page
+      .getByRole("textbox", { name: "decision notes" })
+      .fill("Reason");
+    await appPage.page.getByRole("button", { name: "Save decision" }).click();
+    await expect(
+      appPage.page.getByRole("button", {
+        name: "Not demonstrated (Hold for",
+      }),
+    ).toBeVisible();
+
+    // hold icon by application screening, then flip it to screened in
+    await expect(
+      appPage.page.getByLabel("Hold for assessment").locator("path"),
+    ).toBeVisible();
+    await appPage.page
+      .getByRole("button", { name: "Not demonstrated (Hold for" })
+      .click();
+    await appPage.page
+      .getByLabel("Application screening -")
+      .getByText("Demonstrated", { exact: true })
+      .click();
+    await appPage.page.getByText("At required level").click();
+    await appPage.page.getByRole("button", { name: "Save decision" }).click();
+    await expect(
+      appPage.page.getByRole("button", {
+        name: "Demonstrated At required level",
+      }),
+    ).toBeVisible();
+    await expect(
+      appPage.page.getByLabel("Screened in").locator("path"),
+    ).toBeVisible();
+  });
+
+  test("Qualifying candidate", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    await appPage.page
       .getByRole("button", { name: /record final decision/i })
       .click();
 
-    await adminPage.page
+    await appPage.page
       .getByRole("radio", { name: /^qualify candidate/i })
       .click();
 
-    const expiryDate = adminPage.page.getByRole("group", {
+    const expiryDate = appPage.page.getByRole("group", {
       name: /expiry date/i,
     });
 
@@ -164,10 +332,47 @@ test.describe("Pool candidates", () => {
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
     await expiryDate.getByRole("spinbutton", { name: /day/i }).fill("1");
-    await adminPage.page.getByRole("button", { name: /save changes/i }).click();
+    await appPage.page.getByRole("button", { name: /save changes/i }).click();
 
     await expect(
-      adminPage.page.getByText(/expiry date: 2400-01-01/i),
+      appPage.page.getByText(/expiry date: 2400-01-01/i),
+    ).toBeVisible();
+  });
+
+  test("Removing and reinstating", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+
+    await appPage.page
+      .getByRole("button", { name: "Remove candidate" })
+      .click();
+    await appPage.page
+      .getByRole("radio", { name: "Candidate has requested to be withdrawn" })
+      .click();
+    await appPage.page
+      .getByRole("button", { name: "Remove candidate and update status" })
+      .click();
+    await expect(
+      appPage.page.getByRole("button", { name: "Removed", exact: true }),
+    ).toBeVisible();
+    await expect(
+      appPage.page.getByRole("button", { name: "Record final decision" }),
+    ).toBeHidden();
+    await appPage.page
+      .getByRole("button", { name: "Removed", exact: true })
+      .click();
+    await expect(
+      appPage.page.getByText("Candidate has requested to be"),
+    ).toBeVisible();
+    await appPage.page
+      .getByRole("button", { name: "Reinstate candidate and" })
+      .click();
+    await expect(
+      appPage.page.getByRole("button", { name: "Removed", exact: true }),
+    ).toBeHidden();
+    await expect(
+      appPage.page.getByRole("button", { name: "Record final decision" }),
     ).toBeVisible();
   });
 });

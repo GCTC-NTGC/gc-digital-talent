@@ -10,8 +10,6 @@ final class ReinstateCandidate
 {
     /**
      * Marks a candidate as removed from the pool
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
@@ -32,8 +30,7 @@ final class ReinstateCandidate
                 $candidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
                 break;
             default:
-                throw ValidationException::withMessages(['CandidateUnexpectedStatus']);
-                break;
+                throw ValidationException::withMessages(['id' => 'CandidateUnexpectedStatus']);
         }
 
         $candidate->removed_at = null;

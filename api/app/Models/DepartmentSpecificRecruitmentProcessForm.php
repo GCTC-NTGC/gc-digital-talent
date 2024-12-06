@@ -10,17 +10,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class DepartmentSpecificRecruitmentProcessForm
  *
- * @property string id
- * @property string department_other
- * @property string branch_other
- * @property string recruitment_process_lead_name
- * @property string recruitment_process_lead_job_title
- * @property string recruitment_process_lead_email
- * @property string posting_date
- * @property string advertisement_type
- * @property array advertising_platforms
- * @property string advertising_platforms_other
- * @property string job_advertisement_link
+ * @property string $id
+ * @property string $department_other
+ * @property string $branch_other
+ * @property string $recruitment_process_lead_name
+ * @property string $recruitment_process_lead_job_title
+ * @property string $recruitment_process_lead_email
+ * @property string $posting_date
+ * @property string $advertisement_type
+ * @property array $advertising_platforms
+ * @property string $advertising_platforms_other
+ * @property string $job_advertisement_link
  */
 class DepartmentSpecificRecruitmentProcessForm extends Model
 {

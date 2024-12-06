@@ -23,6 +23,7 @@ import {
   PoolFilterInput,
   PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
@@ -37,6 +38,7 @@ import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import {
   classificationAccessor,
@@ -56,6 +58,7 @@ import {
   poolBookmarkHeader,
   poolBookmarkCell,
   getPoolBookmarkSort,
+  getOrderByColumnSort,
 } from "./helpers";
 import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
@@ -126,6 +129,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
     $where: PoolFilterInput
     $orderByPoolBookmarks: PoolBookmarksOrderByInput
     $orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    $orderByColumn: OrderByColumnInput
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
     $first: Int
     $page: Int
@@ -134,10 +138,14 @@ const PoolTable_Query = graphql(/* GraphQL */ `
       id
       ...PoolBookmark
     }
+
+    ...PoolFilterDialogOptions
+
     poolsPaginated(
       where: $where
       orderByPoolBookmarks: $orderByPoolBookmarks
       orderByTeamDisplayName: $orderByTeamDisplayName
+      orderByColumn: $orderByColumn
       orderBy: $orderBy
       first: $first
       page: $page
@@ -185,8 +193,11 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   );
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolFilterInput = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
+  const initialFilters = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as PoolFilterInput)
+        : initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
   const filterRef = useRef<PoolFilterInput | undefined>(initialFilters);
@@ -232,6 +243,12 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     }
   };
 
+  const { roleAssignments } = useAuthorization();
+  const canCreatePool = hasRole(
+    permissionConstants.createProcess,
+    roleAssignments,
+  );
+
   const [{ data, fetching }] = useQuery({
     query: PoolTable_Query,
     variables: {
@@ -240,6 +257,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       first: paginationState.pageSize,
       orderByPoolBookmarks: getPoolBookmarkSort(),
       orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
+      orderByColumn: getOrderByColumnSort(sortState),
       orderBy: sortState ? getOrderByClause(sortState) : undefined,
     },
   });
@@ -300,7 +318,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         description:
           "Title displayed for the Pool table Group and Level column.",
       }),
-      // TO DO: Move to filter
       enableColumnFilter: false,
       cell: ({ row: { original: pool } }) =>
         classificationCell(pool.classification),
@@ -309,7 +326,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       ({ stream }) => getLocalizedName(stream?.label, intl),
       {
         id: "stream",
-        // TO DO: Move to filters
         enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Stream",
@@ -330,9 +346,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       ({ status }) => getLocalizedName(status?.label, intl),
       {
         id: "status",
-        // TO DO: Reenable when scope is added
         enableColumnFilter: false,
-        // TO DO: Reenable when relation order by added
         enableSorting: false,
         header: intl.formatMessage(commonMessages.status),
       },
@@ -469,6 +483,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         state: filterRef.current,
         component: (
           <PoolFilterDialog
+            optionsQuery={data}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolFilterInputToFormValues(
               initialFilterInput,
@@ -485,16 +500,21 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         pageSizes: [10, 20, 50],
         onPaginationChange: handlePaginationStateChange,
       }}
-      add={{
-        linkProps: {
-          href: paths.poolCreate(),
-          label: intl.formatMessage({
-            defaultMessage: "Create process",
-            id: "wP9+aN",
-            description: "Heading displayed above the Create process form.",
-          }),
-        },
-      }}
+      add={
+        canCreatePool
+          ? {
+              linkProps: {
+                href: paths.poolCreate(),
+                label: intl.formatMessage({
+                  defaultMessage: "Create process",
+                  id: "wP9+aN",
+                  description:
+                    "Heading displayed above the Create process form.",
+                }),
+              },
+            }
+          : undefined
+      }
       nullMessage={{
         description: intl.formatMessage({
           defaultMessage: 'Use the "Create process" button to get started.',

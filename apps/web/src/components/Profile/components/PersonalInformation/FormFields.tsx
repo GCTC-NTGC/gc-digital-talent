@@ -1,10 +1,8 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 
 import {
   Input,
   RadioGroup,
-  Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
@@ -13,24 +11,15 @@ import {
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
 } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 
-const PersonalInformationFormOptions_Query = graphql(/* GraphQL */ `
-  query PersonalInformationFormOptions {
+const PersonalInformationFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment PersonalInformationFormOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    provinceOrTerritories: localizedEnumStrings(
-      enumName: "ProvinceOrTerritory"
-    ) {
       value
       label {
         en
@@ -40,9 +29,17 @@ const PersonalInformationFormOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const FormFields = ({ labels }: FormFieldProps) => {
+const FormFields = ({
+  labels,
+  optionsQuery,
+}: FormFieldProps<
+  FragmentType<typeof PersonalInformationFormOptions_Fragment>
+>) => {
   const intl = useIntl();
-  const [{ data }] = useQuery({ query: PersonalInformationFormOptions_Query });
+  const data = getFragment(
+    PersonalInformationFormOptions_Fragment,
+    optionsQuery,
+  );
   useDirtyFields("personal");
 
   const languageOptions = localizedEnumToOptions(data?.languages, intl);
@@ -88,30 +85,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
           type="tel"
           label={labels.telephone}
           placeholder={intl.formatMessage(formMessages.phonePlaceholder)}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Input
-          id="currentCity"
-          name="currentCity"
-          type="text"
-          label={labels.currentCity}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-        <Select
-          id="currentProvince"
-          name="currentProvince"
-          label={labels.currentProvince}
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a province or territory",
-            id: "H1wLfA",
-            description:
-              "Placeholder displayed on the About Me form province or territory field.",
-          })}
-          options={localizedEnumToOptions(data?.provinceOrTerritories, intl)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

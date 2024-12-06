@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { ExperienceType } from "~/types/experience";
+import { AllExperienceFormValues, ExperienceType } from "~/types/experience";
 
 import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
@@ -19,7 +19,9 @@ interface ExperienceDetailsProps {
 
 const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const intl = useIntl();
-  const type = useWatch({ name: "experienceType" });
+  const type = useWatch<AllExperienceFormValues>({
+    name: "experienceType",
+  }) as ExperienceType;
   const derivedType: ExperienceType = type ?? experienceType;
   const labels = getExperienceFormLabels(intl, derivedType);
 

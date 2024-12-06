@@ -19,7 +19,10 @@ import {
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 
-import { SubExperienceFormProps } from "~/types/experience";
+import {
+  SubExperienceFormProps,
+  EducationFormValues,
+} from "~/types/experience";
 
 const EducationOptions_Query = graphql(/* GraphQL */ `
   query EducationOptions {
@@ -44,10 +47,10 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
   const [{ data }] = useQuery({ query: EducationOptions_Query });
-  // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "currentRole" });
+  // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
+  const isCurrent = useWatch<EducationFormValues>({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch({ name: "startDate" });
+  const watchStartDate = useWatch<EducationFormValues>({ name: "startDate" });
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
@@ -150,10 +153,11 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
                   : {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
-                        value: watchStartDate,
-                        message: intl.formatMessage(
-                          errorMessages.dateMustFollow,
-                          { value: watchStartDate },
+                        value: String(watchStartDate),
+                        message: String(
+                          intl.formatMessage(errorMessages.dateMustFollow, {
+                            value: watchStartDate,
+                          }),
                         ),
                       },
                     }

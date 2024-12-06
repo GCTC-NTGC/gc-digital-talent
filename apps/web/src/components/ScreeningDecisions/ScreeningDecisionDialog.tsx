@@ -17,6 +17,7 @@ import {
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
+  Scalars,
   Skill,
   UpdateAssessmentResultInput,
   User,
@@ -218,11 +219,11 @@ const AssessmentStepTypeSection = ({
 const ScreeningQuestions = ({
   poolCandidate,
 }: {
-  poolCandidate: PoolCandidate | undefined;
+  poolCandidate: Pick<PoolCandidate, "screeningQuestionResponses"> | undefined;
 }) => {
   const intl = useIntl();
   const screeningQuestionResponses =
-    poolCandidate?.screeningQuestionResponses?.filter(notEmpty) || [];
+    poolCandidate?.screeningQuestionResponses?.filter(notEmpty) ?? [];
   const screeningQuestions = screeningQuestionResponses
     .map((response) => response.screeningQuestion)
     .filter(notEmpty);
@@ -248,7 +249,7 @@ const ScreeningQuestions = ({
               {screeningQuestionResponses.find(
                 (response) =>
                   response.screeningQuestion?.id === screeningQuestion.id,
-              )?.answer || intl.formatMessage(commonMessages.notFound)}
+              )?.answer ?? intl.formatMessage(commonMessages.notFound)}
             </Accordion.Content>
           </Accordion.Item>
         ))}
@@ -261,7 +262,7 @@ const SupportingEvidence = ({
   skill,
   headingAs = "h4",
 }: {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
   skill?: Skill;
   headingAs?: HeadingLevel;
 }) => {
@@ -297,14 +298,29 @@ const SupportingEvidence = ({
   );
 };
 
+type EducationRequirementExperiences = Maybe<
+  Maybe<{
+    id: Scalars["UUID"]["output"];
+  }>[]
+>;
+
 interface ScreeningDecisionDialogProps {
   assessmentStep?: Maybe<Pick<AssessmentStep, "type" | "title">>;
   assessmentResult?: Maybe<
     Pick<AssessmentResult, "assessmentDecision" | "assessmentDecisionLevel">
   >;
-  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+  poolCandidate: Pick<
+    PoolCandidate,
+    | "id"
+    | "educationRequirementOption"
+    | "profileSnapshot"
+    | "screeningQuestionResponses"
+  > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
+  } & {
+    educationRequirementExperiences?: EducationRequirementExperiences;
   };
+  experiences: Omit<Experience, "user">[];
   hasBeenAssessed: boolean;
   poolSkill?: Pick<PoolSkill, "requiredLevel" | "type" | "skill">;
   initialValues?: FormValues;
@@ -318,6 +334,7 @@ export const ScreeningDecisionDialog = ({
   assessmentStep,
   assessmentResult,
   poolCandidate,
+  experiences: experiencesProp,
   hasBeenAssessed,
   poolSkill,
   initialValues,
@@ -337,10 +354,9 @@ export const ScreeningDecisionDialog = ({
     skill: poolSkill?.skill,
   });
 
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
-  const snapshotCandidate = parsedSnapshot?.poolCandidates
-    ?.filter(notEmpty)
-    .find(({ id }) => id === poolCandidate.id);
+  const parsedSnapshot = JSON.parse(
+    String(poolCandidate.profileSnapshot),
+  ) as Maybe<User>;
 
   const headers = useHeaders({
     type: dialogType,
@@ -354,14 +370,17 @@ export const ScreeningDecisionDialog = ({
   });
   const labels = useLabels();
 
+  const educationRequirementExperiences = unpackMaybes(
+    poolCandidate?.educationRequirementExperiences,
+  );
   const experiences =
     dialogType === "EDUCATION"
-      ? snapshotCandidate?.educationRequirementExperiences?.filter(notEmpty) ||
-        []
-      : getExperienceSkills(
-          parsedSnapshot?.experiences?.filter(notEmpty) || [],
-          skill,
-        );
+      ? experiencesProp.filter((exp) =>
+          educationRequirementExperiences.some(
+            (eduExp) => eduExp.id === exp.id,
+          ),
+        )
+      : getExperienceSkills(experiencesProp?.filter(notEmpty) || [], skill);
 
   const experienceAttachedToSkill =
     getExperienceSkills(unpackMaybes(parsedSnapshot?.experiences), skill)
@@ -376,7 +395,7 @@ export const ScreeningDecisionDialog = ({
     isIAPPool(poolCandidate.pool.publishingGroup?.value),
   ).find(
     (option) =>
-      option.value === snapshotCandidate?.educationRequirementOption?.value,
+      option.value === poolCandidate?.educationRequirementOption?.value,
   )?.label;
 
   const defaultValues: FormValues = {
@@ -469,7 +488,7 @@ export const ScreeningDecisionDialog = ({
             type={dialogType}
           />
           {dialogType === "SCREENING_QUESTIONS" ? (
-            <ScreeningQuestions poolCandidate={snapshotCandidate} />
+            <ScreeningQuestions poolCandidate={poolCandidate} />
           ) : (
             <SupportingEvidence experiences={experiences} skill={skill} />
           )}
@@ -477,7 +496,7 @@ export const ScreeningDecisionDialog = ({
             onSubmit={onSubmit}
             labels={labels}
             options={{
-              defaultValues: initialValues || defaultValues,
+              defaultValues: initialValues ?? defaultValues,
             }}
           >
             <ScreeningDecisionDialogForm dialogType={dialogType} />
@@ -528,13 +547,23 @@ const UpdateAssessmentResult_Mutation = graphql(/* GraphQL */ `
 const ScreeningDecisionDialogApi = ({
   assessmentStep,
   poolCandidate,
+  experiences,
   assessmentResult,
   poolSkillToAssess,
   educationRequirement,
 }: {
   assessmentStep: Pick<AssessmentStep, "id" | "type" | "title">;
-  poolCandidate: Pick<PoolCandidate, "id" | "profileSnapshot"> & {
+  experiences?: Omit<Experience, "user">[];
+  poolCandidate: Pick<
+    PoolCandidate,
+    | "id"
+    | "educationRequirementOption"
+    | "screeningQuestionResponses"
+    | "profileSnapshot"
+  > & {
     pool: Pick<Pool, "classification" | "publishingGroup">;
+  } & {
+    educationRequirementExperiences?: EducationRequirementExperiences;
   };
   assessmentResult?: Maybe<
     Pick<
@@ -566,7 +595,7 @@ const ScreeningDecisionDialogApi = ({
   let assessmentDecision: Maybe<AssessmentDecision> | "noDecision" | undefined;
   if (hasBeenAssessed) {
     assessmentDecision =
-      assessmentResult?.assessmentDecision?.value || "noDecision";
+      assessmentResult?.assessmentDecision?.value ?? "noDecision";
   } else {
     assessmentDecision = assessmentResult?.assessmentDecision?.value;
   }
@@ -662,6 +691,7 @@ const ScreeningDecisionDialogApi = ({
       initialValues={initialValues}
       hasBeenAssessed={hasBeenAssessed}
       educationRequirement={educationRequirement}
+      experiences={unpackMaybes(experiences)}
       onSubmit={(formValues) =>
         hasBeenAssessed
           ? handleUpdateAssessment(
@@ -677,7 +707,7 @@ const ScreeningDecisionDialogApi = ({
                 assessmentResultType,
                 assessmentStepId: assessmentStep.id,
                 poolCandidateId: poolCandidate.id,
-                poolSkillId: poolSkill?.id || "",
+                poolSkillId: poolSkill?.id ?? "",
               }),
             )
       }

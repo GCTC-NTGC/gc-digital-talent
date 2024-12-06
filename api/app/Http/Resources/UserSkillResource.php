@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\UserSkill */
 class UserSkillResource extends JsonResource
 {
     /**
@@ -16,7 +17,6 @@ class UserSkillResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => new UserResource($this->whenLoaded('user')),
             'skill' => new SkillResource($this->whenLoaded('skill')),
         ];
     }

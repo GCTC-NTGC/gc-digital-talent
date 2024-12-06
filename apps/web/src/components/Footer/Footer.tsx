@@ -102,7 +102,7 @@ const Footer = ({ width }: FooterProps) => {
               })}
             >
               {links.map((props) => (
-                <Link key={props.href} color="black" {...props} />
+                <Link key={String(props.href)} color="black" {...props} />
               ))}
             </nav>
             <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">

@@ -20,7 +20,7 @@ const DialogFooter = ({ saveText, disabled }: DialogFooterProps) => {
         color="secondary"
         disabled={disabled || isSubmitting}
       >
-        <span>{saveText || intl.formatMessage(formMessages.saveChanges)}</span>
+        <span>{saveText ?? intl.formatMessage(formMessages.saveChanges)}</span>
       </Button>
       <Dialog.Close
         data-h2-align-self="base(center)"

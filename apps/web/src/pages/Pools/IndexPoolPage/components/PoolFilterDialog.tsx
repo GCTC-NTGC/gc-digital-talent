@@ -1,12 +1,13 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
+  FragmentType,
   PoolStatus,
   PoolStream,
   PublishingGroup,
   Scalars,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -17,15 +18,15 @@ import FilterDialog, {
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 
-export type FormValues = {
+export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
   classifications: Scalars["UUID"]["output"][];
   streams: PoolStream[];
-};
+}
 
-const PoolFilterDialog_Query = graphql(/* GraphQL */ `
-  query PoolFilterDialog {
+const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment PoolFilterDialogOptions on Query {
     classifications {
       group
       level
@@ -58,11 +59,13 @@ const PoolFilterDialog = ({
   onSubmit,
   resetValues,
   initialValues,
-}: CommonFilterDialogProps<FormValues>) => {
+  optionsQuery,
+}: CommonFilterDialogProps<
+  FormValues,
+  FragmentType<typeof PoolFilterDialogOptions_Fragment>
+>) => {
   const intl = useIntl();
-  const [{ data, fetching }] = useQuery({
-    query: PoolFilterDialog_Query,
-  });
+  const data = getFragment(PoolFilterDialogOptions_Fragment, optionsQuery);
 
   return (
     <FilterDialog<FormValues>
@@ -78,7 +81,6 @@ const PoolFilterDialog = ({
           id="publishingGroups"
           name="publishingGroups"
           isMulti
-          fetching={fetching}
           label={intl.formatMessage(adminMessages.publishingGroups)}
           options={localizedEnumToOptions(data?.publishingGroups, intl)}
         />
@@ -99,7 +101,6 @@ const PoolFilterDialog = ({
         <Combobox
           id="classifications"
           name="classifications"
-          {...{ fetching }}
           isMulti
           label={intl.formatMessage(adminMessages.classifications)}
           options={unpackMaybes(data?.classifications).map(

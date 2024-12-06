@@ -1,19 +1,6 @@
 import { type Page } from "@playwright/test";
 
-import {
-  EducationRequirementOption,
-  PoolCandidate,
-  PoolCandidateStatus,
-} from "@gc-digital-talent/graphql";
-
 import AppPage from "./AppPage";
-import {
-  Test_CreateApplicationMutationDocument,
-  Test_SubmitApplicationMutationDocument,
-  Test_UpdateApplicationMutationDocument,
-  Test_UpdateApplicationStatusMutationDocument,
-} from "../utils/applications";
-import { GraphQLResponse } from "../utils/graphql";
 
 /**
  * Application Page
@@ -104,6 +91,8 @@ class ApplicationPage extends AppPage {
     await this.page
       .getByRole("button", { name: /add this experience/i })
       .click();
+
+    await this.waitForGraphqlResponse("UpdateEducationExperience");
   }
 
   async answerQuestion(question: number) {
@@ -122,66 +111,6 @@ class ApplicationPage extends AppPage {
     await this.page
       .getByRole("button", { name: /submit my application/i })
       .click();
-  }
-
-  /**
-   * Create an application using the graphql API
-   */
-  async createGraphql(
-    userId: string,
-    experienceId: string,
-  ): Promise<PoolCandidate> {
-    return this.graphqlRequest(Test_CreateApplicationMutationDocument, {
-      userId,
-      poolId: this.poolId,
-    })
-      .then(
-        (res: GraphQLResponse<"createApplication", PoolCandidate>) =>
-          res.createApplication,
-      )
-      .then(async (application) => {
-        return this.graphqlRequest(Test_UpdateApplicationMutationDocument, {
-          id: application.id,
-          application: {
-            educationRequirementOption: EducationRequirementOption.AppliedWork,
-            educationRequirementExperiences: {
-              sync: [experienceId],
-            },
-          },
-        }).then(
-          (res: GraphQLResponse<"updateApplication", PoolCandidate>) =>
-            res.updateApplication,
-        );
-      });
-  }
-
-  /**
-   * Submit an Application using the graphql API
-   */
-  async submitGraphql(id: string, signature: string): Promise<PoolCandidate> {
-    return this.graphqlRequest(Test_SubmitApplicationMutationDocument, {
-      id,
-      signature,
-    }).then(
-      (res: GraphQLResponse<"submitApplication", PoolCandidate>) =>
-        res.submitApplication,
-    );
-  }
-
-  /**
-   * Update status of an application using graphql API
-   */
-  async updateStatusGraphql(
-    id: string,
-    status: PoolCandidateStatus,
-  ): Promise<PoolCandidate> {
-    return this.graphqlRequest(Test_UpdateApplicationStatusMutationDocument, {
-      id,
-      input: { status },
-    }).then(
-      (res: GraphQLResponse<"updatePoolCandidateStatus", PoolCandidate>) =>
-        res.updatePoolCandidateStatus,
-    );
   }
 }
 export default ApplicationPage;

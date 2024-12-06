@@ -11,6 +11,11 @@ export default defineMessages({
     id: "i16C7G",
     description: "Title for the all pool candidates page",
   },
+  communities: {
+    defaultMessage: "Communities",
+    id: "fr8v1+",
+    description: "Title for the index communities page",
+  },
   classifications: {
     defaultMessage: "Classifications",
     id: "kvpRgN",
@@ -60,5 +65,20 @@ export default defineMessages({
     defaultMessage: "All users",
     id: "bVQ/rm",
     description: "Title for the index user page",
+  },
+  itTrainingFund: {
+    defaultMessage: "IT Community Training and Development Fund",
+    id: "ye4m17",
+    description: "Title for the IT training fund page",
+  },
+  instructorLedTraining: {
+    defaultMessage: "Instructor-led training opportunities",
+    id: "V4W5oL",
+    description: "Title for the instructor led training page",
+  },
+  trainingOpportunities: {
+    defaultMessage: "Training opportunities",
+    id: "V95g4E",
+    description: "Title for the index training opportunities page",
   },
 });

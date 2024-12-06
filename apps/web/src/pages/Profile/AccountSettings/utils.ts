@@ -14,7 +14,7 @@ export const formValuesToData = (values: FormValues) => {
     enabledInAppNotifications: [],
   };
 
-  const keys = Object.keys(values) as Array<keyof FormValues>;
+  const keys = Object.keys(values) as (keyof FormValues)[];
   keys.forEach((key) => {
     const family = inputNameToFamilyMap[key];
     const enabledTypes = values[key];
@@ -40,10 +40,10 @@ export const formValuesToData = (values: FormValues) => {
   return data;
 };
 
-type EnabledNotifications = {
+interface EnabledNotifications {
   enabledEmailNotifications: NotificationFamily[];
   enabledInAppNotifications: NotificationFamily[];
-};
+}
 
 const getEnabledNotificationFamilyValue = (
   {

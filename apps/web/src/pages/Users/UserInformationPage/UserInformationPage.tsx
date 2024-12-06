@@ -158,46 +158,12 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     isWoman
     poolCandidates {
       id
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      expiryDate
       notes
-      suspendedAt
-      submittedAt
-      isBookmarked
-      placedDepartment {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      user {
-        id
-      }
       pool {
         id
         name {
           en
           fr
-        }
-        classification {
-          id
-          group
-          level
-        }
-        stream {
-          value
-          label {
-            en
-            fr
-          }
         }
         publishingGroup {
           value
@@ -206,13 +172,17 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
             fr
           }
         }
-        team {
-          id
-          name
-          displayName {
+        stream {
+          value
+          label {
             en
             fr
           }
+        }
+        classification {
+          id
+          group
+          level
         }
       }
     }
@@ -236,10 +206,6 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
       __typename
-      user {
-        id
-        email
-      }
       details
       skills {
         id
@@ -322,9 +288,6 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     topTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -346,9 +309,6 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     topBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -370,9 +330,6 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     improveTechnicalSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -394,9 +351,6 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     improveBehaviouralSkillsRanking {
       id
-      user {
-        id
-      }
       skill {
         id
         key
@@ -473,7 +427,7 @@ export const UserInformation = ({
   ];
 
   return (
-    <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+    <TableOfContents.Wrapper>
       <TableOfContents.Navigation>
         <TableOfContents.List>
           {items.map((item) => (
@@ -519,9 +473,9 @@ const UserInformation_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
-};
+}
 
 const UserInformationPage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
@@ -559,6 +513,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <UserInformationPage />

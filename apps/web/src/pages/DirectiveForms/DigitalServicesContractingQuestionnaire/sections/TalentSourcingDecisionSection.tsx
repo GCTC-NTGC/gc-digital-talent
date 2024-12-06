@@ -24,10 +24,11 @@ import {
 } from "../../localizedConstants";
 import useLabels from "../useLabels";
 import CompoundQuestion from "../../CompoundQuestion";
+import { FormValues } from "../formValues";
 
 const TalentSourcingDecisionSection = () => {
   const intl = useIntl();
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   const paths = useRoutes();
   const labels = useLabels();
 
@@ -53,7 +54,7 @@ const TalentSourcingDecisionSection = () => {
     selectedOcioConfirmedTalentShortage === YesNo.Yes;
 
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
 

@@ -1,57 +1,59 @@
 import { test, expect } from "~/fixtures";
+import { loginBySub } from "~/utils/auth";
 
 test.describe("Applicant redirects", () => {
-  test("Redirects /talent/profile", async ({ applicantPage }) => {
-    await applicantPage.page.goto("/en/talent/profile");
+  test("Redirects /talent/profile", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.page.goto("/en/talent/profile");
 
-    await expect(applicantPage.page.url()).toMatch(/\/en\/applicant/);
+    expect(appPage.page.url()).toMatch(/\/en\/applicant/);
   });
 
-  test("Redirects /applicant/profile-and-applications", async ({
-    applicantPage,
-  }) => {
-    await applicantPage.page.goto("/en/applicant/profile-and-applications");
+  test("Redirects /applicant/profile-and-applications", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.page.goto("/en/applicant/profile-and-applications");
 
-    await expect(applicantPage.page.url()).toMatch(/\/en\/applicant/);
+    expect(appPage.page.url()).toMatch(/\/en\/applicant/);
   });
 
   test("Redirects /applicant/profile-and-applications/skills", async ({
-    applicantPage,
+    appPage,
   }) => {
-    await applicantPage.page.goto(
-      "/en/applicant/profile-and-applications/skills",
-    );
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.page.goto("/en/applicant/profile-and-applications/skills");
 
-    await expect(applicantPage.page.url()).toMatch(/\/en\/applicant\/skills/);
+    expect(appPage.page.url()).toMatch(/\/en\/applicant\/skills/);
   });
 
   test("Redirects /applicant/profile-and-applications/skills/showcase", async ({
-    applicantPage,
+    appPage,
   }) => {
-    await applicantPage.page.goto(
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.page.goto(
       "/en/applicant/profile-and-applications/skills/showcase",
     );
 
-    await expect(applicantPage.page.url()).toMatch(
-      /\/en\/applicant\/skills\/showcase/,
-    );
+    expect(appPage.page.url()).toMatch(/\/en\/applicant\/skills\/showcase/);
   });
 
-  test("Redirects /users/me", async ({ applicantPage }) => {
-    await applicantPage.page.goto("/en/users/me");
+  test("Redirects /users/me", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.page.goto("/en/users/me");
 
-    await expect(applicantPage.page.url()).toMatch(/\/en\/applicant/);
+    expect(appPage.page.url()).toMatch(/\/en\/applicant/);
   });
 
   test("Redirects /en/talent/search", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
     await appPage.page.goto("/en/talent/search");
 
-    await expect(appPage.page.url()).toMatch(/\/en\/search/);
+    expect(appPage.page.url()).toMatch(/\/en\/search/);
   });
 
   test("Redirects /fr/talent/search", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
     await appPage.page.goto("/fr/talent/search");
 
-    await expect(appPage.page.url()).toMatch(/\/fr\/search/);
+    expect(appPage.page.url()).toMatch(/\/fr\/search/);
   });
 });

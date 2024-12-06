@@ -12,6 +12,7 @@ import {
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   LogoutReason,
   LOGOUT_REASON_KEY,
+  NAV_ROLE_KEY,
 } from "../const";
 import useLogoutChannel from "../hooks/useLogoutChannel";
 
@@ -38,7 +39,7 @@ interface TokenSet {
 export const AuthenticationContext =
   createContext<AuthenticationState>(defaultAuthState);
 
-type logoutAndRefreshPageParameters = {
+interface logoutAndRefreshPageParameters {
   // the "end session" URI of the auth provider
   logoutUri: string;
   // the logout landing page of our app (whitelisted)
@@ -49,7 +50,7 @@ type logoutAndRefreshPageParameters = {
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
   logoutReason?: LogoutReason;
-};
+}
 
 const logoutAndRefreshPage = ({
   logoutUri,
@@ -67,6 +68,7 @@ const logoutAndRefreshPage = ({
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
+  localStorage.removeItem(NAV_ROLE_KEY);
 
   if (postLogoutOverridePath) {
     if (!postLogoutOverridePath.startsWith("/")) {
@@ -123,6 +125,13 @@ function getTokensFromLocation(): TokenSet | null {
 
 function clearQueryParams() {
   window.history.pushState({}, "", `${window.location.pathname}`);
+}
+
+interface TokenRefreshResponseBody {
+  access_token: string;
+  refresh_token: string;
+  expires_in: string | null;
+  id_token: string | null;
 }
 
 interface AuthenticationContainerProps {
@@ -209,12 +218,8 @@ const AuthenticationContainer = ({
           `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
         );
         if (response.ok) {
-          const responseBody: {
-            access_token: string;
-            refresh_token: string;
-            expires_in: string | null;
-            id_token: string | null;
-          } = await response.json();
+          const responseBody: TokenRefreshResponseBody =
+            (await response.json()) as TokenRefreshResponseBody;
           logger.debug(`Got refresh response: ${JSON.stringify(responseBody)}`);
 
           const refreshedTokens: TokenSet = {

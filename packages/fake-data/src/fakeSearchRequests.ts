@@ -55,7 +55,7 @@ export default (): PoolCandidateSearchRequest[] => {
   const applicantFilters = fakeApplicantFilters();
 
   faker.seed(0); // repeatable results
-  return [...Array(20)].map(() =>
+  return Array.from({ length: 20 }, () =>
     generateSearchRequest(departments, applicantFilters),
   );
 };

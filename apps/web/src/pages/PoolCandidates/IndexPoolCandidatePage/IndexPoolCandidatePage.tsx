@@ -12,14 +12,14 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
@@ -53,7 +53,7 @@ export const IndexPoolCandidatePage = () => {
   const currentPool = data?.pool ?? null;
 
   return (
-    <AdminContentWrapper>
+    <>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Talent placement",
@@ -62,31 +62,42 @@ export const IndexPoolCandidatePage = () => {
         })}
         description={formattedSubTitle}
       />
-      <Pending fetching={fetching} error={error}>
-        <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
-        <PoolCandidatesTable
-          hidePoolFilter
-          initialFilterInput={{
-            applicantFilter: { pools: [{ id: poolId || "" }] },
-            suspendedStatus: CandidateSuspendedFilter.Active,
-            expiryStatus: CandidateExpiryFilter.Active,
-          }}
-          currentPool={
-            currentPool
-              ? {
-                  id: currentPool.id,
-                }
-              : null
-          }
-          title={pageTitle}
-        />
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper table>
+        <Pending fetching={fetching} error={error}>
+          <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
+          <PoolCandidatesTable
+            hidePoolFilter
+            initialFilterInput={{
+              applicantFilter: { pools: [{ id: poolId || "" }] },
+              suspendedStatus: CandidateSuspendedFilter.Active,
+              expiryStatus: CandidateExpiryFilter.Active,
+            }}
+            currentPool={
+              currentPool
+                ? {
+                    id: currentPool.id,
+                  }
+                : null
+            }
+            title={pageTitle}
+          />
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.RequestResponder]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
     <IndexPoolCandidatePage />
   </RequireAuth>
 );

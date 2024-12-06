@@ -18,7 +18,8 @@ import {
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { NullSelection } from "~/types/searchRequest";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import { NullSelection, FormValues } from "~/types/searchRequest";
 
 import FilterBlock from "./FilterBlock";
 
@@ -29,7 +30,7 @@ interface FieldOption {
 
 const getFieldLabel = (
   value: string | string[],
-  options: Array<FieldOption>,
+  options: FieldOption[],
   intl: IntlShape,
 ) => {
   let label;
@@ -46,7 +47,7 @@ const getFieldLabel = (
   }
 
   return (
-    label ||
+    label ??
     intl.formatMessage({
       defaultMessage: "(None selected)",
       id: "+O6J4u",
@@ -80,7 +81,7 @@ const AdvancedFilters = () => {
   const [{ data, fetching }] = useQuery({
     query: AdvancedFilterOptions_Query,
   });
-  const { watch } = useFormContext();
+  const { watch } = useFormContext<FormValues>();
   const [openFilters, setOpenFilters] = useState<string[]>([]);
   const [educationRequirement, employmentDuration, operationalRequirements] =
     watch([
@@ -249,11 +250,7 @@ const AdvancedFilters = () => {
               intl,
             )}
           >
-            {intl.formatMessage({
-              defaultMessage: "Employment duration",
-              description: "Title for Employment duration section",
-              id: "Muh/+P",
-            })}
+            {intl.formatMessage(talentRequestMessages.employmentDuration)}
           </Accordion.Trigger>
           <Accordion.Content>
             <FilterBlock
@@ -281,7 +278,7 @@ const AdvancedFilters = () => {
             <Accordion.Trigger
               as="h4"
               subtitle={getFieldLabel(
-                operationalRequirements,
+                unpackMaybes(operationalRequirements),
                 operationalRequirementOptionsShort,
                 intl,
               )}
@@ -307,12 +304,9 @@ const AdvancedFilters = () => {
               >
                 <Checklist
                   idPrefix="operationalRequirements"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Conditions of employment",
-                    id: "bKvvaI",
-                    description:
-                      "Legend for the Conditions of Employment filter checklist",
-                  })}
+                  legend={intl.formatMessage(
+                    talentRequestMessages.conditionsOfEmployment,
+                  )}
                   name="operationalRequirements"
                   items={operationalRequirementOptions}
                   trackUnsaved={false}

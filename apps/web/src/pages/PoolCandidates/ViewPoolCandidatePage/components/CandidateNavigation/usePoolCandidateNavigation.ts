@@ -1,11 +1,11 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
-type CandidateLocation = {
+interface CandidateLocation {
   state?: {
     candidateIds?: string[];
     stepName?: string;
   };
-};
+}
 
 type UsePoolCandidateNavigationReturn = {
   candidateIds?: string[];
@@ -18,7 +18,7 @@ type UsePoolCandidateNavigationReturn = {
 const usePoolCandidateNavigation = (
   candidateId: string,
 ): UsePoolCandidateNavigationReturn => {
-  const { state }: CandidateLocation = useLocation();
+  const { state } = useLocation() as CandidateLocation;
   if (!state?.candidateIds || !candidateId) return null;
   const { candidateIds, stepName } = state;
 

@@ -37,14 +37,15 @@ import PersonnelRequirementsSection from "./PersonnelRequirementsSection";
 import useLabels from "../useLabels";
 import CompoundQuestion from "../../CompoundQuestion";
 import SignPost from "../../SignPost";
+import { FormValues } from "../formValues";
 
-type RequirementsSectionProps = {
-  skills: Array<Skill>;
-};
+interface RequirementsSectionProps {
+  skills: Skill[];
+}
 
 const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
   const intl = useIntl();
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext<FormValues>();
   const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
@@ -97,7 +98,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
    * Reset un-rendered fields
    */
   useEffect(() => {
-    const resetDirtyField = (name: string) => {
+    const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
 

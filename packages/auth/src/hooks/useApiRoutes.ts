@@ -1,5 +1,3 @@
-import path from "path-browserify";
-
 interface ApiRoutes {
   login: (from?: string, locale?: string) => string;
   refreshAccessToken: () => string;
@@ -24,7 +22,7 @@ const apiRoutes = {
 
     const url = apiHost
       ? new URL(loginPath, apiHost)
-      : path.join("/", "login") + (searchString ? `?${searchString}` : "");
+      : ["/login"].join("/") + (searchString ? `?${searchString}` : "");
 
     return url.toString();
   },

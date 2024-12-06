@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
@@ -54,16 +54,16 @@ const NotificationList = ({
   const [searchParams] = useSearchParams();
   const onlyUnread =
     searchParams.has("unread") && searchParams.get("unread") !== null;
-  const [{ data: maxPagesData }] = useQuery({
+  const [{ data: maxPagesData, fetching: fetchingMaxPages }] = useQuery({
     query: MaxNotificationPages_Query,
     variables: {
       where: { onlyUnread },
     },
   });
-  const [{ data }] = usePollingQuery(
+  const [{ data, fetching: fetchingLiveNotifications }] = usePollingQuery(
     {
       query: NotificationPolling_Query,
-      pause: !live,
+      pause: !live || fetchingMaxPages,
       variables: {
         where: {
           createdAt: {
@@ -85,7 +85,6 @@ const NotificationList = ({
   const pagesArray = Array.from(Array(pagesToLoad).keys());
   const liveNotifications = unpackMaybes(data?.notifications?.data);
   const liveIds = liveNotifications.map(({ id }) => id);
-
   return (
     <>
       <NotificationActions
@@ -120,7 +119,7 @@ const NotificationList = ({
             <NotificationListPage
               key={`notification-page-${currentPage}`}
               page={currentPage}
-              exclude={liveIds}
+              excludeIds={liveIds}
               isLastPage={currentPage === pagesToLoad}
               onlyUnread={onlyUnread}
               inDialog={inDialog}
@@ -128,6 +127,9 @@ const NotificationList = ({
               {...((!paginate || limit) && {
                 first: limit ?? 100,
               })}
+              fetchingLiveNotifications={
+                fetchingLiveNotifications || fetchingMaxPages
+              }
             />
           );
         })}

@@ -27,7 +27,7 @@ const SEO = ({ title, description, type = "website" }: SEOProps) => {
 
   const seo = {
     title: title ? `${title} | ${defaultTitle}` : defaultTitle,
-    description: description || defaultDescription,
+    description: description ?? defaultDescription,
     type,
   };
 

@@ -13,9 +13,13 @@ import {
   PublishingGroup,
   UpdatePoolInput,
   Department,
+  PoolAreaOfSelection,
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
-export type FormValues = {
+export interface FormValues {
+  areaOfSelection?: Maybe<PoolAreaOfSelection>;
+  selectionLimitations?: Maybe<PoolSelectionLimitation[]>;
   classification?: Classification["id"];
   department?: Department["id"];
   stream?: PoolStream;
@@ -24,9 +28,11 @@ export type FormValues = {
   processNumber?: string;
   publishingGroup?: Maybe<PublishingGroup>;
   opportunityLength?: Maybe<PoolOpportunityLength>;
-};
+}
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
+  areaOfSelection: initialData.areaOfSelection?.value ?? undefined,
+  selectionLimitations: initialData.selectionLimitations?.map((l) => l.value),
   classification: initialData.classification?.id ?? "",
   department: initialData.department?.id ?? "",
   stream: initialData.stream?.value ?? undefined,
@@ -39,6 +45,8 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
 
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
+  | "areaOfSelection"
+  | "selectionLimitations"
   | "classification"
   | "department"
   | "name"
@@ -51,6 +59,8 @@ export type PoolNameSubmitData = Pick<
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): PoolNameSubmitData => ({
+  areaOfSelection: formValues.areaOfSelection,
+  selectionLimitations: formValues.selectionLimitations ?? [],
   classification: formValues.classification
     ? {
         connect: formValues.classification,

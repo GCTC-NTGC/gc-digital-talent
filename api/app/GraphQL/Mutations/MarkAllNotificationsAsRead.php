@@ -9,11 +9,10 @@ final class MarkAllNotificationsAsRead
 {
     /**
      * Mark all unread notifications as read
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
+        /** @var User $user */
         $user = User::find(Auth::id());
         $user
             ->unreadNotifications

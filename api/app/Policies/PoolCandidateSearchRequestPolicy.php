@@ -27,7 +27,21 @@ class PoolCandidateSearchRequestPolicy
      */
     public function view(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAbleTo('view-any-searchRequest');
+        if ($user->isAbleTo('view-any-searchRequest')) {
+            return true;
+        }
+
+        if ($user->isAbleTo('view-own-searchRequest') && $poolCandidateSearchRequest->user_id == $user->id) {
+            return true;
+        }
+
+        $poolCandidateSearchRequest->loadMissing('community.team');
+
+        if (isset($poolCandidateSearchRequest->community->team)) {
+            return $user->isAbleTo('view-team-searchRequest', $poolCandidateSearchRequest->community->team);
+        }
+
+        return false;
     }
 
     /**
@@ -48,7 +62,17 @@ class PoolCandidateSearchRequestPolicy
      */
     public function update(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAbleTo('update-any-searchRequest');
+        if ($user->isAbleTo('update-any-searchRequest')) {
+            return true;
+        }
+
+        $poolCandidateSearchRequest->loadMissing('community.team');
+
+        if (isset($poolCandidateSearchRequest->community->team)) {
+            return $user->isAbleTo('update-team-searchRequest', $poolCandidateSearchRequest->community->team);
+        }
+
+        return false;
     }
 
     /**
@@ -58,7 +82,17 @@ class PoolCandidateSearchRequestPolicy
      */
     public function delete(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAbleTo('delete-any-searchRequest');
+        if ($user->isAbleTo('delete-any-searchRequest')) {
+            return true;
+        }
+
+        $poolCandidateSearchRequest->loadMissing('community.team');
+
+        if (isset($poolCandidateSearchRequest->community->team)) {
+            return $user->isAbleTo('delete-team-searchRequest', $poolCandidateSearchRequest->community->team);
+        }
+
+        return false;
     }
 
     /**

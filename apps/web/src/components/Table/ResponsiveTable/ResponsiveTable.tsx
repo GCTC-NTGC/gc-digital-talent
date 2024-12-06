@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -30,8 +30,7 @@ import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type {
   AddDef,
-  DatasetDownload,
-  DatasetPrint,
+  DownloadDef,
   FilterDef,
   PaginationDef,
   RowSelectDef,
@@ -64,12 +63,8 @@ interface TableProps<TData, TFilters> {
   sort?: SortDef;
   /** Enable pagination */
   pagination?: PaginationDef;
-  /** Enable printing selected rows (requires rowSelect) */
-  print?: DatasetPrint;
-  /** Enable downloading selected rows and/or all data (requires rowSelect) */
-  download?: DatasetDownload;
-  /** Async download button */
-  asyncDownload?: ReactNode;
+  /** Download buttons */
+  download?: DownloadDef;
   /** Enable the "add item" button */
   add?: AddDef;
   filter?: FilterDef<TFilters>;
@@ -89,8 +84,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   search,
   sort,
   download,
-  asyncDownload,
-  print,
   add,
   pagination,
   filter,
@@ -162,6 +155,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const {
     sorting: sortingState,
     columnFilters: columnFilterState,
+    // This comes from react-table and unsure how to adjust
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     globalFilter: globalFilterState,
     columnVisibility: columnVisibilityState,
     pagination: paginationState,
@@ -244,7 +239,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       } else {
         newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
         if (globalFilterState) {
-          newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, globalFilterState);
+          newParams.set(
+            SEARCH_PARAM_KEY.SEARCH_TERM,
+            String(globalFilterState),
+          );
         } else {
           newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
         }
@@ -370,13 +368,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 ))}
               </Table.Body>
             </Table.Table>
-            {(rowSelect || download?.all) && (
+            {(!!rowSelect || !!download?.all) && (
               <RowSelection.Actions
                 {...{
                   rowSelect: !!rowSelect,
                   download,
-                  asyncDownload,
-                  print,
                   isLoading,
                   count: Object.values(rowSelection).length,
                   onClear: () => table.resetRowSelection(),

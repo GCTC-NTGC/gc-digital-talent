@@ -29,7 +29,7 @@ const enumNotFound = defineMessage({
  * @param errorMessage
  */
 function getOrDisplayError<T>(
-  object: { [key: string]: T },
+  object: Record<string, T>,
   key: string | number,
   msg: string,
 ): T | MessageDescriptor {
@@ -380,86 +380,90 @@ export const getWorkRegionsDetailed = (
   );
 
 const operationalRequirementLabelFirstPerson = defineMessages({
+  [OperationalRequirement.OvertimeOccasional]: {
+    defaultMessage:
+      "I am willing to work <strong>occasional overtime</strong>.",
+    id: "PKkPSW",
+    description:
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    defaultMessage: "I am willing to work <strong>regular overtime</strong>.",
+    id: "nVodgK",
+    description: "The operational requirement described as regular overtime.",
+  },
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "has <strong>shift-work</strong>.",
-    id: "9rn/MG",
+    defaultMessage:
+      "I am willing to work a job with <strong>shift-work</strong>.",
+    id: "quCf/v",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "has <strong>24/7 on-call shifts</strong>.",
-    id: "0gInkY",
+    defaultMessage:
+      "I am willing to work a job that has <strong>24/7 on-call shifts</strong>.",
+    id: "vpTBA0",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "requires me to <strong>travel</strong>.",
-    id: "qnYbyw",
+    defaultMessage:
+      "I am willing to work a job that <strong>requires travel</strong>.",
+    id: "j47/Ct",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
     defaultMessage:
-      "requires me to <strong>transport, lift and set down equipment weighing up to 20kg</strong>.",
-    id: "dIZ4oj",
+      "I am willing to work a job that requires me to <strong>transport, lift and set down equipment weighing up to 20kg</strong>.",
+    id: "Y2w/me",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
-      "requires me to <strong>have a valid driver's license</strong> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
-    id: "duwt+A",
+      "I am willing to work a job that requires me to <strong>have a valid driver's license</strong> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
+    id: "iC7Wsq",
     description: "The operational requirement described as driver's license.",
-  },
-  [OperationalRequirement.OvertimeOccasional]: {
-    defaultMessage: "requires me to work <strong>occasional overtime</strong>.",
-    id: "sfhO+5",
-    description:
-      "The operational requirement described as occasional overtime.",
-  },
-  [OperationalRequirement.OvertimeRegular]: {
-    defaultMessage: "requires me to work <strong>regular overtime</strong>.",
-    id: "4dD2mf",
-    description: "The operational requirement described as regular overtime.",
   },
 });
 
 const operationalRequirementLabelFirstPersonNoBold = defineMessages({
+  [OperationalRequirement.OvertimeOccasional]: {
+    defaultMessage: "I am willing to work occasional overtime.",
+    id: "2Tm9BE",
+    description:
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    defaultMessage: "I am willing to work regular overtime.",
+    id: "QP+Skh",
+    description: "The operational requirement described as regular overtime.",
+  },
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "has shift-work.",
-    id: "jHYaw8",
+    defaultMessage: "I am willing to work a job with shift-work.",
+    id: "P+e8z7",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "has 24/7 on-call shifts.",
-    id: "aAMp6e",
+    defaultMessage: "I am willing to work a job that has 24/7 on-call shifts.",
+    id: "l2XtbB",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "requires me to travel.",
-    id: "9ZyJZq",
+    defaultMessage: "I am willing to work a job that requires me to travel.",
+    id: "U3QEUu",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
     defaultMessage:
-      "requires me to transport, lift and set down equipment weighing up to 20kg.",
-    id: "VYbDJk",
+      "I am willing to work a job that requires me to transport, lift and set down equipment weighing up to 20kg.",
+    id: "MAeNit",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
-      "requires me to have a valid driver's license or personal mobility to the degree normally associated with the possession of a valid driver's license.",
-    id: "TmCCgR",
+      "I am willing to work a job that requires me to have a valid driver's license or personal mobility to the degree normally associated with the possession of a valid driver's license.",
+    id: "uu2OuP",
     description: "The operational requirement described as driver's license.",
-  },
-  [OperationalRequirement.OvertimeOccasional]: {
-    defaultMessage: "requires me to work occasional overtime.",
-    id: "4mMU7Q",
-    description:
-      "The operational requirement described as occasional overtime.",
-  },
-  [OperationalRequirement.OvertimeRegular]: {
-    defaultMessage: "requires me to work regular overtime.",
-    id: "hWMUFx",
-    description: "The operational requirement described as regular overtime.",
   },
 });
 
@@ -547,23 +551,23 @@ export const getOperationalRequirement = (
 
 const govEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
-    defaultMessage: "I am a <strong>student</strong>.",
-    id: "zhzuZu",
+    defaultMessage: "I am a student.",
+    id: "2kqbbB",
     description: "Student selection for government employee type.",
   },
   [GovEmployeeType.Casual]: {
-    defaultMessage: "I have a <strong>casual</strong> contract.",
-    id: "9ays+c",
+    defaultMessage: "I have a casual contract.",
+    id: "UZMVuy",
     description: "Casual selection for government employee type.",
   },
   [GovEmployeeType.Term]: {
-    defaultMessage: "I have a <strong>term</strong> position.",
-    id: "qfioSi",
+    defaultMessage: "I have a term position.",
+    id: "Nf2jAz",
     description: "Term selection for government employee type.",
   },
   [GovEmployeeType.Indeterminate]: {
-    defaultMessage: "I am an <strong>indeterminate</strong> employee.",
-    id: "HGM0YR",
+    defaultMessage: "I am an indeterminate employee.",
+    id: "2fFKCI",
     description: "Indeterminate selection for government employee type.",
   },
 });
@@ -612,6 +616,11 @@ const abbreviations = defineMessages({
     defaultMessage: "Economics and Social Science Services",
     id: "W5Dkd1",
     description: "Full name of abbreviation for EC",
+  },
+  CR: {
+    defaultMessage: "Clerical and Regulatory",
+    id: "/pptJd",
+    description: "Full name of abbreviation for CR",
   },
 });
 

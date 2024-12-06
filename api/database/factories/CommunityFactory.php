@@ -23,11 +23,15 @@ class CommunityFactory extends Factory
     {
         $name = $this->faker->company();
         $description = $this->faker->sentence();
+        $mandateAuthority = $this->faker->optional()->company();
 
         return [
-            'key' => $this->faker->slug(2),
+            'key' => $this->faker->unique()->slug(5),
             'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'description' => ['en' => $description.' EN', 'fr' => $description.' FR'],
+            'mandate_authority' => ! is_null($mandateAuthority)
+                ? ['en' => $mandateAuthority.' EN', 'fr' => $mandateAuthority.' FR']
+                : ['en' => '', 'fr' => ''],
         ];
     }
 

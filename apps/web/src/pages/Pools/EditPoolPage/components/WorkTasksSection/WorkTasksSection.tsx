@@ -49,10 +49,10 @@ const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   YourWorkEn?: LocalizedString["en"];
   YourWorkFr?: LocalizedString["fr"];
-};
+}
 
 export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 

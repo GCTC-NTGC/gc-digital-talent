@@ -7,6 +7,7 @@ use App\Enums\AwardedTo;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\AwardExperience */
 class AwardExperienceResource extends JsonResource
 {
     use HasLocalizedEnums;
@@ -29,7 +30,6 @@ class AwardExperienceResource extends JsonResource
             'awardedScope' => $this->localizeEnum($this->awarded_scope, AwardedScope::class),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
-            'user' => new UserStubResource($this->user),
         ];
     }
 }

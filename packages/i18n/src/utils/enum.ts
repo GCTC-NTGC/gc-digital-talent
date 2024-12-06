@@ -25,10 +25,10 @@ import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums = Maybe<Maybe<LocalizedEnumString>[]>;
 
-export type GenericLocalizedEnum<T> = {
+export interface GenericLocalizedEnum<T> {
   value: T;
   label: LocalizedString;
-};
+}
 
 /**
  * Retrieve the full localized enum from an array
@@ -60,7 +60,7 @@ export function getLocalizedEnumStringByValue(
   value: Maybe<string> | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
-  emptyNotFound: boolean = false,
+  emptyNotFound = false,
 ) {
   return getLocalizedName(
     getLocalizedEnumByValue(value, localizedEnumArray)?.label,

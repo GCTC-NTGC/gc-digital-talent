@@ -1,94 +1,94 @@
 import { test, expect } from "~/fixtures";
+import { loginBySub } from "~/utils/auth";
+import graphql from "~/utils/graphql";
+import { createPool } from "~/utils/pools";
+import { me } from "~/utils/user";
 
 const UPDATE_MUTATION = "UpdatePool";
 
 /**
  * Actions associated with processes
- *
- * Note: Separate so they can be run in serial mode
  */
-test.describe.configure({ mode: "serial" });
 test.describe("Process actions", () => {
   const uniqueTestId = Date.now().valueOf();
   const PROCESS_TITLE = `Test process ${uniqueTestId}`;
 
-  test("Should create a new pool", async ({ adminPage }) => {
-    await adminPage.page.goto("/en/admin/pools");
-    await adminPage.waitForGraphqlResponse("PoolTable");
+  test("Should create a pool", async ({ appPage }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto("/en/admin/pools");
+    await appPage.waitForGraphqlResponse("PoolTable");
 
-    await adminPage.page.getByRole("link", { name: /create process/i }).click();
-    await adminPage.waitForGraphqlResponse("CreatePoolPage");
+    await appPage.page.getByRole("link", { name: /create process/i }).click();
+    await appPage.waitForGraphqlResponse("CreatePoolPage");
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /group and level/i })
       .selectOption({ label: "IT-01 (Information Technology)" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /team/i })
       .selectOption({ label: "Digital Community Management" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /department/i })
       .selectOption({ label: "Treasury Board Secretariat" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /community/i })
       .selectOption({ label: "Digital Community" });
 
-    await adminPage.page
-      .getByRole("button", { name: /create process/i })
-      .click();
-    await adminPage.waitForGraphqlResponse("CreatePool");
-    await expect(adminPage.page.getByRole("alert")).toContainText(
+    await appPage.page.getByRole("button", { name: /create process/i }).click();
+    await appPage.waitForGraphqlResponse("CreatePool");
+    await expect(appPage.page.getByRole("alert")).toContainText(
       /recruitment process created successfully/i,
     );
-    await adminPage.waitForGraphqlResponse("EditPoolPage");
-    await adminPage.waitForGraphqlResponse("CoreRequirementOptions");
+    await appPage.waitForGraphqlResponse("EditPoolPage");
+    await appPage.waitForGraphqlResponse("CoreRequirementOptions");
     await expect(
-      adminPage.page.getByRole("heading", {
+      appPage.page.getByRole("heading", {
         name: /advertisement information/i,
       }),
     ).toBeVisible();
 
     // Update basic information section
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /edit advertisement details/i })
       .click();
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /classification/i })
       .selectOption({ label: "IT-04 (Information Technology)" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("textbox", { name: /job title \(en\)/i })
       .fill(`${PROCESS_TITLE} (EN)`);
 
-    await adminPage.page
+    await appPage.page
       .getByRole("textbox", { name: /job title \(fr\)/i })
       .fill(`${PROCESS_TITLE} (FR)`);
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /length of opportunity/i })
       .selectOption({ label: "Various" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /publishing group/i })
       .selectOption({ label: "Other" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /save advertisement details/i })
       .click();
-    await adminPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process updated successfully/i,
     );
 
     // Update closing date
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /edit closing date/i })
       .click();
 
-    const closingDate = adminPage.page.getByRole("group", {
+    const closingDate = appPage.page.getByRole("group", {
       name: /end date/i,
     });
     await closingDate.getByRole("spinbutton", { name: /year/i }).fill("2500");
@@ -97,41 +97,92 @@ test.describe("Process actions", () => {
       .selectOption("01");
     await closingDate.getByRole("spinbutton", { name: /day/i }).fill("1");
 
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /save closing date/i })
       .click();
-    await adminPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process updated successfully/i,
     );
 
     // Update core requirements
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /edit core requirements/i })
       .click();
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /language requirement/i })
       .selectOption({ label: "Bilingual intermediate (B B B)" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("combobox", { name: /security requirement/i })
       .selectOption({ label: "Reliability or higher" });
 
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /save core requirements/i })
       .click();
-    await adminPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
+      /process updated successfully/i,
+    );
+  });
+
+  test("Update pool", async ({ appPage }) => {
+    const adminCtx = await graphql.newContext();
+
+    const user = await me(adminCtx, {});
+    const poolName = {
+      en: "Update pool test (EN)",
+      fr: "Update pool test (FR)",
+    };
+
+    const createdPool = await createPool(adminCtx, {
+      userId: user.id,
+    });
+
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/pools/${createdPool.id}`);
+    await appPage.waitForGraphqlResponse("ViewPoolPage");
+
+    await appPage.page
+      .getByRole("link", { name: /edit advertisement/i })
+      .click();
+    await appPage.waitForGraphqlResponse("EditPoolPage");
+
+    await appPage.page
+      .getByRole("button", { name: /edit advertisement details/i })
+      .click();
+
+    await appPage.page
+      .getByRole("textbox", { name: /job title \(en\)/i })
+      .fill(poolName.en);
+
+    await appPage.page
+      .getByRole("textbox", { name: /job title \(fr\)/i })
+      .fill(poolName.fr);
+
+    await appPage.page
+      .getByRole("combobox", { name: /work stream/i })
+      .selectOption({ label: "Business Line Advisory Services" });
+
+    await appPage.page
+      .getByRole("textbox", { name: /process number/i })
+      .fill("123");
+
+    await appPage.page
+      .getByRole("button", { name: /save advertisement details/i })
+      .click();
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process updated successfully/i,
     );
 
     // Add a question
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /add a new question/i })
       .click();
 
-    let questionDialog = adminPage.page.getByRole("dialog", {
+    let questionDialog = appPage.page.getByRole("dialog", {
       name: /manage a general question/i,
     });
 
@@ -146,11 +197,11 @@ test.describe("Process actions", () => {
       .getByRole("button", { name: /save this question/i })
       .click();
 
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /add a new question/i })
       .click();
 
-    questionDialog = adminPage.page.getByRole("dialog", {
+    questionDialog = appPage.page.getByRole("dialog", {
       name: /manage a general question/i,
     });
 
@@ -165,79 +216,33 @@ test.describe("Process actions", () => {
       .getByRole("button", { name: /save this question/i })
       .click();
 
-    await adminPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
-      /process updated successfully/i,
-    );
-  });
-
-  test("Update pool", async ({ adminPage }) => {
-    await adminPage.page.goto("/en/admin/pools");
-    await adminPage.waitForGraphqlResponse("PoolTable");
-
-    await adminPage.page.getByRole("button", { name: /show 10/i }).click();
-    await adminPage.page.getByRole("menuitemradio", { name: /50/i }).click();
-    await adminPage.waitForGraphqlResponse("PoolTable");
-
-    await adminPage.page
-      .getByRole("textbox", { name: /search processes/i })
-      .fill(PROCESS_TITLE);
-    await adminPage.waitForGraphqlResponse("PoolTable");
-
-    await adminPage.page
-      .getByRole("link", { name: new RegExp(PROCESS_TITLE, "i") })
-      .click();
-
-    await adminPage.page
-      .getByRole("link", { name: /edit advertisement/i })
-      .click();
-    await adminPage.waitForGraphqlResponse("EditPoolPage");
-
-    await adminPage.page
-      .getByRole("button", { name: /edit advertisement/i })
-      .click();
-
-    await adminPage.page
-      .getByRole("combobox", { name: /work stream/i })
-      .selectOption({ label: "Business Line Advisory Services" });
-
-    await adminPage.page
-      .getByRole("textbox", { name: /process number/i })
-      .fill("123");
-
-    await adminPage.page
-      .getByRole("button", { name: /save advertisement details/i })
-      .click();
-    await adminPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process updated successfully/i,
     );
 
     // Reorder questions
-    await adminPage.page
+    await appPage.page
       .getByRole("button", { name: /change order from 2 to 1/i })
       .click();
-    await adminPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process updated successfully/i,
     );
 
     // Delete question
-    await adminPage.page
-      .getByRole("button", { name: /remove item 1/i })
-      .click();
-    await adminPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
+    await appPage.page.getByRole("button", { name: /remove item 1/i }).click();
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process updated successfully/i,
     );
 
     // Preview advertisement
-    await adminPage.page
-      .getByRole("link", { name: new RegExp(PROCESS_TITLE, "i") })
-      .click();
+    await appPage.page.goto(`/en/admin/pools/${createdPool.id}`);
+    await appPage.waitForGraphqlResponse("ViewPoolPage");
 
-    const newTabPromise = adminPage.page.waitForEvent("popup");
-    await adminPage.page
+    const newTabPromise = appPage.page.waitForEvent("popup");
+    await appPage.page
       .getByRole("link", { name: /preview advertisement/i })
       .click();
     const newTab = await newTabPromise;
@@ -250,27 +255,27 @@ test.describe("Process actions", () => {
     ).toBeVisible();
   });
 
-  test("Delete pool", async ({ adminPage }) => {
-    await adminPage.page.goto("/en/admin/pools");
-    await adminPage.waitForGraphqlResponse("PoolTable");
+  test("Delete pool", async ({ appPage }) => {
+    const adminCtx = await graphql.newContext();
 
-    await adminPage.page.getByRole("button", { name: /show 10/i }).click();
-    await adminPage.page.getByRole("menuitemradio", { name: /50/i }).click();
-    await adminPage.waitForGraphqlResponse("PoolTable");
+    const user = await me(adminCtx, {});
 
-    await adminPage.page
-      .getByRole("link", { name: new RegExp(PROCESS_TITLE, "i") })
-      .click();
-    await adminPage.waitForGraphqlResponse("ViewPoolPage");
+    const createdPool = await createPool(adminCtx, {
+      userId: user.id,
+    });
 
-    await adminPage.page.getByRole("button", { name: /delete/i }).click();
-    const deleteDialog = adminPage.page.getByRole("dialog", {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/pools/${createdPool.id}`);
+    await appPage.waitForGraphqlResponse("ViewPoolPage");
+
+    await appPage.page.getByRole("button", { name: /delete/i }).click();
+    const deleteDialog = appPage.page.getByRole("dialog", {
       name: /delete/i,
     });
     await deleteDialog.getByRole("button", { name: /delete/i }).click();
 
-    await adminPage.waitForGraphqlResponse("DeletePool");
-    await expect(adminPage.page.getByRole("alert").last()).toContainText(
+    await appPage.waitForGraphqlResponse("DeletePool");
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /process deleted successfully/i,
     );
   });

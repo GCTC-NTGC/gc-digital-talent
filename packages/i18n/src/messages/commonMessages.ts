@@ -42,22 +42,6 @@ const commonMessages = defineMessages({
     id: "AvBSV+",
     description: "Title displayed for a table error loading state.",
   },
-  required: {
-    defaultMessage: "Required",
-    id: "Bvr4b6",
-    description: "Displayed next to required form inputs.",
-  },
-  optional: {
-    defaultMessage: "Optional",
-    id: "WUC9pX",
-    description: "Displayed next to optional form inputs.",
-  },
-  unSaved: {
-    defaultMessage: "You have unsaved changes",
-    id: "9u6ULg",
-    description:
-      "Displayed next to form inputs when they have been changed but not saved.",
-  },
   notFound: {
     defaultMessage: "Not found",
     id: "ufSiRU",
@@ -88,21 +72,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Error: name not loaded",
     id: "DdOEWx",
     description: "Message when name value not found",
-  },
-  error: {
-    defaultMessage: "error",
-    id: "ACO2Uz",
-    description: "Message for the error status",
-  },
-  partial: {
-    defaultMessage: "partial success",
-    id: "qVI4xG",
-    description: "Message for the partial success status",
-  },
-  success: {
-    defaultMessage: "success",
-    id: "99cWuv",
-    description: "Message for the success status",
   },
   dividingColon: {
     defaultMessage: ": ",
@@ -239,11 +208,6 @@ const commonMessages = defineMessages({
     id: "IKGhHj",
     description: "Important note or caption",
   },
-  print: {
-    defaultMessage: "Print",
-    id: "f5z4R/",
-    description: "Label for print button",
-  },
   expiryDate: {
     defaultMessage: "Expiry date",
     id: "AAFkmX",
@@ -274,6 +238,11 @@ const commonMessages = defineMessages({
     id: "JYpEeW",
     description: "Name of French language",
   },
+  bilingual: {
+    defaultMessage: "Bilingual",
+    id: "AFPD79",
+    description: "Label for bilingual",
+  },
   bilingualEnglishFrench: {
     defaultMessage: "Bilingual (English and French)",
     id: "jStpFw",
@@ -284,6 +253,56 @@ const commonMessages = defineMessages({
       "Preparing your file for download. You will receive a notification when it is ready.",
     id: "5RTQe6",
     description: "Message to user when they request a file for download",
+  },
+  complete: {
+    defaultMessage: "Complete",
+    id: "S0w3o5",
+    description: "Simple status label for a complete item",
+  },
+  incomplete: {
+    defaultMessage: "Incomplete",
+    id: "vOCLQA",
+    description: "Simple status label for an incomplete item",
+  },
+  selectACommunity: {
+    defaultMessage: "Select a community",
+    id: "m0iNdp",
+    description: "Null selection for community select input.",
+  },
+  accepted: {
+    defaultMessage: "Accepted",
+    id: "Pj4lW9",
+    description: "Indicates a user has accepted some criteria",
+  },
+  notAccepted: {
+    defaultMessage: "Not accepted",
+    id: "I1jrAG",
+    description: "Indicates a user has not accepted some criteria",
+  },
+  role: {
+    defaultMessage: "Role",
+    id: "uBmoxQ",
+    description: "Title displayed for the role table display name column",
+  },
+  date: {
+    defaultMessage: "Date",
+    id: "09LIbL",
+    description: "Label to identify a date element",
+  },
+  workEmail: {
+    defaultMessage: "Work email address",
+    id: "pOL68A",
+    description: "Title for work email address",
+  },
+  language: {
+    defaultMessage: "Language",
+    id: "k3i6lU",
+    description: "Legend for a language input or title",
+  },
+  description: {
+    defaultMessage: "Description",
+    id: "i+8teP",
+    description: "Title for description",
   },
 });
 

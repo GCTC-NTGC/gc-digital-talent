@@ -41,7 +41,7 @@ type GeneratedUser = User & {
       | GeneratedWorkExperience
     >[]
   >;
-  poolCandidates?: Maybe<Array<Maybe<GeneratedPoolCandidate>>>;
+  poolCandidates?: Maybe<Maybe<GeneratedPoolCandidate>[]>;
 };
 
 const generateUser = (
@@ -55,7 +55,10 @@ const generateUser = (
   workExperiences: GeneratedWorkExperience[], // Experiences belonging to this user
 
   poolCandidates: GeneratedPoolCandidate[] = [], // poolCandidates associating this user with a pool
+  index: number,
 ): GeneratedUser => {
+  faker.seed(index); // repeatable results
+
   return {
     __typename: "User",
     id: faker.string.uuid(),
@@ -180,8 +183,7 @@ const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
   const personalExperiences: GeneratedPersonalExperience[] = [];
   const workExperiences: GeneratedWorkExperience[] = [];
 
-  faker.seed(0); // repeatable results
-  return [...Array(numToGenerate)].map(() =>
+  return Array.from({ length: numToGenerate }, (_x, index) =>
     generateUser(
       departments,
       classifications,
@@ -190,6 +192,8 @@ const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
       educationExperiences,
       personalExperiences,
       workExperiences,
+      [],
+      index,
     ),
   );
 };

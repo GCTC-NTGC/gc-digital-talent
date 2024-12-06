@@ -1,21 +1,18 @@
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
+import { useQuery } from "urql";
 
-import { ToggleSection, Well } from "@gc-digital-talent/ui";
+import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Pool } from "@gc-digital-talent/graphql";
+import { graphql, Pool } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
-  hasAllEmptyFields as hasAllEmptyLocationFields,
-  hasEmptyRequiredFields as hasEmptyRequiredLocationFields,
-} from "~/validators/profile/workLocation";
-import {
-  hasAllEmptyFields as hasAllEmptyPreferenceFields,
-  hasEmptyRequiredFields as hasEmptyRequiredPreferenceFields,
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
 } from "~/validators/profile/workPreferences";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
@@ -28,6 +25,12 @@ import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 
+const WorkPreferencesForm_Query = graphql(/* GraphQL */ `
+  query WorkPreferencesForm_Query {
+    ...WorkPreferencesFormOptions
+  }
+`);
+
 const WorkPreferences = ({
   user,
   onUpdate,
@@ -35,17 +38,15 @@ const WorkPreferences = ({
   pool,
 }: SectionProps<Pick<Pool, "id">>) => {
   const intl = useIntl();
-  const isNull =
-    hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);
-  const emptyRequired =
-    hasEmptyRequiredLocationFields(user) ||
-    hasEmptyRequiredPreferenceFields(user);
+  const isNull = hasAllEmptyFields(user);
+  const emptyRequired = hasEmptyRequiredFields(user);
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
     section: "work",
     isNull,
     emptyRequired,
     fallbackIcon: HandThumbUpIcon,
   });
+  const [{ data, fetching }] = useQuery({ query: WorkPreferencesForm_Query });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues))
@@ -109,19 +110,23 @@ const WorkPreferences = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display user={user} />}
+          {isNull ? <NullDisplay /> : <Display user={user} labels={labels} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <BasicForm
-            labels={labels}
-            onSubmit={handleSubmit}
-            options={{
-              defaultValues: dataToFormValues(user),
-            }}
-          >
-            <FormFields labels={labels} />
-            <FormActions isUpdating={isUpdating} />
-          </BasicForm>
+          {fetching ? (
+            <Loading inline />
+          ) : (
+            <BasicForm
+              labels={labels}
+              onSubmit={handleSubmit}
+              options={{
+                defaultValues: dataToFormValues(user),
+              }}
+            >
+              <FormFields labels={labels} optionsQuery={data} />
+              <FormActions isUpdating={isUpdating} />
+            </BasicForm>
+          )}
         </ToggleSection.OpenContent>
       </ToggleSection.Content>
     </ToggleSection.Root>

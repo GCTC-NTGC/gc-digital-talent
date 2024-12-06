@@ -9,6 +9,8 @@ import {
   FragmentType,
   LocalizedString,
   Maybe,
+  NullsOption,
+  OrderByColumnInput,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
   PoolBookmarksOrderByInput,
@@ -124,23 +126,23 @@ export function emailLinkAccessor(
 }
 
 export function ownerNameAccessor(pool: Pool) {
-  const firstName =
-    pool.owner && pool.owner.firstName
-      ? pool.owner.firstName.toLowerCase()
-      : "";
-  const lastName =
-    pool.owner && pool.owner.lastName ? pool.owner.lastName.toLowerCase() : "";
+  const firstName = pool.owner?.firstName
+    ? pool.owner.firstName.toLowerCase()
+    : "";
+  const lastName = pool.owner?.lastName
+    ? pool.owner.lastName.toLowerCase()
+    : "";
   return `${firstName} ${lastName}`;
 }
 
 export function ownerEmailAccessor(pool: Pool) {
-  return pool.owner && pool.owner.email ? pool.owner.email.toLowerCase() : "";
+  return pool.owner?.email ? pool.owner.email.toLowerCase() : "";
 }
 
-type TransformPoolInputArgs = {
+interface TransformPoolInputArgs {
   search: SearchState;
   filters?: PoolFilterInput;
-};
+}
 
 export function transformPoolInput({
   search,
@@ -154,7 +156,7 @@ export function transformPoolInput({
     return undefined;
   }
 
-  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // activate scopeAuthorizedToViewAsAdmin
+  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // only show pools that the use is able to admin
 
   return {
     ...filtersWithCanAdmin,
@@ -175,7 +177,7 @@ export function getOrderByClause(
     ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
-    ["publishedAt", "published_at"],
+    // ["publishedAt", "published_at"], // moved to getOrderByColumnSort to handle nulls
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
     ["classification", "classification"],
@@ -240,13 +242,8 @@ export function getOrderByClause(
     ];
   }
 
-  return [
-    {
-      column: "created_at",
-      order: SortOrder.Asc,
-      user: undefined,
-    },
-  ];
+  // nothing matched
+  return undefined;
 }
 
 export function getTeamDisplayNameSort(
@@ -261,6 +258,29 @@ export function getTeamDisplayNameSort(
     locale: locale ?? "en",
     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
   };
+}
+
+export function getOrderByColumnSort(
+  sortingRules?: SortingState,
+): OrderByColumnInput | undefined {
+  // few columns use this ordering clause
+  const columnMap = new Map<string, string>([["publishedAt", "published_at"]]);
+
+  const sortingRule = sortingRules?.find((rule) => {
+    const columnName = columnMap.get(rule.id);
+    return !!columnName;
+  });
+
+  if (sortingRule?.id === "publishedAt") {
+    return {
+      column: "published_at",
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      nulls: NullsOption.OrderLast,
+    };
+  }
+
+  // nothing matched
+  return undefined;
 }
 
 export function getPoolBookmarkSort(): PoolBookmarksOrderByInput | undefined {

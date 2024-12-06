@@ -27,7 +27,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { categorizeSkill, filterPoolSkillsByType } from "~/utils/skillUtils";
-import { getRecruitmentType } from "~/utils/poolCandidate";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 import { getQualifiedRecruitmentInfo } from "./utils";
@@ -180,7 +180,7 @@ const QualifiedRecruitmentCard = ({
         data-h2-color="base(secondary.darker)"
         data-h2-margin="base(x.25 0 x1 0)"
       >
-        {getRecruitmentType(candidate.pool.publishingGroup?.value, intl)}
+        {intl.formatMessage(poolCandidateMessages.targetedRecruitment)}
       </p>
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
@@ -367,8 +367,8 @@ const QualifiedRecruitmentCard = ({
             color="black"
             fontSize="caption"
             icon={linkCopied ? CheckIcon : undefined}
-            onClick={() => {
-              navigator.clipboard.writeText(candidate.id);
+            onClick={async () => {
+              await navigator.clipboard.writeText(candidate.id);
               setLinkCopied(true);
             }}
             aria-label={intl.formatMessage(

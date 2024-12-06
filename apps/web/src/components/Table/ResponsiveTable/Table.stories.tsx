@@ -16,7 +16,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
-import { SearchState, DatasetDownload, DatasetDownloadItem } from "./types";
+import { SearchState } from "./types";
 
 const mockUsers = fakeUsers(100);
 const columnHelper = createColumnHelper<User>();
@@ -82,17 +82,6 @@ const columns = [
   }),
 ] as ColumnDef<User>[];
 
-const item: DatasetDownloadItem = {
-  csv: {
-    data: [],
-    headers: [],
-    fileName: "s.txt",
-  },
-};
-const download: DatasetDownload = {
-  selection: item,
-};
-
 export default {
   component: Table,
   args: {
@@ -102,7 +91,6 @@ export default {
     search: defaultSearchProps,
     sort: defaultSortProps,
     pagination: defaultPaginationProps,
-    download,
   },
 } as Meta<typeof Table<User>>;
 
@@ -179,23 +167,25 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
   });
   const [, setRowSelection] = useState<User[]>([]);
 
-  const handleSearchChange = async (newSearchState: SearchState) => {
+  const handleSearchChange = (newSearchState: SearchState) => {
     setLoading(true);
-    await mockApi(newSearchState)
+    mockApi(newSearchState)
       .then((res) => {
         setSearchState(res);
       })
+      .catch((err) => action("search error")(err))
       .finally(() => setLoading(false));
   };
 
-  const handleRowSelection = async (rows: string[]) => {
+  const handleRowSelection = (rows: string[]) => {
     action("onRowSelection")(rows);
     setLoading(true);
-    await mockApi(rows)
+    mockApi(rows)
       .then(() => {
         const newSelection = mockUsers.filter(({ id }) => rows.includes(id));
         setRowSelection(newSelection);
       })
+      .catch((err) => action("selection error")(err))
       .finally(() => setLoading(false));
   };
 
@@ -208,12 +198,13 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
     const { firstName, lastName, email } = user;
 
     if (searchState.type && user[key]) {
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       return match(searchState.term, String(user[key]));
     }
 
     return (
-      (firstName && match(searchState.term, firstName)) ||
-      (lastName && match(searchState.term, lastName)) ||
+      (firstName && match(searchState.term, firstName)) ??
+      (lastName && match(searchState.term, lastName)) ??
       (email && match(searchState.term, email))
     );
   });

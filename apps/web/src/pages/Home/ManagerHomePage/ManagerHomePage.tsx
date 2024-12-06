@@ -1,5 +1,4 @@
 import { defineMessage, useIntl } from "react-intl";
-import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
@@ -11,7 +10,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import HomeHero from "~/components/Hero/HomeHero";
+import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -24,6 +23,7 @@ import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-lapt
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
+import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 
 const pageTitle = defineMessage({
   defaultMessage: "Managers community",
@@ -37,7 +37,7 @@ const pageSubtitle = defineMessage({
   description: "Subtitle for the manager homepage",
 });
 
-export const Component = () => {
+const ManagerHomePage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -182,38 +182,31 @@ export const Component = () => {
           <CardFlat
             color="tertiary"
             title={intl.formatMessage({
-              defaultMessage: "Gain data insights",
-              id: "3GOVZI",
-              description: "Heading for the direct on digital talent section",
+              defaultMessage: "Hire Indigenous talent",
+              id: "P06ncG",
+              description:
+                "Heading for the IT Apprenticehip program for Indigenous peoples section",
             })}
             links={[
               {
-                href: paths.directive(),
+                href: paths.iapManager(),
                 mode: "solid",
                 label: intl.formatMessage({
-                  defaultMessage:
-                    "Learn more<hidden> about the directive on digital talent</hidden>",
-                  id: "CMxMEW",
+                  defaultMessage: "Hire an IT apprentice",
+                  id: "22KlYO",
                   description:
-                    "Link text to the directive on digital talent page",
+                    "Link text to the IT Apprenticehip program for Indigenous peoples page",
                 }),
               },
             ]}
           >
-            <p data-h2-margin-bottom="base(x.5)">
-              {intl.formatMessage({
-                defaultMessage: "Coming Fall 2023",
-                id: "5yYtE6",
-                description:
-                  "Text displayed for soon to come data talent data portal",
-              })}
-            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Check out our new Digital Talent Data Portal for trends, insights and ideas to strengthen your own talent planning and recruitment strategies.",
-                id: "xQfIcL",
-                description: "Description for the digital talent data portal",
+                  "Support career pathways for First Nations, Inuit and Métis apprentices with a passion for IT and help create a more diverse, equitable and inclusive public service. Hire through the IT Apprenticeship Program for Indigenous Peoples.",
+                id: "Qm8QWW",
+                description:
+                  "Description for the IT Apprenticehip program for Indigenous peoples",
               })}
             </p>
           </CardFlat>
@@ -235,8 +228,8 @@ export const Component = () => {
         >
           {intl.formatMessage({
             defaultMessage:
-              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you’re hunting for a job now or just thinking about the future, a strong profile is your path to new opportunities.",
-            id: "TJ+5Xn",
+              "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you're hunting for a job or just thinking about the future, a strong profile is your path to new job opportunities.",
+            id: "JEKihk",
             description:
               "Description of how application profiles works for managers/executives.",
           })}
@@ -343,8 +336,8 @@ export const Component = () => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Check out the most recent manager recruitment processes for specific opportunities or apply to ongoing recruitment in any of the IT generic work streams. Check back often for new opportunities.",
-                    id: "gURsqG",
+                      "Check out our job opportunities to find a manager position that inspires you. Apply to play a key role in one of the IT teams at the Government of Canada and make a meaningful impact.",
+                    id: "LQbKTy",
                     description:
                       "Summary for the feature about finding manager jobs",
                   })}
@@ -389,40 +382,15 @@ export const Component = () => {
             }}
           />
         </div>
-        <Heading
-          Icon={MagnifyingGlassCircleIcon}
-          color="tertiary"
-          size="h3"
-          data-h2-font-weight="base(400)"
-          data-h2-margin-top="base(x5)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Directive on Digital Talent",
-            id: "xXwUGs",
-            description: "Title for the digital talent directive page",
-          })}
-        </Heading>
-        <p data-h2-margin="base(x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "The GC Digital Talent platform offers a handful of helpful resources to make completing your responsibilities under the Directive on Digital Talent as easy as possible. This includes online forms, implementation guidance, and links to the Directive.",
-            id: "tSAjnB",
-            description: "Summary of the directive on digital talent",
-          })}
-        </p>
-        <Link href={paths.directive()} color="tertiary" mode="solid">
-          {intl.formatMessage({
-            defaultMessage: "Learn more<hidden> about the directive</hidden>",
-            id: "+cqG9n",
-            description: "Link text to the directive on digital talent page",
-          })}
-        </Link>
+        <DirectiveBlock />
       </FlourishContainer>
       <Flourish />
     </>
   );
 };
 
+export const Component = () => <ManagerHomePage />;
+
 Component.displayName = "ManagerHomePage";
 
-export default Component;
+export default ManagerHomePage;

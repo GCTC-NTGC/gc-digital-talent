@@ -11,6 +11,7 @@ export const ROLE_NAME = {
   Guest: "guest",
   BaseUser: "base_user",
   Applicant: "applicant",
+  Manager: "manager",
   PoolOperator: "pool_operator", // TODO: remove during Communities cleanup, ticket #10368
   RequestResponder: "request_responder", // TODO: remove during Communities cleanup, ticket #10368
   CommunityManager: "community_manager", // TODO: remove during Communities cleanup, ticket #10368
@@ -22,3 +23,5 @@ export const ROLE_NAME = {
 
 type ObjectValues<T> = T[keyof T];
 export type RoleName = ObjectValues<typeof ROLE_NAME>;
+
+export const NAV_ROLE_KEY = "nav_role";

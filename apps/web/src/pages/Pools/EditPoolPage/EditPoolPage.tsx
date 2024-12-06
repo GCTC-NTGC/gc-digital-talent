@@ -12,7 +12,11 @@ import {
   Heading,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  NotFoundError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   graphql,
   Scalars,
@@ -211,6 +215,13 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       }
     }
     isRemote
+    areaOfSelection {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -230,7 +241,7 @@ export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
   departments: FragmentType<typeof PoolDepartment_Fragment>[];
-  skills: Array<Skill>;
+  skills: Skill[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
   poolSkillMutations: PoolSkillMutationsType;
@@ -249,8 +260,8 @@ export const EditPoolForm = ({
   const pool = getFragment(EditPool_Fragment, poolQuery);
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Create a new recruitment",
-    id: "lNKpJl",
+    defaultMessage: "Create a recruitment",
+    id: "RcRh+P",
     description: "Title for advertisement information of a process",
   });
 
@@ -263,6 +274,7 @@ export const EditPoolForm = ({
 
   const basicInfoHasError =
     poolNameError({
+      areaOfSelection: pool.areaOfSelection,
       classification: pool.classification,
       department: pool.department,
       stream: pool.stream,
@@ -300,6 +312,7 @@ export const EditPoolForm = ({
     poolName: {
       id: "pool-name",
       hasError: poolNameError({
+        areaOfSelection: pool.areaOfSelection,
         classification: pool.classification,
         department: pool.department,
         stream: pool.stream,
@@ -523,7 +536,7 @@ export const EditPoolForm = ({
                         asListItem={false}
                         title={meta.shortTitle ?? meta.title}
                         status={
-                          meta.hasError ? "error" : meta.status || "success"
+                          meta.hasError ? "error" : (meta.status ?? "success")
                         }
                         scrollTo={meta.id}
                       />
@@ -802,9 +815,9 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
-};
+}
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["PoolSkill"],
@@ -825,10 +838,7 @@ export const EditPoolPage = () => {
   );
 
   if (!poolId) {
-    throw new Response(notFoundMessage, {
-      status: 404,
-      statusText: "Not Found",
-    });
+    throw new NotFoundError(notFoundMessage);
   }
 
   const [{ data, fetching, error }] = useQuery({
@@ -880,6 +890,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <EditPoolPage />

@@ -4,12 +4,11 @@ import { useIntl } from "react-intl";
 
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   UpdateUserRolesInput,
   Role,
   Scalars,
-  Team,
   User,
 } from "@gc-digital-talent/graphql";
 
@@ -17,38 +16,44 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/Table/tableMessages";
 
-import { TeamAssignment, UpdateUserRolesFunc } from "../types";
+import { TeamAssignment, TeamTeamable, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
 import {
+  isTeamTeamable,
   teamActionCell,
   teamCell,
   teamRolesAccessor,
   teamRolesCell,
 } from "./helpers";
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
-type RoleTeamPair = {
+interface RoleTeamPair {
   role: Role;
-  team: Pick<Team, "id" | "name">;
-};
+  team: TeamTeamable;
+}
 
 const columnHelper = createColumnHelper<TeamAssignment>();
 
 type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"]["output"];
 
 interface TeamRoleTableProps {
-  user: User;
-  availableRoles: Array<Role>;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
+  availableRoles: Role[];
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const TeamRoleTable = ({
   user,
+  authInfo,
   availableRoles,
   onUpdateUserRoles,
 }: TeamRoleTableProps) => {
   const intl = useIntl();
   const routes = useRoutes();
+  const { firstName, lastName, id } = user;
 
   const teamRoles = availableRoles.filter(
     (role) =>
@@ -69,19 +74,22 @@ const TeamRoleTable = ({
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      enableHiding: false,
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: teamAssignment } }) =>
-        teamActionCell(teamAssignment, user, handleEditRoles, teamRoles),
+        teamActionCell(
+          teamAssignment,
+          { id: id, firstName: firstName, lastName: lastName },
+          handleEditRoles,
+          teamRoles,
+        ),
     }),
     columnHelper.accessor(
       (teamAssignment) =>
         getLocalizedName(teamAssignment.team.displayName, intl),
       {
         id: "team",
+        enableHiding: false,
         sortingFn: normalizedText,
         header: intl.formatMessage(adminMessages.team),
         cell: ({
@@ -95,13 +103,9 @@ const TeamRoleTable = ({
     columnHelper.accessor(
       (teamAssignment) => teamRolesAccessor(teamAssignment, intl),
       {
-        id: "membershipRoles",
-        header: intl.formatMessage({
-          defaultMessage: "Membership Roles",
-          id: "GjaLl7",
-          description:
-            "Title displayed for the role table display roles column",
-        }),
+        id: "role",
+        enableHiding: false,
+        header: intl.formatMessage(commonMessages.role),
         cell: ({ row: { original: teamAssignment } }) =>
           teamRolesCell(
             teamAssignment.roles
@@ -113,14 +117,17 @@ const TeamRoleTable = ({
   ] as ColumnDef<TeamAssignment>[];
 
   const data = useMemo(() => {
-    const roleTeamPairs: RoleTeamPair[] = (
-      user?.authInfo?.roleAssignments ?? []
-    )
+    const roleTeamPairs: RoleTeamPair[] = (authInfo?.roleAssignments ?? [])
+      .filter((roleAssignment) => isTeamTeamable(roleAssignment?.teamable)) // filter for team teamable
       .map((assignment) => {
-        if (assignment?.team && assignment.role && assignment.role.isTeamBased)
+        if (
+          assignment?.teamable &&
+          isTeamTeamable(assignment.teamable) && // type coercion
+          assignment.role?.isTeamBased
+        )
           return {
             role: assignment.role,
-            team: assignment.team,
+            team: assignment.teamable,
           };
         return null;
       })
@@ -140,7 +147,7 @@ const TeamRoleTable = ({
         roles: teamGroupOfPairs.map((pair) => pair.role),
       };
     });
-  }, [user?.authInfo?.roleAssignments]);
+  }, [authInfo?.roleAssignments]);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team based roles",
@@ -150,7 +157,7 @@ const TeamRoleTable = ({
 
   return (
     <>
-      <Heading level="h3" size="h4">
+      <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
       <Table<TeamAssignment>
@@ -173,6 +180,7 @@ const TeamRoleTable = ({
           component: (
             <AddTeamRoleDialog
               user={user}
+              authInfo={authInfo}
               availableRoles={teamRoles}
               onAddRoles={handleEditRoles}
             />
@@ -180,9 +188,8 @@ const TeamRoleTable = ({
         }}
         nullMessage={{
           description: intl.formatMessage({
-            defaultMessage:
-              'Use the "Add new membership" button to get started.',
-            id: "/pbxol",
+            defaultMessage: 'Use the "Add team role" button to get started.',
+            id: "ZHDOB5",
             description: "Instructions for adding team membership to a user.",
           }),
         }}

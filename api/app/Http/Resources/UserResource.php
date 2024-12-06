@@ -16,11 +16,14 @@ use App\Models\Department;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\User */
 class UserResource extends JsonResource
 {
     use HasLocalizedEnums;
 
     protected $poolSkillIds;
+
+    public int $version;
 
     public function poolSkillIds($value)
     {
@@ -64,6 +67,7 @@ class UserResource extends JsonResource
         }
 
         return [
+            'version' => $this->version,
             'id' => $this->id,
             'sub' => $this->sub,
             'firstName' => $this->first_name,
@@ -89,6 +93,8 @@ class UserResource extends JsonResource
             'verbalLevel' => $this->localizeEnum($this->verbal_level, EvaluatedLanguageAbility::class),
             'estimatedLanguageAbility' => $this->localizeEnum($this->estimated_language_ability, EstimatedLanguageAbility::class),
             'isGovEmployee' => $this->is_gov_employee,
+            'workEmail' => $this->work_email,
+            'isWorkEmailVerified' => $this->isWorkEmailVerified,
             'hasPriorityEntitlement' => $this->has_priority_entitlement,
             'govEmployeeType' => $this->localizeEnum($this->gov_employee_type, GovEmployeeType::class),
             'department' => $this->department ? (new DepartmentResource(Department::find($this->department))) : null,
@@ -103,7 +109,6 @@ class UserResource extends JsonResource
             'locationExemptions' => $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->localizeEnumArray($this->accepted_operational_requirements, OperationalRequirement::class),
             'positionDuration' => $this->position_duration,
-            'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),
             'experiences' => $collection,
             'priorityNumber' => $this->priority_number,
             'isProfileComplete' => $this->isProfileComplete,

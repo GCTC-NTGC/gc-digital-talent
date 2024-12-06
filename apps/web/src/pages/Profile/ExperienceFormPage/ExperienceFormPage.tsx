@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Location, useLocation, useNavigate, useParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";
@@ -42,7 +42,7 @@ import type {
   ExperienceMutationResponse,
 } from "~/types/experience";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import AdditionalDetails from "~/components/ExperienceFormFields/AdditionalDetails";
@@ -82,7 +82,7 @@ const addSubTitle = defineMessage({
 
 type FormAction = "return" | "add-another";
 type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
-  experienceType: ExperienceType | "";
+  experienceType?: ExperienceType;
   action: FormAction;
 };
 
@@ -128,9 +128,6 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormExperience on Experience {
     id
     details
-    user {
-      id
-    }
     skills {
       id
       key
@@ -262,7 +259,7 @@ export const ExperienceForm = ({
   const [type, action] = watch(["experienceType", "action"]);
   const actionProps = register("action");
 
-  const handleSuccess = () => {
+  const handleSuccess = async () => {
     toast.success(
       edit
         ? intl.formatMessage({
@@ -280,7 +277,7 @@ export const ExperienceForm = ({
     );
 
     if (action !== "add-another") {
-      navigate(returnPath);
+      await navigate(returnPath);
     }
   };
 
@@ -302,11 +299,11 @@ export const ExperienceForm = ({
     );
   };
 
-  const handleMutationResponse = (res: ExperienceMutationResponse) => {
+  const handleMutationResponse = async (res: ExperienceMutationResponse) => {
     if (res.error) {
       handleError();
     } else {
-      handleSuccess();
+      await handleSuccess();
     }
   };
 
@@ -317,12 +314,12 @@ export const ExperienceForm = ({
   } = useExperienceMutations(experience ? "update" : "create", type);
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    const args = getMutationArgs(experienceId || userId || "", values);
+    const args = getMutationArgs(experienceId ?? userId ?? "", values);
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
       return res
-        .then((mutationResponse) => {
-          handleMutationResponse(mutationResponse);
+        .then(async (mutationResponse) => {
+          await handleMutationResponse(mutationResponse);
         })
         .catch(handleError);
     }
@@ -330,9 +327,9 @@ export const ExperienceForm = ({
     return undefined;
   };
 
-  const experienceIdExact = experienceId || "";
+  const experienceIdExact = experienceId ?? "";
   const executeDeletionMutation = useDeleteExperienceMutation(
-    type || undefined,
+    type ?? undefined,
   );
 
   const handleDeleteExperience = () => {
@@ -340,8 +337,8 @@ export const ExperienceForm = ({
       executeDeletionMutation({
         id: experienceIdExact,
       })
-        .then((result) => {
-          navigate(returnPath);
+        .then(async (result) => {
+          await navigate(returnPath);
           toast.success(
             intl.formatMessage({
               defaultMessage: "Experience Deleted",
@@ -366,7 +363,7 @@ export const ExperienceForm = ({
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");
       reset();
-      setValue("experienceType", "");
+      setValue("experienceType", undefined);
     }
   }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
@@ -632,20 +629,22 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
       id
       experiences {
         id
-        user {
-          id
-        }
         ...ExperienceFormExperience
       }
     }
   }
 `);
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   userId: Scalars["ID"]["output"];
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];
-};
+}
+
+interface LocationState {
+  experienceType?: ExperienceType;
+}
+
 interface ExperienceFormContainerProps {
   edit?: boolean;
 }
@@ -654,7 +653,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
   const { experienceId } = useParams<RouteParams>();
-  const { state } = useLocation();
+  const { state } = useLocation() as Location<LocationState>;
 
   const [{ data, fetching, error }] = useQuery({
     query: ExperienceFormData_Query,
@@ -667,7 +666,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
 
   const experienceType = experience
     ? deriveExperienceType(experience)
-    : state?.experienceType || "";
+    : state?.experienceType;
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -675,10 +674,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
         <ExperienceForm
           edit={edit}
           experienceQuery={experience}
-          experienceId={experienceId || ""}
-          experienceType={experienceType}
+          experienceId={experienceId}
+          experienceType={experienceType ?? "personal"}
           skillsQuery={skills}
-          userId={userAuthInfo?.id || ""}
+          userId={userAuthInfo?.id ?? ""}
         />
       ) : (
         <ThrowNotFound

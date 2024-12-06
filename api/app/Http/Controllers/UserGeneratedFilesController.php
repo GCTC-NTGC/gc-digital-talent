@@ -32,6 +32,9 @@ class UserGeneratedFilesController extends Controller
             case 'csv':
                 $contentType = ['Content-Type' => 'text/csv'];
                 break;
+            case 'zip':
+                $contentType = ['Content-Type' => 'application/zip'];
+                break;
             default:
                 $contentType = ['Content-Type' => 'application/octet-stream'];
                 break;

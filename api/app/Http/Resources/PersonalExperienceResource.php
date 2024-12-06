@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\PersonalExperience */
 class PersonalExperienceResource extends JsonResource
 {
     /**
@@ -23,7 +24,6 @@ class PersonalExperienceResource extends JsonResource
             'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
-            'user' => new UserStubResource($this->user),
         ];
     }
 }

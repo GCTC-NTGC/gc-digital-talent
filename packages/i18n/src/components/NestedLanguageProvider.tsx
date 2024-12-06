@@ -1,12 +1,12 @@
 import { IntlProvider, useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { ReactNode, JSX } from "react";
 
 import { Messages } from "../types";
 import defaultRichTextElements from "./richTextElements";
 
 interface NestedLanguageProvider {
-  messages: Map<string, Messages>;
+  messages: Map<string | null, Messages>;
   children: ReactNode;
 }
 
@@ -25,7 +25,7 @@ const NestedLanguageProvider = ({
   const { messages: fallbackMessages } = useIntl();
   const [searchParams] = useSearchParams();
   const locale = searchParams.get("locale");
-  const localeMessages = messages.get(locale || "");
+  const localeMessages = messages.get(locale);
 
   /**
    * If no locale is set or we cannot

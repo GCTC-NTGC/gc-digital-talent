@@ -1,11 +1,11 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Pending } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
   DepartmentTableRowFragment,
@@ -15,8 +15,8 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
+import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
 
@@ -47,30 +47,28 @@ export const DepartmentTable = ({
     departmentsQuery,
   );
   const columns = [
-    columnHelper.accessor("departmentNumber", {
-      id: "departmentNumber",
-      filterFn: "weakEquals",
-      header: intl.formatMessage({
-        defaultMessage: "Department #",
-        id: "QOvS1b",
-        description:
-          "Title displayed for the Department table Department # column.",
-      }),
-    }),
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "name",
       sortingFn: normalizedText,
       header: intl.formatMessage(commonMessages.name),
+      cell: ({ row: { original: department } }) => (
+        <Link href={paths.departmentView(department.id)}>
+          {getLocalizedName(department.name, intl)}
+        </Link>
+      ),
+      meta: {
+        isRowTitle: true,
+      },
     }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: department } }) =>
-        cells.edit(
-          department.id,
-          paths.departmentTable(),
-          getLocalizedName(department.name, intl, true),
-        ),
+    columnHelper.accessor("departmentNumber", {
+      id: "departmentNumber",
+      filterFn: "weakEquals",
+      header: intl.formatMessage({
+        defaultMessage: "Number",
+        id: "af1unJ",
+        description:
+          "Title displayed for the Department table Department # column.",
+      }),
     }),
   ] as ColumnDef<DepartmentTableRowFragment>[];
 
@@ -94,18 +92,14 @@ export const DepartmentTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search departments",
-          id: "bUyxJi",
-          description: "Label for the departments table search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {
           href: paths.departmentCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Department",
-            id: "ZbpbD6",
+            defaultMessage: "Create department",
+            id: "WIbjog",
             description: "Heading displayed above the Create Department form.",
           }),
           from: currentUrl,
@@ -113,8 +107,8 @@ export const DepartmentTable = ({
       }}
       nullMessage={{
         description: intl.formatMessage({
-          defaultMessage: 'Use the "Create Department" button to get started.',
-          id: "yat9wx",
+          defaultMessage: 'Use the "Create department" button to get started.',
+          id: "kiJviy",
           description: "Instructions for adding a department item.",
         }),
       }}

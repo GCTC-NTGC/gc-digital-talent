@@ -46,11 +46,11 @@ const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   hasSpecialNote: boolean;
   specialNoteEn?: LocalizedString["en"];
   specialNoteFr?: LocalizedString["fr"];
-};
+}
 
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
@@ -82,9 +82,8 @@ const SpecialNoteSection = ({
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
-    hasSpecialNote: !!(
-      initialData.specialNote?.en || initialData.specialNote?.fr
-    ),
+    hasSpecialNote:
+      !!initialData.specialNote?.en || !!initialData.specialNote?.fr,
     specialNoteEn: initialData.specialNote?.en ?? "",
     specialNoteFr: initialData.specialNote?.fr ?? "",
   });

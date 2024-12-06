@@ -12,7 +12,7 @@ import {
   Chips,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
@@ -20,7 +20,6 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
-  PoolCandidate,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -28,7 +27,6 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import AdminHero from "~/components/Hero/AdminHero";
 import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -39,6 +37,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
 import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import Hero from "~/components/Hero";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -60,6 +59,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...ClaimVerification
       ...AssessmentResultsTable
       ...ChangeStatusDialog_PoolCandidate
+      ...ApplicationInformation_PoolCandidate
       id
       profileSnapshot
       finalDecision {
@@ -78,7 +78,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       }
       user {
         ...ApplicationProfileDetails
-        ...ProfileDocument
         ...PoolStatusTable
         ...ChangeStatusDialog_User
         firstName
@@ -145,11 +144,9 @@ export const ViewPoolCandidate = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
-  const snapshotCandidate: PoolCandidate | undefined =
-    parsedSnapshot?.poolCandidates
-      ?.filter(notEmpty)
-      .find(({ id }) => id === poolCandidate.id);
+  const parsedSnapshot = JSON.parse(
+    String(poolCandidate.profileSnapshot),
+  ) as Maybe<User>;
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
     poolCandidate.finalDecision,
@@ -187,15 +184,14 @@ export const ViewPoolCandidate = ({
         url: paths.poolCandidateApplication(poolCandidate.id),
       },
     ],
-    isAdmin: true,
   });
 
   return (
     <>
-      <AdminHero
+      <Hero
         title={candidateName}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-        contentRight={
+        crumbs={navigationCrumbs}
+        status={
           <Chips>
             <Chip
               key="status"
@@ -227,13 +223,12 @@ export const ViewPoolCandidate = ({
             ) : null}
           </Chips>
         }
-      >
-        <ProfileDetails userQuery={poolCandidate.user} />
-      </AdminHero>
-      <AdminContentWrapper>
+        additionalContent={<ProfileDetails userQuery={poolCandidate.user} />}
+      />
+      <AdminContentWrapper table>
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
-            <Heading size="h3">
+            <Heading size="h3" data-h2-margin-top="base(0)">
               {intl.formatMessage({
                 defaultMessage: "More actions",
                 id: "QaMkP7",
@@ -295,11 +290,14 @@ export const ViewPoolCandidate = ({
               <Heading
                 Icon={ExclamationTriangleIcon}
                 color="quaternary"
-                data-h2-margin="base(x.75, 0, x1, 0)"
+                data-h2-margin="base(0, 0, x1, 0)"
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
+              <AssessmentResultsTable
+                poolCandidateQuery={poolCandidate}
+                experiences={nonEmptyExperiences}
+              />
             </div>
             <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
@@ -307,9 +305,8 @@ export const ViewPoolCandidate = ({
                 <ErrorBoundary>
                   <ApplicationInformation
                     poolQuery={poolCandidate.pool}
-                    user={poolCandidate.user}
                     snapshot={parsedSnapshot}
-                    application={snapshotCandidate}
+                    applicationQuery={poolCandidate}
                   />
                 </ErrorBoundary>
                 <div data-h2-margin="base(x2 0)">
@@ -360,10 +357,10 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["AssessmentResult"],
 };
 
-type RouteParams = {
+interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
-};
+}
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
@@ -405,6 +402,9 @@ export const Component = () => (
       ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.ProcessOperator,
     ]}
   >
     <ViewPoolCandidatePage />

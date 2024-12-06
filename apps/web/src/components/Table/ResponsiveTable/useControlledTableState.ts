@@ -73,7 +73,7 @@ export const getTableStateFromSearchParams = (
   if (sortRuleParam) {
     state = {
       ...state,
-      sortState: JSON.parse(sortRuleParam),
+      sortState: JSON.parse(sortRuleParam) as SortingState,
     };
   }
 
@@ -98,7 +98,7 @@ export const getTableStateFromSearchParams = (
   return state;
 };
 
-type UseControlledTableStateReturn = {
+interface UseControlledTableStateReturn {
   initialParamState: Partial<InitialState>;
   initialState: Partial<TableState>;
   state: Partial<TableState>;
@@ -109,12 +109,12 @@ type UseControlledTableStateReturn = {
     onPaginationChange?: OnChangeFn<PaginationState>;
     onSortingChange?: OnChangeFn<SortingState>;
   };
-};
+}
 
-type UseControlledTableStateArgs = {
+interface UseControlledTableStateArgs {
   initialState: Partial<InitialState>;
   columnIds: string[];
-};
+}
 
 type UseControlledTableState = (
   args: UseControlledTableStateArgs,

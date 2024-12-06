@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { StoryContext, StoryFn } from "@storybook/react";
-import { createMemoryRouter, RouterProvider } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router";
 
 interface DefaultPath {
   path: string;
@@ -27,7 +27,7 @@ const createRouter = (story: JSX.Element, defaultPath?: DefaultPath) =>
   );
 
 const RouterDecorator = (Story: StoryFn, { parameters }: StoryContext) => {
-  const { defaultPath } = parameters;
+  const { defaultPath }: { defaultPath?: DefaultPath } = parameters;
   const router = createRouter(<Story />, defaultPath);
   return <RouterProvider router={router} />;
 };

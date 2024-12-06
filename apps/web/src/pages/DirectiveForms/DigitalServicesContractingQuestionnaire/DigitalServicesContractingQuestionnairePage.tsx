@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
@@ -39,13 +39,13 @@ export const pageTitle = defineMessage({
     "Title for the Digital services contracting questionnaire form page",
 });
 
-export type DigitalServicesContractingQuestionnaireProps = {
-  departments: Array<Omit<Department, "departmentNumber">>;
-  skills: Array<Skill>;
+export interface DigitalServicesContractingQuestionnaireProps {
+  departments: Omit<Department, "departmentNumber">[];
+  skills: Skill[];
   isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;
   defaultValues?: Partial<FormValues>;
-};
+}
 
 export const DigitalServicesContractingQuestionnaire = ({
   departments,
@@ -119,8 +119,8 @@ export const DigitalServicesContractingQuestionnaire = ({
               external
               href={
                 locale === "fr"
-                  ? "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
-                  : "/documents/Digital_Contracting_Questionnaire_EN.docx"
+                  ? "/static/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
+                  : "/static/documents/Digital_Contracting_Questionnaire_EN.docx"
               }
             >
               {intl.formatMessage({
@@ -180,7 +180,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
     questionnaire: DigitalContractingQuestionnaireInput,
   ) => {
     await executeMutation({ questionnaire })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createDigitalContractingQuestionnaire?.id) {
           toast.success(
             intl.formatMessage({
@@ -190,7 +190,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
                 "Message displayed to user if the questionnaire was saved successfully.",
             }),
           );
-          navigate(paths.directive());
+          await navigate(paths.directive());
         } else {
           toastError();
         }

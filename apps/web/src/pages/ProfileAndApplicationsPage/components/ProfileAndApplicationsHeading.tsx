@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
@@ -21,7 +21,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero/Hero";
+import Hero from "~/components/Hero";
 import useRoutes, {
   FromIapDraftQueryKey,
   FromIapSuccessQueryKey,
@@ -30,7 +30,6 @@ import {
   aboutSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 import {
@@ -226,7 +225,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
   const skillShowcaseUrl = paths.skillShowcase();
-  const skillLibraryUrl = paths.skillLibrary();
+  const skillLibraryUrl = paths.skillPortfolio();
 
   const hasTopSkills =
     user.topBehaviouralSkillsRanking?.length &&
@@ -246,7 +245,6 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
 
   return (
     <Hero
-      centered
       title={intl.formatMessage(
         {
           defaultMessage: "Welcome back, {firstName}",
@@ -275,7 +273,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
               "whiteFixed",
             ),
           a3: (chunks: ReactNode) =>
-            buildLink(paths.skillLibrary(), chunks, "whiteFixed"),
+            buildLink(paths.skillPortfolio(), chunks, "whiteFixed"),
           a4: (chunks: ReactNode) =>
             buildScrollToLink(
               "track-applications-section",
@@ -285,6 +283,8 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             ),
         },
       )}
+      overlap
+      centered
     >
       {searchParams.get(FromIapDraftQueryKey) === "true" && (
         <Alert.Root
@@ -428,7 +428,6 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             layout="hero"
             title={intl.formatMessage(navigationMessages.workPreferences)}
             status={
-              workLocationSectionHasEmptyRequiredFields(user) ||
               workPreferencesSectionHasEmptyRequiredFields(user)
                 ? "error"
                 : "success"
@@ -554,12 +553,12 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
         </HeroCard>
         <HeroCard
           color="quaternary"
-          title={intl.formatMessage(navigationMessages.skillLibrary)}
+          title={intl.formatMessage(navigationMessages.skillPortfolio)}
           href={`${skillLibraryUrl}#manage`}
         >
           <StatusItem
             layout="hero"
-            title={intl.formatMessage(navigationMessages.skillLibrary)}
+            title={intl.formatMessage(navigationMessages.skillPortfolio)}
             itemCount={skillLibraryCount}
             status={skillLibraryStatus}
             href={`${skillLibraryUrl}#manage`}

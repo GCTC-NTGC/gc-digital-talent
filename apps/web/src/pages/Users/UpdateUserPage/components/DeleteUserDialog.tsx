@@ -15,25 +15,22 @@ import { User, DeleteUserMutation } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
-type FormValues = {
-  roles: Array<string>;
+interface FormValues {
+  roles: string[];
   team: string | null;
-};
+}
 
 interface AddTeamRoleDialogProps {
-  user: User;
+  user: Pick<User, "deletedDate" | "firstName" | "lastName">;
   onDeleteUser: () => Promise<DeleteUserMutation["deleteUser"]>;
 }
 
 const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const userNameHtml = getFullNameHtml(user.firstName, user.lastName, intl);
-  const userNameExpected = getFullNameLabel(
-    user.firstName,
-    user.lastName,
-    intl,
-  );
+  const { deletedDate, firstName, lastName } = user;
+  const userNameHtml = getFullNameHtml(firstName, lastName, intl);
+  const userNameExpected = getFullNameLabel(firstName, lastName, intl);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -73,7 +70,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
           color="error"
           mode="solid"
           icon={TrashIcon}
-          disabled={!!user.deletedDate}
+          disabled={!!deletedDate}
         >
           {label}
         </Button>

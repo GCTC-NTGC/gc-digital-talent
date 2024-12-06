@@ -4,61 +4,63 @@ import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { UpdateUserRolesInput, Role, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { UpdateUserRolesFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 import { actionCell, roleCell } from "./helpers";
+import { UpdateUserDataAuthInfoType } from "../UpdateUserPage";
 
 const columnHelper = createColumnHelper<Role>();
 
 interface IndividualRoleTableProps {
-  user: User;
-  availableRoles: Array<Role>;
+  user: Pick<User, "id" | "firstName" | "lastName">;
+  authInfo: UpdateUserDataAuthInfoType;
+  availableRoles: Role[];
   onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const IndividualRoleTable = ({
   user,
   availableRoles,
+  authInfo,
   onUpdateUserRoles,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
   const columns = [
     columnHelper.display({
       id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
+      enableHiding: false,
+      header: intl.formatMessage(tableMessages.actions),
       cell: ({ row: { original: role } }) =>
-        actionCell(role, user, onUpdateUserRoles),
+        actionCell(
+          role,
+          { id: user.id, firstName: user.firstName, lastName: user.lastName },
+          onUpdateUserRoles,
+        ),
     }),
     columnHelper.accessor((role) => getLocalizedName(role.displayName, intl), {
       id: "role",
+      enableHiding: false,
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Role",
-        id: "uBmoxQ",
-        description: "Title displayed for the role table display name column",
-      }),
+      header: intl.formatMessage(commonMessages.role),
       cell: ({ getValue }) => roleCell(getValue()),
     }),
   ] as ColumnDef<Role>[];
 
   const data = useMemo(() => {
-    const roles = user?.authInfo?.roleAssignments
+    const roles = authInfo?.roleAssignments
       ?.filter(notEmpty)
       .filter((assignment) => !assignment.role?.isTeamBased)
       .map((assignment) => assignment.role)
       .filter(notEmpty);
-    return roles || [];
-  }, [user?.authInfo?.roleAssignments]);
+    return roles ?? [];
+  }, [authInfo?.roleAssignments]);
 
   const handleAddRoles = async (values: UpdateUserRolesInput) => {
     return onUpdateUserRoles(values);
@@ -72,7 +74,7 @@ const IndividualRoleTable = ({
 
   return (
     <>
-      <Heading level="h3" size="h4">
+      <Heading data-h2-margin="base(x2, 0, x.5, 0)" level="h3" size="h4">
         {pageTitle}
       </Heading>
       <Table<Role>
@@ -95,6 +97,7 @@ const IndividualRoleTable = ({
           component: (
             <AddIndividualRoleDialog
               user={user}
+              authInfo={authInfo}
               availableRoles={availableRoles}
               onAddRoles={handleAddRoles}
             />
@@ -102,8 +105,9 @@ const IndividualRoleTable = ({
         }}
         nullMessage={{
           description: intl.formatMessage({
-            defaultMessage: 'Use the "Add new role" button to get started.',
-            id: "WCOVvw",
+            defaultMessage:
+              'Use the "Add individual role" button to get started.',
+            id: "1xI8uo",
             description: "Instructions for adding a role to a user.",
           }),
         }}

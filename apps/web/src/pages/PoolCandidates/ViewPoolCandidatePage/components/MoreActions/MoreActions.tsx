@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
+import { useQuery } from "urql";
 
 import {
   FragmentType,
@@ -8,7 +9,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { CardBasic, Link, Separator } from "@gc-digital-talent/ui";
+import { CardBasic, Link, Loading, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -26,11 +27,11 @@ import { isQualifiedStatus, isRemovedStatus } from "~/utils/poolCandidate";
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import FinalDecisionDialog from "./FinalDecisionDialog";
 import RemoveCandidateDialog from "../RemoveCandidateDialog/RemoveCandidateDialog";
-import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import RevertFinalDecisionDialog from "./RevertFinalDecisionDialog";
 import ReinstateCandidateDialog from "../ReinstateCandidateDialog/ReinstateCandidateDialog";
 import ChangeExpiryDateDialog from "../ChangeExpiryDateDialog/ChangeExpiryDateDialog";
 import NotesForm from "./NotesForm";
+import DownloadButton from "./DownloadButton";
 
 export const MoreActions_Fragment = graphql(/* GraphQL */ `
   fragment MoreActions on PoolCandidate {
@@ -42,15 +43,10 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     ...ReinstateCandidateDialog
     ...NotesForm
     id
-    pool {
-      id
-      ...ApplicationPrintDocument_PoolFragment
-    }
     user {
       id
       firstName
       lastName
-      ...ProfileDocument
     }
     status {
       value
@@ -61,6 +57,12 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     }
     expiryDate
     profileSnapshot
+  }
+`);
+
+const MoreActions_Query = graphql(/* GraphQL */ `
+  query MoreActions {
+    ...RemoveCandidateOptions
   }
 `);
 
@@ -81,7 +83,10 @@ const MoreActions = ({
     poolCandidate.user.lastName,
     intl,
   );
-  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
+  const parsedSnapshot = JSON.parse(
+    String(poolCandidate.profileSnapshot),
+  ) as Maybe<User>;
+  const [{ data, fetching }] = useQuery({ query: MoreActions_Query });
 
   return (
     <div
@@ -102,54 +107,64 @@ const MoreActions = ({
           candidateName={candidateName}
         />
         <Separator orientation="horizontal" data-h2-margin="base(x.5, 0)" />
-        {poolCandidate.status && isRemovedStatus(poolCandidate.status.value) ? (
-          <span>
-            {intl.formatMessage(commonMessages.status)}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
-          </span>
+        {fetching ? (
+          <Loading inline />
         ) : (
           <>
             {poolCandidate.status &&
-              RECORD_DECISION_STATUSES.includes(poolCandidate.status.value) && (
-                <FinalDecisionDialog poolCandidate={poolCandidate} />
-              )}
-            {poolCandidate.status &&
-              [
-                ...REVERT_DECISION_STATUSES,
-                ...PLACEMENT_TYPE_STATUSES,
-              ].includes(poolCandidate.status.value) && (
+            isRemovedStatus(poolCandidate.status.value) ? (
+              <span>
+                {intl.formatMessage(commonMessages.status)}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
+              </span>
+            ) : (
+              <>
+                {poolCandidate.status &&
+                  RECORD_DECISION_STATUSES.includes(
+                    poolCandidate.status.value,
+                  ) && <FinalDecisionDialog poolCandidate={poolCandidate} />}
+                {poolCandidate.status &&
+                  [
+                    ...REVERT_DECISION_STATUSES,
+                    ...PLACEMENT_TYPE_STATUSES,
+                  ].includes(poolCandidate.status.value) && (
+                    <span>
+                      {intl.formatMessage(commonMessages.status)}
+                      {intl.formatMessage(commonMessages.dividingColon)}
+                      <RevertFinalDecisionDialog
+                        revertFinalDecisionQuery={poolCandidate}
+                      />
+                    </span>
+                  )}
+                {poolCandidate.status &&
+                  isQualifiedStatus(poolCandidate.status.value) && (
+                    <span>
+                      {intl.formatMessage(commonMessages.expiryDate)}
+                      {intl.formatMessage(commonMessages.dividingColon)}
+                      <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
+                    </span>
+                  )}
+                {poolCandidate.status &&
+                  isQualifiedStatus(poolCandidate.status.value) && (
+                    <span>
+                      {intl.formatMessage(commonMessages.jobPlacement)}
+                      {intl.formatMessage(commonMessages.dividingColon)}
+                      <JobPlacementDialog
+                        jobPlacementDialogQuery={poolCandidate}
+                        optionsQuery={jobPlacementOptions}
+                        context="view"
+                      />
+                    </span>
+                  )}
                 <span>
-                  {intl.formatMessage(commonMessages.status)}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  <RevertFinalDecisionDialog
-                    revertFinalDecisionQuery={poolCandidate}
+                  <RemoveCandidateDialog
+                    removalQuery={poolCandidate}
+                    optionsQuery={data}
                   />
                 </span>
-              )}
-            {poolCandidate.status &&
-              isQualifiedStatus(poolCandidate.status.value) && (
-                <span>
-                  {intl.formatMessage(commonMessages.expiryDate)}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
-                </span>
-              )}
-            {poolCandidate.status &&
-              isQualifiedStatus(poolCandidate.status.value) && (
-                <span>
-                  {intl.formatMessage(commonMessages.jobPlacement)}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  <JobPlacementDialog
-                    jobPlacementDialogQuery={poolCandidate}
-                    optionsQuery={jobPlacementOptions}
-                    context="view"
-                  />
-                </span>
-              )}
-            <span>
-              <RemoveCandidateDialog removalQuery={poolCandidate} />
-            </span>
+              </>
+            )}
           </>
         )}
       </CardBasic>
@@ -176,13 +191,9 @@ const MoreActions = ({
         </CardBasic>
         {parsedSnapshot && (
           <CardBasic data-h2-flex="base(1)" data-h2-padding="base(x.5)">
-            <ApplicationPrintButton
-              mode="inline"
-              color="secondary"
-              pool={poolCandidate.pool}
-              snapshot={parsedSnapshot}
-              user={[poolCandidate.user]}
-              buttonLabel={intl.formatMessage(commonMessages.print)}
+            <DownloadButton
+              id={poolCandidate.id}
+              userId={poolCandidate.user.id}
             />
           </CardBasic>
         )}

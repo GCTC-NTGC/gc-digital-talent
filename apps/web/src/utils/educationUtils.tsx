@@ -233,6 +233,50 @@ export const getEducationRequirementOptions = (
           ),
         },
       ];
+    case "CR":
+      return [
+        {
+          value: EducationRequirementOption.AppliedWork,
+          label: intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the applied work experience option</strong>",
+            id: "SNwPLZ",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
+          contentBelow: (
+            <p data-h2-margin="base(0, 0, x.5, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Combination of experience, training or education.",
+                id: "Ulbls0",
+                description: "Applied work experience description for CR group",
+              })}
+            </p>
+          ),
+        },
+        {
+          value: EducationRequirementOption.Education,
+          label: intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the 2 years of secondary school option</strong>",
+            id: "xZr1kv",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
+          contentBelow: (
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Successful completion of 2 years of secondary school.",
+                id: "fOP6Ny",
+                description:
+                  "Descriptive text explaining education requirement for CR group",
+              })}
+            </p>
+          ),
+        },
+      ];
     default:
       return [
         {
@@ -254,7 +298,7 @@ export const getEducationRequirementOptions = (
               }),
           contentBelow: (
             <>
-              <p data-h2-margin="base(0, 0, x.5, 0)">
+              <p data-h2-margin-bottom="base(x.5)">
                 {intl.formatMessage(applicationMessages.appliedWorkExperience)}
               </p>
               <ul>

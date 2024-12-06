@@ -1,11 +1,7 @@
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
 
-import {
-  notEmpty,
-  uniqueItems,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   SkillLevel,
   Experience,
@@ -55,7 +51,7 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
 }
 
 export type InvertedSkillExperience = Skill & {
-  experiences: Experience[];
+  experiences: Omit<Experience, "user">[];
 };
 /**
  * Transforms an array of experiences with child skills into a tree of skills with child experiences.
@@ -63,7 +59,7 @@ export type InvertedSkillExperience = Skill & {
  * @returns { Skill[] } - The new collection of skills with child experiences
  */
 export function invertSkillExperienceTree(
-  experiences: Experience[],
+  experiences: Omit<Experience, "user">[],
 ): InvertedSkillExperience[] {
   const allChildSkills = flatMap(experiences, (s) => s.skills).filter(notEmpty);
   const uniqueSkills = uniqBy(allChildSkills, "id");
@@ -85,7 +81,7 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Maybe<Array<Skill>> | undefined,
+  skills: Maybe<Skill[]> | undefined,
   category: SkillCategory,
 ) {
   return skills
@@ -94,8 +90,8 @@ export function filterSkillsByCategory(
 }
 
 export function categorizeSkill(
-  skills: Maybe<Array<Skill>> | undefined,
-): Record<SkillCategory, Maybe<Array<Skill> | undefined>> {
+  skills: Maybe<Skill[]> | undefined,
+): Record<SkillCategory, Maybe<Skill[] | undefined>> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -131,36 +127,14 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
  * @returns Experience[]  New array of experiences
  */
 export const getExperienceSkills = (
-  experiences: Experience[],
+  experiences: Omit<Experience, "user">[],
   skill?: Pick<Skill, "id">,
-): Experience[] => {
+): Omit<Experience, "user">[] => {
   return experiences.filter((experience) =>
     experience.skills?.some(
       (experienceSkill) => experienceSkill.id === skill?.id,
     ),
   );
-};
-
-/**
- * Get Experience's Skill Ids
- *
- * Given an array of experiences, return an array of skill ids found with duplicates removed
- *
- * @param experiences Experience[] Array of experiences
- * @returns String[] Array of unique skill ids
- */
-export const getExperiencesSkillIds = (experiences: Experience[]): string[] => {
-  let idCollection: string[] = [];
-  experiences.forEach((experience) => {
-    const { skills } = experience;
-    if (skills && skills.length > 0) {
-      const skillIdArray = skills.map((skill) => skill.id);
-      idCollection = [...idCollection, ...skillIdArray];
-    }
-  });
-  const deDupedIdCollection = uniqueItems(idCollection);
-
-  return deDupedIdCollection;
 };
 
 /**
@@ -244,7 +218,7 @@ export const filterPoolSkillsByType = (
 
 export function groupPoolSkillByType(
   poolSkills?: Maybe<Maybe<PoolSkill>[]>,
-): Map<PoolSkillType, Array<Skill>> {
+): Map<PoolSkillType, Skill[]> {
   return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
     const { type, skill } = poolSkill;
     if (type?.value && skill) {
@@ -254,7 +228,7 @@ export function groupPoolSkillByType(
       map.get(type.value)?.push(skill);
     }
     return map;
-  }, new Map<PoolSkillType, Array<Skill>>());
+  }, new Map<PoolSkillType, Skill[]>());
 }
 
 export function poolSkillsToSkills(poolSkills?: Maybe<Maybe<PoolSkill>[]>) {

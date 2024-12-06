@@ -10,10 +10,11 @@ final class DuplicatePool
     /**
      * Duplicates a pool
      *
-     * @param  array{}  $args
+     * @disregard P1030 $_ Never going to be used
      */
     public function __invoke($_, array $args)
     {
+        /** @var Pool $pool */
         $pool = Pool::with('poolSkills.skill')->find($args['id']);
 
         $newPool = $pool->replicate()->fill([
@@ -30,6 +31,7 @@ final class DuplicatePool
 
         $newPool->save();
 
+        /** @var iterable $skillsToSync */
         $skillsToSync = $pool->poolSkills->map(function (PoolSkill $poolSkill) {
             return [
                 'skill_id' => $poolSkill->skill->id,

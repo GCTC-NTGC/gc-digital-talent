@@ -2,10 +2,12 @@
 
 namespace App\Notifications;
 
+use App\Enums\EmailType;
 use App\Enums\Language;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Error;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Cache;
@@ -15,10 +17,15 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
 {
     use Queueable;
 
+    public EmailType $emailType;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct() {}
+    public function __construct(EmailType $emailType)
+    {
+        $this->emailType = $emailType;
+    }
 
     /**
      * Get the notification's delivery channels.
@@ -43,9 +50,14 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
                 $templateId = config('notify.templates.verify_email_fr');
             }
 
+            $email = $notifiable->getEmailForVerification($this->emailType);
+            if (! $email) {
+                throw new Exception('Email type '.$this->emailType->name.' not set');
+            }
+
             $message = new GcNotifyEmailMessage(
                 $templateId,
-                $notifiable->getEmailForVerification(),
+                $email,
                 [
                     'person name' => $notifiable->first_name,
                     'verification code' => $this->createVerificationCode($notifiable),
@@ -61,12 +73,11 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
     /**
      * Get the verification code for the given notifiable.
      *
-     * @param  App\Models\User  $notifiable
      * @return string
      */
     protected function createVerificationCode(User $user)
     {
-        $key = 'email-verification-'.$user->id;
+        $key = $this->emailType->name.'-email-verification-'.$user->id;
 
         // once we get to PHP 8.3 this will provide a larger codespace using all the alphabetical chars:
         // Random\Randomizer::getBytesFromString('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
@@ -76,8 +87,8 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
 
         $token = [
             'code' => $code,
-            'field' => 'email',
-            'value' => $user->getEmailForVerification(),
+            'field' => $this->emailType->value,
+            'value' => $user->getEmailForVerification($this->emailType),
         ];
         Cache::put($key, $token, now()->addHours(2));
 

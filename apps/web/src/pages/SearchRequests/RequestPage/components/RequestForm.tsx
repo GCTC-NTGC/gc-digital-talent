@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -53,6 +53,7 @@ import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -60,7 +61,7 @@ const directiveLink = (chunks: ReactNode, href: string) => (
   </Link>
 );
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
-type FormValues = {
+interface FormValues {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
   email?: CreatePoolCandidateSearchRequestInput["email"];
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
@@ -71,24 +72,24 @@ type FormValues = {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
-      sync?: Array<Maybe<Classification["id"]>>;
+      sync?: Maybe<Classification["id"]>[];
     };
     qualifiedStreams?: ApplicantFilterInput["qualifiedStreams"];
     skills?: {
-      sync?: Array<Maybe<Skill["id"]>>;
+      sync?: Maybe<Skill["id"]>[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: Array<Maybe<OperationalRequirement>>;
+    operationalRequirements?: Maybe<OperationalRequirement>[];
     pools?: {
-      sync?: Array<Maybe<Pool["id"]>>;
+      sync?: Maybe<Pool["id"]>[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
   };
   department?: DepartmentBelongsTo["connect"];
-};
+}
 
 export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormClassification on Classification {
@@ -276,10 +277,9 @@ export const RequestForm = ({
       },
       applicantFilter: {
         create: {
-          positionDuration:
-            applicantFilter && applicantFilter.positionDuration
-              ? applicantFilter.positionDuration
-              : null,
+          positionDuration: applicantFilter?.positionDuration
+            ? applicantFilter.positionDuration
+            : null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,
@@ -338,11 +338,15 @@ export const RequestForm = ({
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
-      .then((res) => {
+    const submitData: CreatePoolCandidateSearchRequestInput = {
+      ...formValuesToSubmitData(data),
+      initialResultCount: candidateCount,
+    };
+    return handleCreatePoolCandidateSearchRequest(submitData)
+      .then(async (res) => {
         if (res) {
           removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
-          navigate(paths.requestConfirmation(res.id));
+          await navigate(paths.requestConfirmation(res.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Request created successfully!",
@@ -458,8 +462,8 @@ export const RequestForm = ({
                 id="department"
                 name="department"
                 label={intl.formatMessage({
-                  defaultMessage: "Department / Hiring Organization",
-                  id: "UUIb3j",
+                  defaultMessage: "Department / Hiring organization",
+                  id: "P7ItrT",
                   description:
                     "Label for department select input in the request form",
                 })}
@@ -590,12 +594,9 @@ export const RequestForm = ({
                     description:
                       "Label for input asking whether a job opportunity will have supervising duties.",
                   })}
-                  label={intl.formatMessage({
-                    defaultMessage: "Yes, this is a supervisory position",
-                    id: "mrMxsI",
-                    description:
-                      "Checkbox selection that confirms a job opportunity will have supervising duties. ",
-                  })}
+                  label={intl.formatMessage(
+                    talentRequestMessages.supervisoryPositionYes,
+                  )}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -639,12 +640,9 @@ export const RequestForm = ({
             <TextArea
               id="additionalComments"
               name="additionalComments"
-              label={intl.formatMessage({
-                defaultMessage: "Additional Comments",
-                id: "FC5tje",
-                description:
-                  "Label for additional comments textarea in the request form.",
-              })}
+              label={intl.formatMessage(
+                talentRequestMessages.additionalComments,
+              )}
               rows={8}
             />
           </div>
@@ -675,7 +673,7 @@ export const RequestForm = ({
                   "Total estimated candidates message in summary of filters",
               },
               {
-                candidateCountNumber: candidateCount || 0,
+                candidateCountNumber: candidateCount ?? 0,
               },
             )}
           </p>
@@ -688,8 +686,8 @@ export const RequestForm = ({
           >
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Submit Request",
-                id: "eTTlR0",
+                defaultMessage: "Submit request",
+                id: "4CLNTw",
                 description: "Submit button text on request form.",
               })}
             />
@@ -793,7 +791,7 @@ const RequestFormApi = ({
       if (result.data?.createPoolCandidateSearchRequest) {
         return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   return (

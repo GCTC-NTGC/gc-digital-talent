@@ -136,41 +136,6 @@ const SeeAdvertisementAction = ({
     </Link>
   );
 };
-interface SupportActionProps extends ActionProps {}
-
-const SupportAction = ({ show, title }: SupportActionProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-  if (!show) {
-    return null;
-  }
-
-  return (
-    <Link
-      href={paths.support()}
-      state={{ referrer: window.location.href }}
-      mode="inline"
-      color="black"
-      fontSize="caption"
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage: "Get support for the {title} job",
-          id: "yE/QNS",
-          description: "Link text to direct a user to the support page",
-        },
-        {
-          title,
-        },
-      )}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Get support",
-        id: "rXdaZW",
-        description: "Link text to direct a user to the support page",
-      })}
-    </Link>
-  );
-};
 
 interface CopyApplicationIdActionProps extends ActionProps {
   id: Scalars["UUID"]["output"];
@@ -193,8 +158,8 @@ const CopyApplicationIdAction = ({
       fontSize="caption"
       data-h2-vertical-align="base(top)"
       icon={linkCopied ? CheckIcon : undefined}
-      onClick={() => {
-        navigator.clipboard.writeText(id);
+      onClick={async () => {
+        await navigator.clipboard.writeText(id);
         setLinkCopied(true);
       }}
       aria-label={
@@ -365,7 +330,6 @@ export default {
   ContinueAction,
   SeeAdvertisementAction,
   DeleteAction,
-  SupportAction,
   ViewAction,
   CopyApplicationIdAction,
   VisitCareerTimelineAction,

@@ -21,11 +21,11 @@ interface AssessmentSummaryProps {
   assessmentResults: FinalDecisionDialogFragmentType["assessmentResults"];
 }
 
-type SkillAssessmentCalculated = {
+interface SkillAssessmentCalculated {
   successful: number;
   unsuccessful: number;
   hold: number;
-};
+}
 
 const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
   const intl = useIntl();
@@ -97,10 +97,10 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
   );
 };
 
-type TableRow = {
+interface TableRow {
   name: string;
   results: SkillAssessmentCalculated;
-};
+}
 
 const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
   return (

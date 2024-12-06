@@ -9,11 +9,8 @@ final class CreateUserSkill
 {
     /**
      * Create a UserSkill model or restore it
-     *
-     * @param  array{}  $args
-     * @return UserSkill
      */
-    public function __invoke($_, array $args)
+    public function __invoke($_, array $args): UserSkill
     {
         // check if the model exists accounting for trashed and then restore or error out, if not found proceed to create
         $existingModel = UserSkill::where('user_id', $args['user_id'])
@@ -33,7 +30,7 @@ final class CreateUserSkill
 
                 return $existingModel;
             }
-            throw ValidationException::withMessages(['DuplicateUserSkill']);
+            throw ValidationException::withMessages(['skill_id' => 'DuplicateUserSkill']);
         }
 
         $createdModel = UserSkill::create([

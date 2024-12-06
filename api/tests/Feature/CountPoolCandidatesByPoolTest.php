@@ -586,53 +586,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    // test pool filter
-    // creates three pools but filters on only 1 and 2
-    public function testPoolFilter()
-    {
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $pool3 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $user = User::factory()->create([]);
-
-        PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
-        PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
-        PoolCandidate::factory()->create($this->poolCandidateData($pool3, $user));
-
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ($where: ApplicantFilterInput) {
-                    countPoolCandidatesByPool(where: $where) {
-                      pool { id }
-                      candidateCount
-                    }
-                  }
-                ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1->id],
-                        ['id' => $pool2->id],
-                    ],
-                ],
-            ]
-        )->assertSimilarJson([
-            'data' => [
-                'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $pool1->id],
-                        'candidateCount' => 1,
-                    ],
-                    [
-                        'pool' => ['id' => $pool2->id],
-                        'candidateCount' => 1,
-                    ],
-                ],
-            ],
-        ]);
-    }
-
     public function testExpiryFilter()
     {
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
@@ -677,12 +630,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($itPool, $user, true));
 
-        $itOngoingPool = Pool::factory()->create([
-            ...$this->poolData(),
-            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
-        ]);
-        PoolCandidate::factory()->create($this->poolCandidateData($itOngoingPool, $user, true));
-
         // Note: Should not appear in results
         $execPool = Pool::factory()->create([
             ...$this->poolData(),
@@ -704,7 +651,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     'pools' => [
                         ['id' => $itPool->id],
-                        ['id' => $itOngoingPool->id],
                         ['id' => $execPool->id], // Should not show up
                     ],
                 ],
@@ -712,10 +658,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $itOngoingPool->id],
-                        'candidateCount' => 1,
-                    ],
                     [
                         'pool' => ['id' => $itPool->id],
                         'candidateCount' => 1,

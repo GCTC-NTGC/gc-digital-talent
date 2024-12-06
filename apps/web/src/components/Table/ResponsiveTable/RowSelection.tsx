@@ -15,7 +15,6 @@ import {
   Dispatch,
   HTMLAttributes,
   MouseEventHandler,
-  ReactNode,
   SetStateAction,
   useCallback,
   useEffect,
@@ -30,9 +29,11 @@ import {
   Loading,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 
-import { DatasetDownload, DatasetPrint, RowSelectDef } from "./types";
+import { DownloadDef, RowSelectDef } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
+import tableMessages from "../tableMessages";
 
 type BaseProps = Omit<
   CheckButtonProps,
@@ -145,6 +146,55 @@ export const actionButtonStyles: Pick<
   fontSize: "caption",
 };
 
+interface DownloadAllButtonProps {
+  download: DownloadDef["all"];
+}
+
+const DownloadAllButton = ({ download }: DownloadAllButtonProps) => {
+  const intl = useIntl();
+  if (!download) return null;
+
+  const label =
+    "label" in download && download?.label
+      ? download.label
+      : intl.formatMessage({
+          defaultMessage: "Download full dataset",
+          id: "B6XXtf",
+          description:
+            "Text label for button to download a csv file of all items in a table.",
+        });
+
+  if ("csv" in download) {
+    return (
+      <DownloadCsv {...download.csv} {...actionButtonStyles}>
+        {label}
+      </DownloadCsv>
+    );
+  }
+
+  if ("component" in download && download.component) {
+    return download.component;
+  }
+
+  if ("onClick" in download) {
+    return (
+      <Button
+        {...actionButtonStyles}
+        onClick={download.onClick}
+        disabled={download.downloading}
+        data-h2-font-weight="base(400)"
+        {...(download.downloading && {
+          icon: SpinnerIcon,
+        })}
+      >
+        {label}
+      </Button>
+    );
+  }
+
+  return null;
+};
+
 interface ActionsProps {
   /** Indicates whether the table actually have selection enabled */
   rowSelect: boolean;
@@ -154,12 +204,8 @@ interface ActionsProps {
   count: number;
   /** Callback when the clear button is clicked */
   onClear: MouseEventHandler;
-  /** Enable print and pass the callback */
-  print?: DatasetPrint;
-  /** Enable the one or both (selection, all) download buttons */
-  download?: DatasetDownload;
   /** Button to trigger an async download */
-  asyncDownload?: ReactNode;
+  download?: DownloadDef;
 }
 
 /**
@@ -173,11 +219,13 @@ const Actions = ({
   isLoading,
   count,
   onClear,
-  print,
   download,
-  asyncDownload,
 }: ActionsProps) => {
   const intl = useIntl();
+
+  const handleNoRowsSelected = () => {
+    toast.warning(intl.formatMessage(tableMessages.noRowsSelected));
+  };
 
   return (
     <div
@@ -253,68 +301,70 @@ const Actions = ({
                   })}
                 </Button>
               </span>
-
-              {download?.selection && (
+              {(download?.csv?.enable || download?.doc?.enable) && (
                 <span
                   data-h2-align-items="base(center)"
                   data-h2-display="base(flex)"
                   data-h2-gap="base(0 x.25) l-tablet(0 x.5)"
                 >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
-                  </span>
-                  <DownloadCsv
-                    data-h2-font-weight="base(400)"
-                    disabled={download.disableBtn}
-                    {...(download.fetching && {
-                      icon: SpinnerIcon,
-                    })}
-                    {...download.selection.csv}
-                    {...actionButtonStyles}
-                  >
-                    {download.selection.label ||
-                      intl.formatMessage({
-                        defaultMessage: "Download CSV",
-                        id: "mxOuYK",
-                        description:
-                          "Text label for button to download a csv file of items in a table.",
-                      })}
-                  </DownloadCsv>
-                </span>
-              )}
+                  {download?.csv?.enable && (
+                    <>
+                      <span data-h2-display="base(none) l-tablet(block)">
+                        <Bullet data-h2-display="base(none) l-tablet(block)" />
+                      </span>
+                      {download.csv.component ?? (
+                        <Button
+                          {...actionButtonStyles}
+                          onClick={
+                            count > 0
+                              ? download.csv.onClick
+                              : handleNoRowsSelected
+                          }
+                          disabled={download.csv.downloading}
+                          data-h2-font-weight="base(400)"
+                          {...(download.csv.downloading && {
+                            icon: SpinnerIcon,
+                          })}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Download CSV",
+                            id: "mxOuYK",
+                            description:
+                              "Text label for button to download a csv file of items in a table.",
+                          })}
+                        </Button>
+                      )}
+                    </>
+                  )}
 
-              {asyncDownload ? (
-                <span
-                  data-h2-align-items="base(center)"
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(0 x.5)"
-                >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
-                  </span>
-                  {asyncDownload}
-                </span>
-              ) : null}
-
-              {(print?.onPrint || print?.component) && (
-                <span
-                  data-h2-align-items="base(center)"
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(0 x.5)"
-                >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
-                  </span>
-                  {print.component ?? (
-                    <Button onClick={print.onPrint} {...actionButtonStyles}>
-                      {print.label ||
-                        intl.formatMessage({
-                          defaultMessage: "Print selection",
-                          id: "KrrW7D",
-                          description:
-                            "Text label for button to print items in a table.",
-                        })}
-                    </Button>
+                  {download?.doc?.enable && (
+                    <>
+                      <span data-h2-display="base(none) l-tablet(block)">
+                        <Bullet data-h2-display="base(none) l-tablet(block)" />
+                      </span>
+                      {download.doc.component ?? (
+                        <Button
+                          {...actionButtonStyles}
+                          onClick={
+                            count > 0
+                              ? download.doc.onClick
+                              : handleNoRowsSelected
+                          }
+                          disabled={download.doc.downloading}
+                          data-h2-font-weight="base(400)"
+                          {...(download.doc.downloading && {
+                            icon: SpinnerIcon,
+                          })}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Download document",
+                            id: "sIcsTo",
+                            description:
+                              "Text label for button to download a document file of items in a table.",
+                          })}
+                        </Button>
+                      )}
+                    </>
                   )}
                 </span>
               )}
@@ -322,20 +372,9 @@ const Actions = ({
           )}
         </Column>
       )}
-
       {download?.all && (
         <Column>
-          {!isLoading && (
-            <DownloadCsv {...download.all.csv} {...actionButtonStyles}>
-              {download.all.label ||
-                intl.formatMessage({
-                  defaultMessage: "Download full dataset",
-                  id: "B6XXtf",
-                  description:
-                    "Text label for button to download a csv file of all items in a table.",
-                })}
-            </DownloadCsv>
-          )}
+          {!isLoading && <DownloadAllButton download={download.all} />}
         </Column>
       )}
     </div>
@@ -381,12 +420,12 @@ export const getRowSelectionColumn = <TData extends object>(
   },
 });
 
-type RowSelectCellArgs<T> = {
+interface RowSelectCellArgs<T> {
   /** The specific row definition */
   row: Row<T>;
   /** Label for the button to select the item */
   label: string;
-};
+}
 
 /**
  * Generate the cell for row selection

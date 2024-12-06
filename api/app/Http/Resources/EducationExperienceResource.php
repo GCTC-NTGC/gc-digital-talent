@@ -7,6 +7,7 @@ use App\Enums\EducationType;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/** @mixin \App\Models\EducationExperience */
 class EducationExperienceResource extends JsonResource
 {
     use HasLocalizedEnums;
@@ -31,7 +32,6 @@ class EducationExperienceResource extends JsonResource
             'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
-            'user' => new UserStubResource($this->user),
         ];
     }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { IntlShape, useIntl } from "react-intl";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
@@ -36,10 +36,10 @@ import useApplication from "../useApplication";
 
 type SortOptions = "date_desc" | "type_asc";
 
-type FormValues = {
+interface FormValues {
   sortExperiencesBy: SortOptions;
   experienceCount: number;
-};
+}
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -156,7 +156,7 @@ function formatExperienceCount(
 }
 
 interface ApplicationCareerTimelineProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiences: ExperienceForDate[];
 }
 
 export const ApplicationCareerTimeline = ({
@@ -205,14 +205,14 @@ export const ApplicationCareerTimeline = ({
   const hasSomeExperience = !!experiences.length;
   const hasExperiencesByType = !!experienceList.length;
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     executeMutation({
       id: application.id,
       application: {
         insertSubmittedStep: ApplicationStep.ReviewYourResume,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -222,7 +222,7 @@ export const ApplicationCareerTimeline = ({
                 "Message displayed to users when saving career timeline is successful.",
             }),
           );
-          navigate(nextStep);
+          await navigate(nextStep);
         }
       })
       .catch(() => {
@@ -437,7 +437,9 @@ export const ApplicationCareerTimeline = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Experience[] = unpackMaybes(application.user.experiences);
+  const experiences: Omit<Experience, "user">[] = unpackMaybes(
+    application.user.experiences,
+  );
 
   return application ? (
     <ApplicationCareerTimeline

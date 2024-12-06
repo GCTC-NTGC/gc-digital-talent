@@ -1,7 +1,7 @@
 import { graphql } from "@gc-digital-talent/graphql";
 
-export const SkillFormOptions_Query = graphql(/* GraphQL */ `
-  query SkillFormOptions {
+export const SkillFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment SkillFormOptions on Query {
     categories: localizedEnumStrings(enumName: "SkillCategory") {
       value
       label {
@@ -111,9 +111,6 @@ const UserSkills_Query = graphql(/* GraphQL */ `
         skillLevel
         topSkillsRank
         improveSkillsRank
-        user {
-          id
-        }
         skill {
           id
           key
@@ -131,9 +128,6 @@ const UserSkills_Query = graphql(/* GraphQL */ `
         }
         experiences {
           id
-          user {
-            id
-          }
         }
       }
     }

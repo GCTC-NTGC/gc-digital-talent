@@ -31,12 +31,12 @@ const TogglePoolUserBookmark_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-type PoolBookmarkProps = {
+interface PoolBookmarkProps {
   user: FragmentType<typeof PoolBookmark_Fragment>;
   poolId: string;
   poolName?: Maybe<LocalizedString>;
   size?: "sm" | "md" | "lg";
-};
+}
 
 const PoolBookmark = ({
   user: userQuery,

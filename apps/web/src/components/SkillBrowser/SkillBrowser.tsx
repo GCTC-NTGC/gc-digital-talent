@@ -6,7 +6,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { normalizeString } from "@gc-digital-talent/helpers";
 
-import { BaseSkillBrowserProps } from "./types";
+import { BaseSkillBrowserProps, FormValues } from "./types";
 import skillBrowserMessages from "./messages";
 import {
   INPUT_NAME,
@@ -29,12 +29,15 @@ const SkillBrowser = ({
 }: SkillBrowserProps) => {
   const intl = useIntl();
   const id = useId();
-  const { watch, resetField, setValue } = useFormContext();
   const inputNames = {
     category: `${id}-${INPUT_NAME.CATEGORY}`,
     family: `${id}-${INPUT_NAME.FAMILY}`,
   };
-  const [family, skillValue] = watch([inputNames.family, name]);
+  const { watch, resetField, setValue } = useFormContext();
+  const [family, skillValue] = watch([inputNames.family, name]) as [
+    FormValues["family"],
+    FormValues["skill"],
+  ];
 
   const filteredFamilies = useMemo(() => {
     return getFilteredFamilies({ skills }).sort((familyA, familyB) => {
@@ -67,7 +70,7 @@ const SkillBrowser = ({
   }, [inputNames.family, resetField]);
 
   useEffect(() => {
-    if (skillValue?.length > 0 && !family) {
+    if ((skillValue?.length ?? 0) > 0 && !family) {
       setValue(inputNames.family, "all");
     }
   }, [skillValue, family, setValue, inputNames.family]);

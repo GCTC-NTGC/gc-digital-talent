@@ -1,7 +1,4 @@
-/* eslint-disable import/no-duplicates */
-// known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import { useIntl } from "react-intl";
-import get from "lodash/get";
 import omit from "lodash/omit";
 import { isAfter } from "date-fns/isAfter";
 import { isBefore } from "date-fns/isBefore";
@@ -9,7 +6,7 @@ import { isSameDay } from "date-fns/isSameDay";
 import { isSameMonth } from "date-fns/isSameMonth";
 import { isSameYear } from "date-fns/isSameYear";
 import { isValid } from "date-fns/isValid";
-import { FieldError, useFormContext, Controller } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { ReactNode } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -33,7 +30,7 @@ export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
     /** Set of validation rules and error messages to impose on all input elements. */
     rules?: DateRegisterOptions;
     /** Select which segments are visible to the user */
-    show?: Array<DateSegment>;
+    show?: DateSegment[];
   };
 
 /**
@@ -56,8 +53,6 @@ const DateInput = ({
     control,
     formState: { errors },
   } = useFormContext();
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;
   const fieldState = useFieldState(name, !trackUnsaved);
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
@@ -65,7 +60,7 @@ const DateInput = ({
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
-      error,
+      error: fieldState === "invalid",
       unsaved: trackUnsaved && isUnsaved,
       context,
     },
@@ -167,7 +162,7 @@ const DateInput = ({
           />
         </Field.BoundingBox>
       </Field.Fieldset>
-      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };

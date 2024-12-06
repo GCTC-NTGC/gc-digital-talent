@@ -39,11 +39,9 @@ interface CommunityIconProps {
 }
 
 const CommunityIcon = ({ community, values }: CommunityIconProps) => {
-  const { watch } = useFormContext();
+  const { watch } = useFormContext<{ communities: string[] }>();
   const communitiesValue = watch("communities");
-  const isOn = values.some((value) =>
-    partOfCommunity(value as string, communitiesValue),
-  );
+  const isOn = values.some((value) => partOfCommunity(value, communitiesValue));
   const [iconOn, iconOff, iconOffDark] = getCommunityIcon(community);
 
   const styles = {

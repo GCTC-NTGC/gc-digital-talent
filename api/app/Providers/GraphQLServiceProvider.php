@@ -5,8 +5,8 @@ namespace App\Providers;
 use App\Discoverers\EnumDiscoverer;
 use App\Enums\Language;
 use App\GraphQL\Operators\PostgreSQLOperator;
-use App\Traits\HasLocalization;
 use GraphQL\Type\Definition\EnumType;
+use GraphQL\Type\Definition\NamedType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -19,17 +19,26 @@ class GraphQLServiceProvider extends ServiceProvider
     public function boot(TypeRegistry $typeRegistry): void
     {
 
+        /**
+         * Note: This is strange but PHPStan is having trouble knowing that EnumType
+         * implements the interface and the function is callable.
+         *
+         * Same for the other registerLazy
+         *
+         * @var callable(): \GraphQL\Type\Definition\Type&\GraphQL\Type\Definition\NamedType $callback */
+        $callback = static function (): NamedType {
+            return new EnumType([
+                'name' => 'Language',
+                'values' => [
+                    Language::EN->name => ['value' => Language::EN->value],
+                    Language::FR->name => ['value' => Language::FR->value],
+                ],
+            ]);
+        };
+
         $typeRegistry->registerLazy(
             'Language',
-            static function (): EnumType {
-                return new EnumType([
-                    'name' => 'Language',
-                    'values' => [
-                        Language::EN->name => ['value' => Language::EN->value],
-                        Language::FR->name => ['value' => Language::FR->value],
-                    ],
-                ]);
-            }
+            $callback
         );
 
         // Discover all enums in the App\Enum namespace to register them with GraphQL
@@ -38,24 +47,28 @@ class GraphQLServiceProvider extends ServiceProvider
         /** @var \UnitEnum $enum */
         foreach ($enums as $enum) {
             $name = class_basename($enum);
+
+            /** @var callable(): \GraphQL\Type\Definition\Type&\GraphQL\Type\Definition\NamedType $callback */
+            $callback = static function () use ($name, $enum) {
+                $values = array_column($enum::cases(), 'name');
+
+                return new EnumType([
+                    'name' => $name,
+                    'values' => $values,
+                ]);
+            };
+
             $typeRegistry->registerLazy(
                 $name,
-                static function () use ($name, $enum): EnumType {
-                    $values = array_column($enum::cases(), 'name');
-
-                    return new EnumType([
-                        'name' => $name,
-                        'values' => $values,
-                    ]);
-                }
+                $callback
             );
         }
 
-        // Discover all enums in the App\Enum namespace that implement the HasLocalization trait
-        // and register them as a LocalizedEnum type in GraphQL
+        /** Discover all enums in the App\Enum namespace that implement the HasLocalization trait
+         * and register them as a LocalizedEnum type in GraphQL
+         */
         $localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
-        /** @var HasLocalization $enum */
         foreach ($localizedEnums as $enum) {
             $name = class_basename($enum);
 
@@ -63,6 +76,7 @@ class GraphQLServiceProvider extends ServiceProvider
             $resolver = function ($value, $args, $context, ResolveInfo $info) use ($enum) {
                 switch ($info->fieldName) {
                     case 'value': return $value;
+                        /** @disregard P1013 Can't type hint traits */
                     case 'label': return $enum::localizedString($value);
                     default: return null;
                 }

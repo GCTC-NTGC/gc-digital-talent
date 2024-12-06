@@ -83,6 +83,8 @@ type User {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email")
+  isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
     @rename(attribute: "gov_employee_type")
   currentClassification: Classification @belongsTo # Users current classification
@@ -141,6 +143,8 @@ type User {
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+    @canResolved(ability: "view") # Search requests submitted by a user
 }
 
 interface Notification {
@@ -240,6 +244,7 @@ type ScreeningQuestion {
 }
 
 interface HasRoleAssignments {
+  id: ID!
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
@@ -299,8 +304,12 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  teamIdForRoleAssignment: ID
+  teamIdForRoleAssignment: ID @with(relation: "team")
   department: Department @belongsTo @canQuery(ability: "view")
+  areaOfSelection: LocalizedPoolAreaOfSelection
+    @rename(attribute: "area_of_selection")
+  selectionLimitations: [LocalizedPoolSelectionLimitation!]
+    @rename(attribute: "selection_limitations")
 }
 
 type GeneralQuestionResponse {
@@ -365,6 +374,12 @@ type PoolSkill {
     @canRoot(ability: "viewAssessmentSteps")
 }
 
+type PoolCandidateCategory {
+  weight: Int!
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -372,6 +387,7 @@ type PoolCandidate {
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
+  category: PoolCandidateCategory @with(relation: "user")
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
@@ -468,15 +484,24 @@ type Department {
     @canResolved(ability: "view")
 }
 
+type WorkStream {
+  id: UUID!
+  key: String
+  name: LocalizedString
+  plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
+  community: Community @belongsTo
+}
+
 type Community implements HasRoleAssignments {
   id: ID!
   key: String!
   name: LocalizedString
   description: LocalizedString
+  mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  teamIdForRoleAssignment: ID
+  teamIdForRoleAssignment: ID @with(relation: "team")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
@@ -512,7 +537,7 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role @belongsTo
-  teamable: HasRoleAssignments # Returns the related team, if it has a teamable returns that instead
+  teamable: HasRoleAssignments @guard # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
 }
@@ -593,6 +618,7 @@ type PoolCandidateSearchRequest {
     @rename(attribute: "position_type")
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community @belongsTo
+  initialResultCount: Int @rename(attribute: "initial_result_count")
 }
 
 type SkillFamily {
@@ -636,7 +662,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   details: String
   skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -659,6 +684,28 @@ type WorkExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  employmentCategory: LocalizedEmploymentCategory
+    @rename(attribute: "employment_category")
+  extSizeOfOrganization: LocalizedExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  extRoleSeniority: LocalizedExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: LocalizedWorkExperienceGovEmployeeType
+    @rename(attribute: "gov_employment_type")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "gov_position_type")
+  govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: LocalizedGovContractorType
+    @rename(attribute: "gov_contractor_type")
+  contractorFirmAgencyName: String
+    @rename(attribute: "contractor_firm_agency_name")
+  cafEmploymentType: LocalizedCafEmploymentType
+    @rename(attribute: "caf_employment_type")
+  cafForce: LocalizedCafForce @rename(attribute: "caf_force")
+  cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
+  classification: Classification @with(relation: "classification")
+  department: Department @with(relation: "department")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -726,6 +773,44 @@ type ExperienceSkillRecord {
   details: String
 }
 
+type JobPosterTemplate {
+  id: UUID!
+  referenceId: String @rename(attribute: "reference_id")
+  name: LocalizedString
+  description: LocalizedString
+  supervisoryStatus: LocalizedSupervisoryStatus
+    @rename(attribute: "supervisory_status")
+  stream: LocalizedPoolStream
+  workDescription: LocalizedString @rename(attribute: "work_description")
+  tasks: LocalizedString
+  keywords: LocalizedKeywords
+  essentialTechnicalSkillsNotes: LocalizedString
+    @rename(attribute: "essential_technical_skills_notes")
+  essentialBehaviouralSkillsNotes: LocalizedString
+    @rename(attribute: "essential_behavioural_skills_notes")
+  nonessentialTechnicalSkillsNotes: LocalizedString
+    @rename(attribute: "nonessential_technical_skills_notes")
+
+  classification: Classification @belongsTo
+  skills: [JobPosterTemplateSkill!] @belongsToMany(model: "Skill")
+}
+
+type LocalizedKeywords {
+  en: [String!]
+  fr: [String!]
+}
+
+type JobPosterTemplateSkillPivot {
+  type: LocalizedPoolSkillType!
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
+}
+
+type JobPosterTemplateSkill {
+  id: UUID!
+  skill: Skill! @self
+  pivot: JobPosterTemplateSkillPivot
+}
+
 input ClassificationFilterInput {
   group: String!
   level: Int!
@@ -753,6 +838,7 @@ input UserFilterInput {
   isGovEmployee: Boolean @scope
   telephone: String @scope
   email: String @scope
+  workEmail: String @scope
   name: String @scope
   generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")
@@ -771,8 +857,9 @@ input PoolFilterInput {
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
-  classifications: [ClassificationFilterInput!] @scope
-  canAdmin: Boolean @scope(name: "authorizedToViewAsAdmin")
+  classifications: [ClassificationFilterInput!]
+    @scope(name: "whereClassifications")
+  canAdmin: Boolean @scope
 }
 
 input PoolTeamDisplayNameOrderByInput {
@@ -783,6 +870,12 @@ input PoolTeamDisplayNameOrderByInput {
 input PoolBookmarksOrderByInput {
   column: String!
   order: SortOrder!
+}
+
+input OrderByColumnInput {
+  column: String!
+  order: SortOrder!
+  nulls: NullsOption
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
@@ -800,7 +893,7 @@ input ApplicantFilterInput {
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  community: IdInput
+  community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
 input PoolCandidateSearchInput {
@@ -856,12 +949,35 @@ type SitewideAnnouncement {
   message: LocalizedString!
 }
 
+type TrainingOpportunity {
+  id: UUID!
+  title: LocalizedString
+  courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  registrationDeadlineStatus: LocalizedDeadlineStatus
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedString
+  applicationUrl: LocalizedString @rename(attribute: "application_url")
+  courseFormat: LocalizedCourseFormat @rename(attribute: "course_format")
+}
+
+input TrainingOpportunitiesFilterInput {
+  hidePassedRegistrationDeadline: Boolean @scope
+  opportunityLanguage: CourseLanguage @scope
+}
+
 input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime! @rules(apply: ["after:publishDate"])
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+}
+
+input ClaimVerificationSort {
+  order: SortOrder!
+  useBookmark: Boolean
 }
 
 type Query {
@@ -876,13 +992,6 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @canResolved(ability: "view")
-  applicants(includeIds: [ID]! @in(key: "id")): [User]!
-    @all(model: "User")
-    @guard
-    @canModel(ability: "viewAny", model: "User")
-    @deprecated(
-      reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
-    )
   userPublicProfilesPaginated(
     where: UserPublicProfileFilterInput
     excludeIds: [ID!] @notIn(key: "id")
@@ -905,10 +1014,10 @@ type Query {
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
-    @all(scopes: ["wasPublished", "notArchived"])
+    @all(scopes: ["wherePublished", "whereNotArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
-    @all(scopes: ["authorizedToView", "notArchived"])
+    @all(scopes: ["authorizedToView", "whereNotArchived"])
     @canResolved(ability: "view")
     @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
@@ -917,6 +1026,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -931,17 +1041,10 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view")
-  poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
-    @all(scopes: ["notDraft"])
-    @guard
-    @canResolved(ability: "view")
-    @deprecated(
-      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
-    )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: SortOrder @scope
+    orderByClaimVerification: ClaimVerificationSort @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -960,6 +1063,13 @@ type Query {
           { relation: "pool", columns: ["process_number"] }
         ]
       )
+      @with(
+        relations: [
+          "user:id,first_name,last_name,email,preferred_lang"
+          "pool:id,process_number"
+          "skills:id,name"
+        ]
+      ) # Limit fields for eager loading
   ): [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
@@ -974,9 +1084,15 @@ type Query {
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
-  classifications: [Classification]! @all @canModel(ability: "viewAny")
+  classifications(availableInSearch: Boolean @scope): [Classification]!
+    @all
+    @canModel(ability: "viewAny")
   department(id: UUID! @eq): Department @find @canModel(ability: "view")
   departments: [Department]! @all @canModel(ability: "viewAny")
+  jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
+    @find
+    @canFind(ability: "view", find: "id")
+  jobPosterTemplates: [JobPosterTemplate!] @all @canModel(ability: "viewAny")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -986,9 +1102,9 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [PoolCandidateSearchRequest]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 500)
+    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
     @guard
-    @canModel(ability: "viewAny")
+    @canResolved(ability: "view")
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
@@ -998,10 +1114,12 @@ type Query {
     @canModel(ability: "view")
   genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
 
+  community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+  workStreams: [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
     where: NotificationFilterInput
@@ -1011,6 +1129,16 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
+  trainingOpportunitiesPaginated(
+    where: TrainingOpportunitiesFilterInput
+    orderBy: [OrderByClause!] @orderBy
+  ): [TrainingOpportunity]
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      model: "App\\Models\\TrainingOpportunity"
+    )
 
   localizedEnumStrings(
     enumName: String!
@@ -1041,7 +1169,12 @@ input CreateUserInput {
   email: Email
     @lowerCase
     @rules(
-      apply: ["sometimes", "nullable", "unique:users,email"]
+      apply: [
+        "sometimes"
+        "nullable"
+        "unique:users,email"
+        "unique:users,work_email"
+      ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
   telephone: PhoneNumber
@@ -1073,6 +1206,18 @@ input CreateUserInput {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email
+    @rename(attribute: "work_email")
+    @lowerCase
+    @rules(
+      apply: [
+        "sometimes"
+        "nullable"
+        "unique:users,email"
+        "unique:users,work_email"
+      ]
+      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
+    )
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1108,8 +1253,7 @@ input CreateUserInput {
 """
 When updating a User, all fields are optional
 """
-input UpdateUserAsAdminInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
@@ -1145,6 +1289,7 @@ input UpdateUserAsAdminInput
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email") @lowerCase
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1188,8 +1333,7 @@ input UpdateUserRolesInput {
   roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
-input UpdateUserAsUserInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsUserInput @validator {
   id: ID
   # Personal info
   email: Email @lowerCase
@@ -1224,6 +1368,7 @@ input UpdateUserAsUserInput
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  workEmail: Email @rename(attribute: "work_email") @lowerCase
   govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -1278,8 +1423,12 @@ input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
   level: Int!
-  minSalary: Int @rename(attribute: "min_salary")
-  maxSalary: Int @rename(attribute: "max_salary")
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input ClassificationBelongsToMany {
@@ -1299,8 +1448,12 @@ input CreatePoolCandidateAsAdminInput {
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
-  minSalary: Int @rename(attribute: "min_salary")
-  maxSalary: Int @rename(attribute: "max_salary")
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -1339,16 +1492,41 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input PoolBelongsToMany {
-  sync: [ID!]
-}
-
 input DepartmentBelongsTo {
   connect: ID
   disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput!
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo!
+}
+
+input UpdateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo
+}
+
+input WorkStreamBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input WorkStreamBelongsToMany {
+  sync: [ID!]
+}
+
+input PoolBelongsToMany {
   sync: [ID!]
 }
 
@@ -1374,6 +1552,20 @@ input UpdateTeamInput {
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
+}
+
+input CreateCommunityInput {
+  key: String!
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+}
+
+input UpdateCommunityInput {
+  key: String
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input CreateApplicantFilterInput {
@@ -1414,6 +1606,7 @@ input CreatePoolCandidateSearchRequestInput {
   positionType: PoolCandidateSearchPositionType!
     @rename(attribute: "position_type")
   reason: PoolCandidateSearchRequestReason!
+  initialResultCount: Int @rename(attribute: "initial_result_count")
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1484,6 +1677,29 @@ input WorkExperienceInput {
   endDate: Date @rename(attribute: "end_date")
   details: String
   skills: UpdateExperienceSkills @spread
+  employmentCategory: EmploymentCategory
+    @rename(attribute: "employment_category")
+  extSizeOfOrganization: ExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  extRoleSeniority: ExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: WorkExperienceGovEmployeeType
+    @rename(attribute: "gov_employment_type")
+  govPositionType: GovPositionType @rename(attribute: "gov_position_type")
+  govContractorRoleSeniority: GovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: GovContractorType @rename(attribute: "gov_contractor_type")
+  cafEmploymentType: CafEmploymentType @rename(attribute: "caf_employment_type")
+  contractorFirmAgencyName: String
+    @rename(attribute: "contractor_firm_agency_name")
+  cafForce: CafForce @rename(attribute: "caf_force")
+  cafRank: CafRank @rename(attribute: "caf_rank")
+  classification: ClassificationBelongsTo
+    @pluck(key: "connect")
+    @rename(attribute: "classification_id")
+  department: DepartmentBelongsTo
+    @pluck(key: "connect")
+    @rename(attribute: "department_id")
 }
 input PersonalExperienceInput {
   title: String
@@ -1647,6 +1863,9 @@ input UpdatePoolInput {
   opportunityLength: PoolOpportunityLength
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
+  areaOfSelection: PoolAreaOfSelection @rename(attribute: "area_of_selection")
+  selectionLimitations: [PoolSelectionLimitation!]
+    @rename(attribute: "selection_limitations")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -1715,6 +1934,28 @@ input UpdateAssessmentResultInput
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
+input CreateTrainingOpportunityInput {
+  title: LocalizedStringInput!
+  courseLanguage: CourseLanguage! @rename(attribute: "course_language")
+  registrationDeadline: Date! @rename(attribute: "registration_deadline")
+  trainingStart: Date! @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput!
+  applicationUrl: LocalizedStringInput! @rename(attribute: "application_url")
+  courseFormat: CourseFormat! @rename(attribute: "course_format")
+}
+
+input UpdateTrainingOpportunityInput {
+  id: UUID!
+  title: LocalizedStringInput
+  courseLanguage: CourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput
+  applicationUrl: LocalizedStringInput @rename(attribute: "application_url")
+  courseFormat: CourseFormat @rename(attribute: "course_format")
+}
 
 input PoolSkillBelongsToMany {
   sync: [UUID!]!
@@ -1741,12 +1982,6 @@ input RolesForTeamHasMany {
   attach: RolesForTeamInput
   detach: RolesForTeamInput
   sync: RolesForTeamInput
-}
-
-input UpdateUserTeamRolesInput {
-  teamId: ID!
-  userId: UUID!
-  roleAssignments: RolesForTeamHasMany!
 }
 
 input GeneralResponseBelongsTo {
@@ -1814,10 +2049,72 @@ input DateRange {
   to: DateTime! @rules(apply: ["after_or_equal:from"])
 }
 
+input LocalizedKeywordsInput {
+  en: [String!]
+  fr: [String!]
+}
+
 input NotificationFilterInput {
   onlyUnread: Boolean @scope
   readAt: DateRange @whereBetween(key: "read_at")
   createdAt: DateRange @whereBetween(key: "created_at")
+}
+
+input ConnectJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType!
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
+}
+
+input SyncJobPosterTemplateSkillInput {
+  id: UUID!
+  type: PoolSkillType
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
+}
+
+input UpdateJobPosterTemplateSkillsInput {
+  connect: [ConnectJobPosterTemplateSkillInput!]
+  sync: [SyncJobPosterTemplateSkillInput!]
+  detach: [UUID!]
+}
+
+input CreateJobPosterTemplateInput @validator {
+  referenceId: String! @rename(attribute: "reference_id")
+  name: LocalizedStringInput!
+  description: LocalizedStringInput!
+  supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
+  stream: PoolStream!
+  workDescription: LocalizedStringInput @rename(attribute: "work_description")
+  tasks: LocalizedStringInput!
+  keywords: LocalizedKeywordsInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_technical_skills_notes")
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_behavioural_skills_notes")
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "nonessential_technical_skills_notes")
+  classification: ClassificationBelongsTo!
+  skills: UpdateJobPosterTemplateSkillsInput
+}
+
+input UpdateJobPosterTemplateInput @validator {
+  id: UUID!
+  referenceId: String @rename(attribute: "reference_id")
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
+  stream: PoolStream
+  workDescription: LocalizedStringInput @rename(attribute: "work_description")
+  tasks: LocalizedStringInput
+  keywords: LocalizedStringInput
+  essentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_technical_skills_notes")
+  essentialBehaviouralSkillsNotes: LocalizedStringInput
+    @rename(attribute: "essential_behavioural_skills_notes")
+  nonessentialTechnicalSkillsNotes: LocalizedStringInput
+    @rename(attribute: "nonessential_technical_skills_notes")
+  classification: ClassificationBelongsTo
+  skills: UpdateJobPosterTemplateSkillsInput
 }
 
 type Mutation {
@@ -1852,12 +2149,8 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
-  sendUserEmailVerification(id: ID!): User
-    @guard
-    @canFind(ability: "update", find: "id")
-  verifyUserEmail(id: ID!, code: String!): User
-    @guard
-    @canFind(ability: "update", find: "id")
+  sendUserEmailVerification(emailType: EmailType): User @guard
+  verifyUserEmail(emailType: EmailType, code: String!): User @guard
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(
@@ -1871,7 +2164,6 @@ type Mutation {
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
-    @update
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
@@ -2000,7 +2292,12 @@ type Mutation {
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @create @canModel(ability: "create", injectArgs: true)
+  ): WorkExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   createPersonalExperience(
     userId: ID! @rename(attribute: "user_id")
     personalExperience: PersonalExperienceInput! @spread
@@ -2020,7 +2317,13 @@ type Mutation {
   updateWorkExperience(
     id: ID!
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @update @guard @canFind(ability: "update", find: "id")
+  ): WorkExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   updatePersonalExperience(
     id: ID!
     personalExperience: PersonalExperienceInput! @spread
@@ -2147,6 +2450,28 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
 
+  # Job poster template mutations
+  createJobPosterTemplate(
+    jobPosterTemplate: CreateJobPosterTemplateInput! @spread
+  ): JobPosterTemplate @create @guard @canModel(ability: "create")
+  updateJobPosterTemplate(
+    jobPosterTemplate: UpdateJobPosterTemplateInput! @spread
+  ): JobPosterTemplate @update @guard @canFind(ability: "update", find: "id")
+  deleteJobPosterTemplate(id: UUID! @whereKey): JobPosterTemplate
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
+
+  # Work stream mutations
+  createWorkStream(workStream: CreateWorkStreamInput! @spread): WorkStream
+    @create
+    @guard
+    @canModel(ability: "create")
+  updateWorkStream(
+    id: UUID!
+    workStream: UpdateWorkStreamInput! @spread
+  ): WorkStream @update @guard @canFind(ability: "update", find: "id")
+
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team
     @create
@@ -2159,12 +2484,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateUserTeamRoles(
-    teamRoleAssignments: UpdateUserTeamRolesInput! @spread
-  ): Team
-    @guard
-    @canFind(ability: "assignTeamMembers", find: "teamId")
-    @deprecated(reason: "use updateUserRoles")
+
+  # Communities mutations
+  createCommunity(community: CreateCommunityInput! @spread): Community
+    @create
+    @canModel(ability: "create")
+    @validator
+  updateCommunity(
+    id: UUID!
+    community: UpdateCommunityInput! @spread
+  ): Community @update @canFind(ability: "update", find: "id") @validator
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
@@ -2235,9 +2564,36 @@ type Mutation {
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
 
-  # File downloads
-  downloadPoolCandidatesCsv(ids: [UUID!]!, locale: Language): Boolean! @guard
-  downloadPoolCandidatesDoc(ids: [UUID!]!, anonymous: Boolean!, locale: Language): Boolean! @guard
+  createTrainingOpportunity(
+    createTrainingOpportunity: CreateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @create @guard @canModel(ability: "create")
+  updateTrainingOpportunity(
+    updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @update @guard @canModel(ability: "update")
+
+  # CSV file downloads
+  downloadPoolCandidatesCsv(
+    ids: [UUID!]
+    where: PoolCandidateSearchInput
+    withROD: Boolean
+  ): Boolean! @guard
+  downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+
+  # ZIP file downloads
+  downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard
+  downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean! @guard
+  downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean! @guard
+
+  # Downloads for single entity, returning file name if successful or null on error
+  downloadUserDoc(id: UUID!, anonymous: Boolean!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "User")
+  downloadPoolCandidateDoc(id: UUID!, anonymous: Boolean!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "PoolCandidate")
+  downloadApplicationDoc(id: UUID!): String
+    @guard
+    @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
 
 #import directiveForms.graphql

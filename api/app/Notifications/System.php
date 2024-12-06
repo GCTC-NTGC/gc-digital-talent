@@ -17,6 +17,8 @@ class System extends Notification implements CanBeSentViaGcNotifyEmail
      * Create a new notification instance.
      */
     public function __construct(
+        public bool $channelEmail,
+        public bool $channelApp,
         public string $emailSubjectEn,
         public string $emailSubjectFr,
         public string $emailContentEn,
@@ -36,12 +38,23 @@ class System extends Notification implements CanBeSentViaGcNotifyEmail
     {
         // $notificationFamily = NotificationFamily::SYSTEM_MESSAGE->name;
         // Can't ignore system messages
-        return ['database', GcNotifyEmailChannel::class];
+
+        $arr = [];
+
+        if ($this->channelApp) {
+            $arr[] = 'database';
+        }
+
+        if ($this->channelEmail) {
+            $arr[] = GcNotifyEmailChannel::class;
+        }
+
+        return $arr;
     }
 
     /**
      * Get the array representation of the notification.
-     * https://laravel.com/docs/10.x/notifications#formatting-database-notifications
+     * https://laravel.com/docs/11.x/notifications#formatting-database-notifications
      *
      * @return array<string, mixed>
      */

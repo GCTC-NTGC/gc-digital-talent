@@ -2,42 +2,50 @@
 
 namespace App\Models;
 
+use App\Traits\HydratesSnapshot;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Lang;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Experience
  *
- * @property int $id
- * @property int $user_id
- * @property Illuminate\Support\Carbon $created_at
- * @property Illuminate\Support\Carbon $updated_at
+ * @property string $id
+ * @property string $user_id
+ * @property \Illuminate\Support\Carbon $start_date
+ * @property ?\Illuminate\Support\Carbon $end_date
+ * @property ?\Illuminate\Support\Carbon $awarded_date
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
  */
 class Experience extends Model
 {
     use HasRelationships;
+    use HydratesSnapshot;
     use SoftDeletes;
 
     protected $keyType = 'string';
 
+    protected static $hydrationFields;
+
     /**
      * Create a new concrete model instance that is existing, based on the type field.
      *
-     * @param  object  $attributes
+     * @param  mixed  $attributes
      * @param  string|null  $connection
      * @return static
      */
     public function newFromBuilder($attributes = [], $connection = null)
     {
-        $model = $this->newInstanceFromType($attributes->experience_type);
+        /** @disregard Even though it is typed as an array, it is actually a class */
+        $model = $this->newInstanceFromType(((object) $attributes)->experience_type);
 
         $model->exists = true;
 
@@ -62,11 +70,13 @@ class Experience extends Model
         return new $type;
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /** @return BelongsToMany<UserSkill, $this> */
     public function userSkills(): BelongsToMany
     {
         return $this->belongsToMany(UserSkill::class, 'experience_skill', 'experience_id')
@@ -76,14 +86,15 @@ class Experience extends Model
             ->as('experience_skill');
     }
 
-    public function skills(): HasManyThrough
+    public function skills(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at')
             ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
     }
 
+    /** @return HasMany<ExperienceSkill, $this> */
     public function experienceSkills(): HasMany
     {
         return $this->hasMany(ExperienceSkill::class);
@@ -92,7 +103,7 @@ class Experience extends Model
     /**
      * Sync means we will add missing skills, remove skills not in this array, and update the details of existing skills.
      *
-     * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
+     * @param  array<string, array<string, string>>|null  $skills  - Skills must be an array of items, each of which must have an id, and optionally have a details string.
      * @return void
      */
     public function syncSkills($skills)
@@ -119,7 +130,7 @@ class Experience extends Model
     /**
      * Connect means we will add missing skills and update the details of existing skills, but not remove any skills.
      *
-     * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
+     * @param  array<string, array<string, string>>|null  $skills  - Skills must be an array of items, each of which must have an id, and optionally have a details string.
      * @return void
      */
     public function connectSkills($skills)
@@ -227,7 +238,7 @@ class Experience extends Model
         return null;
     }
 
-    protected static function setJsonPropertyDate(mixed $value, array $attributes, string $propertyName)
+    protected static function setJsonPropertyDate(mixed $value, ?array $attributes, string $propertyName)
     {
         $properties = json_decode($attributes['properties'] ?? '{}');
         if (! empty($value)) {
@@ -242,13 +253,14 @@ class Experience extends Model
     protected function makeJsonPropertyDateAttribute(string $propertyName): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, $propertyName),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, $propertyName)
+            get: fn (mixed $value, mixed $attributes) => $this::getJsonPropertyDate($attributes, $propertyName),
+            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyDate($value, $attributes, $propertyName)
         );
     }
 
     protected static function getJsonPropertyString(array $attributes, string $propertyName)
     {
+
         $properties = json_decode($attributes['properties'] ?? '{}');
         if (isset($properties->$propertyName)) {
             return strval($properties->$propertyName);
@@ -269,7 +281,35 @@ class Experience extends Model
     {
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, $propertyName),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, $propertyName)
+            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyString($value, $attributes, $propertyName)
         );
+    }
+
+    public static function hydrateSnapshot(mixed $snapshot): Model|array
+    {
+        $experiences = [];
+        foreach ($snapshot as $experience) {
+            $hydrationModel = match ($experience['__typename']) {
+                'AwardExperience' => AwardExperience::class,
+                'CommunityExperience' => CommunityExperience::class,
+                'EducationExperience' => EducationExperience::class,
+                'PersonalExperience' => PersonalExperience::class,
+                'WorkExperience' => WorkExperience::class,
+                default => null,
+            };
+
+            if ($hydrationModel) {
+                $fields = [
+                    ...$hydrationModel::$hydrationFields,
+                    'id' => 'id',
+                    'details' => 'details',
+                ];
+
+                $model = new $hydrationModel;
+                $experiences[] = self::hydrateFields($experience, $fields, $model);
+            }
+        }
+
+        return $experiences;
     }
 }

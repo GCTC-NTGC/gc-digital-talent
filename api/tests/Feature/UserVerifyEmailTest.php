@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\EmailType;
 use App\Facades\Notify;
 use App\Models\User;
 use App\Notifications\VerifyEmail;
@@ -33,16 +34,16 @@ class UserVerifyEmailTest extends TestCase
 
     private $sendVerificationEmailMutation =
         /** @lang GraphQL */
-        'mutation SendVerificationEmail($id: ID!) {
-            sendUserEmailVerification(id: $id) {
+        'mutation SendVerificationEmail($emailType: EmailType) {
+            sendUserEmailVerification(emailType: $emailType) {
                 id
             }
         }';
 
     private $verifyEmailMutation =
         /** @lang GraphQL */
-        'mutation VerifyMyEmail($id: ID!, $code: String!) {
-            verifyUserEmail(id: $id, code: $code) {
+        'mutation VerifyMyEmail($code: String!, $emailType: EmailType) {
+            verifyUserEmail(code: $code, emailType: $emailType) {
                 id
                 isEmailVerified
             }
@@ -63,6 +64,8 @@ class UserVerifyEmailTest extends TestCase
                 'id' => '00000000-0000-0000-0000-000000000001',
                 'email' => 'regular.user@example.org',
                 'email_verified_at' => null,
+                'work_email' => 'regular.user@gc.ca',
+                'work_email_verified_at' => null,
             ]);
 
         $this->adminUser = User::factory()
@@ -76,7 +79,6 @@ class UserVerifyEmailTest extends TestCase
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->sendVerificationEmailMutation,
-            ['id' => '00000000-0000-0000-0000-000000000001']
         );
 
         Notification::assertSentTo(
@@ -85,27 +87,13 @@ class UserVerifyEmailTest extends TestCase
 
     }
 
-    public function testUserCantGenerateNotificationForSomeoneElse()
-    {
-        Notification::fake();
-
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            $this->sendVerificationEmailMutation,
-            ['id' => '00000000-0000-0000-0000-000000000001']
-        )
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
-
-        Notification::assertNothingSent();
-    }
-
     public function testCodeSaved()
     {
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->sendVerificationEmailMutation,
-            ['id' => '00000000-0000-0000-0000-000000000001']
         );
 
-        $token = Cache::get('email-verification-00000000-0000-0000-0000-000000000001');
+        $token = Cache::get('CONTACT-email-verification-00000000-0000-0000-0000-000000000001');
         assertNotNull($token);
         assertNotNull($token['code']);
         assertEquals('email', $token['field']);
@@ -115,7 +103,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCanVerifyWithCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -127,7 +115,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         );
@@ -139,7 +126,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithBadCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -151,7 +138,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '6789',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
@@ -163,7 +149,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithBadField()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'work_email',
@@ -175,7 +161,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
@@ -187,7 +172,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithBadEmail()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -199,7 +184,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
@@ -211,7 +195,7 @@ class UserVerifyEmailTest extends TestCase
     public function testCantVerifyWithExpiredCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'CONTACT-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
                 'field' => 'email',
@@ -225,7 +209,6 @@ class UserVerifyEmailTest extends TestCase
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->verifyEmailMutation,
             [
-                'id' => '00000000-0000-0000-0000-000000000001',
                 'code' => '1234',
             ]
         )->assertGraphQLErrorMessage('VERIFICATION_FAILED');
@@ -247,5 +230,74 @@ class UserVerifyEmailTest extends TestCase
 
         // check that verification was cleared
         assertNull($this->regularUser->email_verified_at);
+    }
+
+    public function testWorkEmailCodeSaved()
+    {
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->sendVerificationEmailMutation,
+            [
+                'emailType' => 'WORK',
+            ]
+        );
+
+        $token = Cache::get('WORK-email-verification-00000000-0000-0000-0000-000000000001');
+        assertNotNull($token);
+        assertNotNull($token['code']);
+        assertEquals('work_email', $token['field']);
+        assertEquals($this->regularUser->work_email, $token['value']);
+    }
+
+    public function testCanVerifyWorkEmailWithCode()
+    {
+        Cache::put(
+            'WORK-email-verification-00000000-0000-0000-0000-000000000001',
+            [
+                'code' => '1234',
+                'field' => 'work_email',
+                'value' => 'regular.user@gc.ca',
+            ],
+            now()->addHours(2)
+        );
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->verifyEmailMutation,
+            [
+                'code' => '1234',
+                'emailType' => 'WORK',
+            ]
+        );
+
+        $this->regularUser->refresh();
+        assertNotNull($this->regularUser->work_email_verified_at);
+    }
+
+    public function testChangingWorkEmailClearsVerification()
+    {
+        // start off verified
+        $this->regularUser->work_email_verified_at = Carbon::now();
+        $this->regularUser->save();
+        assertNotNull($this->regularUser->work_email_verified_at);
+
+        // change email away from the verified one
+        $this->regularUser->work_email = 'new.email@gc.ca';
+        $this->regularUser->save();
+
+        // check that verification was cleared
+        assertNull($this->regularUser->work_email_verified_at);
+    }
+
+    public function testNullEmailFailsSending()
+    {
+        $this->regularUser->work_email = null;
+        $this->regularUser->work_email_verified_at = null;
+        $this->regularUser->save();
+
+        $this->actingAs($this->regularUser, 'api')
+            ->graphQL($this->sendVerificationEmailMutation, [
+                'emailType' => EmailType::WORK->name,
+            ])
+            ->assertGraphQLErrorMessage('Email type '.EmailType::WORK->name.' not set');
+
     }
 }

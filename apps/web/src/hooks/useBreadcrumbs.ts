@@ -1,25 +1,42 @@
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 
 import type { BreadcrumbsProps } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+
+import useNavContext from "~/components/NavContext/useNavContext";
 
 import useRoutes from "./useRoutes";
 
 type Crumbs = BreadcrumbsProps["crumbs"];
 
-type useBreadcrumbsProps = {
+interface useBreadcrumbsProps {
   crumbs: Crumbs;
-  isAdmin?: boolean;
-};
+}
 
-const useBreadcrumbs = ({ crumbs, isAdmin }: useBreadcrumbsProps) => {
+const useBreadcrumbs = ({ crumbs }: useBreadcrumbsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
+  const { navRole } = useNavContext();
 
   const iapPersonality = searchParams.get("personality") === "iap";
-  const homePath = isAdmin ? paths.adminDashboard() : paths.home();
+  let homePath = paths.home();
+
+  switch (navRole) {
+    case "applicant":
+      homePath = paths.home();
+      break;
+    case "manager":
+      homePath = paths.manager();
+      break;
+    case "community":
+      homePath = paths.communityDashboard();
+      break;
+    case "admin":
+      homePath = paths.adminDashboard();
+      break;
+  }
 
   return [
     {

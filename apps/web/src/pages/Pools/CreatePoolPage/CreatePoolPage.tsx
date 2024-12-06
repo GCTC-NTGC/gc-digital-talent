@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -7,6 +7,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Option, Select, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
@@ -21,16 +22,16 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import messages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
+import Hero from "~/components/Hero";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -64,12 +65,12 @@ const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type FormValues = {
+interface FormValues {
   classification: string;
   team: string;
   department: string;
   community: string;
-};
+}
 
 interface CreatePoolFormProps {
   userId: string;
@@ -129,9 +130,9 @@ export const CreatePoolForm = ({
       data.community,
       formValuesToSubmitData(data),
     )
-      .then((result) => {
+      .then(async (result) => {
         if (result) {
-          navigate(paths.poolUpdate(result.id));
+          await navigate(paths.poolUpdate(result.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Recruitment process created successfully!",
@@ -205,11 +206,9 @@ export const CreatePoolForm = ({
               id="community"
               label={intl.formatMessage(messages.community)}
               name="community"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a community",
-                id: "m0iNdp",
-                description: "Null selection for community select input.",
-              })}
+              nullSelection={intl.formatMessage(
+                commonMessages.selectACommunity,
+              )}
               options={communityOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -269,9 +268,9 @@ export const CreatePoolForm = ({
   );
 };
 
-type ConstrainedTeamOnRoleAssignment = {
+interface ConstrainedTeamOnRoleAssignment {
   team?: Maybe<Pick<Team, "id" | "displayName">>;
-};
+}
 
 const roleAssignmentsToTeams = (
   roleAssignmentArray: Maybe<ConstrainedTeamOnRoleAssignment[]>,
@@ -348,8 +347,8 @@ const pageTitle = defineMessage({
 });
 
 const subTitle = defineMessage({
-  defaultMessage: "Create a new job poster from scratch",
-  id: "QodYZE",
+  defaultMessage: "Create a job poster from scratch",
+  id: "8XGVrK",
   description: "Form blurb describing create pool form",
 });
 
@@ -374,7 +373,7 @@ const CreatePoolPage = () => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }
-      return Promise.reject(result.error);
+      return Promise.reject(new Error(result.error?.toString()));
     });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
@@ -391,16 +390,15 @@ const CreatePoolPage = () => {
         url: routes.poolCreate(),
       },
     ],
-    isAdmin: true,
   });
 
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedSubTitle} />
-      <AdminHero
+      <Hero
         title={formattedPageTitle}
         subtitle={formattedSubTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
+        crumbs={navigationCrumbs}
       />
       <AdminContentWrapper>
         <Pending fetching={fetching} error={error}>
@@ -419,13 +417,7 @@ const CreatePoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.createProcess}>
     <CreatePoolPage />
   </RequireAuth>
 );

@@ -12,8 +12,6 @@ final class ChangeApplicationSuspendedAt
 {
     /**
      * Suspends/un-suspends the application.
-     *
-     * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
