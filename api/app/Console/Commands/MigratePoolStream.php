@@ -67,7 +67,7 @@ class MigratePoolStream extends Command
         $this->info('Updated applicant filter work streams...');
         ApplicantFilter::whereNotNull('qualified_streams')->chunkById(200, function (Collection $applicantFilters) use ($workStreams, &$applicantFiltersUpdated) {
             foreach ($applicantFilters as $applicantFilter) {
-                $streams = $workStreams->whereIn('key', $applicantFilter->qualified_streams)?->pluck('id');
+                $streams = $workStreams->whereIn('key', $applicantFilter->qualified_streams)->pluck('id');
                 if ($streams) {
                     $applicantFilter->workStreams()->sync($streams);
                     $applicantFiltersUpdated++;
