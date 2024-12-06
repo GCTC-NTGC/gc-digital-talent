@@ -12,6 +12,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use App\Models\WorkStream;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\DepartmentSeeder;
@@ -426,6 +427,7 @@ class ApplicantFilterTest extends TestCase
         ]);
 
         $community = Community::where('key', 'digital')->first();
+        $workStream = WorkStream::where('key', PoolStream::BUSINESS_ADVISORY_SERVICES->name)->first();
         $pool = Pool::factory()
             ->published()
             ->candidatesAvailableInSearch()
@@ -434,7 +436,7 @@ class ApplicantFilterTest extends TestCase
                     'en' => 'Test Pool EN',
                     'fr' => 'Test Pool FR',
                 ],
-                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                'work_stream_id' => $workStream->id,
                 'community_id' => $community->id,
             ]);
         // Create candidates who may show up in searches
@@ -475,7 +477,7 @@ class ApplicantFilterTest extends TestCase
         $candidateSkills = $candidateUser->experiences[0]->skills;
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
-        $filter->qualified_streams = $pool->stream;
+        $filter->workStreams()->saveMany([$pool->workStream]);
         $filter->save();
         $response = $this->graphQL(
             /** @lang GraphQL */

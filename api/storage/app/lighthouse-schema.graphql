@@ -972,7 +972,7 @@ type ApplicantFilter {
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
-  qualifiedStreams: [LocalizedPoolStream]
+  workStreams: [WorkStream!]
   pools: [Pool]
   community: Community
 }
@@ -1240,7 +1240,7 @@ input ApplicantFilterInput {
   skills: [IdInput]
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
-  qualifiedStreams: [PoolStream]
+  qualifiedStreams: [UUID!]
   community: IdInput
 }
 
@@ -1264,7 +1264,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
   departments: [ID]
   classifications: [ID]
-  streams: [PoolStream]
+  streams: [UUID]
   fullName: String
   email: String
   id: ID
@@ -1640,7 +1640,7 @@ input CreateApplicantFilterInput {
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
   qualifiedClassifications: ClassificationBelongsToMany
-  qualifiedStreams: [PoolStream]
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 

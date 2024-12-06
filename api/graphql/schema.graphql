@@ -589,8 +589,7 @@ type ApplicantFilter {
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
-  qualifiedStreams: [LocalizedPoolStream]
-    @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
+  workStreams: [WorkStream!] @belongsToMany
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -892,7 +891,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
-  qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  qualifiedStreams: [UUID!] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
@@ -920,7 +919,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
   departments: [ID] @scope
   classifications: [ID] @scope
-  streams: [PoolStream] @scope
+  streams: [UUID] @scope
   fullName: String @scope
   email: String @scope
   id: ID @scope
@@ -1583,7 +1582,7 @@ input CreateApplicantFilterInput {
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
   qualifiedClassifications: ClassificationBelongsToMany
-  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 

@@ -389,9 +389,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         group
         level
       }
-      qualifiedStreams {
-        value
-        label {
+      workStreams {
+        id
+        name {
           en
           fr
         }

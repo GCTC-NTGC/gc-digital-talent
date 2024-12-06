@@ -17,6 +17,7 @@ import {
   Classification,
   ApplicantFilterInput,
   Skill,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -44,9 +45,14 @@ const styledCount = (chunks: ReactNode) => (
 interface SearchFormProps {
   classifications: Pick<Classification, "group" | "level" | "id">[];
   skills: Skill[];
+  workStreams: WorkStream[];
 }
 
-export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
+export const SearchForm = ({
+  classifications,
+  skills,
+  workStreams,
+}: SearchFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -145,7 +151,11 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
               </p>
-              <FormFields skills={skills} classifications={classifications} />
+              <FormFields
+                skills={skills}
+                classifications={classifications}
+                workStreams={workStreams}
+              />
             </div>
             <div data-h2-display="base(none) p-tablet(block)">
               <EstimatedCandidates
@@ -246,6 +256,13 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       group
       level
     }
+    workStreams {
+      id
+      name {
+        en
+        fr
+      }
+    }
     skills {
       id
       key
@@ -285,10 +302,15 @@ const SearchFormAPI = () => {
 
   const skills = unpackMaybes<Skill>(data?.skills);
   const classifications = unpackMaybes(data?.classifications);
+  const workStreams = unpackMaybes(data?.workStreams);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SearchForm skills={skills} classifications={classifications} />
+      <SearchForm
+        skills={skills}
+        classifications={classifications}
+        workStreams={workStreams}
+      />
     </Pending>
   );
 };
