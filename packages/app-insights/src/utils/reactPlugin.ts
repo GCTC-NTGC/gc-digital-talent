@@ -31,4 +31,15 @@ if (aiConnectionString) {
 
 const { appInsights } = ai;
 
+// Add a telemetry initializer to include the referrer header
+if (appInsights) {
+  appInsights.addTelemetryInitializer((envelope) => {
+    const referrer = document.referrer;
+    if (referrer) {
+      envelope.data = envelope.data || {};
+      envelope.data.referrer = referrer;
+    }
+  });
+}
+
 export { reactPlugin, appInsights };
