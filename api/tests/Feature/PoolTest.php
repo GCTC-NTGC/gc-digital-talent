@@ -14,11 +14,13 @@ use App\Models\PoolSkill;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\WorkStream;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
+use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -1159,16 +1161,21 @@ class PoolTest extends TestCase
      */
     public function testPoolStreamsScope(): void
     {
+        $this->seed(WorkStreamSeeder::class);
+        $ATIPStream = WorkStream::where('key', PoolStream::ACCESS_INFORMATION_PRIVACY->name)->sole();
+        $businessStream = WorkStream::where('key', PoolStream::BUSINESS_ADVISORY_SERVICES->name)->sole();
+        $dbStream = WorkStream::where('key', PoolStream::DATABASE_MANAGEMENT->name)->sole();
+
         $ATIP = Pool::factory()->published()->create([
-            'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+            'work_stream_id' => $ATIPStream->id,
         ]);
 
         $BAS = Pool::factory()->published()->create([
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+            'work_stream_id' => $businessStream->id,
         ]);
 
         Pool::factory()->published()->create([
-            'stream' => PoolStream::DATABASE_MANAGEMENT->name,
+            'work_stream_id' => $dbStream->id,
         ]);
 
         $res = $this->graphQL(
@@ -1178,7 +1185,7 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            stream { value }
+                            workStream { id }
                         }
                     }
                 }
@@ -1186,8 +1193,8 @@ class PoolTest extends TestCase
             [
                 'where' => [
                     'streams' => [
-                        PoolStream::ACCESS_INFORMATION_PRIVACY->name,
-                        PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                        $ATIPStream->id,
+                        $businessStream->id,
                     ],
                 ],
             ]
@@ -1195,14 +1202,14 @@ class PoolTest extends TestCase
             'data' => [
                 [
                     'id' => $ATIP->id,
-                    'stream' => [
-                        'value' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    'workStream' => [
+                        'id' => $ATIPStream->id,
                     ],
                 ],
                 [
                     'id' => $BAS->id,
-                    'stream' => [
-                        'value' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'workStream' => [
+                        'id' => $businessStream->id,
                     ],
                 ],
             ],

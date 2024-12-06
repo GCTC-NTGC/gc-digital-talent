@@ -144,7 +144,9 @@ class PoolBuilder extends Builder
             return $this;
         }
 
-        return $this->whereIn('stream', $streams);
+        return $this->whereHas('workStream', function ($query) use ($streams) {
+            $query->whereIn('id', $streams);
+        });
     }
 
     public function whereClassifications(?array $classifications): self
