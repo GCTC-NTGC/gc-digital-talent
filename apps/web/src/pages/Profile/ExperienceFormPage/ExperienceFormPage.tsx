@@ -239,7 +239,7 @@ export const ExperienceForm = ({
   const defaultValues =
     experienceId && experience && experienceType
       ? queryResultToDefaultValues(experienceType, experience)
-      : {};
+      : { experienceType };
 
   const methods = useForm<FormValues>({
     shouldFocusError: false,
