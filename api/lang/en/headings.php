@@ -80,4 +80,5 @@ return [
     'decision' => 'Decision',
     'decision_details' => 'Decision details',
     'decision_notes' => 'Decision notes',
+    'final_decision' => 'Final decision',
 ];
