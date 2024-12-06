@@ -7,7 +7,6 @@ import {
   PoolOpportunityLength,
   PoolSkill,
   PoolSkillType,
-  PoolStream,
   PublishingGroup,
   SecurityStatus,
   SkillCategory,
@@ -22,9 +21,9 @@ import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";
 import { getSkills } from "./skills";
+import { getWorkStreams } from "./workStreams";
 
 const defaultPool: Partial<UpdatePoolInput> = {
-  stream: PoolStream.BusinessAdvisoryServices,
   closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
   yourImpact: {
     en: "test impact EN",
@@ -222,6 +221,7 @@ interface CreateAndPublishPoolArgs {
   name?: LocalizedString;
   classificationId?: string;
   departmentId?: string;
+  workStreamId?: string;
   skillIds?: string[];
   input?: UpdatePoolInput;
 }
@@ -239,51 +239,59 @@ export const createAndPublishPool: GraphQLRequestFunc<
     communityId,
     classificationId,
     departmentId,
+    workStreamId,
     input,
   },
 ) => {
-  return createPool(ctx, {
-    userId,
-    teamId,
-    communityId,
-    classificationId,
-    departmentId,
-  }).then(async (pool) => {
-    await updatePool(ctx, {
-      poolId: pool.id,
-      pool: {
-        ...defaultPool,
-        name: name ?? {
-          en: `Playwright Test Pool EN ${Date.now().valueOf()}`,
-          fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
-        },
-        ...input,
-      },
-    });
+    return createPool(ctx, {
+      userId,
+      teamId,
+      communityId,
+      classificationId,
+      departmentId,
+    }).then(async (pool) => {
+      let workStream = workStreamId;
+      if (!workStream) {
+        const workStreams = await getWorkStreams(ctx, {});
+        workStream = workStreams[0].id;
+      }
 
-    if (skillIds) {
-      await Promise.all(
-        skillIds.map(async (skillId) => {
-          await createPoolSkill(ctx, {
-            poolId: pool.id,
-            skillId,
-            poolSkill: {
-              type: PoolSkillType.Essential,
-              requiredLevel: SkillLevel.Beginner,
-            },
-          });
-        }),
-      );
-    } else {
-      await createPoolSkill(ctx, {
+      await updatePool(ctx, {
         poolId: pool.id,
-        poolSkill: {
-          type: PoolSkillType.Essential,
-          requiredLevel: SkillLevel.Beginner,
+        pool: {
+          ...defaultPool,
+          name: name ?? {
+            en: `Playwright Test Pool EN ${Date.now().valueOf()}`,
+            fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
+          },
+          ...input,
+          workStream: { connect: workStream },
         },
       });
-    }
 
-    return await publishPool(ctx, pool.id);
-  });
-};
+      if (skillIds) {
+        await Promise.all(
+          skillIds.map(async (skillId) => {
+            await createPoolSkill(ctx, {
+              poolId: pool.id,
+              skillId,
+              poolSkill: {
+                type: PoolSkillType.Essential,
+                requiredLevel: SkillLevel.Beginner,
+              },
+            });
+          }),
+        );
+      } else {
+        await createPoolSkill(ctx, {
+          poolId: pool.id,
+          poolSkill: {
+            type: PoolSkillType.Essential,
+            requiredLevel: SkillLevel.Beginner,
+          },
+        });
+      }
+
+      return await publishPool(ctx, pool.id);
+    });
+  };

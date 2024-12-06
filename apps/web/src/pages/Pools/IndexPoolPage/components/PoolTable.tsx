@@ -73,9 +73,9 @@ const defaultState = {
 const PoolTable_PoolFragment = graphql(/* GraphQL */ `
   fragment PoolTable_Pool on Pool {
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -299,7 +299,8 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       },
     }),
     columnHelper.accessor(
-      (row) => poolNameAccessor({ name: row.name, stream: row.stream }, intl),
+      (row) =>
+        poolNameAccessor({ name: row.name, workStream: row.workStream }, intl),
       {
         id: "name",
         header: intl.formatMessage(commonMessages.name),
@@ -323,9 +324,9 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         classificationCell(pool.classification),
     }),
     columnHelper.accessor(
-      ({ stream }) => getLocalizedName(stream?.label, intl),
+      ({ workStream }) => getLocalizedName(workStream?.name, intl),
       {
-        id: "stream",
+        id: "workStream",
         enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Stream",

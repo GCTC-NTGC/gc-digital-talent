@@ -144,9 +144,6 @@ const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
       publishingGroup {
         value
       }
-      stream {
-        value
-      }
     }
   }
 `);

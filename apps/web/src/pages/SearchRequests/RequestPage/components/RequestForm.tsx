@@ -131,9 +131,9 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }

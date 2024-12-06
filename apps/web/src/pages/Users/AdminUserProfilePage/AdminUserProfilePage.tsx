@@ -170,9 +170,9 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }

@@ -172,9 +172,9 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
             fr
           }
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }

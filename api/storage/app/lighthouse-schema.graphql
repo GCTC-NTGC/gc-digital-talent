@@ -737,7 +737,7 @@ type Pool implements HasRoleAssignments {
   securityClearance: LocalizedSecurityStatus
   language: LocalizedPoolLanguage
   status: LocalizedPoolStatus
-  stream: LocalizedPoolStream
+  workStream: WorkStream
   processNumber: String
   publishingGroup: LocalizedPublishingGroup
   opportunityLength: LocalizedPoolOpportunityLength
@@ -1869,7 +1869,7 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
   department: DepartmentBelongsTo
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   processNumber: String
   closingDate: DateTime
   closingReason: String

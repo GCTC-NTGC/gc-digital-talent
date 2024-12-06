@@ -63,9 +63,9 @@ const AvailablePoolsToAddTo_Query = graphql(/* GraphQL */ `
             fr
           }
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -187,7 +187,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
                     {getShortPoolTitleHtml(intl, {
-                      stream: rejected.pool.stream,
+                      workStream: rejected.pool.workStream,
                       name: rejected.pool.name,
                       publishingGroup: rejected.pool.publishingGroup,
                       classification: rejected.pool.classification,
