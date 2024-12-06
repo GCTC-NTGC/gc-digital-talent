@@ -4,9 +4,7 @@
 
 import { createIntl, createIntlCache } from "react-intl";
 
-import {
-  fakeClassifications,
-} from "@gc-digital-talent/fake-data";
+import { fakeClassifications } from "@gc-digital-talent/fake-data";
 
 import { formattedPoolPosterTitle } from "./poolUtils";
 
@@ -26,8 +24,8 @@ describe("poolUtils tests", () => {
         id: "uuid",
         name: {
           en: "Software solutions EN",
-          fr: "Software solutions FR"
-        }
+          fr: "Software solutions FR",
+        },
       },
       intl,
     };

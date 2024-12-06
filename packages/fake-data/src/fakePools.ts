@@ -60,8 +60,8 @@ const generatePool = (
     essentialSkillCount > 0
       ? essentialSkillCount
       : faker.number.int({
-        max: 10,
-      }),
+          max: 10,
+        }),
   );
   const nonessentialSkills = faker.helpers.arrayElements(
     skills,
@@ -155,10 +155,10 @@ const generatePool = (
     selectionLimitations:
       areaOfSelection.value == PoolAreaOfSelection.Employees
         ? faker.helpers.arrayElements(
-          Object.values(PoolSelectionLimitation).map((l) =>
-            toLocalizedEnum(l),
-          ),
-        )
+            Object.values(PoolSelectionLimitation).map((l) =>
+              toLocalizedEnum(l),
+            ),
+          )
         : [],
   };
 };
