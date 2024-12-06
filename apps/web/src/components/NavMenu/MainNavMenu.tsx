@@ -157,6 +157,13 @@ const MainNavMenu = () => {
                     color={isSmallScreen ? "black" : "whiteFixed"}
                     mode="text"
                     block={false}
+                    aria-label={intl.formatMessage({
+                      defaultMessage:
+                        "Select a different role to access its corresponding tools and information",
+                      id: "sSbt7W",
+                      description:
+                        "Aria text to describe what the purpose of the role menu is",
+                    })}
                   >
                     {roleNames[navRole]}
                   </NavMenu.Trigger>

@@ -11126,6 +11126,10 @@
     "defaultMessage": "Brève description de l'équipe (en anglais)",
     "description": "Label for team description in English language"
   },
+  "sSbt7W": {
+    "defaultMessage": "Sélectionnez un rôle différent pour accéder aux outils et informations correspondants",
+    "description": "Aria text to describe what the purpose of the role menu is"
+  },
   "sWBbdX": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
     "description": "French Positions message"
