@@ -153,6 +153,13 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
+
+    # simulate being off the VPN and the firewall redirecting to the restricted page
+    # location = /admin/graphql {
+    #     absolute_redirect on;
+    #     return 301 http://localhost:8000/restricted.html;
+    # }
+
     # graphql online web interface
     location = /graphiql {
         fastcgi_pass 127.0.0.1:9000;
