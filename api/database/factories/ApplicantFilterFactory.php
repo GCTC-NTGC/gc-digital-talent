@@ -95,20 +95,18 @@ class ApplicantFilterFactory extends Factory
             )->get();
             $filter->pools()->saveMany($pools);
             $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classification));
-            $stream = (empty($pools) || count($pools) === 0) ? $this->faker->randomElements(
-                array_column(PoolStream::cases(), 'name'),
-            ) : [$pools[0]->stream];
+            $streams = $pools->flatMap(fn ($pool) => $pool->workStream);
+            $filter->workStreams()->saveMany($streams);
 
             $ATIP = Community::where('key', 'atip')->first();
             $digital = Community::where('key', 'digital')->first();
 
-            if (in_array(PoolStream::ACCESS_INFORMATION_PRIVACY->name, $stream) && $ATIP?->id) {
+            if ($streams->first()?->key === PoolStream::ACCESS_INFORMATION_PRIVACY->name && $ATIP?->id) {
                 $filter->community_id = $ATIP->id;
             } elseif ($digital?->id) {
                 $filter->community_id = $digital->id;
             }
 
-            $filter->qualified_streams = $stream;
             $filter->save();
         });
     }

@@ -8,6 +8,7 @@ import {
   fakePools,
   fakeSkillFamilies,
   fakeSkills,
+  fakeWorkStreams,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
@@ -31,6 +32,7 @@ const fakePool = fakePools(
   fakeSkills(20, fakeSkillFamilies(6)),
   fakeClassifications(),
   fakeDepartments(),
+  fakeWorkStreams(),
   3,
 )[0];
 // make three assessment steps which assess all the pool skills

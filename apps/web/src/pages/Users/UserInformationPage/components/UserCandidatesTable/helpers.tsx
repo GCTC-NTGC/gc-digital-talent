@@ -106,14 +106,14 @@ export const priorityCell = (
 };
 
 export const processCell = (
-  pool: Pick<Pool, "id" | "stream" | "name" | "publishingGroup"> & {
+  pool: Pick<Pool, "id" | "workStream" | "name" | "publishingGroup"> & {
     classification?: Maybe<Pick<Classification, "group" | "level">>;
   },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
   const poolName = getFullPoolTitleLabel(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,

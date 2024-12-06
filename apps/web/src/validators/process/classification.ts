@@ -5,16 +5,16 @@ import { Pool } from "@gc-digital-talent/graphql";
   Note: The pool.classification should not be null, therefore it doesn't need to checked
 */
 export function isInNullState({
-  stream,
+  workStream,
   name,
   processNumber,
   publishingGroup,
 }: Pick<
   Pool,
-  "stream" | "name" | "processNumber" | "publishingGroup"
+  "workStream" | "name" | "processNumber" | "publishingGroup"
 >): boolean {
   return !!(
-    !stream &&
+    !workStream &&
     !name?.en &&
     !name?.fr &&
     !processNumber &&
@@ -27,7 +27,7 @@ export function hasEmptyRequiredFields({
   areaOfSelection,
   classification,
   department,
-  stream,
+  workStream,
   name,
   processNumber,
   publishingGroup,
@@ -37,7 +37,7 @@ export function hasEmptyRequiredFields({
   | "areaOfSelection"
   | "classification"
   | "department"
-  | "stream"
+  | "workStream"
   | "name"
   | "processNumber"
   | "publishingGroup"
@@ -47,7 +47,7 @@ export function hasEmptyRequiredFields({
     !areaOfSelection?.value ||
     !classification ||
     !department ||
-    !stream ||
+    !workStream ||
     !name?.en ||
     !name?.fr ||
     !processNumber ||
