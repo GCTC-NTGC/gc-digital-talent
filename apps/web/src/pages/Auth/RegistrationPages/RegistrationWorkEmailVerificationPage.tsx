@@ -56,6 +56,7 @@ const RegistrationWorkEmailVerificationPage = () => {
       title={intl.formatMessage(messages.title)}
       subtitle={intl.formatMessage(messages.subtitle)}
       crumbs={crumbs}
+      overlap
     >
       <div
         data-h2-padding="base(x2) "

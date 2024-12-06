@@ -524,6 +524,7 @@ export const EmployeeInformationForm = ({
         title={intl.formatMessage(messages.title)}
         subtitle={intl.formatMessage(messages.subtitle)}
         crumbs={crumbs}
+        overlap
       >
         <section data-h2-padding="base(0, 0, x3, 0)">
           <div
