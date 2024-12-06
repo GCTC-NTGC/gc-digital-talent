@@ -8,6 +8,7 @@ Freshdesk is the customer service software used by GC Digital Talent for creatin
 2. Sign up for an account
 3. Make note of the _domain_ upon account creation
 4. Create custom string field for the ticket object named `page_url` (https://_domain_.freshdesk.com/a/admin/ticket_fields)
+5. Create custom string field for the ticket object named `user_agent` (https://_domain_.freshdesk.com/a/admin/ticket_fields)
 
 ## Local setup
 

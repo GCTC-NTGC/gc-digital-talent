@@ -30,7 +30,6 @@ import {
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";
-import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
 import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
@@ -379,11 +378,6 @@ export const useAdminPoolPages = (
     ],
   ]);
 };
-
-export const isOngoingPublishingGroup = (
-  publishingGroup: Maybe<PublishingGroup> | undefined,
-): boolean =>
-  publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 
 export const getAdvertisementStatus = (
   pool?: Pick<Pool, "publishedAt" | "isComplete">,

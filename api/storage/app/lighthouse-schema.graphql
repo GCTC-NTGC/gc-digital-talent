@@ -311,6 +311,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
@@ -345,6 +346,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -471,6 +473,8 @@ type Mutation {
   createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
   updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
+  createWorkStream(workStream: CreateWorkStreamInput!): WorkStream
+  updateWorkStream(id: UUID!, workStream: UpdateWorkStreamInput!): WorkStream
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
@@ -884,6 +888,14 @@ type Department {
   pools: [Pool]
 }
 
+type WorkStream {
+  id: UUID!
+  key: String
+  name: LocalizedString
+  plainLanguageName: LocalizedString
+  community: Community
+}
+
 type Community implements HasRoleAssignments {
   id: ID!
   key: String!
@@ -1209,6 +1221,12 @@ input PoolTeamDisplayNameOrderByInput {
 input PoolBookmarksOrderByInput {
   column: String!
   order: SortOrder!
+}
+
+input OrderByColumnInput {
+  column: String!
+  order: SortOrder!
+  nulls: NullsOption
 }
 
 input ApplicantFilterInput {
@@ -1540,16 +1558,39 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input PoolBelongsToMany {
-  sync: [ID!]
-}
-
 input DepartmentBelongsTo {
   connect: ID
   disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput!
+  plainLanguageName: LocalizedStringInput
+  community: CommunityBelongsTo!
+}
+
+input UpdateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput
+  plainLanguageName: LocalizedStringInput
+  community: CommunityBelongsTo
+}
+
+input WorkStreamBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input WorkStreamBelongsToMany {
+  sync: [ID!]
+}
+
+input PoolBelongsToMany {
   sync: [ID!]
 }
 
@@ -2811,7 +2852,7 @@ enum AdvertisementType {
 enum AdvertisingPlatform {
   GCJOBS
   GCCONNEX
-  GCXCHNAGE
+  GCXCHANGE
   GC_COLLAB
   FACEBOOK
   LINKEDIN
@@ -3117,6 +3158,11 @@ enum NotificationFamily {
   JOB_ALERT
 }
 
+enum NullsOption {
+  ORDER_FIRST
+  ORDER_LAST
+}
+
 enum OperationalRequirement {
   SHIFT_WORK
   ON_CALL
@@ -3266,7 +3312,6 @@ enum ProvinceOrTerritory {
 enum PublishingGroup {
   IAP
   IT_JOBS
-  IT_JOBS_ONGOING
   EXECUTIVE_JOBS
   OTHER
 }

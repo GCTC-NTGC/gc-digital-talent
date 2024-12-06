@@ -407,7 +407,6 @@ class PoolCandidate extends Model
     public static function scopeInTalentSearchablePublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
-            PublishingGroup::IT_JOBS_ONGOING->name,
             PublishingGroup::IT_JOBS->name,
             PublishingGroup::OTHER->name,
         ]);
@@ -1221,9 +1220,9 @@ class PoolCandidate extends Model
         ];
     }
 
-    private function unMatchedDecision(?string $decison)
+    private function unMatchedDecision(?string $decision)
     {
-        Log::error(sprintf('No match for decision %s', $decison));
+        Log::error(sprintf('No match for decision %s', $decision));
 
         return null;
     }

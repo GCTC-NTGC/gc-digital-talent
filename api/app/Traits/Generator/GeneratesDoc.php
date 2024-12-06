@@ -9,7 +9,7 @@ trait GeneratesDoc
     use GeneratesFile;
 
     /**
-     * Adds text accomponied by a strong label
+     * Adds text accompanied by a strong label
      *
      * @param  Section  $section  The section to add it to
      * @param  string  $label  Label for the text

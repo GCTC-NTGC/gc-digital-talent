@@ -49,6 +49,9 @@ class SupportController extends Controller
             }
             $parameters['custom_fields']['cf_page_url'] = $path;
         }
+        if ($request->input('user_agent')) {
+            $parameters['custom_fields']['cf_user_agent'] = (string) $request->input('user_agent');
+        }
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
         }

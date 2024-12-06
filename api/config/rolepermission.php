@@ -84,6 +84,7 @@ return [
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
         'trainingOpportunity' => 'trainingOpportunity',
+        'workStream' => 'workStream',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -508,6 +509,15 @@ return [
         'delete-any-team' => [
             'en' => 'Delete Any Team',
             'fr' => 'Supprimer toute équipe',
+        ],
+
+        'create-any-workStream' => [
+            'en' => 'Create Any Work Stream',
+            'fr' => 'Créer tout volet de travail',
+        ],
+        'update-any-workStream' => [
+            'en' => 'Update Any Work Stream',
+            'fr' => 'Modifier tout volet de travail',
         ],
 
         'view-any-role' => [
@@ -1230,6 +1240,9 @@ return [
             ],
             'trainingOpportunity' => [
                 'any' => ['create'],
+            ],
+            'workStream' => [
+                'any' => ['create', 'update'],
             ],
         ],
         'manager' => [
