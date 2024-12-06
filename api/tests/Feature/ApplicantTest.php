@@ -21,6 +21,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -1922,24 +1923,24 @@ class ApplicantTest extends TestCase
         $targetClassification = Classification::factory()->create();
         $excludedClassification = Classification::factory()->create();
 
-        $targetStream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
-        $excludedStream = PoolStream::ACCESS_INFORMATION_PRIVACY->name;
+        $targetStream = WorkStream::factory()->create();
+        $excludedStream = WorkStream::factory()->create();
 
         $targetClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $targetClassification,
-            'stream' => $excludedStream,
+            'work_stream_id' => $excludedStream->id,
         ]);
         $targetStreamPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $excludedClassification,
-            'stream' => $targetStream,
+            'work_stream_id' => $targetStream->id,
         ]);
         $targetStreamAndClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $targetClassification,
-            'stream' => $targetStream,
+            'work_stream_id' => $targetStream->id,
         ]);
         $excludedPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $excludedClassification,
-            'stream' => $excludedStream,
+            'work_stream_id' => $excludedStream->id,
         ]);
 
         $targetUser = User::factory()->create();
@@ -2017,7 +2018,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedStreams' => [$targetStream],
+                        'qualifiedStreams' => [$targetStream->id],
                     ],
                 ]
             )->assertJson([
@@ -2037,7 +2038,7 @@ class ApplicantTest extends TestCase
                             ],
                         ],
                         'qualifiedStreams' => [
-                            $targetStream,
+                            $targetStream->id,
                         ],
                     ],
                 ]

@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Models\WorkStream;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
+use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -1161,7 +1162,7 @@ class PoolTest extends TestCase
      */
     public function testPoolStreamsScope(): void
     {
-        $this->seed(WorkStreamSeeder::class);
+        $this->seed([CommunitySeeder::class, WorkStreamSeeder::class]);
         $ATIPStream = WorkStream::where('key', PoolStream::ACCESS_INFORMATION_PRIVACY->name)->sole();
         $businessStream = WorkStream::where('key', PoolStream::BUSINESS_ADVISORY_SERVICES->name)->sole();
         $dbStream = WorkStream::where('key', PoolStream::DATABASE_MANAGEMENT->name)->sole();

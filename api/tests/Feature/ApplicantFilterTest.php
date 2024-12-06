@@ -84,13 +84,13 @@ class ApplicantFilterTest extends TestCase
             'positionDuration' => $filter->position_duration,
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
+            'workStreams' => $filter->workStreams->map($onlyId)->toArray(),
             'qualifiedClassifications' => $filter->qualifiedClassifications->map(function ($classification) {
                 return [
                     'group' => $classification->group,
                     'level' => $classification->level,
                 ];
             })->toArray(),
-            'qualifiedStreams' => $filter->qualified_streams,
             'community' => ['id' => $filter->community->id],
         ];
     }
@@ -283,7 +283,7 @@ class ApplicantFilterTest extends TestCase
                                 fr
                             }
                         }
-                        qualifiedStreams { value }
+                        workStreams { id }
                         qualifiedClassifications {
                             id
                             name {
@@ -307,7 +307,7 @@ class ApplicantFilterTest extends TestCase
         $this->assertCount($filter->qualifiedClassifications->count(), $retrievedFilter['qualifiedClassifications']);
         $this->assertCount($filter->skills->count(), $retrievedFilter['skills']);
         $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
-        $this->assertCount(count($filter->qualified_streams), $retrievedFilter['qualifiedStreams']);
+        $this->assertCount($filter->workStreams->count(), $retrievedFilter['workStreams']);
 
         // Assert that all the content in each collection is correct.
         foreach ($filter->pools as $pool) {
@@ -323,8 +323,8 @@ class ApplicantFilterTest extends TestCase
             $response->assertJsonFragment(['id' => $skill->id, 'name' => $skill->name]);
         }
 
-        $response->assertJsonFragment(['qualifiedStreams' => [[
-            'value' => $filter->qualified_streams[0],
+        $response->assertJsonFragment(['workStreams' => [[
+            'id' => $filter->workStreams->first()?->id,
         ]]]);
         $response->assertJsonFragment(['community' => ['id' => $filter->community_id]]);
     }
