@@ -532,34 +532,6 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
-              path: "*",
-              loader: () => {
-                throw new NotFoundError();
-              },
-            },
-          ],
-        },
-        {
-          path: "*",
-          loader: () => {
-            throw new NotFoundError();
-          },
-        },
-      ],
-    },
-    {
-      path: `${locale}/admin`,
-      lazy: () => import("./Layout/AdminLayout/AdminLayout"),
-      children: [
-        {
-          async lazy() {
-            const { ErrorBoundary } = await import(
-              "./Layout/AdminLayout/AdminLayout"
-            );
-            return { ErrorBoundary };
-          },
-          children: [
-            {
               index: true,
               lazy: () =>
                 import("../pages/AdminDashboardPage/AdminDashboardPage"),
@@ -976,6 +948,12 @@ const createRoute = (locale: Locales) =>
               },
             },
           ],
+        },
+        {
+          path: "*",
+          loader: () => {
+            throw new NotFoundError();
+          },
         },
       ],
     },
