@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well, headingStyles } from "@gc-digital-talent/ui";
+import { buildMailToUri } from "@gc-digital-talent/helpers";
 
 import logoImg from "~/assets/img/iap-logo.svg";
 import heroImg from "~/assets/img/IAPManager-Hero.webp";
@@ -25,20 +26,6 @@ const makeLink = (chunks: ReactNode, url: string) => (
     {chunks}
   </Link>
 );
-
-function buildMailToUri(
-  emailAddress: string,
-  subject: string,
-  body?: string | null,
-) {
-  const encodedSubject = encodeURIComponent(subject);
-  let linkBuilder = `mailto:${emailAddress}?subject=${encodedSubject}`;
-  if (body) {
-    const encodedBody = encodeURIComponent(body);
-    linkBuilder += `&body=${encodedBody}`;
-  }
-  return linkBuilder;
-}
 
 // eslint-disable-next-line import/prefer-default-export
 export const Component = () => {

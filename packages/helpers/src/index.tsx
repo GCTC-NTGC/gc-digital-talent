@@ -3,6 +3,7 @@ import {
   phoneNumberRegex,
   workEmailDomainRegex,
 } from "./constants/regularExpressions";
+import buildMailToUri from "./utils/buildMailToUri";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
@@ -46,6 +47,7 @@ export {
   emptyToNull,
   emptyToUndefined,
   uniqueItems,
+  buildMailToUri,
   normalizeString,
   sanitizeUrl,
   isUuidError,
