@@ -170,6 +170,7 @@ export const Component = () => {
             size="h3"
             color="primary"
             data-h2-margin="base(0, 0, x1, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "What is the Directive on Digital Talent?",
@@ -210,6 +211,7 @@ export const Component = () => {
             size="h3"
             color="secondary"
             data-h2-margin="base(x3, 0, x1, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "Key components",
@@ -366,6 +368,7 @@ export const Component = () => {
             size="h3"
             color="tertiary"
             data-h2-margin="base(x3, 0, x1, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "Mandatory reporting",
@@ -534,6 +537,7 @@ export const Component = () => {
               size="h3"
               color="quinary"
               data-h2-margin="base(x3, 0, x1, 0)"
+              data-h2-font-weight="base(400)"
             >
               {intl.formatMessage({
                 defaultMessage: "2024 changes to the Mandatory Procedures",

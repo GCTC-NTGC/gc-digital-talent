@@ -229,7 +229,7 @@ export const ViewPoolCandidate = ({
       <AdminContentWrapper>
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
-            <Heading size="h3">
+            <Heading size="h3" data-h2-font-weight="base(400)">
               {intl.formatMessage({
                 defaultMessage: "More actions",
                 id: "QaMkP7",

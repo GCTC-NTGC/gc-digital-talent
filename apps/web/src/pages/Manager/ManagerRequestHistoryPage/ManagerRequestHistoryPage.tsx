@@ -294,6 +294,7 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                       size="h2"
                       color="primary"
                       data-h2-margin="base(0)"
+                      data-h2-font-weight="base(700)"
                     >
                       {intl.formatMessage(sections.activeRequests.title)}
                       <span data-h2-color="base(black.light)">{`(${activeRequests.length})`}</span>
@@ -415,6 +416,7 @@ const ManagerRequestHistory = ({ userQuery }: ManagerRequestHistoryProps) => {
                       size="h2"
                       color="secondary"
                       data-h2-margin="base(0)"
+                      data-h2-font-weight="base(700)"
                     >
                       {intl.formatMessage(sections.requestHistory.title)}
                     </Heading>

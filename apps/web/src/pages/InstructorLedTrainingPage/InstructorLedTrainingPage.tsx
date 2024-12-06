@@ -272,6 +272,7 @@ export const Component = () => {
               Icon={CalendarDaysIcon}
               color="quaternary"
               data-h2-margin-bottom="base(x1)"
+              data-h2-font-weight="base(400)"
             >
               {intl.formatMessage({
                 defaultMessage: "Available IT training opportunities",
@@ -311,6 +312,7 @@ export const Component = () => {
               Icon={UserCircleIcon}
               color="tertiary"
               data-h2-margin-bottom="base(x1)"
+              data-h2-font-weight="base(400)"
             >
               {intl.formatMessage({
                 defaultMessage: "Apply and share your profile",

@@ -121,7 +121,11 @@ export const Component = () => {
     <>
       <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
       <div data-h2-margin="base(x3)" data-h2-wrapper="base(center, small, x1)">
-        <Heading size="h3" data-h2-margin="base(0, 0, x1, 0)">
+        <Heading
+          size="h3"
+          data-h2-margin="base(0, 0, x1, 0)"
+          data-h2-font-weight="base(400)"
+        >
           {pageTitle}
         </Heading>
         <p data-h2-margin="base(x1 0)">

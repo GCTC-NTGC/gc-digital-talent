@@ -97,7 +97,9 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   return (
     <>
       <SEO title={pageTitle} />
-      <Heading level="h2">{pageTitle}</Heading>
+      <Heading level="h2" data-h2-font-weight="base(700)">
+        {pageTitle}
+      </Heading>
       <Table
         caption={pageTitle}
         data={data}

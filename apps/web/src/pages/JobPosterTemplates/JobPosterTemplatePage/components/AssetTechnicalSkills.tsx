@@ -84,6 +84,7 @@ const AssetTechnicalSkills = ({
         size="h2"
         color="quinary"
         data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-font-weight="base(700)"
       >
         {intl.formatMessage(sections.assetTechnicalSkills.longTitle)}
       </Heading>

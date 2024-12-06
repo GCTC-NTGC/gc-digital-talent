@@ -40,6 +40,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(0, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -60,6 +61,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "How long is the program?",
@@ -87,6 +89,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -107,6 +110,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "Will apprentices be paid?",
@@ -126,6 +130,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "Will apprentices be entitled to any benefits?",
@@ -145,6 +150,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -165,6 +171,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "How do I know if this program is for me?",
@@ -184,6 +191,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -204,6 +212,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -224,6 +233,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "Is there a cost to participate in the program?",
@@ -243,6 +253,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "How can a person apply to become an apprentice?",
@@ -262,6 +273,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
             as="h3"
             data-h2-font-size="base(h6, 1.1)"
             data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage:

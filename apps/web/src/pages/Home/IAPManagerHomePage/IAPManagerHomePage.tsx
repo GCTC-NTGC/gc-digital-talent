@@ -255,6 +255,7 @@ export const Component = () => {
                     data-h2-text-align="base(center) p-tablet(left)"
                     data-h2-layer="base(1, relative)"
                     data-h2-color="base(primary.darker)"
+                    data-h2-font-weight="base(700)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "About the program",
@@ -331,6 +332,7 @@ export const Component = () => {
                     data-h2-text-align="base(center) p-tablet(left)"
                     data-h2-color="base(primary.darker)"
                     data-h2-margin-top="base(0)"
+                    data-h2-font-weight="base(700)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "How the program works",
@@ -580,6 +582,7 @@ export const Component = () => {
                 data-h2-margin="base(0, 0, x1, 0)"
                 data-h2-text-align="base(center) p-tablet(left)"
                 data-h2-color="base(primary.darker)"
+                data-h2-font-weight="base(700)"
               >
                 {intl.formatMessage({
                   defaultMessage:

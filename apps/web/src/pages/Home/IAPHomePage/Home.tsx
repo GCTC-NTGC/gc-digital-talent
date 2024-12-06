@@ -256,6 +256,7 @@ export const Home = ({ query }: HomeProps) => {
                       data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
                       data-h2-text-align="base(center) p-tablet(left)"
                       data-h2-layer="base(1, relative)"
+                      data-h2-font-weight="base(700)"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
@@ -358,6 +359,7 @@ export const Home = ({ query }: HomeProps) => {
                     data-h2-font-size="base(h3, 1)"
                     data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
                     data-h2-text-align="base(center) p-tablet(left)"
+                    data-h2-font-weight="base(700)"
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -466,6 +468,7 @@ export const Home = ({ query }: HomeProps) => {
                     data-h2-font-size="base(h3, 1)"
                     data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
                     data-h2-text-align="base(center) p-tablet(left)"
+                    data-h2-font-weight="base(700)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Who is the program for?",
@@ -539,6 +542,7 @@ export const Home = ({ query }: HomeProps) => {
               light
               data-h2-color="base:all(white)"
               data-h2-text-align="base(center)"
+              data-h2-font-weight="base(700)"
             >
               {intl.formatMessage({
                 defaultMessage: "What We’re Hearing",
@@ -596,6 +600,7 @@ export const Home = ({ query }: HomeProps) => {
                       light
                       data-h2-color="base:all(white)"
                       data-h2-font-size="base(h3, 1)"
+                      data-h2-font-weight="base(700)"
                     >
                       <span data-h2-display="base(block)">
                         {intl.formatMessage({
@@ -672,6 +677,7 @@ export const Home = ({ query }: HomeProps) => {
                 <Heading
                   data-h2-color="base:all(white)"
                   data-h2-font-size="base(h3)"
+                  data-h2-font-weight="base(700)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Coming Soon!",
