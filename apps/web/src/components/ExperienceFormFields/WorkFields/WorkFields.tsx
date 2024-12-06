@@ -62,7 +62,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
     query: WorkFieldOptions_Query,
   });
 
-  const { resetField } = useFormContext();
+  const { resetField, formState } = useFormContext();
 
   const watchEmploymentCategory = useWatch<{
     employmentCategory: EmploymentCategory;
@@ -82,7 +82,9 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
       });
     };
 
-    if (watchEmploymentCategory) {
+    if (
+      formState.defaultValues?.employmentCategory !== watchEmploymentCategory
+    ) {
       resetDirtyField("team");
       resetDirtyField("startDate");
       resetDirtyField("currentRole");
