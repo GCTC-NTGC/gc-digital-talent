@@ -1,4 +1,3 @@
-
 import { WorkStream } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
