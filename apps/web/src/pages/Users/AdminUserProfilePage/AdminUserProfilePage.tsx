@@ -116,6 +116,8 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    workEmail
+    isWorkEmailVerified
     hasPriorityEntitlement
     priorityNumber
     locationPreferences {
