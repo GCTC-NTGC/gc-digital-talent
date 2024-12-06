@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   PoolCandidateFilter,
   ApplicantFilter,
@@ -28,7 +28,14 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
 ): PoolCandidateSearchInput => {
   return {
     applicantFilter: {
-      ...applicantFilter,
+      equity: {
+        isWoman: applicantFilter.equity?.isWoman ?? undefined,
+        hasDisability: applicantFilter.equity?.hasDisability,
+        isIndigenous: applicantFilter.equity?.isIndigenous,
+        isVisibleMinority: applicantFilter.equity?.isVisibleMinority,
+      },
+      hasDiploma: applicantFilter?.hasDiploma,
+      positionDuration: applicantFilter?.positionDuration,
       languageAbility: applicantFilter.languageAbility?.value,
       locationPreferences: applicantFilter?.locationPreferences
         ?.filter(notEmpty)
@@ -36,6 +43,14 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       operationalRequirements: applicantFilter?.operationalRequirements
         ?.filter(notEmpty)
         .map((req) => req?.value),
+      pools: unpackMaybes(applicantFilter.pools).map(({ id }) => ({ id })),
+      skills: unpackMaybes(applicantFilter.skills).map(({ id }) => ({ id })),
+      qualifiedStreams: unpackMaybes(applicantFilter.workStreams).map(
+        ({ id }) => id,
+      ),
+      community: applicantFilter?.community?.id
+        ? { id: applicantFilter.community.id }
+        : undefined,
     },
     appliedClassifications: applicantFilter.qualifiedClassifications
       ?.filter(notEmpty)
