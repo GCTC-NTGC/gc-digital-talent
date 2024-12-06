@@ -13,11 +13,7 @@ import {
   Checkbox,
 } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import {
-  emptyToNull,
-  unpackMaybes,
-  workEmailDomainRegex,
-} from "@gc-digital-talent/helpers";
+import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 import {
   UpdateUserRolesInput,
@@ -304,18 +300,6 @@ export const UpdateUserForm = ({
             label={intl.formatMessage(commonMessages.workEmail)}
             type="email"
             name="workEmail"
-            rules={{
-              pattern: {
-                value: workEmailDomainRegex,
-                message: intl.formatMessage({
-                  defaultMessage:
-                    "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
-                  id: "BLOt/e",
-                  description:
-                    "Description for rule pattern on work email field",
-                }),
-              },
-            }}
           />
           <div data-h2-align-self="base(flex-start)">
             <Submit />

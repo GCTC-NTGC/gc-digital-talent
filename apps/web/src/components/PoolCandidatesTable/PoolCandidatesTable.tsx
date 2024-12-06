@@ -450,7 +450,7 @@ const defaultState = {
     },
     poolCandidateStatus: [],
     priorityWeight: [],
-    publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
+    publishingGroups: [PublishingGroup.ItJobs],
   },
 };
 

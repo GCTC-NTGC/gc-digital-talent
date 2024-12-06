@@ -203,6 +203,46 @@ class PoolBuilder extends Builder
         return $this;
     }
 
+    // A scope for a simple orderBy on a column.  Allows for nulls first or last.
+    public function orderByColumn(?array $args): self
+    {
+        $column = $args['column'];
+        $order = $args['order'];
+        $nulls = $args['nulls'] ?? null;
+
+        // verify if column name is valid
+        /** @var \App\Models\Pool */
+        $model = $this->model;
+        $selectableColumns = $model->getSelectableColumns();
+        if (! in_array($column, $selectableColumns)) {
+            throw new \Exception('Invalid column');
+        }
+
+        // build column name qualified with table name
+        $tableName = $this->model->getTable();
+        $columnSql = "\"$tableName\".\"$column\"";
+
+        // build order direction while verifying that option is valid
+        $orderOptionSql = match ($order) {
+            'ASC' => 'ASC',
+            'DESC' => 'DESC',
+            default => throw new \Exception('Invalid order option'),
+        };
+
+        // build nulls option while verifying that option is valid
+        $nullsOptionSql = match ($nulls) {
+            'ORDER_FIRST' => 'NULLS FIRST',
+            'ORDER_LAST' => 'NULLS LAST',
+            null => '',
+            default => throw new \Exception('Invalid nulls option'),
+        };
+
+        // SQL execution from user input!  Ensure sufficient sanitization.
+        $this->orderByRaw("$columnSql $orderOptionSql $nullsOptionSql");
+
+        return $this;
+    }
+
     /**
      * Filter for pools the user is allowed to admin, based on scopeAuthorizedToAdmin
      */

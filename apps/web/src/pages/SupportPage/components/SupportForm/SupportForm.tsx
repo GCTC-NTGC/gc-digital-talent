@@ -30,6 +30,7 @@ interface FormValues {
   description: string;
   subject: string;
   previous_url: string;
+  user_agent: string;
 }
 
 interface SupportFormProps {
@@ -118,6 +119,7 @@ const SupportForm = ({
   const intl = useIntl();
   const location = useLocation() as Location<LocationState>;
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
+  const userAgent = window?.navigator.userAgent ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
       user_id: currentUser?.id ?? "",
@@ -126,6 +128,7 @@ const SupportForm = ({
         : "",
       email: currentUser?.email ?? "",
       previous_url: previousUrl || "",
+      user_agent: userAgent || "",
     },
   });
   const { handleSubmit } = methods;

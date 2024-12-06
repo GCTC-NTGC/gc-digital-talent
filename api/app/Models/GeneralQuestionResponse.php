@@ -34,11 +34,13 @@ class GeneralQuestionResponse extends Model
         'answer',
     ];
 
+    /** @return BelongsTo<PoolCandidate, $this> */
     public function poolCandidate(): BelongsTo
     {
         return $this->belongsTo(PoolCandidate::class);
     }
 
+    /** @return BelongsTo<GeneralQuestion, $this> */
     public function generalQuestion(): BelongsTo
     {
         return $this->belongsTo(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);

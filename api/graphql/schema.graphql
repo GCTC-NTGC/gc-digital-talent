@@ -484,6 +484,14 @@ type Department {
     @canResolved(ability: "view")
 }
 
+type WorkStream {
+  id: UUID!
+  key: String
+  name: LocalizedString
+  plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
+  community: Community @belongsTo
+}
+
 type Community implements HasRoleAssignments {
   id: ID!
   key: String!
@@ -864,6 +872,12 @@ input PoolBookmarksOrderByInput {
   order: SortOrder!
 }
 
+input OrderByColumnInput {
+  column: String!
+  order: SortOrder!
+  nulls: NullsOption
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -1012,6 +1026,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1104,6 +1119,7 @@ type Query {
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+  workStreams: [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
     where: NotificationFilterInput
@@ -1237,8 +1253,7 @@ input CreateUserInput {
 """
 When updating a User, all fields are optional
 """
-input UpdateUserAsAdminInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
@@ -1318,8 +1333,7 @@ input UpdateUserRolesInput {
   roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
-input UpdateUserAsUserInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsUserInput @validator {
   id: ID
   # Personal info
   email: Email @lowerCase
@@ -1409,8 +1423,12 @@ input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
   level: Int!
-  minSalary: Int @rename(attribute: "min_salary")
-  maxSalary: Int @rename(attribute: "max_salary")
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input ClassificationBelongsToMany {
@@ -1430,8 +1448,12 @@ input CreatePoolCandidateAsAdminInput {
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
-  minSalary: Int @rename(attribute: "min_salary")
-  maxSalary: Int @rename(attribute: "max_salary")
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -1470,16 +1492,41 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input PoolBelongsToMany {
-  sync: [ID!]
-}
-
 input DepartmentBelongsTo {
   connect: ID
   disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput!
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo!
+}
+
+input UpdateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo
+}
+
+input WorkStreamBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input WorkStreamBelongsToMany {
+  sync: [ID!]
+}
+
+input PoolBelongsToMany {
   sync: [ID!]
 }
 
@@ -2414,6 +2461,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+
+  # Work stream mutations
+  createWorkStream(workStream: CreateWorkStreamInput! @spread): WorkStream
+    @create
+    @guard
+    @canModel(ability: "create")
+  updateWorkStream(
+    id: UUID!
+    workStream: UpdateWorkStreamInput! @spread
+  ): WorkStream @update @guard @canFind(ability: "update", find: "id")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team
