@@ -1,14 +1,26 @@
-import { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  allModes,
+  OverlayOrDialogDecorator,
+} from "@gc-digital-talent/storybook-helpers";
 
 import ThemeSwitcher from "./ThemeSwitcher";
 
-export default {
+const meta = {
   component: ThemeSwitcher,
   decorators: [OverlayOrDialogDecorator],
-} as Meta;
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
+  },
+} satisfies Meta<typeof ThemeSwitcher>;
+export default meta;
 
-const Template: StoryFn<typeof ThemeSwitcher> = () => <ThemeSwitcher />;
+type Story = StoryObj<typeof ThemeSwitcher>;
 
-export const Default = Template.bind({});
+export const Default: Story = {};
