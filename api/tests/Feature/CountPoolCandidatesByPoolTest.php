@@ -57,7 +57,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     }
 
     // The user has no candidates so should get no results
-    public function testEmptyDoesNotReturnUserWithNoCandidates()
+    public function test_empty_does_not_return_user_with_no_candidates()
     {
         // Create user to test for
         User::factory()->create();
@@ -84,7 +84,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // single candidate can be returned with no filters
     // creates a single candidate and expects it to be returned
-    public function testThatEmptyReturnsACandidate()
+    public function test_that_empty_returns_a_candidate()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user = User::factory()->create([]);
@@ -141,7 +141,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // the attached pool can have its properties requested
     // creates a single candidate and expects it to be returned with the pool properties
-    public function testThatPoolPropertiesCanBeReturned()
+    public function test_that_pool_properties_can_be_returned()
     {
         $pool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
             'name' => [
@@ -188,7 +188,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // single user returns two candidate is returned with no filters
     // creates one users with two candidates and expects both candidates to be returned
-    public function testThatEmptyReturnsTwoCandidatesForOneUser()
+    public function test_that_empty_returns_two_candidates_for_one_user()
     {
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $pool2 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
@@ -227,7 +227,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test has diploma
     // creates three users with/without/null diploma and expects only one to come back
-    public function testHasDiploma()
+    public function test_has_diploma()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
@@ -272,7 +272,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test equity - Is woman
     // creates three users with/without/null isWoman and expects only one to come back
-    public function testEquityIsWoman()
+    public function test_equity_is_woman()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
@@ -321,7 +321,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test language ability
     // creates a user for bilingual, english, and french then filter for english and expect two to come back
-    public function testLanguageAbility()
+    public function test_language_ability()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
@@ -372,7 +372,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test operational requirements
     // creates a three users with different op reqs, filter for a combination that two users have, expect to get 2 candidates
-    public function testOperationalRequirements()
+    public function test_operational_requirements()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
@@ -429,7 +429,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test location preferences
     // creates a three users with different location preferences, filter for a combination that two users have, expect to get 2 candidates
-    public function testLocationPreferences()
+    public function test_location_preferences()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
@@ -486,7 +486,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // test position duration
     // creates a three users with/without/null would accept temporary and expects only one to come back
-    public function testWouldAcceptTemporary()
+    public function test_would_accept_temporary()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
@@ -532,7 +532,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // test skills
     // creates a three users various skills and filter for the skills on two of them
     // filtering is OR using User::scopeSkillsAdditive
-    public function testSkills()
+    public function test_skills()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $skills = Skill::factory(3)->create();
@@ -586,7 +586,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    public function testExpiryFilter()
+    public function test_expiry_filter()
     {
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $pool2 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
@@ -620,7 +620,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    public function testOnlyItJobsAppear()
+    public function test_only_it_jobs_appear()
     {
         $user = User::factory()->create([]);
 
@@ -669,7 +669,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     // candidates with one of three statuses should be found by this query
     // tests PoolCandidate::scopeAvailable
-    public function testAvailableStatusesAppear()
+    public function test_available_statuses_appear()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create();
@@ -721,7 +721,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     }
 
     // similar to above and assert all other statuses are filtered out
-    public function testUnavailableStatusesDoNotAppear()
+    public function test_unavailable_statuses_do_not_appear()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $allStatusesEnums = PoolCandidateStatus::cases();
@@ -765,7 +765,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // tests PoolCandidate::scopeQualifiedStreams
     // tests PoolCandidate::scopeQualifiedClassifications
     // which will also redundantly test availability
-    public function testAdditionalAvailabilityScopes()
+    public function test_additional_availability_scopes()
     {
         Classification::factory()->create([
             'group' => 'IT',
@@ -803,7 +803,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                             'level' => 1,
                         ],
                     ],
-                    'qualifiedStreams' => [$stream->id],
+                    'workStreams' => [['id' => $stream->id]],
                 ],
             ]
         )->assertSimilarJson([

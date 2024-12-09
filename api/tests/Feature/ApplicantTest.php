@@ -2017,7 +2017,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedStreams' => [$targetStream->id],
+                        'workStreams' => [['id' => $targetStream->id]],
                     ],
                 ]
             )->assertJson([
@@ -2036,9 +2036,9 @@ class ApplicantTest extends TestCase
                                 'level' => $targetClassification->level,
                             ],
                         ],
-                        'qualifiedStreams' => [
-                            $targetStream->id,
-                        ],
+                        'workStreams' => [[
+                            'id' => $targetStream->id,
+                        ]],
                     ],
                 ]
             )->assertJson([
