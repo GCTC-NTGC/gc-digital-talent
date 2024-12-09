@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a9d3132053a7edd33a435393ecdbd94",
+    "content-hash": "f9088028dee4476952a3eae93c2fd1e6",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1039,6 +1039,80 @@
             "time": "2024-04-12T12:12:48+00:00"
         },
         {
+            "name": "devnoiseconsulting/laravel-scout-postgres-tsvector",
+            "version": "v9.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector.git",
+                "reference": "c677cdeac7b22513a8e11e7bbd3cbe0499a09ddf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/devNoiseConsulting/laravel-scout-postgres-tsvector/zipball/c677cdeac7b22513a8e11e7bbd3cbe0499a09ddf",
+                "reference": "c677cdeac7b22513a8e11e7bbd3cbe0499a09ddf",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^10|^11",
+                "illuminate/database": "^10|^11",
+                "illuminate/support": "^10|^11",
+                "laravel/scout": "^10|^11",
+                "php": "^8.1|^8.2|^8.3|^8.4"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.18",
+                "mockery/mockery": "^1.6",
+                "nunomaduro/larastan": "^2.9",
+                "orchestra/testbench": "^8.28",
+                "phpunit/phpunit": "^9.6",
+                "tightenco/duster": "^2.7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ScoutEngines\\Postgres\\PostgresEngineServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ScoutEngines\\Postgres\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Flynn",
+                    "email": "flynnmj@devnoise.com",
+                    "homepage": "https://github.com/devNoiseConsulting"
+                },
+                {
+                    "name": "Peter Matseykanets",
+                    "email": "pmatseykanets@gmail.com",
+                    "homepage": "https://github.com/pmatseykanets"
+                }
+            ],
+            "description": "PostgreSQL Full Text Search Driver for Laravel Scout",
+            "homepage": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector",
+            "keywords": [
+                "fts",
+                "full text search",
+                "laravel",
+                "laravel scout",
+                "postgresql",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector/issues",
+                "source": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector"
+            },
+            "time": "2024-11-30T03:48:41+00:00"
+        },
+        {
             "name": "dflydev/dot-access-data",
             "version": "v3.0.3",
             "source": {
@@ -1898,80 +1972,6 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
-        },
-        {
-            "name": "gctc-ntgc/laravel-scout-postgres-tsvector",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/GCTC-NTGC/laravel-scout-postgres-tsvector.git",
-                "reference": "78458d781c6b737a1ab8144bf59f03815b067e6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/GCTC-NTGC/laravel-scout-postgres-tsvector/zipball/78458d781c6b737a1ab8144bf59f03815b067e6e",
-                "reference": "78458d781c6b737a1ab8144bf59f03815b067e6e",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^9|^10|^11",
-                "illuminate/database": "^9|^10|^11",
-                "illuminate/support": "^9|^10|^11",
-                "laravel/scout": "^9|^10",
-                "php": "^8.0|^8.1|^8.2"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.10",
-                "mockery/mockery": "^1.5",
-                "nunomaduro/larastan": "^2.6",
-                "orchestra/testbench": "^8.5",
-                "phpunit/phpunit": "^9.6",
-                "tightenco/duster": "^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ScoutEngines\\Postgres\\PostgresEngineServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ScoutEngines\\Postgres\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Flynn",
-                    "email": "flynnmj@devnoise.com",
-                    "homepage": "https://github.com/devNoiseConsulting"
-                },
-                {
-                    "name": "Peter Matseykanets",
-                    "email": "pmatseykanets@gmail.com",
-                    "homepage": "https://github.com/pmatseykanets"
-                }
-            ],
-            "description": "PostgreSQL Full Text Search Driver for Laravel Scout",
-            "homepage": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector",
-            "keywords": [
-                "fts",
-                "full text search",
-                "laravel",
-                "laravel scout",
-                "postgresql",
-                "search"
-            ],
-            "support": {
-                "issues": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector/issues",
-                "source": "https://github.com/devNoiseConsulting/laravel-scout-postgres-tsvector"
-            },
-            "time": "2024-09-25T15:22:04+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -11772,15 +11772,15 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.3"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.3.9"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.6.0"
 }
