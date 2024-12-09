@@ -95,7 +95,7 @@ class ApplicantFilterFactory extends Factory
             )->get();
             $filter->pools()->saveMany($pools);
             $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classification));
-            $streams = $pools->flatMap(fn ($pool) => $pool->workStream);
+            $streams = $pools->map(fn ($pool) => $pool->workStream);
             $filter->workStreams()->saveMany($streams);
 
             $ATIP = Community::where('key', 'atip')->first();
