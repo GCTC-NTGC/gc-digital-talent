@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use App\Console\Commands\SendNotificationsPoolPublished;
+use App\Console\Commands\TestLogging;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -37,6 +38,10 @@ class Kernel extends ConsoleKernel
         $schedule->command(SendNotificationsPoolPublished::class)
             ->timezone('America/Toronto')
             ->dailyAt('3:00');
+
+        // test logging
+        $schedule->command(TestLogging::class)
+            ->everyMinute();
     }
 
     /**
