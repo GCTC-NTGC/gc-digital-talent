@@ -4051,10 +4051,6 @@
     "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence « {skillName} » dans le cadre de cette expérience",
     "description": "Heading for a single skill on an experience."
   },
-  "J8kIar": {
-    "defaultMessage": "Recruter et gérer des employés en TI au gouvernement du Canada.",
-    "description": "Meta tag description for Admin site"
-  },
   "J9HjFN": {
     "defaultMessage": "Le Programme a été conçu pour répondre aux efforts de réconciliation et pour bâtir une relation renouvelée qui est fondée sur les droits, le respect, la collaboration et le partenariat avec les peuples autochtones.",
     "description": "How it works, step 1 content paragraph 1"
@@ -11749,10 +11745,6 @@
   "wHWE3M": {
     "defaultMessage": "Il s’agit d’une plateforme conçue pour offrir des possibilités d’emploi aux Autochtones d’une manière qui reconnaît et met en valeur leurs talents, leurs idées, leurs compétences et leur passion uniques.",
     "description": "Talent portal information sentence 2"
-  },
-  "wHX/8C": {
-    "defaultMessage": "Admin",
-    "description": "Title tag for Admin site"
   },
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",

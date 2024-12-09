@@ -532,6 +532,442 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "admin",
+              children: [
+                {
+                  index: true,
+                  lazy: () =>
+                    import("../pages/AdminDashboardPage/AdminDashboardPage"),
+                },
+                {
+                  path: "users",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import("../pages/Users/IndexUserPage/IndexUserPage"),
+                    },
+                    {
+                      path: ":userId",
+                      lazy: () => import("../pages/Users/UserLayout"),
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/Users/UserInformationPage/UserInformationPage"
+                            ),
+                        },
+                        {
+                          path: "profile",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
+                            ),
+                        },
+                        {
+                          path: "edit",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/UpdateUserPage/UpdateUserPage"
+                            ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "communities",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/IndexCommunityPage/IndexCommunityPage"
+                        ),
+                    },
+                    {
+                      path: "create",
+                      lazy: () =>
+                        import(
+                          "../pages/Communities/CreateCommunityPage/CreateCommunityPage"
+                        ),
+                    },
+                    {
+                      path: ":communityId",
+                      lazy: () =>
+                        import("../pages/Communities/CommunityLayout"),
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/Communities/ViewCommunityPage/ViewCommunityPage"
+                            ),
+                        },
+                        {
+                          path: "manage-access",
+                          lazy: () =>
+                            import(
+                              "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
+                            ),
+                        },
+                        {
+                          path: "edit",
+                          lazy: () =>
+                            import(
+                              "../pages/Communities/UpdateCommunityPage/UpdateCommunityPage"
+                            ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "teams",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import("../pages/Teams/IndexTeamPage/IndexTeamPage"),
+                    },
+                    {
+                      path: "create",
+                      lazy: () =>
+                        import("../pages/Teams/CreateTeamPage/CreateTeamPage"),
+                    },
+                    {
+                      path: ":teamId",
+                      lazy: () => import("../pages/Teams/TeamLayout"),
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import("../pages/Teams/ViewTeamPage/ViewTeamPage"),
+                        },
+                        {
+                          path: "edit",
+                          lazy: () =>
+                            import(
+                              "../pages/Teams/UpdateTeamPage/UpdateTeamPage"
+                            ),
+                        },
+                        {
+                          path: "members",
+                          lazy: () =>
+                            import(
+                              "../pages/Teams/TeamMembersPage/TeamMembersPage"
+                            ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "pools",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import("../pages/Pools/IndexPoolPage/IndexPoolPage"),
+                    },
+                    {
+                      path: "create",
+                      lazy: () =>
+                        import("../pages/Pools/CreatePoolPage/CreatePoolPage"),
+                    },
+                    {
+                      path: ":poolId",
+                      lazy: () => import("../pages/Pools/PoolLayout"),
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import("../pages/Pools/ViewPoolPage/ViewPoolPage"),
+                        },
+                        {
+                          path: "edit",
+                          lazy: () =>
+                            import("../pages/Pools/EditPoolPage/EditPoolPage"),
+                        },
+                        {
+                          path: "pool-candidates",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
+                                ),
+                            },
+                          ],
+                        },
+                        {
+                          path: "screening",
+                          lazy: () =>
+                            import(
+                              "../pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage"
+                            ),
+                        },
+                        {
+                          path: "manage-access",
+                          lazy: () =>
+                            import(
+                              "../pages/Pools/ManageAccessPage/ManageAccessPage"
+                            ),
+                        },
+                        {
+                          path: "plan",
+                          lazy: () =>
+                            import(
+                              "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+                            ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "pools/:poolId/preview",
+                  lazy: () =>
+                    import(
+                      "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
+                    ),
+                },
+                {
+                  path: "pool-candidates",
+                  lazy: () =>
+                    import(
+                      "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
+                    ),
+                },
+                {
+                  path: "candidates/:poolCandidateId/application",
+                  lazy: () =>
+                    import(
+                      "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+                    ),
+                },
+                {
+                  path: "talent-requests",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
+                        ),
+                    },
+                    {
+                      path: ":searchRequestId",
+                      lazy: () =>
+                        import(
+                          "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
+                        ),
+                    },
+                  ],
+                },
+                {
+                  path: "training-opportunities",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/TrainingOpportunities/IndexTrainingOpportunitiesPage"
+                        ),
+                    },
+                    {
+                      path: "create",
+                      lazy: () =>
+                        import(
+                          "../pages/TrainingOpportunities/CreateTrainingOpportunityPage"
+                        ),
+                    },
+                    {
+                      path: ":trainingOpportunityId",
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/TrainingOpportunities/ViewTrainingOpportunityPage"
+                            ),
+                        },
+                        {
+                          path: "edit",
+                          lazy: () =>
+                            import(
+                              "../pages/TrainingOpportunities/UpdateTrainingOpportunityPage"
+                            ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "settings",
+                  children: [
+                    {
+                      index: true,
+                      loader: () => {
+                        throw new NotFoundError();
+                      },
+                    },
+                    {
+                      path: "classifications",
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/Classifications/IndexClassificationPage"
+                            ),
+                        },
+                        {
+                          path: "create",
+                          lazy: () =>
+                            import(
+                              "../pages/Classifications/CreateClassificationPage"
+                            ),
+                        },
+                        {
+                          path: ":classificationId",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/Classifications/ViewClassificationPage"
+                                ),
+                            },
+                            {
+                              path: "edit",
+                              lazy: () =>
+                                import(
+                                  "../pages/Classifications/UpdateClassificationPage"
+                                ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      path: "departments",
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import("../pages/Departments/IndexDepartmentPage"),
+                        },
+                        {
+                          path: "create",
+                          lazy: () =>
+                            import("../pages/Departments/CreateDepartmentPage"),
+                        },
+                        {
+                          path: ":departmentId",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/Departments/ViewDepartmentPage"
+                                ),
+                            },
+                            {
+                              path: "edit",
+                              lazy: () =>
+                                import(
+                                  "../pages/Departments/UpdateDepartmentPage"
+                                ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      path: "skills",
+                      children: [
+                        {
+                          index: true,
+                          lazy: () => import("../pages/Skills/IndexSkillPage"),
+                        },
+                        {
+                          path: "create",
+                          lazy: () => import("../pages/Skills/CreateSkillPage"),
+                        },
+                        {
+                          path: ":skillId",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import("../pages/Skills/ViewSkillPage"),
+                            },
+                            {
+                              path: "edit",
+                              lazy: () =>
+                                import("../pages/Skills/UpdateSkillPage"),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      path: "skill-families",
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/SkillFamilies/IndexSkillFamilyPage"
+                            ),
+                        },
+                        {
+                          path: "create",
+                          lazy: () =>
+                            import(
+                              "../pages/SkillFamilies/CreateSkillFamilyPage"
+                            ),
+                        },
+                        {
+                          path: ":skillFamilyId",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/SkillFamilies/ViewSkillFamilyPage"
+                                ),
+                            },
+                            {
+                              path: "edit",
+                              lazy: () =>
+                                import(
+                                  "../pages/SkillFamilies/UpdateSkillFamilyPage"
+                                ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      path: "announcements",
+                      lazy: () =>
+                        import("../pages/AnnouncementsPage/AnnouncementsPage"),
+                    },
+                  ],
+                },
+                {
+                  path: "*",
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+              ],
+            },
+            {
               path: "*",
               loader: () => {
                 throw new NotFoundError();
@@ -547,438 +983,7 @@ const createRoute = (locale: Locales) =>
         },
       ],
     },
-    {
-      path: `${locale}/admin`,
-      lazy: () => import("./Layout/AdminLayout/AdminLayout"),
-      children: [
-        {
-          async lazy() {
-            const { ErrorBoundary } = await import(
-              "./Layout/AdminLayout/AdminLayout"
-            );
-            return { ErrorBoundary };
-          },
-          children: [
-            {
-              index: true,
-              lazy: () =>
-                import("../pages/AdminDashboardPage/AdminDashboardPage"),
-            },
-            {
-              path: "users",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/Users/IndexUserPage/IndexUserPage"),
-                },
-                {
-                  path: ":userId",
-                  lazy: () => import("../pages/Users/UserLayout"),
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import(
-                          "../pages/Users/UserInformationPage/UserInformationPage"
-                        ),
-                    },
-                    {
-                      path: "profile",
-                      lazy: () =>
-                        import(
-                          "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
-                        ),
-                    },
-                    {
-                      path: "edit",
-                      lazy: () =>
-                        import("../pages/Users/UpdateUserPage/UpdateUserPage"),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "communities",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import(
-                      "../pages/Communities/IndexCommunityPage/IndexCommunityPage"
-                    ),
-                },
-                {
-                  path: "create",
-                  lazy: () =>
-                    import(
-                      "../pages/Communities/CreateCommunityPage/CreateCommunityPage"
-                    ),
-                },
-                {
-                  path: ":communityId",
-                  lazy: () => import("../pages/Communities/CommunityLayout"),
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import(
-                          "../pages/Communities/ViewCommunityPage/ViewCommunityPage"
-                        ),
-                    },
-                    {
-                      path: "manage-access",
-                      lazy: () =>
-                        import(
-                          "../pages/Communities/CommunityMembersPage/CommunityMembersPage"
-                        ),
-                    },
-                    {
-                      path: "edit",
-                      lazy: () =>
-                        import(
-                          "../pages/Communities/UpdateCommunityPage/UpdateCommunityPage"
-                        ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "teams",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/Teams/IndexTeamPage/IndexTeamPage"),
-                },
-                {
-                  path: "create",
-                  lazy: () =>
-                    import("../pages/Teams/CreateTeamPage/CreateTeamPage"),
-                },
-                {
-                  path: ":teamId",
-                  lazy: () => import("../pages/Teams/TeamLayout"),
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/Teams/ViewTeamPage/ViewTeamPage"),
-                    },
-                    {
-                      path: "edit",
-                      lazy: () =>
-                        import("../pages/Teams/UpdateTeamPage/UpdateTeamPage"),
-                    },
-                    {
-                      path: "members",
-                      lazy: () =>
-                        import(
-                          "../pages/Teams/TeamMembersPage/TeamMembersPage"
-                        ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "pools",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import("../pages/Pools/IndexPoolPage/IndexPoolPage"),
-                },
-                {
-                  path: "create",
-                  lazy: () =>
-                    import("../pages/Pools/CreatePoolPage/CreatePoolPage"),
-                },
-                {
-                  path: ":poolId",
-                  lazy: () => import("../pages/Pools/PoolLayout"),
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/Pools/ViewPoolPage/ViewPoolPage"),
-                    },
-                    {
-                      path: "edit",
-                      lazy: () =>
-                        import("../pages/Pools/EditPoolPage/EditPoolPage"),
-                    },
-                    {
-                      path: "pool-candidates",
-                      children: [
-                        {
-                          index: true,
-                          lazy: () =>
-                            import(
-                              "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
-                            ),
-                        },
-                      ],
-                    },
-                    {
-                      path: "screening",
-                      lazy: () =>
-                        import(
-                          "../pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage"
-                        ),
-                    },
-                    {
-                      path: "manage-access",
-                      lazy: () =>
-                        import(
-                          "../pages/Pools/ManageAccessPage/ManageAccessPage"
-                        ),
-                    },
-                    {
-                      path: "plan",
-                      lazy: () =>
-                        import(
-                          "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
-                        ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "pools/:poolId/preview",
-              lazy: () =>
-                import(
-                  "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
-                ),
-            },
-            {
-              path: "pool-candidates",
-              lazy: () =>
-                import(
-                  "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
-                ),
-            },
-            {
-              path: "candidates/:poolCandidateId/application",
-              lazy: () =>
-                import(
-                  "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
-                ),
-            },
-            {
-              path: "talent-requests",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import(
-                      "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
-                    ),
-                },
-                {
-                  path: ":searchRequestId",
-                  lazy: () =>
-                    import(
-                      "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
-                    ),
-                },
-              ],
-            },
-            {
-              path: "training-opportunities",
-              children: [
-                {
-                  index: true,
-                  lazy: () =>
-                    import(
-                      "../pages/TrainingOpportunities/IndexTrainingOpportunitiesPage"
-                    ),
-                },
-                {
-                  path: "create",
-                  lazy: () =>
-                    import(
-                      "../pages/TrainingOpportunities/CreateTrainingOpportunityPage"
-                    ),
-                },
-                {
-                  path: ":trainingOpportunityId",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import(
-                          "../pages/TrainingOpportunities/ViewTrainingOpportunityPage"
-                        ),
-                    },
-                    {
-                      path: "edit",
-                      lazy: () =>
-                        import(
-                          "../pages/TrainingOpportunities/UpdateTrainingOpportunityPage"
-                        ),
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              path: "settings",
-              children: [
-                {
-                  index: true,
-                  loader: () => {
-                    throw new NotFoundError();
-                  },
-                },
-                {
-                  path: "classifications",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import(
-                          "../pages/Classifications/IndexClassificationPage"
-                        ),
-                    },
-                    {
-                      path: "create",
-                      lazy: () =>
-                        import(
-                          "../pages/Classifications/CreateClassificationPage"
-                        ),
-                    },
-                    {
-                      path: ":classificationId",
-                      children: [
-                        {
-                          index: true,
-                          lazy: () =>
-                            import(
-                              "../pages/Classifications/ViewClassificationPage"
-                            ),
-                        },
-                        {
-                          path: "edit",
-                          lazy: () =>
-                            import(
-                              "../pages/Classifications/UpdateClassificationPage"
-                            ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "departments",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/Departments/IndexDepartmentPage"),
-                    },
-                    {
-                      path: "create",
-                      lazy: () =>
-                        import("../pages/Departments/CreateDepartmentPage"),
-                    },
-                    {
-                      path: ":departmentId",
-                      children: [
-                        {
-                          index: true,
-                          lazy: () =>
-                            import("../pages/Departments/ViewDepartmentPage"),
-                        },
-                        {
-                          path: "edit",
-                          lazy: () =>
-                            import("../pages/Departments/UpdateDepartmentPage"),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "skills",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () => import("../pages/Skills/IndexSkillPage"),
-                    },
-                    {
-                      path: "create",
-                      lazy: () => import("../pages/Skills/CreateSkillPage"),
-                    },
-                    {
-                      path: ":skillId",
-                      children: [
-                        {
-                          index: true,
-                          lazy: () => import("../pages/Skills/ViewSkillPage"),
-                        },
-                        {
-                          path: "edit",
-                          lazy: () => import("../pages/Skills/UpdateSkillPage"),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "skill-families",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/SkillFamilies/IndexSkillFamilyPage"),
-                    },
-                    {
-                      path: "create",
-                      lazy: () =>
-                        import("../pages/SkillFamilies/CreateSkillFamilyPage"),
-                    },
-                    {
-                      path: ":skillFamilyId",
-                      children: [
-                        {
-                          index: true,
-                          lazy: () =>
-                            import(
-                              "../pages/SkillFamilies/ViewSkillFamilyPage"
-                            ),
-                        },
-                        {
-                          path: "edit",
-                          lazy: () =>
-                            import(
-                              "../pages/SkillFamilies/UpdateSkillFamilyPage"
-                            ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "announcements",
-                  lazy: () =>
-                    import("../pages/AnnouncementsPage/AnnouncementsPage"),
-                },
-              ],
-            },
-            {
-              path: "*",
-              loader: () => {
-                throw new NotFoundError();
-              },
-            },
-          ],
-        },
-      ],
-    },
+
     {
       path: `${locale}/indigenous-it-apprentice`,
       lazy: () => import("./Layout/IAPLayout"),
