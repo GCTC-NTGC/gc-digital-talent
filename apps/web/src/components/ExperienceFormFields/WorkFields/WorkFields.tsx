@@ -107,7 +107,11 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("cafForce");
       resetDirtyField("cafRank");
     }
-  }, [watchEmploymentCategory, resetField]);
+  }, [
+    formState.defaultValues?.employmentCategory,
+    watchEmploymentCategory,
+    resetField,
+  ]);
 
   return (
     <div>
