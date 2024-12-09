@@ -13,7 +13,6 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
-  PoolStream,
   PublishingGroup,
   Maybe,
   Pool,
@@ -380,7 +379,10 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.appliedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
-    stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
+    stream:
+      input?.applicantFilter?.workStreams
+        ?.filter(notEmpty)
+        .map(({ id }) => id) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
@@ -427,7 +429,7 @@ export function transformFormValuesToFilterState(
       languageAbility: data.languageAbility
         ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      qualifiedStreams: data.stream as PoolStream[],
+      workStreams: data.stream.map((id) => ({ id })),
       operationalRequirements: data.operationalRequirement
         .map((requirement) => {
           return stringToEnumOperational(requirement);
