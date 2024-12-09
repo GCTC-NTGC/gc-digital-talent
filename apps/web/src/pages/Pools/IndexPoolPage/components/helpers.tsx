@@ -32,11 +32,11 @@ import { FormValues } from "./PoolFilterDialog";
 import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(
-  pool: Pick<Pool, "name" | "stream">,
+  pool: Pick<Pool, "name" | "workStream">,
   intl: IntlShape,
 ) {
   const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
+  return `${name.toLowerCase()} ${getLocalizedName(pool?.workStream?.name, intl, true)}`;
 }
 
 export function viewCell(

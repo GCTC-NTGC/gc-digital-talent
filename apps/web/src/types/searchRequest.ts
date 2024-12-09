@@ -2,7 +2,6 @@ import {
   Scalars,
   ApplicantFilterInput,
   LanguageAbility,
-  PoolStream,
   UserPoolFilterInput,
   Classification,
 } from "@gc-digital-talent/graphql";
@@ -16,7 +15,7 @@ export type FormValues = Pick<
   languageAbility: LanguageAbility | typeof NullSelection;
   employmentDuration: string;
   classification: string | undefined;
-  stream: PoolStream | "";
+  stream?: string;
   skills: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";

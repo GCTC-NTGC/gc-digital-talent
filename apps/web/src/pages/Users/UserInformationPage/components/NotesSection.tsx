@@ -51,7 +51,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                 },
                 {
                   poolName: getShortPoolTitleHtml(intl, {
-                    stream: candidate.pool.stream,
+                    workStream: candidate.pool.workStream,
                     name: candidate.pool.name,
                     publishingGroup: candidate.pool.publishingGroup,
                     classification: candidate.pool.classification,
@@ -72,7 +72,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                 },
                 {
                   poolName: getShortPoolTitleHtml(intl, {
-                    stream: candidate.pool.stream,
+                    workStream: candidate.pool.workStream,
                     name: candidate.pool.name,
                     publishingGroup: candidate.pool.publishingGroup,
                     classification: candidate.pool.classification,
@@ -122,7 +122,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                       },
                       {
                         poolName: getShortPoolTitleHtml(intl, {
-                          stream: candidate.pool.stream,
+                          workStream: candidate.pool.workStream,
                           name: candidate.pool.name,
                           publishingGroup: candidate.pool.publishingGroup,
                           classification: candidate.pool.classification,
