@@ -6,7 +6,6 @@ use App\Enums\PoolStatus;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class PoolBuilder extends Builder
 {
@@ -141,7 +140,6 @@ class PoolBuilder extends Builder
     public function streams(?array $streams): self
     {
 
-        Log::debug($streams);
         if (empty($streams)) {
             return $this;
         }
