@@ -18,11 +18,16 @@ const specialErrorExchange = ({ intl }: { intl: IntlShape }) => {
         tap((result) => {
           const err = result.error;
           if (err) {
-            const res = err.response as Response;
+            const errRes = err.response as Response;
+            // I think this is old error condition from when the firewall responded directly when blocking
             if (
-              res?.status === 403 &&
+              errRes?.status === 403 &&
               err?.networkError?.message?.includes("Request Rejected")
             ) {
+              toast.error(intl.formatMessage(errorMessages.requestRejected));
+            }
+            // This is the new error condition from when the firewall responds a redirect to restricted.html
+            if (errRes?.url?.endsWith("/restricted.html")) {
               toast.error(intl.formatMessage(errorMessages.requestRejected));
             }
           }
