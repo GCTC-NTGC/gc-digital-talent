@@ -155,7 +155,7 @@ server {
     }
 
     # simulate being off the VPN and the firewall redirecting to the restricted page
-    # location = /admin/graphql {
+    # location = /admin {
     #     absolute_redirect on;
     #     return 301 http://localhost:8000/restricted.html;
     # }
