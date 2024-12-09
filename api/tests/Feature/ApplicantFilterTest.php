@@ -104,6 +104,9 @@ class ApplicantFilterTest extends TestCase
         $input['pools'] = [
             'sync' => $filter->pools->pluck('id')->toArray(),
         ];
+        $input['workStreams'] = [
+            'sync' => $filter->workStreams->pluck('id')->toArray(),
+        ];
         $input['qualifiedClassifications'] = [
             'sync' => $filter->qualifiedClassifications->pluck('id')->toArray(),
         ];
@@ -323,9 +326,11 @@ class ApplicantFilterTest extends TestCase
             $response->assertJsonFragment(['id' => $skill->id, 'name' => $skill->name]);
         }
 
-        $response->assertJsonFragment(['workStreams' => [[
-            'id' => $filter->workStreams->first()?->id,
-        ]]]);
+        foreach ($filter->workStreams as $workStream) {
+            $response->assertJsonFragment([
+                'id' => $workStream->id,
+            ]);
+        }
         $response->assertJsonFragment(['community' => ['id' => $filter->community_id]]);
     }
 
@@ -549,7 +554,7 @@ class ApplicantFilterTest extends TestCase
                         locationPreferences { value }
                         operationalRequirements { value }
                         positionDuration
-                        qualifiedStreams { value }
+                        workStreams { id }
                         qualifiedClassifications {
                             group
                             level
@@ -575,7 +580,6 @@ class ApplicantFilterTest extends TestCase
 
         $retrievedFilter['locationPreferences'] = $this->filterEnumToInput($retrievedFilter, 'locationPreferences');
         $retrievedFilter['operationalRequirements'] = $this->filterEnumToInput($retrievedFilter, 'operationalRequirements');
-        $retrievedFilter['qualifiedStreams'] = $this->filterEnumToInput($retrievedFilter, 'qualifiedStreams');
 
         // Now use the retrieved filter to get the same count
         $response = $this->graphQL(

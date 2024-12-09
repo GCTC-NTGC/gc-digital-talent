@@ -8,7 +8,6 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Facades\Notify;
