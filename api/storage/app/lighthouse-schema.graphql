@@ -1240,7 +1240,7 @@ input ApplicantFilterInput {
   skills: [IdInput]
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
-  qualifiedStreams: [UUID!]
+  workStreams: [IdInput]
   community: IdInput
 }
 

@@ -891,7 +891,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
-  qualifiedStreams: [UUID!] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  workStreams: [IdInput] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
