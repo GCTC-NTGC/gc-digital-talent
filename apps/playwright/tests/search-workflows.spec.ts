@@ -228,7 +228,7 @@ test.describe("Talent search", () => {
     ).toBeVisible();
 
     await expect(
-      appPage.page.getByText("Business Line Advisory Services"),
+      appPage.page.getByText(workStream?.name?.en ?? ""),
     ).toBeVisible();
 
     await expect(
