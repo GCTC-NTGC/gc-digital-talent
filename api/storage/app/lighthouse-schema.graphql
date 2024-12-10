@@ -1205,7 +1205,7 @@ input PoolFilterInput {
   generalSearch: String
   name: String
   team: String
-  streams: [UUID!]
+  workStreams: [UUID!]
   statuses: [PoolStatus!] = []
   processNumber: String
   publishingGroups: [PublishingGroup!]
@@ -1264,7 +1264,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
   departments: [ID]
   classifications: [ID]
-  streams: [UUID]
+  workStreams: [UUID]
   fullName: String
   email: String
   id: ID

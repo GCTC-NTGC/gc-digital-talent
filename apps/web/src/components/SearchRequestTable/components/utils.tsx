@@ -16,7 +16,7 @@ export interface FormValues {
   status?: string[];
   departments?: string[];
   classifications?: string[];
-  streams?: string[];
+  workStreams?: string[];
 }
 
 export function transformFormValuesToSearchRequestFilterInput(
@@ -30,8 +30,8 @@ export function transformFormValuesToSearchRequestFilterInput(
     classifications: data.classifications?.length
       ? data.classifications
       : undefined,
-    streams: data.streams?.length
-      ? data.streams.map(stringToEnumStream).filter(notEmpty)
+    workStreams: data.workStreams?.length
+      ? data.workStreams.map(stringToEnumStream).filter(notEmpty)
       : undefined,
   };
 }
@@ -69,6 +69,6 @@ export function transformSearchRequestFilterInputToFormValues(
     status: input?.status?.filter(notEmpty) ?? [],
     departments: input?.departments?.filter(notEmpty) ?? [],
     classifications: input?.classifications?.filter(notEmpty) ?? [],
-    streams: input?.streams?.filter(notEmpty) ?? [],
+    workStreams: input?.workStreams?.filter(notEmpty) ?? [],
   };
 }

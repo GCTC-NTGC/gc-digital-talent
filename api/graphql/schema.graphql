@@ -852,7 +852,7 @@ input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
   team: String @scope
-  streams: [UUID!] @scope
+  workStreams: [UUID!] @scope
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
@@ -919,7 +919,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
   departments: [ID] @scope
   classifications: [ID] @scope
-  streams: [UUID] @scope
+  workStreams: [UUID] @scope
   fullName: String @scope
   email: String @scope
   id: ID @scope

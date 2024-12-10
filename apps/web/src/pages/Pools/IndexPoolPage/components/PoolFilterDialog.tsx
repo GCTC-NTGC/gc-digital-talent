@@ -21,7 +21,7 @@ export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
   classifications: Scalars["UUID"]["output"][];
-  streams: Scalars["UUID"]["output"][];
+  workStreams: Scalars["UUID"]["output"][];
 }
 
 const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
@@ -91,8 +91,8 @@ const PoolFilterDialog = ({
           options={localizedEnumToOptions(data?.statuses, intl)}
         />
         <Combobox
-          id="streams"
-          name="streams"
+          id="workStreams"
+          name="workStreams"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
           options={unpackMaybes(data?.workStreams).map((workStream) => ({

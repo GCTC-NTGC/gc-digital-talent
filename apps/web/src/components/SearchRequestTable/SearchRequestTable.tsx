@@ -91,7 +91,7 @@ const transformSearchRequestInput = (
     status: filterState?.status,
     departments: filterState?.departments,
     classifications: filterState?.classifications,
-    streams: filterState?.streams,
+    workStreams: filterState?.workStreams,
   };
 };
 

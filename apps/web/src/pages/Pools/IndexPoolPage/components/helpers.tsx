@@ -296,7 +296,7 @@ export function transformFormValuesToFilterInput(
   return {
     publishingGroups: data.publishingGroups,
     statuses: data.statuses,
-    streams: data.streams,
+    workStreams: data.workStreams,
     classifications: data.classifications.map((classification) => {
       const [group, level] = classification.split("-");
       return { group, level: Number(level) };
@@ -310,7 +310,7 @@ export function transformPoolFilterInputToFormValues(
   return {
     publishingGroups: unpackMaybes(input?.publishingGroups),
     statuses: unpackMaybes(input?.statuses),
-    streams: unpackMaybes(input?.streams),
+    workStreams: unpackMaybes(input?.workStreams),
     classifications: unpackMaybes(input?.classifications).map(
       (c) => `${c.group}-${c.level}`,
     ),
