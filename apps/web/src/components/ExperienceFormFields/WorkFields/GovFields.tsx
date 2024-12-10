@@ -28,7 +28,7 @@ import {
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
@@ -122,12 +122,12 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
         )
       : allPositionTypes;
 
-  const departmentOptions = unpackMaybes(data?.departments)
-    .filter(notEmpty)
-    .map(({ id, name }) => ({
+  const departmentOptions = unpackMaybes(data?.departments).map(
+    ({ id, name }) => ({
       value: id,
       label: getLocalizedName(name, intl),
-    }));
+    }),
+  );
 
   // Consolidate James's classification-> group and level form logic
   const classifications = unpackMaybes(data?.classifications);
