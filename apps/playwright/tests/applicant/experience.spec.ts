@@ -46,7 +46,7 @@ test.describe("Experiences", () => {
     await experiencePage.addGovCasualWorkExperience({
       role,
       startDate: "2001-01",
-      endDate: "2200-01",
+      endDate: "2023-01",
     });
 
     await expect(experiencePage.page.getByRole("alert")).toContainText(
@@ -64,7 +64,7 @@ test.describe("Experiences", () => {
     await experiencePage.addGovTermOrIndeterminateWorkExperience({
       role,
       startDate: "2001-01",
-      endDate: "2200-01",
+      endDate: "2023-01",
     });
 
     await expect(experiencePage.page.getByRole("alert")).toContainText(
@@ -80,7 +80,7 @@ test.describe("Experiences", () => {
     await experiencePage.addGovContractorWorkExperience({
       role,
       startDate: "2001-01",
-      endDate: "2200-01",
+      endDate: "2023-01",
     });
 
     await expect(experiencePage.page.getByRole("alert")).toContainText(
