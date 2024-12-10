@@ -49,8 +49,7 @@ const GovContent = ({
       </>
     );
   } else if (
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Casual ||
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Term
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Casual
   ) {
     return (
       <>
@@ -86,7 +85,8 @@ const GovContent = ({
       </>
     );
   } else if (
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate ||
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Term
   ) {
     return (
       <>
