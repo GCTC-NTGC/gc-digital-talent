@@ -44,8 +44,7 @@ const GovContent = ({
           headingLevel={headingLevel}
           data-h2-border-right="l-tablet(1px solid gray.lighter)"
         >
-          {getLocalizedName(govEmploymentType.label, intl) ??
-            intl.formatMessage(commonMessages.notAvailable)}
+          {getLocalizedName(govEmploymentType.label, intl)}
         </ContentSection>
       </>
     );
@@ -73,8 +72,7 @@ const GovContent = ({
             headingLevel={headingLevel}
             data-h2-border-right="l-tablet(1px solid gray.lighter)"
           >
-            {getLocalizedName(govEmploymentType.label, intl) ??
-              intl.formatMessage(commonMessages.notAvailable)}
+            {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.classification}
@@ -110,16 +108,14 @@ const GovContent = ({
             headingLevel={headingLevel}
             data-h2-border-right="l-tablet(1px solid gray.lighter)"
           >
-            {getLocalizedName(govEmploymentType.label, intl) ??
-              intl.formatMessage(commonMessages.notAvailable)}
+            {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.positionType}
             headingLevel={headingLevel}
             data-h2-border-right="l-tablet(1px solid gray.lighter)"
           >
-            {getLocalizedName(govPositionType?.label, intl) ??
-              intl.formatMessage(commonMessages.notAvailable)}
+            {getLocalizedName(govPositionType?.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.classification}
@@ -155,24 +151,21 @@ const GovContent = ({
             headingLevel={headingLevel}
             data-h2-border-right="l-tablet(1px solid gray.lighter)"
           >
-            {getLocalizedName(govEmploymentType.label, intl) ??
-              intl.formatMessage(commonMessages.notAvailable)}
+            {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.govContractorRoleSeniority}
             headingLevel={headingLevel}
             data-h2-border-right="l-tablet(1px solid gray.lighter)"
           >
-            {getLocalizedName(govContractorRoleSeniority?.label, intl) ??
-              intl.formatMessage(commonMessages.notAvailable)}
+            {getLocalizedName(govContractorRoleSeniority?.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.govContractorType}
             headingLevel={headingLevel}
             data-h2-border-right="l-tablet(1px solid gray.lighter)"
           >
-            {getLocalizedName(govContractorType?.label, intl) ??
-              intl.formatMessage(commonMessages.notAvailable)}
+            {getLocalizedName(govContractorType?.label, intl)}
           </ContentSection>
         </div>
         {govContractorType?.value === GovContractorType.FirmOrAgency && (

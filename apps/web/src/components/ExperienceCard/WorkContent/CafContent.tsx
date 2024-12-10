@@ -31,8 +31,7 @@ const CafContent = ({
         headingLevel={headingLevel}
         data-h2-border-right="l-tablet(1px solid gray.lighter)"
       >
-        {getLocalizedName(cafEmploymentType?.label, intl) ??
-          intl.formatMessage(commonMessages.notAvailable)}
+        {getLocalizedName(cafEmploymentType?.label, intl)}
       </ContentSection>
       <Separator space="sm" />
       <ContentSection
@@ -40,8 +39,7 @@ const CafContent = ({
         headingLevel={headingLevel}
         data-h2-border-right="l-tablet(1px solid gray.lighter)"
       >
-        {getLocalizedName(cafRank?.label, intl) ??
-          intl.formatMessage(commonMessages.notAvailable)}
+        {getLocalizedName(cafRank?.label, intl)}
       </ContentSection>
     </>
   );

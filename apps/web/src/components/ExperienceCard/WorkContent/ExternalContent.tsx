@@ -36,15 +36,13 @@ const ExternalContent = ({
           headingLevel={headingLevel}
           data-h2-border-right="l-tablet(1px solid gray.lighter)"
         >
-          {getLocalizedName(extSizeOfOrganization?.label, intl) ??
-            intl.formatMessage(commonMessages.notAvailable)}
+          {getLocalizedName(extSizeOfOrganization?.label, intl)}
         </ContentSection>
         <ContentSection
           title={experienceFormLabels.extRoleSeniority}
           headingLevel={headingLevel}
         >
-          {getLocalizedName(extRoleSeniority?.label, intl) ??
-            intl.formatMessage(commonMessages.notAvailable)}
+          {getLocalizedName(extRoleSeniority?.label, intl)}
         </ContentSection>
       </div>
     </>
