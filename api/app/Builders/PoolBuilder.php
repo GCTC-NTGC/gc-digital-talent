@@ -137,7 +137,7 @@ class PoolBuilder extends Builder
         return $this->whereIn('publishing_group', $publishingGroups);
     }
 
-    public function streams(?array $streams): self
+    public function whereWorkStreamsIn(?array $streams): self
     {
 
         if (empty($streams)) {

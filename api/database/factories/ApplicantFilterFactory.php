@@ -110,4 +110,18 @@ class ApplicantFilterFactory extends Factory
             $filter->save();
         });
     }
+
+    /**
+     * Create an ApplicantFilter with specific work streams
+     *
+     * @var \Illuminate\Support\Collection<array-key, \App\Models\WorkStream>
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withWorkStreams(array $workStreams)
+    {
+        return $this->afterCreating(function (ApplicantFilter $filter) use ($workStreams) {
+            $filter->workStreams()->saveMany($workStreams);
+        });
+    }
 }

@@ -302,15 +302,11 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
 
         $stream1 = WorkStream::factory()->create();
 
-        $applicantFilter1 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [$stream1->id],
-        ]);
+        $applicantFilter1 = ApplicantFilter::factory()->withWorkStreams([$stream1])->create();
 
         $stream2 = WorkStream::factory()->create();
 
-        $applicantFilter2 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [$stream2->id],
-        ]);
+        $applicantFilter2 = ApplicantFilter::factory()->withWorkStreams([$stream2])->create();
 
         PoolCandidateSearchRequest::factory()->count(1)->create([
             'applicant_filter_id' => $applicantFilter1->id,
@@ -321,7 +317,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
 
         // streams null results in 3 results
         $this->actingAs($this->requestResponder, 'api')
-            ->graphQL($this->searchRequestQuery, ['where' => ['streams' => null]])
+            ->graphQL($this->searchRequestQuery, ['where' => ['workStreams' => null]])
             ->assertJsonFragment(['count' => 3]);
 
         $unattachedStream = WorkStream::factory()->create();
@@ -332,7 +328,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [$unattachedStream->id],
+                        'workStreams' => [$unattachedStream->id],
                     ],
                 ]
             )
@@ -344,7 +340,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [$stream1->id],
+                        'workStreams' => [$stream1->id],
                     ],
                 ]
             )
@@ -356,7 +352,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [$stream1->id, $unattachedStream->id],
+                        'workStreams' => [$stream1->id, $unattachedStream->id],
                     ],
                 ]
             )
@@ -368,7 +364,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [$stream1->id, $stream2->id],
+                        'workStreams' => [$stream1->id, $stream2->id],
                     ],
                 ]
             )

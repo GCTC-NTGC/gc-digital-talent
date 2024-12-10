@@ -1193,7 +1193,7 @@ class PoolTest extends TestCase
             ',
             [
                 'where' => [
-                    'streams' => [
+                    'workStreams' => [
                         $ATIPStream->id,
                         $businessStream->id,
                     ],
