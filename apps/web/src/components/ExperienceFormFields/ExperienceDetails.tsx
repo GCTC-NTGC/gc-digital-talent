@@ -10,7 +10,7 @@ import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
 import EducationFields from "./EducationFields";
 import PersonalFields from "./PersonalFields";
-import WorkFields from "./WorkFields";
+import WorkFields from "./WorkFields/WorkFields";
 import NullExperienceType from "./NullExperienceType";
 
 interface ExperienceDetailsProps {
