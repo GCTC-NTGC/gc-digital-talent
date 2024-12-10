@@ -397,13 +397,29 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 legend={labels.expectedEndDate}
                 name="endDate"
                 show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                  min: {
-                    value: watchStartDate ? String(watchStartDate) : "",
-                    message: intl.formatMessage(errorMessages.futureDate),
-                  },
-                }}
+                rules={
+                  watchCurrentRole
+                    ? {
+                        required: intl.formatMessage(errorMessages.required),
+                        min: {
+                          value: strToFormDate(todayDate.toISOString()),
+                          message: intl.formatMessage(errorMessages.futureDate),
+                        },
+                      }
+                    : {
+                        required: intl.formatMessage(errorMessages.required),
+                        min: {
+                          value: watchStartDate ? String(watchStartDate) : "",
+                          message: intl.formatMessage(errorMessages.futureDate),
+                        },
+                        max: {
+                          value: strToFormDate(todayDate.toISOString()),
+                          message: intl.formatMessage(
+                            errorMessages.mustNotBeFuture,
+                          ),
+                        },
+                      }
+                }
               />
             ) : (
               <>
@@ -413,23 +429,19 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                     legend={labels.endDate}
                     name="endDate"
                     show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                    rules={
-                      watchCurrentRole
-                        ? {}
-                        : {
-                            required: intl.formatMessage(
-                              errorMessages.required,
-                            ),
-                            min: {
-                              value: watchStartDate
-                                ? String(watchStartDate)
-                                : "",
-                              message: intl.formatMessage(
-                                errorMessages.futureDate,
-                              ),
-                            },
-                          }
-                    }
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: watchStartDate ? String(watchStartDate) : "",
+                        message: intl.formatMessage(errorMessages.futureDate),
+                      },
+                      max: {
+                        value: strToFormDate(todayDate.toISOString()),
+                        message: intl.formatMessage(
+                          errorMessages.mustNotBeFuture,
+                        ),
+                      },
+                    }}
                   />
                 )}
               </>

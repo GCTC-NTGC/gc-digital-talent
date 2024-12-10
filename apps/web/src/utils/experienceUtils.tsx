@@ -14,11 +14,14 @@ import {
   CommunityExperience,
   EducationExperience,
   EmploymentCategory,
+  GovPositionType,
   Maybe,
   PersonalExperience,
   Skill,
   WorkExperience,
+  WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import {
   AllExperienceFormValues,
@@ -381,7 +384,7 @@ export const formValuesToSubmitData = (
       organization,
       division: team,
       startDate,
-      endDate: newEndDate,
+      endDate: endDate,
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,
@@ -645,7 +648,9 @@ const getWorkExperienceDefaultValues = (
     organization,
     team: division,
     startDate,
-    currentRole: endDate === null,
+    currentRole: endDate
+      ? endDate >= strToFormDate(new Date().toISOString()) // today's date
+      : undefined,
     endDate,
     employmentCategory: employmentCategory?.value,
     extSizeOfOrganization: extSizeOfOrganization?.value,
@@ -817,6 +822,40 @@ export const getExperienceDate = (
   }
 
   const { startDate, endDate } = experience;
+
+  if (isWorkExperience(experience)) {
+    const isIndeterminate =
+      experience.govEmploymentType?.value ===
+      WorkExperienceGovEmployeeType.Indeterminate;
+    const indeterminateActing =
+      isIndeterminate &&
+      experience.govPositionType?.value === GovPositionType.Acting;
+    const indeterminateAssignment =
+      isIndeterminate &&
+      experience.govPositionType?.value === GovPositionType.Assignment;
+    const indeterminateSecondment =
+      isIndeterminate &&
+      experience.govPositionType?.value === GovPositionType.Secondment;
+
+    const todayDate = strToFormDate(new Date().toISOString());
+    const expectedEndDate =
+      endDate &&
+      endDate >= todayDate &&
+      (experience.govEmploymentType?.value ===
+        WorkExperienceGovEmployeeType.Student ||
+        experience.govEmploymentType?.value ===
+          WorkExperienceGovEmployeeType.Casual ||
+        experience.govEmploymentType?.value ===
+          WorkExperienceGovEmployeeType.Term ||
+        indeterminateActing ||
+        indeterminateAssignment ||
+        indeterminateSecondment);
+
+    return expectedEndDate
+      ? `${getDateRange({ startDate, endDate, intl })} (${getExperienceFormLabels(intl, "work").expectedEndDate})`
+      : getDateRange({ startDate, endDate, intl });
+  }
+
   return getDateRange({ startDate, endDate, intl });
 };
 
