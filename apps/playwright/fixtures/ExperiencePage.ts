@@ -7,8 +7,6 @@ import {
   CommunityExperienceInput,
   AwardExperienceInput,
   EducationExperienceInput,
-  ExternalSizeOfOrganization,
-  ExternalRoleSeniority,
 } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
