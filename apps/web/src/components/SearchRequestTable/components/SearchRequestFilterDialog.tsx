@@ -53,9 +53,9 @@ const SearchRequestFilterData_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
@@ -133,11 +133,14 @@ const SearchRequestFilterDialog = ({
           }))}
         />
         <Combobox
-          id="streams"
-          name="streams"
+          id="workStreams"
+          name="workStreams"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={localizedEnumToOptions(data?.streams, intl)}
+          options={unpackMaybes(data?.workStreams).map((workStream) => ({
+            value: workStream.id,
+            label: getLocalizedName(workStream?.name, intl),
+          }))}
         />
       </div>
     </FilterDialog>

@@ -224,7 +224,7 @@ test.describe("Pool candidates", () => {
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await appPage.waitForGraphqlResponse("PoolCandidate_UpdateNotes");
     await expect(
-      appPage.page.getByRole("button", { name: "Edit notes" }),
+      appPage.page.getByRole("button", { name: /edit notes/i }),
     ).toBeVisible();
     await expect(appPage.page.getByText(/Notes notes notes/i)).toBeVisible();
   });
@@ -371,8 +371,9 @@ test.describe("Pool candidates", () => {
     await expect(
       appPage.page.getByRole("button", { name: "Removed", exact: true }),
     ).toBeHidden();
+    await appPage.waitForGraphqlResponse("ReinstateCandidate");
     await expect(
-      appPage.page.getByRole("button", { name: "Record final decision" }),
+      appPage.page.getByRole("button", { name: /remove candidate/i }),
     ).toBeVisible();
   });
 });

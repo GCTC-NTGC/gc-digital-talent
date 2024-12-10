@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Enums\PoolCandidateSearchStatus;
-use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use App\Models\WorkStream;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -299,13 +299,14 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
 
     public function testSearchRequestStreamsFiltering(): void
     {
-        $applicantFilter1 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [PoolStream::SECURITY->name],
-        ]);
 
-        $applicantFilter2 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [PoolStream::BUSINESS_ADVISORY_SERVICES->name],
-        ]);
+        $stream1 = WorkStream::factory()->create();
+
+        $applicantFilter1 = ApplicantFilter::factory()->withWorkStreams([$stream1])->create();
+
+        $stream2 = WorkStream::factory()->create();
+
+        $applicantFilter2 = ApplicantFilter::factory()->withWorkStreams([$stream2])->create();
 
         PoolCandidateSearchRequest::factory()->count(1)->create([
             'applicant_filter_id' => $applicantFilter1->id,
@@ -316,8 +317,10 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
 
         // streams null results in 3 results
         $this->actingAs($this->requestResponder, 'api')
-            ->graphQL($this->searchRequestQuery, ['where' => ['streams' => null]])
+            ->graphQL($this->searchRequestQuery, ['where' => ['workStreams' => null]])
             ->assertJsonFragment(['count' => 3]);
+
+        $unattachedStream = WorkStream::factory()->create();
 
         // infrastructure passed in returns 0 results
         $this->actingAs($this->requestResponder, 'api')
@@ -325,7 +328,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [PoolStream::INFRASTRUCTURE_OPERATIONS->name],
+                        'workStreams' => [$unattachedStream->id],
                     ],
                 ]
             )
@@ -337,7 +340,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [PoolStream::SECURITY->name],
+                        'workStreams' => [$stream1->id],
                     ],
                 ]
             )
@@ -349,7 +352,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [PoolStream::SECURITY->name, PoolStream::INFRASTRUCTURE_OPERATIONS->name],
+                        'workStreams' => [$stream1->id, $unattachedStream->id],
                     ],
                 ]
             )
@@ -361,7 +364,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [PoolStream::SECURITY->name, PoolStream::BUSINESS_ADVISORY_SERVICES->name],
+                        'workStreams' => [$stream1->id, $stream2->id],
                     ],
                 ]
             )

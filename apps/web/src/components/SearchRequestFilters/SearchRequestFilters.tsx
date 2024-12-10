@@ -111,7 +111,7 @@ const ApplicantFilters = ({
   ).map((label) => getLocalizedName(label, intl));
 
   const streams = unpackMaybes(
-    applicantFilter?.qualifiedStreams?.flatMap((stream) => stream?.label),
+    applicantFilter?.workStreams?.flatMap((stream) => stream?.name),
   ).map((label) => getLocalizedName(label, intl));
 
   const communityName: string =
@@ -142,7 +142,7 @@ const ApplicantFilters = ({
               applicantFilter
                 ? applicantFilter?.pools?.filter(notEmpty)?.map((pool) =>
                     getShortPoolTitleHtml(intl, {
-                      stream: pool.stream,
+                      workStream: pool.workStream,
                       name: pool.name,
                       publishingGroup: pool.publishingGroup,
                       classification: pool.classification,
@@ -277,8 +277,8 @@ const SearchRequestFilters = ({
     ? poolCandidateFilter?.pools?.filter(notEmpty)
     : [];
 
-  const streams = pools?.map((pool) =>
-    pool.stream?.label ? getLocalizedName(pool.stream.label, intl) : "",
+  const streams = pools?.map(({ workStream }) =>
+    getLocalizedName(workStream?.name, intl, true),
   );
 
   // eslint-disable-next-line deprecation/deprecation
@@ -373,7 +373,7 @@ const SearchRequestFilters = ({
                 pools
                   ? pools.map((pool) =>
                       getShortPoolTitleHtml(intl, {
-                        stream: pool.stream,
+                        workStream: pool.workStream,
                         name: pool.name,
                         publishingGroup: pool.publishingGroup,
                         classification: pool.classification,

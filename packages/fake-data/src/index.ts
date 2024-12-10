@@ -16,6 +16,7 @@ import fakeSkills, { getStaticSkills } from "./fakeSkills";
 import fakeTeams from "./fakeTeams";
 import fakeUsers, { fakeApplicants, fakeUser } from "./fakeUsers";
 import fakeUserSkills from "./fakeUserSkills";
+import fakeWorkStreams from "./fakeWorkStreams";
 
 // Faker Generated Data
 export {
@@ -38,6 +39,7 @@ export {
   fakeUsers,
   fakeUser,
   fakeUserSkills,
+  fakeWorkStreams,
   fakeLocalizedEnum,
   toLocalizedEnum,
 };
