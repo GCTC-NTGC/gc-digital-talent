@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { WorkExperience } from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
 
@@ -10,7 +10,7 @@ import ContentSection from "../ContentSection";
 import { ContentProps } from "../types";
 
 const CafContent = ({
-  experience: { division, cafEmploymentType, cafRank },
+  experience: { cafEmploymentType, cafRank },
   headingLevel,
 }: ContentProps<Omit<WorkExperience, "user">>) => {
   const intl = useIntl();
@@ -18,14 +18,6 @@ const CafContent = ({
 
   return (
     <>
-      <ContentSection
-        title={experienceFormLabels.team}
-        headingLevel={headingLevel}
-        data-h2-border-right="l-tablet(1px solid gray.lighter)"
-      >
-        {division ?? intl.formatMessage(commonMessages.notAvailable)}
-      </ContentSection>
-      <Separator space="sm" decorative />
       <ContentSection
         title={experienceFormLabels.cafEmploymentType}
         headingLevel={headingLevel}
