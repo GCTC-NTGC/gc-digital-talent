@@ -196,7 +196,7 @@ const Trigger = forwardRef<
             className="Accordion__Trigger"
             data-h2-align-items="base(flex-start)"
             data-h2-background-color="base(transparent) base:focus-visible(focus)"
-            data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
+            data-h2-color="base(black) base:focus-visible(black) base:children[.Accordion__Subtitle](black.light) base:all:focus-visible:children[*](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
             data-h2-cursor="base(pointer)"
             data-h2-display="base(flex)"
             data-h2-flex-wrap="base(wrap) p-tablet(nowrap)"
@@ -301,7 +301,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
       data-h2-text-decoration="p-tablet:children[::after](none)"
       data-h2-color="p-tablet:children[::after](black.lighter)"
-      data-h2-margin="base(-x.05 0 x.5 x1.30) p-tablet(-x.55 0 x.5 x1.30) p-tablet:children[:not(:last-child)::after](0 x.5)"
+      data-h2-margin="base(x.25 0 x.5 x1.30) p-tablet(x.25 0 x.5 x1.30) p-tablet:children[:not(:last-child)::after](0 x.5)"
       data-h2-font-size="base(caption)"
       data-h2-font-weight="base(bold)"
     >
