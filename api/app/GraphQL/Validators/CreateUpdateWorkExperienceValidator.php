@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Validators;
 
-use App\Enums\DirectiveForms\PositionEmploymentType;
 use App\Enums\EmploymentCategory;
 use App\Enums\GovContractorType;
 use App\Enums\GovPositionType;
