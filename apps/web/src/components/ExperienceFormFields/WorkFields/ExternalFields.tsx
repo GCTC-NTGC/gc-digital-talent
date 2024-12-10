@@ -18,7 +18,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 
-import { SubExperienceFormProps } from "~/types/experience";
+import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 
 const ExternalWorkFieldOptions_Query = graphql(/* GraphQL */ `
   query ExternalWorkFieldOptions {
@@ -51,9 +51,9 @@ const ExternalFields = ({ labels }: SubExperienceFormProps) => {
 
   const todayDate = new Date();
   // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch<{ currentRole: string }>({ name: "currentRole" });
+  const watchCurrentRole = useWatch<WorkFormValues>({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const startDate = useWatch<{ startDate: string }>({ name: "startDate" });
+  const watchStartDate = useWatch<WorkFormValues>({ name: "startDate" });
   return (
     <>
       {fetching ? (
@@ -130,19 +130,19 @@ const ExternalFields = ({ labels }: SubExperienceFormProps) => {
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
             {/* conditionally render the end-date based off the state attached to the checkbox input */}
-            {!isCurrent && (
+            {!watchCurrentRole && (
               <DateInput
                 id="endDate"
                 legend={labels.endDate}
                 name="endDate"
                 show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
                 rules={
-                  isCurrent
+                  watchCurrentRole
                     ? {}
                     : {
                         required: intl.formatMessage(errorMessages.required),
                         min: {
-                          value: startDate,
+                          value: watchStartDate ? String(watchStartDate) : "",
                           message: intl.formatMessage(errorMessages.futureDate),
                         },
                       }

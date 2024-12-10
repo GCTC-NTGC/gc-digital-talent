@@ -94,30 +94,20 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   const { resetField } = useFormContext<WorkFormValues>();
 
   const todayDate = new Date();
-  const watchCurrentRole = useWatch<{ currentRole: string }>({
+  const watchStartDate = useWatch<WorkFormValues>({ name: "startDate" });
+  const watchCurrentRole = useWatch<WorkFormValues>({
     name: "currentRole",
   });
-  const watchStartDate = useWatch<{ startDate: string }>({ name: "startDate" });
-
-  const watchGroupSelection = useWatch<{ classificationGroup: string }>({
+  const watchGroupSelection = useWatch<WorkFormValues>({
     name: "classificationGroup",
   });
-
-  const watchGovEmploymentType = useWatch<{
-    govEmploymentType: WorkExperienceGovEmployeeType;
-  }>({
+  const watchGovEmploymentType = useWatch<WorkFormValues>({
     name: "govEmploymentType",
   });
-
-  const watchGovPositionType = useWatch<{
-    govPositionType: GovPositionType;
-  }>({
+  const watchGovPositionType = useWatch<WorkFormValues>({
     name: "govPositionType",
   });
-
-  const watchGovContractorType = useWatch<{
-    govContractorType: GovContractorType;
-  }>({
+  const watchGovContractorType = useWatch<WorkFormValues>({
     name: "govContractorType",
   });
 
@@ -410,7 +400,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                   min: {
-                    value: watchStartDate,
+                    value: watchStartDate ? String(watchStartDate) : "",
                     message: intl.formatMessage(errorMessages.futureDate),
                   },
                 }}
@@ -431,7 +421,9 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                               errorMessages.required,
                             ),
                             min: {
-                              value: watchStartDate,
+                              value: watchStartDate
+                                ? String(watchStartDate)
+                                : "",
                               message: intl.formatMessage(
                                 errorMessages.futureDate,
                               ),
