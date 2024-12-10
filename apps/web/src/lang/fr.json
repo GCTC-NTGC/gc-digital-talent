@@ -519,6 +519,10 @@
     "defaultMessage": "Candidats du bassin",
     "description": "Title for pool candidates"
   },
+  "0Wx0kW": {
+    "defaultMessage": "Il s’agit du carrefour de l’administrateur de Talents numériques du GC. À partir d’ici, il est possible de recruter et gérer des talents, trouver des ressources et ajuster les paramètres de la plateforme.",
+    "description": "Subtitle for the admin dashboard page"
+  },
   "0YZeO0": {
     "defaultMessage": "Embauché(e) (occasionnel)",
     "description": "Status for an application that has been hired with a casual contract"
@@ -1886,10 +1890,6 @@
   "7mdPUJ": {
     "defaultMessage": "Comment les données d’autodéclaration sont-elles utilisées?",
     "description": "Title for how self-declaration data is used section"
-  },
-  "7nxtBm": {
-    "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
-    "description": "Subtitle for the admin dashboard page"
   },
   "7oq1Qa": {
     "defaultMessage": "Décision finale",
@@ -4083,10 +4083,6 @@
     "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence « {skillName} » dans le cadre de cette expérience",
     "description": "Heading for a single skill on an experience."
   },
-  "J8kIar": {
-    "defaultMessage": "Recruter et gérer des employés en TI au gouvernement du Canada.",
-    "description": "Meta tag description for Admin site"
-  },
   "J9HjFN": {
     "defaultMessage": "Le Programme a été conçu pour répondre aux efforts de réconciliation et pour bâtir une relation renouvelée qui est fondée sur les droits, le respect, la collaboration et le partenariat avec les peuples autochtones.",
     "description": "How it works, step 1 content paragraph 1"
@@ -5538,6 +5534,10 @@
   "QNmxIN": {
     "defaultMessage": "Identifiant de processus copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
+  },
+  "QOf3kT": {
+    "defaultMessage": "Voici votre tableau de bord de la collectivité. Vous pouvez y recruter et gérer des talents, et trouver des ressources.",
+    "description": "Subtitle for the community dashboard page"
   },
   "QQXvOh": {
     "defaultMessage": "Notre engagement à l’égard de l’accessibilité",
@@ -11821,10 +11821,6 @@
   "wHWE3M": {
     "defaultMessage": "Il s’agit d’une plateforme conçue pour offrir des possibilités d’emploi aux Autochtones d’une manière qui reconnaît et met en valeur leurs talents, leurs idées, leurs compétences et leur passion uniques.",
     "description": "Talent portal information sentence 2"
-  },
-  "wHX/8C": {
-    "defaultMessage": "Admin",
-    "description": "Title tag for Admin site"
   },
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",

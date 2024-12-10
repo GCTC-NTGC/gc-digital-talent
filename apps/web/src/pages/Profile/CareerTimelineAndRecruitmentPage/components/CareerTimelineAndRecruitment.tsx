@@ -16,7 +16,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { PAGE_SECTION_ID, titles } from "~/constants/sections/careerTimeline";

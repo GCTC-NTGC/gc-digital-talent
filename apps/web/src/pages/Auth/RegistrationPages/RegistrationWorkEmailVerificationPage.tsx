@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -56,7 +56,7 @@ const RegistrationWorkEmailVerificationPage = () => {
       title={intl.formatMessage(messages.title)}
       subtitle={intl.formatMessage(messages.subtitle)}
       crumbs={crumbs}
-      simpleCrumbs
+      overlap
     >
       <div
         data-h2-padding="base(x2) "

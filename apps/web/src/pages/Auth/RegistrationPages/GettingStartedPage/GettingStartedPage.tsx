@@ -28,7 +28,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
@@ -290,7 +290,7 @@ export const GettingStartedForm = ({
         title={intl.formatMessage(messages.title)}
         subtitle={intl.formatMessage(messages.subtitle)}
         crumbs={crumbs}
-        simpleCrumbs
+        overlap
       >
         <section data-h2-padding="base(0, 0, x3, 0)">
           <div

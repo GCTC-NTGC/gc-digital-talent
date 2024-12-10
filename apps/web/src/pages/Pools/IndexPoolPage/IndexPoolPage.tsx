@@ -5,10 +5,10 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
 
 import PoolTableApi from "./components/PoolTable";
 
@@ -30,11 +30,8 @@ export const PoolPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <AdminHero
-        title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-      <AdminContentWrapper>
+      <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
+      <AdminContentWrapper table>
         <PoolTableApi title={formattedPageTitle} />
       </AdminContentWrapper>
     </>

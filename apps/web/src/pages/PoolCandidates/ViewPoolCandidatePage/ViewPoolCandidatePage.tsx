@@ -27,7 +27,6 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -38,6 +37,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
 import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import Hero from "~/components/Hero";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -188,10 +188,10 @@ export const ViewPoolCandidate = ({
 
   return (
     <>
-      <AdminHero
+      <Hero
         title={candidateName}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-        contentRight={
+        crumbs={navigationCrumbs}
+        status={
           <Chips>
             <Chip
               key="status"
@@ -223,13 +223,12 @@ export const ViewPoolCandidate = ({
             ) : null}
           </Chips>
         }
-      >
-        <ProfileDetails userQuery={poolCandidate.user} />
-      </AdminHero>
-      <AdminContentWrapper>
+        additionalContent={<ProfileDetails userQuery={poolCandidate.user} />}
+      />
+      <AdminContentWrapper table>
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
-            <Heading size="h3">
+            <Heading size="h3" data-h2-margin-top="base(0)">
               {intl.formatMessage({
                 defaultMessage: "More actions",
                 id: "QaMkP7",
@@ -291,7 +290,7 @@ export const ViewPoolCandidate = ({
               <Heading
                 Icon={ExclamationTriangleIcon}
                 color="quaternary"
-                data-h2-margin="base(x.75, 0, x1, 0)"
+                data-h2-margin="base(0, 0, x1, 0)"
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>

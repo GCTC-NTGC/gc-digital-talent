@@ -401,7 +401,7 @@ const UpdateUserPage = () => {
   const availableRoles = unpackMaybes(data?.roles);
 
   return (
-    <AdminContentWrapper>
+    <>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Update user",
@@ -409,75 +409,77 @@ const UpdateUserPage = () => {
           description: "Page title for the user edit page",
         })}
       />
-      <Pending fetching={fetching} error={error}>
-        {data?.user ? (
-          <>
-            <UpdateUserForm
-              formOptionsQuery={data}
-              initialUser={data.user}
-              handleUpdateUser={handleUpdateUser}
-            />
-            <UpdateUserSubForm
-              authInfo={data.user?.authInfo}
-              onUpdateSub={handleUpdateUserSub}
-            />
-            <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
-              {intl.formatMessage(adminMessages.rolesAndPermissions)}
-            </Heading>
-            <UserRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <TeamRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <CommunityRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <ProcessRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage: "Advanced tools",
-                id: "KoKXUw",
-                description: "Heading for making major changes to a user",
-              })}
-            </Heading>
-            <DeleteUserSection
-              user={data.user}
-              onDeleteUser={handleDeleteUser}
-            />
-          </>
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "User {userId} not found.",
-                  id: "0SoKjt",
-                  description: "Message displayed for user not found.",
-                },
-                { userId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          {data?.user ? (
+            <>
+              <UpdateUserForm
+                formOptionsQuery={data}
+                initialUser={data.user}
+                handleUpdateUser={handleUpdateUser}
+              />
+              <UpdateUserSubForm
+                authInfo={data.user?.authInfo}
+                onUpdateSub={handleUpdateUserSub}
+              />
+              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+                {intl.formatMessage(adminMessages.rolesAndPermissions)}
+              </Heading>
+              <UserRoleTable
+                user={data.user}
+                authInfo={data.user?.authInfo}
+                availableRoles={availableRoles}
+                onUpdateUserRoles={handleUpdateUserRoles}
+              />
+              <TeamRoleTable
+                user={data.user}
+                authInfo={data.user?.authInfo}
+                availableRoles={availableRoles}
+                onUpdateUserRoles={handleUpdateUserRoles}
+              />
+              <CommunityRoleTable
+                user={data.user}
+                authInfo={data.user?.authInfo}
+                availableRoles={availableRoles}
+                onUpdateUserRoles={handleUpdateUserRoles}
+              />
+              <ProcessRoleTable
+                user={data.user}
+                authInfo={data.user?.authInfo}
+                availableRoles={availableRoles}
+                onUpdateUserRoles={handleUpdateUserRoles}
+              />
+              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Advanced tools",
+                  id: "KoKXUw",
+                  description: "Heading for making major changes to a user",
+                })}
+              </Heading>
+              <DeleteUserSection
+                user={data.user}
+                onDeleteUser={handleDeleteUser}
+              />
+            </>
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "User {userId} not found.",
+                    id: "0SoKjt",
+                    description: "Message displayed for user not found.",
+                  },
+                  { userId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

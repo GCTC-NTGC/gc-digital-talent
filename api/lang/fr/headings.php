@@ -79,4 +79,5 @@ return [
     'decision' => 'Décision',
     'decision_details' => 'Détails de la décision',
     'decision_notes' => 'Notes de décision',
+    'final_decision' => 'Décision finale',
 ];
