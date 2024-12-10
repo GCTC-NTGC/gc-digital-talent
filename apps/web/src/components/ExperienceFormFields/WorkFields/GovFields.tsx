@@ -91,26 +91,46 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   const [{ data, fetching }] = useQuery<GovFieldOptionsQuery>({
     query: GovFieldOptions_Query,
   });
-
   const { resetField } = useFormContext<WorkFormValues>();
-  const groupSelection = useWatch<{ classificationGroup: string }>({
+
+  const todayDate = new Date();
+  const watchCurrentRole = useWatch<{ currentRole: string }>({
+    name: "currentRole",
+  });
+  const watchStartDate = useWatch<{ startDate: string }>({ name: "startDate" });
+
+  const watchGroupSelection = useWatch<{ classificationGroup: string }>({
     name: "classificationGroup",
   });
+
   const watchGovEmploymentType = useWatch<{
     govEmploymentType: WorkExperienceGovEmployeeType;
   }>({
     name: "govEmploymentType",
   });
+
   const watchGovPositionType = useWatch<{
     govPositionType: GovPositionType;
   }>({
     name: "govPositionType",
   });
+
   const watchGovContractorType = useWatch<{
     govContractorType: GovContractorType;
   }>({
     name: "govContractorType",
   });
+
+  // If the government employee type is "Term",
+  // then remove the "Substantive" option from the govPositionTypes
+  const allPositionTypes = localizedEnumToOptions(data?.govPositionTypes, intl);
+  const conditionalPositionTypes =
+    watchGovEmploymentType === WorkExperienceGovEmployeeType.Term
+      ? allPositionTypes.filter(
+          (positionType) =>
+            positionType.value !== String(GovPositionType.Substantive),
+        )
+      : allPositionTypes;
 
   const departmentOptions = unpackMaybes(data?.departments)
     .filter(notEmpty)
@@ -150,7 +170,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
 
   // generate classification levels from the selected group
   const levelOptions = classifications
-    .filter((x) => x.group === groupSelection)
+    .filter((x) => x.group === watchGroupSelection)
     .map((iterator) => {
       return {
         value: iterator.id.toString(), // change the value to id for the query
@@ -166,7 +186,25 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     resetField("classificationLevel", {
       keepDirty: false,
     });
-  }, [resetField, groupSelection]);
+  }, [resetField, watchGroupSelection]);
+
+  const isIndeterminate =
+    watchGovEmploymentType === WorkExperienceGovEmployeeType.Indeterminate;
+  const indeterminateActing =
+    isIndeterminate && watchGovPositionType === GovPositionType.Acting;
+  const indeterminateAssignment =
+    isIndeterminate && watchGovPositionType === GovPositionType.Assignment;
+  const indeterminateSecondment =
+    isIndeterminate && watchGovPositionType === GovPositionType.Secondment;
+
+  const expectedEndDate =
+    watchCurrentRole &&
+    (watchGovEmploymentType === WorkExperienceGovEmployeeType.Student ||
+      watchGovEmploymentType === WorkExperienceGovEmployeeType.Casual ||
+      watchGovEmploymentType === WorkExperienceGovEmployeeType.Term ||
+      indeterminateActing ||
+      indeterminateAssignment ||
+      indeterminateSecondment);
 
   /**
    * Reset classification group and level
@@ -187,11 +225,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("classificationLevel");
     }
 
-    if (
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Student ||
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Casual ||
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Contractor
-    ) {
+    if (watchGovEmploymentType) {
       resetDirtyField("govPositionType");
     }
 
@@ -204,32 +238,13 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       watchGovContractorType === GovContractorType.SelfEmployed ||
       watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor
     ) {
-      resetDirtyField("contractorFirmAgencyName");
+      resetField("contractorFirmAgencyName", {
+        keepDirty: false,
+        defaultValue: undefined,
+      });
     }
   }, [resetField, watchGovEmploymentType, watchGovContractorType]);
 
-  const todayDate = new Date();
-  const isCurrent = useWatch<{ currentRole: string }>({ name: "currentRole" });
-  const startDate = useWatch<{ startDate: string }>({ name: "startDate" });
-
-  const indeterminateActing =
-    watchGovEmploymentType === WorkExperienceGovEmployeeType.Indeterminate &&
-    watchGovPositionType === GovPositionType.Acting;
-  const indeterminateAssignment =
-    watchGovEmploymentType === WorkExperienceGovEmployeeType.Indeterminate &&
-    watchGovPositionType === GovPositionType.Assignment;
-  const indeterminateSecondment =
-    watchGovEmploymentType === WorkExperienceGovEmployeeType.Indeterminate &&
-    watchGovPositionType === GovPositionType.Secondment;
-
-  const expectedEndDate =
-    isCurrent &&
-    (watchGovEmploymentType === WorkExperienceGovEmployeeType.Student ||
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Casual ||
-      watchGovEmploymentType === WorkExperienceGovEmployeeType.Term ||
-      indeterminateActing ||
-      indeterminateAssignment ||
-      indeterminateSecondment);
   return (
     <>
       {fetching ? (
@@ -274,7 +289,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 idPrefix="govPositionType"
                 name="govPositionType"
                 legend={labels.positionType}
-                items={localizedEnumToOptions(data?.govPositionTypes, intl)}
+                items={conditionalPositionTypes}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
@@ -395,28 +410,28 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                   min: {
-                    value: startDate,
+                    value: watchStartDate,
                     message: intl.formatMessage(errorMessages.futureDate),
                   },
                 }}
               />
             ) : (
               <>
-                {!isCurrent && (
+                {!watchCurrentRole && (
                   <DateInput
                     id="endDate"
                     legend={labels.endDate}
                     name="endDate"
                     show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
                     rules={
-                      isCurrent
+                      watchCurrentRole
                         ? {}
                         : {
                             required: intl.formatMessage(
                               errorMessages.required,
                             ),
                             min: {
-                              value: startDate,
+                              value: watchStartDate,
                               message: intl.formatMessage(
                                 errorMessages.futureDate,
                               ),
