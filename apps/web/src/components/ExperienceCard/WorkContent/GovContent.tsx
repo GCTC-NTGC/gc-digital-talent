@@ -38,7 +38,7 @@ const GovContent = ({
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
-        <Separator space="sm" />
+        <Separator space="sm" decorative />
         <ContentSection
           title={experienceFormLabels.govEmploymentType}
           headingLevel={headingLevel}
@@ -61,7 +61,7 @@ const GovContent = ({
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
-        <Separator space="sm" />
+        <Separator space="sm" decorative />
         <div
           data-h2-display="base(grid)"
           data-h2-gap="base(x1)"
@@ -97,7 +97,7 @@ const GovContent = ({
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
-        <Separator space="sm" />
+        <Separator space="sm" decorative />
         <div
           data-h2-display="base(grid)"
           data-h2-gap="base(x1)"
@@ -140,7 +140,7 @@ const GovContent = ({
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
-        <Separator space="sm" />
+        <Separator space="sm" decorative />
         <div
           data-h2-display="base(grid)"
           data-h2-gap="base(x1)"
@@ -170,7 +170,7 @@ const GovContent = ({
         </div>
         {govContractorType?.value === GovContractorType.FirmOrAgency && (
           <>
-            <Separator space="sm" />
+            <Separator space="sm" decorative />
             <ContentSection
               title={experienceFormLabels.contractorFirmAgencyName}
               headingLevel={headingLevel}

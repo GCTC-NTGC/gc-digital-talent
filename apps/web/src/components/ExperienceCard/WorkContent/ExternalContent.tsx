@@ -25,7 +25,7 @@ const ExternalContent = ({
       >
         {division ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
-      <Separator space="sm" />
+      <Separator space="sm" decorative />
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"

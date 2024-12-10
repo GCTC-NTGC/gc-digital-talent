@@ -25,7 +25,7 @@ const CafContent = ({
       >
         {division ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
-      <Separator space="sm" />
+      <Separator space="sm" decorative />
       <ContentSection
         title={experienceFormLabels.cafEmploymentType}
         headingLevel={headingLevel}
@@ -33,7 +33,7 @@ const CafContent = ({
       >
         {getLocalizedName(cafEmploymentType?.label, intl)}
       </ContentSection>
-      <Separator space="sm" />
+      <Separator space="sm" decorative />
       <ContentSection
         title={experienceFormLabels.cafRank}
         headingLevel={headingLevel}
