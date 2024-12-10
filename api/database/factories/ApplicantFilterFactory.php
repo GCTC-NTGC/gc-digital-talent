@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
-use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\WorkRegion;
 use App\Models\ApplicantFilter;
@@ -101,7 +100,9 @@ class ApplicantFilterFactory extends Factory
             $ATIP = Community::where('key', 'atip')->first();
             $digital = Community::where('key', 'digital')->first();
 
-            if ($streams->first()?->key === PoolStream::ACCESS_INFORMATION_PRIVACY->name && $ATIP?->id) {
+            $isATIP = $streams->contains(fn ($stream) => $stream->key === 'ACCESS_INFORMATION_PRIVACY');
+
+            if ($isATIP && $ATIP?->id) {
                 $filter->community_id = $ATIP->id;
             } elseif ($digital?->id) {
                 $filter->community_id = $digital->id;

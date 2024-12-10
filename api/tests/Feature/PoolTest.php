@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Enums\PoolStatus;
-use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
@@ -17,11 +16,9 @@ use App\Models\User;
 use App\Models\WorkStream;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
-use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
-use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -1162,21 +1159,20 @@ class PoolTest extends TestCase
      */
     public function testPoolStreamsScope(): void
     {
-        $this->seed([CommunitySeeder::class, WorkStreamSeeder::class]);
-        $ATIPStream = WorkStream::where('key', PoolStream::ACCESS_INFORMATION_PRIVACY->name)->sole();
-        $businessStream = WorkStream::where('key', PoolStream::BUSINESS_ADVISORY_SERVICES->name)->sole();
-        $dbStream = WorkStream::where('key', PoolStream::DATABASE_MANAGEMENT->name)->sole();
+        $stream1 = WorkStream::factory()->create();
+        $stream2 = WorkStream::factory()->create();
+        $unassociatedStream = WorkStream::factory()->create();
 
-        $ATIP = Pool::factory()->published()->create([
-            'work_stream_id' => $ATIPStream->id,
+        $pool1 = Pool::factory()->published()->create([
+            'work_stream_id' => $stream1->id,
         ]);
 
-        $BAS = Pool::factory()->published()->create([
-            'work_stream_id' => $businessStream->id,
+        $pool2 = Pool::factory()->published()->create([
+            'work_stream_id' => $stream2->id,
         ]);
 
         Pool::factory()->published()->create([
-            'work_stream_id' => $dbStream->id,
+            'work_stream_id' => $unassociatedStream->id,
         ]);
 
         $res = $this->graphQL(
@@ -1194,23 +1190,23 @@ class PoolTest extends TestCase
             [
                 'where' => [
                     'workStreams' => [
-                        $ATIPStream->id,
-                        $businessStream->id,
+                        $stream1->id,
+                        $stream2->id,
                     ],
                 ],
             ]
         )->assertJsonFragment([
             'data' => [
                 [
-                    'id' => $ATIP->id,
+                    'id' => $pool1->id,
                     'workStream' => [
-                        'id' => $ATIPStream->id,
+                        'id' => $stream1->id,
                     ],
                 ],
                 [
-                    'id' => $BAS->id,
+                    'id' => $pool2->id,
                     'workStream' => [
-                        'id' => $businessStream->id,
+                        'id' => $stream2->id,
                     ],
                 ],
             ],

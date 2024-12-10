@@ -43,7 +43,6 @@ import {
   graphql,
   FragmentType,
   getFragment,
-  PoolStream,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -260,7 +259,7 @@ export const RequestForm = ({
     const qualifiedStreams = applicantFilter?.workStreams;
     let community = communities?.find((c) => c.key === "digital");
     const ATIPStream = optionsData?.workStreams?.find(
-      (workStream) => workStream?.key === PoolStream.AccessInformationPrivacy,
+      (workStream) => workStream?.key === "ACCESS_INFORMATION_PRIVACY",
     );
     if (
       qualifiedStreams?.some((workStream) => workStream?.id === ATIPStream?.id)

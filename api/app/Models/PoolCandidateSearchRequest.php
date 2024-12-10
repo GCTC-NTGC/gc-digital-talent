@@ -152,7 +152,6 @@ class PoolCandidateSearchRequest extends Model
             return $query;
         }
 
-        // streams is an array of PoolStream enums
         $query->whereHas('applicantFilter', function ($filterQuery) use ($streams) {
             $filterQuery->whereHas('workStreams', function ($workStreamQuery) use ($streams) {
                 $workStreamQuery->whereIn('applicant_filter_work_stream.work_stream_id', $streams);

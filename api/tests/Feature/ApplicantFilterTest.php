@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateSearchStatus;
-use App\Enums\PoolStream;
 use App\Facades\Notify;
 use App\Models\ApplicantFilter;
 use App\Models\Community;
@@ -12,7 +11,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
-use App\Models\WorkStream;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\DepartmentSeeder;
@@ -432,7 +430,6 @@ class ApplicantFilterTest extends TestCase
         ]);
 
         $community = Community::where('key', 'digital')->first();
-        $workStream = WorkStream::where('key', PoolStream::BUSINESS_ADVISORY_SERVICES->name)->first();
         $pool = Pool::factory()
             ->published()
             ->candidatesAvailableInSearch()
@@ -441,7 +438,6 @@ class ApplicantFilterTest extends TestCase
                     'en' => 'Test Pool EN',
                     'fr' => 'Test Pool FR',
                 ],
-                'work_stream_id' => $workStream->id,
                 'community_id' => $community->id,
             ]);
         // Create candidates who may show up in searches
