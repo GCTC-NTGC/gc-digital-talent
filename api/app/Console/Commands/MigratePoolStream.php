@@ -9,6 +9,17 @@ use App\Models\WorkStream;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
+/**
+ *  Temporary command to support migration of
+ *  PoolStream enum to WorkStream model.
+ *
+ *  NOTE: Should be ran at any point during deployment.
+ *  The rest of the code does not explicitly depend on this
+ *  command but it should not be left since the frontend will
+ *  display empty values until this has been ran.
+ *
+ *  TODO: Remove in #12142
+ */
 class MigratePoolStream extends Command
 {
     /**
