@@ -183,9 +183,9 @@ const GovContent = ({
         )}
       </>
     );
-  } else {
-    return null;
   }
+
+  return null;
 };
 
 export default GovContent;
