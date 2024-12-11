@@ -483,6 +483,10 @@
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
   },
+  "0MakGC": {
+    "defaultMessage": "Sélectionnez cette option si l'emploi n'avait aucun lien avec le gouvernement du Canada.",
+    "description": "Description for the external employment category option in work experience"
+  },
   "0NbdGD": {
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
@@ -10346,6 +10350,10 @@
     "defaultMessage": "Se déconnecter",
     "description": "Message displayed to users to sign out of the application"
   },
+  "nmx1ym": {
+    "defaultMessage": " Sélectionnez cette option si l'emploi était dans un ministère ou un organisme fédéral ou une société d'État, ou si vous étiez un entrepreneur ou une entrepreneuse travaillant pour l'une de ces organisations.",
+    "description": "Description for the goc employment category option in work experience"
+  },
   "nn9B4R": {
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
@@ -11549,6 +11557,10 @@
   "uWfG0e": {
     "defaultMessage": "Exigences essentielles",
     "description": "Sub title for the pool core requirements"
+  },
+  "uZuEHk": {
+    "defaultMessage": "Sélectionnez cette option si l'emploi était dans l'Armée canadienne, dans l'Aviation royale canadienne ou dans la Marine royale canadienne, dans la Force régulière ou dans la Force de réserve.",
+    "description": "Description for the caf employment category option in work experience"
   },
   "uaEMMO": {
     "defaultMessage": "Type d'emploi",
