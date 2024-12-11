@@ -62,7 +62,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
     query: WorkFieldOptions_Query,
   });
 
-  const { resetField, formState } = useFormContext();
+  const { resetField, formState } = useFormContext<WorkFormValues>();
 
   const watchEmploymentCategory = useWatch<{
     employmentCategory: EmploymentCategory;
@@ -72,28 +72,22 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
 
   //
   /**
-   * Reset fields not associated with clicked employmentCategory field
+   * Reset all fields when employmentCategory field is changed
    */
   useEffect(() => {
     const resetDirtyField = (name: keyof WorkFormValues) => {
-      resetField(name, {
-        keepDirty: false,
-        defaultValue: null,
-      });
+      resetField(name, { keepDirty: false, defaultValue: null });
     };
 
-    if (
-      formState.defaultValues?.employmentCategory !== watchEmploymentCategory
-    ) {
-      resetDirtyField("team");
-      resetDirtyField("startDate");
-      resetDirtyField("currentRole");
-      resetDirtyField("endDate");
+    if (formState.dirtyFields.employmentCategory) {
+      resetDirtyField("team"); // both external and goc
 
+      // external fields
       resetDirtyField("organization");
       resetDirtyField("extSizeOfOrganization");
       resetDirtyField("extRoleSeniority");
 
+      // goc fields
       resetDirtyField("department");
       resetDirtyField("govEmploymentType");
       resetDirtyField("govPositionType");
@@ -103,15 +97,17 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("classificationGroup");
       resetDirtyField("classificationLevel");
 
+      // caf fields
       resetDirtyField("cafEmploymentType");
       resetDirtyField("cafForce");
       resetDirtyField("cafRank");
+
+      // all categories
+      resetDirtyField("startDate");
+      resetDirtyField("currentRole");
+      resetDirtyField("endDate");
     }
-  }, [
-    formState.defaultValues?.employmentCategory,
-    watchEmploymentCategory,
-    resetField,
-  ]);
+  }, [formState.dirtyFields, watchEmploymentCategory, resetField]);
 
   return (
     <div>

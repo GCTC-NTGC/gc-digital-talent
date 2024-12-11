@@ -388,17 +388,13 @@ export const formValuesToSubmitData = (
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,
-      department: departmentId ? { connect: departmentId ?? "" } : undefined,
+      departmentId: departmentId ?? null,
       govEmploymentType,
       govPositionType,
       govContractorRoleSeniority,
       govContractorType,
       contractorFirmAgencyName,
-      classification: classificationId
-        ? {
-            connect: classificationId ?? "",
-          }
-        : undefined,
+      classificationId: classificationId ?? null,
       cafEmploymentType,
       cafForce,
       cafRank,
@@ -650,7 +646,7 @@ const getWorkExperienceDefaultValues = (
     startDate,
     currentRole: endDate
       ? endDate >= strToFormDate(new Date().toISOString()) // today's date
-      : undefined,
+      : true,
     endDate,
     employmentCategory: employmentCategory?.value,
     extSizeOfOrganization: extSizeOfOrganization?.value,
