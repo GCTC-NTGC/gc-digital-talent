@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { useIntl, defineMessage, MessageDescriptor } from "react-intl";
 import { useQuery } from "urql";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect } from "react";
@@ -6,16 +6,17 @@ import { useEffect } from "react";
 import {
   FieldLabels,
   Input,
-  localizedEnumToOptions,
+  Radio,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Loading } from "@gc-digital-talent/ui";
 import {
   EmploymentCategory,
   graphql,
   WorkFieldOptionsQuery,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 
@@ -56,6 +57,33 @@ const EmploymentCategoryFields = ({
   }
 };
 
+const employmentCategoryDescriptions: Record<
+  EmploymentCategory,
+  MessageDescriptor
+> = {
+  EXTERNAL_ORGANIZATION: defineMessage({
+    defaultMessage:
+      "Select this option if the employment had no affiliation with the Government of Canada.",
+    id: "0MakGC",
+    description:
+      "Description for the external employment category option in work experience",
+  }),
+  GOVERNMENT_OF_CANADA: defineMessage({
+    defaultMessage:
+      "Select this option if the employment was with a Government of Canada department, agency, crown corporation, or if you were a contractor working with one of these organizations.",
+    id: "nmx1ym",
+    description:
+      "Description for the goc employment category option in work experience",
+  }),
+  CANADIAN_ARMED_FORCES: defineMessage({
+    defaultMessage:
+      "Select this option if the employment was with Canadian Army, the Royal Canadian Air Force, or the Royal Canadian Navy, either as regular force, or reserve force.",
+    id: "uZuEHk",
+    description:
+      "Description for the caf employment category option in work experience",
+  }),
+};
+
 const WorkFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const [{ data, fetching }] = useQuery<WorkFieldOptionsQuery>({
@@ -70,7 +98,18 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
     name: "employmentCategory",
   });
 
-  //
+  const employmentCategories: Radio[] = unpackMaybes(
+    data?.employmentCategoryTypes,
+  ).map(({ value, label }) => {
+    const contentBelow =
+      employmentCategoryDescriptions[value as EmploymentCategory];
+    return {
+      label: getLocalizedName(label, intl),
+      value,
+      contentBelow: intl.formatMessage(contentBelow),
+    };
+  });
+
   /**
    * Reset all fields when employmentCategory field is changed
    */
@@ -137,10 +176,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
                   id: "BdpXAF",
                   description: "Label for the employment category radio group",
                 })}
-                items={localizedEnumToOptions(
-                  data?.employmentCategoryTypes,
-                  intl,
-                )}
+                items={employmentCategories}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
