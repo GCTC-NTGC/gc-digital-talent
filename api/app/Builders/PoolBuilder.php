@@ -170,7 +170,7 @@ class PoolBuilder extends Builder
     /**
      * Custom sort to handle issues with how laravel aliases
      * aggregate selects and orderBys for json fields in `lighthouse-php`
-     *
+
      * The column used in the orderBy is `table_aggregate_column->property`
      * But is actually aliased to snake case `table_aggregate_columnproperty`
      */
@@ -181,6 +181,25 @@ class PoolBuilder extends Builder
 
         if ($order && $locale) {
             return $this->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Custom sort to handle issues with how laravel aliases
+     * aggregate selects and orderBys for json fields in `lighthouse-php`
+     *
+     * The column used in the orderBy is `table_aggregate_column->property`
+     * But is actually aliased to snake case `table_aggregate_columnproperty`
+     */
+    public function orderByWorkStreamName(?array $args): self
+    {
+        $order = $args['order'] ?? null;
+        $locale = $args['locale'] ?? null;
+
+        if ($order && $locale) {
+            return $this->withMax('workStream', 'name->'.$locale)->orderBy('work_stream_max_name'.$locale, $order);
         }
 
         return $this;

@@ -346,6 +346,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    orderByWorkStreamName: PoolWorkStreamNameOrderByInput
     orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
@@ -1214,6 +1215,11 @@ input PoolFilterInput {
 }
 
 input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
+input PoolWorkStreamNameOrderByInput {
   locale: String!
   order: SortOrder!
 }

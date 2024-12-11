@@ -16,6 +16,7 @@ import {
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
+  PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
@@ -173,7 +174,6 @@ export function getOrderByClause(
     ["id", "id"],
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
-    ["stream", "stream"],
     ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
@@ -251,6 +251,20 @@ export function getTeamDisplayNameSort(
   locale?: Locales,
 ): PoolTeamDisplayNameOrderByInput | undefined {
   const sortingRule = sortingRules?.find((rule) => rule.id === "team");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
+}
+
+export function getWorkStreamNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolWorkStreamNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "workStream");
 
   if (!sortingRule) return undefined;
 

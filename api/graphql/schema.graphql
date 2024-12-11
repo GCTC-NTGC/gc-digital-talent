@@ -866,6 +866,11 @@ input PoolTeamDisplayNameOrderByInput {
   order: SortOrder!
 }
 
+input PoolWorkStreamNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
 input PoolBookmarksOrderByInput {
   column: String!
   order: SortOrder!
@@ -1025,6 +1030,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderByWorkStreamName: PoolWorkStreamNameOrderByInput @scope
     orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
