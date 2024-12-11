@@ -5263,10 +5263,6 @@
     "defaultMessage": "Ministère/organisation d’embauche",
     "description": "Label for department select input in the request form"
   },
-  "P7ZWZ/": {
-    "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
-    "description": "Describes the 'your impact' section of a process' advertisement."
-  },
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
@@ -8993,6 +8989,10 @@
   "hCJfYi": {
     "defaultMessage": "<strong>Les postes sur place</strong> requièrent une présence à temps plein au bureau, sans possibilité de travailler à distance.",
     "description": "Definition for 'on-site positions'"
+  },
+  "hD2x/p": {
+    "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
+    "description": "Describes the 'your impact' section of a process' advertisement."
   },
   "hGEhAB": {
     "defaultMessage": "Groupe",
