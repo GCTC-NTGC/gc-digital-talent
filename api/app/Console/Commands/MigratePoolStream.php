@@ -53,6 +53,10 @@ class MigratePoolStream extends Command
                     $jobPosterTemplate->work_stream_id = $stream->id;
                     $jobPosterTemplate->save();
                     $jobPosterTemplatesUpdated++;
+                } else {
+                    $this->error(sprintf('Work stream (%s) not found for job poster template (%s)',
+                        $jobPosterTemplate->stream,
+                        $jobPosterTemplate->id));
                 }
             }
         });
@@ -68,6 +72,10 @@ class MigratePoolStream extends Command
                     $pool->work_stream_id = $stream->id;
                     $pool->save();
                     $poolsUpdated++;
+                } else {
+                    $this->error(sprintf('Work stream (%s) not found for pool (%s)',
+                        $pool->stream,
+                        $pool->id));
                 }
             }
         });
@@ -82,6 +90,10 @@ class MigratePoolStream extends Command
                 if ($streams) {
                     $applicantFilter->workStreams()->sync($streams);
                     $applicantFiltersUpdated++;
+                } else {
+                    $this->error(sprintf('Work streams (%s) not found for applicant filter (%s)',
+                        implode(', ', $applicantFilter->qualified_streams),
+                        $applicantFilter->id));
                 }
             }
         });
