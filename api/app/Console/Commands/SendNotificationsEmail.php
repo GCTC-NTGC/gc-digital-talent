@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\NotificationFamily;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
@@ -44,11 +45,10 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
         $userCount = $users->count();
 
         if ($this->confirm('Do you wish to send notifications to '.$userCount.' users?')) {
-
             $progressBar = $this->output->createProgressBar($userCount);
 
-            $users->chunk(200, function (Collection $users) use (&$successCount, &$failureCount, $progressBar) {
-                foreach ($users as $user) {
+            $users->chunk(200, function (Collection $chunkOfUsers) use (&$successCount, &$failureCount, $progressBar) {
+                foreach ($chunkOfUsers as $user) {
                     try {
                         // $this->sendNotification($user, $successCount, $failureCount);
                         $successCount++;
@@ -62,12 +62,15 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
             });
             $this->newLine();
 
-        }
-
-        $this->info("Success: $successCount Failure: $failureCount");
-        if ($failureCount > 0) {
-            return Command::FAILURE;
+            $this->info("Success: $successCount Failure: $failureCount");
+            if ($failureCount > 0) {
+                return Command::FAILURE;
+            } else {
+                return Command::SUCCESS;
+            }
         } else {
+            $this->info('Notification sending cancelled');
+
             return Command::SUCCESS;
         }
     }
@@ -86,20 +89,15 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
             ($notifyAllUsers ? 1 : 0);
 
         if ($optionSelectedCount != 1) {
-            throw new \Error('Filter users using exactly one of the option types');
+            throw new \Error('Must filter users using exactly one of the option types');
         }
 
         if (count($emailAddresses) > 0) {
-            return User::whereIn('email', $emailAddresses);
+            return $this->builderFromEmailAddresses($emailAddresses);
         }
 
         if (count($notificationFamilies) > 0) {
-            $builder = User::whereJsonContains('enabled_email_notifications', $notificationFamilies[0]);
-            for ($i = 1; $i < count($notificationFamilies); $i++) {
-                $builder->orWhereJsonContains('enabled_email_notifications', $notificationFamilies[$i]);
-            }
-
-            return $builder;
+            return $this->builderFromNotifictionFamilies($notificationFamilies);
         }
 
         if ($notifyAllUsers) {
@@ -107,5 +105,40 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
         }
 
         throw new \Error('Unexpected function end point for options: '.json_encode($options));
+    }
+
+    private function builderFromEmailAddresses(array $requestedEmailAddresses): Builder
+    {
+        $builder = User::whereIn('email', $requestedEmailAddresses);
+
+        // Check for missing email addresses
+        $dbEmailAddresses = $builder->pluck('email')->toArray();
+        $missingEmailAddresses = array_diff($requestedEmailAddresses, $dbEmailAddresses);
+        if (count($missingEmailAddresses) > 0) {
+            $this->alert('The following email addresses were not found:');
+            foreach ($missingEmailAddresses as $missingEmailAddress) {
+                $this->warn($missingEmailAddress);
+            }
+        }
+
+        return $builder;
+    }
+
+    private function builderFromNotifictionFamilies(array $notificationFamilies): Builder
+    {
+        // Check for bad notification families
+        $allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
+        foreach ($notificationFamilies as $notificationFamily) {
+            if (! in_array($notificationFamily, $allNotificationFamilies)) {
+                throw new \Error('Invalid notification family: '.$notificationFamily);
+            }
+        }
+
+        $builder = User::whereJsonContains('enabled_email_notifications', $notificationFamilies[0]);
+        for ($i = 1; $i < count($notificationFamilies); $i++) {
+            $builder->orWhereJsonContains('enabled_email_notifications', $notificationFamilies[$i]);
+        }
+
+        return $builder;
     }
 }
