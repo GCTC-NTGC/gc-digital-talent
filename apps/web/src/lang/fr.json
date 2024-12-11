@@ -420,7 +420,7 @@
     "description": "Third paragraph for pool closing date dialog"
   },
   "07sCDh": {
-    "defaultMessage": "Utilisez le bouton « Créer un processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez un processus » pour commencer.",
     "description": "Instructions for adding a process item."
   },
   "08IbRz": {
@@ -552,7 +552,7 @@
     "description": "Simplified status label for a complete process advertisement or assessment"
   },
   "0jwdac": {
-    "defaultMessage": "Utilisez le bouton « Créer une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez une compétence » pour commencer.",
     "description": "Instructions for adding a skill item."
   },
   "0k6j4V": {
@@ -904,7 +904,7 @@
     "description": "Paragraph 3, importance of self-declaration"
   },
   "2m5USi": {
-    "defaultMessage": "Utilisez le bouton « Modifier » pour commencer. ",
+    "defaultMessage": "Utilisez le bouton « Modifiez » pour commencer. ",
     "description": "Null message on sections for edit pool page."
   },
   "2n0e2i": {
@@ -1360,7 +1360,7 @@
     "description": "Filename for skills CSV file download"
   },
   "4ujx9e": {
-    "defaultMessage": "Utilisez le bouton « Créer un groupe de compétences » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez un groupe de compétences » pour commencer.",
     "description": "Instructions for adding a skill family item."
   },
   "4v9y7U": {
@@ -2876,7 +2876,7 @@
     "description": "Description of how many items are being displayed out of the total value"
   },
   "Cu+CH3": {
-    "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
   },
   "CuHYqt": {
@@ -3088,7 +3088,7 @@
     "description": "Assessment summary"
   },
   "DrR/rp": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
     "description": "Instructions for adding a member to a community."
   },
   "Ds7ONS": {
@@ -5972,7 +5972,7 @@
     "description": "First paragraph describing investing in future talent"
   },
   "SfbDLA": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un nouveau membre » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un nouveau membre » pour commencer.",
     "description": "Instructions for adding a member to a team."
   },
   "SfhT1q": {
@@ -6711,7 +6711,7 @@
     "description": "Label for applicant's priority entitlement status"
   },
   "Wd9+xg": {
-    "defaultMessage": "Utilisez le bouton « Ajouter une nouvelle compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez une nouvelle compétence » pour commencer.",
     "description": "Null message description for asset skills table."
   },
   "WdBt7s": {
@@ -11483,7 +11483,7 @@
     "description": "Sub title for the pool core requirements"
   },
   "uiuMqi": {
-    "defaultMessage": "Utilisez le bouton « Ajouter une nouvelle compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez une nouvelle compétence » pour commencer.",
     "description": "Null message description for essential skills table."
   },
   "ukcsxj": {
