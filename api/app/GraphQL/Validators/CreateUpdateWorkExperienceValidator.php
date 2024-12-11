@@ -20,7 +20,8 @@ final class CreateUpdateWorkExperienceValidator extends Validator
     {
         return [
             'workExperience.employmentCategory' => [
-                'required',
+                'sometimes',
+                'required'
             ],
             'workExperience.extSizeOfOrganization' => [
                 Rule::requiredIf(
