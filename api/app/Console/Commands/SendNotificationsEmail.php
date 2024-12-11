@@ -94,7 +94,12 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
         }
 
         if (count($notificationFamilies) > 0) {
-            return User::whereJsonContains('enabled_email_notifications', $notificationFamilies);
+            $builder = User::whereJsonContains('enabled_email_notifications', $notificationFamilies[0]);
+            for ($i = 1; $i < count($notificationFamilies); $i++) {
+                $builder->orWhereJsonContains('enabled_email_notifications', $notificationFamilies[$i]);
+            }
+
+            return $builder;
         }
 
         if ($notifyAllUsers) {
