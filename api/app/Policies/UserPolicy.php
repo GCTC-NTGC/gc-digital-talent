@@ -172,16 +172,10 @@ class UserPolicy
      */
     protected function teamAbleToCheck(User $actor, string $roleId, string $teamId)
     {
-        if ($actor->isAbleTo('assign-any-role') || $actor->isAbleTo('assign-any-teamRole')) {
-            return true;
-        }
-
         $role = Role::findOrFail($roleId);
         $team = Team::with(['teamable.team'])->findOrFail($teamId);
 
         switch ($role->name) {
-            case 'pool_operator':
-                return $actor->isAbleTo('assign-any-teamRole');
             case 'process_operator':
                 // Community roles have the update-team-processOperatorMembership permission, and it should give them the ability to assign processOperator roles to pools in their community.
                 // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
@@ -209,20 +203,10 @@ class UserPolicy
         $role = Role::findOrFail($roleId);
 
         switch ($role->name) {
-            case 'guest':
-                return $actor->isAbleTo('assign-any-role');
-            case 'base_user':
-                return $actor->isAbleTo('assign-any-role');
-            case 'applicant':
-                return $actor->isAbleTo('assign-any-role');
-            case 'request_responder':
-                return $actor->isAbleTo('assign-any-role');
-            case 'community_manager':
-                return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
-                return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');
+                return $actor->isAbleTo('update-any-platformAdminMembership ');
             case 'manager':
-                return $actor->isAbleTo('update-any-managerMembership ') || $actor->isAbleTo('assign-any-role');
+                return $actor->isAbleTo('update-any-managerMembership ');
 
         }
 

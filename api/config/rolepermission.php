@@ -524,10 +524,6 @@ return [
             'en' => 'View Any Role',
             'fr' => 'Visionner tout rôle',
         ],
-        'assign-any-role' => [
-            'en' => 'Assign any Role to any User',
-            'fr' => 'Attribuer n\'importe quel rôle à n\'importe quel utilisateur',
-        ],
         'assign-team-role' => [
             'en' => 'Assign Roles associated with this Team to any User',
             'fr' => 'Attribuer les rôles associés à cette équipe à tout utilisateur',
