@@ -131,8 +131,8 @@ const EssentialSkillsSection = ({
             description: "Null message title for essential skills table.",
           }),
           description: intl.formatMessage({
-            defaultMessage: `Use the "Add a new skill" button to get started.`,
-            id: "uiuMqi",
+            defaultMessage: `Use the "Add skill" button to get started.`,
+            id: "VaToft",
             description: "Null message description for essential skills table.",
           }),
         }}

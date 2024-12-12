@@ -3567,6 +3567,10 @@
     "defaultMessage": "Niveau",
     "description": "Label displayed on classification level input"
   },
+  "GMbOaT": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "description": "Null message description for asset skills table."
+  },
   "GMglI5": {
     "defaultMessage": "Adresse courriel validée",
     "description": "The email address has been verified to be owned by user"
@@ -5759,6 +5763,10 @@
     "defaultMessage": "{label} navigation de page",
     "description": "Label for the table pagination"
   },
+  "RSUgO3": {
+    "defaultMessage": "Ajoutez une compétence",
+    "description": "Button text to open the skill dialog and add a skill"
+  },
   "RSkJQR": {
     "defaultMessage": "Brève description de l'équipe (en français)",
     "description": "Label for team description in French language"
@@ -6518,6 +6526,10 @@
     "defaultMessage": "Nous aimerions maintenant savoir si vous êtes actuellement employé(e) du gouvernement du Canada. Nous recueillons cette information parce qu'elle nous aide à comprendre, de manière globale, comment les compétences numériques sont réparties entre les différents ministères.",
     "description": "Message after main heading in employee information page - paragraph 1."
   },
+  "VaToft": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "description": "Null message description for essential skills table."
+  },
   "VaVo2t": {
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
@@ -6721,10 +6733,6 @@
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
-  },
-  "Wd9+xg": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez une nouvelle compétence » pour commencer.",
-    "description": "Null message description for asset skills table."
   },
   "WdBt7s": {
     "defaultMessage": "Approvisionnement",
@@ -7349,10 +7357,6 @@
   "ZVfbLF": {
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
-  },
-  "ZYqWBR": {
-    "defaultMessage": "Ajouter une nouvelle compétence",
-    "description": "Button text to open the skill dialog and add a skill"
   },
   "ZZpC8s": {
     "defaultMessage": "Voir les définitions pour « {skillName} »",
@@ -11493,10 +11497,6 @@
   "uWfG0e": {
     "defaultMessage": "Exigences essentielles",
     "description": "Sub title for the pool core requirements"
-  },
-  "uiuMqi": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez une nouvelle compétence » pour commencer.",
-    "description": "Null message description for essential skills table."
   },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
