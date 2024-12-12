@@ -308,8 +308,6 @@ type Query {
   genericJobTitles: [GenericJobTitle]!
   community(id: UUID!): Community
   communities: [Community]!
-  team(id: UUID!): Team
-  teams: [Team]!
   roles: [Role]!
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
@@ -345,7 +343,6 @@ type Query {
     excludeIds: [UUID!]
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
-    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
@@ -475,9 +472,6 @@ type Mutation {
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createWorkStream(workStream: CreateWorkStreamInput!): WorkStream
   updateWorkStream(id: UUID!, workStream: UpdateWorkStreamInput!): WorkStream
-  createTeam(team: CreateTeamInput!): Team
-  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
-  deleteTeam(id: UUID!): Team
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   markNotificationAsRead(id: UUID!): Notification
@@ -719,7 +713,6 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
-  team: Team
   community: Community
   name: LocalizedString
   classification: Classification
@@ -884,7 +877,6 @@ type Department {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!
-  teams: [Team]
   pools: [Pool]
 }
 
@@ -1204,18 +1196,12 @@ input UserPublicProfileFilterInput {
 input PoolFilterInput {
   generalSearch: String
   name: String
-  team: String
   streams: [PoolStream!]
   statuses: [PoolStatus!] = []
   processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
-}
-
-input PoolTeamDisplayNameOrderByInput {
-  locale: String!
-  order: SortOrder!
 }
 
 input PoolBookmarksOrderByInput {
@@ -1499,10 +1485,6 @@ input PoolBelongsTo {
   connect: ID!
 }
 
-input TeamBelongsTo {
-  connect: ID!
-}
-
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -1596,22 +1578,6 @@ input PoolBelongsToMany {
 
 input CommunityBelongsTo {
   connect: UUID!
-}
-
-input CreateTeamInput {
-  name: String!
-  displayName: LocalizedStringInput
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email
-}
-
-input UpdateTeamInput {
-  name: String
-  displayName: LocalizedStringInput
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email
 }
 
 input CreateCommunityInput {
