@@ -58,14 +58,6 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    team {
-      id
-      name
-      displayName {
-        en
-        fr
-      }
-    }
     classification {
       id
       group

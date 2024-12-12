@@ -9,7 +9,6 @@ const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `
     $excludeIds: [UUID!]
     $where: PoolFilterInput
     $orderByPoolBookmarks: PoolBookmarksOrderByInput
-    $orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     $first: Int
     $page: Int
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
@@ -19,7 +18,6 @@ const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `
       excludeIds: $excludeIds
       where: $where
       orderByPoolBookmarks: $orderByPoolBookmarks
-      orderByTeamDisplayName: $orderByTeamDisplayName
       first: $first
       page: $page
       orderBy: $orderBy

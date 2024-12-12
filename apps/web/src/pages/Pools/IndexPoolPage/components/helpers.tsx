@@ -2,7 +2,7 @@ import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
-import { Locales, getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
@@ -15,7 +15,6 @@ import {
   Pool,
   PoolBookmarksOrderByInput,
   PoolFilterInput,
-  PoolTeamDisplayNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
@@ -223,20 +222,6 @@ export function getOrderByClause(
 
   // nothing matched
   return undefined;
-}
-
-export function getTeamDisplayNameSort(
-  sortingRules?: SortingState,
-  locale?: Locales,
-): PoolTeamDisplayNameOrderByInput | undefined {
-  const sortingRule = sortingRules?.find((rule) => rule.id === "team");
-
-  if (!sortingRule) return undefined;
-
-  return {
-    locale: locale ?? "en",
-    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  };
 }
 
 export function getOrderByColumnSort(

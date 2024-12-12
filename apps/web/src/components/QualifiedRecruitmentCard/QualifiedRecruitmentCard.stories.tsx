@@ -3,8 +3,6 @@ import { StoryFn } from "@storybook/react";
 
 import {
   fakePoolCandidates,
-  fakeTeams,
-  fakeDepartments,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { PublishingGroup, makeFragmentData } from "@gc-digital-talent/graphql";
@@ -17,14 +15,11 @@ import QualifiedRecruitmentCard, {
 
 faker.seed(0);
 
-const mockDepartments = fakeDepartments();
-const mockTeams = fakeTeams(1, mockDepartments);
 const mockCandidates = fakePoolCandidates(1);
 const mockCandidate = {
   ...mockCandidates[0],
   pool: {
     ...mockCandidates[0].pool,
-    team: mockTeams[0],
     publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
     publishedAt: faker.date.past().toISOString(),
   },

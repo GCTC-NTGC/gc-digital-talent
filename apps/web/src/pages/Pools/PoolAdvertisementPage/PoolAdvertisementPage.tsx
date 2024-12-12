@@ -268,14 +268,6 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    team {
-      id
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-    }
     ...AreaOfSelectionNote
     ...WhoCanApplyText
   }
@@ -387,8 +379,6 @@ export const PoolPoster = ({
       (poolSkill) => poolSkill.type?.value === PoolSkillType.Nonessential,
     ),
   );
-
-  const contactEmail = pool.team?.contactEmail;
 
   const canApply = !!(pool?.status?.value === PoolStatus.Published);
 
@@ -1138,34 +1128,6 @@ export const PoolPoster = ({
                             internalLink(paths.accessibility(), chunks),
                           inclusivityLink: (chunks: ReactNode) =>
                             internalLink(paths.inclusivityEquity(), chunks),
-                        },
-                      )}
-                    </Text>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value={moreInfoAccordions.accommodations}>
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Who can I contact with questions or accommodation needs?",
-                      id: "2/fjEP",
-                      description:
-                        "Button text to toggle the accordion for accommodations contact",
-                    })}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "Please <a>contact the team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
-                          id: "YK/RNP",
-                          description:
-                            "Opening sentence asking if accommodations are needed",
-                        },
-                        {
-                          a: (chunks: ReactNode) =>
-                            anchorTag(chunks, contactEmail),
                         },
                       )}
                     </Text>

@@ -51,13 +51,6 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    team {
-      id
-      displayName {
-        en
-        fr
-      }
-    }
     poolSkills(type: ESSENTIAL) {
       id
       type {
@@ -140,20 +133,16 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
               description: "Team and department of pool",
             },
             {
-              team: pool?.team
-                ? getLocalizedName(pool.team.displayName, intl)
-                : intl.formatMessage({
-                    defaultMessage: "Digital Community Management Team",
-                    id: "S82O61",
-                    description: "Default team for pool",
-                  }),
-              department: pool?.department
-                ? getLocalizedName(pool.department.name, intl)
-                : intl.formatMessage({
-                    defaultMessage: "Treasury Board of Canada Secretariat",
-                    id: "SZ2DsZ",
-                    description: "Default department for pool",
-                  }),
+              team: intl.formatMessage({
+                defaultMessage: "Digital Community Management Team",
+                id: "S82O61",
+                description: "Default team for pool",
+              }),
+              department: intl.formatMessage({
+                defaultMessage: "Treasury Board of Canada Secretariat",
+                id: "SZ2DsZ",
+                description: "Default department for pool",
+              }),
             },
           )}
         </span>

@@ -50,7 +50,6 @@ import {
   poolNameAccessor,
   viewCell,
   transformPoolInput,
-  getTeamDisplayNameSort,
   getOrderByClause,
   transformPoolFilterInputToFormValues,
   transformFormValuesToFilterInput,
@@ -106,14 +105,6 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       group
       level
     }
-    team {
-      id
-      name
-      displayName {
-        en
-        fr
-      }
-    }
     owner {
       id
       firstName
@@ -127,7 +118,6 @@ const PoolTable_Query = graphql(/* GraphQL */ `
   query PoolTable(
     $where: PoolFilterInput
     $orderByPoolBookmarks: PoolBookmarksOrderByInput
-    $orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     $orderByColumn: OrderByColumnInput
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
     $first: Int
@@ -143,7 +133,6 @@ const PoolTable_Query = graphql(/* GraphQL */ `
     poolsPaginated(
       where: $where
       orderByPoolBookmarks: $orderByPoolBookmarks
-      orderByTeamDisplayName: $orderByTeamDisplayName
       orderByColumn: $orderByColumn
       orderBy: $orderBy
       first: $first
@@ -255,7 +244,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       orderByPoolBookmarks: getPoolBookmarkSort(),
-      orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
       orderByColumn: getOrderByColumnSort(sortState),
       orderBy: sortState ? getOrderByClause(sortState) : undefined,
     },

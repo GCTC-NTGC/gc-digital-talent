@@ -92,14 +92,6 @@ const ChangeStatusDialog_UserFragment = graphql(/* GraphQL */ `
             fr
           }
         }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
       }
     }
   }

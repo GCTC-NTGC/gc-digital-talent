@@ -13,7 +13,6 @@ import fakeRoles from "./fakeRoles";
 import fakeSearchRequests from "./fakeSearchRequests";
 import fakeSkillFamilies, { getStaticSkillFamilies } from "./fakeSkillFamilies";
 import fakeSkills, { getStaticSkills } from "./fakeSkills";
-import fakeTeams from "./fakeTeams";
 import fakeUsers, { fakeApplicants, fakeUser } from "./fakeUsers";
 import fakeUserSkills from "./fakeUserSkills";
 
@@ -34,7 +33,6 @@ export {
   fakeApplicantFilters,
   fakeSkillFamilies,
   fakeSkills,
-  fakeTeams,
   fakeUsers,
   fakeUser,
   fakeUserSkills,

@@ -1,18 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { fakePools, fakeTeams } from "@gc-digital-talent/fake-data";
+import { fakePools } from "@gc-digital-talent/fake-data";
 
 import PoolTable from "./PoolTable";
 
 const mockPools = fakePools();
-const mockTeams = fakeTeams();
-
-const mockPoolsWithTeam = mockPools.flatMap((pool, index) => {
-  return {
-    ...pool,
-    team: mockTeams[index],
-  };
-});
 
 const mockPaginatorInfo = {
   count: 1,
@@ -32,11 +24,11 @@ const meta = {
       PoolTable: {
         data: {
           poolsPaginated: {
-            data: [...mockPoolsWithTeam.slice(0, 3)],
+            data: [...mockPools.slice(0, 3)],
             paginatorInfo: mockPaginatorInfo,
           },
           me: {
-            poolBookmarks: [mockPoolsWithTeam[0]],
+            poolBookmarks: [mockPools[0]],
           },
         },
       },

@@ -140,10 +140,6 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
     # the existing data of the pool to edit
     pool(id: $poolId) {
       ...AssessmentPlanBuilderPool
-      team {
-        id
-        name
-      }
       community {
         teamIdForRoleAssignment
       }
