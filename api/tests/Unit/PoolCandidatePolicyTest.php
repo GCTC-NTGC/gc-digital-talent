@@ -24,8 +24,6 @@ class PoolCandidatePolicyTest extends TestCase
 
     protected $candidateUser;
 
-    protected $processOperatorUser;
-
     protected $requestResponderUser;
 
     protected $communityManagerUser;
