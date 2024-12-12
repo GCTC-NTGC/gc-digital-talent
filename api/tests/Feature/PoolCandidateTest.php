@@ -102,7 +102,7 @@ class PoolCandidateTest extends TestCase
             ]);
     }
 
-    public function testPoolCandidateStatusAccessor(): void
+    public function test_pool_candidate_status_accessor(): void
     {
         $query =
             /** @lang GraphQL */
@@ -248,7 +248,7 @@ class PoolCandidateTest extends TestCase
             ]);
     }
 
-    public function testSkillCount(): void
+    public function test_skill_count(): void
     {
         $query =
             /** @lang GraphQL */
@@ -422,7 +422,7 @@ class PoolCandidateTest extends TestCase
             ]);
     }
 
-    public function testNotesAccess(): void
+    public function test_notes_access(): void
     {
         $candidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
@@ -503,7 +503,7 @@ class PoolCandidateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testNotesUpdate(): void
+    public function test_notes_update(): void
     {
         $candidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
@@ -546,7 +546,7 @@ class PoolCandidateTest extends TestCase
     /**
      * Status access permissions are similar to notes, except a candidate can see their own status
      */
-    public function testStatusAccess(): void
+    public function test_status_access(): void
     {
         $candidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
@@ -623,7 +623,7 @@ class PoolCandidateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testOrderByPoolName(): void
+    public function test_order_by_pool_name(): void
     {
         $query =
             /** @lang GraphQL */
@@ -639,6 +639,7 @@ class PoolCandidateTest extends TestCase
                                 name {
                                     en
                                     fr
+                                    localized
                                 }
                             }
                         }
@@ -790,7 +791,7 @@ class PoolCandidateTest extends TestCase
 
     }
 
-    public function testScopeCandidatesInCommunity(): void
+    public function test_scope_candidates_in_community(): void
     {
         $query =
         /** @lang GraphQL */

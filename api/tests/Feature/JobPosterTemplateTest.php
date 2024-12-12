@@ -13,6 +13,7 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -97,7 +98,7 @@ class JobPosterTemplateTest extends TestCase
             ->create();
     }
 
-    public function testAnonymousUsersCanViewAny()
+    public function test_anonymous_users_can_view_any()
     {
         $this->graphQL($this->queryOne, [
             'id' => $this->template->id,
@@ -120,21 +121,21 @@ class JobPosterTemplateTest extends TestCase
             ]);
     }
 
-    public function testAnonymousUserCannotCreate()
+    public function test_anonymous_user_cannot_create()
     {
         $this->graphQL($this->create, [
             'template' => $this->getCreateInput(),
         ])->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
-    public function testNonAdminUserCannotCreate()
+    public function test_non_admin_user_cannot_create()
     {
         $this->actingAs($this->baseUser, 'api')->graphQL($this->create, [
             'template' => $this->getCreateInput(),
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testAdminCanCreate()
+    public function test_admin_can_create()
     {
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
             'template' => $this->getCreateInput(),
@@ -143,7 +144,7 @@ class JobPosterTemplateTest extends TestCase
         $this->assertNotNull($res['data']['createJobPosterTemplate']);
     }
 
-    public function testAnonymousUserCannotUpdate()
+    public function test_anonymous_user_cannot_update()
     {
         $this->graphQL($this->update, [
             'template' => [
@@ -153,7 +154,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
-    public function testNonAdminUserCannotUpdate()
+    public function test_non_admin_user_cannot_update()
     {
         $this->actingAs($this->baseUser, 'api')->graphQL($this->update, [
             'template' => [
@@ -163,7 +164,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testAdminCanUpdate()
+    public function test_admin_can_update()
     {
         $this->actingAs($this->adminUser, 'api')->graphQL($this->update, [
             'template' => [
@@ -180,7 +181,7 @@ class JobPosterTemplateTest extends TestCase
         ]);
     }
 
-    public function testNonAdminUserCannotDelete()
+    public function test_non_admin_user_cannot_delete()
     {
         $template = JobPosterTemplate::factory()->create();
 
@@ -189,7 +190,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testAdminCanDelete()
+    public function test_admin_can_delete()
     {
         $template = JobPosterTemplate::factory()->create();
 
@@ -204,7 +205,7 @@ class JobPosterTemplateTest extends TestCase
         ]);
     }
 
-    public function testReferenceIdIsUnique()
+    public function test_reference_id_is_unique()
     {
         $input = $this->getCreateInput();
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -215,7 +216,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
-    public function testCannotAddEssentialSkillWithNoLevel()
+    public function test_cannot_add_essential_skill_with_no_level()
     {
         $input = $this->getCreateInput();
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -234,7 +235,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
-    public function testCanAddEssentialSkillWithLevel()
+    public function test_can_add_essential_skill_with_level()
     {
         $input = $this->getCreateInput();
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -255,7 +256,7 @@ class JobPosterTemplateTest extends TestCase
         $this->assertNotNull($res['data']['createJobPosterTemplate']);
     }
 
-    public function testCannotAddAssetSkillWithLevel()
+    public function test_cannot_add_asset_skill_with_level()
     {
         $input = $this->getCreateInput();
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -274,7 +275,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
-    public function testCanAddAssetSkillWithNoLevel()
+    public function test_can_add_asset_skill_with_no_level()
     {
         $input = $this->getCreateInput();
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -301,16 +302,16 @@ class JobPosterTemplateTest extends TestCase
 
         return [
             'referenceId' => $template->reference_id,
-            'name' => $template->name,
-            'description' => $template->description,
+            'name' => Arr::only($template->name, ['en', 'fr']),
+            'description' => Arr::only($template->description, ['en', 'fr']),
             'supervisoryStatus' => $template->supervisory_status,
             'stream' => $template->stream,
-            'tasks' => $template->tasks,
-            'workDescription' => $template->work_description,
-            'keywords' => $template->keywords,
-            'essentialBehaviouralSkillsNotes' => $template->essential_behavioural_skills_notes,
-            'essentialTechnicalSkillsNotes' => $template->essential_technical_skills_notes,
-            'nonessentialTechnicalSkillsNotes' => $template->nonessential_technical_skills_notes,
+            'tasks' => Arr::only($template->tasks, ['en', 'fr']),
+            'workDescription' => Arr::only($template->work_description, ['en', 'fr']),
+            'keywords' => Arr::only($template->keywords, ['en', 'fr']),
+            'essentialBehaviouralSkillsNotes' => Arr::only($template->essential_behavioural_skills_notes, ['en', 'fr']),
+            'essentialTechnicalSkillsNotes' => Arr::only($template->essential_technical_skills_notes, ['en', 'fr']),
+            'nonessentialTechnicalSkillsNotes' => Arr::only($template->nonessential_technical_skills_notes, ['en', 'fr']),
             'classification' => [
                 'connect' => $template->classification->id,
             ],

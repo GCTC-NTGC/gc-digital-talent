@@ -73,8 +73,8 @@ class PoolCandidatePolicyTest extends TestCase
             ]);
 
         $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->community = Community::factory()->create(['name' => 'test-team']);
-        $this->otherCommunity = Community::factory()->create(['name' => 'suspicious-team']);
+        $this->community = Community::factory()->create(['name' => ['en' => 'test-team EN', 'fr' => 'test-team FR']]);
+        $this->otherCommunity = Community::factory()->create(['name' => ['en' => 'suspicious-team EN', 'fr' => 'suspicious-team FR']]);
 
         $this->poolOperatorUser = User::factory()
             ->asPoolOperator($this->team->name)
@@ -159,7 +159,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewAny()
+    public function test_view_any()
     {
         $this->assertFalse($this->guestUser->can('viewAny', PoolCandidate::class));
         $this->assertFalse($this->applicantUser->can('viewAny', PoolCandidate::class));
@@ -179,7 +179,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewDraft()
+    public function test_view_draft()
     {
         $this->poolCandidate->submitted_at = null;
         $this->poolCandidate->save();
@@ -205,7 +205,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewSubmitted()
+    public function test_view_submitted()
     {
         $this->poolCandidate->submitted_at = config('constants.past_date');
         $this->poolCandidate->save();
@@ -234,7 +234,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testCreateDraft()
+    public function test_create_draft()
     {
         $this->assertTrue($this->candidateUser->can('createDraft', PoolCandidate::class));
         $this->assertTrue($this->applicantUser->can('createDraft', PoolCandidate::class));
@@ -254,7 +254,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testCreate()
+    public function test_create()
     {
         $this->assertTrue($this->adminUser->can('create', PoolCandidate::class));
 
@@ -275,7 +275,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateStatus()
+    public function test_update_status()
     {
         // Ensure candidate is not draft
         $this->poolCandidate->submitted_at = config('constants.past_date');
@@ -299,7 +299,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdate()
+    public function test_update()
     {
         // Ensure candidate is not draft
         $this->poolCandidate->submitted_at = config('constants.past_date');
@@ -340,7 +340,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testSubmit()
+    public function test_submit()
     {
         $this->assertTrue($this->candidateUser->can('submit', $this->poolCandidate));
 
@@ -361,7 +361,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testArchive()
+    public function test_archive()
     {
         $this->assertTrue($this->candidateUser->can('archive', $this->poolCandidate));
 
@@ -382,7 +382,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testDelete()
+    public function test_delete()
     {
         $this->assertTrue($this->candidateUser->can('delete', $this->poolCandidate));
 
@@ -403,7 +403,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testSuspend()
+    public function test_suspend()
     {
         $this->assertTrue($this->candidateUser->can('suspend', $this->poolCandidate));
 
@@ -424,7 +424,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testCount()
+    public function test_count()
     {
         $this->assertTrue($this->candidateUser->can('count', $this->poolCandidate));
         $this->assertTrue($this->guestUser->can('count', $this->poolCandidate));
@@ -446,7 +446,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateBookmark()
+    public function test_update_bookmark()
     {
         $this->assertTrue($this->poolOperatorUser->can('updateBookmark', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('updateBookmark', $this->poolCandidate));
@@ -474,7 +474,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewNotes()
+    public function test_view_notes()
     {
         $this->assertTrue($this->poolOperatorUser->can('viewNotes', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('viewNotes', $this->poolCandidate));
@@ -502,7 +502,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateNotes()
+    public function test_update_notes()
     {
         $this->assertTrue($this->poolOperatorUser->can('updateNotes', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('updateNotes', $this->poolCandidate));
@@ -530,7 +530,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewAssessment()
+    public function test_view_assessment()
     {
         $this->assertTrue($this->poolOperatorUser->can('viewAssessment', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('viewAssessment', $this->poolCandidate));
@@ -558,7 +558,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateAssessment()
+    public function test_update_assessment()
     {
         $this->assertTrue($this->poolOperatorUser->can('updateAssessment', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('updateAssessment', $this->poolCandidate));
@@ -586,7 +586,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewDecision()
+    public function test_view_decision()
     {
         $this->assertTrue($this->poolOperatorUser->can('viewDecision', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('viewDecision', $this->poolCandidate));
@@ -614,7 +614,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateDecision()
+    public function test_update_decision()
     {
         $this->assertTrue($this->poolOperatorUser->can('updateDecision', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('updateDecision', $this->poolCandidate));
@@ -642,7 +642,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewPlacement()
+    public function test_view_placement()
     {
         $this->assertTrue($this->poolOperatorUser->can('viewPlacement', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('viewPlacement', $this->poolCandidate));
@@ -670,7 +670,7 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePlacement()
+    public function test_update_placement()
     {
         $this->assertTrue($this->poolOperatorUser->can('updatePlacement', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('updatePlacement', $this->poolCandidate));

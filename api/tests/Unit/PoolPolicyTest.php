@@ -67,8 +67,8 @@ class PoolPolicyTest extends TestCase
             ]);
 
         $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->community = Community::factory()->create(['name' => 'test-team']);
-        $this->otherCommunity = Community::factory()->create(['name' => 'suspicious-team']);
+        $this->community = Community::factory()->create();
+        $this->otherCommunity = Community::factory()->create();
 
         $this->poolOperatorUser = User::factory()
             ->asApplicant()
@@ -142,7 +142,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewAny()
+    public function test_view_any()
     {
         $this->assertTrue($this->adminUser->can('viewAny', Pool::class));
         $this->assertTrue($this->communityManagerUser->can('viewAny', Pool::class));
@@ -161,7 +161,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewAnyPublishedPools()
+    public function test_view_any_published_pools()
     {
         $this->assertTrue($this->guestUser->can('viewAnyPublished', Pool::class));
         $this->assertTrue($this->applicantUser->can('viewAnyPublished', Pool::class));
@@ -182,7 +182,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testView()
+    public function test_view()
     {
         $this->teamPool->published_at = null;
         $this->teamPool->save();
@@ -234,7 +234,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewDraftPool()
+    public function test_view_draft_pool()
     {
         $this->teamPool->published_at = null;
         $this->teamPool->save();
@@ -259,7 +259,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewPublishedPool()
+    public function test_view_published_pool()
     {
         $this->teamPool->published_at = config('constants.past_date');
         $this->teamPool->save();
@@ -280,7 +280,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testCreate()
+    public function test_create()
     {
         $createPoolInput = [
             'team_id' => $this->team->id,
@@ -313,7 +313,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testDuplicate()
+    public function test_duplicate()
     {
         $this->assertTrue($this->poolOperatorUser->can('duplicate', $this->teamPool));
         $this->assertTrue($this->communityRecruiterUser->can('duplicate', $this->teamPool));
@@ -337,7 +337,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateDraft()
+    public function test_update_draft()
     {
         $this->teamPool->published_at = null;
         $this->teamPool->save();
@@ -368,7 +368,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testPublish()
+    public function test_publish()
     {
         $this->teamPool->published_at = null;
         $this->teamPool->closing_date = config('constants.far_future_date');
@@ -400,7 +400,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testChangeClosingDate()
+    public function test_change_closing_date()
     {
         $this->assertTrue($this->communityManagerUser->can('changePoolClosingDate', $this->teamPool));
         $this->assertTrue($this->communityAdminUser->can('changePoolClosingDate', $this->teamPool));
@@ -425,7 +425,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePublished()
+    public function test_update_published()
     {
         $this->teamPool->published_at = null;
         $this->teamPool->save();
@@ -462,7 +462,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testClosePool()
+    public function test_close_pool()
     {
         $this->assertTrue($this->communityManagerUser->can('closePool', $this->teamPool));
         $this->assertTrue($this->communityAdminUser->can('closePool', $this->teamPool));
@@ -487,7 +487,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testDeleteDraft()
+    public function test_delete_draft()
     {
         $this->teamPool->published_at = null;
         $this->teamPool->save();
@@ -517,7 +517,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testDeletePublished()
+    public function test_delete_published()
     {
         $this->teamPool->published_at = config('constants.past_date');
         $this->teamPool->save();
@@ -538,7 +538,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testArchiveAndUnarchive()
+    public function test_archive_and_unarchive()
     {
         $this->assertTrue($this->poolOperatorUser->can('archiveAndUnarchive', $this->teamPool));
         $this->assertTrue($this->communityRecruiterUser->can('archiveAndUnarchive', $this->teamPool));
@@ -563,7 +563,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewAssessmentPlan()
+    public function test_view_assessment_plan()
     {
         $this->assertTrue($this->requestResponderUser->can('viewAssessmentPlan', $this->teamPool));
         $this->assertTrue($this->adminUser->can('viewAssessmentPlan', $this->teamPool));
@@ -588,7 +588,7 @@ class PoolPolicyTest extends TestCase
      *
      * @return void
      */
-    public function testViewTeamMembers()
+    public function test_view_team_members()
     {
         $this->assertTrue($this->adminUser->can('viewTeamMembers', $this->teamPool));
         $this->assertTrue($this->communityManagerUser->can('viewTeamMembers', $this->teamPool));

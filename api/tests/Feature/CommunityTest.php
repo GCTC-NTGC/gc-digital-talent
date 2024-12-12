@@ -47,11 +47,10 @@ class CommunityTest extends TestCase
 
         // Create communities.
         $this->toBeDeletedUUID = $this->faker->UUID();
-        $this->community1 = Community::factory()->create(['name' => 'community1']);
-        $this->community2 = Community::factory()->create(['name' => 'community2']);
+        $this->community1 = Community::factory()->create();
+        $this->community2 = Community::factory()->create();
         $this->community3 = Community::factory()->create([
             'id' => $this->toBeDeletedUUID, // need specific ID for delete community testing.
-            'name' => 'community3',
         ]);
 
         // Create users.
@@ -85,7 +84,7 @@ class CommunityTest extends TestCase
             ]);
     }
 
-    public function testAllCommunitiesQuery(): void
+    public function test_all_communities_query(): void
     {
         // Assert all communities query contains expected results.
         $query = $this->actingAs($this->admin, 'api')
@@ -112,7 +111,7 @@ class CommunityTest extends TestCase
         $query->assertJsonFragment(['id' => $this->community3->id]);
     }
 
-    public function testCommunityCreateMutation(): void
+    public function test_community_create_mutation(): void
     {
 
         // Assert null key causes failure.
@@ -207,7 +206,7 @@ class CommunityTest extends TestCase
         );
     }
 
-    public function testCommunityUpdateMutation(): void
+    public function test_community_update_mutation(): void
     {
         // Assert community update successful across all input fields.
         $this->actingAs($this->admin, 'api')->graphQL(
@@ -258,7 +257,7 @@ class CommunityTest extends TestCase
         ]);
     }
 
-    public function testViewCommunityMembers(): void
+    public function test_view_community_members(): void
     {
         $this->community1->addCommunityRecruiters([$this->communityRecruiter1->id, $this->communityRecruiter2->id]);
         $this->community2->addCommunityRecruiters([$this->communityRecruiter3->id]);
