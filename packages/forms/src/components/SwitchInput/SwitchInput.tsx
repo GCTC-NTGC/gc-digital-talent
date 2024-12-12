@@ -3,6 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
 import { Switch, SwitchProps } from "@gc-digital-talent/ui";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { CommonInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
@@ -71,7 +72,7 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
                 onCheckedChange={toggle}
                 checked={Boolean(value)}
                 {...(hideLabel && {
-                  "aria-label": label?.toString(),
+                  "aria-label": nodeToString(label),
                 })}
                 {...(disabled && {
                   "aria-disabled": "true",

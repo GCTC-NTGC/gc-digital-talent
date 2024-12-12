@@ -6,6 +6,7 @@ import {
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
+import nodeToString from "./utils/nodeToString";
 import {
   assertUnreachable,
   identity,
@@ -51,6 +52,7 @@ export {
   isUuidError,
   useIsSmallScreen,
   groupBy,
+  nodeToString,
   pickMap,
   unpackMaybes,
   localizedEnumHasValue,

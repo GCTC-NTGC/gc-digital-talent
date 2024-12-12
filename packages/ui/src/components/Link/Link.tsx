@@ -1,8 +1,4 @@
-import {
-  Link as RouterLink,
-  LinkProps as RouterLinkProps,
-  To,
-} from "react-router";
+import { Link as RouterLink, LinkProps as RouterLinkProps } from "react-router";
 import { DetailedHTMLProps, AnchorHTMLAttributes, forwardRef } from "react";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
@@ -23,7 +19,7 @@ export type LinkProps = ButtonLinkProps &
     external?: boolean;
     newTab?: boolean;
     disabled?: boolean;
-    href?: To;
+    href?: string;
   };
 
 const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(

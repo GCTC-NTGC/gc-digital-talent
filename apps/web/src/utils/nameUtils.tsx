@@ -2,8 +2,7 @@ import { IntlShape } from "react-intl";
 import { ReactNode } from "react";
 
 import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";
-
-import nodeToString from "./nodeToString";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 export const getFullNameLabel = (
   firstName: string | null | undefined,

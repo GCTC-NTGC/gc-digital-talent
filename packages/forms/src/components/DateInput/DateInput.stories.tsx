@@ -15,6 +15,7 @@ import { Pool } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -128,7 +129,7 @@ const ValidationDependantInputs = ({
       <DateInput
         name={`${name}Two`}
         id={`${id}Two`}
-        legend={`${legend?.toString()} Two`}
+        legend={`${nodeToString(legend)} Two`}
         rules={{
           min: {
             value: watchFirstInput,

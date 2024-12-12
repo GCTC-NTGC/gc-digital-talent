@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { IntlShape } from "react-intl";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { Experience } from "@gc-digital-talent/graphql";
 
@@ -69,8 +69,8 @@ export function sortAndFilterExperiences(
   switch (sortAndFilterValues?.sortBy) {
     case "title_asc":
       experiencesSorted.sort((e1, e2) => {
-        const t1 = getExperienceName(e1, intl)?.toString();
-        const t2 = getExperienceName(e2, intl)?.toString();
+        const t1 = nodeToString(getExperienceName(e1, intl, false));
+        const t2 = nodeToString(getExperienceName(e2, intl, false));
         return t1 && t2 ? t1?.localeCompare(t2) : 0;
       });
       break;

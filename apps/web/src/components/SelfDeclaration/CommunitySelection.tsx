@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-base-to-string */
 import { FieldValues, FormState, useFormContext } from "react-hook-form";
 import { IntlShape, useIntl } from "react-intl";
 import { ReactNode, useEffect, useId } from "react";

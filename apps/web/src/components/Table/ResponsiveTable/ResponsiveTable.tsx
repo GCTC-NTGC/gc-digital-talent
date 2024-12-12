@@ -12,7 +12,7 @@ import {
 import isEmpty from "lodash/isEmpty";
 import { ReactNode, useEffect, useId, useMemo } from "react";
 
-import { empty, notEmpty } from "@gc-digital-talent/helpers";
+import { empty, nodeToString, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
@@ -392,7 +392,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
             <TablePagination
               table={table}
               pagination={paginationAdjusted}
-              label={caption?.toString() ?? ""}
+              label={nodeToString(caption)}
             />
           )}
         </>

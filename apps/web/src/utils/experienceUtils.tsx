@@ -18,6 +18,7 @@ import {
   Skill,
   WorkExperience,
 } from "@gc-digital-talent/graphql";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import {
   AllExperienceFormValues,
@@ -584,7 +585,7 @@ export const getExperienceName = (
   experience: AnyExperience,
   intl: IntlShape,
   html = false,
-) => {
+): string | ReactNode => {
   if (isAwardExperience(experience) || isPersonalExperience(experience)) {
     return html ? (
       <span data-h2-font-weight="base(700)">{experience.title}</span>
@@ -710,7 +711,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   ]);
 
   return {
-    title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
+    title: nodeToString(getExperienceName(experience, intl)) ?? defaults.title,
     titleHtml: getExperienceName(experience, intl, true),
     editPath: paths.editExperience(experience.id),
     typeMessage: typeMessages.get(experienceType) ?? defaults.typeMessage,
