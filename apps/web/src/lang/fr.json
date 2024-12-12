@@ -2583,10 +2583,6 @@
     "defaultMessage": "Compte et confidentialité",
     "description": "Link to the 'Account and privacy' page"
   },
-  "BRd2Xw": {
-    "defaultMessage": "Créez une collectivité",
-    "description": "Text to create a community"
-  },
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
@@ -5331,6 +5327,10 @@
     "defaultMessage": "Grade en économie, en sociologie ou en statistique",
     "description": "Heading for the `just education` option for EC education requirements"
   },
+  "PdkgWB": {
+    "defaultMessage": "Créez une possibilité de formation",
+    "description": "Title for link to page to create a training opportunity (imperative in French)"
+  },
   "Pe1kas": {
     "defaultMessage": "Notes sur les demandes",
     "description": "Label displayed on the search request form request notes field."
@@ -5370,6 +5370,10 @@
   "PoFTwr": {
     "defaultMessage": "Vous avez été supprimé des résultats de la recherche.",
     "description": "Alert displayed to the user when application card dialog submits successfully."
+  },
+  "PrTwov": {
+    "defaultMessage": "Créez une collectivité",
+    "description": "Text to create a community (action)"
   },
   "Ps929U": {
     "defaultMessage": "Erreur : La mise à jour de votre autodéclaration a échoué",
@@ -5826,10 +5830,6 @@
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
-  },
-  "RtX9oA": {
-    "defaultMessage": "Créez une possibilité de formation",
-    "description": "Title for link to page to create a training opportunity (imperative in French)"
   },
   "RvB1GT": {
     "defaultMessage": "Relations de travail",

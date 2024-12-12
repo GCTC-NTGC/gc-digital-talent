@@ -45,13 +45,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Create a community",
-    "fr": [
-      "Créez une collectivité",
-      "Créer une collectivité"
-    ]
-  },
-  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
@@ -91,13 +84,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajouter un rôle dans l'équipe",
       "Ajoutez un rôle dans l'équipe"
-    ]
-  },
-  {
-    "en": "Create a training opportunity",
-    "fr": [
-      "Créez une possibilité de formation",
-      "Créer une possibilité de formation"
     ]
   },
   {
