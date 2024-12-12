@@ -56,11 +56,6 @@ export default defineMessages({
     id: "3NW70Q",
     description: "Title for the index search request page",
   },
-  teams: {
-    defaultMessage: "Teams",
-    id: "Ezh14X",
-    description: "Title for the index team page",
-  },
   users: {
     defaultMessage: "All users",
     id: "bVQ/rm",

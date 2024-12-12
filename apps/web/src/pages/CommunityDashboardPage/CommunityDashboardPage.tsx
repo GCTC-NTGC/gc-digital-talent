@@ -180,15 +180,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [ROLE_NAME.PlatformAdmin],
     },
     {
-      label: intl.formatMessage(pageTitles.teams),
-      href: adminRoutes.teamTable(),
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.CommunityManager,
-        ROLE_NAME.PlatformAdmin,
-      ],
-    },
-    {
       label: intl.formatMessage(pageTitles.trainingOpportunities),
       href: adminRoutes.trainingOpportunitiesIndex(),
       roles: [ROLE_NAME.PlatformAdmin],
@@ -383,9 +374,6 @@ export const CommunityDashboardPageApi = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityManager,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.ProcessOperator,
