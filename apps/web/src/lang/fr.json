@@ -6810,10 +6810,6 @@
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
   },
-  "WsG9lo": {
-    "defaultMessage": "L'ancienneté du poste",
-    "description": "Label for the role seniority radio group"
-  },
   "WsR0FB": {
     "defaultMessage": "IT-02 : Analyste",
     "description": "IT-02 classification label including titles"

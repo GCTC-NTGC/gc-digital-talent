@@ -271,8 +271,8 @@ export const getExperienceFormLabels = (
     }),
     govContractorRoleSeniority: intl.formatMessage({
       defaultMessage: "Seniority of the role",
-      id: "WsG9lo",
-      description: "Label for the role seniority radio group",
+      id: "34NvoS",
+      description: "Label for the seniority of the role radio group",
     }),
     govContractorType: intl.formatMessage({
       defaultMessage: "Contractor type",

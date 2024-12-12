@@ -1,4 +1,4 @@
-import { Experience, WorkExperience } from "@gc-digital-talent/graphql";
+import { WorkExperience } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
