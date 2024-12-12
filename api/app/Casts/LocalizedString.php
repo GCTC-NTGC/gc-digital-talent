@@ -15,11 +15,11 @@ class LocalizedString implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        if (is_null($value) || $value === '') {
+        if (is_null($value) || $value === '' || $value === 'null') {
             return null;
         }
 
-        $decodedValue = json_decode($value, true);
+        $decodedValue = is_array($value) ? $value : json_decode($value, true);
 
         return [
             ...$decodedValue,
