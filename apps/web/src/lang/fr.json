@@ -119,10 +119,6 @@
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
   },
-  "+e2nr6": {
-    "defaultMessage": "Ajouter un nouveau membre",
-    "description": "Label for the add member to team form"
-  },
   "+fIw4g": {
     "defaultMessage": "Modifier ces renseignements<hidden> pour {title}</hidden>",
     "description": "Text label for button to edit employment equity category in profile."
@@ -2315,6 +2311,10 @@
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
   },
+  "9vluO2": {
+    "defaultMessage": "Ajouter un membre",
+    "description": "Header for the add member to team form"
+  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -3334,6 +3334,10 @@
   "FBSOkb": {
     "defaultMessage": "Publié",
     "description": "Title displayed on the Pool table published at column"
+  },
+  "FBx3Q4": {
+    "defaultMessage": "Ajoutez un membre",
+    "description": "Label for the add member to team form"
   },
   "FDGVHB": {
     "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
@@ -5982,10 +5986,6 @@
   "Sew1Zp": {
     "defaultMessage": "Le gouvernement du Canada s’est engagé à financer le perfectionnement de ses spécialistes des TI. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la TI</strong>, les membres du personnel du groupe TI, représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC), ont désormais accès à une plus vaste gamme de possibilités d’apprentissage afin d’acquérir des compétences et les approfondir.",
     "description": "First paragraph describing investing in future talent"
-  },
-  "SfbDLA": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un nouveau membre » pour commencer.",
-    "description": "Instructions for adding a member to a team."
   },
   "SfhT1q": {
     "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
