@@ -92,10 +92,6 @@ return [
         'processOperatorMembership' => 'processOperatorMembership',
         'managerMembership' => 'managerMembership',
 
-        'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
-        'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
-        'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources. Remove during #10368 (Post-communities cleanup)
-
         'directiveForm' => 'directiveForm',
     ],
 
@@ -532,10 +528,6 @@ return [
             'en' => 'Update metadata associated with any Role',
             'fr' => 'Mettre à jour des métadonnées associées à tout rôle',
         ],
-        'assign-any-teamRole' => [
-            'en' => 'Assign any user to any team, with any role.',
-            'fr' => 'Affecter n\'importe quel utilisateur à n\'importe quelle équipe, avec n\'importe quel rôle.',
-        ],
 
         'create-any-directiveForm' => [
             'en' => 'Create any directive form',
@@ -690,45 +682,6 @@ return [
             'description' => [
                 'en' => 'Can edit their own profile and apply to jobs.',
                 'fr' => 'Peut modifier son propre profil et postuler des emplois.',
-            ],
-            'is_team_based' => false,
-        ],
-
-        // TODO: remove during #10368 (Post-communities cleanup)
-        'pool_operator' => [
-            'display_name' => [
-                'en' => 'Pool Operator',
-                'fr' => 'Opérateur de bassin',
-            ],
-            'description' => [
-                'en' => 'Runs hiring process by creating Pools (which must be published by other roles) and and screening-in/out applicants.',
-                'fr' => 'Gère le processus de recrutement en créant des bassins (qui doivent être publiés par d\'autres rôles) et en filtrant les candidats.',
-            ],
-            'is_team_based' => true,
-        ],
-
-        // TODO: remove during #10368 (Post-communities cleanup)
-        'request_responder' => [
-            'display_name' => [
-                'en' => 'Request Responder',
-                'fr' => 'Répondant aux demandes',
-            ],
-            'description' => [
-                'en' => 'Responsible for responding to all talent requests, regardless of Team/Department. This requires viewing all published pools, and the applicants who have been qualified within them.',
-                'fr' => 'Responsable de la réponse à toutes les demandes de talents, quelle que soit l\'équipe ou le département. Pour cela, il faut consulter tous les bassins publiés et les candidats qui ont été qualifiés dedans.',
-            ],
-            'is_team_based' => false,
-        ],
-
-        // TODO: remove during #10368 (Post-communities cleanup)
-        'community_manager' => [
-            'display_name' => [
-                'en' => 'Community Manager',
-                'fr' => 'Gestionnaire de communauté',
-            ],
-            'description' => [
-                'en' => 'Publishes pools, creates teams, and adds Pool Operators to teams.',
-                'fr' => 'Publie des pools, crée des équipes et ajoute des opérateurs des bassins aux équipes.',
             ],
             'is_team_based' => false,
         ],
@@ -1157,7 +1110,7 @@ return [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
             'user' => [
-                'any' => ['create', 'view', 'update', 'delete'], // TODO: remove update and create during #10368 (Post-communities cleanup)
+                'any' => ['view', 'delete'],
             ],
             'userSub' => [
                 'any' => ['update'],
@@ -1173,9 +1126,6 @@ return [
             ],
             'assessmentPlan' => [
                 'any' => ['view'],
-            ],
-            'application' => [
-                'any' => ['create'], // TODO: remove create any application permission during #10368 (Post-communities cleanup)
             ],
             'submittedApplication' => [
                 'any' => ['view'],
