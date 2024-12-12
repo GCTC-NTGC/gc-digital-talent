@@ -1,6 +1,5 @@
 import {
   DeleteUserMutation,
-  Team,
   Role,
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
@@ -24,8 +23,7 @@ export type CommunityTeamable = Pick<
   Community,
   "id" | "__typename" | "name" | "teamIdForRoleAssignment"
 >;
-export type TeamTeamable = Pick<Team, "id" | "__typename" | "displayName">;
-export type Teamable = PoolTeamable | CommunityTeamable | TeamTeamable;
+export type Teamable = PoolTeamable | CommunityTeamable;
 
 export interface PoolAssignment {
   pool: PoolTeamable;
@@ -33,9 +31,5 @@ export interface PoolAssignment {
 }
 export interface CommunityAssignment {
   community: CommunityTeamable;
-  roles: Role[];
-}
-export interface TeamAssignment {
-  team: TeamTeamable;
   roles: Role[];
 }

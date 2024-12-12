@@ -38,7 +38,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useReturnPath from "~/hooks/useReturnPath";
 
 import UserRoleTable from "./components/IndividualRoleTable";
-import TeamRoleTable from "./components/TeamRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";
 import UpdateUserSubForm from "./components/UpdateUserSubForm";
 import {
@@ -426,12 +425,6 @@ const UpdateUserPage = () => {
                 {intl.formatMessage(adminMessages.rolesAndPermissions)}
               </Heading>
               <UserRoleTable
-                user={data.user}
-                authInfo={data.user?.authInfo}
-                availableRoles={availableRoles}
-                onUpdateUserRoles={handleUpdateUserRoles}
-              />
-              <TeamRoleTable
                 user={data.user}
                 authInfo={data.user?.authInfo}
                 availableRoles={availableRoles}
