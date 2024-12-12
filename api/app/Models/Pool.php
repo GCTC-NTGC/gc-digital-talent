@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\PoolBuilder;
+use App\Casts\LocalizedString;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -70,15 +71,15 @@ class Pool extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
+        'name' => LocalizedString::class,
         'operational_requirements' => 'array',
-        'key_tasks' => 'array',
-        'advertisement_location' => 'array',
-        'your_impact' => 'array',
-        'what_to_expect' => 'array',
-        'special_note' => 'array',
-        'what_to_expect_admission' => 'array',
-        'about_us' => 'array',
+        'key_tasks' => LocalizedString::class,
+        'advertisement_location' => LocalizedString::class,
+        'your_impact' => LocalizedString::class,
+        'what_to_expect' => LocalizedString::class,
+        'special_note' => LocalizedString::class,
+        'what_to_expect_admission' => LocalizedString::class,
+        'about_us' => LocalizedString::class,
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
