@@ -3855,6 +3855,10 @@
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
   },
+  "IHyNL8": {
+    "defaultMessage": "Ajouter un membre",
+    "description": "Title for the add member to community form"
+  },
   "II4+N3": {
     "defaultMessage": "Au moyen de la liste des compétences du processus de recrutement, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
@@ -4758,6 +4762,10 @@
   "Mi+AuD": {
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
+  },
+  "MkUz+j": {
+    "defaultMessage": "Ajoutez un membre",
+    "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
     "defaultMessage": "Exigences linguistiques pour les personnes candidates",
@@ -11729,10 +11737,6 @@
   "w8K6dD": {
     "defaultMessage": "Cette demande a été vérifiée, {expiryDate}.",
     "description": "Message when a claim as been verified"
-  },
-  "wBMn5c": {
-    "defaultMessage": "Ajouter un membre",
-    "description": "Label for the add member to community form"
   },
   "wBU9X4": {
     "defaultMessage": "Français seulement",
