@@ -17,8 +17,6 @@ import {
   graphql,
   CreatePoolInput,
   CreatePoolMutation,
-  Maybe,
-  Team,
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
@@ -67,7 +65,6 @@ const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
 
 interface FormValues {
   classification: string;
-  team: string;
   department: string;
   community: string;
 }
@@ -81,11 +78,9 @@ interface CreatePoolFormProps {
   communitiesQuery: FragmentType<typeof CreatePoolCommunity_Fragment>[];
   handleCreatePool: (
     userId: string,
-    teamId: string,
     communityId: string,
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
-  teamsArray: Pick<Team, "id" | "displayName">[];
 }
 
 export const CreatePoolForm = ({
@@ -94,7 +89,6 @@ export const CreatePoolForm = ({
   departmentsQuery,
   communitiesQuery,
   handleCreatePool,
-  teamsArray,
 }: CreatePoolFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -124,12 +118,7 @@ export const CreatePoolForm = ({
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(
-      userId,
-      data.team,
-      data.community,
-      formValuesToSubmitData(data),
-    )
+    await handleCreatePool(userId, data.community, formValuesToSubmitData(data))
       .then(async (result) => {
         if (result) {
           await navigate(paths.poolUpdate(result.id));
@@ -162,11 +151,6 @@ export const CreatePoolForm = ({
       label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
     }),
   );
-
-  const teamOptions: Option[] = teamsArray.map(({ id, displayName }) => ({
-    value: id,
-    label: getLocalizedName(displayName, intl),
-  }));
 
   const departmentOptions: Option[] = departments.map(({ id, name }) => ({
     value: id,
@@ -215,20 +199,6 @@ export const CreatePoolForm = ({
               }}
             />
             <Select
-              id="team"
-              label={intl.formatMessage(messages.team)}
-              name="team"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a team",
-                id: "COJ3St",
-                description: "Placeholder displayed for team selection input.",
-              })}
-              options={teamOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Select
               id="department"
               label={intl.formatMessage(messages.department)}
               name="department"
@@ -268,43 +238,10 @@ export const CreatePoolForm = ({
   );
 };
 
-interface ConstrainedTeamOnRoleAssignment {
-  team?: Maybe<Pick<Team, "id" | "displayName">>;
-}
-
-const roleAssignmentsToTeams = (
-  roleAssignmentArray: Maybe<ConstrainedTeamOnRoleAssignment[]>,
-): Pick<Team, "id" | "displayName">[] => {
-  const flattenedTeams = roleAssignmentArray?.flatMap(
-    (roleAssign) => roleAssign.team,
-  );
-  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
-
-  // clear out any duplicate teams that could arise from multiple team-based roles per team
-  // https://stackoverflow.com/a/56757215
-  const teamsArray = filteredFlattenedTeams.filter(
-    (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i,
-  );
-  return teamsArray;
-};
-
 const CreatePoolPage_Query = graphql(/* GraphQL */ `
   query CreatePoolPage {
     me {
       id
-      authInfo {
-        id
-        roleAssignments {
-          id
-          team {
-            id
-            displayName {
-              en
-              fr
-            }
-          }
-        }
-      }
     }
     classifications {
       ...CreatePoolClassification
@@ -321,16 +258,10 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
 const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
   mutation CreatePool(
     $userId: ID!
-    $teamId: ID!
     $communityId: ID!
     $pool: CreatePoolInput!
   ) {
-    createPool(
-      userId: $userId
-      teamId: $teamId
-      communityId: $communityId
-      pool: $pool
-    ) {
+    createPool(userId: $userId, communityId: $communityId, pool: $pool) {
       id
       name {
         en
@@ -357,19 +288,13 @@ const CreatePoolPage = () => {
   const routes = useRoutes();
   const [{ data, fetching, error }] = useQuery({ query: CreatePoolPage_Query });
 
-  const roleAssignments =
-    unpackMaybes(data?.me?.authInfo?.roleAssignments) ?? [];
-  const teamsArray = roleAssignmentsToTeams(roleAssignments);
-  const teamsArrayFiltered = teamsArray.filter((team) => !!team.displayName); // filter out lacking a display name as a proxy for new teams TODO #10368
-
   const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
     userId: string,
-    teamId: string,
     communityId: string,
     pool: CreatePoolInput,
   ) =>
-    executeMutation({ userId, teamId, communityId, pool }).then((result) => {
+    executeMutation({ userId, communityId, pool }).then((result) => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }
@@ -408,7 +333,6 @@ const CreatePoolPage = () => {
             departmentsQuery={unpackMaybes(data?.departments)}
             communitiesQuery={unpackMaybes(data?.communities)}
             handleCreatePool={handleCreatePool}
-            teamsArray={teamsArrayFiltered}
           />
         </Pending>
       </AdminContentWrapper>
