@@ -4283,6 +4283,10 @@
     "defaultMessage": "Date d’expiration (heure locale)",
     "description": "A date at which data will expire, in the local time zone"
   },
+  "KHmf+e": {
+    "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
+    "description": "Instructions for adding a classification item."
+  },
   "KJDxM1": {
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
@@ -6182,10 +6186,6 @@
   "Tjd942": {
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
-  },
-  "Tl2FNA": {
-    "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
-    "description": "Instructions for adding a classification item."
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
@@ -11069,6 +11069,10 @@
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
+  },
+  "s57oJd": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
+    "description": "Instructions for adding a member to a team."
   },
   "s5hTYo": {
     "defaultMessage": "Rôles dans l'équipe",
