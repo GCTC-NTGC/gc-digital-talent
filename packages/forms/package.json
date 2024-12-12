@@ -35,7 +35,7 @@
     "downshift": "^9.0.8",
     "framer-motion": "^11.14.1",
     "lodash": "^4.17.21",
-    "react-dom": "^18.2.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
