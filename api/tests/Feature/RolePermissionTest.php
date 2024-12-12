@@ -136,11 +136,11 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function testPoolOperatorRole()
+    public function testprocessOperatorRole()
     {
-        $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
+        $processOperatorRole = Role::where('name', 'pool_operator')->sole();
         $this->user->addRole(
-            $poolOperatorRole,
+            $processOperatorRole,
             $this->ownedTeam
         );
 
@@ -470,9 +470,9 @@ class RolePermissionTest extends TestCase
      */
     public function testStrictTeamCheck()
     {
-        $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
+        $processOperatorRole = Role::where('name', 'pool_operator')->sole();
         $this->user->addRole(
-            $poolOperatorRole,
+            $processOperatorRole,
             $this->ownedTeam
         );
 

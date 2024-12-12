@@ -24,7 +24,7 @@ class UserPolicyTest extends TestCase
 
     protected $otherApplicant;
 
-    protected $poolOperator;
+    protected $processOperator;
 
     protected $requestResponder;
 
@@ -83,7 +83,7 @@ class UserPolicyTest extends TestCase
         $this->community = Community::factory()->create();
 
         $this->poolOperator = User::factory()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',

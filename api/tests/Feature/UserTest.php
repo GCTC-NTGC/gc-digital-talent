@@ -2300,7 +2300,7 @@ class UserTest extends TestCase
 
         $adminId = Role::where('name', 'platform_admin')->value('id');
         $responderId = Role::where('name', 'request_responder')->value('id');
-        $poolOperatorId = Role::where('name', 'pool_operator')->value('id');
+        $processOperatorId = Role::where('name', 'pool_operator')->value('id');
         $processOperatorId = Role::where('name', 'process_operator')->value('id');
         $communityRecruiterId = Role::where('name', 'community_recruiter')->value('id');
         $communityAdminId = Role::where('name', 'community_admin')->value('id');
@@ -2308,7 +2308,7 @@ class UserTest extends TestCase
         // Create users
         User::factory(1)->asAdmin()->create();
         User::factory(3)->asGuest()->create();
-        User::factory(5)->asPoolOperator($testTeam->name)->create();
+        User::factory(5)->asProcessOperator($testTeam->name)->create();
         User::factory(7)->asRequestResponder()->create();
         User::factory(11)->asApplicant()->create();
 
@@ -2332,7 +2332,7 @@ class UserTest extends TestCase
         $nullRoles = ['where' => ['roles' => null]];
         $adminRoles = ['where' => ['roles' => [$adminId]]];
         $responderRoles = ['where' => ['roles' => [$responderId]]];
-        $poolRoles = ['where' => ['roles' => [$poolOperatorId]]];
+        $poolRoles = ['where' => ['roles' => [$processOperatorId]]];
         $processRoles = ['where' => ['roles' => [$processOperatorId]]];
         $recruiterRoles = ['where' => ['roles' => [$communityRecruiterId]]];
         $communityAdminRoles = ['where' => ['roles' => [$communityAdminId]]];

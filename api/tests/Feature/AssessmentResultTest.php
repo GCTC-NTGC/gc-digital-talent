@@ -51,7 +51,7 @@ class AssessmentResultTest extends TestCase
         ]);
         $this->teamUser = User::factory()
             ->asApplicant()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',

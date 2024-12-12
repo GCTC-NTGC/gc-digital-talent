@@ -38,7 +38,7 @@ class PoolTest extends TestCase
 
     protected $team;
 
-    protected $poolOperator;
+    protected $processOperator;
 
     protected $adminUser;
 
@@ -60,7 +60,7 @@ class PoolTest extends TestCase
         ]);
 
         $this->poolOperator = User::factory()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'sub' => 'operator@test.com',
             ]);
@@ -1510,14 +1510,14 @@ class PoolTest extends TestCase
         assertSame(2, count($adminQuery->json('data.poolsPaginated.data')));
 
         // pool operator sees the one team pool when true
-        $poolOperatorQuery = $this
+        $processOperatorQuery = $this
             ->actingAs($this->poolOperator, 'api')
             ->graphQL($query, [
                 'where' => [
                     'canAdmin' => true,
                 ],
             ])->assertJsonFragment(['id' => $teamPool->id]);
-        assertSame(1, count($poolOperatorQuery->json('data.poolsPaginated.data')));
+        assertSame(1, count($processOperatorQuery->json('data.poolsPaginated.data')));
 
         // base user sees zero pools when true
         $userQuery = $this

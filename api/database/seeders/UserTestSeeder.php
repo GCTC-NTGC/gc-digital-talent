@@ -28,7 +28,7 @@ class UserTestSeeder extends Seeder
             ->asRequestResponder()
             ->asCommunityManager()
             ->asAdmin()
-            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
+            ->asProcessOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
@@ -76,7 +76,7 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
+            ->asProcessOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
