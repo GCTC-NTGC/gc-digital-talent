@@ -548,7 +548,7 @@ return [
 
         'view-any-announcement' => [
             'en' => 'View any announcement',
-            'fr' => 'Vissioner toutes les annonces',
+            'fr' => 'Visionner toutes les annonces',
         ],
         'update-any-announcement' => [
             'en' => 'Update any announcement',
@@ -557,11 +557,11 @@ return [
 
         'view-any-community' => [
             'en' => 'View any community',
-            'fr' => 'Vissioner toutes les communautés',
+            'fr' => 'Visionner toutes les communautés',
         ],
         'view-team-community' => [
             'en' => 'View this community',
-            'fr' => 'Vissioner cette communauté',
+            'fr' => 'Visionner cette communauté',
         ],
         'create-any-community' => [
             'en' => 'Create any community',
@@ -572,7 +572,7 @@ return [
             'fr' => 'Mise à jour de toute communauté',
         ],
         'update-team-community' => [
-            'en' => 'Update this commuinty',
+            'en' => 'Update this community',
             'fr' => 'Mise à jour cette communautés',
         ],
         'delete-any-community' => [
