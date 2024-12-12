@@ -211,7 +211,7 @@ const createRoute = (locale: Locales) =>
                     ),
                 },
                 // {
-                //   path: "dashboard",
+                //   path: "dashboard-test",
                 //   lazy: () =>
                 //     import(
                 //       "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
