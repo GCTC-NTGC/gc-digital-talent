@@ -5227,10 +5227,6 @@
     "defaultMessage": "Ministère/organisation d’embauche",
     "description": "Label for department select input in the request form"
   },
-  "P7ZWZ/": {
-    "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
-    "description": "Describes the 'your impact' section of a process' advertisement."
-  },
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
@@ -8523,7 +8519,7 @@
     "description": "Message when a claim does not apply to the specific process"
   },
   "fPy7Mg": {
-    "defaultMessage": "Le français - Votre impact",
+    "defaultMessage": "Français - Votre impact",
     "description": "Label for the French - Your Impact textarea in the edit pool page."
   },
   "fQ7zxR": {
@@ -8933,6 +8929,10 @@
   "hCJfYi": {
     "defaultMessage": "<strong>Les postes sur place</strong> requièrent une présence à temps plein au bureau, sans possibilité de travailler à distance.",
     "description": "Definition for 'on-site positions'"
+  },
+  "hD2x/p": {
+    "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
+    "description": "Describes the 'your impact' section of a process' advertisement."
   },
   "hGEhAB": {
     "defaultMessage": "Groupe",
