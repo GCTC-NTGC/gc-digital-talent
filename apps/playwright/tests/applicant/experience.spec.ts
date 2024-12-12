@@ -1,8 +1,10 @@
+import { Experience, WorkExperience } from "@gc-digital-talent/graphql";
+
 import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
 import { loginBySub } from "~/utils/auth";
-// import graphql from "~/utils/graphql";
-// import { me } from "~/utils/user";
+import graphql from "~/utils/graphql";
+import { me } from "~/utils/user";
 
 test.describe("Experiences", () => {
   const uniqueTestId = Date.now().valueOf();
@@ -103,33 +105,35 @@ test.describe("Experiences", () => {
     );
   });
 
-  // test("Can edit work experience", async ({ appPage }) => {
-  //   const role = `Test edit work experience (${uniqueTestId})`;
-  //   const experiencePage = new ExperiencePage(appPage.page);
-  //   await loginBySub(experiencePage.page, "applicant@test.com");
+  test("Can edit work experience", async ({ appPage }) => {
+    const role = `Test edit work experience (${uniqueTestId})`;
+    const experiencePage = new ExperiencePage(appPage.page);
+    await loginBySub(experiencePage.page, "applicant@test.com");
 
-  //   await experiencePage.addCafWorkExperience({
-  //     role,
-  //     startDate: "2001-01",
-  //   });
+    await experiencePage.addCafWorkExperience({
+      role,
+      startDate: "2001-01",
+    });
 
-  //   await expect(experiencePage.page.getByRole("alert")).toContainText(
-  //     /successfully added experience/i,
-  //   );
+    await expect(experiencePage.page.getByRole("alert")).toContainText(
+      /successfully added experience/i,
+    );
 
-  //   const applicantCtx = await graphql.newContext("applicant@test.com");
-  //   const applicant = await me(applicantCtx, {});
-  //   console.log(applicant.workExperiences);
-  //   const workExperience = applicant.workExperiences?.find(
-  //     (ex) => ex?.role === role,
-  //   );
+    await experiencePage.goToIndex();
 
-  //   await experiencePage.editWorkExperience(`${workExperience?.id}`, {
-  //     role,
-  //     startDate: "2001-01",
-  //     endDate: "2200-01"
-  //   });
-  // });
+    const applicantCtx = await graphql.newContext("applicant@test.com");
+    const applicant = await me(applicantCtx, {});
+
+    const workExperience = applicant.experiences?.find(
+      (ex: WorkExperience) => ex?.role === role,
+    );
+
+    await experiencePage.editWorkExperience(`${workExperience?.id}`, {
+      role,
+      startDate: "2001-01",
+      endDate: "2200-01",
+    });
+  });
 
   test("Can create personal experience", async ({ appPage }) => {
     const title = `Test add personal experience (${uniqueTestId})`;
