@@ -4071,6 +4071,10 @@
     "defaultMessage": "Employé(e)s (de même niveau)",
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
+  "JCZlxS": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans le processus » pour commencer.",
+    "description": "Instructions for adding process membership to a user."
+  },
   "JDQvla": {
     "defaultMessage": "Ces notes sont disponibles pour tous les gestionnaires de ce bassin, mais pas pour les candidats.",
     "description": "Description of pool candidate notes field"
@@ -9097,10 +9101,6 @@
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
-  },
-  "hryX4G": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez des rôles dans des processus  » pour commencer.",
-    "description": "Instructions for adding process membership to a user."
   },
   "htxH4r": {
     "defaultMessage": "Retourner à votre tableau de bord",
