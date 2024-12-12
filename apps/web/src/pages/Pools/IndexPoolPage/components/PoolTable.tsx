@@ -11,11 +11,7 @@ import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getLocalizedName,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
   getFragment,
@@ -162,7 +158,6 @@ interface PoolTableProps {
 
 const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const [paginationState, setPaginationState] = useState<PaginationState>(

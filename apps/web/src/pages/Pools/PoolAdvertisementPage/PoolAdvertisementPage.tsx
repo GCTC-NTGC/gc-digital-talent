@@ -40,7 +40,6 @@ import {
   PoolStatus,
   Scalars,
   PublishingGroup,
-  Maybe,
   PoolSkillType,
   FragmentType,
   getFragment,
@@ -82,16 +81,6 @@ interface SectionContent {
   linkText?: string;
   title: string;
 }
-
-const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
-  return email ? (
-    <Link external href={`mailto:${email}`}>
-      {chunks}
-    </Link>
-  ) : (
-    <>{chunks}</>
-  );
-};
 
 const internalLink = (href: string, chunks: ReactNode) => (
   <Link href={href}>{chunks}</Link>

@@ -177,7 +177,6 @@ export const AssessmentPlanBuilderPage = () => {
   const authorizedToSeeThePage: boolean =
     authorization.roleAssignments?.some(
       (authorizedRoleAssignment) =>
-        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name ||
         (authorizedRoleAssignment.role?.name === ROLE_NAME.ProcessOperator &&
           authorizedRoleAssignment.team?.id ===
             queryData?.pool?.teamIdForRoleAssignment) ||
