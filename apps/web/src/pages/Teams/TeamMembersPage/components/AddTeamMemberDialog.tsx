@@ -210,7 +210,11 @@ AddTeamMemberDialogProps) => {
                 <Button color="secondary" type="submit" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
-                    : label}
+                    : intl.formatMessage({
+                        defaultMessage: "Add member",
+                        id: "FBx3Q4",
+                        description: "Label for the add member to team form",
+                      })}
                 </Button>
                 <Dialog.Close>
                   <Button color="warning" mode="inline">
