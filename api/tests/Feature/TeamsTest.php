@@ -69,24 +69,24 @@ class TeamsTest extends TestCase
                 'sub' => 'admin-user@test.com',
             ]);
 
-        $this->poolOperator1 = User::factory()
+        $this->processOperator1 = User::factory()
             ->asProcessOperator($this->team1->name)
             ->create([
-                'email' => 'poolOperator1@test.com',
-                'sub' => 'poolOperator1@test.com',
+                'email' => 'processOperator1@test.com',
+                'sub' => 'processOperator1@test.com',
             ]);
 
-        $this->poolOperator2 = User::factory()
+        $this->processOperator2 = User::factory()
             ->asProcessOperator($this->team2->name)
             ->create([
-                'email' => 'poolOperator2@test.com',
-                'sub' => 'poolOperator2@test.com',
+                'email' => 'processOperator2@test.com',
+                'sub' => 'processOperator2@test.com',
             ]);
 
-        $this->poolOperator3 = User::factory()
+        $this->processOperator3 = User::factory()
             ->create([
-                'email' => 'poolOperator3@test.com',
-                'sub' => 'poolOperator3@test.com',
+                'email' => 'processOperator3@test.com',
+                'sub' => 'processOperator3@test.com',
             ]);
     }
 
@@ -330,9 +330,9 @@ class TeamsTest extends TestCase
 
     public function testViewTeamMembers(): void
     {
-        $this->poolOperator1->addRole('pool_operator', $this->team1);
-        $this->poolOperator2->addRole('pool_operator', $this->team1);
-        $this->poolOperator3->addRole('pool_operator', $this->team2);
+        $this->processOperator1->addRole('process_operator', $this->team1);
+        $this->processOperator2->addRole('process_operator', $this->team1);
+        $this->processOperator3->addRole('process_operator', $this->team2);
         $viewAnyTeamMembers =
             /** @lang GraphQL */
             '
@@ -355,12 +355,12 @@ class TeamsTest extends TestCase
         $query = $this->actingAs($this->admin, 'api')
             ->graphQL($viewAnyTeamMembers, $variables)
             ->assertJsonFragment([
-                'id' => $this->poolOperator1->id,
-                'id' => $this->poolOperator2->id,
+                'id' => $this->processOperator1->id,
+                'id' => $this->processOperator2->id,
             ]);
 
         // assert pool operator three is not present in the response
-        $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
+        $query->assertJsonMissing(['id' => $this->processOperator3->id]);
 
         // assert the teams returned is an array of exactly two items
         $data = $query->original['data'];
@@ -368,15 +368,15 @@ class TeamsTest extends TestCase
         assertEquals($teamMembersCount, 2);
 
         // Assert pool operator can view team members of their team
-        $query = $this->actingAs($this->poolOperator1, 'api')
+        $query = $this->actingAs($this->processOperator1, 'api')
             ->graphQL($viewAnyTeamMembers, $variables)
             ->assertJsonFragment([
-                'id' => $this->poolOperator1->id,
-                'id' => $this->poolOperator2->id,
+                'id' => $this->processOperator1->id,
+                'id' => $this->processOperator2->id,
             ]);
 
         // assert pool operator three is not present in the response
-        $query->assertJsonMissing(['id' => $this->poolOperator3->id]);
+        $query->assertJsonMissing(['id' => $this->processOperator3->id]);
 
         // assert the teams returned is an array of exactly two items
         $data = $query->original['data'];
@@ -384,7 +384,7 @@ class TeamsTest extends TestCase
         assertEquals($teamMembersCount, 2);
 
         // Assert pool operator cannot view team members of a team they're not attached too.
-        $query = $this->actingAs($this->poolOperator3, 'api')
+        $query = $this->actingAs($this->processOperator3, 'api')
             ->graphQL($viewAnyTeamMembers, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }

@@ -2299,8 +2299,6 @@ class UserTest extends TestCase
         $testCommunity = Community::factory()->create();
 
         $adminId = Role::where('name', 'platform_admin')->value('id');
-        $responderId = Role::where('name', 'request_responder')->value('id');
-        $processOperatorId = Role::where('name', 'pool_operator')->value('id');
         $processOperatorId = Role::where('name', 'process_operator')->value('id');
         $communityRecruiterId = Role::where('name', 'community_recruiter')->value('id');
         $communityAdminId = Role::where('name', 'community_admin')->value('id');
@@ -2331,7 +2329,6 @@ class UserTest extends TestCase
         $empty = ['where' => []];
         $nullRoles = ['where' => ['roles' => null]];
         $adminRoles = ['where' => ['roles' => [$adminId]]];
-        $responderRoles = ['where' => ['roles' => [$responderId]]];
         $poolRoles = ['where' => ['roles' => [$processOperatorId]]];
         $processRoles = ['where' => ['roles' => [$processOperatorId]]];
         $recruiterRoles = ['where' => ['roles' => [$communityRecruiterId]]];
@@ -2355,11 +2352,6 @@ class UserTest extends TestCase
             ->graphQL($query, $adminRoles)
             ->assertJsonFragment([
                 'total' => 2, // includes created and setup admins
-            ]);
-        $this->actingAs($this->platformAdmin, 'api')
-            ->graphQL($query, $responderRoles)
-            ->assertJsonFragment([
-                'total' => 7,
             ]);
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $poolRoles)

@@ -36,7 +36,7 @@ test.describe("Process permissions", () => {
         "guest",
         "base_user",
         "applicant",
-        ["pool_operator", orphanTeam.id],
+        ["process_operator", orphanTeam.id],
       ],
     });
 
@@ -51,7 +51,7 @@ test.describe("Process permissions", () => {
         "guest",
         "base_user",
         "applicant",
-        ["pool_operator", team?.id ?? ""],
+        ["process_operator", team?.id ?? ""],
       ],
     });
 

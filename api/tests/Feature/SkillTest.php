@@ -63,8 +63,7 @@ class SkillTest extends TestCase
         $this->baseUser->syncRoles([
             'guest',
             'base_user',
-            'pool_operator',
-            'request_responder',
+            'process_operator',
         ]);
 
         $this->adminUser = User::create([

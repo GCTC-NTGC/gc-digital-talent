@@ -132,39 +132,6 @@ class RolePermissionTest extends TestCase
     }
 
     /**
-     * Test the Request Responder Role
-     *
-     * @return void
-     */
-    public function testRequestResponderRole()
-    {
-        $requestResponderRole = Role::where('name', 'request_responder')->sole();
-        $this->user->addRole($requestResponderRole);
-
-        $permissionsToCheck = [
-            'view-any-submittedApplication',
-            'view-any-applicationStatus',
-            'update-any-applicationStatus',
-            'view-any-applicationAssessment',
-            'update-any-applicationAssessment',
-            'view-any-applicationDecision',
-            'view-any-applicationPlacement',
-            'update-any-applicationDecision',
-            'update-any-applicationPlacement',
-            'view-any-searchRequest',
-            'update-any-searchRequest',
-            'delete-any-searchRequest',
-            'view-any-assessmentPlan',
-        ];
-
-        $this->assertTrue($this->user->hasRole('request_responder'));
-        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
-        $this->assertTrue(($this->user->isAbleTo('view-any-user')));
-
-        $this->cleanup();
-    }
-
-    /**
      * Test the Platform Admin role
      *
      * @return void
@@ -229,32 +196,6 @@ class RolePermissionTest extends TestCase
             'view-any-communityTeamMembers',
             'view-any-poolTeamMembers',
         ], true));
-
-        $this->cleanup();
-    }
-
-    /**
-     * Test the Community Manager Role
-     *
-     * @return void
-     */
-    public function testCommunityManagerRole()
-    {
-        $communityManager = Role::where('name', 'community_manager')->sole();
-        $this->user->addRole($communityManager);
-
-        $permissionsToCheck = [
-            'view-any-userBasicInfo',
-            'view-any-pool',
-            'publish-any-draftPool',
-            'view-any-teamMembers',
-            'create-any-team',
-            'update-any-team',
-            'delete-any-team',
-        ];
-
-        $this->assertTrue($this->user->hasRole('community_manager'));
-        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
 
         $this->cleanup();
     }
@@ -428,7 +369,7 @@ class RolePermissionTest extends TestCase
      */
     public function testStrictTeamCheck()
     {
-        $processOperatorRole = Role::where('name', 'pool_operator')->sole();
+        $processOperatorRole = Role::where('name', 'process_operator')->sole();
         $this->user->addRole(
             $processOperatorRole,
             $this->ownedTeam

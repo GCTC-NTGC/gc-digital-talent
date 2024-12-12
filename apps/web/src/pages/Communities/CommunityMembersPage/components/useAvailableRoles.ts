@@ -34,7 +34,7 @@ const useAvailableRoles = (): UseAvailableRolesReturn => {
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const communityRoles = useMemo(() => {
-    const array = ["community_recruiter", "community_manager"];
+    const array = ["community_recruiter"];
     if (checkRole([ROLE_NAME.PlatformAdmin], roleAssignments)) {
       array.push("community_admin");
     }

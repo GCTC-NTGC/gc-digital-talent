@@ -240,30 +240,6 @@ class UserFactory extends Factory
     }
 
     /**
-     * Attach the request responder role to a user after creation.
-     *
-     * @return $this
-     */
-    public function asRequestResponder()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('request_responder');
-        });
-    }
-
-    /**
-     * Attach the Community Manager role to a user after creation.
-     *
-     * @return $this
-     */
-    public function asCommunityManager()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('community_manager');
-        });
-    }
-
-    /**
      * Attach the admin role to a user after creation.
      *
      * @return $this

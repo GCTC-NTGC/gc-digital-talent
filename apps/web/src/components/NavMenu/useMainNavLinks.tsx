@@ -322,9 +322,6 @@ const useMainNavLinks = () => {
   const getRoleName: Record<string, string> = {
     ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
     ["manager"]: intl.formatMessage(navMenuMessages.manager),
-    ["pool_operator"]: intl.formatMessage(navMenuMessages.community),
-    ["request_responder"]: intl.formatMessage(navMenuMessages.community),
-    ["community_manager"]: intl.formatMessage(navMenuMessages.community),
     ["process_operator"]: intl.formatMessage(navMenuMessages.community),
     ["community_recruiter"]: intl.formatMessage(navMenuMessages.community),
     ["community_admin"]: intl.formatMessage(navMenuMessages.community),
@@ -334,9 +331,6 @@ const useMainNavLinks = () => {
   const getRoleLink: Record<string, string> = {
     ["applicant"]: paths.applicantDashboard(),
     ["manager"]: paths.managerDashboard(),
-    ["pool_operator"]: paths.communityDashboard(),
-    ["request_responder"]: paths.communityDashboard(),
-    ["community_manager"]: paths.communityDashboard(),
     ["process_operator"]: paths.communityDashboard(),
     ["community_recruiter"]: paths.communityDashboard(),
     ["community_admin"]: paths.communityDashboard(),
