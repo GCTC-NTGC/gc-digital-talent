@@ -59,10 +59,10 @@ class PoolTest extends TestCase
             'name' => 'pool-application-test-team',
         ]);
 
-        $this->poolOperator = User::factory()
+        $this->processOperator = User::factory()
             ->asProcessOperator($this->team->name)
             ->create([
-                'sub' => 'operator@test.com',
+                'sub' => 'process@test.com',
             ]);
 
         $this->communityManager = User::factory()
@@ -491,7 +491,7 @@ class PoolTest extends TestCase
     {
         $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation ArchivePool($id: ID!) {
@@ -511,7 +511,7 @@ class PoolTest extends TestCase
     {
         $pool = Pool::factory()->published()->create(['team_id' => $this->team->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation ArchivePool($id: ID!) {
@@ -531,7 +531,7 @@ class PoolTest extends TestCase
     {
         $pool = Pool::factory()->archived()->create(['team_id' => $this->team->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation UnarchivePool($id: ID!) {
@@ -553,7 +553,7 @@ class PoolTest extends TestCase
     {
         $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation UnarchivePool($id: ID!) {
@@ -625,7 +625,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot reopen due to soft deleted essential skill $skill2
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
@@ -648,7 +648,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can reopen now with the deleted skill gone
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
@@ -1057,14 +1057,14 @@ class PoolTest extends TestCase
     public function testCanDeleteDraftPool(): void
     {
         $pool = Pool::factory()
-            ->for($this->poolOperator)
+            ->for($this->processOperator)
             ->withAssessments()
             ->draft()
             ->create([
                 'team_id' => $this->team,
             ]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '   mutation DeletePool($id: ID!) {
                     deletePool(id: $id) { id }
@@ -1511,7 +1511,7 @@ class PoolTest extends TestCase
 
         // pool operator sees the one team pool when true
         $processOperatorQuery = $this
-            ->actingAs($this->poolOperator, 'api')
+            ->actingAs($this->processOperator, 'api')
             ->graphQL($query, [
                 'where' => [
                     'canAdmin' => true,
@@ -1564,7 +1564,7 @@ class PoolTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->for($this->poolOperator)
+            ->for($this->processOperator)
             ->withAssessments()
             ->published()
             ->create([
@@ -1590,7 +1590,7 @@ class PoolTest extends TestCase
         ];
 
         // Pool operator cannot edit
-        $this->actingAs($this->poolOperator, 'api')
+        $this->actingAs($this->processOperator, 'api')
             ->graphQL($mutation, $vars)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
@@ -1730,7 +1730,7 @@ class PoolTest extends TestCase
         $classification = Classification::factory()->create();
         $department = Department::factory()->create();
 
-        $response = $this->actingAs($this->poolOperator, 'api')
+        $response = $this->actingAs($this->processOperator, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -1755,7 +1755,7 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $this->poolOperator->id,
+                    'userId' => $this->processOperator->id,
                     'teamId' => $this->team->id,
                     'communityId' => $community->id,
                     'pool' => [
@@ -1770,7 +1770,7 @@ class PoolTest extends TestCase
             );
 
         $response->assertJsonFragment([
-            'owner' => ['id' => $this->poolOperator->id],
+            'owner' => ['id' => $this->processOperator->id],
         ])->assertJsonFragment([
             'team' => ['id' => $this->team->id],
         ])->assertJsonFragment([
@@ -1793,11 +1793,11 @@ class PoolTest extends TestCase
 
         $original = Pool::factory()
             ->draft()
-            ->for($this->poolOperator)
+            ->for($this->processOperator)
             ->withPoolSkills(3, 3)
             ->create();
 
-        $response = $this->actingAs($this->poolOperator, 'api')
+        $response = $this->actingAs($this->processOperator, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
