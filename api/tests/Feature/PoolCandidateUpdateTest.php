@@ -101,8 +101,8 @@ class PoolCandidateUpdateTest extends TestCase
         $this->processOperatorUser = User::factory()
             ->asProcessOperator($this->team->name)
             ->create([
-                'email' => 'pool-operator-user@test.com',
-                'sub' => 'pool-operator-user@test.com',
+                'email' => 'process-operator-user@test.com',
+                'sub' => 'process-operator-user@test.com',
             ]);
 
         $this->requestResponderUser = User::factory()
