@@ -124,8 +124,15 @@ exports[`message files should have no changes to duplicate strings 1`] = `
   {
     "en": "Create skill family",
     "fr": [
-      "Créer un groupe de compétences",
+      "Créez un groupe de compétences",
       "Créez le groupe de compétences"
+    ]
+  },
+  {
+    "en": "Create process",
+    "fr": [
+      "Créer un processus",
+      "Créez un processus"
     ]
   },
   {
