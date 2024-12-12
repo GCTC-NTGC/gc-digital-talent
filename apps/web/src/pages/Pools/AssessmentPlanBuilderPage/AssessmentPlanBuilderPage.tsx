@@ -181,9 +181,7 @@ export const AssessmentPlanBuilderPage = () => {
   const authorizedToSeeThePage: boolean =
     authorization.roleAssignments?.some(
       (authorizedRoleAssignment) =>
-        (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
-          authorizedRoleAssignment.team?.name ===
-            queryData?.pool?.team?.name) ||
+        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name ||
         (authorizedRoleAssignment.role?.name === ROLE_NAME.ProcessOperator &&
           authorizedRoleAssignment.team?.id ===
             queryData?.pool?.teamIdForRoleAssignment) ||
@@ -193,7 +191,6 @@ export const AssessmentPlanBuilderPage = () => {
         (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityAdmin &&
           authorizedRoleAssignment.team?.id ===
             queryData?.pool?.community?.teamIdForRoleAssignment) ||
-        authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
 
@@ -253,8 +250,6 @@ export const AssessmentPlanBuilderPage = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
