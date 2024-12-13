@@ -210,6 +210,13 @@ const createRoute = (locale: Locales) =>
                       "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
                     ),
                 },
+                // {
+                //   path: "dashboard-test",
+                //   lazy: () =>
+                //     import(
+                //       "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+                //     ),
+                // },
                 {
                   path: "settings",
                   lazy: () =>
