@@ -293,7 +293,7 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export interface ExperienceFormProps {
+interface ExperienceFormProps {
   edit?: boolean;
   experienceQuery?: FragmentType<typeof ExperienceFormExperience_Fragment>;
   experienceId?: string;
