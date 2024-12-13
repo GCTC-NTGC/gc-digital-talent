@@ -20,10 +20,11 @@ class LocalizedString implements CastsAttributes
         }
 
         $decodedValue = is_array($value) ? $value : json_decode($value, true);
+        $locale = App::getLocale() ?? 'en';
 
         return [
             ...$decodedValue,
-            'localized' => $decodedValue[App::getLocale()] ?? null,
+            'localized' => $decodedValue[$locale] ?? null,
         ];
     }
 
