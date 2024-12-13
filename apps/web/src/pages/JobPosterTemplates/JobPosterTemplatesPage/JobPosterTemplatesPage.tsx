@@ -21,10 +21,9 @@ import {
 import {
   Classification,
   graphql,
-  LocalizedPoolStream,
   Maybe,
-  PoolStream,
   SupervisoryStatus,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 import {
   alphaSortOptions,
@@ -53,14 +52,14 @@ interface FormValues {
   keyword: string;
   classifications: string[];
   supervisoryStatuses: SupervisoryStatus[];
-  streams: PoolStream[];
+  workStreams: string[];
 }
 
 const defaultValues = {
   keyword: "",
   classifications: [],
   supervisoryStatuses: [],
-  streams: [],
+  workStreams: [],
 } satisfies FormValues;
 
 const JobPosterTemplates_Query = graphql(/* GraphQL */ `
@@ -77,18 +76,18 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    poolStreams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
     }
     jobPosterTemplates {
       id
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -126,7 +125,7 @@ function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
 function previewMetaData(
   intl: IntlShape,
   classification?: Maybe<Classification>,
-  stream?: Maybe<LocalizedPoolStream>,
+  workStream?: Maybe<WorkStream>,
 ): PreviewMetaData[] {
   const metaData = [];
   if (classification) {
@@ -137,11 +136,11 @@ function previewMetaData(
     } satisfies PreviewMetaData);
   }
 
-  if (stream) {
+  if (workStream) {
     metaData.push({
-      key: stream.value,
+      key: workStream.id,
       type: "text",
-      children: getLocalizedName(stream.label, intl),
+      children: getLocalizedName(workStream.name, intl),
     } satisfies PreviewMetaData);
   }
 
@@ -225,7 +224,7 @@ const JobPosterTemplatesPage = () => {
         );
       show =
         show &&
-        assertIncludes(formData.streams, jobPosterTemplate?.stream?.value);
+        assertIncludes(formData.workStreams, jobPosterTemplate?.workStream?.id);
 
       return show;
     });
@@ -256,7 +255,7 @@ const JobPosterTemplatesPage = () => {
     formData.keyword,
     formData.classifications,
     formData.supervisoryStatuses,
-    formData.streams,
+    formData.workStreams,
     locale,
     sortBy,
     intl,
@@ -374,13 +373,13 @@ const JobPosterTemplatesPage = () => {
                       })}
                     />
                     <Checklist
-                      idPrefix="streams"
-                      name="streams"
+                      idPrefix="workStreams"
+                      name="workStreams"
                       items={alphaSortOptions(
-                        localizedEnumToOptions(
-                          unpackMaybes(data?.poolStreams),
-                          intl,
-                        ),
+                        unpackMaybes(data?.workStreams).map((workStream) => ({
+                          value: workStream.id,
+                          label: getLocalizedName(workStream.name, intl),
+                        })),
                       )}
                       legend={intl.formatMessage({
                         defaultMessage: "Filter by work streams",
@@ -497,7 +496,7 @@ const JobPosterTemplatesPage = () => {
                             metaData={previewMetaData(
                               intl,
                               jobPosterTemplate.classification,
-                              jobPosterTemplate.stream,
+                              jobPosterTemplate.workStream,
                             )}
                           >
                             {jobPosterTemplate.description && (
