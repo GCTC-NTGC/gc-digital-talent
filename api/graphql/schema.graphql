@@ -780,7 +780,6 @@ type JobPosterTemplate {
   description: LocalizedString
   supervisoryStatus: LocalizedSupervisoryStatus
     @rename(attribute: "supervisory_status")
-  stream: LocalizedPoolStream
   workDescription: LocalizedString @rename(attribute: "work_description")
   tasks: LocalizedString
   keywords: LocalizedKeywords
@@ -792,6 +791,7 @@ type JobPosterTemplate {
     @rename(attribute: "nonessential_technical_skills_notes")
 
   classification: Classification @belongsTo
+  workStream: WorkStream @belongsTo
   skills: [JobPosterTemplateSkill!] @belongsToMany(model: "Skill")
 }
 
@@ -2085,7 +2085,7 @@ input CreateJobPosterTemplateInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
-  stream: PoolStream!
+  workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
   keywords: LocalizedKeywordsInput
@@ -2105,7 +2105,7 @@ input UpdateJobPosterTemplateInput @validator {
   name: LocalizedStringInput
   description: LocalizedStringInput
   supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput
   keywords: LocalizedStringInput
