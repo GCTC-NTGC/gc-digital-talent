@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unused-modules */
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
