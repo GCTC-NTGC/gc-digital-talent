@@ -114,8 +114,6 @@ const getRoutes = (lang: Locales) => {
 
     // Admin - Teams
     teamView: (teamId: string) => [adminUrl, "teams", teamId].join("/"),
-    teamMembers: (teamId: string) =>
-      [adminUrl, "teams", teamId, "members"].join("/"),
     teamUpdate: (teamId: string) =>
       [adminUrl, "teams", teamId, "edit"].join("/"),
 
