@@ -540,6 +540,7 @@ scalar UUID
 type LocalizedString {
   en: String
   fr: String
+  localized: String
 }
 
 type LocalizedEnumString {

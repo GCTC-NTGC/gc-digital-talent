@@ -67,8 +67,8 @@ class PoolPolicyTest extends TestCase
             ]);
 
         $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->community = Community::factory()->create(['name' => 'test-team']);
-        $this->otherCommunity = Community::factory()->create(['name' => 'suspicious-team']);
+        $this->community = Community::factory()->create();
+        $this->otherCommunity = Community::factory()->create();
 
         $this->poolOperatorUser = User::factory()
             ->asApplicant()

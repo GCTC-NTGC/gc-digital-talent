@@ -1099,7 +1099,7 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            name { en fr }
+                            name { en fr localized }
                         }
                     }
                 }

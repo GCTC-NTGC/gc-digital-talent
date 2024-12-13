@@ -88,6 +88,7 @@ class SnapshotTest extends TestCase
         )->json('data.poolCandidate.profileSnapshot');
 
         $decodedActual = json_decode($actualSnapshot, true);
+        unset($decodedActual['pool']['department']['name']['localized']);
 
         // Add version number
         $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;

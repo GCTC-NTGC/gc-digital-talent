@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,9 +27,9 @@ class Community extends Model
     protected $keyType = 'string';
 
     protected $casts = [
-        'name' => 'array',
-        'description' => 'array',
-        'mandate_authority' => 'array',
+        'name' => LocalizedString::class,
+        'description' => LocalizedString::class,
+        'mandate_authority' => LocalizedString::class,
     ];
 
     protected $fillable = [
