@@ -7,10 +7,7 @@ import {
   SortOrder,
 } from "@gc-digital-talent/graphql";
 
-import {
-  stringToEnumRequestStatus,
-  stringToEnumStream,
-} from "~/utils/requestUtils";
+import { stringToEnumRequestStatus } from "~/utils/requestUtils";
 
 export interface FormValues {
   status?: string[];
@@ -31,7 +28,7 @@ export function transformFormValuesToSearchRequestFilterInput(
       ? data.classifications
       : undefined,
     workStreams: data.workStreams?.length
-      ? data.workStreams.map(stringToEnumStream).filter(notEmpty)
+      ? data.workStreams.filter(notEmpty)
       : undefined,
   };
 }
