@@ -23,6 +23,7 @@ scalar UUID @scalar(class: "UUID")
 type LocalizedString {
   en: String
   fr: String
+  localized: String
 }
 
 type LocalizedEnumString {
@@ -1694,12 +1695,8 @@ input WorkExperienceInput {
     @rename(attribute: "contractor_firm_agency_name")
   cafForce: CafForce @rename(attribute: "caf_force")
   cafRank: CafRank @rename(attribute: "caf_rank")
-  classification: ClassificationBelongsTo
-    @pluck(key: "connect")
-    @rename(attribute: "classification_id")
-  department: DepartmentBelongsTo
-    @pluck(key: "connect")
-    @rename(attribute: "department_id")
+  classificationId: String @rename(attribute: "classification_id")
+  departmentId: String @rename(attribute: "department_id")
 }
 input PersonalExperienceInput {
   title: String

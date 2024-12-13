@@ -273,6 +273,7 @@ class ApplicantFilterTest extends TestCase
                             name {
                                 en
                                 fr
+                                localized
                             }
                         }
                         pools {
@@ -280,6 +281,7 @@ class ApplicantFilterTest extends TestCase
                             name {
                                 en
                                 fr
+                                localized
                             }
                         }
                         qualifiedStreams { value }
@@ -288,6 +290,7 @@ class ApplicantFilterTest extends TestCase
                             name {
                                 en
                                 fr
+                                localized
                             }
                         }
                         community {

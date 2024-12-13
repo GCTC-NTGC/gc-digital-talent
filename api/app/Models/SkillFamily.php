@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -28,8 +29,8 @@ class SkillFamily extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
-        'description' => 'array',
+        'name' => LocalizedString::class,
+        'description' => LocalizedString::class,
     ];
 
     /** @return BelongsToMany<Skill, $this> */

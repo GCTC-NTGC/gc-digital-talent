@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,8 +25,8 @@ class WorkStream extends Model
     protected $keyType = 'string';
 
     protected $casts = [
-        'name' => 'array',
-        'plain_language_name' => 'array',
+        'name' => LocalizedString::class,
+        'plain_language_name' => LocalizedString::class,
     ];
 
     protected $fillable = [

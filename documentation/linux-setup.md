@@ -114,7 +114,7 @@ We use [PHP](https://www.php.net/) version 8.3 to run the backend app. Ubuntu 22
 
 ```
 LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
-sudo apt-get install php8.3 php8.3-mbstring php8.3-xml php8.3-pgsql php8.3-zip php8.3-curl php8.3-bcmath php8.3-gd php8.3-dom php8.3-intl
+sudo apt-get install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-pgsql php8.3-zip php8.3-curl php8.3-bcmath php8.3-gd php8.3-dom php8.3-intl
 ```
 
 Double check:

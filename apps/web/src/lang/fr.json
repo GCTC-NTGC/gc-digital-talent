@@ -439,6 +439,10 @@
     "defaultMessage": "Deux plumes attachées l’une à l’autre.",
     "description": "Indigenous Apprenticeship feathers image text alternative"
   },
+  "0Dp1N4": {
+    "defaultMessage": "Type de poste",
+    "description": "Label for the position type radio group"
+  },
   "0E9hiS": {
     "defaultMessage": "Groupes de compétences",
     "description": "Title for skill families"
@@ -474,6 +478,10 @@
   "0Ma07A": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
+  },
+  "0MakGC": {
+    "defaultMessage": "Sélectionnez cette option si l'emploi n'avait aucun lien avec le gouvernement du Canada.",
+    "description": "Description for the external employment category option in work experience"
   },
   "0NbdGD": {
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
@@ -562,6 +570,10 @@
   "0ox2XB": {
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skill rank card"
+  },
+  "0qwyH4": {
+    "defaultMessage": "Date de fin prévue",
+    "description": "Label displayed on an Experience form for expected end date input"
   },
   "0w59dG": {
     "defaultMessage": "Votre parcours professionnel",
@@ -695,6 +707,10 @@
     "defaultMessage": "Signature",
     "description": "Title for the signature snapshot section"
   },
+  "1b+6V1": {
+    "defaultMessage": "{role} à {group}",
+    "description": "Role with group"
+  },
   "1bWLa3": {
     "defaultMessage": "Compétences que le candidat aimerait améliorer",
     "description": "Heading for a users skills they would like to improve"
@@ -738,6 +754,10 @@
   "1sutYh": {
     "defaultMessage": "Groupes de compétences (anglais)",
     "description": "Title for skill families in English"
+  },
+  "1syFdp": {
+    "defaultMessage": "<strong>{role}</strong> à {group}",
+    "description": "Role with group, HTML"
   },
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
@@ -808,7 +828,7 @@
     "description": "Subject for email to gain hiring experience"
   },
   "2Oubfe": {
-    "defaultMessage": "Type d’emploi",
+    "defaultMessage": "Type d'emploi",
     "description": "Label for applicant's employment type"
   },
   "2QDT5C": {
@@ -966,6 +986,10 @@
   "33wMLU": {
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
+  },
+  "34NvoS": {
+    "defaultMessage": "L'ancienneté du poste",
+    "description": "Label for the seniority of the role radio group"
   },
   "37mBAU": {
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
@@ -1290,6 +1314,10 @@
   "4f9Xsc": {
     "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
     "description": "Paragraph for privacy policy page"
+  },
+  "4fV+wX": {
+    "defaultMessage": "Catégorie de grade",
+    "description": "Label for the rank category radio group"
   },
   "4ii2WZ": {
     "defaultMessage": "Révisez votre candidature et envoyez-la!",
@@ -2611,6 +2639,10 @@
     "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
     "description": "Message displayed for search request not found on single search request page."
   },
+  "BdpXAF": {
+    "defaultMessage": "Catégorie d'emploi",
+    "description": "Label for the employment category radio group"
+  },
   "BdsZwe": {
     "defaultMessage": "Candidature soumise",
     "description": "Label for showing the submitted date of an application."
@@ -3739,6 +3771,10 @@
     "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
     "description": "Contract value range between one-million and two-point-five-million"
   },
+  "HP5PEg": {
+    "defaultMessage": "Taille de l'organisation",
+    "description": "Label for the size of the organization radio group"
+  },
   "HRmtdK": {
     "defaultMessage": "Bien que les Procédures obligatoires soient également efficaces, il est possible d’en améliorer la clarté, de réduire la charge de travail des ministères en matière de rapports et de mieux les aligner sur les nouvelles <link>procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels</link> menées par le Bureau du contrôleur général du Canada (BCG).",
     "description": "third paragraph describing the 2024 changes to the directive on digital talent"
@@ -4295,10 +4331,6 @@
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
   },
-  "KKLx+Z": {
-    "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
-    "description": "Help text for the experience additional details field"
-  },
   "KKXJFE": {
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
@@ -4763,6 +4795,10 @@
     "defaultMessage": "Modifier votre parcours professionnel",
     "description": "Edit link text for career timeline section of the application review page."
   },
+  "Mea0Vt": {
+    "defaultMessage": "Entreprise ou organisme",
+    "description": "Label for the contracting firm or agency text field"
+  },
   "MejjjQ": {
     "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une équipe ou en modifier une qui existe déjà.",
     "description": "Descriptive text about the list of teams in the admin portal."
@@ -5082,6 +5118,10 @@
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
     "description": "Label for an opportunity's job title."
+  },
+  "OKqOVT": {
+    "defaultMessage": "Gouvernement du Canada",
+    "description": "Label for goc employment category on work experience card metadata"
   },
   "OM75j3": {
     "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences. ",
@@ -7062,6 +7102,10 @@
     "defaultMessage": "Communication générale",
     "description": "Label for preferred language in profile details box."
   },
+  "Y7Qop6": {
+    "defaultMessage": "Niveau",
+    "description": "Label displayed on Work Experience form for classification level input"
+  },
   "Y96JXz": {
     "defaultMessage": "La compétence que vous avez choisie sera aussi ajoutée à votre présentation de compétences, si elle ne s’y trouve pas déjà.",
     "description": "Subtitle for the find a skill dialog within an experience"
@@ -7225,6 +7269,10 @@
   "Yln61n": {
     "defaultMessage": "<strong>Télécopieur :</strong> 613-996-9661",
     "description": "Fax contact info"
+  },
+  "Ym2fFN": {
+    "defaultMessage": "Type d'entrepreneur ou d'entrepreneuse",
+    "description": "Label for the role seniority radio group"
   },
   "YmWKlv": {
     "defaultMessage": "Classification",
@@ -8018,6 +8066,10 @@
     "defaultMessage": "4. Hourra! Vous avez terminé de configurer votre compte CléGC et serez <strong>ramené à la plateforme Talents numériques du GC</strong>.",
     "description": "Text for fourth sign up -> mfa step."
   },
+  "d1FYv4": {
+    "defaultMessage": "Classification",
+    "description": "Label displayed on Work Experience card for classification"
+  },
   "d3HIMV": {
     "defaultMessage": "Renseignez-vous sur CléGC et trouvez des liens vers des renseignements sur les comptes.",
     "description": "Introductory text displayed in login and authentication accordion."
@@ -8049,6 +8101,10 @@
   "dAopan": {
     "defaultMessage": "l’optimisation des résultats de la recherche en matière de l'expérience utilisateur",
     "description": "List item four, things designers consider for accessibility"
+  },
+  "dBpcNA": {
+    "defaultMessage": "Forces armées canadiennes",
+    "description": "Label for caf employment category on work experience card metadata"
   },
   "dD3S0i": {
     "defaultMessage": "Les employés auront-ils accès à la formation et au perfectionnement pour les ensembles de compétences requis dans le contrat?",
@@ -8189,6 +8245,10 @@
   "dpO8Va": {
     "defaultMessage": "Statut du placement",
     "description": "Label for the job placement status field"
+  },
+  "dpZ2B9": {
+    "defaultMessage": "Entrepreneur ou entrepreneuse",
+    "description": "Label for contractor employment type on work experience card metadata"
   },
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
@@ -8535,7 +8595,7 @@
     "description": "Message when a claim does not apply to the specific process"
   },
   "fPy7Mg": {
-    "defaultMessage": "Le français - Votre impact",
+    "defaultMessage": "Français - Votre impact",
     "description": "Label for the French - Your Impact textarea in the edit pool page."
   },
   "fQ7zxR": {
@@ -9642,6 +9702,10 @@
     "defaultMessage": "Vous pouvez utiliser le bouton « Ajouter une compétence » pour mettre une compétence en vedette ici.",
     "description": "Secondary message to user when no skills have been attached to experience."
   },
+  "kUqaoo": {
+    "defaultMessage": "Groupe",
+    "description": "Label displayed on Work Experience form for classification group input"
+  },
   "kVavip": {
     "defaultMessage": "Ministère de placement",
     "description": "Title displayed on the Pool Candidates table placed department column"
@@ -9657,6 +9721,10 @@
   "kbMB6R": {
     "defaultMessage": "Lieu de travail et terminologie",
     "description": "Heading for the pool work location dialog"
+  },
+  "kdXBAS": {
+    "defaultMessage": "Force militaire",
+    "description": "Label for the military force radio group"
   },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
@@ -10289,6 +10357,10 @@
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
     "description": "Message displayed to users to sign out of the application"
+  },
+  "nmx1ym": {
+    "defaultMessage": " Sélectionnez cette option si l'emploi était dans un ministère ou un organisme fédéral ou une société d'État, ou si vous étiez un entrepreneur ou une entrepreneuse travaillant pour l'une de ces organisations.",
+    "description": "Description for the goc employment category option in work experience"
   },
   "nn9B4R": {
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
@@ -11498,6 +11570,14 @@
     "defaultMessage": "Exigences essentielles",
     "description": "Sub title for the pool core requirements"
   },
+  "uZuEHk": {
+    "defaultMessage": "Sélectionnez cette option si l'emploi était dans l'Armée canadienne, dans l'Aviation royale canadienne ou dans la Marine royale canadienne, dans la Force régulière ou dans la Force de réserve.",
+    "description": "Description for the caf employment category option in work experience"
+  },
+  "uaEMMO": {
+    "defaultMessage": "Type d'emploi",
+    "description": "Label for the employment type radio group"
+  },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
@@ -12043,7 +12123,7 @@
     "description": "Message for total estimated candidates box next to search form."
   },
   "xzSXz9": {
-    "defaultMessage": "Type d’emploi",
+    "defaultMessage": "Type d'emploi",
     "description": "Employment type label"
   },
   "y+Pq1f": {
@@ -12169,6 +12249,10 @@
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
     "description": "Call to action to begin editing government information"
+  },
+  "yZ0kfQ": {
+    "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés</strong> qui, selon vous, sont essentielles à l’importance de cette expérience. La concision est de mise ici : vous aurez plus d'espace pour fournir des détails lorsque vous établirez un lien entre des compétences et cette expérience.",
+    "description": "Help text for the experience additional details field"
   },
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",

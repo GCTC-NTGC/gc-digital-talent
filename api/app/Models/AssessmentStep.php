@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use App\Enums\AssessmentStepType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +34,7 @@ class AssessmentStep extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'title' => 'array',
+        'title' => LocalizedString::class,
     ];
 
     /**

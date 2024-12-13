@@ -337,8 +337,7 @@ trait GeneratesUserDoc
                     $this->localize('experiences.seniority_role'),
                     $this->localizeEnum($experience->ext_role_seniority, ExternalRoleSeniority::class)
                 );
-            }
-            if ($experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            } elseif ($experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
                 $section->addTitle(
                     sprintf(
                         '%s %s %s',
@@ -361,8 +360,7 @@ trait GeneratesUserDoc
                     $this->localize('experiences.rank_category'),
                     $this->localizeEnum($experience->caf_rank, CafRank::class)
                 );
-            }
-            if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
+            } elseif ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
                 /** @var Department | null $department */
                 $department = Department::find($experience->department_id);
                 $section->addTitle(
@@ -424,6 +422,11 @@ trait GeneratesUserDoc
                         $classification ? $classification->group.'-'.$classification->level : Lang::get('common.not_found', [], $this->lang),
                     );
                 }
+            } else {
+                // null case, so experiences prior to adding employment_category
+                $section->addTitle($experience->getTitle($this->lang), $headingRank);
+                $section->addText($experience->getDateRange($this->lang));
+                $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
             }
         }
 

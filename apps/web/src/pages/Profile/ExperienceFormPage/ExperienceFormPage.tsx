@@ -205,11 +205,95 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       division
       startDate
       endDate
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);
 
-export interface ExperienceFormProps {
+interface ExperienceFormProps {
   edit?: boolean;
   experienceQuery?: FragmentType<typeof ExperienceFormExperience_Fragment>;
   experienceId?: string;
