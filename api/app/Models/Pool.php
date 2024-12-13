@@ -50,6 +50,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $team_id
  * @property string $department_id
  * @property string $community_id
+ * @property string $work_stream_id
  * @property ?string $area_of_selection
  * @property array $selection_limitations
  * @property \Illuminate\Support\Carbon $created_at
@@ -130,6 +131,7 @@ class Pool extends Model
         'process_number',
         'department_id',
         'community_id',
+        'work_stream_id',
     ];
 
     /**

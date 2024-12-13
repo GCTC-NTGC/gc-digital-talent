@@ -346,6 +346,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    orderByWorkStreamName: PoolWorkStreamNameOrderByInput
     orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
@@ -738,7 +739,7 @@ type Pool implements HasRoleAssignments {
   securityClearance: LocalizedSecurityStatus
   language: LocalizedPoolLanguage
   status: LocalizedPoolStatus
-  stream: LocalizedPoolStream
+  workStream: WorkStream
   processNumber: String
   publishingGroup: LocalizedPublishingGroup
   opportunityLength: LocalizedPoolOpportunityLength
@@ -973,7 +974,7 @@ type ApplicantFilter {
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
-  qualifiedStreams: [LocalizedPoolStream]
+  workStreams: [WorkStream!]
   pools: [Pool]
   community: Community
 }
@@ -1206,7 +1207,7 @@ input PoolFilterInput {
   generalSearch: String
   name: String
   team: String
-  streams: [PoolStream!]
+  workStreams: [UUID!]
   statuses: [PoolStatus!] = []
   processNumber: String
   publishingGroups: [PublishingGroup!]
@@ -1215,6 +1216,11 @@ input PoolFilterInput {
 }
 
 input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
+input PoolWorkStreamNameOrderByInput {
   locale: String!
   order: SortOrder!
 }
@@ -1241,7 +1247,7 @@ input ApplicantFilterInput {
   skills: [IdInput]
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
-  qualifiedStreams: [PoolStream]
+  workStreams: [IdInput]
   community: IdInput
 }
 
@@ -1265,7 +1271,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
   departments: [ID]
   classifications: [ID]
-  streams: [PoolStream]
+  workStreams: [UUID]
   fullName: String
   email: String
   id: ID
@@ -1641,7 +1647,7 @@ input CreateApplicantFilterInput {
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
   qualifiedClassifications: ClassificationBelongsToMany
-  qualifiedStreams: [PoolStream]
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -1870,7 +1876,7 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
   department: DepartmentBelongsTo
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   processNumber: String
   closingDate: DateTime
   closingReason: String

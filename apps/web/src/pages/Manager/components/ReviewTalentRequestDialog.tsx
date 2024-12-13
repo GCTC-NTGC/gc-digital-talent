@@ -55,8 +55,8 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        qualifiedStreams {
-          label {
+        workStreams {
+          name {
             fr
             en
           }
@@ -126,7 +126,7 @@ const ReviewTalentRequestDialogContent = ({
   const classifications = unpackMaybes(
     request.applicantFilter?.qualifiedClassifications,
   );
-  const workStreams = unpackMaybes(request.applicantFilter?.qualifiedStreams);
+  const workStreams = unpackMaybes(request.applicantFilter?.workStreams);
   const equityDescriptions = equitySelectionsToDescriptions(
     request.applicantFilter?.equity,
     intl,
@@ -189,7 +189,7 @@ const ReviewTalentRequestDialogContent = ({
             {workStreams.length > 0
               ? deriveSingleString(
                   workStreams,
-                  (stream) => getLocalizedName(stream.label, intl),
+                  (workStream) => getLocalizedName(workStream.name, intl),
                   locale,
                 )
               : nullMessage}

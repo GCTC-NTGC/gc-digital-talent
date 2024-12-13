@@ -23,9 +23,9 @@ import { PublishedEditableSectionProps } from "../../types";
 const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment UpdatePublishedProcessDialog on Pool {
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -64,7 +64,7 @@ const UpdatePublishedProcessDialog = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const pool = getFragment(UpdatePublishedProcessDialog_Fragment, poolQuery);
   const title = getShortPoolTitleHtml(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
