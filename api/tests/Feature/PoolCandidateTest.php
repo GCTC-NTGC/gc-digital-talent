@@ -102,7 +102,7 @@ class PoolCandidateTest extends TestCase
             ]);
     }
 
-    public function test_pool_candidate_status_accessor(): void
+    public function testPoolCandidateStatusAccessor(): void
     {
         $query =
             /** @lang GraphQL */
@@ -248,7 +248,7 @@ class PoolCandidateTest extends TestCase
             ]);
     }
 
-    public function test_skill_count(): void
+    public function testSkillCount(): void
     {
         $query =
             /** @lang GraphQL */
@@ -422,7 +422,7 @@ class PoolCandidateTest extends TestCase
             ]);
     }
 
-    public function test_notes_access(): void
+    public function testNotesAccess(): void
     {
         $candidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
@@ -503,7 +503,7 @@ class PoolCandidateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function test_notes_update(): void
+    public function testNotesUpdate(): void
     {
         $candidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
@@ -546,7 +546,7 @@ class PoolCandidateTest extends TestCase
     /**
      * Status access permissions are similar to notes, except a candidate can see their own status
      */
-    public function test_status_access(): void
+    public function testStatusAccess(): void
     {
         $candidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
@@ -623,7 +623,7 @@ class PoolCandidateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function test_order_by_pool_name(): void
+    public function testOrderByPoolName(): void
     {
         $query =
             /** @lang GraphQL */
@@ -791,7 +791,7 @@ class PoolCandidateTest extends TestCase
 
     }
 
-    public function test_scope_candidates_in_community(): void
+    public function testScopeCandidatesInCommunity(): void
     {
         $query =
         /** @lang GraphQL */
