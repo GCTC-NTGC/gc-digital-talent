@@ -1736,8 +1736,8 @@ input WorkExperienceInput {
   contractorFirmAgencyName: String
   cafForce: CafForce
   cafRank: CafRank
-  classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
+  classificationId: String
+  departmentId: String
 }
 
 input PersonalExperienceInput {

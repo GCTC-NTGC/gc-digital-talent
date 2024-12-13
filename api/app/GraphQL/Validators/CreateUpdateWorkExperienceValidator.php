@@ -4,6 +4,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\EmploymentCategory;
 use App\Enums\GovContractorType;
+use App\Enums\GovPositionType;
 use App\Enums\WorkExperienceGovEmployeeType;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -18,9 +19,10 @@ final class CreateUpdateWorkExperienceValidator extends Validator
     public function rules(): array
     {
         return [
-            // 'workExperience.employmentCategory' => [
-            //     'required',
-            // ],
+            'workExperience.employmentCategory' => [
+                'sometimes',
+                'required',
+            ],
             'workExperience.extSizeOfOrganization' => [
                 Rule::requiredIf(
                     (
@@ -60,7 +62,8 @@ final class CreateUpdateWorkExperienceValidator extends Validator
             'workExperience.govPositionType' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name ||
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -68,6 +71,7 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                         $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
                     )
                 ),
+                $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name ? Rule::notIn(GovPositionType::SUBSTANTIVE->name) : null,
             ],
             'workExperience.govContractorRoleSeniority' => [
                 Rule::requiredIf(
@@ -141,8 +145,10 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                     )
                 ),
             ],
-            'workExperience.classification' => [
+            'workExperience.classificationId' => [
                 Rule::requiredIf(
+                    $this->arg('workExperience.employmentCategory') === EmploymentCategory::GOVERNMENT_OF_CANADA->name
+                      &&
                     (
                         $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
                     ) ||
@@ -153,31 +159,15 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                         $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
-                    )
-                ),
-                Rule::exists('classifications', 'id'),
+                // This does not work without proper connect/disconnect in the schema
+                // Rule::exists('classifications', 'id'),
             ],
-            'workExperience.department' => [
+            'workExperience.departmentId' => [
                 Rule::requiredIf(
-                    (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
-                    ) ||
-                    (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name
-                    ) ||
-                    (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
-                    )
+                    $this->arg('workExperience.employmentCategory') === EmploymentCategory::GOVERNMENT_OF_CANADA->name
                 ),
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
-                    )
-                ),
-                Rule::exists('departments', 'id'),
+                // This does not work without proper connect/disconnect in the schema
+                // Rule::exists('departments', 'id'),
             ],
         ];
     }
