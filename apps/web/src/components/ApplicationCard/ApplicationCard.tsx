@@ -12,12 +12,16 @@ import {
   PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 
-import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
+import {
+  getApplicationStatusChip,
+  isDraft,
+  isExpired,
+  isQualifiedStatus,
+} from "~/utils/poolCandidate";
 import {
   getShortPoolTitleHtml,
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
-import { getStatusChipInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/components/ApplicationLink/ApplicationLink";
 
 import ApplicationActions from "./ApplicationActions";
@@ -97,12 +101,12 @@ const ApplicationCard = ({
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
   const statusChip = isDraftExpired
-    ? getStatusChipInfo(
+    ? getApplicationStatusChip(
         PoolCandidateStatus.DraftExpired,
         application.suspendedAt,
         intl,
       )
-    : getStatusChipInfo(
+    : getApplicationStatusChip(
         application.status?.value,
         application.suspendedAt,
         intl,
@@ -202,7 +206,7 @@ const ApplicationCard = ({
               color={statusChip.color}
               {...(isApplicantQualified && { icon: ShieldCheckIcon })}
             >
-              {statusChip.text}
+              {statusChip.label}
             </Chip>
           )}
         </div>

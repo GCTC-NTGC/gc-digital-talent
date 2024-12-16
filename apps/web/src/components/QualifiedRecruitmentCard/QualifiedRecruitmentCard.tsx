@@ -153,8 +153,6 @@ const QualifiedRecruitmentCard = ({
     }
   }, [linkCopied, setLinkCopied]);
 
-  const ChipIcon = statusChip.icon;
-
   return (
     <div
       data-h2-border-left="base(x.5 solid secondary)"
@@ -172,9 +170,7 @@ const QualifiedRecruitmentCard = ({
         <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
           {title.html}
         </Heading>
-        <Chip color={statusChip.color} icon={ChipIcon}>
-          {statusChip.text}
-        </Chip>
+        <Chip color={statusChip.color}>{statusChip.label}</Chip>
       </div>
       <p
         data-h2-color="base(secondary.darker)"

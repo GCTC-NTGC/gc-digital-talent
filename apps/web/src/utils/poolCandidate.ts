@@ -212,6 +212,10 @@ interface StatusChip {
   label: ReactNode;
 }
 
+/**
+ * Returns a status chip for displaying to assessors. Contains more specific information about
+ * assessment progress than that shown to applicants.
+ */
 export const getCandidateStatusChip = (
   finalDecision: Maybe<LocalizedFinalDecision> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
@@ -371,6 +375,97 @@ export const derivedStatusLabel = (
       : statusMap.get(status); // regular label
 
   return combinedStatus ?? null;
+};
+
+export interface StatusChipWithDescription extends StatusChip {
+  description?: ReactNode;
+}
+
+/**
+ * Returns a status chip for displaying to applicants. General information about application status.
+ */
+export const getApplicationStatusChip = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  suspendedAt: PoolCandidate["suspendedAt"],
+  intl: IntlShape,
+): StatusChipWithDescription => {
+  const statusLabelMessage = derivedStatusLabel(status, suspendedAt);
+  const label = statusLabelMessage
+    ? intl.formatMessage(statusLabelMessage)
+    : "";
+
+  if (isNotPlacedStatus(status)) {
+    return {
+      color: "success",
+      label,
+    };
+  }
+  if (isPlacedStatus(status)) {
+    return {
+      color: "secondary",
+      label,
+    };
+  }
+  if (status === PoolCandidateStatus.Expired || isScreenedOutStatus(status)) {
+    return {
+      color: "black",
+      label,
+    };
+  }
+  if (isInactiveStatus(status)) {
+    return {
+      color: "warning",
+      label,
+    };
+  }
+  return {
+    color: "primary",
+    label,
+  };
+};
+
+/**
+ * Returns a status chip for displaying to applicants. Status for current interest/validity
+ * in new opportunities for a qualified application.
+ */
+export const getQualifiedRecruitmentStatusChip = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  suspendedAt: PoolCandidate["suspendedAt"],
+  intl: IntlShape,
+): StatusChipWithDescription => {
+  const statusLabelMessage = derivedStatusLabel(status, suspendedAt);
+  const label = statusLabelMessage
+    ? intl.formatMessage(statusLabelMessage)
+    : "";
+
+  if (isNotPlacedStatus(status)) {
+    return {
+      color: "success",
+      label,
+    };
+  }
+  if (isPlacedStatus(status)) {
+    return {
+      color: "secondary",
+      label,
+    };
+  }
+  if (status === PoolCandidateStatus.Expired || isScreenedOutStatus(status)) {
+    return {
+      color: "black",
+      label,
+    };
+  }
+  if (isInactiveStatus(status)) {
+    return {
+      color: "warning",
+      label,
+    };
+  }
+  return {
+    color: "primary",
+    label,
+  };
 };
 
 export const priorityWeightAfterVerification = (
