@@ -44,7 +44,7 @@ class SnapshotTest extends TestCase
      *
      * @return void
      */
-    public function test_create_snapshot()
+    public function testCreateSnapshot()
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
@@ -108,7 +108,7 @@ class SnapshotTest extends TestCase
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
-    public function test_snapshot_skill_filtering()
+    public function testSnapshotSkillFiltering()
     {
         Skill::factory(20)->create();
 
@@ -167,7 +167,7 @@ class SnapshotTest extends TestCase
         assertEquals($intersectedArrayLength, 0);
     }
 
-    public function test_set_application_snapshot_does_not_overwrite()
+    public function testSetApplicationSnapshotDoesNotOverwrite()
     {
         // non-null snapshot value set
         $user = User::factory()
@@ -189,7 +189,7 @@ class SnapshotTest extends TestCase
         assertSame(['snapshot' => 'set'], $snapshot);
     }
 
-    public function test_localizing_legacy_enums()
+    public function testLocalizingLegacyEnums()
     {
         // non-null snapshot value set
         $user = User::factory()
