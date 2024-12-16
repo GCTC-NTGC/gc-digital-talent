@@ -4,19 +4,20 @@ namespace App\Console\Commands;
 
 use App\Enums\NotificationFamily;
 use App\Models\User;
+use App\Notifications\AdHocGcNotifyEmail;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class SendNotificationsEmail extends Command implements PromptsForMissingInput
+class SendNotificationsAdHocEmail extends Command implements PromptsForMissingInput
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'send-notifications:email
+    protected $signature = 'send-notifications:ad-hoc-email
                                 {templateIdEn : The template ID for the English email message}
                                 {templateIdFr : The template ID for the French email message}
                                 {--emailAddress=* : The list of contact email addresses to send the notification to}
@@ -29,7 +30,7 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
      *
      * @var string
      */
-    protected $description = 'Send email notifications from given GC Notify templates';
+    protected $description = 'Send ad hoc email notifications from given GC Notify templates';
 
     /**
      * Execute the console command.
@@ -46,11 +47,12 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
 
         if ($this->confirm('Do you wish to send notifications to '.$userCount.' users?')) {
             $progressBar = $this->output->createProgressBar($userCount);
+            $notification = new AdHocGcNotifyEmail($this->argument('templateIdEn'), $this->argument('templateIdFr'));
 
-            $users->chunk(200, function (Collection $chunkOfUsers) use (&$successCount, &$failureCount, $progressBar) {
+            $users->chunk(200, function (Collection $chunkOfUsers) use (&$successCount, &$failureCount, $progressBar, $notification) {
                 foreach ($chunkOfUsers as $user) {
                     try {
-                        // $this->sendNotification($user, $successCount, $failureCount);
+                        $user->notify($notification);
                         $successCount++;
                     } catch (\Throwable $e) {
                         $this->error("Failed to send notification to user $user->id: ".$e->getMessage());
@@ -83,12 +85,13 @@ class SendNotificationsEmail extends Command implements PromptsForMissingInput
 
         $options = $this->options();
 
-        $optionSelectedCount =
+        // How many types of options were used?
+        $optionTypesCount =
             (count($emailAddresses) > 0 ? 1 : 0) +
             (count($notificationFamilies) > 0 ? 1 : 0) +
             ($notifyAllUsers ? 1 : 0);
 
-        if ($optionSelectedCount != 1) {
+        if ($optionTypesCount != 1) {
             throw new \Error('Must filter users using exactly one of the option types');
         }
 
