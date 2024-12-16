@@ -45,10 +45,10 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Create a community",
+    "en": "Add member",
     "fr": [
-      "Créez une collectivité",
-      "Créer une collectivité"
+      "Ajouter un membre",
+      "Ajoutez un membre"
     ]
   },
   {
@@ -87,17 +87,24 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Create training opportunity",
+    "fr": [
+      "Créez une possibilité de formation",
+      "Créez la possibilité de formation"
+    ]
+  },
+  {
+    "en": "Create community",
+    "fr": [
+      "Créez une collectivité",
+      "Créer une collectivité"
+    ]
+  },
+  {
     "en": "Add team role",
     "fr": [
       "Ajouter un rôle dans l'équipe",
       "Ajoutez un rôle dans l'équipe"
-    ]
-  },
-  {
-    "en": "Create a training opportunity",
-    "fr": [
-      "Créez une possibilité de formation",
-      "Créer une possibilité de formation"
     ]
   },
   {
@@ -138,8 +145,15 @@ exports[`message files should have no changes to duplicate strings 1`] = `
   {
     "en": "Create skill family",
     "fr": [
-      "Créer un groupe de compétences",
+      "Créez un groupe de compétences",
       "Créez le groupe de compétences"
+    ]
+  },
+  {
+    "en": "Create process",
+    "fr": [
+      "Créer un processus",
+      "Créez un processus"
     ]
   },
   {

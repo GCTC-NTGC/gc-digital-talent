@@ -119,10 +119,6 @@
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
   },
-  "+e2nr6": {
-    "defaultMessage": "Ajouter un nouveau membre",
-    "description": "Label for the add member to team form"
-  },
   "+fIw4g": {
     "defaultMessage": "Modifier ces renseignements<hidden> pour {title}</hidden>",
     "description": "Text label for button to edit employment equity category in profile."
@@ -420,7 +416,7 @@
     "description": "Third paragraph for pool closing date dialog"
   },
   "07sCDh": {
-    "defaultMessage": "Utilisez le bouton « Créer un processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez un processus » pour commencer.",
     "description": "Instructions for adding a process item."
   },
   "08IbRz": {
@@ -560,7 +556,7 @@
     "description": "Simplified status label for a complete process advertisement or assessment"
   },
   "0jwdac": {
-    "defaultMessage": "Utilisez le bouton « Créer une compétence » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez une compétence » pour commencer.",
     "description": "Instructions for adding a skill item."
   },
   "0k6j4V": {
@@ -764,7 +760,7 @@
     "description": "Role with group, HTML"
   },
   "1xI8uo": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans l’équipe » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
   },
   "2/fjEP": {
@@ -924,7 +920,7 @@
     "description": "Paragraph 3, importance of self-declaration"
   },
   "2m5USi": {
-    "defaultMessage": "Utilisez le bouton « Modifier » pour commencer. ",
+    "defaultMessage": "Utilisez le bouton « Modifiez » pour commencer. ",
     "description": "Null message on sections for edit pool page."
   },
   "2n0e2i": {
@@ -1388,7 +1384,7 @@
     "description": "Filename for skills CSV file download"
   },
   "4ujx9e": {
-    "defaultMessage": "Utilisez le bouton « Créer un groupe de compétences » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez un groupe de compétences » pour commencer.",
     "description": "Instructions for adding a skill family item."
   },
   "4v9y7U": {
@@ -2343,6 +2339,10 @@
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
   },
+  "9vluO2": {
+    "defaultMessage": "Ajouter un membre",
+    "description": "Header for the add member to team form"
+  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -2610,10 +2610,6 @@
   "BMWvU8": {
     "defaultMessage": "Compte et confidentialité",
     "description": "Link to the 'Account and privacy' page"
-  },
-  "BRd2Xw": {
-    "defaultMessage": "Créez une collectivité",
-    "description": "Text to create a community"
   },
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
@@ -2908,7 +2904,7 @@
     "description": "Description of how many items are being displayed out of the total value"
   },
   "Cu+CH3": {
-    "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créez une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
   },
   "CuHYqt": {
@@ -3120,7 +3116,7 @@
     "description": "Assessment summary"
   },
   "DrR/rp": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
     "description": "Instructions for adding a member to a community."
   },
   "Ds7ONS": {
@@ -3371,6 +3367,10 @@
     "defaultMessage": "Publié",
     "description": "Title displayed on the Pool table published at column"
   },
+  "FBx3Q4": {
+    "defaultMessage": "Ajoutez un membre",
+    "description": "Label for the add member to team form"
+  },
   "FDGVHB": {
     "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
     "description": "third 2024 key change rationale to the directive"
@@ -3598,6 +3598,10 @@
   "GJ9QeQ": {
     "defaultMessage": "Niveau",
     "description": "Label displayed on classification level input"
+  },
+  "GMbOaT": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "description": "Null message description for asset skills table."
   },
   "GMglI5": {
     "defaultMessage": "Adresse courriel validée",
@@ -3895,6 +3899,10 @@
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
   },
+  "IHyNL8": {
+    "defaultMessage": "Ajouter un membre",
+    "description": "Title for the add member to community form"
+  },
   "II4+N3": {
     "defaultMessage": "Au moyen de la liste des compétences du processus de recrutement, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
@@ -4107,6 +4115,10 @@
     "defaultMessage": "Employé(e)s (de même niveau)",
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
+  "JCZlxS": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans le processus » pour commencer.",
+    "description": "Instructions for adding process membership to a user."
+  },
   "JDQvla": {
     "defaultMessage": "Ces notes sont disponibles pour tous les gestionnaires de ce bassin, mais pas pour les candidats.",
     "description": "Description of pool candidate notes field"
@@ -4310,6 +4322,10 @@
   "KH3yb6": {
     "defaultMessage": "Date d’expiration (heure locale)",
     "description": "A date at which data will expire, in the local time zone"
+  },
+  "KHmf+e": {
+    "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
+    "description": "Instructions for adding a classification item."
   },
   "KJDxM1": {
     "defaultMessage": "État du processus",
@@ -4798,6 +4814,10 @@
   "Mi+AuD": {
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
+  },
+  "MkUz+j": {
+    "defaultMessage": "Ajoutez un membre",
+    "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
     "defaultMessage": "Exigences linguistiques pour les personnes candidates",
@@ -5371,6 +5391,10 @@
     "defaultMessage": "Grade en économie, en sociologie ou en statistique",
     "description": "Heading for the `just education` option for EC education requirements"
   },
+  "PdkgWB": {
+    "defaultMessage": "Créez une possibilité de formation",
+    "description": "Title for link to page to create a training opportunity (imperative in French)"
+  },
   "Pe1kas": {
     "defaultMessage": "Notes sur les demandes",
     "description": "Label displayed on the search request form request notes field."
@@ -5410,6 +5434,10 @@
   "PoFTwr": {
     "defaultMessage": "Vous avez été supprimé des résultats de la recherche.",
     "description": "Alert displayed to the user when application card dialog submits successfully."
+  },
+  "PrTwov": {
+    "defaultMessage": "Créez une collectivité",
+    "description": "Text to create a community (action)"
   },
   "Ps929U": {
     "defaultMessage": "Erreur : La mise à jour de votre autodéclaration a échoué",
@@ -5775,6 +5803,10 @@
     "defaultMessage": "{label} navigation de page",
     "description": "Label for the table pagination"
   },
+  "RSUgO3": {
+    "defaultMessage": "Ajoutez une compétence",
+    "description": "Button text to open the skill dialog and add a skill"
+  },
   "RSkJQR": {
     "defaultMessage": "Brève description de l'équipe (en français)",
     "description": "Label for team description in French language"
@@ -5866,10 +5898,6 @@
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
-  },
-  "RtX9oA": {
-    "defaultMessage": "Créez une possibilité de formation",
-    "description": "Title for link to page to create a training opportunity (imperative in French)"
   },
   "RvB1GT": {
     "defaultMessage": "Relations de travail",
@@ -6010,10 +6038,6 @@
   "Sew1Zp": {
     "defaultMessage": "Le gouvernement du Canada s’est engagé à financer le perfectionnement de ses spécialistes des TI. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la TI</strong>, les membres du personnel du groupe TI, représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC), ont désormais accès à une plus vaste gamme de possibilités d’apprentissage afin d’acquérir des compétences et les approfondir.",
     "description": "First paragraph describing investing in future talent"
-  },
-  "SfbDLA": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un nouveau membre » pour commencer.",
-    "description": "Instructions for adding a member to a team."
   },
   "SfhT1q": {
     "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
@@ -6210,10 +6234,6 @@
   "Tjd942": {
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
-  },
-  "Tl2FNA": {
-    "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
-    "description": "Instructions for adding a classification item."
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
@@ -6546,6 +6566,10 @@
     "defaultMessage": "Nous aimerions maintenant savoir si vous êtes actuellement employé(e) du gouvernement du Canada. Nous recueillons cette information parce qu'elle nous aide à comprendre, de manière globale, comment les compétences numériques sont réparties entre les différents ministères.",
     "description": "Message after main heading in employee information page - paragraph 1."
   },
+  "VaToft": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
+    "description": "Null message description for essential skills table."
+  },
   "VaVo2t": {
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
@@ -6749,10 +6773,6 @@
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
-  },
-  "Wd9+xg": {
-    "defaultMessage": "Utilisez le bouton « Ajouter une nouvelle compétence » pour commencer.",
-    "description": "Null message description for asset skills table."
   },
   "WdBt7s": {
     "defaultMessage": "Approvisionnement",
@@ -7385,10 +7405,6 @@
   "ZVfbLF": {
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
-  },
-  "ZYqWBR": {
-    "defaultMessage": "Ajouter une nouvelle compétence",
-    "description": "Button text to open the skill dialog and add a skill"
   },
   "ZZpC8s": {
     "defaultMessage": "Voir les définitions pour « {skillName} »",
@@ -9150,10 +9166,6 @@
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
   },
-  "hryX4G": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez des rôles dans des processus  » pour commencer.",
-    "description": "Instructions for adding process membership to a user."
-  },
   "htxH4r": {
     "defaultMessage": "Retourner à votre tableau de bord",
     "description": "Link text to navigate to the profile and applications page"
@@ -10035,7 +10047,7 @@
     "description": "Link to a page to view all the requests"
   },
   "mKrj0x": {
-    "defaultMessage": "Sauvegarder et ajouter un membre",
+    "defaultMessage": "Sauvegardez et ajoutez un membre",
     "description": "Label for add member to a community form"
   },
   "mKzQwr": {
@@ -10431,7 +10443,7 @@
     "description": "Button label to return to the skills table"
   },
   "oDDr9J": {
-    "defaultMessage": "Créer un groupe de compétences",
+    "defaultMessage": "Créez un groupe de compétences",
     "description": "Heading displayed above the Create Skill family form."
   },
   "oES0/4": {
@@ -11134,6 +11146,10 @@
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
+  "s57oJd": {
+    "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
+    "description": "Instructions for adding a member to a team."
+  },
   "s5hTYo": {
     "defaultMessage": "Rôles dans l'équipe",
     "description": "Label for the input to select role of a team role"
@@ -11562,10 +11578,6 @@
     "defaultMessage": "Type d'emploi",
     "description": "Label for the employment type radio group"
   },
-  "uiuMqi": {
-    "defaultMessage": "Utilisez le bouton « Ajouter une nouvelle compétence » pour commencer.",
-    "description": "Null message description for essential skills table."
-  },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
@@ -11810,10 +11822,6 @@
     "defaultMessage": "Cette demande a été vérifiée, {expiryDate}.",
     "description": "Message when a claim as been verified"
   },
-  "wBMn5c": {
-    "defaultMessage": "Ajouter un membre",
-    "description": "Label for the add member to community form"
-  },
   "wBU9X4": {
     "defaultMessage": "Français seulement",
     "description": "Filter by option on instructor training page."
@@ -11855,7 +11863,7 @@
     "description": "Placeholder displayed on the skill form families field."
   },
   "wP9+aN": {
-    "defaultMessage": "Créer un processus",
+    "defaultMessage": "Créez un processus",
     "description": "Heading displayed above the Create process form."
   },
   "wPpvvm": {
