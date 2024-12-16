@@ -89,6 +89,14 @@ class SnapshotTest extends TestCase
 
         $decodedActual = json_decode($actualSnapshot, true);
         unset($decodedActual['pool']['department']['name']['localized']);
+        foreach ($decodedActual['experiences'] as &$experience) { // remove the localized field from name
+            if ($experience['__typename'] === 'WorkExperience' && isset($experience['department'])) {
+                unset($experience['department']['name']['localized']);
+            }
+            if ($experience['__typename'] === 'WorkExperience' && isset($experience['classification'])) {
+                unset($experience['classification']['name']['localized']);
+            }
+        }
 
         // Add version number
         $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
