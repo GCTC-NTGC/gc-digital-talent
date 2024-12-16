@@ -64,9 +64,9 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -104,7 +104,7 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
     columnHelper.accessor(
       (row) =>
         getShortPoolTitleLabel(intl, {
-          stream: row.pool.stream,
+          workStream: row.pool.workStream,
           name: row.pool.name,
           publishingGroup: row.pool.publishingGroup,
           classification: row.pool.classification,
@@ -178,7 +178,7 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ pool: { stream } }) => getLocalizedName(stream?.label, intl),
+      ({ pool: { workStream } }) => getLocalizedName(workStream?.name, intl),
       {
         id: "application",
         enableHiding: false,

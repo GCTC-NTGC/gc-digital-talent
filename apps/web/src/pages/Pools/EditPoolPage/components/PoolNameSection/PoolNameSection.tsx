@@ -77,9 +77,9 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -149,9 +149,9 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
@@ -393,7 +393,12 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={localizedEnumToOptions(data?.streams, intl)}
+                  options={unpackMaybes(data?.workStreams).map(
+                    (workStream) => ({
+                      value: workStream.id,
+                      label: getLocalizedName(workStream?.name, intl),
+                    }),
+                  )}
                   disabled={formDisabled}
                 />
                 <Input

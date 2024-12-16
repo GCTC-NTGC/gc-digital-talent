@@ -102,9 +102,9 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolYourImpact
 
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -277,7 +277,7 @@ export const EditPoolForm = ({
       areaOfSelection: pool.areaOfSelection,
       classification: pool.classification,
       department: pool.department,
-      stream: pool.stream,
+      workStream: pool.workStream,
       name: pool.name,
       processNumber: pool.processNumber,
       publishingGroup: pool.publishingGroup,
@@ -315,7 +315,7 @@ export const EditPoolForm = ({
         areaOfSelection: pool.areaOfSelection,
         classification: pool.classification,
         department: pool.department,
-        stream: pool.stream,
+        workStream: pool.workStream,
         name: pool.name,
         processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
@@ -370,7 +370,7 @@ export const EditPoolForm = ({
     educationRequirements: {
       id: "education-requirements",
       hasError: educationRequirementIsNull({
-        stream: pool.stream,
+        workStream: pool.workStream,
         name: pool.name,
         processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,

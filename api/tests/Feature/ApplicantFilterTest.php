@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateSearchStatus;
-use App\Enums\PoolStream;
 use App\Facades\Notify;
 use App\Models\ApplicantFilter;
 use App\Models\Community;
@@ -83,13 +82,13 @@ class ApplicantFilterTest extends TestCase
             'positionDuration' => $filter->position_duration,
             'skills' => $filter->skills->map($onlyId)->toArray(),
             'pools' => $filter->pools->map($onlyId)->toArray(),
+            'workStreams' => $filter->workStreams->map($onlyId)->toArray(),
             'qualifiedClassifications' => $filter->qualifiedClassifications->map(function ($classification) {
                 return [
                     'group' => $classification->group,
                     'level' => $classification->level,
                 ];
             })->toArray(),
-            'qualifiedStreams' => $filter->qualified_streams,
             'community' => ['id' => $filter->community->id],
         ];
     }
@@ -102,6 +101,9 @@ class ApplicantFilterTest extends TestCase
         ];
         $input['pools'] = [
             'sync' => $filter->pools->pluck('id')->toArray(),
+        ];
+        $input['workStreams'] = [
+            'sync' => $filter->workStreams->pluck('id')->toArray(),
         ];
         $input['qualifiedClassifications'] = [
             'sync' => $filter->qualifiedClassifications->pluck('id')->toArray(),
@@ -284,7 +286,7 @@ class ApplicantFilterTest extends TestCase
                                 localized
                             }
                         }
-                        qualifiedStreams { value }
+                        workStreams { id }
                         qualifiedClassifications {
                             id
                             name {
@@ -309,7 +311,7 @@ class ApplicantFilterTest extends TestCase
         $this->assertCount($filter->qualifiedClassifications->count(), $retrievedFilter['qualifiedClassifications']);
         $this->assertCount($filter->skills->count(), $retrievedFilter['skills']);
         $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
-        $this->assertCount(count($filter->qualified_streams), $retrievedFilter['qualifiedStreams']);
+        $this->assertCount($filter->workStreams->count(), $retrievedFilter['workStreams']);
 
         // Assert that all the content in each collection is correct.
         foreach ($filter->pools as $pool) {
@@ -325,9 +327,11 @@ class ApplicantFilterTest extends TestCase
             $response->assertJsonFragment(['id' => $skill->id, 'name' => $skill->name]);
         }
 
-        $response->assertJsonFragment(['qualifiedStreams' => [[
-            'value' => $filter->qualified_streams[0],
-        ]]]);
+        foreach ($filter->workStreams as $workStream) {
+            $response->assertJsonFragment([
+                'id' => $workStream->id,
+            ]);
+        }
         $response->assertJsonFragment(['community' => ['id' => $filter->community_id]]);
     }
 
@@ -437,7 +441,6 @@ class ApplicantFilterTest extends TestCase
                     'en' => 'Test Pool EN',
                     'fr' => 'Test Pool FR',
                 ],
-                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
                 'community_id' => $community->id,
             ]);
         // Create candidates who may show up in searches
@@ -478,7 +481,7 @@ class ApplicantFilterTest extends TestCase
         $candidateSkills = $candidateUser->experiences[0]->skills;
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
-        $filter->qualified_streams = $pool->stream;
+        $filter->workStreams()->saveMany([$pool->workStream]);
         $filter->save();
         $response = $this->graphQL(
             /** @lang GraphQL */
@@ -550,7 +553,7 @@ class ApplicantFilterTest extends TestCase
                         locationPreferences { value }
                         operationalRequirements { value }
                         positionDuration
-                        qualifiedStreams { value }
+                        workStreams { id }
                         qualifiedClassifications {
                             group
                             level
@@ -576,7 +579,6 @@ class ApplicantFilterTest extends TestCase
 
         $retrievedFilter['locationPreferences'] = $this->filterEnumToInput($retrievedFilter, 'locationPreferences');
         $retrievedFilter['operationalRequirements'] = $this->filterEnumToInput($retrievedFilter, 'operationalRequirements');
-        $retrievedFilter['qualifiedStreams'] = $this->filterEnumToInput($retrievedFilter, 'qualifiedStreams');
 
         // Now use the retrieved filter to get the same count
         $response = $this->graphQL(

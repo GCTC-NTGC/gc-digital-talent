@@ -71,9 +71,9 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     closingDate
     processNumber
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -123,7 +123,7 @@ export const ViewPool = ({
   const { roleAssignments } = useAuthorization();
   const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,

@@ -146,18 +146,15 @@ class PoolCandidateSearchRequest extends Model
         return $query;
     }
 
-    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    public static function scopeWorkStreams(Builder $query, ?array $streams): Builder
     {
         if (empty($streams)) {
             return $query;
         }
 
-        // streams is an array of PoolStream enums
-        $query->whereHas('applicantFilter', function ($query) use ($streams) {
-            $query->where(function ($query) use ($streams) {
-                foreach ($streams as $index => $stream) {
-                    $query->orWhereJsonContains('qualified_streams', $stream);
-                }
+        $query->whereHas('applicantFilter', function ($filterQuery) use ($streams) {
+            $filterQuery->whereHas('workStreams', function ($workStreamQuery) use ($streams) {
+                $workStreamQuery->whereIn('applicant_filter_work_stream.work_stream_id', $streams);
             });
         });
 

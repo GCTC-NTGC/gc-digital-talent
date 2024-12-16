@@ -278,7 +278,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "security_clearance")
   language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
-  stream: LocalizedPoolStream
+  workStream: WorkStream @belongsTo
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: LocalizedPublishingGroup
     @rename(attribute: "publishing_group")
@@ -590,8 +590,7 @@ type ApplicantFilter {
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
-  qualifiedStreams: [LocalizedPoolStream]
-    @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
+  workStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -854,7 +853,7 @@ input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
   team: String @scope
-  streams: [PoolStream!] @scope
+  workStreams: [UUID!] @scope(name: "whereWorkStreamsIn")
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
@@ -864,6 +863,11 @@ input PoolFilterInput {
 }
 
 input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
+input PoolWorkStreamNameOrderByInput {
   locale: String!
   order: SortOrder!
 }
@@ -893,7 +897,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
-  qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  workStreams: [IdInput] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
@@ -921,7 +925,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
   departments: [ID] @scope
   classifications: [ID] @scope
-  streams: [PoolStream] @scope
+  workStreams: [UUID] @scope
   fullName: String @scope
   email: String @scope
   id: ID @scope
@@ -1027,6 +1031,7 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderByWorkStreamName: PoolWorkStreamNameOrderByInput @scope
     orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
@@ -1584,7 +1589,7 @@ input CreateApplicantFilterInput {
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
   qualifiedClassifications: ClassificationBelongsToMany
-  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -1828,7 +1833,7 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
   department: DepartmentBelongsTo
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   processNumber: String @rename(attribute: "process_number")
   # Closing date
   closingDate: DateTime
