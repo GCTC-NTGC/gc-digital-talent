@@ -44,7 +44,7 @@ class SnapshotTest extends TestCase
      *
      * @return void
      */
-    public function testCreateSnapshot()
+    public function test_create_snapshot()
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
@@ -88,15 +88,7 @@ class SnapshotTest extends TestCase
         )->json('data.poolCandidate.profileSnapshot');
 
         $decodedActual = json_decode($actualSnapshot, true);
-        unset($decodedActual['pool']['department']['name']['localized']);
-        foreach ($decodedActual['experiences'] as &$experience) { // remove the localized field from name
-            if ($experience['__typename'] === 'WorkExperience' && isset($experience['department'])) {
-                unset($experience['department']['name']['localized']);
-            }
-            if ($experience['__typename'] === 'WorkExperience' && isset($experience['classification'])) {
-                unset($experience['classification']['name']['localized']);
-            }
-        }
+        $this->unsetLocalizedKey($decodedActual);
 
         // Add version number
         $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
@@ -116,7 +108,7 @@ class SnapshotTest extends TestCase
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
-    public function testSnapshotSkillFiltering()
+    public function test_snapshot_skill_filtering()
     {
         Skill::factory(20)->create();
 
@@ -175,7 +167,7 @@ class SnapshotTest extends TestCase
         assertEquals($intersectedArrayLength, 0);
     }
 
-    public function testSetApplicationSnapshotDoesNotOverwrite()
+    public function test_set_application_snapshot_does_not_overwrite()
     {
         // non-null snapshot value set
         $user = User::factory()
@@ -197,7 +189,7 @@ class SnapshotTest extends TestCase
         assertSame(['snapshot' => 'set'], $snapshot);
     }
 
-    public function testLocalizingLegacyEnums()
+    public function test_localizing_legacy_enums()
     {
         // non-null snapshot value set
         $user = User::factory()
@@ -258,5 +250,17 @@ class SnapshotTest extends TestCase
                 ],
             ],
         ], $snapshot);
+    }
+
+    private function unsetLocalizedKey(array &$arr)
+    {
+        if (is_array($arr)) {
+            unset($arr['localized']);
+        }
+        foreach ($arr as &$v) {
+            if (is_array($v)) {
+                $this->unsetLocalizedKey($v);
+            }
+        }
     }
 }
