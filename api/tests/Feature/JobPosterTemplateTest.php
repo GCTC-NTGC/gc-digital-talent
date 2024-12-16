@@ -98,7 +98,7 @@ class JobPosterTemplateTest extends TestCase
             ->create();
     }
 
-    public function test_anonymous_users_can_view_any()
+    public function testAnonymousUsersCanViewAny()
     {
         $this->graphQL($this->queryOne, [
             'id' => $this->template->id,
@@ -121,21 +121,21 @@ class JobPosterTemplateTest extends TestCase
             ]);
     }
 
-    public function test_anonymous_user_cannot_create()
+    public function testAnonymousUserCannotCreate()
     {
         $this->graphQL($this->create, [
             'template' => $this->getCreateInput(),
         ])->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
-    public function test_non_admin_user_cannot_create()
+    public function testNonAdminUserCannotCreate()
     {
         $this->actingAs($this->baseUser, 'api')->graphQL($this->create, [
             'template' => $this->getCreateInput(),
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function test_admin_can_create()
+    public function testAdminCanCreate()
     {
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
             'template' => $this->getCreateInput(),
@@ -144,7 +144,7 @@ class JobPosterTemplateTest extends TestCase
         $this->assertNotNull($res['data']['createJobPosterTemplate']);
     }
 
-    public function test_anonymous_user_cannot_update()
+    public function testAnonymousUserCannotUpdate()
     {
         $this->graphQL($this->update, [
             'template' => [
@@ -154,7 +154,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
-    public function test_non_admin_user_cannot_update()
+    public function testNonAdminUserCannotUpdate()
     {
         $this->actingAs($this->baseUser, 'api')->graphQL($this->update, [
             'template' => [
@@ -164,7 +164,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function test_admin_can_update()
+    public function testAdminCanUpdate()
     {
         $this->actingAs($this->adminUser, 'api')->graphQL($this->update, [
             'template' => [
@@ -181,7 +181,7 @@ class JobPosterTemplateTest extends TestCase
         ]);
     }
 
-    public function test_non_admin_user_cannot_delete()
+    public function testNonAdminUserCannotDelete()
     {
         $template = JobPosterTemplate::factory()->create();
 
@@ -190,7 +190,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function test_admin_can_delete()
+    public function testAdminCanDelete()
     {
         $template = JobPosterTemplate::factory()->create();
 
@@ -205,7 +205,7 @@ class JobPosterTemplateTest extends TestCase
         ]);
     }
 
-    public function test_reference_id_is_unique()
+    public function testReferenceIdIsUnique()
     {
         $input = $this->getCreateInput();
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -216,7 +216,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
-    public function test_cannot_add_essential_skill_with_no_level()
+    public function testCannotAddEssentialSkillWithNoLevel()
     {
         $input = $this->getCreateInput();
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -235,7 +235,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
-    public function test_can_add_essential_skill_with_level()
+    public function testCanAddEssentialSkillWithLevel()
     {
         $input = $this->getCreateInput();
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -256,7 +256,7 @@ class JobPosterTemplateTest extends TestCase
         $this->assertNotNull($res['data']['createJobPosterTemplate']);
     }
 
-    public function test_cannot_add_asset_skill_with_level()
+    public function testCannotAddAssetSkillWithLevel()
     {
         $input = $this->getCreateInput();
         $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
@@ -275,7 +275,7 @@ class JobPosterTemplateTest extends TestCase
         ])->assertGraphQLErrorMessage('Validation failed for the field [createJobPosterTemplate].');
     }
 
-    public function test_can_add_asset_skill_with_no_level()
+    public function testCanAddAssetSkillWithNoLevel()
     {
         $input = $this->getCreateInput();
         $res = $this->actingAs($this->adminUser, 'api')->graphQL($this->create, [
