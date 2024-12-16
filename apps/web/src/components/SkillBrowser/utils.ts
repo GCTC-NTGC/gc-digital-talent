@@ -79,8 +79,8 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
     return {
       ...defaults,
       trigger: intl.formatMessage({
-        defaultMessage: "Add a new skill",
-        id: "ZYqWBR",
+        defaultMessage: "Add skill",
+        id: "RSUgO3",
         description: "Button text to open the skill dialog and add a skill",
       }),
       title: intl.formatMessage({

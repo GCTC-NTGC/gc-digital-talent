@@ -124,8 +124,8 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
           },
           nullMessage: {
             description: intl.formatMessage({
-              defaultMessage: 'Use the "Add new member" button to get started.',
-              id: "SfbDLA",
+              defaultMessage: 'Use the "Add member" button to get started.',
+              id: "s57oJd",
               description: "Instructions for adding a member to a team.",
             }),
           },

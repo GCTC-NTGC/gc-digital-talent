@@ -113,21 +113,25 @@ AddTeamMemberDialogProps) => {
     ),
   }));
 
-  const label = intl.formatMessage({
-    defaultMessage: "Add new member",
-    id: "+e2nr6",
-    description: "Label for the add member to team form",
-  });
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="primary" icon={PlusIcon}>
-          {label}
+          {intl.formatMessage({
+            defaultMessage: "Add member",
+            id: "FBx3Q4",
+            description: "Label for the add member to team form",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>
+          {intl.formatMessage({
+            defaultMessage: "Add member",
+            id: "9vluO2",
+            description: "Header for the add member to team form",
+          })}
+        </Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
@@ -206,7 +210,11 @@ AddTeamMemberDialogProps) => {
                 <Button color="secondary" type="submit" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
-                    : label}
+                    : intl.formatMessage({
+                        defaultMessage: "Add member",
+                        id: "FBx3Q4",
+                        description: "Label for the add member to team form",
+                      })}
                 </Button>
                 <Dialog.Close>
                   <Button color="warning" mode="inline">
