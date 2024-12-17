@@ -299,8 +299,8 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
                         >
                           {intl.formatMessage({
                             defaultMessage:
-                              "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers that Indigenous peoples face when it comes to finding employment in the Government of Canada’s digital workforce. Contact the team today to become a hiring partner and discover how you can strengthen your team with Indigenous IT talent. Together we are empowered to capitalize on the diversity of experiences and ideas that Indigenous Peoples bring and build a more inclusive and dynamic Public Service. Your participation in the IT Apprenticeship Program for Indigenous Peoples contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
-                            id: "8fnrPY",
+                              "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers Indigenous peoples face when it comes to finding employment in the Government of Canada's digital workforce. Become a hiring partner today and discover how you can strengthen your team with Indigenous IT talent and help build a more inclusive public service. Your participation contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
+                            id: "ifqj46",
                             description:
                               "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card",
                           })}
