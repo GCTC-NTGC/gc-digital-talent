@@ -160,6 +160,7 @@ class PoolCandidateUpdateTest extends TestCase
                 placedDepartment {
                     id
                 }
+                suspendedAt
             }
         }
     ';
@@ -175,6 +176,7 @@ class PoolCandidateUpdateTest extends TestCase
                 placedDepartment {
                     id
                 }
+                suspendedAt
             }
         }
     ';
@@ -502,12 +504,66 @@ class PoolCandidateUpdateTest extends TestCase
         assertSame($response['placedDepartment']['id'], $department->id);
     }
 
+    // placing candidates sets suspended_at automatically or keeps/makes it null appropriately
+    public function testPlaceCandidateMutationSuspensionLogic(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->placed_at = null;
+        $this->poolCandidate->save();
+        $placedDoNotSuspend = [
+            PlacementType::PLACED_TENTATIVE->name,
+            PlacementType::PLACED_CASUAL->name,
+        ];
+        $placedDoSuspend = [
+            PlacementType::PLACED_TERM->name,
+            PlacementType::PLACED_INDETERMINATE->name,
+        ];
+
+        foreach ($placedDoNotSuspend as $value) {
+            $response = $this->actingAs($this->poolOperatorUser, 'api')
+                ->graphQL(
+                    $this->placeCandidateMutation,
+                    [
+                        'id' => $this->poolCandidate->id,
+                        'placeCandidate' => [
+                            'placementType' => $value,
+                            'departmentId' => $department->id,
+                        ],
+                    ]
+                )->json('data.placeCandidate');
+
+            assertSame($response['status']['value'], $value);
+            assertNotNull($response['placedAt']);
+            assertNull($response['suspendedAt']);
+        }
+
+        foreach ($placedDoSuspend as $value) {
+            $response = $this->actingAs($this->poolOperatorUser, 'api')
+                ->graphQL(
+                    $this->placeCandidateMutation,
+                    [
+                        'id' => $this->poolCandidate->id,
+                        'placeCandidate' => [
+                            'placementType' => $value,
+                            'departmentId' => $department->id,
+                        ],
+                    ]
+                )->json('data.placeCandidate');
+
+            assertSame($response['status']['value'], $value);
+            assertNotNull($response['placedAt']);
+            assertNotNull($response['suspendedAt']);
+        }
+    }
+
     public function testRevertPlaceCandidateMutation(): void
     {
         $department = Department::factory()->create();
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->placed_department_id = $department->id;
         $this->poolCandidate->placed_at = config('constants.far_past_date');
+        $this->poolCandidate->suspended_at = config('constants.far_past_date');
         $this->poolCandidate->save();
 
         // cannot execute mutation due to candidate not being placed
@@ -535,6 +591,7 @@ class PoolCandidateUpdateTest extends TestCase
         assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
         assertNull($response['placedAt']);
         assertNull($response['placedDepartment']);
+        assertNull($response['suspendedAt']);
     }
 
     public function testQualifyCandidateMutation(): void
