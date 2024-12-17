@@ -6159,6 +6159,10 @@
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
   },
+  "TZu/iQ": {
+    "defaultMessage": "Pensez-vous embaucher une apprentie ou un apprenti en TI autochtone?",
+    "description": "Title for IT Apprenticeship Program for Indigenous Peoples search card"
+  },
   "Ta28fI": {
     "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
     "description": "title for a list of fund objectives"
@@ -9326,6 +9330,10 @@
     "defaultMessage": "Modifiez les informations sur la famille de compétences",
     "description": "Link text to edit a skill family"
   },
+  "ifqj46": {
+    "defaultMessage": "Le Programme d'apprentissage en TI pour les personnes autochtones a pour but d'aider à éliminer les obstacles en matière d'emploi pour les personnes autochtones dans le domaine numérique au sein du gouvernement du Canada. Devenez un partenaire de recrutement dès aujourd'hui et découvrez comment vous pouvez renforcer votre équipe en embauchant des talents autochtones en informatique et aider à bâtir à une fonction publique plus inclusive. Votre participation contribue à l'objectif plus large de promouvoir l'inclusion, l'équité et la réconciliation au Canada.",
+    "description": "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card"
+  },
   "igTx2a": {
     "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
     "description": "Description for the track applications section on the profile and applications, paragraph one."
@@ -12369,6 +12377,10 @@
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
     "description": "Label for the dialog trigger to remove a user from a process/pool"
+  },
+  "zVGzWa": {
+    "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",
+    "description": "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page"
   },
   "zXkLL2": {
     "defaultMessage": "Non démontrée (supprimée du processus)",
