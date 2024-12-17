@@ -1138,7 +1138,6 @@ type JobPosterTemplate {
   name: LocalizedString
   description: LocalizedString
   supervisoryStatus: LocalizedSupervisoryStatus
-  stream: LocalizedPoolStream
   workDescription: LocalizedString
   tasks: LocalizedString
   keywords: LocalizedKeywords
@@ -1146,6 +1145,7 @@ type JobPosterTemplate {
   essentialBehaviouralSkillsNotes: LocalizedString
   nonessentialTechnicalSkillsNotes: LocalizedString
   classification: Classification
+  workStream: WorkStream
   skills: [JobPosterTemplateSkill!]
 }
 
@@ -2087,6 +2087,7 @@ input CreateJobPosterTemplateInput {
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus!
   stream: PoolStream!
+  workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput!
   keywords: LocalizedKeywordsInput
@@ -2103,7 +2104,7 @@ input UpdateJobPosterTemplateInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   supervisoryStatus: SupervisoryStatus
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput
   keywords: LocalizedStringInput

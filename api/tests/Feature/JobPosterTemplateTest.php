@@ -315,6 +315,9 @@ class JobPosterTemplateTest extends TestCase
             'classification' => [
                 'connect' => $template->classification->id,
             ],
+            'workStream' => [
+                'connect' => $template->workStream->id,
+            ],
             'skills' => [
                 'connect' => $template->skills->map(function ($skill) {
                     return [
