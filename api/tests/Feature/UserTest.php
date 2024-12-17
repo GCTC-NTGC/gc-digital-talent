@@ -1771,11 +1771,12 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => false,
             ]),
         ]);
-        // Already placed - should not appear in searches
+        // Already placed - should appear in searches
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            'suspended_at' => null,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1812,7 +1813,7 @@ class UserTest extends TestCase
         );
         $response->assertJson([
             'data' => [
-                'countApplicants' => 14, // including base admin user
+                'countApplicants' => 15, // including base admin user
             ],
         ]);
 
@@ -1834,7 +1835,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 9, //including base admin user
+                'countApplicants' => 10, //including base admin user
             ],
         ]);
     }
