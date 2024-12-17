@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Enums\NotificationFamily;
 use App\Models\User;
-use App\Notifications\AdHocGcNotifyEmail;
+use App\Notifications\AdHocEmail;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Database\Eloquent\Builder;
@@ -47,7 +47,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
 
         if ($this->confirm('Do you wish to send notifications to '.$userCount.' users?')) {
             $progressBar = $this->output->createProgressBar($userCount);
-            $notification = new AdHocGcNotifyEmail($this->argument('templateIdEn'), $this->argument('templateIdFr'));
+            $notification = new AdHocEmail($this->argument('templateIdEn'), $this->argument('templateIdFr'));
 
             $users->chunk(200, function (Collection $chunkOfUsers) use (&$successCount, &$failureCount, $progressBar, $notification) {
                 foreach ($chunkOfUsers as $user) {

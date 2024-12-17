@@ -36,26 +36,19 @@ class AdHocEmail extends Notification implements CanBeSentViaGcNotifyEmail
     public function toGcNotifyEmail(User $notifiable): GcNotifyEmailMessage
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
+        $templateId = match ($locale) {
+            Language::EN->value => $this->templateIdEn,
+            Language::FR->value => $this->templateIdFr
+        };
 
-        if ($locale == Language::EN->value) {
-            // English notification
-            $message = new GcNotifyEmailMessage(
-                $this->templateIdEn,
-                $notifiable->email,
-                [
-                    'user' => $notifiable,
-                ]
-            );
-        } else {
-            // French notification
-            $message = new GcNotifyEmailMessage(
-                $this->templateIdFr,
-                $notifiable->email,
-                [
-                    'user' => $notifiable,
-                ]
-            );
-        }
+        $message = new GcNotifyEmailMessage(
+            $templateId,
+            $notifiable->email,
+            [
+                'first_name' => $notifiable->first_name,
+                'last_name' => $notifiable->last_name,
+            ]
+        );
 
         return $message;
     }
