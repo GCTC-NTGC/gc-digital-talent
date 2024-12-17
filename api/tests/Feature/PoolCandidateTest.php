@@ -20,6 +20,8 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
+
 class PoolCandidateTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -848,5 +850,39 @@ class PoolCandidateTest extends TestCase
                 ],
             ])->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityCandidate->id]);
+    }
+
+    // test scopeAvailable
+    public function testScopeAvailable(): void
+    {
+        PoolCandidate::truncate();
+        $candidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+        ]);
+        $candidate->expiry_date = null;
+        $candidate->suspended_at = null;
+        $candidate->save();
+
+        $suspendedCandidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+        ]);
+        $suspendedCandidate->expiry_date = null;
+        $suspendedCandidate->suspended_at = config('constants.far_past_datetime');
+        $suspendedCandidate->save();
+
+        $expiredCandidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+        ]);
+        $expiredCandidate->expiry_date = config('constants.past_date');
+        $expiredCandidate->suspended_at = null;
+        $expiredCandidate->save();
+
+        $queryBuilder = PoolCandidate::query();
+        $candidateIds = PoolCandidate::scopeAvailable($queryBuilder)->get()->pluck('id')->toArray();
+
+        // suspended and expired not present
+        assertEqualsCanonicalizing([
+            $candidate->id,
+        ], $candidateIds);
     }
 }

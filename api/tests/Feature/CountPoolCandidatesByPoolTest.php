@@ -828,4 +828,60 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ],
         ]);
     }
+
+    // asserts placed term/indeterminate candidates can appear in this query, can't check by id though so check that 2 out of 3 appear
+    public function testPlacedSuspendedNotSuspendedCandidates()
+    {
+        $itPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
+        ]);
+        PoolCandidate::truncate();
+        $candidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+        ]);
+        $candidate->suspended_at = null;
+        $candidate->save();
+        $candidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+        ]);
+        $candidate->suspended_at = null;
+        $candidate->save();
+        $suspendedCandidate = PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+        ]);
+        $suspendedCandidate->suspended_at = config('constants.far_past_datetime');
+        $suspendedCandidate->save();
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ($where: ApplicantFilterInput) {
+                    countPoolCandidatesByPool(where: $where) {
+                      pool { id }
+                      candidateCount
+                    }
+                  }
+                ',
+            [
+                'where' => [
+                    'pools' => [
+                        ['id' => $itPool->id],
+                    ],
+                ],
+            ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $itPool->id],
+                        'candidateCount' => 2,
+                    ],
+                ],
+            ],
+        ]);
+    }
 }
