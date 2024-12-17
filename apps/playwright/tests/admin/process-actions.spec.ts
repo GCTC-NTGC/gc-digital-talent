@@ -26,10 +26,6 @@ test.describe("Process actions", () => {
       .selectOption({ label: "IT-01 (Information Technology)" });
 
     await appPage.page
-      .getByRole("combobox", { name: /team/i })
-      .selectOption({ label: "Digital Community Management" });
-
-    await appPage.page
       .getByRole("combobox", { name: /department/i })
       .selectOption({ label: "Treasury Board Secretariat" });
 
