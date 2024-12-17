@@ -6207,10 +6207,6 @@
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
   },
-  "TZu/iQ": {
-    "defaultMessage": "Pensez-vous embaucher une apprentie ou un apprenti en TI autochtone?",
-    "description": "Title for IT Apprenticeship Program for Indigenous Peoples search card"
-  },
   "Ta28fI": {
     "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
     "description": "title for a list of fund objectives"
@@ -9789,6 +9785,10 @@
   "kvxHHl": {
     "defaultMessage": "Français essentiel",
     "description": "French essential language requirement"
+  },
+  "kyM6sV": {
+    "defaultMessage": "Pensez-vous embaucher une apprentie ou un apprenti en TI autochtone?",
+    "description": "Title for IT Apprenticeship Program for Indigenous Peoples search card"
   },
   "kzd/yK": {
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",

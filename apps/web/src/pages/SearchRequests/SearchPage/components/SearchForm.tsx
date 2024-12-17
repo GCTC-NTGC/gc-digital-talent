@@ -296,8 +296,8 @@ export const SearchForm = ({
                         >
                           {intl.formatMessage({
                             defaultMessage:
-                              "Have you considered hiring an Indigenous IT Apprentice?",
-                            id: "TZu/iQ",
+                              "Have you considered hiring an Indigenous IT apprentice?",
+                            id: "kyM6sV",
                             description:
                               "Title for IT Apprenticeship Program for Indigenous Peoples search card",
                           })}
