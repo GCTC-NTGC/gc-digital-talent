@@ -84,6 +84,7 @@ return [
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
         'trainingOpportunity' => 'trainingOpportunity',
+        'workStream' => 'workStream',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -176,20 +177,20 @@ return [
         ],
 
         'view-any-skillFamily' => [
-            'en' => 'View Any Skill Family',
-            'fr' => 'Visionner toute famille de compétences',
+            'en' => 'View Any Skill family',
+            'fr' => 'Visionner n\'importe quel groupe de compétences',
         ],
         'create-any-skillFamily' => [
-            'en' => 'Create Any Skill Family',
-            'fr' => 'Créer toute famille de compétences',
+            'en' => 'Create Any Skill family',
+            'fr' => 'Créer n\'importe quel groupe de compétences',
         ],
         'update-any-skillFamily' => [
-            'en' => 'Update Any Skill Family',
-            'fr' => 'Mettre à jour toute famille de compétences',
+            'en' => 'Update Any Skill family',
+            'fr' => 'Mettre à jour n\'importe quel groupe de compétences',
         ],
         'delete-any-skillFamily' => [
-            'en' => 'Delete Any Skill Family',
-            'fr' => 'Supprimer toute famille de compétences',
+            'en' => 'Delete Any Skill family',
+            'fr' => 'Supprimer n\'importe quel groupe de compétences',
         ],
 
         'create-any-user' => [
@@ -508,6 +509,15 @@ return [
         'delete-any-team' => [
             'en' => 'Delete Any Team',
             'fr' => 'Supprimer toute équipe',
+        ],
+
+        'create-any-workStream' => [
+            'en' => 'Create Any Work Stream',
+            'fr' => 'Créer tout volet de travail',
+        ],
+        'update-any-workStream' => [
+            'en' => 'Update Any Work Stream',
+            'fr' => 'Modifier tout volet de travail',
         ],
 
         'view-any-role' => [
@@ -1230,6 +1240,9 @@ return [
             ],
             'trainingOpportunity' => [
                 'any' => ['create'],
+            ],
+            'workStream' => [
+                'any' => ['create', 'update'],
             ],
         ],
         'manager' => [

@@ -110,11 +110,11 @@ The version should be greater or equal to the version of `services.postgres.imag
 
 ## PHP
 
-We use [PHP](https://www.php.net/) version 8.2 to run the backend app. Ubuntu 22.04 does not come with PHP 8.2 in its repositories so add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install it with some extensions.
+We use [PHP](https://www.php.net/) version 8.3 to run the backend app. Ubuntu 22.04 does not come with PHP 8.3 in its repositories so add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install it with some extensions.
 
 ```
 LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
-sudo apt-get install php8.2 php8.2-mbstring php8.2-xml php8.2-pgsql php8.2-zip php8.2-curl php8.2-bcmath php8.2-gd php8.2-dom php8.2-intl
+sudo apt-get install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-pgsql php8.3-zip php8.3-curl php8.3-bcmath php8.3-gd php8.3-dom php8.3-intl
 ```
 
 Double check:

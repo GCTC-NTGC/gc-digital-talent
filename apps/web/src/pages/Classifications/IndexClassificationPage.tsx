@@ -8,6 +8,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import ClassificationTableApi from "./components/ClassificationTable";
 
@@ -30,12 +31,9 @@ export const IndexClassificationPage = () => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
-      <div
-        data-h2-margin="base(x3 0)"
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      >
+      <AdminContentWrapper table>
         <ClassificationTableApi title={formattedPageTitle} />
-      </div>
+      </AdminContentWrapper>
     </>
   );
 };

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { useMutation } from "urql";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
@@ -120,17 +120,15 @@ AddCommunityMemberDialogProps) => {
     ),
   }));
 
-  const label = intl.formatMessage({
-    defaultMessage: "Add member",
-    id: "wBMn5c",
-    description: "Label for the add member to community form",
-  });
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="secondary" icon={PlusCircleIcon}>
-          {label}
+          {intl.formatMessage({
+            defaultMessage: "Add member",
+            id: "MkUz+j",
+            description: "Label for the add member to community form (action)",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -148,7 +146,11 @@ AddCommunityMemberDialogProps) => {
             },
           )}
         >
-          {label}
+          {intl.formatMessage({
+            defaultMessage: "Add member",
+            id: "IHyNL8",
+            description: "Title for the add member to community form",
+          })}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>

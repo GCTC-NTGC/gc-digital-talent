@@ -7,7 +7,6 @@ import {
   PoolOpportunityLength,
   PoolSkill,
   PoolSkillType,
-  PoolStream,
   PublishingGroup,
   SecurityStatus,
   SkillCategory,
@@ -22,9 +21,9 @@ import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";
 import { getSkills } from "./skills";
+import { getWorkStreams } from "./workStreams";
 
 const defaultPool: Partial<UpdatePoolInput> = {
-  stream: PoolStream.BusinessAdvisoryServices,
   closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
   yourImpact: {
     en: "test impact EN",
@@ -222,6 +221,7 @@ interface CreateAndPublishPoolArgs {
   name?: LocalizedString;
   classificationId?: string;
   departmentId?: string;
+  workStreamId?: string;
   skillIds?: string[];
   input?: UpdatePoolInput;
 }
@@ -239,6 +239,7 @@ export const createAndPublishPool: GraphQLRequestFunc<
     communityId,
     classificationId,
     departmentId,
+    workStreamId,
     input,
   },
 ) => {
@@ -249,6 +250,12 @@ export const createAndPublishPool: GraphQLRequestFunc<
     classificationId,
     departmentId,
   }).then(async (pool) => {
+    let workStream = workStreamId;
+    if (!workStream) {
+      const workStreams = await getWorkStreams(ctx, {});
+      workStream = workStreams[0].id;
+    }
+
     await updatePool(ctx, {
       poolId: pool.id,
       pool: {
@@ -258,6 +265,7 @@ export const createAndPublishPool: GraphQLRequestFunc<
           fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
         },
         ...input,
+        workStream: { connect: workStream },
       },
     });
 

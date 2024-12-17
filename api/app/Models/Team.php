@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -27,8 +28,8 @@ class Team extends LaratrustTeam
     protected $keyType = 'string';
 
     protected $casts = [
-        'display_name' => 'array',
-        'description' => 'array',
+        'display_name' => LocalizedString::class,
+        'description' => LocalizedString::class,
     ];
 
     protected $fillable = [
@@ -45,6 +46,7 @@ class Team extends LaratrustTeam
         return $this->belongsToMany(Department::class, 'team_department');
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
@@ -55,7 +57,7 @@ class Team extends LaratrustTeam
         return $this->morphTo();
     }
 
-    // A relationship to the custom roleAssignments pivot model
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);

@@ -8,7 +8,6 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Facades\Notify;
@@ -21,6 +20,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -61,7 +61,7 @@ class ApplicantTest extends TestCase
         $user = User::all()->first();
         $ITPool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
-            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
         ]);
         $ITPool2 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
@@ -1736,12 +1736,6 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $itPool->id,
         ]);
-        $itOngoingPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
-            'user_id' => $this->adminUser->id,
-        ]);
-        PoolCandidate::factory()->availableInSearch()->create([
-            'pool_id' => $itOngoingPool->id,
-        ]);
         $execPool = Pool::factory()->published()->create([
             'user_id' => $this->adminUser->id,
             'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
@@ -1762,7 +1756,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 2,
+                'countApplicants' => 1,
             ],
         ]);
     }
@@ -1928,24 +1922,24 @@ class ApplicantTest extends TestCase
         $targetClassification = Classification::factory()->create();
         $excludedClassification = Classification::factory()->create();
 
-        $targetStream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
-        $excludedStream = PoolStream::ACCESS_INFORMATION_PRIVACY->name;
+        $targetStream = WorkStream::factory()->create();
+        $excludedStream = WorkStream::factory()->create();
 
         $targetClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $targetClassification,
-            'stream' => $excludedStream,
+            'work_stream_id' => $excludedStream->id,
         ]);
         $targetStreamPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $excludedClassification,
-            'stream' => $targetStream,
+            'work_stream_id' => $targetStream->id,
         ]);
         $targetStreamAndClassificationPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $targetClassification,
-            'stream' => $targetStream,
+            'work_stream_id' => $targetStream->id,
         ]);
         $excludedPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'classification_id' => $excludedClassification,
-            'stream' => $excludedStream,
+            'work_stream_id' => $excludedStream->id,
         ]);
 
         $targetUser = User::factory()->create();
@@ -2023,7 +2017,7 @@ class ApplicantTest extends TestCase
             ->graphQL($query,
                 [
                     'where' => [
-                        'qualifiedStreams' => [$targetStream],
+                        'workStreams' => [['id' => $targetStream->id]],
                     ],
                 ]
             )->assertJson([
@@ -2042,9 +2036,9 @@ class ApplicantTest extends TestCase
                                 'level' => $targetClassification->level,
                             ],
                         ],
-                        'qualifiedStreams' => [
-                            $targetStream,
-                        ],
+                        'workStreams' => [[
+                            'id' => $targetStream->id,
+                        ]],
                     ],
                 ]
             )->assertJson([

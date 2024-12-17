@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,9 +36,10 @@ class Classification extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
+        'name' => LocalizedString::class,
     ];
 
+    /** @return HasMany<GenericJobTitle, $this> */
     public function genericJobTitles(): HasMany
     {
         return $this->hasMany(GenericJobTitle::class);

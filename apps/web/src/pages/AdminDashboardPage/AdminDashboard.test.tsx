@@ -34,9 +34,15 @@ describe("Render dashboard page", () => {
     renderComponent("platform_admin");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.getByText(/administration/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -114,9 +120,15 @@ describe("Render dashboard page", () => {
     renderComponent("community_admin");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.getByText(/administration/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -194,9 +206,15 @@ describe("Render dashboard page", () => {
     renderComponent("process_operator");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.getByText(/administration/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -274,9 +292,15 @@ describe("Render dashboard page", () => {
     renderComponent("community_recruiter");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.getByText(/administration/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(

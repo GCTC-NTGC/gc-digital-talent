@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import heroImg from "~/assets/img/accessibility-statement-header.webp";

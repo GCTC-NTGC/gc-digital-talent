@@ -9,11 +9,14 @@ import {
   FragmentType,
   LocalizedString,
   Maybe,
+  NullsOption,
+  OrderByColumnInput,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
+  PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
@@ -30,11 +33,11 @@ import { FormValues } from "./PoolFilterDialog";
 import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(
-  pool: Pick<Pool, "name" | "stream">,
+  pool: Pick<Pool, "name" | "workStream">,
   intl: IntlShape,
 ) {
   const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
+  return `${name.toLowerCase()} ${getLocalizedName(pool?.workStream?.name, intl, true)}`;
 }
 
 export function viewCell(
@@ -171,11 +174,10 @@ export function getOrderByClause(
     ["id", "id"],
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
-    ["stream", "stream"],
     ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
-    ["publishedAt", "published_at"],
+    // ["publishedAt", "published_at"], // moved to getOrderByColumnSort to handle nulls
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
     ["classification", "classification"],
@@ -240,13 +242,8 @@ export function getOrderByClause(
     ];
   }
 
-  return [
-    {
-      column: "created_at",
-      order: SortOrder.Asc,
-      user: undefined,
-    },
-  ];
+  // nothing matched
+  return undefined;
 }
 
 export function getTeamDisplayNameSort(
@@ -263,6 +260,43 @@ export function getTeamDisplayNameSort(
   };
 }
 
+export function getWorkStreamNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolWorkStreamNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "workStream");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
+}
+
+export function getOrderByColumnSort(
+  sortingRules?: SortingState,
+): OrderByColumnInput | undefined {
+  // few columns use this ordering clause
+  const columnMap = new Map<string, string>([["publishedAt", "published_at"]]);
+
+  const sortingRule = sortingRules?.find((rule) => {
+    const columnName = columnMap.get(rule.id);
+    return !!columnName;
+  });
+
+  if (sortingRule?.id === "publishedAt") {
+    return {
+      column: "published_at",
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      nulls: NullsOption.OrderLast,
+    };
+  }
+
+  // nothing matched
+  return undefined;
+}
+
 export function getPoolBookmarkSort(): PoolBookmarksOrderByInput | undefined {
   return {
     column: "poolBookmarks",
@@ -276,7 +310,7 @@ export function transformFormValuesToFilterInput(
   return {
     publishingGroups: data.publishingGroups,
     statuses: data.statuses,
-    streams: data.streams,
+    workStreams: data.workStreams,
     classifications: data.classifications.map((classification) => {
       const [group, level] = classification.split("-");
       return { group, level: Number(level) };
@@ -290,7 +324,7 @@ export function transformPoolFilterInputToFormValues(
   return {
     publishingGroups: unpackMaybes(input?.publishingGroups),
     statuses: unpackMaybes(input?.statuses),
-    streams: unpackMaybes(input?.streams),
+    workStreams: unpackMaybes(input?.workStreams),
     classifications: unpackMaybes(input?.classifications).map(
       (c) => `${c.group}-${c.level}`,
     ),

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
@@ -79,7 +79,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         insertSubmittedStep: ApplicationStep.ScreeningQuestions,
       },
     })
-      .then((res) => {
+      .then(async (res) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
@@ -89,7 +89,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving question responses is successful.",
             }),
           );
-          navigate(
+          await navigate(
             formValues.action === "continue"
               ? paths.applicationReview(application.id)
               : cancelPath,

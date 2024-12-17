@@ -42,16 +42,19 @@ class PoolCandidateFilter extends Model
         'operational_requirements' => 'array',
     ];
 
+    /** @return BelongsToMany<Classification, $this> */
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'classification_pool_candidate_filter');
     }
 
+    /** @return BelongsToMany<Pool, $this> */
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_pool_candidate_filter');
     }
 
+    /** @return HasOne<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequest(): HasOne
     {
         return $this->hasOne(PoolCandidateSearchRequest::class);

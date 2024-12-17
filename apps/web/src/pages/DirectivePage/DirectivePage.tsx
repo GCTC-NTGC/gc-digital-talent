@@ -22,7 +22,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -119,26 +119,20 @@ export const Component = () => {
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage(pageSubtitle)}
         crumbs={crumbs}
-        linkSlot={
-          <>
-            <Link
-              mode="cta"
-              href={directiveUrl}
-              color="quaternary"
-              icon={NewspaperIcon}
-            >
-              {readDirectiveMessage}
-            </Link>
-            <Link
-              mode="cta"
-              href={paths.search()}
-              color="secondary"
-              icon={MagnifyingGlassCircleIcon}
-            >
-              {intl.formatMessage(navigationMessages.findTalent)}
-            </Link>
-          </>
-        }
+        buttonLinks={[
+          {
+            icon: NewspaperIcon,
+            text: readDirectiveMessage,
+            url: directiveUrl,
+            color: "quaternary",
+          },
+          {
+            icon: MagnifyingGlassCircleIcon,
+            text: intl.formatMessage(navigationMessages.findTalent),
+            url: paths.search(),
+            color: "secondary",
+          },
+        ]}
       />
       <div data-h2-padding="base(x3, 0)">
         <div

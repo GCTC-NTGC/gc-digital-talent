@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -80,9 +80,9 @@ export const CreateClassification = () => {
       maxSalary: Number(data.maxSalary),
     };
     return executeMutation({ classification })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createClassification) {
-          navigate(
+          await navigate(
             paths.classificationView(result.data.createClassification.id),
           );
           toast.success(
@@ -190,6 +190,7 @@ export const CreateClassification = () => {
                         "Label displayed for the classification form min salary field.",
                     })}
                     type="number"
+                    min="0"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                       min: {
@@ -213,6 +214,7 @@ export const CreateClassification = () => {
                         "Label displayed for the classification form max salary field.",
                     })}
                     type="number"
+                    min="0"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                       min: {

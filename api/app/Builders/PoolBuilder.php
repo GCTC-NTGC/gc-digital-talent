@@ -137,14 +137,16 @@ class PoolBuilder extends Builder
         return $this->whereIn('publishing_group', $publishingGroups);
     }
 
-    public function streams(?array $streams): self
+    public function whereWorkStreamsIn(?array $streams): self
     {
 
         if (empty($streams)) {
             return $this;
         }
 
-        return $this->whereIn('stream', $streams);
+        return $this->whereHas('workStream', function ($query) use ($streams) {
+            $query->whereIn('id', $streams);
+        });
     }
 
     public function whereClassifications(?array $classifications): self
@@ -168,7 +170,7 @@ class PoolBuilder extends Builder
     /**
      * Custom sort to handle issues with how laravel aliases
      * aggregate selects and orderBys for json fields in `lighthouse-php`
-     *
+
      * The column used in the orderBy is `table_aggregate_column->property`
      * But is actually aliased to snake case `table_aggregate_columnproperty`
      */
@@ -179,6 +181,25 @@ class PoolBuilder extends Builder
 
         if ($order && $locale) {
             return $this->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Custom sort to handle issues with how laravel aliases
+     * aggregate selects and orderBys for json fields in `lighthouse-php`
+     *
+     * The column used in the orderBy is `table_aggregate_column->property`
+     * But is actually aliased to snake case `table_aggregate_columnproperty`
+     */
+    public function orderByWorkStreamName(?array $args): self
+    {
+        $order = $args['order'] ?? null;
+        $locale = $args['locale'] ?? null;
+
+        if ($order && $locale) {
+            return $this->withMax('workStream', 'name->'.$locale)->orderBy('work_stream_max_name'.$locale, $order);
         }
 
         return $this;
@@ -199,6 +220,46 @@ class PoolBuilder extends Builder
                     ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
             );
         }
+
+        return $this;
+    }
+
+    // A scope for a simple orderBy on a column.  Allows for nulls first or last.
+    public function orderByColumn(?array $args): self
+    {
+        $column = $args['column'];
+        $order = $args['order'];
+        $nulls = $args['nulls'] ?? null;
+
+        // verify if column name is valid
+        /** @var \App\Models\Pool */
+        $model = $this->model;
+        $selectableColumns = $model->getSelectableColumns();
+        if (! in_array($column, $selectableColumns)) {
+            throw new \Exception('Invalid column');
+        }
+
+        // build column name qualified with table name
+        $tableName = $this->model->getTable();
+        $columnSql = "\"$tableName\".\"$column\"";
+
+        // build order direction while verifying that option is valid
+        $orderOptionSql = match ($order) {
+            'ASC' => 'ASC',
+            'DESC' => 'DESC',
+            default => throw new \Exception('Invalid order option'),
+        };
+
+        // build nulls option while verifying that option is valid
+        $nullsOptionSql = match ($nulls) {
+            'ORDER_FIRST' => 'NULLS FIRST',
+            'ORDER_LAST' => 'NULLS LAST',
+            null => '',
+            default => throw new \Exception('Invalid nulls option'),
+        };
+
+        // SQL execution from user input!  Ensure sufficient sanitization.
+        $this->orderByRaw("$columnSql $orderOptionSql $nullsOptionSql");
 
         return $this;
     }

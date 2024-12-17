@@ -49,7 +49,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $pool_id
  * @property string $user_id
  * @property ?\Illuminate\Support\Carbon $suspended_at
- * @property Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property ?string $education_requirement_option
@@ -122,8 +122,6 @@ class PoolCandidate extends Model
 
     /**
      * The model's default values for attributes.
-     *
-     * @var array
      */
     protected $attributes = [
         'is_bookmarked' => false,
@@ -158,21 +156,25 @@ class PoolCandidate extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class)->select(Pool::getSelectableColumns())->withTrashed();
     }
 
+    /** @return BelongsTo<Department, $this> */
     public function placedDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return HasMany<GeneralQuestionResponse, $this> */
     public function generalQuestionResponses(): HasMany
     {
         return $this->hasMany(GeneralQuestionResponse::class)->select([
@@ -183,12 +185,13 @@ class PoolCandidate extends Model
         ]);
     }
 
+    /** @return HasMany<ScreeningQuestionResponse, $this> */
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
-    // education_requirement_option fulfilled by what experience models
+    /** @return BelongsToMany<AwardExperience, $this> */
     public function educationRequirementAwardExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -200,6 +203,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<CommunityExperience, $this> */
     public function educationRequirementCommunityExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -211,6 +215,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<EducationExperience, $this> */
     public function educationRequirementEducationExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -222,6 +227,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<PersonalExperience, $this> */
     public function educationRequirementPersonalExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -233,6 +239,7 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return BelongsToMany<WorkExperience, $this> */
     public function educationRequirementWorkExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -244,11 +251,13 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    /** @return HasMany<AssessmentResult, $this> */
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);
     }
 
+    /** @return BelongsToMany<Experience, $this> */
     public function educationRequirementExperiences(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -301,7 +310,7 @@ class PoolCandidate extends Model
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
-                $query->whereIn('stream', $streams);
+                $query->whereWorkStreamsIn($streams);
             });
 
         return $query;
@@ -398,7 +407,6 @@ class PoolCandidate extends Model
     public static function scopeInTalentSearchablePublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
-            PublishingGroup::IT_JOBS_ONGOING->name,
             PublishingGroup::IT_JOBS->name,
             PublishingGroup::OTHER->name,
         ]);
@@ -1141,6 +1149,11 @@ class PoolCandidate extends Model
         $status = $this->pool_candidate_status;
         $decision = null;
 
+        // Short circuit for a case which shouldn't really come up. A PoolCandidate should never go from non-draft back to draft, but just in case...
+        if ($status === PoolCandidateStatus::DRAFT->name || $status === PoolCandidateStatus::DRAFT_EXPIRED->name) {
+            return ['decision' => null, 'weight' => null];
+        }
+
         if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
             $assessmentStatus = $this->computed_assessment_status;
             $overallStatus = null;
@@ -1191,6 +1204,7 @@ class PoolCandidate extends Model
             FinalDecision::DISQUALIFIED->name => 210,
             FinalDecision::QUALIFIED_REMOVED->name => 220,
             FinalDecision::TO_ASSESS_REMOVED->name => 230,
+            FinalDecision::DISQUALIFIED_REMOVED->name => 235, // I don't think this can be reached right now.
             FinalDecision::REMOVED->name => 240,
             FinalDecision::QUALIFIED_EXPIRED->name => 250,
             default => $this->unMatchedDecision($decision)
@@ -1212,9 +1226,9 @@ class PoolCandidate extends Model
         ];
     }
 
-    private function unMatchedDecision(?string $decison)
+    private function unMatchedDecision(?string $decision)
     {
-        Log::error(sprintf('No match for decision %s', $decison));
+        Log::error(sprintf('No match for decision %s', $decision));
 
         return null;
     }

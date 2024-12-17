@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
@@ -21,7 +21,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes, {
   FromIapDraftQueryKey,
   FromIapSuccessQueryKey,
@@ -245,7 +245,6 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
 
   return (
     <Hero
-      centered
       title={intl.formatMessage(
         {
           defaultMessage: "Welcome back, {firstName}",
@@ -284,6 +283,8 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             ),
         },
       )}
+      overlap
+      centered
     >
       {searchParams.get(FromIapDraftQueryKey) === "true" && (
         <Alert.Root

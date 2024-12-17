@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Enums\WorkRegion;
@@ -16,6 +15,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -630,12 +630,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($itPool, $user, true));
 
-        $itOngoingPool = Pool::factory()->create([
-            ...$this->poolData(),
-            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
-        ]);
-        PoolCandidate::factory()->create($this->poolCandidateData($itOngoingPool, $user, true));
-
         // Note: Should not appear in results
         $execPool = Pool::factory()->create([
             ...$this->poolData(),
@@ -657,7 +651,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     'pools' => [
                         ['id' => $itPool->id],
-                        ['id' => $itOngoingPool->id],
                         ['id' => $execPool->id], // Should not show up
                     ],
                 ],
@@ -665,10 +658,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $itOngoingPool->id],
-                        'candidateCount' => 1,
-                    ],
                     [
                         'pool' => ['id' => $itPool->id],
                         'candidateCount' => 1,
@@ -782,9 +771,21 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'group' => 'IT',
             'level' => 1,
         ]);
+
+        $unaccosiatedStream = WorkStream::factory()->create();
+        $unaccosiatedPool = Pool::factory()->candidatesAvailableInSearch()->published()->create([
+            'work_stream_id' => $unaccosiatedStream->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $unaccosiatedPool->id,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'expiry_date' => config('constants.far_future_date'),
+        ]);
+
+        $stream = WorkStream::factory()->create();
         $pool = Pool::factory()->candidatesAvailableInSearch()->create([
             'published_at' => config('constants.past_date'),
-            'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+            'work_stream_id' => $stream->id,
         ]);
         $user1 = User::factory()->create();
         PoolCandidate::factory()->create([
@@ -813,7 +814,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                             'level' => 1,
                         ],
                     ],
-                    'qualifiedStreams' => [PoolStream::ACCESS_INFORMATION_PRIVACY->name],
+                    'workStreams' => [['id' => $stream->id]],
                 ],
             ]
         )->assertSimilarJson([

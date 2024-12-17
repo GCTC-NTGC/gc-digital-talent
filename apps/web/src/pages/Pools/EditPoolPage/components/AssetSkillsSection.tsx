@@ -131,8 +131,8 @@ const AssetSkillsSection = ({
             description: "Null message title for asset skills table.",
           }),
           description: intl.formatMessage({
-            defaultMessage: `Use the "Add a new skill" button to get started.`,
-            id: "Wd9+xg",
+            defaultMessage: `Use the "Add skill" button to get started.`,
+            id: "GMbOaT",
             description: "Null message description for asset skills table.",
           }),
         }}

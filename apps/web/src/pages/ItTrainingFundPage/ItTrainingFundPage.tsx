@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import image1 from "~/assets/img/it-training-fund-1.webp";
@@ -88,6 +88,7 @@ export const Component = () => {
                 size="h2"
                 color="primary"
                 data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Investing in the future of IT talent",
@@ -117,6 +118,7 @@ export const Component = () => {
                 size="h2"
                 color="tertiary"
                 data-h2-margin="base(0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -249,6 +251,7 @@ export const Component = () => {
                 size="h2"
                 color="quaternary"
                 data-h2-margin="base(0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Three types of learning opportunities",

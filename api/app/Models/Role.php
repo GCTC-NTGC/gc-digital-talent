@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laratrust\Models\Role as LaratrustRole;
@@ -24,8 +25,8 @@ class Role extends LaratrustRole
     protected $keyType = 'string';
 
     protected $casts = [
-        'display_name' => 'array',
-        'description' => 'array',
+        'display_name' => LocalizedString::class,
+        'description' => LocalizedString::class,
     ];
 
     protected $fillable = [
@@ -37,7 +38,7 @@ class Role extends LaratrustRole
 
     public $guarded = [];
 
-    // A relationship to the custom roleAssignments pivot model
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);

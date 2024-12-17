@@ -54,7 +54,7 @@ import {
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
@@ -136,9 +136,9 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -253,9 +253,9 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -328,13 +328,13 @@ export const PoolPoster = ({
     });
   }
   const poolTitle = getShortPoolTitleLabel(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const fullPoolTitle = getFullPoolTitleHtml(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
@@ -664,7 +664,7 @@ export const PoolPoster = ({
                       description: "Label for pool advertisement stream",
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
-                  value={getLocalizedName(pool.stream?.label, intl)}
+                  value={getLocalizedName(pool?.workStream?.name, intl)}
                   suffix={
                     classification?.group === "IT" ? (
                       <Link

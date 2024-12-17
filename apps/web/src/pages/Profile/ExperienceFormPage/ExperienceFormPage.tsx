@@ -1,10 +1,5 @@
 import { useEffect } from "react";
-import {
-  Location,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Location, useLocation, useNavigate, useParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";
@@ -47,7 +42,7 @@ import type {
   ExperienceMutationResponse,
 } from "~/types/experience";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import AdditionalDetails from "~/components/ExperienceFormFields/AdditionalDetails";
@@ -210,15 +205,99 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       division
       startDate
       endDate
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);
 
-export interface ExperienceFormProps {
+interface ExperienceFormProps {
   edit?: boolean;
   experienceQuery?: FragmentType<typeof ExperienceFormExperience_Fragment>;
   experienceId?: string;
-  experienceType: ExperienceType;
+  experienceType?: ExperienceType;
   skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
   userId: string;
 }
@@ -242,7 +321,7 @@ export const ExperienceForm = ({
   const skills = getFragment(ExperienceFormSkill_Fragment, skillsQuery);
 
   const defaultValues =
-    experienceId && experience
+    experienceId && experience && experienceType
       ? queryResultToDefaultValues(experienceType, experience)
       : { experienceType };
 
@@ -264,7 +343,7 @@ export const ExperienceForm = ({
   const [type, action] = watch(["experienceType", "action"]);
   const actionProps = register("action");
 
-  const handleSuccess = () => {
+  const handleSuccess = async () => {
     toast.success(
       edit
         ? intl.formatMessage({
@@ -282,7 +361,7 @@ export const ExperienceForm = ({
     );
 
     if (action !== "add-another") {
-      navigate(returnPath);
+      await navigate(returnPath);
     }
   };
 
@@ -304,11 +383,11 @@ export const ExperienceForm = ({
     );
   };
 
-  const handleMutationResponse = (res: ExperienceMutationResponse) => {
+  const handleMutationResponse = async (res: ExperienceMutationResponse) => {
     if (res.error) {
       handleError();
     } else {
-      handleSuccess();
+      await handleSuccess();
     }
   };
 
@@ -323,8 +402,8 @@ export const ExperienceForm = ({
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
       return res
-        .then((mutationResponse) => {
-          handleMutationResponse(mutationResponse);
+        .then(async (mutationResponse) => {
+          await handleMutationResponse(mutationResponse);
         })
         .catch(handleError);
     }
@@ -342,8 +421,8 @@ export const ExperienceForm = ({
       executeDeletionMutation({
         id: experienceIdExact,
       })
-        .then((result) => {
-          navigate(returnPath);
+        .then(async (result) => {
+          await navigate(returnPath);
           toast.success(
             intl.formatMessage({
               defaultMessage: "Experience Deleted",
@@ -680,7 +759,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           edit={edit}
           experienceQuery={experience}
           experienceId={experienceId}
-          experienceType={experienceType ?? "personal"}
+          experienceType={experienceType}
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
         />

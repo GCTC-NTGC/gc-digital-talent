@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import {
   localizePath,
@@ -34,6 +34,10 @@ const Header = ({ width }: HeaderProps) => {
   }
 
   const isSmallScreen = useIsSmallScreen(1080);
+  const logoSize = {
+    "data-h2-height": "base(auto)",
+    "data-h2-max-width": "base(x12)",
+  };
 
   return (
     <header
@@ -57,22 +61,22 @@ const Header = ({ width }: HeaderProps) => {
               {locale === "en" ? (
                 <>
                   <GocLogoEn
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteEn
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>
               ) : (
                 <>
                   <GocLogoFr
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteFr
-                    data-h2-max-width="base(x12)"
+                    {...logoSize}
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>

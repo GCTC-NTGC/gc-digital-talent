@@ -161,7 +161,7 @@ const ScreeningAndEvaluationPage = () => {
   }, [lastPage]);
 
   return (
-    <AdminContentWrapper>
+    <AdminContentWrapper table data-h2-margin-top="base(-x3)">
       <Pending fetching={fetching} error={error}>
         {data?.pool ? (
           <AssessmentStepTracker

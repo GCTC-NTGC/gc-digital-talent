@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -26,12 +26,12 @@ import {
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import messages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
+import Hero from "~/components/Hero";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -130,9 +130,9 @@ export const CreatePoolForm = ({
       data.community,
       formValuesToSubmitData(data),
     )
-      .then((result) => {
+      .then(async (result) => {
         if (result) {
-          navigate(paths.poolUpdate(result.id));
+          await navigate(paths.poolUpdate(result.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Recruitment process created successfully!",
@@ -395,10 +395,10 @@ const CreatePoolPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedSubTitle} />
-      <AdminHero
+      <Hero
         title={formattedPageTitle}
         subtitle={formattedSubTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
+        crumbs={navigationCrumbs}
       />
       <AdminContentWrapper>
         <Pending fetching={fetching} error={error}>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -137,9 +137,9 @@ export const UpdateClassificationForm = ({
       id: classification.id,
       classification: input,
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.updateClassification) {
-          navigate(paths.classificationView(classification.id));
+          await navigate(paths.classificationView(classification.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Classification updated successfully!",
@@ -254,6 +254,7 @@ export const UpdateClassificationForm = ({
                       "Label displayed for the classification form min salary field.",
                   })}
                   type="number"
+                  min="0"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     min: {
@@ -274,6 +275,7 @@ export const UpdateClassificationForm = ({
                       "Label displayed for the classification form max salary field.",
                   })}
                   type="number"
+                  min="0"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     min: {

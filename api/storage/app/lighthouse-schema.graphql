@@ -311,6 +311,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
@@ -345,6 +346,8 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    orderByWorkStreamName: PoolWorkStreamNameOrderByInput
+    orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -471,6 +474,8 @@ type Mutation {
   createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
   updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
+  createWorkStream(workStream: CreateWorkStreamInput!): WorkStream
+  updateWorkStream(id: UUID!, workStream: UpdateWorkStreamInput!): WorkStream
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
@@ -536,6 +541,7 @@ scalar UUID
 type LocalizedString {
   en: String
   fr: String
+  localized: String
 }
 
 type LocalizedEnumString {
@@ -733,7 +739,7 @@ type Pool implements HasRoleAssignments {
   securityClearance: LocalizedSecurityStatus
   language: LocalizedPoolLanguage
   status: LocalizedPoolStatus
-  stream: LocalizedPoolStream
+  workStream: WorkStream
   processNumber: String
   publishingGroup: LocalizedPublishingGroup
   opportunityLength: LocalizedPoolOpportunityLength
@@ -884,6 +890,14 @@ type Department {
   pools: [Pool]
 }
 
+type WorkStream {
+  id: UUID!
+  key: String
+  name: LocalizedString
+  plainLanguageName: LocalizedString
+  community: Community
+}
+
 type Community implements HasRoleAssignments {
   id: ID!
   key: String!
@@ -960,7 +974,7 @@ type ApplicantFilter {
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
-  qualifiedStreams: [LocalizedPoolStream]
+  workStreams: [WorkStream!]
   pools: [Pool]
   community: Community
 }
@@ -1124,7 +1138,6 @@ type JobPosterTemplate {
   name: LocalizedString
   description: LocalizedString
   supervisoryStatus: LocalizedSupervisoryStatus
-  stream: LocalizedPoolStream
   workDescription: LocalizedString
   tasks: LocalizedString
   keywords: LocalizedKeywords
@@ -1132,6 +1145,7 @@ type JobPosterTemplate {
   essentialBehaviouralSkillsNotes: LocalizedString
   nonessentialTechnicalSkillsNotes: LocalizedString
   classification: Classification
+  workStream: WorkStream
   skills: [JobPosterTemplateSkill!]
 }
 
@@ -1193,7 +1207,7 @@ input PoolFilterInput {
   generalSearch: String
   name: String
   team: String
-  streams: [PoolStream!]
+  workStreams: [UUID!]
   statuses: [PoolStatus!] = []
   processNumber: String
   publishingGroups: [PublishingGroup!]
@@ -1206,9 +1220,20 @@ input PoolTeamDisplayNameOrderByInput {
   order: SortOrder!
 }
 
+input PoolWorkStreamNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
 input PoolBookmarksOrderByInput {
   column: String!
   order: SortOrder!
+}
+
+input OrderByColumnInput {
+  column: String!
+  order: SortOrder!
+  nulls: NullsOption
 }
 
 input ApplicantFilterInput {
@@ -1222,7 +1247,7 @@ input ApplicantFilterInput {
   skills: [IdInput]
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
-  qualifiedStreams: [PoolStream]
+  workStreams: [IdInput]
   community: IdInput
 }
 
@@ -1246,7 +1271,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
   departments: [ID]
   classifications: [ID]
-  streams: [PoolStream]
+  workStreams: [UUID]
   fullName: String
   email: String
   id: ID
@@ -1540,16 +1565,39 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input PoolBelongsToMany {
-  sync: [ID!]
-}
-
 input DepartmentBelongsTo {
   connect: ID
   disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput!
+  plainLanguageName: LocalizedStringInput
+  community: CommunityBelongsTo!
+}
+
+input UpdateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput
+  plainLanguageName: LocalizedStringInput
+  community: CommunityBelongsTo
+}
+
+input WorkStreamBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input WorkStreamBelongsToMany {
+  sync: [ID!]
+}
+
+input PoolBelongsToMany {
   sync: [ID!]
 }
 
@@ -1599,7 +1647,7 @@ input CreateApplicantFilterInput {
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
   qualifiedClassifications: ClassificationBelongsToMany
-  qualifiedStreams: [PoolStream]
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -1694,8 +1742,8 @@ input WorkExperienceInput {
   contractorFirmAgencyName: String
   cafForce: CafForce
   cafRank: CafRank
-  classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
+  classificationId: String
+  departmentId: String
 }
 
 input PersonalExperienceInput {
@@ -1828,7 +1876,7 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
   department: DepartmentBelongsTo
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   processNumber: String
   closingDate: DateTime
   closingReason: String
@@ -2039,6 +2087,7 @@ input CreateJobPosterTemplateInput {
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus!
   stream: PoolStream!
+  workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput!
   keywords: LocalizedKeywordsInput
@@ -2055,7 +2104,7 @@ input UpdateJobPosterTemplateInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   supervisoryStatus: SupervisoryStatus
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput
   keywords: LocalizedStringInput
@@ -2811,7 +2860,7 @@ enum AdvertisementType {
 enum AdvertisingPlatform {
   GCJOBS
   GCCONNEX
-  GCXCHNAGE
+  GCXCHANGE
   GC_COLLAB
   FACEBOOK
   LINKEDIN
@@ -3117,6 +3166,11 @@ enum NotificationFamily {
   JOB_ALERT
 }
 
+enum NullsOption {
+  ORDER_FIRST
+  ORDER_LAST
+}
+
 enum OperationalRequirement {
   SHIFT_WORK
   ON_CALL
@@ -3266,7 +3320,6 @@ enum ProvinceOrTerritory {
 enum PublishingGroup {
   IAP
   IT_JOBS
-  IT_JOBS_ONGOING
   EXECUTIVE_JOBS
   OTHER
 }

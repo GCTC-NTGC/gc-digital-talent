@@ -1,6 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
@@ -130,9 +130,9 @@ export const CommunityTable = ({
               linkProps: {
                 href: paths.communityCreate(),
                 label: intl.formatMessage({
-                  defaultMessage: "Create a community",
-                  id: "BRd2Xw",
-                  description: "Text to create a community",
+                  defaultMessage: "Create community",
+                  id: "PrTwov",
+                  description: "Text to create a community (action)",
                 }),
                 from: currentUrl,
               },

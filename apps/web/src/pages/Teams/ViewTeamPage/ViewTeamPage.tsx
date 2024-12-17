@@ -35,7 +35,7 @@ export const ViewTeamContent = ({ teamQuery }: ViewTeamContentProps) => {
     <>
       <SEO title={pageTitle} />
       <ViewTeam teamQuery={teamQuery} />
-      <Separator data-h2-margin="base(x2, 0, 0, 0)" />
+      <Separator data-h2-margin="base(x1.75, 0, 0, 0)" />
     </>
   );
 };

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Enums\PoolStatus;
-use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
@@ -14,6 +13,7 @@ use App\Models\PoolSkill;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\WorkStream;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
@@ -1099,7 +1099,7 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            name { en fr }
+                            name { en fr localized }
                         }
                     }
                 }
@@ -1159,16 +1159,20 @@ class PoolTest extends TestCase
      */
     public function testPoolStreamsScope(): void
     {
-        $ATIP = Pool::factory()->published()->create([
-            'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+        $stream1 = WorkStream::factory()->create();
+        $stream2 = WorkStream::factory()->create();
+        $unassociatedStream = WorkStream::factory()->create();
+
+        $pool1 = Pool::factory()->published()->create([
+            'work_stream_id' => $stream1->id,
         ]);
 
-        $BAS = Pool::factory()->published()->create([
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+        $pool2 = Pool::factory()->published()->create([
+            'work_stream_id' => $stream2->id,
         ]);
 
         Pool::factory()->published()->create([
-            'stream' => PoolStream::DATABASE_MANAGEMENT->name,
+            'work_stream_id' => $unassociatedStream->id,
         ]);
 
         $res = $this->graphQL(
@@ -1178,31 +1182,31 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            stream { value }
+                            workStream { id }
                         }
                     }
                 }
             ',
             [
                 'where' => [
-                    'streams' => [
-                        PoolStream::ACCESS_INFORMATION_PRIVACY->name,
-                        PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'workStreams' => [
+                        $stream1->id,
+                        $stream2->id,
                     ],
                 ],
             ]
         )->assertJsonFragment([
             'data' => [
                 [
-                    'id' => $ATIP->id,
-                    'stream' => [
-                        'value' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    'id' => $pool1->id,
+                    'workStream' => [
+                        'id' => $stream1->id,
                     ],
                 ],
                 [
-                    'id' => $BAS->id,
-                    'stream' => [
-                        'value' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'id' => $pool2->id,
+                    'workStream' => [
+                        'id' => $stream2->id,
                     ],
                 ],
             ],

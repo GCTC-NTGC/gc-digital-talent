@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use App\Enums\AssessmentStepType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +34,7 @@ class AssessmentStep extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'title' => 'array',
+        'title' => LocalizedString::class,
     ];
 
     /**
@@ -54,22 +55,26 @@ class AssessmentStep extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
     }
 
+    /** @return BelongsToMany<PoolSkill, $this> */
     public function poolSkills(): BelongsToMany
     {
         return $this->belongsToMany(PoolSkill::class, 'assessment_step_pool_skill')
             ->withTimestamps();
     }
 
+    /** @return HasMany<AssessmentResult, $this> */
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);
     }
 
+    /** @return HasMany<ScreeningQuestion, $this> */
     public function screeningQuestions(): HasMany
     {
         return $this->hasMany(ScreeningQuestion::class);

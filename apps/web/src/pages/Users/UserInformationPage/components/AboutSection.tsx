@@ -28,7 +28,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             {intl.formatMessage(commonMessages.email)}
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <p>{user.email}</p>
+          <p data-h2-overflow-wrap="base(anywhere)">{user.email}</p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">

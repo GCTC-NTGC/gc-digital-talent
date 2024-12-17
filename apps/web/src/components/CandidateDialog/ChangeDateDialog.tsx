@@ -37,9 +37,9 @@ export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
     expiryDate
     pool {
       id
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -177,7 +177,7 @@ const ChangeDateDialog = ({
           <p data-h2-font-weight="base(800)">
             -{" "}
             {getShortPoolTitleHtml(intl, {
-              stream: selectedCandidate.pool.stream,
+              workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,
               publishingGroup: selectedCandidate.pool.publishingGroup,
               classification: selectedCandidate.pool.classification,

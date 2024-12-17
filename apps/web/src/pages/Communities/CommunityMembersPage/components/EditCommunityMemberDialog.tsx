@@ -7,7 +7,7 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
 import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";

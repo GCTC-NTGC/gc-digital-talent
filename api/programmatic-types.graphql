@@ -89,6 +89,11 @@ type LocalizedCourseLanguage {
   label: LocalizedString!
 }
 
+type LocalizedDeadlineStatus {
+  value: DeadlineStatus!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -146,11 +151,6 @@ type LocalizedGovContractorType {
 
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
-  label: LocalizedString!
-}
-
-type LocalizedGovEmploymentType {
-  value: GovEmploymentType!
   label: LocalizedString!
 }
 
@@ -276,6 +276,11 @@ type LocalizedSkillLevel {
 
 type LocalizedSupervisoryStatus {
   value: SupervisoryStatus!
+  label: LocalizedString!
+}
+
+type LocalizedWorkExperienceGovEmployeeType {
+  value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
 }
 
@@ -772,6 +777,11 @@ enum CourseLanguage {
   BILINGUAL
 }
 
+enum DeadlineStatus {
+  PUBLISHED
+  EXPIRED
+}
+
 enum AdvertisementType {
   INTERNAL
   EXTERNAL
@@ -780,7 +790,7 @@ enum AdvertisementType {
 enum AdvertisingPlatform {
   GCJOBS
   GCCONNEX
-  GCXCHNAGE
+  GCXCHANGE
   GC_COLLAB
   FACEBOOK
   LINKEDIN
@@ -1058,14 +1068,6 @@ enum GovEmployeeType {
   INDETERMINATE
 }
 
-enum GovEmploymentType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-  CONTRACTOR
-}
-
 enum GovPositionType {
   SUBSTANTIVE
   ACTING
@@ -1274,6 +1276,14 @@ enum SupervisoryStatus {
 enum WhenSkillUsed {
   CURRENT
   PAST
+}
+
+enum WorkExperienceGovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+  CONTRACTOR
 }
 
 enum WorkRegion {

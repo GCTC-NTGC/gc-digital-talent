@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useQuery } from "urql";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -9,7 +9,7 @@ import { EmailType, graphql } from "@gc-digital-talent/graphql";
 // importing from a shared file, not the page itself
 // eslint-disable-next-line no-restricted-imports
 import profilePageMessages from "~/pages/Profile/ProfilePage/messages";
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -54,12 +54,12 @@ const ProfileWorkEmailVerificationPage = () => {
     ],
   });
 
-  const handleVerificationSuccess = (): void => {
-    navigate(paths.profile());
+  const handleVerificationSuccess = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
-  const handleSkip = (): void => {
-    navigate(paths.profile());
+  const handleSkip = async (): Promise<void> => {
+    await navigate(paths.profile());
   };
 
   return (

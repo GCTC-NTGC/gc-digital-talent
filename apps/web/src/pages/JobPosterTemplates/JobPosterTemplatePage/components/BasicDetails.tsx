@@ -29,8 +29,8 @@ const JobPosterTemplateBasicDetails_Fragment = graphql(/* GraphQL */ `
       group
       level
     }
-    stream {
-      label {
+    workStream {
+      name {
         en
         fr
       }
@@ -93,12 +93,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
             {getLocalizedName(jobPosterTemplate.name, intl)}
           </FieldDisplay>
           <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Description",
-              id: "9yGJ6k",
-              description:
-                "Title displayed for the skill table Description column.",
-            })}
+            label={intl.formatMessage(commonMessages.description)}
             data-h2-grid-column="p-tablet(span 2) l-tablet(span 3)"
           >
             {getLocalizedName(jobPosterTemplate.description, intl)}
@@ -126,7 +121,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
                 "Label displayed on the pool form stream/job title field.",
             })}
           >
-            {getLocalizedName(jobPosterTemplate.stream?.label, intl)}
+            {getLocalizedName(jobPosterTemplate.workStream?.name, intl)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

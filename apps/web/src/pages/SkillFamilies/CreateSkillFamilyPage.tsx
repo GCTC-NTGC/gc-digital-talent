@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -129,9 +129,11 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return executeMutation({ skillFamily: formValuesToSubmitData(data) })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createSkillFamily) {
-          navigate(paths.skillFamilyView(result.data.createSkillFamily.id));
+          await navigate(
+            paths.skillFamilyView(result.data.createSkillFamily.id),
+          );
           toast.success(
             intl.formatMessage({
               defaultMessage: "Skill family created successfully!",
