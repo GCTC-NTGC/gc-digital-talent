@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\PlacementType;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
 
@@ -24,6 +25,12 @@ final class PlaceCandidate
         $finalDecision = $candidate->computeFinalDecision();
         $candidate->computed_final_decision = $finalDecision['decision'];
         $candidate->computed_final_decision_weight = $finalDecision['weight'];
+
+        if ($placementType === PlacementType::PLACED_TERM->name || $placementType === PlacementType::PLACED_INDETERMINATE->name) {
+            $candidate->suspended_at = $now;
+        } else {
+            $candidate->suspended_at = null;
+        }
 
         $candidate->save();
 
