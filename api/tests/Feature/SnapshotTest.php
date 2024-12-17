@@ -88,7 +88,7 @@ class SnapshotTest extends TestCase
         )->json('data.poolCandidate.profileSnapshot');
 
         $decodedActual = json_decode($actualSnapshot, true);
-        unset($decodedActual['pool']['department']['name']['localized']);
+        $this->unsetLocalizedKey($decodedActual);
 
         // Add version number
         $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
@@ -250,5 +250,17 @@ class SnapshotTest extends TestCase
                 ],
             ],
         ], $snapshot);
+    }
+
+    private function unsetLocalizedKey(array &$arr)
+    {
+        if (is_array($arr)) {
+            unset($arr['localized']);
+        }
+        foreach ($arr as &$v) {
+            if (is_array($v)) {
+                $this->unsetLocalizedKey($v);
+            }
+        }
     }
 }
