@@ -3259,10 +3259,6 @@
     "defaultMessage": "Mettre à jour l’utilisateur",
     "description": "Page title for the user edit page"
   },
-  "Ezh14X": {
-    "defaultMessage": "Équipes",
-    "description": "Title for the index team page"
-  },
   "F+WFWB": {
     "defaultMessage": "Région",
     "description": "Label for work location filter in search form."
