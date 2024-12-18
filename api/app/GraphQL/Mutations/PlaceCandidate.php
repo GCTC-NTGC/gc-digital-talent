@@ -26,6 +26,7 @@ final class PlaceCandidate
         $candidate->computed_final_decision = $finalDecision['decision'];
         $candidate->computed_final_decision_weight = $finalDecision['weight'];
 
+        // If setting to term or indeterminate automatically suspend the candidate, otherwise null the field
         if ($placementType === PlacementType::PLACED_TERM->name || $placementType === PlacementType::PLACED_INDETERMINATE->name) {
             $candidate->suspended_at = $now;
         } else {
