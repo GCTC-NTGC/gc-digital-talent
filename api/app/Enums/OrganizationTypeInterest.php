@@ -13,7 +13,7 @@ enum OrganizationTypeInterest
     case OTHER_AGENCY;
     case OTHER_CROWN_CORP;
 
-    public function getLangFilename(): string
+    public static function getLangFilename(): string
     {
         return 'organization_type_interest';
     }
