@@ -4,9 +4,10 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
-// find out where local log file should go
+// find out where local log files should go
 $filesystemsConfig = include config_path('filesystems.php');
-$localLogFile = $filesystemsConfig['disks']['logFiles']['root'].DIRECTORY_SEPARATOR.'laravel.log';
+$logFileDirectory = $filesystemsConfig['disks']['logFiles']['root'];
+$mainLogFile = $logFileDirectory.DIRECTORY_SEPARATOR.'laravel.log';
 
 return [
 
@@ -60,13 +61,19 @@ return [
 
         'single' => [
             'driver' => 'single',
-            'path' => $localLogFile,
+            'path' => $mainLogFile,
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
+        'scheduledJobs' => [
+            'driver' => 'single',
+            'path' => $logFileDirectory.DIRECTORY_SEPARATOR.'scheduled_jobs.log',
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => $localLogFile,
+            'path' => $mainLogFile,
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
@@ -125,7 +132,7 @@ return [
         ],
 
         'emergency' => [
-            'path' => $localLogFile,
+            'path' => $mainLogFile,
         ],
     ],
 
