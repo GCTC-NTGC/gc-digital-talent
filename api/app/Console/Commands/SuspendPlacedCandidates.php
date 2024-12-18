@@ -3,9 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Enums\PoolCandidateStatus;
+use App\Models\PoolCandidate;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 
 class SuspendPlacedCandidates extends Command
 {
@@ -30,20 +31,18 @@ class SuspendPlacedCandidates extends Command
      */
     public function handle()
     {
-        $dateNow = Carbon::now();
         $applicableStatuses = [PoolCandidateStatus::PLACED_TERM->name, PoolCandidateStatus::PLACED_INDETERMINATE->name];
 
-        DB::beginTransaction();
-        try {
-            DB::table('pool_candidates')
-                ->whereIn('pool_candidate_status', $applicableStatuses)
-                ->whereNull('suspended_at')
-                ->update(['suspended_at' => $dateNow]);
-            DB::commit();
-        } catch (\Throwable $error) {
-            DB::rollBack();
-            throw $error;
-        }
+        PoolCandidate::whereIn('pool_candidate_status', $applicableStatuses)
+            ->whereNull('suspended_at')
+            ->with('user')
+            ->chunkById(100, function (Collection $candidates) {
+                foreach ($candidates as $candidate) {
+                    $candidate->suspended_at = Carbon::now();
+                    $candidate->save();
+                }
+            }
+            );
 
         return Command::SUCCESS;
     }
