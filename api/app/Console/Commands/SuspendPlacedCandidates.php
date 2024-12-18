@@ -38,6 +38,7 @@ class SuspendPlacedCandidates extends Command
             ->with('user')
             ->chunkById(100, function (Collection $candidates) {
                 foreach ($candidates as $candidate) {
+                    /** @var \App\Models\PoolCandidate $candidate */
                     $candidate->suspended_at = Carbon::now();
                     $candidate->save();
                 }
