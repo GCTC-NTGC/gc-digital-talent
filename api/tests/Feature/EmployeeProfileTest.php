@@ -43,7 +43,7 @@ class EmployeeProfileTest extends TestCase
             ->create();
     }
 
-    public function test_can_view_employee_profile()
+    public function testCanViewEmployeeProfile()
     {
 
         $this->actingAs($this->user, 'api')
@@ -93,7 +93,7 @@ class EmployeeProfileTest extends TestCase
             ]);
     }
 
-    public function test_can_update_employee_profile()
+    public function testCanUpdateEmployeeProfile()
     {
 
         $community = Community::factory()->withWorkStreams()->create();
@@ -161,7 +161,7 @@ class EmployeeProfileTest extends TestCase
             ]);
     }
 
-    public function test_update_employee_profile_bad_input_fails_validation()
+    public function testUpdateEmployeeProfileBadInputFailsValidation()
     {
 
         $unassociatedWorkStream = WorkStream::factory()->create();
@@ -190,7 +190,7 @@ class EmployeeProfileTest extends TestCase
             ->assertGraphQLValidationError('employeeProfile.dreamRoleDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND);
     }
 
-    public function test_cannot_edit_another_users_employee_profile()
+    public function testCannotEditAnotherUsersEmployeeProfile()
     {
         /** @var \App\Models\User $otherUser */
         $otherUser = User::factory()->create();
