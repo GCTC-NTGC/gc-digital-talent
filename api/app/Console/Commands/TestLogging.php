@@ -26,14 +26,16 @@ class TestLogging extends Command
      */
     public function handle()
     {
-        Log::debug('Debug log message');
-        Log::info('Info log message');
-        Log::notice('Notice log message');
-        Log::warning('Warning log message');
-        Log::error('Error log message');
-        Log::critical('Critical log message');
-        Log::alert('Alert log message');
-        Log::emergency('Emergency log message');
+        $log = Log::channel('scheduledJobs');
+
+        $log->debug('Debug log message');
+        $log->info('Info log message');
+        $log->notice('Notice log message');
+        $log->warning('Warning log message');
+        $log->error('Error log message');
+        $log->critical('Critical log message');
+        $log->alert('Alert log message');
+        $log->emergency('Emergency log message');
 
         $this->info('Logging complete!');
 
