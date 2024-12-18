@@ -244,6 +244,15 @@ return [
             'fr' => 'Mettre à jour son propre profil de candidat',
         ],
 
+        'view-own-employeeProfile' => [
+            'en' => 'View any Employee Profile',
+            'fr' => 'Visionner tout profil de candidat',
+        ],
+        'update-own-employeeProfile' => [
+            'en' => 'Update any Employee Profile',
+            'fr' => 'Visionner tout profil de candidat',
+        ],
+
         'view-team-draftPool' => [
             'en' => 'View draft Pools in this Team',
             'fr' => 'Voir les bassins de brouillons dans cette équipe',

@@ -19,10 +19,10 @@ return new class extends Migration
             $table->jsonb('career_planning_mentorship_interest')->nullable();
             $table->boolean('career_planning_exec_interest')->nullable();
             $table->jsonb('career_planning_exec_coaching_status')->nullable();
-            $table->jsonb('career_planning_exect_coaching_interest')->nullable();
+            $table->jsonb('career_planning_exec_coaching_interest')->nullable();
             $table->string('career_planning_about_you')->nullable();
             $table->string('career_planning_career_goals')->nullable();
-            $table->string('career_planining_learning_goals')->nullable();
+            $table->string('career_planning_learning_goals')->nullable();
             $table->string('career_planning_work_style')->nullable();
 
             $table->string('dream_role_title')->nullable();
@@ -67,11 +67,11 @@ return new class extends Migration
             $table->dropColumn('career_planning_mentorship_interest');
             $table->dropColumn('career_planning_exec_interest');
             $table->dropColumn('career_planning_exec_coaching_status');
-            $table->dropColumn('career_planning_exect_coaching_interest');
+            $table->dropColumn('career_planning_exec_coaching_interest');
             $table->dropColumn('career_planning_about_you');
             $table->dropColumn('career_planning_work_style');
             $table->dropColumn('career_planning_career_goals');
-            $table->dropColumn('career_planining_learning_goals');
+            $table->dropColumn('career_planning_learning_goals');
 
             $table->dropColumn('dream_role_title');
             $table->dropColumn('dream_role_additional_information');
