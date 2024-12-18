@@ -190,6 +190,25 @@ class EmployeeProfileTest extends TestCase
             ->assertGraphQLValidationError('employeeProfile.dreamRoleDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND);
     }
 
+    public function test_cannot_edit_another_users_employee_profile()
+    {
+        /** @var \App\Models\User $otherUser */
+        $otherUser = User::factory()->create();
+
+        $this->actingAs($otherUser, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateOtherUserEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
+                    updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
+                        dreamRoleTitle
+                    }
+                }
+            GRAPHQL, [
+                'id' => $this->user->id,
+                'employeeProfile' => ['dreamRoleTitle' => 'test'],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
     protected function arrayToLocalizedEnum(?array $arr)
     {
         return ! is_null($arr) ? Arr::map($arr, fn ($value) => ['value' => $value]) : null;

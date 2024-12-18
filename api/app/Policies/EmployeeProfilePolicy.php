@@ -12,7 +12,7 @@ class EmployeeProfilePolicy
      */
     public function view(User $user, EmployeeProfile $employeeProfile): bool
     {
-        return $user->isAbleTo('view-own-employeeProfile');
+        return $user->isAbleTo('view-own-employeeProfile') && $employeeProfile->id === $user->id;
     }
 
     /**
@@ -20,6 +20,6 @@ class EmployeeProfilePolicy
      */
     public function update(User $user, EmployeeProfile $employeeProfile): bool
     {
-        return $user->isAbleTo('update-own-employeeProfile');
+        return $user->isAbleTo('update-own-employeeProfile') && $employeeProfile->id === $user->id;
     }
 }
