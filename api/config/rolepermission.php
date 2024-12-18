@@ -63,6 +63,7 @@ return [
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
+        'employeeProfile' => 'employeeProfile',
         'applicantProfile' => 'applicantProfile',
         'draftPool' => 'draftPool',
         'publishedPool' => 'publishedPool',
@@ -878,6 +879,9 @@ return [
                 'any' => ['view'],
             ],
             'user' => [
+                'own' => ['view', 'update'],
+            ],
+            'employeeProfile' => [
                 'own' => ['view', 'update'],
             ],
             'publishedPool' => [
