@@ -216,11 +216,11 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $community = Community::inRandomOrder()->first();
-            if (! $community) {
-                $community = Community::factory()->create();
+            if (is_null($community)) {
+                $community = Community::factory()->withWorkStreams()->create();
             }
             $classification = Classification::inRandomOrder()->first();
-            if (! $classification) {
+            if (is_null($classification)) {
                 $classification = Classification::factory()->create();
             }
             $workStream = $this->faker->randomElement($community->workStreams);

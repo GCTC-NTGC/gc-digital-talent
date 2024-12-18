@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class EmployeeProfile
@@ -43,24 +44,30 @@ class EmployeeProfile extends Model
     /** @return BelongsTo<Community, $this> */
     public function dreamRoleCommunity(): BelongsTo
     {
-        return $this->belongsTo(Community::class, 'id', 'dream_role_community_id');
+        return $this->belongsTo(Community::class, 'dream_role_community_id');
     }
 
     /** @return BelongsTo<Classification, $this> */
     public function dreamRoleClassification(): BelongsTo
     {
-        return $this->belongsTo(Classification::class, 'id', 'dream_role_classification_id');
+        return $this->belongsTo(Classification::class, 'dream_role_classification_id');
     }
 
     /** @return BelongsTo<WorkStream, $this> */
     public function dreamRoleWorkStream(): BelongsTo
     {
-        return $this->belongsTo(WorkStream::class, 'id', 'dream_role_work_stream_id');
+        return $this->belongsTo(WorkStream::class, 'dream_role_work_stream_id');
     }
 
     /** @return BelongsToMany<Department, $this> */
     public function dreamRoleDepartments(): BelongsToMany
     {
         return $this->belongsToMany(Department::class, 'department_user_dream_role', 'user_id', 'department_id');
+    }
+
+    /** @return HasOne<User, $this> */
+    public function userPublicProfile(): HasOne
+    {
+        return $this->hasOne(User::class, 'id')->select(['email', 'firstName', 'lastName']);
     }
 }
