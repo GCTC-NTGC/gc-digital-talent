@@ -520,38 +520,38 @@ class PoolCandidateUpdateTest extends TestCase
             PlacementType::PLACED_INDETERMINATE->name,
         ];
 
-        foreach ($placedDoNotSuspend as $value) {
+        foreach ($placedDoNotSuspend as $placementType) {
             $response = $this->actingAs($this->poolOperatorUser, 'api')
                 ->graphQL(
                     $this->placeCandidateMutation,
                     [
                         'id' => $this->poolCandidate->id,
                         'placeCandidate' => [
-                            'placementType' => $value,
+                            'placementType' => $placementType,
                             'departmentId' => $department->id,
                         ],
                     ]
                 )->json('data.placeCandidate');
 
-            assertSame($response['status']['value'], $value);
+            assertSame($response['status']['value'], $placementType);
             assertNotNull($response['placedAt']);
             assertNull($response['suspendedAt']);
         }
 
-        foreach ($placedDoSuspend as $value) {
+        foreach ($placedDoSuspend as $placementType) {
             $response = $this->actingAs($this->poolOperatorUser, 'api')
                 ->graphQL(
                     $this->placeCandidateMutation,
                     [
                         'id' => $this->poolCandidate->id,
                         'placeCandidate' => [
-                            'placementType' => $value,
+                            'placementType' => $placementType,
                             'departmentId' => $department->id,
                         ],
                     ]
                 )->json('data.placeCandidate');
 
-            assertSame($response['status']['value'], $value);
+            assertSame($response['status']['value'], $placementType);
             assertNotNull($response['placedAt']);
             assertNotNull($response['suspendedAt']);
         }

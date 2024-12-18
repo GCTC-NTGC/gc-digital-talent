@@ -1729,6 +1729,7 @@ class UserTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
+        // group one
         PoolCandidate::factory()->count(8)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1739,6 +1740,7 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => false,
             ]),
         ]);
+        // group two
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1750,6 +1752,7 @@ class UserTest extends TestCase
             ]),
         ]);
         // Should appear in searches, but in pool 2.
+        // group three
         PoolCandidate::factory()->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1761,6 +1764,7 @@ class UserTest extends TestCase
             ]),
         ]);
         // Expired in pool - should not appear in searches
+        // group four
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => '2000-01-01',
@@ -1772,6 +1776,7 @@ class UserTest extends TestCase
             ]),
         ]);
         // Already placed - should appear in searches
+        // group five
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1784,6 +1789,7 @@ class UserTest extends TestCase
             ]),
         ]);
         // User status inactive - should not appear in searches
+        // group six
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1813,6 +1819,7 @@ class UserTest extends TestCase
         );
         $response->assertJson([
             'data' => [
+                // contains groups one, two, and five
                 'countApplicants' => 15, // including base admin user
             ],
         ]);
@@ -1835,7 +1842,8 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 10, //including base admin user
+                // counts groups one and five, filtered out two due to added language
+                'countApplicants' => 10, // including base admin user
             ],
         ]);
     }

@@ -858,24 +858,21 @@ class PoolCandidateTest extends TestCase
         PoolCandidate::truncate();
         $candidate = PoolCandidate::factory()->availableInSearch()->create([
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            'expiry_date' => null,
+            'suspended_at' => null,
         ]);
-        $candidate->expiry_date = null;
-        $candidate->suspended_at = null;
-        $candidate->save();
 
         $suspendedCandidate = PoolCandidate::factory()->availableInSearch()->create([
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            'expiry_date' => null,
+            'suspended_at' => config('constants.far_past_datetime'),
         ]);
-        $suspendedCandidate->expiry_date = null;
-        $suspendedCandidate->suspended_at = config('constants.far_past_datetime');
-        $suspendedCandidate->save();
 
         $expiredCandidate = PoolCandidate::factory()->availableInSearch()->create([
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            'expiry_date' => config('constants.past_date'),
+            'suspended_at' => null,
         ]);
-        $expiredCandidate->expiry_date = config('constants.past_date');
-        $expiredCandidate->suspended_at = null;
-        $expiredCandidate->save();
 
         $queryBuilder = PoolCandidate::query();
         $candidateIds = PoolCandidate::scopeAvailable($queryBuilder)->get()->pluck('id')->toArray();

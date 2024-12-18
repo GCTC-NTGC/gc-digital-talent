@@ -837,25 +837,23 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'publishing_group' => PublishingGroup::IT_JOBS->name,
         ]);
         PoolCandidate::truncate();
-        $candidate = PoolCandidate::factory()->availableInSearch()->create([
+        PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $itPool,
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            'suspended_at' => null,
         ]);
-        $candidate->suspended_at = null;
-        $candidate->save();
-        $candidate = PoolCandidate::factory()->availableInSearch()->create([
+        PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $itPool,
             'pool_candidate_status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            'suspended_at' => null,
         ]);
-        $candidate->suspended_at = null;
-        $candidate->save();
-        $suspendedCandidate = PoolCandidate::factory()->availableInSearch()->create([
+        PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $itPool,
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+            'suspended_at' => config('constants.far_past_datetime'),
         ]);
-        $suspendedCandidate->suspended_at = config('constants.far_past_datetime');
-        $suspendedCandidate->save();
 
+        // expect 2, the 2 un-suspended ones
         $this->graphQL(
             /** @lang GraphQL */
             '
