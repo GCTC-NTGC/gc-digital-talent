@@ -8,8 +8,11 @@ on:
       - "**.md"
 
   pull_request:
-    paths-ignore:
-      - "**.md"
+    paths:
+      - .github/workflows/*lint*.yml
+      - apps/**
+      - packages/**
+      - api/**
   merge_group:
     branches: [main]
 # Concurrency is used to cancel other currently-running jobs, to preserve
