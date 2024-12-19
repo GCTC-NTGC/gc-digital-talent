@@ -22,6 +22,8 @@ import profileMessages from "~/messages/profileMessages";
 import AccountManagement from "./AccountManagement";
 import RecruitmentAvailability from "./RecruitmentAvailability";
 import NotificationSettings from "./NotificationSettings";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 const AccountSettings_Query = graphql(/* GraphQL */ `
   query AccountSettings {
@@ -65,7 +67,7 @@ const inlineLink = (href: string, chunks: ReactNode) => (
   </Link>
 );
 
-export const Component = () => {
+const AccountSettingsPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -238,12 +240,12 @@ export const Component = () => {
   );
 };
 
-// export const Component = () => (
-//   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-//     <AccountSettingsPage />
-//   </RequireAuth>
-// );
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <AccountSettingsPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AccountSettingsPage";
 
-export default Component;
+export default AccountSettingsPage;
