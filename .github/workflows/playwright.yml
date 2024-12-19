@@ -82,7 +82,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: chromium-report-${{ matrix.shardIndex }}
+          name: report-chromium-${{ matrix.shardIndex }}
           path: ./apps/playwright/playwright-report/
           retention-days: 30
 
@@ -91,7 +91,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: webkit-report-${{ matrix.shardIndex }}
+          name: report-webkit-${{ matrix.shardIndex }}
           path: ./apps/playwright/playwright-report/
           retention-days: 30
 
@@ -124,7 +124,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         path: all-reports
-        pattern: *-report-*
+        pattern: report-*
         merge-multiple: true
 
     - name: Merge into HTML Report
