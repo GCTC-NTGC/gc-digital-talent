@@ -9,7 +9,7 @@ on:
 
   pull_request:
     paths:
-      - .github/workflows/*lint*.yml
+      - .github/workflows/*playwright*.yml
       - apps/**
       - packages/**
       - api/**
